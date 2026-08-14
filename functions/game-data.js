@@ -21,11 +21,21 @@
 // 선택지가 당첨되는 일이 없도록). choices가 3개 이하인 구간은 그냥 전부 보여준다.
 //
 // 유아기(0~6세)는 한 살 단위로 쪼개서 STAGES에 infancy-0 ~ infancy-6 총 7개
-// 항목으로 넣는다. 이 7개는 전부 random:true(주사위 전용) - 갓난아기~미취학
-// 시기에 벌어지는 일은 아이 본인이 "선택"할 수 있는 게 아니라는 취지를 그대로
-// 유지하되, 해마다 다른 사건을 겪게 해서 유아기 전체가 밋밋한 한 덩어리로
-// 끝나지 않게 했다. 7세부터(초등학생)는 다시 3지선다(실은 6개 중 3개 노출)로
-// 돌아간다.
+// 항목으로 넣는다. 이 중 infancy-0~infancy-3(0~3세)만 random:true(주사위
+// 전용) - 갓난아기~걸음마 시기에 벌어지는 일은 아이 본인이 "선택"할 수 있는
+// 게 아니라는 취지. infancy-4~infancy-6(4~6세)부터는 스스로 뭔가를 좋아하고
+// 싫어하기 시작하는 나이라 다시 일반 선택(6개 중 3개 노출)으로 바뀐다. 7세부터
+// (초등학생)도 동일하게 일반 선택.
+//
+// 건강 상세(healthConditions) - 선택지에 addCondition({id,label})을 붙이면
+// 부상/질병이 "생기고", removeCondition(id)을 붙이면 그 조건이 나아서
+// "없어진다". 서버(index.js의 applyChoice)가 그 판의 저장 슬롯에
+// healthConditions 배열로 계속 들고 다니고, 클라이언트는 "현재 건강 상세"
+// 패널에 그대로 보여준다. requiresCondition(id)을 붙인 회복용 선택지는 그
+// 조건이 지금 없으면 애초에 노출 후보에서 빠진다(pickVisibleChoiceIds가
+// 필터링) - 부러진 적 없는 팔이 "다 나았다"고 나오는 일이 없도록. 이런
+// 조건부 선택지는 3개 노출에 항상 끼일 필요는 없고, 오히려 가끔만 등장하는
+// 게 자연스럽다.
 
 const STAGES = [
   {
@@ -115,6 +125,13 @@ const STAGES = [
         text: '잠도 안 자고 기운이 넘치는 아기다',
         deltas: { health: 3, happiness: 4, relationship: -3 },
         result: '부모님은 녹초가 됐지만, 아기는 세상 즐거워 보였다.'
+      },
+      {
+        id: 'asthma-onset',
+        text: '기침이 잦아지더니 천식 진단을 받는다',
+        deltas: { health: -6, relationship: 2 },
+        result: '작은 기침 소리에도 온 가족이 귀를 기울이게 됐다.',
+        addCondition: { id: 'asthma', label: '🌬️ 천식' }
       }
     ]
   },
@@ -160,6 +177,13 @@ const STAGES = [
         text: '쉬지 않고 옹알이하듯 말을 건다',
         deltas: { fame: 5, happiness: 3, health: -2 },
         result: '조용할 틈이 없는 나날이었다.'
+      },
+      {
+        id: 'broken-arm-onset',
+        text: '정글짐에서 뛰어내리다 팔이 부러진다',
+        deltas: { health: -8, relationship: 3 },
+        result: '깁스에 낙서를 잔뜩 받으며, 팔 하나로도 못 할 게 없다는 걸 배웠다.',
+        addCondition: { id: 'broken-arm', label: '🦴 팔 골절' }
       }
     ]
   },
@@ -205,6 +229,13 @@ const STAGES = [
         text: '동생이나 친구를 잘 챙기는 아이로 소문난다',
         deltas: { relationship: 6, happiness: 2 },
         result: '작은 손으로도 남을 챙길 줄 아는 아이였다.'
+      },
+      {
+        id: 'weak-stomach-onset',
+        text: '장염을 달고 살아 배가 자주 아프다',
+        deltas: { health: -5, relationship: 2 },
+        result: '먹을 수 있는 게 자꾸 줄어드는 게 서러웠던 시기.',
+        addCondition: { id: 'weak-stomach', label: '🤢 잦은 배탈' }
       }
     ]
   },
@@ -213,7 +244,6 @@ const STAGES = [
     name: '유아기',
     ageRange: '4세',
     intro: '좋아하는 것과 싫어하는 것이 뚜렷해지기 시작하는 나이.',
-    random: true,
     choices: [
       {
         id: 'dino-obsessed',
@@ -250,6 +280,14 @@ const STAGES = [
         text: '사소한 일에도 크게 우는 감정 기복을 보인다',
         deltas: { relationship: -3, happiness: 2 },
         result: '감정 하나만큼은 누구보다 솔직하게 드러내는 아이였다.'
+      },
+      {
+        id: 'broken-arm-heal',
+        text: '깁스를 풀고 팔을 마음껏 쓸 수 있게 된다',
+        deltas: { health: 6, happiness: 3 },
+        result: '깁스를 풀던 날, 가려웠던 팔을 실컷 긁으며 세상을 다 가진 기분이었다.',
+        requiresCondition: 'broken-arm',
+        removeCondition: 'broken-arm'
       }
     ]
   },
@@ -258,7 +296,6 @@ const STAGES = [
     name: '유아기',
     ageRange: '5세',
     intro: '유치원에서 작은 사회생활이 본격적으로 시작됩니다.',
-    random: true,
     choices: [
       {
         id: 'class-leader',
@@ -295,6 +332,14 @@ const STAGES = [
         text: '동생을 끔찍이 챙기는 언니·오빠·형·누나가 된다',
         deltas: { relationship: 6, health: -2 },
         result: '작은 몸으로 동생을 업어주겠다고 나서던 시절.'
+      },
+      {
+        id: 'weak-stomach-heal',
+        text: '식습관을 고쳐 배앓이가 눈에 띄게 줄어든다',
+        deltas: { health: 5, happiness: 2 },
+        result: '더는 배를 부여잡고 우는 밤이 없어졌다.',
+        requiresCondition: 'weak-stomach',
+        removeCondition: 'weak-stomach'
       }
     ]
   },
@@ -303,7 +348,6 @@ const STAGES = [
     name: '유아기',
     ageRange: '6세',
     intro: '초등학교 입학을 앞두고, 유아기의 마지막 한 해가 저뭅니다.',
-    random: true,
     choices: [
       {
         id: 'early-reader',
@@ -340,6 +384,12 @@ const STAGES = [
         text: '입학이 마냥 기대되는 씩씩한 아이가 된다',
         deltas: { happiness: 5, fame: 2 },
         result: '새 책가방을 메고 거울 앞을 몇 번이나 서성였다.'
+      },
+      {
+        id: 'jump-rope-habit',
+        text: '매일 아침 줄넘기를 하는 습관을 들인다',
+        deltas: { health: 4, happiness: 2 },
+        result: '별거 아닌 습관 하나가 몸을 조금씩 단단하게 만들었다.'
       }
     ]
   },
@@ -384,6 +434,21 @@ const STAGES = [
         text: '계주 대표로 뽑혀 매일 운동장을 뛴다',
         deltas: { health: 7, fame: 3, happiness: -2 },
         result: '손바닥의 굳은살이 그때는 훈장처럼 자랑스러웠다.'
+      },
+      {
+        id: 'asthma-managed',
+        text: '꾸준한 수영으로 어릴 적 천식을 완전히 극복한다',
+        deltas: { health: 7, happiness: 3 },
+        result: '가쁘게 몰아쉬던 숨이, 이제는 옛날이야기가 됐다.',
+        requiresCondition: 'asthma',
+        removeCondition: 'asthma'
+      },
+      {
+        id: 'ankle-sprain-onset',
+        text: '축구를 하다 발목을 삐끗한다',
+        deltas: { health: -4, relationship: 2 },
+        result: '별거 아니라며 넘겼는데, 그 뒤로 가끔씩 시큰거렸다.',
+        addCondition: { id: 'ankle-sprain', label: '🦶 발목 부상' }
       }
     ]
   },
@@ -428,6 +493,14 @@ const STAGES = [
         text: '집안 사정으로 스무 살부터 생계를 돕는다',
         deltas: { wealth: 4, happiness: -5, relationship: 3, health: -2 },
         result: '또래들의 스무 살과는 조금 다른 방식으로 어른이 되어갔다.'
+      },
+      {
+        id: 'ankle-treated',
+        text: '미뤄뒀던 발목을 제대로 병원에서 치료받는다',
+        deltas: { health: 5, wealth: -3 },
+        result: '진작 왔어야 했다는 의사 말에 뜨끔했지만, 발목은 한결 가벼워졌다.',
+        requiresCondition: 'ankle-sprain',
+        removeCondition: 'ankle-sprain'
       }
     ]
   }

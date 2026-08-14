@@ -17,13 +17,17 @@ function playRefFor(db, uid) {
   return db.ref('lifeGame/playthroughs/' + uid);
 }
 
-// 구간마다 최대 6개까지 채워둔 choices 중 실제로 그 회차에 "노출"할 3개를
-// 무작위로 고른다 - 매번 같은 3개만 뜨면 재미가 없고, 그렇다고 6개를 한꺼번에
-// 다 보여주면 화면이 복잡해지니 매 판마다 다른 3개가 뜨게 한다. choices가
-// 3개 이하인 구간(과거 콘텐츠)은 그냥 전부 노출한다.
-function pickVisibleChoiceIds(choices) {
-  if (choices.length <= 3) return choices.map((c) => c.id);
-  const shuffled = choices.slice();
+// 구간마다 최대 6~8개까지 채워둔 choices 중 실제로 그 회차에 "노출"할 3개를
+// 무작위로 고른다 - 매번 같은 3개만 뜨면 재미가 없고, 그렇다고 다 보여주면
+// 화면이 복잡해지니 매 판마다 다른 3개가 뜨게 한다. requiresCondition이 붙은
+// 선택지(부상·질병 회복용)는 activeConditionIds에 그 조건이 없으면 애초에
+// 후보에서 빠진다 - 부러진 적 없는 팔이 "다 나았다"고 나오는 일이 없도록.
+// 후보가 3개 이하면 그냥 전부 노출한다.
+function pickVisibleChoiceIds(choices, activeConditionIds) {
+  const conditionIds = activeConditionIds || [];
+  const eligible = choices.filter((c) => !c.requiresCondition || conditionIds.includes(c.requiresCondition));
+  if (eligible.length <= 3) return eligible.map((c) => c.id);
+  const shuffled = eligible.slice();
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
@@ -63,9 +67,28 @@ function freshStats() {
 // 구간으로 넘기거나(마지막 구간이면) 엔딩을 확정한다. 어느 경로로 골랐든(직접
 // 클릭 vs 주사위) 반영 방식은 동일해야 하므로 여기 한 곳에만 둔다.
 async function applyChoice(db, playRef, play, stage, choice) {
+  // 이 선택이 요구하는 건강 조건(requiresCondition)이 실제로 지금 없는데도
+  // 들어왔다면(정상 흐름이면 pickVisibleChoiceIds가 애초에 후보에서 뺐을 것) -
+  // 저장 슬롯이 오래돼 healthConditions가 없던 시절 것이거나 하는 예외 상황이니
+  // 방어적으로 막는다.
+  const currentConditions = Array.isArray(play.healthConditions) ? play.healthConditions : [];
+  if (choice.requiresCondition && !currentConditions.some((c) => c.id === choice.requiresCondition)) {
+    throw new HttpsError('failed-precondition', '지금 상태에서는 고를 수 없는 선택지입니다.');
+  }
+
   const stats = Object.assign({}, play.stats);
   for (const key of Object.keys(choice.deltas || {})) {
     stats[key] = clampStat((stats[key] || 0) + choice.deltas[key]);
+  }
+
+  // 건강 상세 - 선택지가 addCondition을 붙였으면 부상/질병이 새로 생기고(이미
+  // 있으면 중복 추가 안 함), removeCondition을 붙였으면 그 조건이 나아서 빠진다.
+  let healthConditions = currentConditions.slice();
+  if (choice.addCondition && !healthConditions.some((c) => c.id === choice.addCondition.id)) {
+    healthConditions.push({ id: choice.addCondition.id, label: choice.addCondition.label, sinceStageId: stage.id });
+  }
+  if (choice.removeCondition) {
+    healthConditions = healthConditions.filter((c) => c.id !== choice.removeCondition);
   }
 
   const choiceLog = Array.isArray(play.choiceLog) ? play.choiceLog.slice() : [];
@@ -73,7 +96,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
 
   const nextIndex = play.stageIndex + 1;
   const completed = nextIndex >= STAGES.length;
-  const updates = { stats, choiceLog, stageIndex: nextIndex, completed };
+  const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions };
 
   let ending = null;
   let nextVisibleIds = null;
@@ -83,8 +106,10 @@ async function applyChoice(db, playRef, play, stage, choice) {
     updates.endedAt = ServerValue.TIMESTAMP;
   } else {
     // 다음 구간에서 보여줄 3개를 여기서 미리 뽑아 저장 슬롯에 남겨둔다 - 이걸
-    // 지금 뽑아둬야 이어하기로 재접속했을 때도 같은 3개가 다시 뜬다.
-    nextVisibleIds = pickVisibleChoiceIds(STAGES[nextIndex].choices);
+    // 지금 뽑아둬야 이어하기로 재접속했을 때도 같은 3개가 다시 뜬다. 이때
+    // 방금 갱신된 healthConditions를 기준으로 requiresCondition을 걸러야
+    // "이번 선택으로 막 나은/생긴 조건"이 다음 구간 노출에 바로 반영된다.
+    nextVisibleIds = pickVisibleChoiceIds(STAGES[nextIndex].choices, healthConditions.map((c) => c.id));
     updates.visibleChoiceIds = nextVisibleIds;
   }
 
@@ -107,7 +132,8 @@ async function applyChoice(db, playRef, play, stage, choice) {
     deltas: choice.deltas || {},
     completed,
     ending: ending ? { id: ending.id, title: ending.title, text: ending.text } : null,
-    nextStage: completed ? null : publicStage(STAGES[nextIndex], nextVisibleIds)
+    nextStage: completed ? null : publicStage(STAGES[nextIndex], nextVisibleIds),
+    healthConditions
   };
 }
 
@@ -139,7 +165,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
 
   const db = getDatabase();
   const stats = freshStats();
-  const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices);
+  const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices, []);
   await Promise.all([
     playRefFor(db, uid).set({
       streamerName,
@@ -147,6 +173,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
       stats,
       stageIndex: 0,
       visibleChoiceIds,
+      healthConditions: [],
       choiceLog: [],
       completed: false,
       startedAt: ServerValue.TIMESTAMP
@@ -157,7 +184,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
     db.ref('lifeGame/stats/totals/started').set(ServerValue.increment(1))
   ]);
 
-  return { stats, stage: publicStage(STAGES[0], visibleChoiceIds) };
+  return { stats, healthConditions: [], stage: publicStage(STAGES[0], visibleChoiceIds) };
 });
 
 // 창을 껐다가 다시 열었을 때 - 저장된 판이 있으면 지금 구간을 그대로 이어서
@@ -171,20 +198,34 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
   if (!play) throw new HttpsError('not-found', '이어할 인생이 없습니다.');
 
   if (play.completed) {
-    return { streamerName: play.streamerName, stats: play.stats, completed: true, ending: play.ending };
+    return {
+      streamerName: play.streamerName,
+      stats: play.stats,
+      completed: true,
+      ending: play.ending,
+      healthConditions: Array.isArray(play.healthConditions) ? play.healthConditions : []
+    };
   }
   const stage = STAGES[play.stageIndex];
   if (!stage) throw new HttpsError('failed-precondition', '잘못된 진행 상태입니다.');
+
+  const healthConditions = Array.isArray(play.healthConditions) ? play.healthConditions : [];
 
   // visibleChoiceIds가 이미 저장돼 있으면 그대로 재사용해서 재접속해도 같은
   // 3개가 다시 뜨게 한다(이 필드가 생기기 전에 만들어진 저장분 등 없을 때만
   // 새로 뽑아서 지금부터라도 고정해둔다).
   let visibleChoiceIds = play.visibleChoiceIds;
   if (!visibleChoiceIds || !visibleChoiceIds.length) {
-    visibleChoiceIds = pickVisibleChoiceIds(stage.choices);
+    visibleChoiceIds = pickVisibleChoiceIds(stage.choices, healthConditions.map((c) => c.id));
     await playRefFor(db, uid).update({ visibleChoiceIds });
   }
-  return { streamerName: play.streamerName, stats: play.stats, completed: false, stage: publicStage(stage, visibleChoiceIds) };
+  return {
+    streamerName: play.streamerName,
+    stats: play.stats,
+    completed: false,
+    healthConditions,
+    stage: publicStage(stage, visibleChoiceIds)
+  };
 });
 
 // 선택 하나를 제출 - 서버가 정답표(game-data.js)를 갖고 있는 쪽에서만 스탯을

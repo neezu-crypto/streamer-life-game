@@ -174,6 +174,16 @@
   .stat-bar-fill { display: block; height: 100%; background: var(--gold); border-radius: 5px; transition: width 0.4s ease, background 0.3s ease; }
   .stat-bar-val { width: 28px; text-align: right; color: var(--text-faint); font-variant-numeric: tabular-nums; }
 
+  .health-panel { margin: 4px 0 14px; }
+  .health-panel-title { font-size: 12px; color: var(--text-faint); letter-spacing: 0.03em; margin: 0 0 6px; }
+  .health-conditions { display: flex; flex-wrap: wrap; gap: 6px; }
+  .health-chip {
+    display: inline-flex; align-items: center; padding: 5px 11px; border-radius: 999px;
+    background: var(--coral-dim); border: 1px solid color-mix(in srgb, var(--coral) 40%, transparent);
+    color: var(--coral); font-size: 12.5px;
+  }
+  .health-empty { font-size: 12.5px; color: var(--text-faint); }
+
   .ending-title { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 22px; color: var(--gold); margin: 0 0 8px; }
   .ending-text { font-size: 15px; margin: 0 0 16px; }
 
@@ -245,6 +255,10 @@
     <div id="choiceList"></div>
     <div id="resultBox" class="result-box hidden"></div>
     <div class="stat-bars" id="statBars"></div>
+    <div class="health-panel">
+      <p class="health-panel-title">현재 건강 상세</p>
+      <div id="healthConditions" class="health-conditions"></div>
+    </div>
     <button id="nextBtn" class="hidden">다음</button>
   </section>
 
@@ -441,6 +455,7 @@ resumeBtn.addEventListener('click', async () => {
       mainHeader.classList.add('hidden');
       gameSection.classList.remove('hidden');
       renderStatBars(statBars, res.data.stats);
+      renderHealthConditions(res.data.healthConditions);
       renderStage(res.data.stage);
     }
   } catch (e) {
@@ -500,6 +515,27 @@ function renderStatBars(el, stats) {
   });
 }
 
+const healthConditionsEl = document.getElementById('healthConditions');
+
+// 부상·질병 목록("현재 건강 상세") - 선택지가 addCondition/removeCondition을
+// 붙이면 서버가 갱신해서 내려주는 healthConditions를 그대로 표시만 한다.
+function renderHealthConditions(conditions) {
+  healthConditionsEl.innerHTML = '';
+  if (!conditions || !conditions.length) {
+    const empty = document.createElement('span');
+    empty.className = 'health-empty';
+    empty.textContent = '특별한 건강 이슈 없음';
+    healthConditionsEl.appendChild(empty);
+    return;
+  }
+  conditions.forEach((cond) => {
+    const chip = document.createElement('span');
+    chip.className = 'health-chip';
+    chip.textContent = cond.label;
+    healthConditionsEl.appendChild(chip);
+  });
+}
+
 function renderStage(stage) {
   stageName.textContent = stage.name;
   stageAge.textContent = stage.ageRange;
@@ -551,6 +587,7 @@ startBtn.addEventListener('click', async () => {
     mainHeader.classList.add('hidden');
     gameSection.classList.remove('hidden');
     renderStatBars(statBars, res.data.stats);
+    renderHealthConditions(res.data.healthConditions);
     renderStage(res.data.stage);
   } catch (e) {
     console.error('인생 시작 실패:', e);
@@ -566,6 +603,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   resultBox.textContent = (resultPrefix ? resultPrefix + '\n' : '') + data.result;
   resultBox.classList.remove('hidden');
   renderStatBars(statBars, data.stats);
+  renderHealthConditions(data.healthConditions);
   if (selectedChoiceId) markSelectedChoice(selectedChoiceId);
   // 선택 결과는 서버(applyChoice)가 이미 lifeGame/playthroughs/{uid}에 저장을
   // 마친 뒤 응답한 것이므로, 여기서 뜨는 토스트는 실제 저장 완료를 알리는
