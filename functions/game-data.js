@@ -46,6 +46,13 @@
 // 독립·재테크(26세) → 방향 재점검(27세) → 성과·책임 증가(28세) →
 // 20대 정리(29세) 순.
 //
+// "서른, 자리잡기"(30~39세)는 10년짜리 카테고리라 settling-30 ~
+// settling-39 총 10개 항목으로 구현했다(다른 카테고리보다 기간이 길어
+// 항목 수도 더 많음). 서른의 무게(30세) → 결혼·비혼(31세) → 내 집
+// 마련·재테크(32세) → 가족계획(33세) → 커리어 전환점(34세) → 중간
+// 관리자(35세) → 부모 부양(36세) → 자기계발(37세) → 건강 체감(38세)
+// → 서른대 마무리(39세) 순.
+//
 // 건강 상세(healthConditions) - 선택지에 addCondition({id,label})을 붙이면
 // 부상/질병이 "생기고", removeCondition(id)을 붙이면 그 조건이 나아서
 // "없어진다". 서버(index.js의 applyChoice)가 그 판의 저장 슬롯에
@@ -1539,8 +1546,478 @@ const STAGES = [
         result: '완벽하진 않았지만, 그래도 최선을 다했다고 인정해주기로 했다.'
       }
     ]
+  },
+  {
+    id: 'settling-30',
+    name: '서른, 자리잡기',
+    ageRange: '30세',
+    intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
+    choices: [
+      {
+        id: 'thirty-pressure',
+        text: '서른이 되고 나니 뭔가 달라져야 할 것 같은 압박을 느낀다',
+        deltas: { happiness: -3, fame: 1 },
+        result: '딱히 뭐가 바뀐 건 없는데, 마음만 자꾸 조급해졌다.'
+      },
+      {
+        id: 'commit-to-one-path',
+        text: '그동안의 방황을 접고 한 우물을 파기로 결심한다',
+        deltas: { happiness: 2, wealth: 2 },
+        result: '더 이상 흔들리지 않기로 한 순간, 오히려 마음이 편해졌다.'
+      },
+      {
+        id: 'reunion-pace-check',
+        text: '동창회에서 서로 다른 삶의 속도를 확인한다',
+        deltas: { happiness: -2, relationship: 2 },
+        result: '다들 비슷하게 살 줄 알았는데, 생각보다 제각각이었다.'
+      },
+      {
+        id: 'big-thirty-gift',
+        text: '서른 기념으로 스스로에게 큰 선물을 한다',
+        deltas: { happiness: 5, wealth: -4 },
+        result: '나에게 주는 선물이 이렇게 뿌듯한 일인 줄 몰랐다.'
+      },
+      {
+        id: 'considering-parenthood',
+        text: '부모가 되는 것에 대해 진지하게 고민하기 시작한다',
+        deltas: { happiness: 1, relationship: 2 },
+        result: '막연했던 질문이, 이제는 현실적인 계획표 위에 올라왔다.'
+      },
+      {
+        id: 'nothing-settled-anxiety',
+        text: '여전히 정해진 게 없다는 사실에 조급해진다',
+        deltas: { happiness: -4, health: -1 },
+        result: '남들은 다 자리 잡은 것 같은데, 나만 제자리인 기분이었다.'
+      }
+    ]
+  },
+  {
+    id: 'settling-31',
+    name: '서른, 자리잡기',
+    ageRange: '31세',
+    intro: '곁에 남을 사람과 앞으로의 삶을 어떻게 그릴지, 조금 더 구체적으로 고민하는 나이입니다.',
+    choices: [
+      {
+        id: 'wedding-day',
+        text: '오래 만난 연인과 결혼식을 올린다',
+        deltas: { happiness: 6, relationship: 5, wealth: -6 },
+        result: '많은 사람 앞에서 서약하는 그 몇 분이, 유독 길게 느껴졌다.'
+      },
+      {
+        id: 'declaring-single-life',
+        text: '비혼을 선언하고 혼자만의 삶을 설계한다',
+        deltas: { happiness: 4, wealth: 2, relationship: -2 },
+        result: '누구의 눈치도 보지 않는 삶의 방식이, 홀가분하게 느껴졌다.'
+      },
+      {
+        id: 'wedding-budget-compromise',
+        text: '결혼식 비용과 현실 사이에서 씁쓸한 타협을 한다',
+        deltas: { happiness: -3, wealth: -3 },
+        result: '꿈꾸던 것과 가계부 사이에서, 결국 가계부가 이겼다.'
+      },
+      {
+        id: 'first-shared-home',
+        text: '배우자·파트너와 함께 살 집을 처음으로 계약한다',
+        deltas: { wealth: -5, relationship: 4 },
+        result: '도장 하나로 삶의 반경이 통째로 바뀌었다.'
+      },
+      {
+        id: 'inlaws-negotiation',
+        text: '양가 부모님 사이의 조율로 진땀을 뺀다',
+        deltas: { happiness: -3, relationship: 1 },
+        result: '둘의 문제인 줄 알았는데, 생각보다 훨씬 많은 사람이 얽혀 있었다.'
+      },
+      {
+        id: 'pet-family-instead',
+        text: '결혼 대신 반려동물을 입양해 새 가족을 만든다',
+        deltas: { happiness: 5, relationship: 3, wealth: -2 },
+        result: '작은 발소리 하나가 집 안 공기를 완전히 바꿔놓았다.'
+      }
+    ]
+  },
+  {
+    id: 'settling-32',
+    name: '서른, 자리잡기',
+    ageRange: '32세',
+    intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
+    choices: [
+      {
+        id: 'first-home-purchase',
+        text: '영끌해서 내 집 마련에 성공한다',
+        deltas: { wealth: -8, happiness: 6 },
+        result: '등기부등본에 내 이름이 찍힌 걸 보고 또 봤다.'
+      },
+      {
+        id: 'loan-interest-struggle',
+        text: '무리한 대출 이자에 매달 허덕인다',
+        deltas: { wealth: -4, happiness: -3, health: -1 },
+        result: '월급날이 즐거운 날에서 이자 빠져나가는 날로 바뀌었다.'
+      },
+      {
+        id: 'investment-study-group',
+        text: '재테크 스터디에 들어가 투자 지식을 넓힌다',
+        deltas: { wealth: 4, happiness: 2 },
+        result: '용어 하나 알아들을 때마다, 세상이 조금 더 보이는 기분이었다.'
+      },
+      {
+        id: 'investment-loss',
+        text: '투자 실패로 목돈을 날린다',
+        deltas: { wealth: -6, happiness: -4 },
+        result: '숫자가 녹아내리는 걸 보면서도, 손이 얼어붙어 아무것도 못 했다.'
+      },
+      {
+        id: 'side-income-relief',
+        text: '부수입을 만들어 경제적 여유가 생긴다',
+        deltas: { wealth: 5, happiness: 3 },
+        result: '두 번째 월급이 주는 안정감은 생각보다 컸다.'
+      },
+      {
+        id: 'time-over-money',
+        text: '돈보다 시간이 더 중요하다는 걸 깨닫는다',
+        deltas: { happiness: 4, wealth: -1 },
+        result: '벌기만 하다가, 처음으로 쓰는 법을 고민하기 시작했다.'
+      }
+    ]
+  },
+  {
+    id: 'settling-33',
+    name: '서른, 자리잡기',
+    ageRange: '33세',
+    intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
+    choices: [
+      {
+        id: 'first-childbirth',
+        text: '첫 아이를 임신·출산하며 인생의 큰 전환점을 맞는다',
+        deltas: { happiness: 5, health: -4, wealth: -3 },
+        result: '작은 손가락 하나에, 삶의 순서가 전부 다시 매겨졌다.'
+      },
+      {
+        id: 'dink-satisfaction',
+        text: '아이 없이 둘만의 삶(딩크)을 선택하고 만족한다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '우리 둘의 속도로 사는 삶이, 누구보다 우리에게 잘 맞았다.'
+      },
+      {
+        id: 'maternity-leave-anxiety',
+        text: '육아휴직을 내며 커리어에 대한 불안을 느낀다',
+        deltas: { happiness: -3, wealth: -4, relationship: 2 },
+        result: '아이는 예뻤지만, 자리가 사라질까 봐 조바심이 났다.'
+      },
+      {
+        id: 'sleepless-parenting',
+        text: '밤낮없는 육아로 체력이 완전히 바닥난다',
+        deltas: { health: -6, happiness: -2 },
+        result: '하루가 어떻게 지나가는지도 모르게 흘러갔다.'
+      },
+      {
+        id: 'niece-nephew-babysitting',
+        text: '조카·친구 아이를 돌보며 육아의 무게를 간접 체험한다',
+        deltas: { relationship: 3, happiness: 1 },
+        result: '몇 시간 봐준 것만으로도, 부모들이 새삼 대단해 보였다.'
+      },
+      {
+        id: 'career-over-kids',
+        text: '아이 대신 커리어에 더 집중하기로 결심한다',
+        deltas: { wealth: 4, fame: 3, relationship: -2 },
+        result: '선택에 후회는 없었지만, 가끔 명절마다 듣는 질문은 피곤했다.'
+      }
+    ]
+  },
+  {
+    id: 'settling-34',
+    name: '서른, 자리잡기',
+    ageRange: '34세',
+    intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
+    choices: [
+      {
+        id: 'bold-job-change',
+        text: '과감히 이직해 새로운 조직에 적응한다',
+        deltas: { fame: 3, wealth: 4, happiness: -1 },
+        result: '낯선 자리였지만, 그만큼 배우는 것도 많았다.'
+      },
+      {
+        id: 'startup-attempt-30s',
+        text: '그동안 준비한 창업에 도전한다',
+        deltas: { wealth: -6, fame: 4, health: -3 },
+        result: '월급쟁이일 땐 몰랐던 무게를, 사장이 되고서야 알았다.'
+      },
+      {
+        id: 'staying-safe',
+        text: '안정적인 현재를 지키며 변화를 미룬다',
+        deltas: { happiness: -1, wealth: 2 },
+        result: '도전보다 안정을 택한 선택이, 늘 옳았다고는 확신할 수 없었다.'
+      },
+      {
+        id: 'department-transfer',
+        text: '부서 이동으로 완전히 새로운 업무를 맡는다',
+        deltas: { happiness: -2, fame: 2 },
+        result: '처음부터 다시 배우는 기분이었지만, 그 나름의 재미도 있었다.'
+      },
+      {
+        id: 'recognized-expert',
+        text: '동종 업계에서 나름의 전문가로 인정받기 시작한다',
+        deltas: { fame: 5, wealth: 2 },
+        result: '이름 석 자로 불리는 자리에, 어느새 도달해 있었다.'
+      },
+      {
+        id: 'fading-achievement-sense',
+        text: '일에서 오는 성취감이 예전 같지 않음을 느낀다',
+        deltas: { happiness: -3, fame: -1 },
+        result: '똑같이 열심히 하는데, 예전만큼 벅차지가 않았다.'
+      },
+      {
+        id: 'hypertension-onset',
+        text: '과로와 스트레스로 혈압이 위험 수준까지 치솟는다',
+        deltas: { health: -5, wealth: -2 },
+        result: '건강검진 결과지의 빨간 숫자가 처음으로 눈에 들어왔다.',
+        addCondition: { id: 'hypertension', label: '🩸 고혈압 전조' }
+      }
+    ]
+  },
+  {
+    id: 'settling-35',
+    name: '서른, 자리잡기',
+    ageRange: '35세',
+    intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
+    choices: [
+      {
+        id: 'sandwiched-manager',
+        text: '중간관리자가 되어 위아래 사이에 낀 기분을 느낀다',
+        deltas: { happiness: -3, relationship: -1, fame: 2 },
+        result: '위로도, 아래로도 완전히 편할 수 없는 자리였다.'
+      },
+      {
+        id: 'watching-team-grow',
+        text: '팀원의 성장을 지켜보며 예상 못한 보람을 느낀다',
+        deltas: { relationship: 3, happiness: 4 },
+        result: '내 성과보다, 남의 성장이 더 뿌듯할 수 있다는 걸 처음 알았다.'
+      },
+      {
+        id: 'reorg-instability',
+        text: '조직 개편의 여파로 자리가 흔들린다',
+        deltas: { happiness: -4, wealth: -2 },
+        result: '내 자리는 내가 지키는 게 아니라는 걸, 씁쓸하게 배웠다.'
+      },
+      {
+        id: 'fear-of-being-outdated',
+        text: '후배들에게 꼰대 소리를 들을까 봐 조심스러워진다',
+        deltas: { happiness: -2, relationship: 1 },
+        result: '좋은 뜻으로 한 말도 한 번씩 곱씹게 됐다.'
+      },
+      {
+        id: 'headhunted-with-good-offer',
+        text: '그동안의 경력을 인정받아 좋은 조건으로 스카우트된다',
+        deltas: { wealth: 6, fame: 3 },
+        result: '제안서를 받아 든 순간, 그동안의 시간이 헛되지 않았다는 걸 알았다.'
+      },
+      {
+        id: 'people-harder-than-work',
+        text: '일보다 사람 관계가 훨씬 어렵다는 걸 다시 한번 느낀다',
+        deltas: { relationship: -2, happiness: -2 },
+        result: '업무는 매뉴얼이 있는데, 사람은 매번 처음이었다.'
+      },
+      {
+        id: 'frozen-shoulder-onset',
+        text: '책상 앞에 오래 앉아 있다 보니 어깨가 굳어 잘 올라가지 않는다',
+        deltas: { health: -4, wealth: -1 },
+        result: '머리 감을 때마다 어깨가 시큰거리는 게, 서른다섯의 몸이 보내는 신호였다.',
+        addCondition: { id: 'frozen-shoulder', label: '💪 어깨 결림(삼십견)' }
+      }
+    ]
+  },
+  {
+    id: 'settling-36',
+    name: '서른, 자리잡기',
+    ageRange: '36세',
+    intro: '나를 키워준 사람들을 이제는 내가 돌봐야 할 시기가 다가옵니다.',
+    choices: [
+      {
+        id: 'caring-for-sick-parent',
+        text: '부모님의 병간호를 시작하며 삶의 우선순위가 바뀐다',
+        deltas: { relationship: 4, happiness: -4, health: -2 },
+        result: '늘 나를 돌봐주던 사람을, 이제는 내가 돌보고 있었다.'
+      },
+      {
+        id: 'medical-bill-burden',
+        text: '부모님 의료비 부담으로 살림이 빠듯해진다',
+        deltas: { wealth: -5, happiness: -2 },
+        result: '가계부를 펼 때마다 마음 한쪽이 무거워졌다.'
+      },
+      {
+        id: 'sibling-caregiving-conflict',
+        text: '형제자매와 부양 문제로 갈등을 겪는다',
+        deltas: { relationship: -4, happiness: -3 },
+        result: '같은 부모 밑에서 자랐는데도, 생각은 이렇게나 달랐다.'
+      },
+      {
+        id: 'trip-with-parents',
+        text: '부모님과 여행을 다녀오며 소중한 시간을 쌓는다',
+        deltas: { relationship: 5, happiness: 4, wealth: -3 },
+        result: '늦었지만, 그래도 지금이라 다행이라는 생각이 들었다.'
+      },
+      {
+        id: 'balancing-two-families',
+        text: '내 가족과 부모님 사이에서 균형을 잡느라 지친다',
+        deltas: { health: -3, happiness: -2 },
+        result: '양쪽 다 소홀히 하고 싶지 않다는 마음이, 몸을 갈아 넣게 했다.'
+      },
+      {
+        id: 'parents-still-independent',
+        text: '독립적으로 살아가시는 부모님을 보며 마음을 놓는다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '아직은 괜찮으시다는 사실 하나가, 이렇게 큰 위안이 될 줄 몰랐다.'
+      }
+    ]
+  },
+  {
+    id: 'settling-37',
+    name: '서른, 자리잡기',
+    ageRange: '37세',
+    intro: '잊고 지내던 나 자신을 다시 챙기기 시작하는 나이입니다.',
+    choices: [
+      {
+        id: 'reviving-old-hobby',
+        text: '오랫동안 미뤄온 취미를 본격적으로 다시 시작한다',
+        deltas: { happiness: 5, wealth: -2 },
+        result: '까맣게 잊고 있던 감각이, 몸에 그대로 남아있었다.'
+      },
+      {
+        id: 'new-exercise-routine',
+        text: '새로운 운동을 시작하며 체력을 되찾는다',
+        deltas: { health: 5, happiness: 2 },
+        result: '땀 흘리고 나면 머릿속까지 개운해지는 걸, 오랜만에 느꼈다.'
+      },
+      {
+        id: 'hobby-account-mini-fame',
+        text: 'SNS에 취미 계정을 만들어 소소한 인기를 얻는다',
+        deltas: { fame: 4, happiness: 3 },
+        result: '본업과 상관없는 곳에서 얻은 관심이, 묘하게 새로운 활력이 됐다.'
+      },
+      {
+        id: 'postponing-self-time',
+        text: '바쁘다는 핑계로 자기 시간을 계속 미룬다',
+        deltas: { happiness: -3, health: -1 },
+        result: '언젠가 하겠다던 일들이, 여전히 언젠가로 남아있었다.'
+      },
+      {
+        id: 'new-club-connections',
+        text: '동호회에서 또래와는 다른 새로운 인연을 만난다',
+        deltas: { relationship: 4, happiness: 3 },
+        result: '나이도, 하는 일도 다른 사람들과의 대화가 신선했다.'
+      },
+      {
+        id: 'burnout-career-break',
+        text: '번아웃 끝에 잠시 일을 쉬고 재충전한다',
+        deltas: { health: 4, wealth: -4, happiness: 3 },
+        result: '멈춰서야 보이는 것들이 있다는 걸, 그제야 알았다.'
+      },
+      {
+        id: 'hypertension-heal',
+        text: '식습관과 운동으로 혈압을 정상 수치까지 되돌린다',
+        deltas: { health: 6, wealth: -2 },
+        result: '숫자 하나가 정상으로 돌아왔을 뿐인데, 마음이 다 놓였다.',
+        requiresCondition: 'hypertension',
+        removeCondition: 'hypertension'
+      }
+    ]
+  },
+  {
+    id: 'settling-38',
+    name: '서른, 자리잡기',
+    ageRange: '38세',
+    intro: '몸이 예전 같지 않다는 걸, 무시할 수 없을 만큼 또렷하게 느끼게 됩니다.',
+    choices: [
+      {
+        id: 'shocking-checkup-result',
+        text: '건강검진에서 예상 못한 결과를 받고 충격받는다',
+        deltas: { health: -4, happiness: -4 },
+        result: '숫자 몇 개가, 그동안의 생활 습관을 전부 되돌아보게 만들었다.'
+      },
+      {
+        id: 'declining-stamina',
+        text: '체력이 예전 같지 않음을 절실히 느낀다',
+        deltas: { health: -3, happiness: -2 },
+        result: '예전엔 아무렇지 않던 일들이, 이제는 다음 날까지 갔다.'
+      },
+      {
+        id: 'overhauling-habits',
+        text: '식습관과 생활 습관을 전면적으로 뜯어고친다',
+        deltas: { health: 6, happiness: 2 },
+        result: '작은 습관 몇 개를 바꿨을 뿐인데, 몸이 먼저 반응했다.'
+      },
+      {
+        id: 'consistent-exercise-routine',
+        text: '정기적인 운동 루틴을 만들어 꾸준히 지킨다',
+        deltas: { health: 5, wealth: -2 },
+        result: '작심삼일이 아니라 진짜 습관이 된 첫 운동이었다.'
+      },
+      {
+        id: 'visible-aging-signs',
+        text: '노안·흰머리 등 눈에 보이는 변화를 마주한다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '거울 속 낯선 디테일 하나하나가, 세월을 실감하게 했다.'
+      },
+      {
+        id: 'learning-to-not-overdo',
+        text: '무리하지 않는 법을 비로소 배워간다',
+        deltas: { happiness: 3, health: 3 },
+        result: '버티는 것만이 능사가 아니라는 걸, 이제야 받아들였다.'
+      },
+      {
+        id: 'frozen-shoulder-heal',
+        text: '도수치료와 꾸준한 스트레칭으로 굳었던 어깨가 다시 풀린다',
+        deltas: { health: 5, wealth: -3 },
+        result: '팔을 머리 위로 쭉 뻗을 수 있다는 게, 이렇게 큰 자유일 줄 몰랐다.',
+        requiresCondition: 'frozen-shoulder',
+        removeCondition: 'frozen-shoulder'
+      }
+    ]
+  },
+  {
+    id: 'settling-39',
+    name: '서른, 자리잡기',
+    ageRange: '39세',
+    intro: '서른대의 마지막 해. 다가올 10년을 조용히 준비하게 됩니다.',
+    choices: [
+      {
+        id: 'reflecting-on-thirties',
+        text: '서른아홉, 지난 10년을 찬찬히 돌아본다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '길다면 길고 짧다면 짧았던 10년이, 파노라마처럼 스쳐 갔다.'
+      },
+      {
+        id: 'forty-goals-bucketlist',
+        text: '마흔을 앞두고 새로운 목표와 버킷리스트를 세운다',
+        deltas: { happiness: 4, fame: 1 },
+        result: '아직 하고 싶은 게 이렇게 많다는 사실이, 스스로도 반가웠다.'
+      },
+      {
+        id: 'pride-in-what-built',
+        text: '그동안 쌓아온 것들에 새삼 뿌듯함을 느낀다',
+        deltas: { happiness: 5, wealth: 2 },
+        result: '거창하진 않아도, 분명히 여기까지 걸어온 흔적들이었다.'
+      },
+      {
+        id: 'still-not-enough-anxiety',
+        text: '여전히 부족하다는 생각에 조급함이 밀려온다',
+        deltas: { happiness: -4, relationship: -1 },
+        result: '남들과 비교하는 습관은, 서른아홉이 되어도 쉽게 사라지지 않았다.'
+      },
+      {
+        id: 'farewell-to-thirties-with-friends',
+        text: '오랜 친구들과 서른의 마지막을 함께 보낸다',
+        deltas: { relationship: 5, happiness: 4, wealth: -2 },
+        result: '변한 것도 많았지만, 함께 웃는 얼굴만큼은 그대로였다.'
+      },
+      {
+        id: 'calm-before-forty',
+        text: '마흔이라는 숫자 앞에서 담담해지기로 마음먹는다',
+        deltas: { happiness: 2, health: 1 },
+        result: '두려워하기보다, 그냥 자연스럽게 받아들이기로 했다.'
+      }
+    ]
   }
-  // TODO: 서른 / 중년 / 노년 준비 / 황혼 - 4개 카테고리 남음.
+  // TODO: 중년 / 노년 준비 / 황혼 - 3개 카테고리 남음.
 ];
 
 // 대표 엔딩 6개(기획안 07/09장 - v1 확정 스코프) - 각 아키타입에 가장 가까운

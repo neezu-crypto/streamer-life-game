@@ -208,13 +208,15 @@
         <h2><span class="num">4</span>생애 사이클 · 스탯 시스템</h2>
         <h3>생애 10카테고리</h3>
         <p>균등한 나이 간격이 아니라 실제 인생의 결절점(입학·진로·독립·가정) 기준. <span class="badge badge-live">구현됨</span>
-        6카테고리, <span class="badge badge-todo">콘텐츠 미작성</span> 4카테고리 — 형식은 동일해서 <code>functions/game-data.js</code>의
-        <code>STAGES</code> 배열에 이어 채우면 됨. <b>유아기·초등학생·청소년기·스무 살·사회 초년생은 카테고리가
+        7카테고리, <span class="badge badge-todo">콘텐츠 미작성</span> 3카테고리 — 형식은 동일해서 <code>functions/game-data.js</code>의
+        <code>STAGES</code> 배열에 이어 채우면 됨. <b>유아기·초등학생·청소년기·스무 살·사회 초년생·서른은 카테고리가
         <code>STAGES</code> 안에서 한 살 단위 여러 항목으로 쪼개져 있음</b> — 유아기는 7개(<code>infancy-0</code>~
         <code>infancy-6</code>), 초등학생은 6개(<code>elementary-7</code>~<code>elementary-12</code>), 청소년기는
         6개(<code>teen-13</code>~<code>teen-18</code>, 사춘기+고등학생을 한 카테고리로 통합 구현), 스무 살은 5개
         (<code>twenties-19</code>~<code>twenties-23</code>), 사회 초년생은 6개(<code>rookie-24</code>~
-        <code>rookie-29</code>). 표의 "구간" 개수와 실제 <code>STAGES.length</code>(현재 30)는 다르다.</p>
+        <code>rookie-29</code>), 서른은 10개(<code>settling-30</code>~<code>settling-39</code>, 10년짜리
+        카테고리라 다른 곳보다 항목이 많음). 표의 "구간" 개수와 실제 <code>STAGES.length</code>(현재 40)는
+        다르다.</p>
         <div class="tbl-wrap">
             <table>
                 <tr><th>구간</th><th>나이</th><th>상태</th></tr>
@@ -224,7 +226,7 @@
                 <tr><td>고등학생 <span class="badge badge-admin">청소년기로 통합 구현</span></td><td>16–18세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>스무 살 <span class="badge badge-admin">선택 × 5(한 살 단위)</span></td><td>19–23세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>사회 초년생 <span class="badge badge-admin">선택 × 6(한 살 단위)</span></td><td>24–29세</td><td><span class="badge badge-live">구현됨</span></td></tr>
-                <tr><td>서른, 자리잡기</td><td>30–39세</td><td><span class="badge badge-todo">TODO</span></td></tr>
+                <tr><td>서른, 자리잡기 <span class="badge badge-admin">선택 × 10(한 살 단위)</span></td><td>30–39세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>중년, 선택의 무게</td><td>40–54세</td><td><span class="badge badge-todo">TODO</span></td></tr>
                 <tr><td>노년 준비</td><td>55–69세</td><td><span class="badge badge-todo">TODO</span></td></tr>
                 <tr><td>황혼</td><td>70–100세</td><td><span class="badge badge-todo">TODO</span></td></tr>
@@ -258,6 +260,11 @@
         <p class="note"><b>사회 초년생(24~29세)도 같은 방식으로 한 살 단위 6개 구간(<code>rookie-24</code>~
         <code>rookie-29</code>)으로 쪼개져 있다.</b> 신입 적응(24세) → 업무 숙련·이직 고민(25세) → 독립·
         재테크(26세) → 방향 재점검(27세) → 성과·책임 증가(28세) → 20대 정리(29세) 순.</p>
+        <p class="note"><b>서른, 자리잡기(30~39세)는 10년짜리 카테고리라 한 살 단위 10개 구간
+        (<code>settling-30</code>~<code>settling-39</code>)으로 구현했다</b> — 다른 카테고리(대부분 5~7년)보다
+        기간이 길어 항목 수도 그만큼 많다. 서른의 무게(30세) → 결혼·비혼(31세) → 내 집 마련·재테크(32세) →
+        가족계획(33세) → 커리어 전환점(34세) → 중간관리자(35세) → 부모 부양(36세) → 자기계발(37세) →
+        건강 체감(38세) → 서른대 마무리(39세) 순.</p>
         <p class="note"><b>구간마다 선택지를 최대 6개까지 써두고, 실제로는 그중 3개만 무작위로 노출한다.</b>
         <code>startPlaythrough</code>/<code>applyChoice</code>가 그 구간에 들어설 때 <code>pickVisibleChoiceIds()</code>로
         3개를 미리 뽑아 저장 슬롯(<code>lifeGame/playthroughs/&#123;uid&#125;/visibleChoiceIds</code>)에
@@ -289,6 +296,8 @@
                 <tr><td><code>burnout-syndrome</code></td><td>🔥 번아웃 증후군</td><td>스무 살 22세 · <code>burnout-onset</code>(인턴 생활에 몸과 마음을 갈아 넣다 번아웃이 온다)</td><td>스무 살 23세 · <code>burnout-heal</code>(충분히 쉬며 번아웃에서 서서히 회복한다)</td></tr>
                 <tr><td><code>carpal-tunnel</code></td><td>✋ 손목터널증후군</td><td>사회 초년생 25세 · <code>carpal-tunnel-onset</code>(매일 반복되는 키보드·마우스 작업으로 손목에 저림이 시작된다)</td><td>사회 초년생 27세 · <code>carpal-tunnel-heal</code>(손목 보호대를 차고 스트레칭을 꾸준히 하며 저림이 사라진다)</td></tr>
                 <tr><td><code>insomnia</code></td><td>😵 불면증</td><td>사회 초년생 26세 · <code>insomnia-onset</code>(업무 스트레스로 밤마다 잠들지 못하는 날이 늘어난다)</td><td>사회 초년생 28세 · <code>insomnia-heal</code>(수면 습관을 개선하며 불면증에서 서서히 벗어난다)</td></tr>
+                <tr><td><code>hypertension</code></td><td>🩸 고혈압 전조</td><td>서른 34세 · <code>hypertension-onset</code>(과로와 스트레스로 혈압이 위험 수준까지 치솟는다)</td><td>서른 37세 · <code>hypertension-heal</code>(식습관과 운동으로 혈압을 정상 수치까지 되돌린다)</td></tr>
+                <tr><td><code>frozen-shoulder</code></td><td>💪 어깨 결림(삼십견)</td><td>서른 35세 · <code>frozen-shoulder-onset</code>(책상 앞에 오래 앉아 있다 보니 어깨가 굳어 잘 올라가지 않는다)</td><td>서른 38세 · <code>frozen-shoulder-heal</code>(도수치료와 꾸준한 스트레칭으로 굳었던 어깨가 다시 풀린다)</td></tr>
             </table>
         </div>
         <p class="note">전부 "발병 구간이 회복 구간보다 앞선다"는 순서만 지키면 되고, 발병 선택지와 회복
@@ -568,6 +577,80 @@
                 <tr><td><code>twenties-friends-trip</code></td><td>20대를 함께한 친구들과 여행을 떠난다</td><td></td></tr>
                 <tr><td><code>weight-of-turning-thirty</code></td><td>다가올 서른이 주는 무게감에 잠시 마음이 복잡해진다</td><td></td></tr>
                 <tr><td><code>no-regrets-affirmation</code></td><td>지난 20대를 돌아보며 후회 없다고 스스로에게 말해준다</td><td></td></tr>
+
+                <tr><td rowspan="6">서른, 자리잡기 · 30세</td><td><code>thirty-pressure</code></td><td>서른이 되고 나니 뭔가 달라져야 할 것 같은 압박을 느낀다</td><td></td></tr>
+                <tr><td><code>commit-to-one-path</code></td><td>그동안의 방황을 접고 한 우물을 파기로 결심한다</td><td></td></tr>
+                <tr><td><code>reunion-pace-check</code></td><td>동창회에서 서로 다른 삶의 속도를 확인한다</td><td></td></tr>
+                <tr><td><code>big-thirty-gift</code></td><td>서른 기념으로 스스로에게 큰 선물을 한다</td><td></td></tr>
+                <tr><td><code>considering-parenthood</code></td><td>부모가 되는 것에 대해 진지하게 고민하기 시작한다</td><td></td></tr>
+                <tr><td><code>nothing-settled-anxiety</code></td><td>여전히 정해진 게 없다는 사실에 조급해진다</td><td></td></tr>
+
+                <tr><td rowspan="6">서른, 자리잡기 · 31세</td><td><code>wedding-day</code></td><td>오래 만난 연인과 결혼식을 올린다</td><td></td></tr>
+                <tr><td><code>declaring-single-life</code></td><td>비혼을 선언하고 혼자만의 삶을 설계한다</td><td></td></tr>
+                <tr><td><code>wedding-budget-compromise</code></td><td>결혼식 비용과 현실 사이에서 씁쓸한 타협을 한다</td><td></td></tr>
+                <tr><td><code>first-shared-home</code></td><td>배우자·파트너와 함께 살 집을 처음으로 계약한다</td><td></td></tr>
+                <tr><td><code>inlaws-negotiation</code></td><td>양가 부모님 사이의 조율로 진땀을 뺀다</td><td></td></tr>
+                <tr><td><code>pet-family-instead</code></td><td>결혼 대신 반려동물을 입양해 새 가족을 만든다</td><td></td></tr>
+
+                <tr><td rowspan="6">서른, 자리잡기 · 32세</td><td><code>first-home-purchase</code></td><td>영끌해서 내 집 마련에 성공한다</td><td></td></tr>
+                <tr><td><code>loan-interest-struggle</code></td><td>무리한 대출 이자에 매달 허덕인다</td><td></td></tr>
+                <tr><td><code>investment-study-group</code></td><td>재테크 스터디에 들어가 투자 지식을 넓힌다</td><td></td></tr>
+                <tr><td><code>investment-loss</code></td><td>투자 실패로 목돈을 날린다</td><td></td></tr>
+                <tr><td><code>side-income-relief</code></td><td>부수입을 만들어 경제적 여유가 생긴다</td><td></td></tr>
+                <tr><td><code>time-over-money</code></td><td>돈보다 시간이 더 중요하다는 걸 깨닫는다</td><td></td></tr>
+
+                <tr><td rowspan="6">서른, 자리잡기 · 33세</td><td><code>first-childbirth</code></td><td>첫 아이를 임신·출산하며 인생의 큰 전환점을 맞는다</td><td></td></tr>
+                <tr><td><code>dink-satisfaction</code></td><td>아이 없이 둘만의 삶(딩크)을 선택하고 만족한다</td><td></td></tr>
+                <tr><td><code>maternity-leave-anxiety</code></td><td>육아휴직을 내며 커리어에 대한 불안을 느낀다</td><td></td></tr>
+                <tr><td><code>sleepless-parenting</code></td><td>밤낮없는 육아로 체력이 완전히 바닥난다</td><td></td></tr>
+                <tr><td><code>niece-nephew-babysitting</code></td><td>조카·친구 아이를 돌보며 육아의 무게를 간접 체험한다</td><td></td></tr>
+                <tr><td><code>career-over-kids</code></td><td>아이 대신 커리어에 더 집중하기로 결심한다</td><td></td></tr>
+
+                <tr><td rowspan="7">서른, 자리잡기 · 34세</td><td><code>bold-job-change</code></td><td>과감히 이직해 새로운 조직에 적응한다</td><td></td></tr>
+                <tr><td><code>startup-attempt-30s</code></td><td>그동안 준비한 창업에 도전한다</td><td></td></tr>
+                <tr><td><code>staying-safe</code></td><td>안정적인 현재를 지키며 변화를 미룬다</td><td></td></tr>
+                <tr><td><code>department-transfer</code></td><td>부서 이동으로 완전히 새로운 업무를 맡는다</td><td></td></tr>
+                <tr><td><code>recognized-expert</code></td><td>동종 업계에서 나름의 전문가로 인정받기 시작한다</td><td></td></tr>
+                <tr><td><code>fading-achievement-sense</code></td><td>일에서 오는 성취감이 예전 같지 않음을 느낀다</td><td></td></tr>
+                <tr><td><code>hypertension-onset</code></td><td>과로와 스트레스로 혈압이 위험 수준까지 치솟는다</td><td>🩸 고혈압 전조 발병</td></tr>
+
+                <tr><td rowspan="7">서른, 자리잡기 · 35세</td><td><code>sandwiched-manager</code></td><td>중간관리자가 되어 위아래 사이에 낀 기분을 느낀다</td><td></td></tr>
+                <tr><td><code>watching-team-grow</code></td><td>팀원의 성장을 지켜보며 예상 못한 보람을 느낀다</td><td></td></tr>
+                <tr><td><code>reorg-instability</code></td><td>조직 개편의 여파로 자리가 흔들린다</td><td></td></tr>
+                <tr><td><code>fear-of-being-outdated</code></td><td>후배들에게 꼰대 소리를 들을까 봐 조심스러워진다</td><td></td></tr>
+                <tr><td><code>headhunted-with-good-offer</code></td><td>그동안의 경력을 인정받아 좋은 조건으로 스카우트된다</td><td></td></tr>
+                <tr><td><code>people-harder-than-work</code></td><td>일보다 사람 관계가 훨씬 어렵다는 걸 다시 한번 느낀다</td><td></td></tr>
+                <tr><td><code>frozen-shoulder-onset</code></td><td>책상 앞에 오래 앉아 있다 보니 어깨가 굳어 잘 올라가지 않는다</td><td>💪 어깨 결림(삼십견) 발병</td></tr>
+
+                <tr><td rowspan="6">서른, 자리잡기 · 36세</td><td><code>caring-for-sick-parent</code></td><td>부모님의 병간호를 시작하며 삶의 우선순위가 바뀐다</td><td></td></tr>
+                <tr><td><code>medical-bill-burden</code></td><td>부모님 의료비 부담으로 살림이 빠듯해진다</td><td></td></tr>
+                <tr><td><code>sibling-caregiving-conflict</code></td><td>형제자매와 부양 문제로 갈등을 겪는다</td><td></td></tr>
+                <tr><td><code>trip-with-parents</code></td><td>부모님과 여행을 다녀오며 소중한 시간을 쌓는다</td><td></td></tr>
+                <tr><td><code>balancing-two-families</code></td><td>내 가족과 부모님 사이에서 균형을 잡느라 지친다</td><td></td></tr>
+                <tr><td><code>parents-still-independent</code></td><td>독립적으로 살아가시는 부모님을 보며 마음을 놓는다</td><td></td></tr>
+
+                <tr><td rowspan="7">서른, 자리잡기 · 37세</td><td><code>reviving-old-hobby</code></td><td>오랫동안 미뤄온 취미를 본격적으로 다시 시작한다</td><td></td></tr>
+                <tr><td><code>new-exercise-routine</code></td><td>새로운 운동을 시작하며 체력을 되찾는다</td><td></td></tr>
+                <tr><td><code>hobby-account-mini-fame</code></td><td>SNS에 취미 계정을 만들어 소소한 인기를 얻는다</td><td></td></tr>
+                <tr><td><code>postponing-self-time</code></td><td>바쁘다는 핑계로 자기 시간을 계속 미룬다</td><td></td></tr>
+                <tr><td><code>new-club-connections</code></td><td>동호회에서 또래와는 다른 새로운 인연을 만난다</td><td></td></tr>
+                <tr><td><code>burnout-career-break</code></td><td>번아웃 끝에 잠시 일을 쉬고 재충전한다</td><td></td></tr>
+                <tr><td><code>hypertension-heal</code></td><td>식습관과 운동으로 혈압을 정상 수치까지 되돌린다</td><td>🩸 고혈압 전조 회복</td></tr>
+
+                <tr><td rowspan="7">서른, 자리잡기 · 38세</td><td><code>shocking-checkup-result</code></td><td>건강검진에서 예상 못한 결과를 받고 충격받는다</td><td></td></tr>
+                <tr><td><code>declining-stamina</code></td><td>체력이 예전 같지 않음을 절실히 느낀다</td><td></td></tr>
+                <tr><td><code>overhauling-habits</code></td><td>식습관과 생활 습관을 전면적으로 뜯어고친다</td><td></td></tr>
+                <tr><td><code>consistent-exercise-routine</code></td><td>정기적인 운동 루틴을 만들어 꾸준히 지킨다</td><td></td></tr>
+                <tr><td><code>visible-aging-signs</code></td><td>노안·흰머리 등 눈에 보이는 변화를 마주한다</td><td></td></tr>
+                <tr><td><code>learning-to-not-overdo</code></td><td>무리하지 않는 법을 비로소 배워간다</td><td></td></tr>
+                <tr><td><code>frozen-shoulder-heal</code></td><td>도수치료와 꾸준한 스트레칭으로 굳었던 어깨가 다시 풀린다</td><td>💪 어깨 결림(삼십견) 회복</td></tr>
+
+                <tr><td rowspan="6">서른, 자리잡기 · 39세</td><td><code>reflecting-on-thirties</code></td><td>서른아홉, 지난 10년을 찬찬히 돌아본다</td><td></td></tr>
+                <tr><td><code>forty-goals-bucketlist</code></td><td>마흔을 앞두고 새로운 목표와 버킷리스트를 세운다</td><td></td></tr>
+                <tr><td><code>pride-in-what-built</code></td><td>그동안 쌓아온 것들에 새삼 뿌듯함을 느낀다</td><td></td></tr>
+                <tr><td><code>still-not-enough-anxiety</code></td><td>여전히 부족하다는 생각에 조급함이 밀려온다</td><td></td></tr>
+                <tr><td><code>farewell-to-thirties-with-friends</code></td><td>오랜 친구들과 서른의 마지막을 함께 보낸다</td><td></td></tr>
+                <tr><td><code>calm-before-forty</code></td><td>마흔이라는 숫자 앞에서 담담해지기로 마음먹는다</td><td></td></tr>
             </table>
         </div>
     </section>
