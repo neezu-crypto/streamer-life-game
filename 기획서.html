@@ -300,6 +300,87 @@
                 <tr><td><code>recluse</code></td><td>은둔형</td><td>인기·관계 최하, 행복·건강은 준수</td></tr>
             </table>
         </div>
+
+        <h3>구간별 선택지 전체 목록</h3>
+        <p>실제 플레이에선 구간마다 이 중 3개만 무작위로 노출된다(위 "6개 중 3개 노출" 참고) — 아래는 그
+        밑에 깔린 <code>functions/game-data.js</code>의 전체 선택지 풀이다. "비고" 열은 건강 조건
+        발병/회복이 걸린 선택지만 표시(위 "건강 상세" 표와 동일한 4종).</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>구간</th><th>id</th><th>선택지 문장</th><th>비고</th></tr>
+                <tr><td rowspan="6">유아기 · 0세<br><span class="badge badge-admin">🎲</span></td><td><code>warm-poor</code></td><td>차는 없어도 매일 웃음이 끊이지 않는 집에서 태어난다</td><td></td></tr>
+                <tr><td><code>busy-rich</code></td><td>부모님이 사업을 크게 벌이며 바쁘게 사는 집에서 태어난다</td><td></td></tr>
+                <tr><td><code>big-family</code></td><td>형제자매 여럿과 북적거리는 대가족에서 태어난다</td><td></td></tr>
+                <tr><td><code>single-parent-close</code></td><td>부모님 한 분과 유독 끈끈하게 지내는 집에서 태어난다</td><td></td></tr>
+                <tr><td><code>foster-care</code></td><td>여러 어른의 손을 거치며 자라는 보육 시설에서 태어난다</td><td></td></tr>
+                <tr><td><code>spotlight-family</code></td><td>이미 동네에서 꽤 알려진 집안에서 태어난다</td><td></td></tr>
+
+                <tr><td rowspan="7">유아기 · 1세<br><span class="badge badge-admin">🎲</span></td><td><code>early-walker</code></td><td>또래보다 일찍 걸음마를 뗀다</td><td></td></tr>
+                <tr><td><code>late-bloomer</code></td><td>걸음마는 느리지만 대신 눈치가 빠르다</td><td></td></tr>
+                <tr><td><code>accident-prone</code></td><td>자주 넘어지고 부딪히는 편이다</td><td></td></tr>
+                <tr><td><code>calm-baby</code></td><td>울음 없이 순한 아기로 소문난다</td><td></td></tr>
+                <tr><td><code>sickly-infant</code></td><td>잔병치레가 유독 잦다</td><td></td></tr>
+                <tr><td><code>energetic-baby</code></td><td>잠도 안 자고 기운이 넘치는 아기다</td><td></td></tr>
+                <tr><td><code>asthma-onset</code></td><td>기침이 잦아지더니 천식 진단을 받는다</td><td>🌬️ 천식 발병</td></tr>
+
+                <tr><td rowspan="7">유아기 · 2세<br><span class="badge badge-admin">🎲</span></td><td><code>early-talker</code></td><td>또래보다 말을 빨리 뗀다</td><td></td></tr>
+                <tr><td><code>silent-observer</code></td><td>말은 늦지만 표정으로 다 알아챈다</td><td></td></tr>
+                <tr><td><code>stubborn-toddler</code></td><td>떼쓰기 대장, "미운 두 살"을 제대로 겪는다</td><td></td></tr>
+                <tr><td><code>copycat</code></td><td>어른들 말투를 그대로 따라 해 웃음을 준다</td><td></td></tr>
+                <tr><td><code>shy-around-strangers</code></td><td>낯가림이 유독 심하다</td><td></td></tr>
+                <tr><td><code>little-chatterbox</code></td><td>쉬지 않고 옹알이하듯 말을 건다</td><td></td></tr>
+                <tr><td><code>broken-arm-onset</code></td><td>정글짐에서 뛰어내리다 팔이 부러진다</td><td>🦴 팔 골절 발병</td></tr>
+
+                <tr><td rowspan="7">유아기 · 3세<br><span class="badge badge-admin">🎲</span></td><td><code>daycare-star</code></td><td>어린이집 인기쟁이로 등극한다</td><td></td></tr>
+                <tr><td><code>clingy-kid</code></td><td>엄마 아빠와 떨어지기 싫어 매일 운다</td><td></td></tr>
+                <tr><td><code>loner-in-class</code></td><td>무리에 섞이기보다 혼자 노는 걸 더 좋아한다</td><td></td></tr>
+                <tr><td><code>troublemaker</code></td><td>장난이 심해 선생님께 자주 불려간다</td><td></td></tr>
+                <tr><td><code>allergic-kid</code></td><td>알레르기 때문에 이것저것 못 먹는다</td><td></td></tr>
+                <tr><td><code>early-helper</code></td><td>동생이나 친구를 잘 챙기는 아이로 소문난다</td><td></td></tr>
+                <tr><td><code>weak-stomach-onset</code></td><td>장염을 달고 살아 배가 자주 아프다</td><td>🤢 잦은 배탈 발병</td></tr>
+
+                <tr><td rowspan="7">유아기 · 4세</td><td><code>dino-obsessed</code></td><td>공룡 박사가 될 기세로 한 가지에 파고든다</td><td></td></tr>
+                <tr><td><code>picky-eater</code></td><td>편식이 심해 매 끼니가 작은 전쟁이다</td><td></td></tr>
+                <tr><td><code>dance-kid</code></td><td>노래만 나오면 즉흥 춤을 춘다</td><td></td></tr>
+                <tr><td><code>book-lover</code></td><td>똑같은 그림책을 수십 번 읽어달라 조른다</td><td></td></tr>
+                <tr><td><code>outdoor-kid</code></td><td>놀이터에서 살다시피 한다</td><td></td></tr>
+                <tr><td><code>drama-queen</code></td><td>사소한 일에도 크게 우는 감정 기복을 보인다</td><td></td></tr>
+                <tr><td><code>broken-arm-heal</code></td><td>깁스를 풀고 팔을 마음껏 쓸 수 있게 된다</td><td>🦴 팔 골절 회복</td></tr>
+
+                <tr><td rowspan="7">유아기 · 5세</td><td><code>class-leader</code></td><td>유치원 반장 노릇을 자처한다</td><td></td></tr>
+                <tr><td><code>best-friend-forever</code></td><td>평생 갈 것 같은 단짝을 만난다</td><td></td></tr>
+                <tr><td><code>competitive-streak</code></td><td>뭐든 1등을 하려는 승부욕이 생긴다</td><td></td></tr>
+                <tr><td><code>stage-fright</code></td><td>재롱잔치 무대 위에서 얼어붙는다</td><td></td></tr>
+                <tr><td><code>money-curious</code></td><td>처음으로 용돈의 개념을 깨닫는다</td><td></td></tr>
+                <tr><td><code>protective-sibling</code></td><td>동생을 끔찍이 챙기는 언니·오빠·형·누나가 된다</td><td></td></tr>
+                <tr><td><code>weak-stomach-heal</code></td><td>식습관을 고쳐 배앓이가 눈에 띄게 줄어든다</td><td>🤢 잦은 배탈 회복</td></tr>
+
+                <tr><td rowspan="7">유아기 · 6세</td><td><code>early-reader</code></td><td>한글을 스스로 뗀다</td><td></td></tr>
+                <tr><td><code>separation-anxiety</code></td><td>초등학교에 갈 생각에 불안해한다</td><td></td></tr>
+                <tr><td><code>neighborhood-fixture</code></td><td>동네에서 모르는 사람이 없는 마당발 꼬마가 된다</td><td></td></tr>
+                <tr><td><code>family-event</code></td><td>동생이 태어나 갑자기 형·누나·오빠·언니가 된다</td><td></td></tr>
+                <tr><td><code>big-move</code></td><td>이사를 하며 낯선 동네에 적응해야 한다</td><td></td></tr>
+                <tr><td><code>confident-starter</code></td><td>입학이 마냥 기대되는 씩씩한 아이가 된다</td><td></td></tr>
+                <tr><td><code>jump-rope-habit</code></td><td>매일 아침 줄넘기를 하는 습관을 들인다</td><td></td></tr>
+
+                <tr><td rowspan="8">초등학생 · 7–12세</td><td><code>well-rounded</code></td><td>반 친구들과 두루두루 무난하게 지낸다</td><td></td></tr>
+                <tr><td><code>playground-king</code></td><td>운동장을 평정하는 골목대장으로 지낸다</td><td></td></tr>
+                <tr><td><code>solo-creative</code></td><td>혼자 그림 그리거나 책 읽는 걸 더 좋아한다</td><td></td></tr>
+                <tr><td><code>bookworm</code></td><td>도서관에 파묻혀 사는 책벌레로 지낸다</td><td></td></tr>
+                <tr><td><code>little-entrepreneur</code></td><td>학교 앞에서 작은 장사(문구 되팔기 등)를 벌인다</td><td></td></tr>
+                <tr><td><code>competitive-athlete</code></td><td>계주 대표로 뽑혀 매일 운동장을 뛴다</td><td></td></tr>
+                <tr><td><code>asthma-managed</code></td><td>꾸준한 수영으로 어릴 적 천식을 완전히 극복한다</td><td>🌬️ 천식 회복</td></tr>
+                <tr><td><code>ankle-sprain-onset</code></td><td>축구를 하다 발목을 삐끗한다</td><td>🦶 발목 부상 발병</td></tr>
+
+                <tr><td rowspan="7">스무 살 · 19–23세</td><td><code>college</code></td><td>무난하게 대학에 진학해 학점을 관리한다</td><td></td></tr>
+                <tr><td><code>streaming-debut</code></td><td>다니던 학교를 관두고 방송을 시작해본다</td><td></td></tr>
+                <tr><td><code>trade-skill</code></td><td>바로 돈이 되는 기술을 배워 취업 전선에 뛰어든다</td><td></td></tr>
+                <tr><td><code>startup-gamble</code></td><td>친구들과 의기투합해 작은 창업에 뛰어든다</td><td></td></tr>
+                <tr><td><code>working-holiday</code></td><td>훌쩍 해외로 워킹홀리데이를 떠난다</td><td></td></tr>
+                <tr><td><code>family-support</code></td><td>집안 사정으로 스무 살부터 생계를 돕는다</td><td></td></tr>
+                <tr><td><code>ankle-treated</code></td><td>미뤄뒀던 발목을 제대로 병원에서 치료받는다</td><td>🦶 발목 부상 회복</td></tr>
+            </table>
+        </div>
     </section>
 
     <section id="sec5">
