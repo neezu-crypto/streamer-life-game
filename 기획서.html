@@ -270,7 +270,10 @@
 
         <h3>대표 엔딩 6종 (v1 확정 스코프)</h3>
         <p>엔딩은 스탯 5개 조합의 최근접 아키타입 매칭(<code>resolveEnding</code>) — 이후 12~16종으로 늘릴 땐
-        <code>ENDINGS</code> 배열에 항목만 추가하면 되고 매칭 로직은 그대로다.</p>
+        <code>ENDINGS</code> 배열에 항목만 추가하면 되고 매칭 로직은 그대로다. 각 엔딩의 <code>text</code>는
+        두 문단(<code>\n\n</code>으로 구분)짜리 서술로 확장했다 — 앞 문단은 그 아키타입의 삶이 어떤
+        모습이었는지, 뒤 문단은 그 이면의 정서적 대가나 여운을 짚는다. 엔딩 화면의 <code>.ending-text</code>에
+        <code>white-space: pre-line</code>을 줘서 두 문단이 실제 줄바꿈으로 보이게 했다.</p>
         <div class="tbl-wrap">
             <table>
                 <tr><th>id</th><th>제목</th><th>아키타입 특징</th></tr>
