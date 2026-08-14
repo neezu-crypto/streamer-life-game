@@ -752,6 +752,13 @@ const STAGES = [
         text: 'SNS 팔로워 수에 하루하루 일희일비한다',
         deltas: { fame: 3, happiness: -2 },
         result: '숫자 하나가 그렇게 크게 느껴진 적이 없었다.'
+      },
+      {
+        id: 'acne-breakout-onset',
+        text: '스트레스로 여드름이 부쩍 심해진다',
+        deltas: { health: -3, happiness: -3 },
+        result: '거울을 볼 때마다 마음까지 덩달아 움츠러들었다.',
+        addCondition: { id: 'acne-breakout', label: '🌱 스트레스성 트러블' }
       }
     ]
   },
@@ -840,6 +847,21 @@ const STAGES = [
         text: '체육대회에서 반 대표로 활약하며 존재감을 알린다',
         deltas: { fame: 6, health: 3 },
         result: '이겨서라기보다, 반 전체가 한마음이 됐던 그 하루가 오래 남았다.'
+      },
+      {
+        id: 'wrist-sprain-onset',
+        text: '체육대회 계주에서 무리하다 손목을 삐끗한다',
+        deltas: { health: -4, relationship: 2 },
+        result: '붕대를 감은 손목이 며칠 동안 필기를 방해했다.',
+        addCondition: { id: 'wrist-sprain', label: '🤕 손목 부상' }
+      },
+      {
+        id: 'acne-breakout-heal',
+        text: '피부과 치료를 꾸준히 받아 트러블이 눈에 띄게 가라앉는다',
+        deltas: { health: 4, happiness: 3, wealth: -2 },
+        result: '거울 보는 시간이 다시 편해지기까지 꽤 오래 걸렸다.',
+        requiresCondition: 'acne-breakout',
+        removeCondition: 'acne-breakout'
       }
     ]
   },
@@ -884,6 +906,13 @@ const STAGES = [
         text: '야자를 땡땡이치고 친구들과 몰래 놀러 나간다',
         deltas: { happiness: 4, relationship: 3, wealth: -2 },
         result: '들키면 큰일이라는 걸 알면서도, 그 밤바람이 유독 달았다.'
+      },
+      {
+        id: 'exam-stress-gastritis-onset',
+        text: '입시 스트레스로 위가 쓰리고 체하는 날이 잦아진다',
+        deltas: { health: -5, happiness: -2 },
+        result: '책상 서랍엔 어느새 소화제가 상비약처럼 자리 잡았다.',
+        addCondition: { id: 'exam-stress-gastritis', label: '🤒 스트레스성 위염' }
       }
     ]
   },
@@ -928,6 +957,22 @@ const STAGES = [
         text: '시험이 끝나자마자 아르바이트로 첫 사회 경험을 쌓는다',
         deltas: { wealth: 6, health: -2 },
         result: '시험만 끝나면 다 끝날 줄 알았는데, 새로운 시작이 기다리고 있었다.'
+      },
+      {
+        id: 'wrist-sprain-heal',
+        text: '다 나은 손목으로 홀가분하게 시험장에 들어간다',
+        deltas: { health: 5, happiness: 2 },
+        result: '이제야 마음 편히 답안지에 마킹할 수 있었다.',
+        requiresCondition: 'wrist-sprain',
+        removeCondition: 'wrist-sprain'
+      },
+      {
+        id: 'exam-stress-gastritis-heal',
+        text: '수능이 끝나자마자 위염이 거짓말처럼 가라앉는다',
+        deltas: { health: 6, happiness: 3 },
+        result: '몸이 먼저 알고 있었다 — 이제 정말 끝났다는 걸.',
+        requiresCondition: 'exam-stress-gastritis',
+        removeCondition: 'exam-stress-gastritis'
       }
     ]
   },
