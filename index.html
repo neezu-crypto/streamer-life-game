@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>스트리머 인생게임</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #14110c;
+    --panel: #1e1a13;
+    --panel-2: #241f16;
+    --text: #ece3d0;
+    --text-dim: #9a8f78;
+    --text-faint: #6e6552;
+    --gold: #d4a24c;
+    --gold-dim: rgba(212, 162, 76, 0.16);
+    --sage: #7ea987;
+    --sage-dim: rgba(126, 169, 135, 0.14);
+    --coral: #cd7256;
+    --coral-dim: rgba(205, 114, 86, 0.14);
+    --line: #362f23;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #e7dfca; --panel: #f6f1e2; --panel-2: #efe7d2;
+      --text: #241f16; --text-dim: #6b6250; --text-faint: #918770;
+      --gold: #9c6f22; --gold-dim: rgba(156,111,34,0.12);
+      --sage: #3f6b4c; --sage-dim: rgba(63,107,76,0.12);
+      --coral: #954226; --coral-dim: rgba(149,66,38,0.12);
+      --line: #d9cca5;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    line-height: 1.65;
+  }
+  .display { font-family: 'Bricolage Grotesque', -apple-system, sans-serif; }
+  .wrap { max-width: 620px; margin: 0 auto; padding: 48px 20px 100px; }
+
+  header { margin-bottom: 40px; }
+  .eyebrow {
+    font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: 12.5px;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin: 0 0 10px;
+  }
+  h1 { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 34px; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .pitch { color: var(--text-dim); font-size: 15px; margin: 0; max-width: 52ch; }
+
+  .panel {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 22px; margin-bottom: 20px;
+  }
+  .panel h2 { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 17px; margin: 0 0 14px; }
+  .hidden { display: none !important; }
+
+  input[type=text] {
+    width: 100%; background: var(--panel-2); border: 1px solid var(--line); color: var(--text);
+    padding: 11px 13px; border-radius: 8px; font-size: 14.5px; outline: none;
+  }
+  input[type=text]:focus { border-color: var(--gold); }
+
+  #searchResults { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+  .streamer-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px;
+    padding: 9px 13px; cursor: pointer; font-size: 14px;
+  }
+  .streamer-row:hover { border-color: var(--gold); }
+  .streamer-row .price { color: var(--text-faint); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+  .empty-msg { color: var(--text-faint); font-size: 13.5px; padding: 6px 2px; }
+
+  button {
+    font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", sans-serif;
+    font-weight: 600; font-size: 14px; border-radius: 9px; border: 1px solid var(--line);
+    background: var(--panel-2); color: var(--text); padding: 11px 16px; cursor: pointer;
+  }
+  button:hover { border-color: var(--gold); }
+  button.primary { background: var(--gold); color: #1a1509; border-color: var(--gold); }
+  button.primary:hover { filter: brightness(1.06); }
+  button:disabled { opacity: 0.45; cursor: default; }
+
+  #nameSection .row { display: flex; gap: 8px; }
+  #nameSection .row input { flex: 1; }
+
+  .stage-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+  .stage-name { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 19px; }
+  .stage-age { font-size: 12.5px; color: var(--text-faint); font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; }
+
+  .choice-btn {
+    display: block; width: 100%; text-align: left; margin-top: 8px; padding: 13px 15px;
+    line-height: 1.5;
+  }
+
+  .result-box {
+    margin-top: 16px; padding: 14px 16px; background: var(--sage-dim);
+    border: 1px solid color-mix(in srgb, var(--sage) 40%, transparent);
+    border-radius: 10px; font-size: 14.5px;
+  }
+
+  .stat-bars { display: flex; flex-direction: column; gap: 8px; margin: 14px 0; }
+  .stat-bar-row { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+  .stat-bar-label { width: 44px; flex: none; color: var(--text-dim); }
+  .stat-bar-track { flex: 1; height: 8px; border-radius: 5px; background: var(--panel-2); overflow: hidden; }
+  .stat-bar-fill { height: 100%; background: var(--gold); border-radius: 5px; transition: width 0.4s ease; }
+  .stat-bar-val { width: 28px; text-align: right; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+
+  .ending-title { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 22px; color: var(--gold); margin: 0 0 8px; }
+  .ending-text { font-size: 15px; margin: 0 0 16px; }
+
+  .gallery-item {
+    padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 8px;
+    display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 13.5px;
+  }
+  .gallery-item .g-name { font-weight: 600; }
+  .gallery-item .g-ending { color: var(--gold); font-size: 12.5px; }
+
+  footer { color: var(--text-faint); font-size: 12px; text-align: center; margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">interactive life sim · draft</p>
+    <h1>스트리머 인생게임</h1>
+    <p class="pitch">좋아하는 스트리머의 이름으로 주인공을 만들고, 0세부터 100세까지 3지선다로 살아보세요.</p>
+  </header>
+
+  <section id="searchSection" class="panel">
+    <h2>1. 스트리머 검색</h2>
+    <input type="text" id="searchInput" placeholder="스트리머 이름을 검색해보세요" autocomplete="off">
+    <div id="searchResults"></div>
+  </section>
+
+  <section id="nameSection" class="panel hidden">
+    <h2>2. 주인공 이름 짓기</h2>
+    <div class="row">
+      <input type="text" id="nameInput" maxlength="40">
+      <button class="primary" id="startBtn">인생 시작</button>
+    </div>
+  </section>
+
+  <section id="gameSection" class="panel hidden">
+    <div class="stage-head">
+      <span class="stage-name" id="stageName"></span>
+      <span class="stage-age" id="stageAge"></span>
+    </div>
+    <div id="choiceList"></div>
+    <div id="resultBox" class="result-box hidden"></div>
+    <div class="stat-bars" id="statBars"></div>
+    <button id="nextBtn" class="hidden">다음</button>
+  </section>
+
+  <section id="endingSection" class="panel hidden">
+    <p class="ending-title" id="endingTitle"></p>
+    <p class="ending-text" id="endingText"></p>
+    <div class="stat-bars" id="endingStatBars"></div>
+    <div style="display:flex; gap:8px;">
+      <button class="primary" id="shareBtn">갤러리에 공유하기</button>
+      <button id="restartBtn">다시 태어나기</button>
+    </div>
+  </section>
+
+  <section id="gallerySection" class="panel">
+    <h2>다른 유저는 어떤 인생을 살았을까?</h2>
+    <div id="galleryList"><p class="empty-msg">불러오는 중...</p></div>
+  </section>
+
+  <footer>스트리머 인생게임 · v0.1 스켈레톤 (구간 3/10, 대표 엔딩 6종)</footer>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { getDatabase, ref, get, onValue } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
+import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-functions.js";
+import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+
+// 이 생태계 다른 프로젝트들과 동일한 Firebase 프로젝트(soop-stock-market)를 공유한다
+// - stocks 노드(스트리머 이름 검색)를 새 프로젝트 설정 없이 바로 읽기 위함.
+const firebaseConfig = {
+  apiKey: "AIzaSyAZcjQPHphENs-Bb7IfdL2qTtOMhJrRP54",
+  authDomain: "soop-stock-market.firebaseapp.com",
+  databaseURL: "https://soop-stock-market-default-rtdb.firebaseio.com",
+  projectId: "soop-stock-market",
+  storageBucket: "soop-stock-market.firebasestorage.app",
+  messagingSenderId: "997788925900",
+  appId: "1:997788925900:web:b58db2970489bf18a3a769"
+};
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const auth = getAuth(app);
+const functions = getFunctions(app, 'us-central1');
+
+const startPlaythroughFn = httpsCallable(functions, 'startPlaythrough');
+const submitChoiceFn = httpsCallable(functions, 'submitChoice');
+const shareToGalleryFn = httpsCallable(functions, 'shareToGallery');
+
+let currentUser = null;
+onAuthStateChanged(auth, (user) => {
+  currentUser = user;
+  if (!user) signInAnonymously(auth).catch((e) => console.error('익명 로그인 실패:', e));
+});
+
+// ------------------------------------------------------------
+// 1) 스트리머 검색 - stocks 노드 전체를 한 번 받아 클라이언트에서 부분일치 필터
+// (soop-stock-market 자체 검색창과 동일한 패턴 - 인덱스가 없어서 이 방식이 맞다).
+// ------------------------------------------------------------
+let allStocks = [];
+get(ref(db, 'stocks')).then((snap) => {
+  const val = snap.val() || {};
+  allStocks = Object.keys(val).map((id) => ({ id, name: val[id].name || '' })).filter((s) => s.name);
+});
+
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim();
+  searchResults.innerHTML = '';
+  if (!q) return;
+  const matches = allStocks.filter((s) => s.name.includes(q)).slice(0, 12);
+  if (!matches.length) {
+    searchResults.innerHTML = '<p class="empty-msg">일치하는 스트리머가 없어요. 이름을 직접 입력해도 괜찮아요.</p>';
+    return;
+  }
+  matches.forEach((s) => {
+    const row = document.createElement('div');
+    row.className = 'streamer-row';
+    row.innerHTML = '<span>' + escapeHtml(s.name) + '</span>';
+    row.addEventListener('click', () => selectStreamer(s.name, s.id));
+    searchResults.appendChild(row);
+  });
+});
+
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+let selectedStreamerId = null;
+const nameSection = document.getElementById('nameSection');
+const nameInput = document.getElementById('nameInput');
+function selectStreamer(name, id) {
+  selectedStreamerId = id || null;
+  nameInput.value = name;
+  nameSection.classList.remove('hidden');
+  nameSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// ------------------------------------------------------------
+// 2) 인생 시작 + 3) 선택 진행
+// ------------------------------------------------------------
+const gameSection = document.getElementById('gameSection');
+const stageName = document.getElementById('stageName');
+const stageAge = document.getElementById('stageAge');
+const choiceList = document.getElementById('choiceList');
+const resultBox = document.getElementById('resultBox');
+const statBars = document.getElementById('statBars');
+const nextBtn = document.getElementById('nextBtn');
+const startBtn = document.getElementById('startBtn');
+
+let playId = null;
+let pendingNextStage = null;
+
+const STAT_LABELS = { wealth: '재산', fame: '인기', happiness: '행복', health: '건강', relationship: '관계' };
+
+function renderStatBars(el, stats) {
+  el.innerHTML = '';
+  Object.keys(STAT_LABELS).forEach((key) => {
+    const row = document.createElement('div');
+    row.className = 'stat-bar-row';
+    row.innerHTML =
+      '<span class="stat-bar-label">' + STAT_LABELS[key] + '</span>' +
+      '<span class="stat-bar-track"><span class="stat-bar-fill" style="width:' + (stats[key] || 0) + '%"></span></span>' +
+      '<span class="stat-bar-val">' + (stats[key] || 0) + '</span>';
+    el.appendChild(row);
+  });
+}
+
+function renderStage(stage) {
+  stageName.textContent = stage.name;
+  stageAge.textContent = stage.ageRange;
+  choiceList.innerHTML = '';
+  resultBox.classList.add('hidden');
+  nextBtn.classList.add('hidden');
+  stage.choices.forEach((choice) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    btn.textContent = choice.text;
+    btn.addEventListener('click', () => pickChoice(choice.id, btn));
+    choiceList.appendChild(btn);
+  });
+}
+
+startBtn.addEventListener('click', async () => {
+  const streamerName = nameInput.value.trim();
+  if (!streamerName) return;
+  startBtn.disabled = true;
+  try {
+    const res = await startPlaythroughFn({ streamerName, streamerId: selectedStreamerId });
+    playId = res.data.playId;
+    document.getElementById('searchSection').classList.add('hidden');
+    nameSection.classList.add('hidden');
+    gameSection.classList.remove('hidden');
+    renderStatBars(statBars, res.data.stats);
+    renderStage(res.data.stage);
+  } catch (e) {
+    console.error('인생 시작 실패:', e);
+    alert('시작하지 못했어요: ' + (e.message || e));
+  } finally {
+    startBtn.disabled = false;
+  }
+});
+
+async function pickChoice(choiceId, btnEl) {
+  Array.from(choiceList.children).forEach((b) => (b.disabled = true));
+  try {
+    const res = await submitChoiceFn({ playId, choiceId });
+    resultBox.textContent = res.data.result;
+    resultBox.classList.remove('hidden');
+    renderStatBars(statBars, res.data.stats);
+    if (res.data.completed) {
+      pendingNextStage = null;
+      showEnding(res.data.ending, res.data.stats);
+    } else {
+      pendingNextStage = res.data.nextStage;
+      nextBtn.classList.remove('hidden');
+    }
+  } catch (e) {
+    console.error('선택 제출 실패:', e);
+    alert('선택을 처리하지 못했어요: ' + (e.message || e));
+    Array.from(choiceList.children).forEach((b) => (b.disabled = false));
+  }
+}
+
+nextBtn.addEventListener('click', () => {
+  if (pendingNextStage) renderStage(pendingNextStage);
+});
+
+// ------------------------------------------------------------
+// 4) 엔딩 + 갤러리 공유
+// ------------------------------------------------------------
+const endingSection = document.getElementById('endingSection');
+const endingTitle = document.getElementById('endingTitle');
+const endingText = document.getElementById('endingText');
+const endingStatBars = document.getElementById('endingStatBars');
+const shareBtn = document.getElementById('shareBtn');
+const restartBtn = document.getElementById('restartBtn');
+
+function showEnding(ending, stats) {
+  gameSection.classList.add('hidden');
+  endingSection.classList.remove('hidden');
+  endingTitle.textContent = ending.title;
+  endingText.textContent = ending.text;
+  renderStatBars(endingStatBars, stats);
+  shareBtn.disabled = false;
+}
+
+shareBtn.addEventListener('click', async () => {
+  shareBtn.disabled = true;
+  try {
+    await shareToGalleryFn({ playId });
+    shareBtn.textContent = '공유됐어요!';
+  } catch (e) {
+    console.error('공유 실패:', e);
+    alert('공유하지 못했어요: ' + (e.message || e));
+    shareBtn.disabled = false;
+  }
+});
+
+restartBtn.addEventListener('click', () => window.location.reload());
+
+// ------------------------------------------------------------
+// 5) 공개 갤러리 - "다른 유저는 어떤 인생을 살았을까?"
+// ------------------------------------------------------------
+const galleryList = document.getElementById('galleryList');
+onValue(ref(db, 'lifeGame/gallery'), (snap) => {
+  const val = snap.val() || {};
+  const entries = Object.values(val).sort((a, b) => (b.sharedAt || 0) - (a.sharedAt || 0)).slice(0, 30);
+  if (!entries.length) {
+    galleryList.innerHTML = '<p class="empty-msg">아직 공유된 인생이 없어요. 첫 번째가 되어보세요!</p>';
+    return;
+  }
+  galleryList.innerHTML = '';
+  entries.forEach((e) => {
+    const row = document.createElement('div');
+    row.className = 'gallery-item';
+    row.innerHTML =
+      '<span class="g-name">' + escapeHtml(e.streamerName || '이름 없음') + '</span>' +
+      '<span class="g-ending">' + escapeHtml((e.ending && e.ending.title) || '') + '</span>';
+    galleryList.appendChild(row);
+  });
+}, (err) => {
+  console.error('갤러리 읽기 실패:', err);
+  galleryList.innerHTML = '<p class="empty-msg">갤러리를 불러올 수 없습니다.</p>';
+});
+</script>
+</body>
+</html>

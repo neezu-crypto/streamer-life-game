@@ -1,0 +1,12 @@
+{
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "lifegame",
+      "runtime": "nodejs22"
+    }
+  ],
+  "database": {
+    "rules": "database.rules.json"
+  }
+}
