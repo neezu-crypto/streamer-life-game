@@ -206,14 +206,16 @@
 
     <section id="sec4">
         <h2><span class="num">4</span>생애 사이클 · 스탯 시스템</h2>
-        <h3>생애 10구간</h3>
+        <h3>생애 10카테고리</h3>
         <p>균등한 나이 간격이 아니라 실제 인생의 결절점(입학·진로·독립·가정) 기준. <span class="badge badge-live">구현됨</span>
-        3구간, <span class="badge badge-todo">콘텐츠 미작성</span> 7구간 — 형식은 동일해서 <code>functions/game-data.js</code>의
-        <code>STAGES</code> 배열에 이어 채우면 됨.</p>
+        3카테고리, <span class="badge badge-todo">콘텐츠 미작성</span> 7카테고리 — 형식은 동일해서 <code>functions/game-data.js</code>의
+        <code>STAGES</code> 배열에 이어 채우면 됨. <b>유아기는 카테고리 하나가 <code>STAGES</code> 안에서 한 살 단위
+        7개 항목(<code>infancy-0</code>~<code>infancy-6</code>)으로 쪼개져 있음</b> — 표의 "구간" 개수와
+        실제 <code>STAGES.length</code>는 다르다.</p>
         <div class="tbl-wrap">
             <table>
                 <tr><th>구간</th><th>나이</th><th>상태</th></tr>
-                <tr><td>유아기 <span class="badge badge-admin">🎲 주사위</span></td><td>0–6세</td><td><span class="badge badge-live">구현됨</span></td></tr>
+                <tr><td>유아기 <span class="badge badge-admin">🎲 주사위 × 7(한 살 단위)</span></td><td>0–6세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>초등학생</td><td>7–12세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>사춘기</td><td>13–15세</td><td><span class="badge badge-todo">TODO</span></td></tr>
                 <tr><td>고등학생</td><td>16–18세</td><td><span class="badge badge-todo">TODO</span></td></tr>
@@ -225,12 +227,20 @@
                 <tr><td>황혼</td><td>70–100세</td><td><span class="badge badge-todo">TODO</span></td></tr>
             </table>
         </div>
-        <p class="note"><b>유아기는 예외 — 3지선다가 아니라 🎲 주사위 굴리기.</b> 태어날 집안은 스스로 고를 수
-        있는 게 아니라는 취지로, <code>STAGES</code>의 <code>infancy</code>에만 <code>random: true</code>를
-        붙였다. 클라이언트는 선택지를 클릭 불가능한 미리보기로만 보여주고 "🎲 주사위 굴리기" 버튼 하나만
-        누를 수 있으며, 서버(<code>rollDice</code>)가 3개 중 하나를 균등 확률로 직접 뽑아 반영한다 —
-        <code>submitChoice</code>는 <code>random</code> 구간을 아예 거부해서 클라이언트가 직접 골라 우회할
-        수 없다.</p>
+        <p class="note"><b>유아기(0~6세)는 한 살 단위로 쪼갠 7개의 독립된 주사위 구간.</b> 갓난아기~미취학
+        시기에 벌어지는 일은 아이 본인이 "선택"할 수 있는 게 아니라는 취지로, <code>infancy-0</code>부터
+        <code>infancy-6</code>까지 전부 <code>random: true</code>를 붙였다. 클라이언트는 선택지를 클릭
+        불가능한 미리보기로만 보여주고 "🎲 주사위 굴리기" 버튼 하나만 누를 수 있으며, 서버(<code>rollDice</code>)가
+        직접 하나를 뽑아 반영한다 — <code>submitChoice</code>는 <code>random</code> 구간을 아예 거부해서
+        클라이언트가 직접 골라 우회할 수 없다. 7세부터(초등학생)는 다시 3지선다로 돌아간다.</p>
+        <p class="note"><b>구간마다 선택지를 최대 6개까지 써두고, 실제로는 그중 3개만 무작위로 노출한다.</b>
+        <code>startPlaythrough</code>/<code>applyChoice</code>가 그 구간에 들어설 때 <code>pickVisibleChoiceIds()</code>로
+        3개를 미리 뽑아 저장 슬롯(<code>lifeGame/playthroughs/&#123;uid&#125;/visibleChoiceIds</code>)에
+        남겨두고, <code>publicStage()</code>는 그 3개로 필터링해서만 클라이언트에 내려준다. 같은 판을
+        이어하기로 다시 열어도 저장해둔 3개가 그대로 다시 뜬다(재접속할 때마다 다른 선택지가 보이면
+        안 되므로). 주사위 구간의 <code>rollDice</code>도 반드시 이 3개 중에서만 뽑고, <code>submitChoice</code>도
+        노출되지 않은 선택지가 제출되면 거부한다 — "화면에 안 보여준 결과가 튀어나오는 일"을 서버가 막는다.
+        선택지가 3개 이하로만 채워진 구간(과거 콘텐츠)은 그냥 전부 보여준다.</p>
         <p class="note"><b>주사위 굴리기를 누르면 결과가 바로 나오지 않는다.</b> 화면 전체가 어두워지며
         (<code>#diceOverlay</code>) 주사위 아이콘이 회전하는 연출이 최소 3초(<code>DICE_REVEAL_MS</code>)
         보여진 뒤에야 결과가 공개된다 — 서버 응답이 3초보다 빨리 와도 최소 3초는 채우고, 응답이 더 늦어지면
@@ -284,8 +294,10 @@
                     </ul>
                 </div>
             </div>
-            <p class="note">세 선택지는 항상 <b>안전 / 도전 / 우회</b> 세 태도 중 하나에 가깝게 쓴다 — 매번 다른 톤을
-            새로 짜내는 대신, 이 뼈대 위에서 구간별 소재만 갈아 끼운다.</p>
+            <p class="note">한 구간에 선택지를 <b>최대 6개까지</b> 써두고, 실제 플레이에선 그중 3개만 무작위로
+            노출한다(구현 방식은 4장 참고) — 그래서 6개를 안전/도전/우회 세 태도로 두 개씩 짝지어 써두면,
+            어떤 3개가 뽑히든 자연스럽게 톤이 섞인다. 매번 다른 톤을 새로 짜내는 대신, 이 뼈대 위에서
+            구간별 소재만 갈아 끼운다.</p>
         </div>
     </section>
 
@@ -308,7 +320,7 @@
         <div class="tbl-wrap">
             <table>
                 <tr><th>경로</th><th>설명</th><th>.read</th></tr>
-                <tr><td><code>lifeGame/playthroughs/&#123;uid&#125;</code></td><td>계정당 저장 슬롯 1개(push id 없음) — <code>streamerName, streamerId, stats, stageIndex, choiceLog[], completed, ending, startedAt, endedAt, galleryEntryId</code>. 새로 시작하면 덮어씀</td><td>본인만</td></tr>
+                <tr><td><code>lifeGame/playthroughs/&#123;uid&#125;</code></td><td>계정당 저장 슬롯 1개(push id 없음) — <code>streamerName, streamerId, stats, stageIndex, visibleChoiceIds[], choiceLog[], completed, ending, startedAt, endedAt, galleryEntryId</code>. 새로 시작하면 덮어씀. <code>visibleChoiceIds</code>는 지금 구간에서 실제로 노출 중인 선택지 3개의 id(4장 "6개 중 3개 노출" 참고)</td><td>본인만</td></tr>
                 <tr><td><code>lifeGame/gallery/&#123;id&#125;</code></td><td>공유된 인생 요약 — <code>streamerName, streamerId, ending, stats, uid, sharedAt</code></td><td>공개</td></tr>
                 <tr><td><code>lifeGame/galleryReports/&#123;id&#125;</code></td><td>갤러리 항목 신고 — <code>entryId, reason, reporterUid, reportedAt</code> (StreamBet-Market <code>nicknameReports</code>와 동일 패턴)</td><td>관리자만</td></tr>
                 <tr><td><code>lifeGame/stats/totals</code></td><td><code>started/completed/shared</code> 전체 카운터</td><td>기본값(비공개) — admin-center Cloud Function만 Admin SDK로 읽음</td></tr>
@@ -330,8 +342,8 @@
                 <tr><th>함수</th><th>codebase</th><th>역할</th></tr>
                 <tr><td><code>startPlaythrough</code></td><td><span class="badge badge-live">lifegame</span></td><td>이름 확정 → 저장 슬롯에 새 플레이스루 생성(기존 저장 있으면 덮어씀), 첫 구간 반환. <code>stats.totals.started</code> 증가</td></tr>
                 <tr><td><code>resumePlaythrough</code></td><td><span class="badge badge-live">lifegame</span></td><td>저장 슬롯을 불러와 지금 구간(또는 완료된 엔딩)을 그대로 반환 — 창을 껐다 다시 열었을 때 이어하기용</td></tr>
-                <tr><td><code>submitChoice</code></td><td><span class="badge badge-live">lifegame</span></td><td>선택 반영 → 스탯 계산, 다음 구간 또는 엔딩 반환. <code>random</code> 구간은 거부. <code>stats.choices.*</code> 증가, 완료 시 <code>stats.endings.*</code>/<code>totals.completed</code> 증가</td></tr>
-                <tr><td><code>rollDice</code></td><td><span class="badge badge-live">lifegame</span></td><td><code>random</code> 구간(유아기) 전용 — 서버가 선택지 중 하나를 균등 확률로 직접 뽑아 반영. 통계 카운터 증가는 submitChoice와 동일</td></tr>
+                <tr><td><code>submitChoice</code></td><td><span class="badge badge-live">lifegame</span></td><td>선택 반영 → 스탯 계산, 다음 구간 또는 엔딩 반환. <code>random</code> 구간은 거부, 지금 <code>visibleChoiceIds</code>에 없는 choiceId도 거부. <code>stats.choices.*</code> 증가, 완료 시 <code>stats.endings.*</code>/<code>totals.completed</code> 증가</td></tr>
+                <tr><td><code>rollDice</code></td><td><span class="badge badge-live">lifegame</span></td><td><code>random</code> 구간(유아기 0~6세) 전용 — 서버가 <code>visibleChoiceIds</code>(노출 중인 3개)로 한정한 뒤 그중 하나를 균등 확률로 직접 뽑아 반영. 통계 카운터 증가는 submitChoice와 동일</td></tr>
                 <tr><td><code>shareToGallery</code></td><td><span class="badge badge-live">lifegame</span></td><td>완료한 플레이스루를 공개 갤러리에 복사(1회 한정). <code>stats.totals.shared</code> 증가</td></tr>
                 <tr><td><code>reportGalleryEntry</code></td><td><span class="badge badge-live">lifegame</span></td><td>갤러리 항목 신고 접수</td></tr>
                 <tr><td><code>getLifeGameStats</code></td><td><span class="badge badge-admin">admincenter</span></td><td>admin-center 전용 — <code>lifeGame/stats</code>를 Admin SDK로 읽어 통계 카드에 표시</td></tr>
@@ -372,9 +384,8 @@
         </div>
         <h3>주사위 굴리기 흐름 (유아기 전용)</h3>
         <div class="flow">
-            <div class="flow-step">🎲 주사위 굴리기 클릭</div><span class="flow-arrow">→</span>
-            <div class="flow-step">rollDice 호출(playId만 전송, choiceId 없음)</div><span class="flow-arrow">→</span>
-            <div class="flow-step">서버: 선택지 중 하나를 균등 확률로 직접 뽑음</div><span class="flow-arrow">→</span>
+            <div class="flow-step">🎲 주사위 굴리기 클릭 (인자 없음, uid는 인증 토큰으로 식별)</div><span class="flow-arrow">→</span>
+            <div class="flow-step">서버: visibleChoiceIds로 한정한 뒤 그중 하나를 균등 확률로 직접 뽑음</div><span class="flow-arrow">→</span>
             <div class="flow-step">이후는 submitChoice와 동일하게 반영</div><span class="flow-arrow">→</span>
             <div class="flow-step">응답에 어떤 환경이 뽑혔는지(choiceText)도 포함</div>
         </div>
