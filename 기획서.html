@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>스트리머 인생게임 — 기획서</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --bg: #14110c; --card: #1e1a13; --card-2: #241f16; --border: #362f23;
+        --primary: #d4a24c; --sage: #7ea987; --coral: #cd7256;
+        --text: #ece3d0; --sub: #9a8f78; --accent: #d4a24c;
+        --display: 'Bricolage Grotesque', -apple-system, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+        background: var(--bg); color: var(--text);
+        margin: 0; padding: 40px 20px 100px;
+        line-height: 1.7;
+    }
+    .doc { max-width: 880px; margin: 0 auto; }
+    .doc-header { text-align: center; padding: 40px 20px 32px; margin-bottom: 40px; border-bottom: 1px solid var(--border); }
+    .doc-header .eyebrow {
+        display: inline-block; font-family: var(--display); font-size: 12px; font-weight: 700; letter-spacing: 2px;
+        color: var(--primary); text-transform: uppercase; margin-bottom: 14px;
+    }
+    .doc-header h1 { font-family: var(--display); font-size: 30px; font-weight: 800; margin: 0 0 10px; letter-spacing: -0.01em; }
+    .doc-header p { color: var(--sub); font-size: 14px; margin: 0; }
+    .meta-row { display: flex; justify-content: center; gap: 24px; margin-top: 20px; font-size: 12px; color: var(--sub); flex-wrap: wrap; }
+    .meta-row b { color: var(--text); }
+
+    section { margin-bottom: 44px; }
+    h2 {
+        font-family: var(--display); font-size: 20px; font-weight: 800; margin: 0 0 18px;
+        display: flex; align-items: center; gap: 10px;
+        padding-bottom: 10px; border-bottom: 1px solid var(--border);
+    }
+    h2 .num {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 26px; height: 26px; border-radius: 8px;
+        background: rgba(212,162,76,0.15); color: var(--primary);
+        font-family: var(--display); font-size: 13px; font-weight: 800;
+    }
+    h3 { font-family: var(--display); font-size: 15px; font-weight: 700; color: var(--primary); margin: 24px 0 10px; }
+    p { color: #d8cdb8; font-size: 14px; }
+    ul, ol { color: #d8cdb8; font-size: 14px; padding-left: 20px; }
+    li { margin-bottom: 6px; }
+    strong { color: var(--text); }
+    code {
+        background: rgba(154,143,120,0.15); padding: 2px 6px; border-radius: 5px;
+        font-size: 12.5px; color: #e8c98a; font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; margin-bottom: 14px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    @media (max-width: 640px) { .grid-2, .grid-3, .grid-5 { grid-template-columns: 1fr; } }
+
+    .tbl-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0 20px; min-width: 480px; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { font-family: var(--display); color: var(--primary); font-weight: 700; background: rgba(212,162,76,0.06); }
+    td { color: #d8cdb8; }
+    td code { white-space: nowrap; }
+
+    .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 100px; margin-right: 6px; }
+    .badge-live { background: rgba(126,169,135,0.15); color: var(--sage); }
+    .badge-todo { background: rgba(205,114,86,0.15); color: var(--coral); }
+    .badge-admin{ background: rgba(212,162,76,0.15); color: var(--primary); }
+
+    .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 16px 0; }
+    .flow-step {
+        background: var(--card-2); border: 1px solid var(--border); border-radius: 10px;
+        padding: 10px 14px; font-size: 12.5px; font-weight: 600; color: var(--text); white-space: nowrap;
+    }
+    .flow-arrow { color: var(--sub); font-size: 16px; }
+
+    .note {
+        border-left: 3px solid var(--coral); background: rgba(205,114,86,0.08);
+        padding: 12px 16px; border-radius: 0 10px 10px 0; font-size: 13px; color: #f0c3b0; margin: 14px 0;
+    }
+    .note b { color: var(--coral); }
+
+    .todo-list { list-style: none; padding: 0; }
+    .todo-list li { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px dashed var(--border); }
+    .todo-list li:last-child { border-bottom: none; }
+    .todo-check { flex-shrink: 0; width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--sub); margin-top: 2px; }
+
+    .toc { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px 24px; margin-bottom: 40px; }
+    .toc h2 { border: none; padding: 0; margin-bottom: 12px; }
+    .toc ol { columns: 2; column-gap: 30px; font-size: 13.5px; }
+    .toc a { color: #d8cdb8; text-decoration: none; }
+    .toc a:hover { color: var(--primary); }
+    @media (max-width: 640px) { .toc ol { columns: 1; } }
+
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 12px 0 20px; }
+    .stat-card { background: var(--card-2); border: 1px solid var(--border); border-left: 3px solid var(--stat-c, var(--primary)); border-radius: 8px; padding: 12px 14px; }
+    .stat-card b { display: block; font-size: 13.5px; margin-bottom: 3px; }
+    .stat-card span { font-size: 12px; color: var(--sub); }
+
+    footer { text-align: center; color: var(--sub); font-size: 12px; margin-top: 60px; }
+</style>
+</head>
+<body>
+<div class="doc">
+
+    <div class="doc-header">
+        <span class="eyebrow">Planning Document</span>
+        <h1>스트리머 인생게임 — 서비스 기획서</h1>
+        <p>스트리머 이름으로 주인공을 지어 0~100세 인생을 3지선다로 사는 인터랙티브 소설 게임 (index.html) 기능 및 구조 정리</p>
+        <div class="meta-row">
+            <span>문서 유형: <b>사후 정리 기획서 (As-Is)</b></span>
+            <span>대상 파일: <b>index.html / functions/</b></span>
+            <span>작성일: <b>2026-08-14</b></span>
+            <span>최종 수정일: <b>2026-08-14</b></span>
+        </div>
+    </div>
+
+    <div class="toc">
+        <h2>목차</h2>
+        <ol>
+            <li><a href="#sec1">서비스 개요</a></li>
+            <li><a href="#sec2">핵심 컨셉</a></li>
+            <li><a href="#sec3">화면 구성 (UI)</a></li>
+            <li><a href="#sec4">생애 사이클 · 스탯 시스템</a></li>
+            <li><a href="#sec5">선택지 작성 원칙</a></li>
+            <li><a href="#sec6">스트리머 검색 (기존 데이터 재사용)</a></li>
+            <li><a href="#sec7">데이터 구조 (Firebase RTDB)</a></li>
+            <li><a href="#sec8">Cloud Functions</a></li>
+            <li><a href="#sec9">시스템 흐름도</a></li>
+            <li><a href="#sec10">관리 센터(admin-center) 연동</a></li>
+            <li><a href="#sec11">향후 보완 과제</a></li>
+        </ol>
+    </div>
+
+    <section id="sec1">
+        <h2><span class="num">1</span>서비스 개요</h2>
+        <div class="card">
+            <p><strong>스트리머 인생게임</strong>은 SOOP 스트리머를 주인공 삼아, 유저가 0세부터 100세까지 그 인생을
+            3지선다로 대신 살아보는 <strong>인터랙티브 소설(생애 시뮬레이션) 웹게임</strong>입니다. 실제 스트리머
+            본인과는 무관한 가상의 인생이며, 매 선택이 재산·인기·행복·건강·관계 다섯 스탯을 흔들고 그 조합이
+            100세 시점의 엔딩을 정합니다.</p>
+            <ul>
+                <li><strong>플랫폼:</strong> 단일 페이지 웹앱 (Vanilla JS + Firebase, 정적 호스팅 / GitHub Pages)</li>
+                <li><strong>대상:</strong> 스트리머 팬덤 커뮤니티, 익명 방문자 포함 누구나 즉시 참여 가능</li>
+                <li><strong>수익 모델:</strong> v1은 완전 무료 — 추후 보상형 광고("다시 태어나기" 등)·후원형 광고 추가 예정</li>
+                <li><strong>공유 인프라:</strong> StreamBet-Market·soop-stock-market·interior-3d-viewer와 동일한 Firebase
+                    프로젝트(<code>soop-stock-market</code>)를 그대로 사용 — 스트리머 이름 검색에 필요한 <code>stocks</code>
+                    노드를 새 프로젝트 없이 바로 읽기 위함</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="sec2">
+        <h2><span class="num">2</span>핵심 컨셉</h2>
+        <div class="grid-3">
+            <div class="card">
+                <h3>🔍 진짜 데이터로 짓는 이름</h3>
+                <p>새 데이터를 따로 안 모으고, 이미 상장돼 있는 <code>stocks</code> 노드에서 이름을 검색해 주인공을 정합니다.</p>
+            </div>
+            <div class="card">
+                <h3>🎲 서버가 쥔 정답표</h3>
+                <p>클라이언트는 고른 선택지 id만 보낼 뿐, 스탯 반영·엔딩 판정은 전부 서버에서 계산합니다 — 위변조도,
+                문장만 보고 결과를 미리 아는 것도 불가능합니다.</p>
+            </div>
+            <div class="card">
+                <h3>📖 "다른 유저는 어떤 인생을 살았을까?"</h3>
+                <p>완료한 인생을 공개 갤러리에 공유할 수 있는 구조로, 처음부터 갤러리 열람을 핵심 화면으로 둡니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="sec3">
+        <h2><span class="num">3</span>화면 구성 (UI)</h2>
+        <div class="card">
+            <p>단일 페이지 안에서 아래 5단계가 순서대로(또는 갤러리만 독립적으로) 나타납니다. 상단엔 다른 자매
+            프로젝트들과 동일한 <strong>devbar</strong>(교차 홍보 바)가 항상 떠 있습니다.</p>
+            <div class="tbl-wrap">
+                <table>
+                    <tr><th>구획</th><th>DOM id</th><th>내용</th></tr>
+                    <tr><td>① 스트리머 검색</td><td><code>#searchSection</code></td><td><code>stocks</code> 검색 입력창 + 결과 목록. 클릭하면 이름이 다음 단계로 넘어감</td></tr>
+                    <tr><td>② 이름 짓기</td><td><code>#nameSection</code></td><td>검색한 이름을 프리필해서 보여주고, 수정 후 "인생 시작"</td></tr>
+                    <tr><td>③ 생애 진행</td><td><code>#gameSection</code></td><td>구간명/나이, 3지선다 버튼, 선택 후 결과 텍스트 + 스탯 바</td></tr>
+                    <tr><td>④ 엔딩</td><td><code>#endingSection</code></td><td>엔딩 제목/텍스트 + 최종 스탯, "갤러리에 공유하기"/"다시 태어나기"</td></tr>
+                    <tr><td>⑤ 공개 갤러리</td><td><code>#gallerySection</code></td><td>다른 유저가 공유한 인생 목록 (실시간 구독, 최신순)</td></tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="sec4">
+        <h2><span class="num">4</span>생애 사이클 · 스탯 시스템</h2>
+        <h3>생애 10구간</h3>
+        <p>균등한 나이 간격이 아니라 실제 인생의 결절점(입학·진로·독립·가정) 기준. <span class="badge badge-live">구현됨</span>
+        3구간, <span class="badge badge-todo">콘텐츠 미작성</span> 7구간 — 형식은 동일해서 <code>functions/game-data.js</code>의
+        <code>STAGES</code> 배열에 이어 채우면 됨.</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>구간</th><th>나이</th><th>상태</th></tr>
+                <tr><td>유아기</td><td>0–6세</td><td><span class="badge badge-live">구현됨</span></td></tr>
+                <tr><td>초등학생</td><td>7–12세</td><td><span class="badge badge-live">구현됨</span></td></tr>
+                <tr><td>사춘기</td><td>13–15세</td><td><span class="badge badge-todo">TODO</span></td></tr>
+                <tr><td>고등학생</td><td>16–18세</td><td><span class="badge badge-todo">TODO</span></td></tr>
+                <tr><td>스무 살</td><td>19–23세</td><td><span class="badge badge-live">구현됨</span></td></tr>
+                <tr><td>사회 초년생</td><td>24–29세</td><td><span class="badge badge-todo">TODO</span></td></tr>
+                <tr><td>서른, 자리잡기</td><td>30–39세</td><td><span class="badge badge-todo">TODO</span></td></tr>
+                <tr><td>중년, 선택의 무게</td><td>40–54세</td><td><span class="badge badge-todo">TODO</span></td></tr>
+                <tr><td>노년 준비</td><td>55–69세</td><td><span class="badge badge-todo">TODO</span></td></tr>
+                <tr><td>황혼</td><td>70–100세</td><td><span class="badge badge-todo">TODO</span></td></tr>
+            </table>
+        </div>
+
+        <h3>다섯 스탯 (0~100)</h3>
+        <div class="stat-grid">
+            <div class="stat-card" style="--stat-c: var(--primary);"><b>재산</b><span>수입·소비·투자 선택의 결과</span></div>
+            <div class="stat-card" style="--stat-c: var(--primary);"><b>인기</b><span>방송·창작·SNS 관련 선택에서 크게 움직임</span></div>
+            <div class="stat-card" style="--stat-c: var(--sage);"><b>행복</b><span>다른 네 스탯의 균형에서 새어 나오는 값</span></div>
+            <div class="stat-card" style="--stat-c: var(--coral);"><b>건강</b><span>무리한 선택의 대가로 깎임</span></div>
+            <div class="stat-card" style="--stat-c: var(--sage);"><b>관계</b><span>가족·연인·동료와의 선택이 쌓인 값</span></div>
+        </div>
+
+        <h3>대표 엔딩 6종 (v1 확정 스코프)</h3>
+        <p>엔딩은 스탯 5개 조합의 최근접 아키타입 매칭(<code>resolveEnding</code>) — 이후 12~16종으로 늘릴 땐
+        <code>ENDINGS</code> 배열에 항목만 추가하면 되고 매칭 로직은 그대로다.</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>id</th><th>제목</th><th>아키타입 특징</th></tr>
+                <tr><td><code>all-in-success</code></td><td>올인 성공형</td><td>재산·인기 최상, 관계는 희생</td></tr>
+                <tr><td><code>all-in-failure</code></td><td>올인 실패형</td><td>전 스탯 하위권, 그래도 후회 없음</td></tr>
+                <tr><td><code>burnout</code></td><td>번아웃형</td><td>재산·인기는 높지만 건강·행복 붕괴</td></tr>
+                <tr><td><code>stable</code></td><td>안정형</td><td>전 스탯 중상위 균형</td></tr>
+                <tr><td><code>relationship-first</code></td><td>관계 중심형</td><td>관계·행복 최상, 재산·인기는 낮음</td></tr>
+                <tr><td><code>recluse</code></td><td>은둔형</td><td>인기·관계 최하, 행복·건강은 준수</td></tr>
+            </table>
+        </div>
+    </section>
+
+    <section id="sec5">
+        <h2><span class="num">5</span>선택지 작성 원칙</h2>
+        <div class="card">
+            <p><strong>선택지 문장만 보고 결과를 예측할 수 없어야 한다.</strong> deltas·result는 서버(<code>functions/index.js</code>의
+            <code>publicStage()</code>)가 선택 전엔 절대 클라이언트로 보내지 않는다 — 개발자 도구로 응답을 뜯어봐도 안 보임.</p>
+            <div class="grid-2">
+                <div class="card" style="border-left:3px solid var(--coral);">
+                    <h3 style="color:var(--coral);">지양 — 결과가 문장에 이미 있음</h3>
+                    <ul>
+                        <li>"안정적인 대기업에 입사한다 (+재산, −인기)"</li>
+                        <li>"위험을 감수하고 창업한다 (재산 ±큰 변동)"</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-left:3px solid var(--sage);">
+                    <h3 style="color:var(--sage);">지향 — 태도만 드러냄</h3>
+                    <ul>
+                        <li>"다니던 학교를 관두고 방송을 시작해본다"</li>
+                        <li>"바로 돈이 되는 기술을 배워 취업 전선에 뛰어든다"</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="note">세 선택지는 항상 <b>안전 / 도전 / 우회</b> 세 태도 중 하나에 가깝게 쓴다 — 매번 다른 톤을
+            새로 짜내는 대신, 이 뼈대 위에서 구간별 소재만 갈아 끼운다.</p>
+        </div>
+    </section>
+
+    <section id="sec6">
+        <h2><span class="num">6</span>스트리머 검색 — 기존 데이터 재사용</h2>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>노드</th><th>커버리지</th><th>검색 방식</th><th>채택</th></tr>
+                <tr><td><code>stocks/&#123;id&#125;</code></td><td>상장된 <b>모든</b> 스트리머</td><td>인덱스 없음 → 클라이언트가 전체를 받아 <code>.includes()</code> 필터</td><td><span class="badge badge-live">채택</span></td></tr>
+                <tr><td><code>streamerVerifications/&#123;id&#125;</code></td><td>인증 절차를 거친 스트리머만(부분집합)</td><td><code>.indexOn</code> 접두어 검색 가능</td><td>미채택 (커버리지 좁음)</td></tr>
+            </table>
+        </div>
+        <p><code>stocks</code>를 기본 검색 소스로 채택 — "아무 스트리머나 검색해서 주인공 삼기"라는 취지에 인증
+        여부와 무관하게 전체를 검색할 수 있는 쪽이 맞고, 상장 종목 수가 아직 수백 단위라 클라이언트 필터로
+        충분히 빠르다(<code>index.html</code>의 <code>allStocks</code> 배열).</p>
+    </section>
+
+    <section id="sec7">
+        <h2><span class="num">7</span>데이터 구조 (Firebase Realtime Database)</h2>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>경로</th><th>설명</th><th>.read</th></tr>
+                <tr><td><code>lifeGame/playthroughs/&#123;uid&#125;/&#123;playId&#125;</code></td><td><code>streamerName, streamerId, stats, stageIndex, choiceLog[], completed, ending, startedAt, endedAt, galleryEntryId</code></td><td>본인만</td></tr>
+                <tr><td><code>lifeGame/gallery/&#123;id&#125;</code></td><td>공유된 인생 요약 — <code>streamerName, streamerId, ending, stats, uid, sharedAt</code></td><td>공개</td></tr>
+                <tr><td><code>lifeGame/galleryReports/&#123;id&#125;</code></td><td>갤러리 항목 신고 — <code>entryId, reason, reporterUid, reportedAt</code> (StreamBet-Market <code>nicknameReports</code>와 동일 패턴)</td><td>관리자만</td></tr>
+                <tr><td><code>lifeGame/stats/totals</code></td><td><code>started/completed/shared</code> 전체 카운터</td><td>기본값(비공개) — admin-center Cloud Function만 Admin SDK로 읽음</td></tr>
+                <tr><td><code>lifeGame/stats/choices/&#123;stageId&#125;/&#123;choiceId&#125;</code></td><td>선택지별 누적 선택 횟수</td><td>〃</td></tr>
+                <tr><td><code>lifeGame/stats/endings/&#123;endingId&#125;</code></td><td>엔딩별 누적 도달 횟수</td><td>〃</td></tr>
+                <tr><td><code>stocks/&#123;id&#125;</code></td><td>(읽기 전용, soop-stock-market 소유) 스트리머 이름 검색 소스</td><td>공개</td></tr>
+                <tr><td><code>devbarLinks/&#123;gameId&#125;</code></td><td>(읽기 전용, admin-center 소유) devbar 교차 홍보 링크</td><td>공개</td></tr>
+            </table>
+        </div>
+        <p class="note"><b>database.rules.json 동기화 필수</b> — 이 파일은 StreamBet-Market·soop-stock-market·
+        interior-3d-viewer·streamer-life-game 4개 레포가 같은 RTDB를 공유하기 때문에 전부 바이트 단위로 동일해야
+        한다. 자세한 내용은 이 레포의 <code>CLAUDE.md</code> 참고.</p>
+    </section>
+
+    <section id="sec8">
+        <h2><span class="num">8</span>Cloud Functions</h2>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>함수</th><th>codebase</th><th>역할</th></tr>
+                <tr><td><code>startPlaythrough</code></td><td><span class="badge badge-live">lifegame</span></td><td>이름 확정 → 새 플레이스루 생성, 첫 구간 반환. <code>stats.totals.started</code> 증가</td></tr>
+                <tr><td><code>submitChoice</code></td><td><span class="badge badge-live">lifegame</span></td><td>선택 반영 → 스탯 계산, 다음 구간 또는 엔딩 반환. <code>stats.choices.*</code> 증가, 완료 시 <code>stats.endings.*</code>/<code>totals.completed</code> 증가</td></tr>
+                <tr><td><code>shareToGallery</code></td><td><span class="badge badge-live">lifegame</span></td><td>완료한 플레이스루를 공개 갤러리에 복사(1회 한정). <code>stats.totals.shared</code> 증가</td></tr>
+                <tr><td><code>reportGalleryEntry</code></td><td><span class="badge badge-live">lifegame</span></td><td>갤러리 항목 신고 접수</td></tr>
+                <tr><td><code>getLifeGameStats</code></td><td><span class="badge badge-admin">admincenter</span></td><td>admin-center 전용 — <code>lifeGame/stats</code>를 Admin SDK로 읽어 통계 카드에 표시</td></tr>
+            </table>
+        </div>
+    </section>
+
+    <section id="sec9">
+        <h2><span class="num">9</span>시스템 흐름도</h2>
+        <h3>인생 시작 흐름</h3>
+        <div class="flow">
+            <div class="flow-step">스트리머 검색</div><span class="flow-arrow">→</span>
+            <div class="flow-step">이름 확정</div><span class="flow-arrow">→</span>
+            <div class="flow-step">startPlaythrough 호출</div><span class="flow-arrow">→</span>
+            <div class="flow-step">서버: 플레이스루 생성 + 스탯 초기화(50/50/50/50/50)</div><span class="flow-arrow">→</span>
+            <div class="flow-step">첫 구간 렌더</div>
+        </div>
+        <h3>선택 제출 흐름</h3>
+        <div class="flow">
+            <div class="flow-step">선택지 클릭</div><span class="flow-arrow">→</span>
+            <div class="flow-step">submitChoice 호출(choiceId만 전송)</div><span class="flow-arrow">→</span>
+            <div class="flow-step">서버: game-data.js에서 deltas 조회</div><span class="flow-arrow">→</span>
+            <div class="flow-step">서버: 스탯 반영(clamp 0~100) + 통계 카운터 증가</div><span class="flow-arrow">→</span>
+            <div class="flow-step">마지막 구간이면 엔딩 판정, 아니면 다음 구간 반환</div>
+        </div>
+        <h3>갤러리 공유 흐름</h3>
+        <div class="flow">
+            <div class="flow-step">"갤러리에 공유하기" 클릭</div><span class="flow-arrow">→</span>
+            <div class="flow-step">shareToGallery 호출</div><span class="flow-arrow">→</span>
+            <div class="flow-step">서버: 완료 여부·중복 공유 검증</div><span class="flow-arrow">→</span>
+            <div class="flow-step">lifeGame/gallery에 요약 기록</div><span class="flow-arrow">→</span>
+            <div class="flow-step">다른 유저 화면에 실시간 반영</div>
+        </div>
+    </section>
+
+    <section id="sec10">
+        <h2><span class="num">10</span>관리 센터(admin-center) 연동</h2>
+        <div class="card">
+            <h3>devbar</h3>
+            <p>다른 자매 페이지들과 동일한 상단 교차 홍보 바. <code>gameId: 'lifeGame'</code>로
+            <code>devbarLinks</code>(admin-center가 관리하는 RTDB 노드)를 읽어와 동적으로 채우고, 자기 자신은
+            제외한다. <span class="badge badge-todo">TODO</span> <code>devbarLinks/lifeGame</code> 항목 등록은
+            admin-center UI에서 사용자가 직접 진행 예정 — 코드/함수 배포는 완료된 상태.</p>
+            <h3>통계 패널</h3>
+            <p>admin-center의 "모니터링" 그룹에 <b>"인생게임 통계"</b> 카드가 추가돼 있다 — 전체 시작/완료/공유 수,
+            엔딩별·선택지별 누적 횟수를 <code>getLifeGameStats</code> 호출로 표시한다(<code>#section-lifegame-stats</code>,
+            <code>QUICKNAV_ITEMS</code>에도 등록됨).</p>
+        </div>
+    </section>
+
+    <section id="sec11">
+        <h2><span class="num">11</span>향후 보완 과제</h2>
+        <ul class="todo-list">
+            <li><span class="todo-check"></span>나머지 생애 7구간(사춘기·고등학생·사회초년생·서른·중년·노년준비·황혼) 콘텐츠 작성 — <code>functions/game-data.js</code>의 <code>STAGES</code>에 이어 추가</li>
+            <li><span class="todo-check"></span>대표 엔딩 6종 → 12~16종으로 세분화 (<code>ENDINGS</code> 배열에 항목만 추가하면 됨, 매칭 로직 변경 불필요)</li>
+            <li><span class="todo-check"></span>AI 사전 생성 삽화 제작 — <code>interior-3d-viewer</code>의 <code>textures/backdrops/</code> 패턴처럼 <code>assets/scenes/</code>에 정적 이미지로 커밋 예정</li>
+            <li><span class="todo-check"></span><code>devbarLinks/lifeGame</code> 항목을 admin-center UI에서 등록 (사용자 진행 예정)</li>
+            <li><span class="todo-check"></span>보상형 광고·후원형 광고 연동 (v1은 완전 무료로 우선 출시)</li>
+        </ul>
+    </section>
+
+    <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
+</div>
+</body>
+</html>
