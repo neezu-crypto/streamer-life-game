@@ -351,7 +351,9 @@
         <p class="note">매 선택마다 서버가 이미 저장 슬롯에 진행 상태를 쓰고 있어서 별도의 "저장" 동작은
         없다 — 여기서 하는 건 "저장 여부 확인 + 이어서 보여주기"뿐이다. "새로 시작하기"를 고르면
         <code>startPlaythrough</code>가 기존 저장을 그대로 덮어쓴다(계정당 슬롯이 1개라 여러 판을 동시에
-        보관하지 않음).</p>
+        보관하지 않음). 선택 결과가 뜰 때마다 화면 하단에 "💾 자동저장 되었습니다" 토스트(<code>#toast</code>,
+        <code>showToast()</code>)가 잠깐 떴다 사라지는데, 이건 낙관적 표시가 아니라 <code>applyChoice</code>가
+        <code>playRef.update()</code>를 이미 끝내고 응답한 뒤에만 호출되므로 실제 저장 완료를 그대로 반영한다.</p>
         <h3>인생 시작 흐름</h3>
         <div class="flow">
             <div class="flow-step">스트리머 검색</div><span class="flow-arrow">→</span>

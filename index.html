@@ -150,6 +150,17 @@
     .dice-spin { animation: none; }
   }
 
+  .toast {
+    position: fixed; left: 50%; bottom: 26px; z-index: 60;
+    background: var(--panel); border: 1px solid var(--line); color: var(--text);
+    padding: 10px 18px; border-radius: 10px; font-size: 13.5px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+    opacity: 0; pointer-events: none;
+    transform: translate(-50%, 10px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
   .result-box {
     margin-top: 16px; padding: 14px 16px; background: var(--sage-dim);
     border: 1px solid color-mix(in srgb, var(--sage) 40%, transparent);
@@ -259,6 +270,8 @@
   <div class="dice-spin">🎲</div>
   <p class="dice-overlay-text">운명이 정해지는 중...</p>
 </div>
+
+<div id="toast" class="toast"><span id="toastMsg"></span></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
@@ -457,6 +470,17 @@ const nextBtn = document.getElementById('nextBtn');
 const startBtn = document.getElementById('startBtn');
 const diceOverlay = document.getElementById('diceOverlay');
 const DICE_REVEAL_MS = 3000;
+const toast = document.getElementById('toast');
+const toastMsg = document.getElementById('toastMsg');
+const TOAST_MS = 2200;
+
+let toastTimer = null;
+function showToast(message) {
+  toastMsg.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), TOAST_MS);
+}
 
 let pendingNextStage = null;
 
@@ -543,6 +567,10 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   resultBox.classList.remove('hidden');
   renderStatBars(statBars, data.stats);
   if (selectedChoiceId) markSelectedChoice(selectedChoiceId);
+  // 선택 결과는 서버(applyChoice)가 이미 lifeGame/playthroughs/{uid}에 저장을
+  // 마친 뒤 응답한 것이므로, 여기서 뜨는 토스트는 실제 저장 완료를 알리는
+  // 정확한 신호다(낙관적 표시가 아님).
+  showToast('💾 자동저장 되었습니다');
   if (data.completed) {
     pendingNextStage = null;
     showEnding(data.ending, data.stats);
