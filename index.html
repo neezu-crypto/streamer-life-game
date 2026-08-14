@@ -108,6 +108,11 @@
 
   #nameSection .row { display: flex; gap: 8px; }
   #nameSection .row input { flex: 1; }
+  .text-link {
+    display: block; margin-top: 12px; padding: 0; background: none; border: none;
+    color: var(--text-faint); font-size: 12.5px; text-decoration: underline; cursor: pointer;
+  }
+  .text-link:hover { color: var(--text-dim); border: none; }
 
   .stage-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
   .stage-name { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 19px; }
@@ -189,6 +194,7 @@
       <input type="text" id="nameInput" maxlength="40">
       <button class="primary" id="startBtn">인생 시작</button>
     </div>
+    <button id="backToSearchBtn" type="button" class="text-link">← 다른 스트리머 다시 검색</button>
   </section>
 
   <section id="gameSection" class="panel hidden">
@@ -212,7 +218,7 @@
     </div>
   </section>
 
-  <section id="gallerySection" class="panel">
+  <section id="gallerySection" class="panel hidden">
     <h2>다른 유저는 어떤 인생을 살았을까?</h2>
     <div id="galleryList"><p class="empty-msg">불러오는 중...</p></div>
   </section>
@@ -323,14 +329,21 @@ function escapeHtml(s) {
 }
 
 let selectedStreamerId = null;
+const searchSection = document.getElementById('searchSection');
 const nameSection = document.getElementById('nameSection');
 const nameInput = document.getElementById('nameInput');
 function selectStreamer(name, id) {
   selectedStreamerId = id || null;
   nameInput.value = name;
+  searchSection.classList.add('hidden');
   nameSection.classList.remove('hidden');
-  nameSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
+
+document.getElementById('backToSearchBtn').addEventListener('click', () => {
+  nameSection.classList.add('hidden');
+  searchSection.classList.remove('hidden');
+  searchInput.focus();
+});
 
 // ------------------------------------------------------------
 // 2) 인생 시작 + 3) 선택 진행
@@ -481,6 +494,9 @@ const restartBtn = document.getElementById('restartBtn');
 function showEnding(ending, stats) {
   gameSection.classList.add('hidden');
   endingSection.classList.remove('hidden');
+  // 다른 유저 인생 갤러리는 검색·이름짓기·진행 화면에서는 숨겨뒀다가, 자기
+  // 인생을 다 살고 난 뒤(엔딩 화면)에야 자연스럽게 열어준다.
+  document.getElementById('gallerySection').classList.remove('hidden');
   endingTitle.textContent = ending.title;
   endingText.textContent = ending.text;
   renderStatBars(endingStatBars, stats);
