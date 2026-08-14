@@ -209,14 +209,15 @@
         <h3>생애 10카테고리</h3>
         <p>균등한 나이 간격이 아니라 실제 인생의 결절점(입학·진로·독립·가정) 기준. <span class="badge badge-live">구현됨</span>
         3카테고리, <span class="badge badge-todo">콘텐츠 미작성</span> 7카테고리 — 형식은 동일해서 <code>functions/game-data.js</code>의
-        <code>STAGES</code> 배열에 이어 채우면 됨. <b>유아기는 카테고리 하나가 <code>STAGES</code> 안에서 한 살 단위
-        7개 항목(<code>infancy-0</code>~<code>infancy-6</code>)으로 쪼개져 있음</b> — 표의 "구간" 개수와
-        실제 <code>STAGES.length</code>는 다르다.</p>
+        <code>STAGES</code> 배열에 이어 채우면 됨. <b>유아기·초등학생은 카테고리 하나가 <code>STAGES</code> 안에서
+        한 살 단위 여러 항목으로 쪼개져 있음</b> — 유아기는 7개(<code>infancy-0</code>~<code>infancy-6</code>),
+        초등학생은 6개(<code>elementary-7</code>~<code>elementary-12</code>). 표의 "구간" 개수와 실제
+        <code>STAGES.length</code>(현재 14)는 다르다.</p>
         <div class="tbl-wrap">
             <table>
                 <tr><th>구간</th><th>나이</th><th>상태</th></tr>
                 <tr><td>유아기 <span class="badge badge-admin">🎲 주사위(0~3세) + 선택(4~6세)</span></td><td>0–6세</td><td><span class="badge badge-live">구현됨</span></td></tr>
-                <tr><td>초등학생</td><td>7–12세</td><td><span class="badge badge-live">구현됨</span></td></tr>
+                <tr><td>초등학생 <span class="badge badge-admin">선택 × 6(한 살 단위)</span></td><td>7–12세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>사춘기</td><td>13–15세</td><td><span class="badge badge-todo">TODO</span></td></tr>
                 <tr><td>고등학생</td><td>16–18세</td><td><span class="badge badge-todo">TODO</span></td></tr>
                 <tr><td>스무 살</td><td>19–23세</td><td><span class="badge badge-live">구현됨</span></td></tr>
@@ -234,7 +235,12 @@
         "🎲 주사위 굴리기" 버튼 하나만 누를 수 있으며, 서버(<code>rollDice</code>)가 직접 하나를 뽑아
         반영한다. <code>submitChoice</code>는 <code>random</code> 구간을 아예 거부해서 클라이언트가 직접
         골라 우회할 수 없다. 4~6세부터는 스스로 좋고 싫은 게 뚜렷해지는 나이라는 설정으로 다시 일반
-        3지선다(정확히는 6개 중 3개 노출)로 돌아가고, 7세(초등학생)부터도 동일하다.</p>
+        3지선다(정확히는 6개 중 3개 노출)로 돌아간다.</p>
+        <p class="note"><b>초등학생(7~12세)도 유아기와 같은 방식으로 한 살 단위 6개 구간
+        (<code>elementary-7</code>~<code>elementary-12</code>)으로 쪼개져 있다.</b> 다만 이 나이대는 전부
+        본인 의사로 고르는 게 자연스러워서 주사위 구간 없이 전부 일반 선택(6개 중 3개 노출)이다. 학교
+        적응(7세) → 교우관계 심화(8세) → 취미·특기 발견(9세) → 사춘기 전조(10세) → 진로·학업 스트레스
+        (11세) → 졸업·진학 준비(12세) 순으로 매년 다른 주제를 다룬다.</p>
         <p class="note"><b>구간마다 선택지를 최대 6개까지 써두고, 실제로는 그중 3개만 무작위로 노출한다.</b>
         <code>startPlaythrough</code>/<code>applyChoice</code>가 그 구간에 들어설 때 <code>pickVisibleChoiceIds()</code>로
         3개를 미리 뽑아 저장 슬롯(<code>lifeGame/playthroughs/&#123;uid&#125;/visibleChoiceIds</code>)에
@@ -255,10 +261,10 @@
         <div class="tbl-wrap">
             <table>
                 <tr><th>조건 id</th><th>표시</th><th>발병 (구간 · 선택지)</th><th>회복 (구간 · 선택지)</th></tr>
-                <tr><td><code>asthma</code></td><td>🌬️ 천식</td><td>유아기 1세 · <code>asthma-onset</code>(기침이 잦아지더니 천식 진단을 받는다)</td><td>초등학생 · <code>asthma-managed</code>(꾸준한 수영으로 어릴 적 천식을 완전히 극복한다)</td></tr>
+                <tr><td><code>asthma</code></td><td>🌬️ 천식</td><td>유아기 1세 · <code>asthma-onset</code>(기침이 잦아지더니 천식 진단을 받는다)</td><td>초등학생 8세 · <code>asthma-managed</code>(꾸준한 수영으로 어릴 적 천식을 완전히 극복한다)</td></tr>
                 <tr><td><code>broken-arm</code></td><td>🦴 팔 골절</td><td>유아기 2세 · <code>broken-arm-onset</code>(정글짐에서 뛰어내리다 팔이 부러진다)</td><td>유아기 4세 · <code>broken-arm-heal</code>(깁스를 풀고 팔을 마음껏 쓸 수 있게 된다)</td></tr>
                 <tr><td><code>weak-stomach</code></td><td>🤢 잦은 배탈</td><td>유아기 3세 · <code>weak-stomach-onset</code>(장염을 달고 살아 배가 자주 아프다)</td><td>유아기 5세 · <code>weak-stomach-heal</code>(식습관을 고쳐 배앓이가 눈에 띄게 줄어든다)</td></tr>
-                <tr><td><code>ankle-sprain</code></td><td>🦶 발목 부상</td><td>초등학생 · <code>ankle-sprain-onset</code>(축구를 하다 발목을 삐끗한다)</td><td>스무 살 · <code>ankle-treated</code>(미뤄뒀던 발목을 제대로 병원에서 치료받는다)</td></tr>
+                <tr><td><code>ankle-sprain</code></td><td>🦶 발목 부상</td><td>초등학생 10세 · <code>ankle-sprain-onset</code>(축구를 하다 발목을 삐끗한다)</td><td>스무 살 · <code>ankle-treated</code>(미뤄뒀던 발목을 제대로 병원에서 치료받는다)</td></tr>
             </table>
         </div>
         <p class="note">전부 "발병 구간이 회복 구간보다 앞선다"는 순서만 지키면 되고, 발병 선택지와 회복
@@ -363,14 +369,47 @@
                 <tr><td><code>confident-starter</code></td><td>입학이 마냥 기대되는 씩씩한 아이가 된다</td><td></td></tr>
                 <tr><td><code>jump-rope-habit</code></td><td>매일 아침 줄넘기를 하는 습관을 들인다</td><td></td></tr>
 
-                <tr><td rowspan="8">초등학생 · 7–12세</td><td><code>well-rounded</code></td><td>반 친구들과 두루두루 무난하게 지낸다</td><td></td></tr>
-                <tr><td><code>playground-king</code></td><td>운동장을 평정하는 골목대장으로 지낸다</td><td></td></tr>
+                <tr><td rowspan="6">초등학생 · 7세</td><td><code>school-rules-overwhelm</code></td><td>학교 규칙과 시간표에 적응하느라 정신없이 보낸다</td><td></td></tr>
+                <tr><td><code>first-deskmate-bff</code></td><td>짝꿍과 급속도로 단짝이 된다</td><td></td></tr>
+                <tr><td><code>always-raising-hand</code></td><td>발표 시간마다 손을 번쩍 든다</td><td></td></tr>
+                <tr><td><code>spelling-test-struggle</code></td><td>받아쓰기 시험에서 자주 헤맨다</td><td></td></tr>
+                <tr><td><code>well-rounded</code></td><td>반 친구들과 두루두루 무난하게 지낸다</td><td></td></tr>
+                <tr><td><code>clean-plate-club</code></td><td>급식 반찬을 하나도 남기지 않으려 애쓴다</td><td></td></tr>
+
+                <tr><td rowspan="6">초등학생 · 8세</td><td><code>playground-king</code></td><td>운동장을 평정하는 골목대장으로 지낸다</td><td></td></tr>
                 <tr><td><code>solo-creative</code></td><td>혼자 그림 그리거나 책 읽는 걸 더 좋아한다</td><td></td></tr>
-                <tr><td><code>bookworm</code></td><td>도서관에 파묻혀 사는 책벌레로 지낸다</td><td></td></tr>
-                <tr><td><code>little-entrepreneur</code></td><td>학교 앞에서 작은 장사(문구 되팔기 등)를 벌인다</td><td></td></tr>
-                <tr><td><code>competitive-athlete</code></td><td>계주 대표로 뽑혀 매일 운동장을 뛴다</td><td></td></tr>
+                <tr><td><code>first-fight-and-makeup</code></td><td>친구와 크게 싸우고 화해하는 법을 배운다</td><td></td></tr>
+                <tr><td><code>seat-change-anxiety</code></td><td>자리 바꾸는 날마다 잔뜩 긴장한다</td><td></td></tr>
+                <tr><td><code>hagwon-starts</code></td><td>학원을 하나둘 다니기 시작한다</td><td></td></tr>
                 <tr><td><code>asthma-managed</code></td><td>꾸준한 수영으로 어릴 적 천식을 완전히 극복한다</td><td>🌬️ 천식 회복</td></tr>
+
+                <tr><td rowspan="6">초등학생 · 9세</td><td><code>bookworm</code></td><td>도서관에 파묻혀 사는 책벌레로 지낸다</td><td></td></tr>
+                <tr><td><code>arts-talent</code></td><td>미술·음악 학원에서 남다른 재능을 보인다</td><td></td></tr>
+                <tr><td><code>youtube-binge</code></td><td>유튜브에 빠져 하루 종일 영상만 본다</td><td></td></tr>
+                <tr><td><code>first-pet</code></td><td>반려동물을 키우기 시작한다</td><td></td></tr>
+                <tr><td><code>first-sleepover</code></td><td>처음으로 친구 생일파티에 초대받아 밤새 논다</td><td></td></tr>
+                <tr><td><code>little-entrepreneur</code></td><td>학교 앞에서 작은 장사(문구 되팔기 등)를 벌인다</td><td></td></tr>
+
+                <tr><td rowspan="6">초등학생 · 10세</td><td><code>competitive-athlete</code></td><td>계주 대표로 뽑혀 매일 운동장을 뛴다</td><td></td></tr>
+                <tr><td><code>early-puberty-mood</code></td><td>이유 없이 부쩍 예민해지는 날이 많아진다</td><td></td></tr>
+                <tr><td><code>first-crush</code></td><td>처음으로 짝사랑을 경험한다</td><td></td></tr>
+                <tr><td><code>online-gaming-nights</code></td><td>온라인 게임에 빠져 친구들과 밤늦게까지 접속한다</td><td></td></tr>
+                <tr><td><code>class-president-run</code></td><td>전교 회장 선거에 나가본다</td><td></td></tr>
                 <tr><td><code>ankle-sprain-onset</code></td><td>축구를 하다 발목을 삐끗한다</td><td>🦶 발목 부상 발병</td></tr>
+
+                <tr><td rowspan="6">초등학생 · 11세</td><td><code>grade-sensitivity</code></td><td>처음으로 성적표에 예민해지기 시작한다</td><td></td></tr>
+                <tr><td><code>dream-job-flip-flop</code></td><td>장래희망이 자꾸 바뀐다</td><td></td></tr>
+                <tr><td><code>class-officer-duty</code></td><td>학급 임원을 맡아 책임감을 느낀다</td><td></td></tr>
+                <tr><td><code>late-night-texting</code></td><td>몰래 스마트폰으로 밤새 친구들과 채팅을 한다</td><td></td></tr>
+                <tr><td><code>first-big-fight-with-parents</code></td><td>부모님과 처음으로 크게 다툰다</td><td></td></tr>
+                <tr><td><code>streamer-roleplay</code></td><td>좋아하는 스트리머를 따라 방송 흉내를 내본다</td><td></td></tr>
+
+                <tr><td rowspan="6">초등학생 · 12세</td><td><code>yearbook-message</code></td><td>졸업을 앞두고 문집에 남길 말을 오래 고민한다</td><td></td></tr>
+                <tr><td><code>middle-school-assignment-nerves</code></td><td>중학교 배정 결과에 촉각을 곤두세운다</td><td></td></tr>
+                <tr><td><code>final-talent-show-lead</code></td><td>마지막 학예회 무대에서 주인공을 맡는다</td><td></td></tr>
+                <tr><td><code>separating-from-bff</code></td><td>단짝과 다른 중학교에 배정돼 이별을 준비한다</td><td></td></tr>
+                <tr><td><code>growth-spurt</code></td><td>키가 부쩍 자라며 몸이 눈에 띄게 달라지기 시작한다</td><td></td></tr>
+                <tr><td><code>last-field-trip</code></td><td>초등학교 마지막 소풍에서 반 전체와 어울려 논다</td><td></td></tr>
 
                 <tr><td rowspan="7">스무 살 · 19–23세</td><td><code>college</code></td><td>무난하게 대학에 진학해 학점을 관리한다</td><td></td></tr>
                 <tr><td><code>streaming-debut</code></td><td>다니던 학교를 관두고 방송을 시작해본다</td><td></td></tr>

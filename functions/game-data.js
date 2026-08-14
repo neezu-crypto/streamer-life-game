@@ -24,8 +24,11 @@
 // 항목으로 넣는다. 이 중 infancy-0~infancy-3(0~3세)만 random:true(주사위
 // 전용) - 갓난아기~걸음마 시기에 벌어지는 일은 아이 본인이 "선택"할 수 있는
 // 게 아니라는 취지. infancy-4~infancy-6(4~6세)부터는 스스로 뭔가를 좋아하고
-// 싫어하기 시작하는 나이라 다시 일반 선택(6개 중 3개 노출)으로 바뀐다. 7세부터
-// (초등학생)도 동일하게 일반 선택.
+// 싫어하기 시작하는 나이라 다시 일반 선택(6개 중 3개 노출)으로 바뀐다.
+//
+// 초등학생(7~12세)도 유아기와 같은 방식으로 elementary-7 ~ elementary-12
+// 총 6개 항목으로 쪼갰다. 전부 random 없이 일반 선택 - 이 나이대는 본인
+// 의사로 고르는 게 자연스러워서 주사위 구간은 없다.
 //
 // 건강 상세(healthConditions) - 선택지에 addCondition({id,label})을 붙이면
 // 부상/질병이 "생기고", removeCondition(id)을 붙이면 그 조건이 나아서
@@ -394,17 +397,55 @@ const STAGES = [
     ]
   },
   {
-    id: 'elementary',
+    id: 'elementary-7',
     name: '초등학생',
-    ageRange: '7–12세',
-    intro: '처음으로 또래들과 부대끼기 시작하는 시기. 교실과 운동장 중 어디에서 더 많은 시간을 보내느냐가 은근히 오래 갑니다.',
+    ageRange: '7세',
+    intro: '처음으로 또래들과 부대끼기 시작하는 시기. 학교 규칙, 시간표, 새 얼굴들 — 모든 게 낯설고 정신없습니다.',
     choices: [
+      {
+        id: 'school-rules-overwhelm',
+        text: '학교 규칙과 시간표에 적응하느라 정신없이 보낸다',
+        deltas: { happiness: -2, health: -2, relationship: 2 },
+        result: '종이 울릴 때마다 뭘 해야 하는지 몰라 두리번거리던 3월이었다.'
+      },
+      {
+        id: 'first-deskmate-bff',
+        text: '짝꿍과 급속도로 단짝이 된다',
+        deltas: { relationship: 6, happiness: 3 },
+        result: '쉬는 시간마다 손을 잡고 화장실까지 같이 가던 사이.'
+      },
+      {
+        id: 'always-raising-hand',
+        text: '발표 시간마다 손을 번쩍 든다',
+        deltas: { fame: 4, happiness: 2 },
+        result: '틀려도 부끄럽지 않았던, 유일하게 용감했던 시기.'
+      },
+      {
+        id: 'spelling-test-struggle',
+        text: '받아쓰기 시험에서 자주 헤맨다',
+        deltas: { happiness: -3, relationship: 2 },
+        result: '틀린 글자에 동그라미가 잔뜩이었지만, 선생님은 그때마다 더 다정해졌다.'
+      },
       {
         id: 'well-rounded',
         text: '반 친구들과 두루두루 무난하게 지낸다',
         deltas: { relationship: 5, happiness: 3 },
-        result: '딱히 튀지도, 겉돌지도 않은 채로 6년이 흘렀다.'
+        result: '딱히 튀지도, 겉돌지도 않은 채로 1학년이 흘렀다.'
       },
+      {
+        id: 'clean-plate-club',
+        text: '급식 반찬을 하나도 남기지 않으려 애쓴다',
+        deltas: { health: 3, happiness: 1 },
+        result: '싫어하는 반찬도 꾹 참고 삼키던, 나름의 첫 인내심 훈련.'
+      }
+    ]
+  },
+  {
+    id: 'elementary-8',
+    name: '초등학생',
+    ageRange: '8세',
+    intro: '학교가 조금은 익숙해진 만큼, 친구 관계도 한층 복잡해지기 시작합니다.',
+    choices: [
       {
         id: 'playground-king',
         text: '운동장을 평정하는 골목대장으로 지낸다',
@@ -418,22 +459,22 @@ const STAGES = [
         result: '조용했지만, 그때 쌓은 상상력은 어른이 되어서도 종종 꺼내 쓰게 된다.'
       },
       {
-        id: 'bookworm',
-        text: '도서관에 파묻혀 사는 책벌레로 지낸다',
-        deltas: { happiness: 4, wealth: 2, relationship: -3 },
-        result: '친구는 적었지만, 책 속 세계만큼은 누구보다 넓었다.'
+        id: 'first-fight-and-makeup',
+        text: '친구와 크게 싸우고 화해하는 법을 배운다',
+        deltas: { relationship: 4, happiness: -2 },
+        result: '평생 안 볼 것처럼 싸우고도, 다음 날이면 또 나란히 걷고 있었다.'
       },
       {
-        id: 'little-entrepreneur',
-        text: '학교 앞에서 작은 장사(문구 되팔기 등)를 벌인다',
-        deltas: { wealth: 7, fame: 2, relationship: -2 },
-        result: '몇 백 원씩 모은 동전이 그때는 세상에서 제일 큰 재산 같았다.'
+        id: 'seat-change-anxiety',
+        text: '자리 바꾸는 날마다 잔뜩 긴장한다',
+        deltas: { happiness: -2, relationship: 1 },
+        result: '제비뽑기 하나에 그날의 기분이 통째로 좌우됐다.'
       },
       {
-        id: 'competitive-athlete',
-        text: '계주 대표로 뽑혀 매일 운동장을 뛴다',
-        deltas: { health: 7, fame: 3, happiness: -2 },
-        result: '손바닥의 굳은살이 그때는 훈장처럼 자랑스러웠다.'
+        id: 'hagwon-starts',
+        text: '학원을 하나둘 다니기 시작한다',
+        deltas: { wealth: -3, happiness: -1, fame: 1 },
+        result: '놀이터에서 노는 시간이 그만큼 조용히 줄어들었다.'
       },
       {
         id: 'asthma-managed',
@@ -442,6 +483,88 @@ const STAGES = [
         result: '가쁘게 몰아쉬던 숨이, 이제는 옛날이야기가 됐다.',
         requiresCondition: 'asthma',
         removeCondition: 'asthma'
+      }
+    ]
+  },
+  {
+    id: 'elementary-9',
+    name: '초등학생',
+    ageRange: '9세',
+    intro: '취미와 특기가 하나둘 뚜렷해지는 시기. 좋아하는 게 무엇인지 스스로 알아가기 시작합니다.',
+    choices: [
+      {
+        id: 'bookworm',
+        text: '도서관에 파묻혀 사는 책벌레로 지낸다',
+        deltas: { happiness: 4, wealth: 2, relationship: -3 },
+        result: '친구는 적었지만, 책 속 세계만큼은 누구보다 넓었다.'
+      },
+      {
+        id: 'arts-talent',
+        text: '미술·음악 학원에서 남다른 재능을 보인다',
+        deltas: { fame: 3, happiness: 3, wealth: -2 },
+        result: '선생님이 부모님을 따로 불러 칭찬했던, 은근히 우쭐했던 기억.'
+      },
+      {
+        id: 'youtube-binge',
+        text: '유튜브에 빠져 하루 종일 영상만 본다',
+        deltas: { happiness: 2, health: -3, relationship: -2 },
+        result: '눈은 침침해졌지만, 그 시절 유행은 전부 꿰고 있었다.'
+      },
+      {
+        id: 'first-pet',
+        text: '반려동물을 키우기 시작한다',
+        deltas: { happiness: 5, relationship: 3, wealth: -2 },
+        result: '매일 밥 주고 산책시키는 일이 그렇게 뿌듯할 줄 몰랐다.'
+      },
+      {
+        id: 'first-sleepover',
+        text: '처음으로 친구 생일파티에 초대받아 밤새 논다',
+        deltas: { happiness: 4, relationship: 4 },
+        result: '잠도 안 자고 떠들었던 그 밤이, 오래도록 좋은 기억으로 남았다.'
+      },
+      {
+        id: 'little-entrepreneur',
+        text: '학교 앞에서 작은 장사(문구 되팔기 등)를 벌인다',
+        deltas: { wealth: 7, fame: 2, relationship: -2 },
+        result: '몇 백 원씩 모은 동전이 그때는 세상에서 제일 큰 재산 같았다.'
+      }
+    ]
+  },
+  {
+    id: 'elementary-10',
+    name: '초등학생',
+    ageRange: '10세',
+    intro: '몸도 마음도 슬슬 달라지기 시작하는 나이. 사춘기의 첫 신호가 은근슬쩍 찾아옵니다.',
+    choices: [
+      {
+        id: 'competitive-athlete',
+        text: '계주 대표로 뽑혀 매일 운동장을 뛴다',
+        deltas: { health: 7, fame: 3, happiness: -2 },
+        result: '손바닥의 굳은살이 그때는 훈장처럼 자랑스러웠다.'
+      },
+      {
+        id: 'early-puberty-mood',
+        text: '이유 없이 부쩍 예민해지는 날이 많아진다',
+        deltas: { relationship: -3, happiness: -2, health: 1 },
+        result: '왜 그러는지는 본인도 잘 몰랐던, 그런 시기였다.'
+      },
+      {
+        id: 'first-crush',
+        text: '처음으로 짝사랑을 경험한다',
+        deltas: { happiness: 3, relationship: -1 },
+        result: '별것도 아닌 눈맞춤 하나에 하루 종일 마음이 두근거렸다.'
+      },
+      {
+        id: 'online-gaming-nights',
+        text: '온라인 게임에 빠져 친구들과 밤늦게까지 접속한다',
+        deltas: { happiness: 3, health: -4, relationship: 2 },
+        result: '헤드셋 너머로 듣던 친구들 목소리가, 그 시절 가장 가까운 사이였다.'
+      },
+      {
+        id: 'class-president-run',
+        text: '전교 회장 선거에 나가본다',
+        deltas: { fame: 6, relationship: -2, happiness: 2 },
+        result: '떨어져도 후회는 없었다 — 단상에 서봤다는 것만으로 충분했다.'
       },
       {
         id: 'ankle-sprain-onset',
@@ -449,6 +572,94 @@ const STAGES = [
         deltas: { health: -4, relationship: 2 },
         result: '별거 아니라며 넘겼는데, 그 뒤로 가끔씩 시큰거렸다.',
         addCondition: { id: 'ankle-sprain', label: '🦶 발목 부상' }
+      }
+    ]
+  },
+  {
+    id: 'elementary-11',
+    name: '초등학생',
+    ageRange: '11세',
+    intro: '성적과 진로라는 단어가 슬슬 남 얘기가 아니게 되는 시기입니다.',
+    choices: [
+      {
+        id: 'grade-sensitivity',
+        text: '처음으로 성적표에 예민해지기 시작한다',
+        deltas: { happiness: -4, wealth: -2 },
+        result: '숫자 하나에 그날 저녁 집안 분위기가 통째로 바뀌었다.'
+      },
+      {
+        id: 'dream-job-flip-flop',
+        text: '장래희망이 자꾸 바뀐다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '이번 주는 우주비행사, 다음 주는 요리사 — 그래도 꿈꾸는 건 즐거웠다.'
+      },
+      {
+        id: 'class-officer-duty',
+        text: '학급 임원을 맡아 책임감을 느낀다',
+        deltas: { fame: 4, relationship: 3, happiness: -1 },
+        result: '작은 완장 하나가 생각보다 무겁다는 걸 그때 처음 배웠다.'
+      },
+      {
+        id: 'late-night-texting',
+        text: '몰래 스마트폰으로 밤새 친구들과 채팅을 한다',
+        deltas: { happiness: 3, health: -3, relationship: 2 },
+        result: '이불 속 화면 불빛이 그 시절 가장 은밀한 즐거움이었다.'
+      },
+      {
+        id: 'first-big-fight-with-parents',
+        text: '부모님과 처음으로 크게 다툰다',
+        deltas: { relationship: -5, happiness: -3 },
+        result: '문을 쾅 닫고 들어간 방 안에서, 처음으로 혼자라는 기분을 느꼈다.'
+      },
+      {
+        id: 'streamer-roleplay',
+        text: '좋아하는 스트리머를 따라 방송 흉내를 내본다',
+        deltas: { fame: 3, happiness: 3 },
+        result: '카메라도 없는 방에서 혼자 떠들면서도 이상하게 신이 났다.'
+      }
+    ]
+  },
+  {
+    id: 'elementary-12',
+    name: '초등학생',
+    ageRange: '12세',
+    intro: '초등학교의 마지막 한 해. 졸업과 중학교 진학이 코앞으로 다가옵니다.',
+    choices: [
+      {
+        id: 'yearbook-message',
+        text: '졸업을 앞두고 문집에 남길 말을 오래 고민한다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '몇 마디 안 되는 문장을 쓰는 데 며칠이 걸렸다.'
+      },
+      {
+        id: 'middle-school-assignment-nerves',
+        text: '중학교 배정 결과에 촉각을 곤두세운다',
+        deltas: { happiness: -2, relationship: 1 },
+        result: '친구들과 같은 학교인지 아닌지가 세상에서 제일 중요한 문제였다.'
+      },
+      {
+        id: 'final-talent-show-lead',
+        text: '마지막 학예회 무대에서 주인공을 맡는다',
+        deltas: { fame: 6, happiness: 4 },
+        result: '커튼콜 때 쏟아진 박수 소리가 오래도록 귓가에 남았다.'
+      },
+      {
+        id: 'separating-from-bff',
+        text: '단짝과 다른 중학교에 배정돼 이별을 준비한다',
+        deltas: { relationship: -4, happiness: -3 },
+        result: '"연락 끊지 말자"는 약속을 몇 번이고 주고받았다.'
+      },
+      {
+        id: 'growth-spurt',
+        text: '키가 부쩍 자라며 몸이 눈에 띄게 달라지기 시작한다',
+        deltas: { health: 4, happiness: 1 },
+        result: '작년에 산 교복 재킷 소매가 벌써 짧아졌다.'
+      },
+      {
+        id: 'last-field-trip',
+        text: '초등학교 마지막 소풍에서 반 전체와 어울려 논다',
+        deltas: { relationship: 5, happiness: 4 },
+        result: '별거 아닌 김밥 한 줄도, 그날따라 유난히 맛있었다.'
       }
     ]
   },
