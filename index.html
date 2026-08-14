@@ -135,6 +135,21 @@
   .dice-btn { display: block; width: 100%; margin-top: 14px; padding: 14px 15px; font-size: 15px; }
   .dice-hint { font-size: 12px; color: var(--text-faint); margin: 10px 0 0; }
 
+  .dice-overlay {
+    position: fixed; inset: 0; z-index: 50; background: rgba(0, 0, 0, 0.78);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+  }
+  .dice-spin { font-size: 68px; animation: dice-spin-anim 0.9s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+  @keyframes dice-spin-anim {
+    0%   { transform: rotate(0deg) scale(1); }
+    50%  { transform: rotate(190deg) scale(1.15); }
+    100% { transform: rotate(360deg) scale(1); }
+  }
+  .dice-overlay-text { color: #ece3d0; font-size: 14px; letter-spacing: 0.02em; }
+  @media (prefers-reduced-motion: reduce) {
+    .dice-spin { animation: none; }
+  }
+
   .result-box {
     margin-top: 16px; padding: 14px 16px; background: var(--sage-dim);
     border: 1px solid color-mix(in srgb, var(--sage) 40%, transparent);
@@ -238,6 +253,11 @@
   </section>
 
   <footer>스트리머 인생게임 · v0.1 스켈레톤 (구간 3/10, 대표 엔딩 6종)</footer>
+</div>
+
+<div id="diceOverlay" class="dice-overlay hidden">
+  <div class="dice-spin">🎲</div>
+  <p class="dice-overlay-text">운명이 정해지는 중...</p>
 </div>
 
 <script type="module">
@@ -435,6 +455,8 @@ const resultBox = document.getElementById('resultBox');
 const statBars = document.getElementById('statBars');
 const nextBtn = document.getElementById('nextBtn');
 const startBtn = document.getElementById('startBtn');
+const diceOverlay = document.getElementById('diceOverlay');
+const DICE_REVEAL_MS = 3000;
 
 let pendingNextStage = null;
 
@@ -559,10 +581,19 @@ async function pickChoice(choiceId) {
 
 async function rollDice() {
   disableChoiceList();
+  diceOverlay.classList.remove('hidden');
   try {
-    const res = await rollDiceFn();
+    // 서버 응답이 3초보다 빨리 와도 화면이 어두워지고 주사위가 도는 연출을
+    // 최소 3초는 보여준 뒤에 결과를 공개한다 - 반대로 응답이 늦어지면 그만큼
+    // 더 기다렸다가 공개(즉, 3초는 최소 보장 시간이지 고정 시간이 아님).
+    const [res] = await Promise.all([
+      rollDiceFn(),
+      new Promise((resolve) => setTimeout(resolve, DICE_REVEAL_MS))
+    ]);
+    diceOverlay.classList.add('hidden');
     applyOutcome(res.data, '🎲 ' + res.data.choiceText, res.data.choiceId);
   } catch (e) {
+    diceOverlay.classList.add('hidden');
     console.error('주사위 굴리기 실패:', e);
     alert('주사위를 굴리지 못했어요: ' + (e.message || e));
     Array.from(choiceList.children).forEach((b) => { if (b.tagName === 'BUTTON') b.disabled = false; });
