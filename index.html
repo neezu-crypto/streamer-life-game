@@ -118,10 +118,18 @@
     line-height: 1.5;
   }
 
+  /* 주사위 구간(예: 유아기) - 가능성만 미리 보여주고 고를 순 없는 카드 */
+  .choice-preview {
+    padding: 12px 15px; margin-top: 8px; border: 1px dashed var(--line); border-radius: 9px;
+    color: var(--text-dim); font-size: 13.5px; line-height: 1.5;
+  }
+  .dice-btn { display: block; width: 100%; margin-top: 14px; padding: 14px 15px; font-size: 15px; }
+  .dice-hint { font-size: 12px; color: var(--text-faint); margin: 10px 0 0; }
+
   .result-box {
     margin-top: 16px; padding: 14px 16px; background: var(--sage-dim);
     border: 1px solid color-mix(in srgb, var(--sage) 40%, transparent);
-    border-radius: 10px; font-size: 14.5px;
+    border-radius: 10px; font-size: 14.5px; white-space: pre-line;
   }
 
   .stat-bars { display: flex; flex-direction: column; gap: 8px; margin: 14px 0; }
@@ -271,6 +279,7 @@ const functions = getFunctions(app, 'us-central1');
 
 const startPlaythroughFn = httpsCallable(functions, 'startPlaythrough');
 const submitChoiceFn = httpsCallable(functions, 'submitChoice');
+const rollDiceFn = httpsCallable(functions, 'rollDice');
 const shareToGalleryFn = httpsCallable(functions, 'shareToGallery');
 
 let currentUser = null;
@@ -359,11 +368,33 @@ function renderStage(stage) {
   choiceList.innerHTML = '';
   resultBox.classList.add('hidden');
   nextBtn.classList.add('hidden');
+
+  if (stage.random) {
+    // 태어날 집안처럼 스스로 고를 수 없는 구간 - 가능성만 미리보기로 보여주고,
+    // 실제 결정은 "주사위 굴리기" 버튼 하나로만 진행한다(서버가 무작위로 뽑음).
+    stage.choices.forEach((choice) => {
+      const div = document.createElement('div');
+      div.className = 'choice-preview';
+      div.textContent = '🎲 ' + choice.text;
+      choiceList.appendChild(div);
+    });
+    const rollBtn = document.createElement('button');
+    rollBtn.className = 'dice-btn primary';
+    rollBtn.textContent = '🎲 주사위 굴리기';
+    rollBtn.addEventListener('click', rollDice);
+    choiceList.appendChild(rollBtn);
+    const hint = document.createElement('p');
+    hint.className = 'dice-hint';
+    hint.textContent = '이건 스스로 고를 수 없어요 - 위 셋 중 하나가 무작위로 정해집니다.';
+    choiceList.appendChild(hint);
+    return;
+  }
+
   stage.choices.forEach((choice) => {
     const btn = document.createElement('button');
     btn.className = 'choice-btn';
     btn.textContent = choice.text;
-    btn.addEventListener('click', () => pickChoice(choice.id, btn));
+    btn.addEventListener('click', () => pickChoice(choice.id));
     choiceList.appendChild(btn);
   });
 }
@@ -388,24 +419,48 @@ startBtn.addEventListener('click', async () => {
   }
 });
 
-async function pickChoice(choiceId, btnEl) {
-  Array.from(choiceList.children).forEach((b) => (b.disabled = true));
+// submitChoice/rollDice 응답을 공통으로 처리 - 결과 텍스트 반영, 완료 시 엔딩
+// 화면으로, 아니면 "다음" 버튼을 보여준다.
+function applyOutcome(data, resultPrefix) {
+  resultBox.textContent = (resultPrefix ? resultPrefix + '\n' : '') + data.result;
+  resultBox.classList.remove('hidden');
+  renderStatBars(statBars, data.stats);
+  if (data.completed) {
+    pendingNextStage = null;
+    showEnding(data.ending, data.stats);
+  } else {
+    pendingNextStage = data.nextStage;
+    nextBtn.classList.remove('hidden');
+  }
+}
+
+function disableChoiceList() {
+  Array.from(choiceList.children).forEach((el) => {
+    if (el.tagName === 'BUTTON') el.disabled = true;
+  });
+}
+
+async function pickChoice(choiceId) {
+  disableChoiceList();
   try {
     const res = await submitChoiceFn({ playId, choiceId });
-    resultBox.textContent = res.data.result;
-    resultBox.classList.remove('hidden');
-    renderStatBars(statBars, res.data.stats);
-    if (res.data.completed) {
-      pendingNextStage = null;
-      showEnding(res.data.ending, res.data.stats);
-    } else {
-      pendingNextStage = res.data.nextStage;
-      nextBtn.classList.remove('hidden');
-    }
+    applyOutcome(res.data);
   } catch (e) {
     console.error('선택 제출 실패:', e);
     alert('선택을 처리하지 못했어요: ' + (e.message || e));
-    Array.from(choiceList.children).forEach((b) => (b.disabled = false));
+    Array.from(choiceList.children).forEach((b) => { if (b.tagName === 'BUTTON') b.disabled = false; });
+  }
+}
+
+async function rollDice() {
+  disableChoiceList();
+  try {
+    const res = await rollDiceFn({ playId });
+    applyOutcome(res.data, '🎲 ' + res.data.choiceText);
+  } catch (e) {
+    console.error('주사위 굴리기 실패:', e);
+    alert('주사위를 굴리지 못했어요: ' + (e.message || e));
+    Array.from(choiceList.children).forEach((b) => { if (b.tagName === 'BUTTON') b.disabled = false; });
   }
 }
 

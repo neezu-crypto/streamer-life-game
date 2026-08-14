@@ -12,6 +12,11 @@ const STAGES = [
     id: 'infancy',
     name: '유아기',
     ageRange: '0–6세',
+    // 태어날 집안은 스스로 고를 수 있는 게 아니다 - 이 구간만 3지선다가 아니라
+    // 주사위 굴리기(서버가 choices 중 하나를 무작위로 뽑음, rollDice 함수)로
+    // 진행한다. random:true가 있으면 클라이언트는 선택 버튼 대신 "주사위 굴리기"
+    // 버튼만 보여준다(index.html의 renderStage 참고).
+    random: true,
     choices: [
       {
         id: 'warm-poor',
