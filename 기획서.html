@@ -252,6 +252,21 @@
         나았다"고 나오는 일이 없도록. 이 회복용 선택지는 반드시 3개 노출에 들어갈 필요는 없고, 그 조건을
         가진 플레이어에게만 가끔 등장하면 충분하다. 화면 하단 "현재 건강 상세" 패널(<code>#healthConditions</code>)이
         지금 앓고 있는 조건을 계속 보여주고, 아무것도 없으면 "특별한 건강 이슈 없음"으로 표시한다.</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>조건 id</th><th>표시</th><th>발병 (구간 · 선택지)</th><th>회복 (구간 · 선택지)</th></tr>
+                <tr><td><code>asthma</code></td><td>🌬️ 천식</td><td>유아기 1세 · <code>asthma-onset</code>(기침이 잦아지더니 천식 진단을 받는다)</td><td>초등학생 · <code>asthma-managed</code>(꾸준한 수영으로 어릴 적 천식을 완전히 극복한다)</td></tr>
+                <tr><td><code>broken-arm</code></td><td>🦴 팔 골절</td><td>유아기 2세 · <code>broken-arm-onset</code>(정글짐에서 뛰어내리다 팔이 부러진다)</td><td>유아기 4세 · <code>broken-arm-heal</code>(깁스를 풀고 팔을 마음껏 쓸 수 있게 된다)</td></tr>
+                <tr><td><code>weak-stomach</code></td><td>🤢 잦은 배탈</td><td>유아기 3세 · <code>weak-stomach-onset</code>(장염을 달고 살아 배가 자주 아프다)</td><td>유아기 5세 · <code>weak-stomach-heal</code>(식습관을 고쳐 배앓이가 눈에 띄게 줄어든다)</td></tr>
+                <tr><td><code>ankle-sprain</code></td><td>🦶 발목 부상</td><td>초등학생 · <code>ankle-sprain-onset</code>(축구를 하다 발목을 삐끗한다)</td><td>스무 살 · <code>ankle-treated</code>(미뤄뒀던 발목을 제대로 병원에서 치료받는다)</td></tr>
+            </table>
+        </div>
+        <p class="note">전부 "발병 구간이 회복 구간보다 앞선다"는 순서만 지키면 되고, 발병 선택지와 회복
+        선택지는 각각 그 구간의 6~8개 선택지 풀 중 하나일 뿐이라 항상 뽑힌다는 보장은 없다(플레이마다
+        다른 조건을 겪거나 아예 하나도 안 겪을 수 있음) — 반복 플레이의 다양성을 위한 의도된 설계다.
+        새 조건을 추가할 땐 이 형식대로 발병용 선택지(<code>addCondition</code>)와 회복용 선택지
+        (<code>requiresCondition</code> + <code>removeCondition</code>)를 서로 다른(발병이 더 이른) 구간에
+        하나씩 짝지어 넣으면 된다 — 로직 변경은 필요 없다.</p>
         <p class="note"><b>주사위 굴리기를 누르면 결과가 바로 나오지 않는다.</b> 화면 전체가 어두워지며
         (<code>#diceOverlay</code>) 주사위 아이콘이 회전하는 연출이 최소 3초(<code>DICE_REVEAL_MS</code>)
         보여진 뒤에야 결과가 공개된다 — 서버 응답이 3초보다 빨리 와도 최소 3초는 채우고, 응답이 더 늦어지면
