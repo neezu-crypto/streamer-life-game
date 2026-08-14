@@ -200,7 +200,7 @@
         <div class="tbl-wrap">
             <table>
                 <tr><th>구간</th><th>나이</th><th>상태</th></tr>
-                <tr><td>유아기</td><td>0–6세</td><td><span class="badge badge-live">구현됨</span></td></tr>
+                <tr><td>유아기 <span class="badge badge-admin">🎲 주사위</span></td><td>0–6세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>초등학생</td><td>7–12세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>사춘기</td><td>13–15세</td><td><span class="badge badge-todo">TODO</span></td></tr>
                 <tr><td>고등학생</td><td>16–18세</td><td><span class="badge badge-todo">TODO</span></td></tr>
@@ -212,6 +212,12 @@
                 <tr><td>황혼</td><td>70–100세</td><td><span class="badge badge-todo">TODO</span></td></tr>
             </table>
         </div>
+        <p class="note"><b>유아기는 예외 — 3지선다가 아니라 🎲 주사위 굴리기.</b> 태어날 집안은 스스로 고를 수
+        있는 게 아니라는 취지로, <code>STAGES</code>의 <code>infancy</code>에만 <code>random: true</code>를
+        붙였다. 클라이언트는 선택지를 클릭 불가능한 미리보기로만 보여주고 "🎲 주사위 굴리기" 버튼 하나만
+        누를 수 있으며, 서버(<code>rollDice</code>)가 3개 중 하나를 균등 확률로 직접 뽑아 반영한다 —
+        <code>submitChoice</code>는 <code>random</code> 구간을 아예 거부해서 클라이언트가 직접 골라 우회할
+        수 없다.</p>
 
         <h3>다섯 스탯 (0~100)</h3>
         <div class="stat-grid">
@@ -304,7 +310,8 @@
             <table>
                 <tr><th>함수</th><th>codebase</th><th>역할</th></tr>
                 <tr><td><code>startPlaythrough</code></td><td><span class="badge badge-live">lifegame</span></td><td>이름 확정 → 새 플레이스루 생성, 첫 구간 반환. <code>stats.totals.started</code> 증가</td></tr>
-                <tr><td><code>submitChoice</code></td><td><span class="badge badge-live">lifegame</span></td><td>선택 반영 → 스탯 계산, 다음 구간 또는 엔딩 반환. <code>stats.choices.*</code> 증가, 완료 시 <code>stats.endings.*</code>/<code>totals.completed</code> 증가</td></tr>
+                <tr><td><code>submitChoice</code></td><td><span class="badge badge-live">lifegame</span></td><td>선택 반영 → 스탯 계산, 다음 구간 또는 엔딩 반환. <code>random</code> 구간은 거부. <code>stats.choices.*</code> 증가, 완료 시 <code>stats.endings.*</code>/<code>totals.completed</code> 증가</td></tr>
+                <tr><td><code>rollDice</code></td><td><span class="badge badge-live">lifegame</span></td><td><code>random</code> 구간(유아기) 전용 — 서버가 선택지 중 하나를 균등 확률로 직접 뽑아 반영. 통계 카운터 증가는 submitChoice와 동일</td></tr>
                 <tr><td><code>shareToGallery</code></td><td><span class="badge badge-live">lifegame</span></td><td>완료한 플레이스루를 공개 갤러리에 복사(1회 한정). <code>stats.totals.shared</code> 증가</td></tr>
                 <tr><td><code>reportGalleryEntry</code></td><td><span class="badge badge-live">lifegame</span></td><td>갤러리 항목 신고 접수</td></tr>
                 <tr><td><code>getLifeGameStats</code></td><td><span class="badge badge-admin">admincenter</span></td><td>admin-center 전용 — <code>lifeGame/stats</code>를 Admin SDK로 읽어 통계 카드에 표시</td></tr>
@@ -329,6 +336,14 @@
             <div class="flow-step">서버: game-data.js에서 deltas 조회</div><span class="flow-arrow">→</span>
             <div class="flow-step">서버: 스탯 반영(clamp 0~100) + 통계 카운터 증가</div><span class="flow-arrow">→</span>
             <div class="flow-step">마지막 구간이면 엔딩 판정, 아니면 다음 구간 반환</div>
+        </div>
+        <h3>주사위 굴리기 흐름 (유아기 전용)</h3>
+        <div class="flow">
+            <div class="flow-step">🎲 주사위 굴리기 클릭</div><span class="flow-arrow">→</span>
+            <div class="flow-step">rollDice 호출(playId만 전송, choiceId 없음)</div><span class="flow-arrow">→</span>
+            <div class="flow-step">서버: 선택지 중 하나를 균등 확률로 직접 뽑음</div><span class="flow-arrow">→</span>
+            <div class="flow-step">이후는 submitChoice와 동일하게 반영</div><span class="flow-arrow">→</span>
+            <div class="flow-step">응답에 어떤 환경이 뽑혔는지(choiceText)도 포함</div>
         </div>
         <h3>갤러리 공유 흐름</h3>
         <div class="flow">
