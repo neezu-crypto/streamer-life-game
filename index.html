@@ -182,7 +182,16 @@
     <p class="pitch">좋아하는 스트리머의 이름으로 주인공을 만들고, 다양한 인생을 선택해보세요!</p>
   </header>
 
-  <section id="searchSection" class="panel">
+  <section id="resumeSection" class="panel hidden">
+    <h2>이어서 살아볼까요?</h2>
+    <p id="resumeInfo" class="pitch" style="margin:0 0 14px;"></p>
+    <div style="display:flex; gap:8px;">
+      <button class="primary" id="resumeBtn">이어하기</button>
+      <button id="restartFreshBtn">새로 시작하기</button>
+    </div>
+  </section>
+
+  <section id="searchSection" class="panel hidden">
     <h2>1. 스트리머 검색</h2>
     <input type="text" id="searchInput" placeholder="스트리머 이름을 검색해보세요" autocomplete="off">
     <div id="searchResults"></div>
@@ -284,14 +293,26 @@ const functions = getFunctions(app, 'us-central1');
 })();
 
 const startPlaythroughFn = httpsCallable(functions, 'startPlaythrough');
+const resumePlaythroughFn = httpsCallable(functions, 'resumePlaythrough');
 const submitChoiceFn = httpsCallable(functions, 'submitChoice');
 const rollDiceFn = httpsCallable(functions, 'rollDice');
 const shareToGalleryFn = httpsCallable(functions, 'shareToGallery');
 
 let currentUser = null;
+let resumeChecked = false;
 onAuthStateChanged(auth, (user) => {
   currentUser = user;
-  if (!user) signInAnonymously(auth).catch((e) => console.error('익명 로그인 실패:', e));
+  if (!user) {
+    signInAnonymously(auth).catch((e) => console.error('익명 로그인 실패:', e));
+    return;
+  }
+  // 계정당 저장 슬롯 1개 - 로그인(익명 포함)이 확정되면 저장된 판이 있는지 한 번만
+  // 확인한다. 검색 화면을 먼저 보여줬다가 뒤늦게 "이어하기"로 바꾸면 화면이
+  // 깜빡여서, 확인이 끝나기 전까진 검색/이어하기 둘 다 숨겨둔다(아래 checkResume).
+  if (!resumeChecked) {
+    resumeChecked = true;
+    checkResume(user.uid);
+  }
 });
 
 // ------------------------------------------------------------
@@ -346,6 +367,56 @@ document.getElementById('backToSearchBtn').addEventListener('click', () => {
 });
 
 // ------------------------------------------------------------
+// 계정당 저장 슬롯 1개 - 창을 껐다 다시 열어도 이어할 수 있게. 매 선택마다
+// 서버가 이미 lifeGame/playthroughs/{uid}에 진행 상태를 저장해두므로
+// (functions/index.js), 여기선 로그인 직후 그 저장이 있는지만 가볍게
+// 직접 읽어서(.read가 본인 uid만 허용) 확인한다 - 함수 호출은 실제로
+// "이어하기"를 누를 때만 한다.
+// ------------------------------------------------------------
+const resumeSection = document.getElementById('resumeSection');
+const resumeInfo = document.getElementById('resumeInfo');
+const resumeBtn = document.getElementById('resumeBtn');
+
+async function checkResume(uid) {
+  try {
+    const snap = await get(ref(db, 'lifeGame/playthroughs/' + uid));
+    const play = snap.val();
+    if (play && !play.completed) {
+      resumeInfo.textContent = (play.streamerName || '이름 없음') + '님의 인생이 저장되어 있어요 (' + (play.stageIndex + 1) + '번째 구간까지 진행).';
+      resumeSection.classList.remove('hidden');
+      return;
+    }
+  } catch (e) {
+    console.error('저장된 진행 확인 실패:', e);
+  }
+  searchSection.classList.remove('hidden');
+}
+
+resumeBtn.addEventListener('click', async () => {
+  resumeBtn.disabled = true;
+  try {
+    const res = await resumePlaythroughFn();
+    resumeSection.classList.add('hidden');
+    if (res.data.completed) {
+      showEnding(res.data.ending, res.data.stats);
+    } else {
+      gameSection.classList.remove('hidden');
+      renderStatBars(statBars, res.data.stats);
+      renderStage(res.data.stage);
+    }
+  } catch (e) {
+    console.error('이어하기 실패:', e);
+    alert('이어하지 못했어요: ' + (e.message || e));
+    resumeBtn.disabled = false;
+  }
+});
+
+document.getElementById('restartFreshBtn').addEventListener('click', () => {
+  resumeSection.classList.add('hidden');
+  searchSection.classList.remove('hidden');
+});
+
+// ------------------------------------------------------------
 // 2) 인생 시작 + 3) 선택 진행
 // ------------------------------------------------------------
 const gameSection = document.getElementById('gameSection');
@@ -357,7 +428,6 @@ const statBars = document.getElementById('statBars');
 const nextBtn = document.getElementById('nextBtn');
 const startBtn = document.getElementById('startBtn');
 
-let playId = null;
 let pendingNextStage = null;
 
 const STAT_LABELS = { wealth: '재산', fame: '인기', happiness: '행복', health: '건강', relationship: '관계' };
@@ -418,7 +488,6 @@ startBtn.addEventListener('click', async () => {
   startBtn.disabled = true;
   try {
     const res = await startPlaythroughFn({ streamerName, streamerId: selectedStreamerId });
-    playId = res.data.playId;
     document.getElementById('searchSection').classList.add('hidden');
     nameSection.classList.add('hidden');
     gameSection.classList.remove('hidden');
@@ -456,7 +525,7 @@ function disableChoiceList() {
 async function pickChoice(choiceId) {
   disableChoiceList();
   try {
-    const res = await submitChoiceFn({ playId, choiceId });
+    const res = await submitChoiceFn({ choiceId });
     applyOutcome(res.data);
   } catch (e) {
     console.error('선택 제출 실패:', e);
@@ -468,7 +537,7 @@ async function pickChoice(choiceId) {
 async function rollDice() {
   disableChoiceList();
   try {
-    const res = await rollDiceFn({ playId });
+    const res = await rollDiceFn();
     applyOutcome(res.data, '🎲 ' + res.data.choiceText);
   } catch (e) {
     console.error('주사위 굴리기 실패:', e);
@@ -506,7 +575,7 @@ function showEnding(ending, stats) {
 shareBtn.addEventListener('click', async () => {
   shareBtn.disabled = true;
   try {
-    await shareToGalleryFn({ playId });
+    await shareToGalleryFn();
     shareBtn.textContent = '공유됐어요!';
   } catch (e) {
     console.error('공유 실패:', e);

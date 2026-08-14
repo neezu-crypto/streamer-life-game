@@ -9,6 +9,14 @@ initializeApp();
 const MAX_NAME_LEN = 40;
 const MAX_REPORT_REASON_LEN = 300;
 
+// 계정당 저장 슬롯 1개 - lifeGame/playthroughs/{uid}가 push id 없이 그 유저의
+// "그 한 판"을 직접 가리킨다(예전엔 .../{uid}/{playId}로 여러 판을 쌓을 수
+// 있었지만, "창을 꺼도 이어할 수 있게" 요청에 맞춰 계정당 1개로 단순화했다 -
+// 새로 시작하면 기존 진행 중이던 판을 덮어쓴다).
+function playRefFor(db, uid) {
+  return db.ref('lifeGame/playthroughs/' + uid);
+}
+
 // 아직 안 고른 구간의 선택지는 deltas/result를 절대 클라이언트로 보내지 않는다
 // (기획안 04장 "선택지 문장만 보고 결과를 예측할 수 없어야 한다"를 서버에서도
 // 강제 - 개발자 도구로 응답을 뜯어봐도 결과가 안 보이게). random:true인 구간은
@@ -76,11 +84,10 @@ async function applyChoice(db, playRef, play, stage, choice) {
   };
 }
 
-// playId로 진행 중인(아직 안 끝난) 플레이스루와 현재 구간을 함께 불러온다 -
-// submitChoice/rollDice가 공통으로 하는 검증이라 한 곳에 모아둔다.
-async function loadActivePlay(db, uid, playId) {
-  if (!playId) throw new HttpsError('invalid-argument', 'playId가 필요합니다.');
-  const playRef = db.ref('lifeGame/playthroughs/' + uid + '/' + playId);
+// 그 유저의 저장 슬롯에서 진행 중인(아직 안 끝난) 플레이스루와 현재 구간을 함께
+// 불러온다 - submitChoice/rollDice가 공통으로 하는 검증이라 한 곳에 모아둔다.
+async function loadActivePlay(db, uid) {
+  const playRef = playRefFor(db, uid);
   const snap = await playRef.get();
   const play = snap.val();
   if (!play) throw new HttpsError('not-found', '진행 중인 인생을 찾을 수 없습니다.');
@@ -90,7 +97,10 @@ async function loadActivePlay(db, uid, playId) {
   return { playRef, play, stage };
 }
 
-// 04번 - 스트리머 이름을 검색해 주인공을 정하고 첫 생애 구간을 연다.
+// 04번 - 스트리머 이름을 검색해 주인공을 정하고 첫 생애 구간을 연다. 이미 그
+// 계정에 저장된 판이 있었다면(진행 중이든 완료했든) 여기서 덮어쓴다 - 계정당
+// 저장 슬롯 1개라, 클라이언트가 "이어하기" 대신 "새로 시작하기"를 선택했을
+// 때만 이 함수를 부르게 되어 있다.
 // streamerId는 선택값(검색 결과의 stocks 키) - 없어도(직접 입력한 이름) 진행 가능.
 const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
@@ -101,10 +111,9 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   }
 
   const db = getDatabase();
-  const playRef = db.ref('lifeGame/playthroughs/' + uid).push();
   const stats = freshStats();
   await Promise.all([
-    playRef.set({
+    playRefFor(db, uid).set({
       streamerName,
       streamerId,
       stats,
@@ -119,7 +128,25 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
     db.ref('lifeGame/stats/totals/started').set(ServerValue.increment(1))
   ]);
 
-  return { playId: playRef.key, stats, stage: publicStage(STAGES[0]) };
+  return { stats, stage: publicStage(STAGES[0]) };
+});
+
+// 창을 껐다가 다시 열었을 때 - 저장된 판이 있으면 지금 구간을 그대로 이어서
+// 보여준다. 완료된 판이면(엔딩까지 보고 나간 경우) stage 없이 completed만
+// 내려준다 - "이어할 진행"은 없지만 결과는 다시 보여줄 수 있게.
+const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const db = getDatabase();
+  const snap = await playRefFor(db, uid).get();
+  const play = snap.val();
+  if (!play) throw new HttpsError('not-found', '이어할 인생이 없습니다.');
+
+  if (play.completed) {
+    return { streamerName: play.streamerName, stats: play.stats, completed: true, ending: play.ending };
+  }
+  const stage = STAGES[play.stageIndex];
+  if (!stage) throw new HttpsError('failed-precondition', '잘못된 진행 상태입니다.');
+  return { streamerName: play.streamerName, stats: play.stats, completed: false, stage: publicStage(stage) };
 });
 
 // 선택 하나를 제출 - 서버가 정답표(game-data.js)를 갖고 있는 쪽에서만 스탯을
@@ -132,7 +159,7 @@ const submitChoice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
   const choiceId = request.data && request.data.choiceId;
   if (!choiceId) throw new HttpsError('invalid-argument', 'choiceId가 필요합니다.');
 
-  const { playRef, play, stage } = await loadActivePlay(db, uid, request.data && request.data.playId);
+  const { playRef, play, stage } = await loadActivePlay(db, uid);
   if (stage.random) {
     throw new HttpsError('failed-precondition', '이 구간은 직접 고를 수 없습니다. rollDice로 진행해주세요.');
   }
@@ -149,7 +176,7 @@ const submitChoice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
 const rollDice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const db = getDatabase();
-  const { playRef, play, stage } = await loadActivePlay(db, uid, request.data && request.data.playId);
+  const { playRef, play, stage } = await loadActivePlay(db, uid);
   if (!stage.random) {
     throw new HttpsError('failed-precondition', '이 구간은 주사위가 아니라 직접 골라야 합니다.');
   }
@@ -163,11 +190,8 @@ const rollDice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, as
 // (기획안 09장 B) 같은 플레이는 한 번만 공유되게 막는다.
 const shareToGallery = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
-  const playId = request.data && request.data.playId;
-  if (!playId) throw new HttpsError('invalid-argument', 'playId가 필요합니다.');
-
   const db = getDatabase();
-  const playRef = db.ref('lifeGame/playthroughs/' + uid + '/' + playId);
+  const playRef = playRefFor(db, uid);
   const snap = await playRef.get();
   const play = snap.val();
   if (!play) throw new HttpsError('not-found', '진행 중인 인생을 찾을 수 없습니다.');
@@ -213,4 +237,4 @@ const reportGalleryEntry = onCall({ cors: true, timeoutSeconds: 30, memory: '256
   return { ok: true };
 });
 
-module.exports = { startPlaythrough, submitChoice, rollDice, shareToGallery, reportGalleryEntry };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, rollDice, shareToGallery, reportGalleryEntry };

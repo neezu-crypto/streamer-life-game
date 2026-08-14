@@ -176,11 +176,13 @@
     <section id="sec3">
         <h2><span class="num">3</span>화면 구성 (UI)</h2>
         <div class="card">
-            <p>단일 페이지 안에서 아래 5단계가 순서대로(또는 갤러리만 독립적으로) 나타납니다. 상단엔 다른 자매
-            프로젝트들과 동일한 <strong>devbar</strong>(교차 홍보 바)가 항상 떠 있습니다.</p>
+            <p>단일 페이지 안에서 아래 단계가 <strong>한 번에 한 화면만</strong> 보이도록 순서대로 나타납니다(다른
+            단계는 전부 숨김). 상단엔 다른 자매 프로젝트들과 동일한 <strong>devbar</strong>(교차 홍보 바)가
+            항상 떠 있습니다.</p>
             <div class="tbl-wrap">
                 <table>
                     <tr><th>구획</th><th>DOM id</th><th>내용</th></tr>
+                    <tr><td>⓪ 이어하기(조건부)</td><td><code>#resumeSection</code></td><td>로그인 직후 저장 슬롯을 확인해, 끝내지 않은 인생이 있으면 검색 대신 이 화면부터 보여줌 — "이어하기"/"새로 시작하기"</td></tr>
                     <tr><td>① 스트리머 검색</td><td><code>#searchSection</code></td><td><code>stocks</code> 검색 입력창 + 결과 목록. 클릭하면 이름이 다음 단계로 넘어감</td></tr>
                     <tr><td>② 이름 짓기</td><td><code>#nameSection</code></td><td>검색한 이름을 프리필해서 보여주고, 수정 후 "인생 시작"</td></tr>
                     <tr><td>③ 생애 진행</td><td><code>#gameSection</code></td><td>구간명/나이, 3지선다 버튼, 선택 후 결과 텍스트 + 스탯 바</td></tr>
@@ -289,7 +291,7 @@
         <div class="tbl-wrap">
             <table>
                 <tr><th>경로</th><th>설명</th><th>.read</th></tr>
-                <tr><td><code>lifeGame/playthroughs/&#123;uid&#125;/&#123;playId&#125;</code></td><td><code>streamerName, streamerId, stats, stageIndex, choiceLog[], completed, ending, startedAt, endedAt, galleryEntryId</code></td><td>본인만</td></tr>
+                <tr><td><code>lifeGame/playthroughs/&#123;uid&#125;</code></td><td>계정당 저장 슬롯 1개(push id 없음) — <code>streamerName, streamerId, stats, stageIndex, choiceLog[], completed, ending, startedAt, endedAt, galleryEntryId</code>. 새로 시작하면 덮어씀</td><td>본인만</td></tr>
                 <tr><td><code>lifeGame/gallery/&#123;id&#125;</code></td><td>공유된 인생 요약 — <code>streamerName, streamerId, ending, stats, uid, sharedAt</code></td><td>공개</td></tr>
                 <tr><td><code>lifeGame/galleryReports/&#123;id&#125;</code></td><td>갤러리 항목 신고 — <code>entryId, reason, reporterUid, reportedAt</code> (StreamBet-Market <code>nicknameReports</code>와 동일 패턴)</td><td>관리자만</td></tr>
                 <tr><td><code>lifeGame/stats/totals</code></td><td><code>started/completed/shared</code> 전체 카운터</td><td>기본값(비공개) — admin-center Cloud Function만 Admin SDK로 읽음</td></tr>
@@ -309,7 +311,8 @@
         <div class="tbl-wrap">
             <table>
                 <tr><th>함수</th><th>codebase</th><th>역할</th></tr>
-                <tr><td><code>startPlaythrough</code></td><td><span class="badge badge-live">lifegame</span></td><td>이름 확정 → 새 플레이스루 생성, 첫 구간 반환. <code>stats.totals.started</code> 증가</td></tr>
+                <tr><td><code>startPlaythrough</code></td><td><span class="badge badge-live">lifegame</span></td><td>이름 확정 → 저장 슬롯에 새 플레이스루 생성(기존 저장 있으면 덮어씀), 첫 구간 반환. <code>stats.totals.started</code> 증가</td></tr>
+                <tr><td><code>resumePlaythrough</code></td><td><span class="badge badge-live">lifegame</span></td><td>저장 슬롯을 불러와 지금 구간(또는 완료된 엔딩)을 그대로 반환 — 창을 껐다 다시 열었을 때 이어하기용</td></tr>
                 <tr><td><code>submitChoice</code></td><td><span class="badge badge-live">lifegame</span></td><td>선택 반영 → 스탯 계산, 다음 구간 또는 엔딩 반환. <code>random</code> 구간은 거부. <code>stats.choices.*</code> 증가, 완료 시 <code>stats.endings.*</code>/<code>totals.completed</code> 증가</td></tr>
                 <tr><td><code>rollDice</code></td><td><span class="badge badge-live">lifegame</span></td><td><code>random</code> 구간(유아기) 전용 — 서버가 선택지 중 하나를 균등 확률로 직접 뽑아 반영. 통계 카운터 증가는 submitChoice와 동일</td></tr>
                 <tr><td><code>shareToGallery</code></td><td><span class="badge badge-live">lifegame</span></td><td>완료한 플레이스루를 공개 갤러리에 복사(1회 한정). <code>stats.totals.shared</code> 증가</td></tr>
@@ -321,6 +324,17 @@
 
     <section id="sec9">
         <h2><span class="num">9</span>시스템 흐름도</h2>
+        <h3>이어하기 확인 흐름 (계정당 저장 슬롯 1개)</h3>
+        <div class="flow">
+            <div class="flow-step">로그인 확정(익명 포함)</div><span class="flow-arrow">→</span>
+            <div class="flow-step">클라이언트가 lifeGame/playthroughs/&#123;uid&#125;를 직접 읽음(함수 호출 없음)</div><span class="flow-arrow">→</span>
+            <div class="flow-step">completed:false면 "이어하기" 화면, 아니면 검색 화면</div><span class="flow-arrow">→</span>
+            <div class="flow-step">"이어하기" 클릭 시에만 resumePlaythrough 호출 → 지금 구간 반환</div>
+        </div>
+        <p class="note">매 선택마다 서버가 이미 저장 슬롯에 진행 상태를 쓰고 있어서 별도의 "저장" 동작은
+        없다 — 여기서 하는 건 "저장 여부 확인 + 이어서 보여주기"뿐이다. "새로 시작하기"를 고르면
+        <code>startPlaythrough</code>가 기존 저장을 그대로 덮어쓴다(계정당 슬롯이 1개라 여러 판을 동시에
+        보관하지 않음).</p>
         <h3>인생 시작 흐름</h3>
         <div class="flow">
             <div class="flow-step">스트리머 검색</div><span class="flow-arrow">→</span>
