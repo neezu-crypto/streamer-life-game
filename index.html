@@ -20,6 +20,8 @@
     --sage-dim: rgba(126, 169, 135, 0.14);
     --coral: #cd7256;
     --coral-dim: rgba(205, 114, 86, 0.14);
+    --rose: #c97ab0;
+    --sky: #6f93c9;
     --line: #362f23;
   }
   @media (prefers-color-scheme: light) {
@@ -29,6 +31,7 @@
       --gold: #9c6f22; --gold-dim: rgba(156,111,34,0.12);
       --sage: #3f6b4c; --sage-dim: rgba(63,107,76,0.12);
       --coral: #954226; --coral-dim: rgba(149,66,38,0.12);
+      --rose: #9c4a80; --sky: #3f5c94;
       --line: #d9cca5;
     }
   }
@@ -121,13 +124,13 @@
 
   .choice-btn {
     display: block; width: 100%; text-align: left; margin-top: 8px; padding: 13px 15px;
-    line-height: 1.5;
+    line-height: 1.5; transition: opacity 0.3s ease;
   }
 
   /* 주사위 구간(예: 유아기) - 가능성만 미리 보여주고 고를 순 없는 카드 */
   .choice-preview {
     padding: 12px 15px; margin-top: 8px; border: 1px dashed var(--line); border-radius: 9px;
-    color: var(--text-dim); font-size: 13.5px; line-height: 1.5;
+    color: var(--text-dim); font-size: 13.5px; line-height: 1.5; transition: opacity 0.3s ease;
   }
   .dice-btn { display: block; width: 100%; margin-top: 14px; padding: 14px 15px; font-size: 15px; }
   .dice-hint { font-size: 12px; color: var(--text-faint); margin: 10px 0 0; }
@@ -142,7 +145,7 @@
   .stat-bar-row { display: flex; align-items: center; gap: 10px; font-size: 13px; }
   .stat-bar-label { width: 44px; flex: none; color: var(--text-dim); }
   .stat-bar-track { flex: 1; height: 8px; border-radius: 5px; background: var(--panel-2); overflow: hidden; }
-  .stat-bar-fill { height: 100%; background: var(--gold); border-radius: 5px; transition: width 0.4s ease; }
+  .stat-bar-fill { height: 100%; background: var(--gold); border-radius: 5px; transition: width 0.4s ease, background 0.3s ease; }
   .stat-bar-val { width: 28px; text-align: right; color: var(--text-faint); font-variant-numeric: tabular-nums; }
 
   .ending-title { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 22px; color: var(--gold); margin: 0 0 8px; }
@@ -436,6 +439,7 @@ const startBtn = document.getElementById('startBtn');
 let pendingNextStage = null;
 
 const STAT_LABELS = { wealth: '재산', fame: '인기', happiness: '행복', health: '건강', relationship: '관계' };
+const STAT_COLORS = { wealth: 'var(--gold)', fame: 'var(--coral)', happiness: 'var(--rose)', health: 'var(--sage)', relationship: 'var(--sky)' };
 
 function renderStatBars(el, stats) {
   el.innerHTML = '';
@@ -444,7 +448,7 @@ function renderStatBars(el, stats) {
     row.className = 'stat-bar-row';
     row.innerHTML =
       '<span class="stat-bar-label">' + STAT_LABELS[key] + '</span>' +
-      '<span class="stat-bar-track"><span class="stat-bar-fill" style="width:' + (stats[key] || 0) + '%"></span></span>' +
+      '<span class="stat-bar-track"><span class="stat-bar-fill" style="width:' + (stats[key] || 0) + '%; background:' + STAT_COLORS[key] + ';"></span></span>' +
       '<span class="stat-bar-val">' + (stats[key] || 0) + '</span>';
     el.appendChild(row);
   });
@@ -464,6 +468,7 @@ function renderStage(stage) {
     stage.choices.forEach((choice) => {
       const div = document.createElement('div');
       div.className = 'choice-preview';
+      div.dataset.choiceId = choice.id;
       div.textContent = '🎲 ' + choice.text;
       choiceList.appendChild(div);
     });
@@ -482,6 +487,7 @@ function renderStage(stage) {
   stage.choices.forEach((choice) => {
     const btn = document.createElement('button');
     btn.className = 'choice-btn';
+    btn.dataset.choiceId = choice.id;
     btn.textContent = choice.text;
     btn.addEventListener('click', () => pickChoice(choice.id));
     choiceList.appendChild(btn);
@@ -510,10 +516,11 @@ startBtn.addEventListener('click', async () => {
 
 // submitChoice/rollDice 응답을 공통으로 처리 - 결과 텍스트 반영, 완료 시 엔딩
 // 화면으로, 아니면 "다음" 버튼을 보여준다.
-function applyOutcome(data, resultPrefix) {
+function applyOutcome(data, resultPrefix, selectedChoiceId) {
   resultBox.textContent = (resultPrefix ? resultPrefix + '\n' : '') + data.result;
   resultBox.classList.remove('hidden');
   renderStatBars(statBars, data.stats);
+  if (selectedChoiceId) markSelectedChoice(selectedChoiceId);
   if (data.completed) {
     pendingNextStage = null;
     showEnding(data.ending, data.stats);
@@ -529,11 +536,20 @@ function disableChoiceList() {
   });
 }
 
+// 선택이 확정되면 고른 것만 원래 불투명도로 남기고, 나머지 선택지는
+// 30%로 흐리게 해서 어떤 선택지가 결과를 만들었는지 한눈에 보이게 한다.
+function markSelectedChoice(selectedId) {
+  Array.from(choiceList.children).forEach((el) => {
+    if (!el.dataset || !el.dataset.choiceId) return;
+    el.style.opacity = el.dataset.choiceId === selectedId ? '1' : '0.3';
+  });
+}
+
 async function pickChoice(choiceId) {
   disableChoiceList();
   try {
     const res = await submitChoiceFn({ choiceId });
-    applyOutcome(res.data);
+    applyOutcome(res.data, undefined, choiceId);
   } catch (e) {
     console.error('선택 제출 실패:', e);
     alert('선택을 처리하지 못했어요: ' + (e.message || e));
@@ -545,7 +561,7 @@ async function rollDice() {
   disableChoiceList();
   try {
     const res = await rollDiceFn();
-    applyOutcome(res.data, '🎲 ' + res.data.choiceText);
+    applyOutcome(res.data, '🎲 ' + res.data.choiceText, res.data.choiceId);
   } catch (e) {
     console.error('주사위 굴리기 실패:', e);
     alert('주사위를 굴리지 못했어요: ' + (e.message || e));
