@@ -185,11 +185,17 @@
                     <tr><td>⓪ 이어하기(조건부)</td><td><code>#resumeSection</code></td><td>로그인 직후 저장 슬롯을 확인해, 끝내지 않은 인생이 있으면 검색 대신 이 화면부터 보여줌 — "이어하기"/"새로 시작하기"</td></tr>
                     <tr><td>① 스트리머 검색</td><td><code>#searchSection</code></td><td><code>stocks</code> 검색 입력창 + 결과 목록. 클릭하면 이름이 다음 단계로 넘어감</td></tr>
                     <tr><td>② 이름 짓기</td><td><code>#nameSection</code></td><td>검색한 이름을 프리필해서 보여주고, 수정 후 "인생 시작"</td></tr>
-                    <tr><td>③ 생애 진행</td><td><code>#gameSection</code></td><td>구간명/나이, 3지선다 버튼, 선택 후 결과 텍스트 + 스탯 바</td></tr>
+                    <tr><td>③ 생애 진행</td><td><code>#gameSection</code></td><td>구간명/나이, 구간 스토리 문구, 3지선다 버튼, 선택 후 결과 텍스트 + 스탯 바</td></tr>
                     <tr><td>④ 엔딩</td><td><code>#endingSection</code></td><td>엔딩 제목/텍스트 + 최종 스탯, "갤러리에 공유하기"/"다시 태어나기"</td></tr>
                     <tr><td>⑤ 공개 갤러리</td><td><code>#gallerySection</code></td><td>다른 유저가 공유한 인생 목록 (실시간 구독, 최신순)</td></tr>
                 </table>
             </div>
+            <p class="note"><b>게임이 시작되면 상단 헤더(<code>#mainHeader</code> — eyebrow·제목·소개 문구)를 숨긴다.</b>
+            대신 각 구간의 <code>STAGES[].intro</code>(1~2문장짜리 장면 설명, <code>publicStage()</code>가 그대로
+            전달)를 <code>#gameSection</code> 안 <code>#storyText</code>에 채워 "지금 어떤 이야기 안에 있는지"를
+            매 구간 새로 알려준다. 헤더는 게임 시작(<code>startBtn</code>)·이어하기(<code>resumeBtn</code>,
+            미완료 인생)·엔딩(<code>showEnding</code>) 세 지점에서 숨겨지고, 검색·이름짓기·이어하기 확인
+            화면에서는 그대로 보인다.</p>
         </div>
     </section>
 

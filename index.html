@@ -117,6 +117,7 @@
   .stage-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
   .stage-name { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 19px; }
   .stage-age { font-size: 12.5px; color: var(--text-faint); font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; }
+  .story-text { color: var(--text-dim); font-size: 14px; line-height: 1.6; margin: 10px 0 4px; }
 
   .choice-btn {
     display: block; width: 100%; text-align: left; margin-top: 8px; padding: 13px 15px;
@@ -176,7 +177,7 @@
 </div>
 
 <div class="wrap">
-  <header>
+  <header id="mainHeader">
     <p class="eyebrow">interactive life sim · draft</p>
     <h1>스트리머 인생게임</h1>
     <p class="pitch">좋아하는 스트리머의 이름으로 주인공을 만들고, 다양한 인생을 선택해보세요!</p>
@@ -211,6 +212,7 @@
       <span class="stage-name" id="stageName"></span>
       <span class="stage-age" id="stageAge"></span>
     </div>
+    <p id="storyText" class="story-text"></p>
     <div id="choiceList"></div>
     <div id="resultBox" class="result-box hidden"></div>
     <div class="stat-bars" id="statBars"></div>
@@ -400,6 +402,7 @@ resumeBtn.addEventListener('click', async () => {
     if (res.data.completed) {
       showEnding(res.data.ending, res.data.stats);
     } else {
+      mainHeader.classList.add('hidden');
       gameSection.classList.remove('hidden');
       renderStatBars(statBars, res.data.stats);
       renderStage(res.data.stage);
@@ -419,9 +422,11 @@ document.getElementById('restartFreshBtn').addEventListener('click', () => {
 // ------------------------------------------------------------
 // 2) 인생 시작 + 3) 선택 진행
 // ------------------------------------------------------------
+const mainHeader = document.getElementById('mainHeader');
 const gameSection = document.getElementById('gameSection');
 const stageName = document.getElementById('stageName');
 const stageAge = document.getElementById('stageAge');
+const storyText = document.getElementById('storyText');
 const choiceList = document.getElementById('choiceList');
 const resultBox = document.getElementById('resultBox');
 const statBars = document.getElementById('statBars');
@@ -448,6 +453,7 @@ function renderStatBars(el, stats) {
 function renderStage(stage) {
   stageName.textContent = stage.name;
   stageAge.textContent = stage.ageRange;
+  storyText.textContent = stage.intro || '';
   choiceList.innerHTML = '';
   resultBox.classList.add('hidden');
   nextBtn.classList.add('hidden');
@@ -490,6 +496,7 @@ startBtn.addEventListener('click', async () => {
     const res = await startPlaythroughFn({ streamerName, streamerId: selectedStreamerId });
     document.getElementById('searchSection').classList.add('hidden');
     nameSection.classList.add('hidden');
+    mainHeader.classList.add('hidden');
     gameSection.classList.remove('hidden');
     renderStatBars(statBars, res.data.stats);
     renderStage(res.data.stage);
@@ -561,6 +568,7 @@ const shareBtn = document.getElementById('shareBtn');
 const restartBtn = document.getElementById('restartBtn');
 
 function showEnding(ending, stats) {
+  mainHeader.classList.add('hidden');
   gameSection.classList.add('hidden');
   endingSection.classList.remove('hidden');
   // 다른 유저 인생 갤러리는 검색·이름짓기·진행 화면에서는 숨겨뒀다가, 자기

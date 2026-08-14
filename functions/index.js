@@ -27,6 +27,7 @@ function publicStage(stage) {
     id: stage.id,
     name: stage.name,
     ageRange: stage.ageRange,
+    intro: stage.intro || '',
     random: !!stage.random,
     choices: stage.choices.map((c) => ({ id: c.id, text: c.text }))
   };
