@@ -40,15 +40,21 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   const db = getDatabase();
   const playRef = db.ref('lifeGame/playthroughs/' + uid).push();
   const stats = freshStats();
-  await playRef.set({
-    streamerName,
-    streamerId,
-    stats,
-    stageIndex: 0,
-    choiceLog: [],
-    completed: false,
-    startedAt: ServerValue.TIMESTAMP
-  });
+  await Promise.all([
+    playRef.set({
+      streamerName,
+      streamerId,
+      stats,
+      stageIndex: 0,
+      choiceLog: [],
+      completed: false,
+      startedAt: ServerValue.TIMESTAMP
+    }),
+    // 관리 센터 통계용 집계 카운터 - interior-3d-viewer의 presetGallery stats와 동일한
+    // ServerValue.increment 패턴(원본 로그를 admin-center가 매번 다시 훑지 않도록
+    // 이 함수가 직접 카운터를 올려둔다).
+    db.ref('lifeGame/stats/totals/started').set(ServerValue.increment(1))
+  ]);
 
   return { playId: playRef.key, stats, stage: publicStage(STAGES[0]) };
 });
@@ -94,7 +100,18 @@ const submitChoice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
     updates.endedAt = ServerValue.TIMESTAMP;
   }
 
-  await playRef.update(updates);
+  // 선택지·엔딩 통계 카운터 - "선택지 로그"/"엔딩 로그" 통계(admin-center에서 확인)용.
+  // 원본 choiceLog(플레이어별)는 이미 위 updates.choiceLog에 남으니, 여기서는 관리
+  // 화면이 매번 전체 플레이스루를 훑지 않아도 되게 사전 집계된 카운터만 따로 쌓는다.
+  const statWrites = [
+    playRef.update(updates),
+    db.ref('lifeGame/stats/choices/' + stage.id + '/' + choice.id).set(ServerValue.increment(1))
+  ];
+  if (completed) {
+    statWrites.push(db.ref('lifeGame/stats/endings/' + ending.id).set(ServerValue.increment(1)));
+    statWrites.push(db.ref('lifeGame/stats/totals/completed').set(ServerValue.increment(1)));
+  }
+  await Promise.all(statWrites);
 
   return {
     stats,
@@ -122,15 +139,18 @@ const shareToGallery = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB'
   if (play.galleryEntryId) throw new HttpsError('already-exists', '이미 갤러리에 공유한 인생입니다.');
 
   const galleryRef = db.ref('lifeGame/gallery').push();
-  await galleryRef.set({
-    streamerName: play.streamerName,
-    streamerId: play.streamerId || null,
-    ending: play.ending,
-    stats: play.stats,
-    uid,
-    sharedAt: ServerValue.TIMESTAMP
-  });
-  await playRef.update({ galleryEntryId: galleryRef.key });
+  await Promise.all([
+    galleryRef.set({
+      streamerName: play.streamerName,
+      streamerId: play.streamerId || null,
+      ending: play.ending,
+      stats: play.stats,
+      uid,
+      sharedAt: ServerValue.TIMESTAMP
+    }),
+    playRef.update({ galleryEntryId: galleryRef.key }),
+    db.ref('lifeGame/stats/totals/shared').set(ServerValue.increment(1))
+  ]);
 
   return { galleryId: galleryRef.key };
 });

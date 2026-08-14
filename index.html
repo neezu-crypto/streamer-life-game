@@ -37,7 +37,31 @@
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
     line-height: 1.65;
+    display: flex;
+    flex-direction: column;
   }
+
+  /* devbar - 다른 제작 게임 홍보용 상단 바 (이 생태계 다른 페이지들과 동일 구조),
+     넘칠 때만 JS가 자동 스크롤 처리. 색은 각 페이지 고유 톤과 무관하게 항상
+     동일한 어두운 톤 고정 - 다른 게임들과 시각적으로 한 세트임을 알아보게. */
+  .devbar { flex: none; background: #0e1116; border-bottom: 1px solid rgba(255,255,255,0.08); position: relative; z-index: 30; }
+  .devbar-inner { max-width: 1180px; margin: 0 auto; padding: 7px 20px; display: flex; align-items: center; gap: 16px; }
+  .devbar-label { font-size: 11px; color: rgba(255,255,255,0.72); letter-spacing: 0.04em; flex-shrink: 0; white-space: nowrap; align-self: center; }
+  .devbar-viewport { flex: 1 1 auto; min-width: 0; overflow: hidden; }
+  .devbar-track { display: flex; gap: 8px; width: max-content; }
+  .devbar-track.auto-scroll { animation: devbar-scroll var(--devbar-duration, 20s) linear infinite; }
+  .devbar-track.auto-scroll:hover { animation-play-state: paused; }
+  @keyframes devbar-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .devbar-track.auto-scroll { animation: none; }
+    .devbar-viewport { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  }
+  .dev-game-link {
+    flex-shrink: 0; white-space: nowrap; padding: 6px 11px; border-radius: 6px; border: none;
+    background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.85); font-size: 12px; font-weight: 600;
+    text-decoration: none; transition: background 0.12s ease;
+  }
+  .dev-game-link:hover { background: rgba(255,255,255,0.18); }
   .display { font-family: 'Bricolage Grotesque', -apple-system, sans-serif; }
   .wrap { max-width: 620px; margin: 0 auto; padding: 48px 20px 100px; }
 
@@ -122,6 +146,22 @@
 </head>
 <body>
 
+<div class="devbar" id="devbar">
+  <div class="devbar-inner">
+    <div class="devbar-viewport" id="devbarViewport">
+      <div class="devbar-track" id="devbarTrack">
+        <span class="devbar-label">스트리머 인생게임 · BY 오목지면시그</span>
+        <a class="dev-game-link" href="https://www.sooplive.com/station/skftodwocks2" target="_blank" rel="noopener noreferrer">방송국</a>
+        <a class="dev-game-link" data-game-id="stockMarket" href="https://neezu-crypto.github.io/soop-stock-market/index.html" target="_blank" rel="noopener noreferrer">스트리머 주식시장</a>
+        <a class="dev-game-link" data-game-id="bettingMarket" href="https://neezu-crypto.github.io/StreamBet-Market/" target="_blank" rel="noopener noreferrer">스트리머 배팅시장</a>
+        <a class="dev-game-link" data-game-id="backgroundMarket" href="https://neezu-crypto.github.io/interior-3d-viewer/" target="_blank" rel="noopener noreferrer">스트리머 배경시장</a>
+        <a class="dev-game-link" data-game-id="dontClickAds" href="https://neezu-crypto.github.io/dont-click-ads/" target="_blank" rel="noopener noreferrer">절대 광고를 클릭하지 마</a>
+        <a class="dev-game-link" data-game-id="midnightMartRun" href="https://neezu-crypto.github.io/midnight-mart-run/" target="_blank" rel="noopener noreferrer">미드나잇 마트런</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="wrap">
   <header>
     <p class="eyebrow">interactive life sim · draft</p>
@@ -193,6 +233,41 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth(app);
 const functions = getFunctions(app, 'us-central1');
+
+// devbar 게임 링크를 RTDB(devbarLinks, admin-center에서 관리)에서 가져와 하드코딩된
+// 링크를 대체한다 - 다른 배경/배팅/주식/배경시장 페이지들과 동일한 패턴(08번 마이그레이션).
+// 노드가 비어있거나 조회 실패 시 기존 하드코딩된 data-game-id 링크를 그대로 둔다
+// (devbar가 통째로 사라지는 사고 방지) - "방송국" 링크는 devbarLinks 대상이 아니라
+// 항상 하드코딩 그대로 유지된다.
+(async function () {
+  const SELF_GAME_ID = 'lifeGame';
+  try {
+    const snap = await get(ref(db, 'devbarLinks'));
+    const data = snap.val();
+    if (!data) return;
+    const links = Object.keys(data)
+      .filter((id) => id !== SELF_GAME_ID && data[id] && data[id].url)
+      .map((id) => Object.assign({ id }, data[id]))
+      .sort((a, b) => (a.order || 0) - (b.order || 0));
+    if (!links.length) return;
+    const track = document.getElementById('devbarTrack');
+    if (!track) return;
+    track.querySelectorAll('a[data-game-id]').forEach((el) => el.remove());
+    links.forEach((link) => {
+      const a = document.createElement('a');
+      a.className = 'dev-game-link';
+      a.dataset.gameId = link.id;
+      a.href = link.url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.textContent = link.label;
+      track.appendChild(a);
+    });
+    window.dispatchEvent(new Event('resize')); // 마퀴 재계산 트리거
+  } catch (e) {
+    console.error('devbar 링크 갱신 실패(기존 링크 유지):', e);
+  }
+})();
 
 const startPlaythroughFn = httpsCallable(functions, 'startPlaythrough');
 const submitChoiceFn = httpsCallable(functions, 'submitChoice');
@@ -395,6 +470,38 @@ onValue(ref(db, 'lifeGame/gallery'), (snap) => {
   console.error('갤러리 읽기 실패:', err);
   galleryList.innerHTML = '<p class="empty-msg">갤러리를 불러올 수 없습니다.</p>';
 });
+
+// ------------------------------------------------------------
+// devbar 자동 스크롤 (넘칠 때만) - 다른 페이지들과 동일 로직
+// ------------------------------------------------------------
+(function setupDevbarMarquee() {
+  const viewport = document.getElementById('devbarViewport');
+  const track = document.getElementById('devbarTrack');
+  if (!viewport || !track) return;
+  function rebuild() {
+    track.querySelectorAll('[data-clone]').forEach((el) => el.remove());
+    track.classList.remove('auto-scroll');
+    track.style.removeProperty('--devbar-duration');
+    if (track.scrollWidth <= viewport.clientWidth) return;
+    const originalWidth = track.scrollWidth;
+    Array.prototype.slice.call(track.children).forEach((child) => {
+      const clone = child.cloneNode(true);
+      clone.setAttribute('data-clone', 'true');
+      clone.setAttribute('aria-hidden', 'true');
+      clone.setAttribute('tabindex', '-1');
+      track.appendChild(clone);
+    });
+    const duration = Math.max(8, originalWidth / 40);
+    track.style.setProperty('--devbar-duration', duration + 's');
+    track.classList.add('auto-scroll');
+  }
+  rebuild();
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(rebuild, 200);
+  });
+})();
 </script>
 </body>
 </html>
