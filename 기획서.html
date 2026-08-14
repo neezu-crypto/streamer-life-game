@@ -208,12 +208,13 @@
         <h2><span class="num">4</span>생애 사이클 · 스탯 시스템</h2>
         <h3>생애 10카테고리</h3>
         <p>균등한 나이 간격이 아니라 실제 인생의 결절점(입학·진로·독립·가정) 기준. <span class="badge badge-live">구현됨</span>
-        5카테고리, <span class="badge badge-todo">콘텐츠 미작성</span> 5카테고리 — 형식은 동일해서 <code>functions/game-data.js</code>의
-        <code>STAGES</code> 배열에 이어 채우면 됨. <b>유아기·초등학생·청소년기·스무 살은 카테고리가 <code>STAGES</code> 안에서
-        한 살 단위 여러 항목으로 쪼개져 있음</b> — 유아기는 7개(<code>infancy-0</code>~<code>infancy-6</code>),
-        초등학생은 6개(<code>elementary-7</code>~<code>elementary-12</code>), 청소년기는 6개(<code>teen-13</code>~
-        <code>teen-18</code>, 사춘기+고등학생을 한 카테고리로 통합 구현), 스무 살은 5개(<code>twenties-19</code>~
-        <code>twenties-23</code>). 표의 "구간" 개수와 실제 <code>STAGES.length</code>(현재 24)는 다르다.</p>
+        6카테고리, <span class="badge badge-todo">콘텐츠 미작성</span> 4카테고리 — 형식은 동일해서 <code>functions/game-data.js</code>의
+        <code>STAGES</code> 배열에 이어 채우면 됨. <b>유아기·초등학생·청소년기·스무 살·사회 초년생은 카테고리가
+        <code>STAGES</code> 안에서 한 살 단위 여러 항목으로 쪼개져 있음</b> — 유아기는 7개(<code>infancy-0</code>~
+        <code>infancy-6</code>), 초등학생은 6개(<code>elementary-7</code>~<code>elementary-12</code>), 청소년기는
+        6개(<code>teen-13</code>~<code>teen-18</code>, 사춘기+고등학생을 한 카테고리로 통합 구현), 스무 살은 5개
+        (<code>twenties-19</code>~<code>twenties-23</code>), 사회 초년생은 6개(<code>rookie-24</code>~
+        <code>rookie-29</code>). 표의 "구간" 개수와 실제 <code>STAGES.length</code>(현재 30)는 다르다.</p>
         <div class="tbl-wrap">
             <table>
                 <tr><th>구간</th><th>나이</th><th>상태</th></tr>
@@ -222,7 +223,7 @@
                 <tr><td>사춘기 <span class="badge badge-admin">청소년기로 통합 구현</span></td><td>13–15세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>고등학생 <span class="badge badge-admin">청소년기로 통합 구현</span></td><td>16–18세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>스무 살 <span class="badge badge-admin">선택 × 5(한 살 단위)</span></td><td>19–23세</td><td><span class="badge badge-live">구현됨</span></td></tr>
-                <tr><td>사회 초년생</td><td>24–29세</td><td><span class="badge badge-todo">TODO</span></td></tr>
+                <tr><td>사회 초년생 <span class="badge badge-admin">선택 × 6(한 살 단위)</span></td><td>24–29세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>서른, 자리잡기</td><td>30–39세</td><td><span class="badge badge-todo">TODO</span></td></tr>
                 <tr><td>중년, 선택의 무게</td><td>40–54세</td><td><span class="badge badge-todo">TODO</span></td></tr>
                 <tr><td>노년 준비</td><td>55–69세</td><td><span class="badge badge-todo">TODO</span></td></tr>
@@ -254,6 +255,9 @@
         준비 등)로 새로 채웠다 — 자취 시작(20세) → 진로 구체화(21세) → 인턴·취업 현실(22세) → 첫 정규직·
         자립(23세) 순. 이 게임은 이전 선택에 따라 이후 구간 내용이 달라지지 않으므로(스탯에만 반영),
         19세에 뭘 골랐든 20~23세 선택지는 동일하게 노출된다.</p>
+        <p class="note"><b>사회 초년생(24~29세)도 같은 방식으로 한 살 단위 6개 구간(<code>rookie-24</code>~
+        <code>rookie-29</code>)으로 쪼개져 있다.</b> 신입 적응(24세) → 업무 숙련·이직 고민(25세) → 독립·
+        재테크(26세) → 방향 재점검(27세) → 성과·책임 증가(28세) → 20대 정리(29세) 순.</p>
         <p class="note"><b>구간마다 선택지를 최대 6개까지 써두고, 실제로는 그중 3개만 무작위로 노출한다.</b>
         <code>startPlaythrough</code>/<code>applyChoice</code>가 그 구간에 들어설 때 <code>pickVisibleChoiceIds()</code>로
         3개를 미리 뽑아 저장 슬롯(<code>lifeGame/playthroughs/&#123;uid&#125;/visibleChoiceIds</code>)에
@@ -283,6 +287,8 @@
                 <tr><td><code>exam-stress-gastritis</code></td><td>🤒 스트레스성 위염</td><td>청소년기 17세 · <code>exam-stress-gastritis-onset</code>(입시 스트레스로 위가 쓰리고 체하는 날이 잦아진다)</td><td>청소년기 18세 · <code>exam-stress-gastritis-heal</code>(수능이 끝나자마자 위염이 거짓말처럼 가라앉는다)</td></tr>
                 <tr><td><code>back-pain</code></td><td>🦴 허리 통증</td><td>스무 살 20세 · <code>back-pain-onset</code>(잦은 알바 노동으로 허리에 무리가 온다)</td><td>스무 살 22세 · <code>back-pain-heal</code>(필라테스·운동을 꾸준히 하며 허리 통증을 완전히 극복한다)</td></tr>
                 <tr><td><code>burnout-syndrome</code></td><td>🔥 번아웃 증후군</td><td>스무 살 22세 · <code>burnout-onset</code>(인턴 생활에 몸과 마음을 갈아 넣다 번아웃이 온다)</td><td>스무 살 23세 · <code>burnout-heal</code>(충분히 쉬며 번아웃에서 서서히 회복한다)</td></tr>
+                <tr><td><code>carpal-tunnel</code></td><td>✋ 손목터널증후군</td><td>사회 초년생 25세 · <code>carpal-tunnel-onset</code>(매일 반복되는 키보드·마우스 작업으로 손목에 저림이 시작된다)</td><td>사회 초년생 27세 · <code>carpal-tunnel-heal</code>(손목 보호대를 차고 스트레칭을 꾸준히 하며 저림이 사라진다)</td></tr>
+                <tr><td><code>insomnia</code></td><td>😵 불면증</td><td>사회 초년생 26세 · <code>insomnia-onset</code>(업무 스트레스로 밤마다 잠들지 못하는 날이 늘어난다)</td><td>사회 초년생 28세 · <code>insomnia-heal</code>(수면 습관을 개선하며 불면증에서 서서히 벗어난다)</td></tr>
             </table>
         </div>
         <p class="note">전부 "발병 구간이 회복 구간보다 앞선다"는 순서만 지키면 되고, 발병 선택지와 회복
@@ -516,6 +522,52 @@
                 <tr><td><code>setting-new-goals</code></td><td>다가올 서른을 준비하며 새로운 목표를 세운다</td><td></td></tr>
                 <tr><td><code>quarter-life-crisis</code></td><td>문득 "이대로 괜찮은가" 하는 불안이 찾아온다</td><td></td></tr>
                 <tr><td><code>burnout-heal</code></td><td>충분히 쉬며 번아웃에서 서서히 회복한다</td><td>🔥 번아웃 증후군 회복</td></tr>
+
+                <tr><td rowspan="6">사회 초년생 · 24세</td><td><code>learning-the-ropes</code></td><td>신입 딱지를 떼려 필사적으로 배운다</td><td></td></tr>
+                <tr><td><code>scolded-by-mentor</code></td><td>사수·선배에게 혼나며 하나씩 배워간다</td><td></td></tr>
+                <tr><td><code>first-team-dinner</code></td><td>첫 회식 자리에서 조직 문화에 적응한다</td><td></td></tr>
+                <tr><td><code>first-paycheck-for-parents</code></td><td>월급을 받고 처음으로 부모님께 용돈을 드린다</td><td></td></tr>
+                <tr><td><code>confidence-crushed</code></td><td>업무 실수로 크게 깨지고 자신감을 잃는다</td><td></td></tr>
+                <tr><td><code>rookie-camaraderie</code></td><td>동기들과 끈끈한 생존 동료애를 쌓는다</td><td></td></tr>
+
+                <tr><td rowspan="7">사회 초년생 · 25세</td><td><code>work-becomes-easier</code></td><td>어느 정도 일이 손에 익어 여유가 생긴다</td><td></td></tr>
+                <tr><td><code>job-change-consideration</code></td><td>더 나은 조건을 찾아 이직을 진지하게 고민한다</td><td></td></tr>
+                <tr><td><code>overtime-recognition</code></td><td>밤낮없이 야근하며 성과를 인정받는다</td><td></td></tr>
+                <tr><td><code>preburnout-escape-trip</code></td><td>번아웃 직전, 훌쩍 짧은 퇴사 여행을 다녀온다</td><td></td></tr>
+                <tr><td><code>office-romance</code></td><td>회사 사람과 사내 연애를 시작한다</td><td></td></tr>
+                <tr><td><code>sns-comparison-fatigue</code></td><td>SNS 속 친구들의 화려한 삶과 나를 자꾸 비교한다</td><td></td></tr>
+                <tr><td><code>carpal-tunnel-onset</code></td><td>매일 반복되는 키보드·마우스 작업으로 손목에 저림이 시작된다</td><td>✋ 손목터널증후군 발병</td></tr>
+
+                <tr><td rowspan="7">사회 초년생 · 26세</td><td><code>apartment-hunting</code></td><td>전셋집을 구하려 발품을 팔며 부동산을 알아본다</td><td></td></tr>
+                <tr><td><code>first-investment-steps</code></td><td>적금·투자를 시작하며 처음으로 재테크에 눈을 뜬다</td><td></td></tr>
+                <tr><td><code>first-wedding-invitation</code></td><td>결혼한 친구의 청첩장을 처음 받아본다</td><td></td></tr>
+                <tr><td><code>mentoring-a-junior</code></td><td>회사에서 처음으로 후배를 맡아 가르친다</td><td></td></tr>
+                <tr><td><code>mastering-solo-time</code></td><td>혼자만의 시간을 즐기는 법을 제대로 배운다</td><td></td></tr>
+                <tr><td><code>routine-boredom</code></td><td>쳇바퀴 같은 일상에 문득 권태를 느낀다</td><td></td></tr>
+                <tr><td><code>insomnia-onset</code></td><td>업무 스트레스로 밤마다 잠들지 못하는 날이 늘어난다</td><td>😵 불면증 발병</td></tr>
+
+                <tr><td rowspan="7">사회 초년생 · 27세</td><td><code>questioning-the-path</code></td><td>지금 하는 일이 정말 맞는 길인지 진지하게 고민한다</td><td></td></tr>
+                <tr><td><code>side-project-launch</code></td><td>부업·사이드 프로젝트를 시작하며 새 가능성을 시험한다</td><td></td></tr>
+                <tr><td><code>marriage-talk</code></td><td>오래 만난 연인과 결혼을 진지하게 이야기한다</td><td></td></tr>
+                <tr><td><code>grad-school-consideration</code></td><td>대학원·유학 등 다시 공부를 시작할지 고민한다</td><td></td></tr>
+                <tr><td><code>coworker-departure-jitters</code></td><td>동료의 퇴사·이직 소식에 나도 흔들린다</td><td></td></tr>
+                <tr><td><code>first-real-checkup</code></td><td>그동안 미뤄온 건강검진을 처음으로 제대로 받는다</td><td></td></tr>
+                <tr><td><code>carpal-tunnel-heal</code></td><td>손목 보호대를 차고 스트레칭을 꾸준히 하며 저림이 사라진다</td><td>✋ 손목터널증후군 회복</td></tr>
+
+                <tr><td rowspan="7">사회 초년생 · 28세</td><td><code>small-promotion</code></td><td>작은 승진과 함께 책임이 부쩍 무거워진다</td><td></td></tr>
+                <tr><td><code>first-team-lead</code></td><td>팀을 이끌며 사람 관리의 어려움을 처음 겪는다</td><td></td></tr>
+                <tr><td><code>parents-aging-realization</code></td><td>부모님의 건강이 예전 같지 않다는 걸 실감한다</td><td></td></tr>
+                <tr><td><code>first-home-savings-goal</code></td><td>그동안 모은 돈으로 내 집 마련의 첫걸음을 뗀다</td><td></td></tr>
+                <tr><td><code>work-life-balance-thought</code></td><td>일과 삶의 균형을 처음으로 진지하게 고민한다</td><td></td></tr>
+                <tr><td><code>being-called-senior</code></td><td>후배들 사이에서 어느새 "선배"로 불리는 게 낯설다</td><td></td></tr>
+                <tr><td><code>insomnia-heal</code></td><td>수면 습관을 개선하며 불면증에서 서서히 벗어난다</td><td>😵 불면증 회복</td></tr>
+
+                <tr><td rowspan="6">사회 초년생 · 29세</td><td><code>last-twenties-birthday</code></td><td>20대의 마지막 생일을 조용히, 혹은 왁자지껄하게 보낸다</td><td></td></tr>
+                <tr><td><code>resume-reflection</code></td><td>지난 5년의 커리어를 이력서 한 장으로 정리해본다</td><td></td></tr>
+                <tr><td><code>bucket-list-before-thirty</code></td><td>서른 전에 꼭 해보고 싶던 버킷리스트를 실행에 옮긴다</td><td></td></tr>
+                <tr><td><code>twenties-friends-trip</code></td><td>20대를 함께한 친구들과 여행을 떠난다</td><td></td></tr>
+                <tr><td><code>weight-of-turning-thirty</code></td><td>다가올 서른이 주는 무게감에 잠시 마음이 복잡해진다</td><td></td></tr>
+                <tr><td><code>no-regrets-affirmation</code></td><td>지난 20대를 돌아보며 후회 없다고 스스로에게 말해준다</td><td></td></tr>
             </table>
         </div>
     </section>

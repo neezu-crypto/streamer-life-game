@@ -41,6 +41,11 @@
 // 선택에 따라 이후 구간 내용이 달라지지 않으므로(스탯에만 반영) 19세에
 // 뭘 골랐든 20~23세 선택지는 동일하게 노출된다.
 //
+// "사회 초년생"(24~29세)도 같은 패턴으로 rookie-24 ~ rookie-29 총 6개
+// 항목으로 구현했다. 신입 적응(24세) → 업무 숙련/이직 고민(25세) →
+// 독립·재테크(26세) → 방향 재점검(27세) → 성과·책임 증가(28세) →
+// 20대 정리(29세) 순.
+//
 // 건강 상세(healthConditions) - 선택지에 addCondition({id,label})을 붙이면
 // 부상/질병이 "생기고", removeCondition(id)을 붙이면 그 조건이 나아서
 // "없어진다". 서버(index.js의 applyChoice)가 그 판의 저장 슬롯에
@@ -1240,8 +1245,302 @@ const STAGES = [
         removeCondition: 'burnout-syndrome'
       }
     ]
+  },
+  {
+    id: 'rookie-24',
+    name: '사회 초년생',
+    ageRange: '24세',
+    intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
+    choices: [
+      {
+        id: 'learning-the-ropes',
+        text: '신입 딱지를 떼려 필사적으로 배운다',
+        deltas: { happiness: -2, fame: 2, wealth: 2 },
+        result: '메모장 하나가 너덜너덜해질 때까지 모든 걸 적었다.'
+      },
+      {
+        id: 'scolded-by-mentor',
+        text: '사수·선배에게 혼나며 하나씩 배워간다',
+        deltas: { relationship: 2, happiness: -3 },
+        result: '혼나는 것도 배우는 과정이라는 말을, 그땐 몰랐다.'
+      },
+      {
+        id: 'first-team-dinner',
+        text: '첫 회식 자리에서 조직 문화에 적응한다',
+        deltas: { relationship: 4, health: -2 },
+        result: '낯선 얼굴들 사이에서 웃는 법부터 다시 배웠다.'
+      },
+      {
+        id: 'first-paycheck-for-parents',
+        text: '월급을 받고 처음으로 부모님께 용돈을 드린다',
+        deltas: { happiness: 4, relationship: 3, wealth: -3 },
+        result: '봉투를 내미는 손이 뿌듯함으로 살짝 떨렸다.'
+      },
+      {
+        id: 'confidence-crushed',
+        text: '업무 실수로 크게 깨지고 자신감을 잃는다',
+        deltas: { happiness: -5, relationship: -1 },
+        result: '그날 밤은 유독 천장이 낯설게 느껴졌다.'
+      },
+      {
+        id: 'rookie-camaraderie',
+        text: '동기들과 끈끈한 생존 동료애를 쌓는다',
+        deltas: { relationship: 5, happiness: 3 },
+        result: '다 같이 신입이라는 이유 하나로 뭉쳤던 시절.'
+      }
+    ]
+  },
+  {
+    id: 'rookie-25',
+    name: '사회 초년생',
+    ageRange: '25세',
+    intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
+    choices: [
+      {
+        id: 'work-becomes-easier',
+        text: '어느 정도 일이 손에 익어 여유가 생긴다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '이제야 주변을 둘러볼 여유가 조금 생겼다.'
+      },
+      {
+        id: 'job-change-consideration',
+        text: '더 나은 조건을 찾아 이직을 진지하게 고민한다',
+        deltas: { fame: 2, happiness: -2 },
+        result: '채용 공고 창을 몰래 켜두는 날이 늘었다.'
+      },
+      {
+        id: 'overtime-recognition',
+        text: '밤낮없이 야근하며 성과를 인정받는다',
+        deltas: { wealth: 4, health: -4, fame: 2 },
+        result: '인정받는 기쁨과 몸이 축나는 속도가 나란히 갔다.'
+      },
+      {
+        id: 'preburnout-escape-trip',
+        text: '번아웃 직전, 훌쩍 짧은 퇴사 여행을 다녀온다',
+        deltas: { happiness: 5, wealth: -3 },
+        result: '퇴사는 아니었지만, 며칠은 온전히 도망쳤다.'
+      },
+      {
+        id: 'office-romance',
+        text: '회사 사람과 사내 연애를 시작한다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '비밀 연애의 스릴이 은근히 재밌었다.'
+      },
+      {
+        id: 'sns-comparison-fatigue',
+        text: 'SNS 속 친구들의 화려한 삶과 나를 자꾸 비교한다',
+        deltas: { happiness: -4, relationship: -1 },
+        result: '남의 하이라이트와 내 일상을 비교하는 게 부질없다는 걸 알면서도 멈추지 못했다.'
+      },
+      {
+        id: 'carpal-tunnel-onset',
+        text: '매일 반복되는 키보드·마우스 작업으로 손목에 저림이 시작된다',
+        deltas: { health: -4, wealth: 2 },
+        result: '타이핑을 칠 때마다 손끝이 찌릿하게 저려왔다.',
+        addCondition: { id: 'carpal-tunnel', label: '✋ 손목터널증후군' }
+      }
+    ]
+  },
+  {
+    id: 'rookie-26',
+    name: '사회 초년생',
+    ageRange: '26세',
+    intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
+    choices: [
+      {
+        id: 'apartment-hunting',
+        text: '전셋집을 구하려 발품을 팔며 부동산을 알아본다',
+        deltas: { wealth: -3, happiness: -1 },
+        result: '계약서 도장 하나 찍는 데 이렇게 긴장될 줄 몰랐다.'
+      },
+      {
+        id: 'first-investment-steps',
+        text: '적금·투자를 시작하며 처음으로 재테크에 눈을 뜬다',
+        deltas: { wealth: 5, happiness: 2 },
+        result: '통장이 불어나는 걸 보는 재미를 그제야 알았다.'
+      },
+      {
+        id: 'first-wedding-invitation',
+        text: '결혼한 친구의 청첩장을 처음 받아본다',
+        deltas: { happiness: 1, relationship: 2 },
+        result: '축하하는 마음 한편으로, 내 인생 시계도 문득 돌아봤다.'
+      },
+      {
+        id: 'mentoring-a-junior',
+        text: '회사에서 처음으로 후배를 맡아 가르친다',
+        deltas: { relationship: 3, fame: 2, happiness: -1 },
+        result: '누군가를 가르치며, 스스로도 다시 배우게 됐다.'
+      },
+      {
+        id: 'mastering-solo-time',
+        text: '혼자만의 시간을 즐기는 법을 제대로 배운다',
+        deltas: { happiness: 4, relationship: -2 },
+        result: '혼밥, 혼영, 혼자 하는 여행 — 전부 생각보다 괜찮았다.'
+      },
+      {
+        id: 'routine-boredom',
+        text: '쳇바퀴 같은 일상에 문득 권태를 느낀다',
+        deltas: { happiness: -3, health: -1 },
+        result: '매일이 똑같다는 생각이 문득 무겁게 다가왔다.'
+      },
+      {
+        id: 'insomnia-onset',
+        text: '업무 스트레스로 밤마다 잠들지 못하는 날이 늘어난다',
+        deltas: { health: -5, happiness: -3 },
+        result: '천장 무늬를 셀 수 있을 정도로, 밤이 길어졌다.',
+        addCondition: { id: 'insomnia', label: '😵 불면증' }
+      }
+    ]
+  },
+  {
+    id: 'rookie-27',
+    name: '사회 초년생',
+    ageRange: '27세',
+    intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
+    choices: [
+      {
+        id: 'questioning-the-path',
+        text: '지금 하는 일이 정말 맞는 길인지 진지하게 고민한다',
+        deltas: { happiness: -3, fame: 1 },
+        result: '정답 없는 질문을 붙들고 몇 날 며칠을 보냈다.'
+      },
+      {
+        id: 'side-project-launch',
+        text: '부업·사이드 프로젝트를 시작하며 새 가능성을 시험한다',
+        deltas: { wealth: 3, happiness: 3, health: -2 },
+        result: '퇴근 후 시간이 온전히 내 것처럼 느껴졌다.'
+      },
+      {
+        id: 'marriage-talk',
+        text: '오래 만난 연인과 결혼을 진지하게 이야기한다',
+        deltas: { relationship: 5, wealth: -2 },
+        result: '농담처럼 꺼낸 말이, 어느새 진지한 대화가 됐다.'
+      },
+      {
+        id: 'grad-school-consideration',
+        text: '대학원·유학 등 다시 공부를 시작할지 고민한다',
+        deltas: { happiness: -2, wealth: -2 },
+        result: '다시 학생이 된다는 상상만으로도 설레고 두려웠다.'
+      },
+      {
+        id: 'coworker-departure-jitters',
+        text: '동료의 퇴사·이직 소식에 나도 흔들린다',
+        deltas: { happiness: -2, relationship: -1 },
+        result: '축하 인사를 건네면서도, 마음 한구석이 복잡했다.'
+      },
+      {
+        id: 'first-real-checkup',
+        text: '그동안 미뤄온 건강검진을 처음으로 제대로 받는다',
+        deltas: { health: 4, wealth: -2 },
+        result: '결과지를 받아 들기 전까지, 괜히 긴장했다.'
+      },
+      {
+        id: 'carpal-tunnel-heal',
+        text: '손목 보호대를 차고 스트레칭을 꾸준히 하며 저림이 사라진다',
+        deltas: { health: 5, wealth: -2 },
+        result: '저릿함 없이 마우스를 쥘 수 있다는 게 이렇게 감사한 일일 줄 몰랐다.',
+        requiresCondition: 'carpal-tunnel',
+        removeCondition: 'carpal-tunnel'
+      }
+    ]
+  },
+  {
+    id: 'rookie-28',
+    name: '사회 초년생',
+    ageRange: '28세',
+    intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
+    choices: [
+      {
+        id: 'small-promotion',
+        text: '작은 승진과 함께 책임이 부쩍 무거워진다',
+        deltas: { fame: 4, wealth: 3, happiness: -2 },
+        result: '명함에 적힌 직급 하나가 어깨를 조금 더 무겁게 했다.'
+      },
+      {
+        id: 'first-team-lead',
+        text: '팀을 이끌며 사람 관리의 어려움을 처음 겪는다',
+        deltas: { relationship: -2, fame: 3, happiness: -1 },
+        result: '일보다 사람이 더 어렵다는 걸, 이제야 실감했다.'
+      },
+      {
+        id: 'parents-aging-realization',
+        text: '부모님의 건강이 예전 같지 않다는 걸 실감한다',
+        deltas: { relationship: 3, happiness: -4 },
+        result: '전화 너머 목소리가 예전보다 조금 작게 느껴졌다.'
+      },
+      {
+        id: 'first-home-savings-goal',
+        text: '그동안 모은 돈으로 내 집 마련의 첫걸음을 뗀다',
+        deltas: { wealth: -5, happiness: 5 },
+        result: '숫자로만 보던 목표가, 처음으로 손에 잡히는 것 같았다.'
+      },
+      {
+        id: 'work-life-balance-thought',
+        text: '일과 삶의 균형을 처음으로 진지하게 고민한다',
+        deltas: { happiness: 3, health: 2 },
+        result: '야근이 능력이 아니라는 걸 인정하기까지 오래 걸렸다.'
+      },
+      {
+        id: 'being-called-senior',
+        text: '후배들 사이에서 어느새 "선배"로 불리는 게 낯설다',
+        deltas: { relationship: 2, fame: 2 },
+        result: '엊그제 신입이었던 것 같은데, 어느새 불리는 호칭이 달라져 있었다.'
+      },
+      {
+        id: 'insomnia-heal',
+        text: '수면 습관을 개선하며 불면증에서 서서히 벗어난다',
+        deltas: { health: 6, happiness: 3 },
+        result: '베개에 머리를 대자마자 잠드는 밤이, 다시 찾아왔다.',
+        requiresCondition: 'insomnia',
+        removeCondition: 'insomnia'
+      }
+    ]
+  },
+  {
+    id: 'rookie-29',
+    name: '사회 초년생',
+    ageRange: '29세',
+    intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
+    choices: [
+      {
+        id: 'last-twenties-birthday',
+        text: '20대의 마지막 생일을 조용히, 혹은 왁자지껄하게 보낸다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '촛불을 끄며, 지난 10년이 스쳐 지나갔다.'
+      },
+      {
+        id: 'resume-reflection',
+        text: '지난 5년의 커리어를 이력서 한 장으로 정리해본다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '몇 줄 안 되는 문장에, 생각보다 많은 것들이 담겨 있었다.'
+      },
+      {
+        id: 'bucket-list-before-thirty',
+        text: '서른 전에 꼭 해보고 싶던 버킷리스트를 실행에 옮긴다',
+        deltas: { happiness: 5, wealth: -4 },
+        result: '미루기만 하던 일을 마침내 해치웠을 때의 후련함.'
+      },
+      {
+        id: 'twenties-friends-trip',
+        text: '20대를 함께한 친구들과 여행을 떠난다',
+        deltas: { relationship: 5, happiness: 4, wealth: -3 },
+        result: '다들 조금씩 변했지만, 웃는 포인트는 여전히 똑같았다.'
+      },
+      {
+        id: 'weight-of-turning-thirty',
+        text: '다가올 서른이 주는 무게감에 잠시 마음이 복잡해진다',
+        deltas: { happiness: -3, relationship: -1 },
+        result: '숫자 하나 바뀌는 것뿐인데, 이상하게 마음이 요동쳤다.'
+      },
+      {
+        id: 'no-regrets-affirmation',
+        text: '지난 20대를 돌아보며 후회 없다고 스스로에게 말해준다',
+        deltas: { happiness: 3, health: 1 },
+        result: '완벽하진 않았지만, 그래도 최선을 다했다고 인정해주기로 했다.'
+      }
+    ]
   }
-  // TODO: 사회 초년생 / 서른 / 중년 / 노년 준비 / 황혼 - 5개 카테고리 남음.
+  // TODO: 서른 / 중년 / 노년 준비 / 황혼 - 4개 카테고리 남음.
 ];
 
 // 대표 엔딩 6개(기획안 07/09장 - v1 확정 스코프) - 각 아키타입에 가장 가까운
