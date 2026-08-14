@@ -209,11 +209,11 @@
         <h3>생애 10카테고리</h3>
         <p>균등한 나이 간격이 아니라 실제 인생의 결절점(입학·진로·독립·가정) 기준. <span class="badge badge-live">구현됨</span>
         5카테고리, <span class="badge badge-todo">콘텐츠 미작성</span> 5카테고리 — 형식은 동일해서 <code>functions/game-data.js</code>의
-        <code>STAGES</code> 배열에 이어 채우면 됨. <b>유아기·초등학생·청소년기는 카테고리가 <code>STAGES</code> 안에서
+        <code>STAGES</code> 배열에 이어 채우면 됨. <b>유아기·초등학생·청소년기·스무 살은 카테고리가 <code>STAGES</code> 안에서
         한 살 단위 여러 항목으로 쪼개져 있음</b> — 유아기는 7개(<code>infancy-0</code>~<code>infancy-6</code>),
         초등학생은 6개(<code>elementary-7</code>~<code>elementary-12</code>), 청소년기는 6개(<code>teen-13</code>~
-        <code>teen-18</code>, 사춘기+고등학생을 한 카테고리로 통합 구현). 표의 "구간" 개수와 실제
-        <code>STAGES.length</code>(현재 20)는 다르다.</p>
+        <code>teen-18</code>, 사춘기+고등학생을 한 카테고리로 통합 구현), 스무 살은 5개(<code>twenties-19</code>~
+        <code>twenties-23</code>). 표의 "구간" 개수와 실제 <code>STAGES.length</code>(현재 24)는 다르다.</p>
         <div class="tbl-wrap">
             <table>
                 <tr><th>구간</th><th>나이</th><th>상태</th></tr>
@@ -221,7 +221,7 @@
                 <tr><td>초등학생 <span class="badge badge-admin">선택 × 6(한 살 단위)</span></td><td>7–12세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>사춘기 <span class="badge badge-admin">청소년기로 통합 구현</span></td><td>13–15세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>고등학생 <span class="badge badge-admin">청소년기로 통합 구현</span></td><td>16–18세</td><td><span class="badge badge-live">구현됨</span></td></tr>
-                <tr><td>스무 살</td><td>19–23세</td><td><span class="badge badge-live">구현됨</span></td></tr>
+                <tr><td>스무 살 <span class="badge badge-admin">선택 × 5(한 살 단위)</span></td><td>19–23세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>사회 초년생</td><td>24–29세</td><td><span class="badge badge-todo">TODO</span></td></tr>
                 <tr><td>서른, 자리잡기</td><td>30–39세</td><td><span class="badge badge-todo">TODO</span></td></tr>
                 <tr><td>중년, 선택의 무게</td><td>40–54세</td><td><span class="badge badge-todo">TODO</span></td></tr>
@@ -248,6 +248,12 @@
         따로 남아 있지만, 실제 콘텐츠는 이 6구간이 전부 대응). 신체·정서 변화(13세) → 교우관계 재편/자아
         정체성(14세) → 진로 고민·고입 준비(15세) → 고등학교 입학(16세) → 진로 구체화·입시 스트레스(17세)
         → 수능·졸업(18세) 순. 역시 주사위 없이 전부 일반 선택.</p>
+        <p class="note"><b>스무 살(19~23세)도 같은 방식으로 한 살 단위 5개 구간(<code>twenties-19</code>~
+        <code>twenties-23</code>)으로 쪼개져 있다.</b> 19세엔 대학·방송·취업 등 인생의 큰 방향을 가르는
+        원래 선택지 6개를 그대로 두고, 20~23세는 그 방향과 무관하게 벌어질 법한 일(자취·알바·인턴·취업
+        준비 등)로 새로 채웠다 — 자취 시작(20세) → 진로 구체화(21세) → 인턴·취업 현실(22세) → 첫 정규직·
+        자립(23세) 순. 이 게임은 이전 선택에 따라 이후 구간 내용이 달라지지 않으므로(스탯에만 반영),
+        19세에 뭘 골랐든 20~23세 선택지는 동일하게 노출된다.</p>
         <p class="note"><b>구간마다 선택지를 최대 6개까지 써두고, 실제로는 그중 3개만 무작위로 노출한다.</b>
         <code>startPlaythrough</code>/<code>applyChoice</code>가 그 구간에 들어설 때 <code>pickVisibleChoiceIds()</code>로
         3개를 미리 뽑아 저장 슬롯(<code>lifeGame/playthroughs/&#123;uid&#125;/visibleChoiceIds</code>)에
@@ -271,10 +277,12 @@
                 <tr><td><code>asthma</code></td><td>🌬️ 천식</td><td>유아기 1세 · <code>asthma-onset</code>(기침이 잦아지더니 천식 진단을 받는다)</td><td>초등학생 8세 · <code>asthma-managed</code>(꾸준한 수영으로 어릴 적 천식을 완전히 극복한다)</td></tr>
                 <tr><td><code>broken-arm</code></td><td>🦴 팔 골절</td><td>유아기 2세 · <code>broken-arm-onset</code>(정글짐에서 뛰어내리다 팔이 부러진다)</td><td>유아기 4세 · <code>broken-arm-heal</code>(깁스를 풀고 팔을 마음껏 쓸 수 있게 된다)</td></tr>
                 <tr><td><code>weak-stomach</code></td><td>🤢 잦은 배탈</td><td>유아기 3세 · <code>weak-stomach-onset</code>(장염을 달고 살아 배가 자주 아프다)</td><td>유아기 5세 · <code>weak-stomach-heal</code>(식습관을 고쳐 배앓이가 눈에 띄게 줄어든다)</td></tr>
-                <tr><td><code>ankle-sprain</code></td><td>🦶 발목 부상</td><td>초등학생 10세 · <code>ankle-sprain-onset</code>(축구를 하다 발목을 삐끗한다)</td><td>스무 살 · <code>ankle-treated</code>(미뤄뒀던 발목을 제대로 병원에서 치료받는다)</td></tr>
+                <tr><td><code>ankle-sprain</code></td><td>🦶 발목 부상</td><td>초등학생 10세 · <code>ankle-sprain-onset</code>(축구를 하다 발목을 삐끗한다)</td><td>스무 살 19세 · <code>ankle-treated</code>(미뤄뒀던 발목을 제대로 병원에서 치료받는다)</td></tr>
                 <tr><td><code>acne-breakout</code></td><td>🌱 스트레스성 트러블</td><td>청소년기 14세 · <code>acne-breakout-onset</code>(스트레스로 여드름이 부쩍 심해진다)</td><td>청소년기 16세 · <code>acne-breakout-heal</code>(피부과 치료를 꾸준히 받아 트러블이 눈에 띄게 가라앉는다)</td></tr>
                 <tr><td><code>wrist-sprain</code></td><td>🤕 손목 부상</td><td>청소년기 16세 · <code>wrist-sprain-onset</code>(체육대회 계주에서 무리하다 손목을 삐끗한다)</td><td>청소년기 18세 · <code>wrist-sprain-heal</code>(다 나은 손목으로 홀가분하게 시험장에 들어간다)</td></tr>
                 <tr><td><code>exam-stress-gastritis</code></td><td>🤒 스트레스성 위염</td><td>청소년기 17세 · <code>exam-stress-gastritis-onset</code>(입시 스트레스로 위가 쓰리고 체하는 날이 잦아진다)</td><td>청소년기 18세 · <code>exam-stress-gastritis-heal</code>(수능이 끝나자마자 위염이 거짓말처럼 가라앉는다)</td></tr>
+                <tr><td><code>back-pain</code></td><td>🦴 허리 통증</td><td>스무 살 20세 · <code>back-pain-onset</code>(잦은 알바 노동으로 허리에 무리가 온다)</td><td>스무 살 22세 · <code>back-pain-heal</code>(필라테스·운동을 꾸준히 하며 허리 통증을 완전히 극복한다)</td></tr>
+                <tr><td><code>burnout-syndrome</code></td><td>🔥 번아웃 증후군</td><td>스무 살 22세 · <code>burnout-onset</code>(인턴 생활에 몸과 마음을 갈아 넣다 번아웃이 온다)</td><td>스무 살 23세 · <code>burnout-heal</code>(충분히 쉬며 번아웃에서 서서히 회복한다)</td></tr>
             </table>
         </div>
         <p class="note">전부 "발병 구간이 회복 구간보다 앞선다"는 순서만 지키면 되고, 발병 선택지와 회복
@@ -469,13 +477,45 @@
                 <tr><td><code>wrist-sprain-heal</code></td><td>다 나은 손목으로 홀가분하게 시험장에 들어간다</td><td>🤕 손목 부상 회복</td></tr>
                 <tr><td><code>exam-stress-gastritis-heal</code></td><td>수능이 끝나자마자 위염이 거짓말처럼 가라앉는다</td><td>🤒 스트레스성 위염 회복</td></tr>
 
-                <tr><td rowspan="7">스무 살 · 19–23세</td><td><code>college</code></td><td>무난하게 대학에 진학해 학점을 관리한다</td><td></td></tr>
+                <tr><td rowspan="7">스무 살 · 19세</td><td><code>college</code></td><td>무난하게 대학에 진학해 학점을 관리한다</td><td></td></tr>
                 <tr><td><code>streaming-debut</code></td><td>다니던 학교를 관두고 방송을 시작해본다</td><td></td></tr>
                 <tr><td><code>trade-skill</code></td><td>바로 돈이 되는 기술을 배워 취업 전선에 뛰어든다</td><td></td></tr>
                 <tr><td><code>startup-gamble</code></td><td>친구들과 의기투합해 작은 창업에 뛰어든다</td><td></td></tr>
                 <tr><td><code>working-holiday</code></td><td>훌쩍 해외로 워킹홀리데이를 떠난다</td><td></td></tr>
                 <tr><td><code>family-support</code></td><td>집안 사정으로 스무 살부터 생계를 돕는다</td><td></td></tr>
                 <tr><td><code>ankle-treated</code></td><td>미뤄뒀던 발목을 제대로 병원에서 치료받는다</td><td>🦶 발목 부상 회복</td></tr>
+
+                <tr><td rowspan="7">스무 살 · 20세</td><td><code>move-out-independence</code></td><td>본가를 떠나 자취를 시작한다</td><td></td></tr>
+                <tr><td><code>deep-community-belonging</code></td><td>동아리·팬덤 등 새로운 공동체에 깊이 소속된다</td><td></td></tr>
+                <tr><td><code>juggling-part-time-jobs</code></td><td>생활비를 벌기 위해 여러 알바를 전전한다</td><td></td></tr>
+                <tr><td><code>blind-date-scene</code></td><td>미팅·소개팅에 나가며 연애 시장에 뛰어든다</td><td></td></tr>
+                <tr><td><code>metrics-anxiety</code></td><td>학점·구독자 수 등 성과 지표에 예민해진다</td><td></td></tr>
+                <tr><td><code>lifestyle-collapse</code></td><td>자유로워진 만큼 생활 패턴이 완전히 무너진다</td><td></td></tr>
+                <tr><td><code>back-pain-onset</code></td><td>잦은 알바 노동으로 허리에 무리가 온다</td><td>🦴 허리 통증 발병</td></tr>
+
+                <tr><td rowspan="6">스무 살 · 21세</td><td><code>stacking-credentials</code></td><td>복수전공·자격증 등으로 스펙을 본격적으로 쌓기 시작한다</td><td></td></tr>
+                <tr><td><code>gap-year-trip</code></td><td>휴학하고 훌쩍 장기 여행을 떠난다</td><td></td></tr>
+                <tr><td><code>building-portfolio</code></td><td>본격적으로 콘텐츠·포트폴리오를 만들며 커리어를 준비한다</td><td></td></tr>
+                <tr><td><code>comparing-to-peers</code></td><td>동기들과 비교하며 초조함을 느낀다</td><td></td></tr>
+                <tr><td><code>leading-small-team</code></td><td>작은 프로젝트·창업 동아리에서 팀을 이끈다</td><td></td></tr>
+                <tr><td><code>serious-relationship-talk</code></td><td>만나던 사람과 진지하게 미래를 이야기한다</td><td></td></tr>
+
+                <tr><td rowspan="8">스무 살 · 22세</td><td><code>harsh-internship-reality</code></td><td>첫 인턴십에서 냉정한 현실을 마주한다</td><td></td></tr>
+                <tr><td><code>rejection-streak</code></td><td>면접에서 줄줄이 떨어지며 좌절을 겪는다</td><td></td></tr>
+                <tr><td><code>unexpected-career-offer</code></td><td>우연한 기회로 예상 못한 진로 제안을 받는다</td><td></td></tr>
+                <tr><td><code>pushing-past-limits</code></td><td>체력이 바닥날 때까지 스스로를 몰아붙인다</td><td></td></tr>
+                <tr><td><code>friends-drifting-apart</code></td><td>친구들과의 관계가 각자의 바쁜 일상 속에 뜸해진다</td><td></td></tr>
+                <tr><td><code>small-joys-gratitude</code></td><td>작은 성취 하나에도 크게 기뻐할 줄 알게 된다</td><td></td></tr>
+                <tr><td><code>burnout-onset</code></td><td>인턴 생활에 몸과 마음을 갈아 넣다 번아웃이 온다</td><td>🔥 번아웃 증후군 발병</td></tr>
+                <tr><td><code>back-pain-heal</code></td><td>필라테스·운동을 꾸준히 하며 허리 통증을 완전히 극복한다</td><td>🦴 허리 통증 회복</td></tr>
+
+                <tr><td rowspan="7">스무 살 · 23세</td><td><code>first-full-time-contract</code></td><td>첫 정규직 계약서에 서명한다</td><td></td></tr>
+                <tr><td><code>self-sufficient-living</code></td><td>독립적인 생계를 스스로 책임지기 시작한다</td><td></td></tr>
+                <tr><td><code>letter-to-nineteen</code></td><td>그동안의 선택을 돌아보며 스무 살의 나에게 편지를 써본다</td><td></td></tr>
+                <tr><td><code>reconnect-old-friend</code></td><td>오랜 친구와 크게 멀어졌다가 다시 연락이 닿는다</td><td></td></tr>
+                <tr><td><code>setting-new-goals</code></td><td>다가올 서른을 준비하며 새로운 목표를 세운다</td><td></td></tr>
+                <tr><td><code>quarter-life-crisis</code></td><td>문득 "이대로 괜찮은가" 하는 불안이 찾아온다</td><td></td></tr>
+                <tr><td><code>burnout-heal</code></td><td>충분히 쉬며 번아웃에서 서서히 회복한다</td><td>🔥 번아웃 증후군 회복</td></tr>
             </table>
         </div>
     </section>

@@ -34,6 +34,13 @@
 // (16~18세)" 두 카테고리를 한 살 단위 6개 항목(teen-13 ~ teen-18)으로
 // 묶어서 구현했다. 역시 전부 random 없이 일반 선택.
 //
+// "스무 살"(19~23세)도 같은 방식으로 twenties-19 ~ twenties-23 총 5개
+// 항목으로 쪼갰다. 19세엔 대학/방송/취업 등 큰 방향을 가르는 원래
+// 선택지 6개를 그대로 두고, 20~23세는 그 방향과 무관하게 벌어질 법한
+// 일(자취, 알바, 인턴, 취업 준비 등)로 새로 채웠다 - 이 게임은 이전
+// 선택에 따라 이후 구간 내용이 달라지지 않으므로(스탯에만 반영) 19세에
+// 뭘 골랐든 20~23세 선택지는 동일하게 노출된다.
+//
 // 건강 상세(healthConditions) - 선택지에 addCondition({id,label})을 붙이면
 // 부상/질병이 "생기고", removeCondition(id)을 붙이면 그 조건이 나아서
 // "없어진다". 서버(index.js의 applyChoice)가 그 판의 저장 슬롯에
@@ -977,9 +984,9 @@ const STAGES = [
     ]
   },
   {
-    id: 'twenties',
+    id: 'twenties-19',
     name: '스무 살',
-    ageRange: '19–23세',
+    ageRange: '19세',
     intro: '인생의 첫 갈림길. 대학과 방송, 혹은 곧장 돈이 되는 길 — 스무 살의 선택은 이후 모든 걸 조금씩 흔들어놓습니다.',
     choices: [
       {
@@ -1027,8 +1034,214 @@ const STAGES = [
         removeCondition: 'ankle-sprain'
       }
     ]
+  },
+  {
+    id: 'twenties-20',
+    name: '스무 살',
+    ageRange: '20세',
+    intro: '갓 어른이 된 티가 조금씩 빠지는 나이. 독립과 자유가 생각보다 훨씬 손이 많이 간다는 걸 알아갑니다.',
+    choices: [
+      {
+        id: 'move-out-independence',
+        text: '본가를 떠나 자취를 시작한다',
+        deltas: { wealth: -4, happiness: 3, relationship: -2 },
+        result: '부모님과의 통금 없는 삶이 이렇게 홀가분할 줄 몰랐다.'
+      },
+      {
+        id: 'deep-community-belonging',
+        text: '동아리·팬덤 등 새로운 공동체에 깊이 소속된다',
+        deltas: { relationship: 5, happiness: 3 },
+        result: '비슷한 걸 좋아하는 사람들 틈에서 처음으로 완전히 스며든 기분이었다.'
+      },
+      {
+        id: 'juggling-part-time-jobs',
+        text: '생활비를 벌기 위해 여러 알바를 전전한다',
+        deltas: { wealth: 4, health: -3 },
+        result: '시급 몇 백 원 차이에 마음이 오가던 시절이었다.'
+      },
+      {
+        id: 'blind-date-scene',
+        text: '미팅·소개팅에 나가며 연애 시장에 뛰어든다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '몇 번의 어색한 첫 만남 끝에, 사람 보는 눈이 조금씩 늘었다.'
+      },
+      {
+        id: 'metrics-anxiety',
+        text: '학점·구독자 수 등 성과 지표에 예민해진다',
+        deltas: { happiness: -3, fame: 2 },
+        result: '숫자 하나에 하루 기분이 좌우되는 게 이상하다는 걸 알면서도 멈출 수 없었다.'
+      },
+      {
+        id: 'lifestyle-collapse',
+        text: '자유로워진 만큼 생활 패턴이 완전히 무너진다',
+        deltas: { health: -4, happiness: 2 },
+        result: '새벽에 자고 오후에 일어나는 게 어느새 당연해졌다.'
+      },
+      {
+        id: 'back-pain-onset',
+        text: '잦은 알바 노동으로 허리에 무리가 온다',
+        deltas: { health: -4, wealth: 3 },
+        result: '택배 상자를 나르던 어느 날부터, 허리가 삐걱대기 시작했다.',
+        addCondition: { id: 'back-pain', label: '🦴 허리 통증' }
+      }
+    ]
+  },
+  {
+    id: 'twenties-21',
+    name: '스무 살',
+    ageRange: '21세',
+    intro: '방향을 조금씩 좁혀가는 나이. 막연했던 미래가 서서히 구체적인 모양을 갖추기 시작합니다.',
+    choices: [
+      {
+        id: 'stacking-credentials',
+        text: '복수전공·자격증 등으로 스펙을 본격적으로 쌓기 시작한다',
+        deltas: { happiness: -1, fame: 2, wealth: -2 },
+        result: '자격증 하나 딸 때마다, 뭔가 되어가는 기분이 들었다.'
+      },
+      {
+        id: 'gap-year-trip',
+        text: '휴학하고 훌쩍 장기 여행을 떠난다',
+        deltas: { wealth: -6, happiness: 6 },
+        result: '통장은 텅 비었지만, 그 몇 달이 평생 곱씹을 이야깃거리가 됐다.'
+      },
+      {
+        id: 'building-portfolio',
+        text: '본격적으로 콘텐츠·포트폴리오를 만들며 커리어를 준비한다',
+        deltas: { fame: 3, wealth: -2, happiness: 2 },
+        result: '밤새 만든 결과물을 올리는 순간마다 손끝이 떨렸다.'
+      },
+      {
+        id: 'comparing-to-peers',
+        text: '동기들과 비교하며 초조함을 느낀다',
+        deltas: { happiness: -4, relationship: -1 },
+        result: 'SNS 속 남들의 속도에 자꾸만 내 속도를 맞춰보게 됐다.'
+      },
+      {
+        id: 'leading-small-team',
+        text: '작은 프로젝트·창업 동아리에서 팀을 이끈다',
+        deltas: { fame: 4, relationship: 2, happiness: -1 },
+        result: '처음 맡아본 "팀장"이라는 자리가 생각보다 무거웠다.'
+      },
+      {
+        id: 'serious-relationship-talk',
+        text: '만나던 사람과 진지하게 미래를 이야기한다',
+        deltas: { relationship: 5, happiness: 2 },
+        result: '미래를 함께 그려본다는 게, 설레면서도 조금 무서웠다.'
+      }
+    ]
+  },
+  {
+    id: 'twenties-22',
+    name: '스무 살',
+    ageRange: '22세',
+    intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
+    choices: [
+      {
+        id: 'harsh-internship-reality',
+        text: '첫 인턴십에서 냉정한 현실을 마주한다',
+        deltas: { happiness: -4, wealth: 2 },
+        result: '이상과 현실 사이의 거리를 온몸으로 배운 몇 달이었다.'
+      },
+      {
+        id: 'rejection-streak',
+        text: '면접에서 줄줄이 떨어지며 좌절을 겪는다',
+        deltas: { happiness: -5, relationship: 2 },
+        result: '탈락 메일함이 늘어갈수록, 자신감도 조금씩 깎여나갔다.'
+      },
+      {
+        id: 'unexpected-career-offer',
+        text: '우연한 기회로 예상 못한 진로 제안을 받는다',
+        deltas: { fame: 3, wealth: 3 },
+        result: '전혀 예상 못한 곳에서 문 하나가 갑자기 열렸다.'
+      },
+      {
+        id: 'pushing-past-limits',
+        text: '체력이 바닥날 때까지 스스로를 몰아붙인다',
+        deltas: { health: -5, wealth: 3 },
+        result: '쓰러지고 나서야 몸이 보내던 신호들을 되짚어봤다.'
+      },
+      {
+        id: 'friends-drifting-apart',
+        text: '친구들과의 관계가 각자의 바쁜 일상 속에 뜸해진다',
+        deltas: { relationship: -4, happiness: -1 },
+        result: '단톡방은 그대로인데, 대화는 점점 줄어들었다.'
+      },
+      {
+        id: 'small-joys-gratitude',
+        text: '작은 성취 하나에도 크게 기뻐할 줄 알게 된다',
+        deltas: { happiness: 5, relationship: 2 },
+        result: '커피 한 잔의 여유에도 진심으로 행복해질 수 있다는 걸 알게 됐다.'
+      },
+      {
+        id: 'burnout-onset',
+        text: '인턴 생활에 몸과 마음을 갈아 넣다 번아웃이 온다',
+        deltas: { health: -6, happiness: -4 },
+        result: '인턴 생활에 몸과 마음을 갈아 넣다 어느 순간 완전히 방전됐다.',
+        addCondition: { id: 'burnout-syndrome', label: '🔥 번아웃 증후군' }
+      },
+      {
+        id: 'back-pain-heal',
+        text: '필라테스·운동을 꾸준히 하며 허리 통증을 완전히 극복한다',
+        deltas: { health: 5, wealth: -2 },
+        result: '필라테스를 꾸준히 다니고 나서야, 허리가 예전 같아졌다.',
+        requiresCondition: 'back-pain',
+        removeCondition: 'back-pain'
+      }
+    ]
+  },
+  {
+    id: 'twenties-23',
+    name: '스무 살',
+    ageRange: '23세',
+    intro: '스무 살대의 마지막 해. 자립이라는 단어가 더는 남 얘기가 아니게 됩니다.',
+    choices: [
+      {
+        id: 'first-full-time-contract',
+        text: '첫 정규직 계약서에 서명한다',
+        deltas: { wealth: 6, happiness: 3 },
+        result: '계약서에 서명하는 손이 미세하게 떨렸다.'
+      },
+      {
+        id: 'self-sufficient-living',
+        text: '독립적인 생계를 스스로 책임지기 시작한다',
+        deltas: { wealth: 3, relationship: -2, happiness: 1 },
+        result: '월급이 통장을 스쳐 지나가는 속도에 새삼 놀랐다.'
+      },
+      {
+        id: 'letter-to-nineteen',
+        text: '그동안의 선택을 돌아보며 스무 살의 나에게 편지를 써본다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '그때는 몰랐던 것들이, 이제는 조금씩 보이기 시작했다.'
+      },
+      {
+        id: 'reconnect-old-friend',
+        text: '오랜 친구와 크게 멀어졌다가 다시 연락이 닿는다',
+        deltas: { relationship: 5, happiness: 3 },
+        result: '몇 년 만의 연락인데도, 어제 본 것처럼 자연스러웠다.'
+      },
+      {
+        id: 'setting-new-goals',
+        text: '다가올 서른을 준비하며 새로운 목표를 세운다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '서른이라는 숫자가 두렵기보다, 조금 궁금해지기 시작했다.'
+      },
+      {
+        id: 'quarter-life-crisis',
+        text: '문득 "이대로 괜찮은가" 하는 불안이 찾아온다',
+        deltas: { happiness: -4, relationship: -1 },
+        result: '잘 살고 있다는 확신이 문득 흔들리는 밤들이 있었다.'
+      },
+      {
+        id: 'burnout-heal',
+        text: '충분히 쉬며 번아웃에서 서서히 회복한다',
+        deltas: { health: 6, happiness: 4, wealth: -3 },
+        result: '충분히 쉬고 나서야, 다시 뭔가를 시작할 힘이 생겼다.',
+        requiresCondition: 'burnout-syndrome',
+        removeCondition: 'burnout-syndrome'
+      }
+    ]
   }
-  // TODO: 사춘기 / 고등학생 / 사회 초년생 / 서른 / 중년 / 노년 준비 / 황혼 - 7개 카테고리 남음.
+  // TODO: 사회 초년생 / 서른 / 중년 / 노년 준비 / 황혼 - 5개 카테고리 남음.
 ];
 
 // 대표 엔딩 6개(기획안 07/09장 - v1 확정 스코프) - 각 아키타입에 가장 가까운
