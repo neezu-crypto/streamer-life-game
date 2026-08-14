@@ -30,6 +30,10 @@
 // 총 6개 항목으로 쪼갰다. 전부 random 없이 일반 선택 - 이 나이대는 본인
 // 의사로 고르는 게 자연스러워서 주사위 구간은 없다.
 //
+// "청소년기"도 같은 패턴 - 기획안 4장의 "사춘기(13~15세)"·"고등학생
+// (16~18세)" 두 카테고리를 한 살 단위 6개 항목(teen-13 ~ teen-18)으로
+// 묶어서 구현했다. 역시 전부 random 없이 일반 선택.
+//
 // 건강 상세(healthConditions) - 선택지에 addCondition({id,label})을 붙이면
 // 부상/질병이 "생기고", removeCondition(id)을 붙이면 그 조건이 나아서
 // "없어진다". 서버(index.js의 applyChoice)가 그 판의 저장 슬롯에
@@ -660,6 +664,270 @@ const STAGES = [
         text: '초등학교 마지막 소풍에서 반 전체와 어울려 논다',
         deltas: { relationship: 5, happiness: 4 },
         result: '별거 아닌 김밥 한 줄도, 그날따라 유난히 맛있었다.'
+      }
+    ]
+  },
+  {
+    id: 'teen-13',
+    name: '청소년기',
+    ageRange: '13세',
+    intro: '중학교에 입학하며 몸도 마음도 부쩍 낯설어지는 시기. 거울 속 내가 어제와 조금 달라 보입니다.',
+    choices: [
+      {
+        id: 'voice-and-growth-spurt',
+        text: '목소리가 갈라지거나 몸이 부쩍 자라며 낯설어진다',
+        deltas: { health: 3, happiness: -2 },
+        result: '거울에 비친 낯선 얼굴이 며칠 동안 어색했다.'
+      },
+      {
+        id: 'first-real-exam-rank',
+        text: '중학교 첫 시험에서 등수라는 걸 처음 실감한다',
+        deltas: { happiness: -3, relationship: 1 },
+        result: '숫자 하나로 줄 세워진다는 게 이렇게 초조한 일인 줄 몰랐다.'
+      },
+      {
+        id: 'first-sns-account',
+        text: 'SNS 계정을 처음 만들어 또래들과 소통한다',
+        deltas: { fame: 4, relationship: 3, happiness: 1 },
+        result: '프로필 사진 하나 고르는 데도 삼십 분이 걸렸다.'
+      },
+      {
+        id: 'mirror-self-conscious',
+        text: '거울 앞에서 외모에 부쩍 신경 쓰기 시작한다',
+        deltas: { happiness: -2, wealth: -2 },
+        result: '거울 앞에 서 있는 시간이 부쩍 길어졌다.'
+      },
+      {
+        id: 'quiet-observer-newschool',
+        text: '새 학교, 새 얼굴들 사이에서 조용히 관찰만 한다',
+        deltas: { relationship: -2, happiness: 1 },
+        result: '말은 별로 안 했지만, 누가 누구인지는 누구보다 빨리 파악했다.'
+      },
+      {
+        id: 'mood-swings-surprise',
+        text: '급격히 예민해진 감정 기복에 스스로도 당황한다',
+        deltas: { relationship: -3, happiness: -2 },
+        result: '왜 갑자기 눈물이 나는지 스스로도 설명할 수 없었다.'
+      }
+    ]
+  },
+  {
+    id: 'teen-14',
+    name: '청소년기',
+    ageRange: '14세',
+    intro: '친구 관계가 요동치고 스스로도 잘 모르겠는 감정이 많아지는 나이. 흔히 "중2병"이라 부르는 그 시기입니다.',
+    choices: [
+      {
+        id: 'pushed-out-of-group',
+        text: '친했던 무리에서 은근히 밀려나는 기분을 느낀다',
+        deltas: { relationship: -5, happiness: -3 },
+        result: '단톡방 알림이 줄어드는 걸 눈치채는 데 며칠이 걸렸다.'
+      },
+      {
+        id: 'new-crew-new-persona',
+        text: '새로운 친구 무리에 합류하며 완전히 다른 캐릭터로 지내본다',
+        deltas: { relationship: 4, happiness: 2, fame: 2 },
+        result: '전혀 다른 나로 살아보는 게 의외로 홀가분했다.'
+      },
+      {
+        id: 'teacher-clashes',
+        text: '선생님과 사사건건 부딪히는 반항기를 겪는다',
+        deltas: { relationship: -3, fame: 3 },
+        result: '옳고 그름을 떠나, 그냥 뭐든 반박하고 싶은 시기였다.'
+      },
+      {
+        id: 'idol-fandom-splurge',
+        text: '좋아하는 아이돌·스트리머에 푹 빠져 용돈을 쏟아붓는다',
+        deltas: { happiness: 4, wealth: -5 },
+        result: '용돈은 순식간에 굿즈로 바뀌었지만, 후회는 없었다.'
+      },
+      {
+        id: 'locked-door-solitude',
+        text: '혼자만의 세계에 깊이 몰입하며 방문을 걸어 잠근다',
+        deltas: { happiness: 2, relationship: -4 },
+        result: '문 하나만 닫으면 온전히 내 세상이 됐다.'
+      },
+      {
+        id: 'follower-count-obsession',
+        text: 'SNS 팔로워 수에 하루하루 일희일비한다',
+        deltas: { fame: 3, happiness: -2 },
+        result: '숫자 하나가 그렇게 크게 느껴진 적이 없었다.'
+      }
+    ]
+  },
+  {
+    id: 'teen-15',
+    name: '청소년기',
+    ageRange: '15세',
+    intro: '중학교의 마지막 해. 처음으로 "진로"라는 단어가 남 얘기가 아니게 됩니다.',
+    choices: [
+      {
+        id: 'highschool-track-dilemma',
+        text: '특성화고, 일반고 사이에서 처음으로 진로를 고민한다',
+        deltas: { happiness: -3 },
+        result: '선택지 하나하나가 인생을 통째로 바꿀 것처럼 무겁게 느껴졌다.'
+      },
+      {
+        id: 'hagwon-marathon-begins',
+        text: '밤늦게까지 학원을 도는 입시 레이스에 본격 합류한다',
+        deltas: { wealth: -4, health: -3 },
+        result: '집에 돌아오면 밤 11시, 그게 일상이 됐다.'
+      },
+      {
+        id: 'club-activity-deepdive',
+        text: '동아리 활동에 푹 빠져 실력을 키운다',
+        deltas: { fame: 3, happiness: 3 },
+        result: '성적표엔 안 나오지만, 그 시절 가장 자신 있던 건 이거였다.'
+      },
+      {
+        id: 'confess-to-crush',
+        text: '졸업을 앞두고 짝사랑 상대에게 고백해본다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '결과가 어떻든, 말하고 나니 속은 후련했다.'
+      },
+      {
+        id: 'passion-over-grades',
+        text: '성적보다 하고 싶은 걸 먼저 정하고 밀어붙인다',
+        deltas: { happiness: 4, wealth: -2 },
+        result: '남들 눈엔 무모해 보였지만, 후회는 하지 않았다.'
+      },
+      {
+        id: 'allnight-cramming',
+        text: '중학교 마지막 시험을 앞두고 밤새 벼락치기를 한다',
+        deltas: { health: -4, happiness: -1 },
+        result: '졸린 눈을 비비며 마신 커피믹스만 다섯 잔이었다.'
+      }
+    ]
+  },
+  {
+    id: 'teen-16',
+    name: '청소년기',
+    ageRange: '16세',
+    intro: '고등학교라는 새로운 세계로 첫발을 내딛는 시기. 교복도, 얼굴도, 규칙도 전부 낯섭니다.',
+    choices: [
+      {
+        id: 'new-uniform-new-faces',
+        text: '낯선 교복, 낯선 얼굴들 사이에서 다시 적응기를 겪는다',
+        deltas: { happiness: -2, relationship: 1 },
+        result: '교복 하나 걸쳤을 뿐인데, 완전히 다른 사람이 된 기분이었다.'
+      },
+      {
+        id: 'club-and-council-active',
+        text: '동아리·학생회 활동에 적극적으로 뛰어든다',
+        deltas: { fame: 5, relationship: 3, happiness: -1 },
+        result: '회의 준비로 밤을 새는 날도 이상하게 뿌듯했다.'
+      },
+      {
+        id: 'grade-competition-tension',
+        text: '내신 경쟁이 본격화되며 친구 사이에도 미묘한 긴장이 생긴다',
+        deltas: { relationship: -3, wealth: -2 },
+        result: '같이 밥 먹던 친구가 문득 경쟁자처럼 느껴지는 순간들이 있었다.'
+      },
+      {
+        id: 'first-highschool-romance',
+        text: '처음 사귄 남자친구·여자친구와 풋풋한 연애를 시작한다',
+        deltas: { happiness: 5, relationship: 3, wealth: -2 },
+        result: '쉬는 시간마다 문자 하나에 마음이 오르락내리락했다.'
+      },
+      {
+        id: 'caught-slacking-nightstudy',
+        text: '야간자율학습 시간에 몰래 딴짓을 하다 걸린다',
+        deltas: { happiness: 2, relationship: -1 },
+        result: '선생님한테 걸린 순간 심장이 내려앉았지만, 나중엔 웃긴 추억이 됐다.'
+      },
+      {
+        id: 'sports-day-star',
+        text: '체육대회에서 반 대표로 활약하며 존재감을 알린다',
+        deltas: { fame: 6, health: 3 },
+        result: '이겨서라기보다, 반 전체가 한마음이 됐던 그 하루가 오래 남았다.'
+      }
+    ]
+  },
+  {
+    id: 'teen-17',
+    name: '청소년기',
+    ageRange: '17세',
+    intro: '진로와 성적이 본격적으로 무게를 갖기 시작하는 나이. 하루하루가 조금씩 빠듯해집니다.',
+    choices: [
+      {
+        id: 'track-choice-future',
+        text: '문·이과(혹은 진로 트랙)를 선택하며 본격적으로 미래를 그려본다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '펜 끝이 향한 방향이, 이후 몇 년의 방향을 정했다.'
+      },
+      {
+        id: 'mock-exam-rollercoaster',
+        text: '모의고사 성적에 일희일비하는 나날이 이어진다',
+        deltas: { happiness: -4, health: -2 },
+        result: '성적표 봉투를 뜯기 전 숨을 크게 들이쉬는 게 습관이 됐다.'
+      },
+      {
+        id: 'broadcast-club-passion',
+        text: '방송반·학보사 등에서 하고 싶은 걸 먼저 찾아 나선다',
+        deltas: { fame: 4, happiness: 3 },
+        result: '카메라 뒤든 앞이든, 그 시간만큼은 온전히 즐거웠다.'
+      },
+      {
+        id: 'first-part-time-job',
+        text: '친구와 함께 처음으로 아르바이트를 시작한다',
+        deltas: { wealth: 5, health: -2 },
+        result: '첫 월급을 받던 날, 통장 잔고보다 뿌듯함이 더 컸다.'
+      },
+      {
+        id: 'parents-friction-examstress',
+        text: '입시 스트레스로 부모님과 자주 부딪힌다',
+        deltas: { relationship: -4, happiness: -2 },
+        result: '서로 사랑해서 더 날카로워지는 말들이 있다는 걸 그때 알았다.'
+      },
+      {
+        id: 'skip-study-sneak-out',
+        text: '야자를 땡땡이치고 친구들과 몰래 놀러 나간다',
+        deltas: { happiness: 4, relationship: 3, wealth: -2 },
+        result: '들키면 큰일이라는 걸 알면서도, 그 밤바람이 유독 달았다.'
+      }
+    ]
+  },
+  {
+    id: 'teen-18',
+    name: '청소년기',
+    ageRange: '18세',
+    intro: '고등학교의 마지막 해. 수능과 졸업이라는 두 단어가 하루하루를 채웁니다.',
+    choices: [
+      {
+        id: 'suneung-weight',
+        text: '수능이라는 단어 하나에 하루하루가 짓눌린다',
+        deltas: { happiness: -5, health: -4 },
+        result: '달력의 D-day 숫자가 매일 줄어드는 걸 보는 게 곤욕이었다.'
+      },
+      {
+        id: 'no-retake-determination',
+        text: '재수 없이 한 번에 원하는 결과를 내겠다며 이를 악문다',
+        deltas: { health: -3, wealth: -2 },
+        result: '딱 한 번뿐이라는 생각이, 오히려 이를 악물게 만들었다.'
+      },
+      {
+        id: 'senior-festival-blowout',
+        text: '고3 마지막 축제에서 반 전체와 마음껏 논다',
+        deltas: { happiness: 5, relationship: 4 },
+        result: '공부 얘기는 잠깐 잊고, 그냥 다 같이 웃고 떠들었다.'
+      },
+      {
+        id: 'early-admission-choice',
+        text: '수시 원서를 쓰며 진로를 스스로 결정짓는다',
+        deltas: { happiness: 2, wealth: -2 },
+        result: '원서에 적어 낸 몇 글자가, 앞으로의 몇 년을 결정지었다.'
+      },
+      {
+        id: 'graduation-day-tears',
+        text: '졸업식 날, 그동안의 시간을 돌아보며 울컥한다',
+        deltas: { relationship: 3, happiness: 2 },
+        result: '울지 않으려 했는데, 교문을 나서는 순간 결국 눈물이 났다.'
+      },
+      {
+        id: 'postexam-first-job',
+        text: '시험이 끝나자마자 아르바이트로 첫 사회 경험을 쌓는다',
+        deltas: { wealth: 6, health: -2 },
+        result: '시험만 끝나면 다 끝날 줄 알았는데, 새로운 시작이 기다리고 있었다.'
       }
     ]
   },

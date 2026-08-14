@@ -208,18 +208,19 @@
         <h2><span class="num">4</span>생애 사이클 · 스탯 시스템</h2>
         <h3>생애 10카테고리</h3>
         <p>균등한 나이 간격이 아니라 실제 인생의 결절점(입학·진로·독립·가정) 기준. <span class="badge badge-live">구현됨</span>
-        3카테고리, <span class="badge badge-todo">콘텐츠 미작성</span> 7카테고리 — 형식은 동일해서 <code>functions/game-data.js</code>의
-        <code>STAGES</code> 배열에 이어 채우면 됨. <b>유아기·초등학생은 카테고리 하나가 <code>STAGES</code> 안에서
+        5카테고리, <span class="badge badge-todo">콘텐츠 미작성</span> 5카테고리 — 형식은 동일해서 <code>functions/game-data.js</code>의
+        <code>STAGES</code> 배열에 이어 채우면 됨. <b>유아기·초등학생·청소년기는 카테고리가 <code>STAGES</code> 안에서
         한 살 단위 여러 항목으로 쪼개져 있음</b> — 유아기는 7개(<code>infancy-0</code>~<code>infancy-6</code>),
-        초등학생은 6개(<code>elementary-7</code>~<code>elementary-12</code>). 표의 "구간" 개수와 실제
-        <code>STAGES.length</code>(현재 14)는 다르다.</p>
+        초등학생은 6개(<code>elementary-7</code>~<code>elementary-12</code>), 청소년기는 6개(<code>teen-13</code>~
+        <code>teen-18</code>, 사춘기+고등학생을 한 카테고리로 통합 구현). 표의 "구간" 개수와 실제
+        <code>STAGES.length</code>(현재 20)는 다르다.</p>
         <div class="tbl-wrap">
             <table>
                 <tr><th>구간</th><th>나이</th><th>상태</th></tr>
                 <tr><td>유아기 <span class="badge badge-admin">🎲 주사위(0~3세) + 선택(4~6세)</span></td><td>0–6세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>초등학생 <span class="badge badge-admin">선택 × 6(한 살 단위)</span></td><td>7–12세</td><td><span class="badge badge-live">구현됨</span></td></tr>
-                <tr><td>사춘기</td><td>13–15세</td><td><span class="badge badge-todo">TODO</span></td></tr>
-                <tr><td>고등학생</td><td>16–18세</td><td><span class="badge badge-todo">TODO</span></td></tr>
+                <tr><td>사춘기 <span class="badge badge-admin">청소년기로 통합 구현</span></td><td>13–15세</td><td><span class="badge badge-live">구현됨</span></td></tr>
+                <tr><td>고등학생 <span class="badge badge-admin">청소년기로 통합 구현</span></td><td>16–18세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>스무 살</td><td>19–23세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>사회 초년생</td><td>24–29세</td><td><span class="badge badge-todo">TODO</span></td></tr>
                 <tr><td>서른, 자리잡기</td><td>30–39세</td><td><span class="badge badge-todo">TODO</span></td></tr>
@@ -241,6 +242,12 @@
         본인 의사로 고르는 게 자연스러워서 주사위 구간 없이 전부 일반 선택(6개 중 3개 노출)이다. 학교
         적응(7세) → 교우관계 심화(8세) → 취미·특기 발견(9세) → 사춘기 전조(10세) → 진로·학업 스트레스
         (11세) → 졸업·진학 준비(12세) 순으로 매년 다른 주제를 다룬다.</p>
+        <p class="note"><b>청소년기(13~18세)도 같은 방식으로 한 살 단위 6개 구간(<code>teen-13</code>~
+        <code>teen-18</code>)으로 쪼개져 있다.</b> 기획안 원안의 "사춘기(13~15세)"·"고등학생(16~18세)" 두
+        카테고리를 하나의 <code>name: '청소년기'</code>로 통합해 구현했다(카테고리 표에는 여전히 두 줄로
+        따로 남아 있지만, 실제 콘텐츠는 이 6구간이 전부 대응). 신체·정서 변화(13세) → 교우관계 재편/자아
+        정체성(14세) → 진로 고민·고입 준비(15세) → 고등학교 입학(16세) → 진로 구체화·입시 스트레스(17세)
+        → 수능·졸업(18세) 순. 역시 주사위 없이 전부 일반 선택.</p>
         <p class="note"><b>구간마다 선택지를 최대 6개까지 써두고, 실제로는 그중 3개만 무작위로 노출한다.</b>
         <code>startPlaythrough</code>/<code>applyChoice</code>가 그 구간에 들어설 때 <code>pickVisibleChoiceIds()</code>로
         3개를 미리 뽑아 저장 슬롯(<code>lifeGame/playthroughs/&#123;uid&#125;/visibleChoiceIds</code>)에
@@ -410,6 +417,48 @@
                 <tr><td><code>separating-from-bff</code></td><td>단짝과 다른 중학교에 배정돼 이별을 준비한다</td><td></td></tr>
                 <tr><td><code>growth-spurt</code></td><td>키가 부쩍 자라며 몸이 눈에 띄게 달라지기 시작한다</td><td></td></tr>
                 <tr><td><code>last-field-trip</code></td><td>초등학교 마지막 소풍에서 반 전체와 어울려 논다</td><td></td></tr>
+
+                <tr><td rowspan="6">청소년기 · 13세</td><td><code>voice-and-growth-spurt</code></td><td>목소리가 갈라지거나 몸이 부쩍 자라며 낯설어진다</td><td></td></tr>
+                <tr><td><code>first-real-exam-rank</code></td><td>중학교 첫 시험에서 등수라는 걸 처음 실감한다</td><td></td></tr>
+                <tr><td><code>first-sns-account</code></td><td>SNS 계정을 처음 만들어 또래들과 소통한다</td><td></td></tr>
+                <tr><td><code>mirror-self-conscious</code></td><td>거울 앞에서 외모에 부쩍 신경 쓰기 시작한다</td><td></td></tr>
+                <tr><td><code>quiet-observer-newschool</code></td><td>새 학교, 새 얼굴들 사이에서 조용히 관찰만 한다</td><td></td></tr>
+                <tr><td><code>mood-swings-surprise</code></td><td>급격히 예민해진 감정 기복에 스스로도 당황한다</td><td></td></tr>
+
+                <tr><td rowspan="6">청소년기 · 14세</td><td><code>pushed-out-of-group</code></td><td>친했던 무리에서 은근히 밀려나는 기분을 느낀다</td><td></td></tr>
+                <tr><td><code>new-crew-new-persona</code></td><td>새로운 친구 무리에 합류하며 완전히 다른 캐릭터로 지내본다</td><td></td></tr>
+                <tr><td><code>teacher-clashes</code></td><td>선생님과 사사건건 부딪히는 반항기를 겪는다</td><td></td></tr>
+                <tr><td><code>idol-fandom-splurge</code></td><td>좋아하는 아이돌·스트리머에 푹 빠져 용돈을 쏟아붓는다</td><td></td></tr>
+                <tr><td><code>locked-door-solitude</code></td><td>혼자만의 세계에 깊이 몰입하며 방문을 걸어 잠근다</td><td></td></tr>
+                <tr><td><code>follower-count-obsession</code></td><td>SNS 팔로워 수에 하루하루 일희일비한다</td><td></td></tr>
+
+                <tr><td rowspan="6">청소년기 · 15세</td><td><code>highschool-track-dilemma</code></td><td>특성화고, 일반고 사이에서 처음으로 진로를 고민한다</td><td></td></tr>
+                <tr><td><code>hagwon-marathon-begins</code></td><td>밤늦게까지 학원을 도는 입시 레이스에 본격 합류한다</td><td></td></tr>
+                <tr><td><code>club-activity-deepdive</code></td><td>동아리 활동에 푹 빠져 실력을 키운다</td><td></td></tr>
+                <tr><td><code>confess-to-crush</code></td><td>졸업을 앞두고 짝사랑 상대에게 고백해본다</td><td></td></tr>
+                <tr><td><code>passion-over-grades</code></td><td>성적보다 하고 싶은 걸 먼저 정하고 밀어붙인다</td><td></td></tr>
+                <tr><td><code>allnight-cramming</code></td><td>중학교 마지막 시험을 앞두고 밤새 벼락치기를 한다</td><td></td></tr>
+
+                <tr><td rowspan="6">청소년기 · 16세</td><td><code>new-uniform-new-faces</code></td><td>낯선 교복, 낯선 얼굴들 사이에서 다시 적응기를 겪는다</td><td></td></tr>
+                <tr><td><code>club-and-council-active</code></td><td>동아리·학생회 활동에 적극적으로 뛰어든다</td><td></td></tr>
+                <tr><td><code>grade-competition-tension</code></td><td>내신 경쟁이 본격화되며 친구 사이에도 미묘한 긴장이 생긴다</td><td></td></tr>
+                <tr><td><code>first-highschool-romance</code></td><td>처음 사귄 남자친구·여자친구와 풋풋한 연애를 시작한다</td><td></td></tr>
+                <tr><td><code>caught-slacking-nightstudy</code></td><td>야간자율학습 시간에 몰래 딴짓을 하다 걸린다</td><td></td></tr>
+                <tr><td><code>sports-day-star</code></td><td>체육대회에서 반 대표로 활약하며 존재감을 알린다</td><td></td></tr>
+
+                <tr><td rowspan="6">청소년기 · 17세</td><td><code>track-choice-future</code></td><td>문·이과(혹은 진로 트랙)를 선택하며 본격적으로 미래를 그려본다</td><td></td></tr>
+                <tr><td><code>mock-exam-rollercoaster</code></td><td>모의고사 성적에 일희일비하는 나날이 이어진다</td><td></td></tr>
+                <tr><td><code>broadcast-club-passion</code></td><td>방송반·학보사 등에서 하고 싶은 걸 먼저 찾아 나선다</td><td></td></tr>
+                <tr><td><code>first-part-time-job</code></td><td>친구와 함께 처음으로 아르바이트를 시작한다</td><td></td></tr>
+                <tr><td><code>parents-friction-examstress</code></td><td>입시 스트레스로 부모님과 자주 부딪힌다</td><td></td></tr>
+                <tr><td><code>skip-study-sneak-out</code></td><td>야자를 땡땡이치고 친구들과 몰래 놀러 나간다</td><td></td></tr>
+
+                <tr><td rowspan="6">청소년기 · 18세</td><td><code>suneung-weight</code></td><td>수능이라는 단어 하나에 하루하루가 짓눌린다</td><td></td></tr>
+                <tr><td><code>no-retake-determination</code></td><td>재수 없이 한 번에 원하는 결과를 내겠다며 이를 악문다</td><td></td></tr>
+                <tr><td><code>senior-festival-blowout</code></td><td>고3 마지막 축제에서 반 전체와 마음껏 논다</td><td></td></tr>
+                <tr><td><code>early-admission-choice</code></td><td>수시 원서를 쓰며 진로를 스스로 결정짓는다</td><td></td></tr>
+                <tr><td><code>graduation-day-tears</code></td><td>졸업식 날, 그동안의 시간을 돌아보며 울컥한다</td><td></td></tr>
+                <tr><td><code>postexam-first-job</code></td><td>시험이 끝나자마자 아르바이트로 첫 사회 경험을 쌓는다</td><td></td></tr>
 
                 <tr><td rowspan="7">스무 살 · 19–23세</td><td><code>college</code></td><td>무난하게 대학에 진학해 학점을 관리한다</td><td></td></tr>
                 <tr><td><code>streaming-debut</code></td><td>다니던 학교를 관두고 방송을 시작해본다</td><td></td></tr>
