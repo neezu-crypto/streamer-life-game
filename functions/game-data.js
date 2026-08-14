@@ -53,6 +53,14 @@
 // 관리자(35세) → 부모 부양(36세) → 자기계발(37세) → 건강 체감(38세)
 // → 서른대 마무리(39세) 순.
 //
+// "중년, 선택의 무게"(40~54세)는 15년짜리로 가장 긴 카테고리라
+// midlife-40 ~ midlife-54 총 15개 항목으로 구현했다. 마흔의 무게(40세)
+// → 자녀교육·커리어 안정(41세) → 건강 이상 신호(42세) → 조직 내 입지
+// (43세) → 관계 재정비(44세) → 중년의 위기(45세) → 재도전(46세) →
+// 부모님 노환·이별(47세) → 커리어 정점(48세) → 갱년기 초입(49세) →
+// 쉰(50세) → 빈 둥지(51세) → 은퇴 준비(52세) → 재무 재점검(53세) →
+// 중년 마무리(54세) 순.
+//
 // 건강 상세(healthConditions) - 선택지에 addCondition({id,label})을 붙이면
 // 부상/질병이 "생기고", removeCondition(id)을 붙이면 그 조건이 나아서
 // "없어진다". 서버(index.js의 applyChoice)가 그 판의 저장 슬롯에
@@ -2016,8 +2024,698 @@ const STAGES = [
         result: '두려워하기보다, 그냥 자연스럽게 받아들이기로 했다.'
       }
     ]
+  },
+  {
+    id: 'midlife-40',
+    name: '중년, 선택의 무게',
+    ageRange: '40세',
+    intro: '인생의 절반 지점. 마흔이라는 숫자가 이유 없이 지난 시간을 돌아보게 만듭니다.',
+    choices: [
+      {
+        id: 'midlife-halfway-realization',
+        text: '마흔이 되고 나니 인생의 절반을 지났다는 게 실감난다',
+        deltas: { happiness: -2, health: -1 },
+        result: '숫자 하나가 이렇게 무겁게 다가올 줄 몰랐다.'
+      },
+      {
+        id: 'finally-being-myself',
+        text: '이제야 진짜 나답게 사는 법을 알 것 같다',
+        deltas: { happiness: 5, fame: 1 },
+        result: '남 눈치 보지 않는 법을, 마흔이 되어서야 조금 알 것 같았다.'
+      },
+      {
+        id: 'fulfilling-a-long-delayed-wish',
+        text: '마흔 기념으로 오랫동안 미뤄온 일을 실행에 옮긴다',
+        deltas: { happiness: 4, wealth: -3 },
+        result: '더 미루면 영영 못 할 것 같아서, 마침내 저질렀다.'
+      },
+      {
+        id: 'generation-gap-with-juniors',
+        text: '젊은 후배들 사이에서 세대 차이를 실감한다',
+        deltas: { happiness: -3, relationship: -1 },
+        result: '농담 하나도 통하지 않는 순간들이 늘어갔다.'
+      },
+      {
+        id: 'confidence-in-life-so-far',
+        text: '지금까지의 삶에 나름의 확신이 생긴다',
+        deltas: { happiness: 4, wealth: 2 },
+        result: '완벽하진 않았지만, 그래도 내 선택들이었다.'
+      },
+      {
+        id: 'planning-second-half',
+        text: '인생 후반전을 위해 새로운 계획을 세운다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '전반전을 마친 선수처럼, 잠시 숨을 고르고 다음을 그렸다.'
+      }
+    ]
+  },
+  {
+    id: 'midlife-41',
+    name: '중년, 선택의 무게',
+    ageRange: '41세',
+    intro: '자녀 교육이든 커리어든, 뭔가를 본격적으로 다잡아야 할 것 같은 압박이 느껴지는 나이입니다.',
+    choices: [
+      {
+        id: 'focus-on-childs-education',
+        text: '자녀 교육에 본격적으로 신경 쓰기 시작한다',
+        deltas: { wealth: -4, happiness: 2, relationship: 2 },
+        result: '학원비 영수증이 쌓여갈수록, 마음도 함께 쌓여갔다.'
+      },
+      {
+        id: 'solidifying-position-at-work',
+        text: '회사에서 확고한 입지를 다진다',
+        deltas: { fame: 4, wealth: 3 },
+        result: '이제는 없어서는 안 될 사람이라는 말을, 처음으로 들었다.'
+      },
+      {
+        id: 'juggling-work-and-parenting',
+        text: '일과 육아를 동시에 챙기느라 몸이 두 개였으면 좋겠다고 느낀다',
+        deltas: { health: -4, happiness: -2 },
+        result: '하루가 24시간이라는 게 새삼 야속했다.'
+      },
+      {
+        id: 'enjoying-childfree-freedom',
+        text: '아이 없는 삶에서 자유로움을 만끽한다',
+        deltas: { happiness: 4, wealth: 2 },
+        result: '평일 저녁의 여유가, 그 무엇과도 바꿀 수 없이 소중했다.'
+      },
+      {
+        id: 'seeking-new-stimulation',
+        text: '커리어 정체를 느끼며 새로운 자극을 찾는다',
+        deltas: { happiness: -2, fame: 1 },
+        result: '익숙함이 편안함인지 정체인지, 헷갈리는 날들이었다.'
+      },
+      {
+        id: 'anxious-comparison-with-peers',
+        text: '동년배들과 비교하며 조급함을 느낀다',
+        deltas: { happiness: -3, relationship: -1 },
+        result: '동창회 소식 하나에 며칠을 심란해했다.'
+      }
+    ]
+  },
+  {
+    id: 'midlife-42',
+    name: '중년, 선택의 무게',
+    ageRange: '42세',
+    intro: '몸이 보내는 신호를 더 이상 못 본 척할 수 없게 되는 나이입니다.',
+    choices: [
+      {
+        id: 'multiple-health-flags',
+        text: '건강검진에서 여러 이상 소견을 받는다',
+        deltas: { health: -5, happiness: -3 },
+        result: '결과지를 읽는 손이 자꾸만 느려졌다.'
+      },
+      {
+        id: 'starting-serious-exercise',
+        text: '본격적으로 운동을 시작하며 체력을 관리한다',
+        deltas: { health: 5, wealth: -2 },
+        result: '숨이 턱까지 차오르면서도, 이상하게 개운했다.'
+      },
+      {
+        id: 'visible-signs-of-aging',
+        text: '흰머리와 노안이 눈에 띄게 늘어난다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '돋보기 없이는 메뉴판도 안 보이는 날이 왔다.'
+      },
+      {
+        id: 'cutting-back-on-drinking',
+        text: '회식·과음이 줄고 건강한 생활을 택한다',
+        deltas: { health: 4, relationship: -1 },
+        result: '다음 날이 무서워, 한 잔 더를 거절하는 법을 배웠다.'
+      },
+      {
+        id: 'ignoring-body-signals',
+        text: '몸에서 보내는 신호를 무시하고 계속 무리한다',
+        deltas: { health: -6, wealth: 2 },
+        result: '괜찮다는 말을 스스로에게 몇 번이나 되뇌었는지 모른다.'
+      },
+      {
+        id: 'preventive-checkups-for-family-history',
+        text: '가족력 있는 질환을 예방하려 정기 검진을 시작한다',
+        deltas: { health: 3, wealth: -2 },
+        result: '미리 챙기는 게 결국 남는 장사라는 걸 이제야 알았다.'
+      }
+    ]
+  },
+  {
+    id: 'midlife-43',
+    name: '중년, 선택의 무게',
+    ageRange: '43세',
+    intro: '조직 안에서 자신의 자리를 다시 확인하게 되는 시기입니다.',
+    choices: [
+      {
+        id: 'promoted-to-manager',
+        text: '부서장·팀장급으로 승진하며 책임이 커진다',
+        deltas: { fame: 5, wealth: 4, happiness: -2 },
+        result: '명함이 바뀐 날, 어깨도 함께 무거워졌다.'
+      },
+      {
+        id: 'sidelined-in-reorg',
+        text: '조직 개편에서 예상치 못한 자리로 밀려난다',
+        deltas: { happiness: -5, fame: -2 },
+        result: '회의실 자리 배치 하나로도, 많은 게 짐작됐다.'
+      },
+      {
+        id: 'respected-senior-figure',
+        text: '후배들의 존경을 받는 선배로 자리매김한다',
+        deltas: { relationship: 4, fame: 3 },
+        result: '가르친 적도 없는데, 어느새 모범이 되어 있었다.'
+      },
+      {
+        id: 'threatened-by-young-talent',
+        text: '젊은 인재들에게 밀리는 위기감을 느낀다',
+        deltas: { happiness: -4, fame: -1 },
+        result: '따라잡히는 게 아니라, 이미 추월당한 건 아닐까 싶었다.'
+      },
+      {
+        id: 'weighing-job-offer',
+        text: '이직 제안을 받고 진지하게 고민한다',
+        deltas: { fame: 2, wealth: 2, happiness: -1 },
+        result: '익숙함을 버릴 용기가 있는지, 스스로에게 묻고 또 물었다.'
+      },
+      {
+        id: 'planning-venture-with-colleague',
+        text: '오랜 동료와 함께 새로운 사업을 구상한다',
+        deltas: { wealth: -3, happiness: 3 },
+        result: '커피 한 잔 하며 나눈 얘기가, 진짜 계획이 되어가고 있었다.'
+      }
+    ]
+  },
+  {
+    id: 'midlife-44',
+    name: '중년, 선택의 무게',
+    ageRange: '44세',
+    intro: '가까운 사이일수록 소원해지기 쉬운 나이. 관계를 다시 들여다보게 됩니다.',
+    choices: [
+      {
+        id: 'teen-child-conflict',
+        text: '사춘기에 접어든 자녀와 갈등을 겪는다',
+        deltas: { relationship: -5, happiness: -3 },
+        result: '문 닫는 소리가 유독 크게 들리는 날들이었다.'
+      },
+      {
+        id: 'drifting-from-spouse',
+        text: '배우자와의 관계를 돌아보며 소원해진 사이를 자각한다',
+        deltas: { relationship: -4, happiness: -2 },
+        result: '언제부터 대화가 이렇게 줄었는지, 기억도 나지 않았다.'
+      },
+      {
+        id: 'reconnecting-old-friend-40s',
+        text: '오랜 친구와 다시 가까워지며 위안을 얻는다',
+        deltas: { relationship: 5, happiness: 3 },
+        result: '몇 년 만의 연락인데도, 옛날 그대로였다.'
+      },
+      {
+        id: 'bonding-over-hobby-with-kid',
+        text: '자녀와 취미를 공유하며 관계가 돈독해진다',
+        deltas: { relationship: 5, happiness: 4, wealth: -2 },
+        result: '같은 걸 좋아한다는 것만으로, 대화가 다시 이어졌다.'
+      },
+      {
+        id: 'solo-time-reset-40s',
+        text: '혼자만의 시간을 갖고 관계를 재정비한다',
+        deltas: { happiness: 3, relationship: -1 },
+        result: '잠시 거리를 두고 나니, 오히려 더 선명하게 보였다.'
+      },
+      {
+        id: 'family-trip-reconciliation',
+        text: '가족 여행으로 소원했던 사이를 회복한다',
+        deltas: { relationship: 5, happiness: 4, wealth: -4 },
+        result: '낯선 풍경 앞에서, 오랜만에 다 같이 웃었다.'
+      },
+      {
+        id: 'knee-pain-onset',
+        text: '무리한 운동으로 무릎에 이상이 생긴다',
+        deltas: { health: -4, wealth: -1 },
+        result: '계단을 오를 때마다 무릎에서 신호가 왔다.',
+        addCondition: { id: 'knee-pain', label: '🦵 무릎 통증' }
+      }
+    ]
+  },
+  {
+    id: 'midlife-45',
+    name: '중년, 선택의 무게',
+    ageRange: '45세',
+    intro: '다 가진 것 같은데도 문득 공허해지는, 이른바 중년의 위기가 찾아오는 나이입니다.',
+    choices: [
+      {
+        id: 'existential-emptiness',
+        text: '이유 모를 공허함에 삶의 의미를 되묻는다',
+        deltas: { happiness: -5, health: -1 },
+        result: '다 가진 것 같은데, 뭔가 텅 빈 기분이었다.'
+      },
+      {
+        id: 'flirting-with-escape',
+        text: '새로운 사람을 만나며 일탈을 꿈꾼다',
+        deltas: { happiness: 2, relationship: -3 },
+        result: '설렘과 죄책감 사이에서, 마음이 복잡하게 흔들렸다.'
+      },
+      {
+        id: 'reviving-old-dream',
+        text: '그동안 억눌러온 꿈을 다시 꺼내본다',
+        deltas: { happiness: 4, wealth: -2 },
+        result: '서랍 깊숙이 넣어뒀던 꿈이, 먼지를 털고 다시 나왔다.'
+      },
+      {
+        id: 'impulsive-big-purchase',
+        text: '갑작스레 큰 지출을 하며 스스로를 위로한다',
+        deltas: { happiness: 3, wealth: -6 },
+        result: '카드를 긁는 순간만큼은, 마음이 후련했다.'
+      },
+      {
+        id: 'therapy-and-meditation',
+        text: '명상·상담 등으로 마음을 다잡는다',
+        deltas: { happiness: 5, wealth: -2 },
+        result: '낯설었던 대화가, 어느새 한 주의 낙이 되어 있었다.'
+      },
+      {
+        id: 'accepting-enough',
+        text: '지금 이대로도 충분하다는 걸 받아들인다',
+        deltas: { happiness: 4, health: 2 },
+        result: '더 채우려 애쓰지 않아도 된다는 걸, 비로소 알았다.'
+      }
+    ]
+  },
+  {
+    id: 'midlife-46',
+    name: '중년, 선택의 무게',
+    ageRange: '46세',
+    intro: '늦지 않았다는 걸 스스로 증명하고 싶어지는 나이입니다.',
+    choices: [
+      {
+        id: 'new-certification-40s',
+        text: '새로운 자격증·학위에 도전하며 재교육을 받는다',
+        deltas: { wealth: -3, happiness: 3, fame: 2 },
+        result: '책상 앞에 다시 앉는 게 이렇게 어색할 줄 몰랐다.'
+      },
+      {
+        id: 'career-pivot-40s',
+        text: '완전히 다른 분야로 커리어를 전환한다',
+        deltas: { wealth: -4, happiness: 4, fame: -1 },
+        result: '처음부터 다시 시작한다는 게, 두려우면서도 짜릿했다.'
+      },
+      {
+        id: 'learning-with-younger-generation',
+        text: '젊은 세대와 함께 배우며 신선한 자극을 받는다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '나이 차이는 있어도, 배우는 마음은 다르지 않았다.'
+      },
+      {
+        id: 'new-challenge-setback',
+        text: '새 도전이 생각보다 벅차 좌절을 겪는다',
+        deltas: { happiness: -4, health: -2 },
+        result: '예상보다 훨씬 가파른 언덕이었다.'
+      },
+      {
+        id: 'consulting-with-experience',
+        text: '오랜 경력을 살려 컨설팅·강의를 시작한다',
+        deltas: { wealth: 5, fame: 3 },
+        result: '그동안 쌓아온 경험이, 이렇게 값진 걸 줄 몰랐다.'
+      },
+      {
+        id: 'choosing-to-stay-put',
+        text: '안주하는 편을 택하며 도전을 미룬다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '안전한 선택이었지만, 마음 한켠은 계속 근질거렸다.'
+      }
+    ]
+  },
+  {
+    id: 'midlife-47',
+    name: '중년, 선택의 무게',
+    ageRange: '47세',
+    intro: '나를 키워준 사람들의 노년을 마주하며, 삶과 죽음을 조금 더 가까이서 보게 됩니다.',
+    choices: [
+      {
+        id: 'parent-to-nursing-home',
+        text: '부모님을 요양시설에 모시며 마음이 무겁다',
+        deltas: { relationship: 2, happiness: -5, wealth: -4 },
+        result: '최선의 선택이라 믿으면서도, 발걸음이 떨어지지 않았다.'
+      },
+      {
+        id: 'losing-a-parent',
+        text: '부모님을 떠나보내며 큰 상실을 겪는다',
+        deltas: { happiness: -7, relationship: 3 },
+        result: '이제 전화할 곳이 하나 줄었다는 게, 실감이 나지 않았다.'
+      },
+      {
+        id: 'cherishing-parent-memories',
+        text: '부모님과 함께한 시간을 소중히 기억하며 정리한다',
+        deltas: { relationship: 4, happiness: 2 },
+        result: '오래된 사진첩을 넘기며, 잊고 있던 순간들을 되찾았다.'
+      },
+      {
+        id: 'caring-for-parent-with-siblings',
+        text: '형제자매와 함께 부모님을 정성껏 돌본다',
+        deltas: { relationship: 4, happiness: -2, wealth: -3 },
+        result: '각자의 몫을 나누면서, 오히려 더 가까워졌다.'
+      },
+      {
+        id: 'parents-blessing-new-start',
+        text: '부모님의 응원 속에 새로운 도전을 시작한다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '여전히 나를 믿어주는 그 한마디가, 큰 힘이 됐다.'
+      },
+      {
+        id: 'weight-of-being-a-parent-40s',
+        text: '부모가 된다는 것의 무게를 새삼 깨닫는다',
+        deltas: { happiness: 1, relationship: 3 },
+        result: '내 부모를 보며, 내 모습도 다시 돌아보게 됐다.'
+      },
+      {
+        id: 'knee-pain-heal',
+        text: '체중 관리와 재활 운동으로 무릎이 회복된다',
+        deltas: { health: 5, wealth: -2 },
+        result: '계단을 편하게 오를 수 있다는 게, 새삼 감사했다.',
+        requiresCondition: 'knee-pain',
+        removeCondition: 'knee-pain'
+      }
+    ]
+  },
+  {
+    id: 'midlife-48',
+    name: '중년, 선택의 무게',
+    ageRange: '48세',
+    intro: '커리어가 정점에 이르거나, 정체를 마주하거나 — 갈림이 뚜렷해지는 나이입니다.',
+    choices: [
+      {
+        id: 'career-peak-achievement',
+        text: '커리어의 정점에서 큰 성과를 이룬다',
+        deltas: { fame: 6, wealth: 5, happiness: 3 },
+        result: '그동안의 시간이 헛되지 않았다는 걸, 결과로 증명받았다.'
+      },
+      {
+        id: 'reaching-executive-position',
+        text: '오랜 노력 끝에 임원 자리에 오른다',
+        deltas: { fame: 7, wealth: 5, happiness: -2 },
+        result: '축하 인사만큼이나, 책임의 무게도 함께 따라왔다.'
+      },
+      {
+        id: 'career-stagnation-doubt',
+        text: '정체된 커리어에 회의감을 느낀다',
+        deltas: { happiness: -4, fame: -2 },
+        result: '제자리걸음이 이렇게 지치는 일인 줄 몰랐다.'
+      },
+      {
+        id: 'preparing-to-pass-the-torch',
+        text: '후배들에게 자리를 물려줄 준비를 시작한다',
+        deltas: { relationship: 3, happiness: 2 },
+        result: '내려놓는 법을 배우는 것도, 결국 리더의 몫이었다.'
+      },
+      {
+        id: 'restructuring-anxiety',
+        text: '구조조정 불안 속에서 하루하루를 버틴다',
+        deltas: { happiness: -5, health: -2 },
+        result: '메일함을 열 때마다 심장이 철렁했다.'
+      },
+      {
+        id: 'satisfaction-in-achievements',
+        text: '지금까지의 성취를 되돌아보며 만족감을 느낀다',
+        deltas: { happiness: 4, wealth: 1 },
+        result: '생각보다 많은 걸 이뤄왔다는 걸, 그제야 인정했다.'
+      }
+    ]
+  },
+  {
+    id: 'midlife-49',
+    name: '중년, 선택의 무게',
+    ageRange: '49세',
+    intro: '몸이 새로운 국면으로 접어드는 걸 느끼기 시작하는 나이입니다.',
+    choices: [
+      {
+        id: 'new-hobby-menopause-relief',
+        text: '새로운 취미로 몸과 마음의 변화를 다스린다',
+        deltas: { happiness: 4, wealth: -2 },
+        result: '손을 움직이는 동안만큼은, 잡생각이 사라졌다.'
+      },
+      {
+        id: 'mood-swings-midlife',
+        text: '감정 기복이 심해져 스스로도 낯설다',
+        deltas: { happiness: -4, relationship: -2 },
+        result: '별것 아닌 일에도 눈물이 핑 도는 날들이 늘었다.'
+      },
+      {
+        id: 'learning-about-hormones',
+        text: '호르몬 변화에 대해 배우며 몸을 이해해간다',
+        deltas: { health: 2, happiness: 2 },
+        result: '몸이 왜 이러는지 알고 나니, 마음이 한결 가벼워졌다.'
+      },
+      {
+        id: 'adjusting-to-lower-stamina',
+        text: '체력 저하를 인정하고 생활 방식을 조정한다',
+        deltas: { health: 3, happiness: 1 },
+        result: '예전처럼 무리하지 않는 법을, 천천히 익혀갔다.'
+      },
+      {
+        id: 'leaning-on-peers-menopause',
+        text: '비슷한 변화를 겪는 또래들과 서로 의지한다',
+        deltas: { relationship: 4, happiness: 3 },
+        result: '나만 그런 게 아니라는 사실이, 이상하게 위안이 됐다.'
+      },
+      {
+        id: 'accepting-natural-change',
+        text: '이 시기를 자연스러운 변화로 받아들이려 애쓴다',
+        deltas: { happiness: 3, health: 1 },
+        result: '거스르기보다, 함께 가기로 마음먹었다.'
+      },
+      {
+        id: 'menopause-onset',
+        text: '몸의 변화(갱년기 증상)가 본격적으로 시작된다',
+        deltas: { health: -5, happiness: -3 },
+        result: '열감과 불면이 번갈아 찾아오는 밤들이 계속됐다.',
+        addCondition: { id: 'menopause-symptoms', label: '🌡️ 갱년기 증상' }
+      }
+    ]
+  },
+  {
+    id: 'midlife-50',
+    name: '중년, 선택의 무게',
+    ageRange: '50세',
+    intro: '쉰이라는 숫자 앞에서, 지나온 시간의 무게를 새삼 느끼게 됩니다.',
+    choices: [
+      {
+        id: 'mixed-feelings-turning-fifty',
+        text: '쉰이라는 나이 앞에서 만감이 교차한다',
+        deltas: { happiness: -2, relationship: 1 },
+        result: '축하한다는 말에, 웃어야 할지 씁쓸해야 할지 헷갈렸다.'
+      },
+      {
+        id: 'wisdom-of-fifty',
+        text: '지천명, 인생의 이치를 조금은 알 것 같은 기분이 든다',
+        deltas: { happiness: 5, fame: 1 },
+        result: '화낼 일에 화내지 않는 법을, 이제야 조금 알 것 같았다.'
+      },
+      {
+        id: 'big-fiftieth-celebration',
+        text: '쉰 살 기념으로 큰 파티·여행을 계획한다',
+        deltas: { happiness: 5, wealth: -5, relationship: 4 },
+        result: '촛불 오십 개를 다 끄는 데, 숨이 꽤 찼다.'
+      },
+      {
+        id: 'planning-second-half-of-life',
+        text: '인생의 후반전을 준비하며 새로운 목표를 세운다',
+        deltas: { happiness: 3, wealth: 1 },
+        result: '남은 시간을 어떻게 쓸지, 진지하게 그려보기 시작했다.'
+      },
+      {
+        id: 'looking-back-at-old-photos',
+        text: '젊은 날의 사진들을 꺼내보며 세월을 실감한다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '사진 속 얼굴이 낯설면서도, 그리웠다.'
+      },
+      {
+        id: 'most-comfortable-with-myself',
+        text: '지금의 나 자신이 가장 편안하다는 걸 깨닫는다',
+        deltas: { happiness: 5, health: 2 },
+        result: '잘 보이려 애쓰지 않아도 되는 지금이, 제일 나답게 느껴졌다.'
+      }
+    ]
+  },
+  {
+    id: 'midlife-51',
+    name: '중년, 선택의 무게',
+    ageRange: '51세',
+    intro: '자녀가 떠난 자리, 그 빈자리를 어떻게 채우느냐가 이 시기의 숙제입니다.',
+    choices: [
+      {
+        id: 'empty-nest-syndrome',
+        text: '자녀가 독립하며 빈 둥지 증후군을 겪는다',
+        deltas: { happiness: -5, relationship: -2 },
+        result: '아이 방문이 유독 조용한 게, 자꾸만 마음에 걸렸다.'
+      },
+      {
+        id: 'celebrating-child-independence',
+        text: '자녀의 독립을 축하하며 새로운 자유를 만끽한다',
+        deltas: { happiness: 5, wealth: 2 },
+        result: '짐을 다 싸서 나가는 뒷모습이, 대견하면서도 시원섭섭했다.'
+      },
+      {
+        id: 'rekindled-couple-time',
+        text: '부부만의 시간이 다시 늘며 관계가 새롭게 깊어진다',
+        deltas: { relationship: 5, happiness: 4 },
+        result: '신혼 때 같던 대화가, 오랜만에 다시 오갔다.'
+      },
+      {
+        id: 'lingering-emptiness',
+        text: '독립한 자녀의 빈자리가 유독 크게 느껴진다',
+        deltas: { happiness: -4, relationship: -1 },
+        result: '밥상에 놓인 수저 두 벌이, 그렇게 낯설 수가 없었다.'
+      },
+      {
+        id: 'new-hobbies-and-travel',
+        text: '취미·부부 여행으로 새로운 일상을 채워간다',
+        deltas: { happiness: 4, wealth: -3 },
+        result: '둘만의 여행이 이렇게 홀가분할 줄, 예전엔 몰랐다.'
+      },
+      {
+        id: 'grandchild-news-excitement',
+        text: '자녀에게 손주 소식을 듣고 새로운 설렘을 느낀다',
+        deltas: { happiness: 5, relationship: 3 },
+        result: '할머니, 할아버지라는 말이, 벌써부터 낯설고도 설렜다.'
+      },
+      {
+        id: 'menopause-heal',
+        text: '호르몬 치료·생활 관리로 갱년기 증상이 눈에 띄게 안정된다',
+        deltas: { health: 6, wealth: -2 },
+        result: '오랜만에 밤새 푹 잔 아침이, 이렇게 개운할 줄 몰랐다.',
+        requiresCondition: 'menopause-symptoms',
+        removeCondition: 'menopause-symptoms'
+      }
+    ]
+  },
+  {
+    id: 'midlife-52',
+    name: '중년, 선택의 무게',
+    ageRange: '52세',
+    intro: '은퇴라는 단어가 더는 먼 이야기가 아니게 되는 나이입니다.',
+    choices: [
+      {
+        id: 'planning-life-after-retirement',
+        text: '은퇴 후 삶을 구체적으로 계획하기 시작한다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '막연했던 은퇴가, 조금씩 구체적인 그림이 되어갔다.'
+      },
+      {
+        id: 'reviewing-pension-and-savings',
+        text: '연금·노후 자금을 꼼꼼히 재점검한다',
+        deltas: { wealth: 3, happiness: -1 },
+        result: '숫자를 두드릴 때마다, 마음이 오락가락했다.'
+      },
+      {
+        id: 'exploring-second-act-business',
+        text: '제2의 인생을 위한 창업·귀농을 알아본다',
+        deltas: { wealth: -3, happiness: 3 },
+        result: '완전히 다른 삶의 방식을, 처음으로 진지하게 그려봤다.'
+      },
+      {
+        id: 'offered-early-retirement',
+        text: '회사에서 명예퇴직을 제안받고 고민에 빠진다',
+        deltas: { happiness: -4, wealth: 2 },
+        result: '받아들일지 버틸지, 며칠 밤을 뒤척였다.'
+      },
+      {
+        id: 'looking-forward-to-retirement',
+        text: '은퇴가 두렵기보다 기대되기 시작한다',
+        deltas: { happiness: 4, fame: -1 },
+        result: '끝이 아니라 다음 챕터라는 생각이, 마음을 가볍게 했다.'
+      },
+      {
+        id: 'still-wanting-to-work',
+        text: '아직은 일을 더 하고 싶다는 마음을 확인한다',
+        deltas: { happiness: 2, wealth: 2 },
+        result: '손을 놓기엔, 아직 하고 싶은 일이 많았다.'
+      }
+    ]
+  },
+  {
+    id: 'midlife-53',
+    name: '중년, 선택의 무게',
+    ageRange: '53세',
+    intro: '숫자로 남은 시간을 가늠하게 되는, 현실적인 재정비의 시기입니다.',
+    choices: [
+      {
+        id: 'organizing-assets-for-retirement',
+        text: '그동안의 자산을 정리하며 노후 계획을 세운다',
+        deltas: { wealth: 4, happiness: 2 },
+        result: '숫자로 정리하고 나니, 막연한 불안이 조금 가셨다.'
+      },
+      {
+        id: 'unexpected-expense-hits-savings',
+        text: '예상치 못한 지출로 노후 자금에 구멍이 난다',
+        deltas: { wealth: -6, happiness: -3 },
+        result: '차곡차곡 쌓아온 것이, 순식간에 흔들렸다.'
+      },
+      {
+        id: 'consulting-financial-advisor',
+        text: '재무 설계사와 상담하며 자산을 재배치한다',
+        deltas: { wealth: 3, happiness: 1 },
+        result: '혼자 끙끙대던 걸 함께 풀어보니, 훨씬 명확해졌다.'
+      },
+      {
+        id: 'funding-childs-wedding',
+        text: '자녀 결혼 자금을 지원하며 통장이 크게 준다',
+        deltas: { wealth: -7, happiness: 3, relationship: 3 },
+        result: '통장은 가벼워졌지만, 마음은 오히려 꽉 찼다.'
+      },
+      {
+        id: 'liquidating-property-for-cashflow',
+        text: '부동산을 정리하며 현금 흐름을 확보한다',
+        deltas: { wealth: 5, happiness: -1 },
+        result: '오래 품고 있던 걸 놓아주는 데도, 결심이 필요했다.'
+      },
+      {
+        id: 'health-and-time-over-money',
+        text: '돈보다 건강과 시간이 우선이라는 걸 재확인한다',
+        deltas: { happiness: 4, health: 2 },
+        result: '통장 잔고보다 오늘 하루가 더 소중하다는 걸, 이제는 안다.'
+      }
+    ]
+  },
+  {
+    id: 'midlife-54',
+    name: '중년, 선택의 무게',
+    ageRange: '54세',
+    intro: '중년의 마지막 해. 다가올 노년을 향해 조용히 마음을 다잡습니다.',
+    choices: [
+      {
+        id: 'reflecting-on-fifteen-years',
+        text: '중년의 마지막 해, 지난 15년을 돌아본다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '짧지 않은 시간이었는데, 돌아보니 순식간이었다.'
+      },
+      {
+        id: 'calm-resolve-for-old-age',
+        text: '다가올 노년을 향한 담담한 각오를 다진다',
+        deltas: { happiness: 2, health: 1 },
+        result: '두렵기보다, 담담하게 받아들이기로 했다.'
+      },
+      {
+        id: 'more-gratitude-than-regret',
+        text: '그동안의 인생에 후회보다 감사가 더 크다는 걸 느낀다',
+        deltas: { happiness: 5, relationship: 2 },
+        result: '아쉬운 것보다, 감사한 것들이 더 많이 떠올랐다.'
+      },
+      {
+        id: 'unfulfilled-dreams-linger',
+        text: '여전히 못다 이룬 꿈이 있다는 사실이 아쉽다',
+        deltas: { happiness: -3, wealth: 1 },
+        result: '시간이 더 있었으면, 하는 생각이 문득 스쳤다.'
+      },
+      {
+        id: 'closing-chapter-with-loved-ones',
+        text: '오랜 친구·가족과 함께 조용히 이 시기를 매듭짓는다',
+        deltas: { relationship: 5, happiness: 4 },
+        result: '거창하지 않아도, 곁의 사람들만으로 충분했다.'
+      },
+      {
+        id: 'preparing-new-chapter',
+        text: '쉰다섯을 앞두고 새로운 챕터를 준비한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '끝이 아니라, 또 다른 시작이라고 되뇌었다.'
+      }
+    ]
   }
-  // TODO: 중년 / 노년 준비 / 황혼 - 3개 카테고리 남음.
+  // TODO: 노년 준비 / 황혼 - 2개 카테고리 남음.
 ];
 
 // 대표 엔딩 6개(기획안 07/09장 - v1 확정 스코프) - 각 아키타입에 가장 가까운

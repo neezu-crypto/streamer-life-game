@@ -208,14 +208,15 @@
         <h2><span class="num">4</span>생애 사이클 · 스탯 시스템</h2>
         <h3>생애 10카테고리</h3>
         <p>균등한 나이 간격이 아니라 실제 인생의 결절점(입학·진로·독립·가정) 기준. <span class="badge badge-live">구현됨</span>
-        7카테고리, <span class="badge badge-todo">콘텐츠 미작성</span> 3카테고리 — 형식은 동일해서 <code>functions/game-data.js</code>의
-        <code>STAGES</code> 배열에 이어 채우면 됨. <b>유아기·초등학생·청소년기·스무 살·사회 초년생·서른은 카테고리가
-        <code>STAGES</code> 안에서 한 살 단위 여러 항목으로 쪼개져 있음</b> — 유아기는 7개(<code>infancy-0</code>~
-        <code>infancy-6</code>), 초등학생은 6개(<code>elementary-7</code>~<code>elementary-12</code>), 청소년기는
-        6개(<code>teen-13</code>~<code>teen-18</code>, 사춘기+고등학생을 한 카테고리로 통합 구현), 스무 살은 5개
-        (<code>twenties-19</code>~<code>twenties-23</code>), 사회 초년생은 6개(<code>rookie-24</code>~
-        <code>rookie-29</code>), 서른은 10개(<code>settling-30</code>~<code>settling-39</code>, 10년짜리
-        카테고리라 다른 곳보다 항목이 많음). 표의 "구간" 개수와 실제 <code>STAGES.length</code>(현재 40)는
+        8카테고리, <span class="badge badge-todo">콘텐츠 미작성</span> 2카테고리 — 형식은 동일해서 <code>functions/game-data.js</code>의
+        <code>STAGES</code> 배열에 이어 채우면 됨. <b>유아기·초등학생·청소년기·스무 살·사회 초년생·서른·중년은
+        카테고리가 <code>STAGES</code> 안에서 한 살 단위 여러 항목으로 쪼개져 있음</b> — 유아기는 7개
+        (<code>infancy-0</code>~<code>infancy-6</code>), 초등학생은 6개(<code>elementary-7</code>~
+        <code>elementary-12</code>), 청소년기는 6개(<code>teen-13</code>~<code>teen-18</code>, 사춘기+고등학생을
+        한 카테고리로 통합 구현), 스무 살은 5개(<code>twenties-19</code>~<code>twenties-23</code>), 사회
+        초년생은 6개(<code>rookie-24</code>~<code>rookie-29</code>), 서른은 10개(<code>settling-30</code>~
+        <code>settling-39</code>), 중년은 15개(<code>midlife-40</code>~<code>midlife-54</code>, 15년짜리로
+        가장 긴 카테고리라 항목도 제일 많음). 표의 "구간" 개수와 실제 <code>STAGES.length</code>(현재 55)는
         다르다.</p>
         <div class="tbl-wrap">
             <table>
@@ -227,7 +228,7 @@
                 <tr><td>스무 살 <span class="badge badge-admin">선택 × 5(한 살 단위)</span></td><td>19–23세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>사회 초년생 <span class="badge badge-admin">선택 × 6(한 살 단위)</span></td><td>24–29세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>서른, 자리잡기 <span class="badge badge-admin">선택 × 10(한 살 단위)</span></td><td>30–39세</td><td><span class="badge badge-live">구현됨</span></td></tr>
-                <tr><td>중년, 선택의 무게</td><td>40–54세</td><td><span class="badge badge-todo">TODO</span></td></tr>
+                <tr><td>중년, 선택의 무게 <span class="badge badge-admin">선택 × 15(한 살 단위)</span></td><td>40–54세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>노년 준비</td><td>55–69세</td><td><span class="badge badge-todo">TODO</span></td></tr>
                 <tr><td>황혼</td><td>70–100세</td><td><span class="badge badge-todo">TODO</span></td></tr>
             </table>
@@ -265,6 +266,11 @@
         기간이 길어 항목 수도 그만큼 많다. 서른의 무게(30세) → 결혼·비혼(31세) → 내 집 마련·재테크(32세) →
         가족계획(33세) → 커리어 전환점(34세) → 중간관리자(35세) → 부모 부양(36세) → 자기계발(37세) →
         건강 체감(38세) → 서른대 마무리(39세) 순.</p>
+        <p class="note"><b>중년, 선택의 무게(40~54세)는 15년짜리로 가장 긴 카테고리라 한 살 단위 15개 구간
+        (<code>midlife-40</code>~<code>midlife-54</code>)으로 구현했다.</b> 마흔의 무게(40세) → 자녀교육·
+        커리어 안정(41세) → 건강 이상 신호(42세) → 조직 내 입지(43세) → 관계 재정비(44세) → 중년의 위기
+        (45세) → 재도전(46세) → 부모님 노환·이별(47세) → 커리어 정점(48세) → 갱년기 초입(49세) → 쉰(50세)
+        → 빈 둥지(51세) → 은퇴 준비(52세) → 재무 재점검(53세) → 중년 마무리(54세) 순.</p>
         <p class="note"><b>구간마다 선택지를 최대 6개까지 써두고, 실제로는 그중 3개만 무작위로 노출한다.</b>
         <code>startPlaythrough</code>/<code>applyChoice</code>가 그 구간에 들어설 때 <code>pickVisibleChoiceIds()</code>로
         3개를 미리 뽑아 저장 슬롯(<code>lifeGame/playthroughs/&#123;uid&#125;/visibleChoiceIds</code>)에
@@ -298,6 +304,8 @@
                 <tr><td><code>insomnia</code></td><td>😵 불면증</td><td>사회 초년생 26세 · <code>insomnia-onset</code>(업무 스트레스로 밤마다 잠들지 못하는 날이 늘어난다)</td><td>사회 초년생 28세 · <code>insomnia-heal</code>(수면 습관을 개선하며 불면증에서 서서히 벗어난다)</td></tr>
                 <tr><td><code>hypertension</code></td><td>🩸 고혈압 전조</td><td>서른 34세 · <code>hypertension-onset</code>(과로와 스트레스로 혈압이 위험 수준까지 치솟는다)</td><td>서른 37세 · <code>hypertension-heal</code>(식습관과 운동으로 혈압을 정상 수치까지 되돌린다)</td></tr>
                 <tr><td><code>frozen-shoulder</code></td><td>💪 어깨 결림(삼십견)</td><td>서른 35세 · <code>frozen-shoulder-onset</code>(책상 앞에 오래 앉아 있다 보니 어깨가 굳어 잘 올라가지 않는다)</td><td>서른 38세 · <code>frozen-shoulder-heal</code>(도수치료와 꾸준한 스트레칭으로 굳었던 어깨가 다시 풀린다)</td></tr>
+                <tr><td><code>knee-pain</code></td><td>🦵 무릎 통증</td><td>중년 44세 · <code>knee-pain-onset</code>(무리한 운동으로 무릎에 이상이 생긴다)</td><td>중년 47세 · <code>knee-pain-heal</code>(체중 관리와 재활 운동으로 무릎이 회복된다)</td></tr>
+                <tr><td><code>menopause-symptoms</code></td><td>🌡️ 갱년기 증상</td><td>중년 49세 · <code>menopause-onset</code>(몸의 변화(갱년기 증상)가 본격적으로 시작된다)</td><td>중년 51세 · <code>menopause-heal</code>(호르몬 치료·생활 관리로 갱년기 증상이 눈에 띄게 안정된다)</td></tr>
             </table>
         </div>
         <p class="note">전부 "발병 구간이 회복 구간보다 앞선다"는 순서만 지키면 되고, 발병 선택지와 회복
@@ -651,6 +659,115 @@
                 <tr><td><code>still-not-enough-anxiety</code></td><td>여전히 부족하다는 생각에 조급함이 밀려온다</td><td></td></tr>
                 <tr><td><code>farewell-to-thirties-with-friends</code></td><td>오랜 친구들과 서른의 마지막을 함께 보낸다</td><td></td></tr>
                 <tr><td><code>calm-before-forty</code></td><td>마흔이라는 숫자 앞에서 담담해지기로 마음먹는다</td><td></td></tr>
+
+                <tr><td rowspan="6">중년, 선택의 무게 · 40세</td><td><code>midlife-halfway-realization</code></td><td>마흔이 되고 나니 인생의 절반을 지났다는 게 실감난다</td><td></td></tr>
+                <tr><td><code>finally-being-myself</code></td><td>이제야 진짜 나답게 사는 법을 알 것 같다</td><td></td></tr>
+                <tr><td><code>fulfilling-a-long-delayed-wish</code></td><td>마흔 기념으로 오랫동안 미뤄온 일을 실행에 옮긴다</td><td></td></tr>
+                <tr><td><code>generation-gap-with-juniors</code></td><td>젊은 후배들 사이에서 세대 차이를 실감한다</td><td></td></tr>
+                <tr><td><code>confidence-in-life-so-far</code></td><td>지금까지의 삶에 나름의 확신이 생긴다</td><td></td></tr>
+                <tr><td><code>planning-second-half</code></td><td>인생 후반전을 위해 새로운 계획을 세운다</td><td></td></tr>
+
+                <tr><td rowspan="6">중년, 선택의 무게 · 41세</td><td><code>focus-on-childs-education</code></td><td>자녀 교육에 본격적으로 신경 쓰기 시작한다</td><td></td></tr>
+                <tr><td><code>solidifying-position-at-work</code></td><td>회사에서 확고한 입지를 다진다</td><td></td></tr>
+                <tr><td><code>juggling-work-and-parenting</code></td><td>일과 육아를 동시에 챙기느라 몸이 두 개였으면 좋겠다고 느낀다</td><td></td></tr>
+                <tr><td><code>enjoying-childfree-freedom</code></td><td>아이 없는 삶에서 자유로움을 만끽한다</td><td></td></tr>
+                <tr><td><code>seeking-new-stimulation</code></td><td>커리어 정체를 느끼며 새로운 자극을 찾는다</td><td></td></tr>
+                <tr><td><code>anxious-comparison-with-peers</code></td><td>동년배들과 비교하며 조급함을 느낀다</td><td></td></tr>
+
+                <tr><td rowspan="6">중년, 선택의 무게 · 42세</td><td><code>multiple-health-flags</code></td><td>건강검진에서 여러 이상 소견을 받는다</td><td></td></tr>
+                <tr><td><code>starting-serious-exercise</code></td><td>본격적으로 운동을 시작하며 체력을 관리한다</td><td></td></tr>
+                <tr><td><code>visible-signs-of-aging</code></td><td>흰머리와 노안이 눈에 띄게 늘어난다</td><td></td></tr>
+                <tr><td><code>cutting-back-on-drinking</code></td><td>회식·과음이 줄고 건강한 생활을 택한다</td><td></td></tr>
+                <tr><td><code>ignoring-body-signals</code></td><td>몸에서 보내는 신호를 무시하고 계속 무리한다</td><td></td></tr>
+                <tr><td><code>preventive-checkups-for-family-history</code></td><td>가족력 있는 질환을 예방하려 정기 검진을 시작한다</td><td></td></tr>
+
+                <tr><td rowspan="6">중년, 선택의 무게 · 43세</td><td><code>promoted-to-manager</code></td><td>부서장·팀장급으로 승진하며 책임이 커진다</td><td></td></tr>
+                <tr><td><code>sidelined-in-reorg</code></td><td>조직 개편에서 예상치 못한 자리로 밀려난다</td><td></td></tr>
+                <tr><td><code>respected-senior-figure</code></td><td>후배들의 존경을 받는 선배로 자리매김한다</td><td></td></tr>
+                <tr><td><code>threatened-by-young-talent</code></td><td>젊은 인재들에게 밀리는 위기감을 느낀다</td><td></td></tr>
+                <tr><td><code>weighing-job-offer</code></td><td>이직 제안을 받고 진지하게 고민한다</td><td></td></tr>
+                <tr><td><code>planning-venture-with-colleague</code></td><td>오랜 동료와 함께 새로운 사업을 구상한다</td><td></td></tr>
+
+                <tr><td rowspan="7">중년, 선택의 무게 · 44세</td><td><code>teen-child-conflict</code></td><td>사춘기에 접어든 자녀와 갈등을 겪는다</td><td></td></tr>
+                <tr><td><code>drifting-from-spouse</code></td><td>배우자와의 관계를 돌아보며 소원해진 사이를 자각한다</td><td></td></tr>
+                <tr><td><code>reconnecting-old-friend-40s</code></td><td>오랜 친구와 다시 가까워지며 위안을 얻는다</td><td></td></tr>
+                <tr><td><code>bonding-over-hobby-with-kid</code></td><td>자녀와 취미를 공유하며 관계가 돈독해진다</td><td></td></tr>
+                <tr><td><code>solo-time-reset-40s</code></td><td>혼자만의 시간을 갖고 관계를 재정비한다</td><td></td></tr>
+                <tr><td><code>family-trip-reconciliation</code></td><td>가족 여행으로 소원했던 사이를 회복한다</td><td></td></tr>
+                <tr><td><code>knee-pain-onset</code></td><td>무리한 운동으로 무릎에 이상이 생긴다</td><td>🦵 무릎 통증 발병</td></tr>
+
+                <tr><td rowspan="6">중년, 선택의 무게 · 45세</td><td><code>existential-emptiness</code></td><td>이유 모를 공허함에 삶의 의미를 되묻는다</td><td></td></tr>
+                <tr><td><code>flirting-with-escape</code></td><td>새로운 사람을 만나며 일탈을 꿈꾼다</td><td></td></tr>
+                <tr><td><code>reviving-old-dream</code></td><td>그동안 억눌러온 꿈을 다시 꺼내본다</td><td></td></tr>
+                <tr><td><code>impulsive-big-purchase</code></td><td>갑작스레 큰 지출을 하며 스스로를 위로한다</td><td></td></tr>
+                <tr><td><code>therapy-and-meditation</code></td><td>명상·상담 등으로 마음을 다잡는다</td><td></td></tr>
+                <tr><td><code>accepting-enough</code></td><td>지금 이대로도 충분하다는 걸 받아들인다</td><td></td></tr>
+
+                <tr><td rowspan="6">중년, 선택의 무게 · 46세</td><td><code>new-certification-40s</code></td><td>새로운 자격증·학위에 도전하며 재교육을 받는다</td><td></td></tr>
+                <tr><td><code>career-pivot-40s</code></td><td>완전히 다른 분야로 커리어를 전환한다</td><td></td></tr>
+                <tr><td><code>learning-with-younger-generation</code></td><td>젊은 세대와 함께 배우며 신선한 자극을 받는다</td><td></td></tr>
+                <tr><td><code>new-challenge-setback</code></td><td>새 도전이 생각보다 벅차 좌절을 겪는다</td><td></td></tr>
+                <tr><td><code>consulting-with-experience</code></td><td>오랜 경력을 살려 컨설팅·강의를 시작한다</td><td></td></tr>
+                <tr><td><code>choosing-to-stay-put</code></td><td>안주하는 편을 택하며 도전을 미룬다</td><td></td></tr>
+
+                <tr><td rowspan="7">중년, 선택의 무게 · 47세</td><td><code>parent-to-nursing-home</code></td><td>부모님을 요양시설에 모시며 마음이 무겁다</td><td></td></tr>
+                <tr><td><code>losing-a-parent</code></td><td>부모님을 떠나보내며 큰 상실을 겪는다</td><td></td></tr>
+                <tr><td><code>cherishing-parent-memories</code></td><td>부모님과 함께한 시간을 소중히 기억하며 정리한다</td><td></td></tr>
+                <tr><td><code>caring-for-parent-with-siblings</code></td><td>형제자매와 함께 부모님을 정성껏 돌본다</td><td></td></tr>
+                <tr><td><code>parents-blessing-new-start</code></td><td>부모님의 응원 속에 새로운 도전을 시작한다</td><td></td></tr>
+                <tr><td><code>weight-of-being-a-parent-40s</code></td><td>부모가 된다는 것의 무게를 새삼 깨닫는다</td><td></td></tr>
+                <tr><td><code>knee-pain-heal</code></td><td>체중 관리와 재활 운동으로 무릎이 회복된다</td><td>🦵 무릎 통증 회복</td></tr>
+
+                <tr><td rowspan="6">중년, 선택의 무게 · 48세</td><td><code>career-peak-achievement</code></td><td>커리어의 정점에서 큰 성과를 이룬다</td><td></td></tr>
+                <tr><td><code>reaching-executive-position</code></td><td>오랜 노력 끝에 임원 자리에 오른다</td><td></td></tr>
+                <tr><td><code>career-stagnation-doubt</code></td><td>정체된 커리어에 회의감을 느낀다</td><td></td></tr>
+                <tr><td><code>preparing-to-pass-the-torch</code></td><td>후배들에게 자리를 물려줄 준비를 시작한다</td><td></td></tr>
+                <tr><td><code>restructuring-anxiety</code></td><td>구조조정 불안 속에서 하루하루를 버틴다</td><td></td></tr>
+                <tr><td><code>satisfaction-in-achievements</code></td><td>지금까지의 성취를 되돌아보며 만족감을 느낀다</td><td></td></tr>
+
+                <tr><td rowspan="7">중년, 선택의 무게 · 49세</td><td><code>new-hobby-menopause-relief</code></td><td>새로운 취미로 몸과 마음의 변화를 다스린다</td><td></td></tr>
+                <tr><td><code>mood-swings-midlife</code></td><td>감정 기복이 심해져 스스로도 낯설다</td><td></td></tr>
+                <tr><td><code>learning-about-hormones</code></td><td>호르몬 변화에 대해 배우며 몸을 이해해간다</td><td></td></tr>
+                <tr><td><code>adjusting-to-lower-stamina</code></td><td>체력 저하를 인정하고 생활 방식을 조정한다</td><td></td></tr>
+                <tr><td><code>leaning-on-peers-menopause</code></td><td>비슷한 변화를 겪는 또래들과 서로 의지한다</td><td></td></tr>
+                <tr><td><code>accepting-natural-change</code></td><td>이 시기를 자연스러운 변화로 받아들이려 애쓴다</td><td></td></tr>
+                <tr><td><code>menopause-onset</code></td><td>몸의 변화(갱년기 증상)가 본격적으로 시작된다</td><td>🌡️ 갱년기 증상 발병</td></tr>
+
+                <tr><td rowspan="6">중년, 선택의 무게 · 50세</td><td><code>mixed-feelings-turning-fifty</code></td><td>쉰이라는 나이 앞에서 만감이 교차한다</td><td></td></tr>
+                <tr><td><code>wisdom-of-fifty</code></td><td>지천명, 인생의 이치를 조금은 알 것 같은 기분이 든다</td><td></td></tr>
+                <tr><td><code>big-fiftieth-celebration</code></td><td>쉰 살 기념으로 큰 파티·여행을 계획한다</td><td></td></tr>
+                <tr><td><code>planning-second-half-of-life</code></td><td>인생의 후반전을 준비하며 새로운 목표를 세운다</td><td></td></tr>
+                <tr><td><code>looking-back-at-old-photos</code></td><td>젊은 날의 사진들을 꺼내보며 세월을 실감한다</td><td></td></tr>
+                <tr><td><code>most-comfortable-with-myself</code></td><td>지금의 나 자신이 가장 편안하다는 걸 깨닫는다</td><td></td></tr>
+
+                <tr><td rowspan="7">중년, 선택의 무게 · 51세</td><td><code>empty-nest-syndrome</code></td><td>자녀가 독립하며 빈 둥지 증후군을 겪는다</td><td></td></tr>
+                <tr><td><code>celebrating-child-independence</code></td><td>자녀의 독립을 축하하며 새로운 자유를 만끽한다</td><td></td></tr>
+                <tr><td><code>rekindled-couple-time</code></td><td>부부만의 시간이 다시 늘며 관계가 새롭게 깊어진다</td><td></td></tr>
+                <tr><td><code>lingering-emptiness</code></td><td>독립한 자녀의 빈자리가 유독 크게 느껴진다</td><td></td></tr>
+                <tr><td><code>new-hobbies-and-travel</code></td><td>취미·부부 여행으로 새로운 일상을 채워간다</td><td></td></tr>
+                <tr><td><code>grandchild-news-excitement</code></td><td>자녀에게 손주 소식을 듣고 새로운 설렘을 느낀다</td><td></td></tr>
+                <tr><td><code>menopause-heal</code></td><td>호르몬 치료·생활 관리로 갱년기 증상이 눈에 띄게 안정된다</td><td>🌡️ 갱년기 증상 회복</td></tr>
+
+                <tr><td rowspan="6">중년, 선택의 무게 · 52세</td><td><code>planning-life-after-retirement</code></td><td>은퇴 후 삶을 구체적으로 계획하기 시작한다</td><td></td></tr>
+                <tr><td><code>reviewing-pension-and-savings</code></td><td>연금·노후 자금을 꼼꼼히 재점검한다</td><td></td></tr>
+                <tr><td><code>exploring-second-act-business</code></td><td>제2의 인생을 위한 창업·귀농을 알아본다</td><td></td></tr>
+                <tr><td><code>offered-early-retirement</code></td><td>회사에서 명예퇴직을 제안받고 고민에 빠진다</td><td></td></tr>
+                <tr><td><code>looking-forward-to-retirement</code></td><td>은퇴가 두렵기보다 기대되기 시작한다</td><td></td></tr>
+                <tr><td><code>still-wanting-to-work</code></td><td>아직은 일을 더 하고 싶다는 마음을 확인한다</td><td></td></tr>
+
+                <tr><td rowspan="6">중년, 선택의 무게 · 53세</td><td><code>organizing-assets-for-retirement</code></td><td>그동안의 자산을 정리하며 노후 계획을 세운다</td><td></td></tr>
+                <tr><td><code>unexpected-expense-hits-savings</code></td><td>예상치 못한 지출로 노후 자금에 구멍이 난다</td><td></td></tr>
+                <tr><td><code>consulting-financial-advisor</code></td><td>재무 설계사와 상담하며 자산을 재배치한다</td><td></td></tr>
+                <tr><td><code>funding-childs-wedding</code></td><td>자녀 결혼 자금을 지원하며 통장이 크게 준다</td><td></td></tr>
+                <tr><td><code>liquidating-property-for-cashflow</code></td><td>부동산을 정리하며 현금 흐름을 확보한다</td><td></td></tr>
+                <tr><td><code>health-and-time-over-money</code></td><td>돈보다 건강과 시간이 우선이라는 걸 재확인한다</td><td></td></tr>
+
+                <tr><td rowspan="6">중년, 선택의 무게 · 54세</td><td><code>reflecting-on-fifteen-years</code></td><td>중년의 마지막 해, 지난 15년을 돌아본다</td><td></td></tr>
+                <tr><td><code>calm-resolve-for-old-age</code></td><td>다가올 노년을 향한 담담한 각오를 다진다</td><td></td></tr>
+                <tr><td><code>more-gratitude-than-regret</code></td><td>그동안의 인생에 후회보다 감사가 더 크다는 걸 느낀다</td><td></td></tr>
+                <tr><td><code>unfulfilled-dreams-linger</code></td><td>여전히 못다 이룬 꿈이 있다는 사실이 아쉽다</td><td></td></tr>
+                <tr><td><code>closing-chapter-with-loved-ones</code></td><td>오랜 친구·가족과 함께 조용히 이 시기를 매듭짓는다</td><td></td></tr>
+                <tr><td><code>preparing-new-chapter</code></td><td>쉰다섯을 앞두고 새로운 챕터를 준비한다</td><td></td></tr>
             </table>
         </div>
     </section>
