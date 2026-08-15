@@ -1,8 +1,10 @@
 // 게임 콘텐츠(생애 구간·선택지·엔딩) - 기획안(life-game-plan.html) 기준.
-// 지금은 스켈레톤 단계라 10개 생애 카테고리 중 3개(유아기/초등학생/스무살)만
-// 채워뒀다 - 검색→이름짓기→선택→저장→갤러리 공유까지 전체 파이프라인이 실제로
-// 동작하는 걸 확인하기 위한 최소 분량으로 시작했고, 이후 콘텐츠 분량을 늘렸다.
-// 나머지 7개 카테고리는 이 형식(STAGES 배열에 항목 추가)을 그대로 따라 채우면 된다.
+// 처음엔 스켈레톤 단계로 10개 생애 카테고리 중 3개(유아기/초등학생/스무살)만
+// 채워서 검색→이름짓기→선택→저장→갤러리 공유까지 전체 파이프라인이 실제로
+// 동작하는 걸 확인했고, 이후 나머지 카테고리를 한 살 단위로 순서대로 채워
+// 지금은 유아기~황혼(0~100세) 10카테고리가 전부 구현되어 있다. 아래 각
+// 카테고리별 설명에 STAGES 배열 안에서의 정확한 id 범위와 연도별 주제가
+// 정리되어 있다.
 //
 // 선택지 작성 원칙(기획안 04장) - 문장만 보고 결과를 예측할 수 없게, 매 구간
 // 선택지는 항상 안전/도전/우회 세 태도 중 하나에 가깝게 쓴다. deltas는
@@ -69,15 +71,19 @@
 // (66세) → 유언·상속 정리(67세) → 상실 경험(68세) → 노년 준비 마무리
 // (69세) 순.
 //
-// "황혼"(70~100세, 31년)은 twilight-70~twilight-90(70~90세, 21개)까지
-// 구현됐다 - 91~100세는 TODO. 칠순(70세) → 소소한 일상(71세) → 손주
-// 세대 성취(72세) → 신체 저하 수용(73세) → 마지막 장거리 여행(74세) →
-// 남은 삶 재구성(75세) → 배우자 간병(76세) → 희수(77세) → 기억력
-// 저하 체감(78세) → 팔순 준비(79세) → 팔순(80세) → 감사한 하루하루
-// (81세) → 오랜 인연들(82세) → 도움이 필요해짐(83세) → 삶의 의미
-// 되새김(84세) → 요양·재가돌봄(85세) → 지혜를 전하는 어른(86세) →
-// 잦아진 병원 방문(87세) → 미수(88세) → 구순 준비(89세) → 구순(90세)
-// 순.
+// "황혼"(70~100세, 31년)은 twilight-70~twilight-100 총 31개로 전부
+// 구현 완료됐다 - 이로써 생애 10카테고리(유아기~황혼, 0~100세)가 모두
+// 채워졌다. 칠순(70세) → 소소한 일상(71세) → 손주 세대 성취(72세) →
+// 신체 저하 수용(73세) → 마지막 장거리 여행(74세) → 남은 삶 재구성
+// (75세) → 배우자 간병(76세) → 희수(77세) → 기억력 저하 체감(78세) →
+// 팔순 준비(79세) → 팔순(80세) → 감사한 하루하루(81세) → 오랜 인연들
+// (82세) → 도움이 필요해짐(83세) → 삶의 의미 되새김(84세) → 요양·
+// 재가돌봄(85세) → 지혜를 전하는 어른(86세) → 잦아진 병원 방문(87세)
+// → 미수(88세) → 구순 준비(89세) → 구순(90세) → 선물 같은 하루하루
+// (91세) → 병상에서의 시간(92세) → 못다 한 말 전하기(93세) → 삶의
+// 정리(94세) → 살아있음의 기적(95세) → 마음의 평화(96세) → 백수를
+// 앞두고(97세) → 백 살을 실감(98세) → 백수(99세) → 백세, 인생의
+// 완주(100세) 순.
 //
 // 건강 상세(healthConditions) - 선택지에 addCondition({id,label})을 붙이면
 // 부상/질병이 "생기고", removeCondition(id)을 붙이면 그 조건이 나아서
@@ -4403,8 +4409,452 @@ const STAGES = [
         result: '길게도, 짧게도 느껴지는 아흔 해였지만, 후회는 없었다.'
       }
     ]
+  },
+  {
+    id: 'twilight-91',
+    name: '황혼',
+    ageRange: '91세',
+    intro: '하루하루가 마치 선물처럼 느껴지는, 그런 나이입니다.',
+    choices: [
+      {
+        id: 'every-day-feels-like-a-gift',
+        text: '매일이 선물처럼 느껴지는 요즘이다',
+        deltas: { happiness: 5, health: 1 },
+        result: '눈을 뜨는 것 자체가, 이제는 당연한 일이 아니었다.'
+      },
+      {
+        id: 'strength-fading-day-by-day',
+        text: '몸의 기력이 하루가 다르게 줄어드는 걸 느낀다',
+        deltas: { health: -3, happiness: -2 },
+        result: '어제 할 수 있던 일이, 오늘은 힘에 부칠 때가 있었다.'
+      },
+      {
+        id: 'joy-with-great-grandchildren',
+        text: '손주, 증손주와 함께하는 시간이 가장 큰 낙이 된다',
+        deltas: { happiness: 5, relationship: 4 },
+        result: '작은 손님들이 다녀갈 때마다, 집 안이 환해졌다.'
+      },
+      {
+        id: 'grateful-for-lifetime-of-bonds',
+        text: '지난 세월 쌓아온 인연들에 감사함을 느낀다',
+        deltas: { relationship: 4, happiness: 3 },
+        result: '스쳐 간 얼굴 하나하나가, 다 소중한 인연이었다.'
+      },
+      {
+        id: 'heart-still-feels-young',
+        text: '몸은 느려져도 마음만은 여전히 청춘 같다',
+        deltas: { happiness: 4, health: 1 },
+        result: '거울 속 모습과 마음속 나이가, 여전히 조금 달랐다.'
+      },
+      {
+        id: 'accepting-each-day-as-it-comes',
+        text: '하루하루를 있는 그대로 받아들이는 법을 배운다',
+        deltas: { happiness: 4, health: 2 },
+        result: '바라는 것을 줄이니, 오히려 채워지는 것들이 많아졌다.'
+      }
+    ]
+  },
+  {
+    id: 'twilight-92',
+    name: '황혼',
+    ageRange: '92세',
+    intro: '침상에서 보내는 시간이 조금씩 늘어가는, 조용한 나날입니다.',
+    choices: [
+      {
+        id: 'more-time-spent-in-bed',
+        text: '병상에서 보내는 시간이 조금씩 늘어난다',
+        deltas: { health: -4, happiness: -2 },
+        result: '창밖 하늘의 색이 바뀌는 걸로, 하루의 흐름을 가늠했다.'
+      },
+      {
+        id: 'chatting-with-family-from-bed',
+        text: '누워있는 시간에도 가족과 담소를 나누며 하루를 채운다',
+        deltas: { relationship: 4, happiness: 3 },
+        result: '몸은 누워 있어도, 대화만큼은 여전히 생생했다.'
+      },
+      {
+        id: 'grateful-yet-sorry-to-caregivers',
+        text: '간병하는 가족에게 미안함과 고마움을 동시에 느낀다',
+        deltas: { relationship: 3, happiness: -1 },
+        result: '고맙다는 말을 하면서도, 미안한 마음은 쉽게 가시지 않았다.'
+      },
+      {
+        id: 'keeping-a-smile-despite-discomfort',
+        text: '몸은 불편해도 표정만은 잃지 않으려 애쓴다',
+        deltas: { happiness: 3, health: 1 },
+        result: '가족들이 걱정할까 봐, 애써 웃음을 지어 보였다.'
+      },
+      {
+        id: 'comfort-in-the-view-from-window',
+        text: '병실 창밖 풍경 하나에도 위안을 얻는다',
+        deltas: { happiness: 4, health: 1 },
+        result: '나뭇가지 흔들리는 모습 하나로도, 마음이 차분해졌다.'
+      },
+      {
+        id: 'still-finding-small-things-to-do-alone',
+        text: '여전히 스스로 할 수 있는 것들을 찾아 해낸다',
+        deltas: { happiness: 4, health: 2 },
+        result: '작은 것 하나라도 스스로 해내는 게, 큰 의미가 됐다.'
+      }
+    ]
+  },
+  {
+    id: 'twilight-93',
+    name: '황혼',
+    ageRange: '93세',
+    intro: '못다 한 말들을, 이제는 하나씩 꺼내어 전하는 시기입니다.',
+    choices: [
+      {
+        id: 'sharing-unspoken-stories-with-family',
+        text: '자녀, 손주들과 그동안 못다 한 이야기를 나눈다',
+        deltas: { relationship: 5, happiness: 4 },
+        result: '이제야 꺼낸 이야기들이, 오히려 더 깊이 가닿았다.'
+      },
+      {
+        id: 'telling-family-what-mattered',
+        text: '가족들에게 하고 싶던 말을 하나씩 전한다',
+        deltas: { relationship: 4, happiness: 4 },
+        result: '오래 미뤄뒀던 말 한마디가, 생각보다 담백하게 나왔다.'
+      },
+      {
+        id: 'silent-handhold-says-enough',
+        text: '말없이 손을 맞잡는 것만으로도 마음이 통한다',
+        deltas: { relationship: 4, happiness: 3 },
+        result: '굳이 말하지 않아도, 손끝으로 전해지는 것들이 있었다.'
+      },
+      {
+        id: 'every-moment-was-precious',
+        text: '지난 삶의 매 순간이 다 소중했다는 걸 새삼 느낀다',
+        deltas: { happiness: 5, health: 0 },
+        result: '힘들었던 날들조차, 돌아보니 다 나름의 의미가 있었다.'
+      },
+      {
+        id: 'looking-long-at-each-familiar-face',
+        text: '가족 한 사람 한 사람의 얼굴을 오래도록 바라본다',
+        deltas: { relationship: 5, happiness: 4 },
+        result: '눈에 담아두고 싶은 얼굴들이, 그렇게나 많았다.'
+      },
+      {
+        id: 'frailty-onset',
+        text: '노쇠가 뚜렷해지며 하루 대부분을 누워 지낸다',
+        deltas: { health: -5, happiness: -2 },
+        result: '일어나 앉는 것조차, 이제는 큰일이 됐다.',
+        addCondition: { id: 'frailty', label: '🕊️ 노쇠' }
+      }
+    ]
+  },
+  {
+    id: 'twilight-94',
+    name: '황혼',
+    ageRange: '94세',
+    intro: '지녀온 것들과 마음을, 차분히 정리해보는 한 해입니다.',
+    choices: [
+      {
+        id: 'sorting-belongings-and-thoughts',
+        text: '그동안의 물건과 마음을 하나씩 정리한다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '물건 하나를 정리할 때마다, 그에 얽힌 시간도 함께 정리됐다.'
+      },
+      {
+        id: 'writing-short-letters-to-loved-ones',
+        text: '남길 이들에게 짧은 편지를 써본다',
+        deltas: { happiness: 3, relationship: 3 },
+        result: '몇 줄 안 되는 문장을 쓰는 데, 오랜 시간이 걸렸다.'
+      },
+      {
+        id: 'a-lifetime-folded-into-each-item',
+        text: '정리하는 손길에, 지나온 세월이 함께 담긴다',
+        deltas: { happiness: 3, health: 0 },
+        result: '낡은 물건 하나에도, 잊고 있던 하루가 고스란히 담겨 있었다.'
+      },
+      {
+        id: 'choosing-presence-over-organizing',
+        text: '복잡한 정리보다, 지금 곁의 사람에게 마음을 쓰기로 한다',
+        deltas: { relationship: 4, happiness: 3 },
+        result: '남기는 것보다, 지금 함께하는 게 더 중요하게 느껴졌다.'
+      },
+      {
+        id: 'thinking-of-how-to-be-remembered',
+        text: '무엇을 남기느냐보다, 어떻게 기억되고 싶은지를 생각한다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '따뜻한 사람으로 기억되고 싶다는 마음이, 가장 컸다.'
+      },
+      {
+        id: 'lighter-heart-after-organizing',
+        text: '정리를 마치고 나니, 마음이 한결 가벼워진다',
+        deltas: { happiness: 4, health: 1 },
+        result: '짐을 덜어낸 만큼, 마음도 홀가분해졌다.'
+      }
+    ]
+  },
+  {
+    id: 'twilight-95',
+    name: '황혼',
+    ageRange: '95세',
+    intro: '아흔다섯 해를 살아냈다는 사실이, 스스로도 믿기지 않는 나이입니다.',
+    choices: [
+      {
+        id: 'amazed-at-ninety-five-years-lived',
+        text: '아흔다섯 해를 살아냈다는 사실이 새삼 놀랍다',
+        deltas: { happiness: 4, health: 0 },
+        result: '숫자로 세어보니, 스스로도 믿기지 않았다.'
+      },
+      {
+        id: 'being-alive-feels-miraculous',
+        text: '여전히 살아있다는 것 자체가 기적처럼 느껴진다',
+        deltas: { happiness: 5, health: 1 },
+        result: '당연했던 것들이, 어느새 하나하나 기적이 되어 있었다.'
+      },
+      {
+        id: 'grateful-for-devoted-family-care',
+        text: '가족의 정성 어린 보살핌에 하루하루 감사한다',
+        deltas: { relationship: 5, happiness: 4 },
+        result: '곁을 지켜주는 손길 하나하나가, 그저 감사할 따름이었다.'
+      },
+      {
+        id: 'weak-body-but-certain-of-love',
+        text: '몸은 쇠약해도, 사랑받고 있다는 확신만은 뚜렷하다',
+        deltas: { happiness: 5, relationship: 3 },
+        result: '몸이 약해질수록, 사랑받고 있다는 확신은 오히려 더 선명해졌다.'
+      },
+      {
+        id: 'past-life-feels-like-a-dream',
+        text: '가끔 지난 생을 꿈처럼 떠올린다',
+        deltas: { happiness: 2, health: 0 },
+        result: '살아온 세월이, 마치 긴 꿈 하나를 꾼 것처럼 느껴졌다.'
+      },
+      {
+        id: 'relief-at-getting-through-another-day',
+        text: '오늘 하루도 무사히 넘겼다는 사실에 안도한다',
+        deltas: { happiness: 3, health: 1 },
+        result: '거창한 것 없이도, 무사한 하루 자체가 충분했다.'
+      }
+    ]
+  },
+  {
+    id: 'twilight-96',
+    name: '황혼',
+    ageRange: '96세',
+    intro: '몸은 약해져도 마음의 평화를 지켜내려 애쓰는, 고요한 나이입니다.',
+    choices: [
+      {
+        id: 'guarding-inner-peace-despite-frailty',
+        text: '몸은 쇠약해져도 정신의 평화를 지키려 애쓴다',
+        deltas: { happiness: 4, health: 1 },
+        result: '몸이 힘들수록, 마음만은 더 단단히 붙잡으려 했다.'
+      },
+      {
+        id: 'frailty-heal',
+        text: '정성 어린 돌봄과 재활로 다시 기력을 되찾는다',
+        deltas: { health: 6, happiness: 3 },
+        result: '며칠 만에 다시 앉을 수 있게 된 것만으로도, 온 가족이 기뻐했다.',
+        requiresCondition: 'frailty',
+        removeCondition: 'frailty'
+      },
+      {
+        id: 'peace-in-the-familiar-rhythm-of-days',
+        text: '익숙한 자장가 같은 하루의 리듬 속에 평온을 느낀다',
+        deltas: { happiness: 4, health: 1 },
+        result: '매일 같은 순서로 흘러가는 하루가, 오히려 큰 안정이 됐다.'
+      },
+      {
+        id: 'reassured-by-a-familiar-voice',
+        text: '가족의 목소리 하나로도 마음이 놓인다',
+        deltas: { relationship: 4, happiness: 3 },
+        result: '멀리서 들려오는 익숙한 목소리에도, 마음이 금세 편안해졌다.'
+      },
+      {
+        id: 'reminiscing-with-old-songs',
+        text: '예전 노래를 들으며 옛 시절을 추억한다',
+        deltas: { happiness: 4, relationship: 1 },
+        result: '멜로디 하나에, 잊고 있던 장면들이 줄줄이 떠올랐다.'
+      },
+      {
+        id: 'quiet-happiness-in-a-still-day',
+        text: '고요한 하루 속에서도 잔잔한 행복을 느낀다',
+        deltas: { happiness: 4, health: 2 },
+        result: '큰 사건 하나 없는 하루가, 그 자체로 평화로웠다.'
+      }
+    ]
+  },
+  {
+    id: 'twilight-97',
+    name: '황혼',
+    ageRange: '97세',
+    intro: '백수(白壽)를 코앞에 두고, 마음 한구석이 설레는 나이입니다.',
+    choices: [
+      {
+        id: 'excited-for-upcoming-baeksu',
+        text: '백수(白壽)를 코앞에 두고 마음이 설렌다',
+        deltas: { happiness: 4, health: 1 },
+        result: '살면서 이런 숫자를 마주할 줄은, 상상도 못 했다.'
+      },
+      {
+        id: 'ninety-seven-years-not-a-short-journey',
+        text: '아흔일곱 해, 짧지 않은 여정이었음을 실감한다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '길었던 만큼, 그 안에 담긴 이야기도 무수히 많았다.'
+      },
+      {
+        id: 'family-prepares-baeksu-celebration-early',
+        text: '가족들이 백수 잔치를 미리부터 준비한다',
+        deltas: { relationship: 5, happiness: 4 },
+        result: '준비하는 모습을 지켜보는 것만으로도, 마음이 벅찼다.'
+      },
+      {
+        id: 'morning-gratitude-for-being-alive',
+        text: '매일 아침, 살아있음에 새삼 감사 인사를 올린다',
+        deltas: { happiness: 5, health: 1 },
+        result: '눈을 뜨는 순간마다, 짧은 감사 기도가 절로 나왔다.'
+      },
+      {
+        id: 'quietly-mourning-those-who-went-first',
+        text: '먼저 떠난 이들을 그리워하며 조용히 추모한다',
+        deltas: { happiness: -2, relationship: 1 },
+        result: '함께였다면 좋았을 얼굴들이, 오늘따라 유독 그리웠다.'
+      },
+      {
+        id: 'this-moment-matters-most',
+        text: '지금 이 순간이 가장 소중하다는 걸 되새긴다',
+        deltas: { happiness: 4, health: 1 },
+        result: '지나간 날도, 다가올 날도 아닌, 지금이 전부였다.'
+      }
+    ]
+  },
+  {
+    id: 'twilight-98',
+    name: '황혼',
+    ageRange: '98세',
+    intro: '백 살이라는 숫자가, 이제는 정말 눈앞으로 성큼 다가온 나이입니다.',
+    choices: [
+      {
+        id: 'realizing-a-hundred-is-near',
+        text: '백 살이라는 숫자가 성큼 다가온 걸 실감한다',
+        deltas: { happiness: 3, health: 0 },
+        result: '평생 남 얘기 같던 숫자가, 이제는 코앞에 와 있었다.'
+      },
+      {
+        id: 'family-talks-about-upcoming-baeksu',
+        text: '가족들과 다가올 백수를 위한 이야기를 나눈다',
+        deltas: { relationship: 4, happiness: 3 },
+        result: '함께 계획을 나누는 시간만으로도, 이미 설렘이 가득했다.'
+      },
+      {
+        id: 'quietly-tracing-a-century-of-time',
+        text: '지나온 한 세기에 가까운 시간을 가만히 되짚는다',
+        deltas: { happiness: 4, relationship: 1 },
+        result: '한 세기에 가까운 시간이, 한 사람 안에 고스란히 담겨 있었다.'
+      },
+      {
+        id: 'receiving-each-day-as-a-gift',
+        text: '매일을 선물처럼 받아들이며 감사히 보낸다',
+        deltas: { happiness: 5, health: 1 },
+        result: '더 바랄 것 없이, 그저 오늘 하루가 감사했다.'
+      },
+      {
+        id: 'brightened-by-great-grandchildren',
+        text: '손주, 증손주들의 재롱에 하루하루가 환해진다',
+        deltas: { happiness: 5, relationship: 4 },
+        result: '어린 웃음소리 하나가, 집안 전체를 밝혔다.'
+      },
+      {
+        id: 'safe-today-the-greatest-greeting',
+        text: '오늘도 무사히, 라는 말이 가장 큰 안부가 된다',
+        deltas: { happiness: 4, health: 1 },
+        result: '거창한 안부 대신, 그 한마디면 충분했다.'
+      }
+    ]
+  },
+  {
+    id: 'twilight-99',
+    name: '황혼',
+    ageRange: '99세',
+    intro: '백수(白壽). 백(百)에서 한 획을 뺀 흰 백(白) 자로, 아흔아홉 해를 기립니다.',
+    choices: [
+      {
+        id: 'baeksu-village-wide-celebration',
+        text: '백수(白壽)를 맞아 온 가족, 온 마을이 함께 축하한다',
+        deltas: { happiness: 6, relationship: 5, wealth: -3 },
+        result: '이렇게 많은 이들의 축하를 받을 줄은, 미처 몰랐다.'
+      },
+      {
+        id: 'meaning-of-the-white-character',
+        text: '백에서 하나를 뺀 흰 백(白) 자에 담긴 뜻을 되새긴다',
+        deltas: { happiness: 4, health: 0 },
+        result: '글자 하나에 담긴 그 마음이, 새삼 애틋하게 다가왔다.'
+      },
+      {
+        id: 'lived-a-century-minus-one-fully',
+        text: '백 년에 하나 모자란 세월을, 온전히 살아냈다고 느낀다',
+        deltas: { happiness: 5, relationship: 2 },
+        result: '모자란 게 아니라, 그 자체로 완전한 세월이었다.'
+      },
+      {
+        id: 'quietly-sharing-this-moment-with-family',
+        text: '조용히 가족들과 소박하게 이 순간을 나눈다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '요란하지 않은 축하가, 오히려 더 깊이 마음에 남았다.'
+      },
+      {
+        id: 'no-regrets-in-any-moment',
+        text: '지나온 모든 순간에 후회 없다고 스스로에게 말해준다',
+        deltas: { happiness: 5, health: 1 },
+        result: '완벽하지 않았던 순간들까지도, 이제는 다 끌어안을 수 있었다.'
+      },
+      {
+        id: 'still-cant-believe-turning-a-hundred',
+        text: '내일이면 백 살이라는 사실이 아직도 믿기지 않는다',
+        deltas: { happiness: 4, health: 0 },
+        result: '숫자 하나가, 이렇게 비현실적으로 느껴질 줄 몰랐다.'
+      }
+    ]
+  },
+  {
+    id: 'twilight-100',
+    name: '황혼',
+    ageRange: '100세',
+    intro: '백세. 한 세기를 온전히 살아낸 삶이, 마침내 이 자리에 도착합니다.',
+    choices: [
+      {
+        id: 'overwhelmed-completing-a-century',
+        text: '백 년의 인생을 마침내 완주했다는 벅찬 마음이 든다',
+        deltas: { happiness: 6, relationship: 4, health: 1 },
+        result: '결승선 같은 건 없었지만, 완주했다는 감각만은 또렷했다.'
+      },
+      {
+        id: 'whole-world-celebrates-the-century',
+        text: '온 가족, 온 세상이 그 100년을 함께 축하해준다',
+        deltas: { happiness: 6, relationship: 5, wealth: -3 },
+        result: '백 년이라는 시간이, 이렇게 많은 사람과 이어져 있었다.'
+      },
+      {
+        id: 'still-loved-at-a-hundred',
+        text: '백 살이 된 지금도, 여전히 사랑받고 있음을 느낀다',
+        deltas: { happiness: 6, relationship: 4 },
+        result: '나이가 백이 되어도, 사랑받는 마음만은 변하지 않았다.'
+      },
+      {
+        id: 'a-century-of-moments-woven-into-one',
+        text: '지나온 백 년의 모든 순간이 하나로 이어져 보인다',
+        deltas: { happiness: 5, health: 1 },
+        result: '흩어져 있던 장면들이, 이제 하나의 긴 이야기로 이어졌다.'
+      },
+      {
+        id: 'a-life-fully-lived-no-regrets',
+        text: '후회도 미련도 없이, 온전히 살아낸 삶이었다고 되뇐다',
+        deltas: { happiness: 6, health: 2 },
+        result: '완벽한 삶은 아니었지만, 온전한 삶이었다.'
+      },
+      {
+        id: 'leaving-a-century-of-story-to-the-next',
+        text: '백 년의 이야기를 마지막으로 후손들에게 남긴다',
+        deltas: { happiness: 5, relationship: 5 },
+        result: '이 이야기가, 다음 세대에게 작은 등불 하나가 되어주길 바랐다.'
+      }
+    ]
   }
-  // TODO: 황혼(91~100세 남음) - 아직 미구현.
+  // 생애 10카테고리 전부 구현 완료(유아기~황혼, 0~100세). 이후 확장은
+  // 엔딩 종류 추가(현재 6종) 등 콘텐츠 다양화 방향으로.
 ];
 
 // 대표 엔딩 6개(기획안 07/09장 - v1 확정 스코프) - 각 아키타입에 가장 가까운

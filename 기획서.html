@@ -208,18 +208,18 @@
         <h2><span class="num">4</span>생애 사이클 · 스탯 시스템</h2>
         <h3>생애 10카테고리</h3>
         <p>균등한 나이 간격이 아니라 실제 인생의 결절점(입학·진로·독립·가정) 기준. <span class="badge badge-live">구현됨</span>
-        9카테고리, <span class="badge badge-todo">부분 구현</span> 1카테고리 — 형식은 동일해서
-        <code>functions/game-data.js</code>의 <code>STAGES</code> 배열에 이어 채우면 됨.
+        10카테고리 — <b>생애 전체(0~100세)가 전부 구현 완료됐다.</b> 형식은 동일해서
+        <code>functions/game-data.js</code>의 <code>STAGES</code> 배열에 이어 채우면 이후 콘텐츠도 확장 가능.
         <b>유아기·초등학생·청소년기·스무 살·사회 초년생·서른·중년·노년 준비·황혼은 카테고리가 <code>STAGES</code> 안에서
         한 살 단위 여러 항목으로 쪼개져 있음</b> — 유아기는 7개(<code>infancy-0</code>~<code>infancy-6</code>),
         초등학생은 6개(<code>elementary-7</code>~<code>elementary-12</code>), 청소년기는 6개(<code>teen-13</code>~
         <code>teen-18</code>, 사춘기+고등학생을 한 카테고리로 통합 구현), 스무 살은 5개(<code>twenties-19</code>~
         <code>twenties-23</code>), 사회 초년생은 6개(<code>rookie-24</code>~<code>rookie-29</code>), 서른은
         10개(<code>settling-30</code>~<code>settling-39</code>), 중년은 15개(<code>midlife-40</code>~
-        <code>midlife-54</code>, 15년짜리로 가장 긴 카테고리라 항목도 제일 많음), 노년 준비는 15개 전부
-        구현(<code>oldprep-55</code>~<code>oldprep-69</code>), 황혼은 70~90세 21개까지 구현
-        (<code>twilight-70</code>~<code>twilight-90</code>) — 91~100세는 아직 TODO. 표의 "구간" 개수와
-        실제 <code>STAGES.length</code>(현재 91)는 다르다.</p>
+        <code>midlife-54</code>, 15년짜리로 가장 긴 카테고리라 항목도 제일 많음), 노년 준비는 15개
+        (<code>oldprep-55</code>~<code>oldprep-69</code>), 황혼은 31개 전부(<code>twilight-70</code>~
+        <code>twilight-100</code>, 70~100세). 표의 "구간" 개수와 실제 <code>STAGES.length</code>(현재 101)는
+        다르다.</p>
         <div class="tbl-wrap">
             <table>
                 <tr><th>구간</th><th>나이</th><th>상태</th></tr>
@@ -232,7 +232,7 @@
                 <tr><td>서른, 자리잡기 <span class="badge badge-admin">선택 × 10(한 살 단위)</span></td><td>30–39세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>중년, 선택의 무게 <span class="badge badge-admin">선택 × 15(한 살 단위)</span></td><td>40–54세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>노년 준비 <span class="badge badge-admin">선택 × 15(한 살 단위)</span></td><td>55–69세</td><td><span class="badge badge-live">구현됨</span></td></tr>
-                <tr><td>황혼 <span class="badge badge-admin">선택 × 21(70~90세, 한 살 단위)</span></td><td>70–100세</td><td><span class="badge badge-todo">부분 구현 (70~90세)</span></td></tr>
+                <tr><td>황혼 <span class="badge badge-admin">선택 × 31(70~100세, 한 살 단위)</span></td><td>70–100세</td><td><span class="badge badge-live">구현됨</span></td></tr>
             </table>
         </div>
         <p class="note"><b>유아기(0~6세)는 한 살 단위로 7개 구간(<code>infancy-0</code>~<code>infancy-6</code>)으로
@@ -278,15 +278,17 @@
         → 건강 관리 본격화(59세) → 환갑(60세) → 새 삶의 리듬(61세) → 연금(62세) → 취미·가족 심화(63세) →
         몸의 변화 수용(64세) → 법정 노인 연령(65세) → 부부 관계 재조명(66세) → 유언·상속 정리(67세) → 상실
         경험(68세) → 노년 준비 마무리(69세) 순.</p>
-        <p class="note"><b>황혼(70~100세, 31년)은 <code>twilight-70</code>~<code>twilight-90</code>(70~90세,
-        21개)까지 구현됐다.</b> 91~100세는 아직 TODO. 유아기~노년 준비까지는 이름이 <code>STAGES</code> 배열
-        안에서 카테고리별로 통일돼 있었는데, 황혼도 이 관례를 그대로 이어서 <code>name: '황혼'</code>으로
-        표기한다(구간 id 접두사만 <code>twilight-</code>). 칠순(70세) → 소소한 일상(71세) → 손주 세대
-        성취(72세) → 신체 저하 수용(73세) → 마지막 장거리 여행(74세) → 남은 삶 재구성(75세) → 배우자
-        간병(76세) → 희수(77세) → 기억력 저하 체감(78세) → 팔순 준비(79세) → 팔순(80세) → 감사한
-        하루하루(81세) → 오랜 인연들(82세) → 도움이 필요해짐(83세) → 삶의 의미 되새김(84세) → 요양·
-        재가돌봄(85세) → 지혜를 전하는 어른(86세) → 잦아진 병원 방문(87세) → 미수(88세) → 구순 준비
-        (89세) → 구순(90세) 순.</p>
+        <p class="note"><b>황혼(70~100세, 31년)은 <code>twilight-70</code>~<code>twilight-100</code> 31개
+        전부 구현 완료됐다 — 이로써 생애 10카테고리(유아기~황혼) 전체가 채워졌다.</b> 유아기~노년 준비까지는
+        이름이 <code>STAGES</code> 배열 안에서 카테고리별로 통일돼 있었는데, 황혼도 이 관례를 그대로 이어서
+        <code>name: '황혼'</code>으로 표기한다(구간 id 접두사만 <code>twilight-</code>). 칠순(70세) → 소소한
+        일상(71세) → 손주 세대 성취(72세) → 신체 저하 수용(73세) → 마지막 장거리 여행(74세) → 남은 삶
+        재구성(75세) → 배우자 간병(76세) → 희수(77세) → 기억력 저하 체감(78세) → 팔순 준비(79세) →
+        팔순(80세) → 감사한 하루하루(81세) → 오랜 인연들(82세) → 도움이 필요해짐(83세) → 삶의 의미
+        되새김(84세) → 요양·재가돌봄(85세) → 지혜를 전하는 어른(86세) → 잦아진 병원 방문(87세) →
+        미수(88세) → 구순 준비(89세) → 구순(90세) → 선물 같은 하루하루(91세) → 병상에서의 시간(92세) →
+        못다 한 말 전하기(93세) → 삶의 정리(94세) → 살아있음의 기적(95세) → 마음의 평화(96세) → 백수를
+        앞두고(97세) → 백 살을 실감(98세) → 백수(99세) → 백세, 인생의 완주(100세) 순.</p>
         <p class="note"><b>구간마다 선택지를 최대 6개까지 써두고, 실제로는 그중 3개만 무작위로 노출한다.</b>
         <code>startPlaythrough</code>/<code>applyChoice</code>가 그 구간에 들어설 때 <code>pickVisibleChoiceIds()</code>로
         3개를 미리 뽑아 저장 슬롯(<code>lifeGame/playthroughs/&#123;uid&#125;/visibleChoiceIds</code>)에
@@ -329,6 +331,7 @@
                 <tr><td><code>pneumonia</code></td><td>🫁 폐렴</td><td>황혼 74세 · <code>pneumonia-onset</code>(환절기 감기가 폐렴으로 번진다)</td><td>황혼 76세 · <code>pneumonia-heal</code>(충분한 치료와 요양 끝에 폐렴에서 완전히 회복한다)</td></tr>
                 <tr><td><code>mild-cognitive-decline</code></td><td>🧠 가벼운 건망증</td><td>황혼 78세 · <code>forgetting-where-things-are</code>(물건을 어디 뒀는지 자꾸 깜빡한다)</td><td>황혼 80세 · <code>mild-cognitive-decline-heal</code>(두뇌 활동과 규칙적인 생활로 기억력이 다시 좋아진다)</td></tr>
                 <tr><td><code>appetite-loss</code></td><td>🍚 식욕부진</td><td>황혼 83세 · <code>appetite-loss-onset</code>(입맛이 없어 끼니를 자주 거른다)</td><td>황혼 86세 · <code>appetite-loss-heal</code>(입맛을 되찾아 다시 잘 챙겨 먹는다)</td></tr>
+                <tr><td><code>frailty</code></td><td>🕊️ 노쇠</td><td>황혼 93세 · <code>frailty-onset</code>(노쇠가 뚜렷해지며 하루 대부분을 누워 지낸다)</td><td>황혼 96세 · <code>frailty-heal</code>(정성 어린 돌봄과 재활로 다시 기력을 되찾는다)</td></tr>
             </table>
         </div>
         <p class="note">전부 "발병 구간이 회복 구간보다 앞선다"는 순서만 지키면 되고, 발병 선택지와 회복
@@ -1054,6 +1057,76 @@
                 <tr><td><code>passing-down-ninety-years-of-story</code></td><td>아흔 평생 이야기를 후손들에게 전한다</td><td></td></tr>
                 <tr><td><code>grateful-to-be-alive-and-loved</code></td><td>아직 살아있음에, 그리고 사랑받고 있음에 감사한다</td><td></td></tr>
                 <tr><td><code>no-regrets-after-ninety-years</code></td><td>지난 90년을 돌아보며 여한이 없다고 말한다</td><td></td></tr>
+
+                <tr><td rowspan="6">황혼 · 91세</td><td><code>every-day-feels-like-a-gift</code></td><td>매일이 선물처럼 느껴지는 요즘이다</td><td></td></tr>
+                <tr><td><code>strength-fading-day-by-day</code></td><td>몸의 기력이 하루가 다르게 줄어드는 걸 느낀다</td><td></td></tr>
+                <tr><td><code>joy-with-great-grandchildren</code></td><td>손주, 증손주와 함께하는 시간이 가장 큰 낙이 된다</td><td></td></tr>
+                <tr><td><code>grateful-for-lifetime-of-bonds</code></td><td>지난 세월 쌓아온 인연들에 감사함을 느낀다</td><td></td></tr>
+                <tr><td><code>heart-still-feels-young</code></td><td>몸은 느려져도 마음만은 여전히 청춘 같다</td><td></td></tr>
+                <tr><td><code>accepting-each-day-as-it-comes</code></td><td>하루하루를 있는 그대로 받아들이는 법을 배운다</td><td></td></tr>
+
+                <tr><td rowspan="6">황혼 · 92세</td><td><code>more-time-spent-in-bed</code></td><td>병상에서 보내는 시간이 조금씩 늘어난다</td><td></td></tr>
+                <tr><td><code>chatting-with-family-from-bed</code></td><td>누워있는 시간에도 가족과 담소를 나누며 하루를 채운다</td><td></td></tr>
+                <tr><td><code>grateful-yet-sorry-to-caregivers</code></td><td>간병하는 가족에게 미안함과 고마움을 동시에 느낀다</td><td></td></tr>
+                <tr><td><code>keeping-a-smile-despite-discomfort</code></td><td>몸은 불편해도 표정만은 잃지 않으려 애쓴다</td><td></td></tr>
+                <tr><td><code>comfort-in-the-view-from-window</code></td><td>병실 창밖 풍경 하나에도 위안을 얻는다</td><td></td></tr>
+                <tr><td><code>still-finding-small-things-to-do-alone</code></td><td>여전히 스스로 할 수 있는 것들을 찾아 해낸다</td><td></td></tr>
+
+                <tr><td rowspan="6">황혼 · 93세</td><td><code>sharing-unspoken-stories-with-family</code></td><td>자녀, 손주들과 그동안 못다 한 이야기를 나눈다</td><td></td></tr>
+                <tr><td><code>telling-family-what-mattered</code></td><td>가족들에게 하고 싶던 말을 하나씩 전한다</td><td></td></tr>
+                <tr><td><code>silent-handhold-says-enough</code></td><td>말없이 손을 맞잡는 것만으로도 마음이 통한다</td><td></td></tr>
+                <tr><td><code>every-moment-was-precious</code></td><td>지난 삶의 매 순간이 다 소중했다는 걸 새삼 느낀다</td><td></td></tr>
+                <tr><td><code>looking-long-at-each-familiar-face</code></td><td>가족 한 사람 한 사람의 얼굴을 오래도록 바라본다</td><td></td></tr>
+                <tr><td><code>frailty-onset</code></td><td>노쇠가 뚜렷해지며 하루 대부분을 누워 지낸다</td><td>🕊️ 노쇠 발병</td></tr>
+
+                <tr><td rowspan="6">황혼 · 94세</td><td><code>sorting-belongings-and-thoughts</code></td><td>그동안의 물건과 마음을 하나씩 정리한다</td><td></td></tr>
+                <tr><td><code>writing-short-letters-to-loved-ones</code></td><td>남길 이들에게 짧은 편지를 써본다</td><td></td></tr>
+                <tr><td><code>a-lifetime-folded-into-each-item</code></td><td>정리하는 손길에, 지나온 세월이 함께 담긴다</td><td></td></tr>
+                <tr><td><code>choosing-presence-over-organizing</code></td><td>복잡한 정리보다, 지금 곁의 사람에게 마음을 쓰기로 한다</td><td></td></tr>
+                <tr><td><code>thinking-of-how-to-be-remembered</code></td><td>무엇을 남기느냐보다, 어떻게 기억되고 싶은지를 생각한다</td><td></td></tr>
+                <tr><td><code>lighter-heart-after-organizing</code></td><td>정리를 마치고 나니, 마음이 한결 가벼워진다</td><td></td></tr>
+
+                <tr><td rowspan="6">황혼 · 95세</td><td><code>amazed-at-ninety-five-years-lived</code></td><td>아흔다섯 해를 살아냈다는 사실이 새삼 놀랍다</td><td></td></tr>
+                <tr><td><code>being-alive-feels-miraculous</code></td><td>여전히 살아있다는 것 자체가 기적처럼 느껴진다</td><td></td></tr>
+                <tr><td><code>grateful-for-devoted-family-care</code></td><td>가족의 정성 어린 보살핌에 하루하루 감사한다</td><td></td></tr>
+                <tr><td><code>weak-body-but-certain-of-love</code></td><td>몸은 쇠약해도, 사랑받고 있다는 확신만은 뚜렷하다</td><td></td></tr>
+                <tr><td><code>past-life-feels-like-a-dream</code></td><td>가끔 지난 생을 꿈처럼 떠올린다</td><td></td></tr>
+                <tr><td><code>relief-at-getting-through-another-day</code></td><td>오늘 하루도 무사히 넘겼다는 사실에 안도한다</td><td></td></tr>
+
+                <tr><td rowspan="6">황혼 · 96세</td><td><code>guarding-inner-peace-despite-frailty</code></td><td>몸은 쇠약해져도 정신의 평화를 지키려 애쓴다</td><td></td></tr>
+                <tr><td><code>frailty-heal</code></td><td>정성 어린 돌봄과 재활로 다시 기력을 되찾는다</td><td>🕊️ 노쇠 회복</td></tr>
+                <tr><td><code>peace-in-the-familiar-rhythm-of-days</code></td><td>익숙한 자장가 같은 하루의 리듬 속에 평온을 느낀다</td><td></td></tr>
+                <tr><td><code>reassured-by-a-familiar-voice</code></td><td>가족의 목소리 하나로도 마음이 놓인다</td><td></td></tr>
+                <tr><td><code>reminiscing-with-old-songs</code></td><td>예전 노래를 들으며 옛 시절을 추억한다</td><td></td></tr>
+                <tr><td><code>quiet-happiness-in-a-still-day</code></td><td>고요한 하루 속에서도 잔잔한 행복을 느낀다</td><td></td></tr>
+
+                <tr><td rowspan="6">황혼 · 97세</td><td><code>excited-for-upcoming-baeksu</code></td><td>백수(白壽)를 코앞에 두고 마음이 설렌다</td><td></td></tr>
+                <tr><td><code>ninety-seven-years-not-a-short-journey</code></td><td>아흔일곱 해, 짧지 않은 여정이었음을 실감한다</td><td></td></tr>
+                <tr><td><code>family-prepares-baeksu-celebration-early</code></td><td>가족들이 백수 잔치를 미리부터 준비한다</td><td></td></tr>
+                <tr><td><code>morning-gratitude-for-being-alive</code></td><td>매일 아침, 살아있음에 새삼 감사 인사를 올린다</td><td></td></tr>
+                <tr><td><code>quietly-mourning-those-who-went-first</code></td><td>먼저 떠난 이들을 그리워하며 조용히 추모한다</td><td></td></tr>
+                <tr><td><code>this-moment-matters-most</code></td><td>지금 이 순간이 가장 소중하다는 걸 되새긴다</td><td></td></tr>
+
+                <tr><td rowspan="6">황혼 · 98세</td><td><code>realizing-a-hundred-is-near</code></td><td>백 살이라는 숫자가 성큼 다가온 걸 실감한다</td><td></td></tr>
+                <tr><td><code>family-talks-about-upcoming-baeksu</code></td><td>가족들과 다가올 백수를 위한 이야기를 나눈다</td><td></td></tr>
+                <tr><td><code>quietly-tracing-a-century-of-time</code></td><td>지나온 한 세기에 가까운 시간을 가만히 되짚는다</td><td></td></tr>
+                <tr><td><code>receiving-each-day-as-a-gift</code></td><td>매일을 선물처럼 받아들이며 감사히 보낸다</td><td></td></tr>
+                <tr><td><code>brightened-by-great-grandchildren</code></td><td>손주, 증손주들의 재롱에 하루하루가 환해진다</td><td></td></tr>
+                <tr><td><code>safe-today-the-greatest-greeting</code></td><td>오늘도 무사히, 라는 말이 가장 큰 안부가 된다</td><td></td></tr>
+
+                <tr><td rowspan="6">황혼 · 99세</td><td><code>baeksu-village-wide-celebration</code></td><td>백수(白壽)를 맞아 온 가족, 온 마을이 함께 축하한다</td><td></td></tr>
+                <tr><td><code>meaning-of-the-white-character</code></td><td>백에서 하나를 뺀 흰 백(白) 자에 담긴 뜻을 되새긴다</td><td></td></tr>
+                <tr><td><code>lived-a-century-minus-one-fully</code></td><td>백 년에 하나 모자란 세월을, 온전히 살아냈다고 느낀다</td><td></td></tr>
+                <tr><td><code>quietly-sharing-this-moment-with-family</code></td><td>조용히 가족들과 소박하게 이 순간을 나눈다</td><td></td></tr>
+                <tr><td><code>no-regrets-in-any-moment</code></td><td>지나온 모든 순간에 후회 없다고 스스로에게 말해준다</td><td></td></tr>
+                <tr><td><code>still-cant-believe-turning-a-hundred</code></td><td>내일이면 백 살이라는 사실이 아직도 믿기지 않는다</td><td></td></tr>
+
+                <tr><td rowspan="6">황혼 · 100세</td><td><code>overwhelmed-completing-a-century</code></td><td>백 년의 인생을 마침내 완주했다는 벅찬 마음이 든다</td><td></td></tr>
+                <tr><td><code>whole-world-celebrates-the-century</code></td><td>온 가족, 온 세상이 그 100년을 함께 축하해준다</td><td></td></tr>
+                <tr><td><code>still-loved-at-a-hundred</code></td><td>백 살이 된 지금도, 여전히 사랑받고 있음을 느낀다</td><td></td></tr>
+                <tr><td><code>a-century-of-moments-woven-into-one</code></td><td>지나온 백 년의 모든 순간이 하나로 이어져 보인다</td><td></td></tr>
+                <tr><td><code>a-life-fully-lived-no-regrets</code></td><td>후회도 미련도 없이, 온전히 살아낸 삶이었다고 되뇐다</td><td></td></tr>
+                <tr><td><code>leaving-a-century-of-story-to-the-next</code></td><td>백 년의 이야기를 마지막으로 후손들에게 남긴다</td><td></td></tr>
             </table>
         </div>
     </section>
