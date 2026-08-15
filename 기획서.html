@@ -217,9 +217,9 @@
         <code>twenties-23</code>), 사회 초년생은 6개(<code>rookie-24</code>~<code>rookie-29</code>), 서른은
         10개(<code>settling-30</code>~<code>settling-39</code>), 중년은 15개(<code>midlife-40</code>~
         <code>midlife-54</code>, 15년짜리로 가장 긴 카테고리라 항목도 제일 많음), 노년 준비는 15개 전부
-        구현(<code>oldprep-55</code>~<code>oldprep-69</code>), 황혼은 70세 1개만 우선 구현
-        (<code>twilight-70</code>) — 71~100세는 아직 TODO. 표의 "구간" 개수와 실제
-        <code>STAGES.length</code>(현재 71)는 다르다.</p>
+        구현(<code>oldprep-55</code>~<code>oldprep-69</code>), 황혼은 70~80세 11개까지 구현
+        (<code>twilight-70</code>~<code>twilight-80</code>) — 81~100세는 아직 TODO. 표의 "구간" 개수와
+        실제 <code>STAGES.length</code>(현재 81)는 다르다.</p>
         <div class="tbl-wrap">
             <table>
                 <tr><th>구간</th><th>나이</th><th>상태</th></tr>
@@ -232,7 +232,7 @@
                 <tr><td>서른, 자리잡기 <span class="badge badge-admin">선택 × 10(한 살 단위)</span></td><td>30–39세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>중년, 선택의 무게 <span class="badge badge-admin">선택 × 15(한 살 단위)</span></td><td>40–54세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>노년 준비 <span class="badge badge-admin">선택 × 15(한 살 단위)</span></td><td>55–69세</td><td><span class="badge badge-live">구현됨</span></td></tr>
-                <tr><td>황혼 <span class="badge badge-admin">선택 × 1(70세만, 한 살 단위)</span></td><td>70–100세</td><td><span class="badge badge-todo">부분 구현 (70세)</span></td></tr>
+                <tr><td>황혼 <span class="badge badge-admin">선택 × 11(70~80세, 한 살 단위)</span></td><td>70–100세</td><td><span class="badge badge-todo">부분 구현 (70~80세)</span></td></tr>
             </table>
         </div>
         <p class="note"><b>유아기(0~6세)는 한 살 단위로 7개 구간(<code>infancy-0</code>~<code>infancy-6</code>)으로
@@ -278,10 +278,12 @@
         → 건강 관리 본격화(59세) → 환갑(60세) → 새 삶의 리듬(61세) → 연금(62세) → 취미·가족 심화(63세) →
         몸의 변화 수용(64세) → 법정 노인 연령(65세) → 부부 관계 재조명(66세) → 유언·상속 정리(67세) → 상실
         경험(68세) → 노년 준비 마무리(69세) 순.</p>
-        <p class="note"><b>황혼(70~100세, 31년)은 <code>twilight-70</code>(70세, 칠순) 한 구간만 우선
-        구현됐다.</b> 71~100세는 아직 TODO. 유아기~노년 준비까지는 이름이 <code>name: 'STAGES'</code> 배열
+        <p class="note"><b>황혼(70~100세, 31년)은 <code>twilight-70</code>~<code>twilight-80</code>(70~80세,
+        11개)까지 구현됐다.</b> 81~100세는 아직 TODO. 유아기~노년 준비까지는 이름이 <code>STAGES</code> 배열
         안에서 카테고리별로 통일돼 있었는데, 황혼도 이 관례를 그대로 이어서 <code>name: '황혼'</code>으로
-        표기한다(구간 id 접두사만 <code>twilight-</code>로 새로 시작).</p>
+        표기한다(구간 id 접두사만 <code>twilight-</code>). 칠순(70세) → 소소한 일상(71세) → 손주 세대
+        성취(72세) → 신체 저하 수용(73세) → 마지막 장거리 여행(74세) → 남은 삶 재구성(75세) → 배우자
+        간병(76세) → 희수(77세) → 기억력 저하 체감(78세) → 팔순 준비(79세) → 팔순(80세) 순.</p>
         <p class="note"><b>구간마다 선택지를 최대 6개까지 써두고, 실제로는 그중 3개만 무작위로 노출한다.</b>
         <code>startPlaythrough</code>/<code>applyChoice</code>가 그 구간에 들어설 때 <code>pickVisibleChoiceIds()</code>로
         3개를 미리 뽑아 저장 슬롯(<code>lifeGame/playthroughs/&#123;uid&#125;/visibleChoiceIds</code>)에
@@ -321,6 +323,8 @@
                 <tr><td><code>osteoporosis</code></td><td>🦴 골다공증</td><td>노년 준비 57세 · <code>osteoporosis-onset</code>(골밀도 검사에서 골다공증 진단을 받는다)</td><td>노년 준비 60세 · <code>osteoporosis-heal</code>(꾸준한 칼슘 섭취와 운동으로 골밀도가 개선된다)</td></tr>
                 <tr><td><code>hearing-loss</code></td><td>👂 난청</td><td>노년 준비 63세 · <code>hearing-loss-onset</code>(TV 소리를 자꾸 키우게 되며 난청이 시작된다)</td><td>노년 준비 66세 · <code>hearing-loss-heal</code>(보청기를 맞추고 세상의 소리가 다시 선명해진다)</td></tr>
                 <tr><td><code>hip-fracture</code></td><td>🦴 고관절 골절</td><td>노년 준비 67세 · <code>hip-fracture-onset</code>(빙판길에 넘어져 고관절을 다친다)</td><td>노년 준비 69세 · <code>hip-fracture-heal</code>(재활 치료를 마치고 다시 혼자 걸을 수 있게 된다)</td></tr>
+                <tr><td><code>pneumonia</code></td><td>🫁 폐렴</td><td>황혼 74세 · <code>pneumonia-onset</code>(환절기 감기가 폐렴으로 번진다)</td><td>황혼 76세 · <code>pneumonia-heal</code>(충분한 치료와 요양 끝에 폐렴에서 완전히 회복한다)</td></tr>
+                <tr><td><code>mild-cognitive-decline</code></td><td>🧠 가벼운 건망증</td><td>황혼 78세 · <code>forgetting-where-things-are</code>(물건을 어디 뒀는지 자꾸 깜빡한다)</td><td>황혼 80세 · <code>mild-cognitive-decline-heal</code>(두뇌 활동과 규칙적인 생활로 기억력이 다시 좋아진다)</td></tr>
             </table>
         </div>
         <p class="note">전부 "발병 구간이 회복 구간보다 앞선다"는 순서만 지키면 되고, 발병 선택지와 회복
@@ -903,6 +907,79 @@
                 <tr><td><code>final-big-trip</code></td><td>칠순 기념으로 인생 마지막 큰 여행을 떠난다</td><td></td></tr>
                 <tr><td><code>writing-life-story</code></td><td>지난 70년의 인생을 글로 정리해본다</td><td></td></tr>
                 <tr><td><code>grateful-for-health-and-mind-at-seventy</code></td><td>여전히 건강한 몸과 마음에 감사한다</td><td></td></tr>
+
+                <tr><td rowspan="6">황혼 · 71세</td><td><code>morning-tea-happiness</code></td><td>매일 아침 마시는 차 한 잔에서 소소한 행복을 느낀다</td><td></td></tr>
+                <tr><td><code>grateful-for-ordinary-day</code></td><td>특별할 것 없는 하루가 오히려 감사하게 느껴진다</td><td></td></tr>
+                <tr><td><code>video-call-with-grandchild</code></td><td>손주와 영상통화를 하며 하루를 시작한다</td><td></td></tr>
+                <tr><td><code>sudden-nostalgia</code></td><td>지나간 것들에 대한 그리움이 문득 밀려온다</td><td></td></tr>
+                <tr><td><code>library-book-borrowing</code></td><td>동네 도서관에서 책을 빌려 읽는 낙을 찾는다</td><td></td></tr>
+                <tr><td><code>plant-finally-blooms</code></td><td>오래 키운 화초가 꽃을 피운 걸 보고 기뻐한다</td><td></td></tr>
+
+                <tr><td rowspan="6">황혼 · 72세</td><td><code>grandchild-college-news</code></td><td>손주의 대학 합격 소식에 온 집안이 들썩인다</td><td></td></tr>
+                <tr><td><code>mixed-pride-and-envy</code></td><td>손주의 성취를 보며 대견함과 부러움이 교차한다</td><td></td></tr>
+                <tr><td><code>celebrating-childs-success</code></td><td>자녀 세대의 성공을 진심으로 축하해준다</td><td></td></tr>
+                <tr><td><code>growing-generation-gap</code></td><td>손주와의 세대 차이가 점점 크게 느껴진다</td><td></td></tr>
+                <tr><td><code>less-active-at-family-events</code></td><td>가족 행사에서 예전만큼 활발히 나서지 못해 아쉽다</td><td></td></tr>
+                <tr><td><code>not-wanting-to-burden-kids</code></td><td>자녀에게 짐이 되고 싶지 않아 스스로를 더 챙긴다</td><td></td></tr>
+
+                <tr><td rowspan="6">황혼 · 73세</td><td><code>stairs-become-harder</code></td><td>계단 오르내리기조차 버거워짐을 느낀다</td><td></td></tr>
+                <tr><td><code>starting-to-use-a-cane</code></td><td>지팡이를 짚고 다니기 시작한다</td><td></td></tr>
+                <tr><td><code>finding-a-slower-pace</code></td><td>느려진 몸에 맞춰 새로운 일상 속도를 찾는다</td><td></td></tr>
+                <tr><td><code>pride-in-doing-it-alone</code></td><td>그래도 아직은 혼자 다 할 수 있다는 자부심을 느낀다</td><td></td></tr>
+                <tr><td><code>physical-therapy-effort</code></td><td>물리치료를 받으며 남은 체력을 지키려 애쓴다</td><td></td></tr>
+                <tr><td><code>accepting-help-from-others</code></td><td>몸이 예전 같지 않다는 걸 받아들이고 도움을 청한다</td><td></td></tr>
+
+                <tr><td rowspan="7">황혼 · 74세</td><td><code>last-long-trip-with-friends</code></td><td>다리에 힘 있을 때라며 친구들과 마지막 장거리 여행을 떠난다</td><td></td></tr>
+                <tr><td><code>giving-up-trip-over-stamina</code></td><td>체력 걱정에 여행을 포기하고 집에 머문다</td><td></td></tr>
+                <tr><td><code>exhausted-from-overexertion</code></td><td>무리한 여행 일정에 몸살이 난다</td><td></td></tr>
+                <tr><td><code>unexpected-friendship-on-trip</code></td><td>여행지에서 뜻밖의 인연을 만나 즐거운 시간을 보낸다</td><td></td></tr>
+                <tr><td><code>short-local-outing</code></td><td>짧은 근교 나들이로 아쉬움을 달랜다</td><td></td></tr>
+                <tr><td><code>revisiting-travel-photos</code></td><td>여행 사진을 보며 몇 번이고 그날을 되새긴다</td><td></td></tr>
+                <tr><td><code>pneumonia-onset</code></td><td>환절기 감기가 폐렴으로 번진다</td><td>🫁 폐렴 발병</td></tr>
+
+                <tr><td rowspan="6">황혼 · 75세</td><td><code>rethinking-how-to-fill-remaining-time</code></td><td>남은 삶을 어떻게 채울지 다시 한번 진지하게 그려본다</td><td></td></tr>
+                <tr><td><code>giving-life-a-high-score</code></td><td>그동안 살아온 인생에 스스로 높은 점수를 준다</td><td></td></tr>
+                <tr><td><code>lingering-regrets</code></td><td>이루지 못한 것들에 대한 미련이 남는다</td><td></td></tr>
+                <tr><td><code>more-time-with-family</code></td><td>남은 시간을 가족과 더 많이 보내기로 다짐한다</td><td></td></tr>
+                <tr><td><code>valuing-alone-time-too</code></td><td>혼자만의 시간도 소중히 여기기로 한다</td><td></td></tr>
+                <tr><td><code>new-bucket-list-for-late-life</code></td><td>인생 후반부의 버킷리스트를 새로 적어본다</td><td></td></tr>
+
+                <tr><td rowspan="7">황혼 · 76세</td><td><code>spouse-diagnosed-with-illness</code></td><td>배우자가 큰 병을 진단받아 간병을 시작한다</td><td></td></tr>
+                <tr><td><code>exhausted-from-caregiving</code></td><td>간병하며 몸도 마음도 지쳐간다</td><td></td></tr>
+                <tr><td><code>stronger-bond-through-illness</code></td><td>함께 병을 이겨내며 부부 사이가 더 단단해진다</td><td></td></tr>
+                <tr><td><code>kids-help-with-caregiving</code></td><td>자녀들의 도움을 받아 간병 부담을 나눈다</td><td></td></tr>
+                <tr><td><code>spouse-recovers-well</code></td><td>배우자의 건강이 다행히 잘 회복되어 안도한다</td><td></td></tr>
+                <tr><td><code>quietly-preparing-for-loss</code></td><td>혹시 모를 이별을 미리 준비하는 마음이 든다</td><td></td></tr>
+                <tr><td><code>pneumonia-heal</code></td><td>충분한 치료와 요양 끝에 폐렴에서 완전히 회복한다</td><td>🫁 폐렴 회복</td></tr>
+
+                <tr><td rowspan="6">황혼 · 77세</td><td><code>huisu-family-celebration</code></td><td>희수(喜壽)를 맞아 가족들이 작은 잔치를 열어준다</td><td></td></tr>
+                <tr><td><code>weight-of-seventy-seven</code></td><td>일흔일곱이라는 숫자에 새삼 세월의 무게를 느낀다</td><td></td></tr>
+                <tr><td><code>blessing-of-long-life</code></td><td>오래 산다는 것 자체가 축복임을 실감한다</td><td></td></tr>
+                <tr><td><code>new-family-photo</code></td><td>조용히 가족사진을 새로 찍으며 이 순간을 남긴다</td><td></td></tr>
+                <tr><td><code>remembering-departed-friends</code></td><td>먼저 떠난 친구들을 떠올리며 숙연해진다</td><td></td></tr>
+                <tr><td><code>grateful-for-still-being-well</code></td><td>아직 정정한 몸과 마음에 감사한 하루를 보낸다</td><td></td></tr>
+
+                <tr><td rowspan="6">황혼 · 78세</td><td><code>forgetting-where-things-are</code></td><td>물건을 어디 뒀는지 자꾸 깜빡한다</td><td>🧠 가벼운 건망증 발병</td></tr>
+                <tr><td><code>old-memories-clear-recent-fuzzy</code></td><td>예전 일은 생생한데 방금 일은 자꾸 잊는다</td><td></td></tr>
+                <tr><td><code>developing-notekeeping-habit</code></td><td>메모하는 습관을 들이며 일상을 관리한다</td><td></td></tr>
+                <tr><td><code>grateful-for-familys-care</code></td><td>가족들이 세심하게 챙겨주는 것에 고마움을 느낀다</td><td></td></tr>
+                <tr><td><code>getting-checked-out-of-worry</code></td><td>혹시나 하는 걱정에 병원을 찾아 검사를 받는다</td><td></td></tr>
+                <tr><td><code>still-sharp-surprising-everyone</code></td><td>여전히 총기 있는 모습으로 주변을 놀라게 한다</td><td></td></tr>
+
+                <tr><td rowspan="6">황혼 · 79세</td><td><code>organizing-belongings-before-eighty</code></td><td>팔순을 앞두고 남길 물건과 이야기들을 정리한다</td><td></td></tr>
+                <tr><td><code>flipping-through-life-album-again</code></td><td>그동안의 인생 사진첩을 다시 한번 넘겨본다</td><td></td></tr>
+                <tr><td><code>planning-eightieth-with-kids</code></td><td>자녀들과 팔순 잔치를 어떻게 치를지 상의한다</td><td></td></tr>
+                <tr><td><code>preferring-quiet-gathering</code></td><td>큰 잔치보다 조용한 가족 모임을 원한다고 말한다</td><td></td></tr>
+                <tr><td><code>eightieth-doesnt-feel-real</code></td><td>다가오는 팔순이 실감 나지 않는다</td><td></td></tr>
+                <tr><td><code>grateful-for-this-very-moment</code></td><td>지금 이 순간에 감사하며 하루하루를 보낸다</td><td></td></tr>
+
+                <tr><td rowspan="7">황혼 · 80세</td><td><code>grand-eightieth-celebration</code></td><td>팔순을 맞아 온 가족, 친지가 모여 큰 잔치를 연다</td><td></td></tr>
+                <tr><td><code>looking-back-at-eighty-years</code></td><td>여든이라는 나이 앞에서 지나온 세월을 되짚는다</td><td></td></tr>
+                <tr><td><code>quiet-eightieth-with-spouse</code></td><td>조용히 부부끼리만 소박하게 하루를 기념한다</td><td></td></tr>
+                <tr><td><code>telling-life-story-to-grandkids</code></td><td>여든 평생 살아온 이야기를 손주들에게 들려준다</td><td></td></tr>
+                <tr><td><code>pride-in-still-being-well-at-eighty</code></td><td>아직 건재한 몸과 마음에 스스로 대견함을 느낀다</td><td></td></tr>
+                <tr><td><code>no-regrets-after-eighty-years</code></td><td>지난 80년, 후회 없이 살았다고 스스로에게 말해준다</td><td></td></tr>
+                <tr><td><code>mild-cognitive-decline-heal</code></td><td>두뇌 활동과 규칙적인 생활로 기억력이 다시 좋아진다</td><td>🧠 가벼운 건망증 회복</td></tr>
             </table>
         </div>
     </section>
