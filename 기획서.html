@@ -208,17 +208,18 @@
         <h2><span class="num">4</span>생애 사이클 · 스탯 시스템</h2>
         <h3>생애 10카테고리</h3>
         <p>균등한 나이 간격이 아니라 실제 인생의 결절점(입학·진로·독립·가정) 기준. <span class="badge badge-live">구현됨</span>
-        8카테고리, <span class="badge badge-todo">부분 구현</span> 1카테고리, <span class="badge badge-todo">콘텐츠 미작성</span>
-        1카테고리 — 형식은 동일해서 <code>functions/game-data.js</code>의 <code>STAGES</code> 배열에 이어 채우면 됨.
-        <b>유아기·초등학생·청소년기·스무 살·사회 초년생·서른·중년·노년 준비는 카테고리가 <code>STAGES</code> 안에서
+        9카테고리, <span class="badge badge-todo">부분 구현</span> 1카테고리 — 형식은 동일해서
+        <code>functions/game-data.js</code>의 <code>STAGES</code> 배열에 이어 채우면 됨.
+        <b>유아기·초등학생·청소년기·스무 살·사회 초년생·서른·중년·노년 준비·황혼은 카테고리가 <code>STAGES</code> 안에서
         한 살 단위 여러 항목으로 쪼개져 있음</b> — 유아기는 7개(<code>infancy-0</code>~<code>infancy-6</code>),
         초등학생은 6개(<code>elementary-7</code>~<code>elementary-12</code>), 청소년기는 6개(<code>teen-13</code>~
         <code>teen-18</code>, 사춘기+고등학생을 한 카테고리로 통합 구현), 스무 살은 5개(<code>twenties-19</code>~
         <code>twenties-23</code>), 사회 초년생은 6개(<code>rookie-24</code>~<code>rookie-29</code>), 서른은
         10개(<code>settling-30</code>~<code>settling-39</code>), 중년은 15개(<code>midlife-40</code>~
-        <code>midlife-54</code>, 15년짜리로 가장 긴 카테고리라 항목도 제일 많음), 노년 준비는 55~60세 6개만
-        우선 구현(<code>oldprep-55</code>~<code>oldprep-60</code>) — 61~69세는 아직 TODO. 표의 "구간" 개수와
-        실제 <code>STAGES.length</code>(현재 61)는 다르다.</p>
+        <code>midlife-54</code>, 15년짜리로 가장 긴 카테고리라 항목도 제일 많음), 노년 준비는 15개 전부
+        구현(<code>oldprep-55</code>~<code>oldprep-69</code>), 황혼은 70세 1개만 우선 구현
+        (<code>twilight-70</code>) — 71~100세는 아직 TODO. 표의 "구간" 개수와 실제
+        <code>STAGES.length</code>(현재 71)는 다르다.</p>
         <div class="tbl-wrap">
             <table>
                 <tr><th>구간</th><th>나이</th><th>상태</th></tr>
@@ -230,8 +231,8 @@
                 <tr><td>사회 초년생 <span class="badge badge-admin">선택 × 6(한 살 단위)</span></td><td>24–29세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>서른, 자리잡기 <span class="badge badge-admin">선택 × 10(한 살 단위)</span></td><td>30–39세</td><td><span class="badge badge-live">구현됨</span></td></tr>
                 <tr><td>중년, 선택의 무게 <span class="badge badge-admin">선택 × 15(한 살 단위)</span></td><td>40–54세</td><td><span class="badge badge-live">구현됨</span></td></tr>
-                <tr><td>노년 준비 <span class="badge badge-admin">선택 × 6(55~60세만, 한 살 단위)</span></td><td>55–69세</td><td><span class="badge badge-todo">부분 구현 (55~60세)</span></td></tr>
-                <tr><td>황혼</td><td>70–100세</td><td><span class="badge badge-todo">TODO</span></td></tr>
+                <tr><td>노년 준비 <span class="badge badge-admin">선택 × 15(한 살 단위)</span></td><td>55–69세</td><td><span class="badge badge-live">구현됨</span></td></tr>
+                <tr><td>황혼 <span class="badge badge-admin">선택 × 1(70세만, 한 살 단위)</span></td><td>70–100세</td><td><span class="badge badge-todo">부분 구현 (70세)</span></td></tr>
             </table>
         </div>
         <p class="note"><b>유아기(0~6세)는 한 살 단위로 7개 구간(<code>infancy-0</code>~<code>infancy-6</code>)으로
@@ -272,9 +273,15 @@
         커리어 안정(41세) → 건강 이상 신호(42세) → 조직 내 입지(43세) → 관계 재정비(44세) → 중년의 위기
         (45세) → 재도전(46세) → 부모님 노환·이별(47세) → 커리어 정점(48세) → 갱년기 초입(49세) → 쉰(50세)
         → 빈 둥지(51세) → 은퇴 준비(52세) → 재무 재점검(53세) → 중년 마무리(54세) 순.</p>
-        <p class="note"><b>노년 준비(55~69세)는 아직 절반만 구현됐다 — 55~60세 6개 구간(<code>oldprep-55</code>~
-        <code>oldprep-60</code>)만 채워져 있고, 61~69세는 TODO로 남아있다.</b> 정년퇴직(55세) → 정체성
-        재정립(56세) → 새로운 관계망(57세) → 손주·가족 관계(58세) → 건강 관리 본격화(59세) → 환갑(60세) 순.</p>
+        <p class="note"><b>노년 준비(55~69세)는 이제 15개 구간(<code>oldprep-55</code>~<code>oldprep-69</code>)
+        전부 구현됐다.</b> 정년퇴직(55세) → 정체성 재정립(56세) → 새로운 관계망(57세) → 손주·가족 관계(58세)
+        → 건강 관리 본격화(59세) → 환갑(60세) → 새 삶의 리듬(61세) → 연금(62세) → 취미·가족 심화(63세) →
+        몸의 변화 수용(64세) → 법정 노인 연령(65세) → 부부 관계 재조명(66세) → 유언·상속 정리(67세) → 상실
+        경험(68세) → 노년 준비 마무리(69세) 순.</p>
+        <p class="note"><b>황혼(70~100세, 31년)은 <code>twilight-70</code>(70세, 칠순) 한 구간만 우선
+        구현됐다.</b> 71~100세는 아직 TODO. 유아기~노년 준비까지는 이름이 <code>name: 'STAGES'</code> 배열
+        안에서 카테고리별로 통일돼 있었는데, 황혼도 이 관례를 그대로 이어서 <code>name: '황혼'</code>으로
+        표기한다(구간 id 접두사만 <code>twilight-</code>로 새로 시작).</p>
         <p class="note"><b>구간마다 선택지를 최대 6개까지 써두고, 실제로는 그중 3개만 무작위로 노출한다.</b>
         <code>startPlaythrough</code>/<code>applyChoice</code>가 그 구간에 들어설 때 <code>pickVisibleChoiceIds()</code>로
         3개를 미리 뽑아 저장 슬롯(<code>lifeGame/playthroughs/&#123;uid&#125;/visibleChoiceIds</code>)에
@@ -312,6 +319,8 @@
                 <tr><td><code>menopause-symptoms</code></td><td>🌡️ 갱년기 증상</td><td>중년 49세 · <code>menopause-onset</code>(몸의 변화(갱년기 증상)가 본격적으로 시작된다)</td><td>중년 51세 · <code>menopause-heal</code>(호르몬 치료·생활 관리로 갱년기 증상이 눈에 띄게 안정된다)</td></tr>
                 <tr><td><code>cataract</code></td><td>👁️ 백내장</td><td>노년 준비 56세 · <code>cataract-onset</code>(눈이 침침해지고 백내장 진단을 받는다)</td><td>노년 준비 58세 · <code>cataract-heal</code>(백내장 수술을 받고 시야가 다시 선명해진다)</td></tr>
                 <tr><td><code>osteoporosis</code></td><td>🦴 골다공증</td><td>노년 준비 57세 · <code>osteoporosis-onset</code>(골밀도 검사에서 골다공증 진단을 받는다)</td><td>노년 준비 60세 · <code>osteoporosis-heal</code>(꾸준한 칼슘 섭취와 운동으로 골밀도가 개선된다)</td></tr>
+                <tr><td><code>hearing-loss</code></td><td>👂 난청</td><td>노년 준비 63세 · <code>hearing-loss-onset</code>(TV 소리를 자꾸 키우게 되며 난청이 시작된다)</td><td>노년 준비 66세 · <code>hearing-loss-heal</code>(보청기를 맞추고 세상의 소리가 다시 선명해진다)</td></tr>
+                <tr><td><code>hip-fracture</code></td><td>🦴 고관절 골절</td><td>노년 준비 67세 · <code>hip-fracture-onset</code>(빙판길에 넘어져 고관절을 다친다)</td><td>노년 준비 69세 · <code>hip-fracture-heal</code>(재활 치료를 마치고 다시 혼자 걸을 수 있게 된다)</td></tr>
             </table>
         </div>
         <p class="note">전부 "발병 구간이 회복 구간보다 앞선다"는 순서만 지키면 되고, 발병 선택지와 회복
@@ -820,6 +829,80 @@
                 <tr><td><code>reflecting-on-sixty-years</code></td><td>지난 60년을 돌아보며 담담히 다음 10년을 그려본다</td><td></td></tr>
                 <tr><td><code>confidence-in-still-being-strong</code></td><td>여전히 정정하다는 걸 스스로 확인하며 자신감을 얻는다</td><td></td></tr>
                 <tr><td><code>osteoporosis-heal</code></td><td>꾸준한 칼슘 섭취와 운동으로 골밀도가 개선된다</td><td>🦴 골다공증 회복</td></tr>
+
+                <tr><td rowspan="6">노년 준비 · 61세</td><td><code>new-life-rhythm-settles</code></td><td>새로운 삶의 리듬이 완전히 자리 잡는다</td><td></td></tr>
+                <tr><td><code>neighborhood-strolls</code></td><td>동네 마실을 다니며 소소한 낙을 찾는다</td><td></td></tr>
+                <tr><td><code>reviving-youthful-side-hustle</code></td><td>젊을 때 꿈꾸던 소일거리를 다시 시작한다</td><td></td></tr>
+                <tr><td><code>missing-the-old-office</code></td><td>무료함에 지쳐 예전 직장 생각이 자꾸 난다</td><td></td></tr>
+                <tr><td><code>grandchild-daycare-duty</code></td><td>손주 육아를 도맡으며 하루가 순식간에 지나간다</td><td></td></tr>
+                <tr><td><code>gardening-hobby</code></td><td>텃밭·화분 가꾸기 같은 잔잔한 취미에 빠진다</td><td></td></tr>
+
+                <tr><td rowspan="6">노년 준비 · 62세</td><td><code>starting-pension</code></td><td>국민연금 수령을 시작하며 새로운 수입 흐름이 생긴다</td><td></td></tr>
+                <tr><td><code>tightening-budget-on-pension</code></td><td>연금만으로는 부족해 씀씀이를 줄인다</td><td></td></tr>
+                <tr><td><code>private-pension-pays-off</code></td><td>젊을 때 들어둔 개인연금이 큰 힘이 된다</td><td></td></tr>
+                <tr><td><code>disappointing-pension-amount</code></td><td>예상보다 적은 연금액에 실망한다</td><td></td></tr>
+                <tr><td><code>reemployment-for-extra-income</code></td><td>재취업으로 연금 외 소득을 보탠다</td><td></td></tr>
+                <tr><td><code>gratitude-for-financial-ease</code></td><td>돈 걱정 없이 지낼 수 있음에 감사함을 느낀다</td><td></td></tr>
+
+                <tr><td rowspan="7">노년 준비 · 63세</td><td><code>watching-grandchild-grow</code></td><td>손주가 훌쩍 커가는 모습을 지켜본다</td><td></td></tr>
+                <tr><td><code>mastering-old-hobby</code></td><td>오래된 취미를 전문가 수준으로 갈고닦는다</td><td></td></tr>
+                <tr><td><code>leading-a-hobby-club</code></td><td>동호회 회장을 맡아 새로운 책임을 진다</td><td></td></tr>
+                <tr><td><code>generation-gap-with-grandchild</code></td><td>손주와 세대 차이를 느끼며 서운해한다</td><td></td></tr>
+                <tr><td><code>sorting-old-photos</code></td><td>옛 사진을 정리하며 지나온 삶을 되짚는다</td><td></td></tr>
+                <tr><td><code>travel-club-adventures</code></td><td>여행 동호회에 가입해 전국을 누빈다</td><td></td></tr>
+                <tr><td><code>hearing-loss-onset</code></td><td>TV 소리를 자꾸 키우게 되며 난청이 시작된다</td><td>👂 난청 발병</td></tr>
+
+                <tr><td rowspan="6">노년 준비 · 64세</td><td><code>anxious-over-checkup-results</code></td><td>건강검진 결과 하나하나에 예민해진다</td><td></td></tr>
+                <tr><td><code>accepting-bodys-signals</code></td><td>몸이 보내는 신호를 순순히 받아들이기 시작한다</td><td></td></tr>
+                <tr><td><code>pride-in-good-health</code></td><td>또래보다 건강한 몸 상태에 자부심을 느낀다</td><td></td></tr>
+                <tr><td><code>managing-chronic-condition</code></td><td>만성 질환 관리를 위해 매일 약을 챙긴다</td><td></td></tr>
+                <tr><td><code>exercise-group-together</code></td><td>운동 모임에 나가며 건강을 다 함께 챙긴다</td><td></td></tr>
+                <tr><td><code>cautiously-reducing-activity</code></td><td>몸에 무리가 갈까 조심하며 활동을 줄인다</td><td></td></tr>
+
+                <tr><td rowspan="6">노년 준비 · 65세</td><td><code>senior-benefits-begin</code></td><td>법정 노인 연령이 되어 각종 경로 우대를 받는다</td><td></td></tr>
+                <tr><td><code>uncomfortable-with-senior-label</code></td><td>"노인"이라는 호칭이 낯설고 서운하게 느껴진다</td><td></td></tr>
+                <tr><td><code>first-visit-to-senior-center</code></td><td>경로당에 처음 나가보며 새로운 인연을 만든다</td><td></td></tr>
+                <tr><td><code>free-subway-adventures</code></td><td>지하철 무임승차로 여기저기 나들이를 다닌다</td><td></td></tr>
+                <tr><td><code>not-ready-to-be-called-old</code></td><td>아직 스스로를 노인이라 부르고 싶지 않다</td><td></td></tr>
+                <tr><td><code>age-is-just-a-number</code></td><td>나이는 숫자일 뿐이라며 활기차게 지낸다</td><td></td></tr>
+
+                <tr><td rowspan="7">노년 준비 · 66세</td><td><code>gratitude-for-long-marriage</code></td><td>오랜 결혼 생활을 돌아보며 배우자에게 새삼 고마움을 느낀다</td><td></td></tr>
+                <tr><td><code>considering-late-divorce</code></td><td>황혼 이혼을 진지하게 고민한다</td><td></td></tr>
+                <tr><td><code>respecting-each-others-time</code></td><td>부부가 각자의 시간을 존중하는 법을 익힌다</td><td></td></tr>
+                <tr><td><code>frequent-spousal-friction</code></td><td>배우자의 잔소리에 자주 부딪힌다</td><td></td></tr>
+                <tr><td><code>new-shared-hobby</code></td><td>부부가 함께 새로운 취미를 시작한다</td><td></td></tr>
+                <tr><td><code>seeing-a-widowed-friend</code></td><td>혼자가 된 친구를 보며 곁의 배우자를 다시 본다</td><td></td></tr>
+                <tr><td><code>hearing-loss-heal</code></td><td>보청기를 맞추고 세상의 소리가 다시 선명해진다</td><td>👂 난청 회복</td></tr>
+
+                <tr><td rowspan="7">노년 준비 · 67세</td><td><code>writing-a-will</code></td><td>유언장을 미리 써두며 마음을 정리한다</td><td></td></tr>
+                <tr><td><code>early-inheritance-dilemma</code></td><td>자산을 자녀에게 미리 나눠주는 문제로 고민한다</td><td></td></tr>
+                <tr><td><code>inheritance-conflict-with-kids</code></td><td>상속·증여 문제로 자녀들과 갈등이 생긴다</td><td></td></tr>
+                <tr><td><code>relief-after-organizing</code></td><td>정리하고 나니 오히려 홀가분해진다</td><td></td></tr>
+                <tr><td><code>postponing-the-topic</code></td><td>아직은 그런 생각을 하고 싶지 않다며 미룬다</td><td></td></tr>
+                <tr><td><code>gathering-family-to-share-wishes</code></td><td>가족 모두를 불러 앉혀 놓고 뜻을 직접 전한다</td><td></td></tr>
+                <tr><td><code>hip-fracture-onset</code></td><td>빙판길에 넘어져 고관절을 다친다</td><td>🦴 고관절 골절 발병</td></tr>
+
+                <tr><td rowspan="6">노년 준비 · 68세</td><td><code>grieving-an-old-friend</code></td><td>오랜 친구의 부고 소식에 크게 상심한다</td><td></td></tr>
+                <tr><td><code>reconnecting-at-a-funeral</code></td><td>장례식에서 오랜만에 만난 얼굴들과 안부를 나눈다</td><td></td></tr>
+                <tr><td><code>cherishing-life-more</code></td><td>떠난 이를 기리며 남은 삶을 더 소중히 여기게 된다</td><td></td></tr>
+                <tr><td><code>grateful-for-good-health</code></td><td>건강히 지내는 것 자체가 얼마나 큰 행운인지 깨닫는다</td><td></td></tr>
+                <tr><td><code>fear-of-being-left-alone</code></td><td>혼자 남겨질 두려움이 문득 엄습한다</td><td></td></tr>
+                <tr><td><code>resolving-to-meet-friends-more</code></td><td>남은 친구들과 더 자주 만나기로 다짐한다</td><td></td></tr>
+
+                <tr><td rowspan="7">노년 준비 · 69세</td><td><code>reflecting-on-fifteen-years-oldprep</code></td><td>노년 준비의 마지막 해, 지난 15년을 돌아본다</td><td></td></tr>
+                <tr><td><code>preparing-for-seventieth</code></td><td>다가올 칠순을 준비하며 마음을 가다듬는다</td><td></td></tr>
+                <tr><td><code>comforting-oneself-for-enduring</code></td><td>그동안 잘 버텨온 스스로를 다독인다</td><td></td></tr>
+                <tr><td><code>lingering-worries</code></td><td>여전히 남은 걱정거리에 마음이 무겁다</td><td></td></tr>
+                <tr><td><code>planning-seventieth-party</code></td><td>가족들과 다가올 칠순 잔치를 미리 계획한다</td><td></td></tr>
+                <tr><td><code>calm-at-the-threshold-of-old-age</code></td><td>진짜 노년의 문턱 앞에서 담담해진다</td><td></td></tr>
+                <tr><td><code>hip-fracture-heal</code></td><td>재활 치료를 마치고 다시 혼자 걸을 수 있게 된다</td><td>🦴 고관절 골절 회복</td></tr>
+
+                <tr><td rowspan="6">황혼 · 70세</td><td><code>grand-seventieth-celebration</code></td><td>칠순을 맞아 온 가족이 모여 성대한 잔치를 연다</td><td></td></tr>
+                <tr><td><code>realizing-a-new-chapter-at-seventy</code></td><td>일흔이라는 나이 앞에서 인생의 새 장을 실감한다</td><td></td></tr>
+                <tr><td><code>quiet-day-with-spouse</code></td><td>조용히 부부끼리만 특별한 하루를 보낸다</td><td></td></tr>
+                <tr><td><code>final-big-trip</code></td><td>칠순 기념으로 인생 마지막 큰 여행을 떠난다</td><td></td></tr>
+                <tr><td><code>writing-life-story</code></td><td>지난 70년의 인생을 글로 정리해본다</td><td></td></tr>
+                <tr><td><code>grateful-for-health-and-mind-at-seventy</code></td><td>여전히 건강한 몸과 마음에 감사한다</td><td></td></tr>
             </table>
         </div>
     </section>

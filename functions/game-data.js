@@ -61,10 +61,16 @@
 // 쉰(50세) → 빈 둥지(51세) → 은퇴 준비(52세) → 재무 재점검(53세) →
 // 중년 마무리(54세) 순.
 //
-// "노년 준비"(55~69세, 15년)는 아직 절반만 구현됐다 - oldprep-55 ~
-// oldprep-60(55~60세, 6개)만 채워져 있고 61~69세는 TODO. 정년퇴직
-// (55세) → 정체성 재정립(56세) → 새로운 관계망(57세) → 손주·가족
-// 관계(58세) → 건강 관리 본격화(59세) → 환갑(60세) 순.
+// "노년 준비"(55~69세, 15년)는 이제 전부 구현됐다 - oldprep-55 ~
+// oldprep-69 총 15개. 정년퇴직(55세) → 정체성 재정립(56세) → 새로운
+// 관계망(57세) → 손주·가족 관계(58세) → 건강 관리 본격화(59세) →
+// 환갑(60세) → 새 삶의 리듬(61세) → 연금(62세) → 취미·가족 심화(63세)
+// → 몸의 변화 수용(64세) → 법정 노인 연령(65세) → 부부 관계 재조명
+// (66세) → 유언·상속 정리(67세) → 상실 경험(68세) → 노년 준비 마무리
+// (69세) 순.
+//
+// "황혼"(70~100세, 31년)은 twilight-70(70세, 칠순) 한 구간만 시작됐다 -
+// 71~100세는 TODO.
 //
 // 건강 상세(healthConditions) - 선택지에 addCondition({id,label})을 붙이면
 // 부상/질병이 "생기고", removeCondition(id)을 붙이면 그 조건이 나아서
@@ -3013,8 +3019,478 @@ const STAGES = [
         removeCondition: 'osteoporosis'
       }
     ]
+  },
+  {
+    id: 'oldprep-61',
+    name: '노년 준비',
+    ageRange: '61세',
+    intro: '은퇴 이후의 삶이 서서히 새로운 리듬을 찾아가는 시기입니다.',
+    choices: [
+      {
+        id: 'new-life-rhythm-settles',
+        text: '새로운 삶의 리듬이 완전히 자리 잡는다',
+        deltas: { happiness: 4, health: 2 },
+        result: '더는 허둥대지 않는 하루가, 이제는 당연해졌다.'
+      },
+      {
+        id: 'neighborhood-strolls',
+        text: '동네 마실을 다니며 소소한 낙을 찾는다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '별거 아닌 산책길에서도, 매일 새로운 게 눈에 들어왔다.'
+      },
+      {
+        id: 'reviving-youthful-side-hustle',
+        text: '젊을 때 꿈꾸던 소일거리를 다시 시작한다',
+        deltas: { happiness: 4, wealth: -2 },
+        result: '늦었다고 생각했던 일이, 지금 해보니 딱 알맞은 때였다.'
+      },
+      {
+        id: 'missing-the-old-office',
+        text: '무료함에 지쳐 예전 직장 생각이 자꾸 난다',
+        deltas: { happiness: -3, relationship: -1 },
+        result: '그렇게 벗어나고 싶던 곳이, 가끔은 그리웠다.'
+      },
+      {
+        id: 'grandchild-daycare-duty',
+        text: '손주 육아를 도맡으며 하루가 순식간에 지나간다',
+        deltas: { health: -3, happiness: 3, relationship: 3 },
+        result: '힘에 부쳤지만, 그만큼 하루하루가 꽉 찼다.'
+      },
+      {
+        id: 'gardening-hobby',
+        text: '텃밭·화분 가꾸기 같은 잔잔한 취미에 빠진다',
+        deltas: { happiness: 4, health: 2 },
+        result: '작은 화분 하나 돌보는 일이, 마음까지 차분하게 만들었다.'
+      }
+    ]
+  },
+  {
+    id: 'oldprep-62',
+    name: '노년 준비',
+    ageRange: '62세',
+    intro: '연금이라는 단어가 현실적인 숫자로 다가오기 시작하는 나이입니다.',
+    choices: [
+      {
+        id: 'starting-pension',
+        text: '국민연금 수령을 시작하며 새로운 수입 흐름이 생긴다',
+        deltas: { wealth: 4, happiness: 2 },
+        result: '매달 들어오는 돈이, 새삼 든든하게 느껴졌다.'
+      },
+      {
+        id: 'tightening-budget-on-pension',
+        text: '연금만으로는 부족해 씀씀이를 줄인다',
+        deltas: { wealth: 2, happiness: -3 },
+        result: '아껴 쓰는 게 습관이 되기까지, 시간이 조금 걸렸다.'
+      },
+      {
+        id: 'private-pension-pays-off',
+        text: '젊을 때 들어둔 개인연금이 큰 힘이 된다',
+        deltas: { wealth: 5, happiness: 3 },
+        result: '그때의 작은 선택이, 지금 이렇게 돌아올 줄 몰랐다.'
+      },
+      {
+        id: 'disappointing-pension-amount',
+        text: '예상보다 적은 연금액에 실망한다',
+        deltas: { happiness: -4, wealth: 1 },
+        result: '계산기를 두드릴수록, 한숨이 늘었다.'
+      },
+      {
+        id: 'reemployment-for-extra-income',
+        text: '재취업으로 연금 외 소득을 보탠다',
+        deltas: { wealth: 4, health: -2 },
+        result: '다시 일한다는 게, 생각보다 나쁘지 않았다.'
+      },
+      {
+        id: 'gratitude-for-financial-ease',
+        text: '돈 걱정 없이 지낼 수 있음에 감사함을 느낀다',
+        deltas: { happiness: 5, relationship: 2 },
+        result: '많지 않아도 충분하다는 걸, 이제는 안다.'
+      }
+    ]
+  },
+  {
+    id: 'oldprep-63',
+    name: '노년 준비',
+    ageRange: '63세',
+    intro: '취미와 가족, 두 가지 모두에서 깊이가 더해지는 시기입니다.',
+    choices: [
+      {
+        id: 'watching-grandchild-grow',
+        text: '손주가 훌쩍 커가는 모습을 지켜본다',
+        deltas: { happiness: 5, relationship: 3 },
+        result: '작던 아이가 어느새 저만큼 자란 게, 믿기지 않았다.'
+      },
+      {
+        id: 'mastering-old-hobby',
+        text: '오래된 취미를 전문가 수준으로 갈고닦는다',
+        deltas: { happiness: 4, fame: 3 },
+        result: '수십 년 쌓아온 손끝의 감각이, 비로소 빛을 발했다.'
+      },
+      {
+        id: 'leading-a-hobby-club',
+        text: '동호회 회장을 맡아 새로운 책임을 진다',
+        deltas: { relationship: 4, fame: 2, happiness: -1 },
+        result: '작은 모임 하나 이끄는 일도, 나름의 무게가 있었다.'
+      },
+      {
+        id: 'generation-gap-with-grandchild',
+        text: '손주와 세대 차이를 느끼며 서운해한다',
+        deltas: { happiness: -3, relationship: -1 },
+        result: '무슨 말인지 못 알아듣는 순간들이, 조금씩 늘었다.'
+      },
+      {
+        id: 'sorting-old-photos',
+        text: '옛 사진을 정리하며 지나온 삶을 되짚는다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '빛바랜 사진 한 장에도, 그 시절이 고스란히 담겨 있었다.'
+      },
+      {
+        id: 'travel-club-adventures',
+        text: '여행 동호회에 가입해 전국을 누빈다',
+        deltas: { happiness: 5, wealth: -4 },
+        result: '이 나이에도 새로운 곳을 다닐 수 있다는 게, 새삼 즐거웠다.'
+      },
+      {
+        id: 'hearing-loss-onset',
+        text: 'TV 소리를 자꾸 키우게 되며 난청이 시작된다',
+        deltas: { health: -4, relationship: -1 },
+        result: '못 알아들어 되묻는 일이, 조금씩 잦아졌다.',
+        addCondition: { id: 'hearing-loss', label: '👂 난청' }
+      }
+    ]
+  },
+  {
+    id: 'oldprep-64',
+    name: '노년 준비',
+    ageRange: '64세',
+    intro: '몸의 변화를 있는 그대로 받아들이는 연습이 필요한 나이입니다.',
+    choices: [
+      {
+        id: 'anxious-over-checkup-results',
+        text: '건강검진 결과 하나하나에 예민해진다',
+        deltas: { happiness: -3, health: -1 },
+        result: '숫자 하나에 하루 기분이 오르락내리락했다.'
+      },
+      {
+        id: 'accepting-bodys-signals',
+        text: '몸이 보내는 신호를 순순히 받아들이기 시작한다',
+        deltas: { happiness: 3, health: 2 },
+        result: '거스르기보다 맞춰가는 게, 훨씬 편하다는 걸 알았다.'
+      },
+      {
+        id: 'pride-in-good-health',
+        text: '또래보다 건강한 몸 상태에 자부심을 느낀다',
+        deltas: { happiness: 4, health: 3 },
+        result: '건강검진 결과지를 받아 들고, 어깨가 절로 펴졌다.'
+      },
+      {
+        id: 'managing-chronic-condition',
+        text: '만성 질환 관리를 위해 매일 약을 챙긴다',
+        deltas: { health: 2, wealth: -2 },
+        result: '아침마다 약을 챙기는 게, 어느새 익숙한 일과가 됐다.'
+      },
+      {
+        id: 'exercise-group-together',
+        text: '운동 모임에 나가며 건강을 다 함께 챙긴다',
+        deltas: { health: 4, relationship: 3 },
+        result: '혼자 하면 작심삼일이던 운동이, 함께 하니 꾸준해졌다.'
+      },
+      {
+        id: 'cautiously-reducing-activity',
+        text: '몸에 무리가 갈까 조심하며 활동을 줄인다',
+        deltas: { health: 1, happiness: -2 },
+        result: '하고 싶은 걸 참는 것도, 나름의 용기가 필요했다.'
+      }
+    ]
+  },
+  {
+    id: 'oldprep-65',
+    name: '노년 준비',
+    ageRange: '65세',
+    intro: '법정 노인 연령. 사회가 부르는 호칭이 바뀌는 걸 마주하게 됩니다.',
+    choices: [
+      {
+        id: 'senior-benefits-begin',
+        text: '법정 노인 연령이 되어 각종 경로 우대를 받는다',
+        deltas: { happiness: 3, wealth: 2 },
+        result: '할인받는 게 반갑기도, 낯설기도 했다.'
+      },
+      {
+        id: 'uncomfortable-with-senior-label',
+        text: '"노인"이라는 호칭이 낯설고 서운하게 느껴진다',
+        deltas: { happiness: -4, relationship: -1 },
+        result: '마음은 그대로인데, 불리는 말만 훌쩍 앞서갔다.'
+      },
+      {
+        id: 'first-visit-to-senior-center',
+        text: '경로당에 처음 나가보며 새로운 인연을 만든다',
+        deltas: { relationship: 4, happiness: 3 },
+        result: '문턱을 넘기까지가 어려웠지, 막상 들어가니 편안했다.'
+      },
+      {
+        id: 'free-subway-adventures',
+        text: '지하철 무임승차로 여기저기 나들이를 다닌다',
+        deltas: { happiness: 4, wealth: 1 },
+        result: '교통비 걱정 없이 떠나는 하루 나들이가, 소소하게 즐거웠다.'
+      },
+      {
+        id: 'not-ready-to-be-called-old',
+        text: '아직 스스로를 노인이라 부르고 싶지 않다',
+        deltas: { happiness: -2, health: 1 },
+        result: '숫자와 마음 사이의 거리가, 생각보다 멀었다.'
+      },
+      {
+        id: 'age-is-just-a-number',
+        text: '나이는 숫자일 뿐이라며 활기차게 지낸다',
+        deltas: { happiness: 5, health: 3 },
+        result: '마음가짐 하나로, 걸음걸이부터 달라지는 기분이었다.'
+      }
+    ]
+  },
+  {
+    id: 'oldprep-66',
+    name: '노년 준비',
+    ageRange: '66세',
+    intro: '오랜 세월을 함께한 배우자와의 관계를 다시 들여다보게 되는 나이입니다.',
+    choices: [
+      {
+        id: 'gratitude-for-long-marriage',
+        text: '오랜 결혼 생활을 돌아보며 배우자에게 새삼 고마움을 느낀다',
+        deltas: { relationship: 5, happiness: 4 },
+        result: '수십 년을 함께한다는 게, 얼마나 대단한 일인지 새삼 느꼈다.'
+      },
+      {
+        id: 'considering-late-divorce',
+        text: '황혼 이혼을 진지하게 고민한다',
+        deltas: { relationship: -5, happiness: -2 },
+        result: '이제 와서, 라는 말과 지금이라도, 라는 말 사이에서 흔들렸다.'
+      },
+      {
+        id: 'respecting-each-others-time',
+        text: '부부가 각자의 시간을 존중하는 법을 익힌다',
+        deltas: { relationship: 3, happiness: 3 },
+        result: '붙어 있지 않아도 가까울 수 있다는 걸, 이제야 알았다.'
+      },
+      {
+        id: 'frequent-spousal-friction',
+        text: '배우자의 잔소리에 자주 부딪힌다',
+        deltas: { relationship: -3, happiness: -2 },
+        result: '같은 말도, 나이가 드니 더 날카롭게 들렸다.'
+      },
+      {
+        id: 'new-shared-hobby',
+        text: '부부가 함께 새로운 취미를 시작한다',
+        deltas: { relationship: 5, happiness: 4, wealth: -2 },
+        result: '처음 배우는 걸 나란히 서툴게 해보는 게, 오히려 즐거웠다.'
+      },
+      {
+        id: 'seeing-a-widowed-friend',
+        text: '혼자가 된 친구를 보며 곁의 배우자를 다시 본다',
+        deltas: { relationship: 4, happiness: 2 },
+        result: '당연하게 여겼던 존재가, 갑자기 소중하게 느껴졌다.'
+      },
+      {
+        id: 'hearing-loss-heal',
+        text: '보청기를 맞추고 세상의 소리가 다시 선명해진다',
+        deltas: { health: 5, wealth: -3 },
+        result: '오랜만에 또렷하게 듣는 새소리에, 마음이 다 환해졌다.',
+        requiresCondition: 'hearing-loss',
+        removeCondition: 'hearing-loss'
+      }
+    ]
+  },
+  {
+    id: 'oldprep-67',
+    name: '노년 준비',
+    ageRange: '67세',
+    intro: '남겨질 것들에 대해 조금씩 마음의 준비를 시작하는 나이입니다.',
+    choices: [
+      {
+        id: 'writing-a-will',
+        text: '유언장을 미리 써두며 마음을 정리한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '펜을 든 순간은 무거웠지만, 다 쓰고 나니 마음이 가벼워졌다.'
+      },
+      {
+        id: 'early-inheritance-dilemma',
+        text: '자산을 자녀에게 미리 나눠주는 문제로 고민한다',
+        deltas: { wealth: -3, relationship: 1 },
+        result: '언제, 얼마나가 이렇게 어려운 계산일 줄 몰랐다.'
+      },
+      {
+        id: 'inheritance-conflict-with-kids',
+        text: '상속·증여 문제로 자녀들과 갈등이 생긴다',
+        deltas: { relationship: -4, happiness: -3 },
+        result: '돈 얘기 앞에서, 가족도 예외는 아니었다.'
+      },
+      {
+        id: 'relief-after-organizing',
+        text: '정리하고 나니 오히려 홀가분해진다',
+        deltas: { happiness: 4, health: 1 },
+        result: '미뤄뒀던 숙제 하나를 끝낸 기분이었다.'
+      },
+      {
+        id: 'postponing-the-topic',
+        text: '아직은 그런 생각을 하고 싶지 않다며 미룬다',
+        deltas: { happiness: -1, relationship: 0 },
+        result: '언젠가는 마주해야 할 일이라는 걸, 알면서도 미뤘다.'
+      },
+      {
+        id: 'gathering-family-to-share-wishes',
+        text: '가족 모두를 불러 앉혀 놓고 뜻을 직접 전한다',
+        deltas: { relationship: 4, happiness: 3 },
+        result: '어렵게 꺼낸 이야기였지만, 다들 진지하게 들어줬다.'
+      },
+      {
+        id: 'hip-fracture-onset',
+        text: '빙판길에 넘어져 고관절을 다친다',
+        deltas: { health: -6, wealth: -2 },
+        result: '순식간에 넘어진 그 몇 초가, 이후 몇 달을 바꿔놓았다.',
+        addCondition: { id: 'hip-fracture', label: '🦴 고관절 골절' }
+      }
+    ]
+  },
+  {
+    id: 'oldprep-68',
+    name: '노년 준비',
+    ageRange: '68세',
+    intro: '가까운 이들의 부고를 마주하며, 남은 삶의 무게를 다시 느끼게 됩니다.',
+    choices: [
+      {
+        id: 'grieving-an-old-friend',
+        text: '오랜 친구의 부고 소식에 크게 상심한다',
+        deltas: { happiness: -6, health: -2 },
+        result: '어제까지 통화하던 목소리가, 이제는 들을 수 없었다.'
+      },
+      {
+        id: 'reconnecting-at-a-funeral',
+        text: '장례식에서 오랜만에 만난 얼굴들과 안부를 나눈다',
+        deltas: { relationship: 3, happiness: -1 },
+        result: '슬픈 자리였지만, 그 덕에 다시 이어진 인연도 있었다.'
+      },
+      {
+        id: 'cherishing-life-more',
+        text: '떠난 이를 기리며 남은 삶을 더 소중히 여기게 된다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '당연했던 하루하루가, 갑자기 다르게 보이기 시작했다.'
+      },
+      {
+        id: 'grateful-for-good-health',
+        text: '건강히 지내는 것 자체가 얼마나 큰 행운인지 깨닫는다',
+        deltas: { happiness: 4, health: 2 },
+        result: '아무 일 없이 흘러가는 하루가, 그렇게 감사할 수 없었다.'
+      },
+      {
+        id: 'fear-of-being-left-alone',
+        text: '혼자 남겨질 두려움이 문득 엄습한다',
+        deltas: { happiness: -4, relationship: -1 },
+        result: '밤이 되면, 그 생각이 유독 선명해졌다.'
+      },
+      {
+        id: 'resolving-to-meet-friends-more',
+        text: '남은 친구들과 더 자주 만나기로 다짐한다',
+        deltas: { relationship: 5, happiness: 3 },
+        result: '미루지 말자는 다짐이, 그 어느 때보다 절실했다.'
+      }
+    ]
+  },
+  {
+    id: 'oldprep-69',
+    name: '노년 준비',
+    ageRange: '69세',
+    intro: '노년 준비의 마지막 해. 진짜 노년이 코앞으로 다가옵니다.',
+    choices: [
+      {
+        id: 'reflecting-on-fifteen-years-oldprep',
+        text: '노년 준비의 마지막 해, 지난 15년을 돌아본다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '정년퇴직하던 날이, 바로 어제처럼 생생했다.'
+      },
+      {
+        id: 'preparing-for-seventieth',
+        text: '다가올 칠순을 준비하며 마음을 가다듬는다',
+        deltas: { happiness: 2, health: 1 },
+        result: '숫자 일흔이, 이번엔 그렇게 두렵지 않았다.'
+      },
+      {
+        id: 'comforting-oneself-for-enduring',
+        text: '그동안 잘 버텨온 스스로를 다독인다',
+        deltas: { happiness: 5, health: 2 },
+        result: '수고했다는 그 한마디를, 이제는 스스로에게 건넬 줄 알았다.'
+      },
+      {
+        id: 'lingering-worries',
+        text: '여전히 남은 걱정거리에 마음이 무겁다',
+        deltas: { happiness: -3, wealth: -1 },
+        result: '나이가 든다고 걱정까지 사라지는 건 아니었다.'
+      },
+      {
+        id: 'planning-seventieth-party',
+        text: '가족들과 다가올 칠순 잔치를 미리 계획한다',
+        deltas: { relationship: 4, happiness: 3 },
+        result: '함께 계획을 짜는 시간부터, 이미 잔치가 시작된 기분이었다.'
+      },
+      {
+        id: 'calm-at-the-threshold-of-old-age',
+        text: '진짜 노년의 문턱 앞에서 담담해진다',
+        deltas: { happiness: 3, health: 1 },
+        result: '두려움보다, 이상하게 차분한 마음이 앞섰다.'
+      },
+      {
+        id: 'hip-fracture-heal',
+        text: '재활 치료를 마치고 다시 혼자 걸을 수 있게 된다',
+        deltas: { health: 6, wealth: -3 },
+        result: '지팡이 없이 내딛은 첫걸음이, 그 어떤 순간보다 벅찼다.',
+        requiresCondition: 'hip-fracture',
+        removeCondition: 'hip-fracture'
+      }
+    ]
+  },
+  {
+    id: 'twilight-70',
+    name: '황혼',
+    ageRange: '70세',
+    intro: '칠순. 황혼이라 불리는 시간의 첫걸음을 내딛습니다.',
+    choices: [
+      {
+        id: 'grand-seventieth-celebration',
+        text: '칠순을 맞아 온 가족이 모여 성대한 잔치를 연다',
+        deltas: { happiness: 6, relationship: 5, wealth: -5 },
+        result: '자식들, 손주들까지 다 모인 얼굴을 보는 것만으로도 벅찼다.'
+      },
+      {
+        id: 'realizing-a-new-chapter-at-seventy',
+        text: '일흔이라는 나이 앞에서 인생의 새 장을 실감한다',
+        deltas: { happiness: 2, health: -1 },
+        result: '한 챕터가 끝나고, 또 다른 챕터가 시작되는 기분이었다.'
+      },
+      {
+        id: 'quiet-day-with-spouse',
+        text: '조용히 부부끼리만 특별한 하루를 보낸다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '요란하지 않아도, 둘만의 하루는 그 자체로 충분했다.'
+      },
+      {
+        id: 'final-big-trip',
+        text: '칠순 기념으로 인생 마지막 큰 여행을 떠난다',
+        deltas: { happiness: 6, wealth: -6 },
+        result: '"마지막"이라는 말을 붙이니, 매 순간이 더 선명하게 남았다.'
+      },
+      {
+        id: 'writing-life-story',
+        text: '지난 70년의 인생을 글로 정리해본다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '한 문장 한 문장 써 내려가며, 잊었던 기억들이 되살아났다.'
+      },
+      {
+        id: 'grateful-for-health-and-mind-at-seventy',
+        text: '여전히 건강한 몸과 마음에 감사한다',
+        deltas: { happiness: 5, health: 3 },
+        result: '일흔에도 이렇게 웃을 수 있다는 게, 새삼 감사했다.'
+      }
+    ]
   }
-  // TODO: 노년 준비(61~69세 남음) / 황혼 - 아직 미구현.
+  // TODO: 황혼(71~100세 남음) - 아직 미구현.
 ];
 
 // 대표 엔딩 6개(기획안 07/09장 - v1 확정 스코프) - 각 아키타입에 가장 가까운
