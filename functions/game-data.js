@@ -208,6 +208,13 @@ const STAGES = [
         deltas: { health: -6, relationship: 2 },
         result: '작은 기침 소리에도 온 가족이 귀를 기울이게 됐다.',
         addCondition: { id: 'asthma', label: '🌬️ 천식' }
+      },
+      {
+        id: 'rare-illness-onset',
+        text: '원인을 알 수 없는 증상으로 정밀 검사 끝에 희귀 난치병 진단을 받는다',
+        deltas: { health: -12, happiness: -6, wealth: -6, relationship: 5 },
+        result: '치료법이 없다는 말 앞에서도, 가족은 무너지지 않고 서로를 더 꽉 붙잡았다.',
+        addCondition: { id: 'rare-illness', label: '🎗️ 희귀 난치병' }
       }
     ]
   },
