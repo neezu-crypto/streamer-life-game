@@ -783,7 +783,14 @@ startBtn.addEventListener('click', async () => {
 // submitChoice/rollDice 응답을 공통으로 처리 - 결과 텍스트 반영, 완료 시 엔딩
 // 화면으로, 아니면 "다음" 버튼을 보여준다.
 function applyOutcome(data, resultPrefix, selectedChoiceId) {
-  resultBox.textContent = (resultPrefix ? resultPrefix + '\n' : '') + data.result;
+  let resultText = (resultPrefix ? resultPrefix + '\n' : '') + data.result;
+  // blocksHealthRecovery 조건(예: 희귀 난치병)을 갖고 있어서 이번 선택의
+  // 건강 회복 효과가 막혔을 때만 덧붙인다 - 안 그러면 "골랐는데 건강 바가
+  // 그대로"인 게 버그처럼 보일 수 있어서.
+  if (data.healthRecoverySuppressed) {
+    resultText += '\n🎗️ 난치병 때문에 건강이 회복되지는 않았다.';
+  }
+  resultBox.textContent = resultText;
   resultBox.classList.remove('hidden');
   renderStatBars(statBars, data.stats);
   renderHealthConditions(data.healthConditions);

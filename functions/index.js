@@ -155,16 +155,34 @@ async function applyChoice(db, playRef, play, stage, choice) {
     throw new HttpsError('failed-precondition', '지금 직업 상태에서는 고를 수 없는 선택지입니다.');
   }
 
+  // blocksHealthRecovery가 붙은 조건(예: 희귀 난치병)을 이미 갖고 있으면,
+  // 이번 선택이 건강을 "회복시키는" 방향(양수 delta)이어도 그 효과가 막힌다 -
+  // 난치병을 안고 있는 한 몸은 더 나빠질 순 있어도 완전히 좋아지진 않는다는
+  // 의도. 실제로 막혔을 때만 클라이언트에 알려줘서(healthRecoverySuppressed)
+  // "선택했는데 건강 바가 그대로"인 게 버그처럼 안 보이게 한다.
+  const healthRecoveryBlocked = currentConditions.some((c) => c.blocksHealthRecovery);
+  const effectiveDeltas = Object.assign({}, choice.deltas || {});
+  let healthRecoverySuppressed = false;
+  if (healthRecoveryBlocked && effectiveDeltas.health > 0) {
+    effectiveDeltas.health = 0;
+    healthRecoverySuppressed = true;
+  }
+
   const stats = Object.assign({}, play.stats);
-  for (const key of Object.keys(choice.deltas || {})) {
-    stats[key] = clampStat((stats[key] || 0) + choice.deltas[key]);
+  for (const key of Object.keys(effectiveDeltas)) {
+    stats[key] = clampStat((stats[key] || 0) + effectiveDeltas[key]);
   }
 
   // 건강 상세 - 선택지가 addCondition을 붙였으면 부상/질병이 새로 생기고(이미
   // 있으면 중복 추가 안 함), removeCondition을 붙였으면 그 조건이 나아서 빠진다.
   let healthConditions = currentConditions.slice();
   if (choice.addCondition && !healthConditions.some((c) => c.id === choice.addCondition.id)) {
-    healthConditions.push({ id: choice.addCondition.id, label: choice.addCondition.label, sinceStageId: stage.id });
+    healthConditions.push({
+      id: choice.addCondition.id,
+      label: choice.addCondition.label,
+      sinceStageId: stage.id,
+      blocksHealthRecovery: !!choice.addCondition.blocksHealthRecovery
+    });
   }
   if (choice.removeCondition) {
     healthConditions = healthConditions.filter((c) => c.id !== choice.removeCondition);
@@ -236,7 +254,8 @@ async function applyChoice(db, playRef, play, stage, choice) {
   return {
     stats,
     result: choice.result,
-    deltas: choice.deltas || {},
+    deltas: effectiveDeltas,
+    healthRecoverySuppressed,
     completed,
     ending: ending ? { id: ending.id, title: ending.title, text: ending.text } : null,
     nextStage: completed ? null : publicStage(STAGES[nextIndex], nextVisibleIds),

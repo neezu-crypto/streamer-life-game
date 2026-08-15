@@ -214,7 +214,7 @@ const STAGES = [
         text: '원인을 알 수 없는 증상으로 정밀 검사 끝에 희귀 난치병 진단을 받는다',
         deltas: { health: -12, happiness: -6, wealth: -6, relationship: 5 },
         result: '치료법이 없다는 말 앞에서도, 가족은 무너지지 않고 서로를 더 꽉 붙잡았다.',
-        addCondition: { id: 'rare-illness', label: '🎗️ 희귀 난치병' }
+        addCondition: { id: 'rare-illness', label: '🎗️ 희귀 난치병', blocksHealthRecovery: true }
       }
     ]
   },

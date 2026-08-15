@@ -367,6 +367,19 @@
         하나씩 짝지어 넣으면 된다 — 로직 변경은 필요 없다(단, <code>rare-illness</code>처럼 의도적으로
         영구 지속시키고 싶다면 회복용 선택지를 아예 안 만들면 된다 — 코드는 모든 조건에 회복 짝이
         있어야 한다고 강제하지 않는다).</p>
+        <p class="note"><b>건강 회복 디버프 — <code>rare-illness</code>가 있으면 건강이 다시 오르지
+        않는다.</b> <code>addCondition</code>에 <code>blocksHealthRecovery: true</code>를 얹으면(지금은
+        <code>rare-illness</code>가 유일) 그 조건을 갖고 있는 동안 <b>모든</b> 선택지의 <code>deltas.health</code>
+        중 양수만 0으로 깎인다(음수는 그대로 적용 — 더 나빠질 순 있어도 좋아지진 않는다). 예를 들어 천식
+        회복 선택지(<code>asthma-managed</code>, health +5)를 골라도 난치병이 있으면 그 +5는 적용 안 된다.
+        <code>applyChoice()</code>가 원본 <code>choice.deltas</code>를 <code>effectiveDeltas</code>로
+        복제해 이 규칙을 적용한 뒤 스탯에 반영하고, 응답의 <code>deltas</code>도 원본이 아니라 이
+        <code>effectiveDeltas</code>를 그대로 내려준다(클라이언트가 실제로 적용된 값과 다른 걸 보는 일이
+        없도록). 이번 선택에서 실제로 회복이 막혔을 때만 <code>healthRecoverySuppressed: true</code>를
+        같이 내려주고, 클라이언트는 이때만 결과 텍스트 아래에 "🎗️ 난치병 때문에 건강이 회복되지는
+        않았다."를 덧붙인다 — 안 그러면 건강 바가 그대로인 게 버그처럼 보일 수 있어서. 조건 자체가
+        <code>id</code>별로 <code>blocksHealthRecovery</code> 플래그를 갖고 있어(하드코딩된 특정 id
+        체크가 아님) 나중에 다른 영구 조건을 추가해도 그대로 재사용 가능하다.</p>
 
         <p class="note"><b>가족 상세 — 선택지에 따라 태어날 때부터 100세까지 함께하는 가족이 정해지고,
         생기고, 빠진다.</b> 건강 상세와 완전히 같은 패턴을 쓰되, 한 조건이 여러 명을 한 번에 추가하거나
