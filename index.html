@@ -22,6 +22,7 @@
     --coral-dim: rgba(205, 114, 86, 0.14);
     --rose: #c97ab0;
     --sky: #6f93c9;
+    --sky-dim: rgba(111, 147, 201, 0.16);
     --line: #362f23;
   }
   @media (prefers-color-scheme: light) {
@@ -31,7 +32,7 @@
       --gold: #9c6f22; --gold-dim: rgba(156,111,34,0.12);
       --sage: #3f6b4c; --sage-dim: rgba(63,107,76,0.12);
       --coral: #954226; --coral-dim: rgba(149,66,38,0.12);
-      --rose: #9c4a80; --sky: #3f5c94;
+      --rose: #9c4a80; --sky: #3f5c94; --sky-dim: rgba(63,92,148,0.12);
       --line: #d9cca5;
     }
   }
@@ -184,6 +185,16 @@
   }
   .health-empty { font-size: 12.5px; color: var(--text-faint); }
 
+  .family-panel { margin: 4px 0 14px; }
+  .family-panel-title { font-size: 12px; color: var(--text-faint); letter-spacing: 0.03em; margin: 0 0 6px; }
+  .family-members { display: flex; flex-wrap: wrap; gap: 6px; }
+  .family-chip {
+    display: inline-flex; align-items: center; padding: 5px 11px; border-radius: 999px;
+    background: var(--sky-dim); border: 1px solid color-mix(in srgb, var(--sky) 40%, transparent);
+    color: var(--sky); font-size: 12.5px;
+  }
+  .family-empty { font-size: 12.5px; color: var(--text-faint); }
+
   .ending-title { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 22px; color: var(--gold); margin: 0 0 8px; }
   .ending-text { font-size: 15px; line-height: 1.7; margin: 0 0 16px; white-space: pre-line; }
 
@@ -283,6 +294,10 @@
       <p class="health-panel-title">현재 건강 상세</p>
       <div id="healthConditions" class="health-conditions"></div>
     </div>
+    <div class="family-panel">
+      <p class="family-panel-title">현재 가족 상세</p>
+      <div id="familyMembers" class="family-members"></div>
+    </div>
     <button id="nextBtn" class="hidden">다음</button>
   </section>
 
@@ -290,6 +305,10 @@
     <p class="ending-title" id="endingTitle"></p>
     <p class="ending-text" id="endingText"></p>
     <div class="stat-bars" id="endingStatBars"></div>
+    <div class="family-panel">
+      <p class="family-panel-title">100세, 곁에 남은 가족</p>
+      <div id="endingFamilyMembers" class="family-members"></div>
+    </div>
   </section>
 
   <section id="choiceHistorySection" class="panel hidden">
@@ -531,11 +550,12 @@ resumeBtn.addEventListener('click', async () => {
     const res = await resumePlaythroughFn();
     await fadeOut([resumeSection]);
     if (res.data.completed) {
-      showEnding(res.data.ending, res.data.stats, res.data.choiceHistory);
+      showEnding(res.data.ending, res.data.stats, res.data.choiceHistory, res.data.familyMembers);
     } else {
       await fadeOut([mainHeader]);
       renderStatBars(statBars, res.data.stats);
       renderHealthConditions(res.data.healthConditions);
+      renderFamilyMembers(res.data.familyMembers);
       renderStage(res.data.stage);
       fadeIn([gameSection]);
     }
@@ -618,6 +638,32 @@ function renderHealthConditions(conditions) {
   });
 }
 
+const familyMembersEl = document.getElementById('familyMembers');
+
+// 가족 목록("현재 가족 상세") - 선택지가 addFamilyMembers/removeFamilyMembers를
+// 붙이면 서버가 갱신해서 내려주는 familyMembers를 그대로 표시만 한다(건강 상세와
+// 동일 패턴). container를 받아서 진행 화면(#familyMembers)과 엔딩 화면
+// (#endingFamilyMembers) 양쪽에 재사용한다.
+function renderFamilyMembersInto(container, members) {
+  container.innerHTML = '';
+  if (!members || !members.length) {
+    const empty = document.createElement('span');
+    empty.className = 'family-empty';
+    empty.textContent = '아직 특별한 가족 구성원 없음';
+    container.appendChild(empty);
+    return;
+  }
+  members.forEach((member) => {
+    const chip = document.createElement('span');
+    chip.className = 'family-chip';
+    chip.textContent = member.label;
+    container.appendChild(chip);
+  });
+}
+function renderFamilyMembers(members) {
+  renderFamilyMembersInto(familyMembersEl, members);
+}
+
 function renderStage(stage) {
   stageName.textContent = stage.name;
   stageAge.textContent = stage.ageRange;
@@ -667,6 +713,7 @@ startBtn.addEventListener('click', async () => {
     await fadeOut([searchSection, nameSection, mainHeader]);
     renderStatBars(statBars, res.data.stats);
     renderHealthConditions(res.data.healthConditions);
+    renderFamilyMembers(res.data.familyMembers);
     renderStage(res.data.stage);
     fadeIn([gameSection]);
   } catch (e) {
@@ -684,6 +731,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   resultBox.classList.remove('hidden');
   renderStatBars(statBars, data.stats);
   renderHealthConditions(data.healthConditions);
+  renderFamilyMembers(data.familyMembers);
   if (selectedChoiceId) markSelectedChoice(selectedChoiceId);
   // 선택 결과는 서버(applyChoice)가 이미 lifeGame/playthroughs/{uid}에 저장을
   // 마친 뒤 응답한 것이므로, 여기서 뜨는 토스트는 실제 저장 완료를 알리는
@@ -691,7 +739,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   showToast('💾 자동저장 되었습니다');
   if (data.completed) {
     pendingNextStage = null;
-    showEnding(data.ending, data.stats, data.choiceHistory);
+    showEnding(data.ending, data.stats, data.choiceHistory, data.familyMembers);
   } else {
     pendingNextStage = data.nextStage;
     nextBtn.classList.remove('hidden');
@@ -778,6 +826,7 @@ const endingSection = document.getElementById('endingSection');
 const endingTitle = document.getElementById('endingTitle');
 const endingText = document.getElementById('endingText');
 const endingStatBars = document.getElementById('endingStatBars');
+const endingFamilyMembersEl = document.getElementById('endingFamilyMembers');
 const choiceHistorySection = document.getElementById('choiceHistorySection');
 const choiceHistoryList = document.getElementById('choiceHistoryList');
 const gallerySection = document.getElementById('gallerySection');
@@ -807,12 +856,13 @@ function renderChoiceHistoryInto(container, history) {
 // 엔딩 문구 표시 → 지금까지 선택한 선택지들 표시 → 다른 유저 인생 → 재시작
 // 안내 순서로 보여준다(각 section의 DOM 순서가 곧 화면에 보이는 순서). 게임
 // 화면에서 엔딩 화면으로 넘어가는 것도 다른 전환들과 같은 페이드로 통일한다.
-async function showEnding(ending, stats, choiceHistory) {
+async function showEnding(ending, stats, choiceHistory, familyMembers) {
   await fadeOut([mainHeader, gameSection]);
 
   endingTitle.textContent = ending.title;
   endingText.textContent = ending.text;
   renderStatBars(endingStatBars, stats);
+  renderFamilyMembersInto(endingFamilyMembersEl, familyMembers);
   renderChoiceHistoryInto(choiceHistoryList, choiceHistory);
   shareBtn.disabled = false;
 

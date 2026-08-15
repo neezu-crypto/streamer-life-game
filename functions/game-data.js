@@ -107,25 +107,39 @@ const STAGES = [
         id: 'warm-poor',
         text: '차는 없어도 매일 웃음이 끊이지 않는 집에서 태어난다',
         deltas: { happiness: 8, relationship: 6, wealth: -4 },
-        result: '넉넉하진 않았지만, 그 시절 저녁 밥상의 온기는 지금도 선명하다.'
+        result: '넉넉하진 않았지만, 그 시절 저녁 밥상의 온기는 지금도 선명하다.',
+        addFamilyMembers: [
+          { id: 'father', label: '👨 아버지' },
+          { id: 'mother', label: '👩 어머니' }
+        ]
       },
       {
         id: 'busy-rich',
         text: '부모님이 사업을 크게 벌이며 바쁘게 사는 집에서 태어난다',
         deltas: { wealth: 8, fame: 2, relationship: -6, health: -2 },
-        result: '집은 늘 넓었지만, 부모님 얼굴을 보는 날은 손에 꼽았다.'
+        result: '집은 늘 넓었지만, 부모님 얼굴을 보는 날은 손에 꼽았다.',
+        addFamilyMembers: [
+          { id: 'father', label: '👨 아버지' },
+          { id: 'mother', label: '👩 어머니' }
+        ]
       },
       {
         id: 'big-family',
         text: '형제자매 여럿과 북적거리는 대가족에서 태어난다',
         deltas: { relationship: 8, happiness: 3, wealth: -3 },
-        result: '내 것과 남의 것의 경계가 늘 흐릿했던, 시끄럽고 정신없던 첫 해.'
+        result: '내 것과 남의 것의 경계가 늘 흐릿했던, 시끄럽고 정신없던 첫 해.',
+        addFamilyMembers: [
+          { id: 'father', label: '👨 아버지' },
+          { id: 'mother', label: '👩 어머니' },
+          { id: 'sibling', label: '🧒 형제자매' }
+        ]
       },
       {
         id: 'single-parent-close',
         text: '부모님 한 분과 유독 끈끈하게 지내는 집에서 태어난다',
         deltas: { relationship: 7, happiness: 4, wealth: -3 },
-        result: '둘뿐이라 부족한 것도 있었지만, 그만큼 서로에게 전부였다.'
+        result: '둘뿐이라 부족한 것도 있었지만, 그만큼 서로에게 전부였다.',
+        addFamilyMembers: [{ id: 'single-parent', label: '🧑 부모님' }]
       },
       {
         id: 'foster-care',
@@ -137,7 +151,11 @@ const STAGES = [
         id: 'spotlight-family',
         text: '이미 동네에서 꽤 알려진 집안에서 태어난다',
         deltas: { fame: 10, wealth: 5, relationship: -4, happiness: -2 },
-        result: '태어나자마자 "그 집 아이"라는 꼬리표가 먼저 붙었다.'
+        result: '태어나자마자 "그 집 아이"라는 꼬리표가 먼저 붙었다.',
+        addFamilyMembers: [
+          { id: 'father', label: '👨 아버지' },
+          { id: 'mother', label: '👩 어머니' }
+        ]
       }
     ]
   },
@@ -389,7 +407,8 @@ const STAGES = [
         id: 'protective-sibling',
         text: '동생을 끔찍이 챙기는 언니·오빠·형·누나가 된다',
         deltas: { relationship: 6, health: -2 },
-        result: '작은 몸으로 동생을 업어주겠다고 나서던 시절.'
+        result: '작은 몸으로 동생을 업어주겠다고 나서던 시절.',
+        requiresFamilyMember: ['sibling']
       },
       {
         id: 'weak-stomach-heal',
@@ -429,7 +448,8 @@ const STAGES = [
         id: 'family-event',
         text: '동생이 태어나 갑자기 형·누나·오빠·언니가 된다',
         deltas: { relationship: 5, happiness: -2, wealth: -3 },
-        result: '축하할 일이었지만, 관심이 나눠지는 건 조금 낯설었다.'
+        result: '축하할 일이었지만, 관심이 나눠지는 건 조금 낯설었다.',
+        addFamilyMembers: [{ id: 'younger-sibling', label: '🧒 동생' }]
       },
       {
         id: 'big-move',
@@ -1633,7 +1653,9 @@ const STAGES = [
         id: 'wedding-day',
         text: '오래 만난 연인과 결혼식을 올린다',
         deltas: { happiness: 6, relationship: 5, wealth: -6 },
-        result: '많은 사람 앞에서 서약하는 그 몇 분이, 유독 길게 느껴졌다.'
+        result: '많은 사람 앞에서 서약하는 그 몇 분이, 유독 길게 느껴졌다.',
+        requiresNoFamilyMember: ['spouse'],
+        addFamilyMembers: [{ id: 'spouse', label: '💍 배우자' }]
       },
       {
         id: 'declaring-single-life',
@@ -1645,19 +1667,25 @@ const STAGES = [
         id: 'wedding-budget-compromise',
         text: '결혼식 비용과 현실 사이에서 씁쓸한 타협을 한다',
         deltas: { happiness: -3, wealth: -3 },
-        result: '꿈꾸던 것과 가계부 사이에서, 결국 가계부가 이겼다.'
+        result: '꿈꾸던 것과 가계부 사이에서, 결국 가계부가 이겼다.',
+        requiresNoFamilyMember: ['spouse'],
+        addFamilyMembers: [{ id: 'spouse', label: '💍 배우자' }]
       },
       {
         id: 'first-shared-home',
         text: '배우자·파트너와 함께 살 집을 처음으로 계약한다',
         deltas: { wealth: -5, relationship: 4 },
-        result: '도장 하나로 삶의 반경이 통째로 바뀌었다.'
+        result: '도장 하나로 삶의 반경이 통째로 바뀌었다.',
+        requiresNoFamilyMember: ['spouse'],
+        addFamilyMembers: [{ id: 'spouse', label: '💍 배우자' }]
       },
       {
         id: 'inlaws-negotiation',
         text: '양가 부모님 사이의 조율로 진땀을 뺀다',
         deltas: { happiness: -3, relationship: 1 },
-        result: '둘의 문제인 줄 알았는데, 생각보다 훨씬 많은 사람이 얽혀 있었다.'
+        result: '둘의 문제인 줄 알았는데, 생각보다 훨씬 많은 사람이 얽혀 있었다.',
+        requiresNoFamilyMember: ['spouse'],
+        addFamilyMembers: [{ id: 'spouse', label: '💍 배우자' }]
       },
       {
         id: 'pet-family-instead',
@@ -1721,7 +1749,10 @@ const STAGES = [
         id: 'first-childbirth',
         text: '첫 아이를 임신·출산하며 인생의 큰 전환점을 맞는다',
         deltas: { happiness: 5, health: -4, wealth: -3 },
-        result: '작은 손가락 하나에, 삶의 순서가 전부 다시 매겨졌다.'
+        result: '작은 손가락 하나에, 삶의 순서가 전부 다시 매겨졌다.',
+        requiresFamilyMember: ['spouse'],
+        requiresNoFamilyMember: ['child'],
+        addFamilyMembers: [{ id: 'child', label: '👶 자녀' }]
       },
       {
         id: 'dink-satisfaction',
@@ -1898,6 +1929,22 @@ const STAGES = [
         text: '독립적으로 살아가시는 부모님을 보며 마음을 놓는다',
         deltas: { happiness: 3, relationship: 2 },
         result: '아직은 괜찮으시다는 사실 하나가, 이렇게 큰 위안이 될 줄 몰랐다.'
+      },
+      {
+        id: 'father-passes-away',
+        text: '아버지가 오랜 투병 끝에 세상을 떠나신다',
+        deltas: { happiness: -8, relationship: -2 },
+        result: '마지막 순간까지 손을 놓지 않았지만, 손끝의 온기가 식어가는 걸 그대로 느껴야 했다.',
+        requiresFamilyMember: ['father'],
+        removeFamilyMembers: ['father']
+      },
+      {
+        id: 'mother-passes-away',
+        text: '어머니가 지병으로 세상을 떠나신다',
+        deltas: { happiness: -8, relationship: -2 },
+        result: '전화기 너머 늘 들리던 목소리가, 이제는 다시 들을 수 없다는 게 실감 나지 않았다.',
+        requiresFamilyMember: ['mother'],
+        removeFamilyMembers: ['mother']
       }
     ]
   },
@@ -2241,7 +2288,16 @@ const STAGES = [
         id: 'drifting-from-spouse',
         text: '배우자와의 관계를 돌아보며 소원해진 사이를 자각한다',
         deltas: { relationship: -4, happiness: -2 },
-        result: '언제부터 대화가 이렇게 줄었는지, 기억도 나지 않았다.'
+        result: '언제부터 대화가 이렇게 줄었는지, 기억도 나지 않았다.',
+        requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'choosing-divorce',
+        text: '돌이킬 수 없는 갈등 끝에 결국 이혼을 선택한다',
+        deltas: { happiness: -6, relationship: -3, wealth: -5 },
+        result: '한때는 평생을 약속했던 사람과, 이제는 남남이 되어 각자의 길을 걷는다.',
+        requiresFamilyMember: ['spouse'],
+        removeFamilyMembers: ['spouse']
       },
       {
         id: 'reconnecting-old-friend-40s',
@@ -2374,13 +2430,16 @@ const STAGES = [
         id: 'parent-to-nursing-home',
         text: '부모님을 요양시설에 모시며 마음이 무겁다',
         deltas: { relationship: 2, happiness: -5, wealth: -4 },
-        result: '최선의 선택이라 믿으면서도, 발걸음이 떨어지지 않았다.'
+        result: '최선의 선택이라 믿으면서도, 발걸음이 떨어지지 않았다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       },
       {
         id: 'losing-a-parent',
         text: '부모님을 떠나보내며 큰 상실을 겪는다',
         deltas: { happiness: -7, relationship: 3 },
-        result: '이제 전화할 곳이 하나 줄었다는 게, 실감이 나지 않았다.'
+        result: '이제 전화할 곳이 하나 줄었다는 게, 실감이 나지 않았다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent'],
+        removeFamilyMembers: ['father', 'mother', 'single-parent']
       },
       {
         id: 'cherishing-parent-memories',
@@ -2392,13 +2451,15 @@ const STAGES = [
         id: 'caring-for-parent-with-siblings',
         text: '형제자매와 함께 부모님을 정성껏 돌본다',
         deltas: { relationship: 4, happiness: -2, wealth: -3 },
-        result: '각자의 몫을 나누면서, 오히려 더 가까워졌다.'
+        result: '각자의 몫을 나누면서, 오히려 더 가까워졌다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       },
       {
         id: 'parents-blessing-new-start',
         text: '부모님의 응원 속에 새로운 도전을 시작한다',
         deltas: { happiness: 4, relationship: 3 },
-        result: '여전히 나를 믿어주는 그 한마디가, 큰 힘이 됐다.'
+        result: '여전히 나를 믿어주는 그 한마디가, 큰 힘이 됐다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       },
       {
         id: 'weight-of-being-a-parent-40s',
@@ -2679,7 +2740,16 @@ const STAGES = [
         id: 'funding-childs-wedding',
         text: '자녀 결혼 자금을 지원하며 통장이 크게 준다',
         deltas: { wealth: -7, happiness: 3, relationship: 3 },
-        result: '통장은 가벼워졌지만, 마음은 오히려 꽉 찼다.'
+        result: '통장은 가벼워졌지만, 마음은 오히려 꽉 찼다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'late-remarriage',
+        text: '새로운 인연을 만나 인생 후반부에 결혼한다',
+        deltas: { happiness: 7, relationship: 5, wealth: -3 },
+        result: '예상 못 했던 챕터가 이렇게 새로 열릴 줄은, 스스로도 몰랐다.',
+        requiresNoFamilyMember: ['spouse'],
+        addFamilyMembers: [{ id: 'spouse', label: '💍 배우자' }]
       },
       {
         id: 'liquidating-property-for-cashflow',
@@ -2895,31 +2965,42 @@ const STAGES = [
         id: 'becoming-a-grandparent',
         text: '손주가 태어나 할머니·할아버지가 된다',
         deltas: { happiness: 6, relationship: 4 },
-        result: '작은 손을 처음 잡던 순간, 말로는 설명이 안 됐다.'
+        result: '작은 손을 처음 잡던 순간, 말로는 설명이 안 됐다.',
+        requiresFamilyMember: ['child'],
+        requiresNoFamilyMember: ['grandchild'],
+        addFamilyMembers: [{ id: 'grandchild', label: '👶 손주' }]
       },
       {
         id: 'babysitting-grandchild',
         text: '손주를 돌보며 다시 육아의 세계로 들어간다',
         deltas: { health: -4, happiness: 3, relationship: 3 },
-        result: '몸은 힘들었지만, 예전엔 못 느꼈던 여유로 아이를 봐줄 수 있었다.'
+        result: '몸은 힘들었지만, 예전엔 못 느꼈던 여유로 아이를 봐줄 수 있었다.',
+        requiresFamilyMember: ['child'],
+        requiresNoFamilyMember: ['grandchild'],
+        addFamilyMembers: [{ id: 'grandchild', label: '👶 손주' }]
       },
       {
         id: 'keeping-healthy-distance',
         text: '자녀 가족과 적당한 거리를 유지하려 애쓴다',
         deltas: { relationship: 1, happiness: 2 },
-        result: '너무 가깝지도, 너무 멀지도 않은 거리를 찾는 데 시간이 걸렸다.'
+        result: '너무 가깝지도, 너무 멀지도 않은 거리를 찾는 데 시간이 걸렸다.',
+        requiresFamilyMember: ['child']
       },
       {
         id: 'grandchild-daily-joy',
         text: '손주 재롱에 하루하루가 즐거워진다',
         deltas: { happiness: 5, relationship: 4 },
-        result: '전화기 속 사진 한 장에도, 하루 종일 웃을 수 있었다.'
+        result: '전화기 속 사진 한 장에도, 하루 종일 웃을 수 있었다.',
+        requiresFamilyMember: ['child'],
+        requiresNoFamilyMember: ['grandchild'],
+        addFamilyMembers: [{ id: 'grandchild', label: '👶 손주' }]
       },
       {
         id: 'continued-financial-support-for-kids',
         text: '자녀에게 경제적으로 계속 도움을 주며 통장이 준다',
         deltas: { wealth: -5, relationship: 2 },
-        result: '내 노후보다 자식 걱정이 먼저 앞서는 건, 어쩔 수 없었다.'
+        result: '내 노후보다 자식 걱정이 먼저 앞서는 건, 어쩔 수 없었다.',
+        requiresFamilyMember: ['child']
       },
       {
         id: 'new-role-in-family-gatherings',
@@ -4185,6 +4266,14 @@ const STAGES = [
         text: '도움을 받으며 살아가는 삶도 나쁘지 않다고 여긴다',
         deltas: { happiness: 3, relationship: 2 },
         result: '기대는 것도, 살아가는 방법 중 하나였다.'
+      },
+      {
+        id: 'spouse-passes-away',
+        text: '평생을 함께한 배우자를 먼저 떠나보낸다',
+        deltas: { happiness: -9, health: -3, relationship: -2 },
+        result: '옆자리가 이렇게 크게 비어 보일 줄은, 그 전엔 미처 몰랐다.',
+        requiresFamilyMember: ['spouse'],
+        removeFamilyMembers: ['spouse']
       }
     ]
   },

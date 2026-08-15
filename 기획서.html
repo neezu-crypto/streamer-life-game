@@ -185,7 +185,7 @@
                     <tr><td>⓪ 이어하기(조건부)</td><td><code>#resumeSection</code></td><td>로그인 직후 저장 슬롯을 확인해, 끝내지 않은 인생이 있으면 검색 대신 이 화면부터 보여줌 — "이어하기"/"새로 시작하기"</td></tr>
                     <tr><td>① 스트리머 검색</td><td><code>#searchSection</code></td><td><code>stocks</code> 검색 입력창 + 결과 목록. 클릭하면 이름이 다음 단계로 넘어감</td></tr>
                     <tr><td>② 이름 짓기</td><td><code>#nameSection</code></td><td>검색한 이름을 프리필해서 보여주고, 수정 후 "인생 시작"</td></tr>
-                    <tr><td>③ 생애 진행</td><td><code>#gameSection</code></td><td>구간명/나이, 구간 스토리 문구, 3지선다 버튼, 선택 후 결과 텍스트 + 스탯 바</td></tr>
+                    <tr><td>③ 생애 진행</td><td><code>#gameSection</code></td><td>구간명/나이, 구간 스토리 문구, 3지선다 버튼, 선택 후 결과 텍스트 + 스탯 바 + 현재 건강 상세 + 현재 가족 상세</td></tr>
                     <tr><td>④ 엔딩</td><td><code>#endingSection</code></td><td>엔딩 제목/텍스트 + 최종 스탯</td></tr>
                     <tr><td>⑤ 선택 요약</td><td><code>#choiceHistorySection</code></td><td>이번 판에서 0~100세까지 실제로 고른 선택지 전체를 나이순으로 나열(최대 101개, 스크롤). 서버가 <code>choiceLog</code>(stageId+choiceId만 담긴 압축 기록)를 <code>STAGES</code>와 대조해 <code>stageName</code>/<code>ageRange</code>/<code>choiceText</code>로 풀어 내려준다</td></tr>
                     <tr><td>⑥ 공개 갤러리</td><td><code>#gallerySection</code></td><td>다른 유저가 공유한 인생 목록(실시간 구독, 최신순) + "갤러리에 공유하기" 버튼. 각 항목은 <code>&lt;details&gt;</code>로 접혀 있고, 클릭해서 펼치면 그 유저의 선택 기록(<code>lifeGame/galleryChoiceLogs/&#123;id&#125;</code>)을 그때 처음 불러와 <code>#choiceHistorySection</code>과 같은 형식으로 보여준다(펼친 적 있는 항목은 캐시해서 다시 안 불러옴)</td></tr>
@@ -364,6 +364,39 @@
         새 조건을 추가할 땐 이 형식대로 발병용 선택지(<code>addCondition</code>)와 회복용 선택지
         (<code>requiresCondition</code> + <code>removeCondition</code>)를 서로 다른(발병이 더 이른) 구간에
         하나씩 짝지어 넣으면 된다 — 로직 변경은 필요 없다.</p>
+
+        <p class="note"><b>가족 상세 — 선택지에 따라 태어날 때부터 100세까지 함께하는 가족이 정해지고,
+        생기고, 빠진다.</b> 건강 상세와 완전히 같은 패턴을 쓰되, 한 조건이 여러 명을 한 번에 추가하거나
+        (예: 대가족으로 태어나면 아버지·어머니·형제자매 3명이 한 선택으로 동시에 생김), 부모님처럼
+        "그 중 아무거나 있으면 자격이 되고, 있는 걸 전부 제거"해야 하는 경우가 있어서 전부 배열로
+        받는다: <code>addFamilyMembers([{id,label}, ...])</code>는 나열된 가족을 그 판의 저장 슬롯
+        (<code>familyMembers[]</code>)에 추가하고(이미 있는 id는 중복 추가 안 함), <code>removeFamilyMembers
+        ([id, ...])</code>는 나열된 id 중 지금 있는 것만 제거한다. 노출 여부를 거르는 쪽은
+        <code>requiresFamilyMember([id, ...])</code>(그 중 <b>하나라도</b> 있어야 노출 후보)와
+        <code>requiresNoFamilyMember([id, ...])</code>(그 중 <b>하나라도</b> 있으면 후보에서 제외) —
+        예를 들어 "이혼한다"는 <code>requiresFamilyMember:['spouse']</code>라 배우자 없인 안 뜨고,
+        "결혼한다"류는 <code>requiresNoFamilyMember:['spouse']</code>라 이미 결혼한 사람에겐 다시 안 뜬다.
+        화면 하단 "현재 가족 상세" 패널(<code>#familyMembers</code>)이 지금 가족 구성을 계속 보여주고,
+        엔딩 화면에도 "100세, 곁에 남은 가족" 패널(<code>#endingFamilyMembers</code>)로 최종 가족 구성을
+        따로 보여준다.</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>가족 id</th><th>표시</th><th>생기는 시점</th><th>사라지는 시점</th></tr>
+                <tr><td><code>father</code></td><td>👨 아버지</td><td>유아기 0세 · 대가족/화목한 가정 등 4가지 출생 선택지</td><td>서른 36세 · <code>father-passes-away</code>(투병 끝에 별세) 또는 중년 47세 · <code>losing-a-parent</code>(부모님 떠나보냄, 남아있는 쪽 전부)</td></tr>
+                <tr><td><code>mother</code></td><td>👩 어머니</td><td>유아기 0세 · 위와 동일 4가지 선택지</td><td>서른 36세 · <code>mother-passes-away</code> 또는 중년 47세 · <code>losing-a-parent</code></td></tr>
+                <tr><td><code>single-parent</code></td><td>🧑 부모님</td><td>유아기 0세 · <code>single-parent-close</code>(부모님 한 분과 지내는 집)</td><td>중년 47세 · <code>losing-a-parent</code></td></tr>
+                <tr><td><code>sibling</code></td><td>🧒 형제자매</td><td>유아기 0세 · <code>big-family</code>(대가족에서 태어남)</td><td>—(제거 로직 없음, 평생 유지)</td></tr>
+                <tr><td><code>younger-sibling</code></td><td>🧒 동생</td><td>유아기 6세 · <code>family-event</code>(동생이 태어남)</td><td>—</td></tr>
+                <tr><td><code>spouse</code></td><td>💍 배우자</td><td>서른 31세 · 결혼식/상견례 등 4가지 선택지, 또는 중년 53세 · <code>late-remarriage</code>(재혼)</td><td>중년 44세 · <code>choosing-divorce</code>(이혼) 또는 황혼 85세 · <code>spouse-passes-away</code>(사별)</td></tr>
+                <tr><td><code>child</code></td><td>👶 자녀</td><td>서른 33세 · <code>first-childbirth</code>(배우자 있어야 노출)</td><td>—</td></tr>
+                <tr><td><code>grandchild</code></td><td>👶 손주</td><td>노년 준비 58세 · <code>becoming-a-grandparent</code> 등 3가지 선택지(자녀 있어야 노출)</td><td>—</td></tr>
+            </table>
+        </div>
+        <p class="note">건강 상세와 마찬가지로 실제로 겪을지는 그 구간의 6~8개 선택지 풀 중 3개만 노출되는
+        데다, 겹치는 나이가 100세까지 랜덤 점프(4장 "실제 플레이 진행 속도" 참고)로 아예 안 지나갈 수도
+        있어 매 판 다르게 경험한다(예: 결혼은 시뮬레이션 2만 회 기준 약 44%). 부모님·손주처럼 "있는 것
+        중 아무거나"로 자격을 확인해야 하는 곳(중년 47세 <code>losing-a-parent</code>, 노년 준비 58세
+        3종)은 함께 사는 부모님 유형이 무엇이었든(아버지+어머니 둘 다 / 한 분만) 자연스럽게 대응한다.</p>
         <p class="note"><b>주사위 굴리기를 누르면 결과가 바로 나오지 않는다.</b> 화면 전체가 어두워지며
         (<code>#diceOverlay</code>) 주사위 아이콘이 회전하는 연출이 최소 3초(<code>DICE_REVEAL_MS</code>)
         보여진 뒤에야 결과가 공개된다 — 서버 응답이 3초보다 빨리 와도 최소 3초는 채우고, 응답이 더 늦어지면
@@ -1202,7 +1235,7 @@
         <div class="tbl-wrap">
             <table>
                 <tr><th>경로</th><th>설명</th><th>.read</th></tr>
-                <tr><td><code>lifeGame/playthroughs/&#123;uid&#125;</code></td><td>계정당 저장 슬롯 1개(push id 없음) — <code>streamerName, streamerId, stats, stageIndex, visibleChoiceIds[], healthConditions[], choiceLog[], completed, ending, startedAt, endedAt, galleryEntryId</code>. 새로 시작하면 덮어씀. <code>visibleChoiceIds</code>는 지금 구간에서 실제로 노출 중인 선택지 3개의 id(4장 "6개 중 3개 노출" 참고), <code>healthConditions</code>는 현재 앓고 있는 부상·질병 목록(<code>{id,label,sinceStageId}</code>, 4장 "건강 상세" 참고)</td><td>본인만</td></tr>
+                <tr><td><code>lifeGame/playthroughs/&#123;uid&#125;</code></td><td>계정당 저장 슬롯 1개(push id 없음) — <code>streamerName, streamerId, stats, stageIndex, visibleChoiceIds[], healthConditions[], familyMembers[], choiceLog[], completed, ending, startedAt, endedAt, galleryEntryId</code>. 새로 시작하면 덮어씀. <code>visibleChoiceIds</code>는 지금 구간에서 실제로 노출 중인 선택지 3개의 id(4장 "6개 중 3개 노출" 참고), <code>healthConditions</code>는 현재 앓고 있는 부상·질병 목록(<code>{id,label,sinceStageId}</code>, 4장 "건강 상세" 참고), <code>familyMembers</code>는 현재 가족 구성 목록(<code>{id,label,sinceStageId}</code>, 4장 "가족 상세" 참고)</td><td>본인만</td></tr>
                 <tr><td><code>lifeGame/gallery/&#123;id&#125;</code></td><td>공유된 인생 요약 — <code>streamerName, streamerId, ending, stats, uid, sharedAt</code></td><td>공개</td></tr>
                 <tr><td><code>lifeGame/galleryChoiceLogs/&#123;id&#125;</code></td><td>그 갤러리 항목의 전체 선택 기록(<code>buildChoiceHistory()</code> 결과 배열, <code>{stageId,stageName,ageRange,choiceText}[]</code>). <code>gallery</code>와 별도 노드로 분리해뒀다 — 갤러리 목록 실시간 구독(<code>onValue('lifeGame/gallery')</code>)이 항목마다 최대 101개짜리 선택 기록까지 매번 통째로 내려받지 않도록, 항목을 클릭해 펼칠 때만 그 id 하나만 <code>get()</code>으로 조회</td><td>공개</td></tr>
                 <tr><td><code>lifeGame/galleryReports/&#123;id&#125;</code></td><td>갤러리 항목 신고 — <code>entryId, reason, reporterUid, reportedAt</code> (StreamBet-Market <code>nicknameReports</code>와 동일 패턴)</td><td>관리자만</td></tr>

@@ -42,10 +42,19 @@ function playRefFor(db, uid) {
 // 화면이 복잡해지니 매 판마다 다른 3개가 뜨게 한다. requiresCondition이 붙은
 // 선택지(부상·질병 회복용)는 activeConditionIds에 그 조건이 없으면 애초에
 // 후보에서 빠진다 - 부러진 적 없는 팔이 "다 나았다"고 나오는 일이 없도록.
+// requiresFamilyMember(배열, 그 중 하나라도 있어야 후보)/requiresNoFamilyMember
+// (배열, 그 중 하나라도 있으면 후보에서 빠짐)도 같은 방식 - 배우자 없는데
+// "이혼한다"가 뜨거나, 이미 결혼했는데 "결혼한다"가 다시 뜨는 일이 없도록.
 // 후보가 3개 이하면 그냥 전부 노출한다.
-function pickVisibleChoiceIds(choices, activeConditionIds) {
+function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds) {
   const conditionIds = activeConditionIds || [];
-  const eligible = choices.filter((c) => !c.requiresCondition || conditionIds.includes(c.requiresCondition));
+  const familyIds = activeFamilyMemberIds || [];
+  const eligible = choices.filter((c) => {
+    if (c.requiresCondition && !conditionIds.includes(c.requiresCondition)) return false;
+    if (c.requiresFamilyMember && !c.requiresFamilyMember.some((id) => familyIds.includes(id))) return false;
+    if (c.requiresNoFamilyMember && c.requiresNoFamilyMember.some((id) => familyIds.includes(id))) return false;
+    return true;
+  });
   if (eligible.length <= 3) return eligible.map((c) => c.id);
   const shuffled = eligible.slice();
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -103,13 +112,21 @@ function freshStats() {
 // 구간으로 넘기거나(마지막 구간이면) 엔딩을 확정한다. 어느 경로로 골랐든(직접
 // 클릭 vs 주사위) 반영 방식은 동일해야 하므로 여기 한 곳에만 둔다.
 async function applyChoice(db, playRef, play, stage, choice) {
-  // 이 선택이 요구하는 건강 조건(requiresCondition)이 실제로 지금 없는데도
-  // 들어왔다면(정상 흐름이면 pickVisibleChoiceIds가 애초에 후보에서 뺐을 것) -
-  // 저장 슬롯이 오래돼 healthConditions가 없던 시절 것이거나 하는 예외 상황이니
-  // 방어적으로 막는다.
+  // 이 선택이 요구하는 건강 조건(requiresCondition)/가족 구성원(requiresFamilyMember·
+  // requiresNoFamilyMember)이 실제로 지금 안 맞는데도 들어왔다면(정상 흐름이면
+  // pickVisibleChoiceIds가 애초에 후보에서 뺐을 것) - 저장 슬롯이 오래돼 해당
+  // 필드가 없던 시절 것이거나 하는 예외 상황이니 방어적으로 막는다.
   const currentConditions = Array.isArray(play.healthConditions) ? play.healthConditions : [];
   if (choice.requiresCondition && !currentConditions.some((c) => c.id === choice.requiresCondition)) {
     throw new HttpsError('failed-precondition', '지금 상태에서는 고를 수 없는 선택지입니다.');
+  }
+  const currentFamilyMembers = Array.isArray(play.familyMembers) ? play.familyMembers : [];
+  const currentFamilyIds = currentFamilyMembers.map((f) => f.id);
+  if (choice.requiresFamilyMember && !choice.requiresFamilyMember.some((id) => currentFamilyIds.includes(id))) {
+    throw new HttpsError('failed-precondition', '지금 가족 상태에서는 고를 수 없는 선택지입니다.');
+  }
+  if (choice.requiresNoFamilyMember && choice.requiresNoFamilyMember.some((id) => currentFamilyIds.includes(id))) {
+    throw new HttpsError('failed-precondition', '지금 가족 상태에서는 고를 수 없는 선택지입니다.');
   }
 
   const stats = Object.assign({}, play.stats);
@@ -127,12 +144,28 @@ async function applyChoice(db, playRef, play, stage, choice) {
     healthConditions = healthConditions.filter((c) => c.id !== choice.removeCondition);
   }
 
+  // 가족 상세 - addFamilyMembers에 담긴 항목들이 새 가족으로 생기고(이미 있으면
+  // 중복 추가 안 함), removeFamilyMembers에 담긴 id들은 가족에서 빠진다(사망·
+  // 이혼 등). 부모님 사망처럼 "father/mother/single-parent 중 있는 걸 전부
+  // 제거"하는 경우도 있어 removeFamilyMembers는 항상 배열이다.
+  let familyMembers = currentFamilyMembers.slice();
+  if (choice.addFamilyMembers) {
+    for (const member of choice.addFamilyMembers) {
+      if (!familyMembers.some((f) => f.id === member.id)) {
+        familyMembers.push({ id: member.id, label: member.label, sinceStageId: stage.id });
+      }
+    }
+  }
+  if (choice.removeFamilyMembers) {
+    familyMembers = familyMembers.filter((f) => !choice.removeFamilyMembers.includes(f.id));
+  }
+
   const choiceLog = Array.isArray(play.choiceLog) ? play.choiceLog.slice() : [];
   choiceLog.push({ stageId: stage.id, choiceId: choice.id, at: Date.now() });
 
   const nextIndex = pickNextStageIndex(play.stageIndex);
   const completed = nextIndex >= STAGES.length;
-  const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions };
+  const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers };
 
   let ending = null;
   let nextVisibleIds = null;
@@ -143,9 +176,14 @@ async function applyChoice(db, playRef, play, stage, choice) {
   } else {
     // 다음 구간에서 보여줄 3개를 여기서 미리 뽑아 저장 슬롯에 남겨둔다 - 이걸
     // 지금 뽑아둬야 이어하기로 재접속했을 때도 같은 3개가 다시 뜬다. 이때
-    // 방금 갱신된 healthConditions를 기준으로 requiresCondition을 걸러야
-    // "이번 선택으로 막 나은/생긴 조건"이 다음 구간 노출에 바로 반영된다.
-    nextVisibleIds = pickVisibleChoiceIds(STAGES[nextIndex].choices, healthConditions.map((c) => c.id));
+    // 방금 갱신된 healthConditions/familyMembers를 기준으로 requiresCondition·
+    // requiresFamilyMember·requiresNoFamilyMember를 걸러야 "이번 선택으로 막
+    // 낫거나 생긴 조건/가족"이 다음 구간 노출에 바로 반영된다.
+    nextVisibleIds = pickVisibleChoiceIds(
+      STAGES[nextIndex].choices,
+      healthConditions.map((c) => c.id),
+      familyMembers.map((f) => f.id)
+    );
     updates.visibleChoiceIds = nextVisibleIds;
   }
 
@@ -170,6 +208,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
     ending: ending ? { id: ending.id, title: ending.title, text: ending.text } : null,
     nextStage: completed ? null : publicStage(STAGES[nextIndex], nextVisibleIds),
     healthConditions,
+    familyMembers,
     choiceHistory: completed ? buildChoiceHistory(choiceLog) : null
   };
 }
@@ -211,6 +250,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
       stageIndex: 0,
       visibleChoiceIds,
       healthConditions: [],
+      familyMembers: [],
       choiceLog: [],
       completed: false,
       startedAt: ServerValue.TIMESTAMP
@@ -221,7 +261,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
     db.ref('lifeGame/stats/totals/started').set(ServerValue.increment(1))
   ]);
 
-  return { stats, healthConditions: [], stage: publicStage(STAGES[0], visibleChoiceIds) };
+  return { stats, healthConditions: [], familyMembers: [], stage: publicStage(STAGES[0], visibleChoiceIds) };
 });
 
 // 창을 껐다가 다시 열었을 때 - 저장된 판이 있으면 지금 구간을 그대로 이어서
@@ -241,6 +281,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       completed: true,
       ending: play.ending,
       healthConditions: Array.isArray(play.healthConditions) ? play.healthConditions : [],
+      familyMembers: Array.isArray(play.familyMembers) ? play.familyMembers : [],
       choiceHistory: buildChoiceHistory(play.choiceLog)
     };
   }
@@ -248,13 +289,14 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
   if (!stage) throw new HttpsError('failed-precondition', '잘못된 진행 상태입니다.');
 
   const healthConditions = Array.isArray(play.healthConditions) ? play.healthConditions : [];
+  const familyMembers = Array.isArray(play.familyMembers) ? play.familyMembers : [];
 
   // visibleChoiceIds가 이미 저장돼 있으면 그대로 재사용해서 재접속해도 같은
   // 3개가 다시 뜨게 한다(이 필드가 생기기 전에 만들어진 저장분 등 없을 때만
   // 새로 뽑아서 지금부터라도 고정해둔다).
   let visibleChoiceIds = play.visibleChoiceIds;
   if (!visibleChoiceIds || !visibleChoiceIds.length) {
-    visibleChoiceIds = pickVisibleChoiceIds(stage.choices, healthConditions.map((c) => c.id));
+    visibleChoiceIds = pickVisibleChoiceIds(stage.choices, healthConditions.map((c) => c.id), familyMembers.map((f) => f.id));
     await playRefFor(db, uid).update({ visibleChoiceIds });
   }
   return {
@@ -262,6 +304,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
     stats: play.stats,
     completed: false,
     healthConditions,
+    familyMembers,
     stage: publicStage(stage, visibleChoiceIds)
   };
 });
