@@ -269,13 +269,15 @@
   </section>
 
   <section id="gameSection" class="panel hidden">
-    <div class="stage-head">
-      <span class="stage-name" id="stageName"></span>
-      <span class="stage-age" id="stageAge"></span>
+    <div id="stageContent">
+      <div class="stage-head">
+        <span class="stage-name" id="stageName"></span>
+        <span class="stage-age" id="stageAge"></span>
+      </div>
+      <p id="storyText" class="story-text"></p>
+      <div id="choiceList"></div>
+      <div id="resultBox" class="result-box hidden"></div>
     </div>
-    <p id="storyText" class="story-text"></p>
-    <div id="choiceList"></div>
-    <div id="resultBox" class="result-box hidden"></div>
     <div class="stat-bars" id="statBars"></div>
     <div class="health-panel">
       <p class="health-panel-title">현재 건강 상세</p>
@@ -431,6 +433,56 @@ function escapeHtml(s) {
   return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+// ------------------------------------------------------------
+// 화면 전환 페이드 - 패널이 통째로 바뀌는 모든 지점(검색→이름짓기→게임 시작/
+// 이어하기→다음 구간→엔딩)에서 뚝 끊기지 않고 페이드아웃 후 페이드인 되게
+// 하는 공통 헬퍼. hidden 클래스는 display:none이라 그 자체로는 트랜지션이
+// 안 되므로, 사라질 땐 opacity를 0으로 줄인 뒤에 hidden을 붙이고, 나타날 땐
+// 반대로 hidden을 먼저 뗀 다음 opacity를 0→1로 올린다.
+// ------------------------------------------------------------
+const REDUCE_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FADE_MS = REDUCE_MOTION ? 0 : 260;
+// setTimeout 스케줄링은 브라우저 부하에 따라 살짝 밀릴 수 있어, 콘텐츠를
+// 실제로 교체/숨기는 타이밍은 CSS 트랜지션 재생 시간보다 이만큼 더 기다린다 -
+// 트랜지션이 채 안 끝난 상태에서 내용이 바뀌어 보이는 걸 방지.
+const SWAP_BUFFER_MS = REDUCE_MOTION ? 0 : 100;
+
+function fadeOut(els) {
+  const visible = els.filter((el) => el && !el.classList.contains('hidden'));
+  if (!visible.length) return Promise.resolve();
+  return new Promise((resolve) => {
+    // transition 프로퍼티와 opacity 값을 같은 틱에서 같이 바꾸면 크로미움이
+    // "이전 상태"를 제대로 커밋하지 못해 트랜지션이 늦게 시작되거나 끝까지
+    // 안 끝난 채로 다음 단계로 넘어가는 경우가 있다 - 그래서 먼저 transition을
+    // 끈 채로 지금 상태(opacity:1)를 리플로우로 확정한 다음에야 실제 트랜지션을
+    // 건다.
+    visible.forEach((el) => { el.style.transition = 'none'; el.style.opacity = '1'; });
+    void document.body.offsetWidth;
+    visible.forEach((el) => {
+      el.style.transition = 'opacity ' + FADE_MS + 'ms ease';
+      el.style.opacity = '0';
+    });
+    setTimeout(() => {
+      visible.forEach((el) => { el.classList.add('hidden'); el.style.opacity = ''; el.style.transition = ''; });
+      resolve();
+    }, FADE_MS + SWAP_BUFFER_MS);
+  });
+}
+
+function fadeIn(els) {
+  const list = els.filter(Boolean);
+  list.forEach((el) => {
+    el.classList.remove('hidden');
+    el.style.transition = 'none';
+    el.style.opacity = '0';
+  });
+  void document.body.offsetWidth; // 강제 리플로우 - opacity:0이 실제로 적용된 뒤에 트랜지션이 걸리게
+  list.forEach((el) => {
+    el.style.transition = 'opacity ' + FADE_MS + 'ms ease';
+    el.style.opacity = '1';
+  });
+}
+
 let selectedStreamerId = null;
 const searchSection = document.getElementById('searchSection');
 const nameSection = document.getElementById('nameSection');
@@ -438,13 +490,12 @@ const nameInput = document.getElementById('nameInput');
 function selectStreamer(name, id) {
   selectedStreamerId = id || null;
   nameInput.value = name;
-  searchSection.classList.add('hidden');
-  nameSection.classList.remove('hidden');
+  fadeOut([searchSection]).then(() => fadeIn([nameSection]));
 }
 
-document.getElementById('backToSearchBtn').addEventListener('click', () => {
-  nameSection.classList.add('hidden');
-  searchSection.classList.remove('hidden');
+document.getElementById('backToSearchBtn').addEventListener('click', async () => {
+  await fadeOut([nameSection]);
+  fadeIn([searchSection]);
   searchInput.focus();
 });
 
@@ -465,28 +516,28 @@ async function checkResume(uid) {
     const play = snap.val();
     if (play && !play.completed) {
       resumeInfo.textContent = (play.streamerName || '이름 없음') + '님의 인생이 저장되어 있어요 (' + (play.stageIndex + 1) + '번째 구간까지 진행).';
-      resumeSection.classList.remove('hidden');
+      fadeIn([resumeSection]);
       return;
     }
   } catch (e) {
     console.error('저장된 진행 확인 실패:', e);
   }
-  searchSection.classList.remove('hidden');
+  fadeIn([searchSection]);
 }
 
 resumeBtn.addEventListener('click', async () => {
   resumeBtn.disabled = true;
   try {
     const res = await resumePlaythroughFn();
-    resumeSection.classList.add('hidden');
+    await fadeOut([resumeSection]);
     if (res.data.completed) {
       showEnding(res.data.ending, res.data.stats, res.data.choiceHistory);
     } else {
-      mainHeader.classList.add('hidden');
-      gameSection.classList.remove('hidden');
+      await fadeOut([mainHeader]);
       renderStatBars(statBars, res.data.stats);
       renderHealthConditions(res.data.healthConditions);
       renderStage(res.data.stage);
+      fadeIn([gameSection]);
     }
   } catch (e) {
     console.error('이어하기 실패:', e);
@@ -495,9 +546,9 @@ resumeBtn.addEventListener('click', async () => {
   }
 });
 
-document.getElementById('restartFreshBtn').addEventListener('click', () => {
-  resumeSection.classList.add('hidden');
-  searchSection.classList.remove('hidden');
+document.getElementById('restartFreshBtn').addEventListener('click', async () => {
+  await fadeOut([resumeSection]);
+  fadeIn([searchSection]);
 });
 
 // ------------------------------------------------------------
@@ -505,6 +556,7 @@ document.getElementById('restartFreshBtn').addEventListener('click', () => {
 // ------------------------------------------------------------
 const mainHeader = document.getElementById('mainHeader');
 const gameSection = document.getElementById('gameSection');
+const stageContent = document.getElementById('stageContent');
 const stageName = document.getElementById('stageName');
 const stageAge = document.getElementById('stageAge');
 const storyText = document.getElementById('storyText');
@@ -612,13 +664,11 @@ startBtn.addEventListener('click', async () => {
   startBtn.disabled = true;
   try {
     const res = await startPlaythroughFn({ streamerName, streamerId: selectedStreamerId });
-    document.getElementById('searchSection').classList.add('hidden');
-    nameSection.classList.add('hidden');
-    mainHeader.classList.add('hidden');
-    gameSection.classList.remove('hidden');
+    await fadeOut([searchSection, nameSection, mainHeader]);
     renderStatBars(statBars, res.data.stats);
     renderHealthConditions(res.data.healthConditions);
     renderStage(res.data.stage);
+    fadeIn([gameSection]);
   } catch (e) {
     console.error('인생 시작 실패:', e);
     alert('시작하지 못했어요: ' + (e.message || e));
@@ -696,8 +746,29 @@ async function rollDice() {
   }
 }
 
+// 구간 이동(0세→1세 등)은 화면 전체가 아니라 stageContent(구간명/스토리/
+// 선택지/결과 텍스트)만 페이드아웃→내용 교체→페이드인 한다 - 이미 갱신된
+// 스탯 바/건강 상세는 이 시점엔 변화가 없으니 같이 깜빡일 필요가 없다.
+function fadeToStage(stage) {
+  // fadeOut()과 같은 이유로, transition 재설정과 opacity 값 변경 사이에
+  // 리플로우를 강제로 끼워 넣어야 페이드아웃이 매번 확실히 끝까지 재생된다.
+  stageContent.style.transition = 'none';
+  stageContent.style.opacity = '1';
+  void stageContent.offsetWidth;
+  stageContent.style.transition = 'opacity ' + FADE_MS + 'ms ease';
+  stageContent.style.opacity = '0';
+  // 콘텐츠 교체(swap) 타이밍은 CSS 트랜지션 재생 시간(FADE_MS)에 살짝 여유를
+  // 더 둬서(SWAP_BUFFER_MS), 스케줄링 지연으로 트랜지션이 아직 다 안 끝난
+  // 상태에서 다음 구간 내용이 바뀌어 보이는 일이 없게 한다.
+  setTimeout(() => {
+    renderStage(stage);
+    void stageContent.offsetWidth;
+    stageContent.style.opacity = '1';
+  }, FADE_MS + SWAP_BUFFER_MS);
+}
+
 nextBtn.addEventListener('click', () => {
-  if (pendingNextStage) renderStage(pendingNextStage);
+  if (pendingNextStage) fadeToStage(pendingNextStage);
 });
 
 // ------------------------------------------------------------
@@ -734,22 +805,18 @@ function renderChoiceHistoryInto(container, history) {
 }
 
 // 엔딩 문구 표시 → 지금까지 선택한 선택지들 표시 → 다른 유저 인생 → 재시작
-// 안내 순서로 보여준다(각 section의 DOM 순서가 곧 화면에 보이는 순서).
-function showEnding(ending, stats, choiceHistory) {
-  mainHeader.classList.add('hidden');
-  gameSection.classList.add('hidden');
-  endingSection.classList.remove('hidden');
+// 안내 순서로 보여준다(각 section의 DOM 순서가 곧 화면에 보이는 순서). 게임
+// 화면에서 엔딩 화면으로 넘어가는 것도 다른 전환들과 같은 페이드로 통일한다.
+async function showEnding(ending, stats, choiceHistory) {
+  await fadeOut([mainHeader, gameSection]);
+
   endingTitle.textContent = ending.title;
   endingText.textContent = ending.text;
   renderStatBars(endingStatBars, stats);
-
   renderChoiceHistoryInto(choiceHistoryList, choiceHistory);
-  choiceHistorySection.classList.remove('hidden');
-
-  gallerySection.classList.remove('hidden');
   shareBtn.disabled = false;
 
-  restartSection.classList.remove('hidden');
+  fadeIn([endingSection, choiceHistorySection, gallerySection, restartSection]);
 }
 
 shareBtn.addEventListener('click', async () => {
