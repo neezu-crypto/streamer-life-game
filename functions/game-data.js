@@ -61,6 +61,11 @@
 // 쉰(50세) → 빈 둥지(51세) → 은퇴 준비(52세) → 재무 재점검(53세) →
 // 중년 마무리(54세) 순.
 //
+// "노년 준비"(55~69세, 15년)는 아직 절반만 구현됐다 - oldprep-55 ~
+// oldprep-60(55~60세, 6개)만 채워져 있고 61~69세는 TODO. 정년퇴직
+// (55세) → 정체성 재정립(56세) → 새로운 관계망(57세) → 손주·가족
+// 관계(58세) → 건강 관리 본격화(59세) → 환갑(60세) 순.
+//
 // 건강 상세(healthConditions) - 선택지에 addCondition({id,label})을 붙이면
 // 부상/질병이 "생기고", removeCondition(id)을 붙이면 그 조건이 나아서
 // "없어진다". 서버(index.js의 applyChoice)가 그 판의 저장 슬롯에
@@ -2714,8 +2719,302 @@ const STAGES = [
         result: '끝이 아니라, 또 다른 시작이라고 되뇌었다.'
       }
     ]
+  },
+  {
+    id: 'oldprep-55',
+    name: '노년 준비',
+    ageRange: '55세',
+    intro: '정년이라는 단어가 더는 남 얘기가 아니게 되는 나이. 매일 출근하던 삶이 조용히 막을 내립니다.',
+    choices: [
+      {
+        id: 'official-retirement',
+        text: '정년퇴직을 맞아 회사를 떠난다',
+        deltas: { happiness: -3, wealth: -2, relationship: 2 },
+        result: '마지막 출근길이, 그렇게 길게 느껴질 줄 몰랐다.'
+      },
+      {
+        id: 'spending-severance-freely',
+        text: '퇴직금으로 그동안 미뤄온 것들을 해본다',
+        deltas: { happiness: 5, wealth: -4 },
+        result: '늘 "나중에"라고 미뤘던 일들을, 하나씩 해치우기 시작했다.'
+      },
+      {
+        id: 'first-monday-without-work',
+        text: '출근하지 않는 첫 월요일, 이상한 허전함을 느낀다',
+        deltas: { happiness: -4, health: -1 },
+        result: '알람을 꺼버린 아침이, 홀가분하기보다 낯설었다.'
+      },
+      {
+        id: 'seeking-new-work',
+        text: '새로운 일(재취업·재능기부)을 찾아 나선다',
+        deltas: { wealth: 3, happiness: 3 },
+        result: '월급보다, 갈 곳이 있다는 사실 자체가 반가웠다.'
+      },
+      {
+        id: 'finding-post-retirement-job',
+        text: '퇴직 후에도 계속 일할 수 있는 자리를 찾는다',
+        deltas: { wealth: 5, happiness: 2 },
+        result: '완전히 손을 놓지 않아도 된다는 게, 큰 위안이 됐다.'
+      },
+      {
+        id: 'mixed-reactions-to-retirement',
+        text: '은퇴 소식에 주변에서 축하와 걱정이 뒤섞여 쏟아진다',
+        deltas: { relationship: 2, happiness: -1 },
+        result: '축하한다는 말 뒤에 숨은 걱정이, 은근히 신경 쓰였다.'
+      }
+    ]
+  },
+  {
+    id: 'oldprep-56',
+    name: '노년 준비',
+    ageRange: '56세',
+    intro: '평생 "어디 소속"으로 나를 소개하던 습관이 사라지며, 나는 누구인가를 새삼 다시 묻게 됩니다.',
+    choices: [
+      {
+        id: 'questioning-identity',
+        text: '"내가 누구인가"라는 질문을 새삼 다시 던진다',
+        deltas: { happiness: -3, health: -1 },
+        result: '명함 없이 나를 소개하는 법을, 처음부터 다시 배워야 했다.'
+      },
+      {
+        id: 'discovering-hidden-talent',
+        text: '새로운 취미에서 뜻밖의 재능을 발견한다',
+        deltas: { happiness: 5, fame: 2 },
+        result: '이 나이에 이런 걸 다 잘할 줄은, 스스로도 몰랐다.'
+      },
+      {
+        id: 'volunteering-for-meaning',
+        text: '봉사활동을 시작하며 삶의 의미를 다시 찾는다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '누군가에게 도움이 된다는 감각이, 오랜만에 선명했다.'
+      },
+      {
+        id: 'post-retirement-lethargy',
+        text: '무기력한 나날이 이어지며 우울감을 느낀다',
+        deltas: { happiness: -5, health: -2 },
+        result: '딱히 할 일이 없는 하루가, 이렇게 무거울 줄 몰랐다.'
+      },
+      {
+        id: 'new-friction-with-spouse',
+        text: '배우자와 하루 종일 붙어 지내며 새로운 갈등이 생긴다',
+        deltas: { relationship: -4, happiness: -2 },
+        result: '서로의 하루 리듬이 이렇게 다른 줄, 이제야 알았다.'
+      },
+      {
+        id: 'building-a-solo-routine',
+        text: '혼자만의 루틴을 만들어 하루하루를 채워간다',
+        deltas: { happiness: 3, health: 2 },
+        result: '작은 규칙 몇 개가, 하루를 다시 단단하게 만들어줬다.'
+      },
+      {
+        id: 'cataract-onset',
+        text: '눈이 침침해지고 백내장 진단을 받는다',
+        deltas: { health: -4, happiness: -2 },
+        result: '안경을 써도 뿌옇게 보이는 세상이 낯설었다.',
+        addCondition: { id: 'cataract', label: '👁️ 백내장' }
+      }
+    ]
+  },
+  {
+    id: 'oldprep-57',
+    name: '노년 준비',
+    ageRange: '57세',
+    intro: '직장이라는 울타리 없이 새로운 사람들과 관계를 다시 엮어가야 하는 시기입니다.',
+    choices: [
+      {
+        id: 'joining-local-community',
+        text: '동네 커뮤니티·모임에 나가며 새 친구를 사귄다',
+        deltas: { relationship: 5, happiness: 4 },
+        result: '나이도, 살아온 길도 다른 사람들과 새로 친구가 됐다.'
+      },
+      {
+        id: 'fading-work-connections',
+        text: '오랜 직장 동료들과의 인연이 자연스레 옅어진다',
+        deltas: { relationship: -4, happiness: -2 },
+        result: '한때 매일 보던 얼굴들이, 어느새 연락이 뜸해졌다.'
+      },
+      {
+        id: 'reunion-nostalgia',
+        text: '동창 모임에서 새삼 반가운 얼굴들을 만난다',
+        deltas: { relationship: 4, happiness: 3 },
+        result: '수십 년 만인데도, 말투 하나는 그대로였다.'
+      },
+      {
+        id: 'staying-home-avoiding-people',
+        text: '낯선 사람들과 어울리는 게 부담스러워 집에만 머문다',
+        deltas: { happiness: -3, relationship: -2 },
+        result: '나가는 것보다, 집에 있는 게 자꾸 더 편해졌다.'
+      },
+      {
+        id: 'online-community-connection',
+        text: '온라인 커뮤니티에서 또래들과 소통하는 재미를 붙인다',
+        deltas: { relationship: 3, happiness: 3 },
+        result: '화면 너머였지만, 대화만큼은 진심으로 즐거웠다.'
+      },
+      {
+        id: 'couples-gathering-energy',
+        text: '부부 동반 모임에 나가며 새로운 활력을 얻는다',
+        deltas: { relationship: 5, happiness: 4, wealth: -2 },
+        result: '오랜만에 둘이 함께 웃을 일이 생겼다.'
+      },
+      {
+        id: 'osteoporosis-onset',
+        text: '골밀도 검사에서 골다공증 진단을 받는다',
+        deltas: { health: -4, wealth: -1 },
+        result: '뼈도 나이를 먹는다는 걸, 숫자로 마주하니 실감이 났다.',
+        addCondition: { id: 'osteoporosis', label: '🦴 골다공증' }
+      }
+    ]
+  },
+  {
+    id: 'oldprep-58',
+    name: '노년 준비',
+    ageRange: '58세',
+    intro: '자녀 세대가 이제 자기 가정을 꾸리며, 가족 안에서의 내 역할도 조금씩 달라집니다.',
+    choices: [
+      {
+        id: 'becoming-a-grandparent',
+        text: '손주가 태어나 할머니·할아버지가 된다',
+        deltas: { happiness: 6, relationship: 4 },
+        result: '작은 손을 처음 잡던 순간, 말로는 설명이 안 됐다.'
+      },
+      {
+        id: 'babysitting-grandchild',
+        text: '손주를 돌보며 다시 육아의 세계로 들어간다',
+        deltas: { health: -4, happiness: 3, relationship: 3 },
+        result: '몸은 힘들었지만, 예전엔 못 느꼈던 여유로 아이를 봐줄 수 있었다.'
+      },
+      {
+        id: 'keeping-healthy-distance',
+        text: '자녀 가족과 적당한 거리를 유지하려 애쓴다',
+        deltas: { relationship: 1, happiness: 2 },
+        result: '너무 가깝지도, 너무 멀지도 않은 거리를 찾는 데 시간이 걸렸다.'
+      },
+      {
+        id: 'grandchild-daily-joy',
+        text: '손주 재롱에 하루하루가 즐거워진다',
+        deltas: { happiness: 5, relationship: 4 },
+        result: '전화기 속 사진 한 장에도, 하루 종일 웃을 수 있었다.'
+      },
+      {
+        id: 'continued-financial-support-for-kids',
+        text: '자녀에게 경제적으로 계속 도움을 주며 통장이 준다',
+        deltas: { wealth: -5, relationship: 2 },
+        result: '내 노후보다 자식 걱정이 먼저 앞서는 건, 어쩔 수 없었다.'
+      },
+      {
+        id: 'new-role-in-family-gatherings',
+        text: '가족 모임의 중심에서 예전과 다른 역할을 맡는다',
+        deltas: { relationship: 3, happiness: 2 },
+        result: '이끄는 자리에서, 지켜보는 자리로 슬며시 옮겨갔다.'
+      },
+      {
+        id: 'cataract-heal',
+        text: '백내장 수술을 받고 시야가 다시 선명해진다',
+        deltas: { health: 5, wealth: -3 },
+        result: '뿌옇던 세상이 다시 또렷해진 순간, 색깔마저 새로 보이는 것 같았다.',
+        requiresCondition: 'cataract',
+        removeCondition: 'cataract'
+      }
+    ]
+  },
+  {
+    id: 'oldprep-59',
+    name: '노년 준비',
+    ageRange: '59세',
+    intro: '건강이 더 이상 당연한 게 아니라는 걸 받아들이고, 본격적으로 몸을 챙기기 시작하는 나이입니다.',
+    choices: [
+      {
+        id: 'morning-walk-routine',
+        text: '매일 아침 산책을 루틴으로 삼는다',
+        deltas: { health: 5, happiness: 2 },
+        result: '별거 아닌 걸음이, 하루의 기분을 바꿔놓았다.'
+      },
+      {
+        id: 'starting-supplements',
+        text: '건강기능식품과 영양제를 하나둘 챙기기 시작한다',
+        deltas: { health: 3, wealth: -2 },
+        result: '식탁 한쪽이 어느새 약통들로 채워졌다.'
+      },
+      {
+        id: 'more-frequent-checkups',
+        text: '정기 건강검진을 예전보다 자주 받는다',
+        deltas: { health: 4, wealth: -2 },
+        result: '미리 아는 게 낫다는 걸, 이제는 안다.'
+      },
+      {
+        id: 'reducing-activity-due-to-stamina',
+        text: '체력 저하를 실감하며 활동량을 줄인다',
+        deltas: { health: -3, happiness: -1 },
+        result: '예전만큼 움직이지 못하는 게, 못내 아쉬웠다.'
+      },
+      {
+        id: 'reviewing-medical-insurance',
+        text: '노년을 위한 실손보험·의료 계획을 재점검한다',
+        deltas: { wealth: -2, happiness: 2 },
+        result: '서류를 다시 훑어보는 것만으로도, 마음이 한결 든든해졌다.'
+      },
+      {
+        id: 'accepting-physical-limits',
+        text: '몸이 예전 같지 않다는 걸 받아들이고 무리하지 않는다',
+        deltas: { happiness: 3, health: 2 },
+        result: '버티기보다 맞춰가는 법을, 천천히 익혀갔다.'
+      }
+    ]
+  },
+  {
+    id: 'oldprep-60',
+    name: '노년 준비',
+    ageRange: '60세',
+    intro: '환갑. 예순 해를 지나온 삶을 가족과 함께 돌아보는 해입니다.',
+    choices: [
+      {
+        id: 'big-sixtieth-celebration',
+        text: '환갑을 맞아 가족·친지가 모여 크게 잔치를 연다',
+        deltas: { happiness: 6, relationship: 5, wealth: -4 },
+        result: '오랜만에 온 가족이 한자리에 모인 것만으로도, 마음이 벅찼다.'
+      },
+      {
+        id: 'mixed-feelings-turning-sixty',
+        text: '예순이라는 숫자 앞에서 만감이 교차한다',
+        deltas: { happiness: -2, relationship: 1 },
+        result: '축하 인사를 받으면서도, 마음 한쪽은 복잡했다.'
+      },
+      {
+        id: 'dream-trip-for-sixtieth',
+        text: '환갑 기념으로 평생 가보고 싶던 곳으로 여행을 떠난다',
+        deltas: { happiness: 6, wealth: -6 },
+        result: '더 늦기 전에 다녀오길 잘했다는 생각이 내내 들었다.'
+      },
+      {
+        id: 'quiet-family-day',
+        text: '조용히 가족끼리만 소박하게 하루를 보낸다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '거창한 잔치보다, 이런 하루가 오히려 더 오래 남았다.'
+      },
+      {
+        id: 'reflecting-on-sixty-years',
+        text: '지난 60년을 돌아보며 담담히 다음 10년을 그려본다',
+        deltas: { happiness: 3, health: 1 },
+        result: '길다면 길었던 시간을, 몇 문장으로는 다 담을 수 없었다.'
+      },
+      {
+        id: 'confidence-in-still-being-strong',
+        text: '여전히 정정하다는 걸 스스로 확인하며 자신감을 얻는다',
+        deltas: { happiness: 4, health: 3 },
+        result: '나이는 숫자일 뿐이라는 말이, 이제는 조금 실감이 났다.'
+      },
+      {
+        id: 'osteoporosis-heal',
+        text: '꾸준한 칼슘 섭취와 운동으로 골밀도가 개선된다',
+        deltas: { health: 5, wealth: -2 },
+        result: '매일 챙겨 먹은 칼슘과 걷기 운동이, 헛되지 않았다.',
+        requiresCondition: 'osteoporosis',
+        removeCondition: 'osteoporosis'
+      }
+    ]
   }
-  // TODO: 노년 준비 / 황혼 - 2개 카테고리 남음.
+  // TODO: 노년 준비(61~69세 남음) / 황혼 - 아직 미구현.
 ];
 
 // 대표 엔딩 6개(기획안 07/09장 - v1 확정 스코프) - 각 아키타입에 가장 가까운
