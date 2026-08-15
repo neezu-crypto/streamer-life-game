@@ -245,6 +245,20 @@
                 <tr><td>황혼 <span class="badge badge-admin">선택 × 31(70~100세, 한 살 단위)</span></td><td>70–100세</td><td><span class="badge badge-live">구현됨</span></td></tr>
             </table>
         </div>
+        <p class="note"><b>실제 플레이 진행 속도: 0~4세는 선택 한 번에 1세씩, 5~99세부터는 선택 한 번에
+        1~5세씩 무작위로 건너뛴다.</b> <code>STAGES</code>는 여전히 0~100세 101개 구간이 전부 채워져 있지만
+        (위 표는 <i>콘텐츠가 얼마나 촘촘히 준비돼 있는지</i>를 보여줄 뿐), 한 판을 실제로 플레이할 때 그
+        101개를 전부 다 방문하지는 않는다 — <code>functions/index.js</code>의 <code>pickNextStageIndex()</code>가
+        현재 나이(=<code>stageIndex</code>, <code>STAGES</code> 인덱스와 나이가 정확히 1:1)를 보고 다음에 몇 살로
+        넘어갈지 정한다: 5세 미만이면 항상 +1, 5세 이상 99세 이하면 <code>1 + 남은-나이(100-현재나이)와 5 중
+        작은 값 이내에서 무작위</code>로 널뛴다. 이 계산식 덕분에 무작위 폭이 100세를 <b>절대 넘지 않고</b>,
+        따라서 100세 구간은 스킵될 수 없이 반드시 그 판의 마지막 선택으로 방문된다(20,000회 시뮬레이션에서
+        경계 위반 0건, 100세 아닌 곳에서 완료된 사례 0건 확인). 건너뛴 나이는 애초에 <code>STAGES</code>의
+        그 인덱스가 서버로부터 한 번도 내려간 적이 없으므로, "지금까지 선택한 선택지" 로그
+        (<code>choiceLog</code>/<code>choiceHistory</code>, 7장·9장 참고)에도 자연히 나타나지 않는다 — 예를 들어
+        5세 다음이 9세로 건너뛰었다면 로그엔 <code>5세 → 9세</code>만 남고 6~8세 항목은 없다. 이 무작위 폭
+        조정으로 한 판의 평균 선택 횟수는 기존 101회에서 약 30~40회로 줄었다(시뮬레이션 평균 약 38회,
+        최소 29회~최대 50회).</p>
         <p class="note"><b>유아기(0~6세)는 한 살 단위로 7개 구간(<code>infancy-0</code>~<code>infancy-6</code>)으로
         쪼개져 있지만, 주사위 굴리기는 그중 0~3세(<code>infancy-0</code>~<code>infancy-3</code>)까지만이다.</b>
         갓난아기~걸음마 시기에 벌어지는 일은 아이 본인이 "선택"할 수 있는 게 아니라는 취지로 이 네 구간만
@@ -1249,7 +1263,9 @@
             <div class="flow-step">submitChoice 호출(choiceId만 전송)</div><span class="flow-arrow">→</span>
             <div class="flow-step">서버: game-data.js에서 deltas 조회</div><span class="flow-arrow">→</span>
             <div class="flow-step">서버: 스탯 반영(clamp 0~100) + 통계 카운터 증가</div><span class="flow-arrow">→</span>
-            <div class="flow-step">마지막 구간이면 엔딩 판정, 아니면 다음 구간 반환</div>
+            <div class="flow-step">서버: pickNextStageIndex()로 다음 나이 결정(0~4세는 +1, 5~99세는 100을 넘지
+            않는 선에서 +1~+5 무작위)</div><span class="flow-arrow">→</span>
+            <div class="flow-step">100세에서 낸 선택이면 엔딩 판정, 아니면 그 나이의 다음 구간 반환</div>
         </div>
         <h3>주사위 굴리기 흐름 (유아기 전용)</h3>
         <div class="flow">

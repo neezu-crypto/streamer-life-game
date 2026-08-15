@@ -55,6 +55,22 @@ function pickVisibleChoiceIds(choices, activeConditionIds) {
   return shuffled.slice(0, 3).map((c) => c.id);
 }
 
+const LAST_STAGE_INDEX = STAGES.length - 1; // 100세(index 100)
+
+// STAGES의 인덱스가 곧 나이(0~100)와 정확히 일치한다는 전제 하에, 다음 선택
+// 후 몇 살로 넘어갈지 정한다. 0~4세는 지금까지처럼 선택 한 번에 1세씩 오르고,
+// 5~99세는 선택 한 번에 1~5세를 무작위로 건너뛴다 - 단 100세를 절대 지나치지
+// 않도록 남은 나이(100-currentIndex)로 무작위 폭을 잘라낸다. 이 덕분에 100세
+// 구간은 스킵될 수 없고 반드시 누군가의 "그 판의 마지막 선택"으로 방문되며,
+// 건너뛴 나이는 애초에 STAGES[nextIndex]로 방문된 적이 없으니 choiceLog(=
+// 지금까지 선택한 선택지 로그)에도 자연히 안 남는다.
+function pickNextStageIndex(currentIndex) {
+  if (currentIndex >= LAST_STAGE_INDEX) return currentIndex + 1; // 100세 구간의 선택 -> 완료 처리
+  if (currentIndex < 5) return currentIndex + 1;
+  const maxJump = Math.min(5, LAST_STAGE_INDEX - currentIndex);
+  return currentIndex + 1 + Math.floor(Math.random() * maxJump);
+}
+
 // 아직 안 고른 구간의 선택지는 deltas/result를 절대 클라이언트로 보내지 않는다
 // (기획안 04장 "선택지 문장만 보고 결과를 예측할 수 없어야 한다"를 서버에서도
 // 강제 - 개발자 도구로 응답을 뜯어봐도 결과가 안 보이게). random:true인 구간은
@@ -114,7 +130,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
   const choiceLog = Array.isArray(play.choiceLog) ? play.choiceLog.slice() : [];
   choiceLog.push({ stageId: stage.id, choiceId: choice.id, at: Date.now() });
 
-  const nextIndex = play.stageIndex + 1;
+  const nextIndex = pickNextStageIndex(play.stageIndex);
   const completed = nextIndex >= STAGES.length;
   const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions };
 
