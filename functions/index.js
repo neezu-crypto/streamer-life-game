@@ -29,6 +29,23 @@ function buildChoiceHistory(choiceLog) {
   return history;
 }
 
+// choiceLog를 훑어 "직업이 바뀐" 선택(setOccupation이 붙은 것)만 시간순으로
+// 뽑아낸다 - 건강 상세/가족 상세와 달리 직업은 저장 슬롯에 별도 필드를 두지
+// 않는다. choiceLog 자체가 이미 "무엇을 골랐는지"의 정답표라, 직업 이력도
+// 매번 여기서 다시 계산하면 충분하고 별도로 동기화해둘 상태가 없어 더 안전하다.
+// 현재 직업은 이 배열의 마지막 항목(가장 최근에 바뀐 직업)이다.
+function buildOccupationHistory(choiceLog) {
+  if (!Array.isArray(choiceLog)) return [];
+  const history = [];
+  for (const entry of choiceLog) {
+    const stage = STAGE_BY_ID.get(entry.stageId);
+    const choice = stage && stage.choices.find((c) => c.id === entry.choiceId);
+    if (!stage || !choice || !choice.setOccupation) continue;
+    history.push({ id: choice.setOccupation.id, label: choice.setOccupation.label, stageId: stage.id, ageRange: stage.ageRange });
+  }
+  return history;
+}
+
 // 계정당 저장 슬롯 1개 - lifeGame/playthroughs/{uid}가 push id 없이 그 유저의
 // "그 한 판"을 직접 가리킨다(예전엔 .../{uid}/{playId}로 여러 판을 쌓을 수
 // 있었지만, "창을 꺼도 이어할 수 있게" 요청에 맞춰 계정당 1개로 단순화했다 -
@@ -45,14 +62,18 @@ function playRefFor(db, uid) {
 // requiresFamilyMember(배열, 그 중 하나라도 있어야 후보)/requiresNoFamilyMember
 // (배열, 그 중 하나라도 있으면 후보에서 빠짐)도 같은 방식 - 배우자 없는데
 // "이혼한다"가 뜨거나, 이미 결혼했는데 "결혼한다"가 다시 뜨는 일이 없도록.
+// requiresOccupation(배열, 지금 직업이 그 중 하나여야 후보)도 마찬가지 -
+// 은퇴한 적 없는데 "재취업한다"가 뜨는 일이 없도록. 직업은 가족과 달리
+// 동시에 하나뿐이라 currentOccupationId는 문자열(or null) 하나다.
 // 후보가 3개 이하면 그냥 전부 노출한다.
-function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds) {
+function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds, currentOccupationId) {
   const conditionIds = activeConditionIds || [];
   const familyIds = activeFamilyMemberIds || [];
   const eligible = choices.filter((c) => {
     if (c.requiresCondition && !conditionIds.includes(c.requiresCondition)) return false;
     if (c.requiresFamilyMember && !c.requiresFamilyMember.some((id) => familyIds.includes(id))) return false;
     if (c.requiresNoFamilyMember && c.requiresNoFamilyMember.some((id) => familyIds.includes(id))) return false;
+    if (c.requiresOccupation && !c.requiresOccupation.includes(currentOccupationId || null)) return false;
     return true;
   });
   if (eligible.length <= 3) return eligible.map((c) => c.id);
@@ -128,6 +149,11 @@ async function applyChoice(db, playRef, play, stage, choice) {
   if (choice.requiresNoFamilyMember && choice.requiresNoFamilyMember.some((id) => currentFamilyIds.includes(id))) {
     throw new HttpsError('failed-precondition', '지금 가족 상태에서는 고를 수 없는 선택지입니다.');
   }
+  const priorOccupationHistory = buildOccupationHistory(Array.isArray(play.choiceLog) ? play.choiceLog : []);
+  const priorOccupationId = priorOccupationHistory.length ? priorOccupationHistory[priorOccupationHistory.length - 1].id : null;
+  if (choice.requiresOccupation && !choice.requiresOccupation.includes(priorOccupationId)) {
+    throw new HttpsError('failed-precondition', '지금 직업 상태에서는 고를 수 없는 선택지입니다.');
+  }
 
   const stats = Object.assign({}, play.stats);
   for (const key of Object.keys(choice.deltas || {})) {
@@ -163,6 +189,12 @@ async function applyChoice(db, playRef, play, stage, choice) {
   const choiceLog = Array.isArray(play.choiceLog) ? play.choiceLog.slice() : [];
   choiceLog.push({ stageId: stage.id, choiceId: choice.id, at: Date.now() });
 
+  // 직업 상세 - 별도 필드 없이 방금 갱신한 choiceLog에서 다시 계산한다(위
+  // buildOccupationHistory 주석 참고). 이번 선택이 setOccupation을 붙였다면
+  // 이 시점의 마지막 항목이 곧 그 선택으로 바뀐 새 직업이다.
+  const occupationHistory = buildOccupationHistory(choiceLog);
+  const currentOccupation = occupationHistory.length ? occupationHistory[occupationHistory.length - 1] : null;
+
   const nextIndex = pickNextStageIndex(play.stageIndex);
   const completed = nextIndex >= STAGES.length;
   const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers };
@@ -182,7 +214,8 @@ async function applyChoice(db, playRef, play, stage, choice) {
     nextVisibleIds = pickVisibleChoiceIds(
       STAGES[nextIndex].choices,
       healthConditions.map((c) => c.id),
-      familyMembers.map((f) => f.id)
+      familyMembers.map((f) => f.id),
+      currentOccupation ? currentOccupation.id : null
     );
     updates.visibleChoiceIds = nextVisibleIds;
   }
@@ -209,7 +242,9 @@ async function applyChoice(db, playRef, play, stage, choice) {
     nextStage: completed ? null : publicStage(STAGES[nextIndex], nextVisibleIds),
     healthConditions,
     familyMembers,
-    choiceHistory: completed ? buildChoiceHistory(choiceLog) : null
+    currentOccupation,
+    choiceHistory: completed ? buildChoiceHistory(choiceLog) : null,
+    occupationHistory: completed ? occupationHistory : null
   };
 }
 
@@ -261,7 +296,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
     db.ref('lifeGame/stats/totals/started').set(ServerValue.increment(1))
   ]);
 
-  return { stats, healthConditions: [], familyMembers: [], stage: publicStage(STAGES[0], visibleChoiceIds) };
+  return { stats, healthConditions: [], familyMembers: [], currentOccupation: null, stage: publicStage(STAGES[0], visibleChoiceIds) };
 });
 
 // 창을 껐다가 다시 열었을 때 - 저장된 판이 있으면 지금 구간을 그대로 이어서
@@ -282,7 +317,8 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       ending: play.ending,
       healthConditions: Array.isArray(play.healthConditions) ? play.healthConditions : [],
       familyMembers: Array.isArray(play.familyMembers) ? play.familyMembers : [],
-      choiceHistory: buildChoiceHistory(play.choiceLog)
+      choiceHistory: buildChoiceHistory(play.choiceLog),
+      occupationHistory: buildOccupationHistory(play.choiceLog)
     };
   }
   const stage = STAGES[play.stageIndex];
@@ -290,13 +326,20 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
 
   const healthConditions = Array.isArray(play.healthConditions) ? play.healthConditions : [];
   const familyMembers = Array.isArray(play.familyMembers) ? play.familyMembers : [];
+  const occupationHistory = buildOccupationHistory(play.choiceLog);
+  const currentOccupation = occupationHistory.length ? occupationHistory[occupationHistory.length - 1] : null;
 
   // visibleChoiceIds가 이미 저장돼 있으면 그대로 재사용해서 재접속해도 같은
   // 3개가 다시 뜨게 한다(이 필드가 생기기 전에 만들어진 저장분 등 없을 때만
   // 새로 뽑아서 지금부터라도 고정해둔다).
   let visibleChoiceIds = play.visibleChoiceIds;
   if (!visibleChoiceIds || !visibleChoiceIds.length) {
-    visibleChoiceIds = pickVisibleChoiceIds(stage.choices, healthConditions.map((c) => c.id), familyMembers.map((f) => f.id));
+    visibleChoiceIds = pickVisibleChoiceIds(
+      stage.choices,
+      healthConditions.map((c) => c.id),
+      familyMembers.map((f) => f.id),
+      currentOccupation ? currentOccupation.id : null
+    );
     await playRefFor(db, uid).update({ visibleChoiceIds });
   }
   return {
@@ -305,6 +348,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
     completed: false,
     healthConditions,
     familyMembers,
+    currentOccupation,
     stage: publicStage(stage, visibleChoiceIds)
   };
 });

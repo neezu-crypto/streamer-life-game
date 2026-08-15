@@ -1069,13 +1069,15 @@ const STAGES = [
         id: 'trade-skill',
         text: '바로 돈이 되는 기술을 배워 취업 전선에 뛰어든다',
         deltas: { wealth: 8, happiness: -3, relationship: -2 },
-        result: '또래보다 몇 년 빨리 사회에 들어섰다는 자부심, 그리고 그만큼 빨리 늙는 기분.'
+        result: '또래보다 몇 년 빨리 사회에 들어섰다는 자부심, 그리고 그만큼 빨리 늙는 기분.',
+        setOccupation: { id: 'tech-worker', label: '🔧 기술직 사원' }
       },
       {
         id: 'startup-gamble',
         text: '친구들과 의기투합해 작은 창업에 뛰어든다',
         deltas: { wealth: -5, fame: 4, happiness: 3, health: -3 },
-        result: '성공이라 부르기도, 실패라 부르기도 애매한 자리에서 스무 살의 여름이 다 갔다.'
+        result: '성공이라 부르기도, 실패라 부르기도 애매한 자리에서 스무 살의 여름이 다 갔다.',
+        setOccupation: { id: 'startup-founder', label: '🚀 초기 창업가' }
       },
       {
         id: 'working-holiday',
@@ -1796,13 +1798,15 @@ const STAGES = [
         id: 'bold-job-change',
         text: '과감히 이직해 새로운 조직에 적응한다',
         deltas: { fame: 3, wealth: 4, happiness: -1 },
-        result: '낯선 자리였지만, 그만큼 배우는 것도 많았다.'
+        result: '낯선 자리였지만, 그만큼 배우는 것도 많았다.',
+        setOccupation: { id: 'job-changed', label: '🏢 이직 후 직장인' }
       },
       {
         id: 'startup-attempt-30s',
         text: '그동안 준비한 창업에 도전한다',
         deltas: { wealth: -6, fame: 4, health: -3 },
-        result: '월급쟁이일 땐 몰랐던 무게를, 사장이 되고서야 알았다.'
+        result: '월급쟁이일 땐 몰랐던 무게를, 사장이 되고서야 알았다.',
+        setOccupation: { id: 'entrepreneur', label: '🚀 창업가' }
       },
       {
         id: 'staying-safe',
@@ -2238,7 +2242,8 @@ const STAGES = [
         id: 'promoted-to-manager',
         text: '부서장·팀장급으로 승진하며 책임이 커진다',
         deltas: { fame: 5, wealth: 4, happiness: -2 },
-        result: '명함이 바뀐 날, 어깨도 함께 무거워졌다.'
+        result: '명함이 바뀐 날, 어깨도 함께 무거워졌다.',
+        setOccupation: { id: 'team-lead', label: '📈 팀장/부서장' }
       },
       {
         id: 'sidelined-in-reorg',
@@ -2392,7 +2397,8 @@ const STAGES = [
         id: 'career-pivot-40s',
         text: '완전히 다른 분야로 커리어를 전환한다',
         deltas: { wealth: -4, happiness: 4, fame: -1 },
-        result: '처음부터 다시 시작한다는 게, 두려우면서도 짜릿했다.'
+        result: '처음부터 다시 시작한다는 게, 두려우면서도 짜릿했다.',
+        setOccupation: { id: 'career-pivot', label: '🔄 커리어 전환자' }
       },
       {
         id: 'learning-with-younger-generation',
@@ -2410,7 +2416,8 @@ const STAGES = [
         id: 'consulting-with-experience',
         text: '오랜 경력을 살려 컨설팅·강의를 시작한다',
         deltas: { wealth: 5, fame: 3 },
-        result: '그동안 쌓아온 경험이, 이렇게 값진 걸 줄 몰랐다.'
+        result: '그동안 쌓아온 경험이, 이렇게 값진 걸 줄 몰랐다.',
+        setOccupation: { id: 'consultant', label: '🎤 컨설턴트/강사' }
       },
       {
         id: 'choosing-to-stay-put',
@@ -2837,7 +2844,8 @@ const STAGES = [
         id: 'seeking-new-work',
         text: '새로운 일(재취업·재능기부)을 찾아 나선다',
         deltas: { wealth: 3, happiness: 3 },
-        result: '월급보다, 갈 곳이 있다는 사실 자체가 반가웠다.'
+        result: '월급보다, 갈 곳이 있다는 사실 자체가 반가웠다.',
+        setOccupation: { id: 'volunteer-work', label: '🤝 재능기부/파트타임' }
       },
       {
         id: 'finding-post-retirement-job',
@@ -2849,7 +2857,8 @@ const STAGES = [
         id: 'mixed-reactions-to-retirement',
         text: '은퇴 소식에 주변에서 축하와 걱정이 뒤섞여 쏟아진다',
         deltas: { relationship: 2, happiness: -1 },
-        result: '축하한다는 말 뒤에 숨은 걱정이, 은근히 신경 쓰였다.'
+        result: '축하한다는 말 뒤에 숨은 걱정이, 은근히 신경 쓰였다.',
+        setOccupation: { id: 'retired', label: '🌿 은퇴자' }
       }
     ]
   },
@@ -3192,7 +3201,9 @@ const STAGES = [
         id: 'reemployment-for-extra-income',
         text: '재취업으로 연금 외 소득을 보탠다',
         deltas: { wealth: 4, health: -2 },
-        result: '다시 일한다는 게, 생각보다 나쁘지 않았다.'
+        result: '다시 일한다는 게, 생각보다 나쁘지 않았다.',
+        requiresOccupation: ['retired'],
+        setOccupation: { id: 're-employed', label: '💼 재취업' }
       },
       {
         id: 'gratitude-for-financial-ease',

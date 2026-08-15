@@ -195,6 +195,18 @@
   }
   .family-empty { font-size: 12.5px; color: var(--text-faint); }
 
+  .occupation-panel { margin: 4px 0 14px; }
+  .occupation-panel-title { font-size: 12px; color: var(--text-faint); letter-spacing: 0.03em; margin: 0 0 6px; }
+  .occupation-current {
+    display: inline-flex; align-items: center; padding: 5px 11px; border-radius: 999px;
+    background: var(--sage-dim); border: 1px solid color-mix(in srgb, var(--sage) 40%, transparent);
+    color: var(--sage); font-size: 12.5px; margin: 0;
+  }
+  .occupation-current.is-empty {
+    display: block; background: none; border: none; padding: 0;
+    color: var(--text-faint); font-size: 12.5px;
+  }
+
   .ending-title { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 22px; color: var(--gold); margin: 0 0 8px; }
   .ending-text { font-size: 15px; line-height: 1.7; margin: 0 0 16px; white-space: pre-line; }
 
@@ -298,6 +310,10 @@
       <p class="family-panel-title">현재 가족 상세</p>
       <div id="familyMembers" class="family-members"></div>
     </div>
+    <div class="occupation-panel">
+      <p class="occupation-panel-title">현재 직업 상세</p>
+      <p id="currentOccupation" class="occupation-current"></p>
+    </div>
     <button id="nextBtn" class="hidden">다음</button>
   </section>
 
@@ -308,6 +324,10 @@
     <div class="family-panel">
       <p class="family-panel-title">100세, 곁에 남은 가족</p>
       <div id="endingFamilyMembers" class="family-members"></div>
+    </div>
+    <div class="occupation-panel">
+      <p class="occupation-panel-title">지금까지의 직업 이력</p>
+      <div id="occupationHistoryList" class="choice-history-list"></div>
     </div>
   </section>
 
@@ -550,12 +570,13 @@ resumeBtn.addEventListener('click', async () => {
     const res = await resumePlaythroughFn();
     await fadeOut([resumeSection]);
     if (res.data.completed) {
-      showEnding(res.data.ending, res.data.stats, res.data.choiceHistory, res.data.familyMembers);
+      showEnding(res.data.ending, res.data.stats, res.data.choiceHistory, res.data.familyMembers, res.data.occupationHistory);
     } else {
       await fadeOut([mainHeader]);
       renderStatBars(statBars, res.data.stats);
       renderHealthConditions(res.data.healthConditions);
       renderFamilyMembers(res.data.familyMembers);
+      renderCurrentOccupation(res.data.currentOccupation);
       renderStage(res.data.stage);
       fadeIn([gameSection]);
     }
@@ -664,6 +685,40 @@ function renderFamilyMembers(members) {
   renderFamilyMembersInto(familyMembersEl, members);
 }
 
+const currentOccupationEl = document.getElementById('currentOccupation');
+
+// 현재 직업("현재 직업 상세") - 건강/가족과 달리 동시에 하나뿐이라 목록이 아니라
+// 값 하나만 보여준다. 서버가 choiceLog에서 다시 계산해 내려주는 currentOccupation
+// (없으면 null)을 그대로 표시만 한다.
+function renderCurrentOccupation(occupation) {
+  if (occupation && occupation.label) {
+    currentOccupationEl.textContent = occupation.label;
+    currentOccupationEl.classList.remove('is-empty');
+  } else {
+    currentOccupationEl.textContent = '아직 특별한 직업 없음';
+    currentOccupationEl.classList.add('is-empty');
+  }
+}
+
+// 직업 이력("지금까지의 직업 이력") - 엔딩 화면에서만 보여준다. 선택 요약
+// (#choiceHistoryList)과 같은 "나이 + 텍스트" 행 스타일(.choice-history-item)을
+// 그대로 재사용한다.
+function renderOccupationHistoryInto(container, history) {
+  container.innerHTML = '';
+  if (!history || !history.length) {
+    container.innerHTML = '<p class="empty-msg">직업 이력이 없어요.</p>';
+    return;
+  }
+  history.forEach((h) => {
+    const row = document.createElement('div');
+    row.className = 'choice-history-item';
+    row.innerHTML =
+      '<span class="chi-age">' + escapeHtml(h.ageRange || '') + '</span>' +
+      '<span class="chi-text">' + escapeHtml(h.label || '') + '</span>';
+    container.appendChild(row);
+  });
+}
+
 function renderStage(stage) {
   stageName.textContent = stage.name;
   stageAge.textContent = stage.ageRange;
@@ -714,6 +769,7 @@ startBtn.addEventListener('click', async () => {
     renderStatBars(statBars, res.data.stats);
     renderHealthConditions(res.data.healthConditions);
     renderFamilyMembers(res.data.familyMembers);
+    renderCurrentOccupation(res.data.currentOccupation);
     renderStage(res.data.stage);
     fadeIn([gameSection]);
   } catch (e) {
@@ -732,6 +788,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   renderStatBars(statBars, data.stats);
   renderHealthConditions(data.healthConditions);
   renderFamilyMembers(data.familyMembers);
+  renderCurrentOccupation(data.currentOccupation);
   if (selectedChoiceId) markSelectedChoice(selectedChoiceId);
   // 선택 결과는 서버(applyChoice)가 이미 lifeGame/playthroughs/{uid}에 저장을
   // 마친 뒤 응답한 것이므로, 여기서 뜨는 토스트는 실제 저장 완료를 알리는
@@ -739,7 +796,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   showToast('💾 자동저장 되었습니다');
   if (data.completed) {
     pendingNextStage = null;
-    showEnding(data.ending, data.stats, data.choiceHistory, data.familyMembers);
+    showEnding(data.ending, data.stats, data.choiceHistory, data.familyMembers, data.occupationHistory);
   } else {
     pendingNextStage = data.nextStage;
     nextBtn.classList.remove('hidden');
@@ -827,6 +884,7 @@ const endingTitle = document.getElementById('endingTitle');
 const endingText = document.getElementById('endingText');
 const endingStatBars = document.getElementById('endingStatBars');
 const endingFamilyMembersEl = document.getElementById('endingFamilyMembers');
+const occupationHistoryListEl = document.getElementById('occupationHistoryList');
 const choiceHistorySection = document.getElementById('choiceHistorySection');
 const choiceHistoryList = document.getElementById('choiceHistoryList');
 const gallerySection = document.getElementById('gallerySection');
@@ -856,13 +914,14 @@ function renderChoiceHistoryInto(container, history) {
 // 엔딩 문구 표시 → 지금까지 선택한 선택지들 표시 → 다른 유저 인생 → 재시작
 // 안내 순서로 보여준다(각 section의 DOM 순서가 곧 화면에 보이는 순서). 게임
 // 화면에서 엔딩 화면으로 넘어가는 것도 다른 전환들과 같은 페이드로 통일한다.
-async function showEnding(ending, stats, choiceHistory, familyMembers) {
+async function showEnding(ending, stats, choiceHistory, familyMembers, occupationHistory) {
   await fadeOut([mainHeader, gameSection]);
 
   endingTitle.textContent = ending.title;
   endingText.textContent = ending.text;
   renderStatBars(endingStatBars, stats);
   renderFamilyMembersInto(endingFamilyMembersEl, familyMembers);
+  renderOccupationHistoryInto(occupationHistoryListEl, occupationHistory);
   renderChoiceHistoryInto(choiceHistoryList, choiceHistory);
   shareBtn.disabled = false;
 

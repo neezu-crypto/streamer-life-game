@@ -185,8 +185,8 @@
                     <tr><td>⓪ 이어하기(조건부)</td><td><code>#resumeSection</code></td><td>로그인 직후 저장 슬롯을 확인해, 끝내지 않은 인생이 있으면 검색 대신 이 화면부터 보여줌 — "이어하기"/"새로 시작하기"</td></tr>
                     <tr><td>① 스트리머 검색</td><td><code>#searchSection</code></td><td><code>stocks</code> 검색 입력창 + 결과 목록. 클릭하면 이름이 다음 단계로 넘어감</td></tr>
                     <tr><td>② 이름 짓기</td><td><code>#nameSection</code></td><td>검색한 이름을 프리필해서 보여주고, 수정 후 "인생 시작"</td></tr>
-                    <tr><td>③ 생애 진행</td><td><code>#gameSection</code></td><td>구간명/나이, 구간 스토리 문구, 3지선다 버튼, 선택 후 결과 텍스트 + 스탯 바 + 현재 건강 상세 + 현재 가족 상세</td></tr>
-                    <tr><td>④ 엔딩</td><td><code>#endingSection</code></td><td>엔딩 제목/텍스트 + 최종 스탯</td></tr>
+                    <tr><td>③ 생애 진행</td><td><code>#gameSection</code></td><td>구간명/나이, 구간 스토리 문구, 3지선다 버튼, 선택 후 결과 텍스트 + 스탯 바 + 현재 건강 상세 + 현재 가족 상세 + 현재 직업 상세(값 하나)</td></tr>
+                    <tr><td>④ 엔딩</td><td><code>#endingSection</code></td><td>엔딩 제목/텍스트 + 최종 스탯 + 100세, 곁에 남은 가족 + 지금까지의 직업 이력</td></tr>
                     <tr><td>⑤ 선택 요약</td><td><code>#choiceHistorySection</code></td><td>이번 판에서 0~100세까지 실제로 고른 선택지 전체를 나이순으로 나열(최대 101개, 스크롤). 서버가 <code>choiceLog</code>(stageId+choiceId만 담긴 압축 기록)를 <code>STAGES</code>와 대조해 <code>stageName</code>/<code>ageRange</code>/<code>choiceText</code>로 풀어 내려준다</td></tr>
                     <tr><td>⑥ 공개 갤러리</td><td><code>#gallerySection</code></td><td>다른 유저가 공유한 인생 목록(실시간 구독, 최신순) + "갤러리에 공유하기" 버튼. 각 항목은 <code>&lt;details&gt;</code>로 접혀 있고, 클릭해서 펼치면 그 유저의 선택 기록(<code>lifeGame/galleryChoiceLogs/&#123;id&#125;</code>)을 그때 처음 불러와 <code>#choiceHistorySection</code>과 같은 형식으로 보여준다(펼친 적 있는 항목은 캐시해서 다시 안 불러옴)</td></tr>
                     <tr><td>⑦ 재시작 안내</td><td><code>#restartSection</code></td><td>안내 문구 + "다시 태어나기"(페이지 새로고침)</td></tr>
@@ -397,6 +397,39 @@
         있어 매 판 다르게 경험한다(예: 결혼은 시뮬레이션 2만 회 기준 약 44%). 부모님·손주처럼 "있는 것
         중 아무거나"로 자격을 확인해야 하는 곳(중년 47세 <code>losing-a-parent</code>, 노년 준비 58세
         3종)은 함께 사는 부모님 유형이 무엇이었든(아버지+어머니 둘 다 / 한 분만) 자연스럽게 대응한다.</p>
+
+        <p class="note"><b>직업 상세 — 건강·가족과 달리 저장 슬롯에 별도 필드가 없다.</b> 직업은
+        동시에 여러 개 쌓이는 목록이 아니라 항상 "지금 하나"라, 선택지에 <code>setOccupation({id,label})</code>을
+        붙이면 그 직업으로 그냥 <b>덮어쓴다</b>(추가·제거 개념 없음). 그리고 이 값은 저장 슬롯에 따로
+        기록해두지 않고 <code>choiceLog</code>에서 매번 다시 계산한다 — <code>setOccupation</code>이 붙은
+        선택만 골라 시간순으로 나열하면 그게 곧 직업 이력이고, 그 마지막 항목이 현재 직업이다(7장 "지금까지
+        선택한 선택지"의 <code>choiceHistory</code>와 완전히 같은 계산 방식, <code>buildOccupationHistory()</code>).
+        별도 필드가 없으니 동기화가 어긋날 일도 없다. 노출 필터링은 <code>requiresOccupation([id,...])</code> —
+        지금 직업이 그 중 하나여야 노출 후보가 된다(예: "재취업한다"는 <code>requiresOccupation:['retired']</code>라
+        은퇴한 적 없으면 안 뜬다). <b>게임 진행 중엔 현재 직업 하나만</b> 진행 화면의 "현재 직업 상세"
+        패널(<code>#currentOccupation</code>)에 배지 하나로 보여주고, 없으면 "아직 특별한 직업 없음"으로
+        표시한다. <b>엔딩 화면에서만</b> 전체 이력을 "지금까지의 직업 이력" 패널(<code>#occupationHistoryList</code>,
+        선택 요약과 같은 행 스타일 재사용)로 보여준다 — 진행 중엔 지금 상태만, 다 살고 나서야 그 흐름 전체를
+        돌아보게 하는 의도적 구분.</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>직업 id</th><th>표시</th><th>바뀌는 시점</th><th>조건</th></tr>
+                <tr><td><code>tech-worker</code></td><td>🔧 기술직 사원</td><td>스무 살 19세 · <code>trade-skill</code>(취업 전선에 뛰어듦)</td><td>—</td></tr>
+                <tr><td><code>startup-founder</code></td><td>🚀 초기 창업가</td><td>스무 살 19세 · <code>startup-gamble</code>(친구들과 창업)</td><td>—</td></tr>
+                <tr><td><code>job-changed</code></td><td>🏢 이직 후 직장인</td><td>서른 34세 · <code>bold-job-change</code>(과감히 이직)</td><td>—</td></tr>
+                <tr><td><code>entrepreneur</code></td><td>🚀 창업가</td><td>서른 34세 · <code>startup-attempt-30s</code>(준비한 창업에 도전)</td><td>—</td></tr>
+                <tr><td><code>team-lead</code></td><td>📈 팀장/부서장</td><td>중년 43세 · <code>promoted-to-manager</code>(팀장급 승진)</td><td>—</td></tr>
+                <tr><td><code>career-pivot</code></td><td>🔄 커리어 전환자</td><td>중년 46세 · <code>career-pivot-40s</code>(완전히 다른 분야로 전환)</td><td>—</td></tr>
+                <tr><td><code>consultant</code></td><td>🎤 컨설턴트/강사</td><td>중년 46세 · <code>consulting-with-experience</code>(경력을 살려 컨설팅·강의)</td><td>—</td></tr>
+                <tr><td><code>volunteer-work</code></td><td>🤝 재능기부/파트타임</td><td>노년 준비 55세 · <code>seeking-new-work</code>(재취업·재능기부를 찾아나섬)</td><td>—</td></tr>
+                <tr><td><code>retired</code></td><td>🌿 은퇴자</td><td>노년 준비 55세 · <code>mixed-reactions-to-retirement</code>(은퇴 소식)</td><td>—</td></tr>
+                <tr><td><code>re-employed</code></td><td>💼 재취업</td><td>노년 준비 62세 · <code>reemployment-for-extra-income</code>(연금 외 소득)</td><td><code>requiresOccupation:['retired']</code> — 은퇴한 적 있어야 노출</td></tr>
+            </table>
+        </div>
+        <p class="note">전부 이미 있던 취업·이직·승진·컨설팅·은퇴 서사(스무 살~노년 준비 카테고리)에
+        <code>setOccupation</code>만 얹은 것이라 새로 쓴 선택지 문장은 없다. 시뮬레이션 2만 회 기준 전체
+        판의 약 75%가 직업 변화를 한 번 이상 겪고(0~5회 분포), <code>re-employed</code>가 등장한 모든
+        판에서 예외 없이 그 이전에 <code>retired</code>를 먼저 거쳤음을 확인했다.</p>
         <p class="note"><b>주사위 굴리기를 누르면 결과가 바로 나오지 않는다.</b> 화면 전체가 어두워지며
         (<code>#diceOverlay</code>) 주사위 아이콘이 회전하는 연출이 최소 3초(<code>DICE_REVEAL_MS</code>)
         보여진 뒤에야 결과가 공개된다 — 서버 응답이 3초보다 빨리 와도 최소 3초는 채우고, 응답이 더 늦어지면
