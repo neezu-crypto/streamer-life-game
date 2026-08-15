@@ -309,6 +309,9 @@ const shareToGallery = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB'
   if (play.galleryEntryId) throw new HttpsError('already-exists', '이미 갤러리에 공유한 인생입니다.');
 
   const galleryRef = db.ref('lifeGame/gallery').push();
+  // 갤러리 목록 실시간 구독(lifeGame/gallery 전체를 onValue로 받음)이 매번 이 선택
+  // 기록까지 통째로 내려받지 않도록, 선택 로그는 별도 노드(galleryChoiceLogs)에
+  // 따로 저장해둔다 - 클릭해서 펼칠 때만 그 항목 하나를 골라 읽는다.
   await Promise.all([
     galleryRef.set({
       streamerName: play.streamerName,
@@ -318,6 +321,7 @@ const shareToGallery = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB'
       uid,
       sharedAt: ServerValue.TIMESTAMP
     }),
+    db.ref('lifeGame/galleryChoiceLogs/' + galleryRef.key).set(buildChoiceHistory(play.choiceLog)),
     playRef.update({ galleryEntryId: galleryRef.key }),
     db.ref('lifeGame/stats/totals/shared').set(ServerValue.increment(1))
   ]);

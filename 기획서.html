@@ -188,7 +188,7 @@
                     <tr><td>③ 생애 진행</td><td><code>#gameSection</code></td><td>구간명/나이, 구간 스토리 문구, 3지선다 버튼, 선택 후 결과 텍스트 + 스탯 바</td></tr>
                     <tr><td>④ 엔딩</td><td><code>#endingSection</code></td><td>엔딩 제목/텍스트 + 최종 스탯</td></tr>
                     <tr><td>⑤ 선택 요약</td><td><code>#choiceHistorySection</code></td><td>이번 판에서 0~100세까지 실제로 고른 선택지 전체를 나이순으로 나열(최대 101개, 스크롤). 서버가 <code>choiceLog</code>(stageId+choiceId만 담긴 압축 기록)를 <code>STAGES</code>와 대조해 <code>stageName</code>/<code>ageRange</code>/<code>choiceText</code>로 풀어 내려준다</td></tr>
-                    <tr><td>⑥ 공개 갤러리</td><td><code>#gallerySection</code></td><td>다른 유저가 공유한 인생 목록(실시간 구독, 최신순) + "갤러리에 공유하기" 버튼</td></tr>
+                    <tr><td>⑥ 공개 갤러리</td><td><code>#gallerySection</code></td><td>다른 유저가 공유한 인생 목록(실시간 구독, 최신순) + "갤러리에 공유하기" 버튼. 각 항목은 <code>&lt;details&gt;</code>로 접혀 있고, 클릭해서 펼치면 그 유저의 선택 기록(<code>lifeGame/galleryChoiceLogs/&#123;id&#125;</code>)을 그때 처음 불러와 <code>#choiceHistorySection</code>과 같은 형식으로 보여준다(펼친 적 있는 항목은 캐시해서 다시 안 불러옴)</td></tr>
                     <tr><td>⑦ 재시작 안내</td><td><code>#restartSection</code></td><td>안내 문구 + "다시 태어나기"(페이지 새로고침)</td></tr>
                 </table>
             </div>
@@ -1190,6 +1190,7 @@
                 <tr><th>경로</th><th>설명</th><th>.read</th></tr>
                 <tr><td><code>lifeGame/playthroughs/&#123;uid&#125;</code></td><td>계정당 저장 슬롯 1개(push id 없음) — <code>streamerName, streamerId, stats, stageIndex, visibleChoiceIds[], healthConditions[], choiceLog[], completed, ending, startedAt, endedAt, galleryEntryId</code>. 새로 시작하면 덮어씀. <code>visibleChoiceIds</code>는 지금 구간에서 실제로 노출 중인 선택지 3개의 id(4장 "6개 중 3개 노출" 참고), <code>healthConditions</code>는 현재 앓고 있는 부상·질병 목록(<code>{id,label,sinceStageId}</code>, 4장 "건강 상세" 참고)</td><td>본인만</td></tr>
                 <tr><td><code>lifeGame/gallery/&#123;id&#125;</code></td><td>공유된 인생 요약 — <code>streamerName, streamerId, ending, stats, uid, sharedAt</code></td><td>공개</td></tr>
+                <tr><td><code>lifeGame/galleryChoiceLogs/&#123;id&#125;</code></td><td>그 갤러리 항목의 전체 선택 기록(<code>buildChoiceHistory()</code> 결과 배열, <code>{stageId,stageName,ageRange,choiceText}[]</code>). <code>gallery</code>와 별도 노드로 분리해뒀다 — 갤러리 목록 실시간 구독(<code>onValue('lifeGame/gallery')</code>)이 항목마다 최대 101개짜리 선택 기록까지 매번 통째로 내려받지 않도록, 항목을 클릭해 펼칠 때만 그 id 하나만 <code>get()</code>으로 조회</td><td>공개</td></tr>
                 <tr><td><code>lifeGame/galleryReports/&#123;id&#125;</code></td><td>갤러리 항목 신고 — <code>entryId, reason, reporterUid, reportedAt</code> (StreamBet-Market <code>nicknameReports</code>와 동일 패턴)</td><td>관리자만</td></tr>
                 <tr><td><code>lifeGame/stats/totals</code></td><td><code>started/completed/shared</code> 전체 카운터</td><td>기본값(비공개) — admin-center Cloud Function만 Admin SDK로 읽음</td></tr>
                 <tr><td><code>lifeGame/stats/choices/&#123;stageId&#125;/&#123;choiceId&#125;</code></td><td>선택지별 누적 선택 횟수</td><td>〃</td></tr>
@@ -1270,8 +1271,14 @@
             <div class="flow-step">"갤러리에 공유하기" 클릭</div><span class="flow-arrow">→</span>
             <div class="flow-step">shareToGallery 호출</div><span class="flow-arrow">→</span>
             <div class="flow-step">서버: 완료 여부·중복 공유 검증</div><span class="flow-arrow">→</span>
-            <div class="flow-step">lifeGame/gallery에 요약 기록</div><span class="flow-arrow">→</span>
+            <div class="flow-step">lifeGame/gallery에 요약 기록 + lifeGame/galleryChoiceLogs에 선택 기록 기록</div><span class="flow-arrow">→</span>
             <div class="flow-step">다른 유저 화면에 실시간 반영</div>
+        </div>
+        <h3>갤러리 항목 펼치기(선택 기록 조회) 흐름</h3>
+        <div class="flow">
+            <div class="flow-step">갤러리 항목 클릭(details 펼침)</div><span class="flow-arrow">→</span>
+            <div class="flow-step">캐시에 있으면 즉시 렌더, 없으면 lifeGame/galleryChoiceLogs/&#123;id&#125; 한 건만 get()</div><span class="flow-arrow">→</span>
+            <div class="flow-step">결과를 캐시에 저장 + #choiceHistorySection과 동일한 형식으로 렌더</div>
         </div>
     </section>
 
