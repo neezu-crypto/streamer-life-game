@@ -9,6 +9,26 @@ initializeApp();
 const MAX_NAME_LEN = 40;
 const MAX_REPORT_REASON_LEN = 300;
 
+// STAGES.id로 빠르게 찾기 위한 매핑 - choiceLog(stageId+choiceId만 담긴 압축 기록)를
+// 엔딩 화면의 "지금까지 선택한 선택지" 목록으로 풀어낼 때 매번 STAGES.find를
+// 반복하지 않기 위함.
+const STAGE_BY_ID = new Map(STAGES.map((s) => [s.id, s]));
+
+// choiceLog를 사람이 읽을 수 있는 형태로 풀어준다 - 이미 끝난 판이라 스포일러
+// 우려가 없으므로(publicStage와 달리 아직 안 고른 선택지의 결과를 감출 필요가 없음)
+// 실제 고른 선택지의 text를 그대로 내려도 된다.
+function buildChoiceHistory(choiceLog) {
+  if (!Array.isArray(choiceLog)) return [];
+  const history = [];
+  for (const entry of choiceLog) {
+    const stage = STAGE_BY_ID.get(entry.stageId);
+    const choice = stage && stage.choices.find((c) => c.id === entry.choiceId);
+    if (!stage || !choice) continue;
+    history.push({ stageId: stage.id, stageName: stage.name, ageRange: stage.ageRange, choiceText: choice.text });
+  }
+  return history;
+}
+
 // 계정당 저장 슬롯 1개 - lifeGame/playthroughs/{uid}가 push id 없이 그 유저의
 // "그 한 판"을 직접 가리킨다(예전엔 .../{uid}/{playId}로 여러 판을 쌓을 수
 // 있었지만, "창을 꺼도 이어할 수 있게" 요청에 맞춰 계정당 1개로 단순화했다 -
@@ -133,7 +153,8 @@ async function applyChoice(db, playRef, play, stage, choice) {
     completed,
     ending: ending ? { id: ending.id, title: ending.title, text: ending.text } : null,
     nextStage: completed ? null : publicStage(STAGES[nextIndex], nextVisibleIds),
-    healthConditions
+    healthConditions,
+    choiceHistory: completed ? buildChoiceHistory(choiceLog) : null
   };
 }
 
@@ -203,7 +224,8 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       stats: play.stats,
       completed: true,
       ending: play.ending,
-      healthConditions: Array.isArray(play.healthConditions) ? play.healthConditions : []
+      healthConditions: Array.isArray(play.healthConditions) ? play.healthConditions : [],
+      choiceHistory: buildChoiceHistory(play.choiceLog)
     };
   }
   const stage = STAGES[play.stageIndex];

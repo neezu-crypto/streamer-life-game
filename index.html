@@ -194,6 +194,19 @@
   .gallery-item .g-name { font-weight: 600; }
   .gallery-item .g-ending { color: var(--gold); font-size: 12.5px; }
 
+  .choice-history-list {
+    display: flex; flex-direction: column; gap: 6px; max-height: 380px; overflow-y: auto; padding-right: 4px;
+  }
+  .choice-history-item {
+    padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px;
+    display: flex; align-items: baseline; gap: 10px; font-size: 13px;
+  }
+  .choice-history-item .chi-age {
+    flex: none; color: var(--text-faint); font-size: 11.5px; font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 600; white-space: nowrap;
+  }
+  .choice-history-item .chi-text { color: var(--text); }
+
   footer { color: var(--text-faint); font-size: 12px; text-align: center; margin-top: 40px; }
 </style>
 </head>
@@ -266,15 +279,23 @@
     <p class="ending-title" id="endingTitle"></p>
     <p class="ending-text" id="endingText"></p>
     <div class="stat-bars" id="endingStatBars"></div>
-    <div style="display:flex; gap:8px;">
-      <button class="primary" id="shareBtn">갤러리에 공유하기</button>
-      <button id="restartBtn">다시 태어나기</button>
-    </div>
+  </section>
+
+  <section id="choiceHistorySection" class="panel hidden">
+    <h2>지금까지 선택한 선택지</h2>
+    <div id="choiceHistoryList" class="choice-history-list"></div>
   </section>
 
   <section id="gallerySection" class="panel hidden">
     <h2>다른 유저는 어떤 인생을 살았을까?</h2>
+    <button class="primary" id="shareBtn" style="margin-bottom:14px;">갤러리에 공유하기</button>
     <div id="galleryList"><p class="empty-msg">불러오는 중...</p></div>
+  </section>
+
+  <section id="restartSection" class="panel hidden">
+    <h2>다시 태어나고 싶다면</h2>
+    <p class="pitch" style="margin:0 0 14px;">지금 인생은 여기서 끝이에요. 완전히 새로운 인생으로 다시 시작할 수 있어요.</p>
+    <button id="restartBtn">다시 태어나기</button>
   </section>
 
   <footer>스트리머 인생게임 · v0.1 스켈레톤 (구간 3/10, 대표 엔딩 6종)</footer>
@@ -450,7 +471,7 @@ resumeBtn.addEventListener('click', async () => {
     const res = await resumePlaythroughFn();
     resumeSection.classList.add('hidden');
     if (res.data.completed) {
-      showEnding(res.data.ending, res.data.stats);
+      showEnding(res.data.ending, res.data.stats, res.data.choiceHistory);
     } else {
       mainHeader.classList.add('hidden');
       gameSection.classList.remove('hidden');
@@ -611,7 +632,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   showToast('💾 자동저장 되었습니다');
   if (data.completed) {
     pendingNextStage = null;
-    showEnding(data.ending, data.stats);
+    showEnding(data.ending, data.stats, data.choiceHistory);
   } else {
     pendingNextStage = data.nextStage;
     nextBtn.classList.remove('hidden');
@@ -677,20 +698,48 @@ const endingSection = document.getElementById('endingSection');
 const endingTitle = document.getElementById('endingTitle');
 const endingText = document.getElementById('endingText');
 const endingStatBars = document.getElementById('endingStatBars');
+const choiceHistorySection = document.getElementById('choiceHistorySection');
+const choiceHistoryList = document.getElementById('choiceHistoryList');
+const gallerySection = document.getElementById('gallerySection');
+const restartSection = document.getElementById('restartSection');
 const shareBtn = document.getElementById('shareBtn');
 const restartBtn = document.getElementById('restartBtn');
 
-function showEnding(ending, stats) {
+// 지금까지 선택한 선택지 목록 - 서버(choiceLog를 STAGES와 대조해 풀어낸 값)가
+// 그대로 내려주는 stageName/ageRange/choiceText를 순서대로 나열만 한다.
+function renderChoiceHistory(history) {
+  choiceHistoryList.innerHTML = '';
+  if (!history || !history.length) {
+    choiceHistoryList.innerHTML = '<p class="empty-msg">기록된 선택이 없어요.</p>';
+    return;
+  }
+  history.forEach((h) => {
+    const row = document.createElement('div');
+    row.className = 'choice-history-item';
+    row.innerHTML =
+      '<span class="chi-age">' + escapeHtml(h.ageRange || '') + '</span>' +
+      '<span class="chi-text">' + escapeHtml(h.choiceText || '') + '</span>';
+    choiceHistoryList.appendChild(row);
+  });
+}
+
+// 엔딩 문구 표시 → 지금까지 선택한 선택지들 표시 → 다른 유저 인생 → 재시작
+// 안내 순서로 보여준다(각 section의 DOM 순서가 곧 화면에 보이는 순서).
+function showEnding(ending, stats, choiceHistory) {
   mainHeader.classList.add('hidden');
   gameSection.classList.add('hidden');
   endingSection.classList.remove('hidden');
-  // 다른 유저 인생 갤러리는 검색·이름짓기·진행 화면에서는 숨겨뒀다가, 자기
-  // 인생을 다 살고 난 뒤(엔딩 화면)에야 자연스럽게 열어준다.
-  document.getElementById('gallerySection').classList.remove('hidden');
   endingTitle.textContent = ending.title;
   endingText.textContent = ending.text;
   renderStatBars(endingStatBars, stats);
+
+  renderChoiceHistory(choiceHistory);
+  choiceHistorySection.classList.remove('hidden');
+
+  gallerySection.classList.remove('hidden');
   shareBtn.disabled = false;
+
+  restartSection.classList.remove('hidden');
 }
 
 shareBtn.addEventListener('click', async () => {
