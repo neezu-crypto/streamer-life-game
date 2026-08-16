@@ -940,6 +940,12 @@ const STAGES = [
         result: '거울 보는 시간이 다시 편해지기까지 꽤 오래 걸렸다.',
         requiresCondition: 'acne-breakout',
         removeCondition: 'acne-breakout'
+      },
+      {
+        id: 'fame-mocked-among-friends',
+        text: '친구들 앞에서 SNS 게시물이 놀림거리가 되며 창피를 당한다',
+        deltas: { fame: -6, happiness: -4 },
+        result: '지우고 또 지워봐도, 이미 다 본 사람들 앞에서는 소용없었다.'
       }
     ]
   },
@@ -1051,6 +1057,12 @@ const STAGES = [
         result: '몸이 먼저 알고 있었다 — 이제 정말 끝났다는 걸.',
         requiresCondition: 'exam-stress-gastritis',
         removeCondition: 'exam-stress-gastritis'
+      },
+      {
+        id: 'relationship-friend-falling-out',
+        text: '친했던 친구와 사소한 오해로 크게 틀어진다',
+        deltas: { relationship: -8, happiness: -3 },
+        result: '먼저 연락해볼까 몇 번을 망설이다, 결국 그러지 못했다.'
       }
     ]
   },
@@ -1156,6 +1168,12 @@ const STAGES = [
         deltas: { health: -4, wealth: 3 },
         result: '택배 상자를 나르던 어느 날부터, 허리가 삐걱대기 시작했다.',
         addCondition: { id: 'back-pain', label: '🦴 허리 통증' }
+      },
+      {
+        id: 'fame-first-content-backlash',
+        text: '처음 올린 콘텐츠가 악플 세례를 받으며 크게 위축된다',
+        deltas: { fame: -7, happiness: -5 },
+        result: '댓글창을 닫을까 수십 번 고민했다.'
       }
     ]
   },
@@ -1266,6 +1284,12 @@ const STAGES = [
         result: '필라테스를 꾸준히 다니고 나서야, 허리가 예전 같아졌다.',
         requiresCondition: 'back-pain',
         removeCondition: 'back-pain'
+      },
+      {
+        id: 'relationship-betrayed-by-close-one',
+        text: '가까운 사람에게 크게 배신당한다',
+        deltas: { relationship: -10, happiness: -5 },
+        result: '믿었던 만큼, 그 자리가 텅 빈 것처럼 느껴졌다.'
       }
     ]
   },
@@ -1362,6 +1386,12 @@ const STAGES = [
         text: '동기들과 끈끈한 생존 동료애를 쌓는다',
         deltas: { relationship: 5, happiness: 3 },
         result: '다 같이 신입이라는 이유 하나로 뭉쳤던 시절.'
+      },
+      {
+        id: 'fame-colleague-expose-damages-image',
+        text: '믿었던 동료의 폭로로 이미지에 큰 타격을 입는다',
+        deltas: { fame: -9, relationship: -3 },
+        result: '사실이 아니라고 말해도, 이미 퍼진 이야기는 잘 지워지지 않았다.'
       }
     ]
   },
@@ -1464,6 +1494,12 @@ const STAGES = [
         deltas: { health: -5, happiness: -3 },
         result: '천장 무늬를 셀 수 있을 정도로, 밤이 길어졌다.',
         addCondition: { id: 'insomnia', label: '😵 불면증' }
+      },
+      {
+        id: 'relationship-drifting-apart-busy',
+        text: '바쁘다는 핑계로 소중한 사람들과 점점 멀어진다',
+        deltas: { relationship: -7, happiness: -2 },
+        result: '연락처는 그대로였지만, 마음의 거리는 점점 벌어졌다.'
       }
     ]
   },
@@ -1568,6 +1604,12 @@ const STAGES = [
         result: '베개에 머리를 대자마자 잠드는 밤이, 다시 찾아왔다.',
         requiresCondition: 'insomnia',
         removeCondition: 'insomnia'
+      },
+      {
+        id: 'fame-failed-venture-mockery',
+        text: '무리하게 벌인 도전이 실패하며 세간의 웃음거리가 된다',
+        deltas: { fame: -7, wealth: -4 },
+        result: '야심 차게 알렸던 시작이, 가장 부끄러운 실패담이 됐다.'
       }
     ]
   },
@@ -1656,6 +1698,12 @@ const STAGES = [
         text: '여전히 정해진 게 없다는 사실에 조급해진다',
         deltas: { happiness: -4, health: -1 },
         result: '남들은 다 자리 잡은 것 같은데, 나만 제자리인 기분이었다.'
+      },
+      {
+        id: 'relationship-breakup-long-relationship',
+        text: '오래된 연인과 크게 다투고 갈라선다',
+        deltas: { relationship: -9, happiness: -4 },
+        result: '함께 그리던 미래가, 한순간에 지워졌다.'
       }
     ]
   },
@@ -1752,6 +1800,12 @@ const STAGES = [
         text: '돈보다 시간이 더 중요하다는 걸 깨닫는다',
         deltas: { happiness: 4, wealth: -1 },
         result: '벌기만 하다가, 처음으로 쓰는 법을 고민하기 시작했다.'
+      },
+      {
+        id: 'fame-viral-mistake',
+        text: '사소한 실수가 캡처되어 온라인에서 두고두고 놀림거리가 된다',
+        deltas: { fame: -8, happiness: -4 },
+        result: '해명 글을 올릴수록 오히려 화제성만 커졌다.'
       }
     ]
   },
@@ -1852,6 +1906,12 @@ const STAGES = [
         deltas: { health: -5, wealth: -2 },
         result: '건강검진 결과지의 빨간 숫자가 처음으로 눈에 들어왔다.',
         addCondition: { id: 'hypertension', label: '🩸 고혈압 전조' }
+      },
+      {
+        id: 'relationship-colleague-turns-away',
+        text: '믿었던 동료와 이해관계로 등을 돌린다',
+        deltas: { relationship: -8, wealth: 2 },
+        result: '일은 남았지만, 예전 같은 사이로는 돌아가지 못했다.'
       }
     ]
   },
@@ -1964,6 +2024,12 @@ const STAGES = [
         result: '전화기 너머 늘 들리던 목소리가, 이제는 다시 들을 수 없다는 게 실감 나지 않았다.',
         requiresFamilyMember: ['mother'],
         removeFamilyMembers: ['mother']
+      },
+      {
+        id: 'fame-offhand-remark-backfires',
+        text: '무심코 한 말이 논란이 되어 오래 쌓아온 이미지가 흔들린다',
+        deltas: { fame: -8, happiness: -3 },
+        result: '말 한마디가 그렇게까지 커질 줄은, 나조차 몰랐다.'
       }
     ]
   },
@@ -2068,6 +2134,12 @@ const STAGES = [
         result: '팔을 머리 위로 쭉 뻗을 수 있다는 게, 이렇게 큰 자유일 줄 몰랐다.',
         requiresCondition: 'frozen-shoulder',
         removeCondition: 'frozen-shoulder'
+      },
+      {
+        id: 'relationship-family-conflict-cutoff',
+        text: '가족과 깊은 갈등을 겪으며 한동안 왕래를 끊는다',
+        deltas: { relationship: -9, happiness: -4 },
+        result: '먼저 손 내밀기엔, 서로 너무 오래 등을 돌리고 있었다.'
       }
     ]
   },
@@ -2156,6 +2228,12 @@ const STAGES = [
         text: '인생 후반전을 위해 새로운 계획을 세운다',
         deltas: { happiness: 3, fame: 1 },
         result: '전반전을 마친 선수처럼, 잠시 숨을 고르고 다음을 그렸다.'
+      },
+      {
+        id: 'fame-trend-fading',
+        text: '한물간 유행이 되어 예전만큼 주목받지 못한다',
+        deltas: { fame: -6, happiness: -3 },
+        result: '한때 앞서갔다고 생각한 것들이, 어느새 낡은 것이 되어 있었다.'
       }
     ]
   },
@@ -2245,6 +2323,12 @@ const STAGES = [
         text: '가족력 있는 질환을 예방하려 정기 검진을 시작한다',
         deltas: { health: 3, wealth: -2 },
         result: '미리 챙기는 게 결국 남는 장사라는 걸 이제야 알았다.'
+      },
+      {
+        id: 'relationship-old-friend-fades-out',
+        text: '오랜 친구와의 관계가 서서히, 그러나 완전히 끊어진다',
+        deltas: { relationship: -7, happiness: -3 },
+        result: '마지막 연락이 언제였는지도 이제는 가물가물했다.'
       }
     ]
   },
@@ -2352,6 +2436,12 @@ const STAGES = [
         deltas: { health: -4, wealth: -1 },
         result: '계단을 오를 때마다 무릎에서 신호가 왔다.',
         addCondition: { id: 'knee-pain', label: '🦵 무릎 통증' }
+      },
+      {
+        id: 'fame-public-controversy-trust-lost',
+        text: '공개적인 논란에 휘말려 오래 쌓아온 신뢰를 잃는다',
+        deltas: { fame: -9, relationship: -4 },
+        result: '해명도 사과도, 이미 돌아선 마음을 다 되돌리진 못했다.'
       }
     ]
   },
@@ -2442,6 +2532,12 @@ const STAGES = [
         text: '안주하는 편을 택하며 도전을 미룬다',
         deltas: { happiness: -2, wealth: 1 },
         result: '안전한 선택이었지만, 마음 한켠은 계속 근질거렸다.'
+      },
+      {
+        id: 'relationship-used-by-trusted-person',
+        text: '믿었던 사람에게 이용만 당했다는 걸 뒤늦게 깨닫는다',
+        deltas: { relationship: -8, happiness: -4 },
+        result: '관계였다고 생각한 것이, 사실은 아니었을지도 몰랐다.'
       }
     ]
   },
@@ -2543,6 +2639,12 @@ const STAGES = [
         text: '지금까지의 성취를 되돌아보며 만족감을 느낀다',
         deltas: { happiness: 4, wealth: 1 },
         result: '생각보다 많은 걸 이뤄왔다는 걸, 그제야 인정했다.'
+      },
+      {
+        id: 'fame-overshadowed-by-newcomers',
+        text: '후배·신인들에게 밀려 존재감이 옅어진다',
+        deltas: { fame: -6, happiness: -3 },
+        result: '화려했던 자리가, 조용히 다른 사람의 것이 되어가고 있었다.'
       }
     ]
   },
@@ -2638,6 +2740,12 @@ const STAGES = [
         text: '지금의 나 자신이 가장 편안하다는 걸 깨닫는다',
         deltas: { happiness: 5, health: 2 },
         result: '잘 보이려 애쓰지 않아도 되는 지금이, 제일 나답게 느껴졌다.'
+      },
+      {
+        id: 'relationship-conflict-with-family-midlife',
+        text: '가족과 깊은 갈등을 겪으며 서먹해진다',
+        deltas: { relationship: -8, happiness: -3 },
+        result: '한 지붕 아래 살면서도, 대화는 점점 짧아졌다.'
       }
     ]
   },
@@ -2738,6 +2846,12 @@ const STAGES = [
         text: '아직은 일을 더 하고 싶다는 마음을 확인한다',
         deltas: { happiness: 2, wealth: 2 },
         result: '손을 놓기엔, 아직 하고 싶은 일이 많았다.'
+      },
+      {
+        id: 'fame-old-remark-resurfaces',
+        text: '지나간 발언이 다시 수면 위로 떠오르며 뒤늦게 뭇매를 맞는다',
+        deltas: { fame: -8, happiness: -4 },
+        result: '그때는 아무렇지 않던 말이, 지금은 무겁게 되돌아왔다.'
       }
     ]
   },
@@ -2947,6 +3061,12 @@ const STAGES = [
         deltas: { health: -4, happiness: -2 },
         result: '안경을 써도 뿌옇게 보이는 세상이 낯설었다.',
         addCondition: { id: 'cataract', label: '👁️ 백내장' }
+      },
+      {
+        id: 'fame-fading-before-retirement',
+        text: '은퇴를 앞두고 관심에서 서서히 잊혀져 간다',
+        deltas: { fame: -5, happiness: -2 },
+        result: '화려했던 이름 석 자가, 조금씩 낯설어지고 있었다.'
       }
     ]
   },
@@ -3061,6 +3181,12 @@ const STAGES = [
         result: '뿌옇던 세상이 다시 또렷해진 순간, 색깔마저 새로 보이는 것 같았다.',
         requiresCondition: 'cataract',
         removeCondition: 'cataract'
+      },
+      {
+        id: 'relationship-acquaintances-drift-away',
+        text: '친했던 지인들과 하나둘 연락이 끊긴다',
+        deltas: { relationship: -6, happiness: -2 },
+        result: '명절에도, 이제는 안부를 물을 사람이 줄어 있었다.'
       }
     ]
   },
@@ -3157,6 +3283,12 @@ const STAGES = [
         result: '매일 챙겨 먹은 칼슘과 걷기 운동이, 헛되지 않았다.',
         requiresCondition: 'osteoporosis',
         removeCondition: 'osteoporosis'
+      },
+      {
+        id: 'fame-generational-gap-controversy',
+        text: '젊은 세대와의 감각 차이로 구설수에 오른다',
+        deltas: { fame: -6, relationship: -2 },
+        result: '좋은 의도로 한 말이, 전혀 다르게 받아들여졌다.'
       }
     ]
   },
@@ -3255,6 +3387,12 @@ const STAGES = [
         text: '돈 걱정 없이 지낼 수 있음에 감사함을 느낀다',
         deltas: { happiness: 5, relationship: 2 },
         result: '많지 않아도 충분하다는 걸, 이제는 안다.'
+      },
+      {
+        id: 'relationship-old-friend-permanent-rift',
+        text: '오랜 벗과 사소한 일로 다시는 안 볼 사이가 된다',
+        deltas: { relationship: -7, happiness: -3 },
+        result: '몇십 년 지기였다는 게 무색하게, 화해할 틈도 없이 멀어졌다.'
       }
     ]
   },
@@ -3360,6 +3498,12 @@ const STAGES = [
         result: '다시 옷깃이 스쳐도 아무렇지 않은 게, 이렇게 반가울 일이었다.',
         requiresCondition: 'shingles',
         removeCondition: 'shingles'
+      },
+      {
+        id: 'fame-old-content-recriticized',
+        text: '예전 발언·행동이 재조명되며 다시 비판받는다',
+        deltas: { fame: -7, happiness: -3 },
+        result: '시대가 달라졌다는 걸, 뒤늦게야 실감했다.'
       }
     ]
   },
@@ -3466,6 +3610,13 @@ const STAGES = [
         result: '오랜만에 또렷하게 듣는 새소리에, 마음이 다 환해졌다.',
         requiresCondition: 'hearing-loss',
         removeCondition: 'hearing-loss'
+      },
+      {
+        id: 'relationship-distant-from-children',
+        text: '자식들과의 거리가 좀처럼 좁혀지지 않는다',
+        deltas: { relationship: -6, happiness: -2 },
+        result: '전화를 걸어도, 짧은 안부 몇 마디로 끝나는 날이 많았다.',
+        requiresFamilyMember: ['child']
       }
     ]
   },
@@ -3571,6 +3722,12 @@ const STAGES = [
         result: '숫자 하나하나에 예민하던 나날을 지나, 이제는 익숙한 습관이 됐다.',
         requiresCondition: 'diabetes',
         removeCondition: 'diabetes'
+      },
+      {
+        id: 'fame-forgotten-by-new-generation',
+        text: '후배 세대에게 완전히 자리를 내주며 잊힌 존재가 된다',
+        deltas: { fame: -6, happiness: -2 },
+        result: '한때는 모두가 알던 이름이었는데, 이제는 설명이 필요했다.'
       }
     ]
   },
@@ -3668,6 +3825,12 @@ const STAGES = [
         text: '여전히 건강한 몸과 마음에 감사한다',
         deltas: { happiness: 5, health: 3 },
         result: '일흔에도 이렇게 웃을 수 있다는 게, 새삼 감사했다.'
+      },
+      {
+        id: 'relationship-fewer-people-remain',
+        text: '곁에 남은 사람이 하나둘 줄어드는 걸 실감한다',
+        deltas: { relationship: -6, happiness: -3 },
+        result: '부고 소식이 낯설지 않게 되어가는 나이였다.'
       }
     ]
   },
@@ -3774,6 +3937,12 @@ const STAGES = [
         text: '동네 친구들 모임에서 소소한 자랑거리를 나눈다',
         deltas: { relationship: 4, happiness: 3 },
         result: '별거 아닌 이야기에도 다들 눈을 반짝이며 들어줬다.'
+      },
+      {
+        id: 'fame-nobody-listens-anymore',
+        text: '옛 이야기를 꺼내도 아무도 귀 기울이지 않는다',
+        deltas: { fame: -5, happiness: -2 },
+        result: '한때는 모두가 궁금해하던 이야기였는데, 이제는 그저 옛날 이야기였다.'
       }
     ]
   },
@@ -3869,6 +4038,12 @@ const STAGES = [
         deltas: { health: -6, happiness: -3 },
         result: '무리한 일정 끝에 찾아온 병치레였다.',
         addCondition: { id: 'pneumonia', label: '🫁 폐렴' }
+      },
+      {
+        id: 'relationship-isolation-deepens',
+        text: '주변과의 교류가 끊기며 깊은 외로움을 느낀다',
+        deltas: { relationship: -7, happiness: -4 },
+        result: '찾아오는 발걸음이 점점 뜸해지는 걸, 애써 모른 척했다.'
       }
     ]
   },
@@ -3968,6 +4143,12 @@ const STAGES = [
         result: '숨쉬기가 다시 편해진 순간, 살았다는 실감이 났다.',
         requiresCondition: 'pneumonia',
         removeCondition: 'pneumonia'
+      },
+      {
+        id: 'fame-drifting-from-media',
+        text: 'SNS·미디어와 완전히 멀어지며 세상의 관심 밖으로 밀려난다',
+        deltas: { fame: -5, happiness: -1 },
+        result: '요란하던 세상이, 어느새 저 멀리서 들리는 소리가 됐다.'
       }
     ]
   },
