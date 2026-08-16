@@ -1031,6 +1031,10 @@ function fadeToStage(stage) {
 
 nextBtn.addEventListener('click', () => {
   if (pendingNextStage) fadeToStage(pendingNextStage);
+  // 모바일에서는 결과 문구를 읽느라 화면 아래쪽까지 스크롤해 내려간 채로
+  // "다음"을 누르는 경우가 많다 - 다음 구간 제목/상황 문구가 화면 위쪽에서
+  // 시작되도록 맨 위로 스크롤을 되돌린다.
+  window.scrollTo({ top: 0, behavior: REDUCE_MOTION ? 'auto' : 'smooth' });
 });
 
 // ------------------------------------------------------------
