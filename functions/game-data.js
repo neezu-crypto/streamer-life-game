@@ -1500,6 +1500,27 @@ const STAGES = [
         text: '바쁘다는 핑계로 소중한 사람들과 점점 멀어진다',
         deltas: { relationship: -7, happiness: -2 },
         result: '연락처는 그대로였지만, 마음의 거리는 점점 벌어졌다.'
+      },
+      {
+        id: 'first-seed-money',
+        text: '허리띠를 졸라매 첫 종잣돈을 마련한다',
+        deltas: { wealth: 4, happiness: -2 },
+        result: '통장에 찍힌 숫자가 작아도, 처음으로 "내 돈"이라는 게 생겼다.',
+        addAsset: { id: 'seed-money', label: '💰 종잣돈', type: 'cash' }
+      },
+      {
+        id: 'unexpected-bonus-windfall',
+        text: '예상 밖의 두둑한 성과급을 받는다',
+        deltas: { wealth: 7, happiness: 4 },
+        result: '통장에 찍힌 숫자를 보고 몇 번이나 다시 확인했다.',
+        addAsset: { id: 'bonus-cash', label: '💰 성과급 목돈', type: 'cash' }
+      },
+      {
+        id: 'first-used-car',
+        text: '중고차를 마련해 첫 차 주인이 된다',
+        deltas: { wealth: -4, happiness: 4 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'movable' }
       }
     ]
   },
@@ -1704,6 +1725,27 @@ const STAGES = [
         text: '오래된 연인과 크게 다투고 갈라선다',
         deltas: { relationship: -9, happiness: -4 },
         result: '함께 그리던 미래가, 한순간에 지워졌다.'
+      },
+      {
+        id: 'fine-jewelry-purchase',
+        text: '스스로에게 주는 선물로 고가의 예물을 마련한다',
+        deltas: { wealth: -4, happiness: 4 },
+        result: '큰맘 먹고 산 물건인데, 볼 때마다 웃음이 났다.',
+        addAsset: { id: 'fine-jewelry', label: '💍 예물/보석', type: 'movable' }
+      },
+      {
+        id: 'premium-appliance-set',
+        text: '가전을 고급으로 싹 바꾼다',
+        deltas: { wealth: -3, happiness: 3 },
+        result: '별거 아닌 것 같아도, 집에 들어오는 기분이 확 달라졌다.',
+        addAsset: { id: 'premium-appliances', label: '🛋️ 고급 가전', type: 'movable' }
+      },
+      {
+        id: 'savings-milestone',
+        text: '꾸준히 모은 적금이 만기가 되어 목돈을 손에 쥔다',
+        deltas: { wealth: 6, happiness: 3 },
+        result: '매달 조금씩 넣은 돈이, 어느새 이렇게 불어나 있었다.',
+        addAsset: { id: 'maturity-savings', label: '💰 만기 적금', type: 'cash' }
       }
     ]
   },
@@ -1769,7 +1811,8 @@ const STAGES = [
         id: 'first-home-purchase',
         text: '영끌해서 내 집 마련에 성공한다',
         deltas: { wealth: -8, happiness: 6 },
-        result: '등기부등본에 내 이름이 찍힌 걸 보고 또 봤다.'
+        result: '등기부등본에 내 이름이 찍힌 걸 보고 또 봤다.',
+        addAsset: { id: 'first-home', label: '🏠 내 집', type: 'realestate' }
       },
       {
         id: 'loan-interest-struggle',
@@ -1806,6 +1849,20 @@ const STAGES = [
         text: '사소한 실수가 캡처되어 온라인에서 두고두고 놀림거리가 된다',
         deltas: { fame: -8, happiness: -4 },
         result: '해명 글을 올릴수록 오히려 화제성만 커졌다.'
+      },
+      {
+        id: 'studio-investment',
+        text: '오피스텔에 투자해 임대 수익을 노린다',
+        deltas: { wealth: -7, happiness: 2 },
+        result: '매달 들어오는 월세를 볼 때마다, 잘한 선택이었다는 확신이 들었다.',
+        addAsset: { id: 'studio-unit', label: '🏢 오피스텔', type: 'realestate' }
+      },
+      {
+        id: 'commercial-property-purchase',
+        text: '상가를 매입해 임대업에 뛰어든다',
+        deltas: { wealth: -9, happiness: 3 },
+        result: '큰돈이 묶였지만, 이름 앞으로 된 상가 하나가 든든했다.',
+        addAsset: { id: 'commercial-unit', label: '🏬 상가', type: 'realestate' }
       }
     ]
   },
@@ -2473,7 +2530,8 @@ const STAGES = [
         id: 'impulsive-big-purchase',
         text: '갑작스레 큰 지출을 하며 스스로를 위로한다',
         deltas: { happiness: 3, wealth: -6 },
-        result: '카드를 긁는 순간만큼은, 마음이 후련했다.'
+        result: '카드를 긁는 순간만큼은, 마음이 후련했다.',
+        addAsset: { id: 'impulse-luxury-item', label: '✨ 충동 구매품', type: 'movable' }
       },
       {
         id: 'therapy-and-meditation',
@@ -2486,6 +2544,20 @@ const STAGES = [
         text: '지금 이대로도 충분하다는 걸 받아들인다',
         deltas: { happiness: 4, health: 2 },
         result: '더 채우려 애쓰지 않아도 된다는 걸, 비로소 알았다.'
+      },
+      {
+        id: 'larger-home-upgrade',
+        text: '더 넓은 집으로 옮기며 자산을 불린다',
+        deltas: { wealth: -8, happiness: 4 },
+        result: '넓어진 거실만큼, 마음에도 여유가 생긴 것 같았다.',
+        addAsset: { id: 'bigger-home', label: '🏡 넓은 집', type: 'realestate' }
+      },
+      {
+        id: 'art-collection-investment',
+        text: '미술품·시계 등 수집품에 투자한다',
+        deltas: { wealth: -6, happiness: 3 },
+        result: '보는 눈이 느는 만큼, 애정도 함께 쌓여갔다.',
+        addAsset: { id: 'collectibles', label: '🎨 수집품', type: 'movable' }
       }
     ]
   },
@@ -3289,6 +3361,27 @@ const STAGES = [
         text: '젊은 세대와의 감각 차이로 구설수에 오른다',
         deltas: { fame: -6, relationship: -2 },
         result: '좋은 의도로 한 말이, 전혀 다르게 받아들여졌다.'
+      },
+      {
+        id: 'severance-payout',
+        text: '퇴직금을 목돈으로 받는다',
+        deltas: { wealth: 10, happiness: 3 },
+        result: '평생 일한 값이 통장에 찍히던 순간, 만감이 교차했다.',
+        addAsset: { id: 'severance-payout', label: '💰 퇴직금', type: 'cash' }
+      },
+      {
+        id: 'vacation-home-purchase',
+        text: '여유 자금으로 별장을 마련한다',
+        deltas: { wealth: -10, happiness: 5 },
+        result: '주말마다 내려갈 곳이 생겼다는 것만으로도, 마음이 한결 가벼워졌다.',
+        addAsset: { id: 'vacation-home', label: '🏖️ 별장', type: 'realestate' }
+      },
+      {
+        id: 'downsizing-to-compact-car',
+        text: '차를 작고 실속 있는 걸로 바꾼다',
+        deltas: { wealth: 3, happiness: 1 },
+        result: '크고 화려한 차보다, 이제는 이 편이 훨씬 편했다.',
+        addAsset: { id: 'compact-car', label: '🚙 소형차', type: 'movable' }
       }
     ]
   },

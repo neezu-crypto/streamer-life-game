@@ -342,6 +342,52 @@
         안 되므로). 주사위 구간의 <code>rollDice</code>도 반드시 이 3개 중에서만 뽑고, <code>submitChoice</code>도
         노출되지 않은 선택지가 제출되면 거부한다 — "화면에 안 보여준 결과가 튀어나오는 일"을 서버가 막는다.
         선택지가 3개 이하로만 채워진 구간(과거 콘텐츠)은 그냥 전부 보여준다.</p>
+        <p class="note"><b>재산 상세(현금·부동산·동산) — 선택지에 따라 현금성 자산·부동산·동산을 소유하게
+        된다.</b> 건강/가족 상세와 완전히 같은 패턴이다: 일부 선택지에 <code>addAsset({id,label,type})</code>을
+        붙이면 그 재산이 그 판의 저장 슬롯(<code>assets[]</code>)에 추가되고(이미 있으면 중복 추가 안 함),
+        <code>removeAsset(id)</code>을 붙이면 처분돼서 빠진다(지금은 처분 선택지 없이 전부 취득만 있음).
+        <code>type</code>은 <code>cash</code>(💰 현금성 자산 - 종잣돈·성과급·적금·퇴직금 등)·
+        <code>realestate</code>(🏠 부동산 - 내 집·오피스텔·상가·별장 등)·<code>movable</code>(🚗 동산 - 차·
+        예물·가전·수집품 등) 세 가지다. 화면 상단 "현재 재산 상세" 패널(<code>#assets</code>)이 지금 소유한
+        재산을 계속 보여주고, 아무것도 없으면 "아직 소유한 재산 없음"으로 표시한다 — 건강/가족/직업 상세보다
+        위, 스탯 바 바로 아래에 배치했다(재산이 가장 먼저 눈에 띄어야 한다는 의도). 엔딩 화면에도 "남긴
+        재산"이라는 이름으로 동일하게 뜬다(가족·직업 이력과 나란히, 건강 상세는 애초에 엔딩 화면에 안 뜨는
+        것과 대비된다 — 재산은 가족처럼 "죽고 나서도 남는 것"이라는 판단).</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>재산 id</th><th>표시</th><th>종류</th><th>획득 (구간 · 선택지)</th></tr>
+                <tr><td><code>seed-money</code></td><td>💰 종잣돈</td><td>현금</td><td>사회 초년생 26세 · <code>first-seed-money</code>(허리띠를 졸라매 첫 종잣돈을 마련한다)</td></tr>
+                <tr><td><code>bonus-cash</code></td><td>💰 성과급 목돈</td><td>현금</td><td>사회 초년생 26세 · <code>unexpected-bonus-windfall</code>(예상 밖의 두둑한 성과급을 받는다)</td></tr>
+                <tr><td><code>first-car</code></td><td>🚗 중고차</td><td>동산</td><td>사회 초년생 26세 · <code>first-used-car</code>(중고차를 마련해 첫 차 주인이 된다)</td></tr>
+                <tr><td><code>fine-jewelry</code></td><td>💍 예물/보석</td><td>동산</td><td>서른 30세 · <code>fine-jewelry-purchase</code>(스스로에게 주는 선물로 고가의 예물을 마련한다)</td></tr>
+                <tr><td><code>premium-appliances</code></td><td>🛋️ 고급 가전</td><td>동산</td><td>서른 30세 · <code>premium-appliance-set</code>(가전을 고급으로 싹 바꾼다)</td></tr>
+                <tr><td><code>maturity-savings</code></td><td>💰 만기 적금</td><td>현금</td><td>서른 30세 · <code>savings-milestone</code>(꾸준히 모은 적금이 만기가 되어 목돈을 손에 쥔다)</td></tr>
+                <tr><td><code>first-home</code></td><td>🏠 내 집</td><td>부동산</td><td>서른 32세 · <code>first-home-purchase</code>(영끌해서 내 집 마련에 성공한다 - 기존 선택지에 <code>addAsset</code>만 추가한 리트로핏)</td></tr>
+                <tr><td><code>studio-unit</code></td><td>🏢 오피스텔</td><td>부동산</td><td>서른 32세 · <code>studio-investment</code>(오피스텔에 투자해 임대 수익을 노린다)</td></tr>
+                <tr><td><code>commercial-unit</code></td><td>🏬 상가</td><td>부동산</td><td>서른 32세 · <code>commercial-property-purchase</code>(상가를 매입해 임대업에 뛰어든다)</td></tr>
+                <tr><td><code>impulse-luxury-item</code></td><td>✨ 충동 구매품</td><td>동산</td><td>중년 45세 · <code>impulsive-big-purchase</code>(갑작스레 큰 지출을 하며 스스로를 위로한다 - 기존 선택지 리트로핏)</td></tr>
+                <tr><td><code>bigger-home</code></td><td>🏡 넓은 집</td><td>부동산</td><td>중년 45세 · <code>larger-home-upgrade</code>(더 넓은 집으로 옮기며 자산을 불린다)</td></tr>
+                <tr><td><code>collectibles</code></td><td>🎨 수집품</td><td>동산</td><td>중년 45세 · <code>art-collection-investment</code>(미술품·시계 등 수집품에 투자한다)</td></tr>
+                <tr><td><code>severance-payout</code></td><td>💰 퇴직금</td><td>현금</td><td>노년 준비 60세 · <code>severance-payout</code>(퇴직금을 목돈으로 받는다)</td></tr>
+                <tr><td><code>vacation-home</code></td><td>🏖️ 별장</td><td>부동산</td><td>노년 준비 60세 · <code>vacation-home-purchase</code>(여유 자금으로 별장을 마련한다)</td></tr>
+                <tr><td><code>compact-car</code></td><td>🚙 소형차</td><td>동산</td><td>노년 준비 60세 · <code>downsizing-to-compact-car</code>(차를 작고 실속 있는 걸로 바꾼다)</td></tr>
+            </table>
+        </div>
+        <p class="note"><b>한 나이 안에 여러 재산 이벤트가 경쟁하도록 클러스터로 배치했다(2026-08-16
+        기준 방침).</b> 건강 상세처럼 나이마다 그 주제의 선택지 하나씩 흩어 놓는 대신, 26·30·32·45·60세
+        다섯 구간에 재산 관련 선택지를 3개씩 몰아넣었다(32·45세는 기존 선택지 리트로핏 1개 + 신규 2개) —
+        위 "6개 중 3개 노출" 규칙 덕분에 그 나이에 도달하면 이미 있는 다른 선택지들과 함께 무작위로
+        경쟁하고, 그중 재산 이벤트끼리도 서로 경쟁해 어떤 게 뜰지 매 판 달라진다. 이렇게 여러 이벤트를
+        같은 나이에 묶어두는 방식을 <b>새 콘텐츠를 추가할 때 기본 패턴으로 삼기로 했다</b> — 알츠하이머·
+        사고 후유증처럼 "이 나이엔 반드시 이 사건 하나"인 게 자연스러운 경우(영구 조건·엔딩 자격 등)만
+        예외로 한 나이에 하나씩 배치한다.</p>
+        <p class="note">순수 Node 시뮬레이션 2만 회(실제 <code>game-data.js</code> 데이터 기준, 무작위
+        선택) 결과: 15개 재산 선택지 전부 자연 발생 확인(각 2.9~4.4%, 총 15종 균등 분포), 중복 추가 버그
+        0건, 한 판에서 최대 4개까지 재산을 동시에 보유한 경우 확인, 전체 판의 42.3%가 최소 하나 이상의
+        재산을 보유한 채 진행됐다. 실제 배포된 함수에도 라이브로 재현해 30세 구간에서
+        <code>savings-milestone</code>이 노출·선택되고 "현재 재산 상세"에 💰 만기 적금 칩이 건강/가족/직업
+        상세보다 위쪽에 정상적으로 뜨는 것까지 확인했다.</p>
+
         <p class="note"><b>건강 상세(부상·질병) — 선택지가 건강을 "생기게" 하거나 "낫게" 한다.</b>
         일부 선택지에 <code>addCondition({id,label})</code>을 붙이면 해당 부상/질병이 그 판의 저장 슬롯
         (<code>healthConditions[]</code>)에 추가되고, <code>removeCondition(id)</code>을 붙이면 해당 조건이

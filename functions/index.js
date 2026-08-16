@@ -251,6 +251,23 @@ async function applyChoice(db, playRef, play, stage, choice) {
     familyMembers = familyMembers.filter((f) => !choice.removeFamilyMembers.includes(f.id));
   }
 
+  // 재산 상세 - 건강/가족 상세와 완전히 같은 패턴. 선택지가 addAsset을 붙였으면
+  // 현금/부동산/동산 중 하나가 새로 생기고(이미 있으면 중복 추가 안 함),
+  // removeAsset을 붙였으면 그 재산이 처분돼서 빠진다.
+  const currentAssets = Array.isArray(play.assets) ? play.assets : [];
+  let assets = currentAssets.slice();
+  if (choice.addAsset && !assets.some((a) => a.id === choice.addAsset.id)) {
+    assets.push({
+      id: choice.addAsset.id,
+      label: choice.addAsset.label,
+      type: choice.addAsset.type,
+      sinceStageId: stage.id
+    });
+  }
+  if (choice.removeAsset) {
+    assets = assets.filter((a) => a.id !== choice.removeAsset);
+  }
+
   const choiceLog = Array.isArray(play.choiceLog) ? play.choiceLog.slice() : [];
   choiceLog.push({ stageId: stage.id, choiceId: choice.id, at: Date.now() });
 
@@ -270,7 +287,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
 
   const nextIndex = pickNextStageIndex(play.stageIndex);
   const completed = collapsed || nextIndex >= STAGES.length;
-  const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers };
+  const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers, assets };
 
   let ending = null;
   let nextVisibleIds = null;
@@ -325,6 +342,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
     nextStage: completed ? null : publicStage(STAGES[nextIndex], nextVisibleIds),
     healthConditions,
     familyMembers,
+    assets,
     currentOccupation,
     choiceHistory: completed ? buildChoiceHistory(choiceLog) : null,
     occupationHistory: completed ? occupationHistory : null
@@ -369,6 +387,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
       visibleChoiceIds,
       healthConditions: [],
       familyMembers: [],
+      assets: [],
       choiceLog: [],
       completed: false,
       startedAt: ServerValue.TIMESTAMP
@@ -379,7 +398,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
     db.ref('lifeGame/stats/totals/started').set(ServerValue.increment(1))
   ]);
 
-  return { stats, healthConditions: [], familyMembers: [], currentOccupation: null, stage: publicStage(STAGES[0], visibleChoiceIds) };
+  return { stats, healthConditions: [], familyMembers: [], assets: [], currentOccupation: null, stage: publicStage(STAGES[0], visibleChoiceIds) };
 });
 
 // 창을 껐다가 다시 열었을 때 - 저장된 판이 있으면 지금 구간을 그대로 이어서
@@ -400,6 +419,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       ending: play.ending,
       healthConditions: Array.isArray(play.healthConditions) ? play.healthConditions : [],
       familyMembers: Array.isArray(play.familyMembers) ? play.familyMembers : [],
+      assets: Array.isArray(play.assets) ? play.assets : [],
       choiceHistory: buildChoiceHistory(play.choiceLog),
       occupationHistory: buildOccupationHistory(play.choiceLog)
     };
@@ -409,6 +429,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
 
   const healthConditions = Array.isArray(play.healthConditions) ? play.healthConditions : [];
   const familyMembers = Array.isArray(play.familyMembers) ? play.familyMembers : [];
+  const assets = Array.isArray(play.assets) ? play.assets : [];
   const occupationHistory = buildOccupationHistory(play.choiceLog);
   const currentOccupation = occupationHistory.length ? occupationHistory[occupationHistory.length - 1] : null;
 
@@ -431,6 +452,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
     completed: false,
     healthConditions,
     familyMembers,
+    assets,
     currentOccupation,
     stage: publicStage(stage, visibleChoiceIds)
   };

@@ -175,6 +175,16 @@
   .stat-bar-fill { display: block; height: 100%; background: var(--gold); border-radius: 5px; transition: width 0.4s ease, background 0.3s ease; }
   .stat-bar-val { width: 28px; text-align: right; color: var(--text-faint); font-variant-numeric: tabular-nums; }
 
+  .asset-panel { margin: 4px 0 14px; }
+  .asset-panel-title { font-size: 12px; color: var(--text-faint); letter-spacing: 0.03em; margin: 0 0 6px; }
+  .assets-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .asset-chip {
+    display: inline-flex; align-items: center; padding: 5px 11px; border-radius: 999px;
+    background: var(--gold-dim); border: 1px solid color-mix(in srgb, var(--gold) 40%, transparent);
+    color: var(--gold); font-size: 12.5px;
+  }
+  .asset-empty { font-size: 12.5px; color: var(--text-faint); }
+
   .health-panel { margin: 4px 0 14px; }
   .health-panel-title { font-size: 12px; color: var(--text-faint); letter-spacing: 0.03em; margin: 0 0 6px; }
   .health-conditions { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -302,6 +312,10 @@
       <div id="resultBox" class="result-box hidden"></div>
     </div>
     <div class="stat-bars" id="statBars"></div>
+    <div class="asset-panel">
+      <p class="asset-panel-title">현재 재산 상세</p>
+      <div id="assets" class="assets-list"></div>
+    </div>
     <div class="health-panel">
       <p class="health-panel-title">현재 건강 상세</p>
       <div id="healthConditions" class="health-conditions"></div>
@@ -321,6 +335,10 @@
     <p class="ending-title" id="endingTitle"></p>
     <p class="ending-text" id="endingText"></p>
     <div class="stat-bars" id="endingStatBars"></div>
+    <div class="asset-panel">
+      <p class="asset-panel-title">남긴 재산</p>
+      <div id="endingAssets" class="assets-list"></div>
+    </div>
     <div class="family-panel">
       <p class="family-panel-title" id="endingFamilyPanelTitle">100세, 곁에 남은 가족</p>
       <div id="endingFamilyMembers" class="family-members"></div>
@@ -576,10 +594,11 @@ resumeBtn.addEventListener('click', async () => {
     const res = await resumePlaythroughFn();
     await fadeOut([resumeSection]);
     if (res.data.completed) {
-      showEnding(res.data.ending, res.data.stats, res.data.choiceHistory, res.data.familyMembers, res.data.occupationHistory);
+      showEnding(res.data.ending, res.data.stats, res.data.choiceHistory, res.data.familyMembers, res.data.occupationHistory, res.data.assets);
     } else {
       await fadeOut([mainHeader]);
       renderStatBars(statBars, res.data.stats);
+      renderAssets(res.data.assets);
       renderHealthConditions(res.data.healthConditions);
       renderFamilyMembers(res.data.familyMembers);
       renderCurrentOccupation(res.data.currentOccupation);
@@ -642,6 +661,33 @@ function renderStatBars(el, stats) {
       '<span class="stat-bar-val">' + (stats[key] || 0) + '</span>';
     el.appendChild(row);
   });
+}
+
+const assetsEl = document.getElementById('assets');
+const endingAssetsEl = document.getElementById('endingAssets');
+
+// 재산 목록("현재 재산 상세") - 선택지가 addAsset/removeAsset을 붙이면 서버가
+// 갱신해서 내려주는 assets를 그대로 표시만 한다(건강/가족 상세와 동일 패턴).
+// container를 받아서 진행 화면(#assets)과 엔딩 화면(#endingAssets) 양쪽에
+// 재사용한다.
+function renderAssetsInto(container, assets) {
+  container.innerHTML = '';
+  if (!assets || !assets.length) {
+    const empty = document.createElement('span');
+    empty.className = 'asset-empty';
+    empty.textContent = '아직 소유한 재산 없음';
+    container.appendChild(empty);
+    return;
+  }
+  assets.forEach((asset) => {
+    const chip = document.createElement('span');
+    chip.className = 'asset-chip';
+    chip.textContent = asset.label;
+    container.appendChild(chip);
+  });
+}
+function renderAssets(assets) {
+  renderAssetsInto(assetsEl, assets);
 }
 
 const healthConditionsEl = document.getElementById('healthConditions');
@@ -805,6 +851,7 @@ startBtn.addEventListener('click', async () => {
     const res = await startPlaythroughFn({ streamerName, streamerId: selectedStreamerId });
     await fadeOut([searchSection, nameSection, mainHeader]);
     renderStatBars(statBars, res.data.stats);
+    renderAssets(res.data.assets);
     renderHealthConditions(res.data.healthConditions);
     renderFamilyMembers(res.data.familyMembers);
     renderCurrentOccupation(res.data.currentOccupation);
@@ -831,6 +878,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   resultBox.textContent = resultText;
   resultBox.classList.remove('hidden');
   renderStatBars(statBars, data.stats);
+  renderAssets(data.assets);
   renderHealthConditions(data.healthConditions);
   renderFamilyMembers(data.familyMembers);
   renderCurrentOccupation(data.currentOccupation);
@@ -841,7 +889,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   showToast('💾 자동저장 되었습니다');
   if (data.completed) {
     pendingNextStage = null;
-    showEnding(data.ending, data.stats, data.choiceHistory, data.familyMembers, data.occupationHistory);
+    showEnding(data.ending, data.stats, data.choiceHistory, data.familyMembers, data.occupationHistory, data.assets);
   } else {
     pendingNextStage = data.nextStage;
     nextBtn.classList.remove('hidden');
@@ -960,12 +1008,13 @@ function renderChoiceHistoryInto(container, history) {
 // 엔딩 문구 표시 → 지금까지 선택한 선택지들 표시 → 다른 유저 인생 → 재시작
 // 안내 순서로 보여준다(각 section의 DOM 순서가 곧 화면에 보이는 순서). 게임
 // 화면에서 엔딩 화면으로 넘어가는 것도 다른 전환들과 같은 페이드로 통일한다.
-async function showEnding(ending, stats, choiceHistory, familyMembers, occupationHistory) {
+async function showEnding(ending, stats, choiceHistory, familyMembers, occupationHistory, assets) {
   await fadeOut([mainHeader, gameSection]);
 
   endingTitle.textContent = ending.title;
   endingText.textContent = ending.text;
   renderStatBars(endingStatBars, stats);
+  renderAssetsInto(endingAssetsEl, assets);
   // collapse/bankruptcy 등 즉시 종료 엔딩은 100세가 아니라 그 전 나이에
   // 끝나므로, "곁에 남은 가족" 패널 제목도 실제로 삶이 끝난 나이를 보여줘야
   // 한다 - choiceHistory의 마지막 항목이 곧 마지막으로 선택을 고른 구간
