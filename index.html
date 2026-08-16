@@ -271,7 +271,16 @@
       align-items: stretch;
     }
 
+    /* 모바일에서는 사건(오른쪽 페이지)이 먼저, 스탯·상세(왼쪽 페이지)가
+       나중에 나오는 원래 순서를 유지해야 해서 마크업상 game-right-page가
+       game-left-page보다 앞에 온다 - 그래서 PC 그리드에서는 DOM 순서와
+       무관하게 grid-column을 명시적으로 지정해 시각적으로만 왼쪽/오른쪽을
+       맞바꾼다(순서를 CSS order로 바꾸면 모바일 접근성 탐색 순서가
+       꼬이므로, DOM 순서=모바일 읽기 순서를 그대로 두고 배치만 그리드로
+       재배열하는 쪽을 택함). */
     .game-left-page {
+      grid-column: 1;
+      grid-row: 1;
       padding: 26px 22px;
       background: var(--panel-2);
       position: relative;
@@ -284,6 +293,8 @@
       pointer-events: none;
     }
     .game-right-page {
+      grid-column: 2;
+      grid-row: 1;
       padding: 26px 30px;
       position: relative;
       min-width: 0;
@@ -357,6 +368,18 @@
   </section>
 
   <section id="gameSection" class="panel hidden">
+    <div class="game-right-page" id="gameRightPage">
+      <div id="stageContent">
+        <div class="stage-head">
+          <span class="stage-name" id="stageName"></span>
+          <span class="stage-age" id="stageAge"></span>
+        </div>
+        <p id="storyText" class="story-text"></p>
+        <div id="choiceList"></div>
+        <div id="resultBox" class="result-box hidden"></div>
+      </div>
+      <button id="nextBtn" class="hidden">다음</button>
+    </div>
     <div class="game-left-page" id="gameLeftPage">
       <div class="stat-bars" id="statBars"></div>
       <div class="asset-panel">
@@ -375,18 +398,6 @@
         <p class="occupation-panel-title">현재 직업 상세</p>
         <p id="currentOccupation" class="occupation-current"></p>
       </div>
-    </div>
-    <div class="game-right-page" id="gameRightPage">
-      <div id="stageContent">
-        <div class="stage-head">
-          <span class="stage-name" id="stageName"></span>
-          <span class="stage-age" id="stageAge"></span>
-        </div>
-        <p id="storyText" class="story-text"></p>
-        <div id="choiceList"></div>
-        <div id="resultBox" class="result-box hidden"></div>
-      </div>
-      <button id="nextBtn" class="hidden">다음</button>
     </div>
   </section>
 
