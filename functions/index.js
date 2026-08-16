@@ -148,17 +148,36 @@ function pickNextStageIndex(currentIndex) {
 // visibleIds가 주어지면(그 판의 저장 슬롯에 이미 뽑아둔 3개) choices를 그
 // 3개로만 필터링해서 내려준다 - 안 보여준 선택지가 나중에 rollDice 결과로
 // 튀어나오는 일이 없도록, "노출 = 실제로 뽑힐 수 있는 후보"가 항상 일치해야 함.
-function publicStage(stage, visibleIds) {
+// introText가 주어지면(그 판의 저장 슬롯에 이미 뽑아둔 상황 설명) 그걸
+// 그대로 쓰고, 없으면 stage.intro로 fallback한다 - pickIntro() 참고.
+function publicStage(stage, visibleIds, introText) {
   const ids = visibleIds && visibleIds.length ? visibleIds : pickVisibleChoiceIds(stage.choices);
   const visibleChoices = stage.choices.filter((c) => ids.includes(c.id));
   return {
     id: stage.id,
     name: stage.name,
     ageRange: stage.ageRange,
-    intro: stage.intro || '',
+    intro: introText || stage.intro || '',
     random: !!stage.random,
     choices: visibleChoices.map((c) => ({ id: c.id, text: c.text }))
   };
+}
+
+// 상황 설명(intro)도 선택지와 같은 원리로 여러 개 중 하나가 무작위로 뜰 수
+// 있게 한다 - stage.intros(배열)가 있으면 그중 하나를 무작위로 고르고,
+// 없으면 기존처럼 stage.intro(단일 문자열) 그대로 쓴다. 지금은 메커니즘만
+// 먼저 구현된 상태라 실제로 intros 배열을 가진 구간은 아직 없다(전부 기존
+// 방식인 intro 단일 문자열만 사용, 동작 변화 없음) - 나중에 특정 나이에
+// 여러 상황 문구를 추가하고 싶으면 그 STAGES 항목에
+// intros: ['문구1', '문구2', ...]만 추가하면 이 함수와 아래 호출부가 그대로
+// 동작한다(추가 로직 변경 불필요). 선택지의 pickVisibleChoiceIds와 마찬가지로
+// 한 번 뽑은 값은 저장 슬롯(currentIntro)에 남겨서 이어하기해도 같은 문구가
+// 다시 뜨게 한다.
+function pickIntro(stage) {
+  if (Array.isArray(stage.intros) && stage.intros.length) {
+    return stage.intros[Math.floor(Math.random() * stage.intros.length)];
+  }
+  return stage.intro || '';
 }
 
 function freshStats() {
@@ -291,6 +310,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
 
   let ending = null;
   let nextVisibleIds = null;
+  let nextIntro = null;
   if (completed) {
     ending = collapsed ? instantEnding.build(stage.ageRange) : resolveEnding(stats, familyMembers, healthConditions);
     updates.ending = { id: ending.id, title: ending.title, text: ending.text };
@@ -308,6 +328,10 @@ async function applyChoice(db, playRef, play, stage, choice) {
       currentOccupation ? currentOccupation.id : null
     );
     updates.visibleChoiceIds = nextVisibleIds;
+    // 상황 설명도 선택지와 같은 이유로 여기서 미리 뽑아 저장해둔다(pickIntro
+    // 참고 - 지금은 intros 배열을 가진 구간이 없어 항상 stage.intro 그대로).
+    nextIntro = pickIntro(STAGES[nextIndex]);
+    updates.currentIntro = nextIntro;
   }
 
   // 선택지·엔딩 통계 카운터 - "선택지 로그"/"엔딩 로그" 통계(admin-center에서 확인)용.
@@ -339,7 +363,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
     healthRecoverySuppressed,
     completed,
     ending: ending ? { id: ending.id, title: ending.title, text: ending.text } : null,
-    nextStage: completed ? null : publicStage(STAGES[nextIndex], nextVisibleIds),
+    nextStage: completed ? null : publicStage(STAGES[nextIndex], nextVisibleIds, nextIntro),
     healthConditions,
     familyMembers,
     assets,
@@ -378,6 +402,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   const db = getDatabase();
   const stats = freshStats();
   const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices, []);
+  const currentIntro = pickIntro(STAGES[0]);
   await Promise.all([
     playRefFor(db, uid).set({
       streamerName,
@@ -385,6 +410,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
       stats,
       stageIndex: 0,
       visibleChoiceIds,
+      currentIntro,
       healthConditions: [],
       familyMembers: [],
       assets: [],
@@ -398,7 +424,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
     db.ref('lifeGame/stats/totals/started').set(ServerValue.increment(1))
   ]);
 
-  return { stats, healthConditions: [], familyMembers: [], assets: [], currentOccupation: null, stage: publicStage(STAGES[0], visibleChoiceIds) };
+  return { stats, healthConditions: [], familyMembers: [], assets: [], currentOccupation: null, stage: publicStage(STAGES[0], visibleChoiceIds, currentIntro) };
 });
 
 // 창을 껐다가 다시 열었을 때 - 저장된 판이 있으면 지금 구간을 그대로 이어서
@@ -433,10 +459,12 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
   const occupationHistory = buildOccupationHistory(play.choiceLog);
   const currentOccupation = occupationHistory.length ? occupationHistory[occupationHistory.length - 1] : null;
 
-  // visibleChoiceIds가 이미 저장돼 있으면 그대로 재사용해서 재접속해도 같은
-  // 3개가 다시 뜨게 한다(이 필드가 생기기 전에 만들어진 저장분 등 없을 때만
-  // 새로 뽑아서 지금부터라도 고정해둔다).
+  // visibleChoiceIds/currentIntro가 이미 저장돼 있으면 그대로 재사용해서
+  // 재접속해도 같은 3개·같은 상황 설명이 다시 뜨게 한다(이 필드들이 생기기
+  // 전에 만들어진 저장분 등 없을 때만 새로 뽑아서 지금부터라도 고정해둔다).
   let visibleChoiceIds = play.visibleChoiceIds;
+  let currentIntro = play.currentIntro;
+  const resumeUpdates = {};
   if (!visibleChoiceIds || !visibleChoiceIds.length) {
     visibleChoiceIds = pickVisibleChoiceIds(
       stage.choices,
@@ -444,7 +472,14 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       familyMembers.map((f) => f.id),
       currentOccupation ? currentOccupation.id : null
     );
-    await playRefFor(db, uid).update({ visibleChoiceIds });
+    resumeUpdates.visibleChoiceIds = visibleChoiceIds;
+  }
+  if (!currentIntro) {
+    currentIntro = pickIntro(stage);
+    resumeUpdates.currentIntro = currentIntro;
+  }
+  if (Object.keys(resumeUpdates).length) {
+    await playRefFor(db, uid).update(resumeUpdates);
   }
   return {
     streamerName: play.streamerName,
@@ -454,7 +489,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
     familyMembers,
     assets,
     currentOccupation,
-    stage: publicStage(stage, visibleChoiceIds)
+    stage: publicStage(stage, visibleChoiceIds, currentIntro)
   };
 });
 
