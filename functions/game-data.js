@@ -5023,4 +5023,16 @@ function resolveEnding(stats) {
   return best;
 }
 
-module.exports = { STAGES, ENDINGS, resolveEnding };
+// 건강이 0 이하로 떨어지면 100세까지 못 가고 그 자리에서 삶이 끝난다 - 대표
+// 엔딩 6종처럼 최종 스탯 근접 매칭으로 고르는 게 아니라 "왜 끝났는지"가
+// 명확한 별도 엔딩이라 항상 이 하나로 고정한다. 쓰러진 나이를 문구에 그대로
+// 넣어서 몇 살에 삶이 멈췄는지 보여준다.
+function buildCollapseEnding(ageRange) {
+  return {
+    id: 'collapse',
+    title: '쓰러진 삶',
+    text: (ageRange ? ageRange + ', ' : '') + '몸이 버틸 수 있는 한계를 이미 한참 전에 넘어서 있었다. 그리고 결국, 어느 하루 아침이 오지 않았다.\n\n하고 싶었던 일도, 만나고 싶었던 사람도 여전히 많이 남아 있었다. 그래도 지나온 시간이 헛되지 않았다는 것만은, 마지막 순간까지 스스로 알고 있었다.'
+  };
+}
+
+module.exports = { STAGES, ENDINGS, resolveEnding, buildCollapseEnding };

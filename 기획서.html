@@ -479,6 +479,17 @@
                 <tr><td><code>recluse</code></td><td>은둔형</td><td>인기·관계 최하, 행복·건강은 준수</td></tr>
             </table>
         </div>
+        <p class="note"><b>7번째 엔딩 — <code>collapse</code>(쓰러진 삶): 건강이 0 이하로 떨어지면 100세를
+        못 채우고 그 자리에서 즉시 끝난다.</b> 위 6종과 달리 <code>resolveEnding()</code>의 스탯 근접
+        매칭을 아예 타지 않는 별도 경로다 — <code>applyChoice()</code>가 이번 선택 반영 후
+        <code>stats.health &lt;= 0</code>이면 <code>pickNextStageIndex()</code>가 정한 다음 나이나
+        100세 도달 여부와 무관하게 곧바로 <code>completed: true</code>로 확정하고,
+        <code>buildCollapseEnding(stage.ageRange)</code>가 만든 고정 엔딩을 내려준다. 텍스트에 쓰러진
+        나이가 그대로 들어간다("OO세, 몸이 버틸 수 있는 한계를 이미 한참 전에 넘어서 있었다..."). 평범한
+        플레이에서는 극히 드물게만(시뮬레이션 2만 회 기준 1회) 발생하지만, <code>rare-illness</code>의
+        건강 회복 디버프(위 "건강 회복 디버프" 참고)와 겹쳐 건강이 계속 나빠지기만 하는 상태에서는 훨씬
+        더 현실적인 위험이 된다 — 의도적으로 건강 위주로 최악의 선택만 골라본 스트레스 테스트(2,000회)
+        에서는 40.2%가 이 엔딩으로 끝났고, 쓰러진 나이는 26~93세까지 다양하게 분포했다.</p>
 
         <h3>구간별 선택지 전체 목록</h3>
         <p>실제 플레이에선 구간마다 이 중 3개만 무작위로 노출된다(위 "6개 중 3개 노출" 참고) — 아래는 그

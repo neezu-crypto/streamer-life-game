@@ -2,7 +2,7 @@ const { onCall, HttpsError } = require('firebase-functions/v2/https');
 const { initializeApp } = require('firebase-admin/app');
 const { getDatabase, ServerValue } = require('firebase-admin/database');
 const { STAT_KEYS, STAT_START, clampStat, requireAuth } = require('./common');
-const { STAGES, resolveEnding } = require('./game-data');
+const { STAGES, resolveEnding, buildCollapseEnding } = require('./game-data');
 
 initializeApp();
 
@@ -213,14 +213,18 @@ async function applyChoice(db, playRef, play, stage, choice) {
   const occupationHistory = buildOccupationHistory(choiceLog);
   const currentOccupation = occupationHistory.length ? occupationHistory[occupationHistory.length - 1] : null;
 
+  // 건강이 0 이하로 떨어지면 100세를 못 채우고 그 자리에서 삶이 끝난다 -
+  // pickNextStageIndex가 정한 다음 나이와 무관하게 즉시 completed 처리.
+  const collapsed = stats.health <= 0;
+
   const nextIndex = pickNextStageIndex(play.stageIndex);
-  const completed = nextIndex >= STAGES.length;
+  const completed = collapsed || nextIndex >= STAGES.length;
   const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers };
 
   let ending = null;
   let nextVisibleIds = null;
   if (completed) {
-    ending = resolveEnding(stats);
+    ending = collapsed ? buildCollapseEnding(stage.ageRange) : resolveEnding(stats);
     updates.ending = { id: ending.id, title: ending.title, text: ending.text };
     updates.endedAt = ServerValue.TIMESTAMP;
   } else {
