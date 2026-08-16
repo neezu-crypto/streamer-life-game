@@ -1754,7 +1754,7 @@ const STAGES = [
     choices: [
       {
         id: 'small-promotion',
-        text: '작은 승진과 함께 책임이 부쩍 무거워진다',
+        text: '더 큰 책임을 맡겠다고 자원한다',
         deltas: { fame: 4, wealth: 3, happiness: -2 },
         result: '명함에 적힌 직급 하나가 어깨를 조금 더 무겁게 했다.',
         requiresOccupation: COMPANY_OCCUPATION_IDS
@@ -2862,7 +2862,7 @@ const STAGES = [
     choices: [
       {
         id: 'promoted-to-manager',
-        text: '부서장·팀장급으로 승진하며 책임이 커진다',
+        text: '부서장·팀장 자리에 도전한다',
         deltas: { fame: 5, wealth: 4, happiness: -2 },
         result: '명함이 바뀐 날, 어깨도 함께 무거워졌다.',
         setOccupation: { id: 'team-lead', label: '📈 팀장/부서장' },
