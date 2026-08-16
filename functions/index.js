@@ -65,7 +65,10 @@ function playRefFor(db, uid) {
 // requiresOccupation(배열, 지금 직업이 그 중 하나여야 후보)도 마찬가지 -
 // 은퇴한 적 없는데 "재취업한다"가 뜨는 일이 없도록. 직업은 가족과 달리
 // 동시에 하나뿐이라 currentOccupationId는 문자열(or null) 하나다.
-// 후보가 3개 이하면 그냥 전부 노출한다.
+// 후보가 3개 이하면 그냥 전부 노출한다. mandatory가 붙은 선택지(자격만
+// 되면 반드시 겪어야 하는 이벤트 - 예: 50대에 부모님과 사별)는 3개 무작위
+// 추첨에서 밀려날 일 없이 항상 노출 목록에 들어가고, 나머지 자리만 무작위로
+// 채운다.
 function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds, currentOccupationId) {
   const conditionIds = activeConditionIds || [];
   const familyIds = activeFamilyMemberIds || [];
@@ -77,27 +80,40 @@ function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds
     return true;
   });
   if (eligible.length <= 3) return eligible.map((c) => c.id);
-  const shuffled = eligible.slice();
+
+  const mandatory = eligible.filter((c) => c.mandatory);
+  const optional = eligible.filter((c) => !c.mandatory);
+  const shuffled = optional.slice();
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
-  return shuffled.slice(0, 3).map((c) => c.id);
+  const remainingSlots = Math.max(0, 3 - mandatory.length);
+  return mandatory.concat(shuffled.slice(0, remainingSlots)).map((c) => c.id);
 }
 
 const LAST_STAGE_INDEX = STAGES.length - 1; // 100세(index 100)
 
+// 100세 외에 "반드시 방문하는" 나이 - 오름차순으로 나열. 지금은 54세
+// (parent-passing-50s - 부모님과의 사별, requiresFamilyMember로 걸려있어
+// 실제 발동은 그 시점에 부모님이 가족에 있을 때만) 하나뿐이지만, 나중에
+// 더 늘려도 이 배열에 나이만 추가하면 된다.
+const MANDATORY_WAYPOINTS = [54];
+
 // STAGES의 인덱스가 곧 나이(0~100)와 정확히 일치한다는 전제 하에, 다음 선택
 // 후 몇 살로 넘어갈지 정한다. 0~4세는 지금까지처럼 선택 한 번에 1세씩 오르고,
-// 5~99세는 선택 한 번에 1~5세를 무작위로 건너뛴다 - 단 100세를 절대 지나치지
-// 않도록 남은 나이(100-currentIndex)로 무작위 폭을 잘라낸다. 이 덕분에 100세
-// 구간은 스킵될 수 없고 반드시 누군가의 "그 판의 마지막 선택"으로 방문되며,
+// 5~99세는 선택 한 번에 1~5세를 무작위로 건너뛴다 - 단 아직 안 지난 필수
+// 방문 나이(MANDATORY_WAYPOINTS, 없으면 100세)를 절대 지나치지 않도록 그
+// 나이까지 남은 거리로 무작위 폭을 잘라낸다. 이 덕분에 100세뿐 아니라
+// MANDATORY_WAYPOINTS에 넣은 나이도 스킵될 수 없이 반드시 방문되며(이후엔
+// 다음 필수 방문 나이 - 없으면 100세 - 를 기준으로 같은 로직이 반복됨),
 // 건너뛴 나이는 애초에 STAGES[nextIndex]로 방문된 적이 없으니 choiceLog(=
 // 지금까지 선택한 선택지 로그)에도 자연히 안 남는다.
 function pickNextStageIndex(currentIndex) {
   if (currentIndex >= LAST_STAGE_INDEX) return currentIndex + 1; // 100세 구간의 선택 -> 완료 처리
   if (currentIndex < 5) return currentIndex + 1;
-  const maxJump = Math.min(5, LAST_STAGE_INDEX - currentIndex);
+  const nextWaypoint = MANDATORY_WAYPOINTS.find((age) => age > currentIndex) || LAST_STAGE_INDEX;
+  const maxJump = Math.min(5, nextWaypoint - currentIndex);
   return currentIndex + 1 + Math.floor(Math.random() * maxJump);
 }
 
@@ -255,9 +271,18 @@ async function applyChoice(db, playRef, play, stage, choice) {
   }
   await Promise.all(statWrites);
 
+  // resultOptions가 붙은 선택지(예: 부모님과의 사별 - 이유를 고정하지 않고
+  // 매번 랜덤으로)는 그 중 하나를 여기서 골라 보여준다. 어떤 문구가
+  // 뽑혔는지는 따로 저장하지 않는다 - 다른 선택 결과 텍스트와 마찬가지로
+  // 그 순간 한 번 보여주고 마는 연출이라, choiceLog에는 choiceId만 남고
+  // 다시 볼 일이 없다.
+  const result = choice.resultOptions && choice.resultOptions.length
+    ? choice.resultOptions[Math.floor(Math.random() * choice.resultOptions.length)]
+    : choice.result;
+
   return {
     stats,
-    result: choice.result,
+    result,
     deltas: effectiveDeltas,
     healthRecoverySuppressed,
     completed,

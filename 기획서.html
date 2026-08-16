@@ -259,6 +259,27 @@
         5세 다음이 9세로 건너뛰었다면 로그엔 <code>5세 → 9세</code>만 남고 6~8세 항목은 없다. 이 무작위 폭
         조정으로 한 판의 평균 선택 횟수는 기존 101회에서 약 30~40회로 줄었다(시뮬레이션 평균 약 38회,
         최소 29회~최대 50회).</p>
+        <p class="note"><b>100세 외에 "반드시 방문하는 나이"도 추가할 수 있다 — 지금은 54세(부모님과의
+        사별) 하나.</b> <code>MANDATORY_WAYPOINTS = [54]</code> 배열에 나이를 넣어두면,
+        <code>pickNextStageIndex()</code>가 무작위 폭을 정할 때 "100세까지 남은 거리" 대신 "아직 안 지난
+        가장 가까운 필수 방문 나이까지 남은 거리"를 기준으로 잘라낸다(그 나이를 지나고 나면 다음 필수
+        방문 나이 - 없으면 다시 100세 - 기준으로 돌아감). 100세 하나만 있을 때와 완전히 같은 증명으로,
+        이 나이도 스킵될 수 없이 반드시 방문된다(20,000회 시뮬레이션에서 54세 방문 20,000/20,000, 100세
+        정상 완주 20,000/20,000 — 둘 다 위반 0건). 다만 "나이를 방문하는 것"과 "그 나이의 특정 선택지가
+        뜨는 것"은 별개라, <code>mandatory: true</code>가 붙은 선택지는 <code>pickVisibleChoiceIds()</code>가
+        3개 무작위 추첨에서 절대 밀어내지 않고 항상 노출 목록에 포함시킨 뒤 나머지 자리만 무작위로 채운다
+        — 나이 방문 보장과 선택지 노출 보장을 합쳐야 진짜 "반드시 겪는 이벤트"가 된다. 물론
+        <code>requiresFamilyMember</code> 등 다른 게이팅 조건은 그대로 적용되므로, 54세에 부모님이 이미
+        안 계시면(더 이른 나이에 사별했거나 애초에 보육 시설 출신 등) 이 선택지 자체가 후보에서 빠지고
+        조용히 지나간다 — 시뮬레이션 기준 부모님이 남아있던 판의 100%에서 노출됐고, 결국 전체 판의
+        78.5%가 이 사별을 실제로 겪었다(21.5%는 54세 이전에 이미 부모님을 여의었거나 애초에 부모님이
+        없는 경우).</p>
+        <p class="note"><b>사별 사유는 고정 문구가 아니라 매번 무작위로 고른다.</b> <code>result</code>
+        한 줄 대신 <code>resultOptions</code>(문구 배열)를 쓰면, <code>applyChoice()</code>가 반영 직후
+        그 중 하나를 무작위로 골라 응답에 담는다(무엇이 뽑혔는지는 따로 저장하지 않음 — 다른 선택 결과
+        문구와 마찬가지로 그 순간 한 번만 보여주는 연출). 지금 <code>parent-passing-50s</code>는 지병·
+        사고·노환·급성질환 4가지 사유를 담고 있고, 10,000회 추첨 시뮬레이션에서 24.2~25.7%로 고르게
+        분포함을 확인했다. 이 필드는 범용이라 다른 선택지에도 그대로 재사용 가능하다.</p>
         <p class="note"><b>유아기(0~6세)는 한 살 단위로 7개 구간(<code>infancy-0</code>~<code>infancy-6</code>)으로
         쪼개져 있지만, 주사위 굴리기는 그중 0~3세(<code>infancy-0</code>~<code>infancy-3</code>)까지만이다.</b>
         갓난아기~걸음마 시기에 벌어지는 일은 아이 본인이 "선택"할 수 있는 게 아니라는 취지로 이 네 구간만
@@ -401,9 +422,9 @@
         <div class="tbl-wrap">
             <table>
                 <tr><th>가족 id</th><th>표시</th><th>생기는 시점</th><th>사라지는 시점</th></tr>
-                <tr><td><code>father</code></td><td>👨 아버지</td><td>유아기 0세 · 대가족/화목한 가정 등 4가지 출생 선택지</td><td>서른 36세 · <code>father-passes-away</code>(투병 끝에 별세) 또는 중년 47세 · <code>losing-a-parent</code>(부모님 떠나보냄, 남아있는 쪽 전부)</td></tr>
-                <tr><td><code>mother</code></td><td>👩 어머니</td><td>유아기 0세 · 위와 동일 4가지 선택지</td><td>서른 36세 · <code>mother-passes-away</code> 또는 중년 47세 · <code>losing-a-parent</code></td></tr>
-                <tr><td><code>single-parent</code></td><td>🧑 부모님</td><td>유아기 0세 · <code>single-parent-close</code>(부모님 한 분과 지내는 집)</td><td>중년 47세 · <code>losing-a-parent</code></td></tr>
+                <tr><td><code>father</code></td><td>👨 아버지</td><td>유아기 0세 · 대가족/화목한 가정 등 4가지 출생 선택지</td><td>서른 36세 · <code>father-passes-away</code>(투병 끝에 별세), 중년 47세 · <code>losing-a-parent</code>, 또는 중년 54세 · <code>parent-passing-50s</code>(부모님 떠나보냄, 남아있는 쪽 전부 — 54세는 <code>mandatory</code>라 그 시점에 부모님이 있으면 반드시 노출됨)</td></tr>
+                <tr><td><code>mother</code></td><td>👩 어머니</td><td>유아기 0세 · 위와 동일 4가지 선택지</td><td>서른 36세 · <code>mother-passes-away</code>, 중년 47세 · <code>losing-a-parent</code>, 또는 중년 54세 · <code>parent-passing-50s</code></td></tr>
+                <tr><td><code>single-parent</code></td><td>🧑 부모님</td><td>유아기 0세 · <code>single-parent-close</code>(부모님 한 분과 지내는 집)</td><td>중년 47세 · <code>losing-a-parent</code> 또는 중년 54세 · <code>parent-passing-50s</code></td></tr>
                 <tr><td><code>sibling</code></td><td>🧒 형제자매</td><td>유아기 0세 · <code>big-family</code>(대가족에서 태어남)</td><td>—(제거 로직 없음, 평생 유지)</td></tr>
                 <tr><td><code>younger-sibling</code></td><td>🧒 동생</td><td>유아기 6세 · <code>family-event</code>(동생이 태어남)</td><td>—</td></tr>
                 <tr><td><code>spouse</code></td><td>💍 배우자</td><td>서른 31세 · 결혼식/상견례 등 4가지 선택지, 또는 중년 53세 · <code>late-remarriage</code>(재혼)</td><td>중년 44세 · <code>choosing-divorce</code>(이혼) 또는 황혼 85세 · <code>spouse-passes-away</code>(사별)</td></tr>

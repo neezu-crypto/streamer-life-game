@@ -2820,6 +2820,20 @@ const STAGES = [
         text: '쉰다섯을 앞두고 새로운 챕터를 준비한다',
         deltas: { happiness: 3, fame: 1 },
         result: '끝이 아니라, 또 다른 시작이라고 되뇌었다.'
+      },
+      {
+        id: 'parent-passing-50s',
+        text: '부모님을 떠나보내며 인생의 한 장을 닫는다',
+        deltas: { happiness: -8, relationship: 2 },
+        resultOptions: [
+          '오랫동안 앓아오시던 지병 끝에, 결국 부모님을 떠나보냈다. 마지막까지 손을 놓지 않았던 그 순간이, 오래도록 마음에 남았다.',
+          '전혀 예상치 못한 사고 소식에, 제대로 된 마지막 인사조차 나누지 못한 채 이별을 맞았다.',
+          '오랜 세월을 다 살아내신 끝에, 편안한 얼굴로 눈을 감으셨다. 슬픔 속에서도, 그 평온함이 작은 위로가 됐다.',
+          '갑작스러운 심장마비 소식에, 온 가족이 손 쓸 겨를도 없이 황망하게 이별을 맞았다.'
+        ],
+        mandatory: true,
+        requiresFamilyMember: ['father', 'mother', 'single-parent'],
+        removeFamilyMembers: ['father', 'mother', 'single-parent']
       }
     ]
   },
