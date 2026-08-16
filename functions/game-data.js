@@ -3171,6 +3171,13 @@ const STAGES = [
         text: '텃밭·화분 가꾸기 같은 잔잔한 취미에 빠진다',
         deltas: { happiness: 4, health: 2 },
         result: '작은 화분 하나 돌보는 일이, 마음까지 차분하게 만들었다.'
+      },
+      {
+        id: 'shingles-onset',
+        text: '면역력이 떨어지며 대상포진을 앓아 온몸이 욱신거린다',
+        deltas: { health: -6, happiness: -3 },
+        result: '피부에 닿는 옷깃마저 아플 줄은 몰랐다.',
+        addCondition: { id: 'shingles', label: '🔥 대상포진' }
       }
     ]
   },
@@ -3312,6 +3319,14 @@ const STAGES = [
         text: '몸에 무리가 갈까 조심하며 활동을 줄인다',
         deltas: { health: 1, happiness: -2 },
         result: '하고 싶은 걸 참는 것도, 나름의 용기가 필요했다.'
+      },
+      {
+        id: 'shingles-heal',
+        text: '꾸준한 치료 끝에 대상포진 통증이 씻은 듯 가라앉는다',
+        deltas: { health: 5, happiness: 2 },
+        result: '다시 옷깃이 스쳐도 아무렇지 않은 게, 이렇게 반가울 일이었다.',
+        requiresCondition: 'shingles',
+        removeCondition: 'shingles'
       }
     ]
   },
@@ -3356,6 +3371,13 @@ const STAGES = [
         text: '나이는 숫자일 뿐이라며 활기차게 지낸다',
         deltas: { happiness: 5, health: 3 },
         result: '마음가짐 하나로, 걸음걸이부터 달라지는 기분이었다.'
+      },
+      {
+        id: 'diabetes-onset',
+        text: '건강검진에서 당뇨병 진단을 받아 식단 조절이 시급해진다',
+        deltas: { health: -6, happiness: -2, wealth: -2 },
+        result: '좋아하던 단 음식들과 하나씩 거리를 둬야 했다.',
+        addCondition: { id: 'diabetes', label: '🍬 당뇨병' }
       }
     ]
   },
@@ -3503,6 +3525,14 @@ const STAGES = [
         text: '남은 친구들과 더 자주 만나기로 다짐한다',
         deltas: { relationship: 5, happiness: 3 },
         result: '미루지 말자는 다짐이, 그 어느 때보다 절실했다.'
+      },
+      {
+        id: 'diabetes-managed',
+        text: '철저한 식단 관리와 운동으로 혈당 수치가 안정적으로 조절된다',
+        deltas: { health: 5, happiness: 2 },
+        result: '숫자 하나하나에 예민하던 나날을 지나, 이제는 익숙한 습관이 됐다.',
+        requiresCondition: 'diabetes',
+        removeCondition: 'diabetes'
       }
     ]
   },
@@ -4382,6 +4412,13 @@ const STAGES = [
         text: '그래도 견딜 만하다며 씩씩하게 지낸다',
         deltas: { happiness: 4, health: 2 },
         result: '엄살보다는, 씩씩한 쪽을 택하기로 했다.'
+      },
+      {
+        id: 'parkinsons-onset',
+        text: '손 떨림이 심해지더니 파킨슨병 진단을 받는다',
+        deltas: { health: -9, happiness: -5, relationship: 3 },
+        result: '컵 하나 드는 것도 조심스러워졌지만, 가족들이 곁에서 손을 더 자주 잡아줬다.',
+        addCondition: { id: 'parkinsons', label: '✋ 파킨슨병' }
       }
     ]
   },
@@ -4458,6 +4495,14 @@ const STAGES = [
         text: '그래도 정신만은 또렷하다는 사실에 위안을 얻는다',
         deltas: { happiness: 4, health: 1 },
         result: '몸은 예전만 못해도, 생각만큼은 여전히 나였다.'
+      },
+      {
+        id: 'parkinsons-managed',
+        text: '꾸준한 약물 치료와 재활로 떨림 증상이 눈에 띄게 안정된다',
+        deltas: { health: 5, happiness: 3 },
+        result: '완전히 사라지진 않았지만, 컵을 쥔 손이 다시 제법 든든해졌다.',
+        requiresCondition: 'parkinsons',
+        removeCondition: 'parkinsons'
       },
       {
         id: 'planning-ninetieth-with-kids',
