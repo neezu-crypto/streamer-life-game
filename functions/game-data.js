@@ -1368,6 +1368,13 @@ const STAGES = [
         result: '첫 계약을 따낸 날의 짜릿함이, 그 뒤의 압박감을 잠시 잊게 했다.',
         setOccupation: { id: 'sales-rep', label: '💼 영업직' },
         mandatory: true
+      },
+      {
+        id: 'startup-founder-investment',
+        text: '투자 유치에 성공해 사업을 키운다',
+        deltas: { wealth: 8, fame: 3 },
+        result: '통장에 찍힌 투자금을 보며, 이제 진짜 시작이라는 걸 실감했다.',
+        requiresOccupation: ['startup-founder']
       }
     ]
   },
@@ -1477,6 +1484,13 @@ const STAGES = [
         deltas: { fame: -9, relationship: -3 },
         result: '사실이 아니라고 말해도, 이미 퍼진 이야기는 잘 지워지지 않았다.',
         requiresOccupation: COMPANY_OCCUPATION_IDS
+      },
+      {
+        id: 'logistics-peak-season-overload',
+        text: '물량이 폭주하는 시즌에 몸이 남아나지 않는다',
+        deltas: { health: -6 },
+        result: '컨베이어 벨트처럼, 하루하루가 멈추지 않고 흘러갔다.',
+        requiresOccupation: ['logistics-worker']
       }
     ]
   },
@@ -1532,6 +1546,20 @@ const STAGES = [
         deltas: { health: -4, wealth: 2 },
         result: '타이핑을 칠 때마다 손끝이 찌릿하게 저려왔다.',
         addCondition: { id: 'carpal-tunnel', label: '✋ 손목터널증후군' }
+      },
+      {
+        id: 'tech-new-equipment-manual',
+        text: '새로운 장비·기술을 익히느라 매뉴얼과 밤새 씨름한다',
+        deltas: { happiness: -2, wealth: 2 },
+        result: '두꺼운 매뉴얼을 다 외울 즈음에야, 손이 저절로 움직이기 시작했다.',
+        requiresOccupation: ['tech-worker']
+      },
+      {
+        id: 'small-biz-sales-booming',
+        text: '장사가 잘돼 매출이 눈에 띄게 는다',
+        deltas: { wealth: 6, happiness: 3 },
+        result: '문 닫을 때 세는 매출이, 요즘 들어 유독 든든했다.',
+        requiresOccupation: ['small-business-owner']
       }
     ]
   },
@@ -1612,6 +1640,20 @@ const STAGES = [
         deltas: { wealth: -4, happiness: 4 },
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'movable' }
+      },
+      {
+        id: 'startup-founder-equity-fight',
+        text: '동업자와 지분 문제로 크게 다툰다',
+        deltas: { relationship: -6, happiness: -4 },
+        result: '같이 꾸던 꿈이, 숫자 앞에서 이렇게 쉽게 흔들릴 줄 몰랐다.',
+        requiresOccupation: ['startup-founder']
+      },
+      {
+        id: 'artist-unexpected-recognition',
+        text: '작품이 뜻밖의 주목을 받으며 이름이 알려진다',
+        deltas: { fame: 6, happiness: 3 },
+        result: '아무도 안 볼 줄 알았던 작업물이, 어느새 사람들 입에 오르내렸다.',
+        requiresOccupation: ['artist-writer']
       }
     ]
   },
@@ -1665,6 +1707,20 @@ const STAGES = [
         result: '저릿함 없이 마우스를 쥘 수 있다는 게 이렇게 감사한 일일 줄 몰랐다.',
         requiresCondition: 'carpal-tunnel',
         removeCondition: 'carpal-tunnel'
+      },
+      {
+        id: 'civil-servant-difficult-complainant',
+        text: '무리한 요구를 하는 민원인에게 시달린다',
+        deltas: { happiness: -4 },
+        result: '억울해도 웃으며 응대해야 하는 순간들이, 조용히 쌓여갔다.',
+        requiresOccupation: ['civil-servant']
+      },
+      {
+        id: 'teacher-touching-letter',
+        text: '제자가 보낸 감사 편지에 뭉클해진다',
+        deltas: { happiness: 5, relationship: 2 },
+        result: '삐뚤빼뚤한 글씨 몇 줄이, 지친 하루를 다 녹였다.',
+        requiresOccupation: ['teacher']
       }
     ]
   },
@@ -1725,6 +1781,20 @@ const STAGES = [
         text: '무리하게 벌인 도전이 실패하며 세간의 웃음거리가 된다',
         deltas: { fame: -7, wealth: -4 },
         result: '야심 차게 알렸던 시작이, 가장 부끄러운 실패담이 됐다.'
+      },
+      {
+        id: 'healthcare-night-shift-exhaustion',
+        text: '밤샘 근무 끝에 몸이 완전히 지친다',
+        deltas: { health: -6 },
+        result: '해 뜨는 걸 보며 퇴근하는 날이, 몸에 켜켜이 쌓였다.',
+        requiresOccupation: ['healthcare-worker']
+      },
+      {
+        id: 'office-worker-overtime-exhaustion',
+        text: '반복되는 야근에 지쳐간다',
+        deltas: { health: -4, happiness: -3 },
+        result: '막차 시간표를 외울 지경이 되자, 뭔가 잘못됐다는 걸 느꼈다.',
+        requiresOccupation: ['office-worker']
       }
     ]
   },
@@ -1769,6 +1839,27 @@ const STAGES = [
         text: '지난 20대를 돌아보며 후회 없다고 스스로에게 말해준다',
         deltas: { happiness: 3, health: 1 },
         result: '완벽하진 않았지만, 그래도 최선을 다했다고 인정해주기로 했다.'
+      },
+      {
+        id: 'logistics-recognized-as-ace',
+        text: '빠른 손놀림을 인정받아 에이스로 불린다',
+        deltas: { happiness: 4, wealth: 2 },
+        result: '별거 아닌 별명 같아도, 불릴 때마다 어깨가 으쓱했다.',
+        requiresOccupation: ['logistics-worker']
+      },
+      {
+        id: 'public-corp-job-security-relief',
+        text: '안정적인 정년 보장에 마음이 놓인다',
+        deltas: { happiness: 3 },
+        result: '남들의 이직 소식을 들을 때마다, 이 안정감이 새삼 크게 느껴졌다.',
+        requiresOccupation: ['public-corp-employee']
+      },
+      {
+        id: 'career-changer-adapting-struggle',
+        text: '새 분야 적응이 쉽지 않아 애를 먹는다',
+        deltas: { happiness: -3 },
+        result: '기초부터 다시 배운다는 게, 생각보다 훨씬 더디고 어려웠다.',
+        requiresOccupation: ['career-changer']
       }
     ]
   },
@@ -1840,6 +1931,34 @@ const STAGES = [
         deltas: { wealth: 6, happiness: 3 },
         result: '매달 조금씩 넣은 돈이, 어느새 이렇게 불어나 있었다.',
         addAsset: { id: 'maturity-savings', label: '💰 만기 적금', type: 'cash' }
+      },
+      {
+        id: 'tech-near-miss-accident',
+        text: '현장에서 큰 사고를 낼 뻔하다 아찔하게 넘긴다',
+        deltas: { health: -4, happiness: -3 },
+        result: '몇 초 차이였다는 걸 되새길 때마다, 등골이 서늘해졌다.',
+        requiresOccupation: ['tech-worker']
+      },
+      {
+        id: 'startup-founder-word-of-mouth',
+        text: '서비스가 입소문을 타며 빠르게 성장한다',
+        deltas: { fame: 5, wealth: 3 },
+        result: '사용자 수 그래프가 꺾이지 않고 올라가는 걸, 몇 번이고 새로고침했다.',
+        requiresOccupation: ['startup-founder']
+      },
+      {
+        id: 'small-biz-rent-increase',
+        text: '임대료 인상 통보에 골머리를 앓는다',
+        deltas: { wealth: -4, happiness: -3 },
+        result: '숫자 하나가 이렇게 밤잠을 설치게 할 줄 몰랐다.',
+        requiresOccupation: ['small-business-owner']
+      },
+      {
+        id: 'sales-rep-top-performer',
+        text: '큰 계약을 따내며 실적 1위에 오른다',
+        deltas: { wealth: 6, fame: 3 },
+        result: '전광판에 뜬 내 이름을, 몇 번이고 다시 확인했다.',
+        requiresOccupation: ['sales-rep']
       }
     ]
   },
@@ -1892,6 +2011,13 @@ const STAGES = [
         text: '결혼 대신 반려동물을 입양해 새 가족을 만든다',
         deltas: { happiness: 5, relationship: 3, wealth: -2 },
         result: '작은 발소리 하나가 집 안 공기를 완전히 바꿔놓았다.'
+      },
+      {
+        id: 'artist-creative-block',
+        text: '창작의 벽에 부딪혀 오랫동안 슬럼프에 빠진다',
+        deltas: { happiness: -5 },
+        result: '텅 빈 화면 앞에서 몇 시간을 보내는 날이, 점점 잦아졌다.',
+        requiresOccupation: ['artist-writer']
       }
     ]
   },
@@ -1957,6 +2083,20 @@ const STAGES = [
         deltas: { wealth: -9, happiness: 3 },
         result: '큰돈이 묶였지만, 이름 앞으로 된 상가 하나가 든든했다.',
         addAsset: { id: 'commercial-unit', label: '🏬 상가', type: 'realestate' }
+      },
+      {
+        id: 'civil-servant-seniority-promotion',
+        text: '연공서열에 따라 안정적으로 승급한다',
+        deltas: { wealth: 3, happiness: 2 },
+        result: '화려하진 않아도, 꾸준함이 결국 자리를 만들어줬다.',
+        requiresOccupation: ['civil-servant']
+      },
+      {
+        id: 'teacher-parent-complaints',
+        text: '학부모 민원에 시달리며 스트레스를 받는다',
+        deltas: { happiness: -5 },
+        result: '전화벨이 울릴 때마다, 심장이 먼저 철렁 내려앉았다.',
+        requiresOccupation: ['teacher']
       }
     ]
   },
@@ -2004,6 +2144,20 @@ const STAGES = [
         text: '아이 대신 커리어에 더 집중하기로 결심한다',
         deltas: { wealth: 4, fame: 3, relationship: -2 },
         result: '선택에 후회는 없었지만, 가끔 명절마다 듣는 질문은 피곤했다.'
+      },
+      {
+        id: 'healthcare-saved-a-patient',
+        text: '환자를 살려낸 순간, 이 일을 하길 잘했다고 느낀다',
+        deltas: { happiness: 6 },
+        result: '보호자의 울먹이는 인사 한마디가, 그간의 고됨을 다 씻어냈다.',
+        requiresOccupation: ['healthcare-worker']
+      },
+      {
+        id: 'office-worker-unexpected-bonus',
+        text: '예상 밖의 성과급을 받아 기분이 들뜬다',
+        deltas: { wealth: 5, happiness: 3 },
+        result: '입금 문자를 몇 번이고 다시 열어봤다.',
+        requiresOccupation: ['office-worker']
       }
     ]
   },
@@ -2066,6 +2220,28 @@ const STAGES = [
         deltas: { relationship: -8, wealth: 2 },
         result: '일은 남았지만, 예전 같은 사이로는 돌아가지 못했다.',
         requiresOccupation: COMPANY_OCCUPATION_IDS
+      },
+      {
+        id: 'logistics-back-injury',
+        text: '무거운 짐을 나르다 허리를 크게 다친다',
+        deltas: { health: -5 },
+        result: '순간의 삐끗함이, 오래도록 몸에 남는 흔적이 됐다.',
+        requiresOccupation: ['logistics-worker'],
+        addCondition: { id: 'back-pain', label: '🦴 허리 통증' }
+      },
+      {
+        id: 'public-corp-nepotism-controversy',
+        text: '낙하산 인사 논란에 조직 분위기가 뒤숭숭하다',
+        deltas: { happiness: -3 },
+        result: '실력보다 다른 게 앞선다는 말이, 사무실 여기저기서 돌았다.',
+        requiresOccupation: ['public-corp-employee']
+      },
+      {
+        id: 'career-changer-prior-experience-strength',
+        text: '이전 경력이 뜻밖의 강점으로 작용한다',
+        deltas: { wealth: 3, happiness: 2 },
+        result: '전혀 다른 분야인 줄 알았는데, 예전 경험이 의외의 곳에서 빛을 냈다.',
+        requiresOccupation: ['career-changer']
       }
     ]
   },
@@ -2120,6 +2296,34 @@ const STAGES = [
         deltas: { health: -4, wealth: -1 },
         result: '머리 감을 때마다 어깨가 시큰거리는 게, 서른다섯의 몸이 보내는 신호였다.',
         addCondition: { id: 'frozen-shoulder', label: '💪 어깨 결림(삼십견)' }
+      },
+      {
+        id: 'tech-mentoring-junior-worker',
+        text: '숙련도를 인정받아 후배 기술자를 지도하게 된다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '내가 헤매던 자리에서, 이번엔 누군가에게 손을 내밀고 있었다.',
+        requiresOccupation: ['tech-worker']
+      },
+      {
+        id: 'startup-founder-funding-crisis',
+        text: '자금난에 시달리며 폐업 위기를 맞는다',
+        deltas: { wealth: -8, happiness: -5 },
+        result: '통장 잔고를 확인하는 손이, 매일 조금씩 더 무거워졌다.',
+        requiresOccupation: ['startup-founder']
+      },
+      {
+        id: 'small-biz-regular-customers',
+        text: '단골 손님이 늘며 정이 쌓인다',
+        deltas: { relationship: 4, happiness: 2 },
+        result: '이름은 몰라도 얼굴만 봐도 반가운 사람들이, 하나둘 늘어갔다.',
+        requiresOccupation: ['small-business-owner']
+      },
+      {
+        id: 'sales-rep-quota-pressure',
+        text: '실적 압박에 시달리며 스트레스가 쌓인다',
+        deltas: { happiness: -4 },
+        result: '월말이 다가올 때마다, 숫자가 목을 조여오는 기분이었다.',
+        requiresOccupation: ['sales-rep']
       }
     ]
   },
@@ -2187,6 +2391,20 @@ const STAGES = [
         text: '무심코 한 말이 논란이 되어 오래 쌓아온 이미지가 흔들린다',
         deltas: { fame: -8, happiness: -3 },
         result: '말 한마디가 그렇게까지 커질 줄은, 나조차 몰랐다.'
+      },
+      {
+        id: 'artist-unstable-income',
+        text: '수입이 불안정해 생활고에 시달린다',
+        deltas: { wealth: -5 },
+        result: '좋아하는 일을 한다는 게, 통장 잔고를 대신 채워주진 않았다.',
+        requiresOccupation: ['artist-writer']
+      },
+      {
+        id: 'job-changed-culture-shock',
+        text: '새 조직 문화에 적응하느라 진땀을 뺀다',
+        deltas: { happiness: -3 },
+        result: '같은 회사원인데도, 문화는 이렇게 다를 수 있다는 걸 새삼 느꼈다.',
+        requiresOccupation: ['job-changed']
       }
     ]
   },
@@ -2239,6 +2457,20 @@ const STAGES = [
         result: '숫자 하나가 정상으로 돌아왔을 뿐인데, 마음이 다 놓였다.',
         requiresCondition: 'hypertension',
         removeCondition: 'hypertension'
+      },
+      {
+        id: 'civil-servant-bureaucracy-frustration',
+        text: '관행적인 업무 처리 방식에 답답함을 느낀다',
+        deltas: { happiness: -3 },
+        result: '이래야 하는 이유를 물어도, 돌아오는 답은 늘 "원래 그렇다"였다.',
+        requiresOccupation: ['civil-servant']
+      },
+      {
+        id: 'teacher-homeroom-duties',
+        text: '담임을 맡아 책임이 부쩍 무거워진다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '반 아이들 한 명 한 명이, 이제 다 내 몫으로 느껴졌다.',
+        requiresOccupation: ['teacher']
       }
     ]
   },
@@ -2297,6 +2529,27 @@ const STAGES = [
         text: '가족과 깊은 갈등을 겪으며 한동안 왕래를 끊는다',
         deltas: { relationship: -9, happiness: -4 },
         result: '먼저 손 내밀기엔, 서로 너무 오래 등을 돌리고 있었다.'
+      },
+      {
+        id: 'healthcare-infection-exposure',
+        text: '감염 위험에 늘 노출된 채 일한다',
+        deltas: { health: -3 },
+        result: '보호구를 벗을 때마다, 오늘 하루도 무사했다는 안도가 먼저 들었다.',
+        requiresOccupation: ['healthcare-worker']
+      },
+      {
+        id: 'office-worker-politics',
+        text: '직장 내 정치싸움에 휘말려 곤란해진다',
+        deltas: { happiness: -4, relationship: -2 },
+        result: '누구 편도 들지 않으려 했는데, 결국 눈치를 보게 됐다.',
+        requiresOccupation: ['office-worker']
+      },
+      {
+        id: 'entrepreneur-stable-revenue',
+        text: '사업이 궤도에 올라 안정적인 수익을 낸다',
+        deltas: { wealth: 7 },
+        result: '매달 들쭉날쭉하던 매출이, 처음으로 예측 가능한 숫자가 됐다.',
+        requiresOccupation: ['entrepreneur']
       }
     ]
   },
@@ -2341,6 +2594,27 @@ const STAGES = [
         text: '마흔이라는 숫자 앞에서 담담해지기로 마음먹는다',
         deltas: { happiness: 2, health: 1 },
         result: '두려워하기보다, 그냥 자연스럽게 받아들이기로 했다.'
+      },
+      {
+        id: 'logistics-dawn-coworker-bonding',
+        text: '동료들과 새벽 시간을 함께 보내며 끈끈해진다',
+        deltas: { relationship: 4 },
+        result: '아무도 안 깬 새벽, 같이 짐을 나르던 얼굴들이 가족처럼 느껴졌다.',
+        requiresOccupation: ['logistics-worker']
+      },
+      {
+        id: 'public-corp-project-success',
+        text: '공공 프로젝트가 성공적으로 마무리돼 성취감을 느낀다',
+        deltas: { happiness: 4, fame: 2 },
+        result: '이름 없이 끝나는 일이었지만, 뿌듯함만큼은 온전히 내 것이었다.',
+        requiresOccupation: ['public-corp-employee']
+      },
+      {
+        id: 'career-changer-jargon-struggle',
+        text: '낯선 업무 용어에 매일 진땀을 뺀다',
+        deltas: { happiness: -2 },
+        result: '회의 시간마다 모르는 단어를 몰래 검색하는 게 일상이 됐다.',
+        requiresOccupation: ['career-changer']
       }
     ]
   },
@@ -2392,6 +2666,41 @@ const STAGES = [
         text: '한물간 유행이 되어 예전만큼 주목받지 못한다',
         deltas: { fame: -6, happiness: -3 },
         result: '한때 앞서갔다고 생각한 것들이, 어느새 낡은 것이 되어 있었다.'
+      },
+      {
+        id: 'tech-extra-certification',
+        text: '자격증을 추가로 따내 몸값을 높인다',
+        deltas: { wealth: 5 },
+        result: '자격증 한 장이, 다음 몸값 협상의 든든한 카드가 됐다.',
+        requiresOccupation: ['tech-worker']
+      },
+      {
+        id: 'startup-founder-overwork-health',
+        text: '밤낮없이 일하며 건강을 크게 해친다',
+        deltas: { health: -6 },
+        result: '몸이 보내는 경고를, 너무 오래 뒷전으로 미뤄뒀다.',
+        requiresOccupation: ['startup-founder']
+      },
+      {
+        id: 'small-biz-competitor-nearby',
+        text: '경쟁 점포가 바로 옆에 생겨 긴장한다',
+        deltas: { happiness: -3 },
+        result: '새 간판이 켜지던 날, 나도 모르게 매출표부터 다시 훑어봤다.',
+        requiresOccupation: ['small-business-owner']
+      },
+      {
+        id: 'sales-rep-entertainment-health',
+        text: '거래처와의 접대 자리가 잦아지며 건강이 나빠진다',
+        deltas: { health: -4 },
+        result: '웃으며 잔을 채우는 손이, 속으로는 지쳐가고 있었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'job-changed-better-treatment',
+        text: '이전 회사보다 훨씬 좋은 대우에 만족한다',
+        deltas: { wealth: 4, happiness: 3 },
+        result: '왜 진작 옮기지 않았을까 싶을 정도로, 처우가 달랐다.',
+        requiresOccupation: ['job-changed']
       }
     ]
   },
@@ -2438,6 +2747,13 @@ const STAGES = [
         text: '동년배들과 비교하며 조급함을 느낀다',
         deltas: { happiness: -3, relationship: -1 },
         result: '동창회 소식 하나에 며칠을 심란해했다.'
+      },
+      {
+        id: 'artist-exhibition-opportunity',
+        text: '전시회·출간 기회를 얻어 설렌다',
+        deltas: { happiness: 4, fame: 3 },
+        result: '내 이름이 박힌 포스터를 몇 번이고 다시 들여다봤다.',
+        requiresOccupation: ['artist-writer']
       }
     ]
   },
@@ -2489,6 +2805,27 @@ const STAGES = [
         text: '오랜 친구와의 관계가 서서히, 그러나 완전히 끊어진다',
         deltas: { relationship: -7, happiness: -3 },
         result: '마지막 연락이 언제였는지도 이제는 가물가물했다.'
+      },
+      {
+        id: 'civil-servant-work-life-balance',
+        text: '칼퇴근과 안정적인 워라밸을 만끽한다',
+        deltas: { happiness: 5, health: 2 },
+        result: '퇴근길 하늘이 아직 밝다는 것만으로도, 하루가 여유로워졌다.',
+        requiresOccupation: ['civil-servant']
+      },
+      {
+        id: 'teacher-late-night-prep',
+        text: '수업 준비와 잡무로 밤늦게까지 학교에 남는다',
+        deltas: { health: -3 },
+        result: '텅 빈 교무실 불빛 아래, 다음 날 수업 자료를 붙잡고 있었다.',
+        requiresOccupation: ['teacher']
+      },
+      {
+        id: 'entrepreneur-first-hire',
+        text: '직원을 처음 채용하며 책임감이 커진다',
+        deltas: { happiness: -2, wealth: 2 },
+        result: '나 하나만 책임지던 삶이, 이제 다른 이의 생계까지 걸린 일이 됐다.',
+        requiresOccupation: ['entrepreneur']
       }
     ]
   },
@@ -2539,6 +2876,20 @@ const STAGES = [
         deltas: { wealth: -3, happiness: 3 },
         result: '커피 한 잔 하며 나눈 얘기가, 진짜 계획이 되어가고 있었다.',
         requiresOccupation: COMPANY_OCCUPATION_IDS
+      },
+      {
+        id: 'healthcare-verbal-abuse',
+        text: '환자·보호자의 폭언에 마음의 상처를 입는다',
+        deltas: { happiness: -5 },
+        result: '아무렇지 않은 척 돌아섰지만, 그 말들은 오래 남았다.',
+        requiresOccupation: ['healthcare-worker']
+      },
+      {
+        id: 'office-worker-mentor-growth',
+        text: '사수의 도움으로 업무 실력이 빠르게 는다',
+        deltas: { wealth: 2, happiness: 3 },
+        result: '묻지도 않은 걸 먼저 챙겨주는 그 배려가, 오래 기억에 남았다.',
+        requiresOccupation: ['office-worker']
       }
     ]
   },
@@ -2607,6 +2958,34 @@ const STAGES = [
         text: '공개적인 논란에 휘말려 오래 쌓아온 신뢰를 잃는다',
         deltas: { fame: -9, relationship: -4 },
         result: '해명도 사과도, 이미 돌아선 마음을 다 되돌리진 못했다.'
+      },
+      {
+        id: 'logistics-automation-anxiety',
+        text: '자동화 설비 도입에 일자리 불안을 느낀다',
+        deltas: { happiness: -4 },
+        result: '기계가 대신하는 구간이 늘어날 때마다, 내 자리도 줄어드는 것 같았다.',
+        requiresOccupation: ['logistics-worker']
+      },
+      {
+        id: 'public-corp-rigid-culture',
+        text: '경직된 조직 문화에 답답함을 느낀다',
+        deltas: { happiness: -3 },
+        result: '결재판이 몇 단계를 거치는 동안, 열정도 조금씩 식어갔다.',
+        requiresOccupation: ['public-corp-employee']
+      },
+      {
+        id: 'career-changer-confirmation-moment',
+        text: '전환이 옳았다는 확신이 드는 순간을 맞는다',
+        deltas: { happiness: 5 },
+        result: '늦었다고 생각했던 그 선택이, 결국 옳았다는 걸 스스로 확인했다.',
+        requiresOccupation: ['career-changer']
+      },
+      {
+        id: 'job-changed-awkward-new-colleagues',
+        text: '새 동료들과 서먹한 시간을 보낸다',
+        deltas: { relationship: -2 },
+        result: '농담 하나에도 눈치를 보게 되는, 낯선 자리였다.',
+        requiresOccupation: ['job-changed']
       }
     ]
   },
@@ -2666,6 +3045,34 @@ const STAGES = [
         deltas: { wealth: -6, happiness: 3 },
         result: '보는 눈이 느는 만큼, 애정도 함께 쌓여갔다.',
         addAsset: { id: 'collectibles', label: '🎨 수집품', type: 'movable' }
+      },
+      {
+        id: 'tech-repetitive-strain',
+        text: '반복 작업으로 손목·어깨에 무리가 온다',
+        deltas: { health: -5 },
+        result: '몸에 새겨진 숙련의 흔적이, 통증으로도 함께 남았다.',
+        requiresOccupation: ['tech-worker']
+      },
+      {
+        id: 'small-biz-solo-burnout',
+        text: '혼자 다 하려다 몸이 축난다',
+        deltas: { health: -5 },
+        result: '사장이자 직원이자 청소부인 하루가, 몸에 고스란히 쌓였다.',
+        requiresOccupation: ['small-business-owner']
+      },
+      {
+        id: 'sales-rep-difficult-client',
+        text: '고객에게 무리한 요구를 받고도 웃어야 한다',
+        deltas: { happiness: -4 },
+        result: '"고객님 말씀이 맞습니다"를, 오늘도 몇 번이나 되뇌었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'team-lead-taking-blame',
+        text: '팀원의 실수를 대신 책임지며 속앓이를 한다',
+        deltas: { happiness: -4 },
+        result: '"제 관리 부족입니다"라는 말이, 입에 붙어버렸다.',
+        requiresOccupation: ['team-lead']
       }
     ]
   },
@@ -2718,6 +3125,20 @@ const STAGES = [
         text: '믿었던 사람에게 이용만 당했다는 걸 뒤늦게 깨닫는다',
         deltas: { relationship: -8, happiness: -4 },
         result: '관계였다고 생각한 것이, 사실은 아니었을지도 몰랐다.'
+      },
+      {
+        id: 'artist-irregular-schedule',
+        text: '밤낮없이 작업하며 불규칙한 생활을 이어간다',
+        deltas: { health: -4 },
+        result: '해가 뜨고 지는 걸, 작업이 끝나야만 알아챌 때가 많았다.',
+        requiresOccupation: ['artist-writer']
+      },
+      {
+        id: 'entrepreneur-competitor-pressure',
+        text: '경쟁사의 공격적인 마케팅에 위기감을 느낀다',
+        deltas: { happiness: -3 },
+        result: '어제까진 없던 광고가, 오늘은 골목 어귀마다 걸려 있었다.',
+        requiresOccupation: ['entrepreneur']
       }
     ]
   },
@@ -2775,6 +3196,20 @@ const STAGES = [
         result: '계단을 편하게 오를 수 있다는 게, 새삼 감사했다.',
         requiresCondition: 'knee-pain',
         removeCondition: 'knee-pain'
+      },
+      {
+        id: 'civil-servant-audit-stress',
+        text: '감사(監査) 대상이 되어 며칠간 초긴장 상태로 지낸다',
+        deltas: { health: -3, happiness: -3 },
+        result: '서류 한 장 한 장을 다시 들여다볼 때마다, 잠이 달아났다.',
+        requiresOccupation: ['civil-servant']
+      },
+      {
+        id: 'teacher-department-head',
+        text: '부장교사로 발탁되며 역할이 커진다',
+        deltas: { wealth: 3, fame: 2 },
+        result: '"부장님"이라는 호칭이, 아직은 낯설고 무거웠다.',
+        requiresOccupation: ['teacher']
       }
     ]
   },
@@ -2826,6 +3261,41 @@ const STAGES = [
         text: '후배·신인들에게 밀려 존재감이 옅어진다',
         deltas: { fame: -6, happiness: -3 },
         result: '화려했던 자리가, 조용히 다른 사람의 것이 되어가고 있었다.'
+      },
+      {
+        id: 'healthcare-head-nurse-promotion',
+        text: '숙련도를 인정받아 수간호사급으로 승진한다',
+        deltas: { wealth: 4, fame: 2 },
+        result: '신입 때의 서툴던 손이, 어느새 후배들이 의지하는 손이 되어 있었다.',
+        requiresOccupation: ['healthcare-worker']
+      },
+      {
+        id: 'office-worker-remote-balance',
+        text: '재택근무로 워라밸이 눈에 띄게 개선된다',
+        deltas: { happiness: 4, health: 2 },
+        result: '출퇴근길에 쓰던 시간이, 고스란히 내 것이 됐다.',
+        requiresOccupation: ['office-worker']
+      },
+      {
+        id: 'job-changed-regret',
+        text: '이직이 실수였나 후회가 밀려온다',
+        deltas: { happiness: -4 },
+        result: '그만두고 온 자리가, 자꾸만 더 좋아 보였다.',
+        requiresOccupation: ['job-changed']
+      },
+      {
+        id: 'team-lead-performance-recognized',
+        text: '팀 성과가 좋아 상부의 인정을 받는다',
+        deltas: { wealth: 3, fame: 3 },
+        result: '팀원들과 나눠 든 트로피가, 혼자 받은 것보다 훨씬 묵직했다.',
+        requiresOccupation: ['team-lead']
+      },
+      {
+        id: 'career-pivot-beginner-again',
+        text: '완전히 새로운 분야에서 초심자로 돌아간 기분을 느낀다',
+        deltas: { happiness: -3 },
+        result: '이 나이에 다시 "처음"이라는 단어를 쓸 줄은 몰랐다.',
+        requiresOccupation: ['career-pivot']
       }
     ]
   },
@@ -2877,6 +3347,27 @@ const STAGES = [
         deltas: { health: -5, happiness: -3 },
         result: '열감과 불면이 번갈아 찾아오는 밤들이 계속됐다.',
         addCondition: { id: 'menopause-symptoms', label: '🌡️ 갱년기 증상' }
+      },
+      {
+        id: 'public-corp-overseas-training',
+        text: '해외 연수 기회를 얻어 견문을 넓힌다',
+        deltas: { happiness: 4, wealth: 2 },
+        result: '낯선 나라에서 보낸 몇 주가, 오랜만에 숨통을 틔워줬다.',
+        requiresOccupation: ['public-corp-employee']
+      },
+      {
+        id: 'career-changer-behind-peers',
+        text: '또래보다 늦은 출발에 조바심을 느낀다',
+        deltas: { happiness: -3 },
+        result: '남들보다 몇 걸음 늦게 시작했다는 생각이, 문득문득 마음을 조였다.',
+        requiresOccupation: ['career-changer']
+      },
+      {
+        id: 'consultant-overwhelmed-with-requests',
+        text: '강연 요청이 줄줄이 들어와 몸이 두 개라도 모자라다',
+        deltas: { wealth: 5, health: -2 },
+        result: '스케줄표가 빼곡해질수록, 몸은 못 따라가고 있었다.',
+        requiresOccupation: ['consultant']
       }
     ]
   },
@@ -2927,6 +3418,27 @@ const STAGES = [
         text: '가족과 깊은 갈등을 겪으며 서먹해진다',
         deltas: { relationship: -8, happiness: -3 },
         result: '한 지붕 아래 살면서도, 대화는 점점 짧아졌다.'
+      },
+      {
+        id: 'sales-rep-trust-built-client',
+        text: '오랜 노력 끝에 신뢰 관계를 쌓은 거래처가 생긴다',
+        deltas: { relationship: 4, wealth: 2 },
+        result: '이제는 계약서 없이도 믿어주는 사이가, 무엇보다 든든했다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'entrepreneur-industry-recognition',
+        text: '오랜 노력 끝에 업계에서 인정받는 위치에 오른다',
+        deltas: { fame: 5, happiness: 3 },
+        result: '무명이었던 이름이, 어느새 업계에서 회자되고 있었다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'career-pivot-diverse-experience-asset',
+        text: '다양한 경험이 새 분야에서 예상외의 무기가 된다',
+        deltas: { wealth: 3, happiness: 3 },
+        result: '멀리 돌아온 길이, 결국 남들에게 없는 무기가 되어 있었다.',
+        requiresOccupation: ['career-pivot']
       }
     ]
   },
@@ -2983,6 +3495,13 @@ const STAGES = [
         result: '오랜만에 밤새 푹 잔 아침이, 이렇게 개운할 줄 몰랐다.',
         requiresCondition: 'menopause-symptoms',
         removeCondition: 'menopause-symptoms'
+      },
+      {
+        id: 'team-lead-caught-in-middle',
+        text: '팀원과 임원 사이에서 이러지도 저러지도 못한다',
+        deltas: { happiness: -4 },
+        result: '위에서도 아래에서도 이해받지 못하는 자리라는 걸, 뒤늦게 알았다.',
+        requiresOccupation: ['team-lead']
       }
     ]
   },
@@ -3034,6 +3553,13 @@ const STAGES = [
         text: '지나간 발언이 다시 수면 위로 떠오르며 뒤늦게 뭇매를 맞는다',
         deltas: { fame: -8, happiness: -4 },
         result: '그때는 아무렇지 않던 말이, 지금은 무겁게 되돌아왔다.'
+      },
+      {
+        id: 'consultant-criticized-out-of-touch',
+        text: '실전과 동떨어진 조언이라는 혹평을 듣는다',
+        deltas: { happiness: -4 },
+        result: '현장을 떠난 지 오래됐다는 지적이, 뼈아프게 다가왔다.',
+        requiresOccupation: ['consultant']
       }
     ]
   },
@@ -3087,6 +3613,27 @@ const STAGES = [
         text: '돈보다 건강과 시간이 우선이라는 걸 재확인한다',
         deltas: { happiness: 4, health: 2 },
         result: '통장 잔고보다 오늘 하루가 더 소중하다는 걸, 이제는 안다.'
+      },
+      {
+        id: 'job-changed-quickly-recognized',
+        text: '새 회사에서 능력을 인정받아 빠르게 자리잡는다',
+        deltas: { wealth: 3, fame: 2 },
+        result: '낯설던 자리가, 어느새 내 자리처럼 편안해졌다.',
+        requiresOccupation: ['job-changed']
+      },
+      {
+        id: 'entrepreneur-risky-expansion-loan',
+        text: '사업 확장을 위해 무리한 대출을 받는다',
+        deltas: { wealth: -4 },
+        result: '서명 한 번에, 다음 몇 년의 무게가 달라졌다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'career-pivot-intimidated-by-younger',
+        text: '나이 어린 동료들 사이에서 위축된다',
+        deltas: { happiness: -3 },
+        result: '경력은 짧아도, 그들이 훨씬 능숙해 보이는 순간들이 있었다.',
+        requiresOccupation: ['career-pivot']
       }
     ]
   },
@@ -3251,6 +3798,13 @@ const STAGES = [
         text: '은퇴를 앞두고 관심에서 서서히 잊혀져 간다',
         deltas: { fame: -5, happiness: -2 },
         result: '화려했던 이름 석 자가, 조금씩 낯설어지고 있었다.'
+      },
+      {
+        id: 'consultant-well-received-insight',
+        text: '오랜 경력에서 우러난 통찰로 큰 호응을 얻는다',
+        deltas: { fame: 4, happiness: 3 },
+        result: '몇 마디 안 되는 조언에, 사람들 눈빛이 달라지는 걸 봤다.',
+        requiresOccupation: ['consultant']
       }
     ]
   },
@@ -3303,6 +3857,13 @@ const STAGES = [
         deltas: { health: -4, wealth: -1 },
         result: '뼈도 나이를 먹는다는 걸, 숫자로 마주하니 실감이 났다.',
         addCondition: { id: 'osteoporosis', label: '🦴 골다공증' }
+      },
+      {
+        id: 'team-lead-learning-leadership',
+        text: '힘들어하는 팀원을 다독이며 리더십을 배운다',
+        deltas: { relationship: 3, happiness: 2 },
+        result: '가르치려다, 오히려 내가 더 배우고 있다는 걸 깨달았다.',
+        requiresOccupation: ['team-lead']
       }
     ]
   },
@@ -3372,6 +3933,20 @@ const STAGES = [
         text: '친했던 지인들과 하나둘 연락이 끊긴다',
         deltas: { relationship: -6, happiness: -2 },
         result: '명절에도, 이제는 안부를 물을 사람이 줄어 있었다.'
+      },
+      {
+        id: 'career-pivot-new-vitality',
+        text: '새로운 도전이 인생에 활력을 불어넣는다',
+        deltas: { happiness: 5, health: 2 },
+        result: '멈춰 있던 줄 알았던 삶이, 다시 움직이기 시작했다.',
+        requiresOccupation: ['career-pivot']
+      },
+      {
+        id: 'volunteer-rich-in-spirit',
+        text: '작은 보수에도 마음만은 부자가 된 기분을 느낀다',
+        deltas: { happiness: 4 },
+        result: '통장은 얇아도, 마음이 이렇게 두둑할 수 있다는 걸 처음 알았다.',
+        requiresOccupation: ['volunteer-work']
       }
     ]
   },
@@ -3416,6 +3991,13 @@ const STAGES = [
         text: '몸이 예전 같지 않다는 걸 받아들이고 무리하지 않는다',
         deltas: { happiness: 3, health: 2 },
         result: '버티기보다 맞춰가는 법을, 천천히 익혀갔다.'
+      },
+      {
+        id: 'retired-every-day-sunday',
+        text: '매일이 일요일 같은 여유로움에 적응해간다',
+        deltas: { happiness: 4 },
+        result: '요일 개념이 흐려질 때쯤, 비로소 은퇴가 실감 났다.',
+        requiresOccupation: ['retired']
       }
     ]
   },
@@ -3495,6 +4077,20 @@ const STAGES = [
         deltas: { wealth: 3, happiness: 1 },
         result: '크고 화려한 차보다, 이제는 이 편이 훨씬 편했다.',
         addAsset: { id: 'compact-car', label: '🚙 소형차', type: 'movable' }
+      },
+      {
+        id: 'team-lead-review-season-stress',
+        text: '인사 평가철마다 극심한 스트레스에 시달린다',
+        deltas: { health: -3, happiness: -3 },
+        result: '누군가의 1년을 숫자로 매겨야 한다는 게, 해마다 더 무거워졌다.',
+        requiresOccupation: ['team-lead']
+      },
+      {
+        id: 'consultant-work-dries-up',
+        text: '일감이 뚝 끊겨 불안한 시기를 보낸다',
+        deltas: { wealth: -4, happiness: -3 },
+        result: '전화벨이 울리지 않는 날들이, 생각보다 길게 이어졌다.',
+        requiresOccupation: ['consultant']
       }
     ]
   },
@@ -3548,6 +4144,13 @@ const STAGES = [
         deltas: { health: -6, happiness: -3 },
         result: '피부에 닿는 옷깃마저 아플 줄은 몰랐다.',
         addCondition: { id: 'shingles', label: '🔥 대상포진' }
+      },
+      {
+        id: 'volunteer-body-not-what-it-was',
+        text: '몸이 예전 같지 않아 파트타임 일도 버겁게 느껴진다',
+        deltas: { health: -3 },
+        result: '가벼운 일이라 여겼던 것도, 이제는 하루를 다 쓰게 만들었다.',
+        requiresOccupation: ['volunteer-work']
       }
     ]
   },
@@ -3600,6 +4203,13 @@ const STAGES = [
         text: '오랜 벗과 사소한 일로 다시는 안 볼 사이가 된다',
         deltas: { relationship: -7, happiness: -3 },
         result: '몇십 년 지기였다는 게 무색하게, 화해할 틈도 없이 멀어졌다.'
+      },
+      {
+        id: 'retired-sudden-boredom',
+        text: '갑자기 늘어난 시간에 무료함을 느낀다',
+        deltas: { happiness: -3 },
+        result: '바쁘게 살고 싶었던 순간들이, 이렇게 그리워질 줄 몰랐다.',
+        requiresOccupation: ['retired']
       }
     ]
   },
@@ -3653,6 +4263,13 @@ const STAGES = [
         deltas: { health: -4, relationship: -1 },
         result: '못 알아들어 되묻는 일이, 조금씩 잦아졌다.',
         addCondition: { id: 'hearing-loss', label: '👂 난청' }
+      },
+      {
+        id: 'career-pivot-transition-costs',
+        text: '전환에 든 비용 때문에 살림이 빠듯해진다',
+        deltas: { wealth: -4 },
+        result: '새로 시작하는 데도, 이렇게 돈이 많이 드는 줄 몰랐다.',
+        requiresOccupation: ['career-pivot']
       }
     ]
   },
@@ -3711,6 +4328,20 @@ const STAGES = [
         text: '예전 발언·행동이 재조명되며 다시 비판받는다',
         deltas: { fame: -7, happiness: -3 },
         result: '시대가 달라졌다는 걸, 뒤늦게야 실감했다.'
+      },
+      {
+        id: 'consultant-student-growth-fulfillment',
+        text: '제자·수강생이 성장하는 모습에 보람을 느낀다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '내가 건넨 말 한마디가 누군가의 길이 되는 걸 지켜보는 일이었다.',
+        requiresOccupation: ['consultant']
+      },
+      {
+        id: 'volunteer-new-connections',
+        text: '재능기부로 만난 사람들과 새로운 인연을 쌓는다',
+        deltas: { relationship: 4 },
+        result: '보수 없이 만난 사이인데, 오히려 마음은 더 깊어졌다.',
+        requiresOccupation: ['volunteer-work']
       }
     ]
   },
@@ -3762,6 +4393,20 @@ const STAGES = [
         deltas: { health: -6, happiness: -2, wealth: -2 },
         result: '좋아하던 단 음식들과 하나씩 거리를 둬야 했다.',
         addCondition: { id: 'diabetes', label: '🍬 당뇨병' }
+      },
+      {
+        id: 'retired-diving-into-hobbies',
+        text: '그동안 못 했던 취미 생활에 푹 빠진다',
+        deltas: { happiness: 5, health: 2 },
+        result: '미뤄뒀던 취미가, 뒤늦게 인생에서 가장 큰 즐거움이 됐다.',
+        requiresOccupation: ['retired']
+      },
+      {
+        id: 're-employed-rookie-again',
+        text: '젊은 동료들 사이에서 다시 신입이 된 기분을 느낀다',
+        deltas: { happiness: -2 },
+        result: '나이는 가장 많은데, 자리는 가장 낮은 게 새삼스러웠다.',
+        requiresOccupation: ['re-employed']
       }
     ]
   },
@@ -3877,6 +4522,13 @@ const STAGES = [
         deltas: { health: -6, wealth: -2 },
         result: '순식간에 넘어진 그 몇 초가, 이후 몇 달을 바꿔놓았다.',
         addCondition: { id: 'hip-fracture', label: '🦴 고관절 골절' }
+      },
+      {
+        id: 'volunteer-financially-tight',
+        text: '경제적으로 넉넉하지 않아 계속 아등바등한다',
+        deltas: { wealth: -2, happiness: -2 },
+        result: '큰돈은 아니어도, 매달 계산기를 두드리는 습관은 여전했다.',
+        requiresOccupation: ['volunteer-work']
       }
     ]
   },
@@ -3935,6 +4587,20 @@ const STAGES = [
         text: '후배 세대에게 완전히 자리를 내주며 잊힌 존재가 된다',
         deltas: { fame: -6, happiness: -2 },
         result: '한때는 모두가 알던 이름이었는데, 이제는 설명이 필요했다.'
+      },
+      {
+        id: 'retired-income-anxiety',
+        text: '고정 수입이 끊긴 불안감에 시달린다',
+        deltas: { happiness: -3, wealth: -2 },
+        result: '월급날이 없어졌다는 사실이, 생각보다 오래 낯설었다.',
+        requiresOccupation: ['retired']
+      },
+      {
+        id: 're-employed-easier-finances',
+        text: '연금에 더해진 소득으로 살림이 한결 넉넉해진다',
+        deltas: { wealth: 4 },
+        result: '두 줄기 소득이 만나니, 마음 씀씀이도 조금 여유로워졌다.',
+        requiresOccupation: ['re-employed']
       }
     ]
   },
@@ -4038,6 +4704,13 @@ const STAGES = [
         text: '곁에 남은 사람이 하나둘 줄어드는 걸 실감한다',
         deltas: { relationship: -6, happiness: -3 },
         result: '부고 소식이 낯설지 않게 되어가는 나이였다.'
+      },
+      {
+        id: 'volunteer-still-useful',
+        text: '내가 아직 쓸모 있다는 확신이 든다',
+        deltas: { happiness: 5 },
+        result: '누군가 나를 필요로 한다는 사실 하나가, 하루를 버티게 했다.',
+        requiresOccupation: ['volunteer-work']
       }
     ]
   },
@@ -4083,6 +4756,20 @@ const STAGES = [
         text: '오래 키운 화초가 꽃을 피운 걸 보고 기뻐한다',
         deltas: { happiness: 4, health: 1 },
         result: '몇 달을 정성 들인 보람이, 꽃 한 송이로 돌아왔다.'
+      },
+      {
+        id: 'retired-peer-gatherings',
+        text: '동년배 모임에서 서로의 근황을 나누며 위안을 얻는다',
+        deltas: { relationship: 3, happiness: 2 },
+        result: '같은 시절을 살아낸 사람들과의 대화는, 설명 없이도 통했다.',
+        requiresOccupation: ['retired']
+      },
+      {
+        id: 're-employed-physically-harder',
+        text: '체력적으로 예전만 못해 일이 버겁게 느껴진다',
+        deltas: { health: -3 },
+        result: '몸이 마음을 못 따라가는 날이, 부쩍 늘었다.',
+        requiresOccupation: ['re-employed']
       }
     ]
   },
@@ -4251,6 +4938,13 @@ const STAGES = [
         text: '주변과의 교류가 끊기며 깊은 외로움을 느낀다',
         deltas: { relationship: -7, happiness: -4 },
         result: '찾아오는 발걸음이 점점 뜸해지는 걸, 애써 모른 척했다.'
+      },
+      {
+        id: 're-employed-renewed-vitality',
+        text: '다시 일한다는 사실 자체에 활력을 되찾는다',
+        deltas: { happiness: 5 },
+        result: '아침에 갈 곳이 있다는 것만으로도, 하루가 달라졌다.',
+        requiresOccupation: ['re-employed']
       }
     ]
   },
@@ -4400,6 +5094,13 @@ const STAGES = [
         text: '아직 정정한 몸과 마음에 감사한 하루를 보낸다',
         deltas: { happiness: 4, health: 3 },
         result: '이만큼 건강한 것도, 결코 당연한 일이 아니었다.'
+      },
+      {
+        id: 're-employed-taking-orders-from-younger',
+        text: '젊은 관리자에게 지시받는 게 낯설게 느껴진다',
+        deltas: { happiness: -2 },
+        result: '내 아이뻘 되는 이의 지시를, 묵묵히 받아들이는 법을 배웠다.',
+        requiresOccupation: ['re-employed']
       }
     ]
   },
