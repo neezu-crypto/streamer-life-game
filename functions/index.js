@@ -86,6 +86,11 @@ function playRefFor(db, uid) {
 // requiresOccupation(배열, 지금 직업이 그 중 하나여야 후보)도 마찬가지 -
 // 은퇴한 적 없는데 "재취업한다"가 뜨는 일이 없도록. 직업은 가족과 달리
 // 동시에 하나뿐이라 currentOccupationId는 문자열(or null) 하나다.
+// requiresAnyOccupation(불리언, 특정 직업이 아니라 "아무 직업이나 있어야"
+// 후보)는 동료·팀원·회식처럼 특정 직업명과 무관하게 "직장인이기만 하면"
+// 자연스러운 선택지용 - requiresOccupation처럼 매번 모든 직업 id를 나열할
+// 필요가 없다(2026-08-16, 아무 직업도 없는 플레이어에게 "팀원의 성장을
+// 지켜본다" 같은 선택지가 뜨던 버그 수정).
 // requiresIntro(문자열, 그 구간에서 이번에 뽑힌 상황 설명 id와 정확히 같아야
 // 후보)는 상황 설명(intro)이 여러 개인 구간에서 "이 상황일 때만 자연스러운
 // 선택지"를 만들기 위한 것 - 지정 안 하면(대부분) 어떤 상황이 뽑히든 항상
@@ -104,6 +109,7 @@ function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds
     if (c.requiresNoFamilyMember && c.requiresNoFamilyMember.some((id) => familyIds.includes(id))) return false;
     if (c.requiresAllFamilyMemberGroups && !c.requiresAllFamilyMemberGroups.every((group) => group.some((id) => familyIds.includes(id)))) return false;
     if (c.requiresOccupation && !c.requiresOccupation.includes(currentOccupationId || null)) return false;
+    if (c.requiresAnyOccupation && !currentOccupationId) return false;
     if (c.requiresIntro && c.requiresIntro !== currentIntroId) return false;
     return true;
   });
@@ -235,6 +241,9 @@ async function applyChoice(db, playRef, play, stage, choice) {
   const priorOccupationHistory = buildOccupationHistory(Array.isArray(play.choiceLog) ? play.choiceLog : []);
   const priorOccupationId = priorOccupationHistory.length ? priorOccupationHistory[priorOccupationHistory.length - 1].id : null;
   if (choice.requiresOccupation && !choice.requiresOccupation.includes(priorOccupationId)) {
+    throw new HttpsError('failed-precondition', '지금 직업 상태에서는 고를 수 없는 선택지입니다.');
+  }
+  if (choice.requiresAnyOccupation && !priorOccupationId) {
     throw new HttpsError('failed-precondition', '지금 직업 상태에서는 고를 수 없는 선택지입니다.');
   }
   if (choice.requiresIntro && choice.requiresIntro !== play.currentIntroId) {

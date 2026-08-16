@@ -587,6 +587,49 @@
         <code>setOccupation</code>만 얹은 것이라 새로 쓴 선택지 문장은 없다. 시뮬레이션 2만 회 기준 전체
         판의 약 75%가 직업 변화를 한 번 이상 겪고(0~5회 분포), <code>re-employed</code>가 등장한 모든
         판에서 예외 없이 그 이전에 <code>retired</code>를 먼저 거쳤음을 확인했다.</p>
+        <p class="note"><b>버그 수정 — 직업이 아예 없는 플레이어에게도 "팀원의 성장을 지켜본다" 같은
+        동료·직장 전제 선택지가 뜨던 문제(2026-08-16, 사용자 제보).</b> 원인을 추적해보니 훨씬 근본적인
+        문제였다: 이 게임엔 "평범하게 정규직으로 취업했다"를 기록하는 <code>setOccupation</code>이 사실상
+        없었다(19세 <code>trade-skill</code>/<code>startup-gamble</code> 단 둘뿐이고, 그 이후엔 전부 이직·
+        승진처럼 "이미 직업이 있음"을 전제한 전환뿐). 그 결과 19세에 저 둘을 못 고른 플레이어(무작위 3개
+        노출이라 흔함)는 평생 직업이 안 생기는데도, 24세부터 회식·동기·후배 지도 같은 "당연히 직장인"인
+        선택지 34개가 계속 노출됐다 — 시뮬레이션으로 재보니 직업 보유율이 24세 기준 약 <b>40%대</b>였다.</p>
+        <p class="note">두 갈래로 고쳤다: <b>①</b> 34개 선택지(동료·팀원·회식·승진·이직·조직개편·정년퇴직
+        등)에 새 게이팅 <code>requiresAnyOccupation: true</code>를 추가했다 — 기존
+        <code>requiresOccupation</code>은 "이 중 하나여야" 식으로 특정 직업 id를 나열해야 하는데, 이건
+        직업명과 무관하게 "아무 직업이나 있어야"만 확인하면 되므로 매번 전체 id를 나열할 필요 없는 전용
+        플래그를 새로 뒀다(<code>pickVisibleChoiceIds()</code>·<code>applyChoice()</code> 방어적 검증
+        양쪽에 반영). 단 인기(fame) 스탯 하락용으로 이미 있던 <code>fame-overshadowed-by-newcomers</code>·
+        <code>fame-forgotten-by-new-generation</code>(후배·신인에게 밀림)과 인턴 관련
+        <code>harsh-internship-reality</code>·<code>burnout-onset</code>는 게이팅에서 제외했다 — 각각
+        직업 없이도 성립하는 스트리머 인기 서사, 그리고 "지금 인턴 중"이라는 현재 상태 묘사일 뿐 이전
+        직업을 전제하지 않아서다. <b>②</b> 근본 원인인 "평범한 취업 경로 부재"를 메우려 19~23세에 다양한
+        신규 직업 8종 + 기존 선택지 리트로핏 2종을 추가했다(아래 표) — 각 나이당 2개(23세는 1개)를
+        <code>mandatory: true</code>로 걸어 3개 무작위 노출 중 그 자리만은 항상 보장되게 했다(기존 3개
+        무작위 노출 자리를 완전히 잠식하지 않도록 나이당 최대 2개로 제한 — 남은 1자리는 여전히 그 나이의
+        기존 선택지들이 무작위로 채움).</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>직업 id</th><th>표시</th><th>구간 · 선택지</th><th>비고</th></tr>
+                <tr><td><code>office-worker</code></td><td>💼 정규직 직장인</td><td>스무 살 23세 · <code>first-full-time-contract</code>(첫 정규직 계약서에 서명)</td><td>기존 선택지 리트로핏, <code>mandatory</code> 추가</td></tr>
+                <tr><td><code>career-changer</code></td><td>✨ 진로 전환</td><td>스무 살 22세 · <code>unexpected-career-offer</code>(예상 못한 진로 제안)</td><td>기존 선택지 리트로핏</td></tr>
+                <tr><td><code>civil-servant</code></td><td>🏛️ 공무원</td><td>스무 살 19세 · <code>civil-servant-exam</code>(공무원 시험 합격)</td><td>신규, <code>mandatory</code></td></tr>
+                <tr><td><code>logistics-worker</code></td><td>🚚 물류직</td><td>스무 살 19세 · <code>logistics-center-job</code>(물류센터 취업)</td><td>신규, <code>mandatory</code></td></tr>
+                <tr><td><code>small-business-owner</code></td><td>🏪 자영업자</td><td>스무 살 20세 · <code>small-business-startup</code>(작은 가게 창업)</td><td>신규, <code>mandatory</code></td></tr>
+                <tr><td><code>artist-writer</code></td><td>🎨 예술가</td><td>스무 살 20세 · <code>pursuing-artist-path</code>(작가·화가로 전업)</td><td>신규, <code>mandatory</code></td></tr>
+                <tr><td><code>teacher</code></td><td>📚 교사</td><td>스무 살 21세 · <code>teacher-certification</code>(임용고시 합격)</td><td>신규, <code>mandatory</code></td></tr>
+                <tr><td><code>healthcare-worker</code></td><td>🏥 의료직</td><td>스무 살 21세 · <code>healthcare-worker-job</code>(간호사·의료직 취업)</td><td>신규, <code>mandatory</code></td></tr>
+                <tr><td><code>public-corp-employee</code></td><td>🏢 공기업 직원</td><td>스무 살 22세 · <code>public-corp-hire</code>(공기업 공채 합격)</td><td>신규, <code>mandatory</code></td></tr>
+                <tr><td><code>sales-rep</code></td><td>💼 영업직</td><td>스무 살 22세 · <code>sales-rep-job</code>(영업직 입사)</td><td>신규, <code>mandatory</code></td></tr>
+            </table>
+        </div>
+        <p class="note">검증: 실제 <code>game-data.js</code>/새 게이팅 로직으로 2만 회 시뮬레이션 -
+        <code>requiresAnyOccupation</code> 게이팅 위반(직업 없이 노출된 경우) 0건, <code>zeroEligible</code>
+        위반 0건, 100세 도달 19995/20000(영향 없음). 직업 보유율이 24세 기준 약 40%대 → <b>76.7%</b>,
+        43세 기준 <b>79.0%</b>, 플레이 종료 시점 기준 <b>83.0%</b>로 상승했고 20종 직업이 고르게 분포함을
+        확인했다(100% 보장은 아님 — 여전히 무작위 노출 기반이라, 대신 나머지 소수의 "정말 직업 없는" 경우엔
+        ①의 게이팅이 안전망 역할). 실제 배포된 함수에도 라이브로 재현해 19~23세 구간에서 새 직업 선택지가
+        노출·선택되고 "현재 직업 상세" 패널에 정상 반영되는 것까지 확인했다.</p>
         <p class="note"><b>주사위 굴리기를 누르면 결과가 바로 나오지 않는다.</b> 화면 전체가 어두워지며
         (<code>#diceOverlay</code>) 주사위 아이콘이 회전하는 연출이 최소 3초(<code>DICE_REVEAL_MS</code>)
         보여진 뒤에야 결과가 공개된다 — 서버 응답이 3초보다 빨리 와도 최소 3초는 채우고, 응답이 더 늦어지면
