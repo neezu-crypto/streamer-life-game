@@ -869,11 +869,16 @@ startBtn.addEventListener('click', async () => {
 // 화면으로, 아니면 "다음" 버튼을 보여준다.
 function applyOutcome(data, resultPrefix, selectedChoiceId) {
   let resultText = (resultPrefix ? resultPrefix + '\n' : '') + data.result;
-  // blocksHealthRecovery 조건(예: 희귀 난치병)을 갖고 있어서 이번 선택의
-  // 건강 회복 효과가 막혔을 때만 덧붙인다 - 안 그러면 "골랐는데 건강 바가
-  // 그대로"인 게 버그처럼 보일 수 있어서.
+  // blocksHealthRecovery 조건(희귀 난치병뿐 아니라 사고 후유증 등 더 있을 수
+  // 있음)을 갖고 있어서 이번 선택의 건강 회복 효과가 막혔을 때만 덧붙인다 -
+  // 안 그러면 "골랐는데 건강 바가 그대로"인 게 버그처럼 보일 수 있어서.
+  // 실제로 막은 조건이 무엇인지 healthConditions에서 찾아 그 라벨을 그대로
+  // 써야 한다 - "난치병"으로 고정해두면 사고 후유증만 있는 플레이어에게도
+  // "난치병 때문에"라고 잘못 표시되는 문제가 있었다.
   if (data.healthRecoverySuppressed) {
-    resultText += '\n🎗️ 난치병 때문에 건강이 회복되지는 않았다.';
+    const blockers = (data.healthConditions || []).filter((c) => c.blocksHealthRecovery);
+    const blockerLabel = blockers.length ? blockers.map((c) => c.label).join(' · ') : '🎗️';
+    resultText += '\n' + blockerLabel + ' 때문에 건강이 회복되지는 않았다.';
   }
   resultBox.textContent = resultText;
   resultBox.classList.remove('hidden');
