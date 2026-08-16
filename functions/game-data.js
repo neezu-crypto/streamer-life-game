@@ -17,9 +17,20 @@
 // 결과·감정을 미리 알려주는 단어를 쓰지 않는다 - "야근하며 성과를
 // 인정받는다"(X, 결과가 이미 긍정으로 드러남) 대신 "야근하며 한 달을
 // 보낸다"(O, 잘 됐는지는 result에서만 확인 가능)처럼. 이 원칙을 어긴 기존
-// 선택지 152개를 감사해 전부 고쳤다(2026-08-17) - 질병·부상 발병처럼
-// "행동=결과"가 사실상 하나인 경우(예: "정글짐에서 뛰어내리다 팔이
-// 부러진다")는 원래도 이 원칙을 지키고 있었으니 참고할 것.
+// 선택지 152개를 감사해 전부 고쳤다(2026-08-17).
+//
+// 위 1차 감사는 "성공/실패/기뻐한다"류 감정·평가 단어만 걸러냈는데, 감정
+// 단어가 없어도 "목돈을 날린다"/"팔이 부러진다"처럼 사건 자체가 곧 결과인
+// 표현도 결과를 유추 가능하게 만든다는 걸 재확인해(2026-08-17) 32개를
+// 추가로 찾아냈다. 이 중 건강 상세(addCondition)를 새로 얻는 선택지 30개는
+// "정글짐에서 뛰어내리다 팔이 부러진다"처럼 진단명·부상명을 text에 직접
+// 명시하고 있었던 것 - 이제 이런 병/부상 발병 선택지는 진단·부상명을 절대
+// text에 쓰지 않고, "정글짐 꼭대기에서 겁 없이 뛰어내린다"/"급하게
+// 무단횡단을 한다"처럼 그 병/부상이 생길 가능성이 있는 위험 행동만
+// 서술한다(예전엔 "행동=결과가 하나인 사건"은 예외로 허용했었는데, 이제는
+// 그 예외가 사라졌다 - 항상 행동만 쓰고 실제 진단명·부상명은 addCondition의
+// label로만 드러난다). 나머지(재산/관계/이혼/사별 등 22개)는 케이스별로
+// 판단이 필요해 아직 미정리 상태로 남아 있다.
 //
 // intro - 그 구간이 시작될 때 보여주는 1~2문장짜리 장면 설명. 게임이 시작된
 // 뒤엔 화면 상단의 일반 소개 문구(헤더)를 숨기고 이 텍스트로 대체한다
@@ -228,14 +239,14 @@ const STAGES = [
       },
       {
         id: 'asthma-onset',
-        text: '기침이 잦아지더니 천식 진단을 받는다',
+        text: '찬바람에도 얇게 입고 밖에서 자주 논다',
         deltas: { health: -6, relationship: 2 },
         result: '작은 기침 소리에도 온 가족이 귀를 기울이게 됐다.',
         addCondition: { id: 'asthma', label: '🌬️ 천식' }
       },
       {
         id: 'rare-illness-onset',
-        text: '원인을 알 수 없는 증상으로 정밀 검사 끝에 희귀 난치병 진단을 받는다',
+        text: '원인 모를 증상이 반복돼 정밀 검사를 받는다',
         deltas: { health: -12, happiness: -6, wealth: -6, relationship: 5 },
         result: '치료법이 없다는 말 앞에서도, 가족은 무너지지 않고 서로를 더 꽉 붙잡았다.',
         addCondition: { id: 'rare-illness', label: '🎗️ 희귀 난치병', blocksHealthRecovery: true }
@@ -287,7 +298,7 @@ const STAGES = [
       },
       {
         id: 'broken-arm-onset',
-        text: '정글짐에서 뛰어내리다 팔이 부러진다',
+        text: '정글짐 꼭대기에서 겁 없이 뛰어내린다',
         deltas: { health: -8, relationship: 3 },
         result: '깁스에 낙서를 잔뜩 받으며, 팔 하나로도 못 할 게 없다는 걸 배웠다.',
         addCondition: { id: 'broken-arm', label: '🦴 팔 골절' }
@@ -339,7 +350,7 @@ const STAGES = [
       },
       {
         id: 'weak-stomach-onset',
-        text: '장염을 달고 살아 배가 자주 아프다',
+        text: '손을 잘 씻지 않고 아무 음식이나 집어 먹는다',
         deltas: { health: -5, relationship: 2 },
         result: '먹을 수 있는 게 자꾸 줄어드는 게 서러웠던 시기.',
         addCondition: { id: 'weak-stomach', label: '🤢 잦은 배탈' }
@@ -674,7 +685,7 @@ const STAGES = [
       },
       {
         id: 'ankle-sprain-onset',
-        text: '축구를 하다 발목을 삐끗한다',
+        text: '축구 경기 중 무리하게 몸을 던진다',
         deltas: { health: -4, relationship: 2 },
         result: '별거 아니라며 넘겼는데, 그 뒤로 가끔씩 시큰거렸다.',
         addCondition: { id: 'ankle-sprain', label: '🦶 발목 부상' }
@@ -857,7 +868,7 @@ const STAGES = [
       },
       {
         id: 'acne-breakout-onset',
-        text: '스트레스로 여드름이 부쩍 심해진다',
+        text: '시험 스트레스를 야식으로 풀며 밤을 새운다',
         deltas: { health: -3, happiness: -3 },
         result: '거울을 볼 때마다 마음까지 덩달아 움츠러들었다.',
         addCondition: { id: 'acne-breakout', label: '🌱 스트레스성 트러블' }
@@ -952,7 +963,7 @@ const STAGES = [
       },
       {
         id: 'wrist-sprain-onset',
-        text: '체육대회 계주에서 무리하다 손목을 삐끗한다',
+        text: '체육대회 계주에서 무리하게 힘을 준다',
         deltas: { health: -4, relationship: 2 },
         result: '붕대를 감은 손목이 며칠 동안 필기를 방해했다.',
         addCondition: { id: 'wrist-sprain', label: '🤕 손목 부상' }
@@ -1017,7 +1028,7 @@ const STAGES = [
       },
       {
         id: 'exam-stress-gastritis-onset',
-        text: '입시 스트레스로 위가 쓰리고 체하는 날이 잦아진다',
+        text: '입시 스트레스로 끼니를 거르거나 폭식을 반복한다',
         deltas: { health: -5, happiness: -2 },
         result: '책상 서랍엔 어느새 소화제가 상비약처럼 자리 잡았다.',
         addCondition: { id: 'exam-stress-gastritis', label: '🤒 스트레스성 위염' }
@@ -1204,7 +1215,7 @@ const STAGES = [
       },
       {
         id: 'back-pain-onset',
-        text: '잦은 알바 노동으로 허리에 무리가 온다',
+        text: '무거운 짐 나르는 알바를 몸 상태와 상관없이 계속한다',
         deltas: { health: -4, wealth: 3 },
         result: '택배 상자를 나르던 어느 날부터, 허리가 삐걱대기 시작했다.',
         addCondition: { id: 'back-pain', label: '🦴 허리 통증' }
@@ -1277,7 +1288,7 @@ const STAGES = [
       },
       {
         id: 'sudden-accident-injury',
-        text: '갑작스러운 교통사고를 당한다',
+        text: '급하게 무단횡단을 한다',
         deltas: { health: -15, happiness: -8, wealth: -5 },
         result: '눈을 떴을 때는 이미 병실 천장이었다. 예전과 똑같은 몸으로는 돌아갈 수 없다는 말을, 몇 번이고 곱씹어야 했다.',
         addCondition: { id: 'accident-aftereffects', label: '🩹 사고 후유증', blocksHealthRecovery: true }
@@ -1345,7 +1356,7 @@ const STAGES = [
       },
       {
         id: 'burnout-onset',
-        text: '인턴 생활에 몸과 마음을 갈아 넣는다',
+        text: '인턴 생활 내내 야근과 철야를 반복한다',
         deltas: { health: -6, happiness: -4 },
         result: '인턴 생활에 몸과 마음을 갈아 넣다 어느 순간 완전히 방전됐다.',
         addCondition: { id: 'burnout-syndrome', label: '🔥 번아웃 증후군' }
@@ -1553,7 +1564,7 @@ const STAGES = [
       },
       {
         id: 'carpal-tunnel-onset',
-        text: '매일 반복되는 키보드·마우스 작업으로 손목에 저림이 시작된다',
+        text: '쉬는 시간 없이 매일 키보드·마우스 작업을 반복한다',
         deltas: { health: -4, wealth: 2 },
         result: '타이핑을 칠 때마다 손끝이 찌릿하게 저려왔다.',
         addCondition: { id: 'carpal-tunnel', label: '✋ 손목터널증후군' }
@@ -1619,7 +1630,7 @@ const STAGES = [
       },
       {
         id: 'insomnia-onset',
-        text: '업무 스트레스로 밤마다 잠들지 못하는 날이 늘어난다',
+        text: '업무 생각에 잠자리에서도 휴대폰을 손에서 놓지 못한다',
         deltas: { health: -5, happiness: -3 },
         result: '천장 무늬를 셀 수 있을 정도로, 밤이 길어졌다.',
         addCondition: { id: 'insomnia', label: '😵 불면증' },
@@ -2222,7 +2233,7 @@ const STAGES = [
       },
       {
         id: 'hypertension-onset',
-        text: '과로와 스트레스로 혈압이 위험 수준까지 치솟는다',
+        text: '야근과 회식이 겹치며 무리한 나날을 보낸다',
         deltas: { health: -5, wealth: -2 },
         result: '건강검진 결과지의 빨간 숫자가 처음으로 눈에 들어왔다.',
         addCondition: { id: 'hypertension', label: '🩸 고혈압 전조' }
@@ -2236,7 +2247,7 @@ const STAGES = [
       },
       {
         id: 'logistics-back-injury',
-        text: '무거운 짐을 나르다 허리를 다친다',
+        text: '혼자서 무거운 짐을 무리하게 나른다',
         deltas: { health: -5 },
         result: '순간의 삐끗함이, 오래도록 몸에 남는 흔적이 됐다.',
         requiresOccupation: ['logistics-worker'],
@@ -2305,7 +2316,7 @@ const STAGES = [
       },
       {
         id: 'frozen-shoulder-onset',
-        text: '책상 앞에 오래 앉아 있다 보니 어깨가 굳어 잘 올라가지 않는다',
+        text: '하루 종일 자세를 바꾸지 않고 책상 앞에 앉아 있는다',
         deltas: { health: -4, wealth: -1 },
         result: '머리 감을 때마다 어깨가 시큰거리는 게, 서른다섯의 몸이 보내는 신호였다.',
         addCondition: { id: 'frozen-shoulder', label: '💪 어깨 결림(삼십견)' }
@@ -2962,7 +2973,7 @@ const STAGES = [
       },
       {
         id: 'knee-pain-onset',
-        text: '무리한 운동으로 무릎에 이상이 생긴다',
+        text: '준비 운동 없이 무리하게 운동을 강행한다',
         deltas: { health: -4, wealth: -1 },
         result: '계단을 오를 때마다 무릎에서 신호가 왔다.',
         addCondition: { id: 'knee-pain', label: '🦵 무릎 통증' }
@@ -3358,7 +3369,7 @@ const STAGES = [
       },
       {
         id: 'menopause-onset',
-        text: '몸의 변화(갱년기 증상)가 본격적으로 시작된다',
+        text: '예전과 다르게 몸이 보내는 신호를 느낀다',
         deltas: { health: -5, happiness: -3 },
         result: '열감과 불면이 번갈아 찾아오는 밤들이 계속됐다.',
         addCondition: { id: 'menopause-symptoms', label: '🌡️ 갱년기 증상' }
@@ -3803,7 +3814,7 @@ const STAGES = [
       },
       {
         id: 'cataract-onset',
-        text: '눈이 침침해지고 백내장 진단을 받는다',
+        text: '밝은 화면의 스마트폰과 TV를 오래 들여다본다',
         deltas: { health: -4, happiness: -2 },
         result: '안경을 써도 뿌옇게 보이는 세상이 낯설었다.',
         addCondition: { id: 'cataract', label: '👁️ 백내장' }
@@ -3868,7 +3879,7 @@ const STAGES = [
       },
       {
         id: 'osteoporosis-onset',
-        text: '골밀도 검사에서 골다공증 진단을 받는다',
+        text: '운동을 멀리하고 실내에서만 지내는 날이 많아진다',
         deltas: { health: -4, wealth: -1 },
         result: '뼈도 나이를 먹는다는 걸, 숫자로 마주하니 실감이 났다.',
         addCondition: { id: 'osteoporosis', label: '🦴 골다공증' }
@@ -4155,7 +4166,7 @@ const STAGES = [
       },
       {
         id: 'shingles-onset',
-        text: '면역력이 떨어지며 대상포진을 앓아 온몸이 욱신거린다',
+        text: '무리한 일정을 소화하며 잠을 줄인다',
         deltas: { health: -6, happiness: -3 },
         result: '피부에 닿는 옷깃마저 아플 줄은 몰랐다.',
         addCondition: { id: 'shingles', label: '🔥 대상포진' }
@@ -4274,7 +4285,7 @@ const STAGES = [
       },
       {
         id: 'hearing-loss-onset',
-        text: 'TV 소리를 자꾸 키우게 되며 난청이 시작된다',
+        text: '이어폰 소리를 크게 키운 채 오래 사용한다',
         deltas: { health: -4, relationship: -1 },
         result: '못 알아들어 되묻는 일이, 조금씩 잦아졌다.',
         addCondition: { id: 'hearing-loss', label: '👂 난청' }
@@ -4404,7 +4415,7 @@ const STAGES = [
       },
       {
         id: 'diabetes-onset',
-        text: '건강검진에서 당뇨병 진단을 받아 식단 조절이 시급해진다',
+        text: '단 음식과 불규칙한 식사를 즐긴다',
         deltas: { health: -6, happiness: -2, wealth: -2 },
         result: '좋아하던 단 음식들과 하나씩 거리를 둬야 했다.',
         addCondition: { id: 'diabetes', label: '🍬 당뇨병' }
@@ -4533,7 +4544,7 @@ const STAGES = [
       },
       {
         id: 'hip-fracture-onset',
-        text: '빙판길에 넘어져 고관절을 다친다',
+        text: '빙판길을 서둘러 걷는다',
         deltas: { health: -6, wealth: -2 },
         result: '순식간에 넘어진 그 몇 초가, 이후 몇 달을 바꿔놓았다.',
         addCondition: { id: 'hip-fracture', label: '🦴 고관절 골절' }
@@ -4943,7 +4954,7 @@ const STAGES = [
       },
       {
         id: 'pneumonia-onset',
-        text: '환절기 감기가 폐렴으로 번진다',
+        text: '감기 기운이 있는데도 무리하게 외출한다',
         deltas: { health: -6, happiness: -3 },
         result: '무리한 일정 끝에 찾아온 병치레였다.',
         addCondition: { id: 'pneumonia', label: '🫁 폐렴' }
@@ -5127,7 +5138,7 @@ const STAGES = [
     choices: [
       {
         id: 'forgetting-where-things-are',
-        text: '물건을 어디 뒀는지 자꾸 깜빡한다',
+        text: '일정과 물건 정리를 메모 없이 기억에만 의존한다',
         deltas: { happiness: -3, health: -2 },
         result: '방금 놓아둔 안경을 또 찾아 헤맸다.',
         addCondition: { id: 'mild-cognitive-decline', label: '🧠 가벼운 건망증' }
@@ -5390,7 +5401,7 @@ const STAGES = [
       },
       {
         id: 'appetite-loss-onset',
-        text: '입맛이 없어 끼니를 자주 거른다',
+        text: '혼자 식사를 챙기기 귀찮아 대충 때운다',
         deltas: { health: -4, happiness: -2 },
         result: '젓가락을 몇 번 대다 마는 날이 늘었다.',
         addCondition: { id: 'appetite-loss', label: '🍚 식욕부진' }
@@ -5588,7 +5599,7 @@ const STAGES = [
       },
       {
         id: 'parkinsons-onset',
-        text: '손 떨림이 심해지더니 파킨슨병 진단을 받는다',
+        text: '작은 움직임에도 예전과 다름을 느낀다',
         deltas: { health: -9, happiness: -5, relationship: 3 },
         result: '컵 하나 드는 것도 조심스러워졌지만, 가족들이 곁에서 손을 더 자주 잡아줬다.',
         addCondition: { id: 'parkinsons', label: '✋ 파킨슨병' }
@@ -5781,7 +5792,7 @@ const STAGES = [
       },
       {
         id: 'alzheimers-onset',
-        text: '가까운 이름과 얼굴조차 가물가물해지며 알츠하이머 진단을 받는다',
+        text: '정밀 건강검진을 받으러 병원에 간다',
         deltas: { health: -8, happiness: -6, relationship: -3 },
         result: '나조차 낯설어지는 순간들이 늘어갔지만, 가족들은 그런 나를 몇 번이고 다시 소개해주었다.',
         addCondition: { id: 'alzheimers', label: '🧩 알츠하이머', causesChoiceFadeout: true }
@@ -5871,7 +5882,7 @@ const STAGES = [
       },
       {
         id: 'frailty-onset',
-        text: '노쇠가 뚜렷해지며 하루 대부분을 누워 지낸다',
+        text: '몸을 움직이기 귀찮아 하루 대부분을 누워 지낸다',
         deltas: { health: -5, happiness: -2 },
         result: '일어나 앉는 것조차, 이제는 큰일이 됐다.',
         addCondition: { id: 'frailty', label: '🕊️ 노쇠' }
