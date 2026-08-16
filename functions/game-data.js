@@ -2125,13 +2125,15 @@ const STAGES = [
         id: 'maternity-leave-anxiety',
         text: '육아휴직을 내며 커리어에 대한 불안을 느낀다',
         deltas: { happiness: -3, wealth: -4, relationship: 2 },
-        result: '아이는 예뻤지만, 자리가 사라질까 봐 조바심이 났다.'
+        result: '아이는 예뻤지만, 자리가 사라질까 봐 조바심이 났다.',
+        requiresFamilyMember: ['child']
       },
       {
         id: 'sleepless-parenting',
         text: '밤낮없는 육아로 체력이 완전히 바닥난다',
         deltas: { health: -6, happiness: -2 },
-        result: '하루가 어떻게 지나가는지도 모르게 흘러갔다.'
+        result: '하루가 어떻게 지나가는지도 모르게 흘러갔다.',
+        requiresFamilyMember: ['child']
       },
       {
         id: 'niece-nephew-babysitting',
@@ -2728,7 +2730,8 @@ const STAGES = [
         id: 'juggling-work-and-parenting',
         text: '일과 육아를 동시에 챙기느라 몸이 두 개였으면 좋겠다고 느낀다',
         deltas: { health: -4, happiness: -2 },
-        result: '하루가 24시간이라는 게 새삼 야속했다.'
+        result: '하루가 24시간이라는 게 새삼 야속했다.',
+        requiresFamilyMember: ['child']
       },
       {
         id: 'enjoying-childfree-freedom',
@@ -3187,7 +3190,8 @@ const STAGES = [
         id: 'weight-of-being-a-parent-40s',
         text: '부모가 된다는 것의 무게를 새삼 깨닫는다',
         deltas: { happiness: 1, relationship: 3 },
-        result: '내 부모를 보며, 내 모습도 다시 돌아보게 됐다.'
+        result: '내 부모를 보며, 내 모습도 다시 돌아보게 됐다.',
+        requiresFamilyMember: ['child']
       },
       {
         id: 'knee-pain-heal',
