@@ -322,7 +322,7 @@
     <p class="ending-text" id="endingText"></p>
     <div class="stat-bars" id="endingStatBars"></div>
     <div class="family-panel">
-      <p class="family-panel-title">100세, 곁에 남은 가족</p>
+      <p class="family-panel-title" id="endingFamilyPanelTitle">100세, 곁에 남은 가족</p>
       <div id="endingFamilyMembers" class="family-members"></div>
     </div>
     <div class="occupation-panel">
@@ -929,6 +929,7 @@ const endingTitle = document.getElementById('endingTitle');
 const endingText = document.getElementById('endingText');
 const endingStatBars = document.getElementById('endingStatBars');
 const endingFamilyMembersEl = document.getElementById('endingFamilyMembers');
+const endingFamilyPanelTitle = document.getElementById('endingFamilyPanelTitle');
 const occupationHistoryListEl = document.getElementById('occupationHistoryList');
 const choiceHistorySection = document.getElementById('choiceHistorySection');
 const choiceHistoryList = document.getElementById('choiceHistoryList');
@@ -965,6 +966,12 @@ async function showEnding(ending, stats, choiceHistory, familyMembers, occupatio
   endingTitle.textContent = ending.title;
   endingText.textContent = ending.text;
   renderStatBars(endingStatBars, stats);
+  // collapse/bankruptcy 등 즉시 종료 엔딩은 100세가 아니라 그 전 나이에
+  // 끝나므로, "곁에 남은 가족" 패널 제목도 실제로 삶이 끝난 나이를 보여줘야
+  // 한다 - choiceHistory의 마지막 항목이 곧 마지막으로 선택을 고른 구간
+  // (=삶이 끝난 시점)이라 거기서 ageRange를 가져온다.
+  const endedAtAgeRange = (choiceHistory && choiceHistory.length) ? choiceHistory[choiceHistory.length - 1].ageRange : '100세';
+  endingFamilyPanelTitle.textContent = endedAtAgeRange + ', 곁에 남은 가족';
   renderFamilyMembersInto(endingFamilyMembersEl, familyMembers);
   renderOccupationHistoryInto(occupationHistoryListEl, occupationHistory);
   renderChoiceHistoryInto(choiceHistoryList, choiceHistory);
