@@ -249,7 +249,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
   let ending = null;
   let nextVisibleIds = null;
   if (completed) {
-    ending = collapsed ? buildCollapseEnding(stage.ageRange) : resolveEnding(stats);
+    ending = collapsed ? buildCollapseEnding(stage.ageRange) : resolveEnding(stats, familyMembers, healthConditions);
     updates.ending = { id: ending.id, title: ending.title, text: ending.text };
     updates.endedAt = ServerValue.TIMESTAMP;
   } else {

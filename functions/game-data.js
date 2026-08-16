@@ -5076,8 +5076,13 @@ const STAGES = [
 ];
 
 // 대표 엔딩 6개(기획안 07/09장 - v1 확정 스코프) - 각 아키타입에 가장 가까운
-// 최종 스탯 조합(유클리드 거리)을 골라 배정한다. 이후 버전에서 12~16개로
-// 늘릴 땐 이 배열에 항목만 추가하면 된다(로직 변경 불필요).
+// 최종 스탯 조합(유클리드 거리)을 골라 배정한다. 여기에 가족/건강 상세를
+// 반영한 4종을 더해 총 10종 - 이 4종은 스탯만으로는 절대 나올 수 없고,
+// requiresAllFamilyMemberGroups(가족 상세와 동일한 AND-of-OR 문법)·
+// requiresNoFamilyMember·requiresCondition 중 하나라도 붙어 있으면 그
+// 조건을 만족한 판에서만 후보에 오른다(resolveEnding 참고) - 조건 없는
+// 기존 6종은 항상 후보. 늘릴 땐 이 배열에 항목만 추가하면 된다(로직 변경
+// 불필요, 조건이 필요 없으면 그냥 안 붙이면 됨).
 const ENDINGS = [
   {
     id: 'all-in-success',
@@ -5114,13 +5119,57 @@ const ENDINGS = [
     title: '은둔형',
     archetype: { wealth: 30, fame: 10, happiness: 55, health: 60, relationship: 15 },
     text: '세상의 소음에서 한 발, 또 한 발 물러섰다. 사람들과 부대끼며 얻는 것보다 잃는 게 더 커 보이던 어느 순간부터, 조용한 쪽을 택하는 게 자연스러워졌다.\n\n외로웠던 날이 없었다면 거짓말이다. 하지만 그보다 훨씬 많은 날이 그저 평온했다. 시끄러웠던 날은 거의 없었고, 그 고요함이 결국 이 삶을 지켜낸 가장 큰 이유였다.'
+  },
+  {
+    id: 'full-family-legacy',
+    title: '대를 이은 가족형',
+    archetype: { wealth: 45, fame: 30, happiness: 75, health: 60, relationship: 95 },
+    requiresAllFamilyMemberGroups: [['spouse'], ['child'], ['grandchild']],
+    text: '이력서보다 가족사진첩이 훨씬 두꺼운 인생이었다. 결혼해서 가정을 이루고, 아이를 낳아 기르고, 그 아이가 다시 부모가 되는 걸 지켜보기까지 — 한 세대가 다음 세대로 이어지는 그 흐름 안에 언제나 함께 있었다.\n\n대단한 성취나 화려한 이력은 없었을지 몰라도, 명절마다 북적이는 밥상 앞에 앉을 때마다 이 삶이 헛되지 않았다는 걸 실감했다. 대를 이어 남긴 것이야말로, 가장 확실한 유산이었다.'
+  },
+  {
+    id: 'living-with-illness',
+    title: '평생을 안고 살아온 삶형',
+    archetype: { wealth: 40, fame: 25, happiness: 55, health: 20, relationship: 65 },
+    requiresCondition: 'rare-illness',
+    text: '어릴 때 찾아온 병은 끝내 다 낫지 않았다. 완치라는 말 대신, "함께 살아가는 법"을 배우며 지나온 나날이었다. 몸이 마음처럼 따라주지 않는 날이 훨씬 많았지만, 그렇다고 멈춰 서 있지만은 않았다.\n\n남들보다 조금 느리고 조심스러운 걸음이었을 뿐, 걸어온 거리 자체는 결코 짧지 않았다. 아픈 몸으로도 여기까지 왔다는 사실 하나가, 스스로에게 건네는 가장 큰 위로였다.'
+  },
+  {
+    id: 'solitary-path',
+    title: '홀로 걸어온 길형',
+    archetype: { wealth: 35, fame: 20, happiness: 45, health: 55, relationship: 10 },
+    requiresNoFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child'],
+    text: '곁을 지켜줄 가족 없이, 온전히 혼자 힘으로 걸어온 인생이었다. 기댈 곳이 마땅치 않았던 순간들도 있었지만, 그때마다 스스로 자신의 버팀목이 되는 법을 익혀갔다.\n\n외로움이 아예 없었다면 거짓말이겠지만, 누구의 도움도 없이 여기까지 왔다는 사실은 무엇과도 바꿀 수 없는 자부심으로 남았다. 결국 가장 오래, 가장 가까이에서 함께한 건 자기 자신이었다.'
+  },
+  {
+    id: 'enduring-companion',
+    title: '오랜 동행형',
+    archetype: { wealth: 45, fame: 30, happiness: 70, health: 55, relationship: 80 },
+    requiresAllFamilyMemberGroups: [['spouse']],
+    text: '화려한 경력도, 넓은 인맥도 아니었다. 한 사람과 오랜 세월을 함께 걸어왔다는 사실이, 이 인생을 설명하는 가장 정확한 한 줄이었다.\n\n크고 작은 다툼도 물론 있었지만, 그때마다 결국 서로에게 돌아왔다. 화려하진 않아도 단단했던 동행 — 그것으로 충분한 삶이었다.'
   }
 ];
 
-function resolveEnding(stats) {
-  let best = ENDINGS[0];
+// familyMembers/healthConditions를 넘기면, requiresAllFamilyMemberGroups·
+// requiresNoFamilyMember·requiresCondition이 붙은 엔딩(가족/건강 상세
+// 기반 4종)은 그 조건을 만족할 때만 후보에 오른다 - 조건이 없는 기존 6종은
+// 항상 후보. 후보들 중에서는 여전히 최종 스탯과 가장 가까운(유클리드 거리)
+// 것을 고른다 - 즉 조건을 만족한다고 무조건 그 엔딩이 나오는 게 아니라,
+// "조건도 맞고 스탯도 그 아키타입에 가장 가까운" 경우에만 선택된다.
+function resolveEnding(stats, familyMembers, healthConditions) {
+  const familyIds = (familyMembers || []).map((f) => f.id);
+  const conditionIds = (healthConditions || []).map((c) => c.id);
+
+  const eligible = ENDINGS.filter((ending) => {
+    if (ending.requiresAllFamilyMemberGroups && !ending.requiresAllFamilyMemberGroups.every((group) => group.some((id) => familyIds.includes(id)))) return false;
+    if (ending.requiresNoFamilyMember && ending.requiresNoFamilyMember.some((id) => familyIds.includes(id))) return false;
+    if (ending.requiresCondition && !conditionIds.includes(ending.requiresCondition)) return false;
+    return true;
+  });
+
+  let best = eligible[0];
   let bestDist = Infinity;
-  for (const ending of ENDINGS) {
+  for (const ending of eligible) {
     let dist = 0;
     for (const key of Object.keys(ending.archetype)) {
       const diff = (stats[key] || 0) - ending.archetype[key];
