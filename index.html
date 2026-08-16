@@ -250,6 +250,61 @@
   .choice-history-item .chi-text { color: var(--text); }
 
   footer { color: var(--text-faint); font-size: 12px; text-align: center; margin-top: 40px; }
+
+  /* ------------------------------------------------------------
+     PC 화면(900px 이상)에서만 진행 화면(#gameSection)을 펼친 책처럼
+     좌/우 두 페이지로 나눈다 - 왼쪽 페이지엔 스탯 바 + 재산/건강/가족/
+     직업 상세, 오른쪽 페이지엔 구간 상황·선택지·결과 문구. 모바일
+     (.wrap 기본 620px)에서는 기존 1단 레이아웃 그대로 유지 - 좁은
+     화면에서 억지로 2단을 우겨넣으면 오히려 읽기 힘들어지므로 폭이
+     충분할 때만 적용한다. 다른 화면(검색·엔딩 등)은 그대로 두고
+     #gameSection 하나만 대상으로 한다.
+     ------------------------------------------------------------ */
+  @media (min-width: 900px) {
+    .wrap:has(#gameSection:not(.hidden)) { max-width: 1040px; }
+
+    #gameSection {
+      display: grid;
+      grid-template-columns: minmax(260px, 320px) 1fr;
+      padding: 0;
+      overflow: hidden;
+      align-items: stretch;
+    }
+
+    .game-left-page {
+      padding: 26px 22px;
+      background: var(--panel-2);
+      position: relative;
+      border-right: 1px solid var(--line);
+    }
+    /* 책 중철(gutter) 느낌 - 이음선 쪽에 은은한 그림자를 드리운다 */
+    .game-left-page::after {
+      content: ''; position: absolute; top: 0; right: -1px; bottom: 0; width: 16px;
+      background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.09));
+      pointer-events: none;
+    }
+    .game-right-page {
+      padding: 26px 30px;
+      position: relative;
+      min-width: 0;
+    }
+    .game-right-page::before {
+      content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 16px;
+      background: linear-gradient(to left, transparent, rgba(0, 0, 0, 0.09));
+      pointer-events: none;
+    }
+
+    .game-left-page .stat-bars,
+    .game-left-page .asset-panel,
+    .game-left-page .health-panel,
+    .game-left-page .family-panel,
+    .game-left-page .occupation-panel {
+      margin-bottom: 18px;
+    }
+    .game-left-page .occupation-panel { margin-bottom: 0; }
+
+    #gameRightPage #nextBtn { margin-top: 8px; }
+  }
 </style>
 </head>
 <body>
@@ -302,33 +357,37 @@
   </section>
 
   <section id="gameSection" class="panel hidden">
-    <div id="stageContent">
-      <div class="stage-head">
-        <span class="stage-name" id="stageName"></span>
-        <span class="stage-age" id="stageAge"></span>
+    <div class="game-left-page" id="gameLeftPage">
+      <div class="stat-bars" id="statBars"></div>
+      <div class="asset-panel">
+        <p class="asset-panel-title">현재 재산 상세</p>
+        <div id="assets" class="assets-list"></div>
       </div>
-      <p id="storyText" class="story-text"></p>
-      <div id="choiceList"></div>
-      <div id="resultBox" class="result-box hidden"></div>
+      <div class="health-panel">
+        <p class="health-panel-title">현재 건강 상세</p>
+        <div id="healthConditions" class="health-conditions"></div>
+      </div>
+      <div class="family-panel">
+        <p class="family-panel-title">현재 가족 상세</p>
+        <div id="familyMembers" class="family-members"></div>
+      </div>
+      <div class="occupation-panel">
+        <p class="occupation-panel-title">현재 직업 상세</p>
+        <p id="currentOccupation" class="occupation-current"></p>
+      </div>
     </div>
-    <div class="stat-bars" id="statBars"></div>
-    <div class="asset-panel">
-      <p class="asset-panel-title">현재 재산 상세</p>
-      <div id="assets" class="assets-list"></div>
+    <div class="game-right-page" id="gameRightPage">
+      <div id="stageContent">
+        <div class="stage-head">
+          <span class="stage-name" id="stageName"></span>
+          <span class="stage-age" id="stageAge"></span>
+        </div>
+        <p id="storyText" class="story-text"></p>
+        <div id="choiceList"></div>
+        <div id="resultBox" class="result-box hidden"></div>
+      </div>
+      <button id="nextBtn" class="hidden">다음</button>
     </div>
-    <div class="health-panel">
-      <p class="health-panel-title">현재 건강 상세</p>
-      <div id="healthConditions" class="health-conditions"></div>
-    </div>
-    <div class="family-panel">
-      <p class="family-panel-title">현재 가족 상세</p>
-      <div id="familyMembers" class="family-members"></div>
-    </div>
-    <div class="occupation-panel">
-      <p class="occupation-panel-title">현재 직업 상세</p>
-      <p id="currentOccupation" class="occupation-current"></p>
-    </div>
-    <button id="nextBtn" class="hidden">다음</button>
   </section>
 
   <section id="endingSection" class="panel hidden">
