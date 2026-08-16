@@ -343,23 +343,38 @@
         노출되지 않은 선택지가 제출되면 거부한다 — "화면에 안 보여준 결과가 튀어나오는 일"을 서버가 막는다.
         선택지가 3개 이하로만 채워진 구간(과거 콘텐츠)은 그냥 전부 보여준다.</p>
         <p class="note"><b>상황 설명(intro)도 같은 원리로 여러 개 중 하나가 무작위로 뜨도록 메커니즘만
-        먼저 구현해뒀다(2026-08-16, 콘텐츠는 아직 없음).</b> 각 구간 상단의 상황 설명 한 줄(예: 0세
-        "세상에 막 태어난 순간...")은 지금까지 <code>STAGES</code> 항목마다 <code>intro</code> 단일
-        문자열 하나로 고정돼 있었는데, 사용자가 선택지처럼 "같은 나이라도 회차마다 다른 상황이 나올 수
-        있게" 해달라고 요청했다. <code>pickIntro(stage)</code>가 그 구간에 <code>intros</code>(배열)가
-        있으면 그중 하나를 무작위로 고르고, 없으면 기존처럼 <code>intro</code> 단일 문자열을 그대로
-        쓴다 — 즉 <code>intros</code>를 안 채운 구간은 동작이 전혀 안 바뀐다(지금 101개 전 구간이
-        여기 해당, 순수 시뮬레이션으로 회귀 없음 확인). 뽑힌 값은 선택지의
-        <code>visibleChoiceIds</code>와 똑같은 방식으로 저장 슬롯(<code>currentIntro</code>)에 남겨
-        이어하기해도 같은 문구가 다시 뜬다 — <code>startPlaythrough</code>/<code>applyChoice</code>의
-        다음 구간 전환/<code>resumePlaythrough</code> 세 곳 전부에 배선했고, <code>publicStage(stage,
-        visibleIds, introText)</code>가 이 값을 받아 응답의 <code>intro</code> 필드에 실어 보낸다.
-        나중에 특정 나이에 상황 문구를 여러 개 쓰고 싶으면 그 <code>STAGES</code> 항목에
-        <code>intros: ['문구1', '문구2', ...]</code>만 추가하면 되고, 로직 변경은 필요 없다(콘텐츠
-        작성 범위가 커서 — 101개 나이 전체에 적용하려면 나이당 2~3개씩 총 200~300개 문구가 필요 —
-        이번엔 메커니즘까지만 구현하기로 함). 실제 배포된 함수에도 라이브로 재현해 시작(0세)·다음 구간
-        전환(1세)·새로고침 후 이어하기 세 경로 전부에서 상황 설명이 매번 정확히 같은 문구로 정상
-        표시되는 것까지 확인했다.</p>
+        먼저 구현해뒀고, 상황별로 선택지까지 갈리는 것도 지원한다(2026-08-16, 콘텐츠는 아직 없음).</b>
+        각 구간 상단의 상황 설명 한 줄(예: 0세 "세상에 막 태어난 순간...")은 지금까지
+        <code>STAGES</code> 항목마다 <code>intro</code> 단일 문자열 하나로 고정돼 있었는데, 사용자가
+        선택지처럼 "같은 나이라도 회차마다 다른 상황이 나올 수 있게" 해달라고 요청했다. 처음엔 상황
+        설명과 선택지를 완전히 독립적으로 무작위 추첨했는데, 그러면 "승진했다"는 상황에 "해고 통보에
+        좌절한다" 같은 선택지가 같이 뜰 수 있어 버그처럼 보일 위험이 있다는 지적을 받아, 선택지 쪽에도
+        <code>requiresIntro</code>로 상황과 연동할 수 있게 확장했다.</p>
+        <p class="note">구조: <code>STAGES</code> 항목에 <code>intros: [&#123;id, text&#125;, ...]</code>(배열)를
+        추가하면 <code>pickIntroId(stage)</code>가 그중 하나의 <b>id</b>를 무작위로 고른다(텍스트가 아니라
+        id를 저장 슬롯에 남기는 건 <code>visibleChoiceIds</code>가 선택지 텍스트가 아니라 id만 저장하는
+        것과 같은 이유 — 나중에 문구를 고쳐도 진행 중인 판이 옛 문구를 계속 들고 있지 않음).
+        <code>intros</code>가 없는 구간은 <code>pickIntroId</code>가 <code>null</code>을 반환하고,
+        <code>resolveIntroText</code>가 기존처럼 <code>stage.intro</code> 단일 문자열을 그대로 쓴다 — 즉
+        <code>intros</code>를 안 채운 구간은 동작이 전혀 안 바뀐다(지금 101개 전 구간이 여기 해당, 순수
+        시뮬레이션으로 회귀 없음 확인). 선택지에 <code>requiresIntro: 'a'</code>를 붙이면
+        <code>pickVisibleChoiceIds()</code>가 그 나이에 뽑힌 <code>currentIntroId</code>와 정확히 같을
+        때만 후보로 남긴다(기존 <code>requiresCondition</code>·<code>requiresFamilyMember</code>·
+        <code>requiresOccupation</code>과 완전히 같은 게이팅 패턴 재사용) — <code>requiresIntro</code>가
+        없는 선택지는 어떤 상황이 뽑히든 항상 공용 후보로 남는다(상황별 전용 vs 공용 선택지를 자유롭게
+        섞을 수 있음). <code>applyChoice()</code>도 다른 requires* 체크와 나란히
+        <code>choice.requiresIntro !== play.currentIntroId</code>면 방어적으로 거부한다(위·변조 방지).
+        뽑힌 <code>currentIntroId</code>는 <code>visibleChoiceIds</code>와 똑같은 방식으로 저장 슬롯에
+        남겨 이어하기해도 같은 상황·같은 선택지 3개가 다시 뜬다 — <code>startPlaythrough</code>/
+        <code>applyChoice</code>의 다음 구간 전환/<code>resumePlaythrough</code> 세 곳 전부에 배선했고,
+        <code>publicStage(stage, visibleIds, introId)</code>가 이 값을 받아 응답을 만든다. 나중에 특정
+        나이에 상황을 여러 개 쓰고 싶으면 그 <code>STAGES</code> 항목에 <code>intros</code> 배열과, 필요한
+        선택지에 <code>requiresIntro</code>만 추가하면 되고 로직 변경은 필요 없다(콘텐츠 작성 범위가 커서
+        — 101개 나이 전체에 적용하려면 나이당 2~3개씩 총 200~300개 상황 문구가 필요 — 이번엔 메커니즘까지만
+        구현하기로 함). 순수 Node 시뮬레이션으로 가상 2-상황(A/B) 구간을 만들어 2만 회 검증 - 상황 A 전용
+        선택지가 상황 B일 때 노출된 경우(cross contamination) 0건. 실제 배포된 함수에도 라이브로 재현해
+        시작(0세)·다음 구간 전환·새로고침 후 이어하기 세 경로 전부에서 정상 진행되는 것과 콘솔 에러
+        0건까지 확인했다.</p>
         <p class="note"><b>재산 상세(현금·부동산·동산) — 선택지에 따라 현금성 자산·부동산·동산을 소유하게
         된다.</b> 건강/가족 상세와 완전히 같은 패턴이다: 일부 선택지에 <code>addAsset({id,label,type})</code>을
         붙이면 그 재산이 그 판의 저장 슬롯(<code>assets[]</code>)에 추가되고(이미 있으면 중복 추가 안 함),
