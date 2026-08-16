@@ -2,7 +2,28 @@ const { onCall, HttpsError } = require('firebase-functions/v2/https');
 const { initializeApp } = require('firebase-admin/app');
 const { getDatabase, ServerValue } = require('firebase-admin/database');
 const { STAT_KEYS, STAT_START, clampStat, requireAuth } = require('./common');
-const { STAGES, resolveEnding, buildCollapseEnding } = require('./game-data');
+const {
+  STAGES,
+  resolveEnding,
+  buildCollapseEnding,
+  buildBankruptcyEnding,
+  buildObscurityEnding,
+  buildDespairEnding,
+  buildIsolationEnding
+} = require('./game-data');
+
+// 다섯 스탯 중 하나라도 0 이하로 떨어지면 그 즉시 삶이 끝난다(health만 있던
+// 걸 전부로 확장). 한 선택에서 여러 스탯이 동시에 0을 찍을 수도 있어 순서를
+// 고정해 둔다 - health(즉사)가 가장 결정적이라 최우선, 그다음은 원래
+// STAT_KEYS 순서(wealth·fame·happiness·relationship 중 fame·happiness는
+// STAT_KEYS 순서 그대로, health만 앞으로 뺀 것).
+const INSTANT_ENDING_BUILDERS = [
+  { stat: 'health', build: buildCollapseEnding },
+  { stat: 'wealth', build: buildBankruptcyEnding },
+  { stat: 'fame', build: buildObscurityEnding },
+  { stat: 'happiness', build: buildDespairEnding },
+  { stat: 'relationship', build: buildIsolationEnding }
+];
 
 initializeApp();
 
@@ -239,9 +260,13 @@ async function applyChoice(db, playRef, play, stage, choice) {
   const occupationHistory = buildOccupationHistory(choiceLog);
   const currentOccupation = occupationHistory.length ? occupationHistory[occupationHistory.length - 1] : null;
 
-  // 건강이 0 이하로 떨어지면 100세를 못 채우고 그 자리에서 삶이 끝난다 -
-  // pickNextStageIndex가 정한 다음 나이와 무관하게 즉시 completed 처리.
-  const collapsed = stats.health <= 0;
+  // 다섯 스탯 중 하나라도 0 이하로 떨어지면 100세를 못 채우고 그 자리에서
+  // 삶이 끝난다 - pickNextStageIndex가 정한 다음 나이와 무관하게 즉시
+  // completed 처리. INSTANT_ENDING_BUILDERS 순서대로 검사해 가장 먼저 해당된
+  // 스탯의 전용 엔딩을 쓴다(여러 스탯이 같은 선택에서 동시에 0을 찍어도
+  // 항상 같은 결과가 나오도록 순서 고정).
+  const instantEnding = INSTANT_ENDING_BUILDERS.find((e) => stats[e.stat] <= 0);
+  const collapsed = !!instantEnding;
 
   const nextIndex = pickNextStageIndex(play.stageIndex);
   const completed = collapsed || nextIndex >= STAGES.length;
@@ -250,7 +275,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
   let ending = null;
   let nextVisibleIds = null;
   if (completed) {
-    ending = collapsed ? buildCollapseEnding(stage.ageRange) : resolveEnding(stats, familyMembers, healthConditions);
+    ending = collapsed ? instantEnding.build(stage.ageRange) : resolveEnding(stats, familyMembers, healthConditions);
     updates.ending = { id: ending.id, title: ending.title, text: ending.text };
     updates.endedAt = ServerValue.TIMESTAMP;
   } else {

@@ -5397,4 +5397,49 @@ function buildCollapseEnding(ageRange) {
   };
 }
 
-module.exports = { STAGES, ENDINGS, resolveEnding, buildCollapseEnding };
+// health와 마찬가지로 재산·인기·행복·관계 중 하나라도 0 이하로 떨어지면
+// 그 즉시 삶이 멈춘다 - resolveEnding()의 스탯 근접 매칭을 타지 않고, "왜
+// 끝났는지"가 분명한 전용 엔딩으로 고정된다. index.js의 applyChoice()에서
+// health와 같은 우선순위 목록에 함께 등록해 사용한다.
+function buildBankruptcyEnding(ageRange) {
+  return {
+    id: 'bankruptcy',
+    title: '파산한 삶',
+    text: (ageRange ? ageRange + ', ' : '') + '더 끌어다 쓸 곳도, 더 줄일 곳도 남아있지 않았다. 벌어들이는 속도보다 빠져나가는 속도가 언제나 더 빨랐고, 그 격차는 결국 메울 수 없는 지경까지 벌어졌다.\n\n돈이 전부는 아니라고 되뇌어 봐도, 매일의 걱정 앞에서는 공허한 말이었다. 그래도 빈털터리가 됐다고 해서, 지금까지 쌓아온 시간까지 전부 없던 일이 되는 건 아니었다.'
+  };
+}
+
+function buildObscurityEnding(ageRange) {
+  return {
+    id: 'obscurity',
+    title: '완전히 잊힌 삶',
+    text: (ageRange ? ageRange + ', ' : '') + '어느 순간부터 아무도 이름을 기억하지 못했다. 한때는 화제의 중심에 있었다는 사실조차, 이제는 스스로도 가물가물했다.\n\n관심이 전부는 아니라고 믿고 싶었지만, 완전히 잊힌다는 건 생각보다 훨씬 조용하고 쓸쓸한 일이었다. 그래도 누구의 기억에도 없다고 해서, 그 시간을 살아낸 자신마저 사라지는 건 아니었다.'
+  };
+}
+
+function buildDespairEnding(ageRange) {
+  return {
+    id: 'despair',
+    title: '완전히 지쳐버린 삶',
+    text: (ageRange ? ageRange + ', ' : '') + '더 이상 웃을 일이 남아있지 않은 것 같았다. 하루하루를 버텨내는 것 자체가 벅찬 날들이 계속됐고, 마음은 이미 오래전에 지쳐 있었다.\n\n괜찮다는 말을 스스로에게 몇 번이나 되풀이했는지 모른다. 그래도 완전히 무너진 그 순간에도, 여기까지 걸어온 발걸음만큼은 분명히 존재했다.'
+  };
+}
+
+function buildIsolationEnding(ageRange) {
+  return {
+    id: 'isolation',
+    title: '완전히 홀로 남은 삶',
+    text: (ageRange ? ageRange + ', ' : '') + '곁에서 안부를 물어줄 사람이 더 이상 남아있지 않았다. 하나둘 멀어진 인연들은 결국 돌아오지 않았고, 연락처 목록만 조용히 남아 있었다.\n\n혼자가 편하다고 스스로를 다독여도, 완전한 고립은 생각보다 훨씬 무거웠다. 그래도 아무도 곁에 없다고 해서, 지금껏 나눴던 마음들까지 사라지는 건 아니었다.'
+  };
+}
+
+module.exports = {
+  STAGES,
+  ENDINGS,
+  resolveEnding,
+  buildCollapseEnding,
+  buildBankruptcyEnding,
+  buildObscurityEnding,
+  buildDespairEnding,
+  buildIsolationEnding
+};
