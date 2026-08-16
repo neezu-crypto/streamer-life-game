@@ -76,6 +76,7 @@ function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds
     if (c.requiresCondition && !conditionIds.includes(c.requiresCondition)) return false;
     if (c.requiresFamilyMember && !c.requiresFamilyMember.some((id) => familyIds.includes(id))) return false;
     if (c.requiresNoFamilyMember && c.requiresNoFamilyMember.some((id) => familyIds.includes(id))) return false;
+    if (c.requiresAllFamilyMemberGroups && !c.requiresAllFamilyMemberGroups.every((group) => group.some((id) => familyIds.includes(id)))) return false;
     if (c.requiresOccupation && !c.requiresOccupation.includes(currentOccupationId || null)) return false;
     return true;
   });
@@ -163,6 +164,14 @@ async function applyChoice(db, playRef, play, stage, choice) {
     throw new HttpsError('failed-precondition', '지금 가족 상태에서는 고를 수 없는 선택지입니다.');
   }
   if (choice.requiresNoFamilyMember && choice.requiresNoFamilyMember.some((id) => currentFamilyIds.includes(id))) {
+    throw new HttpsError('failed-precondition', '지금 가족 상태에서는 고를 수 없는 선택지입니다.');
+  }
+  // requiresFamilyMember는 배열 안에서 하나만 있으면 되는 OR 조건인데,
+  // "부모님도 계시고 형제자매도 있어야" 하는 경우처럼 서로 다른 두 그룹이
+  // 각각 OR로 만족되면서 그 둘끼리는 AND로 묶여야 하는 경우가 있다.
+  // requiresAllFamilyMemberGroups: [[id,...], [id,...]]는 각 하위 배열을
+  // OR로, 하위 배열끼리는 AND로 검사한다.
+  if (choice.requiresAllFamilyMemberGroups && !choice.requiresAllFamilyMemberGroups.every((group) => group.some((id) => currentFamilyIds.includes(id)))) {
     throw new HttpsError('failed-precondition', '지금 가족 상태에서는 고를 수 없는 선택지입니다.');
   }
   const priorOccupationHistory = buildOccupationHistory(Array.isArray(play.choiceLog) ? play.choiceLog : []);
