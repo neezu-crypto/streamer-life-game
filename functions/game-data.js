@@ -94,6 +94,19 @@
 // 필터링) - 부러진 적 없는 팔이 "다 나았다"고 나오는 일이 없도록. 이런
 // 조건부 선택지는 3개 노출에 항상 끼일 필요는 없고, 오히려 가끔만 등장하는
 // 게 자연스럽다.
+//
+// COMPANY_OCCUPATION_IDS(2026-08-17) - "회사/조직 소속" 계열 직업 목록.
+// 승진·부서 이동·조직 개편·회식·사내 연애·팀원처럼 회사 위계가 있어야 말이
+// 되는 선택지는 requiresAnyOccupation(아무 직업이나 OK) 대신 이 배열을
+// requiresOccupation으로 걸어서, 자영업자·예술가·창업가·컨설턴트·재능기부·
+// 은퇴자처럼 회사 소속이 아닌 직업일 때는 안 뜨게 한다(예: 자영업자인데
+// "부서장으로 승진한다"가 뜨는 일이 없도록). 새 "회사원 계열" 직업을 추가할
+// 땐 이 배열에도 id를 추가해야 그 직업에서도 이 선택지들이 정상 노출된다.
+const COMPANY_OCCUPATION_IDS = [
+  'tech-worker', 'civil-servant', 'logistics-worker', 'teacher', 'healthcare-worker',
+  'public-corp-employee', 'sales-rep', 'office-worker', 'job-changed', 'team-lead',
+  're-employed', 'career-changer'
+];
 
 const STAGES = [
   {
@@ -1436,7 +1449,7 @@ const STAGES = [
         text: '첫 회식 자리에서 조직 문화에 적응한다',
         deltas: { relationship: 4, health: -2 },
         result: '낯선 얼굴들 사이에서 웃는 법부터 다시 배웠다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'first-paycheck-for-parents',
@@ -1456,14 +1469,14 @@ const STAGES = [
         text: '동기들과 끈끈한 생존 동료애를 쌓는다',
         deltas: { relationship: 5, happiness: 3 },
         result: '다 같이 신입이라는 이유 하나로 뭉쳤던 시절.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'fame-colleague-expose-damages-image',
         text: '믿었던 동료의 폭로로 이미지에 큰 타격을 입는다',
         deltas: { fame: -9, relationship: -3 },
         result: '사실이 아니라고 말해도, 이미 퍼진 이야기는 잘 지워지지 않았다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       }
     ]
   },
@@ -1484,7 +1497,7 @@ const STAGES = [
         text: '더 나은 조건을 찾아 이직을 진지하게 고민한다',
         deltas: { fame: 2, happiness: -2 },
         result: '채용 공고 창을 몰래 켜두는 날이 늘었다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'overtime-recognition',
@@ -1505,7 +1518,7 @@ const STAGES = [
         text: '회사 사람과 사내 연애를 시작한다',
         deltas: { happiness: 4, relationship: 3 },
         result: '비밀 연애의 스릴이 은근히 재밌었다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'sns-comparison-fatigue',
@@ -1551,7 +1564,7 @@ const STAGES = [
         text: '회사에서 처음으로 후배를 맡아 가르친다',
         deltas: { relationship: 3, fame: 2, happiness: -1 },
         result: '누군가를 가르치며, 스스로도 다시 배우게 됐다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'mastering-solo-time',
@@ -1637,7 +1650,7 @@ const STAGES = [
         text: '동료의 퇴사·이직 소식에 나도 흔들린다',
         deltas: { happiness: -2, relationship: -1 },
         result: '축하 인사를 건네면서도, 마음 한구석이 복잡했다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'first-real-checkup',
@@ -1666,7 +1679,7 @@ const STAGES = [
         text: '작은 승진과 함께 책임이 부쩍 무거워진다',
         deltas: { fame: 4, wealth: 3, happiness: -2 },
         result: '명함에 적힌 직급 하나가 어깨를 조금 더 무겁게 했다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'first-team-lead',
@@ -2006,7 +2019,7 @@ const STAGES = [
         deltas: { fame: 3, wealth: 4, happiness: -1 },
         result: '낯선 자리였지만, 그만큼 배우는 것도 많았다.',
         setOccupation: { id: 'job-changed', label: '🏢 이직 후 직장인' },
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'startup-attempt-30s',
@@ -2026,7 +2039,7 @@ const STAGES = [
         text: '부서 이동으로 완전히 새로운 업무를 맡는다',
         deltas: { happiness: -2, fame: 2 },
         result: '처음부터 다시 배우는 기분이었지만, 그 나름의 재미도 있었다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'recognized-expert',
@@ -2052,7 +2065,7 @@ const STAGES = [
         text: '믿었던 동료와 이해관계로 등을 돌린다',
         deltas: { relationship: -8, wealth: 2 },
         result: '일은 남았지만, 예전 같은 사이로는 돌아가지 못했다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       }
     ]
   },
@@ -2073,14 +2086,14 @@ const STAGES = [
         text: '팀원의 성장을 지켜보며 예상 못한 보람을 느낀다',
         deltas: { relationship: 3, happiness: 4 },
         result: '내 성과보다, 남의 성장이 더 뿌듯할 수 있다는 걸 처음 알았다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'reorg-instability',
         text: '조직 개편의 여파로 자리가 흔들린다',
         deltas: { happiness: -4, wealth: -2 },
         result: '내 자리는 내가 지키는 게 아니라는 걸, 씁쓸하게 배웠다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'fear-of-being-outdated',
@@ -2400,7 +2413,7 @@ const STAGES = [
         text: '회사에서 확고한 입지를 다진다',
         deltas: { fame: 4, wealth: 3 },
         result: '이제는 없어서는 안 될 사람이라는 말을, 처음으로 들었다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'juggling-work-and-parenting',
@@ -2457,7 +2470,7 @@ const STAGES = [
         text: '회식·과음이 줄고 건강한 생활을 택한다',
         deltas: { health: 4, relationship: -1 },
         result: '다음 날이 무서워, 한 잔 더를 거절하는 법을 배웠다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'ignoring-body-signals',
@@ -2491,14 +2504,14 @@ const STAGES = [
         deltas: { fame: 5, wealth: 4, happiness: -2 },
         result: '명함이 바뀐 날, 어깨도 함께 무거워졌다.',
         setOccupation: { id: 'team-lead', label: '📈 팀장/부서장' },
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'sidelined-in-reorg',
         text: '조직 개편에서 예상치 못한 자리로 밀려난다',
         deltas: { happiness: -5, fame: -2 },
         result: '회의실 자리 배치 하나로도, 많은 게 짐작됐다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'respected-senior-figure',
@@ -2518,14 +2531,14 @@ const STAGES = [
         text: '이직 제안을 받고 진지하게 고민한다',
         deltas: { fame: 2, wealth: 2, happiness: -1 },
         result: '익숙함을 버릴 용기가 있는지, 스스로에게 묻고 또 물었다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'planning-venture-with-colleague',
         text: '오랜 동료와 함께 새로운 사업을 구상한다',
         deltas: { wealth: -3, happiness: 3 },
         result: '커피 한 잔 하며 나눈 얘기가, 진짜 계획이 되어가고 있었다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       }
     ]
   },
@@ -3002,7 +3015,7 @@ const STAGES = [
         text: '회사에서 명예퇴직을 제안받고 고민에 빠진다',
         deltas: { happiness: -4, wealth: 2 },
         result: '받아들일지 버틸지, 며칠 밤을 뒤척였다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'looking-forward-to-retirement',
@@ -3146,7 +3159,7 @@ const STAGES = [
         text: '정년퇴직을 맞아 회사를 떠난다',
         deltas: { happiness: -3, wealth: -2, relationship: 2 },
         result: '마지막 출근길이, 그렇게 길게 느껴질 줄 몰랐다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'spending-severance-freely',
@@ -3159,7 +3172,7 @@ const STAGES = [
         text: '출근하지 않는 첫 월요일, 이상한 허전함을 느낀다',
         deltas: { happiness: -4, health: -1 },
         result: '알람을 꺼버린 아침이, 홀가분하기보다 낯설었다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'seeking-new-work',
@@ -3258,7 +3271,7 @@ const STAGES = [
         text: '오랜 직장 동료들과의 인연이 자연스레 옅어진다',
         deltas: { relationship: -4, happiness: -2 },
         result: '한때 매일 보던 얼굴들이, 어느새 연락이 뜸해졌다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'reunion-nostalgia',
@@ -3514,7 +3527,7 @@ const STAGES = [
         text: '무료함에 지쳐 예전 직장 생각이 자꾸 난다',
         deltas: { happiness: -3, relationship: -1 },
         result: '그렇게 벗어나고 싶던 곳이, 가끔은 그리웠다.',
-        requiresAnyOccupation: true
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'grandchild-daycare-duty',
