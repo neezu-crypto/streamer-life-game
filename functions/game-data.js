@@ -4667,6 +4667,13 @@ const STAGES = [
         text: '하루하루를 있는 그대로 받아들이는 법을 배운다',
         deltas: { happiness: 4, health: 2 },
         result: '바라는 것을 줄이니, 오히려 채워지는 것들이 많아졌다.'
+      },
+      {
+        id: 'alzheimers-onset',
+        text: '가까운 이름과 얼굴조차 가물가물해지며 알츠하이머 진단을 받는다',
+        deltas: { health: -8, happiness: -6, relationship: -3 },
+        result: '나조차 낯설어지는 순간들이 늘어갔지만, 가족들은 그런 나를 몇 번이고 다시 소개해주었다.',
+        addCondition: { id: 'alzheimers', label: '🧩 알츠하이머', causesChoiceFadeout: true }
       }
     ]
   },

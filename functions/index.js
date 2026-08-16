@@ -206,7 +206,8 @@ async function applyChoice(db, playRef, play, stage, choice) {
       id: choice.addCondition.id,
       label: choice.addCondition.label,
       sinceStageId: stage.id,
-      blocksHealthRecovery: !!choice.addCondition.blocksHealthRecovery
+      blocksHealthRecovery: !!choice.addCondition.blocksHealthRecovery,
+      causesChoiceFadeout: !!choice.addCondition.causesChoiceFadeout
     });
   }
   if (choice.removeCondition) {

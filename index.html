@@ -486,6 +486,12 @@ const FADE_MS = REDUCE_MOTION ? 0 : 260;
 // 트랜지션이 채 안 끝난 상태에서 내용이 바뀌어 보이는 걸 방지.
 const SWAP_BUFFER_MS = REDUCE_MOTION ? 0 : 100;
 
+// 알츠하이머(causesChoiceFadeout)를 갖고 있으면 선택지가 뜨자마자 10초에
+// 걸쳐 서서히 투명해져 10초 후엔 완전히 안 보이게 된다 - 이건 화면
+// 전환용 장식이 아니라 실제 게임 난이도(제한 시간)라서, 다른 트랜지션과
+// 달리 prefers-reduced-motion과 무관하게 항상 10초로 고정한다.
+const CHOICE_FADEOUT_MS = 10000;
+
 function fadeOut(els) {
   const visible = els.filter((el) => el && !el.classList.contains('hidden'));
   if (!visible.length) return Promise.resolve();
@@ -640,9 +646,16 @@ function renderStatBars(el, stats) {
 
 const healthConditionsEl = document.getElementById('healthConditions');
 
+// renderStage()가 "지금 알츠하이머(causesChoiceFadeout)가 있는지" 알 수 있게
+// 최신 healthConditions를 따로 기억해둔다 - applyOutcome()에서 다음 구간
+// 데이터를 미리 받아도 실제 renderStage() 호출은 "다음" 버튼을 눌러 페이드
+// 전환이 끝난 뒤에야 일어나므로, 그 사이에도 값이 남아있어야 한다.
+let currentHealthConditions = [];
+
 // 부상·질병 목록("현재 건강 상세") - 선택지가 addCondition/removeCondition을
 // 붙이면 서버가 갱신해서 내려주는 healthConditions를 그대로 표시만 한다.
 function renderHealthConditions(conditions) {
+  currentHealthConditions = conditions || [];
   healthConditionsEl.innerHTML = '';
   if (!conditions || !conditions.length) {
     const empty = document.createElement('span');
@@ -719,6 +732,29 @@ function renderOccupationHistoryInto(container, history) {
   });
 }
 
+let choiceFadeoutTimer = null;
+
+// 알츠하이머(causesChoiceFadeout)가 있으면 방금 채워 넣은 선택지들이 뜨자마자
+// 10초에 걸쳐 서서히 투명해진다(10초 후 opacity 0). 조건이 없으면 예전에
+// 남아있을 수 있는 스타일을 지워서 항상 정상적으로 다시 보이게 한다.
+// transition과 opacity를 같은 틱에서 같이 바꾸면 트랜지션이 늦게 시작되는
+// 문제가 있어(다른 페이드에서 이미 겪음), 여기서도 먼저 리플로우로 "보임"
+// 상태를 확정한 뒤에야 실제 페이드아웃을 건다.
+function applyAlzheimersFadeout() {
+  clearTimeout(choiceFadeoutTimer);
+  const hasFadeout = currentHealthConditions.some((c) => c.causesChoiceFadeout);
+  if (!hasFadeout) {
+    choiceList.style.transition = '';
+    choiceList.style.opacity = '';
+    return;
+  }
+  choiceList.style.transition = 'none';
+  choiceList.style.opacity = '1';
+  void choiceList.offsetWidth;
+  choiceList.style.transition = 'opacity ' + CHOICE_FADEOUT_MS + 'ms linear';
+  choiceList.style.opacity = '0';
+}
+
 function renderStage(stage) {
   stageName.textContent = stage.name;
   stageAge.textContent = stage.ageRange;
@@ -746,6 +782,7 @@ function renderStage(stage) {
     hint.className = 'dice-hint';
     hint.textContent = '이건 스스로 고를 수 없어요 - 위 셋 중 하나가 무작위로 정해집니다.';
     choiceList.appendChild(hint);
+    applyAlzheimersFadeout();
     return;
   }
 
@@ -757,6 +794,7 @@ function renderStage(stage) {
     btn.addEventListener('click', () => pickChoice(choice.id));
     choiceList.appendChild(btn);
   });
+  applyAlzheimersFadeout();
 }
 
 startBtn.addEventListener('click', async () => {

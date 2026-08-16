@@ -379,6 +379,7 @@
                 <tr><td><code>mild-cognitive-decline</code></td><td>🧠 가벼운 건망증</td><td>황혼 78세 · <code>forgetting-where-things-are</code>(물건을 어디 뒀는지 자꾸 깜빡한다)</td><td>황혼 80세 · <code>mild-cognitive-decline-heal</code>(두뇌 활동과 규칙적인 생활로 기억력이 다시 좋아진다)</td></tr>
                 <tr><td><code>appetite-loss</code></td><td>🍚 식욕부진</td><td>황혼 83세 · <code>appetite-loss-onset</code>(입맛이 없어 끼니를 자주 거른다)</td><td>황혼 86세 · <code>appetite-loss-heal</code>(입맛을 되찾아 다시 잘 챙겨 먹는다)</td></tr>
                 <tr><td><code>parkinsons</code></td><td>✋ 파킨슨병</td><td>황혼 87세 · <code>parkinsons-onset</code>(손 떨림이 심해지더니 파킨슨병 진단을 받는다)</td><td>황혼 89세 · <code>parkinsons-managed</code>(꾸준한 약물 치료와 재활로 떨림 증상이 눈에 띄게 안정된다)</td></tr>
+                <tr><td><code>alzheimers</code></td><td>🧩 알츠하이머</td><td>황혼 91세 · <code>alzheimers-onset</code>(가까운 이름과 얼굴조차 가물가물해지며 알츠하이머 진단을 받는다)</td><td><i>없음 — 의도적으로 영구 지속.</i> <code>rare-illness</code>와 마찬가지로 <code>removeCondition</code> 짝이 없다. 추가로 <code>causesChoiceFadeout: true</code>가 붙어있어 클라이언트 전용 효과(아래 "선택지 페이드아웃" 참고)도 함께 발동한다</td></tr>
                 <tr><td><code>frailty</code></td><td>🕊️ 노쇠</td><td>황혼 93세 · <code>frailty-onset</code>(노쇠가 뚜렷해지며 하루 대부분을 누워 지낸다)</td><td>황혼 96세 · <code>frailty-heal</code>(정성 어린 돌봄과 재활로 다시 기력을 되찾는다)</td></tr>
                 <tr><td><code>rare-illness</code></td><td>🎗️ 희귀 난치병</td><td>유아기 1세 · <code>rare-illness-onset</code>(원인을 알 수 없는 증상으로 정밀 검사 끝에 희귀 난치병 진단을 받는다)</td><td><i>없음 — 의도적으로 영구 지속.</i> "난치병"이라는 이름 그대로 <code>removeCondition</code> 짝이 없는 유일한 조건이라, 한 번 걸리면 100세까지 <code>healthConditions</code>에 계속 남아 "현재 건강 상세"에 평생 표시된다</td></tr>
             </table>
@@ -404,6 +405,21 @@
         않았다."를 덧붙인다 — 안 그러면 건강 바가 그대로인 게 버그처럼 보일 수 있어서. 조건 자체가
         <code>id</code>별로 <code>blocksHealthRecovery</code> 플래그를 갖고 있어(하드코딩된 특정 id
         체크가 아님) 나중에 다른 영구 조건을 추가해도 그대로 재사용 가능하다.</p>
+
+        <p class="note"><b>선택지 페이드아웃 — <code>alzheimers</code>가 있으면 선택지가 뜨자마자 10초에
+        걸쳐 서서히 투명해지다 완전히 사라진다.</b> <code>blocksHealthRecovery</code>와 같은 패턴으로
+        <code>addCondition</code>에 <code>causesChoiceFadeout: true</code>를 얹으면(지금은
+        <code>alzheimers</code>가 유일) <code>applyChoice()</code>가 그 플래그를 그대로
+        <code>healthConditions</code> 항목에 실어 클라이언트로 내려보낸다 — 이 자체는 순수 클라이언트
+        연출이라 서버 쪽 스탯·확률 로직은 전혀 건드리지 않는다. 클라이언트는 매 구간 렌더링
+        (<code>renderStage()</code>) 때마다 지금 보유한 <code>healthConditions</code> 중 하나라도
+        <code>causesChoiceFadeout</code>이면 선택지 목록(<code>#choiceList</code>)에
+        <code>opacity: 1 → 0</code>을 10초(<code>CHOICE_FADEOUT_MS</code>) 동안 <code>linear</code>로
+        건다 — 화면 전환용 장식 트랜지션과 달리 실제 게임 난이도(제한 시간)라서
+        <code>prefers-reduced-motion</code>과 무관하게 항상 10초 고정이다. 트랜지션이 씹히지 않도록
+        먼저 <code>transition: none</code>과 <code>opacity: 1</code>을 강제 리플로우로 확정한 뒤에야
+        실제 트랜지션을 거는 방식은 구간 전환 페이드(<code>fadeOut</code>/<code>fadeIn</code>)와 동일한
+        기법이다. 조건이 없으면 인라인 스타일을 비워 정상 상태로 되돌린다.</p>
 
         <p class="note"><b>가족 상세 — 선택지에 따라 태어날 때부터 100세까지 함께하는 가족이 정해지고,
         생기고, 빠진다.</b> 건강 상세와 완전히 같은 패턴을 쓰되, 한 조건이 여러 명을 한 번에 추가하거나
