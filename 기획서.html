@@ -362,6 +362,7 @@
                 <tr><td><code>wrist-sprain</code></td><td>🤕 손목 부상</td><td>청소년기 16세 · <code>wrist-sprain-onset</code>(체육대회 계주에서 무리하다 손목을 삐끗한다)</td><td>청소년기 18세 · <code>wrist-sprain-heal</code>(다 나은 손목으로 홀가분하게 시험장에 들어간다)</td></tr>
                 <tr><td><code>exam-stress-gastritis</code></td><td>🤒 스트레스성 위염</td><td>청소년기 17세 · <code>exam-stress-gastritis-onset</code>(입시 스트레스로 위가 쓰리고 체하는 날이 잦아진다)</td><td>청소년기 18세 · <code>exam-stress-gastritis-heal</code>(수능이 끝나자마자 위염이 거짓말처럼 가라앉는다)</td></tr>
                 <tr><td><code>back-pain</code></td><td>🦴 허리 통증</td><td>스무 살 20세 · <code>back-pain-onset</code>(잦은 알바 노동으로 허리에 무리가 온다)</td><td>스무 살 22세 · <code>back-pain-heal</code>(필라테스·운동을 꾸준히 하며 허리 통증을 완전히 극복한다)</td></tr>
+                <tr><td><code>accident-aftereffects</code></td><td>🩹 사고 후유증</td><td>스무 살 21세 · <code>sudden-accident-injury</code>(갑작스러운 교통사고를 당해 큰 후유증이 남는다)</td><td><i>없음 — 의도적으로 영구 지속.</i> <code>rare-illness</code>·<code>alzheimers</code>와 마찬가지로 <code>removeCondition</code> 짝이 없고, <code>blocksHealthRecovery: true</code>도 같이 붙어있어 건강이 다시 오르지 않는다. 전용 엔딩 <code>rising-after-the-fall</code>(아래 "엔딩" 참고)의 자격 조건이기도 하다</td></tr>
                 <tr><td><code>burnout-syndrome</code></td><td>🔥 번아웃 증후군</td><td>스무 살 22세 · <code>burnout-onset</code>(인턴 생활에 몸과 마음을 갈아 넣다 번아웃이 온다)</td><td>스무 살 23세 · <code>burnout-heal</code>(충분히 쉬며 번아웃에서 서서히 회복한다)</td></tr>
                 <tr><td><code>carpal-tunnel</code></td><td>✋ 손목터널증후군</td><td>사회 초년생 25세 · <code>carpal-tunnel-onset</code>(매일 반복되는 키보드·마우스 작업으로 손목에 저림이 시작된다)</td><td>사회 초년생 27세 · <code>carpal-tunnel-heal</code>(손목 보호대를 차고 스트레칭을 꾸준히 하며 저림이 사라진다)</td></tr>
                 <tr><td><code>insomnia</code></td><td>😵 불면증</td><td>사회 초년생 26세 · <code>insomnia-onset</code>(업무 스트레스로 밤마다 잠들지 못하는 날이 늘어난다)</td><td>사회 초년생 28세 · <code>insomnia-heal</code>(수면 습관을 개선하며 불면증에서 서서히 벗어난다)</td></tr>
@@ -518,9 +519,9 @@
             <div class="stat-card" style="--stat-c: var(--sage);"><b>관계</b><span>가족·연인·동료와의 선택이 쌓인 값</span></div>
         </div>
 
-        <h3>대표 엔딩 10종</h3>
+        <h3>대표 엔딩 11종</h3>
         <p>엔딩은 스탯 5개 조합의 최근접 아키타입 매칭(<code>resolveEnding</code>) — 처음 6종은 스탯만 보고
-        골랐지만, 이후 가족·건강 상세가 쌓이면서 스탯만으로는 절대 나올 수 없는 조건부 엔딩 4종을
+        골랐지만, 이후 가족·건강 상세가 쌓이면서 스탯만으로는 절대 나올 수 없는 조건부 엔딩 5종을
         추가했다(아래 두 번째 표). 늘릴 땐 <code>ENDINGS</code> 배열에 항목만 추가하면 되고 매칭 로직은
         그대로다. 각 엔딩의 <code>text</code>는
         두 문단(<code>\n\n</code>으로 구분)짜리 서술로 확장했다 — 앞 문단은 그 아키타입의 삶이 어떤
@@ -537,32 +538,38 @@
                 <tr><td><code>recluse</code></td><td>은둔형</td><td>인기·관계 최하, 행복·건강은 준수</td></tr>
             </table>
         </div>
-        <p class="note"><b>가족·건강 상세 기반 조건부 엔딩 4종 — 자격이 안 되면 애초에 후보에도 안 오른다.</b>
+        <p class="note"><b>가족·건강 상세 기반 조건부 엔딩 5종 — 자격이 안 되면 애초에 후보에도 안 오른다.</b>
         <code>resolveEnding(stats, familyMembers, healthConditions)</code>가 매칭 전에 먼저 필터링한다:
         <code>requiresAllFamilyMemberGroups</code>(가족 상세와 동일한 AND-of-OR 문법 재사용, 예:
         <code>[['spouse'],['child'],['grandchild']]</code>는 셋 다 있어야 함), <code>requiresNoFamilyMember</code>
         (하나라도 있으면 제외 - 즉 전부 없어야 자격), <code>requiresCondition</code>(그 건강 조건이 있어야
-        자격, 지금은 <code>rare-illness</code> 하나). 조건 없는 기존 6종은 항상 후보. 자격을 갖췄다고
-        무조건 그 엔딩이 나오는 게 아니라, "자격도 되고 최종 스탯도 그 아키타입에 가장 가까운" 경우에만
-        선택된다 — 즉 가족 조건은 <i>후보 추가</i>일 뿐, 최종 판정은 여전히 스탯 거리로 한다.</p>
+        자격, 지금은 <code>rare-illness</code>·<code>accident-aftereffects</code> 둘). 조건 없는 기존 6종은
+        항상 후보. 자격을 갖췄다고 무조건 그 엔딩이 나오는 게 아니라, "자격도 되고 최종 스탯도 그
+        아키타입에 가장 가까운" 경우에만 선택된다 — 즉 가족 조건은 <i>후보 추가</i>일 뿐, 최종 판정은
+        여전히 스탯 거리로 한다.</p>
         <div class="tbl-wrap">
             <table>
                 <tr><th>id</th><th>제목</th><th>자격 조건</th><th>아키타입 특징</th></tr>
                 <tr><td><code>full-family-legacy</code></td><td>대를 이은 가족형</td><td>배우자+자녀+손주 전부 있음</td><td>관계 최상(95), 행복 높음, 건강 준수</td></tr>
                 <tr><td><code>living-with-illness</code></td><td>평생을 안고 살아온 삶형</td><td><code>rare-illness</code> 보유</td><td>건강 최하(20), 관계는 오히려 준수(65)</td></tr>
+                <tr><td><code>rising-after-the-fall</code></td><td>다시 일어난 삶형</td><td><code>accident-aftereffects</code> 보유</td><td>건강 최하(15), 재산·인기 낮음, 관계는 중간 이상(55)</td></tr>
                 <tr><td><code>solitary-path</code></td><td>홀로 걸어온 길형</td><td>부모·형제자매·배우자·자녀 전부 없음</td><td>관계 최하(10), 나머지는 중하위</td></tr>
                 <tr><td><code>enduring-companion</code></td><td>오랜 동행형</td><td>배우자 있음</td><td>관계 높음(80), 행복 준수</td></tr>
             </table>
         </div>
-        <p class="note">20,000회 시뮬레이션에서 자격 위반(조건 안 맞는데 그 엔딩이 나온 경우) 0건 확인.
-        다만 <code>full-family-legacy</code>는 배우자·자녀·손주를 전부 갖추는 것 자체가 각각 확률적인
-        이벤트 3개가 전부 성사돼야 하는 복합 조건이라, 가족을 적극적으로 추구하는 전략으로 골라도
-        3,000회 중 5회(0.17%)만 나올 만큼 이 게임에서 가장 희귀한 엔딩이다(의도된 설계 — 4대가 함께하는
-        삶은 원래 흔치 않다). <code>living-with-illness</code>·<code>enduring-companion</code>은 같은
-        전략 시뮬레이션에서 각각 3~6% 수준으로, 훨씬 현실적으로 만날 수 있다. 실제 배포본에서도
-        <code>living-with-illness</code>를 라이브로 재현해 확인했다(희귀 난치병을 발병시킨 뒤 끝까지
-        플레이 → 엔딩 화면에 실제로 이 엔딩이 뜨는 것을 확인).</p>
-        <p class="note"><b>11번째 엔딩(=<code>ENDINGS</code> 밖의 별도 경로) — <code>collapse</code>(쓰러진 삶): 건강이 0 이하로 떨어지면 100세를
+        <p class="note">20,000회 시뮬레이션(<code>functions/game-data.js</code>의 실제
+        <code>resolveEnding</code>을 그대로 호출)에서 자격 위반(조건 안 맞는데 그 엔딩이 나온 경우) 0건
+        확인 — <code>rising-after-the-fall</code>도 <code>accident-aftereffects</code> 없이 나온 경우
+        0건. 다만 <code>full-family-legacy</code>는 배우자·자녀·손주를 전부 갖추는 것 자체가 각각
+        확률적인 이벤트 3개가 전부 성사돼야 하는 복합 조건이라, 가족을 적극적으로 추구하는 전략으로
+        골라도 3,000회 중 5회(0.17%)만 나올 만큼 이 게임에서 가장 희귀한 엔딩이다(의도된 설계 — 4대가
+        함께하는 삶은 원래 흔치 않다). <code>living-with-illness</code>·<code>enduring-companion</code>은
+        같은 전략 시뮬레이션에서 각각 3~6% 수준으로, 훨씬 현실적으로 만날 수 있다. 실제 배포본에서도
+        <code>living-with-illness</code>를 라이브로 재현해 확인했고(희귀 난치병을 발병시킨 뒤 끝까지
+        플레이 → 엔딩 화면에 실제로 이 엔딩이 뜨는 것을 확인), <code>accident-aftereffects</code>도
+        실제 배포된 함수에서 21세 구간에 <code>sudden-accident-injury</code>가 노출·선택되고 "현재 건강
+        상세"에 🩹 사고 후유증 칩이 정상적으로 뜨는 것까지 라이브로 확인했다.</p>
+        <p class="note"><b>12번째 엔딩(=<code>ENDINGS</code> 밖의 별도 경로) — <code>collapse</code>(쓰러진 삶): 건강이 0 이하로 떨어지면 100세를
         못 채우고 그 자리에서 즉시 끝난다.</b> 위 6종과 달리 <code>resolveEnding()</code>의 스탯 근접
         매칭을 아예 타지 않는 별도 경로다 — <code>applyChoice()</code>가 이번 선택 반영 후
         <code>stats.health &lt;= 0</code>이면 <code>pickNextStageIndex()</code>가 정한 다음 나이나

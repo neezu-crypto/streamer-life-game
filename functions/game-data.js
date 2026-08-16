@@ -1200,6 +1200,13 @@ const STAGES = [
         text: '만나던 사람과 진지하게 미래를 이야기한다',
         deltas: { relationship: 5, happiness: 2 },
         result: '미래를 함께 그려본다는 게, 설레면서도 조금 무서웠다.'
+      },
+      {
+        id: 'sudden-accident-injury',
+        text: '갑작스러운 교통사고를 당해 큰 후유증이 남는다',
+        deltas: { health: -15, happiness: -8, wealth: -5 },
+        result: '눈을 떴을 때는 이미 병실 천장이었다. 예전과 똑같은 몸으로는 돌아갈 수 없다는 말을, 몇 번이고 곱씹어야 했다.',
+        addCondition: { id: 'accident-aftereffects', label: '🩹 사고 후유증', blocksHealthRecovery: true }
       }
     ]
   },
@@ -5140,6 +5147,13 @@ const ENDINGS = [
     archetype: { wealth: 40, fame: 25, happiness: 55, health: 20, relationship: 65 },
     requiresCondition: 'rare-illness',
     text: '어릴 때 찾아온 병은 끝내 다 낫지 않았다. 완치라는 말 대신, "함께 살아가는 법"을 배우며 지나온 나날이었다. 몸이 마음처럼 따라주지 않는 날이 훨씬 많았지만, 그렇다고 멈춰 서 있지만은 않았다.\n\n남들보다 조금 느리고 조심스러운 걸음이었을 뿐, 걸어온 거리 자체는 결코 짧지 않았다. 아픈 몸으로도 여기까지 왔다는 사실 하나가, 스스로에게 건네는 가장 큰 위로였다.'
+  },
+  {
+    id: 'rising-after-the-fall',
+    title: '다시 일어난 삶형',
+    archetype: { wealth: 30, fame: 20, happiness: 45, health: 15, relationship: 55 },
+    requiresCondition: 'accident-aftereffects',
+    text: '한순간의 사고가 그 이후의 모든 걸음을 바꿔놓았다. 예전과 같은 몸으로는 다시 설 수 없었지만, 그렇다고 완전히 주저앉지도 않았다. 남은 것들로 다시 걷는 법을 익히는 데, 그저 남들보다 조금 더 오랜 시간이 걸렸을 뿐이다.\n\n잃은 것을 세는 대신 버텨낸 하루하루를 세기 시작하면서부터, 삶은 다시 앞으로 나아갔다. 완전히 되돌아가진 못했어도 완전히 멈추지도 않았다는 것 — 그것만으로도 충분한 증거였다.'
   },
   {
     id: 'solitary-path',
