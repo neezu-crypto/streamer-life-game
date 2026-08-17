@@ -760,7 +760,8 @@ const STAGES = [
         id: 'first-big-fight-with-parents',
         text: '부모님과 처음으로 크게 다툰다',
         deltas: { relationship: -5, happiness: -3 },
-        result: '문을 쾅 닫고 들어간 방 안에서, 처음으로 혼자라는 기분을 느꼈다.'
+        result: '문을 쾅 닫고 들어간 방 안에서, 처음으로 혼자라는 기분을 느꼈다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       },
       {
         id: 'streamer-roleplay',
@@ -1060,7 +1061,8 @@ const STAGES = [
         id: 'parents-friction-examstress',
         text: '입시 스트레스로 부모님과 자주 부딪힌다',
         deltas: { relationship: -4, happiness: -2 },
-        result: '서로 사랑해서 더 날카로워지는 말들이 있다는 걸 그때 알았다.'
+        result: '서로 사랑해서 더 날카로워지는 말들이 있다는 걸 그때 알았다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       },
       {
         id: 'skip-study-sneak-out',
@@ -1606,7 +1608,8 @@ const STAGES = [
         id: 'first-paycheck-for-parents',
         text: '월급을 받고 처음으로 부모님께 용돈을 드린다',
         deltas: { happiness: 4, relationship: 3, wealth: -3 },
-        result: '봉투를 내미는 손이 뿌듯함으로 살짝 떨렸다.'
+        result: '봉투를 내미는 손이 뿌듯함으로 살짝 떨렸다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       },
       {
         id: 'confidence-crushed',
@@ -1907,7 +1910,8 @@ const STAGES = [
         id: 'parents-aging-realization',
         text: '부모님의 건강이 예전 같지 않다는 걸 실감한다',
         deltas: { relationship: 3, happiness: -4 },
-        result: '전화 너머 목소리가 예전보다 조금 작게 느껴졌다.'
+        result: '전화 너머 목소리가 예전보다 조금 작게 느껴졌다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       },
       {
         id: 'first-home-savings-goal',
@@ -2574,13 +2578,15 @@ const STAGES = [
         id: 'caring-for-sick-parent',
         text: '부모님의 병간호를 시작하며 삶의 우선순위가 바뀐다',
         deltas: { relationship: 4, happiness: -4, health: -2 },
-        result: '늘 나를 돌봐주던 사람을, 이제는 내가 돌보고 있었다.'
+        result: '늘 나를 돌봐주던 사람을, 이제는 내가 돌보고 있었다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       },
       {
         id: 'medical-bill-burden',
         text: '부모님 의료비를 부담한다',
         deltas: { wealth: -5, happiness: -2 },
-        result: '가계부를 펼 때마다 마음 한쪽이 무거워졌다.'
+        result: '가계부를 펼 때마다 마음 한쪽이 무거워졌다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       },
       {
         id: 'sibling-caregiving-conflict',
@@ -2593,19 +2599,22 @@ const STAGES = [
         id: 'trip-with-parents',
         text: '부모님과 여행을 다녀오며 소중한 시간을 쌓는다',
         deltas: { relationship: 5, happiness: 4, wealth: -3 },
-        result: '늦었지만, 그래도 지금이라 다행이라는 생각이 들었다.'
+        result: '늦었지만, 그래도 지금이라 다행이라는 생각이 들었다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       },
       {
         id: 'balancing-two-families',
         text: '내 가족과 부모님 사이에서 균형을 잡으려 애쓴다',
         deltas: { health: -3, happiness: -2 },
-        result: '양쪽 다 소홀히 하고 싶지 않다는 마음이, 몸을 갈아 넣게 했다.'
+        result: '양쪽 다 소홀히 하고 싶지 않다는 마음이, 몸을 갈아 넣게 했다.',
+        requiresAllFamilyMemberGroups: [['father', 'mother', 'single-parent'], ['spouse', 'child']]
       },
       {
         id: 'parents-still-independent',
         text: '독립적으로 살아가시는 부모님을 보며 마음을 놓는다',
         deltas: { happiness: 3, relationship: 2 },
-        result: '아직은 괜찮으시다는 사실 하나가, 이렇게 큰 위안이 될 줄 몰랐다.'
+        result: '아직은 괜찮으시다는 사실 하나가, 이렇게 큰 위안이 될 줄 몰랐다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       },
       {
         id: 'father-passes-away',
@@ -2789,7 +2798,8 @@ const STAGES = [
         id: 'relationship-family-conflict-cutoff',
         text: '가족과 갈등을 겪은 뒤 한동안 왕래를 끊는다',
         deltas: { relationship: -9, happiness: -4 },
-        result: '먼저 손 내밀기엔, 서로 너무 오래 등을 돌리고 있었다.'
+        result: '먼저 손 내밀기엔, 서로 너무 오래 등을 돌리고 있었다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'healthcare-infection-exposure',
@@ -3296,7 +3306,8 @@ const STAGES = [
         id: 'family-trip-reconciliation',
         text: '소원했던 가족과 함께 여행을 떠난다',
         deltas: { relationship: 5, happiness: 4, wealth: -4 },
-        result: '낯선 풍경 앞에서, 오랜만에 다 같이 웃었다.'
+        result: '낯선 풍경 앞에서, 오랜만에 다 같이 웃었다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'knee-pain-onset',
@@ -3467,7 +3478,8 @@ const STAGES = [
         id: 'midlife-family-asset-help-45',
         text: '부모님의 재산 정리를 도와드린다',
         deltas: { wealth: 4, relationship: 2 },
-        result: '고생했다며 부모님이 얼마간을 손에 쥐여주셨다.'
+        result: '고생했다며 부모님이 얼마간을 손에 쥐여주셨다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       },
       {
         id: 'midlife-old-debt-collection-45',
@@ -3584,7 +3596,8 @@ const STAGES = [
         id: 'cherishing-parent-memories',
         text: '부모님과 함께한 시간을 소중히 기억하며 정리한다',
         deltas: { relationship: 4, happiness: 2 },
-        result: '오래된 사진첩을 넘기며, 잊고 있던 순간들을 되찾았다.'
+        result: '오래된 사진첩을 넘기며, 잊고 있던 순간들을 되찾았다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       },
       {
         id: 'caring-for-parent-with-siblings',
@@ -3628,6 +3641,18 @@ const STAGES = [
         deltas: { wealth: 3, fame: 2 },
         result: '"부장님"이라는 호칭이, 아직은 낯설고 무거웠다.',
         requiresOccupation: ['teacher']
+      },
+      {
+        id: 'midlife-halfway-reflection-47',
+        text: '인생의 절반을 지나왔다는 사실을 새삼 실감한다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '숫자로는 셀 수 있어도, 마음으로 받아들이는 데는 시간이 더 필요했다.'
+      },
+      {
+        id: 'midlife-routine-checkup-47',
+        text: '그동안 미뤄온 정기 건강검진을 받으러 간다',
+        deltas: { health: 3, wealth: -1 },
+        result: '별일 아니길 바라며 들어간 검진실에서, 큰 숨을 한 번 내쉬었다.'
       }
     ]
   },
@@ -3880,7 +3905,8 @@ const STAGES = [
         id: 'relationship-conflict-with-family-midlife',
         text: '가족과 깊은 갈등을 겪는다',
         deltas: { relationship: -8, happiness: -3 },
-        result: '한 지붕 아래 살면서도, 대화는 점점 짧아졌다.'
+        result: '한 지붕 아래 살면서도, 대화는 점점 짧아졌다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'sales-rep-trust-built-client',
@@ -3929,7 +3955,8 @@ const STAGES = [
         id: 'rekindled-couple-time',
         text: '부부만의 시간이 다시 늘며 관계가 새롭게 깊어진다',
         deltas: { relationship: 5, happiness: 4 },
-        result: '신혼 때 같던 대화가, 오랜만에 다시 오갔다.'
+        result: '신혼 때 같던 대화가, 오랜만에 다시 오갔다.',
+        requiresFamilyMember: ['spouse']
       },
       {
         id: 'lingering-emptiness',
@@ -3942,7 +3969,8 @@ const STAGES = [
         id: 'new-hobbies-and-travel',
         text: '취미·부부 여행으로 새로운 일상을 채워간다',
         deltas: { happiness: 4, wealth: -3 },
-        result: '둘만의 여행이 이렇게 홀가분할 줄, 예전엔 몰랐다.'
+        result: '둘만의 여행이 이렇게 홀가분할 줄, 예전엔 몰랐다.',
+        requiresFamilyMember: ['spouse']
       },
       {
         id: 'grandchild-news-excitement',
@@ -3970,7 +3998,8 @@ const STAGES = [
         id: 'fame-parenting-recognition-51',
         text: '자녀 교육 노하우로 주변에서 화제가 된다',
         deltas: { fame: 3, relationship: 2 },
-        result: '묻는 사람이 늘어날수록, 나눠줄 이야기도 하나둘 늘어갔다.'
+        result: '묻는 사람이 늘어날수록, 나눠줄 이야기도 하나둘 늘어갔다.',
+        requiresFamilyMember: ['child']
       },
       {
         id: 'fame-career-plateau-51',
@@ -4235,7 +4264,8 @@ const STAGES = [
         id: 'closing-chapter-with-loved-ones',
         text: '오랜 친구·가족과 함께 조용히 이 시기를 매듭짓는다',
         deltas: { relationship: 5, happiness: 4 },
-        result: '거창하지 않아도, 곁의 사람들만으로 충분했다.'
+        result: '거창하지 않아도, 곁의 사람들만으로 충분했다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'preparing-new-chapter',
@@ -4449,7 +4479,8 @@ const STAGES = [
         id: 'couples-gathering-energy',
         text: '부부 동반 모임에 나가며 새로운 활력을 얻는다',
         deltas: { relationship: 5, happiness: 4, wealth: -2 },
-        result: '오랜만에 둘이 함께 웃을 일이 생겼다.'
+        result: '오랜만에 둘이 함께 웃을 일이 생겼다.',
+        requiresFamilyMember: ['spouse']
       },
       {
         id: 'osteoporosis-onset',
@@ -4564,7 +4595,8 @@ const STAGES = [
         id: 'new-role-in-family-gatherings',
         text: '가족 모임의 중심에서 예전과 다른 역할을 맡는다',
         deltas: { relationship: 3, happiness: 2 },
-        result: '이끄는 자리에서, 지켜보는 자리로 슬며시 옮겨갔다.'
+        result: '이끄는 자리에서, 지켜보는 자리로 슬며시 옮겨갔다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'cataract-heal',
@@ -4711,7 +4743,8 @@ const STAGES = [
         id: 'big-sixtieth-celebration',
         text: '환갑을 맞아 가족·친지가 모여 크게 잔치를 연다',
         deltas: { happiness: 6, relationship: 5, wealth: -4 },
-        result: '오랜만에 온 가족이 한자리에 모인 것만으로도, 마음이 벅찼다.'
+        result: '오랜만에 온 가족이 한자리에 모인 것만으로도, 마음이 벅찼다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'mixed-feelings-turning-sixty',
@@ -4729,7 +4762,8 @@ const STAGES = [
         id: 'quiet-family-day',
         text: '조용히 가족끼리만 소박하게 하루를 보낸다',
         deltas: { happiness: 4, relationship: 3 },
-        result: '거창한 잔치보다, 이런 하루가 오히려 더 오래 남았다.'
+        result: '거창한 잔치보다, 이런 하루가 오히려 더 오래 남았다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'reflecting-on-sixty-years',
@@ -4906,7 +4940,8 @@ const STAGES = [
         id: 'oldprep-family-business-stake-61',
         text: '자녀의 사업을 도와주고 지분을 조금 받는다',
         deltas: { wealth: 3, relationship: 2 },
-        result: '작은 지분이지만, 함께한다는 뿌듯함이 더 컸다.'
+        result: '작은 지분이지만, 함께한다는 뿌듯함이 더 컸다.',
+        requiresFamilyMember: ['child']
       },
       {
         id: 'lottery-check-61',
@@ -5288,7 +5323,8 @@ const STAGES = [
         id: 'respecting-each-others-time',
         text: '부부가 각자의 시간을 존중하는 법을 익힌다',
         deltas: { relationship: 3, happiness: 3 },
-        result: '붙어 있지 않아도 가까울 수 있다는 걸, 이제야 알았다.'
+        result: '붙어 있지 않아도 가까울 수 있다는 걸, 이제야 알았다.',
+        requiresFamilyMember: ['spouse']
       },
       {
         id: 'frequent-spousal-friction',
@@ -5301,7 +5337,8 @@ const STAGES = [
         id: 'new-shared-hobby',
         text: '부부가 함께 새로운 취미를 시작한다',
         deltas: { relationship: 5, happiness: 4, wealth: -2 },
-        result: '처음 배우는 걸 나란히 서툴게 해보는 게, 오히려 즐거웠다.'
+        result: '처음 배우는 걸 나란히 서툴게 해보는 게, 오히려 즐거웠다.',
+        requiresFamilyMember: ['spouse']
       },
       {
         id: 'seeing-a-widowed-friend',
@@ -5329,25 +5366,29 @@ const STAGES = [
         id: 'oldprep-joint-account-reorganize-66',
         text: '부부가 함께 재산을 다시 정리해본다',
         deltas: { wealth: 3, relationship: 2 },
-        result: '따로 흩어져 있던 것들을 모으니, 생각보다 든든했다.'
+        result: '따로 흩어져 있던 것들을 모으니, 생각보다 든든했다.',
+        requiresFamilyMember: ['spouse']
       },
       {
         id: 'oldprep-anniversary-gift-cash-66',
         text: '결혼기념일에 자녀들이 두둑한 용돈을 보낸다',
         deltas: { wealth: 2, relationship: 2, happiness: 2 },
-        result: '봉투 안 숫자보다, 잊지 않고 챙긴 마음이 더 컸다.'
+        result: '봉투 안 숫자보다, 잊지 않고 챙긴 마음이 더 컸다.',
+        requiresFamilyMember: ['child']
       },
       {
         id: 'oldprep-selling-second-car-66',
         text: '부부가 차를 한 대로 줄인다',
         deltas: { wealth: 4 },
-        result: '차 한 대로도 충분하다는 걸, 새삼 깨달았다.'
+        result: '차 한 대로도 충분하다는 걸, 새삼 깨달았다.',
+        requiresFamilyMember: ['spouse']
       },
       {
         id: 'oldprep-hobby-workshop-66',
         text: '부부가 함께 작은 공방을 열어본다',
         deltas: { wealth: 2, relationship: 2, happiness: 1 },
-        result: '취미로 시작한 일이, 소소한 용돈벌이가 됐다.'
+        result: '취미로 시작한 일이, 소소한 용돈벌이가 됐다.',
+        requiresFamilyMember: ['spouse']
       },
       {
         id: 'oldprep-old-life-insurance-payout-66',
@@ -5405,7 +5446,8 @@ const STAGES = [
         id: 'gathering-family-to-share-wishes',
         text: '가족 모두를 불러 앉혀 놓고 뜻을 직접 전한다',
         deltas: { relationship: 4, happiness: 3 },
-        result: '어렵게 꺼낸 이야기였지만, 다들 진지하게 들어줬다.'
+        result: '어렵게 꺼낸 이야기였지만, 다들 진지하게 들어줬다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'hip-fracture-onset',
@@ -5578,7 +5620,8 @@ const STAGES = [
         id: 'planning-seventieth-party',
         text: '가족들과 다가올 칠순 잔치를 미리 계획한다',
         deltas: { relationship: 4, happiness: 3 },
-        result: '함께 계획을 짜는 시간부터, 이미 잔치가 시작된 기분이었다.'
+        result: '함께 계획을 짜는 시간부터, 이미 잔치가 시작된 기분이었다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'calm-at-the-threshold-of-old-age',
@@ -5628,7 +5671,8 @@ const STAGES = [
         id: 'quiet-day-with-spouse',
         text: '조용히 부부끼리만 특별한 하루를 보낸다',
         deltas: { happiness: 4, relationship: 3 },
-        result: '요란하지 않아도, 둘만의 하루는 그 자체로 충분했다.'
+        result: '요란하지 않아도, 둘만의 하루는 그 자체로 충분했다.',
+        requiresFamilyMember: ['spouse']
       },
       {
         id: 'final-big-trip',
@@ -5832,7 +5876,8 @@ const STAGES = [
         id: 'less-active-at-family-events',
         text: '가족 행사에서 예전만큼 활발히 나서지 못해 아쉽다',
         deltas: { happiness: -2, health: -1 },
-        result: '거들고 싶은 마음은 그대로인데, 몸이 조금 뒤처졌다.'
+        result: '거들고 싶은 마음은 그대로인데, 몸이 조금 뒤처졌다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'not-wanting-to-burden-kids',
@@ -6060,7 +6105,8 @@ const STAGES = [
         id: 'more-time-with-family',
         text: '남은 시간을 가족과 더 많이 보내기로 다짐한다',
         deltas: { relationship: 4, happiness: 3 },
-        result: '함께하는 시간이야말로, 가장 남는 장사라는 걸 알았다.'
+        result: '함께하는 시간이야말로, 가장 남는 장사라는 걸 알았다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'valuing-alone-time-too',
@@ -6090,7 +6136,8 @@ const STAGES = [
         id: 'fame-grandchild-boast-75',
         text: '손주가 학교에서 자랑스럽게 이야기한다',
         deltas: { fame: 2, relationship: 2, happiness: 2 },
-        result: '전해 들은 그 말 한마디에, 하루 종일 웃음이 났다.'
+        result: '전해 들은 그 말 한마디에, 하루 종일 웃음이 났다.',
+        requiresFamilyMember: ['grandchild']
       },
       {
         id: 'fame-name-rarely-mentioned-75',
@@ -6135,7 +6182,8 @@ const STAGES = [
         id: 'stronger-bond-through-illness',
         text: '함께 병을 이겨내며 부부 사이가 더 단단해진다',
         deltas: { relationship: 5, happiness: 2 },
-        result: '힘든 시간을 함께 넘기고 나니, 서로가 더 소중해졌다.'
+        result: '힘든 시간을 함께 넘기고 나니, 서로가 더 소중해졌다.',
+        requiresFamilyMember: ['spouse']
       },
       {
         id: 'kids-help-with-caregiving',
@@ -6176,7 +6224,8 @@ const STAGES = [
         text: '손주 용돈이라도 벌어보자며 로또를 사본다',
         deltas: { happiness: 1 },
         result: '손주 얼굴을 떠올리며 슬쩍 지갑을 열었다.',
-        addAsset: { id: 'lottery-ticket', label: '🎟️ 복권', type: 'movable' }
+        addAsset: { id: 'lottery-ticket', label: '🎟️ 복권', type: 'movable' },
+        requiresFamilyMember: ['grandchild']
       },
       {
         id: 'lottery-skip-76',
@@ -6196,7 +6245,8 @@ const STAGES = [
         id: 'huisu-family-celebration',
         text: '희수(喜壽)를 맞아 가족들이 작은 잔치를 열어준다',
         deltas: { happiness: 5, relationship: 4, wealth: -3 },
-        result: '작은 잔치였지만, 마음만큼은 그 어느 때보다 풍성했다.'
+        result: '작은 잔치였지만, 마음만큼은 그 어느 때보다 풍성했다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'weight-of-seventy-seven',
@@ -6214,7 +6264,8 @@ const STAGES = [
         id: 'new-family-photo',
         text: '조용히 가족사진을 새로 찍으며 이 순간을 남긴다',
         deltas: { happiness: 4, relationship: 3 },
-        result: '카메라 앞에 모인 얼굴들을 보며, 마음이 뭉클했다.'
+        result: '카메라 앞에 모인 얼굴들을 보며, 마음이 뭉클했다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'remembering-departed-friends',
@@ -6257,7 +6308,8 @@ const STAGES = [
         id: 'twilight-grandchild-repaying-favor-77',
         text: '예전에 도와줬던 손주가 마음을 표한다',
         deltas: { wealth: 2, relationship: 3, happiness: 2 },
-        result: '베푼 걸 기억해준다는 것만으로도, 마음이 뭉클했다.'
+        result: '베푼 걸 기억해준다는 것만으로도, 마음이 뭉클했다.',
+        requiresFamilyMember: ['grandchild']
       },
       {
         id: 'twilight-old-friend-visit-77',
@@ -6311,7 +6363,8 @@ const STAGES = [
         id: 'grateful-for-familys-care',
         text: '가족들이 세심하게 챙겨주는 것에 고마움을 느낀다',
         deltas: { relationship: 4, happiness: 3 },
-        result: '잊어버려도 괜찮다는 그 말이, 큰 위안이 됐다.'
+        result: '잊어버려도 괜찮다는 그 말이, 큰 위안이 됐다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'getting-checked-out-of-worry',
@@ -6356,7 +6409,8 @@ const STAGES = [
         id: 'preferring-quiet-gathering',
         text: '큰 잔치보다 조용한 가족 모임을 원한다고 말한다',
         deltas: { happiness: 3, wealth: 1 },
-        result: '요란한 것보다, 곁의 사람들이면 충분하다고 생각했다.'
+        result: '요란한 것보다, 곁의 사람들이면 충분하다고 생각했다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'eightieth-doesnt-feel-real',
@@ -6386,7 +6440,8 @@ const STAGES = [
         id: 'fame-family-pride-79',
         text: '자녀·손주가 옛 활약을 자랑스러워한다',
         deltas: { fame: 2, relationship: 3, happiness: 3 },
-        result: '내 이야기가 아이들 입을 통해 다시 전해지는 게, 새삼 뿌듯했다.'
+        result: '내 이야기가 아이들 입을 통해 다시 전해지는 게, 새삼 뿌듯했다.',
+        requiresFamilyMember: ['child', 'grandchild']
       },
       {
         id: 'fame-legacy-questioned-79',
@@ -6418,7 +6473,8 @@ const STAGES = [
         id: 'grand-eightieth-celebration',
         text: '팔순을 맞아 온 가족, 친지가 모여 큰 잔치를 연다',
         deltas: { happiness: 6, relationship: 5, wealth: -5 },
-        result: '이렇게 많은 얼굴이 다 모인 게, 얼마 만인지 몰랐다.'
+        result: '이렇게 많은 얼굴이 다 모인 게, 얼마 만인지 몰랐다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'looking-back-at-eighty-years',
@@ -6430,7 +6486,8 @@ const STAGES = [
         id: 'quiet-eightieth-with-spouse',
         text: '조용히 부부끼리만 소박하게 하루를 기념한다',
         deltas: { happiness: 4, relationship: 3 },
-        result: '둘이서 보낸 조용한 하루가, 그 어떤 잔치보다 따뜻했다.'
+        result: '둘이서 보낸 조용한 하루가, 그 어떤 잔치보다 따뜻했다.',
+        requiresFamilyMember: ['spouse']
       },
       {
         id: 'telling-life-story-to-grandkids',
@@ -6544,7 +6601,8 @@ const STAGES = [
         id: 'grandchildren-generous-birthday-gift-81',
         text: '온 가족이 모여 생신을 챙긴다',
         deltas: { wealth: 2, relationship: 3, happiness: 3 },
-        result: '다들 십시일반 모아온 마음이, 봉투 하나에 담겨 있었다.'
+        result: '다들 십시일반 모아온 마음이, 봉투 하나에 담겨 있었다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'long-held-land-sells-81',
@@ -6624,7 +6682,8 @@ const STAGES = [
         id: 'learning-to-accept-help',
         text: '가족의 도움을 받아들이는 법을 배운다',
         deltas: { relationship: 3, happiness: 2 },
-        result: '도움을 받는 것도 용기가 필요하다는 걸, 이제는 안다.'
+        result: '도움을 받는 것도 용기가 필요하다는 걸, 이제는 안다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'going-out-less-due-to-mobility',
@@ -6655,7 +6714,8 @@ const STAGES = [
         id: 'twilight-family-covers-expenses-83',
         text: '가족이 생활비 일부를 보태준다',
         deltas: { wealth: 3, relationship: 1 },
-        result: '미안한 마음이 컸지만, 큰 힘이 됐다.'
+        result: '미안한 마음이 컸지만, 큰 힘이 됐다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'twilight-old-account-found-83',
@@ -6685,7 +6745,8 @@ const STAGES = [
         id: 'twilight-children-pooling-money-83',
         text: '자녀들이 돌아가며 용돈을 챙겨준다',
         deltas: { wealth: 2, relationship: 2 },
-        result: '한 달 한 달, 자식들의 마음이 통장에 쌓였다.'
+        result: '한 달 한 달, 자식들의 마음이 통장에 쌓였다.',
+        requiresFamilyMember: ['child']
       }
     ]
   },
@@ -6730,7 +6791,8 @@ const STAGES = [
         id: 'deeper-conversations-with-family',
         text: '가족과 더 깊은 대화를 나누며 서로를 이해한다',
         deltas: { relationship: 5, happiness: 3 },
-        result: '이제야 서로에게 하지 못했던 말들을, 조금씩 꺼낼 수 있었다.'
+        result: '이제야 서로에게 하지 못했던 말들을, 조금씩 꺼낼 수 있었다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'lottery-buy-84',
@@ -6882,7 +6944,8 @@ const STAGES = [
         id: 'sense-of-presence-at-family-gathering',
         text: '가족 모임에서 어른으로서의 존재감을 느낀다',
         deltas: { happiness: 4, relationship: 2 },
-        result: '한자리에 앉아 있는 것만으로도, 자리의 무게가 달랐다.'
+        result: '한자리에 앉아 있는 것만으로도, 자리의 무게가 달랐다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'appetite-loss-heal',
@@ -6908,7 +6971,8 @@ const STAGES = [
         id: 'fame-family-legacy-story-86',
         text: '가족 모임에서 살아온 이야기의 주인공이 된다',
         deltas: { fame: 3, relationship: 3, happiness: 2 },
-        result: '몇 번을 들은 이야기인데도, 다들 처음인 듯 귀 기울여줬다.'
+        result: '몇 번을 들은 이야기인데도, 다들 처음인 듯 귀 기울여줬다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'fame-completely-unknown-86',
@@ -6958,7 +7022,8 @@ const STAGES = [
         id: 'family-accompanies-hospital-trips',
         text: '가족들이 병원을 오갈 때마다 함께해준다',
         deltas: { relationship: 5, happiness: 3 },
-        result: '혼자가 아니라는 사실 하나가, 큰 힘이 됐다.'
+        result: '혼자가 아니라는 사실 하나가, 큰 힘이 됐다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'sensitive-to-small-aches',
@@ -6995,7 +7060,8 @@ const STAGES = [
         id: 'twilight-family-covers-hospital-87',
         text: '자녀들이 병원비 일부를 대신 부담해준다',
         deltas: { wealth: 3, relationship: 2 },
-        result: '자식들 덕에, 병원비 걱정이 한시름 놓였다.'
+        result: '자식들 덕에, 병원비 걱정이 한시름 놓였다.',
+        requiresFamilyMember: ['child']
       },
       {
         id: 'twilight-selling-last-valuables-87',
@@ -7027,7 +7093,8 @@ const STAGES = [
         id: 'misu-family-celebration',
         text: '미수(米壽)를 맞아 가족들이 정성껏 잔치를 준비한다',
         deltas: { happiness: 5, relationship: 4, wealth: -3 },
-        result: '정성이 가득 담긴 잔치상 앞에서, 마음이 뭉클했다.'
+        result: '정성이 가득 담긴 잔치상 앞에서, 마음이 뭉클했다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'weight-of-eighty-eight',
@@ -7045,7 +7112,8 @@ const STAGES = [
         id: 'quiet-day-for-misu',
         text: '조용히 가족들과 소박한 하루를 보낸다',
         deltas: { happiness: 4, relationship: 3 },
-        result: '요란하지 않은 하루가, 오히려 더 오래 마음에 남았다.'
+        result: '요란하지 않은 하루가, 오히려 더 오래 마음에 남았다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'thanking-those-who-stayed',
@@ -7145,7 +7213,8 @@ const STAGES = [
         id: 'grand-ninetieth-gathering',
         text: '구순을 맞아 온 가족이 다시 한번 크게 모인다',
         deltas: { happiness: 6, relationship: 5, wealth: -4 },
-        result: '몇 대에 걸친 얼굴들이 한자리에 모인 걸 보며, 가슴이 벅찼다.'
+        result: '몇 대에 걸친 얼굴들이 한자리에 모인 걸 보며, 가슴이 벅찼다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'looking-back-at-ninety-years',
@@ -7245,7 +7314,8 @@ const STAGES = [
         id: 'fame-story-passed-down-91',
         text: '가족들이 살아온 이야기를 후손에게 전한다',
         deltas: { fame: 2, relationship: 3, happiness: 2 },
-        result: '직접 말하지 않아도, 이야기가 대를 이어 전해진다는 게 든든했다.'
+        result: '직접 말하지 않아도, 이야기가 대를 이어 전해진다는 게 든든했다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'fame-forgotten-by-industry-91',
@@ -7283,13 +7353,15 @@ const STAGES = [
         id: 'chatting-with-family-from-bed',
         text: '누워있는 시간에도 가족과 담소를 나누며 하루를 채운다',
         deltas: { relationship: 4, happiness: 3 },
-        result: '몸은 누워 있어도, 대화만큼은 여전히 생생했다.'
+        result: '몸은 누워 있어도, 대화만큼은 여전히 생생했다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'grateful-yet-sorry-to-caregivers',
         text: '간병하는 가족에게 미안함과 고마움을 동시에 느낀다',
         deltas: { relationship: 3, happiness: -1 },
-        result: '고맙다는 말을 하면서도, 미안한 마음은 쉽게 가시지 않았다.'
+        result: '고맙다는 말을 하면서도, 미안한 마음은 쉽게 가시지 않았다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'keeping-a-smile-despite-discomfort',
@@ -7313,7 +7385,8 @@ const STAGES = [
         id: 'twilight-bedside-account-check-92',
         text: '가족이 대신 통장을 정리해 알려준다',
         deltas: { wealth: 3, relationship: 1 },
-        result: '몰랐던 돈이 남아있었다는 소식에, 작은 안도가 됐다.'
+        result: '몰랐던 돈이 남아있었다는 소식에, 작은 안도가 됐다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'twilight-old-collection-passed-on-92',
@@ -7331,7 +7404,8 @@ const STAGES = [
         id: 'twilight-family-gathers-support-92',
         text: '자녀들이 십시일반 병간호 비용을 모은다',
         deltas: { wealth: 3, relationship: 2 },
-        result: '흩어져 있던 가족의 마음이, 한데 모였다.'
+        result: '흩어져 있던 가족의 마음이, 한데 모였다.',
+        requiresFamilyMember: ['child']
       },
       {
         id: 'twilight-pension-continues-92',
@@ -7350,7 +7424,8 @@ const STAGES = [
         text: '가족이 대신 사다 준 복권을 받아둔다',
         deltas: { happiness: 1 },
         result: '고맙다는 말과 함께, 봉투를 조심스레 받아뒀다.',
-        addAsset: { id: 'lottery-ticket', label: '🎟️ 복권', type: 'movable' }
+        addAsset: { id: 'lottery-ticket', label: '🎟️ 복권', type: 'movable' },
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'lottery-skip-92',
@@ -7377,7 +7452,8 @@ const STAGES = [
         id: 'telling-family-what-mattered',
         text: '가족들에게 하고 싶던 말을 하나씩 전한다',
         deltas: { relationship: 4, happiness: 4 },
-        result: '오래 미뤄뒀던 말 한마디가, 생각보다 담백하게 나왔다.'
+        result: '오래 미뤄뒀던 말 한마디가, 생각보다 담백하게 나왔다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'silent-handhold-says-enough',
@@ -7395,7 +7471,8 @@ const STAGES = [
         id: 'looking-long-at-each-familiar-face',
         text: '가족 한 사람 한 사람의 얼굴을 오래도록 바라본다',
         deltas: { relationship: 5, happiness: 4 },
-        result: '눈에 담아두고 싶은 얼굴들이, 그렇게나 많았다.'
+        result: '눈에 담아두고 싶은 얼굴들이, 그렇게나 많았다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'frailty-onset',
@@ -7481,7 +7558,8 @@ const STAGES = [
         id: 'grateful-for-devoted-family-care',
         text: '가족의 보살핌 속에서 하루하루를 보낸다',
         deltas: { relationship: 5, happiness: 4 },
-        result: '곁을 지켜주는 손길 하나하나가, 그저 감사할 따름이었다.'
+        result: '곁을 지켜주는 손길 하나하나가, 그저 감사할 따름이었다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'weak-body-but-certain-of-love',
@@ -7533,7 +7611,8 @@ const STAGES = [
         id: 'reassured-by-a-familiar-voice',
         text: '가족의 목소리 하나로도 마음이 놓인다',
         deltas: { relationship: 4, happiness: 3 },
-        result: '멀리서 들려오는 익숙한 목소리에도, 마음이 금세 편안해졌다.'
+        result: '멀리서 들려오는 익숙한 목소리에도, 마음이 금세 편안해졌다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'reminiscing-with-old-songs',
@@ -7571,7 +7650,8 @@ const STAGES = [
         id: 'family-prepares-baeksu-celebration-early',
         text: '가족들이 백수 잔치를 미리부터 준비한다',
         deltas: { relationship: 5, happiness: 4 },
-        result: '준비하는 모습을 지켜보는 것만으로도, 마음이 벅찼다.'
+        result: '준비하는 모습을 지켜보는 것만으로도, 마음이 벅찼다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'morning-gratitude-for-being-alive',
@@ -7625,7 +7705,8 @@ const STAGES = [
         id: 'twilight-simple-gift-from-grandchildren-97',
         text: '손주들이 마음을 담아 용돈을 모아온다',
         deltas: { wealth: 2, relationship: 2, happiness: 2 },
-        result: '작은 액수였지만, 담긴 정성이 훨씬 컸다.'
+        result: '작은 액수였지만, 담긴 정성이 훨씬 컸다.',
+        requiresFamilyMember: ['grandchild']
       },
       {
         id: 'lottery-check-97',
@@ -7654,7 +7735,8 @@ const STAGES = [
         id: 'family-talks-about-upcoming-baeksu',
         text: '가족들과 다가올 백수를 위한 이야기를 나눈다',
         deltas: { relationship: 4, happiness: 3 },
-        result: '함께 계획을 나누는 시간만으로도, 이미 설렘이 가득했다.'
+        result: '함께 계획을 나누는 시간만으로도, 이미 설렘이 가득했다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'quietly-tracing-a-century-of-time',
@@ -7693,7 +7775,8 @@ const STAGES = [
         id: 'baeksu-village-wide-celebration',
         text: '백수(白壽)를 맞아 가족과 마을 사람들이 모인다',
         deltas: { happiness: 6, relationship: 5, wealth: -3 },
-        result: '이렇게 많은 이들의 축하를 받을 줄은, 미처 몰랐다.'
+        result: '이렇게 많은 이들의 축하를 받을 줄은, 미처 몰랐다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'meaning-of-the-white-character',
@@ -7711,7 +7794,8 @@ const STAGES = [
         id: 'quietly-sharing-this-moment-with-family',
         text: '조용히 가족들과 소박하게 이 순간을 나눈다',
         deltas: { happiness: 4, relationship: 3 },
-        result: '요란하지 않은 축하가, 오히려 더 깊이 마음에 남았다.'
+        result: '요란하지 않은 축하가, 오히려 더 깊이 마음에 남았다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'no-regrets-in-any-moment',
@@ -7743,7 +7827,8 @@ const STAGES = [
         id: 'whole-world-celebrates-the-century',
         text: '온 가족, 온 세상이 그 100년을 함께한다',
         deltas: { happiness: 6, relationship: 5, wealth: -3 },
-        result: '백 년이라는 시간이, 이렇게 많은 사람과 이어져 있었다.'
+        result: '백 년이라는 시간이, 이렇게 많은 사람과 이어져 있었다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
         id: 'still-loved-at-a-hundred',
