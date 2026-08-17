@@ -1370,7 +1370,7 @@ const STAGES = [
       {
         id: 'building-portfolio',
         text: '본격적으로 콘텐츠·포트폴리오를 만들며 커리어를 준비한다',
-        deltas: { fame: 3, wealth: -2, happiness: 2 },
+        deltas: { fame: 3, wealth: -1, happiness: 2 },
         result: '밤새 만든 결과물을 올리는 순간마다 손끝이 떨렸다.'
       },
       {
@@ -1478,7 +1478,7 @@ const STAGES = [
       {
         id: 'back-pain-heal',
         text: '필라테스·운동을 꾸준히 하며 허리를 관리한다',
-        deltas: { health: 5, wealth: -2 },
+        deltas: { health: 5, wealth: -1 },
         result: '필라테스를 꾸준히 다니고 나서야, 허리가 예전 같아졌다.',
         requiresCondition: 'back-pain',
         removeCondition: 'back-pain'
@@ -1838,13 +1838,13 @@ const STAGES = [
       {
         id: 'marriage-talk',
         text: '오래 만난 연인과 결혼을 진지하게 이야기한다',
-        deltas: { relationship: 5, wealth: -2 },
+        deltas: { relationship: 5, wealth: -1 },
         result: '농담처럼 꺼낸 말이, 어느새 진지한 대화가 됐다.'
       },
       {
         id: 'grad-school-consideration',
         text: '대학원·유학 등 다시 공부를 시작할지 고민한다',
-        deltas: { happiness: -2, wealth: -2 },
+        deltas: { happiness: -2, wealth: -1 },
         result: '다시 학생이 된다는 상상만으로도 설레고 두려웠다.'
       },
       {
@@ -1863,7 +1863,7 @@ const STAGES = [
       {
         id: 'carpal-tunnel-heal',
         text: '손목 보호대를 차고 스트레칭을 꾸준히 하며 저림이 사라진다',
-        deltas: { health: 5, wealth: -2 },
+        deltas: { health: 5, wealth: -1 },
         result: '저릿함 없이 마우스를 쥘 수 있다는 게 이렇게 감사한 일일 줄 몰랐다.',
         requiresCondition: 'carpal-tunnel',
         removeCondition: 'carpal-tunnel'
@@ -2447,7 +2447,7 @@ const STAGES = [
       {
         id: 'hypertension-onset',
         text: '야근과 회식이 겹치며 무리한 나날을 보낸다',
-        deltas: { health: -5, wealth: -2 },
+        deltas: { health: -5, wealth: -1 },
         result: '건강검진 결과지의 빨간 숫자가 처음으로 눈에 들어왔다.',
         addCondition: { id: 'hypertension', label: '🩸 고혈압 전조' }
       },
@@ -2530,7 +2530,7 @@ const STAGES = [
       {
         id: 'frozen-shoulder-onset',
         text: '하루 종일 자세를 바꾸지 않고 책상 앞에 앉아 있는다',
-        deltas: { health: -4, wealth: -1 },
+        deltas: { health: -4 },
         result: '머리 감을 때마다 어깨가 시큰거리는 게, 서른다섯의 몸이 보내는 신호였다.',
         addCondition: { id: 'frozen-shoulder', label: '💪 어깨 결림(삼십견)' }
       },
@@ -2667,7 +2667,7 @@ const STAGES = [
       {
         id: 'reviving-old-hobby',
         text: '오랫동안 미뤄온 취미를 본격적으로 다시 시작한다',
-        deltas: { happiness: 5, wealth: -2 },
+        deltas: { happiness: 5, wealth: -1 },
         result: '까맣게 잊고 있던 감각이, 몸에 그대로 남아있었다.'
       },
       {
@@ -2704,7 +2704,7 @@ const STAGES = [
       {
         id: 'hypertension-heal',
         text: '식습관과 운동으로 혈압을 정상 수치까지 되돌린다',
-        deltas: { health: 6, wealth: -2 },
+        deltas: { health: 6, wealth: -1 },
         result: '숫자 하나가 정상으로 돌아왔을 뿐인데, 마음이 다 놓였다.',
         requiresCondition: 'hypertension',
         removeCondition: 'hypertension'
@@ -2761,14 +2761,14 @@ const STAGES = [
       {
         id: 'consistent-exercise-routine',
         text: '정기적인 운동 루틴을 만들어 꾸준히 지킨다',
-        deltas: { health: 5, wealth: -2 },
+        deltas: { health: 5, wealth: -1 },
         result: '작심삼일이 아니라 진짜 습관이 된 첫 운동이었다.',
         requiresNoCondition: ['back-pain', 'frozen-shoulder']
       },
       {
         id: 'visible-aging-signs',
         text: '노안·흰머리 등 눈에 보이는 변화를 마주한다',
-        deltas: { happiness: -2, wealth: -1 },
+        deltas: { happiness: -2 },
         result: '거울 속 낯선 디테일 하나하나가, 세월을 실감하게 했다.'
       },
       {
@@ -3087,14 +3087,14 @@ const STAGES = [
       {
         id: 'starting-serious-exercise',
         text: '본격적으로 운동을 시작하며 체력을 관리한다',
-        deltas: { health: 5, wealth: -2 },
+        deltas: { health: 5, wealth: -1 },
         result: '숨이 턱까지 차오르면서도, 이상하게 개운했다.',
         requiresNoCondition: ['back-pain']
       },
       {
         id: 'visible-signs-of-aging',
         text: '흰머리와 노안이 눈에 띄게 늘어난다',
-        deltas: { happiness: -2, wealth: -1 },
+        deltas: { happiness: -2 },
         result: '돋보기 없이는 메뉴판도 안 보이는 날이 왔다.'
       },
       {
@@ -3113,7 +3113,7 @@ const STAGES = [
       {
         id: 'preventive-checkups-for-family-history',
         text: '가족력 있는 질환을 예방하려 정기 검진을 시작한다',
-        deltas: { health: 3, wealth: -2 },
+        deltas: { health: 3, wealth: -1 },
         result: '미리 챙기는 게 결국 남는 장사라는 걸 이제야 알았다.'
       },
       {
@@ -3610,7 +3610,7 @@ const STAGES = [
       {
         id: 'knee-pain-heal',
         text: '체중 관리와 재활 운동을 이어간다',
-        deltas: { health: 5, wealth: -2 },
+        deltas: { health: 5, wealth: -1 },
         result: '계단을 편하게 오를 수 있다는 게, 새삼 감사했다.',
         requiresCondition: 'knee-pain',
         removeCondition: 'knee-pain'
@@ -3726,7 +3726,7 @@ const STAGES = [
       {
         id: 'new-hobby-menopause-relief',
         text: '새로운 취미로 몸과 마음의 변화를 다스린다',
-        deltas: { happiness: 4, wealth: -2 },
+        deltas: { happiness: 4, wealth: -1 },
         result: '손을 움직이는 동안만큼은, 잡생각이 사라졌다.'
       },
       {
@@ -4013,7 +4013,7 @@ const STAGES = [
       {
         id: 'planning-life-after-retirement',
         text: '은퇴 후 삶을 구체적으로 계획하기 시작한다',
-        deltas: { happiness: 2, wealth: -1 },
+        deltas: { happiness: 2 },
         result: '막연했던 은퇴가, 조금씩 구체적인 그림이 되어갔다.'
       },
       {
@@ -4454,7 +4454,7 @@ const STAGES = [
       {
         id: 'osteoporosis-onset',
         text: '운동을 멀리하고 실내에서만 지내는 날이 많아진다',
-        deltas: { health: -4, wealth: -1 },
+        deltas: { health: -4 },
         result: '뼈도 나이를 먹는다는 걸, 숫자로 마주하니 실감이 났다.',
         addCondition: { id: 'osteoporosis', label: '🦴 골다공증' }
       },
@@ -4647,13 +4647,13 @@ const STAGES = [
       {
         id: 'starting-supplements',
         text: '건강기능식품과 영양제를 하나둘 챙기기 시작한다',
-        deltas: { health: 3, wealth: -2 },
+        deltas: { health: 3, wealth: -1 },
         result: '식탁 한쪽이 어느새 약통들로 채워졌다.'
       },
       {
         id: 'more-frequent-checkups',
         text: '정기 건강검진을 예전보다 자주 받는다',
-        deltas: { health: 4, wealth: -2 },
+        deltas: { health: 4, wealth: -1 },
         result: '미리 아는 게 낫다는 걸, 이제는 안다.'
       },
       {
@@ -4665,7 +4665,7 @@ const STAGES = [
       {
         id: 'reviewing-medical-insurance',
         text: '노년을 위한 실손보험·의료 계획을 재점검한다',
-        deltas: { wealth: -2, happiness: 2 },
+        deltas: { wealth: -1, happiness: 2 },
         result: '서류를 다시 훑어보는 것만으로도, 마음이 한결 든든해졌다.'
       },
       {
@@ -4746,7 +4746,7 @@ const STAGES = [
       {
         id: 'osteoporosis-heal',
         text: '꾸준한 칼슘 섭취와 운동으로 골밀도가 개선된다',
-        deltas: { health: 5, wealth: -2 },
+        deltas: { health: 5, wealth: -1 },
         result: '매일 챙겨 먹은 칼슘과 걷기 운동이, 헛되지 않았다.',
         requiresCondition: 'osteoporosis',
         removeCondition: 'osteoporosis'
@@ -5109,7 +5109,7 @@ const STAGES = [
       {
         id: 'managing-chronic-condition',
         text: '만성 질환 관리를 위해 매일 약을 챙긴다',
-        deltas: { health: 2, wealth: -2 },
+        deltas: { health: 2, wealth: -1 },
         result: '아침마다 약을 챙기는 게, 어느새 익숙한 일과가 됐다.'
       },
       {
@@ -5200,7 +5200,7 @@ const STAGES = [
       {
         id: 'diabetes-onset',
         text: '단 음식과 불규칙한 식사를 즐긴다',
-        deltas: { health: -6, happiness: -2, wealth: -2 },
+        deltas: { health: -6, happiness: -2, wealth: -1 },
         result: '좋아하던 단 음식들과 하나씩 거리를 둬야 했다.',
         addCondition: { id: 'diabetes', label: '🍬 당뇨병' }
       },
@@ -5410,7 +5410,7 @@ const STAGES = [
       {
         id: 'hip-fracture-onset',
         text: '빙판길을 서둘러 걷는다',
-        deltas: { health: -6, wealth: -2 },
+        deltas: { health: -6, wealth: -1 },
         result: '순식간에 넘어진 그 몇 초가, 이후 몇 달을 바꿔놓았다.',
         addCondition: { id: 'hip-fracture', label: '🦴 고관절 골절' }
       },
@@ -5571,7 +5571,7 @@ const STAGES = [
       {
         id: 'lingering-worries',
         text: '여전히 남은 걱정거리를 안고 지낸다',
-        deltas: { happiness: -3, wealth: -1 },
+        deltas: { happiness: -3 },
         result: '나이가 든다고 걱정까지 사라지는 건 아니었다.'
       },
       {
@@ -5965,7 +5965,7 @@ const STAGES = [
       {
         id: 'short-local-outing',
         text: '짧은 근교 나들이로 아쉬움을 달랜다',
-        deltas: { happiness: 3, wealth: -2 },
+        deltas: { happiness: 3, wealth: -1 },
         result: '멀리 못 가도, 바람 쐬는 것만으로 충분했다.'
       },
       {
@@ -6071,7 +6071,7 @@ const STAGES = [
       {
         id: 'new-bucket-list-for-late-life',
         text: '인생 후반부의 버킷리스트를 새로 적어본다',
-        deltas: { happiness: 4, wealth: -2 },
+        deltas: { happiness: 4 },
         result: '몇 개 안 되는 목록이었지만, 적는 것만으로도 설렜다.'
       },
       {
@@ -6316,7 +6316,7 @@ const STAGES = [
       {
         id: 'getting-checked-out-of-worry',
         text: '혹시나 하는 걱정에 병원을 찾아 검사를 받는다',
-        deltas: { health: 1, wealth: -2 },
+        deltas: { health: 1, wealth: -1 },
         result: '결과를 기다리는 며칠이, 유독 길게 느껴졌다.'
       },
       {
@@ -6945,7 +6945,7 @@ const STAGES = [
       {
         id: 'daily-medication-routine',
         text: '정기적인 검진과 약 복용이 일상이 된다',
-        deltas: { health: 2, wealth: -2 },
+        deltas: { health: 2, wealth: -1 },
         result: '아침저녁으로 챙기는 약이, 하루의 리듬이 되어줬다.'
       },
       {
