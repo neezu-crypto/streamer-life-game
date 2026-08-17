@@ -501,6 +501,10 @@
       <p id="endingCashHoldings" class="cash-holdings"></p>
       <div id="endingAssets" class="assets-list"></div>
     </div>
+    <div class="health-panel">
+      <p class="health-panel-title">마지막 건강 상태</p>
+      <div id="endingHealthConditions" class="health-conditions"></div>
+    </div>
     <div class="family-panel">
       <p class="family-panel-title" id="endingFamilyPanelTitle">100세, 곁에 남은 가족</p>
       <div id="endingFamilyMembers" class="family-members"></div>
@@ -770,7 +774,7 @@ resumeBtn.addEventListener('click', async () => {
     const res = await resumePlaythroughFn();
     await fadeOut([resumeSection]);
     if (res.data.completed) {
-      showEnding(res.data.ending, res.data.stats, res.data.choiceHistory, res.data.familyMembers, res.data.occupationHistory, res.data.assets, res.data.cashHoldings, res.data.acquaintances);
+      showEnding(res.data.ending, res.data.stats, res.data.choiceHistory, res.data.familyMembers, res.data.occupationHistory, res.data.assets, res.data.cashHoldings, res.data.acquaintances, res.data.healthConditions);
     } else {
       await fadeOut([mainHeader]);
       renderStatBars(statBars, res.data.stats);
@@ -1171,6 +1175,7 @@ function renderAssets(assets) {
 }
 
 const healthConditionsEl = document.getElementById('healthConditions');
+const endingHealthConditionsEl = document.getElementById('endingHealthConditions');
 
 // renderStage()가 "지금 알츠하이머(causesChoiceFadeout)가 있는지" 알 수 있게
 // 최신 healthConditions를 따로 기억해둔다 - applyOutcome()에서 다음 구간
@@ -1180,22 +1185,29 @@ let currentHealthConditions = [];
 
 // 부상·질병 목록("현재 건강 상세") - 선택지가 addCondition/removeCondition을
 // 붙이면 서버가 갱신해서 내려주는 healthConditions를 그대로 표시만 한다.
-function renderHealthConditions(conditions) {
-  currentHealthConditions = conditions || [];
-  healthConditionsEl.innerHTML = '';
+// container를 받아서 진행 화면(#healthConditions)과 엔딩 화면
+// (#endingHealthConditions) 양쪽에 재사용한다(2026-08-18, 사용자 지시 -
+// 엔딩 화면에 "현재 건강 상세"가 안 보인다는 제보로 추가 - 원래는 재산·가족·
+// 지인·직업 이력과 달리 건강 상세만 엔딩 화면용 패널이 없이 설계돼 있었다).
+function renderHealthConditionsInto(container, conditions) {
+  container.innerHTML = '';
   if (!conditions || !conditions.length) {
     const empty = document.createElement('span');
     empty.className = 'health-empty';
     empty.textContent = '특별한 건강 이슈 없음';
-    healthConditionsEl.appendChild(empty);
+    container.appendChild(empty);
     return;
   }
   conditions.forEach((cond) => {
     const chip = document.createElement('span');
     chip.className = 'health-chip';
     chip.textContent = cond.label;
-    healthConditionsEl.appendChild(chip);
+    container.appendChild(chip);
   });
+}
+function renderHealthConditions(conditions) {
+  currentHealthConditions = conditions || [];
+  renderHealthConditionsInto(healthConditionsEl, conditions);
 }
 
 const familyMembersEl = document.getElementById('familyMembers');
@@ -1507,7 +1519,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   showToast('💾 자동저장 되었습니다');
   if (data.completed) {
     pendingNextStage = null;
-    showEnding(data.ending, data.stats, data.choiceHistory, data.familyMembers, data.occupationHistory, data.assets, data.cashHoldings, data.acquaintances);
+    showEnding(data.ending, data.stats, data.choiceHistory, data.familyMembers, data.occupationHistory, data.assets, data.cashHoldings, data.acquaintances, data.healthConditions);
   } else {
     pendingNextStage = data.nextStage;
     nextBtn.classList.remove('hidden');
@@ -1631,7 +1643,7 @@ function renderChoiceHistoryInto(container, history) {
 // 엔딩 문구 표시 → 지금까지 선택한 선택지들 표시 → 다른 유저 인생 → 재시작
 // 안내 순서로 보여준다(각 section의 DOM 순서가 곧 화면에 보이는 순서). 게임
 // 화면에서 엔딩 화면으로 넘어가는 것도 다른 전환들과 같은 페이드로 통일한다.
-async function showEnding(ending, stats, choiceHistory, familyMembers, occupationHistory, assets, cashHoldings, acquaintances) {
+async function showEnding(ending, stats, choiceHistory, familyMembers, occupationHistory, assets, cashHoldings, acquaintances, healthConditions) {
   if (INSTANT_ENDING_IDS.includes(ending.id)) {
     triggerCrisisEffect();
     await new Promise((resolve) => setTimeout(resolve, REDUCE_MOTION ? 200 : 650));
@@ -1643,6 +1655,7 @@ async function showEnding(ending, stats, choiceHistory, familyMembers, occupatio
   renderStatBars(endingStatBars, stats);
   renderAssetsInto(endingAssetsEl, assets);
   renderCashHoldings(endingCashHoldingsEl, cashHoldings);
+  renderHealthConditionsInto(endingHealthConditionsEl, healthConditions);
   // collapse/bankruptcy 등 즉시 종료 엔딩은 100세가 아니라 그 전 나이에
   // 끝나므로, "곁에 남은 가족" 패널 제목도 실제로 삶이 끝난 나이를 보여줘야
   // 한다 - choiceHistory의 마지막 항목이 곧 마지막으로 선택을 고른 구간
