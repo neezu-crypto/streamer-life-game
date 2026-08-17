@@ -453,9 +453,23 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // count=1 선택지들의 id 형식은 그대로 유지). 같은 판 안에서 이름이 겹치면
   // (같은 사람이 친구이자 동료로 두 번 등장하는 것처럼 보여) 어색하므로, 이미
   // 쓴 이름과 겹치면 다시 뽑아본다(최대 10회 재시도, 그래도 겹치면 그냥 둠).
+  // 지인을 잃는 선택지(2026-08-18, 사용자 지시 - "반대로 지인을 잃는 선택지도
+  // 찾아줘" → "7개에 추천안대로 진행해줘") - removeAcquaintance: {relation}이 붙은
+  // 선택지는 그 relation(friend/colleague/lover 등) 타입의 지인이 지금 있으면
+  // 가장 최근에 생긴 것 하나를 지인 목록에서 뺀다. 이 선택지들은 원래 특정 인물을
+  // 전제하지 않고 항상 노출되는 범용 문구라(가족과 달리 지인은 필수 조건이 아님)
+  // 노출 조건(requires류)은 건드리지 않고, 마침 그 타입의 지인을 갖고 있었을 때만
+  // 부가 효과로 제거한다 - 갖고 있지 않으면 조용히 아무 일도 없다(에러 없음).
   let acquaintances = currentAcquaintances.slice();
   if (marriedLoverId) {
     acquaintances = acquaintances.filter((a) => a.id !== marriedLoverId);
+  }
+  if (choice.removeAcquaintance) {
+    const lostMatches = acquaintances.filter((a) => a.relation === choice.removeAcquaintance.relation);
+    if (lostMatches.length) {
+      const lost = lostMatches[lostMatches.length - 1];
+      acquaintances = acquaintances.filter((a) => a.id !== lost.id);
+    }
   }
   if (choice.addAcquaintance) {
     const addCount = choice.addAcquaintance.count || 1;

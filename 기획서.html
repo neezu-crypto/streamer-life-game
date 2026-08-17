@@ -1113,6 +1113,27 @@
         <code>first-blind-date</code>로 얻은 연인(예: "강하나_")이 31세
         <code>wedding-budget-compromise</code>로 결혼한 뒤 배우자 이름으로 그대로 이어지고, 지인 목록에서는
         빠지는 것을 실제 응답으로 확인했다.</p>
+        <p class="note"><b>지인을 잃는 선택지 7개 추가(2026-08-18, 같은 날 후속 지시 — "반대로 지인을 잃는
+        선택지도 찾아줘" → "7개에 추천안대로 진행해줘").</b> 지금까지는 <code>addAcquaintance</code>(생기는
+        쪽)만 있고 "제거·이별 로직은 아직 없음"이 명시된 스코프 한계였는데(2026-08-17 최초 구현 노트),
+        절교·이별·부고 계열 키워드로 93개 후보를 훑어 결과 문구까지 "관계가 확실히 끝났다"고 확정하는
+        7개를 새 <code>removeAcquaintance: {relation}</code> 필드로 연결했다:
+        <code>best-friend-betrayal</code>(10세, friend)·<code>relationship-friend-falling-out</code>
+        (18세, friend)·<code>first-real-heartbreak-adult</code>(20세, lover)·
+        <code>relationship-breakup-long-relationship</code>(30세, lover)·
+        <code>relationship-colleague-turns-away</code>(34세, colleague)·
+        <code>relationship-old-friend-fades-out</code>(42세, friend)·<code>grieving-an-old-friend</code>
+        (68세, friend). "연락이 뜸해졌다"류 애매한 표현(<code>friends-drifting-apart</code> 등)은 관계가
+        완전히 끝났다고 확정하지 않아 제외했다. <b>가족 게이팅과는 다른 설계</b> — 지인은 원래 특정 인물을
+        전제하지 않는 범용 플레이버 문구라(예: 지인-친구 선택을 한 번도 안 골랐어도 "친구와 다툰다"는 여전히
+        노출됨), 이 7개도 노출 조건(<code>requires</code>류)은 전혀 건드리지 않았다. 대신 고르는 순간 부가
+        효과로만 동작 — 그 relation 타입의 지인이 지금 있으면(방금 결혼 연결에 쓴 것과 같은 방식으로) 가장
+        최근에 생긴 것 하나를 지인 목록에서 빼고, 없으면 조용히 아무 일도 없다(에러 없음, 노출 여부에도
+        영향 없음). 검증: 2만 회 시뮬레이션 - 이 7개 선택지가 총 3,400회 등장, 그중 실제 매칭 지인이 있어
+        제거가 일어난 577건 전부 정확, 매칭 없어 no-op한 2,823건도 전부 정상, 지인 id 유일성 위반·게이팅
+        위반·zeroEligible 전부 0건. 배포 후 라이브로 5세 <code>best-friend-forever</code>로 얻은 친구
+        "열매"가 10세 <code>best-friend-betrayal</code> 이후 지인 목록에서 사라지는 것(빈 배열)을 실제
+        응답으로 확인했다.</p>
 
         <p class="note"><b>직업 상세 — 건강·가족과 달리 저장 슬롯에 별도 필드가 없다.</b> 직업은
         동시에 여러 개 쌓이는 목록이 아니라 항상 "지금 하나"라, 선택지에 <code>setOccupation({id,label})</code>을

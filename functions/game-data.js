@@ -1113,7 +1113,8 @@ const STAGES = [
         id: 'best-friend-betrayal',
         text: '믿었던 친구가 뒷담화를 한 걸 알게 된다',
         deltas: { relationship: -3, happiness: -2 },
-        result: '등 뒤에서 들은 그 말이, 오래도록 머릿속을 맴돌았다.'
+        result: '등 뒤에서 들은 그 말이, 오래도록 머릿속을 맴돌았다.',
+        removeAcquaintance: { relation: 'friend' }
       },
       {
         id: 'wins-a-competition-10',
@@ -1824,7 +1825,8 @@ const STAGES = [
         id: 'relationship-friend-falling-out',
         text: '친했던 친구와 사소한 오해로 틀어진다',
         deltas: { relationship: -8, happiness: -3 },
-        result: '먼저 연락해볼까 몇 번을 망설이다, 결국 그러지 못했다.'
+        result: '먼저 연락해볼까 몇 번을 망설이다, 결국 그러지 못했다.',
+        removeAcquaintance: { relation: 'friend' }
       },
       {
         id: 'fame-viral-video-18',
@@ -2142,7 +2144,8 @@ const STAGES = [
         id: 'first-real-heartbreak-adult',
         text: '성인이 되고 처음 겪는 이별에 크게 힘들어한다',
         deltas: { happiness: -3 },
-        result: '괜찮다고 말할수록, 오히려 더 힘들다는 게 티가 났다.'
+        result: '괜찮다고 말할수록, 오히려 더 힘들다는 게 티가 났다.',
+        removeAcquaintance: { relation: 'lover' }
       },
       {
         id: 'discovers-new-identity-20',
@@ -3418,7 +3421,8 @@ const STAGES = [
         id: 'relationship-breakup-long-relationship',
         text: '오래된 연인과 크게 다투고 갈라선다',
         deltas: { relationship: -9, happiness: -4 },
-        result: '함께 그리던 미래가, 한순간에 지워졌다.'
+        result: '함께 그리던 미래가, 한순간에 지워졌다.',
+        removeAcquaintance: { relation: 'lover' }
       },
       {
         id: 'fine-jewelry-purchase',
@@ -3783,7 +3787,8 @@ const STAGES = [
         text: '믿었던 동료와 이해관계가 얽힌다',
         deltas: { relationship: -8, wealth: 2 },
         result: '일은 남았지만, 예전 같은 사이로는 돌아가지 못했다.',
-        requiresOccupation: COMPANY_OCCUPATION_IDS
+        requiresOccupation: COMPANY_OCCUPATION_IDS,
+        removeAcquaintance: { relation: 'colleague' }
       },
       {
         id: 'logistics-back-injury',
@@ -4547,7 +4552,8 @@ const STAGES = [
         id: 'relationship-old-friend-fades-out',
         text: '오랜 친구와의 관계가 서서히, 그러나 완전히 끊어진다',
         deltas: { relationship: -7, happiness: -3 },
-        result: '마지막 연락이 언제였는지도 이제는 가물가물했다.'
+        result: '마지막 연락이 언제였는지도 이제는 가물가물했다.',
+        removeAcquaintance: { relation: 'friend' }
       },
       {
         id: 'civil-servant-work-life-balance',
@@ -7214,7 +7220,8 @@ const STAGES = [
         id: 'grieving-an-old-friend',
         text: '오랜 친구의 부고 소식에 크게 상심한다',
         deltas: { happiness: -6, health: -2 },
-        result: '어제까지 통화하던 목소리가, 이제는 들을 수 없었다.'
+        result: '어제까지 통화하던 목소리가, 이제는 들을 수 없었다.',
+        removeAcquaintance: { relation: 'friend' }
       },
       {
         id: 'reconnecting-at-a-funeral',
