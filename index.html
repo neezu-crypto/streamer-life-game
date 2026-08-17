@@ -1228,7 +1228,7 @@ function renderFamilyMembersInto(container, members) {
   members.forEach((member) => {
     const chip = document.createElement('span');
     chip.className = 'family-chip';
-    chip.textContent = member.label;
+    chip.textContent = member.name ? member.label + ' · ' + member.name : member.label;
     container.appendChild(chip);
   });
 }

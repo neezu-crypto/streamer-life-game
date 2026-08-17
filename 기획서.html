@@ -1093,6 +1093,26 @@
         드문 <code>jc-new-colleagues-38</code>도 3회), 한 판 최대 누적 지인 8명까지 확인. 배포 후 라이브로
         <code>best-friend-forever</code>(5세)가 노출·선택되고 실제 <code>stocks</code> 이름이 붙은 새
         친구가 지인 목록에 정확히 추가되는 것을 확인했다.</p>
+        <p class="note"><b>연애-결혼 연결(2026-08-18, 같은 날 후속 지시 — "연애-결혼 간 연결성 부여해줘").</b>
+        직전 감사에서 "지인의 연인과 가족의 배우자가 서로 다른 사람처럼 따로 표시된다"는 한계를 짚었는데,
+        바로 이어서 연결해달라는 지시가 왔다. 결혼 선택지(<code>addFamilyMembers</code>에 <code>spouse</code>
+        포함 — 31세 <code>wedding-day</code>·<code>wedding-budget-compromise</code>·<code>first-shared-home</code>·
+        <code>inlaws-negotiation</code>, 53세 <code>late-remarriage</code>)를 고르는 순간, 지인 목록에 이미
+        <code>relation: 'lover'</code>인 항목이 있으면 그 사람과 결혼한 것으로 보고 <b>이름을 배우자 항목에
+        그대로 이어받고, 지인 목록에서는 뺀다</b>. 연인이 여러 번 쌓였던 경우(예: 19세 소개팅 + 28세 우연한
+        만남을 둘 다 겪은 판)엔 가장 최근에 생긴 연인을 배우자로 이어받는다. 연인이 하나도 없었던 채로
+        결혼한 경우(결혼 자체에 지인-연인 선택이 전제 조건은 아님)는 기존처럼 이름 없는 배우자로 남는다.
+        가족 상세는 원래 <code>label</code>만 있고 이름이 없었는데(지인과 다르게 설계된 부분), 배우자만
+        이 경우에 한해 <code>name</code> 필드를 추가로 갖게 됐다 — 클라이언트
+        <code>renderFamilyMembersInto()</code>도 <code>member.name</code>이 있으면
+        <code>라벨 · 이름</code>으로, 없으면(부모·형제자매 등 기존 그대로) <code>라벨</code>만 표시하도록
+        분기했다(지인 칩과 같은 표시 방식, 하위 호환 — 기존 가족 구성원엔 영향 없음). 검증: 실제
+        <code>game-data.js</code>로 2만 회 시뮬레이션 - 213건의 "결혼 시점에 연인 있음" 케이스 전부 이름
+        이어받기 정확·지인 목록에서 정상 제거, 2,695건의 "연인 없이 결혼" 케이스 전부 이름 없이 정상 생성,
+        오류 0건·게이팅 위반 0건·zeroEligible 0건. 배포 후 라이브로 실제 판을 진행시켜 19세
+        <code>first-blind-date</code>로 얻은 연인(예: "강하나_")이 31세
+        <code>wedding-budget-compromise</code>로 결혼한 뒤 배우자 이름으로 그대로 이어지고, 지인 목록에서는
+        빠지는 것을 실제 응답으로 확인했다.</p>
 
         <p class="note"><b>직업 상세 — 건강·가족과 달리 저장 슬롯에 별도 필드가 없다.</b> 직업은
         동시에 여러 개 쌓이는 목록이 아니라 항상 "지금 하나"라, 선택지에 <code>setOccupation({id,label})</code>을

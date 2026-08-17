@@ -412,11 +412,29 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // 중복 추가 안 함), removeFamilyMembers에 담긴 id들은 가족에서 빠진다(사망·
   // 이혼 등). 부모님 사망처럼 "father/mother/single-parent 중 있는 걸 전부
   // 제거"하는 경우도 있어 removeFamilyMembers는 항상 배열이다.
+  //
+  // 연애-결혼 연결(2026-08-18, 사용자 지시 - "연애-결혼 간 연결성 부여해줘") -
+  // 결혼(addFamilyMembers에 spouse 포함)하는 순간, 지인 목록에 이미 연인(lover)이
+  // 있으면 "그 사람과 결혼한 것"으로 보고 이름을 배우자 항목에 그대로 이어받는다
+  // (가족 상세는 원래 이름이 없고 역할 label만 있었는데, 배우자만 이 경우 name을
+  // 추가로 가짐). 연인이 여러 번 쌓였다면(예: 19세 소개팅 + 28세 우연한 만남) 가장
+  // 최근에 생긴 쪽을 배우자로 이어받는다. 이어받은 연인은 지인 목록에서도 빠진다 -
+  // 안 그러면 결혼한 뒤에도 "지인: 연인 ○○○"과 "가족: 배우자"가 서로 다른 사람인
+  // 것처럼 따로 표시되는 문제가 있었다. 연인이 하나도 없었으면(결혼에 연인 지인
+  // 선택이 필수 조건은 아님) 기존처럼 이름 없는 배우자로 생긴다.
+  const currentAcquaintances = Array.isArray(play.acquaintances) ? play.acquaintances : [];
   let familyMembers = currentFamilyMembers.slice();
+  let marriedLoverId = null;
   if (choice.addFamilyMembers) {
+    const marriesSpouse = choice.addFamilyMembers.some((m) => m.id === 'spouse');
+    const loverEntries = marriesSpouse ? currentAcquaintances.filter((a) => a.relation === 'lover') : [];
+    const marriedLover = loverEntries.length ? loverEntries[loverEntries.length - 1] : null;
+    if (marriedLover) marriedLoverId = marriedLover.id;
     for (const member of choice.addFamilyMembers) {
       if (!familyMembers.some((f) => f.id === member.id)) {
-        familyMembers.push({ id: member.id, label: member.label, sinceStageId: stage.id });
+        const entry = { id: member.id, label: member.label, sinceStageId: stage.id };
+        if (member.id === 'spouse' && marriedLover) entry.name = marriedLover.name;
+        familyMembers.push(entry);
       }
     }
   }
@@ -435,8 +453,10 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // count=1 선택지들의 id 형식은 그대로 유지). 같은 판 안에서 이름이 겹치면
   // (같은 사람이 친구이자 동료로 두 번 등장하는 것처럼 보여) 어색하므로, 이미
   // 쓴 이름과 겹치면 다시 뽑아본다(최대 10회 재시도, 그래도 겹치면 그냥 둠).
-  const currentAcquaintances = Array.isArray(play.acquaintances) ? play.acquaintances : [];
   let acquaintances = currentAcquaintances.slice();
+  if (marriedLoverId) {
+    acquaintances = acquaintances.filter((a) => a.id !== marriedLoverId);
+  }
   if (choice.addAcquaintance) {
     const addCount = choice.addAcquaintance.count || 1;
     const usedNames = new Set(acquaintances.map((a) => a.name));
