@@ -162,6 +162,9 @@
   }
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
+  .confetti-canvas { position: fixed; inset: 0; z-index: 70; pointer-events: none; }
+  .confetti-canvas.hidden { display: none; }
+
   .result-box {
     margin-top: 16px; padding: 14px 16px; background: var(--panel-2);
     border: 1px solid var(--line);
@@ -461,6 +464,7 @@
 </div>
 
 <div id="toast" class="toast"><span id="toastMsg"></span></div>
+<canvas id="confettiCanvas" class="confetti-canvas hidden"></canvas>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
@@ -730,6 +734,106 @@ function showToast(message) {
   toast.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => toast.classList.remove('show'), TOAST_MS);
+}
+
+// ------------------------------------------------------------
+// 방송 콘텐츠 백로그 3번째 항목: 복권 1등·2등 대박 축하 이펙트
+// (2026-08-17). 서버가 prizeTable로 등수를 뽑았을 때만 응답에
+// prizeLabel('1등'~'꽝')을 실어주므로, 그 값만 보고 판단한다(딜타 크기로
+// 추측하지 않음 - index.js의 resolvedLabel 참고).
+// ------------------------------------------------------------
+const confettiCanvas = document.getElementById('confettiCanvas');
+const confettiCtx = confettiCanvas.getContext('2d');
+const CONFETTI_COLORS = ['#d4a24c', '#7ea987', '#cd7256', '#c97ab0', '#6f93c9'];
+
+function burstConfetti() {
+  if (REDUCE_MOTION) return;
+  confettiCanvas.width = window.innerWidth;
+  confettiCanvas.height = window.innerHeight;
+  confettiCanvas.classList.remove('hidden');
+
+  const particles = [];
+  const count = 140;
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * confettiCanvas.width,
+      y: -20 - Math.random() * confettiCanvas.height * 0.4,
+      w: 6 + Math.random() * 6,
+      h: 8 + Math.random() * 10,
+      color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+      vy: 2.5 + Math.random() * 3.5,
+      vx: (Math.random() - 0.5) * 2.5,
+      rotation: Math.random() * 360,
+      vr: (Math.random() - 0.5) * 12
+    });
+  }
+
+  const durationMs = 2600;
+  const startedAt = performance.now();
+  function frame(now) {
+    const elapsed = now - startedAt;
+    confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+    particles.forEach((p) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.rotation += p.vr;
+      confettiCtx.save();
+      confettiCtx.translate(p.x, p.y);
+      confettiCtx.rotate((p.rotation * Math.PI) / 180);
+      confettiCtx.fillStyle = p.color;
+      confettiCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      confettiCtx.restore();
+    });
+    if (elapsed < durationMs) {
+      requestAnimationFrame(frame);
+    } else {
+      confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      confettiCanvas.classList.add('hidden');
+    }
+  }
+  requestAnimationFrame(frame);
+}
+
+// Web Audio API로 즉석에서 합성한 짧은 팡파르 - 외부 오디오 파일을 쓰지
+// 않기 위한 선택(저작권 확인 불필요). 브라우저 자동재생 정책상 사용자
+// 클릭(선택지 클릭) 이후 호출되는 경로에서만 쓰므로 문제없다.
+let audioCtx = null;
+function getAudioCtx() {
+  if (!audioCtx) {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return null;
+    audioCtx = new Ctx();
+  }
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+function playTone(ctx, freq, startTime, duration, gainPeak) {
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'triangle';
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(0, startTime);
+  gain.gain.linearRampToValueAtTime(gainPeak, startTime + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start(startTime);
+  osc.stop(startTime + duration);
+}
+function playJackpotFanfare() {
+  const ctx = getAudioCtx();
+  if (!ctx) return;
+  const notes = [523.25, 659.25, 783.99, 1046.50]; // C5-E5-G5-C6 상승 아르페지오
+  const now = ctx.currentTime;
+  notes.forEach((freq, i) => playTone(ctx, freq, now + i * 0.11, 0.5, 0.12));
+}
+
+// prizeLabel이 1등/2등일 때만 자축 이펙트를 튼다(3~5등·꽝은 평소 결과
+// 박스 톤 차별화만으로 충분 - 매번 컨페티가 뜨면 오히려 특별함이 옅어짐).
+function celebrateIfJackpot(prizeLabel) {
+  if (prizeLabel !== '1등' && prizeLabel !== '2등') return;
+  burstConfetti();
+  playJackpotFanfare();
 }
 
 let pendingNextStage = null;
@@ -1021,6 +1125,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   else if (tone === 'negative') resultBox.classList.add('tone-negative');
   renderStatBars(statBars, data.stats);
   flashStatChanges(statBars, data.deltas);
+  celebrateIfJackpot(data.prizeLabel);
   renderAssets(data.assets);
   renderCashHoldings(cashHoldingsEl, data.cashHoldings);
   renderHealthConditions(data.healthConditions);

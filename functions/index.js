@@ -297,6 +297,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // 가중 추첨한다.
   let resolvedDeltas = choice.deltas;
   let resolvedResult = choice.result;
+  let resolvedLabel = null;
   if (choice.prizeTable && choice.prizeTable.length) {
     const totalWeight = choice.prizeTable.reduce((sum, p) => sum + p.weight, 0);
     let roll = Math.random() * totalWeight;
@@ -307,6 +308,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
     }
     resolvedDeltas = picked.deltas;
     resolvedResult = picked.result;
+    resolvedLabel = picked.label;
   }
 
   // blocksHealthRecovery가 붙은 조건(예: 희귀 난치병)을 이미 갖고 있으면,
@@ -460,6 +462,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
     stats,
     result,
     deltas: effectiveDeltas,
+    prizeLabel: resolvedLabel,
     healthRecoverySuppressed,
     completed,
     ending: ending ? { id: ending.id, title: ending.title, text: ending.text } : null,
