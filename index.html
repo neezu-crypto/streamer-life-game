@@ -163,10 +163,13 @@
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
   .result-box {
-    margin-top: 16px; padding: 14px 16px; background: var(--sage-dim);
-    border: 1px solid color-mix(in srgb, var(--sage) 40%, transparent);
+    margin-top: 16px; padding: 14px 16px; background: var(--panel-2);
+    border: 1px solid var(--line);
     border-radius: 10px; font-size: 14.5px; white-space: pre-line;
+    transition: background 0.3s ease, border-color 0.3s ease;
   }
+  .result-box.tone-positive { background: var(--sage-dim); border-color: color-mix(in srgb, var(--sage) 40%, transparent); }
+  .result-box.tone-negative { background: var(--coral-dim); border-color: color-mix(in srgb, var(--coral) 40%, transparent); }
 
   .stat-bars { display: flex; flex-direction: column; gap: 8px; margin: 14px 0; }
   .stat-bar-row { display: flex; align-items: center; gap: 10px; font-size: 13px; }
@@ -957,6 +960,19 @@ startBtn.addEventListener('click', async () => {
   }
 });
 
+// 결과 박스 색상 차별화 - deltas의 순합으로 이번 선택이 전체적으로 득이었는지
+// 실이었는지 판정해 결과 박스 톤을 다르게 준다(2026-08-17, 사용자 지시 -
+// "방송으로써 아쉬운 부분" 점검에서 나온 "결과가 좋은지 나쁜지 색으로도
+// 구분이 안 됨" 항목). 완벽한 판단은 아니고(스탯 5종을 그냥 더한 값이라
+// 스탯별 가중치는 없음) 어디까지나 시각적 힌트용 근사치.
+function resultTone(deltas) {
+  if (!deltas) return 'neutral';
+  const sum = Object.values(deltas).reduce((acc, v) => acc + v, 0);
+  if (sum > 0) return 'positive';
+  if (sum < 0) return 'negative';
+  return 'neutral';
+}
+
 // submitChoice/rollDice 응답을 공통으로 처리 - 결과 텍스트 반영, 완료 시 엔딩
 // 화면으로, 아니면 "다음" 버튼을 보여준다.
 function applyOutcome(data, resultPrefix, selectedChoiceId) {
@@ -974,6 +990,10 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   }
   resultBox.textContent = resultText;
   resultBox.classList.remove('hidden');
+  resultBox.classList.remove('tone-positive', 'tone-negative');
+  const tone = resultTone(data.deltas);
+  if (tone === 'positive') resultBox.classList.add('tone-positive');
+  else if (tone === 'negative') resultBox.classList.add('tone-negative');
   renderStatBars(statBars, data.stats);
   renderAssets(data.assets);
   renderCashHoldings(cashHoldingsEl, data.cashHoldings);
