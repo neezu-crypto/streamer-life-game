@@ -433,35 +433,35 @@
         <div class="tbl-wrap">
             <table>
                 <tr><th>조건 id</th><th>표시</th><th>발병 (구간 · 선택지)</th><th>회복 (구간 · 선택지)</th></tr>
-                <tr><td><code>asthma</code></td><td>🌬️ 천식</td><td>유아기 1세 · <code>asthma-onset</code>(기침이 잦아지더니 천식 진단을 받는다)</td><td>초등학생 8세 · <code>asthma-managed</code>(꾸준한 수영으로 어릴 적 천식을 완전히 극복한다)</td></tr>
-                <tr><td><code>broken-arm</code></td><td>🦴 팔 골절</td><td>유아기 2세 · <code>broken-arm-onset</code>(정글짐에서 뛰어내리다 팔이 부러진다)</td><td>유아기 4세 · <code>broken-arm-heal</code>(깁스를 풀고 팔을 마음껏 쓸 수 있게 된다)</td></tr>
-                <tr><td><code>weak-stomach</code></td><td>🤢 잦은 배탈</td><td>유아기 3세 · <code>weak-stomach-onset</code>(장염을 달고 살아 배가 자주 아프다)</td><td>유아기 5세 · <code>weak-stomach-heal</code>(식습관을 고쳐 배앓이가 눈에 띄게 줄어든다)</td></tr>
-                <tr><td><code>ankle-sprain</code></td><td>🦶 발목 부상</td><td>초등학생 10세 · <code>ankle-sprain-onset</code>(축구를 하다 발목을 삐끗한다)</td><td>스무 살 19세 · <code>ankle-treated</code>(미뤄뒀던 발목을 제대로 병원에서 치료받는다)</td></tr>
-                <tr><td><code>acne-breakout</code></td><td>🌱 스트레스성 트러블</td><td>청소년기 14세 · <code>acne-breakout-onset</code>(스트레스로 여드름이 부쩍 심해진다)</td><td>청소년기 16세 · <code>acne-breakout-heal</code>(피부과 치료를 꾸준히 받아 트러블이 눈에 띄게 가라앉는다)</td></tr>
-                <tr><td><code>wrist-sprain</code></td><td>🤕 손목 부상</td><td>청소년기 16세 · <code>wrist-sprain-onset</code>(체육대회 계주에서 무리하다 손목을 삐끗한다)</td><td>청소년기 18세 · <code>wrist-sprain-heal</code>(다 나은 손목으로 홀가분하게 시험장에 들어간다)</td></tr>
-                <tr><td><code>exam-stress-gastritis</code></td><td>🤒 스트레스성 위염</td><td>청소년기 17세 · <code>exam-stress-gastritis-onset</code>(입시 스트레스로 위가 쓰리고 체하는 날이 잦아진다)</td><td>청소년기 18세 · <code>exam-stress-gastritis-heal</code>(수능이 끝나자마자 위염이 거짓말처럼 가라앉는다)</td></tr>
-                <tr><td><code>back-pain</code></td><td>🦴 허리 통증</td><td>스무 살 20세 · <code>back-pain-onset</code>(잦은 알바 노동으로 허리에 무리가 온다)</td><td>스무 살 22세 · <code>back-pain-heal</code>(필라테스·운동을 꾸준히 하며 허리 통증을 완전히 극복한다)</td></tr>
-                <tr><td><code>accident-aftereffects</code></td><td>🩹 사고 후유증</td><td>스무 살 21세 · <code>sudden-accident-injury</code>(갑작스러운 교통사고를 당해 큰 후유증이 남는다)</td><td><i>없음 — 의도적으로 영구 지속.</i> <code>rare-illness</code>·<code>alzheimers</code>와 마찬가지로 <code>removeCondition</code> 짝이 없고, <code>blocksHealthRecovery: true</code>도 같이 붙어있어 건강이 다시 오르지 않는다. 전용 엔딩 <code>rising-after-the-fall</code>(아래 "엔딩" 참고)의 자격 조건이기도 하다</td></tr>
-                <tr><td><code>burnout-syndrome</code></td><td>🔥 번아웃 증후군</td><td>스무 살 22세 · <code>burnout-onset</code>(인턴 생활에 몸과 마음을 갈아 넣다 번아웃이 온다)</td><td>스무 살 23세 · <code>burnout-heal</code>(충분히 쉬며 번아웃에서 서서히 회복한다)</td></tr>
-                <tr><td><code>carpal-tunnel</code></td><td>✋ 손목터널증후군</td><td>사회 초년생 25세 · <code>carpal-tunnel-onset</code>(매일 반복되는 키보드·마우스 작업으로 손목에 저림이 시작된다)</td><td>사회 초년생 27세 · <code>carpal-tunnel-heal</code>(손목 보호대를 차고 스트레칭을 꾸준히 하며 저림이 사라진다)</td></tr>
-                <tr><td><code>insomnia</code></td><td>😵 불면증</td><td>사회 초년생 26세 · <code>insomnia-onset</code>(업무 스트레스로 밤마다 잠들지 못하는 날이 늘어난다)</td><td>사회 초년생 28세 · <code>insomnia-heal</code>(수면 습관을 개선하며 불면증에서 서서히 벗어난다)</td></tr>
-                <tr><td><code>hypertension</code></td><td>🩸 고혈압 전조</td><td>서른 34세 · <code>hypertension-onset</code>(과로와 스트레스로 혈압이 위험 수준까지 치솟는다)</td><td>서른 37세 · <code>hypertension-heal</code>(식습관과 운동으로 혈압을 정상 수치까지 되돌린다)</td></tr>
-                <tr><td><code>frozen-shoulder</code></td><td>💪 어깨 결림(삼십견)</td><td>서른 35세 · <code>frozen-shoulder-onset</code>(책상 앞에 오래 앉아 있다 보니 어깨가 굳어 잘 올라가지 않는다)</td><td>서른 38세 · <code>frozen-shoulder-heal</code>(도수치료와 꾸준한 스트레칭으로 굳었던 어깨가 다시 풀린다)</td></tr>
-                <tr><td><code>knee-pain</code></td><td>🦵 무릎 통증</td><td>중년 44세 · <code>knee-pain-onset</code>(무리한 운동으로 무릎에 이상이 생긴다)</td><td>중년 47세 · <code>knee-pain-heal</code>(체중 관리와 재활 운동으로 무릎이 회복된다)</td></tr>
-                <tr><td><code>menopause-symptoms</code></td><td>🌡️ 갱년기 증상</td><td>중년 49세 · <code>menopause-onset</code>(몸의 변화(갱년기 증상)가 본격적으로 시작된다)</td><td>중년 51세 · <code>menopause-heal</code>(호르몬 치료·생활 관리로 갱년기 증상이 눈에 띄게 안정된다)</td></tr>
-                <tr><td><code>cataract</code></td><td>👁️ 백내장</td><td>노년 준비 56세 · <code>cataract-onset</code>(눈이 침침해지고 백내장 진단을 받는다)</td><td>노년 준비 58세 · <code>cataract-heal</code>(백내장 수술을 받고 시야가 다시 선명해진다)</td></tr>
-                <tr><td><code>osteoporosis</code></td><td>🦴 골다공증</td><td>노년 준비 57세 · <code>osteoporosis-onset</code>(골밀도 검사에서 골다공증 진단을 받는다)</td><td>노년 준비 60세 · <code>osteoporosis-heal</code>(꾸준한 칼슘 섭취와 운동으로 골밀도가 개선된다)</td></tr>
-                <tr><td><code>shingles</code></td><td>🔥 대상포진</td><td>노년 준비 61세 · <code>shingles-onset</code>(면역력이 떨어지며 대상포진을 앓아 온몸이 욱신거린다)</td><td>노년 준비 64세 · <code>shingles-heal</code>(꾸준한 치료 끝에 대상포진 통증이 씻은 듯 가라앉는다)</td></tr>
-                <tr><td><code>hearing-loss</code></td><td>👂 난청</td><td>노년 준비 63세 · <code>hearing-loss-onset</code>(TV 소리를 자꾸 키우게 되며 난청이 시작된다)</td><td>노년 준비 66세 · <code>hearing-loss-heal</code>(보청기를 맞추고 세상의 소리가 다시 선명해진다)</td></tr>
-                <tr><td><code>diabetes</code></td><td>🍬 당뇨병</td><td>노년 준비 65세 · <code>diabetes-onset</code>(건강검진에서 당뇨병 진단을 받아 식단 조절이 시급해진다)</td><td>노년 준비 68세 · <code>diabetes-managed</code>(철저한 식단 관리와 운동으로 혈당 수치가 안정적으로 조절된다)</td></tr>
-                <tr><td><code>hip-fracture</code></td><td>🦴 고관절 골절</td><td>노년 준비 67세 · <code>hip-fracture-onset</code>(빙판길에 넘어져 고관절을 다친다)</td><td>노년 준비 69세 · <code>hip-fracture-heal</code>(재활 치료를 마치고 다시 혼자 걸을 수 있게 된다)</td></tr>
-                <tr><td><code>pneumonia</code></td><td>🫁 폐렴</td><td>황혼 74세 · <code>pneumonia-onset</code>(환절기 감기가 폐렴으로 번진다)</td><td>황혼 76세 · <code>pneumonia-heal</code>(충분한 치료와 요양 끝에 폐렴에서 완전히 회복한다)</td></tr>
-                <tr><td><code>mild-cognitive-decline</code></td><td>🧠 가벼운 건망증</td><td>황혼 78세 · <code>forgetting-where-things-are</code>(물건을 어디 뒀는지 자꾸 깜빡한다)</td><td>황혼 80세 · <code>mild-cognitive-decline-heal</code>(두뇌 활동과 규칙적인 생활로 기억력이 다시 좋아진다)</td></tr>
-                <tr><td><code>appetite-loss</code></td><td>🍚 식욕부진</td><td>황혼 83세 · <code>appetite-loss-onset</code>(입맛이 없어 끼니를 자주 거른다)</td><td>황혼 86세 · <code>appetite-loss-heal</code>(입맛을 되찾아 다시 잘 챙겨 먹는다)</td></tr>
-                <tr><td><code>parkinsons</code></td><td>✋ 파킨슨병</td><td>황혼 87세 · <code>parkinsons-onset</code>(손 떨림이 심해지더니 파킨슨병 진단을 받는다)</td><td>황혼 89세 · <code>parkinsons-managed</code>(꾸준한 약물 치료와 재활로 떨림 증상이 눈에 띄게 안정된다)</td></tr>
-                <tr><td><code>alzheimers</code></td><td>🧩 알츠하이머</td><td>황혼 91세 · <code>alzheimers-onset</code>(가까운 이름과 얼굴조차 가물가물해지며 알츠하이머 진단을 받는다)</td><td><i>없음 — 의도적으로 영구 지속.</i> <code>rare-illness</code>와 마찬가지로 <code>removeCondition</code> 짝이 없다. 추가로 <code>causesChoiceFadeout: true</code>가 붙어있어 클라이언트 전용 효과(아래 "선택지 페이드아웃" 참고)도 함께 발동한다</td></tr>
-                <tr><td><code>frailty</code></td><td>🕊️ 노쇠</td><td>황혼 93세 · <code>frailty-onset</code>(노쇠가 뚜렷해지며 하루 대부분을 누워 지낸다)</td><td>황혼 96세 · <code>frailty-heal</code>(정성 어린 돌봄과 재활로 다시 기력을 되찾는다)</td></tr>
-                <tr><td><code>rare-illness</code></td><td>🎗️ 희귀 난치병</td><td>유아기 1세 · <code>rare-illness-onset</code>(원인을 알 수 없는 증상으로 정밀 검사 끝에 희귀 난치병 진단을 받는다)</td><td><i>없음 — 의도적으로 영구 지속.</i> "난치병"이라는 이름 그대로 <code>removeCondition</code> 짝이 없는 유일한 조건이라, 한 번 걸리면 100세까지 <code>healthConditions</code>에 계속 남아 "현재 건강 상세"에 평생 표시된다</td></tr>
+                <tr><td><code>asthma</code></td><td>🌬️ 천식</td><td>유아기 1세 · <code>asthma-onset</code>(찬바람에도 얇게 입고 밖에서 자주 논다)</td><td>초등학생 8세 · <code>asthma-managed</code>(꾸준한 수영으로 어릴 적 천식을 관리한다)</td></tr>
+                <tr><td><code>broken-arm</code></td><td>🦴 팔 골절</td><td>유아기 2세 · <code>broken-arm-onset</code>(정글짐 꼭대기에서 겁 없이 뛰어내린다)</td><td>유아기 4세 · <code>broken-arm-heal</code>(깁스를 풀고 팔을 마음껏 쓸 수 있게 된다)</td></tr>
+                <tr><td><code>weak-stomach</code></td><td>🤢 잦은 배탈</td><td>유아기 3세 · <code>weak-stomach-onset</code>(손을 잘 씻지 않고 아무 음식이나 집어 먹는다)</td><td>유아기 5세 · <code>weak-stomach-heal</code>(식습관을 고쳐 배앓이가 눈에 띄게 줄어든다)</td></tr>
+                <tr><td><code>ankle-sprain</code></td><td>🦶 발목 부상</td><td>초등학생 10세 · <code>ankle-sprain-onset</code>(축구 경기 중 무리하게 몸을 던진다)</td><td>스무 살 19세 · <code>ankle-treated</code>(미뤄뒀던 발목을 제대로 병원에서 치료받는다)</td></tr>
+                <tr><td><code>acne-breakout</code></td><td>🌱 스트레스성 트러블</td><td>청소년기 14세 · <code>acne-breakout-onset</code>(시험 스트레스를 야식으로 풀며 밤을 새운다)</td><td>청소년기 16세 · <code>acne-breakout-heal</code>(피부과 치료를 꾸준히 받아 트러블이 눈에 띄게 가라앉는다)</td></tr>
+                <tr><td><code>wrist-sprain</code></td><td>🤕 손목 부상</td><td>청소년기 16세 · <code>wrist-sprain-onset</code>(체육대회 계주에서 무리하게 힘을 준다)</td><td>청소년기 18세 · <code>wrist-sprain-heal</code>(다 나은 손목으로 홀가분하게 시험장에 들어간다)</td></tr>
+                <tr><td><code>exam-stress-gastritis</code></td><td>🤒 스트레스성 위염</td><td>청소년기 17세 · <code>exam-stress-gastritis-onset</code>(입시 스트레스로 끼니를 거르거나 폭식을 반복한다)</td><td>청소년기 18세 · <code>exam-stress-gastritis-heal</code>(수능이 끝나자마자 위염이 거짓말처럼 가라앉는다)</td></tr>
+                <tr><td><code>back-pain</code></td><td>🦴 허리 통증</td><td>스무 살 20세 · <code>back-pain-onset</code>(무거운 짐 나르는 알바를 몸 상태와 상관없이 계속한다)</td><td>스무 살 22세 · <code>back-pain-heal</code>(필라테스·운동을 꾸준히 하며 허리를 관리한다)</td></tr>
+                <tr><td><code>accident-aftereffects</code></td><td>🩹 사고 후유증</td><td>스무 살 21세 · <code>sudden-accident-injury</code>(급하게 무단횡단을 한다)</td><td><i>없음 — 의도적으로 영구 지속.</i> <code>rare-illness</code>·<code>alzheimers</code>와 마찬가지로 <code>removeCondition</code> 짝이 없고, <code>blocksHealthRecovery: true</code>도 같이 붙어있어 건강이 다시 오르지 않는다. 전용 엔딩 <code>rising-after-the-fall</code>(아래 "엔딩" 참고)의 자격 조건이기도 하다</td></tr>
+                <tr><td><code>burnout-syndrome</code></td><td>🔥 번아웃 증후군</td><td>스무 살 22세 · <code>burnout-onset</code>(인턴 생활 내내 야근과 철야를 반복한다)</td><td>스무 살 23세 · <code>burnout-heal</code>(충분히 쉬며 페이스를 되찾으려 한다)</td></tr>
+                <tr><td><code>carpal-tunnel</code></td><td>✋ 손목터널증후군</td><td>사회 초년생 25세 · <code>carpal-tunnel-onset</code>(쉬는 시간 없이 매일 키보드·마우스 작업을 반복한다)</td><td>사회 초년생 27세 · <code>carpal-tunnel-heal</code>(손목 보호대를 차고 스트레칭을 꾸준히 하며 저림이 사라진다)</td></tr>
+                <tr><td><code>insomnia</code></td><td>😵 불면증</td><td>사회 초년생 26세 · <code>insomnia-onset</code>(업무 생각에 잠자리에서도 휴대폰을 손에서 놓지 못한다)</td><td>사회 초년생 28세 · <code>insomnia-heal</code>(수면 습관을 개선하며 불면증에서 서서히 벗어난다)</td></tr>
+                <tr><td><code>hypertension</code></td><td>🩸 고혈압 전조</td><td>서른 34세 · <code>hypertension-onset</code>(야근과 회식이 겹치며 무리한 나날을 보낸다)</td><td>서른 37세 · <code>hypertension-heal</code>(식습관과 운동으로 혈압을 정상 수치까지 되돌린다)</td></tr>
+                <tr><td><code>frozen-shoulder</code></td><td>💪 어깨 결림(삼십견)</td><td>서른 35세 · <code>frozen-shoulder-onset</code>(하루 종일 자세를 바꾸지 않고 책상 앞에 앉아 있는다)</td><td>서른 38세 · <code>frozen-shoulder-heal</code>(도수치료와 스트레칭을 꾸준히 받는다)</td></tr>
+                <tr><td><code>knee-pain</code></td><td>🦵 무릎 통증</td><td>중년 44세 · <code>knee-pain-onset</code>(준비 운동 없이 무리하게 운동을 강행한다)</td><td>중년 47세 · <code>knee-pain-heal</code>(체중 관리와 재활 운동을 이어간다)</td></tr>
+                <tr><td><code>menopause-symptoms</code></td><td>🌡️ 갱년기 증상</td><td>중년 49세 · <code>menopause-onset</code>(예전과 다르게 몸이 보내는 신호를 느낀다)</td><td>중년 51세 · <code>menopause-heal</code>(호르몬 치료·생활 관리로 갱년기 증상이 눈에 띄게 안정된다)</td></tr>
+                <tr><td><code>cataract</code></td><td>👁️ 백내장</td><td>노년 준비 56세 · <code>cataract-onset</code>(밝은 화면의 스마트폰과 TV를 오래 들여다본다)</td><td>노년 준비 58세 · <code>cataract-heal</code>(백내장 수술을 받고 시야가 다시 선명해진다)</td></tr>
+                <tr><td><code>osteoporosis</code></td><td>🦴 골다공증</td><td>노년 준비 57세 · <code>osteoporosis-onset</code>(운동을 멀리하고 실내에서만 지내는 날이 많아진다)</td><td>노년 준비 60세 · <code>osteoporosis-heal</code>(꾸준한 칼슘 섭취와 운동으로 골밀도가 개선된다)</td></tr>
+                <tr><td><code>shingles</code></td><td>🔥 대상포진</td><td>노년 준비 61세 · <code>shingles-onset</code>(무리한 일정을 소화하며 잠을 줄인다)</td><td>노년 준비 64세 · <code>shingles-heal</code>(꾸준한 치료 끝에 대상포진 통증이 씻은 듯 가라앉는다)</td></tr>
+                <tr><td><code>hearing-loss</code></td><td>👂 난청</td><td>노년 준비 63세 · <code>hearing-loss-onset</code>(이어폰 소리를 크게 키운 채 오래 사용한다)</td><td>노년 준비 66세 · <code>hearing-loss-heal</code>(보청기를 맞추고 세상의 소리가 다시 선명해진다)</td></tr>
+                <tr><td><code>diabetes</code></td><td>🍬 당뇨병</td><td>노년 준비 65세 · <code>diabetes-onset</code>(단 음식과 불규칙한 식사를 즐긴다)</td><td>노년 준비 68세 · <code>diabetes-managed</code>(철저한 식단 관리와 운동으로 혈당 수치가 안정적으로 조절된다)</td></tr>
+                <tr><td><code>hip-fracture</code></td><td>🦴 고관절 골절</td><td>노년 준비 67세 · <code>hip-fracture-onset</code>(빙판길을 서둘러 걷는다)</td><td>노년 준비 69세 · <code>hip-fracture-heal</code>(재활 치료를 마치고 다시 혼자 걸을 수 있게 된다)</td></tr>
+                <tr><td><code>pneumonia</code></td><td>🫁 폐렴</td><td>황혼 74세 · <code>pneumonia-onset</code>(감기 기운이 있는데도 무리하게 외출한다)</td><td>황혼 76세 · <code>pneumonia-heal</code>(충분한 치료와 요양 기간을 갖는다)</td></tr>
+                <tr><td><code>mild-cognitive-decline</code></td><td>🧠 가벼운 건망증</td><td>황혼 78세 · <code>forgetting-where-things-are</code>(일정과 물건 정리를 메모 없이 기억에만 의존한다)</td><td>황혼 80세 · <code>mild-cognitive-decline-heal</code>(두뇌 활동과 규칙적인 생활을 이어간다)</td></tr>
+                <tr><td><code>appetite-loss</code></td><td>🍚 식욕부진</td><td>황혼 83세 · <code>appetite-loss-onset</code>(혼자 식사를 챙기기 귀찮아 대충 때운다)</td><td>황혼 86세 · <code>appetite-loss-heal</code>(식사를 조금씩 다시 챙기기 시작한다)</td></tr>
+                <tr><td><code>parkinsons</code></td><td>✋ 파킨슨병</td><td>황혼 87세 · <code>parkinsons-onset</code>(작은 움직임에도 예전과 다름을 느낀다)</td><td>황혼 89세 · <code>parkinsons-managed</code>(꾸준한 약물 치료와 재활로 떨림 증상이 눈에 띄게 안정된다)</td></tr>
+                <tr><td><code>alzheimers</code></td><td>🧩 알츠하이머</td><td>황혼 91세 · <code>alzheimers-onset</code>(정밀 건강검진을 받으러 병원에 간다)</td><td><i>없음 — 의도적으로 영구 지속.</i> <code>rare-illness</code>와 마찬가지로 <code>removeCondition</code> 짝이 없다. 추가로 <code>causesChoiceFadeout: true</code>가 붙어있어 클라이언트 전용 효과(아래 "선택지 페이드아웃" 참고)도 함께 발동한다</td></tr>
+                <tr><td><code>frailty</code></td><td>🕊️ 노쇠</td><td>황혼 93세 · <code>frailty-onset</code>(몸을 움직이기 귀찮아 하루 대부분을 누워 지낸다)</td><td>황혼 96세 · <code>frailty-heal</code>(정성 어린 돌봄과 재활을 이어간다)</td></tr>
+                <tr><td><code>rare-illness</code></td><td>🎗️ 희귀 난치병</td><td>유아기 1세 · <code>rare-illness-onset</code>(원인 모를 증상이 반복돼 정밀 검사를 받는다)</td><td><i>없음 — 의도적으로 영구 지속.</i> "난치병"이라는 이름 그대로 <code>removeCondition</code> 짝이 없는 유일한 조건이라, 한 번 걸리면 100세까지 <code>healthConditions</code>에 계속 남아 "현재 건강 상세"에 평생 표시된다</td></tr>
             </table>
         </div>
         <p class="note">전부 "발병 구간이 회복 구간보다 앞선다"는 순서만 지키면 되고, 발병 선택지와 회복
@@ -472,6 +472,27 @@
         하나씩 짝지어 넣으면 된다 — 로직 변경은 필요 없다(단, <code>rare-illness</code>처럼 의도적으로
         영구 지속시키고 싶다면 회복용 선택지를 아예 안 만들면 된다 — 코드는 모든 조건에 회복 짝이
         있어야 한다고 강제하지 않는다).</p>
+        <p class="note"><b>건강 조건에 따라 선택지가 아예 안 뜨게 막기 —
+        <code>requiresNoCondition</code>(2026-08-17, 사용자 지시).</b> "발목 부상일 때 축구 선택지는
+        선택 못한다"처럼, 특정 건강 조건이 활성 상태면 그 선택지 자체가 노출 후보에서 빠지게 하고
+        싶을 때 쓴다. <code>requiresCondition</code>(그 조건이 <b>있어야만</b> 후보)의 정반대 —
+        <code>requiresNoCondition: [id, ...]</code>를 붙이면 배열 안의 조건 중 <b>하나라도</b> 지금
+        활성 상태면 그 선택지가 후보에서 제외된다. 가족 쪽의 <code>requiresNoFamilyMember</code>와
+        정확히 같은 필터 방식을 <code>pickVisibleChoiceIds()</code>(노출 후보 계산)와
+        <code>applyChoice()</code>(우회 제출 방어)에 나란히 추가했다 — 새 필드 하나 추가, 함수 시그니처
+        변경 없음(<code>activeConditionIds</code>는 이미 <code>requiresCondition</code> 검사에 쓰이고
+        있어서 그대로 재사용). 지금 붙어있는 예 2건: 16세 <code>sports-day-star</code>(체육대회 반
+        대표로 활약)는 발목 부상(<code>ankle-sprain</code>) 중이면 안 뜨고, 29세
+        <code>logistics-recognized-as-ace</code>(빠른 손놀림으로 유명해짐, 물류센터 직군 전용)는 손목
+        부상·손목터널증후군(<code>wrist-sprain</code>·<code>carpal-tunnel</code>) 중이면 안 뜬다. 검증:
+        문법 검사, 실제 서버 로직을 그대로 복제한 2만 회 시뮬레이션(모든 게이팅 필드 포함, 후보가 0개인
+        스테이지 방문 0건 확인), 배포 후 소스에 두 필드가 정확히 반영됐는지 직접 대조 확인 —
+        전체 100세 플레이스루 형태의 라이브 통계 검증은 시도했으나(발목 부상을 강제로 얻은 뒤 16세까지
+        도달) 5~99세 구간이 매번 1~5세씩 무작위로 건너뛰는 설계 때문에 정확히 16세에 도달하는 표본을
+        충분히 모으지 못해 통계적으로 결론을 내리진 못했다 — 다만 이 필터는
+        <code>requiresNoFamilyMember</code>와 코드가 완전히 동형이고 그쪽은 이미 실사용 검증이 끝나 있어
+        신뢰도는 낮지 않다고 판단. 새 조건을 추가할 때 특정 신체 부위를 쓰는 행동(달리기·손 기술 등)이면서
+        그 부위 부상 조건이 이미 있다면 이 필드로 걸어줄 것.</p>
         <p class="note"><b>건강 회복 디버프 — <code>rare-illness</code>·<code>accident-aftereffects</code>가
         있으면 건강이 다시 오르지 않는다.</b> <code>addCondition</code>에 <code>blocksHealthRecovery: true</code>를
         얹으면(지금 이 둘) 그 조건을 갖고 있는 동안 <b>모든</b> 선택지의 <code>deltas.health</code>

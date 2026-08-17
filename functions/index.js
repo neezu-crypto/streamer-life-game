@@ -83,6 +83,10 @@ function playRefFor(db, uid) {
 // requiresFamilyMember(배열, 그 중 하나라도 있어야 후보)/requiresNoFamilyMember
 // (배열, 그 중 하나라도 있으면 후보에서 빠짐)도 같은 방식 - 배우자 없는데
 // "이혼한다"가 뜨거나, 이미 결혼했는데 "결혼한다"가 다시 뜨는 일이 없도록.
+// requiresNoCondition(배열, 그 중 하나라도 활성 상태면 후보에서 빠짐)은
+// requiresNoFamilyMember와 정확히 같은 원리를 건강 상세에 적용한 것 -
+// 발목 부상(ankle-sprain) 중인데 체육대회에서 반 대표로 뛰는 선택지가 뜨는
+// 일이 없도록(2026-08-17, 사용자 지시).
 // requiresOccupation(배열, 지금 직업이 그 중 하나여야 후보)도 마찬가지 -
 // 은퇴한 적 없는데 "재취업한다"가 뜨는 일이 없도록. 직업은 가족과 달리
 // 동시에 하나뿐이라 currentOccupationId는 문자열(or null) 하나다.
@@ -105,6 +109,7 @@ function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds
   const familyIds = activeFamilyMemberIds || [];
   const eligible = choices.filter((c) => {
     if (c.requiresCondition && !conditionIds.includes(c.requiresCondition)) return false;
+    if (c.requiresNoCondition && c.requiresNoCondition.some((id) => conditionIds.includes(id))) return false;
     if (c.requiresFamilyMember && !c.requiresFamilyMember.some((id) => familyIds.includes(id))) return false;
     if (c.requiresNoFamilyMember && c.requiresNoFamilyMember.some((id) => familyIds.includes(id))) return false;
     if (c.requiresAllFamilyMemberGroups && !c.requiresAllFamilyMemberGroups.every((group) => group.some((id) => familyIds.includes(id)))) return false;
@@ -214,12 +219,15 @@ function freshStats() {
 // 구간으로 넘기거나(마지막 구간이면) 엔딩을 확정한다. 어느 경로로 골랐든(직접
 // 클릭 vs 주사위) 반영 방식은 동일해야 하므로 여기 한 곳에만 둔다.
 async function applyChoice(db, playRef, play, stage, choice) {
-  // 이 선택이 요구하는 건강 조건(requiresCondition)/가족 구성원(requiresFamilyMember·
-  // requiresNoFamilyMember)이 실제로 지금 안 맞는데도 들어왔다면(정상 흐름이면
+  // 이 선택이 요구하는 건강 조건(requiresCondition·requiresNoCondition)/가족
+  // 구성원(requiresFamilyMember·requiresNoFamilyMember)이 실제로 지금 안 맞는데도 들어왔다면(정상 흐름이면
   // pickVisibleChoiceIds가 애초에 후보에서 뺐을 것) - 저장 슬롯이 오래돼 해당
   // 필드가 없던 시절 것이거나 하는 예외 상황이니 방어적으로 막는다.
   const currentConditions = Array.isArray(play.healthConditions) ? play.healthConditions : [];
   if (choice.requiresCondition && !currentConditions.some((c) => c.id === choice.requiresCondition)) {
+    throw new HttpsError('failed-precondition', '지금 상태에서는 고를 수 없는 선택지입니다.');
+  }
+  if (choice.requiresNoCondition && choice.requiresNoCondition.some((id) => currentConditions.some((c) => c.id === id))) {
     throw new HttpsError('failed-precondition', '지금 상태에서는 고를 수 없는 선택지입니다.');
   }
   const currentFamilyMembers = Array.isArray(play.familyMembers) ? play.familyMembers : [];

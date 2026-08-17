@@ -117,6 +117,16 @@
 // 조건부 선택지는 3개 노출에 항상 끼일 필요는 없고, 오히려 가끔만 등장하는
 // 게 자연스럽다.
 //
+// requiresNoCondition([id,...])는 requiresCondition의 반대 - 배열 안의
+// 조건 중 하나라도 지금 활성 상태면 그 선택지는 노출 후보에서 빠진다
+// (2026-08-17, 사용자 지시: "발목 부상일 때 축구 선택지는 선택 못한다"
+// 같은 케이스). 지금 붙어있는 예: 발목 부상(ankle-sprain) 중엔
+// sports-day-star(체육대회 반 대표)가, 손목 부상·손목터널증후군
+// (wrist-sprain·carpal-tunnel) 중엔 logistics-recognized-as-ace(빠른
+// 손놀림으로 유명해짐)가 안 뜬다. 새 콘텐츠를 추가할 때 특정 신체 부위를
+// 쓰는 행동(달리기·손 기술 등)이면서 그 부위의 부상 조건이 이미 게임에
+// 있다면 이 필드로 걸어줄 것.
+//
 // COMPANY_OCCUPATION_IDS(2026-08-17) - "회사/조직 소속" 계열 직업 목록.
 // 승진·부서 이동·조직 개편·회식·사내 연애·팀원처럼 회사 위계가 있어야 말이
 // 되는 선택지는 requiresAnyOccupation(아무 직업이나 OK) 대신 이 배열을
@@ -959,7 +969,8 @@ const STAGES = [
         id: 'sports-day-star',
         text: '체육대회에서 반 대표로 활약하며 존재감을 알린다',
         deltas: { fame: 6, health: 3 },
-        result: '이겨서라기보다, 반 전체가 한마음이 됐던 그 하루가 오래 남았다.'
+        result: '이겨서라기보다, 반 전체가 한마음이 됐던 그 하루가 오래 남았다.',
+        requiresNoCondition: ['ankle-sprain']
       },
       {
         id: 'wrist-sprain-onset',
@@ -1867,7 +1878,8 @@ const STAGES = [
         text: '빠른 손놀림으로 현장에서 이름이 알려진다',
         deltas: { happiness: 4, wealth: 2 },
         result: '별거 아닌 별명 같아도, 불릴 때마다 어깨가 으쓱했다.',
-        requiresOccupation: ['logistics-worker']
+        requiresOccupation: ['logistics-worker'],
+        requiresNoCondition: ['wrist-sprain', 'carpal-tunnel']
       },
       {
         id: 'public-corp-job-security-relief',
