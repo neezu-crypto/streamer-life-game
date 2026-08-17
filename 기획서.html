@@ -133,6 +133,7 @@
             <li><a href="#sec9">시스템 흐름도</a></li>
             <li><a href="#sec10">관리 센터(admin-center) 연동</a></li>
             <li><a href="#sec11">향후 보완 과제</a></li>
+            <li><a href="#sec12">방송 콘텐츠 개선 백로그</a></li>
         </ol>
     </div>
 
@@ -2034,6 +2035,57 @@
             <li><span class="todo-check"></span><code>devbarLinks/lifeGame</code> 항목을 admin-center UI에서 등록 (사용자 진행 예정)</li>
             <li><span class="todo-check"></span>보상형 광고·후원형 광고 연동 (v1은 완전 무료로 우선 출시)</li>
         </ul>
+    </section>
+
+    <section id="sec12">
+        <h2><span class="num">12</span>방송 콘텐츠 개선 백로그(2026-08-17, 사용자 지시)</h2>
+        <p>"스트리머들이 플레이하기에 충분히 매력적인가"라는 질문에서 출발한 점검. 콘텐츠 밀도(101구간·924선택지·
+        직업 20종·건강조건 29종·재산 16종·엔딩 16종, 평균 39클릭/판)는 이미 탄탄하지만, <b>"방송 콘텐츠"</b>
+        관점에서 두 갈래로 아쉬운 점이 남아있어 정리한다. 아래 우선순위대로 순차 진행 중.</p>
+
+        <h3>① 방송 콘텐츠로서 아쉬운 점(구조적 공백)</h3>
+        <ul class="todo-list">
+            <li><span class="todo-check"></span><b>채팅 개입 수단 없음</b> — 순수 솔로 선택 게임이라 스트리머가
+            클릭하는 동안 챗이 투표 등으로 개입할 방법이 전혀 없다. 가장 큰 공백이지만 실시간 다수결 집계·
+            현재 "계정당 저장 슬롯 1개" 구조와의 충돌 등 아키텍처 변경이 크게 필요해 별도 과제로 분리
+            (아래 "채팅 개입 모드" 참고, 이번 백로그의 순차 실행 대상에서는 제외).</li>
+            <li><span class="todo-check"></span><b>큰 순간에 시각/청각 임팩트 없음</b> — 아래 "② 시각적 이펙트
+            필요 부분"에서 구체화.</li>
+            <li><span class="todo-check"></span><b>경쟁/기록 요소 부재</b> — 갤러리는 있지만 "역대 최고 부자로
+            죽은 삶" 같은 리더보드가 없어 승부욕을 자극하지 못한다.</li>
+            <li><span class="todo-check"></span><b>배경음악·효과음 전무</b> — 무음 텍스트 화면이라 방송 화면
+            자체가 심심해 보일 수 있다.</li>
+        </ul>
+
+        <h3>② 시각적 이펙트 필요 부분</h3>
+        <p>현재 시각 처리는 전부 <code>fadeIn</code>/<code>fadeOut</code>·<code>stat-bar-fill</code> width
+        트랜지션·토스트뿐이라, 이벤트의 크기·성격과 무관하게 항상 동일하게 렌더된다. 아래는 그중 실제로
+        차별화가 필요한 지점을 크기·성격별로 분류한 것.</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>분류</th><th>대상</th><th>의도한 효과</th></tr>
+                <tr><td>초대박(자축)</td><td>복권 1등(2%)·2등(3%), 100세 완주 + 해피엔딩류(all-in-success·full-family-legacy·enduring-companion 등)</td><td>컨페티 + 합성 사운드 + 화면 플래시</td></tr>
+                <tr><td>위기(긴장)</td><td>즉시 사망 엔딩 5종(<code>INSTANT_ENDING_BUILDERS</code>), 영구 지속 건강 조건 발병(rare-illness·accident-aftereffects·alzheimers)</td><td>화면 흔들림 + 붉은 플래시 + 경고음</td></tr>
+                <tr><td>감정적 전환점(톤다운)</td><td>배우자·부모님 사별(spouse-passes-away·losing-a-parent 등), 이혼(choosing-divorce)</td><td>느린 페이드 + 채도 낮춘 톤</td></tr>
+                <tr><td>획득·성취(팝업)</td><td>재산 획득 16종(<code>addAsset</code>), 승진·전직(<code>setOccupation</code>), 새 가족 구성원, 건강 회복(<code>removeCondition</code>)</td><td>작은 배지 팝업 + 짧은 사운드</td></tr>
+                <tr><td>구조적 차별화</td><td>결과 박스(<code>#resultBox</code>) 전체, 스탯 바 변화 전체</td><td>net delta 방향에 따른 색상 구분, delta 크기에 비례한 강조(펄스/글로우)</td></tr>
+            </table>
+        </div>
+
+        <h3>실행 순서</h3>
+        <ol>
+            <li>결과 박스 색상 차별화(긍정/부정/중립) — 다른 이펙트들의 기반이 되는 항목이라 최우선</li>
+            <li>스탯 변화 강조 이펙트(delta 크기 비례)</li>
+            <li>복권 대박 축하 이펙트(1등·2등)</li>
+            <li>즉사 엔딩 위기 이펙트(5종)</li>
+            <li>감정적 전환점 톤다운 이펙트(사별·이혼)</li>
+            <li>획득·성취 팝업 이펙트(재산·직업·가족·건강회복)</li>
+            <li>리더보드 기능(역대 최고 기록)</li>
+            <li>배경음악·효과음 도입(저작권 문제 없는 합성음 위주)</li>
+            <li>채팅 개입(투표) 모드 — 스코프만 별도 정리, 실제 구현은 사용자와 별도 논의 후 진행</li>
+        </ol>
+        <p class="note">사운드는 외부 음원 파일을 쓰지 않고 <b>Web Audio API로 그때그때 합성한 짧은 톤</b>을
+        쓰기로 한다 — 저작권 확인이 필요한 외부 오디오 자산을 새로 들여오지 않기 위함.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
