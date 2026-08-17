@@ -120,6 +120,7 @@ function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds
   const eligible = choices.filter((c) => {
     if (c.requiresCondition && !conditionIds.includes(c.requiresCondition)) return false;
     if (c.requiresNoCondition && c.requiresNoCondition.some((id) => conditionIds.includes(id))) return false;
+    if (c.requiresAnyCondition && !conditionIds.length) return false;
     if (c.requiresFamilyMember && !c.requiresFamilyMember.some((id) => familyIds.includes(id))) return false;
     if (c.requiresNoFamilyMember && c.requiresNoFamilyMember.some((id) => familyIds.includes(id))) return false;
     if (c.requiresAllFamilyMemberGroups && !c.requiresAllFamilyMemberGroups.every((group) => group.some((id) => familyIds.includes(id)))) return false;
@@ -286,6 +287,9 @@ async function applyChoice(db, playRef, play, stage, choice) {
   if (choice.requiresNoCondition && choice.requiresNoCondition.some((id) => currentConditions.some((c) => c.id === id))) {
     throw new HttpsError('failed-precondition', '지금 상태에서는 고를 수 없는 선택지입니다.');
   }
+  if (choice.requiresAnyCondition && !currentConditions.length) {
+    throw new HttpsError('failed-precondition', '지금 상태에서는 고를 수 없는 선택지입니다.');
+  }
   const currentFamilyMembers = Array.isArray(play.familyMembers) ? play.familyMembers : [];
   const currentFamilyIds = currentFamilyMembers.map((f) => f.id);
   if (choice.requiresFamilyMember && !choice.requiresFamilyMember.some((id) => currentFamilyIds.includes(id))) {
@@ -379,6 +383,9 @@ async function applyChoice(db, playRef, play, stage, choice) {
 
   // 건강 상세 - 선택지가 addCondition을 붙였으면 부상/질병이 새로 생기고(이미
   // 있으면 중복 추가 안 함), removeCondition을 붙였으면 그 조건이 나아서 빠진다.
+  // permanent(rare-illness·accident-aftereffects·alzheimers 셋만 true - "의도적으로
+  // 영구 지속") 플래그도 그대로 실어둔다 - removeAllConditions가 이 플래그를 보고
+  // 영구 조건은 건너뛰기 위해서다.
   let healthConditions = currentConditions.slice();
   if (choice.addCondition && !healthConditions.some((c) => c.id === choice.addCondition.id)) {
     healthConditions.push({
@@ -386,11 +393,19 @@ async function applyChoice(db, playRef, play, stage, choice) {
       label: choice.addCondition.label,
       sinceStageId: stage.id,
       blocksHealthRecovery: !!choice.addCondition.blocksHealthRecovery,
-      causesChoiceFadeout: !!choice.addCondition.causesChoiceFadeout
+      causesChoiceFadeout: !!choice.addCondition.causesChoiceFadeout,
+      permanent: !!choice.addCondition.permanent
     });
   }
   if (choice.removeCondition) {
     healthConditions = healthConditions.filter((c) => c.id !== choice.removeCondition);
+  }
+  // removeAllConditions(2026-08-18, 사용자 지시 - "건강검진같은 선택지는 부상/질병
+  // 상관없이 모두 치료되게 해줘") - 지금 앓고 있는 조건을 전부 지운다, 단 영구
+  // 조건(permanent)만은 예외로 남겨둔다("의도적으로 영구 지속"이라는 기존 설계를
+  // 깨지 않기 위해).
+  if (choice.removeAllConditions) {
+    healthConditions = healthConditions.filter((c) => c.permanent);
   }
 
   // 가족 상세 - addFamilyMembers에 담긴 항목들이 새 가족으로 생기고(이미 있으면

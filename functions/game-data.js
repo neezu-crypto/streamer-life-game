@@ -276,7 +276,7 @@ const STAGES = [
         text: '원인 모를 증상이 반복돼 정밀 검사를 받는다',
         deltas: { health: -12, happiness: -6, wealth: -6, relationship: 5 },
         result: '치료법이 없다는 말 앞에서도, 가족은 무너지지 않고 서로를 더 꽉 붙잡았다.',
-        addCondition: { id: 'rare-illness', label: '🎗️ 희귀 난치병', blocksHealthRecovery: true }
+        addCondition: { id: 'rare-illness', label: '🎗️ 희귀 난치병', blocksHealthRecovery: true, permanent: true }
       }
     ]
   },
@@ -634,6 +634,14 @@ const STAGES = [
         deltas: { happiness: 3, relationship: 2 },
         result: '쉬는 시간마다 붙어 다니다 보니, 어느새 제일 친한 사이가 됐다.',
         addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
+      },
+      {
+        id: 'checkup-general-8',
+        text: '학교 정기 건강검진에서 이것저것 꼼꼼히 살펴본다',
+        deltas: { health: 2, happiness: 1 },
+        result: '선생님의 꼼꼼한 손길에, 그동안 몰랐던 것까지 다 확인받은 기분이었다.',
+        requiresAnyCondition: true,
+        removeAllConditions: true
       }
     ]
   },
@@ -914,6 +922,14 @@ const STAGES = [
         deltas: { happiness: 4, relationship: 3 },
         result: '심장이 터질 것 같던 그 몇 초가, 지금도 가장 선명한 기억으로 남아 있다.',
         addAcquaintance: { relation: 'crush', label: '💌 짝사랑' }
+      },
+      {
+        id: 'checkup-teen-14',
+        text: '사춘기 건강검진을 받으며 몸 상태를 점검한다',
+        deltas: { health: 2, happiness: 1 },
+        result: '이것저것 재고 찍고 나니, 걱정보다 후련함이 더 컸다.',
+        requiresAnyCondition: true,
+        removeAllConditions: true
       }
     ]
   },
@@ -1348,6 +1364,14 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 3 },
         result: '몇 번 밤새 작업을 같이 하고 나니, 말하지 않아도 통하는 사이가 됐다.',
         addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
+      },
+      {
+        id: 'checkup-young-adult-20',
+        text: '국가 건강검진 대상자가 되어 처음으로 검진을 받는다',
+        deltas: { health: 3, wealth: -1 },
+        result: '생애 첫 검진표를 받아 들고, 새삼 어른이 됐다는 걸 실감했다.',
+        requiresAnyCondition: true,
+        removeAllConditions: true
       }
     ]
   },
@@ -1398,7 +1422,7 @@ const STAGES = [
         text: '급하게 무단횡단을 한다',
         deltas: { health: -15, happiness: -8, wealth: -5 },
         result: '눈을 떴을 때는 이미 병실 천장이었다. 예전과 똑같은 몸으로는 돌아갈 수 없다는 말을, 몇 번이고 곱씹어야 했다.',
-        addCondition: { id: 'accident-aftereffects', label: '🩹 사고 후유증', blocksHealthRecovery: true }
+        addCondition: { id: 'accident-aftereffects', label: '🩹 사고 후유증', blocksHealthRecovery: true, permanent: true }
       },
       {
         id: 'teacher-certification',
@@ -2069,6 +2093,14 @@ const STAGES = [
         deltas: { wealth: -3, happiness: -3 },
         result: '손님이 뜸한 가게 안에서, 시계 소리만 유난히 크게 들렸다.',
         requiresOccupation: ['small-business-owner']
+      },
+      {
+        id: 'checkup-workplace-26',
+        text: '직장 정기 건강검진에서 종합적으로 몸을 점검받는다',
+        deltas: { health: 3, wealth: -1 },
+        result: '바늘 하나에 이렇게 긴장할 일인가 싶으면서도, 끝나고 나니 개운했다.',
+        requiresAnyCondition: true,
+        removeAllConditions: true
       }
     ]
   },
@@ -2831,6 +2863,14 @@ const STAGES = [
         deltas: { happiness: -5 },
         result: '전화벨이 울릴 때마다, 심장이 먼저 철렁 내려앉았다.',
         requiresOccupation: ['teacher']
+      },
+      {
+        id: 'checkup-catchup-32',
+        text: '그동안 미뤄온 각종 검사를 몰아서 받는다',
+        deltas: { health: 3, wealth: -1 },
+        result: '미뤄뒀던 걱정거리들을 한 번에 정리하고 나니, 몸도 마음도 가벼워졌다.',
+        requiresAnyCondition: true,
+        removeAllConditions: true
       }
     ]
   },
@@ -3403,6 +3443,14 @@ const STAGES = [
         deltas: { happiness: -4, health: -2 },
         result: '그만두고 싶다는 생각이, 처음으로 진지하게 들었다.',
         requiresOccupation: ['job-changed']
+      },
+      {
+        id: 'checkup-warning-signs-38',
+        text: '몸의 이상 신호를 느끼고 종합병원을 찾는다',
+        deltas: { health: 3, wealth: -1 },
+        result: '별일 아니라는 말 한마디에, 며칠간의 불안이 눈 녹듯 사라졌다.',
+        requiresAnyCondition: true,
+        removeAllConditions: true
       }
     ]
   },
@@ -3951,6 +3999,14 @@ const STAGES = [
         text: '다음 기회를 노리며 넘어간다',
         deltas: { happiness: 1 },
         result: '언제든 살 수 있다며 스스로를 다독였다.'
+      },
+      {
+        id: 'checkup-transition-44',
+        text: '생애전환기 건강검진을 빠짐없이 받는다',
+        deltas: { health: 3, wealth: -1 },
+        result: '몸 구석구석을 살피고 나니, 스스로를 오랜만에 챙긴 기분이 들었다.',
+        requiresAnyCondition: true,
+        removeAllConditions: true
       }
     ]
   },
@@ -4601,6 +4657,14 @@ const STAGES = [
         deltas: { happiness: 4, health: 1 },
         result: '숫자가 아니라 마음으로 하루를 채운 게, 얼마 만인지 몰랐다.',
         requiresOccupation: ['career-pivot']
+      },
+      {
+        id: 'checkup-thorough-50',
+        text: '몸 여기저기를 꼼꼼히 살피는 정밀 검진을 받는다',
+        deltas: { health: 3, wealth: -1 },
+        result: '숫자들이 빼곡한 결과지를 받아 들고, 앞으로를 다시 챙기기로 다짐했다.',
+        requiresAnyCondition: true,
+        removeAllConditions: true
       }
     ]
   },
@@ -5150,6 +5214,14 @@ const STAGES = [
         deltas: { fame: 4, happiness: 3 },
         result: '몇 마디 안 되는 조언에, 사람들 눈빛이 달라지는 걸 봤다.',
         requiresOccupation: ['consultant']
+      },
+      {
+        id: 'checkup-preretirement-56',
+        text: '은퇴를 앞두고 몸부터 제대로 점검하기로 한다',
+        deltas: { health: 3, wealth: -1 },
+        result: '은퇴 전에 몸부터 정리하고 나니, 마음의 짐 하나를 덜어낸 듯했다.',
+        requiresAnyCondition: true,
+        removeAllConditions: true
       }
     ]
   },
@@ -5846,6 +5918,14 @@ const STAGES = [
         text: '예전에 잘나가지 않았냐는 말을 듣는다',
         deltas: { fame: -2, happiness: -2 },
         result: '칭찬인 듯 아닌 듯한 그 말이, 오래도록 귓가에 맴돌았다.'
+      },
+      {
+        id: 'checkup-full-body-62',
+        text: '노후를 대비해 전신 건강검진을 받는다',
+        deltas: { health: 3, wealth: -1 },
+        result: '머리부터 발끝까지 살피고 나니, 그제야 마음이 놓였다.',
+        requiresAnyCondition: true,
+        removeAllConditions: true
       }
     ]
   },
@@ -6425,6 +6505,14 @@ const STAGES = [
         text: '이번 주는 그냥 넘어간다',
         deltas: { happiness: 1 },
         result: '이번 주는 그냥 마음 편히 넘어갔다.'
+      },
+      {
+        id: 'checkup-rounds-68',
+        text: '동네 병원을 돌며 그동안 미룬 진료를 다 받는다',
+        deltas: { health: 3, wealth: -1 },
+        result: '이 병원 저 병원 도는 게 일이었지만, 다 끝내고 나니 홀가분했다.',
+        requiresAnyCondition: true,
+        removeAllConditions: true
       }
     ]
   },
@@ -6916,6 +7004,15 @@ const STAGES = [
         text: '함께 활동했던 이들도 하나둘 소식이 끊긴다',
         deltas: { fame: -3, happiness: -2, relationship: -1 },
         result: '연락처만 남고 목소리는 점점 희미해져 갔다.'
+      },
+      {
+        id: 'checkup-childs-urging-74',
+        text: '자녀의 권유로 종합병원 검진을 받는다',
+        deltas: { health: 3, relationship: 2 },
+        result: '자녀 손에 이끌려 간 병원에서, 걱정보다 다행이라는 말을 더 많이 들었다.',
+        requiresFamilyMember: ['child'],
+        requiresAnyCondition: true,
+        removeAllConditions: true
       }
     ]
   },
@@ -7393,6 +7490,14 @@ const STAGES = [
         text: '젊은 사람들 사이에서는 그저 평범한 노인일 뿐이라는 걸 느낀다',
         deltas: { fame: -3, happiness: -1 },
         result: '서운함보다, 그것도 자연스러운 일이라는 생각이 더 컸다.'
+      },
+      {
+        id: 'checkup-mobility-concern-80',
+        text: '거동이 힘들어지기 전에 몸 상태를 전부 점검받는다',
+        deltas: { health: 3, wealth: -1 },
+        result: '더 늦기 전에 챙기길 잘했다는 생각이, 검사 내내 떠나지 않았다.',
+        requiresAnyCondition: true,
+        removeAllConditions: true
       }
     ]
   },
@@ -7833,6 +7938,14 @@ const STAGES = [
         text: '살아온 흔적이 조금씩 옛일로 흘러가고 있음을 느낀다',
         deltas: { fame: -3, happiness: -1 },
         result: '아쉬움보다는, 그 또한 자연스러운 흐름이라 받아들였다.'
+      },
+      {
+        id: 'checkup-house-call-86',
+        text: '왕진 온 의사에게 몸 구석구석을 진찰받는다',
+        deltas: { health: 3, wealth: -1 },
+        result: '집까지 와준 손길이, 검사 결과보다 먼저 마음을 놓이게 했다.',
+        requiresAnyCondition: true,
+        removeAllConditions: true
       }
     ]
   },
@@ -8138,7 +8251,7 @@ const STAGES = [
         text: '정밀 건강검진을 받으러 병원에 간다',
         deltas: { health: -8, happiness: -6, relationship: -3 },
         result: '나조차 낯설어지는 순간들이 늘어갔지만, 가족들은 그런 나를 몇 번이고 다시 소개해주었다.',
-        addCondition: { id: 'alzheimers', label: '🧩 알츠하이머', causesChoiceFadeout: true }
+        addCondition: { id: 'alzheimers', label: '🧩 알츠하이머', causesChoiceFadeout: true, permanent: true }
       },
       {
         id: 'fame-remembered-fondly-91',
@@ -8274,6 +8387,14 @@ const STAGES = [
         text: '괜찮다며 사양한다',
         deltas: { happiness: 1 },
         result: '마음만 받겠다며 웃어 보였다.'
+      },
+      {
+        id: 'checkup-nursing-facility-92',
+        text: '요양병원에서 정밀 검진을 받는다',
+        deltas: { health: 3, wealth: -1 },
+        result: '누워서 받은 검사인데도, 결과를 듣고 나니 안도의 한숨이 나왔다.',
+        requiresAnyCondition: true,
+        removeAllConditions: true
       }
     ]
   },
@@ -8604,6 +8725,14 @@ const STAGES = [
         text: '오늘도 무사히, 라는 말이 가장 큰 안부가 된다',
         deltas: { happiness: 4, health: 1 },
         result: '거창한 안부 대신, 그 한마디면 충분했다.'
+      },
+      {
+        id: 'checkup-final-98',
+        text: '마지막으로 한 번 더 전신 건강을 점검받는다',
+        deltas: { health: 3, happiness: 2 },
+        result: '몇 번째인지도 모를 검진이지만, 매번 이렇게 마음을 다잡게 된다.',
+        requiresAnyCondition: true,
+        removeAllConditions: true
       }
     ]
   },
