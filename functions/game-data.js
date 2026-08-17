@@ -626,6 +626,13 @@ const STAGES = [
         result: '가쁘게 몰아쉬던 숨이, 이제는 옛날이야기가 됐다.',
         requiresCondition: 'asthma',
         removeCondition: 'asthma'
+      },
+      {
+        id: 'childhood-best-friend',
+        text: '학교에서 마음이 잘 맞는 짝꿍과 급속도로 친해진다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '쉬는 시간마다 붙어 다니다 보니, 어느새 제일 친한 사이가 됐다.',
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
       }
     ]
   },
@@ -898,6 +905,13 @@ const STAGES = [
         deltas: { health: -3, happiness: -3 },
         result: '거울을 볼 때마다 마음까지 덩달아 움츠러들었다.',
         addCondition: { id: 'acne-breakout', label: '🌱 스트레스성 트러블' }
+      },
+      {
+        id: 'teen-crush-confession',
+        text: '짝사랑하던 반 친구에게 용기 내어 마음을 고백한다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '심장이 터질 것 같던 그 몇 초가, 지금도 가장 선명한 기억으로 남아 있다.',
+        addAcquaintance: { relation: 'crush', label: '💌 짝사랑' }
       }
     ]
   },
@@ -1231,6 +1245,13 @@ const STAGES = [
         result: '하루 종일 걷고 나르는 일이었지만, 첫 월급의 무게는 그만큼 묵직했다.',
         setOccupation: { id: 'logistics-worker', label: '🚚 물류직' },
         mandatory: true
+      },
+      {
+        id: 'first-blind-date',
+        text: '소개팅에서 마음이 통하는 상대를 만난다',
+        deltas: { happiness: 4, relationship: 4 },
+        result: '몇 마디 나누지도 않았는데, 다음이 궁금해지는 사람이었다.',
+        addAcquaintance: { relation: 'lover', label: '💕 연인' }
       }
     ]
   },
@@ -1317,6 +1338,13 @@ const STAGES = [
         text: '돈이 아깝다는 생각에 그냥 지나친다',
         deltas: { happiness: 1 },
         result: '쓸데없는 데 돈 쓸 뻔했다며 스스로를 다독였다.'
+      },
+      {
+        id: 'college-club-friend',
+        text: '동아리 활동을 하다 마음 맞는 친구를 새로 사귄다',
+        deltas: { happiness: 2, relationship: 3 },
+        result: '몇 번 밤새 작업을 같이 하고 나니, 말하지 않아도 통하는 사이가 됐다.',
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
       }
     ]
   },
@@ -1536,6 +1564,14 @@ const STAGES = [
         result: '충분히 쉬고 나서야, 다시 뭔가를 시작할 힘이 생겼다.',
         requiresCondition: 'burnout-syndrome',
         removeCondition: 'burnout-syndrome'
+      },
+      {
+        id: 'new-job-close-colleague',
+        text: '입사 초기, 유독 마음이 맞는 동료가 생긴다',
+        deltas: { happiness: 2, relationship: 3 },
+        result: '낯설던 사무실에서, 유독 편하게 말을 붙일 수 있는 사람이 생겼다.',
+        requiresAnyOccupation: true,
+        addAcquaintance: { relation: 'colleague', label: '💼 동료' }
       }
     ]
   },
@@ -1676,6 +1712,13 @@ const STAGES = [
         removeAsset: 'lottery-ticket',
         mandatory: true,
         prizeTable: LOTTERY_PRIZE_TABLE
+      },
+      {
+        id: 'adult-crush-confession',
+        text: '오래 마음에 품고 있던 상대에게 고백한다',
+        deltas: { happiness: 3, relationship: 3 },
+        result: '오래 망설인 만큼, 말을 뱉고 난 순간은 오히려 담담했다.',
+        addAcquaintance: { relation: 'crush', label: '💌 짝사랑' }
       }
     ]
   },
@@ -1924,6 +1967,13 @@ const STAGES = [
         text: '그 돈으로 차라리 저녁을 사 먹는다',
         deltas: { happiness: 1 },
         result: '그 돈으로 먹은 저녁이, 나름 남는 장사였다.'
+      },
+      {
+        id: 'chance-encounter-lover',
+        text: '우연한 자리에서 새로운 인연을 만난다',
+        deltas: { happiness: 4, relationship: 4 },
+        result: '예정에 없던 만남이었는데, 자꾸 다시 떠올랐다.',
+        addAcquaintance: { relation: 'lover', label: '💕 연인' }
       }
     ]
   },
@@ -2947,6 +2997,14 @@ const STAGES = [
         deltas: { wealth: 4, happiness: 3 },
         result: '왜 진작 옮기지 않았을까 싶을 정도로, 처우가 달랐다.',
         requiresOccupation: ['job-changed']
+      },
+      {
+        id: 'veteran-work-colleague',
+        text: '오랜 직장 생활 속에서 각별한 동료가 생긴다',
+        deltas: { happiness: 2, relationship: 3 },
+        result: '같은 풍파를 겪고 나니, 동료 이상의 무언가가 생겼다.',
+        requiresAnyOccupation: true,
+        addAcquaintance: { relation: 'colleague', label: '💼 동료' }
       }
     ]
   },
@@ -3490,6 +3548,13 @@ const STAGES = [
         deltas: { happiness: -3 },
         result: '어제까진 없던 광고가, 오늘은 골목 어귀마다 걸려 있었다.',
         requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'midlife-crush-confession',
+        text: '우연히 다시 만난 옛 인연에게 뒤늦게 마음을 고백한다',
+        deltas: { happiness: 3, relationship: 3 },
+        result: '그때 못 한 말을, 이렇게 늦게라도 하게 될 줄은 몰랐다.',
+        addAcquaintance: { relation: 'crush', label: '💌 짝사랑' }
       }
     ]
   },
@@ -4006,6 +4071,13 @@ const STAGES = [
         text: '괜한 기대는 접어두기로 한다',
         deltas: { happiness: 1 },
         result: '헛된 기대보다 현실을 택하기로 했다.'
+      },
+      {
+        id: 'neighborhood-new-friend',
+        text: '동네 모임에서 말이 잘 통하는 친구를 새로 사귄다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '나이 들어 사귄 친구가 더 편할 수 있다는 걸, 이제야 알았다.',
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
       }
     ]
   },
@@ -4731,6 +4803,13 @@ const STAGES = [
         text: '차라리 그 돈을 저축하기로 한다',
         deltas: { happiness: 1 },
         result: '티끌 모아 태산이라는 말을 되새겼다.'
+      },
+      {
+        id: 'late-life-new-lover',
+        text: '인생 후반부, 마음이 통하는 새로운 사람을 만난다',
+        deltas: { happiness: 4, relationship: 4 },
+        result: '이 나이에 이런 감정을 다시 느낄 줄은, 스스로도 몰랐다.',
+        addAcquaintance: { relation: 'lover', label: '💕 연인' }
       }
     ]
   },
@@ -4991,6 +5070,14 @@ const STAGES = [
         deltas: { wealth: -4 },
         result: '새로 시작하는 데도, 이렇게 돈이 많이 드는 줄 몰랐다.',
         requiresOccupation: ['career-pivot']
+      },
+      {
+        id: 'pre-retirement-colleague',
+        text: '은퇴를 앞두고 함께 일해온 동료와 유독 가까워진다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '떠날 날이 가까워질수록, 함께한 시간의 무게가 더 크게 느껴졌다.',
+        requiresAnyOccupation: true,
+        addAcquaintance: { relation: 'colleague', label: '💼 동료' }
       }
     ]
   },

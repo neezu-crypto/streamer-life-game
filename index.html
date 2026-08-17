@@ -472,6 +472,10 @@
         <p class="family-panel-title">현재 가족 상세</p>
         <div id="familyMembers" class="family-members"></div>
       </div>
+      <div class="family-panel">
+        <p class="family-panel-title">현재 지인 상세</p>
+        <div id="acquaintances" class="family-members"></div>
+      </div>
       <div class="occupation-panel">
         <p class="occupation-panel-title">현재 직업 상세</p>
         <p id="currentOccupation" class="occupation-current"></p>
@@ -491,6 +495,10 @@
     <div class="family-panel">
       <p class="family-panel-title" id="endingFamilyPanelTitle">100세, 곁에 남은 가족</p>
       <div id="endingFamilyMembers" class="family-members"></div>
+    </div>
+    <div class="family-panel">
+      <p class="family-panel-title">인생에서 만난 지인</p>
+      <div id="endingAcquaintances" class="family-members"></div>
     </div>
     <div class="occupation-panel">
       <p class="occupation-panel-title">지금까지의 직업 이력</p>
@@ -747,7 +755,7 @@ resumeBtn.addEventListener('click', async () => {
     const res = await resumePlaythroughFn();
     await fadeOut([resumeSection]);
     if (res.data.completed) {
-      showEnding(res.data.ending, res.data.stats, res.data.choiceHistory, res.data.familyMembers, res.data.occupationHistory, res.data.assets, res.data.cashHoldings);
+      showEnding(res.data.ending, res.data.stats, res.data.choiceHistory, res.data.familyMembers, res.data.occupationHistory, res.data.assets, res.data.cashHoldings, res.data.acquaintances);
     } else {
       await fadeOut([mainHeader]);
       renderStatBars(statBars, res.data.stats);
@@ -755,6 +763,7 @@ resumeBtn.addEventListener('click', async () => {
       renderCashHoldings(cashHoldingsEl, res.data.cashHoldings);
       renderHealthConditions(res.data.healthConditions);
       renderFamilyMembers(res.data.familyMembers);
+      renderAcquaintances(res.data.acquaintances);
       renderCurrentOccupation(res.data.currentOccupation);
       renderStage(res.data.stage);
       initAchievementBaseline(res.data);
@@ -1071,6 +1080,31 @@ function renderFamilyMembers(members) {
   renderFamilyMembersInto(familyMembersEl, members);
 }
 
+const acquaintancesEl = document.getElementById('acquaintances');
+
+// 지인 목록("현재 지인 상세") - 가족 상세와 거의 같은 패턴이지만, 가족은 고정
+// 역할명(label)만 보여주면 되는 반면 지인은 관계(label)와 실제 이름(name, 서버가
+// stocks 노드에서 무작위로 뽑아 내려줌)을 같이 보여준다.
+function renderAcquaintancesInto(container, acquaintances) {
+  container.innerHTML = '';
+  if (!acquaintances || !acquaintances.length) {
+    const empty = document.createElement('span');
+    empty.className = 'family-empty';
+    empty.textContent = '아직 특별한 지인 없음';
+    container.appendChild(empty);
+    return;
+  }
+  acquaintances.forEach((acq) => {
+    const chip = document.createElement('span');
+    chip.className = 'family-chip';
+    chip.textContent = acq.label + ' · ' + acq.name;
+    container.appendChild(chip);
+  });
+}
+function renderAcquaintances(acquaintances) {
+  renderAcquaintancesInto(acquaintancesEl, acquaintances);
+}
+
 const currentOccupationEl = document.getElementById('currentOccupation');
 
 // 현재 직업("현재 직업 상세") - 건강/가족과 달리 동시에 하나뿐이라 목록이 아니라
@@ -1182,6 +1216,7 @@ startBtn.addEventListener('click', async () => {
     renderCashHoldings(cashHoldingsEl, res.data.cashHoldings);
     renderHealthConditions(res.data.healthConditions);
     renderFamilyMembers(res.data.familyMembers);
+    renderAcquaintances(res.data.acquaintances);
     renderCurrentOccupation(res.data.currentOccupation);
     renderStage(res.data.stage);
     initAchievementBaseline(res.data);
@@ -1235,6 +1270,7 @@ function applyTonedownIfNeeded(selectedChoiceId) {
 const achievementPopupsEl = document.getElementById('achievementPopups');
 let prevAssetIds = [];
 let prevFamilyIds = [];
+let prevAcquaintanceIds = [];
 let prevOccupationId = null;
 let prevConditions = [];
 
@@ -1257,6 +1293,7 @@ function showAchievementBadge(icon, text) {
 function initAchievementBaseline(data) {
   prevAssetIds = (data.assets || []).map((a) => a.id);
   prevFamilyIds = (data.familyMembers || []).map((f) => f.id);
+  prevAcquaintanceIds = (data.acquaintances || []).map((a) => a.id);
   prevOccupationId = data.currentOccupation ? data.currentOccupation.id : null;
   prevConditions = data.healthConditions || [];
 }
@@ -1270,6 +1307,10 @@ function celebrateAchievements(data) {
   const addedFamily = (data.familyMembers || []).find((f) => !prevFamilyIds.includes(f.id));
   if (addedFamily) { showAchievementBadge('👨‍👩‍👧', addedFamily.label + ' 생김'); playAchievementPop(); }
 
+  const newAcquaintanceIds = (data.acquaintances || []).map((a) => a.id);
+  const addedAcquaintance = (data.acquaintances || []).find((a) => !prevAcquaintanceIds.includes(a.id));
+  if (addedAcquaintance) { showAchievementBadge('🤝', addedAcquaintance.label + ' ' + addedAcquaintance.name); playAchievementPop(); }
+
   const newOccId = data.currentOccupation ? data.currentOccupation.id : null;
   if (newOccId && newOccId !== prevOccupationId) { showAchievementBadge('💼', data.currentOccupation.label); playAchievementPop(); }
 
@@ -1280,6 +1321,7 @@ function celebrateAchievements(data) {
 
   prevAssetIds = newAssetIds;
   prevFamilyIds = newFamilyIds;
+  prevAcquaintanceIds = newAcquaintanceIds;
   prevOccupationId = newOccId;
   prevConditions = newConditions;
 }
@@ -1312,6 +1354,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   renderCashHoldings(cashHoldingsEl, data.cashHoldings);
   renderHealthConditions(data.healthConditions);
   renderFamilyMembers(data.familyMembers);
+  renderAcquaintances(data.acquaintances);
   renderCurrentOccupation(data.currentOccupation);
   if (selectedChoiceId) markSelectedChoice(selectedChoiceId);
   // 선택 결과는 서버(applyChoice)가 이미 lifeGame/playthroughs/{uid}에 저장을
@@ -1320,7 +1363,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   showToast('💾 자동저장 되었습니다');
   if (data.completed) {
     pendingNextStage = null;
-    showEnding(data.ending, data.stats, data.choiceHistory, data.familyMembers, data.occupationHistory, data.assets, data.cashHoldings);
+    showEnding(data.ending, data.stats, data.choiceHistory, data.familyMembers, data.occupationHistory, data.assets, data.cashHoldings, data.acquaintances);
   } else {
     pendingNextStage = data.nextStage;
     nextBtn.classList.remove('hidden');
@@ -1413,6 +1456,7 @@ const endingText = document.getElementById('endingText');
 const endingStatBars = document.getElementById('endingStatBars');
 const endingFamilyMembersEl = document.getElementById('endingFamilyMembers');
 const endingFamilyPanelTitle = document.getElementById('endingFamilyPanelTitle');
+const endingAcquaintancesEl = document.getElementById('endingAcquaintances');
 const occupationHistoryListEl = document.getElementById('occupationHistoryList');
 const choiceHistorySection = document.getElementById('choiceHistorySection');
 const choiceHistoryList = document.getElementById('choiceHistoryList');
@@ -1443,7 +1487,7 @@ function renderChoiceHistoryInto(container, history) {
 // 엔딩 문구 표시 → 지금까지 선택한 선택지들 표시 → 다른 유저 인생 → 재시작
 // 안내 순서로 보여준다(각 section의 DOM 순서가 곧 화면에 보이는 순서). 게임
 // 화면에서 엔딩 화면으로 넘어가는 것도 다른 전환들과 같은 페이드로 통일한다.
-async function showEnding(ending, stats, choiceHistory, familyMembers, occupationHistory, assets, cashHoldings) {
+async function showEnding(ending, stats, choiceHistory, familyMembers, occupationHistory, assets, cashHoldings, acquaintances) {
   if (INSTANT_ENDING_IDS.includes(ending.id)) {
     triggerCrisisEffect();
     await new Promise((resolve) => setTimeout(resolve, REDUCE_MOTION ? 200 : 650));
@@ -1462,6 +1506,7 @@ async function showEnding(ending, stats, choiceHistory, familyMembers, occupatio
   const endedAtAgeRange = (choiceHistory && choiceHistory.length) ? choiceHistory[choiceHistory.length - 1].ageRange : '100세';
   endingFamilyPanelTitle.textContent = endedAtAgeRange + ', 곁에 남은 가족';
   renderFamilyMembersInto(endingFamilyMembersEl, familyMembers);
+  renderAcquaintancesInto(endingAcquaintancesEl, acquaintances);
   renderOccupationHistoryInto(occupationHistoryListEl, occupationHistory);
   renderChoiceHistoryInto(choiceHistoryList, choiceHistory);
   shareBtn.disabled = false;

@@ -240,6 +240,27 @@ function cashUnitForAge(age) {
   return 200000;
 }
 
+// 지인 상세용 이름 캐시 - stocks 노드(전체 스트리머 시세 목록, 스트리머 검색
+// 자동완성에도 쓰이는 그 데이터, 3800여 개)에서 지인 추가 선택지가 뽑힐 때마다
+// 매번 통째로 읽으면 낭비라, 함수 인스턴스가 살아있는 동안은 캐시를 재사용한다
+// (주가는 실시간으로 바뀌지만 "이름 목록"은 이 정도 신선도면 충분 - 클라이언트가
+// 스트리머 검색용 목록을 페이지 로드 시 한 번만 불러오는 것과 같은 패턴).
+let streamerNameCache = null;
+let streamerNameCacheAt = 0;
+const STREAMER_NAME_CACHE_TTL_MS = 60 * 60 * 1000;
+
+async function pickRandomStreamerName(db) {
+  const now = Date.now();
+  if (!streamerNameCache || now - streamerNameCacheAt > STREAMER_NAME_CACHE_TTL_MS) {
+    const snap = await db.ref('stocks').get();
+    const val = snap.val() || {};
+    streamerNameCache = Object.keys(val).map((k) => val[k] && val[k].name).filter(Boolean);
+    streamerNameCacheAt = now;
+  }
+  if (!streamerNameCache.length) return '이름 모를 이';
+  return streamerNameCache[Math.floor(Math.random() * streamerNameCache.length)];
+}
+
 // submitChoice/rollDice 공통 로직 - 하나의 선택(choice)을 스탯에 반영하고, 다음
 // 구간으로 넘기거나(마지막 구간이면) 엔딩을 확정한다. 어느 경로로 골랐든(직접
 // 클릭 vs 주사위) 반영 방식은 동일해야 하므로 여기 한 곳에만 둔다.
@@ -367,6 +388,27 @@ async function applyChoice(db, playRef, play, stage, choice) {
     familyMembers = familyMembers.filter((f) => !choice.removeFamilyMembers.includes(f.id));
   }
 
+  // 지인 상세 - choice.addAcquaintance가 있으면 stocks 노드에서 무작위로 뽑은
+  // 실제 스트리머 이름으로 새 지인이 하나 생긴다(2026-08-17, 사용자 지시 -
+  // "임의 이름이 아니라 경로에 있는 스트리머 이름중에 랜덤하게"). 가족과 달리
+  // 이름이 매번 달라지므로 id를 역할명으로 쓸 수 없어 "이 구간-이 선택지"
+  // 조합으로 유일성을 보장한다(한 구간은 한 판에서 한 번만 지나가므로 안전).
+  const currentAcquaintances = Array.isArray(play.acquaintances) ? play.acquaintances : [];
+  let acquaintances = currentAcquaintances.slice();
+  if (choice.addAcquaintance) {
+    const acquaintanceName = await pickRandomStreamerName(db);
+    const acquaintanceId = stage.id + '-' + choice.id;
+    if (!acquaintances.some((a) => a.id === acquaintanceId)) {
+      acquaintances.push({
+        id: acquaintanceId,
+        name: acquaintanceName,
+        relation: choice.addAcquaintance.relation,
+        label: choice.addAcquaintance.label,
+        sinceStageId: stage.id
+      });
+    }
+  }
+
   // 재산 상세 - 건강/가족 상세와 완전히 같은 패턴. 선택지가 addAsset을 붙였으면
   // 현금/부동산/동산 중 하나가 새로 생기고(이미 있으면 중복 추가 안 함),
   // removeAsset을 붙였으면 그 재산이 처분돼서 빠진다.
@@ -403,7 +445,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
 
   const nextIndex = pickNextStageIndex(play.stageIndex);
   const completed = collapsed || nextIndex >= STAGES.length;
-  const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers, assets, cashHoldings };
+  const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers, acquaintances, assets, cashHoldings };
 
   let ending = null;
   let nextVisibleIds = null;
@@ -469,6 +511,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
     nextStage: completed ? null : publicStage(STAGES[nextIndex], nextVisibleIds, nextIntroId),
     healthConditions,
     familyMembers,
+    acquaintances,
     assets,
     cashHoldings,
     currentOccupation,
@@ -517,6 +560,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
       currentIntroId,
       healthConditions: [],
       familyMembers: [],
+      acquaintances: [],
       assets: [],
       cashHoldings: 0,
       choiceLog: [],
@@ -529,7 +573,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
     db.ref('lifeGame/stats/totals/started').set(ServerValue.increment(1))
   ]);
 
-  return { stats, healthConditions: [], familyMembers: [], assets: [], cashHoldings: 0, currentOccupation: null, stage: publicStage(STAGES[0], visibleChoiceIds, currentIntroId) };
+  return { stats, healthConditions: [], familyMembers: [], acquaintances: [], assets: [], cashHoldings: 0, currentOccupation: null, stage: publicStage(STAGES[0], visibleChoiceIds, currentIntroId) };
 });
 
 // 창을 껐다가 다시 열었을 때 - 저장된 판이 있으면 지금 구간을 그대로 이어서
@@ -550,6 +594,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       ending: play.ending,
       healthConditions: Array.isArray(play.healthConditions) ? play.healthConditions : [],
       familyMembers: Array.isArray(play.familyMembers) ? play.familyMembers : [],
+      acquaintances: Array.isArray(play.acquaintances) ? play.acquaintances : [],
       assets: Array.isArray(play.assets) ? play.assets : [],
       cashHoldings: play.cashHoldings || 0,
       choiceHistory: buildChoiceHistory(play.choiceLog),
@@ -561,6 +606,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
 
   const healthConditions = Array.isArray(play.healthConditions) ? play.healthConditions : [];
   const familyMembers = Array.isArray(play.familyMembers) ? play.familyMembers : [];
+  const acquaintances = Array.isArray(play.acquaintances) ? play.acquaintances : [];
   const assets = Array.isArray(play.assets) ? play.assets : [];
   const occupationHistory = buildOccupationHistory(play.choiceLog);
   const currentOccupation = occupationHistory.length ? occupationHistory[occupationHistory.length - 1] : null;
@@ -598,6 +644,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
     completed: false,
     healthConditions,
     familyMembers,
+    acquaintances,
     assets,
     cashHoldings: play.cashHoldings || 0,
     currentOccupation,
