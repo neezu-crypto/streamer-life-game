@@ -2460,7 +2460,8 @@ const STAGES = [
         id: 'new-exercise-routine',
         text: '새로운 운동을 시작한다',
         deltas: { health: 5, happiness: 2 },
-        result: '땀 흘리고 나면 머릿속까지 개운해지는 걸, 오랜만에 느꼈다.'
+        result: '땀 흘리고 나면 머릿속까지 개운해지는 걸, 오랜만에 느꼈다.',
+        requiresNoCondition: ['back-pain', 'frozen-shoulder']
       },
       {
         id: 'hobby-account-mini-fame',
@@ -2538,7 +2539,8 @@ const STAGES = [
         id: 'consistent-exercise-routine',
         text: '정기적인 운동 루틴을 만들어 꾸준히 지킨다',
         deltas: { health: 5, wealth: -2 },
-        result: '작심삼일이 아니라 진짜 습관이 된 첫 운동이었다.'
+        result: '작심삼일이 아니라 진짜 습관이 된 첫 운동이었다.',
+        requiresNoCondition: ['back-pain', 'frozen-shoulder']
       },
       {
         id: 'visible-aging-signs',
@@ -2810,7 +2812,8 @@ const STAGES = [
         id: 'starting-serious-exercise',
         text: '본격적으로 운동을 시작하며 체력을 관리한다',
         deltas: { health: 5, wealth: -2 },
-        result: '숨이 턱까지 차오르면서도, 이상하게 개운했다.'
+        result: '숨이 턱까지 차오르면서도, 이상하게 개운했다.',
+        requiresNoCondition: ['back-pain']
       },
       {
         id: 'visible-signs-of-aging',
@@ -4345,7 +4348,8 @@ const STAGES = [
         id: 'exercise-group-together',
         text: '운동 모임에 나가며 건강을 다 함께 챙긴다',
         deltas: { health: 4, relationship: 3 },
-        result: '혼자 하면 작심삼일이던 운동이, 함께 하니 꾸준해졌다.'
+        result: '혼자 하면 작심삼일이던 운동이, 함께 하니 꾸준해졌다.',
+        requiresNoCondition: ['back-pain', 'knee-pain']
       },
       {
         id: 'cautiously-reducing-activity',

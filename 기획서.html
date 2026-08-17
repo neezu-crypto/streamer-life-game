@@ -481,12 +481,23 @@
         정확히 같은 필터 방식을 <code>pickVisibleChoiceIds()</code>(노출 후보 계산)와
         <code>applyChoice()</code>(우회 제출 방어)에 나란히 추가했다 — 새 필드 하나 추가, 함수 시그니처
         변경 없음(<code>activeConditionIds</code>는 이미 <code>requiresCondition</code> 검사에 쓰이고
-        있어서 그대로 재사용). 지금 붙어있는 예 2건: 16세 <code>sports-day-star</code>(체육대회 반
+        있어서 그대로 재사용). 지금 붙어있는 예 6건: 16세 <code>sports-day-star</code>(체육대회 반
         대표로 활약)는 발목 부상(<code>ankle-sprain</code>) 중이면 안 뜨고, 29세
         <code>logistics-recognized-as-ace</code>(빠른 손놀림으로 유명해짐, 물류센터 직군 전용)는 손목
-        부상·손목터널증후군(<code>wrist-sprain</code>·<code>carpal-tunnel</code>) 중이면 안 뜬다. 검증:
+        부상·손목터널증후군(<code>wrist-sprain</code>·<code>carpal-tunnel</code>) 중이면 안 뜬다. 이어서
+        운동을 "새로 시작/유지"하는 선택지 4개도 정형외과적 부상 중엔 안 뜨게 막았다(단, 운동 자체가
+        치료법으로 쓰이는 고혈압·골다공증·당뇨 같은 조건은 안 걸었다 — 오히려 그 조건들의 회복
+        선택지가 "운동으로 낫는다"는 내용이라 앞뒤가 안 맞기 때문): 37세
+        <code>new-exercise-routine</code>·38세 <code>consistent-exercise-routine</code>은
+        허리 통증·어깨 결림(<code>back-pain</code>·<code>frozen-shoulder</code>) 중이면, 42세
+        <code>starting-serious-exercise</code>는 허리 통증(<code>back-pain</code>) 중이면, 64세
+        <code>exercise-group-together</code>는 허리 통증·무릎 통증(<code>back-pain</code>·<code>knee-pain</code>)
+        중이면 안 뜬다. 허리 통증은 20세 <code>back-pain-onset</code>→22세 <code>back-pain-heal</code>로
+        한 번 낫지만, 34세 <code>logistics-back-injury</code>(물류센터 직군 전용)로 재발하면 그 뒤론 회복
+        선택지가 따로 없어(위 "건강 상세" 표 참고) 평생 지속될 수 있다 — 그래서 37세 이후의 운동 선택지들이
+        전부 걸려있다. 검증(6건 전부 동일하게):
         문법 검사, 실제 서버 로직을 그대로 복제한 2만 회 시뮬레이션(모든 게이팅 필드 포함, 후보가 0개인
-        스테이지 방문 0건 확인), 배포 후 소스에 두 필드가 정확히 반영됐는지 직접 대조 확인 —
+        스테이지 방문 0건 확인), 배포 후 소스에 필드가 정확히 반영됐는지 직접 대조 확인 —
         전체 100세 플레이스루 형태의 라이브 통계 검증은 시도했으나(발목 부상을 강제로 얻은 뒤 16세까지
         도달) 5~99세 구간이 매번 1~5세씩 무작위로 건너뛰는 설계 때문에 정확히 16세에 도달하는 표본을
         충분히 모으지 못해 통계적으로 결론을 내리진 못했다 — 다만 이 필터는
