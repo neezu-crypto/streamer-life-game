@@ -177,6 +177,13 @@
   .stat-bar-track { flex: 1; height: 8px; border-radius: 5px; background: var(--panel-2); overflow: hidden; }
   .stat-bar-fill { display: block; height: 100%; background: var(--gold); border-radius: 5px; transition: width 0.4s ease, background 0.3s ease; }
   .stat-bar-val { width: 28px; text-align: right; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+  @keyframes stat-pulse-positive { 0% { filter: brightness(1); box-shadow: 0 0 0 0 var(--sage); } 35% { filter: brightness(1.7); box-shadow: 0 0 8px 2px var(--sage); } 100% { filter: brightness(1); box-shadow: 0 0 0 0 transparent; } }
+  @keyframes stat-pulse-negative { 0% { filter: brightness(1); box-shadow: 0 0 0 0 var(--coral); } 35% { filter: brightness(1.7); box-shadow: 0 0 8px 2px var(--coral); } 100% { filter: brightness(1); box-shadow: 0 0 0 0 transparent; } }
+  .stat-bar-fill.pulse-positive { animation: stat-pulse-positive 1s ease; }
+  .stat-bar-fill.pulse-negative { animation: stat-pulse-negative 1s ease; }
+  @media (prefers-reduced-motion: reduce) {
+    .stat-bar-fill.pulse-positive, .stat-bar-fill.pulse-negative { animation: none; }
+  }
 
   .asset-panel { margin: 4px 0 14px; }
   .asset-panel-title { font-size: 12px; color: var(--text-faint); letter-spacing: 0.03em; margin: 0 0 6px; }
@@ -735,11 +742,29 @@ function renderStatBars(el, stats) {
   Object.keys(STAT_LABELS).forEach((key) => {
     const row = document.createElement('div');
     row.className = 'stat-bar-row';
+    row.dataset.stat = key;
     row.innerHTML =
       '<span class="stat-bar-label">' + STAT_LABELS[key] + '</span>' +
       '<span class="stat-bar-track"><span class="stat-bar-fill" style="width:' + (stats[key] || 0) + '%; background:' + STAT_COLORS[key] + ';"></span></span>' +
       '<span class="stat-bar-val">' + (stats[key] || 0) + '</span>';
     el.appendChild(row);
+  });
+}
+
+// 스탯 변화 강조 - |delta|가 큰(기본 5 이상) 스탯만 막대에 잠깐 글로우를
+// 준다(2026-08-17, 방송 콘텐츠 백로그 2번째 항목 - "+1이든 +25든 똑같이
+// 부드럽게 바뀌기만 해서 큰 사건이라는 느낌이 안 남"). renderStatBars() 직후
+// 호출해야 한다 - renderStatBars가 innerHTML을 통째로 새로 그리기 때문에
+// 애니메이션 클래스는 항상 그다음에 얹는다.
+const STAT_PULSE_THRESHOLD = 5;
+function flashStatChanges(el, deltas) {
+  if (!deltas) return;
+  Object.keys(deltas).forEach((key) => {
+    const delta = deltas[key];
+    if (Math.abs(delta) < STAT_PULSE_THRESHOLD) return;
+    const fill = el.querySelector('.stat-bar-row[data-stat="' + key + '"] .stat-bar-fill');
+    if (!fill) return;
+    fill.classList.add(delta > 0 ? 'pulse-positive' : 'pulse-negative');
   });
 }
 
@@ -995,6 +1020,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   if (tone === 'positive') resultBox.classList.add('tone-positive');
   else if (tone === 'negative') resultBox.classList.add('tone-negative');
   renderStatBars(statBars, data.stats);
+  flashStatChanges(statBars, data.deltas);
   renderAssets(data.assets);
   renderCashHoldings(cashHoldingsEl, data.cashHoldings);
   renderHealthConditions(data.healthConditions);
