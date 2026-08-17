@@ -215,6 +215,26 @@ function freshStats() {
   return stats;
 }
 
+// 보유 현금자산(원 단위, 항상 만원의 배수) - 추상적인 wealth 스탯(0~100)과는
+// 별개로, "실제로 돈을 모으는 재미"를 위해 선택지의 wealth delta를 그
+// 나이대에 맞는 원화 단위로 환산해 누적하는 값(2026-08-17, 사용자 지시).
+// game-data.js의 814개 선택지를 일일이 손대는 대신, wealth delta가 있는
+// 모든 선택지에 서버가 자동으로 금액을 매긴다 - 나이대별 배수(cashUnitForAge)
+// 는 전부 만원 단위라 곱한 결과도 항상 만원의 배수(요청한 "최소 1만원단위"
+// 충족). 나이대가 올라갈수록 배수가 커지는 건 "용돈 수준"(유아~청소년)에서
+// "근로소득 수준"(사회초년생~중년)으로 커졌다가 "연금 수준"(황혼)으로 다시
+// 줄어드는 생애주기를 반영한 것. 실제 원화 금액이라 "보유 현금"이 음수가
+// 되는 건 어색해서 0 밑으로는 안 내려가게 막는다(빚은 추상 wealth 스탯에서만
+// 표현됨).
+function cashUnitForAge(age) {
+  if (age < 10) return 10000;
+  if (age < 20) return 30000;
+  if (age < 30) return 200000;
+  if (age < 50) return 500000;
+  if (age < 65) return 400000;
+  return 200000;
+}
+
 // submitChoice/rollDice 공통 로직 - 하나의 선택(choice)을 스탯에 반영하고, 다음
 // 구간으로 넘기거나(마지막 구간이면) 엔딩을 확정한다. 어느 경로로 골랐든(직접
 // 클릭 vs 주사위) 반영 방식은 동일해야 하므로 여기 한 곳에만 둔다.
@@ -275,6 +295,12 @@ async function applyChoice(db, playRef, play, stage, choice) {
   for (const key of Object.keys(effectiveDeltas)) {
     stats[key] = clampStat((stats[key] || 0) + effectiveDeltas[key]);
   }
+
+  // 보유 현금자산 갱신 - wealth delta가 있는 선택지만 영향을 준다(cashUnitForAge
+  // 주석 참고). blocksHealthRecovery처럼 별도로 막는 조건은 없다 - 재산은
+  // health와 달리 "회복 불가" 컨셉이 없어서 항상 그대로 적용.
+  const wealthDelta = effectiveDeltas.wealth || 0;
+  const cashHoldings = Math.max(0, (play.cashHoldings || 0) + wealthDelta * cashUnitForAge(play.stageIndex));
 
   // 건강 상세 - 선택지가 addCondition을 붙였으면 부상/질병이 새로 생기고(이미
   // 있으면 중복 추가 안 함), removeCondition을 붙였으면 그 조건이 나아서 빠진다.
@@ -344,7 +370,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
 
   const nextIndex = pickNextStageIndex(play.stageIndex);
   const completed = collapsed || nextIndex >= STAGES.length;
-  const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers, assets };
+  const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers, assets, cashHoldings };
 
   let ending = null;
   let nextVisibleIds = null;
@@ -407,6 +433,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
     healthConditions,
     familyMembers,
     assets,
+    cashHoldings,
     currentOccupation,
     choiceHistory: completed ? buildChoiceHistory(choiceLog) : null,
     occupationHistory: completed ? occupationHistory : null
@@ -454,6 +481,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
       healthConditions: [],
       familyMembers: [],
       assets: [],
+      cashHoldings: 0,
       choiceLog: [],
       completed: false,
       startedAt: ServerValue.TIMESTAMP
@@ -464,7 +492,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
     db.ref('lifeGame/stats/totals/started').set(ServerValue.increment(1))
   ]);
 
-  return { stats, healthConditions: [], familyMembers: [], assets: [], currentOccupation: null, stage: publicStage(STAGES[0], visibleChoiceIds, currentIntroId) };
+  return { stats, healthConditions: [], familyMembers: [], assets: [], cashHoldings: 0, currentOccupation: null, stage: publicStage(STAGES[0], visibleChoiceIds, currentIntroId) };
 });
 
 // 창을 껐다가 다시 열었을 때 - 저장된 판이 있으면 지금 구간을 그대로 이어서
@@ -486,6 +514,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       healthConditions: Array.isArray(play.healthConditions) ? play.healthConditions : [],
       familyMembers: Array.isArray(play.familyMembers) ? play.familyMembers : [],
       assets: Array.isArray(play.assets) ? play.assets : [],
+      cashHoldings: play.cashHoldings || 0,
       choiceHistory: buildChoiceHistory(play.choiceLog),
       occupationHistory: buildOccupationHistory(play.choiceLog)
     };
@@ -532,6 +561,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
     healthConditions,
     familyMembers,
     assets,
+    cashHoldings: play.cashHoldings || 0,
     currentOccupation,
     stage: publicStage(stage, visibleChoiceIds, currentIntroId)
   };
