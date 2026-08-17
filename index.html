@@ -303,6 +303,16 @@
   .gallery-item .g-ending { color: var(--gold); font-size: 12.5px; flex: none; }
   .gallery-choice-log { padding: 0 14px 14px; }
 
+  .leaderboard { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .leaderboard-row {
+    display: flex; align-items: center; gap: 10px; padding: 11px 14px;
+    background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; font-size: 13.5px;
+  }
+  .leaderboard-row .lb-icon { font-size: 17px; flex: none; }
+  .leaderboard-row .lb-label { color: var(--text-dim); flex: none; width: 88px; }
+  .leaderboard-row .lb-name { font-weight: 600; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .leaderboard-row .lb-value { color: var(--gold); font-weight: 600; font-size: 12.5px; flex: none; }
+
   .choice-history-list {
     display: flex; flex-direction: column; gap: 6px; max-height: 380px; overflow-y: auto; padding-right: 4px;
   }
@@ -496,6 +506,7 @@
   <section id="gallerySection" class="panel hidden">
     <h2>다른 유저는 어떤 인생을 살았을까?</h2>
     <button class="primary" id="shareBtn" style="margin-bottom:14px;">갤러리에 공유하기</button>
+    <div id="leaderboard" class="leaderboard"></div>
     <div id="galleryList"><p class="empty-msg">불러오는 중...</p></div>
   </section>
 
@@ -1535,6 +1546,51 @@ onValue(ref(db, 'lifeGame/gallery'), (snap) => {
   console.error('갤러리 읽기 실패:', err);
   galleryList.innerHTML = '<p class="empty-msg">갤러리를 불러올 수 없습니다.</p>';
 });
+
+// ------------------------------------------------------------
+// 방송 콘텐츠 백로그 7번째 항목: 리더보드("역대 최고 기록", 2026-08-17).
+// 위 갤러리 구독은 최근 30건만 유지하므로(entries.slice(0, 30)) 그걸로는
+// "역대" 기록을 정확히 매길 수 없다 - 별도로 lifeGame/gallery 전체를 한 번
+// get()으로 읽어와 직접 계산한다(이미 전체가 공개 읽기 노드라 새 보안 규칙
+// 불필요). 두 카테고리만 우선 구현: 💰 역대 최고 부자 엔딩(cashHoldings
+// 최댓값), 💀 최연소 사망(즉시 사망 엔딩 5종 중 endedAtAge 최솟값 - 100세
+// 완주는 "사망"이 아니라 집계에서 제외).
+// ------------------------------------------------------------
+const leaderboardEl = document.getElementById('leaderboard');
+function renderLeaderboardRow(icon, label, name, valueText) {
+  const row = document.createElement('div');
+  row.className = 'leaderboard-row';
+  row.innerHTML =
+    '<span class="lb-icon">' + icon + '</span>' +
+    '<span class="lb-label">' + label + '</span>' +
+    '<span class="lb-name">' + escapeHtml(name) + '</span>' +
+    '<span class="lb-value">' + escapeHtml(valueText) + '</span>';
+  return row;
+}
+async function loadLeaderboard() {
+  try {
+    const snap = await get(ref(db, 'lifeGame/gallery'));
+    const val = snap.val() || {};
+    const entries = Object.values(val);
+    if (!entries.length) return;
+
+    leaderboardEl.innerHTML = '';
+
+    const richest = entries.reduce((best, e) => ((e.cashHoldings || 0) > ((best && best.cashHoldings) || -1) ? e : best), null);
+    if (richest && richest.cashHoldings > 0) {
+      leaderboardEl.appendChild(renderLeaderboardRow('💰', '최고 부자', richest.streamerName || '이름 없음', formatCashHoldings(richest.cashHoldings)));
+    }
+
+    const deaths = entries.filter((e) => e.ending && INSTANT_ENDING_IDS.includes(e.ending.id) && typeof e.endedAtAge === 'number');
+    const youngestDeath = deaths.reduce((best, e) => (e.endedAtAge < ((best && best.endedAtAge) ?? 101) ? e : best), null);
+    if (youngestDeath) {
+      leaderboardEl.appendChild(renderLeaderboardRow('💀', '최연소 사망', youngestDeath.streamerName || '이름 없음', youngestDeath.endedAtAge + '세 · ' + (youngestDeath.ending.title || '')));
+    }
+  } catch (err) {
+    console.error('리더보드 읽기 실패:', err);
+  }
+}
+loadLeaderboard();
 
 // ------------------------------------------------------------
 // devbar 자동 스크롤 (넘칠 때만) - 다른 페이지들과 동일 로직

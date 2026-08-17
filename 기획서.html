@@ -2073,19 +2073,37 @@
         </div>
 
         <h3>실행 순서</h3>
-        <ol>
-            <li>결과 박스 색상 차별화(긍정/부정/중립) — 다른 이펙트들의 기반이 되는 항목이라 최우선</li>
-            <li>스탯 변화 강조 이펙트(delta 크기 비례)</li>
-            <li>복권 대박 축하 이펙트(1등·2등)</li>
-            <li>즉사 엔딩 위기 이펙트(5종)</li>
-            <li>감정적 전환점 톤다운 이펙트(사별·이혼)</li>
-            <li>획득·성취 팝업 이펙트(재산·직업·가족·건강회복)</li>
-            <li>리더보드 기능(역대 최고 기록)</li>
-            <li>배경음악·효과음 도입(저작권 문제 없는 합성음 위주)</li>
-            <li>채팅 개입(투표) 모드 — 스코프만 별도 정리, 실제 구현은 사용자와 별도 논의 후 진행</li>
+        <ol class="todo-list">
+            <li><span class="todo-check" style="background:var(--sage);border-color:var(--sage);"></span>✅ 결과 박스 색상 차별화(긍정/부정/중립) — 다른 이펙트들의 기반이 되는 항목이라 최우선</li>
+            <li><span class="todo-check" style="background:var(--sage);border-color:var(--sage);"></span>✅ 스탯 변화 강조 이펙트(delta 크기 비례)</li>
+            <li><span class="todo-check" style="background:var(--sage);border-color:var(--sage);"></span>✅ 복권 대박 축하 이펙트(1등·2등) — 컨페티 + 합성 팡파르, 서버 응답에 <code>prizeLabel</code> 추가</li>
+            <li><span class="todo-check" style="background:var(--sage);border-color:var(--sage);"></span>✅ 즉사 엔딩 위기 이펙트(5종) — 화면 흔들림 + 붉은 플래시 + 경고음</li>
+            <li><span class="todo-check" style="background:var(--sage);border-color:var(--sage);"></span>✅ 감정적 전환점 톤다운 이펙트(사별·이혼) — 6개 고정 id 기준 채도 저하</li>
+            <li><span class="todo-check" style="background:var(--sage);border-color:var(--sage);"></span>✅ 획득·성취 팝업 이펙트(재산·직업·가족·건강회복) — 클라이언트 diff 기반</li>
+            <li><span class="todo-check" style="background:var(--sage);border-color:var(--sage);"></span>✅ 리더보드 기능(역대 최고 기록) — 아래 상세 참고</li>
+            <li><span class="todo-check"></span>배경음악·효과음 도입(저작권 문제 없는 합성음 위주)</li>
+            <li><span class="todo-check"></span>채팅 개입(투표) 모드 — 스코프만 별도 정리, 실제 구현은 사용자와 별도 논의 후 진행</li>
         </ol>
         <p class="note">사운드는 외부 음원 파일을 쓰지 않고 <b>Web Audio API로 그때그때 합성한 짧은 톤</b>을
         쓰기로 한다 — 저작권 확인이 필요한 외부 오디오 자산을 새로 들여오지 않기 위함.</p>
+
+        <h3>리더보드 상세 — "역대 최고 기록"</h3>
+        <p><code>lifeGame/gallery</code>는 최근 30건만 클라이언트 구독(<code>onValue</code>)을 유지하므로
+        "역대" 기록을 매기려면 그걸로는 부족하다 — 이미 전체가 공개 읽기 노드라 새 보안 규칙 없이, 리더보드
+        전용으로 <code>get()</code> 한 번으로 <code>lifeGame/gallery</code> 전체를 따로 읽어 클라이언트에서
+        직접 계산한다(<code>loadLeaderboard()</code>). 갤러리 엔트리에 없던 두 필드
+        <code>cashHoldings</code>·<code>endedAtAge</code>를 <code>shareToGallery()</code>가 새로 기록하도록
+        추가했다(<code>endedAtAge</code>는 showEnding의 "곁에 남은 가족" 제목과 같은 방식으로
+        <code>choiceHistory</code> 마지막 항목의 나이를 사용 — 즉시 사망 엔딩은 100세가 아니라 그 전
+        나이에 끝나므로 이렇게 구해야 정확함). 두 카테고리만 우선 구현: 💰 최고 부자(cashHoldings 최댓값)·
+        💀 최연소 사망(즉시 사망 엔딩 5종 중 endedAtAge 최솟값 — 100세 완주는 "사망"이 아니므로 집계 제외).
+        해당 카테고리에 기록이 아직 없으면 그 행 자체를 표시하지 않는다.</p>
+        <p class="note">검증: 문법 검사, 배포 후 실제 4회 플레이스루를 만들어 <code>shareToGalleryFn</code>으로
+        진짜 갤러리에 공유(사용자 승인 하에 진행) → 클라이언트에서 최고 cashHoldings 항목(640만원)이 정확히
+        "최고 부자"로 뽑히는 것을 라이브로 확인 → 검증용 4건을 갤러리·선택기록 양쪽에서 삭제하고
+        <code>lifeGame/stats/totals/shared</code> 카운터도 늘어난 만큼(0→4→0) 되돌려 정리(사용자 승인 하에
+        진행). 💀 최연소 사망 쪽은 이번 4회 플레이스루가 전부 정상 완주로 끝나 실제 데이터로는 못 봤지만,
+        최고 부자와 완전히 같은 필터+reduce 패턴이라 코드 검토로 신뢰.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>

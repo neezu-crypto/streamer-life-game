@@ -664,6 +664,16 @@ const shareToGallery = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB'
   if (play.galleryEntryId) throw new HttpsError('already-exists', '이미 갤러리에 공유한 인생입니다.');
 
   const galleryRef = db.ref('lifeGame/gallery').push();
+  // 리더보드(방송 콘텐츠 백로그 7번째 항목, 2026-08-17)용으로 cashHoldings·
+  // endedAtAge를 추가로 저장한다 - 기존엔 stats/ending만 있어서 "역대 최고
+  // 부자"/"최연소 사망" 같은 랭킹을 매길 수 없었다. endedAtAge는 showEnding()의
+  // "곁에 남은 가족" 패널 제목 계산과 같은 방식(choiceHistory 마지막 항목의
+  // ageRange)으로 구한다 - 즉시 사망 엔딩은 100세가 아니라 그 전 나이에
+  // 끝나므로 이렇게 구해야 정확하다.
+  const choiceHistoryForShare = buildChoiceHistory(play.choiceLog);
+  const endedAtAge = choiceHistoryForShare.length
+    ? parseInt(choiceHistoryForShare[choiceHistoryForShare.length - 1].ageRange, 10)
+    : 100;
   // 갤러리 목록 실시간 구독(lifeGame/gallery 전체를 onValue로 받음)이 매번 이 선택
   // 기록까지 통째로 내려받지 않도록, 선택 로그는 별도 노드(galleryChoiceLogs)에
   // 따로 저장해둔다 - 클릭해서 펼칠 때만 그 항목 하나를 골라 읽는다.
@@ -673,6 +683,8 @@ const shareToGallery = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB'
       streamerId: play.streamerId || null,
       ending: play.ending,
       stats: play.stats,
+      cashHoldings: play.cashHoldings || 0,
+      endedAtAge,
       uid,
       sharedAt: ServerValue.TIMESTAMP
     }),
