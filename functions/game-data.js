@@ -140,6 +140,22 @@ const COMPANY_OCCUPATION_IDS = [
   're-employed', 'career-changer'
 ];
 
+// LOTTERY_PRIZE_TABLE(2026-08-17, 사용자 지시) - 복권을 산 뒤(addAsset로
+// lottery-ticket 재산 획득) "당첨 결과를 확인" 선택지가 prizeTable로 이 표를
+// 참조하면, 그 선택의 deltas·result가 고정값이 아니라 이 중 하나를 가중치
+// 기준으로 무작위로 뽑아 대체된다(index.js의 applyChoice 참고). weight 합이
+// 정확히 100이라 각 값 자체가 당첨 확률(%)이다 - 1등 2%부터 꽝 50%까지.
+// wealth 값은 cashUnitForAge와 곱해져 실제 원화로 환산되므로, 1등이 다른
+// 어떤 기존 선택지보다도 압도적으로 큰 액수가 되도록 의도적으로 크게 잡았다.
+const LOTTERY_PRIZE_TABLE = [
+  { weight: 2, label: '1등', deltas: { wealth: 25, happiness: 15, fame: 5 }, result: '떨리는 손으로 번호를 맞춰보다, 숨이 턱 막혔다. 1등이었다.' },
+  { weight: 3, label: '2등', deltas: { wealth: 12, happiness: 8 }, result: '한 자리가 아쉬웠지만, 2등도 인생에 몇 번 없을 행운이었다.' },
+  { weight: 5, label: '3등', deltas: { wealth: 6, happiness: 4 }, result: '기대 이상의 금액에, 하루 종일 실실 웃음이 났다.' },
+  { weight: 15, label: '4등', deltas: { wealth: 2, happiness: 2 }, result: '큰돈은 아니어도, 공돈이 생긴 기분은 나쁘지 않았다.' },
+  { weight: 25, label: '5등', deltas: { wealth: 1, happiness: 1 }, result: '본전 조금 넘는 정도였지만, 그래도 당첨은 당첨이었다.' },
+  { weight: 50, label: '꽝', deltas: {}, result: '역시나, 번호는 하나도 맞지 않았다.' }
+];
+
 const STAGES = [
   {
     id: 'infancy-0',
@@ -1252,6 +1268,19 @@ const STAGES = [
         result: '벌이는 불안정했지만, 처음으로 "내 일"을 한다는 느낌이 들었다.',
         setOccupation: { id: 'artist-writer', label: '🎨 예술가' },
         mandatory: true
+      },
+      {
+        id: 'lottery-buy-20',
+        text: '친구들과 의기투합해 로또를 사본다',
+        deltas: { happiness: 1 },
+        result: '번호를 고르고 나니, 괜히 기분이 들떴다.',
+        addAsset: { id: 'lottery-ticket', label: '🎟️ 복권', type: 'movable' }
+      },
+      {
+        id: 'lottery-skip-20',
+        text: '돈이 아깝다는 생각에 그냥 지나친다',
+        deltas: { happiness: 1 },
+        result: '쓸데없는 데 돈 쓸 뻔했다며 스스로를 다독였다.'
       }
     ]
   },
@@ -1319,6 +1348,15 @@ const STAGES = [
         result: '3교대 근무는 고됐지만, 누군가를 돕는다는 실감이 매일 있었다.',
         setOccupation: { id: 'healthcare-worker', label: '🏥 의료직' },
         mandatory: true
+      },
+      {
+        id: 'lottery-check-21',
+        text: '사둔 복권의 당첨 결과를 확인해본다',
+        result: '결과를 확인했다.',
+        requiresAsset: 'lottery-ticket',
+        removeAsset: 'lottery-ticket',
+        mandatory: true,
+        prizeTable: LOTTERY_PRIZE_TABLE
       }
     ]
   },
@@ -1593,6 +1631,15 @@ const STAGES = [
         deltas: { wealth: 6, happiness: 3 },
         result: '문 닫을 때 세는 매출이, 요즘 들어 유독 든든했다.',
         requiresOccupation: ['small-business-owner']
+      },
+      {
+        id: 'lottery-check-25',
+        text: '사둔 복권의 당첨 결과를 확인해본다',
+        result: '결과를 확인했다.',
+        requiresAsset: 'lottery-ticket',
+        removeAsset: 'lottery-ticket',
+        mandatory: true,
+        prizeTable: LOTTERY_PRIZE_TABLE
       }
     ]
   },
@@ -1828,6 +1875,19 @@ const STAGES = [
         deltas: { health: -4, happiness: -3 },
         result: '막차 시간표를 외울 지경이 되자, 뭔가 잘못됐다는 걸 느꼈다.',
         requiresOccupation: ['office-worker']
+      },
+      {
+        id: 'lottery-buy-28',
+        text: '월급날 기념으로 로또 한 장을 사본다',
+        deltas: { happiness: 1 },
+        result: '봉투에 고이 넣어둔 종이 한 장이, 왠지 든든했다.',
+        addAsset: { id: 'lottery-ticket', label: '🎟️ 복권', type: 'movable' }
+      },
+      {
+        id: 'lottery-skip-28',
+        text: '그 돈으로 차라리 저녁을 사 먹는다',
+        deltas: { happiness: 1 },
+        result: '그 돈으로 먹은 저녁이, 나름 남는 장사였다.'
       }
     ]
   },
@@ -1894,6 +1954,15 @@ const STAGES = [
         deltas: { happiness: -3 },
         result: '기초부터 다시 배운다는 게, 생각보다 훨씬 더디고 어려웠다.',
         requiresOccupation: ['career-changer']
+      },
+      {
+        id: 'lottery-check-29',
+        text: '사둔 복권의 당첨 결과를 확인해본다',
+        result: '결과를 확인했다.',
+        requiresAsset: 'lottery-ticket',
+        removeAsset: 'lottery-ticket',
+        mandatory: true,
+        prizeTable: LOTTERY_PRIZE_TABLE
       }
     ]
   },
@@ -2194,6 +2263,15 @@ const STAGES = [
         deltas: { wealth: 5, happiness: 3 },
         result: '입금 문자를 몇 번이고 다시 열어봤다.',
         requiresOccupation: ['office-worker']
+      },
+      {
+        id: 'lottery-check-33',
+        text: '사둔 복권의 당첨 결과를 확인해본다',
+        result: '결과를 확인했다.',
+        requiresAsset: 'lottery-ticket',
+        removeAsset: 'lottery-ticket',
+        mandatory: true,
+        prizeTable: LOTTERY_PRIZE_TABLE
       }
     ]
   },
@@ -2441,6 +2519,19 @@ const STAGES = [
         deltas: { happiness: -3 },
         result: '같은 회사원인데도, 문화는 이렇게 다를 수 있다는 걸 새삼 느꼈다.',
         requiresOccupation: ['job-changed']
+      },
+      {
+        id: 'lottery-buy-36',
+        text: '혹시나 하는 마음에 로또를 사본다',
+        deltas: { happiness: 1 },
+        result: '밑져야 본전이라는 마음으로 지갑을 열었다.',
+        addAsset: { id: 'lottery-ticket', label: '🎟️ 복권', type: 'movable' }
+      },
+      {
+        id: 'lottery-skip-36',
+        text: '부질없다 여기며 그냥 지나친다',
+        deltas: { happiness: 1 },
+        result: '실속을 차렸다는 생각에 마음이 편했다.'
       }
     ]
   },
@@ -2508,6 +2599,15 @@ const STAGES = [
         deltas: { happiness: -2, wealth: 1 },
         result: '반 아이들 한 명 한 명이, 이제 다 내 몫으로 느껴졌다.',
         requiresOccupation: ['teacher']
+      },
+      {
+        id: 'lottery-check-37',
+        text: '사둔 복권의 당첨 결과를 확인해본다',
+        result: '결과를 확인했다.',
+        requiresAsset: 'lottery-ticket',
+        removeAsset: 'lottery-ticket',
+        mandatory: true,
+        prizeTable: LOTTERY_PRIZE_TABLE
       }
     ]
   },
@@ -2793,6 +2893,15 @@ const STAGES = [
         deltas: { happiness: 4, fame: 3 },
         result: '내 이름이 박힌 포스터를 몇 번이고 다시 들여다봤다.',
         requiresOccupation: ['artist-writer']
+      },
+      {
+        id: 'lottery-check-41',
+        text: '사둔 복권의 당첨 결과를 확인해본다',
+        result: '결과를 확인했다.',
+        requiresAsset: 'lottery-ticket',
+        removeAsset: 'lottery-ticket',
+        mandatory: true,
+        prizeTable: LOTTERY_PRIZE_TABLE
       }
     ]
   },
@@ -3026,6 +3135,19 @@ const STAGES = [
         deltas: { relationship: -2 },
         result: '농담 하나에도 눈치를 보게 되는, 낯선 자리였다.',
         requiresOccupation: ['job-changed']
+      },
+      {
+        id: 'lottery-buy-44',
+        text: '동료들과 함께 로또를 사본다',
+        deltas: { happiness: 1 },
+        result: '다 같이 사면 왠지 더 될 것 같은 기분이 들었다.',
+        addAsset: { id: 'lottery-ticket', label: '🎟️ 복권', type: 'movable' }
+      },
+      {
+        id: 'lottery-skip-44',
+        text: '다음 기회를 노리며 넘어간다',
+        deltas: { happiness: 1 },
+        result: '언제든 살 수 있다며 스스로를 다독였다.'
       }
     ]
   },
@@ -3149,6 +3271,15 @@ const STAGES = [
         text: '예전에 빌려줬던 돈을 받으러 연락해본다',
         deltas: { wealth: 3 },
         result: '미안해하며 건넨 돈이, 잊고 있던 만큼 반가웠다.'
+      },
+      {
+        id: 'lottery-check-45',
+        text: '사둔 복권의 당첨 결과를 확인해본다',
+        result: '결과를 확인했다.',
+        requiresAsset: 'lottery-ticket',
+        removeAsset: 'lottery-ticket',
+        mandatory: true,
+        prizeTable: LOTTERY_PRIZE_TABLE
       }
     ]
   },
@@ -3445,6 +3576,15 @@ const STAGES = [
         deltas: { wealth: 5, health: -2 },
         result: '스케줄표가 빼곡해질수록, 몸은 못 따라가고 있었다.',
         requiresOccupation: ['consultant']
+      },
+      {
+        id: 'lottery-check-49',
+        text: '사둔 복권의 당첨 결과를 확인해본다',
+        result: '결과를 확인했다.',
+        requiresAsset: 'lottery-ticket',
+        removeAsset: 'lottery-ticket',
+        mandatory: true,
+        prizeTable: LOTTERY_PRIZE_TABLE
       }
     ]
   },
@@ -3637,6 +3777,19 @@ const STAGES = [
         deltas: { happiness: -4 },
         result: '현장을 떠난 지 오래됐다는 지적이, 뼈아프게 다가왔다.',
         requiresOccupation: ['consultant']
+      },
+      {
+        id: 'lottery-buy-52',
+        text: '은퇴 자금에 보태겠다는 마음으로 로또를 사본다',
+        deltas: { happiness: 1 },
+        result: '작은 희망 하나를 지갑 속에 품었다.',
+        addAsset: { id: 'lottery-ticket', label: '🎟️ 복권', type: 'movable' }
+      },
+      {
+        id: 'lottery-skip-52',
+        text: '괜한 기대는 접어두기로 한다',
+        deltas: { happiness: 1 },
+        result: '헛된 기대보다 현실을 택하기로 했다.'
       }
     ]
   },
@@ -3711,6 +3864,15 @@ const STAGES = [
         deltas: { happiness: -3 },
         result: '경력은 짧아도, 그들이 훨씬 능숙해 보이는 순간들이 있었다.',
         requiresOccupation: ['career-pivot']
+      },
+      {
+        id: 'lottery-check-53',
+        text: '사둔 복권의 당첨 결과를 확인해본다',
+        result: '결과를 확인했다.',
+        requiresAsset: 'lottery-ticket',
+        removeAsset: 'lottery-ticket',
+        mandatory: true,
+        prizeTable: LOTTERY_PRIZE_TABLE
       }
     ]
   },
@@ -3978,6 +4140,15 @@ const STAGES = [
         text: '출퇴근길에 쓰던 차를 처분한다',
         deltas: { wealth: 3 },
         result: '이제 필요 없어진 차가, 마지막으로 한몫했다.'
+      },
+      {
+        id: 'lottery-check-57',
+        text: '사둔 복권의 당첨 결과를 확인해본다',
+        result: '결과를 확인했다.',
+        requiresAsset: 'lottery-ticket',
+        removeAsset: 'lottery-ticket',
+        mandatory: true,
+        prizeTable: LOTTERY_PRIZE_TABLE
       }
     ]
   },
@@ -4223,6 +4394,19 @@ const STAGES = [
         deltas: { wealth: -4, happiness: -3 },
         result: '전화벨이 울리지 않는 날들이, 생각보다 길게 이어졌다.',
         requiresOccupation: ['consultant']
+      },
+      {
+        id: 'lottery-buy-60',
+        text: '인생 한 방을 노리며 연금복권을 사본다',
+        deltas: { happiness: 1 },
+        result: '노후에 보탬이 될지도 모른다는 기대를 품었다.',
+        addAsset: { id: 'lottery-ticket', label: '🎟️ 복권', type: 'movable' }
+      },
+      {
+        id: 'lottery-skip-60',
+        text: '차라리 그 돈을 저축하기로 한다',
+        deltas: { happiness: 1 },
+        result: '티끌 모아 태산이라는 말을 되새겼다.'
       }
     ]
   },
@@ -4319,6 +4503,15 @@ const STAGES = [
         text: '자녀의 사업을 도와주고 지분을 조금 받는다',
         deltas: { wealth: 3, relationship: 2 },
         result: '작은 지분이지만, 함께한다는 뿌듯함이 더 컸다.'
+      },
+      {
+        id: 'lottery-check-61',
+        text: '사둔 복권의 당첨 결과를 확인해본다',
+        result: '결과를 확인했다.',
+        requiresAsset: 'lottery-ticket',
+        removeAsset: 'lottery-ticket',
+        mandatory: true,
+        prizeTable: LOTTERY_PRIZE_TABLE
       }
     ]
   },
@@ -4576,6 +4769,15 @@ const STAGES = [
         deltas: { happiness: -2 },
         result: '나이는 가장 많은데, 자리는 가장 낮은 게 새삼스러웠다.',
         requiresOccupation: ['re-employed']
+      },
+      {
+        id: 'lottery-check-65',
+        text: '사둔 복권의 당첨 결과를 확인해본다',
+        result: '결과를 확인했다.',
+        requiresAsset: 'lottery-ticket',
+        removeAsset: 'lottery-ticket',
+        mandatory: true,
+        prizeTable: LOTTERY_PRIZE_TABLE
       }
     ]
   },
@@ -4806,6 +5008,19 @@ const STAGES = [
         deltas: { wealth: 4 },
         result: '두 줄기 소득이 만나니, 마음 씀씀이도 조금 여유로워졌다.',
         requiresOccupation: ['re-employed']
+      },
+      {
+        id: 'lottery-buy-68',
+        text: '매주 사던 번호로 로또를 또 사본다',
+        deltas: { happiness: 1 },
+        result: '늘 사던 번호라, 이번엔 될 것 같은 예감이 들었다.',
+        addAsset: { id: 'lottery-ticket', label: '🎟️ 복권', type: 'movable' }
+      },
+      {
+        id: 'lottery-skip-68',
+        text: '이번 주는 그냥 넘어간다',
+        deltas: { happiness: 1 },
+        result: '이번 주는 그냥 마음 편히 넘어갔다.'
       }
     ]
   },
@@ -4858,6 +5073,15 @@ const STAGES = [
         result: '지팡이 없이 내딛은 첫걸음이, 그 어떤 순간보다 벅찼다.',
         requiresCondition: 'hip-fracture',
         removeCondition: 'hip-fracture'
+      },
+      {
+        id: 'lottery-check-69',
+        text: '사둔 복권의 당첨 결과를 확인해본다',
+        result: '결과를 확인했다.',
+        requiresAsset: 'lottery-ticket',
+        removeAsset: 'lottery-ticket',
+        mandatory: true,
+        prizeTable: LOTTERY_PRIZE_TABLE
       }
     ]
   },
@@ -5140,6 +5364,15 @@ const STAGES = [
         text: '작은 텃밭에서 기른 것들을 이웃에게 나눠 판다',
         deltas: { wealth: 1, relationship: 2, happiness: 1 },
         result: '텃밭 하나가 소소한 용돈벌이가 됐다.'
+      },
+      {
+        id: 'lottery-check-73',
+        text: '사둔 복권의 당첨 결과를 확인해본다',
+        result: '결과를 확인했다.',
+        requiresAsset: 'lottery-ticket',
+        removeAsset: 'lottery-ticket',
+        mandatory: true,
+        prizeTable: LOTTERY_PRIZE_TABLE
       }
     ]
   },
@@ -5309,6 +5542,19 @@ const STAGES = [
         text: 'SNS·미디어와 점점 멀어진다',
         deltas: { fame: -5, happiness: -1 },
         result: '요란하던 세상이, 어느새 저 멀리서 들리는 소리가 됐다.'
+      },
+      {
+        id: 'lottery-buy-76',
+        text: '손주 용돈이라도 벌어보자며 로또를 사본다',
+        deltas: { happiness: 1 },
+        result: '손주 얼굴을 떠올리며 슬쩍 지갑을 열었다.',
+        addAsset: { id: 'lottery-ticket', label: '🎟️ 복권', type: 'movable' }
+      },
+      {
+        id: 'lottery-skip-76',
+        text: '이제 와서 무슨 소용이냐며 넘어간다',
+        deltas: { happiness: 1 },
+        result: '괜한 기대보다 마음 편한 쪽을 택했다.'
       }
     ]
   },
@@ -5396,6 +5642,15 @@ const STAGES = [
         text: '이제 운전을 그만두며 차를 처분한다',
         deltas: { wealth: 3 },
         result: '운전대를 놓는 마음이 아쉬웠지만, 통장은 채워졌다.'
+      },
+      {
+        id: 'lottery-check-77',
+        text: '사둔 복권의 당첨 결과를 확인해본다',
+        result: '결과를 확인했다.',
+        requiresAsset: 'lottery-ticket',
+        removeAsset: 'lottery-ticket',
+        mandatory: true,
+        prizeTable: LOTTERY_PRIZE_TABLE
       }
     ]
   },
@@ -5596,6 +5851,15 @@ const STAGES = [
         text: '오래전부터 갖고 있던 땅을 처분하기로 한다',
         deltas: { wealth: 8 },
         result: '평생 붙들고 있던 땅이, 마지막으로 큰 보탬이 됐다.'
+      },
+      {
+        id: 'lottery-check-81',
+        text: '사둔 복권의 당첨 결과를 확인해본다',
+        result: '결과를 확인했다.',
+        requiresAsset: 'lottery-ticket',
+        removeAsset: 'lottery-ticket',
+        mandatory: true,
+        prizeTable: LOTTERY_PRIZE_TABLE
       }
     ]
   },
@@ -5767,6 +6031,19 @@ const STAGES = [
         text: '가족과 더 깊은 대화를 나누며 서로를 이해한다',
         deltas: { relationship: 5, happiness: 3 },
         result: '이제야 서로에게 하지 못했던 말들을, 조금씩 꺼낼 수 있었다.'
+      },
+      {
+        id: 'lottery-buy-84',
+        text: '오랜만에 로또 한 장을 사본다',
+        deltas: { happiness: 1 },
+        result: '오랜만의 설렘이, 나쁘지 않았다.',
+        addAsset: { id: 'lottery-ticket', label: '🎟️ 복권', type: 'movable' }
+      },
+      {
+        id: 'lottery-skip-84',
+        text: '굳이 안 사도 그만이라 여긴다',
+        deltas: { happiness: 1 },
+        result: '그 돈은 다른 데 쓰는 게 낫다고 여겼다.'
       }
     ]
   },
@@ -5820,6 +6097,15 @@ const STAGES = [
         result: '옆자리가 이렇게 크게 비어 보일 줄은, 그 전엔 미처 몰랐다.',
         requiresFamilyMember: ['spouse'],
         removeFamilyMembers: ['spouse']
+      },
+      {
+        id: 'lottery-check-85',
+        text: '사둔 복권의 당첨 결과를 확인해본다',
+        result: '결과를 확인했다.',
+        requiresAsset: 'lottery-ticket',
+        removeAsset: 'lottery-ticket',
+        mandatory: true,
+        prizeTable: LOTTERY_PRIZE_TABLE
       }
     ]
   },
@@ -6065,6 +6351,15 @@ const STAGES = [
         text: '지금 곁에 있는 사람들에게 새삼 고마움을 느낀다',
         deltas: { relationship: 5, happiness: 4 },
         result: '당연한 얼굴들이 아니라는 걸, 이제는 안다.'
+      },
+      {
+        id: 'lottery-check-89',
+        text: '사둔 복권의 당첨 결과를 확인해본다',
+        result: '결과를 확인했다.',
+        requiresAsset: 'lottery-ticket',
+        removeAsset: 'lottery-ticket',
+        mandatory: true,
+        prizeTable: LOTTERY_PRIZE_TABLE
       }
     ]
   },
@@ -6241,6 +6536,19 @@ const STAGES = [
         text: '문병 온 오랜 지인이 마음을 전하고 간다',
         deltas: { wealth: 1, relationship: 2, happiness: 1 },
         result: '작은 봉투 하나에, 오래된 인연의 무게가 담겨 있었다.'
+      },
+      {
+        id: 'lottery-buy-92',
+        text: '가족이 대신 사다 준 복권을 받아둔다',
+        deltas: { happiness: 1 },
+        result: '고맙다는 말과 함께, 봉투를 조심스레 받아뒀다.',
+        addAsset: { id: 'lottery-ticket', label: '🎟️ 복권', type: 'movable' }
+      },
+      {
+        id: 'lottery-skip-92',
+        text: '괜찮다며 사양한다',
+        deltas: { happiness: 1 },
+        result: '마음만 받겠다며 웃어 보였다.'
       }
     ]
   },
@@ -6287,6 +6595,15 @@ const STAGES = [
         deltas: { health: -5, happiness: -2 },
         result: '일어나 앉는 것조차, 이제는 큰일이 됐다.',
         addCondition: { id: 'frailty', label: '🕊️ 노쇠' }
+      },
+      {
+        id: 'lottery-check-93',
+        text: '사둔 복권의 당첨 결과를 확인해본다',
+        result: '결과를 확인했다.',
+        requiresAsset: 'lottery-ticket',
+        removeAsset: 'lottery-ticket',
+        mandatory: true,
+        prizeTable: LOTTERY_PRIZE_TABLE
       }
     ]
   },
@@ -6501,6 +6818,15 @@ const STAGES = [
         text: '손주들이 마음을 담아 용돈을 모아온다',
         deltas: { wealth: 2, relationship: 2, happiness: 2 },
         result: '작은 액수였지만, 담긴 정성이 훨씬 컸다.'
+      },
+      {
+        id: 'lottery-check-97',
+        text: '사둔 복권의 당첨 결과를 확인해본다',
+        result: '결과를 확인했다.',
+        requiresAsset: 'lottery-ticket',
+        removeAsset: 'lottery-ticket',
+        mandatory: true,
+        prizeTable: LOTTERY_PRIZE_TABLE
       }
     ]
   },

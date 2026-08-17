@@ -100,13 +100,17 @@ function playRefFor(db, uid) {
 // 선택지"를 만들기 위한 것 - 지정 안 하면(대부분) 어떤 상황이 뽑히든 항상
 // 공용 후보로 들어간다. currentIntroId는 그 구간에 상황 설명이 하나뿐이면
 // null(=intros 없는 구간에선 애초에 어떤 선택지도 requiresIntro를 못 건다).
+// requiresAsset(문자열, 그 재산을 지금 갖고 있어야 후보)은 requiresCondition을
+// 재산 상세에 그대로 적용한 것 - 복권을 산 사람에게만 "당첨 확인" 선택지가
+// 뜨게 하기 위함(2026-08-17, 사용자 지시).
 // 후보가 3개 이하면 그냥 전부 노출한다. mandatory가 붙은 선택지(자격만
 // 되면 반드시 겪어야 하는 이벤트 - 예: 50대에 부모님과 사별)는 3개 무작위
 // 추첨에서 밀려날 일 없이 항상 노출 목록에 들어가고, 나머지 자리만 무작위로
 // 채운다.
-function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds, currentOccupationId, currentIntroId) {
+function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds, currentOccupationId, currentIntroId, activeAssetIds) {
   const conditionIds = activeConditionIds || [];
   const familyIds = activeFamilyMemberIds || [];
+  const assetIds = activeAssetIds || [];
   const eligible = choices.filter((c) => {
     if (c.requiresCondition && !conditionIds.includes(c.requiresCondition)) return false;
     if (c.requiresNoCondition && c.requiresNoCondition.some((id) => conditionIds.includes(id))) return false;
@@ -116,6 +120,7 @@ function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds
     if (c.requiresOccupation && !c.requiresOccupation.includes(currentOccupationId || null)) return false;
     if (c.requiresAnyOccupation && !currentOccupationId) return false;
     if (c.requiresIntro && c.requiresIntro !== currentIntroId) return false;
+    if (c.requiresAsset && !assetIds.includes(c.requiresAsset)) return false;
     return true;
   });
   if (eligible.length <= 3) return eligible.map((c) => c.id);
@@ -168,7 +173,7 @@ function pickNextStageIndex(currentIndex) {
 // introId가 주어지면(그 판의 저장 슬롯에 이미 뽑아둔 상황 설명 id) 그
 // 상황의 텍스트를 resolveIntroText로 찾아 쓴다 - pickIntroId() 참고.
 function publicStage(stage, visibleIds, introId) {
-  const ids = visibleIds && visibleIds.length ? visibleIds : pickVisibleChoiceIds(stage.choices, null, null, null, introId);
+  const ids = visibleIds && visibleIds.length ? visibleIds : pickVisibleChoiceIds(stage.choices, null, null, null, introId, null);
   const visibleChoices = stage.choices.filter((c) => ids.includes(c.id));
   return {
     id: stage.id,
@@ -277,6 +282,32 @@ async function applyChoice(db, playRef, play, stage, choice) {
   if (choice.requiresIntro && choice.requiresIntro !== play.currentIntroId) {
     throw new HttpsError('failed-precondition', '지금 상황에서는 고를 수 없는 선택지입니다.');
   }
+  // requiresAsset(문자열, 그 재산을 지금 갖고 있어야 후보) - 복권 당첨 확인처럼
+  // "먼저 산 사람만 결과를 확인할 수 있는" 흐름을 위한 것(2026-08-17, 사용자
+  // 지시). requiresCondition과 완전히 같은 패턴을 재산 상세에 적용했다.
+  const playAssetsForValidation = Array.isArray(play.assets) ? play.assets : [];
+  if (choice.requiresAsset && !playAssetsForValidation.some((a) => a.id === choice.requiresAsset)) {
+    throw new HttpsError('failed-precondition', '지금 재산 상태에서는 고를 수 없는 선택지입니다.');
+  }
+
+  // prizeTable(가중치 배열)이 붙은 선택지(복권 당첨 확인 등)는 choice.deltas·
+  // choice.result가 고정값이 아니라, 이 순간 서버에서 무작위로 뽑은 등수의
+  // deltas·result로 완전히 대체된다 - resultOptions(문구만 랜덤)와 달리 결과의
+  // "방향"(득/실) 자체가 매번 달라지는 경우를 위한 것. weight 합계를 기준으로
+  // 가중 추첨한다.
+  let resolvedDeltas = choice.deltas;
+  let resolvedResult = choice.result;
+  if (choice.prizeTable && choice.prizeTable.length) {
+    const totalWeight = choice.prizeTable.reduce((sum, p) => sum + p.weight, 0);
+    let roll = Math.random() * totalWeight;
+    let picked = choice.prizeTable[choice.prizeTable.length - 1];
+    for (const p of choice.prizeTable) {
+      if (roll < p.weight) { picked = p; break; }
+      roll -= p.weight;
+    }
+    resolvedDeltas = picked.deltas;
+    resolvedResult = picked.result;
+  }
 
   // blocksHealthRecovery가 붙은 조건(예: 희귀 난치병)을 이미 갖고 있으면,
   // 이번 선택이 건강을 "회복시키는" 방향(양수 delta)이어도 그 효과가 막힌다 -
@@ -284,7 +315,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // 의도. 실제로 막혔을 때만 클라이언트에 알려줘서(healthRecoverySuppressed)
   // "선택했는데 건강 바가 그대로"인 게 버그처럼 안 보이게 한다.
   const healthRecoveryBlocked = currentConditions.some((c) => c.blocksHealthRecovery);
-  const effectiveDeltas = Object.assign({}, choice.deltas || {});
+  const effectiveDeltas = Object.assign({}, resolvedDeltas || {});
   let healthRecoverySuppressed = false;
   if (healthRecoveryBlocked && effectiveDeltas.health > 0) {
     effectiveDeltas.health = 0;
@@ -387,15 +418,18 @@ async function applyChoice(db, playRef, play, stage, choice) {
     updates.currentIntroId = nextIntroId;
     // 다음 구간에서 보여줄 3개를 여기서 미리 뽑아 저장 슬롯에 남겨둔다 - 이걸
     // 지금 뽑아둬야 이어하기로 재접속했을 때도 같은 3개가 다시 뜬다. 이때
-    // 방금 갱신된 healthConditions/familyMembers를 기준으로 requiresCondition·
-    // requiresFamilyMember·requiresNoFamilyMember를 걸러야 "이번 선택으로 막
-    // 낫거나 생긴 조건/가족"이 다음 구간 노출에 바로 반영된다.
+    // 방금 갱신된 healthConditions/familyMembers/assets를 기준으로
+    // requiresCondition·requiresFamilyMember·requiresNoFamilyMember·
+    // requiresAsset을 걸러야 "이번 선택으로 막 낫거나 생긴 조건/가족/재산"이
+    // 다음 구간 노출에 바로 반영된다(예: 복권을 산 바로 다음 구간부터 "당첨
+    // 확인" 선택지가 뜰 수 있어야 함).
     nextVisibleIds = pickVisibleChoiceIds(
       STAGES[nextIndex].choices,
       healthConditions.map((c) => c.id),
       familyMembers.map((f) => f.id),
       currentOccupation ? currentOccupation.id : null,
-      nextIntroId
+      nextIntroId,
+      assets.map((a) => a.id)
     );
     updates.visibleChoiceIds = nextVisibleIds;
   }
@@ -420,7 +454,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // 다시 볼 일이 없다.
   const result = choice.resultOptions && choice.resultOptions.length
     ? choice.resultOptions[Math.floor(Math.random() * choice.resultOptions.length)]
-    : choice.result;
+    : resolvedResult;
 
   return {
     stats,
@@ -469,7 +503,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   const db = getDatabase();
   const stats = freshStats();
   const currentIntroId = pickIntroId(STAGES[0]);
-  const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices, [], [], null, currentIntroId);
+  const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices, [], [], null, currentIntroId, []);
   await Promise.all([
     playRefFor(db, uid).set({
       streamerName,
@@ -547,7 +581,8 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       healthConditions.map((c) => c.id),
       familyMembers.map((f) => f.id),
       currentOccupation ? currentOccupation.id : null,
-      currentIntroId
+      currentIntroId,
+      assets.map((a) => a.id)
     );
     resumeUpdates.visibleChoiceIds = visibleChoiceIds;
   }

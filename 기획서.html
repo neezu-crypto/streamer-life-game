@@ -552,6 +552,53 @@
         같은 소스 대조로 배포 코드엔 정확히 들어있음은 별도 확인 — 5~99세 구간의 무작위 나이 스킵과 매
         구간 3개 중 노출 추첨 때문에 적은 회차로는 60개를 전부 목격하기 어렵다).</p>
 
+        <p class="note"><b>복권 구매·당첨 확인 이벤트(2026-08-17, 사용자 지시: "복권 구매 이벤트도 20세
+        이후 구간에 골고루 10개정도 추가해줘 ... 복권 당첨이벤트는 복권 소지시에만 출현해").</b>
+        구매(2択)와 당첨 확인(1개, 결과는 그 순간 무작위)을 서로 다른 구간에 분리해서 넣었다 - "산다"를
+        고르면 재산 상세에 🎟️ 복권(<code>lottery-ticket</code>, <code>movable</code>)이 생기고, 그 뒤
+        어느 구간에서든 "당첨 결과를 확인한다" 선택지가 그 재산을 갖고 있을 때만 노출된다. 이 기능을
+        위해 범용 메커니즘 두 가지를 새로 추가했다:</p>
+        <ul>
+            <li><code>requiresAsset</code>(문자열) - <code>requiresCondition</code>을 재산 상세에 그대로
+            적용한 것. 그 재산을 지금 갖고 있어야 노출 후보에 든다. <code>pickVisibleChoiceIds()</code>가
+            새로 받는 <code>activeAssetIds</code> 인자로 검사한다(함수 시그니처에 인자 하나 추가, 4개
+            호출부 전부 업데이트).</li>
+            <li><code>prizeTable</code>(가중치 배열) - <code>resultOptions</code>(문구만 랜덤)와 달리
+            <b>deltas까지 통째로</b> 무작위로 정해지는 선택지용. <code>{weight, label, deltas, result}</code>
+            항목들의 weight 합을 기준으로 가중 추첨해, 그 선택의 <code>choice.deltas</code>/<code>choice.result</code>
+            자체를 뽑힌 항목의 것으로 완전히 대체한다(<code>applyChoice()</code>에서
+            <code>effectiveDeltas</code> 계산 직전에 처리).</li>
+        </ul>
+        <p class="note"><code>LOTTERY_PRIZE_TABLE</code>(game-data.js) - weight 합이 정확히 100이라 각
+        값 자체가 확률(%)이다: 1등 2%(wealth+25)·2등 3%(wealth+12)·3등 5%(wealth+6)·4등 15%(wealth+2)·
+        5등 25%(wealth+1)·꽝 50%(변화 없음). wealth 값은 <code>cashUnitForAge</code>와 곱해지므로 1등은
+        실제 원화로 압도적으로 큰 액수가 된다(예: 34세 당첨 시 25 × 50만원 = 1,250만원).</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>역할</th><th>구간(나이)</th><th>선택지</th></tr>
+                <tr><td rowspan="2">구매(2択, 10개 구간)</td><td>20·28·36·44·52·60·68·76·84·92세</td><td><code>lottery-buy-&lt;나이&gt;</code>(로또를 산다, <code>addAsset</code>) / <code>lottery-skip-&lt;나이&gt;</code>(안 산다)</td></tr>
+                <tr><td colspan="2">전부 happiness+1만 붙였다 - 실제 복권 가격은 이 게임의 wealth 최소 단위(1점)보다도 훨씬 작아 wealth 비용은 생략, "설렘/실속"이라는 감정만 반영</td></tr>
+                <tr><td>당첨 확인(1개, 20개 구간)</td><td>21·25·29·33·37·41·45·49·53·57·61·65·69·73·77·81·85·89·93·97세</td><td><code>lottery-check-&lt;나이&gt;</code>(requiresAsset:'lottery-ticket', removeAsset:'lottery-ticket', <b>mandatory:true</b>, prizeTable 참조)</td></tr>
+            </table>
+        </div>
+        <p class="note">구매 구간과 확인 구간을 다르게 둔 건 사용자의 명시적 설계(산 뒤에 나중에 결과를
+        아는 흐름)를 따른 것이고, 확인 선택지를 <b>20개 구간에 넓게, 전부 mandatory로</b> 깐 이유는 이
+        게임의 나이 진행이 5~99세 구간에서 매번 1~5세씩 무작위로 건너뛰기 때문 - 확인 선택지가 한두
+        군데뿐이면 그 나이를 아예 건너뛰어 티켓을 영영 확인 못 할 위험이 크다. mandatory라 그 재산을 갖고
+        있고 그 구간에 도달하기만 하면(3개 무작위 추첨에서 밀려날 걱정 없이) 반드시 노출 후보에 뜬다 -
+        실제로 확인하고 말고는 플레이어 선택이지만, 최소한 "보이지 않아서 놓치는" 일은 없게 했다.</p>
+        <p class="note">검증: 문법 검사(924개로 정상 증가 확인 — 884+40), 같은 구간 내 문구 중복 0건·
+        전체 id 중복 0건, 2만 회 시뮬레이션(크래시 0·후보 0개 스테이지 0·현금 음수 0·만원 단위 위반 0,
+        등수별 발생 비율이 의도한 가중치와 거의 정확히 일치 — 꽝 50.5%·5등 24.8%·4등 14.7%·3등 5.0%·
+        2등 2.9%·1등 2.1%), 직접 대조로 20개 확인 구간 전부에서 <code>lottery-check-&lt;나이&gt;</code>가
+        티켓 보유 시 <code>eligible</code>·<code>mandatory</code> 양쪽에 정확히 포함됨을 확인. 배포 후
+        Node에서 직접 함수 호출로 8회 플레이스루 진행 - 구매→확인 사이클이 총 14회 실제로 이어지는 것을
+        확인했다(예: 36세 구매 → 41세 확인 "3등", 44세 구매 → 53세 확인 "꽝", 76세 구매 → 81세 확인
+        "4등"). 14건 중 등수 분포는 꽝 5건·5등 6건·4등 2건·3등 1건(1등·2등은 확률이 낮아 이번 표본에는
+        없었음 — 20000회 시뮬레이션에서는 정상적으로 관찰됨) 으로, 매번 다른 result·다른 cashHoldings
+        변화가 실제 응답으로 오는 것까지 라이브로 확인했다.</p>
+
+
         <p class="note"><b>건강 상세(부상·질병) — 선택지가 건강을 "생기게" 하거나 "낫게" 한다.</b>
         일부 선택지에 <code>addCondition({id,label})</code>을 붙이면 해당 부상/질병이 그 판의 저장 슬롯
         (<code>healthConditions[]</code>)에 추가되고, <code>removeCondition(id)</code>을 붙이면 해당 조건이
