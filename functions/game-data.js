@@ -1949,7 +1949,7 @@ const STAGES = [
       },
       {
         id: 'savings-milestone',
-        text: '꾸준히 모은 적금이 만기가 되어 목돈을 손에 쥔다',
+        text: '몇 년째 부어온 적금 만기일이 찾아온다',
         deltas: { wealth: 6, happiness: 3 },
         result: '매달 조금씩 넣은 돈이, 어느새 이렇게 불어나 있었다.',
         addAsset: { id: 'maturity-savings', label: '💰 만기 적금', type: 'cash' }
@@ -2070,7 +2070,7 @@ const STAGES = [
       },
       {
         id: 'investment-loss',
-        text: '무리하게 투자했다 목돈을 날린다',
+        text: '무리하게 대출까지 받아 투자에 뛰어든다',
         deltas: { wealth: -6, happiness: -4 },
         result: '숫자가 녹아내리는 걸 보면서도, 손이 얼어붙어 아무것도 못 했다.'
       },
@@ -2330,7 +2330,7 @@ const STAGES = [
       },
       {
         id: 'startup-founder-funding-crisis',
-        text: '자금난에 시달린다',
+        text: '사업 확장을 서두르며 지출을 늘린다',
         deltas: { wealth: -8, happiness: -5 },
         result: '통장 잔고를 확인하는 손이, 매일 조금씩 더 무거워졌다.',
         requiresOccupation: ['startup-founder']
@@ -2570,7 +2570,7 @@ const STAGES = [
       },
       {
         id: 'entrepreneur-stable-revenue',
-        text: '사업이 궤도에 올라 안정적인 수익을 낸다',
+        text: '사업 운영 방식을 전면 재정비한다',
         deltas: { wealth: 7 },
         result: '매달 들쭉날쭉하던 매출이, 처음으로 예측 가능한 숫자가 됐다.',
         requiresOccupation: ['entrepreneur']
