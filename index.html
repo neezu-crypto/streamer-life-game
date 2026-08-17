@@ -192,6 +192,29 @@
   #gameSection { filter: grayscale(0) brightness(1); transition: filter 1.4s ease; }
   #gameSection.tonedown { filter: grayscale(0.65) brightness(0.88); transition: filter 1.4s ease; }
 
+  .achievement-popups {
+    position: fixed; top: 18px; left: 50%; transform: translateX(-50%); z-index: 65;
+    display: flex; flex-direction: column; align-items: center; gap: 8px; pointer-events: none;
+  }
+  .achievement-badge {
+    display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px;
+    background: var(--panel); border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+    border-radius: 999px; box-shadow: 0 10px 26px rgba(0,0,0,0.3);
+    color: var(--text); font-size: 13.5px; font-weight: 600;
+    animation: achievement-pop 2.2s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+  }
+  .achievement-badge .achievement-icon { font-size: 16px; }
+  @keyframes achievement-pop {
+    0% { opacity: 0; transform: translateY(-10px) scale(0.85); }
+    12% { opacity: 1; transform: translateY(0) scale(1.05); }
+    20% { transform: translateY(0) scale(1); }
+    82% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-6px) scale(0.96); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .achievement-badge { animation: none; opacity: 1; }
+  }
+
   .result-box {
     margin-top: 16px; padding: 14px 16px; background: var(--panel-2);
     border: 1px solid var(--line);
@@ -491,6 +514,7 @@
 </div>
 
 <div id="toast" class="toast"><span id="toastMsg"></span></div>
+<div id="achievementPopups" class="achievement-popups"></div>
 <canvas id="confettiCanvas" class="confetti-canvas hidden"></canvas>
 <div id="crisisFlash" class="crisis-flash hidden"></div>
 
@@ -722,6 +746,7 @@ resumeBtn.addEventListener('click', async () => {
       renderFamilyMembers(res.data.familyMembers);
       renderCurrentOccupation(res.data.currentOccupation);
       renderStage(res.data.stage);
+      initAchievementBaseline(res.data);
       fadeIn([gameSection]);
     }
   } catch (e) {
@@ -1148,6 +1173,7 @@ startBtn.addEventListener('click', async () => {
     renderFamilyMembers(res.data.familyMembers);
     renderCurrentOccupation(res.data.currentOccupation);
     renderStage(res.data.stage);
+    initAchievementBaseline(res.data);
     fadeIn([gameSection]);
   } catch (e) {
     console.error('인생 시작 실패:', e);
@@ -1189,6 +1215,64 @@ function applyTonedownIfNeeded(selectedChoiceId) {
   tonedownTimer = setTimeout(() => gameSection.classList.remove('tonedown'), TONEDOWN_HOLD_MS);
 }
 
+// ------------------------------------------------------------
+// 방송 콘텐츠 백로그 6번째 항목: 재산 획득·승진/전직·새 가족·건강 회복
+// 이벤트를 작은 배지 팝업 + 짧은 사운드로 알린다(2026-08-17). 서버는
+// "지금 상태"만 내려주고 "이번에 뭐가 바뀌었는지"는 안 알려주므로,
+// 직전 상태를 클라이언트가 따로 기억해뒀다가 diff로 판단한다.
+// ------------------------------------------------------------
+const achievementPopupsEl = document.getElementById('achievementPopups');
+let prevAssetIds = [];
+let prevFamilyIds = [];
+let prevOccupationId = null;
+let prevConditions = [];
+
+function playAchievementPop() {
+  const ctx = getAudioCtx();
+  if (!ctx) return;
+  playTone(ctx, 880, ctx.currentTime, 0.28, 0.1);
+}
+function showAchievementBadge(icon, text) {
+  const badge = document.createElement('span');
+  badge.className = 'achievement-badge';
+  badge.innerHTML = '<span class="achievement-icon">' + icon + '</span><span>' + text + '</span>';
+  achievementPopupsEl.appendChild(badge);
+  setTimeout(() => badge.remove(), 2300);
+}
+
+// 재시작·이어하기 시점의 "이미 갖고 있던" 상태를 기준점으로 잡아둔다 -
+// 안 그러면 이어하기 직후 첫 선택에서 원래 있던 자산·가족까지 "새로
+// 얻었다"고 오판할 수 있다.
+function initAchievementBaseline(data) {
+  prevAssetIds = (data.assets || []).map((a) => a.id);
+  prevFamilyIds = (data.familyMembers || []).map((f) => f.id);
+  prevOccupationId = data.currentOccupation ? data.currentOccupation.id : null;
+  prevConditions = data.healthConditions || [];
+}
+
+function celebrateAchievements(data) {
+  const newAssetIds = (data.assets || []).map((a) => a.id);
+  const addedAsset = (data.assets || []).find((a) => !prevAssetIds.includes(a.id));
+  if (addedAsset) { showAchievementBadge('💰', addedAsset.label + ' 획득'); playAchievementPop(); }
+
+  const newFamilyIds = (data.familyMembers || []).map((f) => f.id);
+  const addedFamily = (data.familyMembers || []).find((f) => !prevFamilyIds.includes(f.id));
+  if (addedFamily) { showAchievementBadge('👨‍👩‍👧', addedFamily.label + ' 생김'); playAchievementPop(); }
+
+  const newOccId = data.currentOccupation ? data.currentOccupation.id : null;
+  if (newOccId && newOccId !== prevOccupationId) { showAchievementBadge('💼', data.currentOccupation.label); playAchievementPop(); }
+
+  const newConditions = data.healthConditions || [];
+  const newConditionIds = newConditions.map((c) => c.id);
+  const healed = prevConditions.find((c) => !newConditionIds.includes(c.id));
+  if (healed) { showAchievementBadge('💊', healed.label + ' 회복'); playAchievementPop(); }
+
+  prevAssetIds = newAssetIds;
+  prevFamilyIds = newFamilyIds;
+  prevOccupationId = newOccId;
+  prevConditions = newConditions;
+}
+
 function applyOutcome(data, resultPrefix, selectedChoiceId) {
   let resultText = (resultPrefix ? resultPrefix + '\n' : '') + data.result;
   // blocksHealthRecovery 조건(희귀 난치병뿐 아니라 사고 후유증 등 더 있을 수
@@ -1212,6 +1296,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   flashStatChanges(statBars, data.deltas);
   celebrateIfJackpot(data.prizeLabel);
   applyTonedownIfNeeded(selectedChoiceId);
+  celebrateAchievements(data);
   renderAssets(data.assets);
   renderCashHoldings(cashHoldingsEl, data.cashHoldings);
   renderHealthConditions(data.healthConditions);
