@@ -3050,7 +3050,8 @@ const STAGES = [
         id: 'enjoying-childfree-freedom',
         text: '아이 없는 삶에서 자유로움을 만끽한다',
         deltas: { happiness: 4, wealth: 2 },
-        result: '평일 저녁의 여유가, 그 무엇과도 바꿀 수 없이 소중했다.'
+        result: '평일 저녁의 여유가, 그 무엇과도 바꿀 수 없이 소중했다.',
+        requiresNoFamilyMember: ['child']
       },
       {
         id: 'seeking-new-stimulation',
