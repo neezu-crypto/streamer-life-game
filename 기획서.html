@@ -635,6 +635,35 @@
         나이 스킵·3개 중 노출 추첨 때문에 8회로는 다 보기 어려움 - 소스 대조로 배포 코드엔 60개 전부
         정확히 들어있음은 별도 확인).</p>
 
+        <p class="note"><b>인기 관련 선택지 60개 추가(2차) - 18~86세 클러스터 10곳(2026-08-17, 사용자
+        지시: "인기 관련 사건들과 선택지를 더 추가해줘").</b> 1차(42~91세)에 이어 여전히 fame이 최하위였고,
+        1차 클러스터를 뺀 나머지 구간(청소년기 후반·사회 초년~중년·1차에서 못 채운 노년 구간) 중 fame
+        이벤트가 0인 나이가 여전히 30곳 넘게 남아있었다. 18·31·38·51·55·65·70·75·80·86세(기존 fame
+        1차 10곳과 현금 이벤트 14곳, 총 24곳과 안 겹치게 선정)에 6개씩 채워 넣었다 - 청소년기 SNS 화제성
+        (18) → 사회 초년생~중년 경력 인지도(31~55) → 1차에서 못 채운 노년 구간의 재조명/잊혀짐(65~86).
+        이번 배치는 긍정 30·부정 30으로 완전히 균형 있게 구성해, 전반적인 fame 긍정 편중을 더 줄였다.</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>구간</th><th>주제</th><th>id 접두어</th><th>긍정/부정</th></tr>
+                <tr><td>18세</td><td>청소년기 SNS 화제성</td><td><code>fame-viral-video-18</code> 외 5개</td><td>3 / 3</td></tr>
+                <tr><td>31세</td><td>사회 초년생 인지도</td><td><code>fame-early-career-notice-31</code> 외 5개</td><td>3 / 3</td></tr>
+                <tr><td>38세</td><td>경력 중반 노출</td><td><code>fame-conference-speaker-38</code> 외 5개</td><td>3 / 3</td></tr>
+                <tr><td>51세</td><td>중년 후반 존재감</td><td><code>fame-parenting-recognition-51</code> 외 5개</td><td>3 / 3</td></tr>
+                <tr><td>55세</td><td>은퇴 전후 재조명</td><td><code>fame-retirement-announcement-55</code> 외 5개</td><td>3 / 3</td></tr>
+                <tr><td>65세</td><td>은퇴 후 인지도 재편</td><td><code>fame-retirement-life-feature-65</code> 외 5개</td><td>3 / 3</td></tr>
+                <tr><td>70세</td><td>칠순 전후 회고</td><td><code>fame-seventieth-media-70</code> 외 5개</td><td>3 / 3</td></tr>
+                <tr><td>75세</td><td>조용한 노년의 인지도</td><td><code>fame-neighborhood-story-75</code> 외 5개</td><td>3 / 3</td></tr>
+                <tr><td>80세</td><td>팔순 전후 회고</td><td><code>fame-eightieth-celebration-media-80</code> 외 5개</td><td>3 / 3</td></tr>
+                <tr><td>86세</td><td>장수 축하와 잊혀짐</td><td><code>fame-milestone-recognition-86</code> 외 5개</td><td>3 / 3</td></tr>
+            </table>
+        </div>
+        <p class="note">1차와 동일하게 전부 [행동만 명시] 스타일 유지, 스템 검사 60개 전부 통과. 결과:
+        전체 1044개 중 fame 이벤트 174→234개(17.7%→22.4%), 긍정:부정 비율 70.7:29.3 → 65.4:34.6으로
+        더 개선. 검증: 문법 검사(984→1044개), 같은 구간 내 문구 중복 0건·id 중복 0건, 2만 회 시뮬레이션
+        (크래시 0·후보 0개 스테이지 0), 배포 후 Node 직접 호출로 8회 플레이스루 진행 — 60개 중 24개
+        라이브 노출 확인(나머지는 무작위 나이 스킵·노출 추첨 때문에 8회로는 다 보기 어려움 - 소스
+        대조로 배포 코드엔 60개 전부 정확히 들어있음은 별도 확인).</p>
+
 
         <p class="note"><b>건강 상세(부상·질병) — 선택지가 건강을 "생기게" 하거나 "낫게" 한다.</b>
         일부 선택지에 <code>addCondition({id,label})</code>을 붙이면 해당 부상/질병이 그 판의 저장 슬롯
