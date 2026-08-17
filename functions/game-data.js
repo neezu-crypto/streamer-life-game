@@ -2975,6 +2975,42 @@ const STAGES = [
         deltas: { happiness: -2, wealth: 2 },
         result: '나 하나만 책임지던 삶이, 이제 다른 이의 생계까지 걸린 일이 됐다.',
         requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'fame-press-feature-42',
+        text: '지역 매체에서 인터뷰를 요청해온다',
+        deltas: { fame: 4, happiness: 1 },
+        result: '작은 매체였지만, 내 이야기가 활자로 남는다는 게 낯설고도 뿌듯했다.'
+      },
+      {
+        id: 'fame-online-controversy-42',
+        text: '무심코 한 말이 온라인에서 논란이 된다',
+        deltas: { fame: -3, happiness: -3 },
+        result: '해명을 몇 번이나 다시 써 내려갔지만, 논란은 쉽게 가라앉지 않았다.'
+      },
+      {
+        id: 'fame-industry-award-42',
+        text: '업계 시상식에 후보로 이름이 오른다',
+        deltas: { fame: 5, happiness: 2 },
+        result: '수상은 못 했지만, 후보에 올랐다는 것만으로도 어깨가 으쓱했다.'
+      },
+      {
+        id: 'fame-viral-moment-42',
+        text: '우연히 찍힌 영상이 온라인에서 퍼진다',
+        deltas: { fame: 6, happiness: 1 },
+        result: '의도한 적 없는 관심이, 며칠 동안 일상을 뒤흔들었다.'
+      },
+      {
+        id: 'fame-privacy-exposed-42',
+        text: '사생활이 원치 않게 알려진다',
+        deltas: { fame: -4, happiness: -4, relationship: -1 },
+        result: '숨기고 싶던 부분까지 드러나자, 한동안 사람 만나기가 꺼려졌다.'
+      },
+      {
+        id: 'fame-quiet-recognition-42',
+        text: '동네에서 알아보는 사람들이 하나둘 생긴다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '거창하진 않아도, 낯익은 인사가 늘어가는 게 나쁘지 않았다.'
       }
     ]
   },
@@ -3585,6 +3621,42 @@ const STAGES = [
         removeAsset: 'lottery-ticket',
         mandatory: true,
         prizeTable: LOTTERY_PRIZE_TABLE
+      },
+      {
+        id: 'fame-mentor-spotlight-49',
+        text: '후배를 이끈 공로로 조명을 받는다',
+        deltas: { fame: 4, relationship: 2 },
+        result: '내 성과보다 누군가를 키운 일이 먼저 회자되는 게, 묘하게 뭉클했다.'
+      },
+      {
+        id: 'fame-scandal-rumor-49',
+        text: '근거 없는 소문에 휘말린다',
+        deltas: { fame: -5, happiness: -4 },
+        result: '아니라고 몇 번을 말해도, 소문은 이미 저 혼자 퍼져나가고 있었다.'
+      },
+      {
+        id: 'fame-profile-feature-49',
+        text: '경력을 다룬 기사에 소개된다',
+        deltas: { fame: 5, happiness: 2 },
+        result: '오려둔 기사 한 장이, 오래도록 책상 서랍에 남았다.'
+      },
+      {
+        id: 'fame-outdated-criticism-49',
+        text: '시대에 뒤떨어졌다는 평가를 듣는다',
+        deltas: { fame: -3, happiness: -3 },
+        result: '틀린 말은 아닌 것 같아서, 더 마음에 오래 남았다.'
+      },
+      {
+        id: 'fame-community-recognition-49',
+        text: '지역 사회에서 공로를 인정받는다',
+        deltas: { fame: 4, relationship: 2 },
+        result: '큰 무대는 아니었지만, 얼굴을 아는 사람들의 박수가 더 크게 다가왔다.'
+      },
+      {
+        id: 'fame-fading-relevance-49',
+        text: '예전만큼 연락이 오지 않는다는 걸 알아챈다',
+        deltas: { fame: -3, happiness: -2 },
+        result: '바빠서 그런 거라 여겼지만, 마음 한구석은 자꾸 신경이 쓰였다.'
       }
     ]
   },
@@ -3873,6 +3945,42 @@ const STAGES = [
         removeAsset: 'lottery-ticket',
         mandatory: true,
         prizeTable: LOTTERY_PRIZE_TABLE
+      },
+      {
+        id: 'fame-veteran-status-53',
+        text: '업계 원로로 대접받기 시작한다',
+        deltas: { fame: 4, happiness: 2 },
+        result: '어느새 신참이 아니라 어른 취급을 받는다는 게, 낯설고도 새삼스러웠다.'
+      },
+      {
+        id: 'fame-younger-overshadowed-53',
+        text: '더 젊은 인물들에게 관심이 옮겨가는 걸 지켜본다',
+        deltas: { fame: -4, happiness: -3 },
+        result: '질투는 아니라고 되뇌었지만, 씁쓸함까지 감출 순 없었다.'
+      },
+      {
+        id: 'fame-panel-invitation-53',
+        text: '전문가 패널로 초청받는다',
+        deltas: { fame: 3, happiness: 1 },
+        result: '오랜만에 정장을 꺼내 입으며, 조금은 설레는 마음이 들었다.'
+      },
+      {
+        id: 'fame-old-clip-resurfaces-53',
+        text: '예전 영상이 다시 화제가 된다',
+        deltas: { fame: 5, happiness: 2 },
+        result: '까맣게 잊고 있던 순간이, 이렇게 다시 불려 나올 줄은 몰랐다.'
+      },
+      {
+        id: 'fame-out-of-touch-label-53',
+        text: '요즘과 안 맞는다는 평을 듣는다',
+        deltas: { fame: -3, happiness: -3 },
+        result: '세대가 다르다는 말이, 생각보다 오래 마음에 걸렸다.'
+      },
+      {
+        id: 'fame-quiet-fanbase-53',
+        text: '여전히 곁을 지키는 이들의 존재를 새삼 느낀다',
+        deltas: { fame: 2, relationship: 3, happiness: 2 },
+        result: '화려하진 않아도, 꾸준한 마음들이 더 크게 다가왔다.'
       }
     ]
   },
@@ -4232,6 +4340,42 @@ const STAGES = [
         deltas: { happiness: 4 },
         result: '통장은 얇아도, 마음이 이렇게 두둑할 수 있다는 걸 처음 알았다.',
         requiresOccupation: ['volunteer-work']
+      },
+      {
+        id: 'fame-farewell-coverage-58',
+        text: '은퇴를 앞두고 언론의 취재 요청을 받는다',
+        deltas: { fame: 5, happiness: 2 },
+        result: '마지막이라는 말이 붙자, 평소보다 질문 하나하나가 더 깊게 다가왔다.'
+      },
+      {
+        id: 'fame-being-forgotten-58',
+        text: '예전 동료들에게서 소식이 뜸해진 걸 느낀다',
+        deltas: { fame: -4, happiness: -3 },
+        result: '먼저 연락해볼까 몇 번을 망설이다, 그냥 휴대폰을 내려놓았다.'
+      },
+      {
+        id: 'fame-retrospective-feature-58',
+        text: '지난 경력을 돌아보는 특집에 소개된다',
+        deltas: { fame: 4, happiness: 2 },
+        result: '지나온 시간을 남이 정리해주는 걸 보니, 기분이 묘했다.'
+      },
+      {
+        id: 'fame-replaced-in-spotlight-58',
+        text: '후임에게 자리를 완전히 넘긴다',
+        deltas: { fame: -5, happiness: -3 },
+        result: '당연한 순서라 여기면서도, 마음 한켠이 허전한 건 어쩔 수 없었다.'
+      },
+      {
+        id: 'fame-legacy-recognition-58',
+        text: '업계에 남긴 발자취를 인정받는다',
+        deltas: { fame: 4, happiness: 3 },
+        result: '거창한 말은 아니었지만, 오래 들어온 어떤 칭찬보다 크게 남았다.'
+      },
+      {
+        id: 'fame-name-forgotten-58',
+        text: '새로 온 사람들이 이름조차 모른다는 걸 깨닫는다',
+        deltas: { fame: -3, happiness: -2 },
+        result: '당연한 일이라 되뇌면서도, 소개하는 말이 조금 길어졌다.'
       }
     ]
   },
@@ -4571,6 +4715,42 @@ const STAGES = [
         deltas: { happiness: -3 },
         result: '바쁘게 살고 싶었던 순간들이, 이렇게 그리워질 줄 몰랐다.',
         requiresOccupation: ['retired']
+      },
+      {
+        id: 'fame-recognized-in-public-62',
+        text: '동네에서 알아보는 사람을 우연히 마주친다',
+        deltas: { fame: 2, happiness: 3 },
+        result: '오랜만에 듣는 반가운 인사에, 걸음이 절로 가벼워졌다.'
+      },
+      {
+        id: 'fame-social-silence-62',
+        text: 'SNS에 올린 소식에 반응이 뜸해진 걸 느낀다',
+        deltas: { fame: -3, happiness: -2 },
+        result: '예전 같지 않은 숫자를 보며, 괜히 화면을 몇 번 더 넘겨봤다.'
+      },
+      {
+        id: 'fame-reunion-spotlight-62',
+        text: '동창회에서 옛 활약을 추억하며 이야기 중심에 선다',
+        deltas: { fame: 3, relationship: 2, happiness: 2 },
+        result: '다들 그때 얘기를 꺼내자, 잊고 있던 순간들이 새삼 생생해졌다.'
+      },
+      {
+        id: 'fame-anonymous-life-62',
+        text: '아무도 못 알아보는 일상에 조금씩 적응해간다',
+        deltas: { fame: -4, happiness: -1 },
+        result: '불편함보다 오히려 홀가분함이 조금씩 자리를 잡아갔다.'
+      },
+      {
+        id: 'fame-documentary-request-62',
+        text: '다큐멘터리 출연 제안을 받는다',
+        deltas: { fame: 5, happiness: 2 },
+        result: '카메라 앞에 다시 서보니, 옛 감각이 낯설게 되살아났다.'
+      },
+      {
+        id: 'fame-comparison-to-past-62',
+        text: '예전에 잘나가지 않았냐는 말을 듣는다',
+        deltas: { fame: -2, happiness: -2 },
+        result: '칭찬인 듯 아닌 듯한 그 말이, 오래도록 귓가에 맴돌았다.'
       }
     ]
   },
@@ -4936,6 +5116,42 @@ const STAGES = [
         deltas: { wealth: -2, happiness: -2 },
         result: '큰돈은 아니어도, 매달 계산기를 두드리는 습관은 여전했다.',
         requiresOccupation: ['volunteer-work']
+      },
+      {
+        id: 'fame-nostalgia-piece-67',
+        text: '옛 시절을 다룬 특집 기사에 인터뷰이로 실린다',
+        deltas: { fame: 4, happiness: 2 },
+        result: '지나간 시절 얘기인데도, 어제 일처럼 술술 말이 나왔다.'
+      },
+      {
+        id: 'fame-younger-dont-know-67',
+        text: '젊은 사람들이 전혀 못 알아본다는 걸 실감한다',
+        deltas: { fame: -4, happiness: -2 },
+        result: '설명을 덧붙여야 하는 순간이, 조금씩 익숙해져 갔다.'
+      },
+      {
+        id: 'fame-award-lifetime-67',
+        text: '공로상 후보로 이름이 오른다',
+        deltas: { fame: 5, happiness: 3 },
+        result: '상보다도, 그 자리에 이름이 불렸다는 사실만으로 충분했다.'
+      },
+      {
+        id: 'fame-old-rival-more-famous-67',
+        text: '옛 경쟁자가 여전히 화제인 걸 지켜본다',
+        deltas: { fame: -3, happiness: -3 },
+        result: '축하한다는 말 뒤로, 복잡한 마음이 슬쩍 스쳤다.'
+      },
+      {
+        id: 'fame-local-celebrity-67',
+        text: '동네에서 소소하게 유명 인사로 불린다',
+        deltas: { fame: 2, relationship: 2, happiness: 2 },
+        result: '거창한 호칭은 아니어도, 부를 때마다 웃음이 났다.'
+      },
+      {
+        id: 'fame-irrelevant-feeling-67',
+        text: '이제는 무대 밖 사람이 된 것 같은 기분이 든다',
+        deltas: { fame: -3, happiness: -3 },
+        result: '서운함과 홀가분함이, 이상하게 동시에 밀려왔다.'
       }
     ]
   },
@@ -5437,6 +5653,42 @@ const STAGES = [
         deltas: { happiness: 5 },
         result: '아침에 갈 곳이 있다는 것만으로도, 하루가 달라졌다.',
         requiresOccupation: ['re-employed']
+      },
+      {
+        id: 'fame-tribute-event-74',
+        text: '지난 활약을 기리는 자리에 초대받는다',
+        deltas: { fame: 4, happiness: 3, relationship: 2 },
+        result: '오랜만에 만난 얼굴들과, 그때 그 시절 이야기로 시간 가는 줄 몰랐다.'
+      },
+      {
+        id: 'fame-almost-forgotten-74',
+        text: '이름을 검색해도 옛 기록만 남아있다는 걸 발견한다',
+        deltas: { fame: -4, happiness: -3 },
+        result: '화면 속 흐릿해진 기록이, 꼭 자신의 모습 같았다.'
+      },
+      {
+        id: 'fame-young-fan-message-74',
+        text: '뜻밖에도 젊은 팬에게 메시지를 받는다',
+        deltas: { fame: 3, happiness: 3 },
+        result: '까맣게 잊고 있던 이름을 누군가 기억해줬다는 게, 뭉클했다.'
+      },
+      {
+        id: 'fame-media-silence-74',
+        text: '연락 오던 매체들의 발길이 완전히 끊긴다',
+        deltas: { fame: -4, happiness: -2 },
+        result: '한때는 성가시던 전화가, 이제는 그리워질 줄 몰랐다.'
+      },
+      {
+        id: 'fame-archive-feature-74',
+        text: '지역 기록관에 이름이 남겨진다',
+        deltas: { fame: 3, happiness: 2 },
+        result: '거창한 자리는 아니었지만, 이름 석 자가 남는다는 게 든든했다.'
+      },
+      {
+        id: 'fame-unremembered-74',
+        text: '함께 활동했던 이들도 하나둘 소식이 끊긴다',
+        deltas: { fame: -3, happiness: -2, relationship: -1 },
+        result: '연락처만 남고 목소리는 점점 희미해져 갔다.'
       }
     ]
   },
@@ -5741,6 +5993,42 @@ const STAGES = [
         text: '지금 이 순간에 마음을 둔다',
         deltas: { happiness: 5, health: 2 },
         result: '내일보다 오늘에 마음을 두는 법을, 이제는 안다.'
+      },
+      {
+        id: 'fame-rediscovery-79',
+        text: '온라인에서 옛 활약이 다시 회자된다',
+        deltas: { fame: 6, happiness: 3 },
+        result: '손주가 보여준 화면 속에서, 젊은 날의 자신을 다시 만났다.'
+      },
+      {
+        id: 'fame-complete-obscurity-79',
+        text: '이제는 누구도 이름을 모른다는 사실을 마주한다',
+        deltas: { fame: -5, happiness: -3 },
+        result: '서운함도 잠시, 이내 담담해지는 스스로를 발견했다.'
+      },
+      {
+        id: 'fame-family-pride-79',
+        text: '자녀·손주가 옛 활약을 자랑스러워한다',
+        deltas: { fame: 2, relationship: 3, happiness: 3 },
+        result: '내 이야기가 아이들 입을 통해 다시 전해지는 게, 새삼 뿌듯했다.'
+      },
+      {
+        id: 'fame-legacy-questioned-79',
+        text: '남긴 게 정말 있었는지 스스로 되묻는다',
+        deltas: { fame: -3, happiness: -3 },
+        result: '답을 쉽게 내리지 못한 채, 며칠을 곱씹었다.'
+      },
+      {
+        id: 'fame-local-honor-79',
+        text: '동네 어르신 모임에서 존재감을 인정받는다',
+        deltas: { fame: 2, relationship: 2, happiness: 2 },
+        result: '작은 모임이었지만, 그 안에서만큼은 여전히 주인공이었다.'
+      },
+      {
+        id: 'fame-erased-from-records-79',
+        text: '관련 기록마저 하나둘 사라지고 있다는 걸 안다',
+        deltas: { fame: -4, happiness: -2 },
+        result: '흔적이 옅어져 가는 걸 보면서도, 달리 할 수 있는 일이 없었다.'
       }
     ]
   },
@@ -6106,6 +6394,42 @@ const STAGES = [
         removeAsset: 'lottery-ticket',
         mandatory: true,
         prizeTable: LOTTERY_PRIZE_TABLE
+      },
+      {
+        id: 'fame-final-interview-85',
+        text: '생애 마지막이 될지 모를 인터뷰를 요청받는다',
+        deltas: { fame: 5, happiness: 2 },
+        result: '카메라 앞에서, 평소보다 더 신중하게 말을 골랐다.'
+      },
+      {
+        id: 'fame-world-moved-on-85',
+        text: '세상은 이미 다른 이야기로 넘어갔다는 걸 느낀다',
+        deltas: { fame: -4, happiness: -2 },
+        result: '낯선 뉴스들 사이에서, 자신의 자리를 찾기가 어려웠다.'
+      },
+      {
+        id: 'fame-honored-by-community-85',
+        text: '오래 지켜온 동네에서 감사패를 받는다',
+        deltas: { fame: 3, relationship: 2, happiness: 3 },
+        result: '소박한 패 하나가, 평생의 시간을 인정받은 것 같아 뭉클했다.'
+      },
+      {
+        id: 'fame-name-misremembered-85',
+        text: '누군가 이름을 잘못 기억하고 있다는 걸 듣는다',
+        deltas: { fame: -2, happiness: -2 },
+        result: '굳이 바로잡지 않고, 그냥 웃어넘겼다.'
+      },
+      {
+        id: 'fame-quiet-legacy-85',
+        text: '요란하지 않은 흔적들을 하나씩 돌아본다',
+        deltas: { fame: 2, happiness: 3 },
+        result: '크게 알려지지 않았어도, 분명 남긴 게 있었다는 걸 깨달았다.'
+      },
+      {
+        id: 'fame-completely-anonymous-85',
+        text: '이제는 완전히 평범한 사람으로 지낸다',
+        deltas: { fame: -3, happiness: 0 },
+        result: '특별할 것 없는 하루하루가, 의외로 편안하게 느껴졌다.'
       }
     ]
   },
@@ -6456,6 +6780,42 @@ const STAGES = [
         deltas: { health: -8, happiness: -6, relationship: -3 },
         result: '나조차 낯설어지는 순간들이 늘어갔지만, 가족들은 그런 나를 몇 번이고 다시 소개해주었다.',
         addCondition: { id: 'alzheimers', label: '🧩 알츠하이머', causesChoiceFadeout: true }
+      },
+      {
+        id: 'fame-remembered-fondly-91',
+        text: '옛 동료들이 안부를 물으며 이름을 불러준다',
+        deltas: { fame: 3, relationship: 3, happiness: 3 },
+        result: '긴 세월에도 잊지 않고 불러주는 이름 하나가, 크게 다가왔다.'
+      },
+      {
+        id: 'fame-name-fading-91',
+        text: '세상에 남긴 이름이 서서히 옅어지고 있음을 느낀다',
+        deltas: { fame: -4, happiness: -2 },
+        result: '당연한 흐름이라 여기면서도, 마음 한구석은 허전했다.'
+      },
+      {
+        id: 'fame-story-passed-down-91',
+        text: '가족들이 살아온 이야기를 후손에게 전한다',
+        deltas: { fame: 2, relationship: 3, happiness: 2 },
+        result: '직접 말하지 않아도, 이야기가 대를 이어 전해진다는 게 든든했다.'
+      },
+      {
+        id: 'fame-forgotten-by-industry-91',
+        text: '한때 몸담았던 업계에서 더 이상 이름이 오르내리지 않는다',
+        deltas: { fame: -4, happiness: -2 },
+        result: '서운함보다는, 이제 다 지나간 일이라는 실감이 더 컸다.'
+      },
+      {
+        id: 'fame-last-mention-91',
+        text: '오래된 기사 한 줄에서 자신의 이름을 발견한다',
+        deltas: { fame: 1, happiness: 1 },
+        result: '바랜 종이 위 작은 글자가, 그날 하루를 따뜻하게 채웠다.'
+      },
+      {
+        id: 'fame-obscurity-accepted-91',
+        text: '유명했던 기억을 담담하게 떠올려본다',
+        deltas: { fame: -2, happiness: 1 },
+        result: '화려했던 날들도, 이제는 그저 지나온 시간의 일부일 뿐이었다.'
       }
     ]
   },
