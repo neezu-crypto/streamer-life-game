@@ -218,6 +218,48 @@ const STAGES = [
           { id: 'father', label: '👨 아버지' },
           { id: 'mother', label: '👩 어머니' }
         ]
+      },
+      {
+        id: 'immigrant-family',
+        text: '이민 가정에서 태어나 두 문화 사이를 오간다',
+        deltas: { fame: -2, happiness: 2 },
+        result: '두 언어, 두 세계 사이에서 사는 법을 자연스레 익혔다.',
+        addFamilyMembers: [{ id: 'father', label: '👨 아버지' }, { id: 'mother', label: '👩 어머니' }]
+      },
+      {
+        id: 'artist-parents-family',
+        text: '예술가 부모님 밑에서 자유분방하게 자란다',
+        deltas: { fame: 2, wealth: -2, happiness: 3 },
+        result: '남들과 다른 규칙 속에서 자란다는 게, 나쁘지만은 않았다.',
+        addFamilyMembers: [{ id: 'father', label: '👨 아버지' }, { id: 'mother', label: '👩 어머니' }]
+      },
+      {
+        id: 'military-family',
+        text: '군인 가정에서 태어나 잦은 이사를 겪는다',
+        deltas: { relationship: -2, health: 2 },
+        result: '짐 싸는 요령만큼은, 또래보다 훨씬 빨리 늘었다.',
+        addFamilyMembers: [{ id: 'father', label: '👨 아버지' }, { id: 'mother', label: '👩 어머니' }]
+      },
+      {
+        id: 'twin-sibling',
+        text: '쌍둥이로 태어나 늘 비교당하며 자란다',
+        deltas: { relationship: 2, happiness: -2 },
+        result: '닮은 얼굴 뒤에서, 서로 다른 사람이 되려 애썼다.',
+        addFamilyMembers: [{ id: 'father', label: '👨 아버지' }, { id: 'mother', label: '👩 어머니' }, { id: 'sibling', label: '🧒 형제자매' }]
+      },
+      {
+        id: 'adopted-family',
+        text: '따뜻한 가정에 입양되어 사랑받으며 자란다',
+        deltas: { relationship: 4, happiness: 3 },
+        result: '핏줄이 아니어도, 가족이 될 수 있다는 걸 온몸으로 배웠다.',
+        addFamilyMembers: [{ id: 'father', label: '👨 아버지' }, { id: 'mother', label: '👩 어머니' }]
+      },
+      {
+        id: 'multicultural-family',
+        text: '국적이 다른 부모님 사이에서 태어난다',
+        deltas: { fame: 1, relationship: 1 },
+        result: '식탁 위 음식부터가, 남들과는 조금씩 달랐다.',
+        addFamilyMembers: [{ id: 'father', label: '👨 아버지' }, { id: 'mother', label: '👩 어머니' }]
       }
     ]
   },
@@ -277,6 +319,42 @@ const STAGES = [
         deltas: { health: -12, happiness: -6, wealth: -6, relationship: 5 },
         result: '치료법이 없다는 말 앞에서도, 가족은 무너지지 않고 서로를 더 꽉 붙잡았다.',
         addCondition: { id: 'rare-illness', label: '🎗️ 희귀 난치병', blocksHealthRecovery: true, permanent: true }
+      },
+      {
+        id: 'early-teether',
+        text: '또래보다 이가 일찍 나 자주 보챈다',
+        deltas: { health: -2 },
+        result: '잇몸이 간지러운지, 손에 잡히는 건 뭐든 물어뜯었다.'
+      },
+      {
+        id: 'deep-sleeper-infant',
+        text: '한번 잠들면 업어가도 모를 만큼 깊이 잔다',
+        deltas: { happiness: 2, health: 1 },
+        result: '조용한 밤이 이어질수록, 온 가족의 얼굴도 덩달아 밝아졌다.'
+      },
+      {
+        id: 'light-sleeper-infant',
+        text: '작은 소리에도 자주 깨는 예민한 잠버릇을 보인다',
+        deltas: { health: -2, happiness: -1 },
+        result: '발끝으로 걷는 게 습관이 될 정도로, 집안이 조심스러워졌다.'
+      },
+      {
+        id: 'crawling-explorer',
+        text: '온 집안을 기어다니며 못 말리게 탐험한다',
+        deltas: { happiness: 2, health: -1 },
+        result: '서랍이란 서랍은 죄다 열어젖히는 통에, 잠시도 눈을 뗄 수 없었다.'
+      },
+      {
+        id: 'babbling-early',
+        text: '옹알이가 유독 많고 표현력이 풍부하다',
+        deltas: { relationship: 2 },
+        result: '무슨 말인지 몰라도, 표정만으로 대화가 되는 기분이었다.'
+      },
+      {
+        id: 'stranger-clingy-infant',
+        text: '낯선 사람만 보면 자지러지게 운다',
+        deltas: { relationship: -1, happiness: -1 },
+        result: '익숙한 얼굴이 아니면, 온 힘을 다해 거부 의사를 밝혔다.'
       }
     ]
   },
@@ -329,6 +407,42 @@ const STAGES = [
         deltas: { health: -8, relationship: 3 },
         result: '깁스에 낙서를 잔뜩 받으며, 팔 하나로도 못 할 게 없다는 걸 배웠다.',
         addCondition: { id: 'broken-arm', label: '🦴 팔 골절' }
+      },
+      {
+        id: 'potty-training-battle',
+        text: '배변 훈련에서 좀처럼 진전이 없어 애를 먹인다',
+        deltas: { happiness: -2 },
+        result: '작은 변기 앞에서의 실랑이가, 하루의 절반을 차지했다.'
+      },
+      {
+        id: 'picky-eater-toddler',
+        text: '이유식을 거부하고 손으로만 먹으려 든다',
+        deltas: { health: -1, happiness: 1 },
+        result: '숟가락을 밀어내면서도, 손으로는 야무지게 잘도 집어 먹었다.'
+      },
+      {
+        id: 'tantrum-public',
+        text: '마트 바닥에 드러누워 떼를 쓴다',
+        deltas: { relationship: -1, happiness: -1 },
+        result: '주변 시선보다, 당장의 그 마음을 달래는 게 먼저였다.'
+      },
+      {
+        id: 'imaginative-play-toddler',
+        text: '인형과 대화하며 혼자만의 세계에 빠진다',
+        deltas: { happiness: 2 },
+        result: '들리지 않는 대답에도, 혼자만의 이야기는 끝없이 이어졌다.'
+      },
+      {
+        id: 'sharing-lesson-toddler',
+        text: '장난감을 나눠 쓰는 법을 배워간다',
+        deltas: { relationship: 2 },
+        result: '손에 꼭 쥐고 있던 걸 내미는 데, 생각보다 큰 용기가 필요했다.'
+      },
+      {
+        id: 'water-loving-toddler',
+        text: '물놀이만 하면 시간 가는 줄 모른다',
+        deltas: { happiness: 2, health: 1 },
+        result: '물만 봤다 하면, 온몸이 흠뻑 젖는 건 시간문제였다.'
       }
     ]
   },
@@ -381,6 +495,42 @@ const STAGES = [
         deltas: { health: -5, relationship: 2 },
         result: '먹을 수 있는 게 자꾸 줄어드는 게 서러웠던 시기.',
         addCondition: { id: 'weak-stomach', label: '🤢 잦은 배탈' }
+      },
+      {
+        id: 'counting-prodigy',
+        text: '숫자 세는 걸 좋아해 하루 종일 뭔가를 센다',
+        deltas: { fame: 1, happiness: 1 },
+        result: '계단이든 과자든, 눈에 보이는 건 일단 세고 봤다.'
+      },
+      {
+        id: 'nightmare-phase',
+        text: '괴물 꿈을 꾸며 밤마다 깨서 운다',
+        deltas: { health: -2 },
+        result: '불을 켜둔 채로 자야만, 겨우 다시 잠들 수 있었다.'
+      },
+      {
+        id: 'tricycle-first-try',
+        text: '세발자전거를 처음 타보며 신나한다',
+        deltas: { happiness: 2, health: 1 },
+        result: '페달을 밟는 두 다리에, 세상을 다 가진 듯한 표정이 실렸다.'
+      },
+      {
+        id: 'copies-parents-work',
+        text: '부모님 흉내를 내며 역할놀이에 푹 빠진다',
+        deltas: { relationship: 2 },
+        result: '장난감 전화기를 붙들고, 제법 진지한 표정으로 통화를 흉내 냈다.'
+      },
+      {
+        id: 'bug-catcher-toddler',
+        text: '개미와 벌레를 잡으러 온 동네를 뒤진다',
+        deltas: { happiness: 2 },
+        result: '흙 묻은 손을 씻기는 게, 매일 저녁의 숙제가 됐다.'
+      },
+      {
+        id: 'speech-delay-worry',
+        text: '또래보다 말이 트이지 않아 부모님이 걱정한다',
+        deltas: { happiness: -1, relationship: -1 },
+        result: '조바심 내는 어른들 사이에서, 정작 본인은 태평했다.'
       }
     ]
   },
@@ -433,6 +583,42 @@ const STAGES = [
         result: '깁스를 풀던 날, 가려웠던 팔을 실컷 긁으며 세상을 다 가진 기분이었다.',
         requiresCondition: 'broken-arm',
         removeCondition: 'broken-arm'
+      },
+      {
+        id: 'kindergarten-prep-visit',
+        text: '입학 전 유치원 견학에서 잔뜩 긴장한다',
+        deltas: { happiness: -1 },
+        result: '낯선 문 앞에서, 손을 놓지 않으려 꽉 붙들었다.'
+      },
+      {
+        id: 'imaginary-friend',
+        text: '눈에 안 보이는 친구와 매일 대화를 나눈다',
+        deltas: { happiness: 2 },
+        result: '밥상에 자리 하나를 더 놓아달라는 부탁이, 며칠째 이어졌다.'
+      },
+      {
+        id: 'building-block-master',
+        text: '블록으로 몇 시간이고 뭔가를 쌓아 올린다',
+        deltas: { fame: 1, happiness: 1 },
+        result: '무너뜨리기 아깝다며, 며칠째 그대로 두라고 신신당부했다.'
+      },
+      {
+        id: 'first-lie-caught',
+        text: '처음으로 거짓말을 했다가 딱 걸린다',
+        deltas: { relationship: -1 },
+        result: '들통난 순간의 그 표정을, 어른들은 오래도록 웃으며 떠올렸다.'
+      },
+      {
+        id: 'swim-lesson-fear',
+        text: '수영장 물이 무서워 발도 못 담근다',
+        deltas: { health: -1, happiness: -1 },
+        result: '발끝만 살짝 담갔다 빼기를, 몇 번이고 반복했다.'
+      },
+      {
+        id: 'helps-with-chores-toddler',
+        text: '작은 집안일을 스스로 거들겠다고 나선다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '도움이 되기는커녕 일을 더 만들었지만, 그 마음만은 진심이었다.'
       }
     ]
   },
@@ -486,6 +672,42 @@ const STAGES = [
         result: '더는 배를 부여잡고 우는 밤이 없어졌다.',
         requiresCondition: 'weak-stomach',
         removeCondition: 'weak-stomach'
+      },
+      {
+        id: 'sharing-toys-conflict',
+        text: '좋아하는 장난감을 두고 친구와 다툰다',
+        deltas: { relationship: -1 },
+        result: '손에서 놓지 않으려는 실랑이가, 눈물로 끝나고서야 잦아들었다.'
+      },
+      {
+        id: 'teacher-favorite-kid',
+        text: '선생님이 유독 예뻐하는 아이로 통한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '작은 칭찬 한마디가, 하루 종일 발걸음을 가볍게 했다.'
+      },
+      {
+        id: 'first-lost-tooth',
+        text: '이가 처음 빠져 신기해하면서도 무서워한다',
+        deltas: { happiness: 1 },
+        result: '빠진 이를 베개 밑에 넣어두고, 밤새 잠을 설쳤다.'
+      },
+      {
+        id: 'picky-about-clothes',
+        text: '매일 입을 옷을 두고 실랑이를 벌인다',
+        deltas: { relationship: -1 },
+        result: '고집 하나는, 또래 누구에게도 지지 않았다.'
+      },
+      {
+        id: 'loves-storytime',
+        text: '책 읽어주는 시간을 가장 기다린다',
+        deltas: { happiness: 2 },
+        result: '같은 책을 몇 번이고 다시 읽어달라 졸랐다.'
+      },
+      {
+        id: 'copies-older-kids',
+        text: '형·누나뻘 아이들 흉내를 내며 으스댄다',
+        deltas: { fame: 1 },
+        result: '덩치도 안 맞는 흉내를, 제법 그럴싸하게 따라 했다.'
       }
     ]
   },
@@ -537,6 +759,43 @@ const STAGES = [
         text: '매일 아침 줄넘기를 하는 습관을 들인다',
         deltas: { health: 4, happiness: 2 },
         result: '별거 아닌 습관 하나가 몸을 조금씩 단단하게 만들었다.'
+      },
+      {
+        id: 'first-piano-lesson',
+        text: '피아노 학원에 처음 다니기 시작한다',
+        deltas: { fame: 1, wealth: -1 },
+        result: '삑삑거리는 소리도, 며칠 지나니 제법 곡처럼 들리기 시작했다.'
+      },
+      {
+        id: 'bedwetting-phase',
+        text: '가끔 실수로 이불에 지도를 그린다',
+        deltas: { happiness: -1 },
+        result: '민망해하는 표정에, 아무 일 아니라는 말을 몇 번이고 건넸다.'
+      },
+      {
+        id: 'class-pet-caretaker',
+        text: '학급 물고기를 돌보는 담당을 맡는다',
+        deltas: { relationship: 2 },
+        result: '작은 책임 하나가, 매일 아침을 조금 더 특별하게 만들었다.'
+      },
+      {
+        id: 'sibling-rivalry-early',
+        text: '동생과 사사건건 비교당하며 신경전을 벌인다',
+        deltas: { relationship: -2 },
+        result: '똑같이 사랑받는다는 걸 알면서도, 자꾸만 비교가 신경 쓰였다.',
+        requiresFamilyMember: ['sibling', 'younger-sibling']
+      },
+      {
+        id: 'loose-tooth-parade',
+        text: '이가 계속 빠지며 스스로도 신기해한다',
+        deltas: { happiness: 1 },
+        result: '빈자리가 늘어갈수록, 웃는 모습도 점점 우스꽝스러워졌다.'
+      },
+      {
+        id: 'first-team-sport',
+        text: '처음으로 단체 운동(축구·티볼 등)을 시작한다',
+        deltas: { health: 2, relationship: 1 },
+        result: '공 한 번 제대로 못 찼는데도, 팀이라는 말이 좋았다.'
       }
     ]
   },
@@ -581,6 +840,42 @@ const STAGES = [
         text: '급식 반찬을 하나도 남기지 않으려 애쓴다',
         deltas: { health: 3, happiness: 1 },
         result: '싫어하는 반찬도 꾹 참고 삼키던, 나름의 첫 인내심 훈련.'
+      },
+      {
+        id: 'homework-meltdown',
+        text: '숙제를 두고 매일 저녁 실랑이를 벌인다',
+        deltas: { relationship: -1, happiness: -1 },
+        result: '연필을 쥔 손보다, 딴생각이 먼저 바빴다.'
+      },
+      {
+        id: 'show-and-tell-star',
+        text: '발표 시간에 자신 있게 자기 얘기를 한다',
+        deltas: { fame: 2, happiness: 1 },
+        result: '떨리는 마음과 달리, 목소리만큼은 또랑또랑했다.'
+      },
+      {
+        id: 'recess-friendship',
+        text: '쉬는 시간마다 붙어 노는 무리가 생긴다',
+        deltas: { relationship: 2 },
+        result: '열 번의 쉬는 시간이, 하루 중 가장 긴 시간처럼 느껴졌다.'
+      },
+      {
+        id: 'lunch-tray-spill',
+        text: '급식판을 엎어 반 친구들 앞에서 창피를 당한다',
+        deltas: { happiness: -2 },
+        result: '바닥에 쏟아진 반찬보다, 쏟아진 시선이 더 부담스러웠다.'
+      },
+      {
+        id: 'field-day-clumsy',
+        text: '운동회에서 넘어져 꼴찌를 한다',
+        deltas: { happiness: -1, health: -1 },
+        result: '꼴찌라는 결과보다, 넘어진 순간의 부끄러움이 더 오래 남았다.'
+      },
+      {
+        id: 'new-hobby-swimming',
+        text: '수영을 배우기 시작하며 물과 친해진다',
+        deltas: { health: 2 },
+        result: '처음엔 물이 무서웠는데, 어느새 물장구가 재미있어졌다.'
       }
     ]
   },
@@ -642,6 +937,42 @@ const STAGES = [
         result: '선생님의 꼼꼼한 손길에, 그동안 몰랐던 것까지 다 확인받은 기분이었다.',
         requiresAnyCondition: true,
         removeAllConditions: true
+      },
+      {
+        id: 'class-election-loss',
+        text: '반장 선거에 나갔다가 아깝게 떨어진다',
+        deltas: { happiness: -2 },
+        result: '박수는 다른 아이에게 쏟아졌지만, 나선 것만으로도 뿌듯했다.'
+      },
+      {
+        id: 'group-project-frustration',
+        text: '모둠 활동에서 혼자 일을 다 떠맡는다',
+        deltas: { relationship: -1 },
+        result: '다들 놀 때 혼자 남아 마무리하며, 처음으로 억울함을 느꼈다.'
+      },
+      {
+        id: 'bike-riding-mastered',
+        text: '보조바퀴 없이 자전거를 타는 데 성공한다',
+        deltas: { happiness: 3, health: 1 },
+        result: '넘어지고 또 넘어져도, 결국 두 바퀴로 혼자 달렸다.'
+      },
+      {
+        id: 'teased-for-glasses',
+        text: '안경을 쓰기 시작하며 놀림을 받는다',
+        deltas: { happiness: -2 },
+        result: '또렷해진 세상만큼, 마음 한구석은 흐려졌다.'
+      },
+      {
+        id: 'talent-show-debut',
+        text: '장기자랑에서 처음으로 무대에 선다',
+        deltas: { fame: 2, happiness: 1 },
+        result: '조명 아래 선 그 몇 분이, 오래도록 잊히지 않았다.'
+      },
+      {
+        id: 'hoards-stickers',
+        text: '스티커·카드 수집에 푹 빠져 용돈을 다 쓴다',
+        deltas: { wealth: -1, happiness: 1 },
+        result: '모으는 재미에, 지갑이 비는 줄도 몰랐다.'
       }
     ]
   },
@@ -686,6 +1017,43 @@ const STAGES = [
         text: '학교 앞에서 작은 장사(문구 되팔기 등)를 벌인다',
         deltas: { wealth: 7, fame: 2, relationship: -2 },
         result: '몇 백 원씩 모은 동전이 그때는 세상에서 제일 큰 재산 같았다.'
+      },
+      {
+        id: 'math-competition-anxiety',
+        text: '수학경시대회를 앞두고 부담을 느낀다',
+        deltas: { happiness: -2 },
+        result: '문제집을 펼 때마다, 손끝이 조금씩 저려왔다.'
+      },
+      {
+        id: 'class-clique-drama',
+        text: '친구 무리 사이의 편 가르기에 휘말린다',
+        deltas: { relationship: -2 },
+        result: '누구 편도 들고 싶지 않았는데, 그게 제일 어려운 선택이었다.'
+      },
+      {
+        id: 'summer-camp-independence',
+        text: '여름 캠프에서 처음으로 부모님 없이 며칠을 보낸다',
+        deltas: { relationship: 1, happiness: 2 },
+        result: '보고 싶은 마음과 신나는 마음이, 하루에도 몇 번씩 뒤바뀌었다.'
+      },
+      {
+        id: 'loses-a-fight',
+        text: '몸싸움에서 밀려 자존심이 상한다',
+        deltas: { happiness: -2 },
+        result: '진 것보다, 진 걸 들킨 게 더 속상했다.'
+      },
+      {
+        id: 'discovers-a-hobby-9',
+        text: '우연히 접한 취미에 푹 빠져든다',
+        deltas: { happiness: 3 },
+        result: '시간 가는 줄도 모르고 몰두할 무언가가 생겼다.'
+      },
+      {
+        id: 'sibling-secret-keeper',
+        text: '형제자매의 비밀을 지켜주며 더 가까워진다',
+        deltas: { relationship: 2 },
+        result: '둘만 아는 이야기가 하나 늘어날 때마다, 사이도 그만큼 가까워졌다.',
+        requiresFamilyMember: ['sibling', 'younger-sibling']
       }
     ]
   },
@@ -731,6 +1099,44 @@ const STAGES = [
         deltas: { health: -4, relationship: 2 },
         result: '별거 아니라며 넘겼는데, 그 뒤로 가끔씩 시큰거렸다.',
         addCondition: { id: 'ankle-sprain', label: '🦶 발목 부상' }
+      },
+      {
+        id: 'body-changes-confusion',
+        text: '몸에 나타나는 변화가 낯설고 어색하다',
+        deltas: { happiness: -2 },
+        result: '거울 앞에 서는 시간이, 조금씩 길어지기 시작했다.'
+      },
+      {
+        id: 'best-friend-betrayal',
+        text: '믿었던 친구가 뒷담화를 한 걸 알게 된다',
+        deltas: { relationship: -3, happiness: -2 },
+        result: '등 뒤에서 들은 그 말이, 오래도록 머릿속을 맴돌았다.'
+      },
+      {
+        id: 'wins-a-competition-10',
+        text: '교내 대회에서 상을 받아 우쭐해진다',
+        deltas: { fame: 3, happiness: 2 },
+        result: '상장을 받아 든 손이, 좀처럼 내려오지 않았다.'
+      },
+      {
+        id: 'allowance-negotiation',
+        text: '용돈을 올려달라고 부모님과 협상을 벌인다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '논리적인 척 준비한 말들이, 막상 앞에선 다 흐트러졌다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
+      },
+      {
+        id: 'after-school-freedom',
+        text: '학원 없는 날, 친구들과 마음껏 놀아다닌다',
+        deltas: { happiness: 3 },
+        result: '별일 없던 그 하루가, 유독 특별하게 기억에 남았다.'
+      },
+      {
+        id: 'embarrassed-by-parent',
+        text: '부모님의 행동이 창피하게 느껴지는 순간을 겪는다',
+        deltas: { happiness: -2, relationship: -1 },
+        result: '그럴 나이라는 걸 알면서도, 스스로도 그 마음이 낯설었다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       }
     ]
   },
@@ -776,6 +1182,43 @@ const STAGES = [
         text: '좋아하는 스트리머를 따라 방송 흉내를 내본다',
         deltas: { fame: 3, happiness: 3 },
         result: '카메라도 없는 방에서 혼자 떠들면서도 이상하게 신이 났다.'
+      },
+      {
+        id: 'puberty-onset-awkward',
+        text: '본격적인 사춘기 신호에 스스로도 당황한다',
+        deltas: { happiness: -2, health: -1 },
+        result: '이유 없이 예민해지는 스스로가, 낯설고 불편했다.'
+      },
+      {
+        id: 'group-chat-drama',
+        text: '단체 채팅방에서 오해가 생겨 마음이 상한다',
+        deltas: { relationship: -2 },
+        result: '글자 몇 개로 시작된 오해가, 생각보다 오래 갔다.'
+      },
+      {
+        id: 'leadership-moment-11',
+        text: '모둠장을 맡아 처음으로 리더 역할을 해본다',
+        deltas: { fame: 1, relationship: 1 },
+        result: '의견을 모으는 일이, 답을 내는 것보다 훨씬 어려웠다.'
+      },
+      {
+        id: 'crush-rejected',
+        text: '고백했다가 거절당해 한동안 시무룩해진다',
+        deltas: { happiness: -3 },
+        result: '용기를 낸 만큼, 돌아온 대답의 무게도 컸다.'
+      },
+      {
+        id: 'hobby-competition-win',
+        text: '취미로 시작한 걸로 대회에서 성과를 낸다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '그저 좋아서 한 일이, 결과로도 인정받는 순간이었다.'
+      },
+      {
+        id: 'sibling-comparison-stress',
+        text: '형제자매와 비교당하며 스트레스를 받는다',
+        deltas: { happiness: -2 },
+        result: '닮았다는 말이, 어느 순간부터 부담으로 들리기 시작했다.',
+        requiresFamilyMember: ['sibling', 'younger-sibling']
       }
     ]
   },
@@ -820,6 +1263,42 @@ const STAGES = [
         text: '초등학교 마지막 소풍에서 반 전체와 어울려 논다',
         deltas: { relationship: 5, happiness: 4 },
         result: '별거 아닌 김밥 한 줄도, 그날따라 유난히 맛있었다.'
+      },
+      {
+        id: 'first-diary',
+        text: '일기를 쓰기 시작하며 속마음을 털어놓는다',
+        deltas: { happiness: 2 },
+        result: '누구에게도 못 할 말들이, 종이 위에서는 술술 나왔다.'
+      },
+      {
+        id: 'awkward-growth-spurt',
+        text: '몸이 갑자기 자라 옷이 안 맞아 어색해한다',
+        deltas: { happiness: -1 },
+        result: '소매 밖으로 삐져나온 손목이, 스스로도 낯설었다.'
+      },
+      {
+        id: 'elementary-graduation-speech',
+        text: '졸업식 답사를 맡아 잔뜩 긴장한다',
+        deltas: { happiness: -1, fame: 2 },
+        result: '떨리는 목소리로 시작했지만, 끝맺음만큼은 또렷했다.'
+      },
+      {
+        id: 'summer-before-middle-school',
+        text: '중학교 입학을 앞두고 설렘 반 걱정 반이다',
+        deltas: { happiness: 1 },
+        result: '새 교복을 걸어두고, 며칠째 만지작거리기만 했다.'
+      },
+      {
+        id: 'first-real-argument-friend',
+        text: '친한 친구와 처음으로 진지하게 다툰다',
+        deltas: { relationship: -2 },
+        result: '화해하는 법을 아직 몰라서, 서로 눈치만 살폈다.'
+      },
+      {
+        id: 'hobby-becomes-serious-12',
+        text: '그냥 좋아하던 취미를 본격적으로 파고들기 시작한다',
+        deltas: { fame: 1, happiness: 2 },
+        result: '놀이였던 것이, 어느새 목표가 되어 있었다.'
       }
     ]
   },
@@ -864,6 +1343,43 @@ const STAGES = [
         text: '급격히 예민해진 감정 기복에 스스로도 당황한다',
         deltas: { relationship: -3, happiness: -2 },
         result: '왜 갑자기 눈물이 나는지 스스로도 설명할 수 없었다.'
+      },
+      {
+        id: 'cliques-form',
+        text: '그룹별로 나뉘는 반 분위기에 적응해야 한다',
+        deltas: { relationship: -1 },
+        result: '어느 무리에도 완전히 속하지 못한 기분이, 자꾸 마음에 걸렸다.'
+      },
+      {
+        id: 'first-real-rejection',
+        text: '친해지고 싶던 무리에게 은근히 거절당한다',
+        deltas: { happiness: -2 },
+        result: '티 나지 않게 밀어내는 방식이, 오히려 더 아팠다.'
+      },
+      {
+        id: 'discovers-passion-subject',
+        text: '유독 좋아하는 과목을 발견하고 몰입한다',
+        deltas: { fame: 1, happiness: 2 },
+        result: '수업 시간이 이렇게 짧게 느껴진 적이 없었다.'
+      },
+      {
+        id: 'parents-fighting-witness',
+        text: '부모님이 다투는 모습을 목격하고 불안해진다',
+        deltas: { happiness: -3 },
+        result: '방문을 닫아도, 목소리는 계속 새어 들어왔다.',
+        requiresAllFamilyMemberGroups: [['father'], ['mother']]
+      },
+      {
+        id: 'first-detention',
+        text: '규칙을 어겨 처음으로 벌점을 받는다',
+        deltas: { happiness: -2 },
+        result: '별거 아니라 여겼던 규칙이, 생각보다 무겁게 다가왔다.'
+      },
+      {
+        id: 'online-friend-made',
+        text: '온라인에서 만난 또래와 급속도로 친해진다',
+        deltas: { relationship: 2 },
+        result: '얼굴도 모르는 사이인데, 누구보다 편하게 속마음을 털어놨다.'
       }
     ]
   },
@@ -930,6 +1446,42 @@ const STAGES = [
         result: '이것저것 재고 찍고 나니, 걱정보다 후련함이 더 컸다.',
         requiresAnyCondition: true,
         removeAllConditions: true
+      },
+      {
+        id: 'body-image-pressure',
+        text: '또래와 비교하며 외모에 대한 압박을 느낀다',
+        deltas: { happiness: -3 },
+        result: '거울 속 모습이, 자꾸만 못마땅하게 느껴졌다.'
+      },
+      {
+        id: 'skips-school-once',
+        text: '처음으로 땡땡이를 쳤다가 걸릴까 봐 조마조마해한다',
+        deltas: { happiness: -1 },
+        result: '짜릿함도 잠시, 하루 종일 마음이 편치 않았다.'
+      },
+      {
+        id: 'wins-schoolwide-recognition-14',
+        text: '교내 행사에서 눈에 띄는 활약을 펼친다',
+        deltas: { fame: 3, happiness: 2 },
+        result: '복도를 지날 때마다, 아는 척하는 얼굴이 늘어났다.'
+      },
+      {
+        id: 'secret-online-persona',
+        text: 'SNS에 다른 정체성으로 계정을 하나 더 만든다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '또 다른 나로 사는 게, 생각보다 홀가분했다.'
+      },
+      {
+        id: 'mentor-teacher-bond',
+        text: '특정 선생님과 유독 잘 통해 조언을 구하곤 한다',
+        deltas: { relationship: 2 },
+        result: '어른인데도 편하게 말할 수 있는 사람이 있다는 게, 든든했다.'
+      },
+      {
+        id: 'group-project-leader-14',
+        text: '조별 과제에서 리더를 자처하며 스트레스를 받는다',
+        deltas: { happiness: -2, fame: 1 },
+        result: '다 같이 하자던 일이, 결국 혼자 챙기는 일이 되어 있었다.'
       }
     ]
   },
@@ -974,6 +1526,43 @@ const STAGES = [
         text: '중학교 마지막 시험을 앞두고 밤새 벼락치기를 한다',
         deltas: { health: -4, happiness: -1 },
         result: '졸린 눈을 비비며 마신 커피믹스만 다섯 잔이었다.'
+      },
+      {
+        id: 'friend-group-shift',
+        text: '친구 무리가 자연스럽게 재편된다',
+        deltas: { relationship: -1 },
+        result: '누구의 잘못도 아닌데, 예전 같지 않은 사이가 됐다.'
+      },
+      {
+        id: 'first-heartbreak-teen',
+        text: '짧았던 첫 연애가 끝나 마음이 무너진다',
+        deltas: { happiness: -3 },
+        result: '별일 아닌 척했지만, 한동안 그 이름을 지우지 못했다.'
+      },
+      {
+        id: 'talent-scout-approach',
+        text: '우연히 재능을 눈여겨본 어른에게 제안을 받는다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '명함 한 장이, 평소와 다른 하루를 만들었다.'
+      },
+      {
+        id: 'sleep-deprivation-toll',
+        text: '만성 수면 부족으로 몸이 축난다',
+        deltas: { health: -3 },
+        result: '눈은 떠 있어도, 정신은 반쯤 잠들어 있는 날들이 이어졌다.'
+      },
+      {
+        id: 'rebels-against-curfew',
+        text: '통금을 어기고 몰래 나갔다 들어온다',
+        deltas: { relationship: -2 },
+        result: '현관문을 여는 그 몇 초가, 유난히 길게 느껴졌다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
+      },
+      {
+        id: 'finds-a-mentor-friend',
+        text: '선배와 각별한 사이가 되어 조언을 얻는다',
+        deltas: { relationship: 2 },
+        result: '먼저 겪어본 사람의 한마디가, 생각보다 큰 힘이 됐다.'
       }
     ]
   },
@@ -1040,6 +1629,43 @@ const STAGES = [
         text: '친구들 앞에서 SNS 게시물이 놀림거리가 되며 창피를 당한다',
         deltas: { fame: -6, happiness: -4 },
         result: '지우고 또 지워봐도, 이미 다 본 사람들 앞에서는 소용없었다.'
+      },
+      {
+        id: 'college-fair-overwhelmed',
+        text: '대학 입시 설명회에서 압도당한다',
+        deltas: { happiness: -2 },
+        result: '쏟아지는 정보량에, 오히려 머릿속이 더 하얘졌다.'
+      },
+      {
+        id: 'part-time-first-pay-16',
+        text: '짧은 아르바이트로 첫 급여를 손에 쥔다',
+        deltas: { wealth: 1, happiness: 2 },
+        result: '작은 액수였지만, 스스로 번 돈이라는 무게는 남달랐다.'
+      },
+      {
+        id: 'friend-moves-away',
+        text: '친한 친구가 전학을 가며 서운함을 느낀다',
+        deltas: { happiness: -2, relationship: -1 },
+        result: '늘 있던 자리가 비는 게, 생각보다 크게 다가왔다.'
+      },
+      {
+        id: 'wins-debate-competition',
+        text: '교내 토론대회에서 우승한다',
+        deltas: { fame: 3, happiness: 2 },
+        result: '준비한 논리보다, 그 순간의 떨림이 더 선명하게 남았다.'
+      },
+      {
+        id: 'secretly-dating-16',
+        text: '부모님 몰래 연애를 이어간다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '들킬까 조마조마한 마음도, 나름의 설렘이었다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
+      },
+      {
+        id: 'burns-out-briefly-16',
+        text: '일시적인 번아웃으로 며칠을 무기력하게 보낸다',
+        deltas: { happiness: -3, health: -1 },
+        result: '아무것도 하기 싫은 날들이, 며칠째 이어졌다.'
       }
     ]
   },
@@ -1092,6 +1718,42 @@ const STAGES = [
         deltas: { health: -5, happiness: -2 },
         result: '책상 서랍엔 어느새 소화제가 상비약처럼 자리 잡았다.',
         addCondition: { id: 'exam-stress-gastritis', label: '🤒 스트레스성 위염' }
+      },
+      {
+        id: 'college-essay-struggle',
+        text: '자기소개서를 쓰며 밤을 지새운다',
+        deltas: { health: -1, happiness: -1 },
+        result: '몇 번을 고쳐 써도, 마지막 문장은 늘 마음에 안 들었다.'
+      },
+      {
+        id: 'teacher-recommendation-ask',
+        text: '선생님께 조심스레 추천서를 부탁한다',
+        deltas: { relationship: 1 },
+        result: '어렵게 꺼낸 부탁에, 흔쾌한 대답이 돌아왔다.'
+      },
+      {
+        id: 'friend-competition-tension',
+        text: '같은 목표를 둔 친구와 은근한 경쟁심이 생긴다',
+        deltas: { relationship: -1 },
+        result: '응원하고 싶은 마음과 지고 싶지 않은 마음이, 동시에 들었다.'
+      },
+      {
+        id: 'future-career-hint',
+        text: '우연한 계기로 하고 싶은 일을 어렴풋이 그려본다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '막연했던 미래에, 처음으로 방향 하나가 생겼다.'
+      },
+      {
+        id: 'exam-anxiety-dream',
+        text: '시험 악몽에 시달리며 잠을 설친다',
+        deltas: { health: -2, happiness: -1 },
+        result: '눈을 뜨고도 한참을, 꿈인지 현실인지 헷갈렸다.'
+      },
+      {
+        id: 'finds-relief-in-hobby-17',
+        text: '입시 스트레스를 취미로 풀어내며 버틴다',
+        deltas: { happiness: 2 },
+        result: '짧은 그 시간만큼은, 아무 생각도 나지 않아 좋았다.'
       }
     ]
   },
@@ -1194,6 +1856,43 @@ const STAGES = [
         text: '더 눈에 띄는 친구들 사이에서 존재감이 옅어진다',
         deltas: { fame: -2, happiness: -2 },
         result: '딱히 잘못한 것도 없는데, 자꾸 뒷전으로 밀리는 기분이었다.'
+      },
+      {
+        id: 'suneung-exam-day',
+        text: '수능 당일, 떨리는 마음으로 시험장에 들어선다',
+        deltas: { health: -2, happiness: -1 },
+        result: '긴장한 손끝으로, 연필을 몇 번이고 고쳐 쥐었다.'
+      },
+      {
+        id: 'college-acceptance-letter',
+        text: '대학 합격 통지를 받고 감격에 젖는다',
+        deltas: { happiness: 5, fame: 2 },
+        result: '화면 속 그 한 줄을, 몇 번이고 다시 눌러 확인했다.'
+      },
+      {
+        id: 'gap-year-decision',
+        text: '재수 대신 잠시 쉬어가기로 결심한다',
+        deltas: { happiness: 1 },
+        result: '남들과 다른 속도로 가도 괜찮다고, 스스로를 다독였다.'
+      },
+      {
+        id: 'last-day-with-classmates',
+        text: '3년을 함께한 반 친구들과 마지막 인사를 나눈다',
+        deltas: { relationship: 3, happiness: 1 },
+        result: '교실 문을 나서며, 이 얼굴들을 오래 기억하겠다고 생각했다.'
+      },
+      {
+        id: 'first-legal-adult-moment',
+        text: '성인이 됐다는 실감이 드는 순간을 맞는다',
+        deltas: { fame: 1, happiness: 2 },
+        result: '달라진 건 없는데, 어깨의 무게만은 조금 달라진 것 같았다.'
+      },
+      {
+        id: 'parents-pride-moment',
+        text: '부모님이 자랑스러워하는 모습에 뭉클해진다',
+        deltas: { relationship: 3, happiness: 2 },
+        result: '애써 담담한 척하는 표정 뒤로, 눈시울이 살짝 붉어져 있었다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       }
     ]
   },
@@ -1271,6 +1970,42 @@ const STAGES = [
         deltas: { happiness: 4, relationship: 4 },
         result: '몇 마디 나누지도 않았는데, 다음이 궁금해지는 사람이었다.',
         addAcquaintance: { relation: 'lover', label: '💕 연인' }
+      },
+      {
+        id: 'dorm-life-adjustment',
+        text: '기숙사 생활에 적응하며 독립을 배운다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '불편함도 잠시, 혼자만의 공간이 생겼다는 게 더 크게 느껴졌다.'
+      },
+      {
+        id: 'freshman-mt-culture-shock',
+        text: '새내기 환영회 문화에 놀라며 적응해간다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '어색한 게임과 낯선 분위기 속에서도, 얼굴은 하나씩 익어갔다.'
+      },
+      {
+        id: 'first-hangover',
+        text: '처음 마신 술에 크게 고생한다',
+        deltas: { health: -2, happiness: -1 },
+        result: '다시는 안 그러겠다는 다짐이, 그날따라 유독 진심이었다.'
+      },
+      {
+        id: 'new-major-doubt',
+        text: '선택한 전공이 적성에 맞는지 벌써 고민한다',
+        deltas: { happiness: -2 },
+        result: '수업을 들을수록, 확신 대신 물음표만 늘어갔다.'
+      },
+      {
+        id: 'finds-college-clique',
+        text: '새로운 대학 친구 무리와 급속도로 친해진다',
+        deltas: { relationship: 3 },
+        result: '몇 주 만에, 낯선 캠퍼스가 익숙한 아지트처럼 느껴졌다.'
+      },
+      {
+        id: 'first-solo-travel',
+        text: '혼자 떠난 첫 여행에서 낯선 자유를 만끽한다',
+        deltas: { happiness: 3, wealth: -1 },
+        result: '아무 계획 없이 걷는 하루가, 이렇게 좋을 줄 몰랐다.'
       }
     ]
   },
@@ -1372,6 +2107,42 @@ const STAGES = [
         result: '생애 첫 검진표를 받아 들고, 새삼 어른이 됐다는 걸 실감했다.',
         requiresAnyCondition: true,
         removeAllConditions: true
+      },
+      {
+        id: 'first-credit-card',
+        text: '생애 첫 신용카드를 만들며 소비 습관을 시험받는다',
+        deltas: { happiness: 1 },
+        result: '긁는 순간의 편리함과, 나중에 찾아올 청구서 사이에서 갈등했다.'
+      },
+      {
+        id: 'military-enlistment-decision',
+        text: '입대 시기를 두고 진지하게 고민한다',
+        deltas: { happiness: -1 },
+        result: '미루면 미룰수록, 결정은 더 무겁게 느껴졌다.'
+      },
+      {
+        id: 'adulthood-realization',
+        text: '이제 스스로 책임져야 한다는 걸 실감하는 순간을 맞는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '기댈 곳이 줄어든 만큼, 스스로 서야 한다는 걸 깨달았다.'
+      },
+      {
+        id: 'reunion-with-highschool-friends',
+        text: '고등학교 친구들과 오랜만에 모여 옛날 얘기를 나눈다',
+        deltas: { relationship: 3, happiness: 2 },
+        result: '각자 다른 길을 걷고 있어도, 웃는 포인트만은 그대로였다.'
+      },
+      {
+        id: 'first-real-heartbreak-adult',
+        text: '성인이 되고 처음 겪는 이별에 크게 힘들어한다',
+        deltas: { happiness: -3 },
+        result: '괜찮다고 말할수록, 오히려 더 힘들다는 게 티가 났다.'
+      },
+      {
+        id: 'discovers-new-identity-20',
+        text: '학생이 아닌 새로운 정체성을 찾아가기 시작한다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '명찰이 사라진 자리에, 스스로 채워 넣을 것들이 많았다.'
       }
     ]
   },
