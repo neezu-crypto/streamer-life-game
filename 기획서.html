@@ -187,8 +187,8 @@
                     <tr><td>① 스트리머 검색</td><td><code>#searchSection</code></td><td><code>stocks</code> 검색 입력창 + 결과 목록. 클릭하면 이름이 다음 단계로 넘어감</td></tr>
                     <tr><td>② 이름 짓기</td><td><code>#nameSection</code></td><td>검색한 이름을 프리필해서 보여주고, 수정 후 "인생 시작"</td></tr>
                     <tr><td>③ 생애 진행</td><td><code>#gameSection</code></td><td>구간명/나이, 구간 스토리 문구, 3지선다 버튼, 선택 후 결과 텍스트 + 스탯 바 + 현재 건강 상세 + 현재 가족 상세 + 현재 직업 상세(값 하나)</td></tr>
-                    <tr><td>④ 엔딩</td><td><code>#endingSection</code></td><td>엔딩 제목/텍스트 + 최종 스탯 + 100세, 곁에 남은 가족 + 지금까지의 직업 이력</td></tr>
-                    <tr><td>⑤ 선택 요약</td><td><code>#choiceHistorySection</code></td><td>이번 판에서 0~100세까지 실제로 고른 선택지 전체를 나이순으로 나열(최대 101개, 스크롤). 서버가 <code>choiceLog</code>(stageId+choiceId만 담긴 압축 기록)를 <code>STAGES</code>와 대조해 <code>stageName</code>/<code>ageRange</code>/<code>choiceText</code>로 풀어 내려준다</td></tr>
+                    <tr><td>④ 엔딩</td><td><code>#endingSection</code></td><td>엔딩 제목/텍스트 + 최종 스탯 + <b>인생 종합 점수 추이(선그래프)</b> + 남긴 재산 + 100세, 곁에 남은 가족 + 인생에서 만난 지인 + 지금까지의 직업 이력</td></tr>
+                    <tr><td>⑤ 선택 요약</td><td><code>#choiceHistorySection</code></td><td>이번 판에서 0~100세까지 실제로 고른 선택지 전체를 나이순으로 나열(최대 101개, 스크롤). 서버가 <code>choiceLog</code>(<code>{stageId,choiceId,at,stats}</code>로 압축된 기록)를 <code>STAGES</code>와 대조해 <code>stageName</code>/<code>ageRange</code>/<code>choiceText</code>/<code>stats</code>로 풀어 내려준다</td></tr>
                     <tr><td>⑥ 공개 갤러리</td><td><code>#gallerySection</code></td><td>다른 유저가 공유한 인생 목록(실시간 구독, 최신순) + "갤러리에 공유하기" 버튼. 각 항목은 <code>&lt;details&gt;</code>로 접혀 있고, 클릭해서 펼치면 그 유저의 선택 기록(<code>lifeGame/galleryChoiceLogs/&#123;id&#125;</code>)을 그때 처음 불러와 <code>#choiceHistorySection</code>과 같은 형식으로 보여준다(펼친 적 있는 항목은 캐시해서 다시 안 불러옴)</td></tr>
                     <tr><td>⑦ 재시작 안내</td><td><code>#restartSection</code></td><td>안내 문구 + "다시 태어나기"(페이지 새로고침)</td></tr>
                 </table>
@@ -201,6 +201,26 @@
             <code>resumePlaythrough</code>가 이미 완료된 판을 다시 불러올 때 둘 다 같은
             <code>buildChoiceHistory()</code> 헬퍼로 계산돼 응답에 실린다 — DB에 별도로 저장하지 않고
             <code>choiceLog</code>로부터 매번 다시 계산한다.</p>
+            <p class="note"><b>인생 종합 점수 추이(2026-08-18, 사용자 지시 — "엔딩에 도달했을때 인생 종합
+            점수를 선그래프로 볼수있는 기능을 추가하고 싶어").</b> 다섯 스탯의 평균을 "종합 점수"(0~100)로
+            보고, 매 선택 직후의 값을 나이순으로 이은 선그래프를 엔딩 화면 최종 스탯 바로 아래에 보여준다.
+            핵심은 이 점수를 <b>매번 다시 계산(replay)하지 않고 그 순간의 실제 값을 그대로 저장</b>해뒀다가
+            쓴다는 것 — <code>applyChoice()</code>가 <code>choiceLog</code>에 항목을 추가할 때마다 그 선택
+            직후의 <code>stats</code> 스냅샷을 함께 저장하고(<code>{stageId, choiceId, at, stats}</code>),
+            <code>buildChoiceHistory()</code>가 이걸 그대로 <code>choiceHistory</code> 각 항목에 실어
+            내려준다. replay 대신 스냅샷을 쓰는 이유는 <code>prizeTable</code>(복권 등)처럼 결과가 서버에서
+            무작위로 정해지는 선택지가 있어서다 — <code>choiceLog</code>만 보고 나중에 그 선택의 deltas를
+            다시 계산하면 그 순간 실제로 어떤 등수가 뽑혔는지 알 방법이 없다. 이 필드가 생기기 전에 저장된
+            <code>choiceLog</code> 항목은 <code>stats</code>가 없으므로(구버전 이어하기 판), 클라이언트는
+            <code>stats</code>가 있는 항목만 걸러서 그린다 — 점이 2개 미만이면 "점수 추이를 그리기엔 기록이
+            너무 짧아요"로 대체한다. 차트는 라이브러리 없이 <code>&lt;canvas id="scoreChart"&gt;</code>
+            2D 컨텍스트로 직접 그린다(devicePixelRatio 보정 + 0/25/50/75/100 가로 기준선 + 시작·끝 나이
+            라벨 + 골드색 선/채움/점), 요약 문구(<code>#scoreChartSummary</code>)로 최종 점수와 최고·최저
+            점수(및 그 나이)를 함께 보여준다. <code>resumePlaythrough</code>가 이미 완료된 판을 다시 불러올
+            때도 같은 <code>choiceHistory</code>를 쓰므로 자동으로 동일하게 그려진다. 갤러리
+            (<code>lifeGame/galleryChoiceLogs</code>)에도 같은 <code>buildChoiceHistory()</code>를 거쳐
+            <code>stats</code>가 함께 저장되지만, 지금은 엔딩 화면에만 차트를 그리고 갤러리 쪽엔 아직 붙이지
+            않았다(향후 "다른 유저의 점수 추이도 보기"로 확장 가능).</p>
             <p class="note"><b>게임이 시작되면 상단 헤더(<code>#mainHeader</code> — eyebrow·제목·소개 문구)를 숨긴다.</b>
             대신 각 구간의 <code>STAGES[].intro</code>(1~2문장짜리 장면 설명, <code>publicStage()</code>가 그대로
             전달)를 <code>#gameSection</code> 안 <code>#storyText</code>에 채워 "지금 어떤 이야기 안에 있는지"를

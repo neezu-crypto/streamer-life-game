@@ -37,7 +37,13 @@ const STAGE_BY_ID = new Map(STAGES.map((s) => [s.id, s]));
 
 // choiceLog를 사람이 읽을 수 있는 형태로 풀어준다 - 이미 끝난 판이라 스포일러
 // 우려가 없으므로(publicStage와 달리 아직 안 고른 선택지의 결과를 감출 필요가 없음)
-// 실제 고른 선택지의 text를 그대로 내려도 된다.
+// 실제 고른 선택지의 text를 그대로 내려도 된다. entry.stats(그 선택 직후의 다섯
+// 스탯 스냅샷, 2026-08-18 추가 - "엔딩에서 인생 종합 점수를 선그래프로" 기능용)를
+// 그대로 실어 보낸다 - 이 필드가 생기기 전에 저장된 오래된 choiceLog 항목은
+// stats가 없을 수 있어 null로 채운다(클라이언트가 그 지점만 건너뛰고 그림).
+// prizeTable(복권 등)처럼 결과가 무작위로 정해지는 선택지는 그 순간의 실제 결과가
+// 반영된 stats를 그대로 저장해두는 게, choiceLog만 보고 나중에 다시 계산(replay)
+// 하는 것보다 정확하다 - replay는 그 순간 어떤 등수가 뽑혔었는지 알 수 없다.
 function buildChoiceHistory(choiceLog) {
   if (!Array.isArray(choiceLog)) return [];
   const history = [];
@@ -45,7 +51,7 @@ function buildChoiceHistory(choiceLog) {
     const stage = STAGE_BY_ID.get(entry.stageId);
     const choice = stage && stage.choices.find((c) => c.id === entry.choiceId);
     if (!stage || !choice) continue;
-    history.push({ stageId: stage.id, stageName: stage.name, ageRange: stage.ageRange, choiceText: choice.text });
+    history.push({ stageId: stage.id, stageName: stage.name, ageRange: stage.ageRange, choiceText: choice.text, stats: entry.stats || null });
   }
   return history;
 }
@@ -421,7 +427,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
   }
 
   const choiceLog = Array.isArray(play.choiceLog) ? play.choiceLog.slice() : [];
-  choiceLog.push({ stageId: stage.id, choiceId: choice.id, at: Date.now() });
+  choiceLog.push({ stageId: stage.id, choiceId: choice.id, at: Date.now(), stats });
 
   // 직업 상세 - 별도 필드 없이 방금 갱신한 choiceLog에서 다시 계산한다(위
   // buildOccupationHistory 주석 참고). 이번 선택이 setOccupation을 붙였다면

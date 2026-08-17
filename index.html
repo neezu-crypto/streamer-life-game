@@ -252,6 +252,9 @@
   }
   .asset-empty { font-size: 12.5px; color: var(--text-faint); }
 
+  .score-chart-summary { font-size: 12.5px; color: var(--text-faint); margin: 0 0 8px; font-variant-numeric: tabular-nums; }
+  .score-chart { display: block; width: 100%; height: 160px; }
+
   .health-panel { margin: 4px 0 14px; }
   .health-panel-title { font-size: 12px; color: var(--text-faint); letter-spacing: 0.03em; margin: 0 0 6px; }
   .health-conditions { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -487,6 +490,11 @@
     <p class="ending-title" id="endingTitle"></p>
     <p class="ending-text" id="endingText"></p>
     <div class="stat-bars" id="endingStatBars"></div>
+    <div class="asset-panel">
+      <p class="asset-panel-title">인생 종합 점수 추이</p>
+      <p id="scoreChartSummary" class="score-chart-summary"></p>
+      <canvas id="scoreChart" class="score-chart"></canvas>
+    </div>
     <div class="asset-panel">
       <p class="asset-panel-title">남긴 재산</p>
       <p id="endingCashHoldings" class="cash-holdings"></p>
@@ -995,6 +1003,135 @@ const assetsEl = document.getElementById('assets');
 const endingAssetsEl = document.getElementById('endingAssets');
 const cashHoldingsEl = document.getElementById('cashHoldings');
 const endingCashHoldingsEl = document.getElementById('endingCashHoldings');
+
+// ------------------------------------------------------------
+// 인생 종합 점수 선그래프(2026-08-18, 사용자 지시 - "엔딩에 도달했을때 인생
+// 종합 점수를 선그래프로 볼수있는 기능을 추가하고 싶어"). 서버가 choiceLog
+// 각 항목에 그 선택 직후의 다섯 스탯 스냅샷을 실어 choiceHistory로 내려주면
+// (functions/index.js buildChoiceHistory), 그 다섯 스탯의 평균을 "종합
+// 점수"(0~100)로 계산해 나이순으로 이은 선그래프를 그린다. 차트 라이브러리
+// 없이(번들러 없는 정적 HTML 원칙) Canvas 2D로 직접 그린다.
+// ------------------------------------------------------------
+const scoreChartEl = document.getElementById('scoreChart');
+const scoreChartSummaryEl = document.getElementById('scoreChartSummary');
+
+function parseAgeFromRange(ageRange) {
+  const n = parseInt(ageRange, 10);
+  return Number.isFinite(n) ? n : 0;
+}
+function compositeScore(stats) {
+  const keys = ['wealth', 'fame', 'happiness', 'health', 'relationship'];
+  const sum = keys.reduce((acc, k) => acc + (stats[k] || 0), 0);
+  return sum / keys.length;
+}
+
+function renderScoreChart(canvas, summaryEl, choiceHistory) {
+  const points = (choiceHistory || [])
+    .filter((h) => h.stats)
+    .map((h) => ({ age: parseAgeFromRange(h.ageRange), score: compositeScore(h.stats) }));
+
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const cssWidth = canvas.clientWidth || canvas.parentElement.clientWidth || 300;
+  const cssHeight = canvas.clientHeight || 160;
+  canvas.width = cssWidth * dpr;
+  canvas.height = cssHeight * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, cssWidth, cssHeight);
+
+  const style = getComputedStyle(document.documentElement);
+  const gold = style.getPropertyValue('--gold').trim() || '#d4a24c';
+  const line = style.getPropertyValue('--line').trim() || '#362f23';
+  const textFaint = style.getPropertyValue('--text-faint').trim() || '#6e6552';
+
+  if (points.length < 2) {
+    summaryEl.textContent = points.length ? '아직 그래프로 보여주기엔 선택 기록이 부족해요.' : '';
+    ctx.fillStyle = textFaint;
+    ctx.font = '12.5px -apple-system, sans-serif';
+    ctx.fillText('점수 추이를 그리기엔 기록이 너무 짧아요.', 8, cssHeight / 2);
+    return;
+  }
+
+  const padL = 28, padR = 8, padT = 10, padB = 20;
+  const plotW = cssWidth - padL - padR;
+  const plotH = cssHeight - padT - padB;
+  const minAge = points[0].age;
+  const maxAge = points[points.length - 1].age;
+  const ageSpan = Math.max(1, maxAge - minAge);
+  const xFor = (age) => padL + ((age - minAge) / ageSpan) * plotW;
+  const yFor = (score) => padT + (1 - score / 100) * plotH;
+
+  // 가로 기준선(0/25/50/75/100점)
+  ctx.strokeStyle = line;
+  ctx.lineWidth = 1;
+  ctx.fillStyle = textFaint;
+  ctx.font = '10.5px -apple-system, sans-serif';
+  ctx.textBaseline = 'middle';
+  [0, 25, 50, 75, 100].forEach((v) => {
+    const y = yFor(v);
+    ctx.beginPath();
+    ctx.moveTo(padL, y);
+    ctx.lineTo(padL + plotW, y);
+    ctx.stroke();
+    ctx.fillText(String(v), 2, y);
+  });
+
+  // 나이 축 라벨(시작/끝 나이만 - 좁은 패널에 촘촘히 다 넣으면 안 읽힘)
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillText(minAge + '세', padL, cssHeight - 4);
+  const endLabel = maxAge + '세';
+  ctx.fillText(endLabel, padL + plotW - ctx.measureText(endLabel).width, cssHeight - 4);
+
+  // 선 아래 옅은 채움
+  ctx.beginPath();
+  ctx.moveTo(xFor(points[0].age), yFor(points[0].score));
+  points.forEach((p) => ctx.lineTo(xFor(p.age), yFor(p.score)));
+  ctx.lineTo(xFor(points[points.length - 1].age), padT + plotH);
+  ctx.lineTo(xFor(points[0].age), padT + plotH);
+  ctx.closePath();
+  ctx.fillStyle = mixGoldAlpha(gold, 0.14);
+  ctx.fill();
+
+  // 점수 선
+  ctx.beginPath();
+  points.forEach((p, i) => {
+    const x = xFor(p.age), y = yFor(p.score);
+    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  });
+  ctx.strokeStyle = gold;
+  ctx.lineWidth = 2;
+  ctx.lineJoin = 'round';
+  ctx.stroke();
+
+  // 각 선택 지점 점 찍기
+  ctx.fillStyle = gold;
+  points.forEach((p) => {
+    ctx.beginPath();
+    ctx.arc(xFor(p.age), yFor(p.score), 2.2, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  // 요약 문구 - 최고점/최저점을 나이와 함께
+  let peak = points[0], trough = points[0];
+  points.forEach((p) => {
+    if (p.score > peak.score) peak = p;
+    if (p.score < trough.score) trough = p;
+  });
+  const finalScore = Math.round(points[points.length - 1].score);
+  summaryEl.textContent = '최종 ' + finalScore + '점 · 최고 ' + Math.round(peak.score) + '점(' + peak.age + '세) · 최저 ' +
+    Math.round(trough.score) + '점(' + trough.age + '세)';
+}
+
+// canvas 2D API는 color-mix()를 못 받아서, "gold를 옅게 깐 채움색"만 간단히
+// rgba로 근사한다(정확한 색 변환보다 "옅게 보이는지"가 중요한 배경 채움이라
+// 이 정도 근사로 충분).
+function mixGoldAlpha(hex, alpha) {
+  const m = /^#([0-9a-f]{6})$/i.exec(hex.trim());
+  if (!m) return 'rgba(212,162,76,' + alpha + ')';
+  const num = parseInt(m[1], 16);
+  const r = (num >> 16) & 255, g = (num >> 8) & 255, b = num & 255;
+  return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+}
 
 // 보유 현금자산(원 단위) - 서버(cashUnitForAge)가 wealth delta를 나이대별
 // 원화로 환산해 누적한 값을 그대로 만원 단위로 표시만 한다. 재산 상세
@@ -1518,6 +1655,10 @@ async function showEnding(ending, stats, choiceHistory, familyMembers, occupatio
   shareBtn.disabled = false;
 
   fadeIn([endingSection, choiceHistorySection, gallerySection, restartSection]);
+  // fadeIn이 hidden 클래스를 떼고 강제 리플로우까지 끝낸 뒤라, 이 시점엔
+  // scoreChartEl.clientWidth가 이미 실제 레이아웃 폭을 갖고 있다(숨겨진 채로
+  // 그리면 폭 0으로 그려져 버림).
+  renderScoreChart(scoreChartEl, scoreChartSummaryEl, choiceHistory);
 }
 
 shareBtn.addEventListener('click', async () => {
