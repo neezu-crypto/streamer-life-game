@@ -4039,6 +4039,24 @@ const STAGES = [
         deltas: { happiness: 4 },
         result: '요일 개념이 흐려질 때쯤, 비로소 은퇴가 실감 났다.',
         requiresOccupation: ['retired']
+      },
+      {
+        id: 'liquidating-old-investment-59',
+        text: '미뤄뒀던 투자 상품을 정리해본다',
+        deltas: { wealth: 4, happiness: 1 },
+        result: '예상보다 쏠쏠한 금액이 통장에 들어왔다.'
+      },
+      {
+        id: 'part-time-hobby-income-59',
+        text: '소일거리 삼아 작은 부업을 시작한다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '큰돈은 아니어도, 스스로 번 돈이라는 게 뿌듯했다.'
+      },
+      {
+        id: 'old-insurance-matures-59',
+        text: '오래전 들어둔 보험 하나의 만기 통지서를 받는다',
+        deltas: { wealth: 3 },
+        result: '젊은 날의 선택이, 이렇게 도움이 될 줄 몰랐다.'
       }
     ]
   },
@@ -4923,6 +4941,24 @@ const STAGES = [
         text: '몸이 예전 같지 않다는 걸 받아들이고 도움을 청한다',
         deltas: { happiness: 2, relationship: 3 },
         result: '도와달라는 말 한마디가, 생각보다 어렵지 않았다.'
+      },
+      {
+        id: 'downsizing-home-profit-73',
+        text: '그동안 살던 집을 정리하고 작은 곳으로 옮긴다',
+        deltas: { wealth: 5, health: -1 },
+        result: '짐은 줄었지만, 통장은 오히려 두둑해졌다.'
+      },
+      {
+        id: 'selling-old-belongings-73',
+        text: '짐을 줄이며 오래된 물건들을 하나둘 내놓는다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '안 쓰는 물건들이었는데, 의외로 값을 쳐줬다.'
+      },
+      {
+        id: 'small-garden-harvest-sale-73',
+        text: '작은 텃밭에서 기른 것들을 이웃에게 나눠 판다',
+        deltas: { wealth: 1, relationship: 2, happiness: 1 },
+        result: '텃밭 하나가 소소한 용돈벌이가 됐다.'
       }
     ]
   },
@@ -5331,6 +5367,18 @@ const STAGES = [
         text: '몸이 예전 같지 않다는 걸 다시 한번 실감한다',
         deltas: { happiness: -2, health: -2 },
         result: '작년과 또 달라진 몸이, 새삼 낯설게 느껴졌다.'
+      },
+      {
+        id: 'grandchildren-generous-birthday-gift-81',
+        text: '온 가족이 모여 생신을 챙긴다',
+        deltas: { wealth: 2, relationship: 3, happiness: 3 },
+        result: '다들 십시일반 모아온 마음이, 봉투 하나에 담겨 있었다.'
+      },
+      {
+        id: 'long-held-land-sells-81',
+        text: '오래전부터 갖고 있던 땅을 처분하기로 한다',
+        deltas: { wealth: 8 },
+        result: '평생 붙들고 있던 땅이, 마지막으로 큰 보탬이 됐다.'
       }
     ]
   },
@@ -5663,6 +5711,18 @@ const STAGES = [
         text: '오래 살았다는 것보다, 잘 살았다는 것에 방점을 찍는다',
         deltas: { happiness: 5, health: 1 },
         result: '길이보다 밀도가 중요하다는 걸, 이제는 안다.'
+      },
+      {
+        id: 'misu-envelope-from-descendants-88',
+        text: '미수(米壽) 잔치에 자손들이 저마다 마음을 보태 온다',
+        deltas: { wealth: 3, relationship: 3, happiness: 3 },
+        result: '봉투 두께보다, 마음의 두께가 더 크게 느껴졌다.'
+      },
+      {
+        id: 'lifelong-collection-sold-88',
+        text: '오랫동안 모아온 수집품을 정리해 내놓는다',
+        deltas: { wealth: 4, happiness: 1 },
+        result: '평생 취미로 모은 것들이, 뜻밖에 값진 마무리가 됐다.'
       }
     ]
   },

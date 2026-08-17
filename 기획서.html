@@ -436,6 +436,37 @@
         확인(시작 시 0원, 선택마다 정확히 갱신, 항상 만원의 배수), Playwright로 실제 화면에서도 "💰 보유
         현금 0만원"으로 시작해 선택할 때마다 숫자가 올바르게 바뀌는 것과 패널 최상단 배치를 스크린샷으로
         확인.</p>
+        <p class="note"><b>현금을 얻는 선택지 10개 추가(2026-08-17, 사용자 지시: "현금을 얻는 사건을
+        10개정도 추가해줘").</b> <code>cashHoldings</code>가 <code>wealth</code> delta를 자동으로
+        누적하는 구조라, 새 선택지를 추가할 때 별도 필드 없이 <code>deltas.wealth</code>만 양수로 두면
+        된다. 나이대별 <code>wealth</code>+ 선택지 분포를 조사해보니 56~100세(노년 준비 후반~황혼) 구간
+        전체에 걸쳐 <code>wealth</code>+ 선택지가 사실상 전무했다(그 구간 대부분이 건강 쇠퇴·가족·마음가짐
+        위주 콘텐츠였음) — 이 빈 구간 중에서도 특히 전체 선택지 수가 적어(6~9개) 새로 추가한 게 노출될
+        확률이 높은 네 나이(59·73·81·88세)에 2~3개씩 클러스터로 묶어 넣었다(위 "한 나이 안에 여러 재산
+        이벤트가 경쟁하도록" 방침과 동일).</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>구간</th><th>id</th><th>선택지 문장</th><th>deltas</th></tr>
+                <tr><td rowspan="3">노년 준비 · 59세</td><td><code>liquidating-old-investment-59</code></td><td>미뤄뒀던 투자 상품을 정리해본다</td><td>wealth+4, happiness+1</td></tr>
+                <tr><td><code>part-time-hobby-income-59</code></td><td>소일거리 삼아 작은 부업을 시작한다</td><td>wealth+2, happiness+2</td></tr>
+                <tr><td><code>old-insurance-matures-59</code></td><td>오래전 들어둔 보험 하나의 만기 통지서를 받는다</td><td>wealth+3</td></tr>
+                <tr><td rowspan="3">황혼 · 73세</td><td><code>downsizing-home-profit-73</code></td><td>그동안 살던 집을 정리하고 작은 곳으로 옮긴다</td><td>wealth+5, health-1</td></tr>
+                <tr><td><code>selling-old-belongings-73</code></td><td>짐을 줄이며 오래된 물건들을 하나둘 내놓는다</td><td>wealth+1, happiness+1</td></tr>
+                <tr><td><code>small-garden-harvest-sale-73</code></td><td>작은 텃밭에서 기른 것들을 이웃에게 나눠 판다</td><td>wealth+1, relationship+2, happiness+1</td></tr>
+                <tr><td rowspan="2">황혼 · 81세</td><td><code>grandchildren-generous-birthday-gift-81</code></td><td>온 가족이 모여 생신을 챙긴다</td><td>wealth+2, relationship+3, happiness+3</td></tr>
+                <tr><td><code>long-held-land-sells-81</code></td><td>오래전부터 갖고 있던 땅을 처분하기로 한다</td><td>wealth+8</td></tr>
+                <tr><td rowspan="2">황혼 · 88세</td><td><code>misu-envelope-from-descendants-88</code></td><td>미수(米壽) 잔치에 자손들이 저마다 마음을 보태 온다</td><td>wealth+3, relationship+3, happiness+3</td></tr>
+                <tr><td><code>lifelong-collection-sold-88</code></td><td>오랫동안 모아온 수집품을 정리해 내놓는다</td><td>wealth+4, happiness+1</td></tr>
+            </table>
+        </div>
+        <p class="note">전부 [행동만 명시] 스타일을 지켰다 — "정리해본다"/"시작한다"/"통지서를 받는다"처럼
+        결과를 확정하지 않는 동작만 text에 담고, 실제로 득이 됐다는 건 result에서만 드러난다(예:
+        <code>liquidating-old-investment-59</code>의 result "예상보다 쏠쏠한 금액이 통장에 들어왔다").
+        검증: 문법 검사(824개로 정상 증가 확인), 같은 구간 내 문구 중복 0건·전체 id 중복 0건, 2만 회
+        시뮬레이션(크래시 0·후보 0개 스테이지 0·현금 음수 0·만원 단위 위반 0), 배포 후 Node에서 직접
+        함수 호출로 10회 플레이스루 — 10개 중 9개 라이브 노출 확인(나머지 하나
+        <code>long-held-land-sells-81</code>은 5~99세 구간의 무작위 나이 스킵과 3개 중 노출 추첨 둘 다에
+        걸려 이번 표본에선 못 봤지만, 같은 소스 대조로 배포된 코드에 정확히 들어있음은 별도 확인).</p>
 
         <p class="note"><b>건강 상세(부상·질병) — 선택지가 건강을 "생기게" 하거나 "낫게" 한다.</b>
         일부 선택지에 <code>addCondition({id,label})</code>을 붙이면 해당 부상/질병이 그 판의 저장 슬롯
