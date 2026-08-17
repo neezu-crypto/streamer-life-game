@@ -349,6 +349,17 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // "선택했는데 건강 바가 그대로"인 게 버그처럼 안 보이게 한다.
   const healthRecoveryBlocked = currentConditions.some((c) => c.blocksHealthRecovery);
   const effectiveDeltas = Object.assign({}, resolvedDeltas || {});
+
+  // 부상·질병 개수 페널티(2026-08-18, 사용자 지시) - 지금 앓고 있는 조건이
+  // 많을수록 건강 회복도 더뎌지고 악화도 더 커진다. health delta가 있는
+  // 선택지는 이번 선택이 반영되기 전 기준 조건 개수만큼 그대로 차감한다 -
+  // 회복(+)이면 그만큼 덜 오르고, 악화(-)면 그만큼 더 떨어진다(조건 1개일 때
+  // +6→+5, -5→-6 되는 식). 조건이 없으면(0개) 기존과 동일.
+  const activeConditionCount = currentConditions.length;
+  if (activeConditionCount > 0 && effectiveDeltas.health !== undefined) {
+    effectiveDeltas.health -= activeConditionCount;
+  }
+
   let healthRecoverySuppressed = false;
   if (healthRecoveryBlocked && effectiveDeltas.health > 0) {
     effectiveDeltas.health = 0;
