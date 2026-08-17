@@ -240,25 +240,19 @@ function cashUnitForAge(age) {
   return 200000;
 }
 
-// 지인 상세용 이름 캐시 - stocks 노드(전체 스트리머 시세 목록, 스트리머 검색
-// 자동완성에도 쓰이는 그 데이터, 3800여 개)에서 지인 추가 선택지가 뽑힐 때마다
-// 매번 통째로 읽으면 낭비라, 함수 인스턴스가 살아있는 동안은 캐시를 재사용한다
-// (주가는 실시간으로 바뀌지만 "이름 목록"은 이 정도 신선도면 충분 - 클라이언트가
-// 스트리머 검색용 목록을 페이지 로드 시 한 번만 불러오는 것과 같은 패턴).
-let streamerNameCache = null;
-let streamerNameCacheAt = 0;
-const STREAMER_NAME_CACHE_TTL_MS = 60 * 60 * 1000;
+// 지인 상세용 이름 목록 - stocks 노드를 매번(또는 캐시 만료마다) RTDB에서 직접
+// 읽던 걸 정적 파일 require로 바꿨다(2026-08-18, 사용자 지시 - 앞으로 시청자도
+// 같은 판에 동시 접속하는 멀티플레이가 되면 요청량이 크게 늘 텐데, RTDB를 매번
+// 읽는 구조로는 그만큼 다운로드 비용이 곱해지기 때문). scripts/update-streamer-
+// names.js를 수동 실행하면 이 파일과 클라이언트가 쓰는 루트의 동명 파일이 함께
+// 갱신된다 - 스케줄러 없음, 필요할 때만 사용자가 직접 실행. require는 콜드
+// 스타트 시 한 번만 파일을 읽고 이후엔 메모리에 상주하므로 이제 TTL 캐시나
+// db 인자, async 처리가 전부 필요 없다.
+const STREAMER_NAMES = require('./streamer-names.json').map((s) => s.name).filter(Boolean);
 
-async function pickRandomStreamerName(db) {
-  const now = Date.now();
-  if (!streamerNameCache || now - streamerNameCacheAt > STREAMER_NAME_CACHE_TTL_MS) {
-    const snap = await db.ref('stocks').get();
-    const val = snap.val() || {};
-    streamerNameCache = Object.keys(val).map((k) => val[k] && val[k].name).filter(Boolean);
-    streamerNameCacheAt = now;
-  }
-  if (!streamerNameCache.length) return '이름 모를 이';
-  return streamerNameCache[Math.floor(Math.random() * streamerNameCache.length)];
+function pickRandomStreamerName() {
+  if (!STREAMER_NAMES.length) return '이름 모를 이';
+  return STREAMER_NAMES[Math.floor(Math.random() * STREAMER_NAMES.length)];
 }
 
 // submitChoice/rollDice 공통 로직 - 하나의 선택(choice)을 스탯에 반영하고, 다음
@@ -388,15 +382,15 @@ async function applyChoice(db, playRef, play, stage, choice) {
     familyMembers = familyMembers.filter((f) => !choice.removeFamilyMembers.includes(f.id));
   }
 
-  // 지인 상세 - choice.addAcquaintance가 있으면 stocks 노드에서 무작위로 뽑은
-  // 실제 스트리머 이름으로 새 지인이 하나 생긴다(2026-08-17, 사용자 지시 -
-  // "임의 이름이 아니라 경로에 있는 스트리머 이름중에 랜덤하게"). 가족과 달리
-  // 이름이 매번 달라지므로 id를 역할명으로 쓸 수 없어 "이 구간-이 선택지"
+  // 지인 상세 - choice.addAcquaintance가 있으면 정적 이름 목록(STREAMER_NAMES)에서
+  // 무작위로 뽑은 실제 스트리머 이름으로 새 지인이 하나 생긴다(2026-08-17, 사용자
+  // 지시 - "임의 이름이 아니라 경로에 있는 스트리머 이름중에 랜덤하게"). 가족과
+  // 달리 이름이 매번 달라지므로 id를 역할명으로 쓸 수 없어 "이 구간-이 선택지"
   // 조합으로 유일성을 보장한다(한 구간은 한 판에서 한 번만 지나가므로 안전).
   const currentAcquaintances = Array.isArray(play.acquaintances) ? play.acquaintances : [];
   let acquaintances = currentAcquaintances.slice();
   if (choice.addAcquaintance) {
-    const acquaintanceName = await pickRandomStreamerName(db);
+    const acquaintanceName = pickRandomStreamerName();
     const acquaintanceId = stage.id + '-' + choice.id;
     if (!acquaintances.some((a) => a.id === acquaintanceId)) {
       acquaintances.push({

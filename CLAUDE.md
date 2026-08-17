@@ -32,6 +32,26 @@
 - 배포 전엔 항상 `firebase deploy --only database --project soop-stock-market --dry-run`으로
   문법부터 확인한다.
 
+## 스트리머 이름 데이터 — 정적 파일, 수동 갱신 (2026-08-18, 사용자 지시)
+
+- 스트리머 이름 검색(자동완성)과 지인 상세 기능(랜덤 이름 배정) 둘 다 `stocks` RTDB
+  노드를 매번 직접 읽지 않고, `streamer-names.json`(루트 - 클라이언트용, `functions/
+  streamer-names.json` - 서버용, 내용은 항상 동일해야 함)이라는 정적 파일을 쓴다.
+  이유: `stocks`는 가격·거래량 등 이름 검색엔 안 쓰는 필드까지 포함해 훨씬 크고,
+  접속자마다 각자 다운로드하는 구조라 앞으로 시청자도 같은 판에 동시 접속하는
+  멀티플레이가 되면 그 인원수만큼 RTDB 다운로드 비용이 곱해진다.
+- **갱신은 스케줄러 없이 수동이다 — 사용자가 필요할 때 지시하면 그때만
+  `node scripts/update-streamer-names.js`를 실행한다.** 이 스크립트는 `firebase
+  database:get /stocks`(내 로그인 세션 재사용, admin SDK 서비스 계정 불필요)로
+  최신 `stocks`를 읽어 `{id,name}` 목록을 루트/`functions/` 양쪽에 동일하게 써준다.
+  실행 후 반드시 두 파일을 커밋(및 배포 필요 시 `firebase deploy --only
+  functions:lifegame:...`)해야 실제로 반영된다 — 로컬에 파일만 써지고 커밋 안 하면
+  배포된 서버·호스팅엔 그대로 안 남는다.
+- `functions/index.js`는 이 파일을 모듈 스코프에서 `require`로 한 번만 읽는다(콜드
+  스타트마다 1회, TTL 캐시나 async 처리 불필요). `index.html`은 페이지 로드 시
+  `fetch('./streamer-names.json')`로 받는다(GitHub Pages가 루트를 그대로 정적
+  서빙하므로 별도 배포 절차 없이 커밋·푸시만 하면 반영됨).
+
 ## 게임 콘텐츠 — 아직 스켈레톤 단계
 
 - `functions/game-data.js`에 생애 10구간 중 3구간(유아기·초등학생·스무살)만 채워져

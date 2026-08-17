@@ -618,14 +618,20 @@ onAuthStateChanged(auth, (user) => {
 });
 
 // ------------------------------------------------------------
-// 1) 스트리머 검색 - stocks 노드 전체를 한 번 받아 클라이언트에서 부분일치 필터
-// (soop-stock-market 자체 검색창과 동일한 패턴 - 인덱스가 없어서 이 방식이 맞다).
+// 1) 스트리머 검색 - {id,name} 목록을 정적 파일(streamer-names.json)에서 받아
+// 클라이언트에서 부분일치 필터(soop-stock-market 자체 검색창과 동일한 패턴 -
+// 인덱스가 없어서 이 방식이 맞다). stocks 노드를 직접 읽던 걸 정적 파일로
+// 바꾼 이유(2026-08-18) - stocks는 가격·거래량 등 이 검색엔 안 쓰는 필드까지
+// 포함해 매번 훨씬 큰 용량을 받게 되고, 접속자마다 각자 다운로드하는 구조라
+// 앞으로 시청자도 같은 페이지에 동시 접속하는 멀티플레이가 되면 그 인원수만큼
+// RTDB 다운로드 비용이 곱해진다. streamer-names.json은 이름 검색에 필요한
+// 최소 데이터만 담아 정적 호스팅(CDN 캐시)으로 서빙하고, scripts/update-
+// streamer-names.js를 수동 실행할 때만 최신화한다(스케줄러 없음 - 사용자 지시).
 // ------------------------------------------------------------
 let allStocks = [];
-get(ref(db, 'stocks')).then((snap) => {
-  const val = snap.val() || {};
-  allStocks = Object.keys(val).map((id) => ({ id, name: val[id].name || '' })).filter((s) => s.name);
-});
+fetch('./streamer-names.json').then((res) => res.json()).then((data) => {
+  allStocks = data;
+}).catch((e) => console.error('스트리머 이름 목록을 불러오지 못했습니다:', e));
 
 const searchInput = document.getElementById('searchInput');
 const searchResults = document.getElementById('searchResults');
