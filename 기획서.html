@@ -1075,6 +1075,24 @@
         누적되는 것도 확인했다(예: 14세 짝사랑 → 20세 친구 → 28세 연인 순으로 3명이 쌓인 판). 브라우저
         렌더링은 Playwright로 실제 선택 클릭 → 결과 화면에서 "현재 지인 상세" 패널에 <code>라벨 · 이름</code>
         칩이 뜨는 것과 획득 배지가 함께 뜨는 것을 스크린샷으로 확인했다.</p>
+        <p class="note"><b>기존 선택지 중 "새 인물과의 관계 형성"을 묘사하면서 <code>addAcquaintance</code>가
+        빠져 있던 10개 추가 발견·보강(2026-08-18, 사용자 지시 — "인간관계 선택지중에 지인이 추가되어야
+        하는 선택지를 찾아줘").</b> 친구·동료·연인·짝사랑 키워드로 전체 1,320개 선택지를 훑어 후보 107개를
+        추리고, 그중 문구·result가 "기존 관계를 언급/다툼/이별/재회"가 아니라 <b>새로 사귀거나 생기는</b>
+        순간을 명확히 묘사하는 것만 다시 걸렀다. 확실한 6개(<code>best-friend-forever</code> 5세,
+        <code>first-deskmate-bff</code> 7세, <code>first-crush</code> 10세, <code>confess-to-crush</code>
+        15세, <code>first-highschool-romance</code> 16세, <code>joining-local-community</code> 57세)와
+        플러그/그룹 형태지만 result 문구까지 확인해 근거가 뚜렷한 4개(<code>finds-college-clique</code>
+        19세, <code>rookie-camaraderie</code>·<code>lw-team-teamwork-24</code> 24세,
+        <code>jc-new-colleagues-38</code> 38세 — 뒤 3개는 <code>requiresOccupation</code>과 함께
+        <code>addAcquaintance</code>를 붙임)를 합쳐 총 10개에 적용했다. 반대로 다투거나 헤어지거나
+        재회하는 문구(<code>reconnect-old-friend</code>, <code>relationship-breakup-long-relationship</code>
+        등), 막연한 커뮤니티 소속감(<code>deep-community-belonging</code>), 서먹함만 남는 부정적 톤
+        (<code>job-changed-awkward-new-colleagues</code>)은 "새 지인이 생겼다"고 보기 어려워 제외했다.
+        검증: 2만 회 시뮬레이션 - 게이팅 위반 0건·zeroEligible 0건, 10개 전부 최소 1회 이상 자연 발생(가장
+        드문 <code>jc-new-colleagues-38</code>도 3회), 한 판 최대 누적 지인 8명까지 확인. 배포 후 라이브로
+        <code>best-friend-forever</code>(5세)가 노출·선택되고 실제 <code>stocks</code> 이름이 붙은 새
+        친구가 지인 목록에 정확히 추가되는 것을 확인했다.</p>
 
         <p class="note"><b>직업 상세 — 건강·가족과 달리 저장 슬롯에 별도 필드가 없다.</b> 직업은
         동시에 여러 개 쌓이는 목록이 아니라 항상 "지금 하나"라, 선택지에 <code>setOccupation({id,label})</code>을

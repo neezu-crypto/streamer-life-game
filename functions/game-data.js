@@ -638,7 +638,8 @@ const STAGES = [
         id: 'best-friend-forever',
         text: '평생 갈 것 같은 단짝을 만난다',
         deltas: { relationship: 7, happiness: 3 },
-        result: '어디를 가든 손을 꼭 잡고 다니던 사이가 생겼다.'
+        result: '어디를 가든 손을 꼭 잡고 다니던 사이가 생겼다.',
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
       },
       {
         id: 'competitive-streak',
@@ -815,7 +816,8 @@ const STAGES = [
         id: 'first-deskmate-bff',
         text: '짝꿍과 급속도로 단짝이 된다',
         deltas: { relationship: 6, happiness: 3 },
-        result: '쉬는 시간마다 손을 잡고 화장실까지 같이 가던 사이.'
+        result: '쉬는 시간마다 손을 잡고 화장실까지 같이 가던 사이.',
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
       },
       {
         id: 'always-raising-hand',
@@ -1079,7 +1081,8 @@ const STAGES = [
         id: 'first-crush',
         text: '처음으로 짝사랑을 경험한다',
         deltas: { happiness: 3, relationship: -1 },
-        result: '별것도 아닌 눈맞춤 하나에 하루 종일 마음이 두근거렸다.'
+        result: '별것도 아닌 눈맞춤 하나에 하루 종일 마음이 두근거렸다.',
+        addAcquaintance: { relation: 'crush', label: '💌 짝사랑' }
       },
       {
         id: 'online-gaming-nights',
@@ -1513,7 +1516,8 @@ const STAGES = [
         id: 'confess-to-crush',
         text: '졸업을 앞두고 짝사랑 상대에게 고백해본다',
         deltas: { happiness: 3, relationship: 2 },
-        result: '결과가 어떻든, 말하고 나니 속은 후련했다.'
+        result: '결과가 어떻든, 말하고 나니 속은 후련했다.',
+        addAcquaintance: { relation: 'crush', label: '💌 짝사랑' }
       },
       {
         id: 'passion-over-grades',
@@ -1594,7 +1598,8 @@ const STAGES = [
         id: 'first-highschool-romance',
         text: '처음 사귄 남자친구·여자친구와 풋풋한 연애를 시작한다',
         deltas: { happiness: 5, relationship: 3, wealth: -2 },
-        result: '쉬는 시간마다 문자 하나에 마음이 오르락내리락했다.'
+        result: '쉬는 시간마다 문자 하나에 마음이 오르락내리락했다.',
+        addAcquaintance: { relation: 'lover', label: '💕 연인' }
       },
       {
         id: 'caught-slacking-nightstudy',
@@ -1999,7 +2004,8 @@ const STAGES = [
         id: 'finds-college-clique',
         text: '새로운 대학 친구 무리와 급속도로 친해진다',
         deltas: { relationship: 3 },
-        result: '몇 주 만에, 낯선 캠퍼스가 익숙한 아지트처럼 느껴졌다.'
+        result: '몇 주 만에, 낯선 캠퍼스가 익숙한 아지트처럼 느껴졌다.',
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
       },
       {
         id: 'first-solo-travel',
@@ -2460,7 +2466,8 @@ const STAGES = [
         text: '동기들과 끈끈한 생존 동료애를 쌓는다',
         deltas: { relationship: 5, happiness: 3 },
         result: '다 같이 신입이라는 이유 하나로 뭉쳤던 시절.',
-        requiresOccupation: COMPANY_OCCUPATION_IDS
+        requiresOccupation: COMPANY_OCCUPATION_IDS,
+        addAcquaintance: { relation: 'colleague', label: '💼 동료' }
       },
       {
         id: 'fame-colleague-expose-damages-image',
@@ -2537,7 +2544,8 @@ const STAGES = [
         text: '손발이 척척 맞는 동료들과 함께 일한다',
         deltas: { relationship: 4, happiness: 2 },
         result: '말 안 해도 알아서 다음 동작을 채워주는 사이가, 은근히 든든했다.',
-        requiresOccupation: ['logistics-worker']
+        requiresOccupation: ['logistics-worker'],
+        addAcquaintance: { relation: 'colleague', label: '💼 동료' }
       },
       {
         id: 'lw-near-miss-accident-24',
@@ -4192,7 +4200,8 @@ const STAGES = [
         text: '새 동료들과 조금씩 가까워진다',
         deltas: { relationship: 3, happiness: 2 },
         result: '낯설던 얼굴들이, 이름과 함께 편해지기 시작했다.',
-        requiresOccupation: ['job-changed']
+        requiresOccupation: ['job-changed'],
+        addAcquaintance: { relation: 'colleague', label: '💼 동료' }
       },
       {
         id: 'jc-regret-or-satisfaction-38',
@@ -6006,7 +6015,8 @@ const STAGES = [
         id: 'joining-local-community',
         text: '동네 커뮤니티·모임에 나가며 새 친구를 사귄다',
         deltas: { relationship: 5, happiness: 4 },
-        result: '나이도, 살아온 길도 다른 사람들과 새로 친구가 됐다.'
+        result: '나이도, 살아온 길도 다른 사람들과 새로 친구가 됐다.',
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
       },
       {
         id: 'fading-work-connections',
