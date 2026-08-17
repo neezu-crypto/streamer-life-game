@@ -468,6 +468,90 @@
         <code>long-held-land-sells-81</code>은 5~99세 구간의 무작위 나이 스킵과 3개 중 노출 추첨 둘 다에
         걸려 이번 표본에선 못 봤지만, 같은 소스 대조로 배포된 코드에 정확히 들어있음은 별도 확인).</p>
 
+        <p class="note"><b>현금을 얻는 "이벤트" 단위로 10개 더 추가 - 나이당 6개씩, 총 60개
+        (2026-08-17, 사용자 지시: "선택지뿐만 아니라 현금획득 이벤트 자체(선택지 6개씩)를 10개
+        추가해줘").</b> 앞선 10개가 "선택지 몇 개 추가"였다면, 이번엔 그 나이의 선택지 풀 전체가 재산
+        이벤트로 경쟁하는 "이벤트" 단위로 10개 나이에 6개씩 넣어달라는 요청이었다. 이미 다룬
+        59·73·81·88세를 피해, 남아있던 빈 구간(56~100세 대부분) 중 총 선택지 수가 적어(6~9개) 새로
+        추가한 6개가 노출될 확률이 높은 나이 10곳(45·57·61·66·71·77·83·87·92·97세)을 골랐다. 45세만
+        예외적으로 <code>wealth</code>+ 배수가 가장 큰(50만원) 중년기라 다른 9곳(모두 20~40만원)보다
+        선택했을 때 체감 금액이 크다.</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>구간</th><th>id</th><th>선택지 문장</th><th>deltas</th></tr>
+                <tr><td rowspan="6">중년 · 45세</td><td><code>midlife-consulting-side-gig-45</code></td><td>쌓아온 경력을 살려 사이드 컨설팅을 시작한다</td><td>wealth+5, happiness+1</td></tr>
+                <tr><td><code>midlife-real-estate-flip-45</code></td><td>그동안 눈여겨보던 부동산에 다시 손을 댄다</td><td>wealth+4</td></tr>
+                <tr><td><code>midlife-stock-account-check-45</code></td><td>묵혀뒀던 주식 계좌를 오랜만에 들여다본다</td><td>wealth+6, happiness+1</td></tr>
+                <tr><td><code>midlife-job-offer-negotiation-45</code></td><td>이직 제안을 받고 조건을 적극적으로 협상한다</td><td>wealth+5, happiness-1</td></tr>
+                <tr><td><code>midlife-family-asset-help-45</code></td><td>부모님의 재산 정리를 도와드린다</td><td>wealth+4, relationship+2</td></tr>
+                <tr><td><code>midlife-old-debt-collection-45</code></td><td>예전에 빌려줬던 돈을 받으러 연락해본다</td><td>wealth+3</td></tr>
+                <tr><td rowspan="6">노년 준비 · 57세</td><td><code>oldprep-flea-market-57</code></td><td>안 쓰는 물건을 모아 동네 벼룩시장에 나가본다</td><td>wealth+2, happiness+2, relationship+1</td></tr>
+                <tr><td><code>oldprep-community-class-fee-57</code></td><td>배운 걸 살려 동네에서 작은 강습을 열어본다</td><td>wealth+3, happiness+2</td></tr>
+                <tr><td><code>oldprep-old-savings-review-57</code></td><td>잊고 지내던 통장들을 하나씩 정리해본다</td><td>wealth+3</td></tr>
+                <tr><td><code>oldprep-part-time-consulting-57</code></td><td>은퇴 전 마지막으로 자문 요청을 받아들인다</td><td>wealth+4, happiness+1</td></tr>
+                <tr><td><code>oldprep-golden-handshake-57</code></td><td>명예퇴직 조건을 검토하고 서명한다</td><td>wealth+6, happiness-2 (<code>COMPANY_OCCUPATION_IDS</code> 전용)</td></tr>
+                <tr><td><code>oldprep-selling-commute-car-57</code></td><td>출퇴근길에 쓰던 차를 처분한다</td><td>wealth+3</td></tr>
+                <tr><td rowspan="6">노년 준비 · 61세</td><td><code>oldprep-handmade-crafts-market-61</code></td><td>취미로 만든 공예품을 장터에 내놓는다</td><td>wealth+2, happiness+2</td></tr>
+                <tr><td><code>oldprep-retirement-fund-lumpsum-61</code></td><td>퇴직연금을 일시금으로 받기로 한다</td><td>wealth+7</td></tr>
+                <tr><td><code>oldprep-frugal-savings-61</code></td><td>생활 규모를 줄이며 남는 돈을 따로 모아본다</td><td>wealth+2, happiness+1</td></tr>
+                <tr><td><code>oldprep-land-rental-61</code></td><td>갖고 있던 땅 한 뙈기를 임대로 내놓는다</td><td>wealth+3</td></tr>
+                <tr><td><code>oldprep-selling-golf-membership-61</code></td><td>이제 안 쓰는 골프 회원권을 처분한다</td><td>wealth+5</td></tr>
+                <tr><td><code>oldprep-family-business-stake-61</code></td><td>자녀의 사업을 도와주고 지분을 조금 받는다</td><td>wealth+3, relationship+2</td></tr>
+                <tr><td rowspan="6">노년 준비 · 66세</td><td><code>oldprep-joint-account-reorganize-66</code></td><td>부부가 함께 재산을 다시 정리해본다</td><td>wealth+3, relationship+2</td></tr>
+                <tr><td><code>oldprep-anniversary-gift-cash-66</code></td><td>결혼기념일에 자녀들이 두둑한 용돈을 보낸다</td><td>wealth+2, relationship+2, happiness+2</td></tr>
+                <tr><td><code>oldprep-selling-second-car-66</code></td><td>부부가 차를 한 대로 줄인다</td><td>wealth+4</td></tr>
+                <tr><td><code>oldprep-hobby-workshop-66</code></td><td>부부가 함께 작은 공방을 열어본다</td><td>wealth+2, relationship+2, happiness+1</td></tr>
+                <tr><td><code>oldprep-old-life-insurance-payout-66</code></td><td>오래 부어온 저축성 보험 하나가 만기를 맞는다</td><td>wealth+5</td></tr>
+                <tr><td><code>oldprep-renting-spare-room-66</code></td><td>빈 방 하나를 세놓기로 한다</td><td>wealth+3</td></tr>
+                <tr><td rowspan="6">황혼 · 71세</td><td><code>twilight-selling-old-books-71</code></td><td>오래 모은 책들을 도서 장터에 내놓는다</td><td>wealth+1, happiness+1</td></tr>
+                <tr><td><code>twilight-antique-appraisal-71</code></td><td>서랍 속 오래된 골동품 하나를 감정받아본다</td><td>wealth+3, happiness+1</td></tr>
+                <tr><td><code>twilight-pension-benefit-review-71</code></td><td>놓치고 있던 노령연금 추가 혜택을 신청한다</td><td>wealth+3</td></tr>
+                <tr><td><code>twilight-old-stamp-collection-71</code></td><td>서랍 속에 있던 오래된 우표책을 발견한다</td><td>wealth+4, happiness+2</td></tr>
+                <tr><td><code>twilight-community-fund-payout-71</code></td><td>오래 부어온 계 모임이 마침내 순서가 돌아온다</td><td>wealth+5</td></tr>
+                <tr><td><code>twilight-selling-unused-appliances-71</code></td><td>안 쓰는 가전을 정리해 내놓는다</td><td>wealth+2</td></tr>
+                <tr><td rowspan="6">황혼 · 77세</td><td><code>twilight-huisu-envelope-77</code></td><td>희수(喜壽) 잔치에 손님들이 저마다 축하를 보태 온다</td><td>wealth+3, relationship+2, happiness+2</td></tr>
+                <tr><td><code>twilight-old-policy-review-77</code></td><td>오래전 든 보험 하나를 다시 살펴본다</td><td>wealth+4</td></tr>
+                <tr><td><code>twilight-selling-jewelry-77</code></td><td>예물로 받았던 패물 일부를 정리한다</td><td>wealth+5</td></tr>
+                <tr><td><code>twilight-grandchild-repaying-favor-77</code></td><td>예전에 도와줬던 손주가 마음을 표한다</td><td>wealth+2, relationship+3, happiness+2</td></tr>
+                <tr><td><code>twilight-old-friend-visit-77</code></td><td>오래전 소식이 끊겼던 친구가 불쑥 연락해온다</td><td>wealth+2, relationship+2, happiness+2</td></tr>
+                <tr><td><code>twilight-selling-car-final-77</code></td><td>이제 운전을 그만두며 차를 처분한다</td><td>wealth+3</td></tr>
+                <tr><td rowspan="6">황혼 · 83세</td><td><code>twilight-family-covers-expenses-83</code></td><td>가족이 생활비 일부를 보태준다</td><td>wealth+3, relationship+1</td></tr>
+                <tr><td><code>twilight-old-account-found-83</code></td><td>정리하던 서랍에서 오래된 통장 하나를 발견한다</td><td>wealth+4</td></tr>
+                <tr><td><code>twilight-selling-remaining-furniture-83</code></td><td>이제 안 쓰는 가구를 정리해 내놓는다</td><td>wealth+2</td></tr>
+                <tr><td><code>twilight-insurance-claim-83</code></td><td>미뤄뒀던 건강보험 실비 청구를 처리한다</td><td>wealth+2</td></tr>
+                <tr><td><code>twilight-long-term-care-benefit-83</code></td><td>장기요양보험 혜택을 새로 신청한다</td><td>wealth+3</td></tr>
+                <tr><td><code>twilight-children-pooling-money-83</code></td><td>자녀들이 돌아가며 용돈을 챙겨준다</td><td>wealth+2, relationship+2</td></tr>
+                <tr><td rowspan="6">황혼 · 87세</td><td><code>twilight-medical-expense-refund-87</code></td><td>과다 청구됐던 병원비를 환급받는다</td><td>wealth+2</td></tr>
+                <tr><td><code>twilight-pension-cost-of-living-adjustment-87</code></td><td>연금 수령액이 물가에 맞춰 조정된다</td><td>wealth+2</td></tr>
+                <tr><td><code>twilight-family-covers-hospital-87</code></td><td>자녀들이 병원비 일부를 대신 부담해준다</td><td>wealth+3, relationship+2</td></tr>
+                <tr><td><code>twilight-selling-last-valuables-87</code></td><td>남은 귀중품 몇 가지를 정리한다</td><td>wealth+4</td></tr>
+                <tr><td><code>twilight-welfare-support-applied-87</code></td><td>지역 복지 지원금을 새로 신청한다</td><td>wealth+3</td></tr>
+                <tr><td><code>twilight-community-support-fund-87</code></td><td>다니던 모임에서 작은 위로금을 전해온다</td><td>wealth+2, relationship+1</td></tr>
+                <tr><td rowspan="6">황혼 · 92세</td><td><code>twilight-bedside-account-check-92</code></td><td>가족이 대신 통장을 정리해 알려준다</td><td>wealth+3, relationship+1</td></tr>
+                <tr><td><code>twilight-old-collection-passed-on-92</code></td><td>간직해온 물건 몇 가지가 새 주인을 찾는다</td><td>wealth+3</td></tr>
+                <tr><td><code>twilight-care-insurance-claim-92</code></td><td>간병보험금을 청구한다</td><td>wealth+4</td></tr>
+                <tr><td><code>twilight-family-gathers-support-92</code></td><td>자녀들이 십시일반 병간호 비용을 모은다</td><td>wealth+3, relationship+2</td></tr>
+                <tr><td><code>twilight-pension-continues-92</code></td><td>매달 들어오는 연금이 꾸준히 쌓인다</td><td>wealth+2</td></tr>
+                <tr><td><code>twilight-old-friend-remembers-92</code></td><td>문병 온 오랜 지인이 마음을 전하고 간다</td><td>wealth+1, relationship+2, happiness+1</td></tr>
+                <tr><td rowspan="6">황혼 · 97세</td><td><code>twilight-baeksu-early-gifts-97</code></td><td>백수를 앞두고 여기저기서 미리 축하가 도착한다</td><td>wealth+3, relationship+2, happiness+2</td></tr>
+                <tr><td><code>twilight-old-savings-final-check-97</code></td><td>평생 모아온 돈을 마지막으로 정리해본다</td><td>wealth+2</td></tr>
+                <tr><td><code>twilight-pension-final-years-97</code></td><td>연금이 마지막까지 꾸준히 들어온다</td><td>wealth+2</td></tr>
+                <tr><td><code>twilight-old-debt-finally-repaid-97</code></td><td>잊고 있던 옛 빚 하나를 뒤늦게 돌려받는다</td><td>wealth+3</td></tr>
+                <tr><td><code>twilight-community-recognition-gift-97</code></td><td>장수를 축하하며 마을에서 작은 성금을 전해온다</td><td>wealth+2, relationship+1, happiness+1</td></tr>
+                <tr><td><code>twilight-simple-gift-from-grandchildren-97</code></td><td>손주들이 마음을 담아 용돈을 모아온다</td><td>wealth+2, relationship+2, happiness+2</td></tr>
+            </table>
+        </div>
+        <p class="note">83·87·92세는 거동이 불편해지거나 병상 위주인 나이라, 능동적으로 "돈을 버는" 사건
+        대신 환급·지원금·가족의 도움처럼 수동적으로 받는 쪽으로 결을 맞췄다(기존 그 나이대 콘텐츠 톤과
+        충돌하지 않도록). 전부 [행동만 명시] 스타일 유지 — "청구한다"/"신청한다"/"정리해본다"처럼 시도만
+        서술하고, 실제로 得이 됐다는 건 result에서만 드러난다. 검증: 문법 검사(824→884개로 정상 증가
+        확인), 같은 구간 내 문구 중복 0건·전체 id 중복 0건, 2만 회 시뮬레이션(크래시 0·후보 0개 스테이지
+        0·현금 음수 0·만원 단위 위반 0 — 무작위 플레이 관찰 최대 현금이 이전 1,790만원에서 2,782만원으로
+        상승해 새 콘텐츠가 실제로 반영됨을 확인), 배포 후 Node에서 직접 함수 호출로 라이브 플레이스루 진행
+        — 5회 완주 기준 60개 중 15개 노출 확인(그 이후 몇 회는 응답 지연으로 중단, 나머지는 미확인이지만
+        같은 소스 대조로 배포 코드엔 정확히 들어있음은 별도 확인 — 5~99세 구간의 무작위 나이 스킵과 매
+        구간 3개 중 노출 추첨 때문에 적은 회차로는 60개를 전부 목격하기 어렵다).</p>
+
         <p class="note"><b>건강 상세(부상·질병) — 선택지가 건강을 "생기게" 하거나 "낫게" 한다.</b>
         일부 선택지에 <code>addCondition({id,label})</code>을 붙이면 해당 부상/질병이 그 판의 저장 슬롯
         (<code>healthConditions[]</code>)에 추가되고, <code>removeCondition(id)</code>을 붙이면 해당 조건이

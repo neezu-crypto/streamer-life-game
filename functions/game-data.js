@@ -3113,6 +3113,42 @@ const STAGES = [
         deltas: { happiness: -4 },
         result: '"제 관리 부족입니다"라는 말이, 입에 붙어버렸다.',
         requiresOccupation: ['team-lead']
+      },
+      {
+        id: 'midlife-consulting-side-gig-45',
+        text: '쌓아온 경력을 살려 사이드 컨설팅을 시작한다',
+        deltas: { wealth: 5, happiness: 1 },
+        result: '부업치고는 꽤 짭짤한 수입이었다.'
+      },
+      {
+        id: 'midlife-real-estate-flip-45',
+        text: '그동안 눈여겨보던 부동산에 다시 손을 댄다',
+        deltas: { wealth: 4 },
+        result: '타이밍이 나쁘지 않았던 모양이다.'
+      },
+      {
+        id: 'midlife-stock-account-check-45',
+        text: '묵혀뒀던 주식 계좌를 오랜만에 들여다본다',
+        deltas: { wealth: 6, happiness: 1 },
+        result: '잊고 있던 사이, 계좌가 제법 불어나 있었다.'
+      },
+      {
+        id: 'midlife-job-offer-negotiation-45',
+        text: '이직 제안을 받고 조건을 적극적으로 협상한다',
+        deltas: { wealth: 5, happiness: -1 },
+        result: '밀어붙인 보람이 있었다, 연봉이 꽤 올랐다.'
+      },
+      {
+        id: 'midlife-family-asset-help-45',
+        text: '부모님의 재산 정리를 도와드린다',
+        deltas: { wealth: 4, relationship: 2 },
+        result: '고생했다며 부모님이 얼마간을 손에 쥐여주셨다.'
+      },
+      {
+        id: 'midlife-old-debt-collection-45',
+        text: '예전에 빌려줬던 돈을 받으러 연락해본다',
+        deltas: { wealth: 3 },
+        result: '미안해하며 건넨 돈이, 잊고 있던 만큼 반가웠다.'
       }
     ]
   },
@@ -3905,6 +3941,43 @@ const STAGES = [
         deltas: { relationship: 3, happiness: 2 },
         result: '가르치려다, 오히려 내가 더 배우고 있다는 걸 깨달았다.',
         requiresOccupation: ['team-lead']
+      },
+      {
+        id: 'oldprep-flea-market-57',
+        text: '안 쓰는 물건을 모아 동네 벼룩시장에 나가본다',
+        deltas: { wealth: 2, happiness: 2, relationship: 1 },
+        result: '잡동사니인 줄 알았는데, 제법 짭짤했다.'
+      },
+      {
+        id: 'oldprep-community-class-fee-57',
+        text: '배운 걸 살려 동네에서 작은 강습을 열어본다',
+        deltas: { wealth: 3, happiness: 2 },
+        result: '수강료가 쌓이는 재미에 매주가 기다려졌다.'
+      },
+      {
+        id: 'oldprep-old-savings-review-57',
+        text: '잊고 지내던 통장들을 하나씩 정리해본다',
+        deltas: { wealth: 3 },
+        result: '여기저기 흩어져 있던 돈이 생각보다 많았다.'
+      },
+      {
+        id: 'oldprep-part-time-consulting-57',
+        text: '은퇴 전 마지막으로 자문 요청을 받아들인다',
+        deltas: { wealth: 4, happiness: 1 },
+        result: '경력이 아직 쓸모 있다는 확인이자, 짭짤한 부수입이었다.'
+      },
+      {
+        id: 'oldprep-golden-handshake-57',
+        text: '명예퇴직 조건을 검토하고 서명한다',
+        deltas: { wealth: 6, happiness: -2 },
+        result: '서운함보다, 통장에 찍힌 숫자가 먼저 눈에 들어왔다.',
+        requiresOccupation: COMPANY_OCCUPATION_IDS
+      },
+      {
+        id: 'oldprep-selling-commute-car-57',
+        text: '출퇴근길에 쓰던 차를 처분한다',
+        deltas: { wealth: 3 },
+        result: '이제 필요 없어진 차가, 마지막으로 한몫했다.'
       }
     ]
   },
@@ -4210,6 +4283,42 @@ const STAGES = [
         deltas: { health: -3 },
         result: '가벼운 일이라 여겼던 것도, 이제는 하루를 다 쓰게 만들었다.',
         requiresOccupation: ['volunteer-work']
+      },
+      {
+        id: 'oldprep-handmade-crafts-market-61',
+        text: '취미로 만든 공예품을 장터에 내놓는다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '손으로 만든 것들이, 뜻밖에 하나둘 팔려나갔다.'
+      },
+      {
+        id: 'oldprep-retirement-fund-lumpsum-61',
+        text: '퇴직연금을 일시금으로 받기로 한다',
+        deltas: { wealth: 7 },
+        result: '매달 나눠 받는 대신, 한 번에 크게 받는 쪽을 택했다.'
+      },
+      {
+        id: 'oldprep-frugal-savings-61',
+        text: '생활 규모를 줄이며 남는 돈을 따로 모아본다',
+        deltas: { wealth: 2, happiness: 1 },
+        result: '씀씀이를 줄이니, 통장이 조금씩 두툼해졌다.'
+      },
+      {
+        id: 'oldprep-land-rental-61',
+        text: '갖고 있던 땅 한 뙈기를 임대로 내놓는다',
+        deltas: { wealth: 3 },
+        result: '묵혀뒀던 땅이, 매달 조금씩 보탬이 됐다.'
+      },
+      {
+        id: 'oldprep-selling-golf-membership-61',
+        text: '이제 안 쓰는 골프 회원권을 처분한다',
+        deltas: { wealth: 5 },
+        result: '오래 묵혀둔 회원권이, 마지막으로 값을 했다.'
+      },
+      {
+        id: 'oldprep-family-business-stake-61',
+        text: '자녀의 사업을 도와주고 지분을 조금 받는다',
+        deltas: { wealth: 3, relationship: 2 },
+        result: '작은 지분이지만, 함께한다는 뿌듯함이 더 컸다.'
       }
     ]
   },
@@ -4529,6 +4638,42 @@ const STAGES = [
         deltas: { relationship: -6, happiness: -2 },
         result: '전화를 걸어도, 짧은 안부 몇 마디로 끝나는 날이 많았다.',
         requiresFamilyMember: ['child']
+      },
+      {
+        id: 'oldprep-joint-account-reorganize-66',
+        text: '부부가 함께 재산을 다시 정리해본다',
+        deltas: { wealth: 3, relationship: 2 },
+        result: '따로 흩어져 있던 것들을 모으니, 생각보다 든든했다.'
+      },
+      {
+        id: 'oldprep-anniversary-gift-cash-66',
+        text: '결혼기념일에 자녀들이 두둑한 용돈을 보낸다',
+        deltas: { wealth: 2, relationship: 2, happiness: 2 },
+        result: '봉투 안 숫자보다, 잊지 않고 챙긴 마음이 더 컸다.'
+      },
+      {
+        id: 'oldprep-selling-second-car-66',
+        text: '부부가 차를 한 대로 줄인다',
+        deltas: { wealth: 4 },
+        result: '차 한 대로도 충분하다는 걸, 새삼 깨달았다.'
+      },
+      {
+        id: 'oldprep-hobby-workshop-66',
+        text: '부부가 함께 작은 공방을 열어본다',
+        deltas: { wealth: 2, relationship: 2, happiness: 1 },
+        result: '취미로 시작한 일이, 소소한 용돈벌이가 됐다.'
+      },
+      {
+        id: 'oldprep-old-life-insurance-payout-66',
+        text: '오래 부어온 저축성 보험 하나가 만기를 맞는다',
+        deltas: { wealth: 5 },
+        result: '까맣게 잊고 있던 돈이, 때맞춰 돌아왔다.'
+      },
+      {
+        id: 'oldprep-renting-spare-room-66',
+        text: '빈 방 하나를 세놓기로 한다',
+        deltas: { wealth: 3 },
+        result: '빈 방 하나가, 매달 쏠쏠한 보탬이 됐다.'
       }
     ]
   },
@@ -4830,6 +4975,42 @@ const STAGES = [
         deltas: { health: -3 },
         result: '몸이 마음을 못 따라가는 날이, 부쩍 늘었다.',
         requiresOccupation: ['re-employed']
+      },
+      {
+        id: 'twilight-selling-old-books-71',
+        text: '오래 모은 책들을 도서 장터에 내놓는다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '먼지 쌓인 책들이, 누군가에겐 반가운 물건이었다.'
+      },
+      {
+        id: 'twilight-antique-appraisal-71',
+        text: '서랍 속 오래된 골동품 하나를 감정받아본다',
+        deltas: { wealth: 3, happiness: 1 },
+        result: '별생각 없이 넣어뒀던 물건이, 뜻밖의 값을 받았다.'
+      },
+      {
+        id: 'twilight-pension-benefit-review-71',
+        text: '놓치고 있던 노령연금 추가 혜택을 신청한다',
+        deltas: { wealth: 3 },
+        result: '진작 알았더라면 싶은 혜택이, 이제라도 들어왔다.'
+      },
+      {
+        id: 'twilight-old-stamp-collection-71',
+        text: '서랍 속에 있던 오래된 우표책을 발견한다',
+        deltas: { wealth: 4, happiness: 2 },
+        result: '젊은 날의 취미가, 이렇게 남아있을 줄 몰랐다.'
+      },
+      {
+        id: 'twilight-community-fund-payout-71',
+        text: '오래 부어온 계 모임이 마침내 순서가 돌아온다',
+        deltas: { wealth: 5 },
+        result: '오랜 기다림 끝에, 드디어 순서가 왔다.'
+      },
+      {
+        id: 'twilight-selling-unused-appliances-71',
+        text: '안 쓰는 가전을 정리해 내놓는다',
+        deltas: { wealth: 2 },
+        result: '자리만 차지하던 것들이, 작게나마 돈이 됐다.'
       }
     ]
   },
@@ -5179,6 +5360,42 @@ const STAGES = [
         deltas: { happiness: -2 },
         result: '내 아이뻘 되는 이의 지시를, 묵묵히 받아들이는 법을 배웠다.',
         requiresOccupation: ['re-employed']
+      },
+      {
+        id: 'twilight-huisu-envelope-77',
+        text: '희수(喜壽) 잔치에 손님들이 저마다 축하를 보태 온다',
+        deltas: { wealth: 3, relationship: 2, happiness: 2 },
+        result: '봉투마다 담긴 마음이, 숫자보다 크게 느껴졌다.'
+      },
+      {
+        id: 'twilight-old-policy-review-77',
+        text: '오래전 든 보험 하나를 다시 살펴본다',
+        deltas: { wealth: 4 },
+        result: '잊고 지내던 보험이, 뒤늦게 제 몫을 했다.'
+      },
+      {
+        id: 'twilight-selling-jewelry-77',
+        text: '예물로 받았던 패물 일부를 정리한다',
+        deltas: { wealth: 5 },
+        result: '오래 간직했던 것들이, 마지막으로 큰 보탬이 됐다.'
+      },
+      {
+        id: 'twilight-grandchild-repaying-favor-77',
+        text: '예전에 도와줬던 손주가 마음을 표한다',
+        deltas: { wealth: 2, relationship: 3, happiness: 2 },
+        result: '베푼 걸 기억해준다는 것만으로도, 마음이 뭉클했다.'
+      },
+      {
+        id: 'twilight-old-friend-visit-77',
+        text: '오래전 소식이 끊겼던 친구가 불쑥 연락해온다',
+        deltas: { wealth: 2, relationship: 2, happiness: 2 },
+        result: '반가운 얼굴과 함께, 오래된 셈도 정리가 됐다.'
+      },
+      {
+        id: 'twilight-selling-car-final-77',
+        text: '이제 운전을 그만두며 차를 처분한다',
+        deltas: { wealth: 3 },
+        result: '운전대를 놓는 마음이 아쉬웠지만, 통장은 채워졌다.'
       }
     ]
   },
@@ -5469,6 +5686,42 @@ const STAGES = [
         deltas: { health: -4, happiness: -2 },
         result: '젓가락을 몇 번 대다 마는 날이 늘었다.',
         addCondition: { id: 'appetite-loss', label: '🍚 식욕부진' }
+      },
+      {
+        id: 'twilight-family-covers-expenses-83',
+        text: '가족이 생활비 일부를 보태준다',
+        deltas: { wealth: 3, relationship: 1 },
+        result: '미안한 마음이 컸지만, 큰 힘이 됐다.'
+      },
+      {
+        id: 'twilight-old-account-found-83',
+        text: '정리하던 서랍에서 오래된 통장 하나를 발견한다',
+        deltas: { wealth: 4 },
+        result: '있는 줄도 몰랐던 돈이, 뜻밖의 반가움을 안겼다.'
+      },
+      {
+        id: 'twilight-selling-remaining-furniture-83',
+        text: '이제 안 쓰는 가구를 정리해 내놓는다',
+        deltas: { wealth: 2 },
+        result: '자리만 차지하던 것들이, 조금이나마 값을 했다.'
+      },
+      {
+        id: 'twilight-insurance-claim-83',
+        text: '미뤄뒀던 건강보험 실비 청구를 처리한다',
+        deltas: { wealth: 2 },
+        result: '진작 챙겼어야 했는데, 늦게라도 돌려받았다.'
+      },
+      {
+        id: 'twilight-long-term-care-benefit-83',
+        text: '장기요양보험 혜택을 새로 신청한다',
+        deltas: { wealth: 3 },
+        result: '모르고 지나칠 뻔한 혜택이, 뒤늦게 도움이 됐다.'
+      },
+      {
+        id: 'twilight-children-pooling-money-83',
+        text: '자녀들이 돌아가며 용돈을 챙겨준다',
+        deltas: { wealth: 2, relationship: 2 },
+        result: '한 달 한 달, 자식들의 마음이 통장에 쌓였다.'
       }
     ]
   },
@@ -5667,6 +5920,42 @@ const STAGES = [
         deltas: { health: -9, happiness: -5, relationship: 3 },
         result: '컵 하나 드는 것도 조심스러워졌지만, 가족들이 곁에서 손을 더 자주 잡아줬다.',
         addCondition: { id: 'parkinsons', label: '✋ 파킨슨병' }
+      },
+      {
+        id: 'twilight-medical-expense-refund-87',
+        text: '과다 청구됐던 병원비를 환급받는다',
+        deltas: { wealth: 2 },
+        result: '따져보길 잘했다, 생각보다 많이 돌아왔다.'
+      },
+      {
+        id: 'twilight-pension-cost-of-living-adjustment-87',
+        text: '연금 수령액이 물가에 맞춰 조정된다',
+        deltas: { wealth: 2 },
+        result: '많지는 않아도, 매달 조금씩 더 들어왔다.'
+      },
+      {
+        id: 'twilight-family-covers-hospital-87',
+        text: '자녀들이 병원비 일부를 대신 부담해준다',
+        deltas: { wealth: 3, relationship: 2 },
+        result: '자식들 덕에, 병원비 걱정이 한시름 놓였다.'
+      },
+      {
+        id: 'twilight-selling-last-valuables-87',
+        text: '남은 귀중품 몇 가지를 정리한다',
+        deltas: { wealth: 4 },
+        result: '오래 간직했던 것들이, 마지막으로 힘이 됐다.'
+      },
+      {
+        id: 'twilight-welfare-support-applied-87',
+        text: '지역 복지 지원금을 새로 신청한다',
+        deltas: { wealth: 3 },
+        result: '몰랐던 지원 제도가, 뒤늦게 도움을 줬다.'
+      },
+      {
+        id: 'twilight-community-support-fund-87',
+        text: '다니던 모임에서 작은 위로금을 전해온다',
+        deltas: { wealth: 2, relationship: 1 },
+        result: '큰돈은 아니었지만, 잊지 않았다는 게 고마웠다.'
       }
     ]
   },
@@ -5916,6 +6205,42 @@ const STAGES = [
         text: '스스로 할 수 있는 것들을 찾아본다',
         deltas: { happiness: 4, health: 2 },
         result: '작은 것 하나라도 스스로 해내는 게, 큰 의미가 됐다.'
+      },
+      {
+        id: 'twilight-bedside-account-check-92',
+        text: '가족이 대신 통장을 정리해 알려준다',
+        deltas: { wealth: 3, relationship: 1 },
+        result: '몰랐던 돈이 남아있었다는 소식에, 작은 안도가 됐다.'
+      },
+      {
+        id: 'twilight-old-collection-passed-on-92',
+        text: '간직해온 물건 몇 가지가 새 주인을 찾는다',
+        deltas: { wealth: 3 },
+        result: '오래 곁에 뒀던 것들이, 마지막으로 값을 했다.'
+      },
+      {
+        id: 'twilight-care-insurance-claim-92',
+        text: '간병보험금을 청구한다',
+        deltas: { wealth: 4 },
+        result: '젊은 날 들어둔 보험이, 지금 이렇게 도움이 됐다.'
+      },
+      {
+        id: 'twilight-family-gathers-support-92',
+        text: '자녀들이 십시일반 병간호 비용을 모은다',
+        deltas: { wealth: 3, relationship: 2 },
+        result: '흩어져 있던 가족의 마음이, 한데 모였다.'
+      },
+      {
+        id: 'twilight-pension-continues-92',
+        text: '매달 들어오는 연금이 꾸준히 쌓인다',
+        deltas: { wealth: 2 },
+        result: '큰 액수는 아니어도, 꾸준함이 주는 안정감이 있었다.'
+      },
+      {
+        id: 'twilight-old-friend-remembers-92',
+        text: '문병 온 오랜 지인이 마음을 전하고 간다',
+        deltas: { wealth: 1, relationship: 2, happiness: 1 },
+        result: '작은 봉투 하나에, 오래된 인연의 무게가 담겨 있었다.'
       }
     ]
   },
@@ -6140,6 +6465,42 @@ const STAGES = [
         text: '지금 이 순간이 가장 소중하다는 걸 되새긴다',
         deltas: { happiness: 4, health: 1 },
         result: '지나간 날도, 다가올 날도 아닌, 지금이 전부였다.'
+      },
+      {
+        id: 'twilight-baeksu-early-gifts-97',
+        text: '백수를 앞두고 여기저기서 미리 축하가 도착한다',
+        deltas: { wealth: 3, relationship: 2, happiness: 2 },
+        result: '이르게 도착한 마음들이, 벌써부터 가슴을 채웠다.'
+      },
+      {
+        id: 'twilight-old-savings-final-check-97',
+        text: '평생 모아온 돈을 마지막으로 정리해본다',
+        deltas: { wealth: 2 },
+        result: '숫자를 세어보니, 스스로도 놀랄 만큼 남아있었다.'
+      },
+      {
+        id: 'twilight-pension-final-years-97',
+        text: '연금이 마지막까지 꾸준히 들어온다',
+        deltas: { wealth: 2 },
+        result: '평생 부어온 것이, 끝까지 제 몫을 했다.'
+      },
+      {
+        id: 'twilight-old-debt-finally-repaid-97',
+        text: '잊고 있던 옛 빚 하나를 뒤늦게 돌려받는다',
+        deltas: { wealth: 3 },
+        result: '까맣게 잊고 있었는데, 이렇게 돌아올 줄 몰랐다.'
+      },
+      {
+        id: 'twilight-community-recognition-gift-97',
+        text: '장수를 축하하며 마을에서 작은 성금을 전해온다',
+        deltas: { wealth: 2, relationship: 1, happiness: 1 },
+        result: '마을 사람들의 마음이, 뜻밖의 선물로 돌아왔다.'
+      },
+      {
+        id: 'twilight-simple-gift-from-grandchildren-97',
+        text: '손주들이 마음을 담아 용돈을 모아온다',
+        deltas: { wealth: 2, relationship: 2, happiness: 2 },
+        result: '작은 액수였지만, 담긴 정성이 훨씬 컸다.'
       }
     ]
   },
