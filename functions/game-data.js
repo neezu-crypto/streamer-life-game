@@ -206,7 +206,8 @@ const STAGES = [
         id: 'foster-care',
         text: '여러 어른의 손을 거치며 자라는 보육 시설에서 태어난다',
         deltas: { relationship: -4, health: -2, happiness: -2, wealth: -2 },
-        result: '어느 한 사람의 것도 아니었지만, 그래서 여러 사람이 조금씩 나를 키웠다.'
+        result: '어느 한 사람의 것도 아니었지만, 그래서 여러 사람이 조금씩 나를 키웠다. 그때 함께 자란 아이들과는 지금까지도 연락하고 지낸다.',
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구', count: 3 }
       },
       {
         id: 'spotlight-family',

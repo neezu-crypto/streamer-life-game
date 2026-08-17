@@ -389,16 +389,31 @@ async function applyChoice(db, playRef, play, stage, choice) {
   }
 
   // 지인 상세 - choice.addAcquaintance가 있으면 정적 이름 목록(STREAMER_NAMES)에서
-  // 무작위로 뽑은 실제 스트리머 이름으로 새 지인이 하나 생긴다(2026-08-17, 사용자
+  // 무작위로 뽑은 실제 스트리머 이름으로 새 지인이 생긴다(2026-08-17, 사용자
   // 지시 - "임의 이름이 아니라 경로에 있는 스트리머 이름중에 랜덤하게"). 가족과
   // 달리 이름이 매번 달라지므로 id를 역할명으로 쓸 수 없어 "이 구간-이 선택지"
   // 조합으로 유일성을 보장한다(한 구간은 한 판에서 한 번만 지나가므로 안전).
+  // count(기본 1)를 붙이면 한 선택으로 여러 명이 한꺼번에 생긴다 - 보육 시설처럼
+  // "그 시절 함께 자란 여럿"을 한 선택으로 표현해야 하는 경우용(2026-08-18,
+  // 사용자 지시). count>1일 때만 id 끝에 순번을 붙여 서로 구분한다(기존
+  // count=1 선택지들의 id 형식은 그대로 유지). 같은 판 안에서 이름이 겹치면
+  // (같은 사람이 친구이자 동료로 두 번 등장하는 것처럼 보여) 어색하므로, 이미
+  // 쓴 이름과 겹치면 다시 뽑아본다(최대 10회 재시도, 그래도 겹치면 그냥 둠).
   const currentAcquaintances = Array.isArray(play.acquaintances) ? play.acquaintances : [];
   let acquaintances = currentAcquaintances.slice();
   if (choice.addAcquaintance) {
-    const acquaintanceName = pickRandomStreamerName();
-    const acquaintanceId = stage.id + '-' + choice.id;
-    if (!acquaintances.some((a) => a.id === acquaintanceId)) {
+    const addCount = choice.addAcquaintance.count || 1;
+    const usedNames = new Set(acquaintances.map((a) => a.name));
+    for (let i = 0; i < addCount; i++) {
+      const acquaintanceId = addCount > 1 ? stage.id + '-' + choice.id + '-' + i : stage.id + '-' + choice.id;
+      if (acquaintances.some((a) => a.id === acquaintanceId)) continue;
+      let acquaintanceName = pickRandomStreamerName();
+      let retries = 0;
+      while (usedNames.has(acquaintanceName) && retries < 10) {
+        acquaintanceName = pickRandomStreamerName();
+        retries++;
+      }
+      usedNames.add(acquaintanceName);
       acquaintances.push({
         id: acquaintanceId,
         name: acquaintanceName,

@@ -189,7 +189,7 @@
                     <tr><td>③ 생애 진행</td><td><code>#gameSection</code></td><td>구간명/나이, 구간 스토리 문구, 3지선다 버튼, 선택 후 결과 텍스트 + 스탯 바 + 현재 건강 상세 + 현재 가족 상세 + 현재 직업 상세(값 하나)</td></tr>
                     <tr><td>④ 엔딩</td><td><code>#endingSection</code></td><td>엔딩 제목/텍스트 + 최종 스탯 + <b>인생 종합 점수 추이(선그래프)</b> + 남긴 재산 + 100세, 곁에 남은 가족 + 인생에서 만난 지인 + 지금까지의 직업 이력</td></tr>
                     <tr><td>⑤ 선택 요약</td><td><code>#choiceHistorySection</code></td><td>이번 판에서 0~100세까지 실제로 고른 선택지 전체를 나이순으로 나열(최대 101개, 스크롤). 서버가 <code>choiceLog</code>(<code>{stageId,choiceId,at,stats}</code>로 압축된 기록)를 <code>STAGES</code>와 대조해 <code>stageName</code>/<code>ageRange</code>/<code>choiceText</code>/<code>stats</code>로 풀어 내려준다</td></tr>
-                    <tr><td>⑥ 공개 갤러리</td><td><code>#gallerySection</code></td><td>다른 유저가 공유한 인생 목록(실시간 구독, 최신순) + "갤러리에 공유하기" 버튼. 각 항목은 <code>&lt;details&gt;</code>로 접혀 있고, 클릭해서 펼치면 그 유저의 선택 기록(<code>lifeGame/galleryChoiceLogs/&#123;id&#125;</code>)을 그때 처음 불러와 <code>#choiceHistorySection</code>과 같은 형식으로 보여준다(펼친 적 있는 항목은 캐시해서 다시 안 불러옴)</td></tr>
+                    <tr><td>⑥ 공개 갤러리</td><td><code>#gallerySection</code></td><td>다른 유저가 공유한 인생 목록(실시간 구독, 최신순) + "갤러리에 공유하기" 버튼. 각 항목은 <code>&lt;details&gt;</code>로 접혀 있고, 클릭해서 펼치면 그 유저의 <b>인생 종합 점수 추이(선그래프)</b> + 선택 기록(<code>lifeGame/galleryChoiceLogs/&#123;id&#125;</code>)을 그때 처음 불러와 <code>#choiceHistorySection</code>과 같은 형식으로 보여준다(펼친 적 있는 항목은 캐시해서 다시 안 불러옴)</td></tr>
                     <tr><td>⑦ 재시작 안내</td><td><code>#restartSection</code></td><td>안내 문구 + "다시 태어나기"(페이지 새로고침)</td></tr>
                 </table>
             </div>
@@ -217,10 +217,23 @@
             2D 컨텍스트로 직접 그린다(devicePixelRatio 보정 + 0/25/50/75/100 가로 기준선 + 시작·끝 나이
             라벨 + 골드색 선/채움/점), 요약 문구(<code>#scoreChartSummary</code>)로 최종 점수와 최고·최저
             점수(및 그 나이)를 함께 보여준다. <code>resumePlaythrough</code>가 이미 완료된 판을 다시 불러올
-            때도 같은 <code>choiceHistory</code>를 쓰므로 자동으로 동일하게 그려진다. 갤러리
-            (<code>lifeGame/galleryChoiceLogs</code>)에도 같은 <code>buildChoiceHistory()</code>를 거쳐
-            <code>stats</code>가 함께 저장되지만, 지금은 엔딩 화면에만 차트를 그리고 갤러리 쪽엔 아직 붙이지
-            않았다(향후 "다른 유저의 점수 추이도 보기"로 확장 가능).</p>
+            때도 같은 <code>choiceHistory</code>를 쓰므로 자동으로 동일하게 그려진다.</p>
+            <p class="note"><b>공개 갤러리 항목에도 동일하게 적용(2026-08-18, 같은 날 후속 지시 — "다른
+            인생을 펼쳐봤을때도 선그래프 확인 가능하게 해줘").</b> <code>lifeGame/galleryChoiceLogs/&#123;id&#125;</code>도
+            같은 <code>buildChoiceHistory()</code>를 거쳐 이미 <code>stats</code>가 함께 저장돼 있었으므로,
+            서버 재배포 없이 클라이언트만 손봤다. 갤러리 목록은 최대 30개 항목을 각각 <code>&lt;details&gt;</code>로
+            접어두는 구조라(6장·9장 참고) 정적 id를 쓸 수 없어, 항목을 만드는
+            <code>entries.forEach</code> 루프 안에서 <code>&lt;canvas class="score-chart"&gt;</code>와
+            요약 문단을 그때그때 생성해 <code>loadGalleryChoiceLog(entryId, container, chartCanvas,
+            chartSummaryEl)</code>에 같이 넘긴다 — 안은 엔딩 화면과 똑같은 <code>renderScoreChart()</code>를
+            그대로 재사용. <code>&lt;details&gt;</code>는 닫혀 있는 동안 내부 콘텐츠가 레이아웃을 안 갖는데,
+            이미 기존 코드가 <code>toggle</code> 이벤트로 <code>details.open</code>일 때만 선택 기록을
+            불러오고 있었으므로(펼치기 전엔 <code>galleryChoiceLogs</code>를 안 읽는 최적화, 7장 참고) 캔버스
+            폭 문제도 별도 처리 없이 자연히 해결됐다. 검증은 실제 공개 갤러리에 테스트용 인생 하나를
+            공유했다가(이름 앞에 <code>[TEST-삭제예정]</code> 표시) Playwright로 펼쳐서 차트가 뜨는 걸
+            스크린샷으로 확인한 뒤, 그 항목과 선택 기록을 지우고 <code>lifeGame/stats/totals/shared</code>
+            카운터도 원래 값으로 되돌렸다(리더보드 기능 검증 때와 같은 절차 — 두 항목 모두 별도
+            <code>AskUserQuestion</code> 승인을 받고 진행).</p>
             <p class="note"><b>게임이 시작되면 상단 헤더(<code>#mainHeader</code> — eyebrow·제목·소개 문구)를 숨긴다.</b>
             대신 각 구간의 <code>STAGES[].intro</code>(1~2문장짜리 장면 설명, <code>publicStage()</code>가 그대로
             전달)를 <code>#gameSection</code> 안 <code>#storyText</code>에 채워 "지금 어떤 이야기 안에 있는지"를
@@ -883,6 +896,20 @@
         형태(예: "💕 연인 · 핑텐♥")로 계속 나열된다. 새 지인이 생기면 획득·성취 팝업(12장 ⑥)에도 🤝
         배지로 뜬다. 초기 콘텐츠는 4개 관계 유형 × 3개씩, 총 12개 선택지를 8~63세에 걸쳐 배치했다(전부
         add만 하고 제거·이별 로직은 아직 없음 — 현재 스코프는 "생기는" 쪽만).</p>
+        <p class="note"><b>한 선택으로 여럿이 한꺼번에 생기는 경우 — <code>addAcquaintance.count</code>
+        (2026-08-18, 사용자 지시 — "배경 선택시 보육시설에서 자라면 지인 3명이 추가되게 해줘. 보육원에서
+        지내며 친해진 친구라는 설정").</b> <code>count</code>를 안 붙이면 기존처럼 1명, 숫자를 붙이면 그
+        수만큼 한 번에 추가된다 — <code>addFamilyMembers</code>가 배열로 "대가족으로 태어나면 아버지·
+        어머니·형제자매가 한 번에" 처리하는 것과 같은 결의 확장이다. <code>count>1</code>일 때만 id 끝에
+        순번(<code>-0</code>, <code>-1</code>, ...)을 붙여 서로 구분한다(<code>count=1</code>인 기존 12개
+        선택지의 id 형식은 그대로 유지, 하위 호환). 같은 판에서 이미 갖고 있는 지인과 이름이 겹치면(같은
+        사람이 두 번 등장하는 것처럼 보임) 다시 뽑아본다(최대 10회 재시도). 첫 적용 대상은 유아기 0세
+        <code>foster-care</code>("여러 어른의 손을 거치며 자라는 보육 시설에서 태어난다") — 부모 대신
+        <code>friend</code> 3명이 한 번에 생기고, result 문구도 "그때 함께 자란 아이들과는 지금까지도
+        연락하고 지낸다"로 이어 붙여 왜 갑자기 지인이 3명 생겼는지 자연스럽게 설명한다. <code>foster-care</code>는
+        random:true 구간(유아기, 주사위로만 진행)이라 <code>submitChoice</code>로 직접 못 고르고
+        <code>rollDice</code>로만 검증 가능 — 실제로 여러 번 새 판을 시작해 이 선택지가 뽑힐 때까지
+        반복해서 3회 적중시켰고, 매번 서로 다른 3개의 실제 이름이 정확히 붙는 것을 확인했다.</p>
         <div class="tbl-wrap">
             <table>
                 <tr><th>관계</th><th>선택지 id</th><th>나이</th><th>선택지 문구</th><th>조건</th></tr>

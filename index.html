@@ -305,6 +305,7 @@
   .gallery-item .g-name { font-weight: 600; }
   .gallery-item .g-ending { color: var(--gold); font-size: 12.5px; flex: none; }
   .gallery-choice-log { padding: 0 14px 14px; }
+  .gallery-score-chart-wrap { padding: 0 14px; margin: 4px 0 10px; }
 
   .leaderboard { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
   .leaderboard-row {
@@ -1685,9 +1686,17 @@ const galleryList = document.getElementById('galleryList');
 // 노드라, 펼치기 전까진 안 읽는다. 같은 항목을 다시 펼 때 또 읽지 않도록
 // 항목별로 한 번 불러온 결과는 캐시해둔다.
 const choiceLogCache = new Map();
-async function loadGalleryChoiceLog(entryId, container) {
+// chartCanvas/chartSummaryEl은 선택사항 - #choiceHistorySection과 같은
+// buildChoiceHistory() 결과를 쓰는 곳이면 어디든 재사용하려고 만든 렌더러라
+// (엔딩 화면의 renderScoreChart 참고) 이미 stats가 함께 내려온다. 2026-08-18
+// 사용자 지시("다른 인생을 펼쳐봤을때도 선그래프 확인 가능하게")로 갤러리
+// 항목을 펼칠 때도 같은 함수로 그린다 - details가 열려야(펼쳐져야) canvas가
+// 실제 레이아웃 폭을 가지므로, toggle 이벤트로 열린 뒤에만 호출한다.
+async function loadGalleryChoiceLog(entryId, container, chartCanvas, chartSummaryEl) {
   if (choiceLogCache.has(entryId)) {
-    renderChoiceHistoryInto(container, choiceLogCache.get(entryId));
+    const history = choiceLogCache.get(entryId);
+    renderChoiceHistoryInto(container, history);
+    renderScoreChart(chartCanvas, chartSummaryEl, history);
     return;
   }
   container.innerHTML = '<p class="empty-msg">불러오는 중...</p>';
@@ -1696,6 +1705,7 @@ async function loadGalleryChoiceLog(entryId, container) {
     const history = snap.val() || [];
     choiceLogCache.set(entryId, history);
     renderChoiceHistoryInto(container, history);
+    renderScoreChart(chartCanvas, chartSummaryEl, history);
   } catch (err) {
     console.error('선택 기록 조회 실패:', err);
     container.innerHTML = '<p class="empty-msg">선택 기록을 불러오지 못했어요.</p>';
@@ -1724,12 +1734,26 @@ onValue(ref(db, 'lifeGame/gallery'), (snap) => {
       '<span class="g-ending">' + escapeHtml((e.ending && e.ending.title) || '') + '</span>';
     details.appendChild(summary);
 
+    const chartWrap = document.createElement('div');
+    chartWrap.className = 'asset-panel gallery-score-chart-wrap';
+    const chartTitle = document.createElement('p');
+    chartTitle.className = 'asset-panel-title';
+    chartTitle.textContent = '인생 종합 점수 추이';
+    const chartSummary = document.createElement('p');
+    chartSummary.className = 'score-chart-summary';
+    const chartCanvas = document.createElement('canvas');
+    chartCanvas.className = 'score-chart';
+    chartWrap.appendChild(chartTitle);
+    chartWrap.appendChild(chartSummary);
+    chartWrap.appendChild(chartCanvas);
+    details.appendChild(chartWrap);
+
     const logEl = document.createElement('div');
     logEl.className = 'choice-history-list gallery-choice-log';
     details.appendChild(logEl);
 
     details.addEventListener('toggle', () => {
-      if (details.open) loadGalleryChoiceLog(e.id, logEl);
+      if (details.open) loadGalleryChoiceLog(e.id, logEl, chartCanvas, chartSummary);
     });
 
     galleryList.appendChild(details);
