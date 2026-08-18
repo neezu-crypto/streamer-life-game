@@ -142,15 +142,20 @@ function playRefFor(db, uid) {
 // requiresAnyOccupation 같은 "아무 값이나 있으면" 변형은 필요 없다. 아직 이
 // 필드를 쓰는 선택지는 없지만(추후 해외 여행·이민·노동 콘텐츠 추가 예정,
 // 2026-08-18 사용자 지시) 게이팅 로직만 미리 마련해둔다.
+// requiresAnyAcquaintance(불리언, 지인이 하나라도 있어야 후보)는
+// requiresAnyOccupation과 같은 결을 지인 상세에 적용한 것 - "지인이 있을 때
+// 배신 당하는" 선택지들(2026-08-18, 사용자 지시)처럼 배신할 대상 자체가
+// 없으면 애초에 후보에 들어가면 안 되는 경우용.
 // 후보가 3개 이하면 그냥 전부 노출한다. mandatory가 붙은 선택지(자격만
 // 되면 반드시 겪어야 하는 이벤트 - 예: 50대에 부모님과 사별)는 3개 무작위
 // 추첨에서 밀려날 일 없이 항상 노출 목록에 들어가고, 나머지 자리만 무작위로
 // 채운다.
-function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds, currentOccupationId, currentIntroId, activeAssetIds, currentLocationId) {
+function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds, currentOccupationId, currentIntroId, activeAssetIds, currentLocationId, activeAcquaintances) {
   const conditionIds = activeConditionIds || [];
   const familyIds = activeFamilyMemberIds || [];
   const assetIds = activeAssetIds || [];
   const locationId = currentLocationId || DEFAULT_LOCATION.id;
+  const hasAnyAcquaintance = !!(activeAcquaintances && activeAcquaintances.length);
   const eligible = choices.filter((c) => {
     if (c.requiresCondition && !conditionIds.includes(c.requiresCondition)) return false;
     if (c.requiresNoCondition && c.requiresNoCondition.some((id) => conditionIds.includes(id))) return false;
@@ -163,6 +168,7 @@ function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds
     if (c.requiresIntro && c.requiresIntro !== currentIntroId) return false;
     if (c.requiresAsset && !assetIds.includes(c.requiresAsset)) return false;
     if (c.requiresLocation && !c.requiresLocation.includes(locationId)) return false;
+    if (c.requiresAnyAcquaintance && !hasAnyAcquaintance) return false;
     return true;
   });
   if (eligible.length <= 3) return eligible.map((c) => c.id);
@@ -215,7 +221,7 @@ function pickNextStageIndex(currentIndex) {
 // introId가 주어지면(그 판의 저장 슬롯에 이미 뽑아둔 상황 설명 id) 그
 // 상황의 텍스트를 resolveIntroText로 찾아 쓴다 - pickIntroId() 참고.
 function publicStage(stage, visibleIds, introId) {
-  const ids = visibleIds && visibleIds.length ? visibleIds : pickVisibleChoiceIds(stage.choices, null, null, null, introId, null, null);
+  const ids = visibleIds && visibleIds.length ? visibleIds : pickVisibleChoiceIds(stage.choices, null, null, null, introId, null, null, null);
   const visibleChoices = stage.choices.filter((c) => ids.includes(c.id));
   return {
     id: stage.id,
@@ -364,6 +370,13 @@ async function applyChoice(db, playRef, play, stage, choice) {
   const priorLocation = resolveCurrentLocation(buildLocationHistory(Array.isArray(play.choiceLog) ? play.choiceLog : []));
   if (choice.requiresLocation && !choice.requiresLocation.includes(priorLocation.id)) {
     throw new HttpsError('failed-precondition', '지금 있는 장소에서는 고를 수 없는 선택지입니다.');
+  }
+  // requiresAnyAcquaintance(불리언, 지인이 하나라도 있어야 후보) - "지인이
+  // 있을 때 배신 당하는" 선택지들(2026-08-18, 사용자 지시)을 위한 것.
+  // requiresAnyOccupation과 완전히 같은 패턴을 지인 상세에 적용했다.
+  const priorAcquaintances = Array.isArray(play.acquaintances) ? play.acquaintances : [];
+  if (choice.requiresAnyAcquaintance && !priorAcquaintances.length) {
+    throw new HttpsError('failed-precondition', '지금 지인이 없어서 고를 수 없는 선택지입니다.');
   }
 
   // prizeTable(가중치 배열)이 붙은 선택지(복권 당첨 확인 등)는 choice.deltas·
@@ -516,12 +529,19 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // 전제하지 않고 항상 노출되는 범용 문구라(가족과 달리 지인은 필수 조건이 아님)
   // 노출 조건(requires류)은 건드리지 않고, 마침 그 타입의 지인을 갖고 있었을 때만
   // 부가 효과로 제거한다 - 갖고 있지 않으면 조용히 아무 일도 없다(에러 없음).
+  // relation을 안 붙이면(빈 객체 {}) 타입 상관없이 아무 지인이나 대상이 된다 -
+  // "지인이 있을 때 배신 당하는" 선택지들(2026-08-18, 사용자 지시)은 배신하는
+  // 지인의 관계 유형을 특정하지 않으므로, 이 30개는 requiresAnyAcquaintance로
+  // 노출 자체를 지인 있을 때로 미리 걸러두고(그래서 "갖고 있지 않으면 조용히
+  // 아무 일도 없다"는 사실상 발생하지 않음) relation 없는 removeAcquaintance로
+  // 가장 최근 지인 하나를 잃는다.
   let acquaintances = currentAcquaintances.slice();
   if (marriedLoverId) {
     acquaintances = acquaintances.filter((a) => a.id !== marriedLoverId);
   }
   if (choice.removeAcquaintance) {
-    const lostMatches = acquaintances.filter((a) => a.relation === choice.removeAcquaintance.relation);
+    const targetRelation = choice.removeAcquaintance.relation;
+    const lostMatches = targetRelation ? acquaintances.filter((a) => a.relation === targetRelation) : acquaintances;
     if (lostMatches.length) {
       const lost = lostMatches[lostMatches.length - 1];
       acquaintances = acquaintances.filter((a) => a.id !== lost.id);
@@ -621,7 +641,8 @@ async function applyChoice(db, playRef, play, stage, choice) {
       currentOccupation ? currentOccupation.id : null,
       nextIntroId,
       assets.map((a) => a.id),
-      currentLocation.id
+      currentLocation.id,
+      acquaintances
     );
     updates.visibleChoiceIds = nextVisibleIds;
   }
@@ -699,7 +720,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   const db = getDatabase();
   const stats = freshStats();
   const currentIntroId = pickIntroId(STAGES[0]);
-  const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices, [], [], null, currentIntroId, [], DEFAULT_LOCATION.id);
+  const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices, [], [], null, currentIntroId, [], DEFAULT_LOCATION.id, []);
   await Promise.all([
     playRefFor(db, uid).set({
       streamerName,
@@ -785,7 +806,8 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       currentOccupation ? currentOccupation.id : null,
       currentIntroId,
       assets.map((a) => a.id),
-      currentLocation.id
+      currentLocation.id,
+      acquaintances
     );
     resumeUpdates.visibleChoiceIds = visibleChoiceIds;
   }

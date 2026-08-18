@@ -1071,6 +1071,14 @@ const STAGES = [
         deltas: { happiness: -5 },
         result: '별일 아니라는 말도, 마음까지는 가닿지 못했다.',
         addCondition: { id: 'childhood-anxiety', label: '😟 아동기 불안장애', mental: true }
+      },
+      {
+        id: 'betrayal-blamed-by-friend-9',
+        text: '친구가 자기 잘못을 나에게 덮어씌운다',
+        deltas: { happiness: -4, relationship: -3 },
+        result: '억울함을 풀어보려 해도, 아무도 믿어주지 않았다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -1318,6 +1326,14 @@ const STAGES = [
         text: '그냥 좋아하던 취미를 본격적으로 파고들기 시작한다',
         deltas: { fame: 1, happiness: 2 },
         result: '놀이였던 것이, 어느새 목표가 되어 있었다.'
+      },
+      {
+        id: 'betrayal-secret-spread-12',
+        text: '믿고 털어놓은 비밀을 지인이 여기저기 퍼뜨린다',
+        deltas: { happiness: -5, relationship: -4 },
+        result: '둘만 알기로 한 이야기가, 어느새 반 전체에 퍼져 있었다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -1590,6 +1606,14 @@ const STAGES = [
         text: '선배와 각별한 사이가 되어 조언을 얻는다',
         deltas: { relationship: 2 },
         result: '먼저 겪어본 사람의 한마디가, 생각보다 큰 힘이 됐다.'
+      },
+      {
+        id: 'betrayal-gossip-behind-back-15',
+        text: '지인이 뒤에서 내 험담을 하고 다닌 걸 알게 된다',
+        deltas: { happiness: -5, relationship: -4 },
+        result: '웃으며 인사하던 얼굴이, 갑자기 낯설게 느껴졌다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -1937,6 +1961,14 @@ const STAGES = [
         deltas: { happiness: -7 },
         result: '웃어야 할 순간에도, 마음은 자꾸 가라앉았다.',
         addCondition: { id: 'adolescent-depression', label: '🌧️ 청소년 우울증', mental: true }
+      },
+      {
+        id: 'betrayal-copied-and-denies-18',
+        text: '믿었던 지인이 내 과제를 몰래 베낀 뒤 발뺌한다',
+        deltas: { happiness: -4, relationship: -3 },
+        result: '증거를 들이밀어도, 끝까지 모르는 일이라고 잡아뗐다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -2265,6 +2297,14 @@ const STAGES = [
         removeAsset: 'lottery-ticket',
         mandatory: true,
         prizeTable: LOTTERY_PRIZE_TABLE
+      },
+      {
+        id: 'betrayal-credit-stolen-21',
+        text: '함께한 조별 과제 성과를 지인이 혼자 가로챈다',
+        deltas: { happiness: -5, relationship: -4 },
+        result: '발표 자리에서, 내 이름은 어디에도 없었다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -2614,6 +2654,14 @@ const STAGES = [
         deltas: { health: -4, happiness: -1 },
         result: '파스 냄새가 옷장 안에 배는 게, 이 일의 당연한 일부가 됐다.',
         requiresOccupation: ['logistics-worker']
+      },
+      {
+        id: 'betrayal-image-damaged-24',
+        text: '믿고 소개해준 자리에서 지인이 뒷말로 내 이미지를 깎아내린다',
+        deltas: { happiness: -5, relationship: -4, fame: -2 },
+        result: '좋은 인상을 남기려던 자리가, 오히려 독이 되어 돌아왔다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -3127,6 +3175,14 @@ const STAGES = [
         deltas: { relationship: 3, happiness: 2 },
         result: '묻지도 않은 것까지 챙겨주는 마음이, 낯선 곳을 조금 덜 낯설게 만들었다.',
         requiresOccupation: ['career-changer']
+      },
+      {
+        id: 'betrayal-idea-stolen-27',
+        text: '가깝게 지내던 동료가 내 아이디어를 자기 것처럼 보고한다',
+        deltas: { happiness: -6, relationship: -4 },
+        result: '회의실에서 박수받는 건, 내가 아니라 그 사람이었다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -3530,6 +3586,14 @@ const STAGES = [
         deltas: { wealth: 6, fame: 3 },
         result: '전광판에 뜬 내 이름을, 몇 번이고 다시 확인했다.',
         requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'betrayal-unpaid-loan-30',
+        text: '믿고 빌려준 돈을 지인이 차일피일 미루며 갚지 않는다',
+        deltas: { happiness: -5, relationship: -4, wealth: -3 },
+        result: '연락은 점점 뜸해지고, 돈 이야기만 꺼내면 말을 돌렸다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -3791,6 +3855,14 @@ const STAGES = [
         removeAsset: 'lottery-ticket',
         mandatory: true,
         prizeTable: LOTTERY_PRIZE_TABLE
+      },
+      {
+        id: 'betrayal-partner-vanishes-33',
+        text: '동업을 제안했던 지인이 투자금만 챙기고 연락을 끊는다',
+        deltas: { happiness: -7, relationship: -5, wealth: -6 },
+        result: '사무실 문은 잠겨 있었고, 전화는 신호조차 가지 않았다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -4064,6 +4136,14 @@ const STAGES = [
         text: '부질없다 여기며 그냥 지나친다',
         deltas: { happiness: 1 },
         result: '실속을 차렸다는 생각에 마음이 편했다.'
+      },
+      {
+        id: 'betrayal-identity-misused-36',
+        text: '믿었던 지인이 내 명의를 몰래 이용해 대출을 받는다',
+        deltas: { happiness: -6, relationship: -5, wealth: -5 },
+        result: '본 적도 없는 대출 서류에, 내 이름과 도장이 찍혀 있었다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -4423,6 +4503,14 @@ const STAGES = [
         deltas: { wealth: -4, health: -3 },
         result: '며칠 밤을 새우고서야, 겨우 고비를 넘겼다.',
         requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'betrayal-investment-scam-39',
+        text: '지인의 소개로 시작한 투자가 사기였다는 걸 뒤늦게 알게 된다',
+        deltas: { happiness: -6, relationship: -4, wealth: -6 },
+        result: '확인해보니, 애초에 존재하지 않는 회사였다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -4699,6 +4787,14 @@ const STAGES = [
         text: '동네에서 알아보는 사람들이 하나둘 생긴다',
         deltas: { fame: 2, happiness: 2 },
         result: '거창하진 않아도, 낯익은 인사가 늘어가는 게 나쁘지 않았다.'
+      },
+      {
+        id: 'betrayal-guarantee-disappears-42',
+        text: '믿고 보증을 서준 지인이 잠적하며 빚만 남긴다',
+        deltas: { happiness: -7, relationship: -5, wealth: -7 },
+        result: '서명 한 번의 대가가, 이렇게 클 줄은 몰랐다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -5014,6 +5110,14 @@ const STAGES = [
         removeAsset: 'lottery-ticket',
         mandatory: true,
         prizeTable: LOTTERY_PRIZE_TABLE
+      },
+      {
+        id: 'betrayal-sabotaged-promotion-45',
+        text: '가깝다고 생각했던 지인이 뒤에서 내 승진을 방해하고 있었다는 걸 알게 된다',
+        deltas: { happiness: -6, relationship: -5 },
+        result: '믿었던 만큼, 배신감도 그만큼 컸다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -5307,6 +5411,14 @@ const STAGES = [
         deltas: { happiness: -3 },
         result: '이 나이에 다시 "처음"이라는 단어를 쓸 줄은 몰랐다.',
         requiresOccupation: ['career-pivot']
+      },
+      {
+        id: 'betrayal-business-fund-taken-48',
+        text: '믿고 맡긴 사업 자금을 지인이 자기 명의로 슬쩍 빼돌린다',
+        deltas: { happiness: -6, relationship: -5, wealth: -6 },
+        result: '통장을 확인한 순간, 남은 숫자가 눈을 의심하게 만들었다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -5698,6 +5810,14 @@ const STAGES = [
         result: '북적이던 집이, 유난히 조용하게 느껴졌다.',
         requiresFamilyMember: ['child'],
         addCondition: { id: 'empty-nest-depression', label: '🪹 빈둥지증후군', mental: true }
+      },
+      {
+        id: 'betrayal-heard-secondhand-51',
+        text: '오랜 지인이 뒤에서 내 험담을 하고 다닌 걸 다른 사람 입을 통해 듣는다',
+        deltas: { happiness: -6, relationship: -5 },
+        result: '직접 듣지 않았다면, 끝까지 몰랐을 이야기였다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -5954,6 +6074,14 @@ const STAGES = [
         mandatory: true,
         requiresFamilyMember: ['father', 'mother', 'single-parent'],
         removeFamilyMembers: ['father', 'mother', 'single-parent']
+      },
+      {
+        id: 'betrayal-turns-away-in-hardship-54',
+        text: '믿었던 지인이 내가 어려울 때 등을 돌린다',
+        deltas: { happiness: -6, relationship: -5 },
+        result: '가장 필요했던 순간에, 곁에는 아무도 없었다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -6226,6 +6354,14 @@ const STAGES = [
         removeAsset: 'lottery-ticket',
         mandatory: true,
         prizeTable: LOTTERY_PRIZE_TABLE
+      },
+      {
+        id: 'betrayal-savings-club-vanishes-57',
+        text: '오래 알고 지낸 지인이 곗돈을 들고 사라진다',
+        deltas: { happiness: -6, relationship: -5, wealth: -5 },
+        result: '다달이 부은 돈이, 흔적도 없이 사라졌다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -6623,6 +6759,14 @@ const STAGES = [
         result: '매일 가던 곳이 사라지니, 하루가 텅 비어버렸다.',
         requiresOccupation: ['retired'],
         addCondition: { id: 'retirement-depression', label: '🌥️ 은퇴 우울증', mental: true }
+      },
+      {
+        id: 'betrayal-mismanaged-pension-60',
+        text: '믿고 맡긴 퇴직금 운용을 지인이 부실하게 관리해 크게 손해를 본다',
+        deltas: { happiness: -6, relationship: -4, wealth: -6 },
+        result: '평생 모은 돈이, 몇 마디 설명으로 다 설명되지 않았다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -6900,6 +7044,14 @@ const STAGES = [
         result: '떠날 날이 가까워질수록, 함께한 시간의 무게가 더 크게 느껴졌다.',
         requiresAnyOccupation: true,
         addAcquaintance: { relation: 'colleague', label: '💼 동료' }
+      },
+      {
+        id: 'betrayal-excluded-from-group-63',
+        text: '가깝게 지내던 지인이 험담을 퍼뜨리며 모임에서 나를 따돌린다',
+        deltas: { happiness: -6, relationship: -5 },
+        result: '늘 앉던 자리가, 어느새 낯선 자리가 되어 있었다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -7236,6 +7388,14 @@ const STAGES = [
         deltas: { happiness: -8 },
         result: '시간이 약이라지만, 마음은 여전히 그 자리에 머물러 있었다.',
         addCondition: { id: 'grief-depression', label: '🕯️ 사별 후 우울증', mental: true }
+      },
+      {
+        id: 'betrayal-approached-for-money-66',
+        text: '믿었던 지인이 내 재산을 노리고 접근했었다는 사실을 알게 된다',
+        deltas: { happiness: -7, relationship: -5, wealth: -4 },
+        result: '다정했던 말들이, 전부 다르게 들리기 시작했다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -7489,6 +7649,14 @@ const STAGES = [
         removeAsset: 'lottery-ticket',
         mandatory: true,
         prizeTable: LOTTERY_PRIZE_TABLE
+      },
+      {
+        id: 'betrayal-rumor-spreads-69',
+        text: '믿었던 지인이 뒤에서 내 안 좋은 소문을 퍼뜨리고 다닌 걸 알게 된다',
+        deltas: { happiness: -5, relationship: -4 },
+        result: '사실이 아닌 이야기가, 어느새 사실처럼 돌아다니고 있었다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -7754,6 +7922,14 @@ const STAGES = [
         deltas: { happiness: -5 },
         result: '괜찮다고 다독여도, 불안은 쉽게 가시지 않았다.',
         addCondition: { id: 'late-life-anxiety', label: '🍂 노년기 불안장애', mental: true }
+      },
+      {
+        id: 'betrayal-large-loan-unpaid-72',
+        text: '믿고 빌려준 목돈을 지인이 끝내 갚지 않는다',
+        deltas: { happiness: -6, relationship: -4, wealth: -4 },
+        result: '몇 번을 물어도, 돌아오는 대답은 늘 같았다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -8016,6 +8192,14 @@ const STAGES = [
         text: '요란함 없는 조용한 나날을 보낸다',
         deltas: { fame: -2, happiness: 1 },
         result: '특별할 것 없는 하루하루가, 그 나름대로 평온했다.'
+      },
+      {
+        id: 'betrayal-talked-behind-back-75',
+        text: '가깝던 지인이 뒤에서 내 흉을 보고 다녔다는 걸 알게 된다',
+        deltas: { happiness: -6, relationship: -5 },
+        result: '오래 알아온 세월이, 한순간 무색해졌다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -8273,6 +8457,14 @@ const STAGES = [
         text: '직접 만든 작품을 가족들에게 보여준다',
         deltas: { happiness: 3, relationship: 2 },
         result: '별거 아니라면서도, 내심 뿌듯한 미소를 감추지 못했다.'
+      },
+      {
+        id: 'betrayal-inheritance-scheme-78',
+        text: '믿었던 지인이 상속 문제를 이용해 나를 속이려 한 사실을 알게 된다',
+        deltas: { happiness: -6, relationship: -5, wealth: -4 },
+        result: '가까운 사이일수록, 이런 일은 더 아프게 다가왔다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -8529,6 +8721,14 @@ const STAGES = [
         removeAsset: 'lottery-ticket',
         mandatory: true,
         prizeTable: LOTTERY_PRIZE_TABLE
+      },
+      {
+        id: 'betrayal-turned-back-over-interests-81',
+        text: '믿었던 지인이 이해관계가 얽히자 등을 돌린다',
+        deltas: { happiness: -5, relationship: -4 },
+        result: '이해관계 앞에서, 오랜 정도 별수 없었다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -8756,6 +8956,14 @@ const STAGES = [
         text: '굳이 안 사도 그만이라 여긴다',
         deltas: { happiness: 1 },
         result: '그 돈은 다른 데 쓰는 게 낫다고 여겼다.'
+      },
+      {
+        id: 'betrayal-account-misused-84',
+        text: '믿고 맡긴 통장을 지인이 몰래 손대고 있었다는 걸 알게 된다',
+        deltas: { happiness: -6, relationship: -5, wealth: -5 },
+        result: '잔고를 확인하고 나서야, 무슨 일이 있었는지 알 수 있었다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -9038,6 +9246,14 @@ const STAGES = [
         text: '다니던 모임에서 작은 위로금을 전해온다',
         deltas: { wealth: 2, relationship: 1 },
         result: '큰돈은 아니었지만, 잊지 않았다는 게 고마웠다.'
+      },
+      {
+        id: 'betrayal-name-misused-for-purchase-87',
+        text: '믿었던 지인이 내 명의로 몰래 물건을 사들인 사실을 알게 된다',
+        deltas: { happiness: -6, relationship: -5, wealth: -4 },
+        result: '청구서를 받아 들고서야, 뒤늦게 사정을 짐작할 수 있었다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -9247,6 +9463,14 @@ const STAGES = [
         text: '지나온 삶의 의미를 깊이 되짚어본다',
         deltas: { happiness: 2 },
         result: '답을 찾았다기보다는, 물음 자체와 조금 친해진 기분이었다.'
+      },
+      {
+        id: 'betrayal-abandoned-in-illness-90',
+        text: '믿었던 지인이 내가 크게 아팠을 때 모른 척했다는 사실을 알게 된다',
+        deltas: { happiness: -6, relationship: -5 },
+        result: '가장 힘들던 시간에, 그 사람의 자리는 비어 있었다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -9535,6 +9759,14 @@ const STAGES = [
         text: '매일 안부를 확인해주는 안심콜 서비스를 이용한다',
         deltas: { happiness: 1, health: 1 },
         result: '전화벨 소리 하나가, 혼자가 아니라는 증거처럼 느껴졌다.'
+      },
+      {
+        id: 'betrayal-sudden-cutoff-93',
+        text: '오래 알고 지낸 지인이 사소한 일을 핑계로 갑자기 연락을 끊는다',
+        deltas: { happiness: -5, relationship: -4 },
+        result: '무엇이 그렇게 서운했던 건지, 끝내 듣지 못했다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
@@ -9783,6 +10015,14 @@ const STAGES = [
         text: '고마운 마음을 돌봐주는 이에게 직접 전한다',
         deltas: { happiness: 2, relationship: 2 },
         result: '짧은 인사말 한마디에, 서로 마주 보며 웃었다.'
+      },
+      {
+        id: 'betrayal-fought-over-estate-96',
+        text: '믿었던 지인이 내 재산을 두고 다퉜다는 사실을 뒤늦게 전해 듣는다',
+        deltas: { happiness: -6, relationship: -4 },
+        result: '곁을 지켜준 줄로만 알았는데, 속내는 따로 있었던 모양이었다.',
+        requiresAnyAcquaintance: true,
+        removeAcquaintance: {}
       }
     ]
   },
