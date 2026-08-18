@@ -8237,6 +8237,42 @@ const STAGES = [
         text: '여전히 총기 있는 모습으로 주변을 놀라게 한다',
         deltas: { happiness: 4, fame: 2 },
         result: '옛날 일 하나하나를 또렷이 짚어낼 때마다, 다들 감탄했다.'
+      },
+      {
+        id: 'hobby-painting-78',
+        text: '그림 그리기를 새로 배운다',
+        deltas: { happiness: 4 },
+        result: '손끝으로 색을 입히는 시간이, 하루 중 가장 평온했다.'
+      },
+      {
+        id: 'hobby-gardening-78',
+        text: '작은 화분을 가꾸며 하루를 보낸다',
+        deltas: { happiness: 3, health: 2 },
+        result: '조그만 새싹 하나에도, 마음이 환해졌다.'
+      },
+      {
+        id: 'hobby-calligraphy-78',
+        text: '붓글씨를 배운다',
+        deltas: { happiness: 3 },
+        result: '한 획 한 획에, 흐트러졌던 마음이 가지런해졌다.'
+      },
+      {
+        id: 'hobby-tries-several-briefly-78',
+        text: '이런저런 취미를 짧게짧게 번갈아 시도해본다',
+        deltas: { happiness: -2 },
+        result: '뭐 하나 진득하게 이어가기가, 생각보다 쉽지 않았다.'
+      },
+      {
+        id: 'hobby-group-meetup-78',
+        text: '동네 취미 모임에 나가 사람들과 어울린다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '같은 걸 좋아하는 사람과 나누는 시간이, 새삼 즐거웠다.'
+      },
+      {
+        id: 'hobby-showcase-to-family-78',
+        text: '직접 만든 작품을 가족들에게 보여준다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '별거 아니라면서도, 내심 뿌듯한 미소를 감추지 못했다.'
       }
     ]
   },
@@ -8538,6 +8574,45 @@ const STAGES = [
         deltas: { happiness: 4, relationship: 2 },
         result: '오래된 이야기를 꺼낼 때마다, 그 시절로 잠시 돌아간 기분이었다.',
         requiresFamilyMember: ['child']
+      },
+      {
+        id: 'early-inheritance-talk-82',
+        text: '재산을 어떻게 나눌지 자녀들과 이야기를 나눈다',
+        deltas: { happiness: 2 },
+        result: '숫자로 마음을 나누는 게, 생각보다 어려운 일이었다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'worrying-about-conflict-82',
+        text: '혹시 모를 자녀들 간의 갈등을 떠올려본다',
+        deltas: { happiness: -3 },
+        result: '떠난 뒤에도 마음 편할 수 있을지, 자꾸 마음이 쓰였다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'gifting-while-alive-82',
+        text: '가진 것 일부를 살아있을 때 미리 나눠준다',
+        deltas: { happiness: 4, wealth: -3 },
+        result: '주는 손이, 받는 손보다 오히려 더 따뜻했다.'
+      },
+      {
+        id: 'writing-a-will-82',
+        text: '변호사를 찾아 유언장을 정식으로 작성한다',
+        deltas: { happiness: 1, wealth: -1 },
+        result: '마음의 짐 하나를, 서류 한 장으로 내려놓았다.'
+      },
+      {
+        id: 'family-thanks-for-clarity-82',
+        text: '미리 정리해둔 서류를 가족들에게 건넨다',
+        deltas: { happiness: 3, relationship: 3 },
+        result: '복잡할 뻔했던 일이, 미리 챙긴 덕에 간단해졌다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'postponing-the-decision-82',
+        text: '아직은 때가 아니라며 정리를 미뤄둔다',
+        deltas: { happiness: 1 },
+        result: '서두를 것 없다는 마음으로, 오늘은 그냥 미뤄두기로 했다.'
       }
     ]
   },
@@ -9135,6 +9210,43 @@ const STAGES = [
         deltas: { happiness: -6 },
         result: '눈뜨는 아침이, 예전 같지 않게 느껴졌다.',
         addCondition: { id: 'elderly-depression', label: '🌑 노년기 우울증', mental: true }
+      },
+      {
+        id: 'finding-peace-in-faith-90',
+        text: '믿음에 기대어 하루하루를 보낸다',
+        deltas: { happiness: 4 },
+        result: '기댈 곳이 있다는 사실 하나로, 마음이 한결 든든했다.'
+      },
+      {
+        id: 'questioning-faith-90',
+        text: '왜 이런 시련을 겪는지 스스로에게 묻는다',
+        deltas: { happiness: -3 },
+        result: '답을 찾지 못한 물음이, 오래도록 마음에 맴돌았다.'
+      },
+      {
+        id: 'praying-for-family-90',
+        text: '가족들의 안녕을 위해 매일 기도한다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '두 손을 모으는 그 잠깐이, 하루 중 가장 정성스러운 시간이었다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
+      },
+      {
+        id: 'finding-own-way-to-peace-90',
+        text: '종교 없이도 스스로 마음을 다스리는 방법을 찾는다',
+        deltas: { happiness: 3 },
+        result: '누구의 이름을 빌리지 않아도, 마음은 나름대로 잔잔해졌다.'
+      },
+      {
+        id: 'gathering-with-believers-90',
+        text: '같은 믿음을 가진 이들과 함께 모여 시간을 보낸다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '같은 마음을 가진 이들 곁에 있는 것만으로도, 위안이 됐다.'
+      },
+      {
+        id: 'reflecting-on-lifes-meaning-90',
+        text: '지나온 삶의 의미를 깊이 되짚어본다',
+        deltas: { happiness: 2 },
+        result: '답을 찾았다기보다는, 물음 자체와 조금 친해진 기분이었다.'
       }
     ]
   },
@@ -9387,6 +9499,42 @@ const STAGES = [
         removeAsset: 'lottery-ticket',
         mandatory: true,
         prizeTable: LOTTERY_PRIZE_TABLE
+      },
+      {
+        id: 'neighbor-checks-in-93',
+        text: '이웃이 매일 들러 안부를 살펴준다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '문 두드리는 소리 하나에도, 마음이 놓였다.'
+      },
+      {
+        id: 'meal-delivery-service-93',
+        text: '지역 복지관에서 보내주는 도시락으로 끼니를 해결한다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '따뜻한 밥 한 끼가, 생각보다 큰 위로가 됐다.'
+      },
+      {
+        id: 'volunteer-visit-93',
+        text: '찾아온 자원봉사자와 이런저런 이야기를 나눈다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '낯선 얼굴이었지만, 이야기를 나누다 보니 금세 편해졌다.'
+      },
+      {
+        id: 'sending-help-away-93',
+        text: '도움을 받을 때마다 자꾸 손사래를 치며 사양한다',
+        deltas: { happiness: -3 },
+        result: '혼자서도 괜찮다는 말이, 스스로에게도 잘 믿기지 않았다.'
+      },
+      {
+        id: 'accepting-help-gracefully-93',
+        text: '이제는 도움을 자연스레 받아들이기로 한다',
+        deltas: { happiness: 2 },
+        result: '고집을 조금 내려놓으니, 하루가 한결 수월해졌다.'
+      },
+      {
+        id: 'safety-checkin-service-93',
+        text: '매일 안부를 확인해주는 안심콜 서비스를 이용한다',
+        deltas: { happiness: 1, health: 1 },
+        result: '전화벨 소리 하나가, 혼자가 아니라는 증거처럼 느껴졌다.'
       }
     ]
   },
@@ -9431,6 +9579,44 @@ const STAGES = [
         text: '정리를 마치고 나니, 마음이 한결 가벼워진다',
         deltas: { happiness: 4, health: 1 },
         result: '짐을 덜어낸 만큼, 마음도 홀가분해졌다.'
+      },
+      {
+        id: 'amazed-by-new-tech-94',
+        text: '몰라보게 달라진 세상의 기술을 접한다',
+        deltas: { happiness: 2 },
+        result: '이런 세상이 올 줄은, 젊을 적엔 상상도 못했다.'
+      },
+      {
+        id: 'struggling-with-smartphone-94',
+        text: '스마트폰 사용법을 자꾸 잊어버려 같은 걸 되묻는다',
+        deltas: { happiness: -2 },
+        result: '몇 번을 배워도, 손에 익지 않는 게 답답했다.'
+      },
+      {
+        id: 'grandchild-teaches-tech-94',
+        text: '손주가 차근차근 사용법을 가르쳐준다',
+        deltas: { happiness: 3, relationship: 3 },
+        result: '몇 번이고 되물어도, 손주는 짜증 한 번 내지 않았다.',
+        requiresFamilyMember: ['grandchild']
+      },
+      {
+        id: 'watching-world-news-94',
+        text: 'TV로 세상 돌아가는 소식을 챙겨본다',
+        deltas: { happiness: 1 },
+        result: '낯선 이야기들 속에서도, 세상과 이어져 있다는 느낌은 놓지 않았다.'
+      },
+      {
+        id: 'comparing-past-and-present-94',
+        text: '예전과 지금을 가만히 비교해본다',
+        deltas: { happiness: 1 },
+        result: '같은 자리인데도, 완전히 다른 세상이 된 것 같았다.'
+      },
+      {
+        id: 'video-call-with-family-94',
+        text: '영상통화로 멀리 있는 가족의 얼굴을 본다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '화면 속 얼굴인데도, 옆에 있는 것만 같았다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       }
     ]
   },
@@ -9476,6 +9662,44 @@ const STAGES = [
         text: '오늘 하루도 무사히 넘겼다는 사실에 안도한다',
         deltas: { happiness: 3, health: 1 },
         result: '거창한 것 없이도, 무사한 하루 자체가 충분했다.'
+      },
+      {
+        id: 'favorite-meal-served-95',
+        text: '오랜만에 좋아하던 음식을 대접받는다',
+        deltas: { happiness: 4 },
+        result: '익숙한 맛 하나에, 지난 세월이 함께 떠올랐다.'
+      },
+      {
+        id: 'appetite-declining-95',
+        text: '예전만큼 입맛이 돌지 않아 수저를 자주 내려놓는다',
+        deltas: { happiness: -2, health: -1 },
+        result: '먹는 즐거움이 줄어드는 게, 은근히 서운했다.'
+      },
+      {
+        id: 'family-cooks-together-95',
+        text: '가족들이 다 함께 식사를 준비해 나눈다',
+        deltas: { happiness: 3, relationship: 3 },
+        result: '북적이는 부엌 소리만으로도, 배가 부른 기분이었다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
+      },
+      {
+        id: 'simple-meal-deep-gratitude-95',
+        text: '소박한 한 끼 앞에서 가만히 손을 모은다',
+        deltas: { happiness: 3 },
+        result: '별것 아닌 밥 한 그릇이, 새삼 감사하게 느껴졌다.'
+      },
+      {
+        id: 'remembering-old-recipes-95',
+        text: '옛날에 즐겨 먹던 음식의 맛을 떠올려본다',
+        deltas: { happiness: 2 },
+        result: '기억 속 그 맛은, 다시는 똑같이 낼 수 없다는 걸 알았다.'
+      },
+      {
+        id: 'grandchild-brings-snack-95',
+        text: '손주가 챙겨온 간식을 함께 나눈다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '별것 아닌 과자 하나에도, 마음이 흐뭇해졌다.',
+        requiresFamilyMember: ['grandchild']
       }
     ]
   },
@@ -9523,6 +9747,42 @@ const STAGES = [
         text: '고요한 하루를 보낸다',
         deltas: { happiness: 4, health: 2 },
         result: '큰 사건 하나 없는 하루가, 그 자체로 평화로웠다.'
+      },
+      {
+        id: 'caregiver-bond-96',
+        text: '정성껏 돌봐주는 요양보호사와 이런저런 이야기를 나눈다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '매일 보는 얼굴이, 어느새 가족처럼 편해졌다.'
+      },
+      {
+        id: 'feeling-secure-in-care-96',
+        text: '세심한 돌봄 속에서 하루를 보낸다',
+        deltas: { happiness: 3 },
+        result: '누군가 곁에서 살펴준다는 사실 하나로, 마음이 놓였다.'
+      },
+      {
+        id: 'missing-independence-96',
+        text: '스스로 할 수 없는 일이 늘어난 걸 실감한다',
+        deltas: { happiness: -3 },
+        result: '작은 일 하나까지 남의 손을 빌려야 하는 게, 못내 속상했다.'
+      },
+      {
+        id: 'caregiver-shares-old-songs-96',
+        text: '돌봐주는 이와 함께 옛 노래를 들으며 시간을 보낸다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '낯선 요즘 노래보다, 그 시절 가락이 더 마음에 와닿았다.'
+      },
+      {
+        id: 'trusting-the-care-team-96',
+        text: '가족과 돌봄 인력을 믿고 마음을 놓는다',
+        deltas: { happiness: 2 },
+        result: '모든 걸 다 챙기려 애쓰지 않아도 된다는 게, 오히려 편안했다.'
+      },
+      {
+        id: 'saying-thanks-to-caregiver-96',
+        text: '고마운 마음을 돌봐주는 이에게 직접 전한다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '짧은 인사말 한마디에, 서로 마주 보며 웃었다.'
       }
     ]
   },
@@ -9668,6 +9928,43 @@ const STAGES = [
         result: '몇 번째인지도 모를 검진이지만, 매번 이렇게 마음을 다잡게 된다.',
         requiresAnyCondition: true,
         removeAllConditions: true
+      },
+      {
+        id: 'interviewed-about-longevity-98',
+        text: '지역 신문에서 장수 비결을 취재하러 찾아온다',
+        deltas: { happiness: 3, fame: 2 },
+        result: '평생 처음 받아보는 질문지 앞에서, 괜히 긴장이 됐다.'
+      },
+      {
+        id: 'modest-answer-98',
+        text: '특별한 비결은 없다며 평소처럼 담담하게 답한다',
+        deltas: { happiness: 2 },
+        result: '그저 하루하루를 살았을 뿐이라는 말이, 가장 솔직한 답이었다.'
+      },
+      {
+        id: 'family-proud-of-attention-98',
+        text: '관심을 받는 자신의 모습을 가족들에게 보여준다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '신문에 실린 얼굴 옆에서, 가족들이 더 신나 보였다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
+      },
+      {
+        id: 'overwhelmed-by-questions-98',
+        text: '쏟아지는 질문들에 잠시 말을 잇지 못한다',
+        deltas: { happiness: -2 },
+        result: '이렇게까지 궁금해할 일인가 싶어, 어리둥절했다.'
+      },
+      {
+        id: 'sharing-real-secret-98',
+        text: '진짜 비결이 무엇이었는지 조용히 되짚어본다',
+        deltas: { happiness: 3 },
+        result: '결국 남는 건 사람이었다는 걸, 새삼 깨달았다.'
+      },
+      {
+        id: 'local-celebrity-for-a-day-98',
+        text: '동네 사람들의 인사를 유독 많이 받는 하루를 보낸다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '오가는 인사말이, 평소보다 조금 더 따뜻하게 느껴졌다.'
       }
     ]
   },
@@ -9714,6 +10011,48 @@ const STAGES = [
         text: '내일이면 백 살이라는 사실이 아직도 믿기지 않는다',
         deltas: { happiness: 4, health: 0 },
         result: '숫자 하나가, 이렇게 비현실적으로 느껴질 줄 몰랐다.'
+      },
+      {
+        id: 'new-baby-in-the-family-99',
+        text: '집안에 새 아기가 태어났다는 소식을 듣는다',
+        deltas: { happiness: 5, relationship: 3 },
+        result: '소식을 듣는 순간, 온 집안이 들썩였다.',
+        requiresFamilyMember: ['grandchild']
+      },
+      {
+        id: 'holding-the-newest-member-99',
+        text: '품에 안은 아기의 작은 손을 가만히 만져본다',
+        deltas: { happiness: 5 },
+        result: '이 작은 손이, 이렇게나 크게 다가올 줄은 몰랐다.',
+        requiresFamilyMember: ['grandchild']
+      },
+      {
+        id: 'four-generations-together-99',
+        text: '여러 세대가 한자리에 모이는 순간을 맞는다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '한 사진 안에 담긴 얼굴들이, 유난히 많아 보였다.',
+        requiresFamilyMember: ['grandchild']
+      },
+      {
+        id: 'suggesting-a-name-99',
+        text: '새 식구의 이름을 짓는 데 한마디 보탠다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '고른 이름 하나에, 오랜만에 마음이 설렜다.',
+        requiresFamilyMember: ['grandchild']
+      },
+      {
+        id: 'wondering-if-will-see-them-grow-99',
+        text: '이 아이가 자라는 모습을 다 볼 수 있을지 헤아려본다',
+        deltas: { happiness: -3 },
+        result: '셈이 되지 않는 날들 앞에서, 마음이 아릿해졌다.',
+        requiresFamilyMember: ['grandchild']
+      },
+      {
+        id: 'wishing-a-good-world-for-them-99',
+        text: '새로운 세대에게 좋은 세상이 있기를 바란다',
+        deltas: { happiness: 2 },
+        result: '내가 살아온 세상보다, 조금이라도 나은 세상이길 바랐다.',
+        requiresFamilyMember: ['grandchild']
       }
     ]
   },
@@ -9759,6 +10098,43 @@ const STAGES = [
         text: '백 년의 이야기를 마지막으로 후손들에게 남긴다',
         deltas: { happiness: 5, relationship: 5 },
         result: '이 이야기가, 다음 세대에게 작은 등불 하나가 되어주길 바랐다.'
+      },
+      {
+        id: 'one-last-wish-100',
+        text: '아직 이루지 못한 소원 하나를 떠올려본다',
+        deltas: { happiness: 2 },
+        result: '오래 묵혀둔 마음 하나가, 불쑥 떠올랐다.'
+      },
+      {
+        id: 'family-tries-to-fulfill-wish-100',
+        text: '그 소원을 이뤄주려는 가족들의 마음을 전해받는다',
+        deltas: { happiness: 5, relationship: 3 },
+        result: '별거 아니라 말했는데도, 다들 진심으로 나서주었다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
+      },
+      {
+        id: 'content-with-what-was-100',
+        text: '더 바랄 것 없이 지금 이대로도 충분하다고 되뇐다',
+        deltas: { happiness: 4 },
+        result: '채워야 할 게 하나도 남지 않은 것 같은, 드문 순간이었다.'
+      },
+      {
+        id: 'dreaming-of-one-more-trip-100',
+        text: '가보고 싶었던 곳을 마지막으로 한 번 더 그려본다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '발걸음은 무거워도, 마음만은 이미 그곳에 가 있었다.'
+      },
+      {
+        id: 'leaving-a-message-for-the-future-100',
+        text: '아직 태어나지 않은 후손들에게 남길 말을 생각해본다',
+        deltas: { happiness: 3 },
+        result: '본 적 없는 얼굴들에게 하고픈 말이, 생각보다 많았다.'
+      },
+      {
+        id: 'wishing-for-one-more-day-100',
+        text: '그저 오늘 같은 하루가 하나 더 있기를 바란다',
+        deltas: { happiness: 1 },
+        result: '거창한 것 없이, 그 정도면 충분하다고 느꼈다.'
       }
     ]
   }
