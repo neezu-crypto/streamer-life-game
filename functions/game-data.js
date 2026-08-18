@@ -1665,7 +1665,8 @@ const STAGES = [
         text: '부모님 몰래 연애를 이어간다',
         deltas: { relationship: 1, happiness: 1 },
         result: '들킬까 조마조마한 마음도, 나름의 설렘이었다.',
-        requiresFamilyMember: ['father', 'mother', 'single-parent']
+        requiresFamilyMember: ['father', 'mother', 'single-parent'],
+        addAcquaintance: { relation: 'lover', label: '💕 연인' }
       },
       {
         id: 'burns-out-briefly-16',
