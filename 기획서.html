@@ -1040,6 +1040,24 @@
         해외로 나가 <code>currentLocation</code>이 정확히 <code>abroad</code>로 바뀌고, 32세
         <code>contract-ends-returns-32</code>로 다시 <code>domestic</code>으로 돌아오는 왕복 전체를
         첫 시도에서 확인했다.</p>
+        <p class="note"><b><code>index.html</code>을 3개 파일로 분리(2026-08-19, 사용자 지시 — "코드가
+        길어진것같은데 코드 분리 필요한지 확인해줘" → "진행해줘").</b> 세션 내내 콘텐츠가 쌓이며
+        <code>index.html</code> 한 파일이 2,025줄까지 늘었는데, 그중 72%(1,464줄)가 인라인
+        <code>&lt;script type="module"&gt;</code> JS였다. 빌드 단계 없이 GitHub Pages로 그대로 서빙하는
+        구조라(번들러 없음) 별도 파일로 쪼개도 배포 방식이 전혀 안 바뀐다는 점에서 위험이 낮은 리팩터였다.
+        <code>&lt;style&gt;</code> 블록(391줄)은 <code>style.css</code>로, <code>&lt;script
+        type="module"&gt;</code> 블록(1,458줄)은 <code>app.js</code>로 각각 그대로 옮기고,
+        <code>index.html</code>엔 <code>&lt;link rel="stylesheet" href="style.css"&gt;</code>와
+        <code>&lt;script type="module" src="app.js"&gt;&lt;/script&gt;</code> 두 줄만 남겼다(173줄로
+        축소) — 내용은 한 글자도 안 바꾸고 파일만 옮긴 순수 리팩터. <code>functions/index.js</code>(960줄,
+        <code>applyChoice()</code> 하나가 374줄)와 <code>functions/game-data.js</code>(11,057줄, 선택지
+        데이터)도 함께 검토했지만, 후자는 순수 데이터라 서버 사이드에서만 쓰여 크기가 성능에 영향이
+        없고 지금까지 써온 "닫는 대괄호 찾아 삽입" 스크립트들이 단일 파일 전제라 분리 실익이 적어
+        보류했다. 검증: 로컬 정적 서버로 세 파일이 각각 올바른 MIME 타입(<code>text/css</code>,
+        <code>text/javascript</code>)으로 서빙되는 것을 확인하고, Playwright로 실제 검색→이름짓기→인생
+        시작→주사위 3회 진행까지 전체 플로우를 재현해 CSS가 그대로 적용되고(전체 레이아웃·색상 동일),
+        가족 상세·현재 장소 패널 등 <code>app.js</code>의 로직도 정상 작동하며(자동저장 토스트까지 확인),
+        콘솔 에러·실패한 네트워크 요청 둘 다 0건인 것을 스크린샷으로 확인했다.</p>
 
         <p class="note"><b>선택지 페이드아웃 — <code>alzheimers</code>가 있으면 선택지가 뜨자마자 10초에
         걸쳐 서서히 투명해지다 완전히 사라진다.</b> <code>blocksHealthRecovery</code>와 같은 패턴으로

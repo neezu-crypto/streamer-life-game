@@ -1,0 +1,1459 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { getDatabase, ref, get, onValue } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
+import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-functions.js";
+import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+
+// 이 생태계 다른 프로젝트들과 동일한 Firebase 프로젝트(soop-stock-market)를 공유한다
+// - stocks 노드(스트리머 이름 검색)를 새 프로젝트 설정 없이 바로 읽기 위함.
+const firebaseConfig = {
+  apiKey: "AIzaSyAZcjQPHphENs-Bb7IfdL2qTtOMhJrRP54",
+  authDomain: "soop-stock-market.firebaseapp.com",
+  databaseURL: "https://soop-stock-market-default-rtdb.firebaseio.com",
+  projectId: "soop-stock-market",
+  storageBucket: "soop-stock-market.firebasestorage.app",
+  messagingSenderId: "997788925900",
+  appId: "1:997788925900:web:b58db2970489bf18a3a769"
+};
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const auth = getAuth(app);
+const functions = getFunctions(app, 'us-central1');
+
+// devbar 게임 링크를 RTDB(devbarLinks, admin-center에서 관리)에서 가져와 하드코딩된
+// 링크를 대체한다 - 다른 배경/배팅/주식/배경시장 페이지들과 동일한 패턴(08번 마이그레이션).
+// 노드가 비어있거나 조회 실패 시 기존 하드코딩된 data-game-id 링크를 그대로 둔다
+// (devbar가 통째로 사라지는 사고 방지) - "방송국" 링크는 devbarLinks 대상이 아니라
+// 항상 하드코딩 그대로 유지된다.
+(async function () {
+  const SELF_GAME_ID = 'lifeGame';
+  try {
+    const snap = await get(ref(db, 'devbarLinks'));
+    const data = snap.val();
+    if (!data) return;
+    const links = Object.keys(data)
+      .filter((id) => id !== SELF_GAME_ID && data[id] && data[id].url)
+      .map((id) => Object.assign({ id }, data[id]))
+      .sort((a, b) => (a.order || 0) - (b.order || 0));
+    if (!links.length) return;
+    const track = document.getElementById('devbarTrack');
+    if (!track) return;
+    track.querySelectorAll('a[data-game-id]').forEach((el) => el.remove());
+    links.forEach((link) => {
+      const a = document.createElement('a');
+      a.className = 'dev-game-link';
+      a.dataset.gameId = link.id;
+      a.href = link.url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.textContent = link.label;
+      track.appendChild(a);
+    });
+    window.dispatchEvent(new Event('resize')); // 마퀴 재계산 트리거
+  } catch (e) {
+    console.error('devbar 링크 갱신 실패(기존 링크 유지):', e);
+  }
+})();
+
+const startPlaythroughFn = httpsCallable(functions, 'startPlaythrough');
+const resumePlaythroughFn = httpsCallable(functions, 'resumePlaythrough');
+const submitChoiceFn = httpsCallable(functions, 'submitChoice');
+const rollDiceFn = httpsCallable(functions, 'rollDice');
+const shareToGalleryFn = httpsCallable(functions, 'shareToGallery');
+
+let currentUser = null;
+let resumeChecked = false;
+onAuthStateChanged(auth, (user) => {
+  currentUser = user;
+  if (!user) {
+    signInAnonymously(auth).catch((e) => console.error('익명 로그인 실패:', e));
+    return;
+  }
+  // 계정당 저장 슬롯 1개 - 로그인(익명 포함)이 확정되면 저장된 판이 있는지 한 번만
+  // 확인한다. 검색 화면을 먼저 보여줬다가 뒤늦게 "이어하기"로 바꾸면 화면이
+  // 깜빡여서, 확인이 끝나기 전까진 검색/이어하기 둘 다 숨겨둔다(아래 checkResume).
+  if (!resumeChecked) {
+    resumeChecked = true;
+    checkResume(user.uid);
+  }
+});
+
+// ------------------------------------------------------------
+// 1) 스트리머 검색 - {id,name} 목록을 정적 파일(streamer-names.json)에서 받아
+// 클라이언트에서 부분일치 필터(soop-stock-market 자체 검색창과 동일한 패턴 -
+// 인덱스가 없어서 이 방식이 맞다). stocks 노드를 직접 읽던 걸 정적 파일로
+// 바꾼 이유(2026-08-18) - stocks는 가격·거래량 등 이 검색엔 안 쓰는 필드까지
+// 포함해 매번 훨씬 큰 용량을 받게 되고, 접속자마다 각자 다운로드하는 구조라
+// 앞으로 시청자도 같은 페이지에 동시 접속하는 멀티플레이가 되면 그 인원수만큼
+// RTDB 다운로드 비용이 곱해진다. streamer-names.json은 이름 검색에 필요한
+// 최소 데이터만 담아 정적 호스팅(CDN 캐시)으로 서빙하고, scripts/update-
+// streamer-names.js를 수동 실행할 때만 최신화한다(스케줄러 없음 - 사용자 지시).
+// ------------------------------------------------------------
+let allStocks = [];
+fetch('./streamer-names.json').then((res) => res.json()).then((data) => {
+  allStocks = data;
+}).catch((e) => console.error('스트리머 이름 목록을 불러오지 못했습니다:', e));
+
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim();
+  searchResults.innerHTML = '';
+  if (!q) return;
+  const matches = allStocks.filter((s) => s.name.includes(q)).slice(0, 12);
+  if (!matches.length) {
+    searchResults.innerHTML = '<p class="empty-msg">일치하는 스트리머가 없어요. 이름을 직접 입력해도 괜찮아요.</p>';
+    return;
+  }
+  matches.forEach((s) => {
+    const row = document.createElement('div');
+    row.className = 'streamer-row';
+    row.innerHTML = '<span>' + escapeHtml(s.name) + '</span>';
+    row.addEventListener('click', () => selectStreamer(s.name, s.id));
+    searchResults.appendChild(row);
+  });
+});
+
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+// ------------------------------------------------------------
+// 화면 전환 페이드 - 패널이 통째로 바뀌는 모든 지점(검색→이름짓기→게임 시작/
+// 이어하기→다음 구간→엔딩)에서 뚝 끊기지 않고 페이드아웃 후 페이드인 되게
+// 하는 공통 헬퍼. hidden 클래스는 display:none이라 그 자체로는 트랜지션이
+// 안 되므로, 사라질 땐 opacity를 0으로 줄인 뒤에 hidden을 붙이고, 나타날 땐
+// 반대로 hidden을 먼저 뗀 다음 opacity를 0→1로 올린다.
+// ------------------------------------------------------------
+const REDUCE_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FADE_MS = REDUCE_MOTION ? 0 : 260;
+// setTimeout 스케줄링은 브라우저 부하에 따라 살짝 밀릴 수 있어, 콘텐츠를
+// 실제로 교체/숨기는 타이밍은 CSS 트랜지션 재생 시간보다 이만큼 더 기다린다 -
+// 트랜지션이 채 안 끝난 상태에서 내용이 바뀌어 보이는 걸 방지.
+const SWAP_BUFFER_MS = REDUCE_MOTION ? 0 : 100;
+
+// 알츠하이머(causesChoiceFadeout)를 갖고 있으면 선택지가 뜨자마자 10초에
+// 걸쳐 서서히 투명해져 10초 후엔 완전히 안 보이게 된다 - 이건 화면
+// 전환용 장식이 아니라 실제 게임 난이도(제한 시간)라서, 다른 트랜지션과
+// 달리 prefers-reduced-motion과 무관하게 항상 10초로 고정한다.
+const CHOICE_FADEOUT_MS = 10000;
+
+function fadeOut(els) {
+  const visible = els.filter((el) => el && !el.classList.contains('hidden'));
+  if (!visible.length) return Promise.resolve();
+  return new Promise((resolve) => {
+    // transition 프로퍼티와 opacity 값을 같은 틱에서 같이 바꾸면 크로미움이
+    // "이전 상태"를 제대로 커밋하지 못해 트랜지션이 늦게 시작되거나 끝까지
+    // 안 끝난 채로 다음 단계로 넘어가는 경우가 있다 - 그래서 먼저 transition을
+    // 끈 채로 지금 상태(opacity:1)를 리플로우로 확정한 다음에야 실제 트랜지션을
+    // 건다.
+    visible.forEach((el) => { el.style.transition = 'none'; el.style.opacity = '1'; });
+    void document.body.offsetWidth;
+    visible.forEach((el) => {
+      el.style.transition = 'opacity ' + FADE_MS + 'ms ease';
+      el.style.opacity = '0';
+    });
+    setTimeout(() => {
+      visible.forEach((el) => { el.classList.add('hidden'); el.style.opacity = ''; el.style.transition = ''; });
+      resolve();
+    }, FADE_MS + SWAP_BUFFER_MS);
+  });
+}
+
+function fadeIn(els) {
+  const list = els.filter(Boolean);
+  list.forEach((el) => {
+    el.classList.remove('hidden');
+    el.style.transition = 'none';
+    el.style.opacity = '0';
+  });
+  void document.body.offsetWidth; // 강제 리플로우 - opacity:0이 실제로 적용된 뒤에 트랜지션이 걸리게
+  list.forEach((el) => {
+    el.style.transition = 'opacity ' + FADE_MS + 'ms ease';
+    el.style.opacity = '1';
+  });
+}
+
+let selectedStreamerId = null;
+const searchSection = document.getElementById('searchSection');
+const nameSection = document.getElementById('nameSection');
+const nameInput = document.getElementById('nameInput');
+function selectStreamer(name, id) {
+  selectedStreamerId = id || null;
+  nameInput.value = name;
+  fadeOut([searchSection]).then(() => fadeIn([nameSection]));
+}
+
+document.getElementById('backToSearchBtn').addEventListener('click', async () => {
+  await fadeOut([nameSection]);
+  fadeIn([searchSection]);
+  searchInput.focus();
+});
+
+// ------------------------------------------------------------
+// 계정당 저장 슬롯 1개 - 창을 껐다 다시 열어도 이어할 수 있게. 매 선택마다
+// 서버가 이미 lifeGame/playthroughs/{uid}에 진행 상태를 저장해두므로
+// (functions/index.js), 여기선 로그인 직후 그 저장이 있는지만 가볍게
+// 직접 읽어서(.read가 본인 uid만 허용) 확인한다 - 함수 호출은 실제로
+// "이어하기"를 누를 때만 한다.
+// ------------------------------------------------------------
+const resumeSection = document.getElementById('resumeSection');
+const resumeInfo = document.getElementById('resumeInfo');
+const resumeBtn = document.getElementById('resumeBtn');
+
+async function checkResume(uid) {
+  try {
+    const snap = await get(ref(db, 'lifeGame/playthroughs/' + uid));
+    const play = snap.val();
+    if (play && !play.completed) {
+      resumeInfo.textContent = (play.streamerName || '이름 없음') + '님의 인생이 저장되어 있어요 (' + (play.stageIndex + 1) + '번째 구간까지 진행).';
+      fadeIn([resumeSection]);
+      return;
+    }
+  } catch (e) {
+    console.error('저장된 진행 확인 실패:', e);
+  }
+  fadeIn([searchSection]);
+}
+
+resumeBtn.addEventListener('click', async () => {
+  resumeBtn.disabled = true;
+  try {
+    const res = await resumePlaythroughFn();
+    await fadeOut([resumeSection]);
+    if (res.data.completed) {
+      showEnding(res.data.ending, res.data.stats, res.data.choiceHistory, res.data.familyMembers, res.data.occupationHistory, res.data.assets, res.data.cashHoldings, res.data.acquaintances, res.data.healthConditions, res.data.locationHistory);
+    } else {
+      await fadeOut([mainHeader]);
+      renderStatBars(statBars, res.data.stats);
+      renderAssets(res.data.assets);
+      renderCashHoldings(cashHoldingsEl, res.data.cashHoldings);
+      renderHealthConditions(res.data.healthConditions);
+      renderFamilyMembers(res.data.familyMembers);
+      renderAcquaintances(res.data.acquaintances);
+      renderCurrentOccupation(res.data.currentOccupation);
+      renderCurrentLocation(res.data.currentLocation);
+      renderStage(res.data.stage);
+      initAchievementBaseline(res.data);
+      fadeIn([gameSection]);
+    }
+  } catch (e) {
+    console.error('이어하기 실패:', e);
+    alert('이어하지 못했어요: ' + (e.message || e));
+    resumeBtn.disabled = false;
+  }
+});
+
+document.getElementById('restartFreshBtn').addEventListener('click', async () => {
+  await fadeOut([resumeSection]);
+  fadeIn([searchSection]);
+});
+
+// ------------------------------------------------------------
+// 2) 인생 시작 + 3) 선택 진행
+// ------------------------------------------------------------
+const mainHeader = document.getElementById('mainHeader');
+const gameSection = document.getElementById('gameSection');
+const stageContent = document.getElementById('stageContent');
+const stageName = document.getElementById('stageName');
+const stageAge = document.getElementById('stageAge');
+const storyText = document.getElementById('storyText');
+const choiceList = document.getElementById('choiceList');
+const resultBox = document.getElementById('resultBox');
+const statBars = document.getElementById('statBars');
+const nextBtn = document.getElementById('nextBtn');
+const startBtn = document.getElementById('startBtn');
+const diceOverlay = document.getElementById('diceOverlay');
+const DICE_REVEAL_MS = 3000;
+const toast = document.getElementById('toast');
+const toastMsg = document.getElementById('toastMsg');
+const TOAST_MS = 2200;
+
+let toastTimer = null;
+function showToast(message) {
+  toastMsg.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), TOAST_MS);
+}
+
+// ------------------------------------------------------------
+// 방송 콘텐츠 백로그 3번째 항목: 복권 1등·2등 대박 축하 이펙트
+// (2026-08-17). 서버가 prizeTable로 등수를 뽑았을 때만 응답에
+// prizeLabel('1등'~'꽝')을 실어주므로, 그 값만 보고 판단한다(딜타 크기로
+// 추측하지 않음 - index.js의 resolvedLabel 참고).
+// ------------------------------------------------------------
+const confettiCanvas = document.getElementById('confettiCanvas');
+const confettiCtx = confettiCanvas.getContext('2d');
+const CONFETTI_COLORS = ['#d4a24c', '#7ea987', '#cd7256', '#c97ab0', '#6f93c9'];
+
+function burstConfetti() {
+  if (REDUCE_MOTION) return;
+  confettiCanvas.width = window.innerWidth;
+  confettiCanvas.height = window.innerHeight;
+  confettiCanvas.classList.remove('hidden');
+
+  const particles = [];
+  const count = 140;
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * confettiCanvas.width,
+      y: -20 - Math.random() * confettiCanvas.height * 0.4,
+      w: 6 + Math.random() * 6,
+      h: 8 + Math.random() * 10,
+      color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+      vy: 2.5 + Math.random() * 3.5,
+      vx: (Math.random() - 0.5) * 2.5,
+      rotation: Math.random() * 360,
+      vr: (Math.random() - 0.5) * 12
+    });
+  }
+
+  const durationMs = 2600;
+  const startedAt = performance.now();
+  function frame(now) {
+    const elapsed = now - startedAt;
+    confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+    particles.forEach((p) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.rotation += p.vr;
+      confettiCtx.save();
+      confettiCtx.translate(p.x, p.y);
+      confettiCtx.rotate((p.rotation * Math.PI) / 180);
+      confettiCtx.fillStyle = p.color;
+      confettiCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      confettiCtx.restore();
+    });
+    if (elapsed < durationMs) {
+      requestAnimationFrame(frame);
+    } else {
+      confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      confettiCanvas.classList.add('hidden');
+    }
+  }
+  requestAnimationFrame(frame);
+}
+
+// Web Audio API로 즉석에서 합성한 짧은 팡파르 - 외부 오디오 파일을 쓰지
+// 않기 위한 선택(저작권 확인 불필요). 브라우저 자동재생 정책상 사용자
+// 클릭(선택지 클릭) 이후 호출되는 경로에서만 쓰므로 문제없다.
+let audioCtx = null;
+function getAudioCtx() {
+  if (!audioCtx) {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return null;
+    audioCtx = new Ctx();
+  }
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+function playTone(ctx, freq, startTime, duration, gainPeak) {
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'triangle';
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(0, startTime);
+  gain.gain.linearRampToValueAtTime(gainPeak, startTime + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start(startTime);
+  osc.stop(startTime + duration);
+}
+function playJackpotFanfare() {
+  const ctx = getAudioCtx();
+  if (!ctx) return;
+  const notes = [523.25, 659.25, 783.99, 1046.50]; // C5-E5-G5-C6 상승 아르페지오
+  const now = ctx.currentTime;
+  notes.forEach((freq, i) => playTone(ctx, freq, now + i * 0.11, 0.5, 0.12));
+}
+
+// prizeLabel이 1등/2등일 때만 자축 이펙트를 튼다(3~5등·꽝은 평소 결과
+// 박스 톤 차별화만으로 충분 - 매번 컨페티가 뜨면 오히려 특별함이 옅어짐).
+function celebrateIfJackpot(prizeLabel) {
+  if (prizeLabel !== '1등' && prizeLabel !== '2등') return;
+  burstConfetti();
+  playJackpotFanfare();
+}
+
+// ------------------------------------------------------------
+// 방송 콘텐츠 백로그 4번째 항목: 즉시 사망 엔딩 5종(collapse·bankruptcy·
+// obscurity·despair·isolation - INSTANT_ENDING_BUILDERS 참고) 진입 시
+// 위기 이펙트(2026-08-17). 이 5개 id는 game-data.js의 build*Ending()이
+// 고정으로 반환하는 값이라 서버 응답을 더 손댈 필요 없이 ending.id만
+// 보고 판단 가능.
+// ------------------------------------------------------------
+const INSTANT_ENDING_IDS = ['collapse', 'bankruptcy', 'obscurity', 'despair', 'isolation'];
+const crisisFlashEl = document.getElementById('crisisFlash');
+const wrapEl = document.querySelector('.wrap');
+
+function playCrisisWarning() {
+  const ctx = getAudioCtx();
+  if (!ctx) return;
+  const now = ctx.currentTime;
+  // 낮은 음 두 번 - 경고음 느낌의 하강 톤
+  playTone(ctx, 220, now, 0.35, 0.14);
+  playTone(ctx, 164.81, now + 0.22, 0.45, 0.14);
+}
+
+function triggerCrisisEffect() {
+  playCrisisWarning();
+  if (REDUCE_MOTION) {
+    // 흔들림은 생략해도 붉은 플래시는 짧게 한 번만 보여준다(모션 없이도
+    // "위기" 신호는 필요).
+    crisisFlashEl.classList.remove('hidden');
+    requestAnimationFrame(() => crisisFlashEl.classList.add('active'));
+    setTimeout(() => { crisisFlashEl.classList.remove('active'); setTimeout(() => crisisFlashEl.classList.add('hidden'), 150); }, 300);
+    return;
+  }
+  wrapEl.classList.remove('crisis-shake');
+  void wrapEl.offsetWidth;
+  wrapEl.classList.add('crisis-shake');
+  crisisFlashEl.classList.remove('hidden');
+  requestAnimationFrame(() => crisisFlashEl.classList.add('active'));
+  setTimeout(() => crisisFlashEl.classList.remove('active'), 180);
+  setTimeout(() => crisisFlashEl.classList.add('hidden'), 400);
+  setTimeout(() => wrapEl.classList.remove('crisis-shake'), 650);
+}
+
+let pendingNextStage = null;
+
+const STAT_LABELS = { wealth: '재산', fame: '인기', happiness: '행복', health: '건강', relationship: '관계' };
+const STAT_COLORS = { wealth: 'var(--gold)', fame: 'var(--coral)', happiness: 'var(--rose)', health: 'var(--sage)', relationship: 'var(--sky)' };
+
+function renderStatBars(el, stats) {
+  el.innerHTML = '';
+  Object.keys(STAT_LABELS).forEach((key) => {
+    const row = document.createElement('div');
+    row.className = 'stat-bar-row';
+    row.dataset.stat = key;
+    row.innerHTML =
+      '<span class="stat-bar-label">' + STAT_LABELS[key] + '</span>' +
+      '<span class="stat-bar-track"><span class="stat-bar-fill" style="width:' + (stats[key] || 0) + '%; background:' + STAT_COLORS[key] + ';"></span></span>' +
+      '<span class="stat-bar-val">' + (stats[key] || 0) + '</span>';
+    el.appendChild(row);
+  });
+}
+
+// 스탯 변화 강조 - |delta|가 큰(기본 5 이상) 스탯만 막대에 잠깐 글로우를
+// 준다(2026-08-17, 방송 콘텐츠 백로그 2번째 항목 - "+1이든 +25든 똑같이
+// 부드럽게 바뀌기만 해서 큰 사건이라는 느낌이 안 남"). renderStatBars() 직후
+// 호출해야 한다 - renderStatBars가 innerHTML을 통째로 새로 그리기 때문에
+// 애니메이션 클래스는 항상 그다음에 얹는다.
+const STAT_PULSE_THRESHOLD = 5;
+function flashStatChanges(el, deltas) {
+  if (!deltas) return;
+  Object.keys(deltas).forEach((key) => {
+    const delta = deltas[key];
+    if (Math.abs(delta) < STAT_PULSE_THRESHOLD) return;
+    const fill = el.querySelector('.stat-bar-row[data-stat="' + key + '"] .stat-bar-fill');
+    if (!fill) return;
+    fill.classList.add(delta > 0 ? 'pulse-positive' : 'pulse-negative');
+  });
+}
+
+const assetsEl = document.getElementById('assets');
+const endingAssetsEl = document.getElementById('endingAssets');
+const cashHoldingsEl = document.getElementById('cashHoldings');
+const endingCashHoldingsEl = document.getElementById('endingCashHoldings');
+
+// ------------------------------------------------------------
+// 인생 종합 점수 선그래프(2026-08-18, 사용자 지시 - "엔딩에 도달했을때 인생
+// 종합 점수를 선그래프로 볼수있는 기능을 추가하고 싶어"). 서버가 choiceLog
+// 각 항목에 그 선택 직후의 다섯 스탯 스냅샷을 실어 choiceHistory로 내려주면
+// (functions/index.js buildChoiceHistory), 그 다섯 스탯의 평균을 "종합
+// 점수"(0~100)로 계산해 나이순으로 이은 선그래프를 그린다. 차트 라이브러리
+// 없이(번들러 없는 정적 HTML 원칙) Canvas 2D로 직접 그린다.
+// ------------------------------------------------------------
+const scoreChartEl = document.getElementById('scoreChart');
+const scoreChartSummaryEl = document.getElementById('scoreChartSummary');
+
+function parseAgeFromRange(ageRange) {
+  const n = parseInt(ageRange, 10);
+  return Number.isFinite(n) ? n : 0;
+}
+function compositeScore(stats) {
+  const keys = ['wealth', 'fame', 'happiness', 'health', 'relationship'];
+  const sum = keys.reduce((acc, k) => acc + (stats[k] || 0), 0);
+  return sum / keys.length;
+}
+
+function renderScoreChart(canvas, summaryEl, choiceHistory) {
+  const points = (choiceHistory || [])
+    .filter((h) => h.stats)
+    .map((h) => ({ age: parseAgeFromRange(h.ageRange), score: compositeScore(h.stats) }));
+
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const cssWidth = canvas.clientWidth || canvas.parentElement.clientWidth || 300;
+  const cssHeight = canvas.clientHeight || 160;
+  canvas.width = cssWidth * dpr;
+  canvas.height = cssHeight * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, cssWidth, cssHeight);
+
+  const style = getComputedStyle(document.documentElement);
+  const gold = style.getPropertyValue('--gold').trim() || '#d4a24c';
+  const line = style.getPropertyValue('--line').trim() || '#362f23';
+  const textFaint = style.getPropertyValue('--text-faint').trim() || '#6e6552';
+
+  if (points.length < 2) {
+    summaryEl.textContent = points.length ? '아직 그래프로 보여주기엔 선택 기록이 부족해요.' : '';
+    ctx.fillStyle = textFaint;
+    ctx.font = '12.5px -apple-system, sans-serif';
+    ctx.fillText('점수 추이를 그리기엔 기록이 너무 짧아요.', 8, cssHeight / 2);
+    return;
+  }
+
+  const padL = 28, padR = 8, padT = 10, padB = 20;
+  const plotW = cssWidth - padL - padR;
+  const plotH = cssHeight - padT - padB;
+  const minAge = points[0].age;
+  const maxAge = points[points.length - 1].age;
+  const ageSpan = Math.max(1, maxAge - minAge);
+  const xFor = (age) => padL + ((age - minAge) / ageSpan) * plotW;
+  const yFor = (score) => padT + (1 - score / 100) * plotH;
+
+  // 가로 기준선(0/25/50/75/100점)
+  ctx.strokeStyle = line;
+  ctx.lineWidth = 1;
+  ctx.fillStyle = textFaint;
+  ctx.font = '10.5px -apple-system, sans-serif';
+  ctx.textBaseline = 'middle';
+  [0, 25, 50, 75, 100].forEach((v) => {
+    const y = yFor(v);
+    ctx.beginPath();
+    ctx.moveTo(padL, y);
+    ctx.lineTo(padL + plotW, y);
+    ctx.stroke();
+    ctx.fillText(String(v), 2, y);
+  });
+
+  // 나이 축 라벨(시작/끝 나이만 - 좁은 패널에 촘촘히 다 넣으면 안 읽힘)
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillText(minAge + '세', padL, cssHeight - 4);
+  const endLabel = maxAge + '세';
+  ctx.fillText(endLabel, padL + plotW - ctx.measureText(endLabel).width, cssHeight - 4);
+
+  // 선 아래 옅은 채움
+  ctx.beginPath();
+  ctx.moveTo(xFor(points[0].age), yFor(points[0].score));
+  points.forEach((p) => ctx.lineTo(xFor(p.age), yFor(p.score)));
+  ctx.lineTo(xFor(points[points.length - 1].age), padT + plotH);
+  ctx.lineTo(xFor(points[0].age), padT + plotH);
+  ctx.closePath();
+  ctx.fillStyle = mixGoldAlpha(gold, 0.14);
+  ctx.fill();
+
+  // 점수 선
+  ctx.beginPath();
+  points.forEach((p, i) => {
+    const x = xFor(p.age), y = yFor(p.score);
+    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  });
+  ctx.strokeStyle = gold;
+  ctx.lineWidth = 2;
+  ctx.lineJoin = 'round';
+  ctx.stroke();
+
+  // 각 선택 지점 점 찍기
+  ctx.fillStyle = gold;
+  points.forEach((p) => {
+    ctx.beginPath();
+    ctx.arc(xFor(p.age), yFor(p.score), 2.2, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  // 요약 문구 - 최고점/최저점을 나이와 함께
+  let peak = points[0], trough = points[0];
+  points.forEach((p) => {
+    if (p.score > peak.score) peak = p;
+    if (p.score < trough.score) trough = p;
+  });
+  const finalScore = Math.round(points[points.length - 1].score);
+  summaryEl.textContent = '최종 ' + finalScore + '점 · 최고 ' + Math.round(peak.score) + '점(' + peak.age + '세) · 최저 ' +
+    Math.round(trough.score) + '점(' + trough.age + '세)';
+}
+
+// canvas 2D API는 color-mix()를 못 받아서, "gold를 옅게 깐 채움색"만 간단히
+// rgba로 근사한다(정확한 색 변환보다 "옅게 보이는지"가 중요한 배경 채움이라
+// 이 정도 근사로 충분).
+function mixGoldAlpha(hex, alpha) {
+  const m = /^#([0-9a-f]{6})$/i.exec(hex.trim());
+  if (!m) return 'rgba(212,162,76,' + alpha + ')';
+  const num = parseInt(m[1], 16);
+  const r = (num >> 16) & 255, g = (num >> 8) & 255, b = num & 255;
+  return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+}
+
+// 보유 현금자산(원 단위) - 서버(cashUnitForAge)가 wealth delta를 나이대별
+// 원화로 환산해 누적한 값을 그대로 만원 단위로 표시만 한다. 재산 상세
+// 패널 최상단, 자산 목록(assets-list)보다 위에 둔다(2026-08-17, 사용자
+// 지시 - "재산 중에 보유 현금자산도 추가").
+function formatCashHoldings(won) {
+  const manwon = Math.round((won || 0) / 10000);
+  return '💰 보유 현금 ' + manwon.toLocaleString('ko-KR') + '만원';
+}
+function renderCashHoldings(el, won) {
+  el.textContent = formatCashHoldings(won);
+}
+
+// 재산 목록("현재 재산 상세") - 선택지가 addAsset/removeAsset을 붙이면 서버가
+// 갱신해서 내려주는 assets를 그대로 표시만 한다(건강/가족 상세와 동일 패턴).
+// container를 받아서 진행 화면(#assets)과 엔딩 화면(#endingAssets) 양쪽에
+// 재사용한다.
+function renderAssetsInto(container, assets) {
+  container.innerHTML = '';
+  if (!assets || !assets.length) {
+    const empty = document.createElement('span');
+    empty.className = 'asset-empty';
+    empty.textContent = '아직 소유한 재산 없음';
+    container.appendChild(empty);
+    return;
+  }
+  assets.forEach((asset) => {
+    const chip = document.createElement('span');
+    chip.className = 'asset-chip';
+    chip.textContent = asset.label;
+    container.appendChild(chip);
+  });
+}
+function renderAssets(assets) {
+  renderAssetsInto(assetsEl, assets);
+}
+
+const healthConditionsEl = document.getElementById('healthConditions');
+const endingHealthConditionsEl = document.getElementById('endingHealthConditions');
+
+// renderStage()가 "지금 알츠하이머(causesChoiceFadeout)가 있는지" 알 수 있게
+// 최신 healthConditions를 따로 기억해둔다 - applyOutcome()에서 다음 구간
+// 데이터를 미리 받아도 실제 renderStage() 호출은 "다음" 버튼을 눌러 페이드
+// 전환이 끝난 뒤에야 일어나므로, 그 사이에도 값이 남아있어야 한다.
+let currentHealthConditions = [];
+
+// 부상·질병 목록("현재 건강 상세") - 선택지가 addCondition/removeCondition을
+// 붙이면 서버가 갱신해서 내려주는 healthConditions를 그대로 표시만 한다.
+// container를 받아서 진행 화면(#healthConditions)과 엔딩 화면
+// (#endingHealthConditions) 양쪽에 재사용한다(2026-08-18, 사용자 지시 -
+// 엔딩 화면에 "현재 건강 상세"가 안 보인다는 제보로 추가 - 원래는 재산·가족·
+// 지인·직업 이력과 달리 건강 상세만 엔딩 화면용 패널이 없이 설계돼 있었다).
+function renderHealthConditionsInto(container, conditions) {
+  container.innerHTML = '';
+  if (!conditions || !conditions.length) {
+    const empty = document.createElement('span');
+    empty.className = 'health-empty';
+    empty.textContent = '특별한 건강 이슈 없음';
+    container.appendChild(empty);
+    return;
+  }
+  conditions.forEach((cond) => {
+    const chip = document.createElement('span');
+    chip.className = 'health-chip';
+    chip.textContent = cond.label;
+    container.appendChild(chip);
+  });
+}
+function renderHealthConditions(conditions) {
+  currentHealthConditions = conditions || [];
+  renderHealthConditionsInto(healthConditionsEl, conditions);
+}
+
+const familyMembersEl = document.getElementById('familyMembers');
+
+// 가족 목록("현재 가족 상세") - 선택지가 addFamilyMembers/removeFamilyMembers를
+// 붙이면 서버가 갱신해서 내려주는 familyMembers를 그대로 표시만 한다(건강 상세와
+// 동일 패턴). container를 받아서 진행 화면(#familyMembers)과 엔딩 화면
+// (#endingFamilyMembers) 양쪽에 재사용한다.
+function renderFamilyMembersInto(container, members) {
+  container.innerHTML = '';
+  if (!members || !members.length) {
+    const empty = document.createElement('span');
+    empty.className = 'family-empty';
+    empty.textContent = '아직 특별한 가족 구성원 없음';
+    container.appendChild(empty);
+    return;
+  }
+  members.forEach((member) => {
+    const chip = document.createElement('span');
+    chip.className = 'family-chip';
+    chip.textContent = member.name ? member.label + ' · ' + member.name : member.label;
+    container.appendChild(chip);
+  });
+}
+function renderFamilyMembers(members) {
+  renderFamilyMembersInto(familyMembersEl, members);
+}
+
+const acquaintancesEl = document.getElementById('acquaintances');
+
+// 지인 목록("현재 지인 상세") - 가족 상세와 거의 같은 패턴이지만, 가족은 고정
+// 역할명(label)만 보여주면 되는 반면 지인은 관계(label)와 실제 이름(name, 서버가
+// stocks 노드에서 무작위로 뽑아 내려줌)을 같이 보여준다.
+function renderAcquaintancesInto(container, acquaintances) {
+  container.innerHTML = '';
+  if (!acquaintances || !acquaintances.length) {
+    const empty = document.createElement('span');
+    empty.className = 'family-empty';
+    empty.textContent = '아직 특별한 지인 없음';
+    container.appendChild(empty);
+    return;
+  }
+  acquaintances.forEach((acq) => {
+    const chip = document.createElement('span');
+    chip.className = 'family-chip';
+    chip.textContent = acq.label + ' · ' + acq.name;
+    container.appendChild(chip);
+  });
+}
+function renderAcquaintances(acquaintances) {
+  renderAcquaintancesInto(acquaintancesEl, acquaintances);
+}
+
+const currentOccupationEl = document.getElementById('currentOccupation');
+
+// 현재 직업("현재 직업 상세") - 건강/가족과 달리 동시에 하나뿐이라 목록이 아니라
+// 값 하나만 보여준다. 서버가 choiceLog에서 다시 계산해 내려주는 currentOccupation
+// (없으면 null)을 그대로 표시만 한다.
+function renderCurrentOccupation(occupation) {
+  if (occupation && occupation.label) {
+    currentOccupationEl.textContent = occupation.label;
+    currentOccupationEl.classList.remove('is-empty');
+  } else {
+    currentOccupationEl.textContent = '아직 특별한 직업 없음';
+    currentOccupationEl.classList.add('is-empty');
+  }
+}
+
+// 직업 이력("지금까지의 직업 이력") - 엔딩 화면에서만 보여준다. 선택 요약
+// (#choiceHistoryList)과 같은 "나이 + 텍스트" 행 스타일(.choice-history-item)을
+// 그대로 재사용한다.
+function renderOccupationHistoryInto(container, history) {
+  container.innerHTML = '';
+  if (!history || !history.length) {
+    container.innerHTML = '<p class="empty-msg">직업 이력이 없어요.</p>';
+    return;
+  }
+  history.forEach((h) => {
+    const row = document.createElement('div');
+    row.className = 'choice-history-item';
+    row.innerHTML =
+      '<span class="chi-age">' + escapeHtml(h.ageRange || '') + '</span>' +
+      '<span class="chi-text">' + escapeHtml(h.label || '') + '</span>';
+    container.appendChild(row);
+  });
+}
+
+const currentLocationEl = document.getElementById('currentLocation');
+
+// 현재 장소("현재 장소") - 직업과 완전히 같은 패턴이지만, 값이 항상 있다는 점만
+// 다르다(초기값은 서버가 내려주는 DEFAULT_LOCATION='국내' - 2026-08-18, 사용자
+// 지시 "초기는 무조건 국내로 시작"). 아직 이 값을 바꾸는 선택지는 없지만
+// (추후 해외 여행·이민·노동 콘텐츠 추가 예정), 표시 로직만 미리 마련해둔다.
+function renderCurrentLocation(location) {
+  currentLocationEl.textContent = location && location.label ? location.label : '🇰🇷 국내';
+  currentLocationEl.classList.remove('is-empty');
+}
+
+// 장소 이력("지금까지 머문 장소") - 엔딩 화면에서만 보여준다. 직업 이력과
+// 완전히 같은 렌더 방식.
+function renderLocationHistoryInto(container, history) {
+  container.innerHTML = '';
+  if (!history || !history.length) {
+    container.innerHTML = '<p class="empty-msg">평생 국내에서만 지냈어요.</p>';
+    return;
+  }
+  history.forEach((h) => {
+    const row = document.createElement('div');
+    row.className = 'choice-history-item';
+    row.innerHTML =
+      '<span class="chi-age">' + escapeHtml(h.ageRange || '') + '</span>' +
+      '<span class="chi-text">' + escapeHtml(h.label || '') + '</span>';
+    container.appendChild(row);
+  });
+}
+
+let choiceFadeoutTimer = null;
+
+// 알츠하이머(causesChoiceFadeout)가 있으면 방금 채워 넣은 선택지들이 뜨자마자
+// 10초에 걸쳐 서서히 투명해진다(10초 후 opacity 0). 조건이 없으면 예전에
+// 남아있을 수 있는 스타일을 지워서 항상 정상적으로 다시 보이게 한다.
+// transition과 opacity를 같은 틱에서 같이 바꾸면 트랜지션이 늦게 시작되는
+// 문제가 있어(다른 페이드에서 이미 겪음), 여기서도 먼저 리플로우로 "보임"
+// 상태를 확정한 뒤에야 실제 페이드아웃을 건다.
+function applyAlzheimersFadeout() {
+  clearTimeout(choiceFadeoutTimer);
+  const hasFadeout = currentHealthConditions.some((c) => c.causesChoiceFadeout);
+  if (!hasFadeout) {
+    choiceList.style.transition = '';
+    choiceList.style.opacity = '';
+    return;
+  }
+  choiceList.style.transition = 'none';
+  choiceList.style.opacity = '1';
+  void choiceList.offsetWidth;
+  choiceList.style.transition = 'opacity ' + CHOICE_FADEOUT_MS + 'ms linear';
+  choiceList.style.opacity = '0';
+}
+
+function renderStage(stage) {
+  stageName.textContent = stage.name;
+  stageAge.textContent = stage.ageRange;
+  storyText.textContent = stage.intro || '';
+  choiceList.innerHTML = '';
+  resultBox.classList.add('hidden');
+  nextBtn.classList.add('hidden');
+
+  if (stage.random) {
+    // 태어날 집안처럼 스스로 고를 수 없는 구간 - 가능성만 미리보기로 보여주고,
+    // 실제 결정은 "주사위 굴리기" 버튼 하나로만 진행한다(서버가 무작위로 뽑음).
+    stage.choices.forEach((choice) => {
+      const div = document.createElement('div');
+      div.className = 'choice-preview';
+      div.dataset.choiceId = choice.id;
+      div.textContent = '🎲 ' + choice.text;
+      choiceList.appendChild(div);
+    });
+    const rollBtn = document.createElement('button');
+    rollBtn.className = 'dice-btn primary';
+    rollBtn.textContent = '🎲 주사위 굴리기';
+    rollBtn.addEventListener('click', rollDice);
+    choiceList.appendChild(rollBtn);
+    const hint = document.createElement('p');
+    hint.className = 'dice-hint';
+    hint.textContent = '이건 스스로 고를 수 없어요 - 0세~3세까지만 위 셋 중 하나가 무작위로 정해집니다.';
+    choiceList.appendChild(hint);
+    applyAlzheimersFadeout();
+    return;
+  }
+
+  stage.choices.forEach((choice) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    btn.dataset.choiceId = choice.id;
+    btn.textContent = choice.text;
+    btn.addEventListener('click', () => pickChoice(choice.id));
+    choiceList.appendChild(btn);
+  });
+  applyAlzheimersFadeout();
+}
+
+startBtn.addEventListener('click', async () => {
+  const streamerName = nameInput.value.trim();
+  if (!streamerName) return;
+  startBtn.disabled = true;
+  try {
+    const res = await startPlaythroughFn({ streamerName, streamerId: selectedStreamerId });
+    await fadeOut([searchSection, nameSection, mainHeader]);
+    renderStatBars(statBars, res.data.stats);
+    renderAssets(res.data.assets);
+    renderCashHoldings(cashHoldingsEl, res.data.cashHoldings);
+    renderHealthConditions(res.data.healthConditions);
+    renderFamilyMembers(res.data.familyMembers);
+    renderAcquaintances(res.data.acquaintances);
+    renderCurrentOccupation(res.data.currentOccupation);
+    renderCurrentLocation(res.data.currentLocation);
+    renderStage(res.data.stage);
+    initAchievementBaseline(res.data);
+    fadeIn([gameSection]);
+  } catch (e) {
+    console.error('인생 시작 실패:', e);
+    alert('시작하지 못했어요: ' + (e.message || e));
+  } finally {
+    startBtn.disabled = false;
+  }
+});
+
+// 결과 박스 색상 차별화 - deltas의 순합으로 이번 선택이 전체적으로 득이었는지
+// 실이었는지 판정해 결과 박스 톤을 다르게 준다(2026-08-17, 사용자 지시 -
+// "방송으로써 아쉬운 부분" 점검에서 나온 "결과가 좋은지 나쁜지 색으로도
+// 구분이 안 됨" 항목). 완벽한 판단은 아니고(스탯 5종을 그냥 더한 값이라
+// 스탯별 가중치는 없음) 어디까지나 시각적 힌트용 근사치.
+function resultTone(deltas) {
+  if (!deltas) return 'neutral';
+  const sum = Object.values(deltas).reduce((acc, v) => acc + v, 0);
+  if (sum > 0) return 'positive';
+  if (sum < 0) return 'negative';
+  return 'neutral';
+}
+
+// submitChoice/rollDice 응답을 공통으로 처리 - 결과 텍스트 반영, 완료 시 엔딩
+// 화면으로, 아니면 "다음" 버튼을 보여준다.
+// 방송 콘텐츠 백로그 5번째 항목: 사별·이혼처럼 감정적 무게가 큰 선택지는
+// 다른 밝은 이벤트와 같은 속도로 넘어가면 어긋나 보여서, 화면 채도를
+// 낮추고 천천히 되돌아오는 톤다운 효과를 준다(2026-08-17). 이 6개는
+// game-data.js에서 removeFamilyMembers로 사망·이혼을 표현하는 선택지
+// 전부(father/mother-passes-away·choosing-divorce·losing-a-parent·
+// parent-passing-50s·spouse-passes-away) - id가 고정값이라 서버 응답에
+// 별도 필드 없이 selectedChoiceId만으로 판단 가능.
+const EMOTIONAL_TONEDOWN_IDS = ['father-passes-away', 'mother-passes-away', 'choosing-divorce', 'losing-a-parent', 'parent-passing-50s', 'spouse-passes-away'];
+const TONEDOWN_HOLD_MS = 3200;
+let tonedownTimer = null;
+function applyTonedownIfNeeded(selectedChoiceId) {
+  if (!EMOTIONAL_TONEDOWN_IDS.includes(selectedChoiceId)) return;
+  gameSection.classList.add('tonedown');
+  clearTimeout(tonedownTimer);
+  tonedownTimer = setTimeout(() => gameSection.classList.remove('tonedown'), TONEDOWN_HOLD_MS);
+}
+
+// ------------------------------------------------------------
+// 방송 콘텐츠 백로그 6번째 항목: 재산 획득·승진/전직·새 가족·건강 회복
+// 이벤트를 작은 배지 팝업 + 짧은 사운드로 알린다(2026-08-17). 서버는
+// "지금 상태"만 내려주고 "이번에 뭐가 바뀌었는지"는 안 알려주므로,
+// 직전 상태를 클라이언트가 따로 기억해뒀다가 diff로 판단한다.
+// ------------------------------------------------------------
+const achievementPopupsEl = document.getElementById('achievementPopups');
+let prevAssetIds = [];
+let prevFamilyIds = [];
+let prevAcquaintanceIds = [];
+let prevOccupationId = null;
+let prevLocationId = null;
+let prevConditions = [];
+
+function playAchievementPop() {
+  const ctx = getAudioCtx();
+  if (!ctx) return;
+  playTone(ctx, 880, ctx.currentTime, 0.28, 0.1);
+}
+function showAchievementBadge(icon, text) {
+  const badge = document.createElement('span');
+  badge.className = 'achievement-badge';
+  badge.innerHTML = '<span class="achievement-icon">' + icon + '</span><span>' + text + '</span>';
+  achievementPopupsEl.appendChild(badge);
+  setTimeout(() => badge.remove(), 2300);
+}
+
+// 재시작·이어하기 시점의 "이미 갖고 있던" 상태를 기준점으로 잡아둔다 -
+// 안 그러면 이어하기 직후 첫 선택에서 원래 있던 자산·가족까지 "새로
+// 얻었다"고 오판할 수 있다.
+function initAchievementBaseline(data) {
+  prevAssetIds = (data.assets || []).map((a) => a.id);
+  prevFamilyIds = (data.familyMembers || []).map((f) => f.id);
+  prevAcquaintanceIds = (data.acquaintances || []).map((a) => a.id);
+  prevOccupationId = data.currentOccupation ? data.currentOccupation.id : null;
+  prevLocationId = data.currentLocation ? data.currentLocation.id : 'domestic';
+  prevConditions = data.healthConditions || [];
+}
+
+function celebrateAchievements(data) {
+  const newAssetIds = (data.assets || []).map((a) => a.id);
+  const addedAsset = (data.assets || []).find((a) => !prevAssetIds.includes(a.id));
+  if (addedAsset) { showAchievementBadge('💰', addedAsset.label + ' 획득'); playAchievementPop(); }
+
+  const newFamilyIds = (data.familyMembers || []).map((f) => f.id);
+  const addedFamily = (data.familyMembers || []).find((f) => !prevFamilyIds.includes(f.id));
+  if (addedFamily) { showAchievementBadge('👨‍👩‍👧', addedFamily.label + ' 생김'); playAchievementPop(); }
+
+  const newAcquaintanceIds = (data.acquaintances || []).map((a) => a.id);
+  const addedAcquaintance = (data.acquaintances || []).find((a) => !prevAcquaintanceIds.includes(a.id));
+  if (addedAcquaintance) { showAchievementBadge('🤝', addedAcquaintance.label + ' ' + addedAcquaintance.name); playAchievementPop(); }
+
+  const newOccId = data.currentOccupation ? data.currentOccupation.id : null;
+  if (newOccId && newOccId !== prevOccupationId) { showAchievementBadge('💼', data.currentOccupation.label); playAchievementPop(); }
+
+  const newLocId = data.currentLocation ? data.currentLocation.id : 'domestic';
+  if (newLocId !== prevLocationId) { showAchievementBadge('✈️', data.currentLocation.label); playAchievementPop(); }
+
+  const newConditions = data.healthConditions || [];
+  const newConditionIds = newConditions.map((c) => c.id);
+  const healed = prevConditions.find((c) => !newConditionIds.includes(c.id));
+  if (healed) { showAchievementBadge('💊', healed.label + ' 회복'); playAchievementPop(); }
+
+  prevAssetIds = newAssetIds;
+  prevFamilyIds = newFamilyIds;
+  prevAcquaintanceIds = newAcquaintanceIds;
+  prevOccupationId = newOccId;
+  prevLocationId = newLocId;
+  prevConditions = newConditions;
+}
+
+function applyOutcome(data, resultPrefix, selectedChoiceId) {
+  let resultText = (resultPrefix ? resultPrefix + '\n' : '') + data.result;
+  // blocksHealthRecovery 조건(희귀 난치병뿐 아니라 사고 후유증 등 더 있을 수
+  // 있음)을 갖고 있어서 이번 선택의 건강 회복 효과가 막혔을 때만 덧붙인다 -
+  // 안 그러면 "골랐는데 건강 바가 그대로"인 게 버그처럼 보일 수 있어서.
+  // 실제로 막은 조건이 무엇인지 healthConditions에서 찾아 그 라벨을 그대로
+  // 써야 한다 - "난치병"으로 고정해두면 사고 후유증만 있는 플레이어에게도
+  // "난치병 때문에"라고 잘못 표시되는 문제가 있었다.
+  if (data.healthRecoverySuppressed) {
+    const blockers = (data.healthConditions || []).filter((c) => c.blocksHealthRecovery);
+    const blockerLabel = blockers.length ? blockers.map((c) => c.label).join(' · ') : '🎗️';
+    resultText += '\n' + blockerLabel + ' 때문에 건강이 회복되지는 않았다.';
+  }
+  resultBox.textContent = resultText;
+  resultBox.classList.remove('hidden');
+  resultBox.classList.remove('tone-positive', 'tone-negative');
+  const tone = resultTone(data.deltas);
+  if (tone === 'positive') resultBox.classList.add('tone-positive');
+  else if (tone === 'negative') resultBox.classList.add('tone-negative');
+  renderStatBars(statBars, data.stats);
+  flashStatChanges(statBars, data.deltas);
+  celebrateIfJackpot(data.prizeLabel);
+  applyTonedownIfNeeded(selectedChoiceId);
+  celebrateAchievements(data);
+  renderAssets(data.assets);
+  renderCashHoldings(cashHoldingsEl, data.cashHoldings);
+  renderHealthConditions(data.healthConditions);
+  renderFamilyMembers(data.familyMembers);
+  renderAcquaintances(data.acquaintances);
+  renderCurrentOccupation(data.currentOccupation);
+  renderCurrentLocation(data.currentLocation);
+  if (selectedChoiceId) markSelectedChoice(selectedChoiceId);
+  // 선택 결과는 서버(applyChoice)가 이미 lifeGame/playthroughs/{uid}에 저장을
+  // 마친 뒤 응답한 것이므로, 여기서 뜨는 토스트는 실제 저장 완료를 알리는
+  // 정확한 신호다(낙관적 표시가 아님).
+  showToast('💾 자동저장 되었습니다');
+  if (data.completed) {
+    pendingNextStage = null;
+    showEnding(data.ending, data.stats, data.choiceHistory, data.familyMembers, data.occupationHistory, data.assets, data.cashHoldings, data.acquaintances, data.healthConditions, data.locationHistory);
+  } else {
+    pendingNextStage = data.nextStage;
+    nextBtn.classList.remove('hidden');
+  }
+}
+
+function disableChoiceList() {
+  Array.from(choiceList.children).forEach((el) => {
+    if (el.tagName === 'BUTTON') el.disabled = true;
+  });
+}
+
+// 선택이 확정되면 고른 것만 원래 불투명도로 남기고, 나머지 선택지는
+// 30%로 흐리게 해서 어떤 선택지가 결과를 만들었는지 한눈에 보이게 한다.
+function markSelectedChoice(selectedId) {
+  Array.from(choiceList.children).forEach((el) => {
+    if (!el.dataset || !el.dataset.choiceId) return;
+    el.style.opacity = el.dataset.choiceId === selectedId ? '1' : '0.3';
+  });
+}
+
+async function pickChoice(choiceId) {
+  disableChoiceList();
+  try {
+    const res = await submitChoiceFn({ choiceId });
+    applyOutcome(res.data, undefined, choiceId);
+  } catch (e) {
+    console.error('선택 제출 실패:', e);
+    alert('선택을 처리하지 못했어요: ' + (e.message || e));
+    Array.from(choiceList.children).forEach((b) => { if (b.tagName === 'BUTTON') b.disabled = false; });
+  }
+}
+
+async function rollDice() {
+  disableChoiceList();
+  diceOverlay.classList.remove('hidden');
+  try {
+    // 서버 응답이 3초보다 빨리 와도 화면이 어두워지고 주사위가 도는 연출을
+    // 최소 3초는 보여준 뒤에 결과를 공개한다 - 반대로 응답이 늦어지면 그만큼
+    // 더 기다렸다가 공개(즉, 3초는 최소 보장 시간이지 고정 시간이 아님).
+    const [res] = await Promise.all([
+      rollDiceFn(),
+      new Promise((resolve) => setTimeout(resolve, DICE_REVEAL_MS))
+    ]);
+    diceOverlay.classList.add('hidden');
+    applyOutcome(res.data, '🎲 ' + res.data.choiceText, res.data.choiceId);
+  } catch (e) {
+    diceOverlay.classList.add('hidden');
+    console.error('주사위 굴리기 실패:', e);
+    alert('주사위를 굴리지 못했어요: ' + (e.message || e));
+    Array.from(choiceList.children).forEach((b) => { if (b.tagName === 'BUTTON') b.disabled = false; });
+  }
+}
+
+// 구간 이동(0세→1세 등)은 화면 전체가 아니라 stageContent(구간명/스토리/
+// 선택지/결과 텍스트)만 페이드아웃→내용 교체→페이드인 한다 - 이미 갱신된
+// 스탯 바/건강 상세는 이 시점엔 변화가 없으니 같이 깜빡일 필요가 없다.
+function fadeToStage(stage) {
+  // fadeOut()과 같은 이유로, transition 재설정과 opacity 값 변경 사이에
+  // 리플로우를 강제로 끼워 넣어야 페이드아웃이 매번 확실히 끝까지 재생된다.
+  stageContent.style.transition = 'none';
+  stageContent.style.opacity = '1';
+  void stageContent.offsetWidth;
+  stageContent.style.transition = 'opacity ' + FADE_MS + 'ms ease';
+  stageContent.style.opacity = '0';
+  // 콘텐츠 교체(swap) 타이밍은 CSS 트랜지션 재생 시간(FADE_MS)에 살짝 여유를
+  // 더 둬서(SWAP_BUFFER_MS), 스케줄링 지연으로 트랜지션이 아직 다 안 끝난
+  // 상태에서 다음 구간 내용이 바뀌어 보이는 일이 없게 한다.
+  setTimeout(() => {
+    renderStage(stage);
+    void stageContent.offsetWidth;
+    stageContent.style.opacity = '1';
+  }, FADE_MS + SWAP_BUFFER_MS);
+}
+
+nextBtn.addEventListener('click', () => {
+  if (pendingNextStage) fadeToStage(pendingNextStage);
+  // 모바일에서는 결과 문구를 읽느라 화면 아래쪽까지 스크롤해 내려간 채로
+  // "다음"을 누르는 경우가 많다 - 다음 구간 제목/상황 문구가 화면 위쪽에서
+  // 시작되도록 맨 위로 스크롤을 되돌린다.
+  window.scrollTo({ top: 0, behavior: REDUCE_MOTION ? 'auto' : 'smooth' });
+});
+
+// ------------------------------------------------------------
+// 4) 엔딩 + 갤러리 공유
+// ------------------------------------------------------------
+const endingSection = document.getElementById('endingSection');
+const endingTitle = document.getElementById('endingTitle');
+const endingText = document.getElementById('endingText');
+const endingStatBars = document.getElementById('endingStatBars');
+const endingFamilyMembersEl = document.getElementById('endingFamilyMembers');
+const endingFamilyPanelTitle = document.getElementById('endingFamilyPanelTitle');
+const endingAcquaintancesEl = document.getElementById('endingAcquaintances');
+const occupationHistoryListEl = document.getElementById('occupationHistoryList');
+const locationHistoryListEl = document.getElementById('locationHistoryList');
+const choiceHistorySection = document.getElementById('choiceHistorySection');
+const choiceHistoryList = document.getElementById('choiceHistoryList');
+const gallerySection = document.getElementById('gallerySection');
+const restartSection = document.getElementById('restartSection');
+const shareBtn = document.getElementById('shareBtn');
+const restartBtn = document.getElementById('restartBtn');
+
+// 지금까지 선택한 선택지 목록 - 서버(choiceLog를 STAGES와 대조해 풀어낸 값)가
+// 그대로 내려주는 stageName/ageRange/choiceText를 순서대로 나열만 한다. 내 엔딩
+// 화면과 갤러리의 "다른 유저 선택 기록"이 같은 형식을 쓰므로 컨테이너만 받는다.
+function renderChoiceHistoryInto(container, history) {
+  container.innerHTML = '';
+  if (!history || !history.length) {
+    container.innerHTML = '<p class="empty-msg">기록된 선택이 없어요.</p>';
+    return;
+  }
+  history.forEach((h) => {
+    const row = document.createElement('div');
+    row.className = 'choice-history-item';
+    row.innerHTML =
+      '<span class="chi-age">' + escapeHtml(h.ageRange || '') + '</span>' +
+      '<span class="chi-text">' + escapeHtml(h.choiceText || '') + '</span>';
+    container.appendChild(row);
+  });
+}
+
+// 엔딩 문구 표시 → 지금까지 선택한 선택지들 표시 → 다른 유저 인생 → 재시작
+// 안내 순서로 보여준다(각 section의 DOM 순서가 곧 화면에 보이는 순서). 게임
+// 화면에서 엔딩 화면으로 넘어가는 것도 다른 전환들과 같은 페이드로 통일한다.
+async function showEnding(ending, stats, choiceHistory, familyMembers, occupationHistory, assets, cashHoldings, acquaintances, healthConditions, locationHistory) {
+  if (INSTANT_ENDING_IDS.includes(ending.id)) {
+    triggerCrisisEffect();
+    await new Promise((resolve) => setTimeout(resolve, REDUCE_MOTION ? 200 : 650));
+  }
+  await fadeOut([mainHeader, gameSection]);
+
+  endingTitle.textContent = ending.title;
+  endingText.textContent = ending.text;
+  renderStatBars(endingStatBars, stats);
+  renderAssetsInto(endingAssetsEl, assets);
+  renderCashHoldings(endingCashHoldingsEl, cashHoldings);
+  renderHealthConditionsInto(endingHealthConditionsEl, healthConditions);
+  // collapse/bankruptcy 등 즉시 종료 엔딩은 100세가 아니라 그 전 나이에
+  // 끝나므로, "곁에 남은 가족" 패널 제목도 실제로 삶이 끝난 나이를 보여줘야
+  // 한다 - choiceHistory의 마지막 항목이 곧 마지막으로 선택을 고른 구간
+  // (=삶이 끝난 시점)이라 거기서 ageRange를 가져온다.
+  const endedAtAgeRange = (choiceHistory && choiceHistory.length) ? choiceHistory[choiceHistory.length - 1].ageRange : '100세';
+  endingFamilyPanelTitle.textContent = endedAtAgeRange + ', 곁에 남은 가족';
+  renderFamilyMembersInto(endingFamilyMembersEl, familyMembers);
+  renderAcquaintancesInto(endingAcquaintancesEl, acquaintances);
+  renderOccupationHistoryInto(occupationHistoryListEl, occupationHistory);
+  renderLocationHistoryInto(locationHistoryListEl, locationHistory);
+  renderChoiceHistoryInto(choiceHistoryList, choiceHistory);
+  shareBtn.disabled = false;
+
+  fadeIn([endingSection, choiceHistorySection, gallerySection, restartSection]);
+  // fadeIn이 hidden 클래스를 떼고 강제 리플로우까지 끝낸 뒤라, 이 시점엔
+  // scoreChartEl.clientWidth가 이미 실제 레이아웃 폭을 갖고 있다(숨겨진 채로
+  // 그리면 폭 0으로 그려져 버림).
+  renderScoreChart(scoreChartEl, scoreChartSummaryEl, choiceHistory);
+}
+
+shareBtn.addEventListener('click', async () => {
+  shareBtn.disabled = true;
+  try {
+    await shareToGalleryFn();
+    shareBtn.textContent = '공유됐어요!';
+  } catch (e) {
+    console.error('공유 실패:', e);
+    alert('공유하지 못했어요: ' + (e.message || e));
+    shareBtn.disabled = false;
+  }
+});
+
+restartBtn.addEventListener('click', () => window.location.reload());
+
+// ------------------------------------------------------------
+// 5) 공개 갤러리 - "다른 유저는 어떤 인생을 살았을까?"
+// ------------------------------------------------------------
+const galleryList = document.getElementById('galleryList');
+
+// 갤러리 항목을 클릭(펼치기)하면 그때 그 항목의 선택 기록만 따로 불러온다 -
+// lifeGame/galleryChoiceLogs/{entryId}는 gallery 목록 실시간 구독과는 별개
+// 노드라, 펼치기 전까진 안 읽는다. 같은 항목을 다시 펼 때 또 읽지 않도록
+// 항목별로 한 번 불러온 결과는 캐시해둔다.
+const choiceLogCache = new Map();
+// chartCanvas/chartSummaryEl은 선택사항 - #choiceHistorySection과 같은
+// buildChoiceHistory() 결과를 쓰는 곳이면 어디든 재사용하려고 만든 렌더러라
+// (엔딩 화면의 renderScoreChart 참고) 이미 stats가 함께 내려온다. 2026-08-18
+// 사용자 지시("다른 인생을 펼쳐봤을때도 선그래프 확인 가능하게")로 갤러리
+// 항목을 펼칠 때도 같은 함수로 그린다 - details가 열려야(펼쳐져야) canvas가
+// 실제 레이아웃 폭을 가지므로, toggle 이벤트로 열린 뒤에만 호출한다.
+async function loadGalleryChoiceLog(entryId, container, chartCanvas, chartSummaryEl) {
+  if (choiceLogCache.has(entryId)) {
+    const history = choiceLogCache.get(entryId);
+    renderChoiceHistoryInto(container, history);
+    renderScoreChart(chartCanvas, chartSummaryEl, history);
+    return;
+  }
+  container.innerHTML = '<p class="empty-msg">불러오는 중...</p>';
+  try {
+    const snap = await get(ref(db, 'lifeGame/galleryChoiceLogs/' + entryId));
+    const history = snap.val() || [];
+    choiceLogCache.set(entryId, history);
+    renderChoiceHistoryInto(container, history);
+    renderScoreChart(chartCanvas, chartSummaryEl, history);
+  } catch (err) {
+    console.error('선택 기록 조회 실패:', err);
+    container.innerHTML = '<p class="empty-msg">선택 기록을 불러오지 못했어요.</p>';
+  }
+}
+
+// 갤러리 상세 패널(건강·가족·지인·재산·직업·장소, 2026-08-18 사용자 지시) -
+// loadGalleryChoiceLog와 완전히 같은 lazy-load + 캐시 패턴. 옛날에 공유된
+// 항목(galleryDetails가 생기기 전)은 스냅샷이 없을 수 있어 빈 배열/기본값으로
+// 대체해 기존 renderXxxInto 함수들이 "특별한 OO 없음" 플레이스홀더를 그대로
+// 보여주게 한다 - 에러로 처리하지 않는다.
+const galleryDetailsCache = new Map();
+function renderGalleryDetails(details, els) {
+  renderAssetsInto(els.assetsListEl, details.assets || []);
+  renderHealthConditionsInto(els.healthListEl, details.healthConditions || []);
+  renderFamilyMembersInto(els.familyListEl, details.familyMembers || []);
+  renderAcquaintancesInto(els.acquaintanceListEl, details.acquaintances || []);
+  renderOccupationHistoryInto(els.occupationListEl, details.occupationHistory || []);
+  renderLocationHistoryInto(els.locationListEl, details.locationHistory || []);
+}
+async function loadGalleryDetails(entryId, els) {
+  if (galleryDetailsCache.has(entryId)) {
+    renderGalleryDetails(galleryDetailsCache.get(entryId), els);
+    return;
+  }
+  try {
+    const snap = await get(ref(db, 'lifeGame/galleryDetails/' + entryId));
+    const details = snap.val() || {};
+    galleryDetailsCache.set(entryId, details);
+    renderGalleryDetails(details, els);
+  } catch (err) {
+    console.error('상세 정보 조회 실패:', err);
+    renderGalleryDetails({}, els);
+  }
+}
+
+onValue(ref(db, 'lifeGame/gallery'), (snap) => {
+  const val = snap.val() || {};
+  const entries = Object.keys(val)
+    .map((id) => Object.assign({ id }, val[id]))
+    .sort((a, b) => (b.sharedAt || 0) - (a.sharedAt || 0))
+    .slice(0, 30);
+  if (!entries.length) {
+    galleryList.innerHTML = '<p class="empty-msg">아직 공유된 인생이 없어요. 첫 번째가 되어보세요!</p>';
+    return;
+  }
+  galleryList.innerHTML = '';
+  entries.forEach((e) => {
+    const details = document.createElement('details');
+    details.className = 'gallery-entry';
+
+    const summary = document.createElement('summary');
+    summary.className = 'gallery-item';
+    summary.innerHTML =
+      '<span class="g-left"><span class="g-caret">▸</span><span class="g-name">' + escapeHtml(e.streamerName || '이름 없음') + '</span></span>' +
+      '<span class="g-ending">' + escapeHtml((e.ending && e.ending.title) || '') + '</span>';
+    details.appendChild(summary);
+
+    // 다섯 스탯 최종값(2026-08-18, 사용자 지시 - "갤러리에 공유된 다른 유저
+    // 인생을 볼때도 스탯과 상세 기능이 기록되게 해줘") - stats는 이미
+    // lifeGame/gallery 목록 구독에 포함돼 있던 값이라(리더보드용으로 먼저
+    // 저장돼 있었음) 따로 불러올 필요 없이 바로 그린다. 아래 건강·가족·지인·
+    // 재산·직업·장소 상세와 달리 펼치기 전에도 이미 갖고 있는 데이터라 lazy
+    // load 대상이 아니다.
+    const statBarsWrap = document.createElement('div');
+    statBarsWrap.className = 'stat-bars gallery-detail-panel';
+    details.appendChild(statBarsWrap);
+    renderStatBars(statBarsWrap, e.stats || {});
+
+    const chartWrap = document.createElement('div');
+    chartWrap.className = 'asset-panel gallery-score-chart-wrap';
+    const chartTitle = document.createElement('p');
+    chartTitle.className = 'asset-panel-title';
+    chartTitle.textContent = '인생 종합 점수 추이';
+    const chartSummary = document.createElement('p');
+    chartSummary.className = 'score-chart-summary';
+    const chartCanvas = document.createElement('canvas');
+    chartCanvas.className = 'score-chart';
+    chartWrap.appendChild(chartTitle);
+    chartWrap.appendChild(chartSummary);
+    chartWrap.appendChild(chartCanvas);
+    details.appendChild(chartWrap);
+
+    // 상세 패널들(건강·가족·지인·재산·직업·장소) - galleryChoiceLogs와 같은
+    // 이유로 펼칠 때만 lifeGame/galleryDetails/{entryId}에서 따로 읽는다
+    // (loadGalleryDetails 참고). 엔딩 화면과 똑같은 클래스를 재사용해 별도
+    // CSS가 필요 없다.
+    const assetWrap = document.createElement('div');
+    assetWrap.className = 'asset-panel gallery-detail-panel';
+    const assetTitle = document.createElement('p');
+    assetTitle.className = 'asset-panel-title';
+    assetTitle.textContent = '남긴 재산';
+    const cashEl = document.createElement('p');
+    cashEl.className = 'cash-holdings';
+    renderCashHoldings(cashEl, e.cashHoldings || 0);
+    const assetsListEl = document.createElement('div');
+    assetsListEl.className = 'assets-list';
+    assetWrap.appendChild(assetTitle);
+    assetWrap.appendChild(cashEl);
+    assetWrap.appendChild(assetsListEl);
+    details.appendChild(assetWrap);
+
+    const healthWrap = document.createElement('div');
+    healthWrap.className = 'health-panel gallery-detail-panel';
+    const healthTitle = document.createElement('p');
+    healthTitle.className = 'health-panel-title';
+    healthTitle.textContent = '마지막 건강 상태';
+    const healthListEl = document.createElement('div');
+    healthListEl.className = 'health-conditions';
+    healthWrap.appendChild(healthTitle);
+    healthWrap.appendChild(healthListEl);
+    details.appendChild(healthWrap);
+
+    const familyWrap = document.createElement('div');
+    familyWrap.className = 'family-panel gallery-detail-panel';
+    const familyTitle = document.createElement('p');
+    familyTitle.className = 'family-panel-title';
+    familyTitle.textContent = (e.endedAtAge || 100) + '세, 곁에 남은 가족';
+    const familyListEl = document.createElement('div');
+    familyListEl.className = 'family-members';
+    familyWrap.appendChild(familyTitle);
+    familyWrap.appendChild(familyListEl);
+    details.appendChild(familyWrap);
+
+    const acquaintanceWrap = document.createElement('div');
+    acquaintanceWrap.className = 'family-panel gallery-detail-panel';
+    const acquaintanceTitle = document.createElement('p');
+    acquaintanceTitle.className = 'family-panel-title';
+    acquaintanceTitle.textContent = '인생에서 만난 지인';
+    const acquaintanceListEl = document.createElement('div');
+    acquaintanceListEl.className = 'family-members';
+    acquaintanceWrap.appendChild(acquaintanceTitle);
+    acquaintanceWrap.appendChild(acquaintanceListEl);
+    details.appendChild(acquaintanceWrap);
+
+    const occupationWrap = document.createElement('div');
+    occupationWrap.className = 'occupation-panel gallery-detail-panel';
+    const occupationTitle = document.createElement('p');
+    occupationTitle.className = 'occupation-panel-title';
+    occupationTitle.textContent = '지금까지의 직업 이력';
+    const occupationListEl = document.createElement('div');
+    occupationListEl.className = 'choice-history-list';
+    occupationWrap.appendChild(occupationTitle);
+    occupationWrap.appendChild(occupationListEl);
+    details.appendChild(occupationWrap);
+
+    const locationWrap = document.createElement('div');
+    locationWrap.className = 'occupation-panel gallery-detail-panel';
+    const locationTitle = document.createElement('p');
+    locationTitle.className = 'occupation-panel-title';
+    locationTitle.textContent = '지금까지 머문 장소';
+    const locationListEl = document.createElement('div');
+    locationListEl.className = 'choice-history-list';
+    locationWrap.appendChild(locationTitle);
+    locationWrap.appendChild(locationListEl);
+    details.appendChild(locationWrap);
+
+    const logEl = document.createElement('div');
+    logEl.className = 'choice-history-list gallery-choice-log';
+    details.appendChild(logEl);
+
+    details.addEventListener('toggle', () => {
+      if (details.open) {
+        loadGalleryChoiceLog(e.id, logEl, chartCanvas, chartSummary);
+        loadGalleryDetails(e.id, { assetsListEl, healthListEl, familyListEl, acquaintanceListEl, occupationListEl, locationListEl });
+      }
+    });
+
+    galleryList.appendChild(details);
+  });
+}, (err) => {
+  console.error('갤러리 읽기 실패:', err);
+  galleryList.innerHTML = '<p class="empty-msg">갤러리를 불러올 수 없습니다.</p>';
+});
+
+// ------------------------------------------------------------
+// 방송 콘텐츠 백로그 7번째 항목: 리더보드("역대 최고 기록", 2026-08-17).
+// 위 갤러리 구독은 최근 30건만 유지하므로(entries.slice(0, 30)) 그걸로는
+// "역대" 기록을 정확히 매길 수 없다 - 별도로 lifeGame/gallery 전체를 한 번
+// get()으로 읽어와 직접 계산한다(이미 전체가 공개 읽기 노드라 새 보안 규칙
+// 불필요). 두 카테고리만 우선 구현: 💰 역대 최고 부자 엔딩(cashHoldings
+// 최댓값), 💀 최연소 사망(즉시 사망 엔딩 5종 중 endedAtAge 최솟값 - 100세
+// 완주는 "사망"이 아니라 집계에서 제외).
+// ------------------------------------------------------------
+const leaderboardEl = document.getElementById('leaderboard');
+function renderLeaderboardRow(icon, label, name, valueText) {
+  const row = document.createElement('div');
+  row.className = 'leaderboard-row';
+  row.innerHTML =
+    '<span class="lb-icon">' + icon + '</span>' +
+    '<span class="lb-label">' + label + '</span>' +
+    '<span class="lb-name">' + escapeHtml(name) + '</span>' +
+    '<span class="lb-value">' + escapeHtml(valueText) + '</span>';
+  return row;
+}
+async function loadLeaderboard() {
+  try {
+    const snap = await get(ref(db, 'lifeGame/gallery'));
+    const val = snap.val() || {};
+    const entries = Object.values(val);
+    if (!entries.length) return;
+
+    leaderboardEl.innerHTML = '';
+
+    const richest = entries.reduce((best, e) => ((e.cashHoldings || 0) > ((best && best.cashHoldings) || -1) ? e : best), null);
+    if (richest && richest.cashHoldings > 0) {
+      leaderboardEl.appendChild(renderLeaderboardRow('💰', '최고 부자', richest.streamerName || '이름 없음', formatCashHoldings(richest.cashHoldings)));
+    }
+
+    const deaths = entries.filter((e) => e.ending && INSTANT_ENDING_IDS.includes(e.ending.id) && typeof e.endedAtAge === 'number');
+    const youngestDeath = deaths.reduce((best, e) => (e.endedAtAge < ((best && best.endedAtAge) ?? 101) ? e : best), null);
+    if (youngestDeath) {
+      leaderboardEl.appendChild(renderLeaderboardRow('💀', '최연소 사망', youngestDeath.streamerName || '이름 없음', youngestDeath.endedAtAge + '세 · ' + (youngestDeath.ending.title || '')));
+    }
+  } catch (err) {
+    console.error('리더보드 읽기 실패:', err);
+  }
+}
+loadLeaderboard();
+
+// ------------------------------------------------------------
+// devbar 자동 스크롤 (넘칠 때만) - 다른 페이지들과 동일 로직
+// ------------------------------------------------------------
+(function setupDevbarMarquee() {
+  const viewport = document.getElementById('devbarViewport');
+  const track = document.getElementById('devbarTrack');
+  if (!viewport || !track) return;
+  function rebuild() {
+    track.querySelectorAll('[data-clone]').forEach((el) => el.remove());
+    track.classList.remove('auto-scroll');
+    track.style.removeProperty('--devbar-duration');
+    if (track.scrollWidth <= viewport.clientWidth) return;
+    const originalWidth = track.scrollWidth;
+    Array.prototype.slice.call(track.children).forEach((child) => {
+      const clone = child.cloneNode(true);
+      clone.setAttribute('data-clone', 'true');
+      clone.setAttribute('aria-hidden', 'true');
+      clone.setAttribute('tabindex', '-1');
+      track.appendChild(clone);
+    });
+    const duration = Math.max(8, originalWidth / 40);
+    track.style.setProperty('--devbar-duration', duration + 's');
+    track.classList.add('auto-scroll');
+  }
+  rebuild();
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(rebuild, 200);
+  });
+})();
