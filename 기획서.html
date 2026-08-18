@@ -134,6 +134,7 @@
             <li><a href="#sec10">관리 센터(admin-center) 연동</a></li>
             <li><a href="#sec11">향후 보완 과제</a></li>
             <li><a href="#sec12">방송 콘텐츠 개선 백로그</a></li>
+            <li><a href="#sec13">멀티플레이 시청자 참여 (설계, 미구현)</a></li>
         </ol>
     </div>
 
@@ -2744,6 +2745,132 @@
         <code>lifeGame/stats/totals/shared</code> 카운터도 늘어난 만큼(0→4→0) 되돌려 정리(사용자 승인 하에
         진행). 💀 최연소 사망 쪽은 이번 4회 플레이스루가 전부 정상 완주로 끝나 실제 데이터로는 못 봤지만,
         최고 부자와 완전히 같은 필터+reduce 패턴이라 코드 검토로 신뢰.</p>
+    </section>
+
+    <section id="sec13">
+        <h2><span class="num">13</span>멀티플레이 시청자 참여 (2026-08-19, 사용자 설계 — 미구현)</h2>
+        <p class="note"><b>이 섹션은 설계 정리 단계이며 아직 구현되지 않았다.</b> 사용자가 제안한 설계를 검토한 뒤,
+        구현에 직접 영향을 주는 3가지(주사위 구간 처리·지인 이름 귀속·투표 반영 경로)에 대해 사용자 확인을
+        받아 확정했다. 실제 코드(RTDB 규칙·Cloud Functions·클라이언트)는 아직 손대지 않았다 — 다음 지시가
+        오면 이 설계를 그대로 구현한다.</p>
+
+        <h3>핵심 설계 원칙</h3>
+        <ul>
+            <li><b>호스트 단독 결정권.</b> 참가자 투표는 항상 참고용 숫자 표시일 뿐, 실제 스탯을 바꾸는 유일한
+            경로는 지금과 동일하게 호스트의 <code>submitChoice</code>/<code>rollDice</code> 호출뿐이다 — 다수결로
+            게임이 좌우되지 않으므로 조작·트롤링 위험이 구조적으로 낮다.</li>
+            <li><b>기존 <code>lifeGame/playthroughs/&#123;uid&#125;</code>는 손대지 않는다.</b> 그 노드는 지금처럼
+            본인만 읽을 수 있는 완전 비공개로 유지하고, 멀티플레이에 필요한 것만 새 공개 노드
+            (<code>multiplayerSessions</code>)에 별도로 미러링한다 — <code>galleryChoiceLogs</code>를
+            <code>playthroughs</code>와 분리해둔 것과 같은 이유(목록 구독 경량화 + 보안 경계 단순화).</li>
+            <li><b>투표는 참가자가 RTDB에 직접 기록한다</b>(사용자 확정). 실시간·저비용이 목적 — 어차피 투표는
+            표시용일 뿐 스탯을 바꾸지 않으므로 Cloud Function 검증을 강하게 걸 필요가 없다.</li>
+        </ul>
+
+        <h3>새 RTDB 노드</h3>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>경로</th><th>설명</th><th>.read</th><th>.write</th></tr>
+                <tr><td><code>lifeGame/multiplayerSessions/&#123;hostUid&#125;</code></td><td>참가자·목록 화면이
+                보는 공개 미러 — <code>streamerName, streamerId, stage(publicStage와 같은 모양),
+                stats, participants: &#123;participantUid: nickname&#125;, kickedNicknames:
+                &#123;nickname: true&#125;, completed, createdAt</code>. <code>startPlaythrough</code>가
+                <code>multiplayerEnabled</code>일 때 생성하고, <code>submitChoice</code>/<code>rollDice</code>가
+                호스트 쪽을 갱신할 때마다 이 노드도 같이 갱신한다. <code>completed: true</code>가 되면 검색화면
+                진행중 목록에서 클라이언트가 필터링해 숨긴다(4번 항목 참고 — <code>gallery</code>처럼 삭제하진
+                않음, 나중에 "예전 참여 게임" 조회 용도로 남겨둘 수 있음)</td><td>공개</td><td>Cloud Function만
+                (Admin SDK)</td></tr>
+                <tr><td><code>lifeGame/multiplayerVotes/&#123;hostUid&#125;/&#123;stageId&#125;/&#123;participantUid&#125;</code></td>
+                <td>그 구간에서 그 참가자가 고른 <code>choiceId</code> 하나. <code>stageId</code>로 키를 나눠서
+                다음 구간으로 넘어가면 새 구간의 투표 노드는 자동으로 비어 있다(각 구간은 한 판에서 한 번만
+                지나가므로 안전 — 기존 <code>choiceLog</code>와 같은 전제). 호스트가 최종 제출하면 그 구간의
+                투표는 더 이상 의미 없어지지만 굳이 지우진 않는다(과거 기록으로 남아도 무해)</td>
+                <td>공개(호스트가 집계해서 보여줘야 함)</td><td>본인 참가자 uid 하나만, 그것도
+                <code>multiplayerSessions/&#123;hostUid&#125;/participants/&#123;그 uid&#125;</code>가
+                존재할 때만(=강퇴되지 않았을 때만 — 강퇴 시 이 참가자 항목 자체가 지워지므로 자동으로
+                쓰기 권한도 사라짐)</td></tr>
+            </table>
+        </div>
+
+        <h3>새/변경 Cloud Functions</h3>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>함수</th><th>변경 내용</th></tr>
+                <tr><td><code>startPlaythrough</code></td><td><code>request.data.multiplayerEnabled</code>
+                (토글 값) 파라미터 추가. true면 <code>lifeGame/multiplayerSessions/&#123;uid&#125;</code>를
+                함께 생성</td></tr>
+                <tr><td><code>submitChoice</code> / <code>rollDice</code></td><td>내부적으로 호출하는
+                <code>applyChoice()</code>에 로직 추가 — (1) <code>multiplayerEnabled</code>면
+                <code>multiplayerSessions/&#123;uid&#125;</code>의 <code>stage</code>·<code>stats</code>·
+                <code>completed</code>도 함께 갱신. (2) 지금 고른 선택지에 <code>addAcquaintance</code>가
+                있으면, <code>multiplayerVotes/&#123;uid&#125;/&#123;현재stageId&#125;</code>를 읽어 그
+                선택지에 투표한 참가자들의 닉네임을 모으고 그중 무작위 1명(<code>count>1</code>이면 서로
+                다른 참가자로 최대한 채우고 모자란 자리는 기존 <code>streamer-names.json</code> 무작위 이름으로
+                보충)을 지인 이름으로 쓴다 — 투표자가 0명이면(참가자 없음, 또는 아무도 그 선택지에 투표
+                안 함) 기존 동작 그대로 <code>pickRandomStreamerName()</code> 사용</td></tr>
+                <tr><td><code>joinMultiplayerSession</code> (신규)</td><td>닉네임 검증(한글 1~6자,
+                <code>/^[가-힣]&#123;1,6&#125;/</code>) → <code>kickedNicknames</code>에 있으면 거부 → 같은
+                세션 안에서 닉네임 중복이면 거부(가정 — 지인 이름 귀속·투표 표시에서 서로 다른 사람과 구분이
+                안 되므로) → <code>multiplayerSessions/&#123;hostUid&#125;/participants/&#123;내 uid&#125;</code>에
+                닉네임 기록</td></tr>
+                <tr><td><code>kickParticipant</code> (신규)</td><td>호출자가 그 세션의 호스트 본인인지 확인 →
+                <code>participants/&#123;대상 uid&#125;</code> 삭제 → <code>kickedNicknames</code>에 그
+                닉네임 추가 → 현재 구간의 <code>multiplayerVotes/.../&#123;대상 uid&#125;</code>도 함께 삭제(살아있는
+                투표 집계에서 즉시 제외)</td></tr>
+            </table>
+        </div>
+
+        <h3>흐름</h3>
+        <div class="flow">
+            <p>이름 결정 화면 → "다른 참여자 허용" 토글 on → 인생 시작 클릭 → <code>startPlaythrough(&#123;...,
+            multiplayerEnabled: true&#125;)</code> → <code>playthroughs</code>(비공개)+<code>multiplayerSessions</code>(공개)
+            동시 생성</p>
+            <p>다른 유저: 검색 화면 진입 → 검색창 아래 "진행중인 게임" 목록(<code>multiplayerSessions</code> 중
+            <code>completed !== true</code>인 것들, <code>gallery</code> 목록과 같은 <code>onValue</code>+정렬+
+            상한 패턴) → 게임 선택 → 닉네임 입력 → <code>joinMultiplayerSession</code></p>
+            <p>참가자 화면: 호스트와 같은 구간·같은 선택지 3개(또는 주사위 버튼)를 그대로 보여줌 → 선택지 하나를
+            누르면(또는 주사위 구간이면 주사위 버튼을 누르면) <code>multiplayerVotes/&#123;hostUid&#125;/&#123;stageId&#125;/&#123;내 uid&#125;</code>에
+            직접 기록 → 호스트가 최종 제출하기 전까지 바꿔서 다시 누를 수 있음(덮어쓰기) → 호스트가 최종 제출하면
+            그 구간은 잠기고(다음 구간으로 넘어감) 더 이상 투표 불가</p>
+            <p>호스트 화면: 각 선택지 옆에 <code>multiplayerVotes/&#123;내 uid&#125;/&#123;현재stageId&#125;</code>를
+            <code>onValue</code>로 구독해 그 선택지를 고른 참가자 수를 숫자로 표시(주사위 구간도 동일한 방식 —
+            단, 이 숫자는 참고용일 뿐 실제 굴림 결과에는 전혀 영향 없음). 참가자 목록에 강퇴 버튼 →
+            <code>kickParticipant</code></p>
+            <p>엔딩 도달(<code>completed: true</code>) → <code>multiplayerSessions</code>의
+            <code>completed</code>도 true로 갱신 → 검색화면 진행중 목록에서 필터링돼 더 이상 안 보임(참가자
+            화면엔 엔딩까지는 그대로 보여준 뒤 종료 안내)</p>
+        </div>
+
+        <h3>주사위 구간(0~3세) 처리 (사용자 확정)</h3>
+        <p>주사위 구간에서도 참가자는 자기 화면에서 "주사위 굴리기"를 누를 수 있다 — 다만 이 클릭은
+        서버에 아무것도 쓰지 않는 순수 클라이언트 연출(자기 화면에서만 도는 애니메이션)이다. 대신 이 구간도
+        선택형 구간과 완전히 같은 방식으로 3개 선택지에 대한 투표를 받을 수 있고(참가자가 "이거 나왔으면
+        좋겠다"는 예측성 투표), 호스트 화면엔 선택지별 투표 수가 똑같이 숫자로 뜬다 — 단 이 투표는 실제
+        <code>rollDice</code>의 균등 무작위 추첨에 어떤 영향도 주지 않는다("이건 스스로 고를 수 없어요"라는
+        기존 안내 문구의 취지를 그대로 지킴). 그 외 추가 기능 없음(사용자 확정 — "다른 기능은 없음").</p>
+
+        <h3>확정된 설계 결정 (사용자 답변 요약)</h3>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>쟁점</th><th>결정</th></tr>
+                <tr><td>주사위 구간에서 참가자 참여 방식</td><td>참가자도 주사위 굴리기 버튼 누를 수 있음(로컬 연출만),
+                선택지별 투표 수는 선택형 구간과 동일하게 표시. 그 외 기능 없음</td></tr>
+                <tr><td>지인 추가 시 어느 참가자 닉네임을 쓸지</td><td>그 선택지에 투표한 참가자 중 무작위 1명
+                (투표자 없으면 기존 <code>stocks</code> 랜덤 이름으로 대체)</td></tr>
+                <tr><td>투표 집계 반영 경로</td><td>참가자가 RTDB에 직접 기록(Cloud Function 경유 안 함) — 실시간·
+                저비용</td></tr>
+                <tr><td>참가자 닉네임 형식</td><td>한글만, 1~6자</td></tr>
+            </table>
+        </div>
+
+        <h3>구현 시 다시 확인이 필요한 세부사항</h3>
+        <ul>
+            <li>같은 세션 안 닉네임 중복 금지 여부 — 위 설계엔 "금지"로 가정해뒀으나 명시적으로 확인받지 않음.</li>
+            <li><code>multiplayerEnabled</code>를 게임 시작 후에도 껐다 켰다 할 수 있는지, 아니면 시작 시점에
+            한 번만 정해지는지 — 위 설계는 "시작 시점 고정"으로 가정.</li>
+            <li><code>multiplayerSessions</code> 문서를 엔딩 후에도 계속 남겨둘지(참여 이력 조회용) 아니면
+            일정 시간 뒤 정리할지 — 위 설계는 "일단 안 지움"으로 가정, 필요해지면 정리 정책 추가.</li>
+        </ul>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
