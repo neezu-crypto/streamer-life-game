@@ -2750,9 +2750,10 @@
     <section id="sec13">
         <h2><span class="num">13</span>멀티플레이 시청자 참여 (2026-08-19, 사용자 설계 — 미구현)</h2>
         <p class="note"><b>이 섹션은 설계 정리 단계이며 아직 구현되지 않았다.</b> 사용자가 제안한 설계를 검토한 뒤,
-        구현에 직접 영향을 주는 3가지(주사위 구간 처리·지인 이름 귀속·투표 반영 경로)에 대해 사용자 확인을
-        받아 확정했다. 실제 코드(RTDB 규칙·Cloud Functions·클라이언트)는 아직 손대지 않았다 — 다음 지시가
-        오면 이 설계를 그대로 구현한다.</p>
+        구현에 직접 영향을 주는 3가지(주사위 구간 처리·지인 이름 귀속·투표 반영 경로)에 대해 먼저 확인받고,
+        이어서 "구현 시 다시 확인이 필요한 세부사항"으로 남겨뒀던 것 중 2가지(닉네임 중복 허용 여부·멀티플레이
+        토글 시점)도 추가로 확인받아 확정했다(2026-08-19). 실제 코드(RTDB 규칙·Cloud Functions·클라이언트)는
+        아직 손대지 않았다 — 다음 지시가 오면 이 설계를 그대로 구현한다.</p>
 
         <h3>핵심 설계 원칙</h3>
         <ul>
@@ -2775,11 +2776,13 @@
                 보는 공개 미러 — <code>streamerName, streamerId, stage(publicStage와 같은 모양),
                 stats, participants: &#123;participantUid: nickname&#125;, kickedNicknames:
                 &#123;nickname: true&#125;, completed, createdAt</code>. <code>startPlaythrough</code>가
-                <code>multiplayerEnabled</code>일 때 생성하고, <code>submitChoice</code>/<code>rollDice</code>가
-                호스트 쪽을 갱신할 때마다 이 노드도 같이 갱신한다. <code>completed: true</code>가 되면 검색화면
-                진행중 목록에서 클라이언트가 필터링해 숨긴다(4번 항목 참고 — <code>gallery</code>처럼 삭제하진
-                않음, 나중에 "예전 참여 게임" 조회 용도로 남겨둘 수 있음)</td><td>공개</td><td>Cloud Function만
-                (Admin SDK)</td></tr>
+                <code>multiplayerEnabled</code>로 시작하면 그 시점에 생성되고, 게임 도중에 새
+                <code>setMultiplayerEnabled</code>로 켜면 그 시점의 현재 상태로 새로 생성된다(아래 참고) —
+                즉 이 문서가 "존재함" 자체가 지금 그 판이 멀티플레이 진행 중이라는 뜻. 존재하는 동안
+                <code>submitChoice</code>/<code>rollDice</code>가 호스트 쪽을 갱신할 때마다 이 노드도 같이
+                갱신한다. <code>completed: true</code>가 되면 검색화면 진행중 목록에서 클라이언트가 필터링해
+                숨긴다(<code>gallery</code>처럼 삭제하진 않음, 나중에 "예전 참여 게임" 조회 용도로 남겨둘 수
+                있음)</td><td>공개</td><td>Cloud Function만(Admin SDK)</td></tr>
                 <tr><td><code>lifeGame/multiplayerVotes/&#123;hostUid&#125;/&#123;stageId&#125;/&#123;participantUid&#125;</code></td>
                 <td>그 구간에서 그 참가자가 고른 <code>choiceId</code> 하나. <code>stageId</code>로 키를 나눠서
                 다음 구간으로 넘어가면 새 구간의 투표 노드는 자동으로 비어 있다(각 구간은 한 판에서 한 번만
@@ -2797,26 +2800,40 @@
             <table>
                 <tr><th>함수</th><th>변경 내용</th></tr>
                 <tr><td><code>startPlaythrough</code></td><td><code>request.data.multiplayerEnabled</code>
-                (토글 값) 파라미터 추가. true면 <code>lifeGame/multiplayerSessions/&#123;uid&#125;</code>를
-                함께 생성</td></tr>
+                (초기 토글 값) 파라미터 추가. true면 <code>lifeGame/multiplayerSessions/&#123;uid&#125;</code>를
+                함께 생성 — 어디까지나 "시작할 때 이미 켜둔 경우"의 초기값일 뿐, 아래
+                <code>setMultiplayerEnabled</code>로 언제든 나중에 켜거나 끌 수 있다</td></tr>
+                <tr><td><code>setMultiplayerEnabled</code> (신규)</td><td>게임 진행 중 언제든 호출 가능한
+                토글(2026-08-19, 사용자 확정 — "게임도중 멀티플레이 허용 토글 변경가능"). 호출자 본인의
+                <code>playthroughs/&#123;uid&#125;</code>가 대상. <code>enabled: true</code>로 켜면 그 시점의
+                현재 <code>stage</code>·<code>stats</code>·<code>familyMembers</code> 등으로
+                <code>multiplayerSessions/&#123;uid&#125;</code>를 새로 만든다(처음부터 켜져 있던 것과 결과가
+                같아지도록, <code>submitChoice</code>가 매 턴 하는 미러링 로직을 그대로 재사용). <code>enabled:
+                false</code>로 끄면 <code>multiplayerSessions/&#123;uid&#125;</code>를 삭제한다 — 진행중
+                목록에서 즉시 사라지고, 그 순간 접속해 있던 참가자들의 이후 투표 쓰기는(세션 문서가 사라져
+                <code>participants/&#123;uid&#125;</code> 존재 확인이 실패하므로) 자연히 막힌다</td></tr>
                 <tr><td><code>submitChoice</code> / <code>rollDice</code></td><td>내부적으로 호출하는
-                <code>applyChoice()</code>에 로직 추가 — (1) <code>multiplayerEnabled</code>면
-                <code>multiplayerSessions/&#123;uid&#125;</code>의 <code>stage</code>·<code>stats</code>·
-                <code>completed</code>도 함께 갱신. (2) 지금 고른 선택지에 <code>addAcquaintance</code>가
-                있으면, <code>multiplayerVotes/&#123;uid&#125;/&#123;현재stageId&#125;</code>를 읽어 그
-                선택지에 투표한 참가자들의 닉네임을 모으고 그중 무작위 1명(<code>count>1</code>이면 서로
-                다른 참가자로 최대한 채우고 모자란 자리는 기존 <code>streamer-names.json</code> 무작위 이름으로
-                보충)을 지인 이름으로 쓴다 — 투표자가 0명이면(참가자 없음, 또는 아무도 그 선택지에 투표
-                안 함) 기존 동작 그대로 <code>pickRandomStreamerName()</code> 사용</td></tr>
+                <code>applyChoice()</code>에 로직 추가 — (1) <code>multiplayerSessions/&#123;uid&#125;</code>가
+                존재하면(=지금 멀티플레이 켜진 상태) <code>stage</code>·<code>stats</code>·<code>completed</code>도
+                함께 갱신. (2) 지금 고른 선택지에 <code>addAcquaintance</code>가 있으면,
+                <code>multiplayerVotes/&#123;uid&#125;/&#123;현재stageId&#125;</code>를 읽어 그 선택지에
+                투표한 참가자들의 닉네임을 모으고 그중 무작위 1명(<code>count>1</code>이면 서로 다른 참가자로
+                최대한 채우고 모자란 자리는 기존 <code>streamer-names.json</code> 무작위 이름으로 보충)을
+                지인 이름으로 쓴다 — 투표자가 0명이면(참가자 없음, 또는 아무도 그 선택지에 투표 안 함) 기존
+                동작 그대로 <code>pickRandomStreamerName()</code> 사용</td></tr>
                 <tr><td><code>joinMultiplayerSession</code> (신규)</td><td>닉네임 검증(한글 1~6자,
-                <code>/^[가-힣]&#123;1,6&#125;/</code>) → <code>kickedNicknames</code>에 있으면 거부 → 같은
-                세션 안에서 닉네임 중복이면 거부(가정 — 지인 이름 귀속·투표 표시에서 서로 다른 사람과 구분이
-                안 되므로) → <code>multiplayerSessions/&#123;hostUid&#125;/participants/&#123;내 uid&#125;</code>에
+                <code>/^[가-힣]&#123;1,6&#125;/</code>)만 하고, <code>kickedNicknames</code>에 있으면 거부한다.
+                <b>같은 세션 안 닉네임 중복은 허용</b>(2026-08-19, 사용자 확정 — "닉네임 중복 허용") — 서로
+                다른 참가자라도 같은 닉네임을 쓸 수 있다. 내부적으로는 항상 uid로 구분하므로 투표 집계·강퇴·
+                지인 이름 귀속 전부 문제없이 동작하고, 화면에 표시될 때만 같은 문자열이 여러 번 보일 수 있다.
+                검증 통과하면 <code>multiplayerSessions/&#123;hostUid&#125;/participants/&#123;내 uid&#125;</code>에
                 닉네임 기록</td></tr>
                 <tr><td><code>kickParticipant</code> (신규)</td><td>호출자가 그 세션의 호스트 본인인지 확인 →
                 <code>participants/&#123;대상 uid&#125;</code> 삭제 → <code>kickedNicknames</code>에 그
                 닉네임 추가 → 현재 구간의 <code>multiplayerVotes/.../&#123;대상 uid&#125;</code>도 함께 삭제(살아있는
-                투표 집계에서 즉시 제외)</td></tr>
+                투표 집계에서 즉시 제외). 닉네임 중복이 허용되므로 <code>kickedNicknames</code>에 오른 닉네임을
+                쓰는 사람은(강퇴된 그 사람이 아니어도) 이후 같은 닉네임으로 이 세션에 재입장할 수 없다 —
+                애초에 닉네임 자체를 막는 설계이므로 중복 허용과는 별개로 그대로 유지</td></tr>
             </table>
         </div>
 
@@ -2824,7 +2841,10 @@
         <div class="flow">
             <p>이름 결정 화면 → "다른 참여자 허용" 토글 on → 인생 시작 클릭 → <code>startPlaythrough(&#123;...,
             multiplayerEnabled: true&#125;)</code> → <code>playthroughs</code>(비공개)+<code>multiplayerSessions</code>(공개)
-            동시 생성</p>
+            동시 생성. <b>또는</b> 처음엔 토글을 안 켠 채로 혼자 플레이하다가, 게임 화면에서도 같은 토글을 언제든
+            켤 수 있다(2026-08-19, 사용자 확정) → <code>setMultiplayerEnabled(&#123;enabled: true&#125;)</code> →
+            그 순간의 진행 상태 그대로 <code>multiplayerSessions</code>가 새로 생김. 껐다 켰다 여러 번 반복해도
+            무방(끌 때마다 <code>multiplayerSessions</code> 삭제 → 켤 때마다 그 시점 상태로 재생성)</p>
             <p>다른 유저: 검색 화면 진입 → 검색창 아래 "진행중인 게임" 목록(<code>multiplayerSessions</code> 중
             <code>completed !== true</code>인 것들, <code>gallery</code> 목록과 같은 <code>onValue</code>+정렬+
             상한 패턴) → 게임 선택 → 닉네임 입력 → <code>joinMultiplayerSession</code></p>
@@ -2860,14 +2880,15 @@
                 <tr><td>투표 집계 반영 경로</td><td>참가자가 RTDB에 직접 기록(Cloud Function 경유 안 함) — 실시간·
                 저비용</td></tr>
                 <tr><td>참가자 닉네임 형식</td><td>한글만, 1~6자</td></tr>
+                <tr><td>같은 세션 안 닉네임 중복 허용 여부(2026-08-19 추가 확인)</td><td>허용 — 내부적으로는
+                항상 uid로 구분하므로 문제없음, 화면 표시만 같은 문자열이 여러 번 보일 수 있음</td></tr>
+                <tr><td>멀티플레이 토글을 게임 시작 후에도 바꿀 수 있는지(2026-08-19 추가 확인)</td><td>가능 —
+                게임 화면에도 같은 토글을 노출, 언제든 켜고 끌 수 있음(<code>setMultiplayerEnabled</code>)</td></tr>
             </table>
         </div>
 
         <h3>구현 시 다시 확인이 필요한 세부사항</h3>
         <ul>
-            <li>같은 세션 안 닉네임 중복 금지 여부 — 위 설계엔 "금지"로 가정해뒀으나 명시적으로 확인받지 않음.</li>
-            <li><code>multiplayerEnabled</code>를 게임 시작 후에도 껐다 켰다 할 수 있는지, 아니면 시작 시점에
-            한 번만 정해지는지 — 위 설계는 "시작 시점 고정"으로 가정.</li>
             <li><code>multiplayerSessions</code> 문서를 엔딩 후에도 계속 남겨둘지(참여 이력 조회용) 아니면
             일정 시간 뒤 정리할지 — 위 설계는 "일단 안 지움"으로 가정, 필요해지면 정리 정책 추가.</li>
         </ul>
