@@ -952,6 +952,31 @@
         하는 기존 게임의 특성). 배포 후 라이브로 실제 완주 판 1회를 진행시켜 100세까지 정상 도달했고, 그
         과정에서 <code>modest-answer-98</code>·<code>dreaming-of-one-more-trip-100</code> 두 선택지가
         자연스럽게 노출·선택되며 원본과 정확히 일치하는 deltas가 적용되는 것을 확인했다.</p>
+        <p class="note"><b>현재 장소 기능(2026-08-18, 사용자 지시 — "[현재 장소] 기능도 추가해줘. 초기는
+        무조건 '국내'로 시작하고, 추후에 추가할 선택지에 따라 해외지역으로 여행, 이민, 노동가는 사건도
+        추가할거야").</b> 이번엔 콘텐츠(선택지)가 아니라 <b>메커니즘만</b> 먼저 추가했다 — 해외 여행·이민·
+        노동 관련 실제 선택지는 사용자가 나중에 별도로 지시할 예정이라, 지금은 그 선택지들이 꽂힐 자리만
+        미리 만들어뒀다. 설계는 직업 상세와 완전히 같은 패턴(<code>buildOccupationHistory</code> 참고) —
+        저장 슬롯에 별도 필드를 두지 않고 <code>choiceLog</code>에서 매번 다시 계산한다. 새 선택지 필드
+        <code>setLocation: {id, label}</code>을 붙이면(아직 이 필드를 쓰는 선택지는 0개) 그 순간부터
+        장소가 바뀌고, <code>buildLocationHistory()</code>가 이력을 시간순으로 뽑아 마지막 항목을
+        <code>currentLocation</code>으로 쓴다. <b>직업과 딱 하나 다른 점</b> — 직업은 "아직 없음"(null)이
+        정상 상태지만 장소는 태어난 순간부터 항상 어딘가에는 있어야 해서, 이 이력이 비어 있으면(해외
+        이동을 한 번도 안 겪었으면) <code>DEFAULT_LOCATION</code>(<code>{id: 'domestic', label: '🇰🇷
+        국내'}</code>)을 대신 쓴다(<code>resolveCurrentLocation()</code>). 게이팅용
+        <code>requiresLocation</code>(배열, 지금 있는 장소가 그 중 하나여야 후보)도
+        <code>pickVisibleChoiceIds</code>·<code>applyChoice</code> 양쪽 검증에 미리 넣어뒀다 —
+        <code>requiresOccupation</code>과 같은 결이며, 장소는 항상 값이 있으므로
+        <code>requiresAnyOccupation</code> 같은 "아무 값이나" 변형은 필요 없었다. 클라이언트는 "현재 직업
+        상세" 패널 바로 아래에 "현재 장소" 패널을 추가하고(같은 <code>.occupation-panel</code>/
+        <code>.occupation-current</code> 클래스 재사용), 엔딩 화면에는 "지금까지 머문 장소" 이력 패널을
+        직업 이력과 같은 방식으로 추가했다. 장소가 바뀌면(아직은 발생할 수 없지만 향후 대비)
+        ✈️ 배지가 뜨도록 기존 성취 배지 시스템에도 편입시켰다. 검증: 배포 후 라이브로
+        <code>startPlaythrough</code>·<code>rollDice</code>·<code>submitChoice</code>·
+        <code>resumePlaythrough</code>(진행 중·완료 두 분기 모두) 전부에서 <code>currentLocation</code>이
+        정확히 <code>{id:'domestic', label:'🇰🇷 국내'}</code>로 내려오는 것과, 완주한 판의
+        <code>locationHistory</code>가 빈 배열로 정상 반환되는 것을 확인했다. Playwright로 실제 화면에서
+        "현재 장소" 패널에 "🇰🇷 국내" 칩이 뜨는 것도 스크린샷으로 확인했다(콘솔 에러 0건).</p>
 
         <p class="note"><b>선택지 페이드아웃 — <code>alzheimers</code>가 있으면 선택지가 뜨자마자 10초에
         걸쳐 서서히 투명해지다 완전히 사라진다.</b> <code>blocksHealthRecovery</code>와 같은 패턴으로

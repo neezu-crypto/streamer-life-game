@@ -484,6 +484,10 @@
         <p class="occupation-panel-title">현재 직업 상세</p>
         <p id="currentOccupation" class="occupation-current"></p>
       </div>
+      <div class="occupation-panel">
+        <p class="occupation-panel-title">현재 장소</p>
+        <p id="currentLocation" class="occupation-current"></p>
+      </div>
     </div>
   </section>
 
@@ -516,6 +520,10 @@
     <div class="occupation-panel">
       <p class="occupation-panel-title">지금까지의 직업 이력</p>
       <div id="occupationHistoryList" class="choice-history-list"></div>
+    </div>
+    <div class="occupation-panel">
+      <p class="occupation-panel-title">지금까지 머문 장소</p>
+      <div id="locationHistoryList" class="choice-history-list"></div>
     </div>
   </section>
 
@@ -774,7 +782,7 @@ resumeBtn.addEventListener('click', async () => {
     const res = await resumePlaythroughFn();
     await fadeOut([resumeSection]);
     if (res.data.completed) {
-      showEnding(res.data.ending, res.data.stats, res.data.choiceHistory, res.data.familyMembers, res.data.occupationHistory, res.data.assets, res.data.cashHoldings, res.data.acquaintances, res.data.healthConditions);
+      showEnding(res.data.ending, res.data.stats, res.data.choiceHistory, res.data.familyMembers, res.data.occupationHistory, res.data.assets, res.data.cashHoldings, res.data.acquaintances, res.data.healthConditions, res.data.locationHistory);
     } else {
       await fadeOut([mainHeader]);
       renderStatBars(statBars, res.data.stats);
@@ -784,6 +792,7 @@ resumeBtn.addEventListener('click', async () => {
       renderFamilyMembers(res.data.familyMembers);
       renderAcquaintances(res.data.acquaintances);
       renderCurrentOccupation(res.data.currentOccupation);
+      renderCurrentLocation(res.data.currentLocation);
       renderStage(res.data.stage);
       initAchievementBaseline(res.data);
       fadeIn([gameSection]);
@@ -1295,6 +1304,35 @@ function renderOccupationHistoryInto(container, history) {
   });
 }
 
+const currentLocationEl = document.getElementById('currentLocation');
+
+// 현재 장소("현재 장소") - 직업과 완전히 같은 패턴이지만, 값이 항상 있다는 점만
+// 다르다(초기값은 서버가 내려주는 DEFAULT_LOCATION='국내' - 2026-08-18, 사용자
+// 지시 "초기는 무조건 국내로 시작"). 아직 이 값을 바꾸는 선택지는 없지만
+// (추후 해외 여행·이민·노동 콘텐츠 추가 예정), 표시 로직만 미리 마련해둔다.
+function renderCurrentLocation(location) {
+  currentLocationEl.textContent = location && location.label ? location.label : '🇰🇷 국내';
+  currentLocationEl.classList.remove('is-empty');
+}
+
+// 장소 이력("지금까지 머문 장소") - 엔딩 화면에서만 보여준다. 직업 이력과
+// 완전히 같은 렌더 방식.
+function renderLocationHistoryInto(container, history) {
+  container.innerHTML = '';
+  if (!history || !history.length) {
+    container.innerHTML = '<p class="empty-msg">평생 국내에서만 지냈어요.</p>';
+    return;
+  }
+  history.forEach((h) => {
+    const row = document.createElement('div');
+    row.className = 'choice-history-item';
+    row.innerHTML =
+      '<span class="chi-age">' + escapeHtml(h.ageRange || '') + '</span>' +
+      '<span class="chi-text">' + escapeHtml(h.label || '') + '</span>';
+    container.appendChild(row);
+  });
+}
+
 let choiceFadeoutTimer = null;
 
 // 알츠하이머(causesChoiceFadeout)가 있으면 방금 채워 넣은 선택지들이 뜨자마자
@@ -1374,6 +1412,7 @@ startBtn.addEventListener('click', async () => {
     renderFamilyMembers(res.data.familyMembers);
     renderAcquaintances(res.data.acquaintances);
     renderCurrentOccupation(res.data.currentOccupation);
+    renderCurrentLocation(res.data.currentLocation);
     renderStage(res.data.stage);
     initAchievementBaseline(res.data);
     fadeIn([gameSection]);
@@ -1428,6 +1467,7 @@ let prevAssetIds = [];
 let prevFamilyIds = [];
 let prevAcquaintanceIds = [];
 let prevOccupationId = null;
+let prevLocationId = null;
 let prevConditions = [];
 
 function playAchievementPop() {
@@ -1451,6 +1491,7 @@ function initAchievementBaseline(data) {
   prevFamilyIds = (data.familyMembers || []).map((f) => f.id);
   prevAcquaintanceIds = (data.acquaintances || []).map((a) => a.id);
   prevOccupationId = data.currentOccupation ? data.currentOccupation.id : null;
+  prevLocationId = data.currentLocation ? data.currentLocation.id : 'domestic';
   prevConditions = data.healthConditions || [];
 }
 
@@ -1470,6 +1511,9 @@ function celebrateAchievements(data) {
   const newOccId = data.currentOccupation ? data.currentOccupation.id : null;
   if (newOccId && newOccId !== prevOccupationId) { showAchievementBadge('💼', data.currentOccupation.label); playAchievementPop(); }
 
+  const newLocId = data.currentLocation ? data.currentLocation.id : 'domestic';
+  if (newLocId !== prevLocationId) { showAchievementBadge('✈️', data.currentLocation.label); playAchievementPop(); }
+
   const newConditions = data.healthConditions || [];
   const newConditionIds = newConditions.map((c) => c.id);
   const healed = prevConditions.find((c) => !newConditionIds.includes(c.id));
@@ -1479,6 +1523,7 @@ function celebrateAchievements(data) {
   prevFamilyIds = newFamilyIds;
   prevAcquaintanceIds = newAcquaintanceIds;
   prevOccupationId = newOccId;
+  prevLocationId = newLocId;
   prevConditions = newConditions;
 }
 
@@ -1512,6 +1557,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   renderFamilyMembers(data.familyMembers);
   renderAcquaintances(data.acquaintances);
   renderCurrentOccupation(data.currentOccupation);
+  renderCurrentLocation(data.currentLocation);
   if (selectedChoiceId) markSelectedChoice(selectedChoiceId);
   // 선택 결과는 서버(applyChoice)가 이미 lifeGame/playthroughs/{uid}에 저장을
   // 마친 뒤 응답한 것이므로, 여기서 뜨는 토스트는 실제 저장 완료를 알리는
@@ -1519,7 +1565,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   showToast('💾 자동저장 되었습니다');
   if (data.completed) {
     pendingNextStage = null;
-    showEnding(data.ending, data.stats, data.choiceHistory, data.familyMembers, data.occupationHistory, data.assets, data.cashHoldings, data.acquaintances, data.healthConditions);
+    showEnding(data.ending, data.stats, data.choiceHistory, data.familyMembers, data.occupationHistory, data.assets, data.cashHoldings, data.acquaintances, data.healthConditions, data.locationHistory);
   } else {
     pendingNextStage = data.nextStage;
     nextBtn.classList.remove('hidden');
@@ -1614,6 +1660,7 @@ const endingFamilyMembersEl = document.getElementById('endingFamilyMembers');
 const endingFamilyPanelTitle = document.getElementById('endingFamilyPanelTitle');
 const endingAcquaintancesEl = document.getElementById('endingAcquaintances');
 const occupationHistoryListEl = document.getElementById('occupationHistoryList');
+const locationHistoryListEl = document.getElementById('locationHistoryList');
 const choiceHistorySection = document.getElementById('choiceHistorySection');
 const choiceHistoryList = document.getElementById('choiceHistoryList');
 const gallerySection = document.getElementById('gallerySection');
@@ -1643,7 +1690,7 @@ function renderChoiceHistoryInto(container, history) {
 // 엔딩 문구 표시 → 지금까지 선택한 선택지들 표시 → 다른 유저 인생 → 재시작
 // 안내 순서로 보여준다(각 section의 DOM 순서가 곧 화면에 보이는 순서). 게임
 // 화면에서 엔딩 화면으로 넘어가는 것도 다른 전환들과 같은 페이드로 통일한다.
-async function showEnding(ending, stats, choiceHistory, familyMembers, occupationHistory, assets, cashHoldings, acquaintances, healthConditions) {
+async function showEnding(ending, stats, choiceHistory, familyMembers, occupationHistory, assets, cashHoldings, acquaintances, healthConditions, locationHistory) {
   if (INSTANT_ENDING_IDS.includes(ending.id)) {
     triggerCrisisEffect();
     await new Promise((resolve) => setTimeout(resolve, REDUCE_MOTION ? 200 : 650));
@@ -1665,6 +1712,7 @@ async function showEnding(ending, stats, choiceHistory, familyMembers, occupatio
   renderFamilyMembersInto(endingFamilyMembersEl, familyMembers);
   renderAcquaintancesInto(endingAcquaintancesEl, acquaintances);
   renderOccupationHistoryInto(occupationHistoryListEl, occupationHistory);
+  renderLocationHistoryInto(locationHistoryListEl, locationHistory);
   renderChoiceHistoryInto(choiceHistoryList, choiceHistory);
   shareBtn.disabled = false;
 

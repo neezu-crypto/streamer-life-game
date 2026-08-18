@@ -73,6 +73,34 @@ function buildOccupationHistory(choiceLog) {
   return history;
 }
 
+// 현재 장소(2026-08-18, 사용자 지시 - "[현재 장소] 기능도 추가해줘. 초기는
+// 무조건 '국내'로 시작하고, 추후에 추가할 선택지에 따라 해외지역으로 여행,
+// 이민, 노동가는 사건도 추가할거야") - buildOccupationHistory와 완전히 같은
+// 패턴(setLocation이 붙은 선택만 시간순으로 뽑아 저장 슬롯에 별도 필드 없이
+// choiceLog에서 매번 다시 계산). 딱 하나 다른 점은 기본값 유무 - 직업은
+// "아직 없음"(null)이 정상 상태이지만 장소는 태어난 순간부터 항상 어딘가에는
+// 있어야 하므로, 이 배열이 비어 있으면(해외 이동 선택을 한 번도 안 골랐으면)
+// DEFAULT_LOCATION(국내)을 currentLocation으로 대신 쓴다 - 아래
+// resolveCurrentLocation 참고. 아직 해외 이동 선택지는 없지만(추후 추가 예정),
+// 게이팅용 requiresLocation 필드까지 미리 pickVisibleChoiceIds·applyChoice
+// 검증에 넣어둬 나중에 그 선택지들을 추가할 때 이 파일을 다시 건드릴 필요가
+// 없게 했다.
+const DEFAULT_LOCATION = { id: 'domestic', label: '🇰🇷 국내' };
+function buildLocationHistory(choiceLog) {
+  if (!Array.isArray(choiceLog)) return [];
+  const history = [];
+  for (const entry of choiceLog) {
+    const stage = STAGE_BY_ID.get(entry.stageId);
+    const choice = stage && stage.choices.find((c) => c.id === entry.choiceId);
+    if (!stage || !choice || !choice.setLocation) continue;
+    history.push({ id: choice.setLocation.id, label: choice.setLocation.label, stageId: stage.id, ageRange: stage.ageRange });
+  }
+  return history;
+}
+function resolveCurrentLocation(locationHistory) {
+  return locationHistory.length ? locationHistory[locationHistory.length - 1] : DEFAULT_LOCATION;
+}
+
 // 계정당 저장 슬롯 1개 - lifeGame/playthroughs/{uid}가 push id 없이 그 유저의
 // "그 한 판"을 직접 가리킨다(예전엔 .../{uid}/{playId}로 여러 판을 쌓을 수
 // 있었지만, "창을 꺼도 이어할 수 있게" 요청에 맞춰 계정당 1개로 단순화했다 -
@@ -109,14 +137,20 @@ function playRefFor(db, uid) {
 // requiresAsset(문자열, 그 재산을 지금 갖고 있어야 후보)은 requiresCondition을
 // 재산 상세에 그대로 적용한 것 - 복권을 산 사람에게만 "당첨 확인" 선택지가
 // 뜨게 하기 위함(2026-08-17, 사용자 지시).
+// requiresLocation(배열, 지금 있는 장소가 그 중 하나여야 후보)은 requiresOccupation과
+// 같은 결 - 장소는 직업과 달리 항상 값이 있어서(기본 DEFAULT_LOCATION='국내')
+// requiresAnyOccupation 같은 "아무 값이나 있으면" 변형은 필요 없다. 아직 이
+// 필드를 쓰는 선택지는 없지만(추후 해외 여행·이민·노동 콘텐츠 추가 예정,
+// 2026-08-18 사용자 지시) 게이팅 로직만 미리 마련해둔다.
 // 후보가 3개 이하면 그냥 전부 노출한다. mandatory가 붙은 선택지(자격만
 // 되면 반드시 겪어야 하는 이벤트 - 예: 50대에 부모님과 사별)는 3개 무작위
 // 추첨에서 밀려날 일 없이 항상 노출 목록에 들어가고, 나머지 자리만 무작위로
 // 채운다.
-function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds, currentOccupationId, currentIntroId, activeAssetIds) {
+function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds, currentOccupationId, currentIntroId, activeAssetIds, currentLocationId) {
   const conditionIds = activeConditionIds || [];
   const familyIds = activeFamilyMemberIds || [];
   const assetIds = activeAssetIds || [];
+  const locationId = currentLocationId || DEFAULT_LOCATION.id;
   const eligible = choices.filter((c) => {
     if (c.requiresCondition && !conditionIds.includes(c.requiresCondition)) return false;
     if (c.requiresNoCondition && c.requiresNoCondition.some((id) => conditionIds.includes(id))) return false;
@@ -128,6 +162,7 @@ function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds
     if (c.requiresAnyOccupation && !currentOccupationId) return false;
     if (c.requiresIntro && c.requiresIntro !== currentIntroId) return false;
     if (c.requiresAsset && !assetIds.includes(c.requiresAsset)) return false;
+    if (c.requiresLocation && !c.requiresLocation.includes(locationId)) return false;
     return true;
   });
   if (eligible.length <= 3) return eligible.map((c) => c.id);
@@ -180,7 +215,7 @@ function pickNextStageIndex(currentIndex) {
 // introId가 주어지면(그 판의 저장 슬롯에 이미 뽑아둔 상황 설명 id) 그
 // 상황의 텍스트를 resolveIntroText로 찾아 쓴다 - pickIntroId() 참고.
 function publicStage(stage, visibleIds, introId) {
-  const ids = visibleIds && visibleIds.length ? visibleIds : pickVisibleChoiceIds(stage.choices, null, null, null, introId, null);
+  const ids = visibleIds && visibleIds.length ? visibleIds : pickVisibleChoiceIds(stage.choices, null, null, null, introId, null, null);
   const visibleChoices = stage.choices.filter((c) => ids.includes(c.id));
   return {
     id: stage.id,
@@ -323,6 +358,12 @@ async function applyChoice(db, playRef, play, stage, choice) {
   const playAssetsForValidation = Array.isArray(play.assets) ? play.assets : [];
   if (choice.requiresAsset && !playAssetsForValidation.some((a) => a.id === choice.requiresAsset)) {
     throw new HttpsError('failed-precondition', '지금 재산 상태에서는 고를 수 없는 선택지입니다.');
+  }
+  // requiresLocation(배열, 지금 있는 장소가 그 중 하나여야 후보) - requiresOccupation과
+  // 완전히 같은 패턴을 현재 장소에 적용한 것.
+  const priorLocation = resolveCurrentLocation(buildLocationHistory(Array.isArray(play.choiceLog) ? play.choiceLog : []));
+  if (choice.requiresLocation && !choice.requiresLocation.includes(priorLocation.id)) {
+    throw new HttpsError('failed-precondition', '지금 있는 장소에서는 고를 수 없는 선택지입니다.');
   }
 
   // prizeTable(가중치 배열)이 붙은 선택지(복권 당첨 확인 등)는 choice.deltas·
@@ -535,6 +576,12 @@ async function applyChoice(db, playRef, play, stage, choice) {
   const occupationHistory = buildOccupationHistory(choiceLog);
   const currentOccupation = occupationHistory.length ? occupationHistory[occupationHistory.length - 1] : null;
 
+  // 현재 장소 - 직업과 완전히 같은 패턴(buildLocationHistory 주석 참고). 이번
+  // 선택이 setLocation을 붙였다면 이 시점의 마지막 항목이 곧 새 장소이고,
+  // 한 번도 해외로 나간 적 없으면 DEFAULT_LOCATION(국내) 그대로다.
+  const locationHistory = buildLocationHistory(choiceLog);
+  const currentLocation = resolveCurrentLocation(locationHistory);
+
   // 다섯 스탯 중 하나라도 0 이하로 떨어지면 100세를 못 채우고 그 자리에서
   // 삶이 끝난다 - pickNextStageIndex가 정한 다음 나이와 무관하게 즉시
   // completed 처리. INSTANT_ENDING_BUILDERS 순서대로 검사해 가장 먼저 해당된
@@ -573,7 +620,8 @@ async function applyChoice(db, playRef, play, stage, choice) {
       familyMembers.map((f) => f.id),
       currentOccupation ? currentOccupation.id : null,
       nextIntroId,
-      assets.map((a) => a.id)
+      assets.map((a) => a.id),
+      currentLocation.id
     );
     updates.visibleChoiceIds = nextVisibleIds;
   }
@@ -615,8 +663,10 @@ async function applyChoice(db, playRef, play, stage, choice) {
     assets,
     cashHoldings,
     currentOccupation,
+    currentLocation,
     choiceHistory: completed ? buildChoiceHistory(choiceLog) : null,
-    occupationHistory: completed ? occupationHistory : null
+    occupationHistory: completed ? occupationHistory : null,
+    locationHistory: completed ? locationHistory : null
   };
 }
 
@@ -649,7 +699,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   const db = getDatabase();
   const stats = freshStats();
   const currentIntroId = pickIntroId(STAGES[0]);
-  const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices, [], [], null, currentIntroId, []);
+  const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices, [], [], null, currentIntroId, [], DEFAULT_LOCATION.id);
   await Promise.all([
     playRefFor(db, uid).set({
       streamerName,
@@ -673,7 +723,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
     db.ref('lifeGame/stats/totals/started').set(ServerValue.increment(1))
   ]);
 
-  return { stats, healthConditions: [], familyMembers: [], acquaintances: [], assets: [], cashHoldings: 0, currentOccupation: null, stage: publicStage(STAGES[0], visibleChoiceIds, currentIntroId) };
+  return { stats, healthConditions: [], familyMembers: [], acquaintances: [], assets: [], cashHoldings: 0, currentOccupation: null, currentLocation: DEFAULT_LOCATION, stage: publicStage(STAGES[0], visibleChoiceIds, currentIntroId) };
 });
 
 // 창을 껐다가 다시 열었을 때 - 저장된 판이 있으면 지금 구간을 그대로 이어서
@@ -698,7 +748,8 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       assets: Array.isArray(play.assets) ? play.assets : [],
       cashHoldings: play.cashHoldings || 0,
       choiceHistory: buildChoiceHistory(play.choiceLog),
-      occupationHistory: buildOccupationHistory(play.choiceLog)
+      occupationHistory: buildOccupationHistory(play.choiceLog),
+      locationHistory: buildLocationHistory(play.choiceLog)
     };
   }
   const stage = STAGES[play.stageIndex];
@@ -710,6 +761,8 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
   const assets = Array.isArray(play.assets) ? play.assets : [];
   const occupationHistory = buildOccupationHistory(play.choiceLog);
   const currentOccupation = occupationHistory.length ? occupationHistory[occupationHistory.length - 1] : null;
+  const locationHistory = buildLocationHistory(play.choiceLog);
+  const currentLocation = resolveCurrentLocation(locationHistory);
 
   // visibleChoiceIds/currentIntroId가 이미 저장돼 있으면 그대로 재사용해서
   // 재접속해도 같은 3개·같은 상황 설명이 다시 뜨게 한다(이 필드들이 생기기
@@ -731,7 +784,8 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       familyMembers.map((f) => f.id),
       currentOccupation ? currentOccupation.id : null,
       currentIntroId,
-      assets.map((a) => a.id)
+      assets.map((a) => a.id),
+      currentLocation.id
     );
     resumeUpdates.visibleChoiceIds = visibleChoiceIds;
   }
@@ -748,6 +802,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
     assets,
     cashHoldings: play.cashHoldings || 0,
     currentOccupation,
+    currentLocation,
     stage: publicStage(stage, visibleChoiceIds, currentIntroId)
   };
 });
