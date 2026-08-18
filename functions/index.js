@@ -364,6 +364,20 @@ async function applyChoice(db, playRef, play, stage, choice) {
     effectiveDeltas.health -= activeConditionCount;
   }
 
+  // 정신질환 개수 페널티(2026-08-18, 사용자 지시 - "정신 질환도 발병갯수에 따라
+  // 행복&관계 점수 변동시 건강처럼 보정계수 추가해줘") - 위 부상·질병 개수
+  // 페널티와 완전히 같은 원리를, 정신질환(healthConditions 중 mental: true인
+  // 것)만 따로 세어 happiness·relationship에 적용한다. 신체 질환은 이 카운트에
+  // 안 들어간다 - 정신질환이 많을수록 감정·관계 변화가 둔감해진다는 의도라, 다리
+  // 골절 개수는 상관없어야 하기 때문. health 페널티와 별개의 카운터라 같은 판에서
+  // 신체 질환 3개 + 정신질환 1개면 health는 -3, happiness/relationship은 -1만
+  // 적용된다.
+  const activeMentalConditionCount = currentConditions.filter((c) => c.mental).length;
+  if (activeMentalConditionCount > 0) {
+    if (effectiveDeltas.happiness !== undefined) effectiveDeltas.happiness -= activeMentalConditionCount;
+    if (effectiveDeltas.relationship !== undefined) effectiveDeltas.relationship -= activeMentalConditionCount;
+  }
+
   let healthRecoverySuppressed = false;
   if (healthRecoveryBlocked && effectiveDeltas.health > 0) {
     effectiveDeltas.health = 0;
@@ -394,7 +408,8 @@ async function applyChoice(db, playRef, play, stage, choice) {
       sinceStageId: stage.id,
       blocksHealthRecovery: !!choice.addCondition.blocksHealthRecovery,
       causesChoiceFadeout: !!choice.addCondition.causesChoiceFadeout,
-      permanent: !!choice.addCondition.permanent
+      permanent: !!choice.addCondition.permanent,
+      mental: !!choice.addCondition.mental
     });
   }
   if (choice.removeCondition) {

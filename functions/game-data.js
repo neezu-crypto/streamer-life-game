@@ -619,6 +619,14 @@ const STAGES = [
         text: '작은 집안일을 스스로 거들겠다고 나선다',
         deltas: { relationship: 2, happiness: 1 },
         result: '도움이 되기는커녕 일을 더 만들었지만, 그 마음만은 진심이었다.'
+      },
+      {
+        id: 'separation-anxiety-onset',
+        text: '엄마·아빠와 잠깐만 떨어져도 자지러지게 운다',
+        deltas: { happiness: -4, relationship: 2 },
+        result: '품에서 떨어지기만 해도, 온 세상이 무너지는 것 같았다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent'],
+        addCondition: { id: 'separation-anxiety', label: '😰 분리불안장애', mental: true }
       }
     ]
   },
@@ -1056,6 +1064,13 @@ const STAGES = [
         deltas: { relationship: 2 },
         result: '둘만 아는 이야기가 하나 늘어날 때마다, 사이도 그만큼 가까워졌다.',
         requiresFamilyMember: ['sibling', 'younger-sibling']
+      },
+      {
+        id: 'childhood-anxiety-onset',
+        text: '사소한 일에도 지나치게 걱정하며 불안해한다',
+        deltas: { happiness: -5 },
+        result: '별일 아니라는 말도, 마음까지는 가닿지 못했다.',
+        addCondition: { id: 'childhood-anxiety', label: '😟 아동기 불안장애', mental: true }
       }
     ]
   },
@@ -1384,6 +1399,13 @@ const STAGES = [
         text: '온라인에서 만난 또래와 급속도로 친해진다',
         deltas: { relationship: 2 },
         result: '얼굴도 모르는 사이인데, 누구보다 편하게 속마음을 털어놨다.'
+      },
+      {
+        id: 'social-phobia-onset-13',
+        text: '친구들 앞에서 말하는 게 두려워 점점 위축된다',
+        deltas: { happiness: -4, relationship: -3 },
+        result: '손을 들려다가도, 매번 도로 내렸다.',
+        addCondition: { id: 'social-phobia', label: '🙈 사회불안장애', mental: true }
       }
     ]
   },
@@ -1673,6 +1695,13 @@ const STAGES = [
         text: '일시적인 번아웃으로 며칠을 무기력하게 보낸다',
         deltas: { happiness: -3, health: -1 },
         result: '아무것도 하기 싫은 날들이, 며칠째 이어졌다.'
+      },
+      {
+        id: 'eating-disorder-onset',
+        text: '외모 스트레스로 먹는 것을 극단적으로 조절한다',
+        deltas: { health: -3, happiness: -6 },
+        result: '거울 앞에 서는 시간이, 점점 괴로워졌다.',
+        addCondition: { id: 'eating-disorder', label: '🍽️ 섭식장애', mental: true }
       }
     ]
   },
@@ -1901,6 +1930,13 @@ const STAGES = [
         deltas: { relationship: 3, happiness: 2 },
         result: '애써 담담한 척하는 표정 뒤로, 눈시울이 살짝 붉어져 있었다.',
         requiresFamilyMember: ['father', 'mother', 'single-parent']
+      },
+      {
+        id: 'adolescent-depression-onset',
+        text: '입시 압박 속에서 무기력함이 오래도록 이어진다',
+        deltas: { happiness: -7 },
+        result: '웃어야 할 순간에도, 마음은 자꾸 가라앉았다.',
+        addCondition: { id: 'adolescent-depression', label: '🌧️ 청소년 우울증', mental: true }
       }
     ]
   },
@@ -2318,6 +2354,13 @@ const STAGES = [
         deltas: { wealth: 8, fame: 3 },
         result: '통장에 찍힌 투자금을 보며, 이제 진짜 시작이라는 걸 실감했다.',
         requiresOccupation: ['startup-founder']
+      },
+      {
+        id: 'panic-disorder-onset',
+        text: '낯선 장소에서 갑자기 숨이 막히고 심장이 뛴다',
+        deltas: { health: -2, happiness: -6 },
+        result: '아무 일도 아니라는 걸 알면서도, 몸이 먼저 반응했다.',
+        addCondition: { id: 'panic-disorder', label: '💨 공황장애', mental: true }
       }
     ]
   },
@@ -2740,6 +2783,13 @@ const STAGES = [
         deltas: { relationship: 3, fame: 1 },
         result: '낯가림을 무릅쓰고 건넨 명함 한 장이, 생각보다 오래 이어졌다.',
         requiresOccupation: ['artist-writer']
+      },
+      {
+        id: 'ocd-onset',
+        text: '같은 행동을 반복 확인하지 않으면 불안해 견딜 수 없다',
+        deltas: { happiness: -5, relationship: -2 },
+        result: '문을 몇 번이나 확인해야, 겨우 마음이 놓였다.',
+        addCondition: { id: 'ocd', label: '🔁 강박장애', mental: true }
       }
     ]
   },
@@ -3256,6 +3306,13 @@ const STAGES = [
         deltas: { relationship: 3, happiness: 2 },
         result: '거래를 넘어선 사이가 됐다는 걸, 어느 순간 느꼈다.',
         requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'generalized-anxiety-onset',
+        text: '특별한 이유 없이도 늘 최악의 상황을 그리며 불안해한다',
+        deltas: { happiness: -6 },
+        result: '괜찮을 거라는 말을, 스스로도 믿기 어려웠다.',
+        addCondition: { id: 'generalized-anxiety', label: '😥 범불안장애', mental: true }
       }
     ]
   },
@@ -3568,6 +3625,13 @@ const STAGES = [
         text: '눈에 띄지 않는 자리에서 조용히 지낸다',
         deltas: { fame: -2, happiness: 1 },
         result: '주목받지 않는 하루하루가, 의외로 편안하게 느껴졌다.'
+      },
+      {
+        id: 'ptsd-onset',
+        text: '큰 사고를 겪은 뒤 그 순간이 자꾸 되살아난다',
+        deltas: { happiness: -8, relationship: -2 },
+        result: '잊었다고 생각한 순간에도, 불쑥 다시 그날로 돌아갔다.',
+        addCondition: { id: 'ptsd', label: '⚡ 외상후스트레스장애', mental: true }
       }
     ]
   },
@@ -3812,6 +3876,13 @@ const STAGES = [
         deltas: { wealth: 3, happiness: 2 },
         result: '전혀 다른 분야인 줄 알았는데, 예전 경험이 의외의 곳에서 빛을 냈다.',
         requiresOccupation: ['career-changer']
+      },
+      {
+        id: 'alcohol-dependency-onset',
+        text: '스트레스를 술로 푸는 날이 습관처럼 잦아진다',
+        deltas: { health: -3, wealth: -2, relationship: -3 },
+        result: '마시는 이유가, 어느새 기억나지 않게 됐다.',
+        addCondition: { id: 'alcohol-dependency', label: '🍺 알코올 의존', mental: true }
       }
     ]
   },
@@ -4069,6 +4140,14 @@ const STAGES = [
         removeAsset: 'lottery-ticket',
         mandatory: true,
         prizeTable: LOTTERY_PRIZE_TABLE
+      },
+      {
+        id: 'work-depression-onset',
+        text: '반복되는 업무 속에서 감정이 점점 무뎌지고 가라앉는다',
+        deltas: { happiness: -6 },
+        result: '즐거웠던 것들도, 더 이상 즐겁지 않았다.',
+        requiresAnyOccupation: true,
+        addCondition: { id: 'work-depression', label: '🌫️ 직장인 우울증', mental: true }
       }
     ]
   },
@@ -4502,6 +4581,14 @@ const STAGES = [
         removeAsset: 'lottery-ticket',
         mandatory: true,
         prizeTable: LOTTERY_PRIZE_TABLE
+      },
+      {
+        id: 'chronic-anxiety-onset-41',
+        text: '가족·일 걱정에 매일 밤 뒤척이며 잠들지 못한다',
+        deltas: { health: -2, happiness: -5 },
+        result: '눈을 감아도, 머릿속 걱정은 꺼지지 않았다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild'],
+        addCondition: { id: 'chronic-anxiety', label: '🌙 만성 불안장애', mental: true }
       }
     ]
   },
@@ -5000,6 +5087,13 @@ const STAGES = [
         deltas: { happiness: 3, relationship: 3 },
         result: '그때 못 한 말을, 이렇게 늦게라도 하게 될 줄은 몰랐다.',
         addAcquaintance: { relation: 'crush', label: '💌 짝사랑' }
+      },
+      {
+        id: 'midlife-depression-onset',
+        text: '지나온 삶을 돌아보며 깊은 무기력에 빠진다',
+        deltas: { happiness: -7 },
+        result: '여기까지 왔는데, 왜 이렇게 허전한지 알 수 없었다.',
+        addCondition: { id: 'midlife-depression', label: '🌀 중년 우울증', mental: true }
       }
     ]
   },
@@ -5596,6 +5690,14 @@ const STAGES = [
         deltas: { fame: 4, happiness: 2 },
         result: '소개할 때 붙는 수식어가, 조금씩 늘어갔다.',
         requiresOccupation: ['consultant']
+      },
+      {
+        id: 'empty-nest-depression-onset',
+        text: '다 커서 떠난 자녀 생각에 허전함이 밀려온다',
+        deltas: { happiness: -6 },
+        result: '북적이던 집이, 유난히 조용하게 느껴졌다.',
+        requiresFamilyMember: ['child'],
+        addCondition: { id: 'empty-nest-depression', label: '🪹 빈둥지증후군', mental: true }
       }
     ]
   },
@@ -5936,6 +6038,14 @@ const STAGES = [
         text: '이제는 관련 없는 사람 취급을 받는다',
         deltas: { fame: -3, happiness: -2 },
         result: '틀린 말은 아니었지만, 그 말이 유독 서운하게 들렸다.'
+      },
+      {
+        id: 'retirement-anxiety-onset',
+        text: '다가오는 은퇴를 앞두고 막연한 불안에 시달린다',
+        deltas: { happiness: -5 },
+        result: '남은 날들을 어떻게 채울지, 자신이 없었다.',
+        requiresAnyOccupation: true,
+        addCondition: { id: 'retirement-anxiety', label: '🕰️ 은퇴불안장애', mental: true }
       }
     ]
   },
@@ -6505,6 +6615,14 @@ const STAGES = [
         deltas: { happiness: 4, relationship: 4 },
         result: '이 나이에 이런 감정을 다시 느낄 줄은, 스스로도 몰랐다.',
         addAcquaintance: { relation: 'lover', label: '💕 연인' }
+      },
+      {
+        id: 'retirement-depression-onset',
+        text: '일을 놓은 뒤 정체성을 잃은 듯한 상실감에 빠진다',
+        deltas: { happiness: -6 },
+        result: '매일 가던 곳이 사라지니, 하루가 텅 비어버렸다.',
+        requiresOccupation: ['retired'],
+        addCondition: { id: 'retirement-depression', label: '🌥️ 은퇴 우울증', mental: true }
       }
     ]
   },
@@ -7111,6 +7229,13 @@ const STAGES = [
         text: '빈 방 하나를 세놓기로 한다',
         deltas: { wealth: 3 },
         result: '빈 방 하나가, 매달 쏠쏠한 보탬이 됐다.'
+      },
+      {
+        id: 'grief-depression-onset',
+        text: '가까운 사람을 떠나보낸 뒤 슬픔에서 헤어나지 못한다',
+        deltas: { happiness: -8 },
+        result: '시간이 약이라지만, 마음은 여전히 그 자리에 머물러 있었다.',
+        addCondition: { id: 'grief-depression', label: '🕯️ 사별 후 우울증', mental: true }
       }
     ]
   },
@@ -7622,6 +7747,13 @@ const STAGES = [
         text: '옛 이야기를 꺼내도 아무도 귀 기울이지 않는다',
         deltas: { fame: -5, happiness: -2 },
         result: '한때는 모두가 궁금해하던 이야기였는데, 이제는 그저 옛날 이야기였다.'
+      },
+      {
+        id: 'late-life-anxiety-onset',
+        text: '건강과 미래에 대한 막연한 불안이 늘 마음 한구석을 차지한다',
+        deltas: { happiness: -5 },
+        result: '괜찮다고 다독여도, 불안은 쉽게 가시지 않았다.',
+        addCondition: { id: 'late-life-anxiety', label: '🍂 노년기 불안장애', mental: true }
       }
     ]
   },
@@ -8287,6 +8419,13 @@ const STAGES = [
         result: '더 늦기 전에 챙기길 잘했다는 생각이, 검사 내내 떠나지 않았다.',
         requiresAnyCondition: true,
         removeAllConditions: true
+      },
+      {
+        id: 'isolation-depression-onset',
+        text: '찾아오는 이 없는 날들이 이어지며 마음이 점점 가라앉는다',
+        deltas: { happiness: -7, relationship: -2 },
+        result: '적막한 집안 공기가, 마음까지 무겁게 눌렀다.',
+        addCondition: { id: 'isolation-depression', label: '🏚️ 고립성 우울증', mental: true }
       }
     ]
   },
@@ -8989,6 +9128,13 @@ const STAGES = [
         text: '지난 90년을 돌아보며 여한이 없다고 말한다',
         deltas: { happiness: 5, health: 1 },
         result: '길게도, 짧게도 느껴지는 아흔 해였지만, 후회는 없었다.'
+      },
+      {
+        id: 'elderly-depression-onset',
+        text: '하루하루가 무의미하게 느껴지며 깊은 무기력에 빠진다',
+        deltas: { happiness: -6 },
+        result: '눈뜨는 아침이, 예전 같지 않게 느껴졌다.',
+        addCondition: { id: 'elderly-depression', label: '🌑 노년기 우울증', mental: true }
       }
     ]
   },
