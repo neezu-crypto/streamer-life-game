@@ -977,6 +977,31 @@
         정확히 <code>{id:'domestic', label:'🇰🇷 국내'}</code>로 내려오는 것과, 완주한 판의
         <code>locationHistory</code>가 빈 배열로 정상 반환되는 것을 확인했다. Playwright로 실제 화면에서
         "현재 장소" 패널에 "🇰🇷 국내" 칩이 뜨는 것도 스크린샷으로 확인했다(콘솔 에러 0건).</p>
+        <p class="note"><b>갤러리에도 스탯·상세 정보 기록(2026-08-18, 사용자 지시 — "갤러리에 공유된 다른
+        유저 인생을 볼때도 스탯과 상세 기능이 기록되게 해줘").</b> 지금까지 <code>shareToGallery</code>는
+        <code>stats</code>(다섯 스탯 최종값)를 저장은 해뒀지만 클라이언트가 렌더링을 안 해서 실제로는 안
+        보이고 있었고, 건강·가족·지인·재산(자산 목록)·직업 이력·장소 이력은 아예 저장조차 안 됐다(선택
+        기록<code>galleryChoiceLogs</code>과 최종 엔딩/스탯만 있었음). 두 부분을 나눠 처리했다 — (1)
+        <code>stats</code>는 목록 구독(<code>lifeGame/gallery</code>) 시점에 이미 갖고 있던 데이터라
+        펼치자마자 즉시 <code>renderStatBars</code>로 그린다(추가 네트워크 요청 없음). (2)
+        건강·가족·지인·재산·직업·장소 상세는 <code>galleryChoiceLogs</code>와 똑같은 이유로 새 노드
+        <code>lifeGame/galleryDetails/{entryId}</code>에 따로 저장했다 — 갤러리 목록 실시간 구독이 매번
+        모든 항목의 상세 정보까지 통째로 받지 않도록, 펼칠 때만 그 항목 하나를 골라 읽는다(캐시도
+        <code>galleryChoiceLogs</code>와 동일하게 Map으로). <code>database.rules.json</code>에
+        <code>galleryDetails</code> 노드를 <code>galleryChoiceLogs</code>와 같은 규칙(공개 읽기, 클라이언트
+        직접 쓰기 금지)으로 추가했고, 이 파일을 공유하는 나머지 3개 레포(StreamBet-Market·
+        soop-stock-market·interior-3d-viewer)에도 동일하게 복사해 diff 0줄을 확인한 뒤 배포했다(레포 간
+        규칙 파일 동기화 원칙 — 이 프로젝트 CLAUDE.md 참고). 클라이언트는 엔딩 화면(<code>showEnding</code>)과
+        완전히 같은 패널 구성·CSS 클래스를 갤러리 펼침 항목 안에도 그대로 만들어(재산/건강/가족/지인/직업
+        이력/장소 이력 총 6개 패널) 새 스타일이 하나도 필요 없었다. 재산 패널의 보유 현금만 예외 — 이미
+        목록 구독에 있던 <code>cashHoldings</code>를 그대로 써서 스탯처럼 즉시 그리고, 나머지(자산 목록)만
+        lazy-load 대상이다. 옛날에 공유된 항목(이 기능 배포 전, <code>galleryDetails</code>가 없는 경우)은
+        빈 값으로 대체해 기존 <code>renderXxxInto</code> 함수들이 자연스럽게 "특별한 OO 없음" 플레이스홀더를
+        보여준다 - 에러 처리 없이 그냥 동작한다. 검증: 배포 후 실제로 판 하나를 100세까지 완주시켜 공유한
+        뒤 <code>lifeGame/gallery</code>·<code>lifeGame/galleryDetails</code> 양쪽 노드를 직접 읽어 저장된
+        가족·지인·직업 이력이 실제 플레이 결과와 정확히 일치하는 것을 확인했고, Playwright로 갤러리 항목을
+        펼쳐 7개 패널(점수 추이·재산·건강·가족·지인·직업 이력·장소 이력)이 전부 올바른 제목·내용으로
+        렌더링되는 것을 스크린샷으로 확인했다(콘솔 에러 0건).</p>
 
         <p class="note"><b>선택지 페이드아웃 — <code>alzheimers</code>가 있으면 선택지가 뜨자마자 10초에
         걸쳐 서서히 투명해지다 완전히 사라진다.</b> <code>blocksHealthRecovery</code>와 같은 패턴으로

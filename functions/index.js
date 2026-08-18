@@ -879,6 +879,20 @@ const shareToGallery = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB'
   // 갤러리 목록 실시간 구독(lifeGame/gallery 전체를 onValue로 받음)이 매번 이 선택
   // 기록까지 통째로 내려받지 않도록, 선택 로그는 별도 노드(galleryChoiceLogs)에
   // 따로 저장해둔다 - 클릭해서 펼칠 때만 그 항목 하나를 골라 읽는다.
+  // galleryDetails(2026-08-18, 사용자 지시 - "갤러리에 공유된 다른 유저 인생을
+  // 볼때도 스탯과 상세 기능이 기록되게 해줘")도 같은 이유로 별도 노드다 -
+  // 건강·가족·지인·재산·직업·장소 상세는 목록 화면에서 전혀 안 쓰이고 펼쳤을
+  // 때만 필요하므로, galleryChoiceLogs와 똑같이 펼칠 때만 그 항목 하나만 읽게
+  // 분리한다. stats(다섯 스탯 최종값)는 이미 galleryRef 쪽에 있었지만 지금까지
+  // 클라이언트가 렌더링을 안 하고 있었어서 이번에 같이 표시하게 됨.
+  const galleryDetails = {
+    healthConditions: Array.isArray(play.healthConditions) ? play.healthConditions : [],
+    familyMembers: Array.isArray(play.familyMembers) ? play.familyMembers : [],
+    acquaintances: Array.isArray(play.acquaintances) ? play.acquaintances : [],
+    assets: Array.isArray(play.assets) ? play.assets : [],
+    occupationHistory: buildOccupationHistory(play.choiceLog),
+    locationHistory: buildLocationHistory(play.choiceLog)
+  };
   await Promise.all([
     galleryRef.set({
       streamerName: play.streamerName,
@@ -891,6 +905,7 @@ const shareToGallery = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB'
       sharedAt: ServerValue.TIMESTAMP
     }),
     db.ref('lifeGame/galleryChoiceLogs/' + galleryRef.key).set(buildChoiceHistory(play.choiceLog)),
+    db.ref('lifeGame/galleryDetails/' + galleryRef.key).set(galleryDetails),
     playRef.update({ galleryEntryId: galleryRef.key }),
     db.ref('lifeGame/stats/totals/shared').set(ServerValue.increment(1))
   ]);

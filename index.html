@@ -1773,6 +1773,36 @@ async function loadGalleryChoiceLog(entryId, container, chartCanvas, chartSummar
   }
 }
 
+// 갤러리 상세 패널(건강·가족·지인·재산·직업·장소, 2026-08-18 사용자 지시) -
+// loadGalleryChoiceLog와 완전히 같은 lazy-load + 캐시 패턴. 옛날에 공유된
+// 항목(galleryDetails가 생기기 전)은 스냅샷이 없을 수 있어 빈 배열/기본값으로
+// 대체해 기존 renderXxxInto 함수들이 "특별한 OO 없음" 플레이스홀더를 그대로
+// 보여주게 한다 - 에러로 처리하지 않는다.
+const galleryDetailsCache = new Map();
+function renderGalleryDetails(details, els) {
+  renderAssetsInto(els.assetsListEl, details.assets || []);
+  renderHealthConditionsInto(els.healthListEl, details.healthConditions || []);
+  renderFamilyMembersInto(els.familyListEl, details.familyMembers || []);
+  renderAcquaintancesInto(els.acquaintanceListEl, details.acquaintances || []);
+  renderOccupationHistoryInto(els.occupationListEl, details.occupationHistory || []);
+  renderLocationHistoryInto(els.locationListEl, details.locationHistory || []);
+}
+async function loadGalleryDetails(entryId, els) {
+  if (galleryDetailsCache.has(entryId)) {
+    renderGalleryDetails(galleryDetailsCache.get(entryId), els);
+    return;
+  }
+  try {
+    const snap = await get(ref(db, 'lifeGame/galleryDetails/' + entryId));
+    const details = snap.val() || {};
+    galleryDetailsCache.set(entryId, details);
+    renderGalleryDetails(details, els);
+  } catch (err) {
+    console.error('상세 정보 조회 실패:', err);
+    renderGalleryDetails({}, els);
+  }
+}
+
 onValue(ref(db, 'lifeGame/gallery'), (snap) => {
   const val = snap.val() || {};
   const entries = Object.keys(val)
@@ -1795,6 +1825,17 @@ onValue(ref(db, 'lifeGame/gallery'), (snap) => {
       '<span class="g-ending">' + escapeHtml((e.ending && e.ending.title) || '') + '</span>';
     details.appendChild(summary);
 
+    // 다섯 스탯 최종값(2026-08-18, 사용자 지시 - "갤러리에 공유된 다른 유저
+    // 인생을 볼때도 스탯과 상세 기능이 기록되게 해줘") - stats는 이미
+    // lifeGame/gallery 목록 구독에 포함돼 있던 값이라(리더보드용으로 먼저
+    // 저장돼 있었음) 따로 불러올 필요 없이 바로 그린다. 아래 건강·가족·지인·
+    // 재산·직업·장소 상세와 달리 펼치기 전에도 이미 갖고 있는 데이터라 lazy
+    // load 대상이 아니다.
+    const statBarsWrap = document.createElement('div');
+    statBarsWrap.className = 'stat-bars';
+    details.appendChild(statBarsWrap);
+    renderStatBars(statBarsWrap, e.stats || {});
+
     const chartWrap = document.createElement('div');
     chartWrap.className = 'asset-panel gallery-score-chart-wrap';
     const chartTitle = document.createElement('p');
@@ -1809,12 +1850,89 @@ onValue(ref(db, 'lifeGame/gallery'), (snap) => {
     chartWrap.appendChild(chartCanvas);
     details.appendChild(chartWrap);
 
+    // 상세 패널들(건강·가족·지인·재산·직업·장소) - galleryChoiceLogs와 같은
+    // 이유로 펼칠 때만 lifeGame/galleryDetails/{entryId}에서 따로 읽는다
+    // (loadGalleryDetails 참고). 엔딩 화면과 똑같은 클래스를 재사용해 별도
+    // CSS가 필요 없다.
+    const assetWrap = document.createElement('div');
+    assetWrap.className = 'asset-panel';
+    const assetTitle = document.createElement('p');
+    assetTitle.className = 'asset-panel-title';
+    assetTitle.textContent = '남긴 재산';
+    const cashEl = document.createElement('p');
+    cashEl.className = 'cash-holdings';
+    renderCashHoldings(cashEl, e.cashHoldings || 0);
+    const assetsListEl = document.createElement('div');
+    assetsListEl.className = 'assets-list';
+    assetWrap.appendChild(assetTitle);
+    assetWrap.appendChild(cashEl);
+    assetWrap.appendChild(assetsListEl);
+    details.appendChild(assetWrap);
+
+    const healthWrap = document.createElement('div');
+    healthWrap.className = 'health-panel';
+    const healthTitle = document.createElement('p');
+    healthTitle.className = 'health-panel-title';
+    healthTitle.textContent = '마지막 건강 상태';
+    const healthListEl = document.createElement('div');
+    healthListEl.className = 'health-conditions';
+    healthWrap.appendChild(healthTitle);
+    healthWrap.appendChild(healthListEl);
+    details.appendChild(healthWrap);
+
+    const familyWrap = document.createElement('div');
+    familyWrap.className = 'family-panel';
+    const familyTitle = document.createElement('p');
+    familyTitle.className = 'family-panel-title';
+    familyTitle.textContent = (e.endedAtAge || 100) + '세, 곁에 남은 가족';
+    const familyListEl = document.createElement('div');
+    familyListEl.className = 'family-members';
+    familyWrap.appendChild(familyTitle);
+    familyWrap.appendChild(familyListEl);
+    details.appendChild(familyWrap);
+
+    const acquaintanceWrap = document.createElement('div');
+    acquaintanceWrap.className = 'family-panel';
+    const acquaintanceTitle = document.createElement('p');
+    acquaintanceTitle.className = 'family-panel-title';
+    acquaintanceTitle.textContent = '인생에서 만난 지인';
+    const acquaintanceListEl = document.createElement('div');
+    acquaintanceListEl.className = 'family-members';
+    acquaintanceWrap.appendChild(acquaintanceTitle);
+    acquaintanceWrap.appendChild(acquaintanceListEl);
+    details.appendChild(acquaintanceWrap);
+
+    const occupationWrap = document.createElement('div');
+    occupationWrap.className = 'occupation-panel';
+    const occupationTitle = document.createElement('p');
+    occupationTitle.className = 'occupation-panel-title';
+    occupationTitle.textContent = '지금까지의 직업 이력';
+    const occupationListEl = document.createElement('div');
+    occupationListEl.className = 'choice-history-list';
+    occupationWrap.appendChild(occupationTitle);
+    occupationWrap.appendChild(occupationListEl);
+    details.appendChild(occupationWrap);
+
+    const locationWrap = document.createElement('div');
+    locationWrap.className = 'occupation-panel';
+    const locationTitle = document.createElement('p');
+    locationTitle.className = 'occupation-panel-title';
+    locationTitle.textContent = '지금까지 머문 장소';
+    const locationListEl = document.createElement('div');
+    locationListEl.className = 'choice-history-list';
+    locationWrap.appendChild(locationTitle);
+    locationWrap.appendChild(locationListEl);
+    details.appendChild(locationWrap);
+
     const logEl = document.createElement('div');
     logEl.className = 'choice-history-list gallery-choice-log';
     details.appendChild(logEl);
 
     details.addEventListener('toggle', () => {
-      if (details.open) loadGalleryChoiceLog(e.id, logEl, chartCanvas, chartSummary);
+      if (details.open) {
+        loadGalleryChoiceLog(e.id, logEl, chartCanvas, chartSummary);
+        loadGalleryDetails(e.id, { assetsListEl, healthListEl, familyListEl, acquaintanceListEl, occupationListEl, locationListEl });
+      }
     });
 
     galleryList.appendChild(details);
