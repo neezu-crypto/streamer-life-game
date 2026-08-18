@@ -306,6 +306,7 @@
   .gallery-item .g-ending { color: var(--gold); font-size: 12.5px; flex: none; }
   .gallery-choice-log { padding: 0 14px 14px; }
   .gallery-score-chart-wrap { padding: 0 14px; margin: 4px 0 10px; }
+  .gallery-detail-panel { padding: 0 14px; }
 
   .leaderboard { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
   .leaderboard-row {
@@ -1832,7 +1833,7 @@ onValue(ref(db, 'lifeGame/gallery'), (snap) => {
     // 재산·직업·장소 상세와 달리 펼치기 전에도 이미 갖고 있는 데이터라 lazy
     // load 대상이 아니다.
     const statBarsWrap = document.createElement('div');
-    statBarsWrap.className = 'stat-bars';
+    statBarsWrap.className = 'stat-bars gallery-detail-panel';
     details.appendChild(statBarsWrap);
     renderStatBars(statBarsWrap, e.stats || {});
 
@@ -1855,7 +1856,7 @@ onValue(ref(db, 'lifeGame/gallery'), (snap) => {
     // (loadGalleryDetails 참고). 엔딩 화면과 똑같은 클래스를 재사용해 별도
     // CSS가 필요 없다.
     const assetWrap = document.createElement('div');
-    assetWrap.className = 'asset-panel';
+    assetWrap.className = 'asset-panel gallery-detail-panel';
     const assetTitle = document.createElement('p');
     assetTitle.className = 'asset-panel-title';
     assetTitle.textContent = '남긴 재산';
@@ -1870,7 +1871,7 @@ onValue(ref(db, 'lifeGame/gallery'), (snap) => {
     details.appendChild(assetWrap);
 
     const healthWrap = document.createElement('div');
-    healthWrap.className = 'health-panel';
+    healthWrap.className = 'health-panel gallery-detail-panel';
     const healthTitle = document.createElement('p');
     healthTitle.className = 'health-panel-title';
     healthTitle.textContent = '마지막 건강 상태';
@@ -1881,7 +1882,7 @@ onValue(ref(db, 'lifeGame/gallery'), (snap) => {
     details.appendChild(healthWrap);
 
     const familyWrap = document.createElement('div');
-    familyWrap.className = 'family-panel';
+    familyWrap.className = 'family-panel gallery-detail-panel';
     const familyTitle = document.createElement('p');
     familyTitle.className = 'family-panel-title';
     familyTitle.textContent = (e.endedAtAge || 100) + '세, 곁에 남은 가족';
@@ -1892,7 +1893,7 @@ onValue(ref(db, 'lifeGame/gallery'), (snap) => {
     details.appendChild(familyWrap);
 
     const acquaintanceWrap = document.createElement('div');
-    acquaintanceWrap.className = 'family-panel';
+    acquaintanceWrap.className = 'family-panel gallery-detail-panel';
     const acquaintanceTitle = document.createElement('p');
     acquaintanceTitle.className = 'family-panel-title';
     acquaintanceTitle.textContent = '인생에서 만난 지인';
@@ -1903,7 +1904,7 @@ onValue(ref(db, 'lifeGame/gallery'), (snap) => {
     details.appendChild(acquaintanceWrap);
 
     const occupationWrap = document.createElement('div');
-    occupationWrap.className = 'occupation-panel';
+    occupationWrap.className = 'occupation-panel gallery-detail-panel';
     const occupationTitle = document.createElement('p');
     occupationTitle.className = 'occupation-panel-title';
     occupationTitle.textContent = '지금까지의 직업 이력';
@@ -1914,7 +1915,7 @@ onValue(ref(db, 'lifeGame/gallery'), (snap) => {
     details.appendChild(occupationWrap);
 
     const locationWrap = document.createElement('div');
-    locationWrap.className = 'occupation-panel';
+    locationWrap.className = 'occupation-panel gallery-detail-panel';
     const locationTitle = document.createElement('p');
     locationTitle.className = 'occupation-panel-title';
     locationTitle.textContent = '지금까지 머문 장소';

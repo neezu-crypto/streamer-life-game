@@ -1002,6 +1002,20 @@
         가족·지인·직업 이력이 실제 플레이 결과와 정확히 일치하는 것을 확인했고, Playwright로 갤러리 항목을
         펼쳐 7개 패널(점수 추이·재산·건강·가족·지인·직업 이력·장소 이력)이 전부 올바른 제목·내용으로
         렌더링되는 것을 스크린샷으로 확인했다(콘솔 에러 0건).</p>
+        <p class="note"><b>버그 수정 — 위 7개 패널이 카드 좌우 끝에 딱 붙어 렌더링되고 있었다(2026-08-18,
+        사용자가 실제 화면 스크린샷으로 제보).</b> <code>.gallery-entry</code>(<code>&lt;details&gt;</code>)
+        자체엔 패딩이 없고, 기존 <code>.gallery-choice-log</code>·<code>.gallery-score-chart-wrap</code>은
+        이걸 감안해 각자 <code>padding: 0 14px</code>를 따로 갖고 있었는데 — 이번에 새로 추가한
+        7개 패널(스탯 바·재산·건강·가족·지인·직업 이력·장소 이력)에는 그 보정 패딩을 빠뜨렸다. 원래
+        <code>#gameLeftPage</code>·<code>#endingSection</code>에서는 부모 <code>.panel</code>이
+        <code>padding: 22px</code>를 갖고 있어 문제가 없었는데, 갤러리 카드는 그 부모가 없다는 걸
+        놓친 것 - 같은 클래스를 재사용하면 스타일도 자동으로 맞을 거라 가정했지만 패딩의 출처가
+        재사용한 클래스가 아니라 부모 쪽이었다는 걸 확인 없이 넘어간 것이 원인. 새 클래스
+        <code>.gallery-detail-panel { padding: 0 14px; }</code>를 만들어 7개 패널의
+        <code>className</code>에 전부 덧붙여 고쳤다. 검증: 로컬 정적 서버 + Playwright로 사용자가 제보한
+        것과 같은 갤러리 항목(같은 스트리머명·스탯·재산·건강·지인 데이터)을 펼쳐 스크린샷 비교 - 수정 전엔
+        텍스트가 카드 왼쪽 끝에 딱 붙어 있었고, 수정 후엔 아래 점수 추이 차트·선택 기록과 동일한 좌우
+        여백으로 정렬되는 것을 확인했다.</p>
 
         <p class="note"><b>선택지 페이드아웃 — <code>alzheimers</code>가 있으면 선택지가 뜨자마자 10초에
         걸쳐 서서히 투명해지다 완전히 사라진다.</b> <code>blocksHealthRecovery</code>와 같은 패턴으로
