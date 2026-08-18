@@ -2221,6 +2221,54 @@ const STAGES = [
         text: '학생이 아닌 새로운 정체성을 찾아가기 시작한다',
         deltas: { happiness: 2, fame: 1 },
         result: '명찰이 사라진 자리에, 스스로 채워 넣을 것들이 많았다.'
+      },
+      {
+        id: 'long-trip-decision-20',
+        text: '모아둔 돈으로 장기 해외여행을 떠나기로 결심한다',
+        deltas: { happiness: 5, wealth: -3 },
+        result: '짐을 꾸리는 손길에도, 설렘이 묻어났다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'long-trip-backpack-20',
+        text: '배낭 하나만 메고 무작정 해외로 떠난다',
+        deltas: { happiness: 6, wealth: -4, health: -1 },
+        result: '낯선 공항에 첫발을 내딛는 순간, 심장이 두근거렸다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'long-trip-friend-along-20',
+        text: '친구와 의기투합해 함께 해외로 떠난다',
+        deltas: { happiness: 5, wealth: -3, relationship: 3 },
+        result: '둘이라 무서울 게 없다는 마음으로, 비행기에 올랐다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'long-trip-solo-20',
+        text: '혼자만의 시간을 갖고 싶어 홀로 해외로 떠난다',
+        deltas: { happiness: 4, wealth: -2, relationship: -2 },
+        result: '누구의 일정에도 맞추지 않아도 되는 자유가, 낯설고도 좋았다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'long-trip-gap-year-20',
+        text: '휴학을 하고 갭이어 삼아 해외로 떠난다',
+        deltas: { happiness: 5, wealth: -3 },
+        result: '학교보다 먼저, 세상을 배우고 싶었다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'long-trip-sudden-20',
+        text: '충동적으로 편도 항공권을 끊고 해외로 떠난다',
+        deltas: { happiness: 7, wealth: -5 },
+        result: '계획 없는 여행이, 오히려 홀가분했다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
       }
     ]
   },
@@ -2505,6 +2553,55 @@ const STAGES = [
         deltas: { happiness: -4, health: -2 },
         result: '숫자를 셀 때마다, 답이 조금씩 더 빠듯해졌다.',
         requiresOccupation: ['startup-founder']
+      },
+      {
+        id: 'study-abroad-accepted-23',
+        text: '해외 대학원 합격 통지를 받고 유학을 떠난다',
+        deltas: { happiness: 5, wealth: -4 },
+        result: '합격 메일을 몇 번이고 다시 읽었다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'study-abroad-language-23',
+        text: '어학연수를 계기로 해외에 눌러앉아 공부를 이어간다',
+        deltas: { happiness: 4, wealth: -3 },
+        result: '짧게 다녀오려던 계획이, 어느새 길어져 있었다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'study-abroad-scholarship-23',
+        text: '장학금을 받아 해외 유학길에 오른다',
+        deltas: { happiness: 6, wealth: -1 },
+        result: '부담을 덜었다는 사실 하나만으로도, 발걸음이 가벼웠다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'study-abroad-family-support-23',
+        text: '가족의 응원 속에 유학을 위해 해외로 떠난다',
+        deltas: { happiness: 5, wealth: -3, relationship: 2 },
+        result: '공항에서 손을 흔드는 가족의 얼굴이, 오래도록 눈에 밟혔다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild'],
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'study-abroad-loan-23',
+        text: '학자금을 대출받아 유학을 강행한다',
+        deltas: { happiness: 3, wealth: -6 },
+        result: '빚을 진 채로 떠나는 길이, 마냥 가볍지만은 않았다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'study-abroad-research-23',
+        text: '원하던 연구를 위해 해외 연구실로 향한다',
+        deltas: { happiness: 5, wealth: -4 },
+        result: '하고 싶은 공부를 위해서라면, 먼 길도 아깝지 않았다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
       }
     ]
   },
@@ -2982,6 +3079,56 @@ const STAGES = [
         result: '바늘 하나에 이렇게 긴장할 일인가 싶으면서도, 끝나고 나니 개운했다.',
         requiresAnyCondition: true,
         removeAllConditions: true
+      },
+      {
+        id: 'homesick-returns-26',
+        text: '향수병을 이기지 못하고 귀국을 결심한다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '짐을 다시 싸는 손길이, 이번엔 가벼웠다.',
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'homesick-family-miss-26',
+        text: '가족이 그리워 예정보다 일찍 귀국한다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '그리움은, 어떤 풍경으로도 채워지지 않았다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild'],
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'homesick-food-miss-26',
+        text: '익숙한 음식과 일상이 그리워 귀국을 택한다',
+        deltas: { happiness: 3 },
+        result: '결국 발길은, 익숙한 것들을 향했다.',
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'homesick-friends-call-26',
+        text: '친구들의 소식을 들을수록 귀국하고 싶은 마음이 커진다',
+        deltas: { happiness: 2, relationship: 3 },
+        result: '멀리서 듣는 소식만으로는, 성에 차지 않았다.',
+        requiresAnyAcquaintance: true,
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'homesick-lonely-26',
+        text: '낯선 타지에서의 외로움에 지쳐 귀국을 결심한다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '혼자라는 감각이, 생각보다 오래갔다.',
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'homesick-culture-shock-26',
+        text: '적응하지 못한 문화 차이에 결국 귀국을 선택한다',
+        deltas: { happiness: 1 },
+        result: '적응하려 애썼지만, 마음은 자꾸 다른 곳을 향했다.',
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
       }
     ]
   },
@@ -3486,6 +3633,54 @@ const STAGES = [
         deltas: { happiness: 2, fame: 1 },
         result: '지금 자리에 만족한다고 생각했는데, 마음이 슬쩍 흔들렸다.',
         requiresOccupation: ['office-worker']
+      },
+      {
+        id: 'job-abroad-offer-29',
+        text: '해외 기업의 채용 제안을 수락한다',
+        deltas: { happiness: 5, wealth: 3 },
+        result: '계약서에 서명하는 손이, 살짝 떨렸다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'job-abroad-headhunted-29',
+        text: '헤드헌터의 제안으로 해외 이직을 결심한다',
+        deltas: { happiness: 5, wealth: 4 },
+        result: '더 넓은 무대에서, 실력을 시험해보고 싶었다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'job-abroad-transfer-29',
+        text: '회사의 해외 지사 발령을 받아들인다',
+        deltas: { happiness: 3, wealth: 2, relationship: -2 },
+        result: '발령 소식에 복잡한 마음이 들었지만, 결국 짐을 쌌다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'job-abroad-freelance-29',
+        text: '해외를 무대로 프리랜서 활동을 시작한다',
+        deltas: { happiness: 4, wealth: 1 },
+        result: '시차와 상관없이 일할 수 있다는 게, 새로운 자유처럼 느껴졌다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'job-abroad-startup-29',
+        text: '해외에서 새로운 사업을 시작하기로 한다',
+        deltas: { happiness: 5, wealth: -2 },
+        result: '밑천은 적었지만, 해보고 싶은 마음만은 컸다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'job-abroad-visa-secured-29',
+        text: '취업 비자를 받아 해외 근무를 시작한다',
+        deltas: { happiness: 4, wealth: 2 },
+        result: '서류 한 장이, 인생의 무대를 통째로 바꿔놓았다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
       }
     ]
   },
@@ -3783,6 +3978,54 @@ const STAGES = [
         result: '미뤄뒀던 걱정거리들을 한 번에 정리하고 나니, 몸도 마음도 가벼워졌다.',
         requiresAnyCondition: true,
         removeAllConditions: true
+      },
+      {
+        id: 'contract-ends-returns-32',
+        text: '해외 근무 계약이 끝나 귀국길에 오른다',
+        deltas: { happiness: 2, wealth: 1 },
+        result: '정든 곳을 떠나는 마음이, 시원섭섭했다.',
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'dispatch-ends-returns-32',
+        text: '파견 기간이 만료돼 본사로 복귀한다',
+        deltas: { happiness: 2 },
+        result: '본사 복도가, 낯설고도 익숙했다.',
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'project-completed-returns-32',
+        text: '맡았던 프로젝트를 마무리하고 귀국한다',
+        deltas: { happiness: 4, fame: 1 },
+        result: '끝까지 해냈다는 사실이, 무엇보다 뿌듯했다.',
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'visa-expired-returns-32',
+        text: '비자 만료를 앞두고 귀국을 준비한다',
+        deltas: { happiness: 1 },
+        result: '서류 한 장의 기한이, 다음 행선지를 정해줬다.',
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'company-recalls-32',
+        text: '회사의 소환 결정에 따라 귀국한다',
+        deltas: { happiness: -1 },
+        result: '예상보다 이른 귀국 통보에, 마음의 준비가 부족했다.',
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'contract-not-renewed-32',
+        text: '계약 연장이 불발돼 귀국을 택한다',
+        deltas: { happiness: -3, wealth: -1 },
+        result: '다음을 기약할 수 없다는 통보가, 씁쓸하게 다가왔다.',
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
       }
     ]
   },
@@ -4228,6 +4471,61 @@ const STAGES = [
         result: '즐거웠던 것들도, 더 이상 즐겁지 않았다.',
         requiresAnyOccupation: true,
         addCondition: { id: 'work-depression', label: '🌫️ 직장인 우울증', mental: true }
+      },
+      {
+        id: 'dispatch-abroad-order-37',
+        text: '회사의 해외 파견 명령을 받아들인다',
+        deltas: { happiness: 2, wealth: 4 },
+        result: '선택의 여지가 크진 않았지만, 새로운 도전이라 여기기로 했다.',
+        requiresAnyOccupation: true,
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'dispatch-abroad-volunteer-37',
+        text: '해외 파견 근무를 자원한다',
+        deltas: { happiness: 5, wealth: 3 },
+        result: '손을 든 순간부터, 이미 마음은 그곳에 가 있었다.',
+        requiresAnyOccupation: true,
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'dispatch-abroad-promotion-37',
+        text: '해외 지사장 자리를 제안받고 부임한다',
+        deltas: { happiness: 6, wealth: 5, fame: 2 },
+        result: '명함에 새겨질 새 직함이, 낯설고도 뿌듯했다.',
+        requiresAnyOccupation: true,
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'dispatch-abroad-project-37',
+        text: '대형 해외 프로젝트를 맡아 현지로 파견된다',
+        deltas: { happiness: 4, wealth: 4 },
+        result: '부담이 컸지만, 그만큼 해내고 싶은 마음도 컸다.',
+        requiresAnyOccupation: true,
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'dispatch-abroad-reluctant-37',
+        text: '내키진 않지만 회사의 결정에 따라 해외로 떠난다',
+        deltas: { happiness: -2, wealth: 3 },
+        result: '정해진 일이라며 스스로를 다독였지만, 마음 한구석은 무거웠다.',
+        requiresAnyOccupation: true,
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'dispatch-abroad-family-37',
+        text: '가족과 함께 해외 파견길에 오른다',
+        deltas: { happiness: 4, wealth: 2, relationship: 3 },
+        result: '온 가족이 함께 떠난다는 사실이, 큰 위안이 됐다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild'],
+        requiresAnyOccupation: true,
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
       }
     ]
   },
@@ -4605,6 +4903,60 @@ const STAGES = [
         result: '같은 풍파를 겪고 나니, 동료 이상의 무언가가 생겼다.',
         requiresAnyOccupation: true,
         addAcquaintance: { relation: 'colleague', label: '💼 동료' }
+      },
+      {
+        id: 'parent-illness-returns-40',
+        text: '부모님의 건강이 나빠져 급히 귀국한다',
+        deltas: { happiness: -4, relationship: 2 },
+        result: '수화기 너머로 들려온 목소리에, 손이 떨렸다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent'],
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'family-emergency-returns-40',
+        text: '집안에 급한 일이 생겨 서둘러 귀국한다',
+        deltas: { happiness: -3 },
+        result: '무슨 일인지 채 듣기도 전에, 이미 마음은 급해져 있었다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild'],
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'child-education-returns-40',
+        text: '자녀 교육을 위해 귀국을 결정한다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '아이의 미래 앞에서, 다른 건 다 뒷전이 됐다.',
+        requiresFamilyMember: ['child'],
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'spouse-request-returns-40',
+        text: '배우자의 뜻에 따라 귀국을 결심한다',
+        deltas: { happiness: 1, relationship: 3 },
+        result: '오랜 대화 끝에, 결국 같은 방향을 보기로 했다.',
+        requiresFamilyMember: ['spouse'],
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'family-gathering-returns-40',
+        text: '온 가족이 다시 모이기 위해 귀국을 택한다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '떨어져 지낸 시간만큼, 다시 모일 이유도 분명했다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild'],
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'unexpected-call-returns-40',
+        text: '밤늦게 걸려온 전화 한 통에 급히 짐을 싼다',
+        deltas: { happiness: -5 },
+        result: '전화를 끊자마자, 짐부터 챙기기 시작했다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild'],
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
       }
     ]
   },
@@ -5118,6 +5470,56 @@ const STAGES = [
         result: '믿었던 만큼, 배신감도 그만큼 컸다.',
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
+      },
+      {
+        id: 'immigration-decision-45',
+        text: '더 나은 미래를 위해 이민을 결심한다',
+        deltas: { happiness: 4, wealth: -3 },
+        result: '돌아올 곳을 정리하며, 마음도 함께 정리했다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'immigration-family-45',
+        text: '자녀 교육을 위해 온 가족이 이민을 택한다',
+        deltas: { happiness: 3, wealth: -4, relationship: 2 },
+        result: '아이들의 웃는 얼굴을 보며, 잘한 선택이라 믿기로 했다.',
+        requiresFamilyMember: ['child'],
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'immigration-permanent-visa-45',
+        text: '영주권을 취득해 해외에 완전히 정착하기로 한다',
+        deltas: { happiness: 5, wealth: -2 },
+        result: '서류에 도장을 찍는 순간, 새로운 국적의 삶이 시작됐다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'immigration-fresh-start-45',
+        text: '새로운 인생을 꿈꾸며 이민을 준비한다',
+        deltas: { happiness: 6, wealth: -3 },
+        result: '설렘 반, 두려움 반으로 새 삶을 향해 나아갔다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'immigration-invited-45',
+        text: '먼저 이민 간 지인의 권유로 해외 이주를 결심한다',
+        deltas: { happiness: 4, wealth: -2, relationship: 2 },
+        result: '먼저 자리 잡은 사람이 있다는 게, 큰 용기가 됐다.',
+        requiresAnyAcquaintance: true,
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'immigration-sold-everything-45',
+        text: '국내 재산을 정리하고 이민길에 오른다',
+        deltas: { happiness: 3, wealth: -6 },
+        result: '평생 모은 것들이, 이삿짐 몇 박스로 줄어들었다.',
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
       }
     ]
   },
@@ -5658,6 +6060,54 @@ const STAGES = [
         result: '숫자들이 빼곡한 결과지를 받아 들고, 앞으로를 다시 챙기기로 다짐했다.',
         requiresAnyCondition: true,
         removeAllConditions: true
+      },
+      {
+        id: 'visa-denied-returns-50',
+        text: '비자 연장이 거절돼 어쩔 수 없이 귀국한다',
+        deltas: { happiness: -5, wealth: -2 },
+        result: '몇 번을 다시 신청해봐도, 결과는 같았다.',
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'visa-law-change-returns-50',
+        text: '이민법이 바뀌며 체류 자격을 잃고 귀국한다',
+        deltas: { happiness: -4 },
+        result: '하루아침에 바뀐 법 조항이, 모든 계획을 흔들었다.',
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'work-permit-lost-returns-50',
+        text: '취업 허가가 만료돼 귀국을 강요받는다',
+        deltas: { happiness: -4, wealth: -1 },
+        result: '서류 한 장이, 몇 년의 삶을 정리하게 만들었다.',
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'deportation-warning-returns-50',
+        text: '체류 기간 초과로 출국 명령을 받는다',
+        deltas: { happiness: -6 },
+        result: '정해진 기한 앞에서, 더는 미룰 수 없었다.',
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'visa-cost-returns-50',
+        text: '비자 갱신 비용을 감당하지 못해 귀국한다',
+        deltas: { happiness: -4, wealth: -3 },
+        result: '버티고 싶었지만, 숫자가 허락하지 않았다.',
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'legal-trouble-returns-50',
+        text: '서류 문제가 꼬이며 결국 귀국을 택한다',
+        deltas: { happiness: -5, wealth: -2 },
+        result: '복잡하게 꼬인 서류들이, 결국 발목을 잡았다.',
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
       }
     ]
   },
@@ -7277,6 +7727,56 @@ const STAGES = [
         text: '행사에 초대받지 못하고 소외된다',
         deltas: { fame: -3, happiness: -3 },
         result: '소식을 뒤늦게 전해 듣고서야, 초대받지 못했다는 걸 알았다.'
+      },
+      {
+        id: 'old-age-homeland-65',
+        text: '남은 노후는 고향에서 보내기로 결심한다',
+        deltas: { happiness: 5 },
+        result: '익숙한 말과 익숙한 풍경이, 그 자체로 위안이 됐다.',
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'retirement-return-65',
+        text: '은퇴를 계기로 완전히 귀국하기로 한다',
+        deltas: { happiness: 4, wealth: 1 },
+        result: '더 이상 시차에 맞춰 살지 않아도 된다는 사실이, 홀가분했다.',
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'medical-care-return-65',
+        text: '익숙한 의료 환경을 위해 귀국을 택한다',
+        deltas: { happiness: 3, health: 2 },
+        result: '말이 통하는 병원이, 무엇보다 마음을 놓이게 했다.',
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'grandchildren-return-65',
+        text: '손주들 곁에서 지내고 싶어 귀국한다',
+        deltas: { happiness: 6, relationship: 3 },
+        result: '작은 손을 다시 잡을 수 있다는 사실만으로도, 충분했다.',
+        requiresFamilyMember: ['grandchild'],
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'friends-return-65',
+        text: '오랜 친구들이 그리워 귀국을 결심한다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '오랜 얼굴들을 다시 볼 생각에, 마음이 먼저 앞섰다.',
+        requiresAnyAcquaintance: true,
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      {
+        id: 'final-chapter-return-65',
+        text: '인생의 마지막 장은 고향에서 쓰기로 한다',
+        deltas: { happiness: 5 },
+        result: '이야기의 끝을, 시작했던 곳에서 맺고 싶었다.',
+        requiresLocation: ['abroad'],
+        setLocation: { id: 'domestic', label: '🇰🇷 국내' }
       }
     ]
   },
