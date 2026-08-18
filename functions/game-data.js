@@ -2935,6 +2935,48 @@ const STAGES = [
         deltas: { happiness: -5, relationship: -2 },
         result: '문을 몇 번이나 확인해야, 겨우 마음이 놓였다.',
         addCondition: { id: 'ocd', label: '🔁 강박장애', mental: true }
+      },
+      {
+        id: 'abroad-language-struggle-25',
+        text: '낯선 언어 때문에 사소한 일상에서도 애를 먹는다',
+        deltas: { happiness: -3, health: -1 },
+        result: '간단한 심부름 하나에도, 진땀을 뺐다.',
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-gesture-communication-25',
+        text: '말이 안 통할 땐 몸짓 발짓을 동원해본다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '말은 안 통해도, 마음만은 통하는 순간이 있었다.',
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-culture-mistake-25',
+        text: '현지 문화를 이해하지 못해 실수를 저지른다',
+        deltas: { happiness: -4, relationship: -2 },
+        result: '몰랐다는 말로는, 상황이 나아지지 않았다.',
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-language-progress-25',
+        text: '매일 조금씩 현지 언어 실력이 늘어가는 걸 느낀다',
+        deltas: { happiness: 4 },
+        result: '어제는 안 들리던 말이, 오늘은 어렴풋이 들렸다.',
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-food-adjust-25',
+        text: '낯선 음식에 적응하려 애쓴다',
+        deltas: { happiness: -2, health: -1 },
+        result: '숟가락을 몇 번이고 내려놓았다 다시 들었다.',
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-broadened-view-25',
+        text: '다른 문화권 사람들과 어울리며 시야가 넓어진다',
+        deltas: { happiness: 5, relationship: 2 },
+        result: '다른 세상을 산다는 게, 이런 거였구나 싶었다.',
+        requiresLocation: ['abroad']
       }
     ]
   },
@@ -3891,6 +3933,53 @@ const STAGES = [
         deltas: { happiness: -8, relationship: -2 },
         result: '잊었다고 생각한 순간에도, 불쑥 다시 그날로 돌아갔다.',
         addCondition: { id: 'ptsd', label: '⚡ 외상후스트레스장애', mental: true }
+      },
+      {
+        id: 'abroad-lover-met-31',
+        text: '현지에서 마음이 통하는 사람을 만난다',
+        deltas: { happiness: 5, relationship: 3 },
+        result: '몇 마디 나누지도 않았는데, 자꾸 눈이 갔다.',
+        requiresLocation: ['abroad'],
+        addAcquaintance: { relation: 'lover', label: '💕 연인' }
+      },
+      {
+        id: 'abroad-expat-friend-31',
+        text: '타지 생활을 함께하는 교민과 가까워진다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '같은 처지라는 사실 하나로, 금세 편해졌다.',
+        requiresLocation: ['abroad'],
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
+      },
+      {
+        id: 'abroad-local-friend-31',
+        text: '현지 친구를 사귀며 새로운 문화를 배운다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '다른 세상에서 온 친구가, 또 다른 세상을 보여줬다.',
+        requiresLocation: ['abroad'],
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
+      },
+      {
+        id: 'abroad-misunderstanding-fight-31',
+        text: '언어 장벽으로 오해가 쌓여 다툰다',
+        deltas: { happiness: -3, relationship: -3 },
+        result: '제대로 설명하지 못한 말들이, 오해로 쌓여갔다.',
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-close-colleague-31',
+        text: '함께 일하는 현지 동료와 각별해진다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '말이 잘 통하지 않아도, 손발은 척척 맞았다.',
+        requiresAnyOccupation: true,
+        requiresLocation: ['abroad'],
+        addAcquaintance: { relation: 'colleague', label: '💼 동료' }
+      },
+      {
+        id: 'abroad-cautious-new-bond-31',
+        text: '낯선 곳에서 만난 인연에 조심스러워진다',
+        deltas: { happiness: -2 },
+        result: '설렘보다 조심스러움이, 먼저 앞섰다.',
+        requiresLocation: ['abroad']
       }
     ]
   },
@@ -4387,6 +4476,50 @@ const STAGES = [
         result: '본 적도 없는 대출 서류에, 내 이름과 도장이 찍혀 있었다.',
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
+      },
+      {
+        id: 'abroad-holiday-longing-36',
+        text: '명절마다 밀려오는 그리움을 홀로 견딘다',
+        deltas: { happiness: -4 },
+        result: '괜찮다는 말을, 스스로에게 몇 번이고 되뇌었다.',
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-video-call-family-36',
+        text: '영상통화로 가족 얼굴을 보며 그리움을 달랜다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '화면 속 얼굴인데도, 마음은 한결 놓였다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild'],
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-night-loneliness-36',
+        text: '낯선 밤거리를 걸으며 문득 외로움을 느낀다',
+        deltas: { happiness: -3 },
+        result: '불 켜진 창문들이, 유난히 낯설게 느껴지는 밤이었다.',
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-routine-stability-36',
+        text: '타지 생활에도 나만의 루틴을 만들어 안정을 찾는다',
+        deltas: { happiness: 4 },
+        result: '작은 습관 하나가, 하루를 버티는 힘이 됐다.',
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-holiday-cooking-36',
+        text: '명절 음식을 직접 만들어 향수를 달랜다',
+        deltas: { happiness: 2 },
+        result: '맛은 비슷했지만, 그리움은 다 채워지지 않았다.',
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-timezone-mismatch-36',
+        text: '시차 때문에 가족과의 연락이 자꾸 어긋난다',
+        deltas: { happiness: -2, relationship: -1 },
+        result: '시간을 맞추려 해도, 자꾸만 엇갈렸다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild'],
+        requiresLocation: ['abroad']
       }
     ]
   },
@@ -5211,6 +5344,50 @@ const STAGES = [
         deltas: { wealth: 2, happiness: 3 },
         result: '묻지도 않은 걸 먼저 챙겨주는 그 배려가, 오래 기억에 남았다.',
         requiresOccupation: ['office-worker']
+      },
+      {
+        id: 'abroad-market-business-grows-43',
+        text: '현지 시장을 공략해 사업을 키운다',
+        deltas: { happiness: 4, wealth: 5 },
+        result: '낯설던 시장이, 어느새 익숙한 무대가 됐다.',
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-branch-promotion-43',
+        text: '해외 법인에서 능력을 인정받아 승진한다',
+        deltas: { happiness: 5, wealth: 3, fame: 2 },
+        result: '타지에서 인정받았다는 사실이, 남다른 의미로 다가왔다.',
+        requiresAnyOccupation: true,
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-tax-regulation-trouble-43',
+        text: '현지 규제와 세금 문제로 골머리를 앓는다',
+        deltas: { happiness: -4, wealth: -3 },
+        result: '서류 더미 앞에서, 현지어 실력의 한계를 절감했다.',
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-network-opportunity-43',
+        text: '해외 네트워크를 넓히며 새로운 기회를 잡는다',
+        deltas: { happiness: 3, wealth: 2 },
+        result: '명함을 주고받는 손길에, 새로운 가능성이 오갔다.',
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-staff-conflict-43',
+        text: '현지 직원들과의 갈등을 조율한다',
+        deltas: { happiness: -2, relationship: -1 },
+        result: '다른 방식에 익숙한 사람들 사이에서, 절충점을 찾아야 했다.',
+        requiresAnyOccupation: true,
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-exchange-rate-loss-43',
+        text: '환율 변동으로 예상치 못한 손해를 본다',
+        deltas: { happiness: -3, wealth: -4 },
+        result: '숫자 하나가, 통장 잔고를 예상 밖으로 흔들어놨다.',
+        requiresLocation: ['abroad']
       }
     ]
   },
@@ -6624,6 +6801,48 @@ const STAGES = [
         result: '남은 날들을 어떻게 채울지, 자신이 없었다.',
         requiresAnyOccupation: true,
         addCondition: { id: 'retirement-anxiety', label: '🕰️ 은퇴불안장애', mental: true }
+      },
+      {
+        id: 'abroad-second-hometown-55',
+        text: '이제는 현지가 제2의 고향처럼 느껴진다',
+        deltas: { happiness: 4 },
+        result: '돌아갈 곳과 살아갈 곳이, 어느새 헷갈리기 시작했다.',
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-residency-renewed-55',
+        text: '영주권을 갱신하며 앞으로도 이곳에 머물기로 한다',
+        deltas: { happiness: 3, wealth: -1 },
+        result: '익숙해진 이곳에서, 남은 날들도 그려보기로 했다.',
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-community-elder-55',
+        text: '현지 커뮤니티의 어른으로 자리 잡는다',
+        deltas: { happiness: 5, fame: 2, relationship: 2 },
+        result: '낯설던 얼굴들이, 어느새 서로를 알아보는 이웃이 됐다.',
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-belonging-nowhere-55',
+        text: '고국과 현지, 어느 쪽도 완전히 내 나라 같지 않다고 느낀다',
+        deltas: { happiness: -3 },
+        result: '완전한 소속감은, 어느 쪽에서도 쉽게 오지 않았다.',
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-dual-citizenship-55',
+        text: '오랜 타지 생활 끝에 이중 국적을 취득한다',
+        deltas: { happiness: 2, wealth: -2 },
+        result: '여권 두 개가, 두 개의 삶을 증명해주는 것 같았다.',
+        requiresLocation: ['abroad']
+      },
+      {
+        id: 'abroad-settling-second-half-55',
+        text: '현지에서 인생 후반전을 보내기로 마음을 굳힌다',
+        deltas: { happiness: 4 },
+        result: '여기서 남은 인생을 그려보는 게, 더는 낯설지 않았다.',
+        requiresLocation: ['abroad']
       }
     ]
   },

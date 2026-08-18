@@ -1058,6 +1058,26 @@
         시작→주사위 3회 진행까지 전체 플로우를 재현해 CSS가 그대로 적용되고(전체 레이아웃·색상 동일),
         가족 상세·현재 장소 패널 등 <code>app.js</code>의 로직도 정상 작동하며(자동저장 토스트까지 확인),
         콘솔 에러·실패한 네트워크 요청 둘 다 0건인 것을 스크린샷으로 확인했다.</p>
+        <p class="note"><b>해외에서 지내는 동안 발생하는 사건 5개(선택지 30개, 2026-08-19, 사용자 지시 —
+        "해외에서 지내는 동안 발생하는 사건 5개(선택지 30개) 추가해줘").</b> 나가는/돌아오는 이벤트와 달리
+        장소를 바꾸지 않는 순수 플레이버 콘텐츠 — 전부
+        <code>requiresLocation: ['abroad']</code>만 걸고 <code>setLocation</code>은 없다. 나가는(20·23·
+        29·37·45세)·돌아오는(26·32·40·50·65세) 이벤트 나이와 전부 겹치지 않는 5곳(25·31·36·43·55세)에
+        배치했다 — 25세 문화·언어 적응, 31세 현지에서 만난 인연, 36세 타지 생활의 외로움·그리움, 43세
+        해외에서의 커리어·사업, 55세 오랜 해외 생활의 정착. <b>31세 이벤트는 지인 추가 메커니즘을 그대로
+        재사용</b>했다 — <code>abroad-lover-met-31</code>(연인)·<code>abroad-expat-friend-31</code>·
+        <code>abroad-local-friend-31</code>(친구)·<code>abroad-close-colleague-31</code>(동료,
+        <code>requiresAnyOccupation</code> 추가)에 <code>addAcquaintance</code>를 붙여 해외에서도
+        국내와 동일하게 실제 <code>stocks</code> 이름이 붙은 지인이 생긴다. 43세 이벤트 2개
+        (<code>abroad-branch-promotion-43</code>·<code>abroad-staff-conflict-43</code>)는 "해외 법인",
+        "현지 직원들"처럼 직업을 전제하는 문구라 <code>requiresAnyOccupation</code>을 걸었고, 36세 2개
+        (<code>abroad-video-call-family-36</code>·<code>abroad-timezone-mismatch-36</code>)는 "가족"을
+        전제해 8종 전체 OR 가족 게이팅을 걸었다. 검증: 2만 회 시뮬레이션 - 게이팅 위반 0건·zeroEligible
+        0건·장소 게이팅 위반 0건, 국내 상태에서 이 30개 중 하나라도 뽑힌 경우 0건, 30개 전부 최소 26회
+        이상 자연 발생(직업까지 함께 요구하는 3개만 상대적으로 드묾, 예상된 결과). 배포 후 라이브로 43세
+        <code>abroad-market-business-grows-43</code>이 실제로 해외 상태에서만 노출·적용되는 것과, 31세
+        <code>abroad-lover-met-31</code>이 실제 <code>stocks</code> 이름("하리_HARI")이 붙은 새 연인을
+        지인 목록에 정확히 추가하는 것을 확인했다.</p>
 
         <p class="note"><b>선택지 페이드아웃 — <code>alzheimers</code>가 있으면 선택지가 뜨자마자 10초에
         걸쳐 서서히 투명해지다 완전히 사라진다.</b> <code>blocksHealthRecovery</code>와 같은 패턴으로
