@@ -2750,10 +2750,10 @@
     <section id="sec13">
         <h2><span class="num">13</span>멀티플레이 시청자 참여 (2026-08-19, 사용자 설계 — 미구현)</h2>
         <p class="note"><b>이 섹션은 설계 정리 단계이며 아직 구현되지 않았다.</b> 사용자가 제안한 설계를 검토한 뒤,
-        구현에 직접 영향을 주는 3가지(주사위 구간 처리·지인 이름 귀속·투표 반영 경로)에 대해 먼저 확인받고,
-        이어서 "구현 시 다시 확인이 필요한 세부사항"으로 남겨뒀던 것 중 2가지(닉네임 중복 허용 여부·멀티플레이
-        토글 시점)도 추가로 확인받아 확정했다(2026-08-19). 실제 코드(RTDB 규칙·Cloud Functions·클라이언트)는
-        아직 손대지 않았다 — 다음 지시가 오면 이 설계를 그대로 구현한다.</p>
+        구현에 직접 영향을 주는 3가지(주사위 구간 처리·지인 이름 귀속·투표 반영 경로)를 먼저 확인받고, 이어서
+        "구현 시 다시 확인이 필요한 세부사항"으로 남겨뒀던 3가지(닉네임 중복 허용 여부·멀티플레이 토글
+        시점·엔딩 후 세션 문서 정리 정책)도 순차로 확인받아 전부 확정했다(2026-08-19). 실제 코드(RTDB 규칙·
+        Cloud Functions·클라이언트)는 아직 손대지 않았다 — 다음 지시가 오면 이 설계를 그대로 구현한다.</p>
 
         <h3>핵심 설계 원칙</h3>
         <ul>
@@ -2780,14 +2780,22 @@
                 <code>setMultiplayerEnabled</code>로 켜면 그 시점의 현재 상태로 새로 생성된다(아래 참고) —
                 즉 이 문서가 "존재함" 자체가 지금 그 판이 멀티플레이 진행 중이라는 뜻. 존재하는 동안
                 <code>submitChoice</code>/<code>rollDice</code>가 호스트 쪽을 갱신할 때마다 이 노드도 같이
-                갱신한다. <code>completed: true</code>가 되면 검색화면 진행중 목록에서 클라이언트가 필터링해
-                숨긴다(<code>gallery</code>처럼 삭제하진 않음, 나중에 "예전 참여 게임" 조회 용도로 남겨둘 수
-                있음)</td><td>공개</td><td>Cloud Function만(Admin SDK)</td></tr>
+                갱신한다. <b>엔딩 도달 시 삭제한다</b>(2026-08-19, 사용자 확정 — "2번으로 정리해줘", 2번 =
+                "엔딩 도달 시 바로 지운다") — <code>completed: true</code>가 되는 그 호출 안에서
+                <code>multiplayerSessions/&#123;hostUid&#125;</code> 자체를 지우고, 그 판의
+                <code>multiplayerVotes/&#123;hostUid&#125;/*</code>도 함께 지운다. "예전 참여 기록 조회"
+                같은 기능은 지금 계획에 없어서, 안 쓰이는 데이터를 남겨두는 것보다 깔끔하게 지우는 쪽을
+                택함(나중에 그런 기능이 필요해지면 그때 다시 설계) — <code>hostUid</code> 하나당 문서가
+                1개뿐이라(다음 판을 또 멀티플레이로 시작하면 어차피 덮어써짐) 원래도 무한정 쌓이는 구조는
+                아니었지만, 진행중이 아닌 판의 흔적을 아예 안 남기는 쪽이 더 명확함</td><td>공개</td>
+                <td>Cloud Function만(Admin SDK)</td></tr>
                 <tr><td><code>lifeGame/multiplayerVotes/&#123;hostUid&#125;/&#123;stageId&#125;/&#123;participantUid&#125;</code></td>
                 <td>그 구간에서 그 참가자가 고른 <code>choiceId</code> 하나. <code>stageId</code>로 키를 나눠서
                 다음 구간으로 넘어가면 새 구간의 투표 노드는 자동으로 비어 있다(각 구간은 한 판에서 한 번만
                 지나가므로 안전 — 기존 <code>choiceLog</code>와 같은 전제). 호스트가 최종 제출하면 그 구간의
-                투표는 더 이상 의미 없어지지만 굳이 지우진 않는다(과거 기록으로 남아도 무해)</td>
+                투표는 더 이상 의미 없어지지만, 다음 구간에서 또 쌓일 새 투표를 위해 굳이 그때그때 지우진
+                않는다 — 대신 판 전체가 끝나면(엔딩 도달) 위 <code>multiplayerSessions</code>와 함께
+                한꺼번에 지운다</td>
                 <td>공개(호스트가 집계해서 보여줘야 함)</td><td>본인 참가자 uid 하나만, 그것도
                 <code>multiplayerSessions/&#123;hostUid&#125;/participants/&#123;그 uid&#125;</code>가
                 존재할 때만(=강퇴되지 않았을 때만 — 강퇴 시 이 참가자 항목 자체가 지워지므로 자동으로
@@ -2820,7 +2828,9 @@
                 투표한 참가자들의 닉네임을 모으고 그중 무작위 1명(<code>count>1</code>이면 서로 다른 참가자로
                 최대한 채우고 모자란 자리는 기존 <code>streamer-names.json</code> 무작위 이름으로 보충)을
                 지인 이름으로 쓴다 — 투표자가 0명이면(참가자 없음, 또는 아무도 그 선택지에 투표 안 함) 기존
-                동작 그대로 <code>pickRandomStreamerName()</code> 사용</td></tr>
+                동작 그대로 <code>pickRandomStreamerName()</code> 사용. (3) 이번 선택으로 <code>completed:
+                true</code>가 되면(엔딩 도달) <code>multiplayerSessions/&#123;uid&#125;</code>와 그 판의
+                <code>multiplayerVotes/&#123;uid&#125;/*</code>를 함께 삭제한다(2026-08-19, 사용자 확정)</td></tr>
                 <tr><td><code>joinMultiplayerSession</code> (신규)</td><td>닉네임 검증(한글 1~6자,
                 <code>/^[가-힣]&#123;1,6&#125;/</code>)만 하고, <code>kickedNicknames</code>에 있으면 거부한다.
                 <b>같은 세션 안 닉네임 중복은 허용</b>(2026-08-19, 사용자 확정 — "닉네임 중복 허용") — 서로
@@ -2856,9 +2866,11 @@
             <code>onValue</code>로 구독해 그 선택지를 고른 참가자 수를 숫자로 표시(주사위 구간도 동일한 방식 —
             단, 이 숫자는 참고용일 뿐 실제 굴림 결과에는 전혀 영향 없음). 참가자 목록에 강퇴 버튼 →
             <code>kickParticipant</code></p>
-            <p>엔딩 도달(<code>completed: true</code>) → <code>multiplayerSessions</code>의
-            <code>completed</code>도 true로 갱신 → 검색화면 진행중 목록에서 필터링돼 더 이상 안 보임(참가자
-            화면엔 엔딩까지는 그대로 보여준 뒤 종료 안내)</p>
+            <p>엔딩 도달(<code>completed: true</code>) → <code>multiplayerSessions/&#123;hostUid&#125;</code>와
+            그 판의 <code>multiplayerVotes/&#123;hostUid&#125;/*</code>를 통째로 삭제(2026-08-19, 사용자 확정 —
+            "지난 참여 기록 조회" 기능이 계획에 없어 안 쓰이는 데이터를 남기지 않기로 함) → 검색화면 진행중
+            목록에서 자연히 사라짐(문서 자체가 없으므로) — 참가자 화면엔 엔딩까지는 그대로 보여준 뒤 종료
+            안내</p>
         </div>
 
         <h3>주사위 구간(0~3세) 처리 (사용자 확정)</h3>
@@ -2884,14 +2896,14 @@
                 항상 uid로 구분하므로 문제없음, 화면 표시만 같은 문자열이 여러 번 보일 수 있음</td></tr>
                 <tr><td>멀티플레이 토글을 게임 시작 후에도 바꿀 수 있는지(2026-08-19 추가 확인)</td><td>가능 —
                 게임 화면에도 같은 토글을 노출, 언제든 켜고 끌 수 있음(<code>setMultiplayerEnabled</code>)</td></tr>
+                <tr><td>엔딩 후 세션 문서 정리 정책(2026-08-19 추가 확인)</td><td>엔딩 도달 즉시
+                <code>multiplayerSessions</code>·그 판의 <code>multiplayerVotes</code> 전부 삭제 — "지난
+                참여 기록 조회" 기능이 계획에 없어 안 쓰이는 데이터를 남기지 않기로 함</td></tr>
             </table>
         </div>
 
-        <h3>구현 시 다시 확인이 필요한 세부사항</h3>
-        <ul>
-            <li><code>multiplayerSessions</code> 문서를 엔딩 후에도 계속 남겨둘지(참여 이력 조회용) 아니면
-            일정 시간 뒤 정리할지 — 위 설계는 "일단 안 지움"으로 가정, 필요해지면 정리 정책 추가.</li>
-        </ul>
+        <p class="note">설계 관련 미확정 사항은 위 표로 전부 정리됐다(2026-08-19 기준). 구현 시작 전 추가
+        확인이 필요한 세부사항은 현재 없음.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
