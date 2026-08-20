@@ -3065,16 +3065,52 @@
         여러 판을 반복 플레이하도록 유도하는 도감 기능. 실제 코드는 아직 손대지 않았다.</p>
 
         <h3>기본 방향 (사용자 확정)</h3>
-        <p>엔딩 목록(현재 <code>ENDINGS</code> 11종 + 즉사 엔딩 5종, 총 16종)과 (14장에서 설계만 돼 있고
-        아직 미구현인) 트리거 루트 목록을 그리드로 나열하는 <b>도감형 컬렉션</b>. 아직 못 겪은 항목은
-        실루엣/물음표로 잠겨 있다가, 그 계정으로 실제로 겪은 순간 해금되어 밝혀진다. "몇 종류 중 몇 개
-        해금"이라는 숫자 자체가 재플레이 동기가 된다.</p>
+        <p>엔딩 목록(<code>ENDINGS</code> 11종 + 즉사 엔딩 5종, <b>총 16종 전부 도감 대상</b> — 즉사 엔딩도
+        별도 취급 없이 똑같이 해금 항목으로 카운트)과 (14장에서 설계만 돼 있고 아직 미구현인) 트리거 루트
+        목록을 그리드로 나열하는 <b>도감형 컬렉션</b>. 아직 못 겪은 항목은 실루엣/물음표로 잠겨 있다가, 그
+        계정으로 실제로 겪은 순간 해금되어 밝혀진다. "몇 종류 중 몇 개 해금"이라는 숫자 자체가 재플레이
+        동기가 된다.</p>
 
         <h3>왜 새 저장소가 필요한가</h3>
         <p><code>lifeGame/playthroughs/&#123;uid&#125;</code>는 계정당 저장 슬롯이 <b>1개뿐</b>이라 새 판을
         시작하면 이전 판 기록이 그 자리에서 덮어써진다(<code>getPlayRef()</code> 참고). 지금 구조엔 "이
         계정이 지금까지 겪은 엔딩들"을 판이 끝나도 남겨두는 저장소가 없다 — 도감은 여러 판에 걸쳐 누적돼야
         하므로 계정별로 별도 영구 기록이 새로 필요하다.</p>
+
+        <h3>열람·저장은 로그인 유저 전용 (2026-08-21, 사용자 확정)</h3>
+        <p>도감 <b>열람·저장 기능 자체를 로그인한 계정에만</b> 제공한다. 지금처럼 <code>signInAnonymously</code>만
+        한 상태로는 게임 플레이는 그대로 가능하지만 도감 탭은 "로그인하면 도감을 모을 수 있어요" 같은
+        안내와 함께 잠겨 있다 — 익명 uid가 기기·브라우저 저장소에 묶여 있어 다른 기기에서 진행도가
+        이어지지 않는 문제를 로그인 요구로 근본적으로 해결하는 방향.</p>
+
+        <h3>로그인 로직 — soop-stock-market 참고 (2026-08-21, 사용자 지시)</h3>
+        <p>같은 Firebase 프로젝트(<code>soop-stock-market</code>)를 쓰는 "스트리머 주식시장" 프로젝트가 이미
+        구글·카카오 로그인을 익명 계정 승격 방식으로 구현해뒀다(<code>soop-stock-market/functions/google.js</code>·
+        <code>kakao.js</code>). 이 게임도 그 패턴을 그대로 따르는 걸 기본안으로 삼는다:</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>제공자</th><th>연동 방식</th></tr>
+                <tr><td>구글</td><td>Firebase가 네이티브로 지원 — 클라이언트에서
+                <code>linkWithPopup(auth.currentUser, googleProvider)</code>로 <b>지금 쓰던 익명 uid에
+                그대로 구글 자격증명을 이어붙인다</b>(별도 매핑 테이블 불필요, 기존 <code>collection</code>·
+                <code>playthroughs</code> 진행도가 그대로 유지됨). 이미 다른 uid에 연동된 구글 계정이면
+                <code>auth/credential-already-in-use</code> 에러가 나고, 그 에러의 credential로
+                <code>signInWithCredential</code>을 호출해 기존 계정으로 전환한다. 서버 함수(신규
+                <code>linkGoogleAccount</code>)는 ID 토큰의 <code>firebase.identities["google.com"]</code>이
+                실제로 있는지만 재확인하고 <code>googleLinked: true</code>를 마킹 — 이메일·이름·프로필 사진은
+                저장하지 않는다.</td></tr>
+                <tr><td>카카오</td><td>Firebase 비지원 제공자라 서버 왕복이 필요 — 클라이언트가 카카오
+                access token을 신규 <code>linkKakaoAccount</code> 함수로 보내면, 서버가 카카오 API로 신원을
+                검증한 뒤 <code>kakaoLinks/&#123;kakaoId&#125;</code>에 uid를 매핑한다. 처음 연동이면 지금
+                uid를 그대로 승격, 이미 다른 uid에 연동된 적 있으면(다른 기기 등) <code>createCustomToken</code>으로
+                커스텀 토큰을 발급해 클라이언트가 <code>signInWithCustomToken</code>으로 그 기존 계정으로
+                전환한다.</td></tr>
+            </table>
+        </div>
+        <p class="note">두 경우 모두 핵심은 "새 계정을 만드는 게 아니라 지금 쓰던 익명 uid를 그대로
+        보호·승격"하는 것 — 로그인 전에 쌓인 <code>collection</code>·<code>playthroughs</code> 진행도가
+        로그인 후에도 그대로 이어진다. 단, 로그인 자체(구글 팝업/카카오 SDK 연동 UI, <code>linkGoogleAccount</code>/
+        <code>linkKakaoAccount</code> 함수 신설)는 이 도감 기능과 별개로 먼저 만들어야 하는 선행 작업이다.</p>
 
         <h3>데이터 모델 (초안)</h3>
         <div class="tbl-wrap">
@@ -3101,13 +3137,9 @@
         루트 섹션이 전부 잠긴 채로만 존재(콘텐츠 없이도 "출시 예정" 자리표시자로 미리 노출 가능).</p>
 
         <h3>구현 시 다시 확인이 필요한 세부사항</h3>
-        <ul>
-            <li>이 게임은 익명 로그인(<code>signInAnonymously</code>)이라 uid가 브라우저(로컬스토리지)에
-            묶인다 — 다른 기기·브라우저 저장소 초기화 시 도감 진행도가 이어지지 않는다는 한계를 UI에
-            어떻게 안내할지(또는 그대로 둘지) 미정.</li>
-            <li>즉사 엔딩 5종도 "정식 엔딩"으로 도감에 넣을지, 아니면 <code>ENDINGS</code> 11종만 도감
-            대상으로 하고 즉사 엔딩은 별도 취급할지 — 아직 확정하지 않음.</li>
-        </ul>
+        <p class="note">로그인 정책과 즉사 엔딩 포함 여부는 확정됐다. 남은 건 <b>로그인 연동 기능(구글/카카오
+        <code>link*Account</code> 함수 + 클라이언트 UI) 자체가 아직 이 프로젝트엔 전혀 없다</b>는 점 —
+        도감 구현에 앞서 로그인 연동부터 별도 작업으로 먼저 붙여야 한다.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
