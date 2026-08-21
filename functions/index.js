@@ -268,14 +268,25 @@ function pickBatchimJosa(word, withBatchim, withoutBatchim) {
 // 같은 선택지를 다시 만들어낼 수 있다(healthConditions만 있으면 재구성
 // 가능하므로 별도 저장 불필요). 영구 조건(rare-illness 등)은 애초에 이 함수를
 // 호출하는 쪽에서 걸러진다(healthConditions.filter(c => !c.permanent)).
-function buildSyntheticTreatmentChoice(condition) {
+// hasInsurance(2026-08-22, 사용자 지시 - "강제 치료 선택지 선택했을때 보험
+// 여부에 따라 현금 지출 일부 발생") - 18장 보험의 "회복 가능한 질병·부상 완전
+// 회피" 규칙(addCondition이 있는 선택지 전용)과는 별개다. 이 합성 선택지는
+// addCondition이 아니라 removeCondition(이미 있는 조건을 치료)이라 그 규칙
+// 대상이 아니므로, 여기서 직접 보험 유무에 따른 치료비 차등을 둔다 - 보험
+// 있으면 일부만(-1), 없으면 전액(-2) 부담. 텍스트(선택 전 노출)는 보험 여부와
+// 무관하게 동일하게 유지하고("치료 여부"만 알 수 있어야 함), 실제 비용·결과
+// 문구(선택 후에만 공개)만 갈린다.
+function buildSyntheticTreatmentChoice(condition, hasInsurance) {
+  const wealthCost = hasInsurance ? -1 : -2;
   if (condition.mental) {
     const josa = pickBatchimJosa(condition.label, '을', '를');
     return {
       id: 'treat:' + condition.id,
       text: condition.label + josa + ' 더는 미루지 않고 전문가와 상담을 받는다',
-      deltas: { happiness: 4, wealth: -1 },
-      result: '마음먹고 나선 상담이, 생각보다 큰 위안이 됐다.',
+      deltas: { happiness: 4, wealth: wealthCost },
+      result: hasInsurance
+        ? '보험 덕분에 상담비 부담을 던 채로, 마음이 한결 편안해졌다.'
+        : '마음먹고 나선 상담이 큰 위안이 됐지만, 상담비는 전부 직접 부담해야 했다.',
       removeCondition: condition.id
     };
   }
@@ -283,8 +294,10 @@ function buildSyntheticTreatmentChoice(condition) {
   return {
     id: 'treat:' + condition.id,
     text: condition.label + josa + ' 더는 미루지 않고 병원에서 제대로 치료받는다',
-    deltas: { health: 4, wealth: -1 },
-    result: '진작 왔어야 했다는 생각이 들 만큼, 몸이 한결 가벼워졌다.',
+    deltas: { health: 4, wealth: wealthCost },
+    result: hasInsurance
+      ? '보험 덕분에 치료비 부담을 던 채로, 몸이 한결 가벼워졌다.'
+      : '진작 왔어야 했다는 생각이 들 만큼 몸은 가벼워졌지만, 치료비는 전액 그대로 나갔다.',
     removeCondition: condition.id
   };
 }
@@ -292,13 +305,16 @@ function buildSyntheticTreatmentChoice(condition) {
 // 'treat:<conditionId>' 형태의 합성 선택지 id를, 지금 healthConditions에서
 // 그 조건을 찾아 다시 만들어낸다 - 그 조건이 이미 나아서 사라졌거나 애초에
 // 없으면(저장 슬롯이 오래된 경우 등) null을 반환해 호출부가 "유효하지 않은
-// 선택지"로 방어적으로 처리하게 한다.
-function resolveSyntheticChoice(id, healthConditions) {
+// 선택지"로 방어적으로 처리하게 한다. hasInsurance는 실제 치료비 차등에만
+// 쓰이므로(위 buildSyntheticTreatmentChoice 참고), 선택지 미리보기용으로만
+// 쓰는 publicStage 호출부는 굳이 안 넘겨도 무방하다(기본값 false - 텍스트에는
+// 영향 없음).
+function resolveSyntheticChoice(id, healthConditions, hasInsurance) {
   if (!id.startsWith('treat:')) return null;
   const conditionId = id.slice('treat:'.length);
   const condition = (healthConditions || []).find((c) => c.id === conditionId);
   if (!condition) return null;
-  return buildSyntheticTreatmentChoice(condition);
+  return buildSyntheticTreatmentChoice(condition, !!hasInsurance);
 }
 
 // guaranteeCure가 필요했는데 pickVisibleChoiceIds가 그 나이의 실제 콘텐츠
@@ -1056,9 +1072,14 @@ const submitChoice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
   }
   // 합성 치료 선택지(id 'treat:<conditionId>', ensureGuaranteedCure 참고)는
   // game-data.js의 stage.choices에 없으므로 resolveSyntheticChoice로 따로
-  // 되짚어 찾는다.
+  // 되짚어 찾는다. 보험 가입 중이면 치료비가 일부만(할인) 나가므로 지금
+  // 재산 상태에서 hasInsurance를 같이 넘긴다.
   const choice = String(choiceId).startsWith('treat:')
-    ? resolveSyntheticChoice(choiceId, Array.isArray(play.healthConditions) ? play.healthConditions : [])
+    ? resolveSyntheticChoice(
+        choiceId,
+        Array.isArray(play.healthConditions) ? play.healthConditions : [],
+        (Array.isArray(play.assets) ? play.assets : []).some((a) => a.id === 'insurance')
+      )
     : stage.choices.find((c) => c.id === choiceId);
   if (!choice) throw new HttpsError('invalid-argument', '유효하지 않은 선택지입니다.');
   // 화면에 노출되지 않은(그 회차에 뽑히지 않은) 선택지를 우회로 제출하는 걸 막는다.
