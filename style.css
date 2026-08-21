@@ -324,6 +324,28 @@
 
   footer { color: var(--text-faint); font-size: 12px; text-align: center; margin-top: 40px; }
 
+  /* 15장 Google 광고 1단계 - 실제 AdSense 단위 대신 자리표시자만 먼저 넣어
+     레이아웃(특히 모바일 하단 앵커가 선택지 버튼을 가리는지)을 검증한다.
+     2단계에서 이 자리(#adSlotEnding 내부 콘텐츠, #adAnchorBanner)를
+     실제 <ins class="adsbygoogle"> 광고 단위로 교체한다. */
+  .ad-slot {
+    margin: 16px 0 4px; padding: 16px; border: 1px dashed var(--line); border-radius: 10px;
+    text-align: center; background: var(--panel-2);
+  }
+  .ad-slot-label { margin: 0; font-size: 12px; color: var(--text-faint); letter-spacing: 0.03em; }
+
+  .ad-anchor-banner {
+    display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+    padding: 10px 14px; background: var(--panel); border-top: 1px solid var(--line); text-align: center;
+  }
+  @media (max-width: 640px) {
+    /* 앵커 배너 높이만큼 본문 하단 여백을 늘려, 선택지 버튼(#gameSection 하단)이
+       배너에 가려지지 않게 한다 - .wrap 기본 padding-bottom(100px)에 배너 높이를
+       더한 값. */
+    .ad-anchor-banner { display: block; }
+    .wrap { padding-bottom: 160px; }
+  }
+
   /* ------------------------------------------------------------
      PC 화면(900px 이상)에서만 진행 화면(#gameSection)을 펼친 책처럼
      좌/우 두 페이지로 나눈다 - 왼쪽 페이지엔 스탯 바 + 재산/건강/가족/
