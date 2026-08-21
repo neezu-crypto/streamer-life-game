@@ -138,6 +138,7 @@
             <li><a href="#sec14">트리거 루트 (설계, 미구현)</a></li>
             <li><a href="#sec15">Google 광고 도입 (설계, 미구현)</a></li>
             <li><a href="#sec16">해금 도감 — 엔딩·루트 컬렉션 (설계, 미구현)</a></li>
+            <li><a href="#sec17">나의 재능·나의 취미 (설계, 미구현)</a></li>
         </ol>
     </div>
 
@@ -3196,6 +3197,65 @@
         <p class="note">로그인 정책과 즉사 엔딩 포함 여부는 확정됐다. 남은 건 <b>로그인 연동 기능(구글/카카오
         <code>link*Account</code> 함수 + 클라이언트 UI) 자체가 아직 이 프로젝트엔 전혀 없다</b>는 점 —
         도감 구현에 앞서 로그인 연동부터 별도 작업으로 먼저 붙여야 한다.</p>
+    </section>
+
+    <section id="sec17">
+        <h2><span class="num">17</span>나의 재능·나의 취미 (2026-08-21, 사용자 설계 — 미구현)</h2>
+        <p class="note"><b>이 섹션도 설계 정리 단계이며 아직 구현되지 않았다.</b> 상세 기능(직업·장소·건강·
+        가족·지인·재산)에 "나의 재능"·"나의 취미"를 추가하는 기획. 실제 코드는 아직 손대지 않았다.</p>
+
+        <h3>핵심 설계 원칙 (사용자 확정)</h3>
+        <ul>
+            <li><b>값 구조는 지인형 — 여러 개 동시 보유.</b> 직업·장소처럼 하나를 고르면 기존 걸 덮어쓰는
+            단일값이 아니라, 지인·재산처럼 여러 재능/여러 취미를 동시에 계속 누적해서 가질 수 있다.</li>
+            <li><b>획득 시점은 직업형 — 게임 중 선택지로.</b> 캐릭터 생성 시 무작위 배정(0세 출생 배경형)이
+            아니라, 특정 나이의 선택지를 고르면 그 순간 재능/취미가 생기는 방식 — 직업 이벤트와 같은 패턴.</li>
+            <li><b>게이팅에도 사용.</b> 도감·엔딩 패널에 표시만 되는 플레이버용이 아니라, 이후 선택지 노출
+            조건(재능/취미가 있어야만 뜨는 선택지)으로도 쓰인다 — 직업·지인과 같은 수준의 콘텐츠
+            확장성을 확보.</li>
+        </ul>
+
+        <h3>새 선택지 필드 (초안 — 기존 재산·지인 패턴 그대로 재사용)</h3>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>필드</th><th>용도</th></tr>
+                <tr><td><code>addTalent: &#123;id, label&#125;</code></td><td>이미 같은 id의 재능이 없으면
+                <code>talents[]</code>에 추가(<code>addAsset</code>과 동일한 중복 방지 방식)</td></tr>
+                <tr><td><code>addHobby: &#123;id, label&#125;</code></td><td><code>hobbies[]</code>에 동일하게
+                추가</td></tr>
+                <tr><td><code>requiresTalent: talentId</code></td><td>그 특정 재능을 갖고 있어야만 후보
+                (<code>requiresAsset</code>과 동일한 단일 id 일치 검사)</td></tr>
+                <tr><td><code>requiresAnyTalent: true</code></td><td>재능이 무엇이든 하나라도 있어야 후보
+                (<code>requiresAnyAcquaintance</code>와 동일한 패턴)</td></tr>
+                <tr><td><code>requiresHobby: hobbyId</code> / <code>requiresAnyHobby: true</code></td>
+                <td>취미 버전도 재능과 완전히 동일한 방식으로 대칭 추가</td></tr>
+            </table>
+        </div>
+        <p class="note">제거 필드(<code>removeTalent</code>/<code>removeHobby</code>)는 두지 않는다 — 재산처럼
+        처분되거나 지인처럼 관계가 끊기는 게 아니라, 한 번 익힌 재능·취미는 그 판이 끝날 때까지 계속
+        유지된다고 보는 게 자연스럽다.</p>
+
+        <h3>엔진 변경 (핵심)</h3>
+        <p><code>pickVisibleChoiceIds()</code>에 <code>talentIds</code>·<code>hobbyIds</code> 2개를 새
+        위치 인자로 추가하고(가족·직업·재산·지인·장소에 이어 이번이 6번째·7번째 추가 인자), 4개 호출부
+        (<code>publicStage</code> 폴백, <code>applyChoice</code>의 <code>nextVisibleIds</code>, <code>startPlaythrough</code>,
+        <code>resumePlaythrough</code>) 전부 갱신. <code>applyChoice()</code>의 방어적 검증 로직에도
+        <code>requiresAsset</code>/<code>requiresAnyAcquaintance</code> 옆에 재능·취미 버전을 나란히
+        추가한다.</p>
+        <p class="note"><b>위치 인자가 이미 많이 늘어난 상태</b>(가족 관련 3개 + 직업·재산·지인(2개)·장소 +
+        이번에 2개 = <code>pickVisibleChoiceIds()</code> 인자가 두 자릿수에 근접) — 재능·취미 구현 자체에
+        지장은 없지만, 이후 또 비슷한 게이팅 축이 추가된다면 그때는 위치 인자 나열 대신 옵션 객체
+        (<code>&#123;familyIds, occupationId, ...&#125;</code>)로 리팩터링하는 걸 검토할 필요가 있다는
+        점만 남겨둔다.</p>
+
+        <h3>UI (초안)</h3>
+        <p>기존 "현재 직업"·"현재 장소" 패널과 같은 자리에 "나의 재능"·"나의 취미" 칩 목록 패널을 게임 중
+        화면·엔딩 화면에 추가하고, 갤러리 상세 패널(16장 이전에 이미 있는 기존 7개 패널)에도 나란히 추가해
+        총 9개 패널이 된다.</p>
+
+        <h3>콘텐츠 비용</h3>
+        <p class="note">직업 이벤트와 같은 "1 사건 = 6 선택지" 단위로, 나이대별로 재능/취미 획득 이벤트를
+        묶어 넣는 방식을 기본안으로 삼는다 — 몇 개·어느 나이에 배치할지는 실제 작성 착수 시점에 정한다.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
