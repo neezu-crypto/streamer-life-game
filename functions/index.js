@@ -112,6 +112,45 @@ function resolveCurrentLocation(locationHistory) {
   return locationHistory.length ? locationHistory[locationHistory.length - 1] : DEFAULT_LOCATION;
 }
 
+// STAGES 인덱스가 곧 나이라는 전제(pickNextStageIndex 참고)를 이용해 stage.id로
+// 그 나이(=인덱스)를 바로 찾기 위한 맵 - 트리거 루트의 기간 만료 계산
+// (buildRouteState)에 필요.
+const STAGE_INDEX_BY_ID = new Map(STAGES.map((s, i) => [s.id, i]));
+
+// 트리거 루트(14장, 2026-08-22 구현 - 사용자 설계) - 직업·장소와 완전히 같은
+// 원칙으로 저장 슬롯에 전용 필드를 두지 않고 choiceLog에서 매번 다시 계산한다.
+// choiceLog를 시간순으로 훑어 가장 최근 startsRoute 이후, 그 루트를 끝내는
+// endsRoute:true 선택이 아직 한 번도 없었으면 "활성"으로 본다. 활성이어도
+// (asOfStageIndex - 루트 시작 stageIndex) >= maxDurationYears면 기간 만료로
+// 더 이상 활성이 아닌 것으로 취급(별도 종료 선택 없이 자동 종료). 재진입 방지를
+// 위해 "이미 겪은 루트 id 목록"도 같이 반환한다 - choiceLog에 그 startsRoute.id가
+// 단 한 번이라도 나타난 적 있으면 겪은 것으로 간주(끝까지 갔든 조기 종료했든).
+function buildRouteState(choiceLog, asOfStageIndex) {
+  if (!Array.isArray(choiceLog)) return { activeRoute: null, experiencedRouteIds: [] };
+  const experiencedRouteIds = [];
+  let activeRoute = null;
+  for (const entry of choiceLog) {
+    const stage = STAGE_BY_ID.get(entry.stageId);
+    const choice = stage && stage.choices.find((c) => c.id === entry.choiceId);
+    if (!stage || !choice) continue;
+    if (choice.startsRoute) {
+      experiencedRouteIds.push(choice.startsRoute.id);
+      activeRoute = {
+        id: choice.startsRoute.id,
+        label: choice.startsRoute.label,
+        maxDurationYears: choice.startsRoute.maxDurationYears,
+        startStageIndex: STAGE_INDEX_BY_ID.get(stage.id)
+      };
+    } else if (choice.endsRoute && activeRoute) {
+      activeRoute = null;
+    }
+  }
+  if (activeRoute && (asOfStageIndex - activeRoute.startStageIndex) >= activeRoute.maxDurationYears) {
+    activeRoute = null;
+  }
+  return { activeRoute, experiencedRouteIds };
+}
+
 // 계정당 저장 슬롯 1개 - lifeGame/playthroughs/{uid}가 push id 없이 그 유저의
 // "그 한 판"을 직접 가리킨다(예전엔 .../{uid}/{playId}로 여러 판을 쌓을 수
 // 있었지만, "창을 꺼도 이어할 수 있게" 요청에 맞춰 계정당 1개로 단순화했다 -
@@ -197,15 +236,38 @@ async function recordCollectionEndingIfLoggedIn(db, uid, endingId) {
 // 즉사 엔딩 비율이 시뮬레이션 기준 1.44%→48.8%까지 치솟는 문제가 있었다 -
 // 이 강제 노출로 무작위 플레이에서도 최소 3턴에 한 번은 회복 기회가
 // 보장된다.
-function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds, currentOccupationId, currentIntroId, activeAssetIds, currentLocationId, activeAcquaintances, activeTalentIds, activeHobbyIds, guaranteeCure) {
-  const conditionIds = activeConditionIds || [];
-  const familyIds = activeFamilyMemberIds || [];
-  const assetIds = activeAssetIds || [];
-  const locationId = currentLocationId || DEFAULT_LOCATION.id;
-  const hasAnyAcquaintance = !!(activeAcquaintances && activeAcquaintances.length);
-  const talentIds = activeTalentIds || [];
-  const hobbyIds = activeHobbyIds || [];
-  const eligible = choices.filter((c) => {
+// activeRouteId/experiencedRouteIds(2026-08-22, 14장 트리거 루트 - 사용자
+// 설계) - 지금까지의 requires*와 성격이 다르다: 다른 필드들은 전부 "AND로
+// 후보를 좁히기만" 했는데, 루트는 그 나이 선택지 풀 전체를 통째로 대체한다.
+// activeRouteId가 있으면 requiresRoute가 그 루트와 일치하는 선택지만이
+// 유일한 후보 풀이 되고(다른 모든 선택지 - mandatory 포함 - 는 예외 없이
+// 안 뜬다), 그 안에서만 기존 requires* 게이팅이 추가로 적용된다. 없으면
+// requiresRoute가 붙은 선택지 전부와, 이미 겪은 적 있는 루트로 진입시키는
+// startsRoute 선택지(재진입 방지)가 후보에서 빠진다.
+//
+// 위치 인자가 12개까지 늘어나 순서를 헷갈리기 쉬워진 시점이라(17장 코드
+// 주석에서 이미 예고했던 리팩터링), 이번에 옵션 객체(ctx) 하나로 바꿨다 -
+// 호출부는 필드명으로 값을 넘기므로 순서 실수로 값이 뒤바뀔 위험이 없어진다.
+function pickVisibleChoiceIds(choices, ctx) {
+  ctx = ctx || {};
+  const conditionIds = ctx.conditionIds || [];
+  const familyIds = ctx.familyIds || [];
+  const currentOccupationId = ctx.occupationId || null;
+  const currentIntroId = ctx.introId || null;
+  const assetIds = ctx.assetIds || [];
+  const locationId = ctx.locationId || DEFAULT_LOCATION.id;
+  const hasAnyAcquaintance = !!(ctx.acquaintances && ctx.acquaintances.length);
+  const talentIds = ctx.talentIds || [];
+  const hobbyIds = ctx.hobbyIds || [];
+  const guaranteeCure = !!ctx.guaranteeCure;
+  const activeRouteId = ctx.activeRouteId || null;
+  const experiencedRouteIds = ctx.experiencedRouteIds || [];
+
+  const basePool = activeRouteId
+    ? choices.filter((c) => c.requiresRoute === activeRouteId)
+    : choices.filter((c) => !c.requiresRoute && !(c.startsRoute && experiencedRouteIds.includes(c.startsRoute.id)));
+
+  const eligible = basePool.filter((c) => {
     if (c.requiresCondition && !conditionIds.includes(c.requiresCondition)) return false;
     if (c.requiresNoCondition && c.requiresNoCondition.some((id) => conditionIds.includes(id))) return false;
     if (c.requiresAnyCondition && !conditionIds.length) return false;
@@ -372,7 +434,7 @@ function ensureGuaranteedCure(stageChoices, ids, healthConditions, guaranteeCure
 // introId가 주어지면(그 판의 저장 슬롯에 이미 뽑아둔 상황 설명 id) 그
 // 상황의 텍스트를 resolveIntroText로 찾아 쓴다 - pickIntroId() 참고.
 function publicStage(stage, visibleIds, introId, healthConditions) {
-  const ids = visibleIds && visibleIds.length ? visibleIds : pickVisibleChoiceIds(stage.choices, null, null, null, introId, null, null, null, null, null, false);
+  const ids = visibleIds && visibleIds.length ? visibleIds : pickVisibleChoiceIds(stage.choices, { introId });
   // ids 중 'treat:'로 시작하는 항목은 stage.choices(game-data.js 콘텐츠)에
   // 없는 합성 치료 선택지(ensureGuaranteedCure 참고)라, resolveSyntheticChoice로
   // 그 자리에서 다시 만들어 끼워 넣는다.
@@ -560,6 +622,15 @@ async function applyChoice(db, playRef, play, stage, choice) {
   }
   if (choice.requiresAnyHobby && !priorHobbies.length) {
     throw new HttpsError('failed-precondition', '지금 취미가 없어서 고를 수 없는 선택지입니다.');
+  }
+  // 트리거 루트(14장) - requiresRoute는 지금 그 루트가 활성 상태일 때만,
+  // startsRoute는 그 루트를 이미 겪은 적이 없을 때만(재진입 방지) 허용한다.
+  const priorRouteState = buildRouteState(Array.isArray(play.choiceLog) ? play.choiceLog : [], play.stageIndex);
+  if (choice.requiresRoute && (!priorRouteState.activeRoute || priorRouteState.activeRoute.id !== choice.requiresRoute)) {
+    throw new HttpsError('failed-precondition', '지금은 그 루트가 활성 상태가 아니라 고를 수 없는 선택지입니다.');
+  }
+  if (choice.startsRoute && priorRouteState.experiencedRouteIds.includes(choice.startsRoute.id)) {
+    throw new HttpsError('failed-precondition', '이미 겪은 루트라 다시 시작할 수 없습니다.');
   }
 
   // prizeTable(가중치 배열)이 붙은 선택지(복권 당첨 확인 등)는 choice.deltas·
@@ -866,6 +937,10 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // 3의 배수일 때 치료 선택지를 강제 노출한다.
   const sickStreak = healthConditions.length ? (play.sickStreak || 0) + 1 : 0;
 
+  // 트리거 루트(14장) - 방금 갱신된 choiceLog 기준으로 "다음 구간(nextIndex)
+  // 시점에" 활성 루트가 무엇인지 다시 계산한다(buildRouteState 주석 참고).
+  const { activeRoute: nextActiveRoute, experiencedRouteIds } = buildRouteState(choiceLog, nextIndex);
+
   const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers, acquaintances, assets, cashHoldings, talents, hobbies, sickStreak, insuranceUnpaidYears };
 
   let ending = null;
@@ -888,20 +963,27 @@ async function applyChoice(db, playRef, play, stage, choice) {
     // requiresAsset을 걸러야 "이번 선택으로 막 낫거나 생긴 조건/가족/재산"이
     // 다음 구간 노출에 바로 반영된다(예: 복권을 산 바로 다음 구간부터 "당첨
     // 확인" 선택지가 뜰 수 있어야 함).
-    nextVisibleIds = pickVisibleChoiceIds(
-      STAGES[nextIndex].choices,
-      healthConditions.map((c) => c.id),
-      familyMembers.map((f) => f.id),
-      currentOccupation ? currentOccupation.id : null,
-      nextIntroId,
-      assets.map((a) => a.id),
-      currentLocation.id,
+    // 루트 진행 중엔 "완전 배타적, 예외 없음"(14장 사용자 확정)이라 건강 조건
+    // 강제 치료 안전망(guaranteeCure)도 예외 없이 적용하지 않는다 - 그 몇 년
+    // 동안은 루트 전용 콘텐츠만 뜨는 게 맞다.
+    const guaranteeCureNow = !nextActiveRoute && sickStreak > 0 && sickStreak % 3 === 0;
+    nextVisibleIds = pickVisibleChoiceIds(STAGES[nextIndex].choices, {
+      conditionIds: healthConditions.map((c) => c.id),
+      familyIds: familyMembers.map((f) => f.id),
+      occupationId: currentOccupation ? currentOccupation.id : null,
+      introId: nextIntroId,
+      assetIds: assets.map((a) => a.id),
+      locationId: currentLocation.id,
       acquaintances,
-      talents.map((t) => t.id),
-      hobbies.map((h) => h.id),
-      sickStreak > 0 && sickStreak % 3 === 0
-    );
-    nextVisibleIds = ensureGuaranteedCure(STAGES[nextIndex].choices, nextVisibleIds, healthConditions, sickStreak > 0 && sickStreak % 3 === 0);
+      talentIds: talents.map((t) => t.id),
+      hobbyIds: hobbies.map((h) => h.id),
+      guaranteeCure: guaranteeCureNow,
+      activeRouteId: nextActiveRoute ? nextActiveRoute.id : null,
+      experiencedRouteIds
+    });
+    if (!nextActiveRoute) {
+      nextVisibleIds = ensureGuaranteedCure(STAGES[nextIndex].choices, nextVisibleIds, healthConditions, guaranteeCureNow);
+    }
     updates.visibleChoiceIds = nextVisibleIds;
   }
 
@@ -948,6 +1030,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
     hobbies,
     currentOccupation,
     currentLocation,
+    currentRoute: completed ? null : (nextActiveRoute ? { id: nextActiveRoute.id, label: nextActiveRoute.label } : null),
     choiceHistory: completed ? buildChoiceHistory(choiceLog) : null,
     occupationHistory: completed ? occupationHistory : null,
     locationHistory: completed ? locationHistory : null
@@ -983,7 +1066,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   const db = getDatabase();
   const stats = freshStats();
   const currentIntroId = pickIntroId(STAGES[0]);
-  const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices, [], [], null, currentIntroId, [], DEFAULT_LOCATION.id, [], [], [], false);
+  const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices, { introId: currentIntroId, locationId: DEFAULT_LOCATION.id });
   await Promise.all([
     playRefFor(db, uid).set({
       streamerName,
@@ -1011,7 +1094,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
     db.ref('lifeGame/stats/totals/started').set(ServerValue.increment(1))
   ]);
 
-  return { stats, healthConditions: [], familyMembers: [], acquaintances: [], assets: [], cashHoldings: 0, talents: [], hobbies: [], currentOccupation: null, currentLocation: DEFAULT_LOCATION, stage: publicStage(STAGES[0], visibleChoiceIds, currentIntroId, []) };
+  return { stats, healthConditions: [], familyMembers: [], acquaintances: [], assets: [], cashHoldings: 0, talents: [], hobbies: [], currentOccupation: null, currentLocation: DEFAULT_LOCATION, currentRoute: null, stage: publicStage(STAGES[0], visibleChoiceIds, currentIntroId, []) };
 });
 
 // 창을 껐다가 다시 열었을 때 - 저장된 판이 있으면 지금 구간을 그대로 이어서
@@ -1055,6 +1138,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
   const currentOccupation = occupationHistory.length ? occupationHistory[occupationHistory.length - 1] : null;
   const locationHistory = buildLocationHistory(play.choiceLog);
   const currentLocation = resolveCurrentLocation(locationHistory);
+  const { activeRoute, experiencedRouteIds } = buildRouteState(play.choiceLog, play.stageIndex);
 
   // visibleChoiceIds/currentIntroId가 이미 저장돼 있으면 그대로 재사용해서
   // 재접속해도 같은 3개·같은 상황 설명이 다시 뜨게 한다(이 필드들이 생기기
@@ -1070,20 +1154,24 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
   }
   let visibleChoiceIds = play.visibleChoiceIds;
   if (!visibleChoiceIds || !visibleChoiceIds.length) {
-    visibleChoiceIds = pickVisibleChoiceIds(
-      stage.choices,
-      healthConditions.map((c) => c.id),
-      familyMembers.map((f) => f.id),
-      currentOccupation ? currentOccupation.id : null,
-      currentIntroId,
-      assets.map((a) => a.id),
-      currentLocation.id,
+    const guaranteeCureNow = !activeRoute && (play.sickStreak || 0) > 0 && (play.sickStreak || 0) % 3 === 0;
+    visibleChoiceIds = pickVisibleChoiceIds(stage.choices, {
+      conditionIds: healthConditions.map((c) => c.id),
+      familyIds: familyMembers.map((f) => f.id),
+      occupationId: currentOccupation ? currentOccupation.id : null,
+      introId: currentIntroId,
+      assetIds: assets.map((a) => a.id),
+      locationId: currentLocation.id,
       acquaintances,
-      talents.map((t) => t.id),
-      hobbies.map((h) => h.id),
-      (play.sickStreak || 0) > 0 && (play.sickStreak || 0) % 3 === 0
-    );
-    visibleChoiceIds = ensureGuaranteedCure(stage.choices, visibleChoiceIds, healthConditions, (play.sickStreak || 0) > 0 && (play.sickStreak || 0) % 3 === 0);
+      talentIds: talents.map((t) => t.id),
+      hobbyIds: hobbies.map((h) => h.id),
+      guaranteeCure: guaranteeCureNow,
+      activeRouteId: activeRoute ? activeRoute.id : null,
+      experiencedRouteIds
+    });
+    if (!activeRoute) {
+      visibleChoiceIds = ensureGuaranteedCure(stage.choices, visibleChoiceIds, healthConditions, guaranteeCureNow);
+    }
     resumeUpdates.visibleChoiceIds = visibleChoiceIds;
   }
   if (Object.keys(resumeUpdates).length) {
@@ -1102,6 +1190,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
     hobbies,
     currentOccupation,
     currentLocation,
+    currentRoute: activeRoute ? { id: activeRoute.id, label: activeRoute.label } : null,
     stage: publicStage(stage, visibleChoiceIds, currentIntroId, healthConditions)
   };
 });

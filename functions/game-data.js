@@ -1685,7 +1685,13 @@ const STAGES = [
         text: '우연히 재능을 눈여겨본 어른에게 제안을 받는다',
         deltas: { fame: 2, happiness: 2 },
         result: '명함 한 장이, 평소와 다른 하루를 만들었다.',
-        requiresAnyTalent: true
+        requiresAnyTalent: true,
+        // 트리거 루트(14장, 2026-08-22 구현) - 이 제안을 받아들이는 순간 연예계
+        // 연습생 루트에 진입한다. maxDurationYears: 4는 진입한 다음 해(16세)부터
+        // 3개 나이(16·17·18세) 동안 그 루트 전용 콘텐츠만 뜨다가 19세부터 자동
+        // 만료되는 걸 의미한다(buildRouteState 참고 - "시작 나이+1"부터
+        // maxDurationYears-1개 나이가 실제 루트 구간).
+        startsRoute: { id: 'entertainment-industry', label: '🎤 연예계 연습생', maxDurationYears: 4 }
       },
       {
         id: 'sleep-deprivation-toll',
@@ -1831,6 +1837,51 @@ const STAGES = [
         deltas: { health: -3, happiness: -6 },
         result: '거울 앞에 서는 시간이, 점점 괴로워졌다.',
         addCondition: { id: 'eating-disorder', label: '🍽️ 섭식장애', mental: true }
+      },
+      // 연예계 연습생 루트(14장, 2026-08-22 구현) 1년차 - 15세 talent-scout-approach로
+      // 진입한 경우에만 이 6개만 후보가 된다(다른 선택지는 예외 없이 전부 안 뜸).
+      {
+        id: 'ent-trainee-hard-schedule-16',
+        text: '새벽부터 밤까지 이어지는 연습 스케줄을 버텨낸다',
+        deltas: { fame: 2, health: -4, happiness: -2 },
+        result: '몸은 파김치가 됐지만, 거울 속 춤선은 조금씩 나아지고 있었다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-debut-team-competition-16',
+        text: '데뷔조 자리를 놓고 동기들과 경쟁한다',
+        deltas: { fame: 3, relationship: -3, happiness: -2 },
+        result: '친구였던 얼굴들이, 어느새 넘어야 할 상대로 보이기 시작했다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-school-conflict-16',
+        text: '학교 수업과 연습 스케줄 사이에서 아슬아슬하게 저글링한다',
+        deltas: { health: -3, wealth: -1 },
+        result: '졸린 눈으로 교실과 연습실을 오가는 하루하루였다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-agency-treatment-16',
+        text: '소속사의 부당한 대우에도 계약 때문에 참는다',
+        deltas: { happiness: -4, wealth: 1 },
+        result: '부당하다고 느껴도, 지금은 버티는 것 말고는 방법이 없어 보였다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-bonding-16',
+        text: '같은 처지의 연습생 동료와 힘든 시간을 나누며 의지한다',
+        deltas: { relationship: 4, happiness: 3 },
+        result: '말 안 해도 서로의 힘듦을 아는 사이가, 큰 위안이 됐다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-quits-early-16',
+        text: '이 길이 아니라는 확신이 들어 연습생 생활을 그만둔다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '후회는 없었다 - 적어도 스스로 내린 결정이었으니까.',
+        requiresRoute: 'entertainment-industry',
+        endsRoute: true
       }
     ]
   },
@@ -1925,6 +1976,50 @@ const STAGES = [
         text: '입시 스트레스를 취미로 풀어내며 버틴다',
         deltas: { happiness: 2 },
         result: '짧은 그 시간만큼은, 아무 생각도 나지 않아 좋았다.'
+      },
+      // 연예계 연습생 루트 2년차 - 경쟁 심화
+      {
+        id: 'ent-trainee-lineup-announced-17',
+        text: '다음 데뷔조 명단 발표를 초조하게 기다린다',
+        deltas: { happiness: -3, fame: 1 },
+        result: '명단에 적힌 이름들 사이에서, 심장이 내려앉을 것 같았다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-broadcast-opportunity-17',
+        text: '작은 방송 출연 기회를 잡아 얼굴을 알린다',
+        deltas: { fame: 5, happiness: 3, health: -2 },
+        result: '짧은 분량이었지만, 처음으로 누군가 알아봐 준 순간이었다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-appearance-criticism-17',
+        text: '외모 지적 댓글에 시달리며 자존감이 흔들린다',
+        deltas: { happiness: -5, health: -1 },
+        result: '화면 속 나와 거울 속 나 사이의 간극이, 자꾸만 크게 느껴졌다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-parents-worry-17',
+        text: '불안정한 미래를 걱정하는 부모님과 갈등을 겪는다',
+        deltas: { relationship: -3, happiness: -2 },
+        result: '믿어달라는 말과 걱정된다는 말이, 매번 평행선을 그었다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-contract-renewal-17',
+        text: '재계약을 앞두고 조건을 두고 소속사와 신경전을 벌인다',
+        deltas: { wealth: 2, happiness: -2 },
+        result: '숫자 몇 개를 두고 벌이는 줄다리기가, 생각보다 진을 뺐다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-quits-mid-17',
+        text: '누적된 압박감을 못 이겨 중도에 포기를 선언한다',
+        deltas: { happiness: 3, health: 2 },
+        result: '짐을 싸며, 이상하게도 홀가분한 기분이 먼저 들었다.',
+        requiresRoute: 'entertainment-industry',
+        endsRoute: true
       }
     ]
   },
@@ -2086,6 +2181,50 @@ const STAGES = [
         result: '증거를 들이밀어도, 끝까지 모르는 일이라고 잡아뗐다.',
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
+      },
+      // 연예계 연습생 루트 3년차 - 데뷔 갈림길(19세부터는 자동 만료로 정상 콘텐츠로 복귀)
+      {
+        id: 'ent-trainee-debut-success-18',
+        text: '마침내 데뷔조에 최종 발탁된다',
+        deltas: { fame: 10, happiness: 6, wealth: -2 },
+        result: '몇 년간의 연습이 무대 위 조명 아래에서 보답받는 순간이었다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-debut-failure-18',
+        text: '최종 데뷔조 발표에서 끝내 이름이 빠진다',
+        deltas: { happiness: -8, fame: -2 },
+        result: '몇 년의 시간이 통보 한 줄에 정리되는 걸, 그저 지켜볼 수밖에 없었다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-solo-pivot-18',
+        text: '그룹 대신 솔로 활동으로 방향을 튼다',
+        deltas: { fame: 4, happiness: 2, relationship: -2 },
+        result: '혼자가 된다는 두려움보다, 스스로 선택했다는 확신이 더 컸다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-viral-moment-18',
+        text: '우연히 올린 영상이 화제가 되며 예상 밖의 관심을 받는다',
+        deltas: { fame: 7, happiness: 4 },
+        result: '계획한 적 없던 순간이, 인생의 방향을 슬쩍 틀어놨다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-contract-dispute-18',
+        text: '불공정 계약을 두고 소속사와 정식으로 분쟁을 겪는다',
+        deltas: { wealth: -3, happiness: -3, fame: 2 },
+        result: '정당한 몫을 되찾는 일이, 생각보다 길고 지치는 싸움이었다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-returns-to-school-18',
+        text: '연예계를 뒤로하고 학업으로 완전히 복귀하기로 결심한다',
+        deltas: { happiness: 1, wealth: -1 },
+        result: '다른 길을 걷기로 한 결정에, 이상하게도 마음이 편안해졌다.',
+        requiresRoute: 'entertainment-industry',
+        endsRoute: true
       }
     ]
   },
