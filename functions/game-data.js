@@ -1002,7 +1002,8 @@ const STAGES = [
         id: 'arts-talent',
         text: '미술·음악 학원에서 남다른 재능을 보인다',
         deltas: { fame: 3, happiness: 3, wealth: -2 },
-        result: '선생님이 부모님을 따로 불러 칭찬했던, 은근히 우쭐했던 기억.'
+        result: '선생님이 부모님을 따로 불러 칭찬했던, 은근히 우쭐했던 기억.',
+        addTalent: { id: 'arts', label: '🎨 미술·음악 재능' }
       },
       {
         id: 'youtube-binge',
@@ -1056,7 +1057,8 @@ const STAGES = [
         id: 'discovers-a-hobby-9',
         text: '우연히 접한 취미에 푹 빠져든다',
         deltas: { happiness: 3 },
-        result: '시간 가는 줄도 모르고 몰두할 무언가가 생겼다.'
+        result: '시간 가는 줄도 모르고 몰두할 무언가가 생겼다.',
+        addHobby: { id: 'childhood-hobby', label: '🎨 어릴 적 취미' }
       },
       {
         id: 'sibling-secret-keeper',
@@ -1586,7 +1588,8 @@ const STAGES = [
         id: 'talent-scout-approach',
         text: '우연히 재능을 눈여겨본 어른에게 제안을 받는다',
         deltas: { fame: 2, happiness: 2 },
-        result: '명함 한 장이, 평소와 다른 하루를 만들었다.'
+        result: '명함 한 장이, 평소와 다른 하루를 만들었다.',
+        requiresAnyTalent: true
       },
       {
         id: 'sleep-deprivation-toll',
@@ -4533,7 +4536,8 @@ const STAGES = [
         id: 'reviving-old-hobby',
         text: '오랫동안 미뤄온 취미를 본격적으로 다시 시작한다',
         deltas: { happiness: 5, wealth: -1 },
-        result: '까맣게 잊고 있던 감각이, 몸에 그대로 남아있었다.'
+        result: '까맣게 잊고 있던 감각이, 몸에 그대로 남아있었다.',
+        addHobby: { id: 'revived-hobby', label: '🎨 되찾은 취미' }
       },
       {
         id: 'new-exercise-routine',
@@ -4546,7 +4550,8 @@ const STAGES = [
         id: 'hobby-account-mini-fame',
         text: 'SNS에 취미 계정을 만들어 소소한 인기를 얻는다',
         deltas: { fame: 4, happiness: 3 },
-        result: '본업과 상관없는 곳에서 얻은 관심이, 묘하게 새로운 활력이 됐다.'
+        result: '본업과 상관없는 곳에서 얻은 관심이, 묘하게 새로운 활력이 됐다.',
+        requiresAnyHobby: true
       },
       {
         id: 'postponing-self-time',
@@ -5430,7 +5435,8 @@ const STAGES = [
         text: '자녀와 취미를 공유하며 관계가 돈독해진다',
         deltas: { relationship: 5, happiness: 4, wealth: -2 },
         result: '같은 걸 좋아한다는 것만으로, 대화가 다시 이어졌다.',
-        requiresFamilyMember: ['child']
+        requiresFamilyMember: ['child'],
+        requiresAnyHobby: true
       },
       {
         id: 'solo-time-reset-40s',
@@ -6011,7 +6017,8 @@ const STAGES = [
         id: 'new-hobby-menopause-relief',
         text: '새로운 취미로 몸과 마음의 변화를 다스린다',
         deltas: { happiness: 4, wealth: -1 },
-        result: '손을 움직이는 동안만큼은, 잡생각이 사라졌다.'
+        result: '손을 움직이는 동안만큼은, 잡생각이 사라졌다.',
+        addHobby: { id: 'wellness-hobby', label: '🧘 힐링 취미' }
       },
       {
         id: 'mood-swings-midlife',
@@ -6862,7 +6869,8 @@ const STAGES = [
         id: 'discovering-hidden-talent',
         text: '새로운 취미에서 뜻밖의 재능을 발견한다',
         deltas: { happiness: 5, fame: 2 },
-        result: '이 나이에 이런 걸 다 잘할 줄은, 스스로도 몰랐다.'
+        result: '이 나이에 이런 걸 다 잘할 줄은, 스스로도 몰랐다.',
+        addTalent: { id: 'hidden-talent', label: '✨ 숨은 재능' }
       },
       {
         id: 'volunteering-for-meaning',
@@ -7481,7 +7489,8 @@ const STAGES = [
         id: 'gardening-hobby',
         text: '텃밭·화분 가꾸기 같은 잔잔한 취미에 빠진다',
         deltas: { happiness: 4, health: 2 },
-        result: '작은 화분 하나 돌보는 일이, 마음까지 차분하게 만들었다.'
+        result: '작은 화분 하나 돌보는 일이, 마음까지 차분하게 만들었다.',
+        addHobby: { id: 'gardening', label: '🌱 원예' }
       },
       {
         id: 'shingles-onset',
@@ -7501,7 +7510,8 @@ const STAGES = [
         id: 'oldprep-handmade-crafts-market-61',
         text: '취미로 만든 공예품을 장터에 내놓는다',
         deltas: { wealth: 2, happiness: 2 },
-        result: '손으로 만든 것들이, 뜻밖에 하나둘 팔려나갔다.'
+        result: '손으로 만든 것들이, 뜻밖에 하나둘 팔려나갔다.',
+        requiresAnyHobby: true
       },
       {
         id: 'oldprep-retirement-fund-lumpsum-61',
@@ -7665,13 +7675,15 @@ const STAGES = [
         id: 'mastering-old-hobby',
         text: '오래된 취미를 전문가 수준으로 갈고닦는다',
         deltas: { happiness: 4, fame: 3 },
-        result: '수십 년 쌓아온 손끝의 감각이, 비로소 빛을 발했다.'
+        result: '수십 년 쌓아온 손끝의 감각이, 비로소 빛을 발했다.',
+        requiresAnyHobby: true
       },
       {
         id: 'leading-a-hobby-club',
         text: '동호회 회장을 맡아 새로운 책임을 진다',
         deltas: { relationship: 4, fame: 2, happiness: -1 },
-        result: '작은 모임 하나 이끄는 일도, 나름의 무게가 있었다.'
+        result: '작은 모임 하나 이끄는 일도, 나름의 무게가 있었다.',
+        requiresAnyHobby: true
       },
       {
         id: 'generation-gap-with-grandchild',
@@ -8037,7 +8049,8 @@ const STAGES = [
         text: '부부가 함께 새로운 취미를 시작한다',
         deltas: { relationship: 5, happiness: 4, wealth: -2 },
         result: '처음 배우는 걸 나란히 서툴게 해보는 게, 오히려 즐거웠다.',
-        requiresFamilyMember: ['spouse']
+        requiresFamilyMember: ['spouse'],
+        addHobby: { id: 'shared-hobby', label: '💑 부부 공동 취미' }
       },
       {
         id: 'seeing-a-widowed-friend',

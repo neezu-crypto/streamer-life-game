@@ -146,16 +146,23 @@ function playRefFor(db, uid) {
 // requiresAnyOccupation과 같은 결을 지인 상세에 적용한 것 - "지인이 있을 때
 // 배신 당하는" 선택지들(2026-08-18, 사용자 지시)처럼 배신할 대상 자체가
 // 없으면 애초에 후보에 들어가면 안 되는 경우용.
+// requiresTalent/requiresAnyTalent, requiresHobby/requiresAnyHobby(2026-08-21,
+// 사용자 설계 - 17장 "나의 재능·나의 취미")는 재산·지인과 완전히 같은 결을
+// 재능·취미 상세에 적용한 것. 값 구조는 지인처럼 여러 개를 동시에 누적 보유하되
+// (activeTalentIds/activeHobbyIds가 배열), 획득 시점은 직업처럼 특정 선택지를
+// 고르는 순간이다(addTalent/addHobby, applyChoice 참고).
 // 후보가 3개 이하면 그냥 전부 노출한다. mandatory가 붙은 선택지(자격만
 // 되면 반드시 겪어야 하는 이벤트 - 예: 50대에 부모님과 사별)는 3개 무작위
 // 추첨에서 밀려날 일 없이 항상 노출 목록에 들어가고, 나머지 자리만 무작위로
 // 채운다.
-function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds, currentOccupationId, currentIntroId, activeAssetIds, currentLocationId, activeAcquaintances) {
+function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds, currentOccupationId, currentIntroId, activeAssetIds, currentLocationId, activeAcquaintances, activeTalentIds, activeHobbyIds) {
   const conditionIds = activeConditionIds || [];
   const familyIds = activeFamilyMemberIds || [];
   const assetIds = activeAssetIds || [];
   const locationId = currentLocationId || DEFAULT_LOCATION.id;
   const hasAnyAcquaintance = !!(activeAcquaintances && activeAcquaintances.length);
+  const talentIds = activeTalentIds || [];
+  const hobbyIds = activeHobbyIds || [];
   const eligible = choices.filter((c) => {
     if (c.requiresCondition && !conditionIds.includes(c.requiresCondition)) return false;
     if (c.requiresNoCondition && c.requiresNoCondition.some((id) => conditionIds.includes(id))) return false;
@@ -169,6 +176,10 @@ function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds
     if (c.requiresAsset && !assetIds.includes(c.requiresAsset)) return false;
     if (c.requiresLocation && !c.requiresLocation.includes(locationId)) return false;
     if (c.requiresAnyAcquaintance && !hasAnyAcquaintance) return false;
+    if (c.requiresTalent && !talentIds.includes(c.requiresTalent)) return false;
+    if (c.requiresAnyTalent && !talentIds.length) return false;
+    if (c.requiresHobby && !hobbyIds.includes(c.requiresHobby)) return false;
+    if (c.requiresAnyHobby && !hobbyIds.length) return false;
     return true;
   });
   if (eligible.length <= 3) return eligible.map((c) => c.id);
@@ -221,7 +232,7 @@ function pickNextStageIndex(currentIndex) {
 // introId가 주어지면(그 판의 저장 슬롯에 이미 뽑아둔 상황 설명 id) 그
 // 상황의 텍스트를 resolveIntroText로 찾아 쓴다 - pickIntroId() 참고.
 function publicStage(stage, visibleIds, introId) {
-  const ids = visibleIds && visibleIds.length ? visibleIds : pickVisibleChoiceIds(stage.choices, null, null, null, introId, null, null, null);
+  const ids = visibleIds && visibleIds.length ? visibleIds : pickVisibleChoiceIds(stage.choices, null, null, null, introId, null, null, null, null, null);
   const visibleChoices = stage.choices.filter((c) => ids.includes(c.id));
   return {
     id: stage.id,
@@ -377,6 +388,22 @@ async function applyChoice(db, playRef, play, stage, choice) {
   const priorAcquaintances = Array.isArray(play.acquaintances) ? play.acquaintances : [];
   if (choice.requiresAnyAcquaintance && !priorAcquaintances.length) {
     throw new HttpsError('failed-precondition', '지금 지인이 없어서 고를 수 없는 선택지입니다.');
+  }
+  // requiresTalent/requiresAnyTalent, requiresHobby/requiresAnyHobby - requiresAsset·
+  // requiresAnyAcquaintance와 완전히 같은 패턴을 재능·취미 상세에 적용했다.
+  const priorTalents = Array.isArray(play.talents) ? play.talents : [];
+  if (choice.requiresTalent && !priorTalents.some((t) => t.id === choice.requiresTalent)) {
+    throw new HttpsError('failed-precondition', '지금 재능 상태에서는 고를 수 없는 선택지입니다.');
+  }
+  if (choice.requiresAnyTalent && !priorTalents.length) {
+    throw new HttpsError('failed-precondition', '지금 재능이 없어서 고를 수 없는 선택지입니다.');
+  }
+  const priorHobbies = Array.isArray(play.hobbies) ? play.hobbies : [];
+  if (choice.requiresHobby && !priorHobbies.some((h) => h.id === choice.requiresHobby)) {
+    throw new HttpsError('failed-precondition', '지금 취미 상태에서는 고를 수 없는 선택지입니다.');
+  }
+  if (choice.requiresAnyHobby && !priorHobbies.length) {
+    throw new HttpsError('failed-precondition', '지금 취미가 없어서 고를 수 없는 선택지입니다.');
   }
 
   // prizeTable(가중치 배열)이 붙은 선택지(복권 당첨 확인 등)는 choice.deltas·
@@ -587,6 +614,21 @@ async function applyChoice(db, playRef, play, stage, choice) {
     assets = assets.filter((a) => a.id !== choice.removeAsset);
   }
 
+  // 재능·취미 상세(2026-08-21, 사용자 설계 - 17장) - 재산 상세와 완전히 같은
+  // 패턴이지만 제거 필드는 두지 않는다(removeTalent/removeHobby 없음) - 재산처럼
+  // 처분되거나 지인처럼 관계가 끊기는 게 아니라, 한 번 익힌 재능·취미는 그 판이
+  // 끝날 때까지 계속 유지된다고 보는 게 자연스럽기 때문(기획서.html 17장 참고).
+  const currentTalents = Array.isArray(play.talents) ? play.talents : [];
+  let talents = currentTalents.slice();
+  if (choice.addTalent && !talents.some((t) => t.id === choice.addTalent.id)) {
+    talents.push({ id: choice.addTalent.id, label: choice.addTalent.label, sinceStageId: stage.id });
+  }
+  const currentHobbies = Array.isArray(play.hobbies) ? play.hobbies : [];
+  let hobbies = currentHobbies.slice();
+  if (choice.addHobby && !hobbies.some((h) => h.id === choice.addHobby.id)) {
+    hobbies.push({ id: choice.addHobby.id, label: choice.addHobby.label, sinceStageId: stage.id });
+  }
+
   const choiceLog = Array.isArray(play.choiceLog) ? play.choiceLog.slice() : [];
   choiceLog.push({ stageId: stage.id, choiceId: choice.id, at: Date.now(), stats });
 
@@ -612,7 +654,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
 
   const nextIndex = pickNextStageIndex(play.stageIndex);
   const completed = collapsed || nextIndex >= STAGES.length;
-  const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers, acquaintances, assets, cashHoldings };
+  const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers, acquaintances, assets, cashHoldings, talents, hobbies };
 
   let ending = null;
   let nextVisibleIds = null;
@@ -642,7 +684,9 @@ async function applyChoice(db, playRef, play, stage, choice) {
       nextIntroId,
       assets.map((a) => a.id),
       currentLocation.id,
-      acquaintances
+      acquaintances,
+      talents.map((t) => t.id),
+      hobbies.map((h) => h.id)
     );
     updates.visibleChoiceIds = nextVisibleIds;
   }
@@ -683,6 +727,8 @@ async function applyChoice(db, playRef, play, stage, choice) {
     acquaintances,
     assets,
     cashHoldings,
+    talents,
+    hobbies,
     currentOccupation,
     currentLocation,
     choiceHistory: completed ? buildChoiceHistory(choiceLog) : null,
@@ -720,7 +766,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   const db = getDatabase();
   const stats = freshStats();
   const currentIntroId = pickIntroId(STAGES[0]);
-  const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices, [], [], null, currentIntroId, [], DEFAULT_LOCATION.id, []);
+  const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices, [], [], null, currentIntroId, [], DEFAULT_LOCATION.id, [], [], []);
   await Promise.all([
     playRefFor(db, uid).set({
       streamerName,
@@ -734,6 +780,8 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
       acquaintances: [],
       assets: [],
       cashHoldings: 0,
+      talents: [],
+      hobbies: [],
       choiceLog: [],
       completed: false,
       startedAt: ServerValue.TIMESTAMP
@@ -744,7 +792,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
     db.ref('lifeGame/stats/totals/started').set(ServerValue.increment(1))
   ]);
 
-  return { stats, healthConditions: [], familyMembers: [], acquaintances: [], assets: [], cashHoldings: 0, currentOccupation: null, currentLocation: DEFAULT_LOCATION, stage: publicStage(STAGES[0], visibleChoiceIds, currentIntroId) };
+  return { stats, healthConditions: [], familyMembers: [], acquaintances: [], assets: [], cashHoldings: 0, talents: [], hobbies: [], currentOccupation: null, currentLocation: DEFAULT_LOCATION, stage: publicStage(STAGES[0], visibleChoiceIds, currentIntroId) };
 });
 
 // 창을 껐다가 다시 열었을 때 - 저장된 판이 있으면 지금 구간을 그대로 이어서
@@ -768,6 +816,8 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       acquaintances: Array.isArray(play.acquaintances) ? play.acquaintances : [],
       assets: Array.isArray(play.assets) ? play.assets : [],
       cashHoldings: play.cashHoldings || 0,
+      talents: Array.isArray(play.talents) ? play.talents : [],
+      hobbies: Array.isArray(play.hobbies) ? play.hobbies : [],
       choiceHistory: buildChoiceHistory(play.choiceLog),
       occupationHistory: buildOccupationHistory(play.choiceLog),
       locationHistory: buildLocationHistory(play.choiceLog)
@@ -780,6 +830,8 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
   const familyMembers = Array.isArray(play.familyMembers) ? play.familyMembers : [];
   const acquaintances = Array.isArray(play.acquaintances) ? play.acquaintances : [];
   const assets = Array.isArray(play.assets) ? play.assets : [];
+  const talents = Array.isArray(play.talents) ? play.talents : [];
+  const hobbies = Array.isArray(play.hobbies) ? play.hobbies : [];
   const occupationHistory = buildOccupationHistory(play.choiceLog);
   const currentOccupation = occupationHistory.length ? occupationHistory[occupationHistory.length - 1] : null;
   const locationHistory = buildLocationHistory(play.choiceLog);
@@ -807,7 +859,9 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       currentIntroId,
       assets.map((a) => a.id),
       currentLocation.id,
-      acquaintances
+      acquaintances,
+      talents.map((t) => t.id),
+      hobbies.map((h) => h.id)
     );
     resumeUpdates.visibleChoiceIds = visibleChoiceIds;
   }
@@ -823,6 +877,8 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
     acquaintances,
     assets,
     cashHoldings: play.cashHoldings || 0,
+    talents,
+    hobbies,
     currentOccupation,
     currentLocation,
     stage: publicStage(stage, visibleChoiceIds, currentIntroId)
@@ -912,6 +968,8 @@ const shareToGallery = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB'
     familyMembers: Array.isArray(play.familyMembers) ? play.familyMembers : [],
     acquaintances: Array.isArray(play.acquaintances) ? play.acquaintances : [],
     assets: Array.isArray(play.assets) ? play.assets : [],
+    talents: Array.isArray(play.talents) ? play.talents : [],
+    hobbies: Array.isArray(play.hobbies) ? play.hobbies : [],
     occupationHistory: buildOccupationHistory(play.choiceLog),
     locationHistory: buildLocationHistory(play.choiceLog)
   };

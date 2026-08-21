@@ -138,7 +138,7 @@
             <li><a href="#sec14">트리거 루트 (설계, 미구현)</a></li>
             <li><a href="#sec15">Google 광고 도입 (1단계 구현)</a></li>
             <li><a href="#sec16">해금 도감 — 엔딩·루트 컬렉션 (설계, 미구현)</a></li>
-            <li><a href="#sec17">나의 재능·나의 취미 (설계, 미구현)</a></li>
+            <li><a href="#sec17">나의 재능·나의 취미 (구현 완료)</a></li>
             <li><a href="#sec18">재산 — 보험 추가 (설계, 미구현)</a></li>
         </ol>
     </div>
@@ -3203,9 +3203,11 @@
     </section>
 
     <section id="sec17">
-        <h2><span class="num">17</span>나의 재능·나의 취미 (2026-08-21, 사용자 설계 — 미구현)</h2>
-        <p class="note"><b>이 섹션도 설계 정리 단계이며 아직 구현되지 않았다.</b> 상세 기능(직업·장소·건강·
-        가족·지인·재산)에 "나의 재능"·"나의 취미"를 추가하는 기획. 실제 코드는 아직 손대지 않았다.</p>
+        <h2><span class="num">17</span>나의 재능·나의 취미 (2026-08-21, 사용자 설계 — 2026-08-22 구현 완료)</h2>
+        <p class="note"><b>구현 완료.</b> 상세 기능(직업·장소·건강·가족·지인·재산)에 "나의 재능"·"나의
+        취미"를 추가했다 - 아래 설계 원칙 그대로 <code>functions/index.js</code>(엔진)·
+        <code>functions/game-data.js</code>(콘텐츠)·<code>app.js</code>·<code>index.html</code>(UI)에
+        반영됨.</p>
 
         <h3>핵심 설계 원칙 (사용자 확정)</h3>
         <ul>
@@ -3251,14 +3253,24 @@
         (<code>&#123;familyIds, occupationId, ...&#125;</code>)로 리팩터링하는 걸 검토할 필요가 있다는
         점만 남겨둔다.</p>
 
-        <h3>UI (초안)</h3>
+        <h3>UI (구현됨)</h3>
         <p>기존 "현재 직업"·"현재 장소" 패널과 같은 자리에 "나의 재능"·"나의 취미" 칩 목록 패널을 게임 중
-        화면·엔딩 화면에 추가하고, 갤러리 상세 패널(16장 이전에 이미 있는 기존 7개 패널)에도 나란히 추가해
-        총 9개 패널이 된다.</p>
+        화면·엔딩 화면에 추가하고, 갤러리 상세 패널(기존 7개 패널)에도 나란히 추가해 총 9개 패널이 됐다.</p>
 
-        <h3>콘텐츠 비용</h3>
-        <p class="note">직업 이벤트와 같은 "1 사건 = 6 선택지" 단위로, 나이대별로 재능/취미 획득 이벤트를
-        묶어 넣는 방식을 기본안으로 삼는다 — 몇 개·어느 나이에 배치할지는 실제 작성 착수 시점에 정한다.</p>
+        <h3>콘텐츠 (구현 방식 — 신규 클러스터 대신 기존 선택지 재활용)</h3>
+        <p>초안은 직업 이벤트처럼 "1 사건 = 6 선택지" 단위의 새 클러스터를 상정했었지만, 실제 작성 시점에
+        훑어보니 텍스트가 이미 "재능을 보인다"·"취미에 빠진다"류인 기존 선택지가 <code>game-data.js</code>
+        전역에 흩어져 있었다(9세 <code>arts-talent</code>·<code>discovers-a-hobby-9</code>, 37세
+        <code>reviving-old-hobby</code>, 49세 <code>new-hobby-menopause-relief</code>, 56세
+        <code>discovering-hidden-talent</code>, 61세 <code>gardening-hobby</code>, 66세
+        <code>new-shared-hobby</code>). 새 문장을 지어 중복 콘텐츠를 늘리는 대신 이 6개에
+        <code>addTalent</code>/<code>addHobby</code>를 그대로 붙였다 — 재능 2종(🎨 미술·음악,
+        ✨ 숨은 재능), 취미 4종(🎨 어릴 적 취미·되찾은 취미·🧘 힐링 취미·💑 부부 공동 취미).</p>
+        <p>게이팅도 마찬가지로 이미 "취미가 있다는 걸 전제로 자연스러운" 기존 선택지 6개에
+        <code>requiresAnyTalent</code>/<code>requiresAnyHobby</code>를 소급 적용했다: 15세
+        <code>talent-scout-approach</code>(재능), 37세 <code>hobby-account-mini-fame</code>·44세
+        <code>bonding-over-hobby-with-kid</code>·61세 <code>oldprep-handmade-crafts-market-61</code>·
+        63세 <code>mastering-old-hobby</code>·<code>leading-a-hobby-club</code>(취미).</p>
     </section>
 
     <section id="sec18">

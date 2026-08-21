@@ -221,7 +221,7 @@ resumeBtn.addEventListener('click', async () => {
     const res = await resumePlaythroughFn();
     await fadeOut([resumeSection]);
     if (res.data.completed) {
-      showEnding(res.data.ending, res.data.stats, res.data.choiceHistory, res.data.familyMembers, res.data.occupationHistory, res.data.assets, res.data.cashHoldings, res.data.acquaintances, res.data.healthConditions, res.data.locationHistory);
+      showEnding(res.data.ending, res.data.stats, res.data.choiceHistory, res.data.familyMembers, res.data.occupationHistory, res.data.assets, res.data.cashHoldings, res.data.acquaintances, res.data.healthConditions, res.data.locationHistory, res.data.talents, res.data.hobbies);
     } else {
       await fadeOut([mainHeader]);
       renderStatBars(statBars, res.data.stats);
@@ -232,6 +232,8 @@ resumeBtn.addEventListener('click', async () => {
       renderAcquaintances(res.data.acquaintances);
       renderCurrentOccupation(res.data.currentOccupation);
       renderCurrentLocation(res.data.currentLocation);
+      renderTalents(res.data.talents);
+      renderHobbies(res.data.hobbies);
       renderStage(res.data.stage);
       initAchievementBaseline(res.data);
       fadeIn([gameSection]);
@@ -709,6 +711,52 @@ function renderAcquaintances(acquaintances) {
   renderAcquaintancesInto(acquaintancesEl, acquaintances);
 }
 
+const talentsEl = document.getElementById('talents');
+const hobbiesEl = document.getElementById('hobbies');
+
+// 재능·취미 목록("나의 재능"·"나의 취미", 2026-08-21 사용자 설계 - 17장) - 지인
+// 상세와 거의 같은 패턴이지만 실제 이름이 없어 label만 보여준다(가족 상세와
+// 동일). 제거 필드가 없어(applyChoice 참고) 한 번 생기면 그 판이 끝날 때까지
+// 계속 유지된다.
+function renderTalentsInto(container, talents) {
+  container.innerHTML = '';
+  if (!talents || !talents.length) {
+    const empty = document.createElement('span');
+    empty.className = 'family-empty';
+    empty.textContent = '아직 발견한 재능 없음';
+    container.appendChild(empty);
+    return;
+  }
+  talents.forEach((t) => {
+    const chip = document.createElement('span');
+    chip.className = 'family-chip';
+    chip.textContent = t.label;
+    container.appendChild(chip);
+  });
+}
+function renderTalents(talents) {
+  renderTalentsInto(talentsEl, talents);
+}
+function renderHobbiesInto(container, hobbies) {
+  container.innerHTML = '';
+  if (!hobbies || !hobbies.length) {
+    const empty = document.createElement('span');
+    empty.className = 'family-empty';
+    empty.textContent = '아직 생긴 취미 없음';
+    container.appendChild(empty);
+    return;
+  }
+  hobbies.forEach((h) => {
+    const chip = document.createElement('span');
+    chip.className = 'family-chip';
+    chip.textContent = h.label;
+    container.appendChild(chip);
+  });
+}
+function renderHobbies(hobbies) {
+  renderHobbiesInto(hobbiesEl, hobbies);
+}
+
 const currentOccupationEl = document.getElementById('currentOccupation');
 
 // 현재 직업("현재 직업 상세") - 건강/가족과 달리 동시에 하나뿐이라 목록이 아니라
@@ -852,6 +900,8 @@ startBtn.addEventListener('click', async () => {
     renderAcquaintances(res.data.acquaintances);
     renderCurrentOccupation(res.data.currentOccupation);
     renderCurrentLocation(res.data.currentLocation);
+    renderTalents(res.data.talents);
+    renderHobbies(res.data.hobbies);
     renderStage(res.data.stage);
     initAchievementBaseline(res.data);
     fadeIn([gameSection]);
@@ -908,6 +958,8 @@ let prevAcquaintanceIds = [];
 let prevOccupationId = null;
 let prevLocationId = null;
 let prevConditions = [];
+let prevTalentIds = [];
+let prevHobbyIds = [];
 
 function playAchievementPop() {
   const ctx = getAudioCtx();
@@ -932,6 +984,8 @@ function initAchievementBaseline(data) {
   prevOccupationId = data.currentOccupation ? data.currentOccupation.id : null;
   prevLocationId = data.currentLocation ? data.currentLocation.id : 'domestic';
   prevConditions = data.healthConditions || [];
+  prevTalentIds = (data.talents || []).map((t) => t.id);
+  prevHobbyIds = (data.hobbies || []).map((h) => h.id);
 }
 
 function celebrateAchievements(data) {
@@ -958,12 +1012,22 @@ function celebrateAchievements(data) {
   const healed = prevConditions.find((c) => !newConditionIds.includes(c.id));
   if (healed) { showAchievementBadge('💊', healed.label + ' 회복'); playAchievementPop(); }
 
+  const newTalentIds = (data.talents || []).map((t) => t.id);
+  const addedTalent = (data.talents || []).find((t) => !prevTalentIds.includes(t.id));
+  if (addedTalent) { showAchievementBadge('✨', addedTalent.label + ' 발견'); playAchievementPop(); }
+
+  const newHobbyIds = (data.hobbies || []).map((h) => h.id);
+  const addedHobby = (data.hobbies || []).find((h) => !prevHobbyIds.includes(h.id));
+  if (addedHobby) { showAchievementBadge('🎨', addedHobby.label + ' 생김'); playAchievementPop(); }
+
   prevAssetIds = newAssetIds;
   prevFamilyIds = newFamilyIds;
   prevAcquaintanceIds = newAcquaintanceIds;
   prevOccupationId = newOccId;
   prevLocationId = newLocId;
   prevConditions = newConditions;
+  prevTalentIds = newTalentIds;
+  prevHobbyIds = newHobbyIds;
 }
 
 function applyOutcome(data, resultPrefix, selectedChoiceId) {
@@ -997,6 +1061,8 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   renderAcquaintances(data.acquaintances);
   renderCurrentOccupation(data.currentOccupation);
   renderCurrentLocation(data.currentLocation);
+  renderTalents(data.talents);
+  renderHobbies(data.hobbies);
   if (selectedChoiceId) markSelectedChoice(selectedChoiceId);
   // 선택 결과는 서버(applyChoice)가 이미 lifeGame/playthroughs/{uid}에 저장을
   // 마친 뒤 응답한 것이므로, 여기서 뜨는 토스트는 실제 저장 완료를 알리는
@@ -1004,7 +1070,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   showToast('💾 자동저장 되었습니다');
   if (data.completed) {
     pendingNextStage = null;
-    showEnding(data.ending, data.stats, data.choiceHistory, data.familyMembers, data.occupationHistory, data.assets, data.cashHoldings, data.acquaintances, data.healthConditions, data.locationHistory);
+    showEnding(data.ending, data.stats, data.choiceHistory, data.familyMembers, data.occupationHistory, data.assets, data.cashHoldings, data.acquaintances, data.healthConditions, data.locationHistory, data.talents, data.hobbies);
   } else {
     pendingNextStage = data.nextStage;
     nextBtn.classList.remove('hidden');
@@ -1100,6 +1166,8 @@ const endingFamilyPanelTitle = document.getElementById('endingFamilyPanelTitle')
 const endingAcquaintancesEl = document.getElementById('endingAcquaintances');
 const occupationHistoryListEl = document.getElementById('occupationHistoryList');
 const locationHistoryListEl = document.getElementById('locationHistoryList');
+const endingTalentsEl = document.getElementById('endingTalents');
+const endingHobbiesEl = document.getElementById('endingHobbies');
 const choiceHistorySection = document.getElementById('choiceHistorySection');
 const choiceHistoryList = document.getElementById('choiceHistoryList');
 const gallerySection = document.getElementById('gallerySection');
@@ -1129,7 +1197,7 @@ function renderChoiceHistoryInto(container, history) {
 // 엔딩 문구 표시 → 지금까지 선택한 선택지들 표시 → 다른 유저 인생 → 재시작
 // 안내 순서로 보여준다(각 section의 DOM 순서가 곧 화면에 보이는 순서). 게임
 // 화면에서 엔딩 화면으로 넘어가는 것도 다른 전환들과 같은 페이드로 통일한다.
-async function showEnding(ending, stats, choiceHistory, familyMembers, occupationHistory, assets, cashHoldings, acquaintances, healthConditions, locationHistory) {
+async function showEnding(ending, stats, choiceHistory, familyMembers, occupationHistory, assets, cashHoldings, acquaintances, healthConditions, locationHistory, talents, hobbies) {
   if (INSTANT_ENDING_IDS.includes(ending.id)) {
     triggerCrisisEffect();
     await new Promise((resolve) => setTimeout(resolve, REDUCE_MOTION ? 200 : 650));
@@ -1152,6 +1220,8 @@ async function showEnding(ending, stats, choiceHistory, familyMembers, occupatio
   renderAcquaintancesInto(endingAcquaintancesEl, acquaintances);
   renderOccupationHistoryInto(occupationHistoryListEl, occupationHistory);
   renderLocationHistoryInto(locationHistoryListEl, locationHistory);
+  renderTalentsInto(endingTalentsEl, talents);
+  renderHobbiesInto(endingHobbiesEl, hobbies);
   renderChoiceHistoryInto(choiceHistoryList, choiceHistory);
   shareBtn.disabled = false;
 
@@ -1225,6 +1295,8 @@ function renderGalleryDetails(details, els) {
   renderAcquaintancesInto(els.acquaintanceListEl, details.acquaintances || []);
   renderOccupationHistoryInto(els.occupationListEl, details.occupationHistory || []);
   renderLocationHistoryInto(els.locationListEl, details.locationHistory || []);
+  renderTalentsInto(els.talentListEl, details.talents || []);
+  renderHobbiesInto(els.hobbyListEl, details.hobbies || []);
 }
 async function loadGalleryDetails(entryId, els) {
   if (galleryDetailsCache.has(entryId)) {
@@ -1363,6 +1435,28 @@ onValue(ref(db, 'lifeGame/gallery'), (snap) => {
     locationWrap.appendChild(locationListEl);
     details.appendChild(locationWrap);
 
+    const talentWrap = document.createElement('div');
+    talentWrap.className = 'family-panel gallery-detail-panel';
+    const talentTitle = document.createElement('p');
+    talentTitle.className = 'family-panel-title';
+    talentTitle.textContent = '재능';
+    const talentListEl = document.createElement('div');
+    talentListEl.className = 'family-members';
+    talentWrap.appendChild(talentTitle);
+    talentWrap.appendChild(talentListEl);
+    details.appendChild(talentWrap);
+
+    const hobbyWrap = document.createElement('div');
+    hobbyWrap.className = 'family-panel gallery-detail-panel';
+    const hobbyTitle = document.createElement('p');
+    hobbyTitle.className = 'family-panel-title';
+    hobbyTitle.textContent = '취미';
+    const hobbyListEl = document.createElement('div');
+    hobbyListEl.className = 'family-members';
+    hobbyWrap.appendChild(hobbyTitle);
+    hobbyWrap.appendChild(hobbyListEl);
+    details.appendChild(hobbyWrap);
+
     const logEl = document.createElement('div');
     logEl.className = 'choice-history-list gallery-choice-log';
     details.appendChild(logEl);
@@ -1370,7 +1464,7 @@ onValue(ref(db, 'lifeGame/gallery'), (snap) => {
     details.addEventListener('toggle', () => {
       if (details.open) {
         loadGalleryChoiceLog(e.id, logEl, chartCanvas, chartSummary);
-        loadGalleryDetails(e.id, { assetsListEl, healthListEl, familyListEl, acquaintanceListEl, occupationListEl, locationListEl });
+        loadGalleryDetails(e.id, { assetsListEl, healthListEl, familyListEl, acquaintanceListEl, occupationListEl, locationListEl, talentListEl, hobbyListEl });
       }
     });
 
