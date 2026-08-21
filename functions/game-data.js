@@ -165,6 +165,12 @@ const STAGES = [
     random: true,
     choices: [
       {
+        id: "unhappy-0",
+        text: "밤새 보채는 통에 온 가족이 잠을 설친다",
+        deltas: { happiness: -2, health: -1 },
+        result: "쪽잠도 못 자고 뜬눈으로 밤을 지새운 날들이었다."
+      },
+      {
         id: 'warm-poor',
         text: '차는 없지만 부모님이 늘 곁에 있는 집에서 태어난다',
         deltas: { happiness: 8, relationship: 6, wealth: -4 },
@@ -271,6 +277,12 @@ const STAGES = [
     random: true,
     choices: [
       {
+        id: "unhappy-1",
+        text: "낯가림이 심해져 낯선 사람만 보면 자지러지게 운다",
+        deltas: { happiness: -2, relationship: -1 },
+        result: "안아주는 손이 누구든, 한동안은 울음부터 났다."
+      },
+      {
         id: 'early-walker',
         text: '또래보다 일찍 걸음마를 뗀다',
         deltas: { health: 5, fame: 2 },
@@ -366,6 +378,12 @@ const STAGES = [
     random: true,
     choices: [
       {
+        id: "unhappy-2",
+        text: "떼쓰기가 부쩍 늘어 어딜 가든 진땀을 뺀다",
+        deltas: { happiness: -3 },
+        result: "마트 바닥에 드러누운 그날은, 오래도록 이야깃거리가 됐다."
+      },
+      {
         id: 'early-talker',
         text: '또래보다 말을 빨리 뗀다',
         deltas: { fame: 4, happiness: 3 },
@@ -454,6 +472,12 @@ const STAGES = [
     random: true,
     choices: [
       {
+        id: "unhappy-3",
+        text: "어린이집 첫 등원날 문 앞에서 떨어지지 않으려 운다",
+        deltas: { happiness: -3, relationship: -1 },
+        result: "손을 놓는 그 짧은 순간이, 유난히 길게 느껴졌다."
+      },
+      {
         id: 'daycare-star',
         text: '어린이집 인기쟁이로 등극한다',
         deltas: { fame: 6, relationship: 4 },
@@ -540,6 +564,12 @@ const STAGES = [
     ageRange: '4세',
     intro: '좋아하는 것과 싫어하는 것이 뚜렷해지기 시작하는 나이.',
     choices: [
+      {
+        id: "unhappy-4",
+        text: "동생이 생긴다는 말에 괜한 심술을 부린다",
+        deltas: { happiness: -2, relationship: -2 },
+        result: "사랑을 나눠 가져야 한다는 게, 아직은 낯설고 서운했다."
+      },
       {
         id: 'dino-obsessed',
         text: '공룡 박사가 될 기세로 한 가지에 파고든다',
@@ -637,6 +667,12 @@ const STAGES = [
     intro: '유치원에서 작은 사회생활이 본격적으로 시작됩니다.',
     choices: [
       {
+        id: "unhappy-5",
+        text: "친했던 친구가 다른 유치원으로 전학을 간다",
+        deltas: { happiness: -3, relationship: -2 },
+        result: "매일 같이 놀던 자리가 하루아침에 텅 비었다."
+      },
+      {
         id: 'class-leader',
         text: '유치원 반장 노릇을 자처한다',
         deltas: { fame: 5, relationship: 3 },
@@ -727,6 +763,12 @@ const STAGES = [
     intro: '초등학교 입학을 앞두고, 유아기의 마지막 한 해가 저뭅니다.',
     choices: [
       {
+        id: "unhappy-6",
+        text: "한글이 또래보다 늦게 트여 자꾸 주눅이 든다",
+        deltas: { happiness: -3 },
+        result: "친구들 사이에서 혼자만 뒤처진 기분이 오래 남았다."
+      },
+      {
         id: 'early-reader',
         text: '한글을 스스로 뗀다',
         deltas: { fame: 3, happiness: 3 },
@@ -815,6 +857,12 @@ const STAGES = [
     intro: '처음으로 또래들과 부대끼기 시작하는 시기. 학교 규칙, 시간표, 새 얼굴들 — 모든 게 낯설고 정신없습니다.',
     choices: [
       {
+        id: "unhappy-7",
+        text: "입학 첫 주, 화장실 가는 것도 못 물어봐 참는다",
+        deltas: { happiness: -3, health: -1 },
+        result: "낯선 규칙들 앞에서, 손 드는 것조차 큰 용기가 필요했다."
+      },
+      {
         id: 'school-rules-overwhelm',
         text: '학교 규칙과 시간표에 적응하느라 정신없이 보낸다',
         deltas: { happiness: -2, health: -2, relationship: 2 },
@@ -895,6 +943,12 @@ const STAGES = [
     ageRange: '8세',
     intro: '학교가 조금은 익숙해진 만큼, 친구 관계도 한층 복잡해지기 시작합니다.',
     choices: [
+      {
+        id: "unhappy-8",
+        text: "짝꿍과 사소한 다툼 끝에 하루 종일 말을 안 한다",
+        deltas: { happiness: -2, relationship: -2 },
+        result: "누가 먼저랄 것도 없이, 어색한 침묵만 길어졌다."
+      },
       {
         id: 'playground-king',
         text: '운동장을 평정하는 골목대장으로 지낸다',
@@ -992,6 +1046,12 @@ const STAGES = [
     ageRange: '9세',
     intro: '취미와 특기가 하나둘 뚜렷해지는 시기. 좋아하는 게 무엇인지 스스로 알아가기 시작합니다.',
     choices: [
+      {
+        id: "unhappy-9",
+        text: "발표 시간에 목소리가 떨려 웃음거리가 된다",
+        deltas: { happiness: -3 },
+        result: "얼굴이 새빨개진 채로, 자리에 앉기까지가 영원 같았다."
+      },
       {
         id: 'bookworm',
         text: '도서관에 파묻혀 사는 책벌레로 지낸다',
@@ -1091,6 +1151,12 @@ const STAGES = [
     intro: '몸도 마음도 슬슬 달라지기 시작하는 나이. 사춘기의 첫 신호가 은근슬쩍 찾아옵니다.',
     choices: [
       {
+        id: "unhappy-10",
+        text: "짝사랑하던 친구가 다른 애를 좋아한다는 걸 알게 된다",
+        deltas: { happiness: -3, relationship: -1 },
+        result: "별일 아닌 척했지만, 마음 한구석이 시큰했다."
+      },
+      {
         id: 'competitive-athlete',
         text: '계주 대표로 뽑혀 매일 운동장을 뛴다',
         deltas: { health: 7, fame: 3, happiness: -2 },
@@ -1176,6 +1242,12 @@ const STAGES = [
     intro: '성적과 진로라는 단어가 슬슬 남 얘기가 아니게 되는 시기입니다.',
     choices: [
       {
+        id: "unhappy-11",
+        text: "성적표를 받아든 부모님의 실망한 표정을 마주한다",
+        deltas: { happiness: -4 },
+        result: "혼나는 말보다, 그 표정이 더 오래 마음에 남았다."
+      },
+      {
         id: 'grade-sensitivity',
         text: '처음으로 성적표에 예민해지기 시작한다',
         deltas: { happiness: -4, wealth: -2 },
@@ -1257,6 +1329,12 @@ const STAGES = [
     ageRange: '12세',
     intro: '초등학교의 마지막 한 해. 졸업과 중학교 진학이 코앞으로 다가옵니다.',
     choices: [
+      {
+        id: "unhappy-12",
+        text: "졸업을 앞두고 친한 친구들과 뿔뿔이 흩어진다는 걸 실감한다",
+        deltas: { happiness: -3, relationship: -2 },
+        result: "같은 반이 아니어도 괜찮다던 말이, 막상 닥치니 헛헛했다."
+      },
       {
         id: 'yearbook-message',
         text: '졸업을 앞두고 문집에 남길 말을 오래 고민한다',
@@ -1346,6 +1424,12 @@ const STAGES = [
     intro: '중학교에 입학하며 몸도 마음도 부쩍 낯설어지는 시기. 거울 속 내가 어제와 조금 달라 보입니다.',
     choices: [
       {
+        id: "unhappy-13",
+        text: "갑작스런 여드름과 변성기로 거울 보기가 싫어진다",
+        deltas: { happiness: -3 },
+        result: "낯선 몸이 된 것 같아서, 사진 찍히는 것도 피하게 됐다."
+      },
+      {
         id: 'voice-and-growth-spurt',
         text: '목소리가 갈라지거나 몸이 부쩍 자라며 낯설어진다',
         deltas: { health: 3, happiness: -2 },
@@ -1433,6 +1517,12 @@ const STAGES = [
     ageRange: '14세',
     intro: '친구 관계가 요동치고 스스로도 잘 모르겠는 감정이 많아지는 나이. 흔히 "중2병"이라 부르는 그 시기입니다.',
     choices: [
+      {
+        id: "unhappy-14",
+        text: "친했던 무리에서 은근히 배제되는 걸 느낀다",
+        deltas: { happiness: -4, relationship: -3 },
+        result: "단톡방 알림은 계속 오는데, 나만 빼고 얘기가 오간 것 같았다."
+      },
       {
         id: 'pushed-out-of-group',
         text: '친했던 무리에서 은근히 밀려나는 기분을 느낀다',
@@ -1536,6 +1626,12 @@ const STAGES = [
     intro: '중학교의 마지막 해. 처음으로 "진로"라는 단어가 남 얘기가 아니게 됩니다.',
     choices: [
       {
+        id: "unhappy-15",
+        text: "원하는 고등학교 원서 점수가 아슬아슬하게 모자란다",
+        deltas: { happiness: -3, wealth: -1 },
+        result: "커트라인 옆에 붙은 내 이름을, 몇 번이고 다시 확인했다."
+      },
+      {
         id: 'highschool-track-dilemma',
         text: '특성화고, 일반고 사이에서 처음으로 진로를 고민한다',
         deltas: { happiness: -3 },
@@ -1626,6 +1722,12 @@ const STAGES = [
     ageRange: '16세',
     intro: '고등학교라는 새로운 세계로 첫발을 내딛는 시기. 교복도, 얼굴도, 규칙도 전부 낯섭니다.',
     choices: [
+      {
+        id: "unhappy-16",
+        text: "새 학교, 새 반에서 아는 얼굴 하나 없이 하루를 보낸다",
+        deltas: { happiness: -3, relationship: -1 },
+        result: "쉬는 시간마다 괜히 휴대폰만 들여다봤다."
+      },
       {
         id: 'new-uniform-new-faces',
         text: '낯선 교복, 낯선 얼굴들 사이에서 다시 적응기를 겪는다',
@@ -1739,6 +1841,12 @@ const STAGES = [
     intro: '진로와 성적이 본격적으로 무게를 갖기 시작하는 나이. 하루하루가 조금씩 빠듯해집니다.',
     choices: [
       {
+        id: "unhappy-17",
+        text: "모의고사 성적이 계속 제자리라 자신감이 바닥난다",
+        deltas: { happiness: -4 },
+        result: "노력이 배신하는 것 같은 기분을, 어떻게 설명해야 할지 몰랐다."
+      },
+      {
         id: 'track-choice-future',
         text: '문·이과(혹은 진로 트랙)를 선택하며 본격적으로 미래를 그려본다',
         deltas: { happiness: -2, wealth: -1 },
@@ -1826,6 +1934,12 @@ const STAGES = [
     ageRange: '18세',
     intro: '고등학교의 마지막 해. 수능과 졸업이라는 두 단어가 하루하루를 채웁니다.',
     choices: [
+      {
+        id: "unhappy-18",
+        text: "수능을 앞두고 극심한 시험 스트레스에 시달린다",
+        deltas: { happiness: -5, health: -2 },
+        result: "매일 밤 같은 악몽을 꾸며 잠에서 깼다."
+      },
       {
         id: 'suneung-weight',
         text: '수능이라는 단어 하나에 하루하루가 짓눌린다',
@@ -1982,6 +2096,12 @@ const STAGES = [
     intro: '인생의 첫 갈림길. 대학과 방송, 혹은 곧장 돈이 되는 길 — 스무 살의 선택은 이후 모든 걸 조금씩 흔들어놓습니다.',
     choices: [
       {
+        id: "unhappy-19",
+        text: "동기들은 다 하나씩 진로를 정하는데 나만 갈피를 못 잡는다",
+        deltas: { happiness: -3 },
+        result: "남들 다 아는 답을 나만 모르는 것 같은 조바심이 들었다."
+      },
+      {
         id: 'college',
         text: '무난하게 대학에 진학해 학점을 관리한다',
         deltas: { wealth: 5, health: 3, fame: -2 },
@@ -2095,6 +2215,12 @@ const STAGES = [
     ageRange: '20세',
     intro: '갓 어른이 된 티가 조금씩 빠지는 나이. 독립과 자유가 생각보다 훨씬 손이 많이 간다는 걸 알아갑니다.',
     choices: [
+      {
+        id: "unhappy-20",
+        text: "첫 아르바이트에서 손님에게 부당하게 화를 당한다",
+        deltas: { happiness: -4, relationship: -1 },
+        result: "억울해도 웃어야 하는 게, 어른이 되는 거란 걸 배웠다."
+      },
       {
         id: 'move-out-independence',
         text: '본가를 떠나 자취를 시작한다',
@@ -2282,6 +2408,12 @@ const STAGES = [
     intro: '방향을 조금씩 좁혀가는 나이. 막연했던 미래가 서서히 구체적인 모양을 갖추기 시작합니다.',
     choices: [
       {
+        id: "unhappy-21",
+        text: "군대·휴학 등으로 친했던 친구들과 자연스레 멀어진다",
+        deltas: { happiness: -3, relationship: -2 },
+        result: "안부를 묻는 연락도, 점점 뜸해져 갔다."
+      },
+      {
         id: 'stacking-credentials',
         text: '복수전공·자격증 등으로 스펙을 본격적으로 쌓기 시작한다',
         deltas: { happiness: -1, fame: 2, wealth: -2 },
@@ -2365,6 +2497,12 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        id: "unhappy-22",
+        text: "취업 스터디에서 계속 낙방하며 자존감이 무너진다",
+        deltas: { happiness: -4 },
+        result: "면접관의 표정 하나하나를 곱씹으며 잠 못 이루는 밤이 늘었다."
+      },
       {
         id: 'harsh-internship-reality',
         text: '첫 인턴십에서 현실을 마주한다',
@@ -2461,6 +2599,12 @@ const STAGES = [
     ageRange: '23세',
     intro: '스무 살대의 마지막 해. 자립이라는 단어가 더는 남 얘기가 아니게 됩니다.',
     choices: [
+      {
+        id: "unhappy-23",
+        text: "졸업은 다가오는데 이렇다 할 성과가 없어 불안하다",
+        deltas: { happiness: -3, wealth: -1 },
+        result: "졸업 사진 속 웃는 얼굴과 달리, 속은 타들어 갔다."
+      },
       {
         id: 'first-full-time-contract',
         text: '첫 정규직 계약서에 서명한다',
@@ -2614,6 +2758,12 @@ const STAGES = [
     ageRange: '24세',
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
+      {
+        id: "unhappy-24",
+        text: "첫 직장 상사에게 부당한 지적을 받고 속으로 삭인다",
+        deltas: { happiness: -4, relationship: -1 },
+        result: "퇴근길 지하철 안에서야, 겨우 눈물이 났다."
+      },
       {
         id: 'learning-the-ropes',
         text: '신입 딱지를 떼려 필사적으로 배운다',
@@ -2771,6 +2921,12 @@ const STAGES = [
     ageRange: '25세',
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
+      {
+        id: "unhappy-25",
+        text: "동기가 먼저 승진했다는 소식에 씁쓸함을 감추지 못한다",
+        deltas: { happiness: -3, fame: -1 },
+        result: "축하한다는 말을 하면서도, 마음은 계속 딴 데 있었다."
+      },
       {
         id: 'work-becomes-easier',
         text: '어느 정도 일이 손에 익어간다',
@@ -2998,6 +3154,12 @@ const STAGES = [
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
       {
+        id: "unhappy-26",
+        text: "월급으로는 도무지 답이 안 보이는 통장을 들여다본다",
+        deltas: { happiness: -3, wealth: -1 },
+        result: "이번 달도 마이너스인 잔고에, 한숨이 절로 나왔다."
+      },
+      {
         id: 'apartment-hunting',
         text: '전셋집을 구하려 발품을 팔며 부동산을 알아본다',
         deltas: { wealth: -3, happiness: -1 },
@@ -3191,6 +3353,12 @@ const STAGES = [
     ageRange: '27세',
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
+      {
+        id: "unhappy-27",
+        text: "친한 동료가 갑작스레 퇴사한다는 소식을 듣는다",
+        deltas: { happiness: -2, relationship: -2 },
+        result: "매일 같이 점심 먹던 자리가, 다음 주부터는 비어 있을 터였다."
+      },
       {
         id: 'questioning-the-path',
         text: '지금 하는 일이 정말 맞는 길인지 진지하게 고민한다',
@@ -3393,6 +3561,12 @@ const STAGES = [
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
       {
+        id: "unhappy-28",
+        text: "결혼식 청첩장이 쏟아지는데 축의금 낼 돈이 빠듯하다",
+        deltas: { happiness: -2, wealth: -2 },
+        result: "축하하는 마음과 통장 잔고 사이에서 계속 눈치를 봤다."
+      },
+      {
         id: 'small-promotion',
         text: '더 큰 책임을 맡겠다고 자원한다',
         deltas: { fame: 4, wealth: 3, happiness: -2 },
@@ -3579,6 +3753,12 @@ const STAGES = [
     intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
     choices: [
       {
+        id: "unhappy-29",
+        text: "20대가 끝나간다는 사실에 괜한 조바심이 밀려온다",
+        deltas: { happiness: -3 },
+        result: "이룬 것도 없이 나이만 먹은 것 같아 마음이 조급해졌다."
+      },
+      {
         id: 'last-twenties-birthday',
         text: '20대의 마지막 생일을 조용히, 혹은 왁자지껄하게 보낸다',
         deltas: { happiness: 4, relationship: 3 },
@@ -3744,6 +3924,12 @@ const STAGES = [
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
       {
+        id: "unhappy-30",
+        text: "서른이 됐다는 것만으로 주변의 잔소리가 부쩍 늘어난다",
+        deltas: { happiness: -2, relationship: -1 },
+        result: "결혼은, 안정은, 이라는 질문들이 지겹도록 반복됐다."
+      },
+      {
         id: 'thirty-pressure',
         text: '서른이 되고 나니 뭔가 달라져야 할 것 같다는 생각이 든다',
         deltas: { happiness: -3, fame: 1 },
@@ -3851,6 +4037,12 @@ const STAGES = [
     ageRange: '31세',
     intro: '곁에 남을 사람과 앞으로의 삶을 어떻게 그릴지, 조금 더 구체적으로 고민하는 나이입니다.',
     choices: [
+      {
+        id: "unhappy-31",
+        text: "믿었던 사람에게 뒤통수를 맞는 일을 겪는다",
+        deltas: { happiness: -4, relationship: -3 },
+        result: "그 사람 얼굴이 자꾸 떠올라, 한동안 사람 만나는 게 겁났다."
+      },
       {
         id: 'wedding-day',
         text: '오래 만난 연인과 결혼식을 올린다',
@@ -4001,6 +4193,12 @@ const STAGES = [
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
       {
+        id: "unhappy-32",
+        text: "몸이 예전 같지 않다는 걸 체감하며 서글퍼진다",
+        deltas: { happiness: -2, health: -2 },
+        result: "며칠 무리했을 뿐인데, 회복이 확연히 더뎠다."
+      },
+      {
         id: 'first-home-purchase',
         text: '영끌해서 내 집 마련에 성공한다',
         deltas: { wealth: -8, happiness: 6 },
@@ -4136,6 +4334,12 @@ const STAGES = [
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
       {
+        id: "unhappy-33",
+        text: "동창회에서 남들과 나를 비교하다 씁쓸해진다",
+        deltas: { happiness: -3 },
+        result: "웃으며 사진은 찍었지만, 집에 오는 길이 유독 무거웠다."
+      },
+      {
         id: 'first-childbirth',
         text: '첫 아이를 임신·출산하며 인생의 큰 전환점을 맞는다',
         deltas: { happiness: 5, health: -4, wealth: -3 },
@@ -4215,6 +4419,12 @@ const STAGES = [
     ageRange: '34세',
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
+      {
+        id: "unhappy-34",
+        text: "가족 행사에서 뜻하지 않은 잔소리 폭탄을 맞는다",
+        deltas: { happiness: -2, relationship: -1 },
+        result: "듣기 싫은 말도 웃으며 넘기는 게, 명절의 룰이었다."
+      },
       {
         id: 'bold-job-change',
         text: '과감히 이직해 새로운 조직에 적응한다',
@@ -4308,6 +4518,12 @@ const STAGES = [
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
       {
+        id: "unhappy-35",
+        text: "반복되는 일상에 문득 이유 모를 무기력이 찾아온다",
+        deltas: { happiness: -4 },
+        result: "특별히 나쁜 일도 없는데, 마음이 자꾸 가라앉았다."
+      },
+      {
         id: 'sandwiched-manager',
         text: '중간관리자가 되어 위아래 사이에 낀 기분을 느낀다',
         deltas: { happiness: -3, relationship: -1, fame: 2 },
@@ -4389,6 +4605,12 @@ const STAGES = [
     ageRange: '36세',
     intro: '나를 키워준 사람들을 이제는 내가 돌봐야 할 시기가 다가옵니다.',
     choices: [
+      {
+        id: "unhappy-36",
+        text: "믿고 투자한 곳에서 예상보다 큰 손실을 본다",
+        deltas: { happiness: -3, wealth: -3 },
+        result: "숫자만 봐도 속이 쓰려, 한동안 계좌를 열어보지 못했다."
+      },
       {
         id: 'caring-for-sick-parent',
         text: '부모님의 병간호를 시작하며 삶의 우선순위가 바뀐다',
@@ -4541,6 +4763,12 @@ const STAGES = [
     intro: '잊고 지내던 나 자신을 다시 챙기기 시작하는 나이입니다.',
     choices: [
       {
+        id: "unhappy-37",
+        text: "가까운 지인의 성공 소식에 나도 모르게 위축된다",
+        deltas: { happiness: -3, fame: -1 },
+        result: "축하한다 말하면서도, 내 자리를 자꾸 돌아보게 됐다."
+      },
+      {
         id: 'reviving-old-hobby',
         text: '오랫동안 미뤄온 취미를 본격적으로 다시 시작한다',
         deltas: { happiness: 5, wealth: -1 },
@@ -4681,6 +4909,12 @@ const STAGES = [
     ageRange: '38세',
     intro: '몸이 예전 같지 않다는 걸, 무시할 수 없을 만큼 또렷하게 느끼게 됩니다.',
     choices: [
+      {
+        id: "unhappy-38",
+        text: "체력이 예전 같지 않아 좋아하던 걸 하나씩 포기한다",
+        deltas: { happiness: -2, health: -1 },
+        result: "할 수 없다는 걸 인정하는 게, 생각보다 쓸쓸했다."
+      },
       {
         id: 'shocking-checkup-result',
         text: '건강검진에서 예상 못한 결과를 받고 충격받는다',
@@ -4850,6 +5084,12 @@ const STAGES = [
     intro: '서른대의 마지막 해. 다가올 10년을 조용히 준비하게 됩니다.',
     choices: [
       {
+        id: "unhappy-39",
+        text: "마흔을 코앞에 두고 지나온 시간을 후회 섞어 되돌아본다",
+        deltas: { happiness: -4 },
+        result: "이렇게 살아도 되는 걸까, 라는 질문이 자꾸 맴돌았다."
+      },
+      {
         id: 'reflecting-on-thirties',
         text: '서른아홉, 지난 10년을 찬찬히 돌아본다',
         deltas: { happiness: 3, relationship: 2 },
@@ -4964,6 +5204,12 @@ const STAGES = [
     ageRange: '40세',
     intro: '인생의 절반 지점. 마흔이라는 숫자가 이유 없이 지난 시간을 돌아보게 만듭니다.',
     choices: [
+      {
+        id: "unhappy-40",
+        text: "마흔이라는 숫자 앞에서 이유 모를 상실감을 느낀다",
+        deltas: { happiness: -3 },
+        result: "청춘이 저만치 지나간 것 같은 느낌을 지울 수 없었다."
+      },
       {
         id: 'midlife-halfway-realization',
         text: '마흔이 되고 나니 인생의 절반을 지났다는 게 실감난다',
@@ -5113,6 +5359,12 @@ const STAGES = [
     intro: '자녀 교육이든 커리어든, 뭔가를 본격적으로 다잡아야 할 것 같은 압박이 느껴지는 나이입니다.',
     choices: [
       {
+        id: "unhappy-41",
+        text: "회사에서 후배에게 밀려나는 듯한 기분을 느낀다",
+        deltas: { happiness: -3, fame: -1 },
+        result: "예전 같으면 내 몫이었을 자리가, 어느새 다른 이름표를 달고 있었다."
+      },
+      {
         id: 'focus-on-childs-education',
         text: '자녀 교육에 본격적으로 신경 쓰기 시작한다',
         deltas: { wealth: -4, happiness: 2, relationship: 2 },
@@ -5184,6 +5436,12 @@ const STAGES = [
     ageRange: '42세',
     intro: '몸이 보내는 신호를 더 이상 못 본 척할 수 없게 되는 나이입니다.',
     choices: [
+      {
+        id: "unhappy-42",
+        text: "부모님의 부쩍 흰머리를 보고 마음이 무거워진다",
+        deltas: { happiness: -2, relationship: -1 },
+        result: "세월이 나만 비껴가는 게 아니란 걸, 새삼 실감했다."
+      },
       {
         id: 'multiple-health-flags',
         text: '건강검진에서 여러 이상 소견을 받는다',
@@ -5303,6 +5561,12 @@ const STAGES = [
     intro: '조직 안에서 자신의 자리를 다시 확인하게 되는 시기입니다.',
     choices: [
       {
+        id: "unhappy-43",
+        text: "노후 자금 계산을 해보고 막막함에 잠을 설친다",
+        deltas: { happiness: -3, wealth: -1 },
+        result: "숫자를 두드릴수록, 답은 점점 더 멀어지는 것 같았다."
+      },
+      {
         id: 'promoted-to-manager',
         text: '부서장·팀장 자리에 도전한다',
         deltas: { fame: 5, wealth: 4, happiness: -2 },
@@ -5410,6 +5674,12 @@ const STAGES = [
     ageRange: '44세',
     intro: '가까운 사이일수록 소원해지기 쉬운 나이. 관계를 다시 들여다보게 됩니다.',
     choices: [
+      {
+        id: "unhappy-44",
+        text: "자녀와 대화가 자꾸 겉돌아 서운함을 느낀다",
+        deltas: { happiness: -3, relationship: -2 },
+        result: "방문 너머로 짧은 대답만 돌아오는 날이 늘었다."
+      },
       {
         id: 'teen-child-conflict',
         text: '사춘기에 접어든 자녀와 자주 부딪힌다',
@@ -5529,6 +5799,12 @@ const STAGES = [
     ageRange: '45세',
     intro: '다 가진 것 같은데도 문득 공허해지는, 이른바 중년의 위기가 찾아오는 나이입니다.',
     choices: [
+      {
+        id: "unhappy-45",
+        text: "구조조정 소문이 돌며 회사 분위기가 뒤숭숭해진다",
+        deltas: { happiness: -4, wealth: -1 },
+        result: "출근길 발걸음이 유난히 무거운 날들이 이어졌다."
+      },
       {
         id: 'existential-emptiness',
         text: '이유 모를 공허함에 삶의 의미를 되묻는다',
@@ -5721,6 +5997,12 @@ const STAGES = [
     intro: '늦지 않았다는 걸 스스로 증명하고 싶어지는 나이입니다.',
     choices: [
       {
+        id: "unhappy-46",
+        text: "건강검진에서 예상 못 한 수치에 덜컥 겁이 난다",
+        deltas: { happiness: -3, health: -2 },
+        result: "숫자 하나에 그동안의 자신감이 와르르 무너졌다."
+      },
+      {
         id: 'new-certification-40s',
         text: '새로운 자격증·학위에 도전하며 재교육을 받는다',
         deltas: { wealth: -3, happiness: 3, fame: 2 },
@@ -5800,6 +6082,12 @@ const STAGES = [
     ageRange: '47세',
     intro: '나를 키워준 사람들의 노년을 마주하며, 삶과 죽음을 조금 더 가까이서 보게 됩니다.',
     choices: [
+      {
+        id: "unhappy-47",
+        text: "배우자와 사소한 일로 냉랭한 며칠을 보낸다",
+        deltas: { happiness: -3, relationship: -3 },
+        result: "같은 집에 살면서도, 말 한마디가 유난히 어려운 날들이었다."
+      },
       {
         id: 'parent-to-nursing-home',
         text: '부모님을 요양시설에 모시며 마음이 무겁다',
@@ -5928,6 +6216,12 @@ const STAGES = [
     intro: '커리어가 정점에 이르거나, 정체를 마주하거나 — 갈림이 뚜렷해지는 나이입니다.',
     choices: [
       {
+        id: "unhappy-48",
+        text: "오랜 친구와의 관계가 서서히 멀어지고 있음을 느낀다",
+        deltas: { happiness: -2, relationship: -2 },
+        result: "연락처는 그대로인데, 마음의 거리는 점점 벌어졌다."
+      },
+      {
         id: 'career-peak-achievement',
         text: '커리어의 정점에서 큰 성과를 이룬다',
         deltas: { fame: 6, wealth: 5, happiness: 3 },
@@ -6021,6 +6315,12 @@ const STAGES = [
     ageRange: '49세',
     intro: '몸이 새로운 국면으로 접어드는 걸 느끼기 시작하는 나이입니다.',
     choices: [
+      {
+        id: "unhappy-49",
+        text: "몸의 여기저기가 예고 없이 아파오기 시작한다",
+        deltas: { happiness: -2, health: -3 },
+        result: "병원 대기 순번표를 뽑는 일이 점점 익숙해졌다."
+      },
       {
         id: 'new-hobby-menopause-relief',
         text: '새로운 취미로 몸과 마음의 변화를 다스린다',
@@ -6139,6 +6439,12 @@ const STAGES = [
     ageRange: '50세',
     intro: '쉰이라는 숫자 앞에서, 지나온 시간의 무게를 새삼 느끼게 됩니다.',
     choices: [
+      {
+        id: "unhappy-50",
+        text: "쉰이라는 나이 앞에서 인생의 절반이 지났다는 걸 실감한다",
+        deltas: { happiness: -4 },
+        result: "남은 시간을 세어보게 되는 나이가, 벌써 왔다."
+      },
       {
         id: 'mixed-feelings-turning-fifty',
         text: '쉰이라는 나이 앞에서 만감이 교차한다',
@@ -6310,6 +6616,12 @@ const STAGES = [
     intro: '자녀가 떠난 자리, 그 빈자리를 어떻게 채우느냐가 이 시기의 숙제입니다.',
     choices: [
       {
+        id: "unhappy-51",
+        text: "자녀의 독립 준비 소식에 서운함과 대견함이 뒤섞인다",
+        deltas: { happiness: -3, relationship: -1 },
+        result: "잘 컸다는 뿌듯함 뒤로, 빈방이 유난히 크게 느껴졌다."
+      },
+      {
         id: 'empty-nest-syndrome',
         text: '자녀가 독립하며 빈 둥지 증후군을 겪는다',
         deltas: { happiness: -5, relationship: -2 },
@@ -6470,6 +6782,12 @@ const STAGES = [
     intro: '은퇴라는 단어가 더는 먼 이야기가 아니게 되는 나이입니다.',
     choices: [
       {
+        id: "unhappy-52",
+        text: "회사에서 명예퇴직 권고를 넌지시 듣게 된다",
+        deltas: { happiness: -5, wealth: -2 },
+        result: "예상은 했지만, 막상 들으니 다리에 힘이 풀렸다."
+      },
+      {
         id: 'planning-life-after-retirement',
         text: '은퇴 후 삶을 구체적으로 계획하기 시작한다',
         deltas: { happiness: 2 },
@@ -6547,6 +6865,12 @@ const STAGES = [
     ageRange: '53세',
     intro: '숫자로 남은 시간을 가늠하게 되는, 현실적인 재정비의 시기입니다.',
     choices: [
+      {
+        id: "unhappy-53",
+        text: "거울 속 낯선 주름에 세월의 무게를 실감한다",
+        deltas: { happiness: -2 },
+        result: "언제 이렇게 변했을까, 한참을 들여다봤다."
+      },
       {
         id: 'organizing-assets-for-retirement',
         text: '그동안의 자산을 정리하며 노후 계획을 세운다',
@@ -6667,6 +6991,12 @@ const STAGES = [
     intro: '중년의 마지막 해. 다가올 노년을 향해 조용히 마음을 다잡습니다.',
     choices: [
       {
+        id: "unhappy-54",
+        text: "동창의 부고 소식에 인생의 유한함을 절감한다",
+        deltas: { happiness: -3, relationship: -1 },
+        result: "함께 웃던 얼굴이 이제 사진으로만 남는다는 게 믿기지 않았다."
+      },
+      {
         id: 'reflecting-on-fifteen-years',
         text: '중년의 마지막 해, 지난 15년을 돌아본다',
         deltas: { happiness: 3, relationship: 2 },
@@ -6733,6 +7063,12 @@ const STAGES = [
     ageRange: '55세',
     intro: '정년이라는 단어가 더는 남 얘기가 아니게 되는 나이. 매일 출근하던 삶이 조용히 막을 내립니다.',
     choices: [
+      {
+        id: "unhappy-55",
+        text: "정년이 가까워질수록 앞날에 대한 막막함이 커진다",
+        deltas: { happiness: -4 },
+        result: "월급 없는 삶이 어떤 모습일지, 도무지 그려지지 않았다."
+      },
       {
         id: 'official-retirement',
         text: '정년퇴직을 맞아 회사를 떠난다',
@@ -6868,6 +7204,12 @@ const STAGES = [
     intro: '평생 "어디 소속"으로 나를 소개하던 습관이 사라지며, 나는 누구인가를 새삼 다시 묻게 됩니다.',
     choices: [
       {
+        id: "unhappy-56",
+        text: "무릎이 예전 같지 않아 좋아하던 등산도 힘에 부친다",
+        deltas: { happiness: -2, health: -2 },
+        result: "정상까지 못 오르고 중턱에서 돌아선 날, 유독 쓸쓸했다."
+      },
+      {
         id: 'questioning-identity',
         text: '"내가 누구인가"라는 질문을 새삼 다시 던진다',
         deltas: { happiness: -3, health: -1 },
@@ -6941,6 +7283,12 @@ const STAGES = [
     ageRange: '57세',
     intro: '직장이라는 울타리 없이 새로운 사람들과 관계를 다시 엮어가야 하는 시기입니다.',
     choices: [
+      {
+        id: "unhappy-57",
+        text: "손주 재롱을 보러 온 다른 부부를 보며 부러움을 느낀다",
+        deltas: { happiness: -2, relationship: -1 },
+        result: "축하하는 마음 한편에, 조용한 부러움이 섞였다."
+      },
       {
         id: 'joining-local-community',
         text: '동네 커뮤니티·모임에 나가며 새 친구를 사귄다',
@@ -7056,6 +7404,12 @@ const STAGES = [
     ageRange: '58세',
     intro: '자녀 세대가 이제 자기 가정을 꾸리며, 가족 안에서의 내 역할도 조금씩 달라집니다.',
     choices: [
+      {
+        id: "unhappy-58",
+        text: "은퇴 후 소득 공백이 눈앞에 닥쳤음을 실감한다",
+        deltas: { happiness: -3, wealth: -2 },
+        result: "매달 들어오던 월급이 끊긴다는 게, 생각보다 무서웠다."
+      },
       {
         id: 'becoming-a-grandparent',
         text: '손주가 태어나 할머니·할아버지가 된다',
@@ -7219,6 +7573,12 @@ const STAGES = [
     intro: '건강이 더 이상 당연한 게 아니라는 걸 받아들이고, 본격적으로 몸을 챙기기 시작하는 나이입니다.',
     choices: [
       {
+        id: "unhappy-59",
+        text: "오랜 지병으로 병원 출입이 부쩍 잦아진다",
+        deltas: { happiness: -2, health: -3 },
+        result: "약봉지가 하나둘 늘어가는 걸, 애써 태연하게 받아들였다."
+      },
+      {
         id: 'morning-walk-routine',
         text: '매일 아침 산책을 루틴으로 삼는다',
         deltas: { health: 5, happiness: 2 },
@@ -7330,6 +7690,12 @@ const STAGES = [
     ageRange: '60세',
     intro: '환갑. 예순 해를 지나온 삶을 가족과 함께 돌아보는 해입니다.',
     choices: [
+      {
+        id: "unhappy-60",
+        text: "환갑을 맞으면서도 축하보다 씁쓸함이 앞선다",
+        deltas: { happiness: -3 },
+        result: "잔치 분위기 속에서도, 마음 한구석은 자꾸 가라앉았다."
+      },
       {
         id: 'big-sixtieth-celebration',
         text: '환갑을 맞아 가족·친지가 모여 크게 잔치를 연다',
@@ -7462,6 +7828,12 @@ const STAGES = [
     intro: '은퇴 이후의 삶이 서서히 새로운 리듬을 찾아가는 시기입니다.',
     choices: [
       {
+        id: "unhappy-61",
+        text: "함께 늙어가던 친구의 건강 악화 소식을 듣는다",
+        deltas: { happiness: -3, relationship: -1 },
+        result: "다음엔 내 차례일까, 라는 생각이 스치고 지나갔다."
+      },
+      {
         id: 'new-life-rhythm-settles',
         text: '새로운 삶의 리듬이 완전히 자리 잡는다',
         deltas: { happiness: 4, health: 2 },
@@ -7570,6 +7942,12 @@ const STAGES = [
     intro: '연금이라는 단어가 현실적인 숫자로 다가오기 시작하는 나이입니다.',
     choices: [
       {
+        id: "unhappy-62",
+        text: "연금만으로는 생활이 빠듯하다는 걸 체감한다",
+        deltas: { happiness: -3, wealth: -2 },
+        result: "가계부를 적을수록, 줄일 곳이 더는 안 보였다."
+      },
+      {
         id: 'starting-pension',
         text: '국민연금 수령을 시작하며 새로운 수입 흐름이 생긴다',
         deltas: { wealth: 4, happiness: 2 },
@@ -7673,6 +8051,12 @@ const STAGES = [
     intro: '취미와 가족, 두 가지 모두에서 깊이가 더해지는 시기입니다.',
     choices: [
       {
+        id: "unhappy-63",
+        text: "몸이 예전 같지 않아 하고 싶던 일을 자꾸 미룬다",
+        deltas: { happiness: -2, health: -1 },
+        result: "내년엔 꼭, 이라는 말을 몇 년째 반복하고 있었다."
+      },
+      {
         id: 'watching-grandchild-grow',
         text: '손주가 훌쩍 커가는 모습을 지켜본다',
         deltas: { happiness: 5, relationship: 3 },
@@ -7750,6 +8134,12 @@ const STAGES = [
     ageRange: '64세',
     intro: '몸의 변화를 있는 그대로 받아들이는 연습이 필요한 나이입니다.',
     choices: [
+      {
+        id: "unhappy-64",
+        text: "자녀 가족과의 왕래가 점점 뜸해짐을 느낀다",
+        deltas: { happiness: -3, relationship: -2 },
+        result: "명절에나 겨우 마주치는 사이가, 어느새 익숙해졌다."
+      },
       {
         id: 'anxious-over-checkup-results',
         text: '건강검진 결과 하나하나에 예민해진다',
@@ -7865,6 +8255,12 @@ const STAGES = [
     ageRange: '65세',
     intro: '법정 노인 연령. 사회가 부르는 호칭이 바뀌는 걸 마주하게 됩니다.',
     choices: [
+      {
+        id: "unhappy-65",
+        text: "노인이라 불리는 나이가 됐다는 사실에 씁쓸해진다",
+        deltas: { happiness: -3 },
+        result: "지하철 우대석 앞에서, 처음으로 걸음을 멈칫했다."
+      },
       {
         id: 'senior-benefits-begin',
         text: '법정 노인 연령이 되어 각종 경로 우대를 받는다',
@@ -8026,6 +8422,12 @@ const STAGES = [
     intro: '오랜 세월을 함께한 배우자와의 관계를 다시 들여다보게 되는 나이입니다.',
     choices: [
       {
+        id: "unhappy-66",
+        text: "젊은 시절 꿈꿨던 일들을 결국 못 이뤘음을 인정한다",
+        deltas: { happiness: -4 },
+        result: "늦었다는 걸 알면서도, 미련은 쉽게 접히지 않았다."
+      },
+      {
         id: 'gratitude-for-long-marriage',
         text: '오랜 결혼 생활을 돌아보며 배우자에게 새삼 고마움을 느낀다',
         deltas: { relationship: 5, happiness: 4 },
@@ -8146,6 +8548,12 @@ const STAGES = [
     intro: '남겨질 것들에 대해 조금씩 마음의 준비를 시작하는 나이입니다.',
     choices: [
       {
+        id: "unhappy-67",
+        text: "배우자의 잔병치레가 늘어 걱정이 끊이지 않는다",
+        deltas: { happiness: -3, relationship: -1 },
+        result: "병원 진료실 앞 의자가, 요즘 들어 낯익어졌다."
+      },
+      {
         id: 'writing-a-will',
         text: '유언장을 미리 써두며 마음을 정리한다',
         deltas: { happiness: 2, relationship: 1 },
@@ -8243,6 +8651,12 @@ const STAGES = [
     intro: '가까운 이들의 부고를 마주하며, 남은 삶의 무게를 다시 느끼게 됩니다.',
     choices: [
       {
+        id: "unhappy-68",
+        text: "예전만큼 몸이 따라주지 않아 무력감을 느낀다",
+        deltas: { happiness: -3, health: -2 },
+        result: "마음은 여전히 청춘인데, 몸이 자꾸 브레이크를 걸었다."
+      },
+      {
         id: 'grieving-an-old-friend',
         text: '오랜 친구의 부고 소식에 크게 상심한다',
         deltas: { happiness: -6, health: -2 },
@@ -8337,6 +8751,12 @@ const STAGES = [
     intro: '노년 준비의 마지막 해. 진짜 노년이 코앞으로 다가옵니다.',
     choices: [
       {
+        id: "unhappy-69",
+        text: "일흔을 앞두고 남은 시간에 대한 두려움이 밀려온다",
+        deltas: { happiness: -4 },
+        result: "달력을 넘길 때마다, 마음이 조금씩 무거워졌다."
+      },
+      {
         id: 'reflecting-on-fifteen-years-oldprep',
         text: '노년 준비의 마지막 해, 지난 15년을 돌아본다',
         deltas: { happiness: 3, relationship: 2 },
@@ -8406,6 +8826,12 @@ const STAGES = [
     ageRange: '70세',
     intro: '칠순. 황혼이라 불리는 시간의 첫걸음을 내딛습니다.',
     choices: [
+      {
+        id: "unhappy-70",
+        text: "칠순을 맞아도 축하보다 세월의 무상함이 크게 다가온다",
+        deltas: { happiness: -3 },
+        result: "축하 인사를 받으면서도, 마음은 자꾸 딴 데 가 있었다."
+      },
       {
         id: 'grand-seventieth-celebration',
         text: '칠순을 맞아 온 가족이 모여 성대한 잔치를 연다',
@@ -8502,6 +8928,12 @@ const STAGES = [
     intro: '거창한 일 없이도, 하루하루의 작은 순간들이 새삼 소중하게 다가오는 나이입니다.',
     choices: [
       {
+        id: "unhappy-71",
+        text: "오랜 친구들이 하나둘 세상을 떠났다는 소식을 듣는다",
+        deltas: { happiness: -4, relationship: -2 },
+        result: "부고 소식에 익숙해진다는 게, 슬프도록 서글펐다."
+      },
+      {
         id: 'morning-tea-happiness',
         text: '매일 아침 차 한 잔을 마신다',
         deltas: { happiness: 4, health: 1 },
@@ -8597,6 +9029,12 @@ const STAGES = [
     intro: '자녀와 손주 세대가 저마다의 성취를 이뤄가는 걸 지켜보는 나이입니다.',
     choices: [
       {
+        id: "unhappy-72",
+        text: "기억력이 예전 같지 않아 자꾸 깜빡깜빡한다",
+        deltas: { happiness: -3, health: -1 },
+        result: "방금 한 말을 또 하고 있는 걸, 스스로도 알아챘다."
+      },
+      {
         id: 'grandchild-college-news',
         text: '손주에게서 대학 입시 관련 소식을 듣는다',
         deltas: { happiness: 6, relationship: 4 },
@@ -8680,6 +9118,12 @@ const STAGES = [
     intro: '몸이 더는 예전 같지 않다는 걸, 이제는 확실히 받아들여야 하는 시기입니다.',
     choices: [
       {
+        id: "unhappy-73",
+        text: "혼자 보내는 시간이 늘며 외로움이 짙어진다",
+        deltas: { happiness: -4, relationship: -2 },
+        result: "종일 아무와도 말 한마디 안 한 날이, 점점 늘어갔다."
+      },
+      {
         id: 'stairs-become-harder',
         text: '계단 오르내리기조차 버거워짐을 느낀다',
         deltas: { health: -4, happiness: -2 },
@@ -8750,6 +9194,12 @@ const STAGES = [
     ageRange: '74세',
     intro: '다리에 힘이 있을 때, 라는 말이 부쩍 자주 나오는 나이입니다.',
     choices: [
+      {
+        id: "unhappy-74",
+        text: "병원 진료가 일상이 되며 지친 기색을 감추지 못한다",
+        deltas: { happiness: -3, health: -2 },
+        result: "대기실 의자에 앉아있는 시간이, 하루 중 제일 길었다."
+      },
       {
         id: 'last-long-trip-with-friends',
         text: '다리에 힘 있을 때라며 친구들과 마지막 장거리 여행을 떠난다',
@@ -8860,6 +9310,12 @@ const STAGES = [
     intro: '남은 시간을 어떻게 채워갈지, 다시 한번 진지하게 그려보는 나이입니다.',
     choices: [
       {
+        id: "unhappy-75",
+        text: "몸이 마음처럼 안 움직여 하루가 유난히 더디게 간다",
+        deltas: { happiness: -2, health: -2 },
+        result: "간단한 일도 몇 배로 힘이 드는 걸, 서서히 받아들였다."
+      },
+      {
         id: 'rethinking-how-to-fill-remaining-time',
         text: '남은 삶을 어떻게 채울지 다시 한번 진지하게 그려본다',
         deltas: { happiness: 2, health: 1 },
@@ -8950,6 +9406,12 @@ const STAGES = [
     intro: '평생을 함께한 배우자의 건강이 흔들리는 걸 지켜보게 되는, 힘겨운 나이입니다.',
     choices: [
       {
+        id: "unhappy-76",
+        text: "손주들이 크면서 예전만큼 찾아오지 않는다",
+        deltas: { happiness: -3, relationship: -1 },
+        result: "빈 집 안의 정적이, 요즘 들어 유독 크게 들렸다."
+      },
+      {
         id: 'spouse-diagnosed-with-illness',
         text: '배우자가 큰 병을 진단받아 간병을 시작한다',
         deltas: { relationship: 3, happiness: -6, health: -3 },
@@ -9025,6 +9487,12 @@ const STAGES = [
     ageRange: '77세',
     intro: '희수(喜壽). 예로부터 기쁘게 오래 산 것을 기리는 나이입니다.',
     choices: [
+      {
+        id: "unhappy-77",
+        text: "거동이 불편해지며 혼자 할 수 있는 일이 줄어든다",
+        deltas: { happiness: -3, health: -2 },
+        result: "누군가에게 부탁해야 하는 일이 늘수록, 자존심도 함께 작아졌다."
+      },
       {
         id: 'huisu-family-celebration',
         text: '희수(喜壽)를 맞아 가족들이 작은 잔치를 열어준다',
@@ -9125,6 +9593,12 @@ const STAGES = [
     intro: '기억이 예전만큼 또렷하지 않다는 걸, 스스로 느끼기 시작하는 나이입니다.',
     choices: [
       {
+        id: "unhappy-78",
+        text: "옛 사진첩을 넘기다 그리운 얼굴들에 눈시울이 붉어진다",
+        deltas: { happiness: -3, relationship: -1 },
+        result: "다시는 볼 수 없는 얼굴들이, 사진 속에서만 웃고 있었다."
+      },
+      {
         id: 'forgetting-where-things-are',
         text: '일정과 물건 정리를 메모 없이 기억에만 의존한다',
         deltas: { happiness: -3, health: -2 },
@@ -9215,6 +9689,12 @@ const STAGES = [
     intro: '팔순을 코앞에 두고, 지나온 삶을 조용히 정리해보는 한 해입니다.',
     choices: [
       {
+        id: "unhappy-79",
+        text: "청력이 나빠져 가족과의 대화도 힘겨워진다",
+        deltas: { happiness: -3, health: -1, relationship: -1 },
+        result: "몇 번을 되물어야 하는 게, 서로에게 미안한 일이 됐다."
+      },
+      {
         id: 'organizing-belongings-before-eighty',
         text: '팔순을 앞두고 남길 물건과 이야기들을 정리한다',
         deltas: { happiness: 2, relationship: 2 },
@@ -9297,6 +9777,12 @@ const STAGES = [
     ageRange: '80세',
     intro: '팔순. 여든 해를 살아낸 삶을 온 가족과 함께 기립니다.',
     choices: [
+      {
+        id: "unhappy-80",
+        text: "팔순을 맞으며 남은 날들을 세어보게 된다",
+        deltas: { happiness: -3 },
+        result: "축하객들의 웃음소리 사이로, 조용히 계산기를 두드렸다."
+      },
       {
         id: 'grand-eightieth-celebration',
         text: '팔순을 맞아 온 가족, 친지가 모여 큰 잔치를 연다',
@@ -9404,6 +9890,12 @@ const STAGES = [
     intro: '매일 눈을 뜨는 것 자체가, 새삼 감사하게 느껴지는 나이입니다.',
     choices: [
       {
+        id: "unhappy-81",
+        text: "동네 오랜 이웃이 세상을 떠났다는 소식에 마음이 무겁다",
+        deltas: { happiness: -3, relationship: -1 },
+        result: "매일 마주치던 얼굴 하나가, 이제 더는 볼 수 없게 됐다."
+      },
+      {
         id: 'grateful-just-to-wake-up',
         text: '매일 아침 눈을 뜨는 순간을 새삼 의식한다',
         deltas: { happiness: 5, health: 1 },
@@ -9478,6 +9970,12 @@ const STAGES = [
     ageRange: '82세',
     intro: '오랜 인연들의 안부가, 그 어느 때보다 소중하게 다가오는 나이입니다.',
     choices: [
+      {
+        id: "unhappy-82",
+        text: "거동이 더뎌져 외출 한 번이 큰 결심이 된다",
+        deltas: { happiness: -2, health: -2 },
+        result: "현관문을 나서기까지, 예전보다 몇 배는 더 마음을 다잡아야 했다."
+      },
       {
         id: 'calling-an-old-friend',
         text: '오랜 친구에게 안부 전화를 건다',
@@ -9563,6 +10061,12 @@ const STAGES = [
     intro: '혼자 해내던 일들에, 조금씩 다른 이의 손길이 필요해지는 시기입니다.',
     choices: [
       {
+        id: "unhappy-83",
+        text: "젊은 날의 실수와 후회가 문득 다시 떠올라 괴롭다",
+        deltas: { happiness: -4 },
+        result: "지나간 일인데도, 마음은 여전히 그때에 머물러 있었다."
+      },
+      {
         id: 'daily-tasks-become-harder',
         text: '혼자 힘으로 하기 버거운 일들이 늘어난다',
         deltas: { health: -3, happiness: -2 },
@@ -9647,6 +10151,12 @@ const STAGES = [
     intro: '지나온 삶 전체를 조용히 되새기게 되는, 사색의 시간이 깊어지는 나이입니다.',
     choices: [
       {
+        id: "unhappy-84",
+        text: "식사량이 줄고 입맛이 예전 같지 않아 서글퍼진다",
+        deltas: { happiness: -2, health: -1 },
+        result: "맛있게 먹던 음식들이, 하나둘 낯설어졌다."
+      },
+      {
         id: 'quietly-reflecting-on-lifes-meaning',
         text: '지나온 인생의 의미를 조용히 되새긴다',
         deltas: { happiness: 3, health: 1 },
@@ -9713,6 +10223,12 @@ const STAGES = [
     ageRange: '85세',
     intro: '누군가의 손길이 일상 속에 자연스레 스며드는 시기입니다.',
     choices: [
+      {
+        id: "unhappy-85",
+        text: "가까웠던 형제자매의 부고를 듣고 깊은 상실감에 빠진다",
+        deltas: { happiness: -5, relationship: -2 },
+        result: "한 뿌리에서 나온 이가 줄어드는 걸, 온몸으로 느꼈다."
+      },
       {
         id: 'starting-caregiver-support',
         text: '요양보호사의 도움을 받기 시작한다',
@@ -9812,6 +10328,12 @@ const STAGES = [
     intro: '말보다 존재만으로도, 가족에게 무언가를 전할 수 있는 나이입니다.',
     choices: [
       {
+        id: "unhappy-86",
+        text: "밤잠을 설치는 날이 늘며 낮에도 기운이 없다",
+        deltas: { happiness: -2, health: -2 },
+        result: "뜬눈으로 지새운 밤이 늘수록, 낮과 밤의 경계가 흐려졌다."
+      },
+      {
         id: 'passing-life-wisdom-to-family',
         text: '자녀 세대에게 인생의 지혜를 전한다',
         deltas: { relationship: 4, happiness: 4 },
@@ -9906,6 +10428,12 @@ const STAGES = [
     ageRange: '87세',
     intro: '병원을 오가는 일이 조금씩 일상의 한 부분이 되어가는 시기입니다.',
     choices: [
+      {
+        id: "unhappy-87",
+        text: "예전에 잘하던 일도 이제는 버겁게 느껴진다",
+        deltas: { happiness: -3, health: -1 },
+        result: "손이 굼떠진 걸 스스로 느낄 때마다, 마음이 먼저 아렸다."
+      },
       {
         id: 'frequent-hospital-visits',
         text: '병원 방문이 부쩍 잦아진다',
@@ -10004,6 +10532,12 @@ const STAGES = [
     intro: '미수(米壽). 쌀 미(米) 자에 여든여덟이라는 숫자가 담긴, 풍성한 나이입니다.',
     choices: [
       {
+        id: "unhappy-88",
+        text: "미수를 맞아도 텅 빈 것 같은 허전함이 크다",
+        deltas: { happiness: -3 },
+        result: "긴 세월을 살아왔다는 게, 기쁨보다 허무함으로 다가왔다."
+      },
+      {
         id: 'misu-family-celebration',
         text: '미수(米壽)를 맞아 가족들이 정성껏 잔치를 준비한다',
         deltas: { happiness: 5, relationship: 4, wealth: -3 },
@@ -10061,6 +10595,12 @@ const STAGES = [
     ageRange: '89세',
     intro: '구순을 코앞에 두고, 마음을 가만히 가다듬는 한 해입니다.',
     choices: [
+      {
+        id: "unhappy-89",
+        text: "말동무가 하나둘 줄어 적적한 하루하루를 보낸다",
+        deltas: { happiness: -4, relationship: -2 },
+        result: "말을 걸 상대가 줄어드는 만큼, 하루도 함께 길어졌다."
+      },
       {
         id: 'preparing-for-ninetieth',
         text: '다가오는 구순을 준비하며 마음을 가다듬는다',
@@ -10123,6 +10663,12 @@ const STAGES = [
     ageRange: '90세',
     intro: '구순. 아흔 해를 살아낸 시간이, 온 가족의 축하 속에 다시 한번 빛납니다.',
     choices: [
+      {
+        id: "unhappy-90",
+        text: "구순을 맞으면서도 몸 곳곳의 통증이 축하를 무색게 한다",
+        deltas: { happiness: -3, health: -2 },
+        result: "케이크 촛불을 끄는 손이, 가늘게 떨렸다."
+      },
       {
         id: 'grand-ninetieth-gathering',
         text: '구순을 맞아 온 가족이 다시 한번 크게 모인다',
@@ -10221,6 +10767,12 @@ const STAGES = [
     intro: '하루하루가 마치 선물처럼 느껴지는, 그런 나이입니다.',
     choices: [
       {
+        id: "unhappy-91",
+        text: "옛 동료·친구들의 이름을 하나씩 잊어가는 자신을 발견한다",
+        deltas: { happiness: -4 },
+        result: "분명 아는 얼굴인데, 이름이 입 밖으로 나오지 않았다."
+      },
+      {
         id: 'every-day-feels-like-a-gift',
         text: '매일이 선물처럼 느껴지는 요즘이다',
         deltas: { happiness: 5, health: 1 },
@@ -10309,6 +10861,12 @@ const STAGES = [
     ageRange: '92세',
     intro: '침상에서 보내는 시간이 조금씩 늘어가는, 조용한 나날입니다.',
     choices: [
+      {
+        id: "unhappy-92",
+        text: "혼자 힘으로 할 수 있는 일이 눈에 띄게 줄어든다",
+        deltas: { happiness: -3, health: -2 },
+        result: "누군가의 손을 빌리는 일이, 이제는 하루의 대부분이 됐다."
+      },
       {
         id: 'more-time-spent-in-bed',
         text: '병상에서 보내는 시간이 조금씩 늘어난다',
@@ -10416,6 +10974,12 @@ const STAGES = [
     intro: '못다 한 말들을, 이제는 하나씩 꺼내어 전하는 시기입니다.',
     choices: [
       {
+        id: "unhappy-93",
+        text: "가족들의 방문이 뜸해지며 서운함을 감추기 어렵다",
+        deltas: { happiness: -3, relationship: -2 },
+        result: "달력에 동그라미 친 날만 손꼽아 기다리는 처지가 됐다."
+      },
+      {
         id: 'sharing-unspoken-stories-with-family',
         text: '자녀, 손주들과 그동안 못다 한 이야기를 나눈다',
         deltas: { relationship: 5, happiness: 4 },
@@ -10517,6 +11081,12 @@ const STAGES = [
     intro: '지녀온 것들과 마음을, 차분히 정리해보는 한 해입니다.',
     choices: [
       {
+        id: "unhappy-94",
+        text: "몸이 하루가 다르게 쇠약해짐을 스스로 느낀다",
+        deltas: { happiness: -3, health: -2 },
+        result: "어제보다 오늘이 힘든 게, 눈에 띄게 느껴졌다."
+      },
+      {
         id: 'sorting-belongings-and-thoughts',
         text: '그동안의 물건과 마음을 하나씩 정리한다',
         deltas: { happiness: 2, relationship: 2 },
@@ -10598,6 +11168,12 @@ const STAGES = [
     ageRange: '95세',
     intro: '아흔다섯 해를 살아냈다는 사실이, 스스로도 믿기지 않는 나이입니다.',
     choices: [
+      {
+        id: "unhappy-95",
+        text: "평생을 함께한 배우자·형제의 빈자리가 더 크게 느껴진다",
+        deltas: { happiness: -4, relationship: -2 },
+        result: "옆자리가 비어있다는 사실이, 매일 새삼스레 사무쳤다."
+      },
       {
         id: 'amazed-at-ninety-five-years-lived',
         text: '아흔다섯 해를 살아냈다는 사실이 새삼 놀랍다',
@@ -10681,6 +11257,12 @@ const STAGES = [
     ageRange: '96세',
     intro: '몸은 약해져도 마음의 평화를 지켜내려 애쓰는, 고요한 나이입니다.',
     choices: [
+      {
+        id: "unhappy-96",
+        text: "귀도 눈도 예전 같지 않아 세상과 조금씩 멀어진다",
+        deltas: { happiness: -3, health: -2 },
+        result: "흐릿해지는 것들 속에서, 또렷한 기억만이 벗이 되어줬다."
+      },
       {
         id: 'guarding-inner-peace-despite-frailty',
         text: '몸은 쇠약해져도 정신의 평화를 지키려 애쓴다',
@@ -10773,6 +11355,12 @@ const STAGES = [
     intro: '백수(白壽)를 코앞에 두고, 마음 한구석이 설레는 나이입니다.',
     choices: [
       {
+        id: "unhappy-97",
+        text: "하루의 대부분을 침상에서 보내야 하는 처지가 된다",
+        deltas: { happiness: -4, health: -3 },
+        result: "천장을 바라보는 시간이, 하루 중 가장 길어졌다."
+      },
+      {
         id: 'excited-for-upcoming-baeksu',
         text: '백수(白壽)를 코앞에 두고 있다',
         deltas: { happiness: 4, health: 1 },
@@ -10863,6 +11451,12 @@ const STAGES = [
     ageRange: '98세',
     intro: '백 살이라는 숫자가, 이제는 정말 눈앞으로 성큼 다가온 나이입니다.',
     choices: [
+      {
+        id: "unhappy-98",
+        text: "찾아오는 이가 줄어 하루가 유독 길고 조용하다",
+        deltas: { happiness: -3, relationship: -1 },
+        result: "적막이 익숙해질 무렵, 그게 더 서글프게 느껴졌다."
+      },
       {
         id: 'realizing-a-hundred-is-near',
         text: '백 살이라는 숫자가 성큼 다가온 걸 실감한다',
@@ -10955,6 +11549,12 @@ const STAGES = [
     intro: '백수(白壽). 백(百)에서 한 획을 뺀 흰 백(白) 자로, 아흔아홉 해를 기립니다.',
     choices: [
       {
+        id: "unhappy-99",
+        text: "백수를 자축하기엔 몸 이곳저곳이 예전 같지 않음을 느낀다",
+        deltas: { happiness: -3, health: -2 },
+        result: "축하 인사를 받는 내내, 통증을 애써 감춰야 했다."
+      },
+      {
         id: 'baeksu-village-wide-celebration',
         text: '백수(白壽)를 맞아 가족과 마을 사람들이 모인다',
         deltas: { happiness: 6, relationship: 5, wealth: -3 },
@@ -11042,6 +11642,12 @@ const STAGES = [
     ageRange: '100세',
     intro: '백세. 한 세기를 온전히 살아낸 삶이, 마침내 이 자리에 도착합니다.',
     choices: [
+      {
+        id: "unhappy-100",
+        text: "백 년을 다 살아도 여전히 풀리지 않는 그리움이 남는다",
+        deltas: { happiness: -3, relationship: -1 },
+        result: "채워지지 않는 빈자리 하나가, 끝내 마음에 남았다."
+      },
       {
         id: 'overwhelmed-completing-a-century',
         text: '백 년의 인생을 마침내 완주했다는 벅찬 마음이 든다',

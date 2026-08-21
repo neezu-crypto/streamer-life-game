@@ -49,8 +49,17 @@ function buildChoiceHistory(choiceLog) {
   const history = [];
   for (const entry of choiceLog) {
     const stage = STAGE_BY_ID.get(entry.stageId);
-    const choice = stage && stage.choices.find((c) => c.id === entry.choiceId);
-    if (!stage || !choice) continue;
+    if (!stage) continue;
+    // syntheticText(2026-08-22, guaranteeCure 안전망) - 합성 치료 선택지
+    // (id 'treat:<conditionId>')는 game-data.js의 stage.choices에 없어
+    // 아래 find로 못 찾으므로, choiceLog에 그때 보여준 문구를 그대로 저장해둔
+    // syntheticText가 있으면 그걸 우선 쓴다.
+    if (entry.syntheticText) {
+      history.push({ stageId: stage.id, stageName: stage.name, ageRange: stage.ageRange, choiceText: entry.syntheticText, stats: entry.stats || null });
+      continue;
+    }
+    const choice = stage.choices.find((c) => c.id === entry.choiceId);
+    if (!choice) continue;
     history.push({ stageId: stage.id, stageName: stage.name, ageRange: stage.ageRange, choiceText: choice.text, stats: entry.stats || null });
   }
   return history;
@@ -158,7 +167,18 @@ function playRefFor(db, uid) {
 // 되면 반드시 겪어야 하는 이벤트 - 예: 50대에 부모님과 사별)는 3개 무작위
 // 추첨에서 밀려날 일 없이 항상 노출 목록에 들어가고, 나머지 자리만 무작위로
 // 채운다.
-function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds, currentOccupationId, currentIntroId, activeAssetIds, currentLocationId, activeAcquaintances, activeTalentIds, activeHobbyIds) {
+// guaranteeCure(불리언, 2026-08-22 - 4장 1년단위 진행 되돌리기 후속 조치)는
+// "건강 조건이 있는 상태로 3턴째"일 때 true가 된다(계산은 applyChoice의
+// sickStreak 참고) - 이 경우 그 조건을 치료하는 선택지(removeCondition이
+// 지금 조건 중 하나와 일치하거나, removeAllConditions가 붙은 건강검진류)가
+// 후보 중에 있으면 mandatory와 똑같이 3개 추첨에서 밀려나지 않고 강제로
+// 노출된다. 도입 배경: 1년단위 진행으로 평균 선택 횟수가 38회→101회로
+// 늘면서, 무작위 플레이로는 치료 선택지를 자주 못 골라 조건이 계속 쌓이고
+// 조건이 쌓일수록 건강 회복이 더뎌지는(활성 조건 개수 페널티) 악순환으로
+// 즉사 엔딩 비율이 시뮬레이션 기준 1.44%→48.8%까지 치솟는 문제가 있었다 -
+// 이 강제 노출로 무작위 플레이에서도 최소 3턴에 한 번은 회복 기회가
+// 보장된다.
+function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds, currentOccupationId, currentIntroId, activeAssetIds, currentLocationId, activeAcquaintances, activeTalentIds, activeHobbyIds, guaranteeCure) {
   const conditionIds = activeConditionIds || [];
   const familyIds = activeFamilyMemberIds || [];
   const assetIds = activeAssetIds || [];
@@ -189,7 +209,17 @@ function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds
   if (eligible.length <= 3) return eligible.map((c) => c.id);
 
   const mandatory = eligible.filter((c) => c.mandatory);
-  const optional = eligible.filter((c) => !c.mandatory);
+  let optional = eligible.filter((c) => !c.mandatory);
+
+  if (guaranteeCure && conditionIds.length) {
+    const curative = optional.filter((c) => (c.removeCondition && conditionIds.includes(c.removeCondition)) || c.removeAllConditions);
+    if (curative.length) {
+      const forced = curative[Math.floor(Math.random() * curative.length)];
+      mandatory.push(forced);
+      optional = optional.filter((c) => c.id !== forced.id);
+    }
+  }
+
   const shuffled = optional.slice();
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -199,29 +229,100 @@ function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds
   return mandatory.concat(shuffled.slice(0, remainingSlots)).map((c) => c.id);
 }
 
-const LAST_STAGE_INDEX = STAGES.length - 1; // 100세(index 100)
-
-// 100세 외에 "반드시 방문하는" 나이 - 오름차순으로 나열. 지금은 54세
-// (parent-passing-50s - 부모님과의 사별, requiresFamilyMember로 걸려있어
-// 실제 발동은 그 시점에 부모님이 가족에 있을 때만) 하나뿐이지만, 나중에
-// 더 늘려도 이 배열에 나이만 추가하면 된다.
-const MANDATORY_WAYPOINTS = [54];
-
-// STAGES의 인덱스가 곧 나이(0~100)와 정확히 일치한다는 전제 하에, 다음 선택
-// 후 몇 살로 넘어갈지 정한다. 0~4세는 지금까지처럼 선택 한 번에 1세씩 오르고,
-// 5~99세는 선택 한 번에 1~5세를 무작위로 건너뛴다 - 단 아직 안 지난 필수
-// 방문 나이(MANDATORY_WAYPOINTS, 없으면 100세)를 절대 지나치지 않도록 그
-// 나이까지 남은 거리로 무작위 폭을 잘라낸다. 이 덕분에 100세뿐 아니라
-// MANDATORY_WAYPOINTS에 넣은 나이도 스킵될 수 없이 반드시 방문되며(이후엔
-// 다음 필수 방문 나이 - 없으면 100세 - 를 기준으로 같은 로직이 반복됨),
-// 건너뛴 나이는 애초에 STAGES[nextIndex]로 방문된 적이 없으니 choiceLog(=
-// 지금까지 선택한 선택지 로그)에도 자연히 안 남는다.
+// 나이 스킵을 없애고 1년 단위 진행으로 되돌린다(2026-08-22, 4장 - 사용자
+// 확정). 예전엔 5~99세 구간에서 선택 한 번에 1~5세를 무작위로 건너뛰어
+// (평균 선택 횟수 약 38회) 101개 나이를 다 방문하지 않았는데, 되돌리기 전
+// 2만 회 시뮬레이션으로 확인한 결과 즉사 엔딩 비율이 0.02%→1.44%(72배)로
+// 오르고 평균 최종 행복이 80.6→96.0으로 치우치는 걸 확인했다 - 선택지를
+// 더 많이 겪을수록 긍정 delta가 더 많이 설계된 기존 콘텐츠의 편향이
+// 누적되기 때문. 이 편향을 상쇄하기 위해 나이당 불행한 사건 1개씩(총
+// 101개, game-data.js의 unhappy-0~unhappy-100)을 추가해뒀다 - 되돌린 뒤
+// 시뮬레이션 기준 평균 최종 행복 95.8→78.0, 즉사 비율은 4.19%로 완만하게만
+// 상승. 예전엔 MANDATORY_WAYPOINTS(100세 외에 반드시 방문하는 나이, 54세
+// 부모님 사별)로 건너뛰는 폭을 잘라내는 메커니즘이 있었지만, 이제 모든
+// 나이를 어차피 다 지나가므로 그 배열·계산은 더 이상 필요 없어 제거했다 -
+// 54세 사별 선택지 자체는 여전히 mandatory: true(pickVisibleChoiceIds가
+// 3개 무작위 추첨에서 절대 밀어내지 않음)로 보장된다.
 function pickNextStageIndex(currentIndex) {
-  if (currentIndex >= LAST_STAGE_INDEX) return currentIndex + 1; // 100세 구간의 선택 -> 완료 처리
-  if (currentIndex < 5) return currentIndex + 1;
-  const nextWaypoint = MANDATORY_WAYPOINTS.find((age) => age > currentIndex) || LAST_STAGE_INDEX;
-  const maxJump = Math.min(5, nextWaypoint - currentIndex);
-  return currentIndex + 1 + Math.floor(Math.random() * maxJump);
+  return currentIndex + 1;
+}
+
+// 단어 끝 글자에 받침이 있는지에 따라 을/를을 고른다(2026-08-22, 합성 치료
+// 선택지 문구용) - 한글 완성형 유니코드 범위(가~힣)에서 (코드 - 0xAC00) % 28이
+// 0이면 받침 없음(를), 아니면 받침 있음(을). 한글이 아닌 문자로 끝나면(이모지 등)
+// 안전하게 받침 있는 쪽(을)을 기본값으로 쓴다.
+function pickBatchimJosa(word, withBatchim, withoutBatchim) {
+  const ch = (word || '').trim().slice(-1);
+  const code = ch.charCodeAt(0) - 0xAC00;
+  if (code < 0 || code > 11171) return withBatchim;
+  return code % 28 === 0 ? withoutBatchim : withBatchim;
+}
+
+// 합성 치료 선택지(2026-08-22, 4장 1년단위 진행 되돌리기 후속 - 사용자 지시:
+// "건강검진처럼 전체 치료 말고 하나의 건강이상을 직접 언급하고 치료"). 아래
+// ensureGuaranteedCure()가, 건강 조건이 있는 채로 3턴째인데 그 나이의 실제
+// 콘텐츠(game-data.js) 중엔 치료 선택지가 하나도 없을 때만 안전망으로 쓴다 -
+// 나이·조건에 안 매인 범용 선택지라 game-data.js에 저장돼 있지 않고 매번
+// 이 함수로 즉석에서 만든다. id는 'treat:' + 조건 id로 고정 패턴이라, 나중에
+// submitChoice·publicStage가 stage.choices에서 못 찾으면 이 패턴으로 되짚어
+// 같은 선택지를 다시 만들어낼 수 있다(healthConditions만 있으면 재구성
+// 가능하므로 별도 저장 불필요). 영구 조건(rare-illness 등)은 애초에 이 함수를
+// 호출하는 쪽에서 걸러진다(healthConditions.filter(c => !c.permanent)).
+function buildSyntheticTreatmentChoice(condition) {
+  if (condition.mental) {
+    const josa = pickBatchimJosa(condition.label, '을', '를');
+    return {
+      id: 'treat:' + condition.id,
+      text: condition.label + josa + ' 더는 미루지 않고 전문가와 상담을 받는다',
+      deltas: { happiness: 4, wealth: -1 },
+      result: '마음먹고 나선 상담이, 생각보다 큰 위안이 됐다.',
+      removeCondition: condition.id
+    };
+  }
+  const josa = pickBatchimJosa(condition.label, '을', '를');
+  return {
+    id: 'treat:' + condition.id,
+    text: condition.label + josa + ' 더는 미루지 않고 병원에서 제대로 치료받는다',
+    deltas: { health: 4, wealth: -1 },
+    result: '진작 왔어야 했다는 생각이 들 만큼, 몸이 한결 가벼워졌다.',
+    removeCondition: condition.id
+  };
+}
+
+// 'treat:<conditionId>' 형태의 합성 선택지 id를, 지금 healthConditions에서
+// 그 조건을 찾아 다시 만들어낸다 - 그 조건이 이미 나아서 사라졌거나 애초에
+// 없으면(저장 슬롯이 오래된 경우 등) null을 반환해 호출부가 "유효하지 않은
+// 선택지"로 방어적으로 처리하게 한다.
+function resolveSyntheticChoice(id, healthConditions) {
+  if (!id.startsWith('treat:')) return null;
+  const conditionId = id.slice('treat:'.length);
+  const condition = (healthConditions || []).find((c) => c.id === conditionId);
+  if (!condition) return null;
+  return buildSyntheticTreatmentChoice(condition);
+}
+
+// guaranteeCure가 필요했는데 pickVisibleChoiceIds가 그 나이의 실제 콘텐츠
+// 중에서 치료 선택지를 못 찾았을 때(그 나이엔 애초에 치료 선택지가 없는
+// 경우가 대부분 - 101개 나이 중 36개만 치료·건강검진류 선택지를 갖고 있음)
+// 마지막 안전망으로 합성 치료 선택지를 강제로 끼워 넣는다. mandatory(예:
+// 54세 부모님 사별)가 붙은 자리는 밀어내지 않는다 - 두 보장이 겹치는 나이엔
+// 부모님 사별 쪽을 우선한다.
+function ensureGuaranteedCure(stageChoices, ids, healthConditions, guaranteeCure) {
+  if (!guaranteeCure) return ids;
+  const hasReal = stageChoices.some((c) => ids.includes(c.id) && (c.removeCondition || c.removeAllConditions));
+  if (hasReal) return ids;
+  const curable = (healthConditions || []).filter((c) => !c.permanent);
+  if (!curable.length) return ids;
+  const mandatoryIds = new Set(stageChoices.filter((c) => c.mandatory).map((c) => c.id));
+  let replaceIdx = -1;
+  for (let i = ids.length - 1; i >= 0; i--) {
+    if (!mandatoryIds.has(ids[i])) { replaceIdx = i; break; }
+  }
+  if (replaceIdx === -1) return ids;
+  const target = curable[Math.floor(Math.random() * curable.length)];
+  const newIds = ids.slice();
+  newIds[replaceIdx] = 'treat:' + target.id;
+  return newIds;
 }
 
 // 아직 안 고른 구간의 선택지는 deltas/result를 절대 클라이언트로 보내지 않는다
@@ -235,16 +336,26 @@ function pickNextStageIndex(currentIndex) {
 // 튀어나오는 일이 없도록, "노출 = 실제로 뽑힐 수 있는 후보"가 항상 일치해야 함.
 // introId가 주어지면(그 판의 저장 슬롯에 이미 뽑아둔 상황 설명 id) 그
 // 상황의 텍스트를 resolveIntroText로 찾아 쓴다 - pickIntroId() 참고.
-function publicStage(stage, visibleIds, introId) {
-  const ids = visibleIds && visibleIds.length ? visibleIds : pickVisibleChoiceIds(stage.choices, null, null, null, introId, null, null, null, null, null);
-  const visibleChoices = stage.choices.filter((c) => ids.includes(c.id));
+function publicStage(stage, visibleIds, introId, healthConditions) {
+  const ids = visibleIds && visibleIds.length ? visibleIds : pickVisibleChoiceIds(stage.choices, null, null, null, introId, null, null, null, null, null, false);
+  // ids 중 'treat:'로 시작하는 항목은 stage.choices(game-data.js 콘텐츠)에
+  // 없는 합성 치료 선택지(ensureGuaranteedCure 참고)라, resolveSyntheticChoice로
+  // 그 자리에서 다시 만들어 끼워 넣는다.
+  const visibleChoices = ids
+    .map((id) => {
+      const real = stage.choices.find((c) => c.id === id);
+      if (real) return { id: real.id, text: real.text };
+      const synthetic = resolveSyntheticChoice(id, healthConditions);
+      return synthetic ? { id: synthetic.id, text: synthetic.text } : null;
+    })
+    .filter(Boolean);
   return {
     id: stage.id,
     name: stage.name,
     ageRange: stage.ageRange,
     intro: resolveIntroText(stage, introId),
     random: !!stage.random,
-    choices: visibleChoices.map((c) => ({ id: c.id, text: c.text }))
+    choices: visibleChoices
   };
 }
 
@@ -656,7 +767,13 @@ async function applyChoice(db, playRef, play, stage, choice) {
   }
 
   const choiceLog = Array.isArray(play.choiceLog) ? play.choiceLog.slice() : [];
-  choiceLog.push({ stageId: stage.id, choiceId: choice.id, at: Date.now(), stats });
+  const logEntry = { stageId: stage.id, choiceId: choice.id, at: Date.now(), stats };
+  // 합성 치료 선택지(id가 'treat:'로 시작)는 game-data.js에 없어 나중에
+  // STAGES에서 다시 못 찾으므로, 그때 보여준 문구를 그대로 같이 저장해둔다
+  // (buildChoiceHistory 참고). undefined 필드는 RTDB set/update가 거부하므로
+  // synthetic이 아닐 때는 이 키 자체를 안 만든다.
+  if (String(choice.id).startsWith('treat:')) logEntry.syntheticText = choice.text;
+  choiceLog.push(logEntry);
 
   // 직업 상세 - 별도 필드 없이 방금 갱신한 choiceLog에서 다시 계산한다(위
   // buildOccupationHistory 주석 참고). 이번 선택이 setOccupation을 붙였다면
@@ -680,7 +797,13 @@ async function applyChoice(db, playRef, play, stage, choice) {
 
   const nextIndex = pickNextStageIndex(play.stageIndex);
   const completed = collapsed || nextIndex >= STAGES.length;
-  const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers, acquaintances, assets, cashHoldings, talents, hobbies };
+  // sickStreak(2026-08-22, guaranteeCure 참고) - 건강 조건이 하나라도 있는
+  // 채로 몇 턴째인지 세는 카운터. 조건이 없어지면(전부 나으면) 0으로
+  // 리셋되고, 있으면 매 턴 1씩 늘어난다. pickVisibleChoiceIds가 이 값이
+  // 3의 배수일 때 치료 선택지를 강제 노출한다.
+  const sickStreak = healthConditions.length ? (play.sickStreak || 0) + 1 : 0;
+
+  const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers, acquaintances, assets, cashHoldings, talents, hobbies, sickStreak };
 
   let ending = null;
   let nextVisibleIds = null;
@@ -712,8 +835,10 @@ async function applyChoice(db, playRef, play, stage, choice) {
       currentLocation.id,
       acquaintances,
       talents.map((t) => t.id),
-      hobbies.map((h) => h.id)
+      hobbies.map((h) => h.id),
+      sickStreak > 0 && sickStreak % 3 === 0
     );
+    nextVisibleIds = ensureGuaranteedCure(STAGES[nextIndex].choices, nextVisibleIds, healthConditions, sickStreak > 0 && sickStreak % 3 === 0);
     updates.visibleChoiceIds = nextVisibleIds;
   }
 
@@ -748,7 +873,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
     insuranceAvoidsCondition,
     completed,
     ending: ending ? { id: ending.id, title: ending.title, text: ending.text } : null,
-    nextStage: completed ? null : publicStage(STAGES[nextIndex], nextVisibleIds, nextIntroId),
+    nextStage: completed ? null : publicStage(STAGES[nextIndex], nextVisibleIds, nextIntroId, healthConditions),
     healthConditions,
     familyMembers,
     acquaintances,
@@ -793,7 +918,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   const db = getDatabase();
   const stats = freshStats();
   const currentIntroId = pickIntroId(STAGES[0]);
-  const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices, [], [], null, currentIntroId, [], DEFAULT_LOCATION.id, [], [], []);
+  const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices, [], [], null, currentIntroId, [], DEFAULT_LOCATION.id, [], [], [], false);
   await Promise.all([
     playRefFor(db, uid).set({
       streamerName,
@@ -809,6 +934,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
       cashHoldings: 0,
       talents: [],
       hobbies: [],
+      sickStreak: 0,
       choiceLog: [],
       completed: false,
       startedAt: ServerValue.TIMESTAMP
@@ -819,7 +945,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
     db.ref('lifeGame/stats/totals/started').set(ServerValue.increment(1))
   ]);
 
-  return { stats, healthConditions: [], familyMembers: [], acquaintances: [], assets: [], cashHoldings: 0, talents: [], hobbies: [], currentOccupation: null, currentLocation: DEFAULT_LOCATION, stage: publicStage(STAGES[0], visibleChoiceIds, currentIntroId) };
+  return { stats, healthConditions: [], familyMembers: [], acquaintances: [], assets: [], cashHoldings: 0, talents: [], hobbies: [], currentOccupation: null, currentLocation: DEFAULT_LOCATION, stage: publicStage(STAGES[0], visibleChoiceIds, currentIntroId, []) };
 });
 
 // 창을 껐다가 다시 열었을 때 - 저장된 판이 있으면 지금 구간을 그대로 이어서
@@ -888,8 +1014,10 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       currentLocation.id,
       acquaintances,
       talents.map((t) => t.id),
-      hobbies.map((h) => h.id)
+      hobbies.map((h) => h.id),
+      (play.sickStreak || 0) > 0 && (play.sickStreak || 0) % 3 === 0
     );
+    visibleChoiceIds = ensureGuaranteedCure(stage.choices, visibleChoiceIds, healthConditions, (play.sickStreak || 0) > 0 && (play.sickStreak || 0) % 3 === 0);
     resumeUpdates.visibleChoiceIds = visibleChoiceIds;
   }
   if (Object.keys(resumeUpdates).length) {
@@ -908,7 +1036,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
     hobbies,
     currentOccupation,
     currentLocation,
-    stage: publicStage(stage, visibleChoiceIds, currentIntroId)
+    stage: publicStage(stage, visibleChoiceIds, currentIntroId, healthConditions)
   };
 });
 
@@ -926,7 +1054,12 @@ const submitChoice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
   if (stage.random) {
     throw new HttpsError('failed-precondition', '이 구간은 직접 고를 수 없습니다. rollDice로 진행해주세요.');
   }
-  const choice = stage.choices.find((c) => c.id === choiceId);
+  // 합성 치료 선택지(id 'treat:<conditionId>', ensureGuaranteedCure 참고)는
+  // game-data.js의 stage.choices에 없으므로 resolveSyntheticChoice로 따로
+  // 되짚어 찾는다.
+  const choice = String(choiceId).startsWith('treat:')
+    ? resolveSyntheticChoice(choiceId, Array.isArray(play.healthConditions) ? play.healthConditions : [])
+    : stage.choices.find((c) => c.id === choiceId);
   if (!choice) throw new HttpsError('invalid-argument', '유효하지 않은 선택지입니다.');
   // 화면에 노출되지 않은(그 회차에 뽑히지 않은) 선택지를 우회로 제출하는 걸 막는다.
   if (play.visibleChoiceIds && play.visibleChoiceIds.length && !play.visibleChoiceIds.includes(choiceId)) {
