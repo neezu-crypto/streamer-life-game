@@ -172,9 +172,9 @@ const STAGES = [
       },
       {
         id: 'warm-poor',
-        text: '차는 없지만 부모님이 늘 곁에 있는 집에서 태어난다',
+        text: '바퀴 대신 온기로 굴러가는 집에서, 첫 숨을 내쉰다',
         deltas: { happiness: 8, relationship: 6, wealth: -4 },
-        result: '넉넉하진 않았지만, 그 시절 저녁 밥상의 온기는 지금도 선명하다.',
+        result: '가난이 스며들 자리마다, 그보다 먼저 온기가 차 있었다.',
         addFamilyMembers: [
           { id: 'father', label: '👨 아버지' },
           { id: 'mother', label: '👩 어머니' }
@@ -327,9 +327,9 @@ const STAGES = [
       },
       {
         id: 'rare-illness-onset',
-        text: '원인 모를 증상이 반복돼 정밀 검사를 받는다',
+        text: '이름 없는 그림자가 몸속을 자꾸 맴돈다',
         deltas: { health: -12, happiness: -6, wealth: -6, relationship: 5 },
-        result: '치료법이 없다는 말 앞에서도, 가족은 무너지지 않고 서로를 더 꽉 붙잡았다.',
+        result: '치료법이 없다는 말 앞에서도, 가족은 서로를 놓지 않는 매듭이 되었다.',
         addCondition: { id: 'rare-illness', label: '🎗️ 희귀 난치병', blocksHealthRecovery: true, permanent: true }
       },
       {
@@ -346,9 +346,9 @@ const STAGES = [
       },
       {
         id: 'light-sleeper-infant',
-        text: '작은 소리에도 자주 깨는 예민한 잠버릇을 보인다',
+        text: '작은 소리에도 화들짝 깨는 살얼음 같은 잠을 잔다',
         deltas: { health: -2, happiness: -1 },
-        result: '발끝으로 걷는 게 습관이 될 정도로, 집안이 조심스러워졌다.'
+        result: '발끝으로 걷는 게 습관이 될 만큼, 집 안 전체가 살얼음판이 됐다.'
       },
       {
         id: 'crawling-explorer',
@@ -409,9 +409,9 @@ const STAGES = [
       },
       {
         id: 'shy-around-strangers',
-        text: '낯가림이 유독 심하다',
+        text: '낯선 얼굴 앞에서 조개처럼 입을 닫아버린다',
         deltas: { relationship: -3, health: 2 },
-        result: '집 밖에만 나가면 부모님 다리 뒤로 숨는 아이였다.'
+        result: '집 밖에만 나가면 부모님 다리 뒤에 그림자처럼 붙었다.'
       },
       {
         id: 'little-chatterbox',
@@ -497,9 +497,9 @@ const STAGES = [
       },
       {
         id: 'troublemaker',
-        text: '장난이 심해 선생님께 자주 불려간다',
+        text: '장난기가 폭죽처럼 터져 선생님께 자주 불려간다',
         deltas: { fame: 4, relationship: -3, happiness: 2 },
-        result: '말썽쟁이라는 별명이 이때 처음 붙었다.'
+        result: '말썽쟁이라는 딱지가, 이때 처음 등에 붙었다.'
       },
       {
         id: 'allergic-kid',
@@ -616,9 +616,9 @@ const STAGES = [
       },
       {
         id: 'kindergarten-prep-visit',
-        text: '입학 전 유치원 견학에서 잔뜩 긴장한다',
+        text: '입학 전 유치원 문턱 앞에서 발이 얼어붙는다',
         deltas: { happiness: -1 },
-        result: '낯선 문 앞에서, 손을 놓지 않으려 꽉 붙들었다.'
+        result: '낯선 문 앞에서, 손을 놓지 않으려 닻처럼 꽉 붙들었다.'
       },
       {
         id: 'imaginary-friend',
@@ -628,9 +628,9 @@ const STAGES = [
       },
       {
         id: 'building-block-master',
-        text: '블록으로 몇 시간이고 뭔가를 쌓아 올린다',
+        text: '블록으로 몇 시간이고 작은 왕국을 쌓아 올린다',
         deltas: { fame: 1, happiness: 1 },
-        result: '무너뜨리기 아깝다며, 며칠째 그대로 두라고 신신당부했다.'
+        result: '무너뜨리기 아깝다며, 며칠째 그 왕국을 그대로 지켜달라 신신당부했다.'
       },
       {
         id: 'first-lie-caught',
@@ -744,9 +744,9 @@ const STAGES = [
       },
       {
         id: 'loves-storytime',
-        text: '책 읽어주는 시간을 가장 기다린다',
+        text: '책장을 넘기는 목소리를 따라 다른 세상으로 건너간다',
         deltas: { happiness: 2 },
-        result: '같은 책을 몇 번이고 다시 읽어달라 졸랐다.'
+        result: '같은 책을 몇 번이고 다시 열어달라 졸랐다.'
       },
       {
         id: 'copies-older-kids',
@@ -819,9 +819,9 @@ const STAGES = [
       },
       {
         id: 'bedwetting-phase',
-        text: '가끔 실수로 이불에 지도를 그린다',
+        text: '가끔 이불 위에 작은 지도를 그려놓는다',
         deltas: { happiness: -1 },
-        result: '민망해하는 표정에, 아무 일 아니라는 말을 몇 번이고 건넸다.'
+        result: '민망해하는 표정에, 괜찮다는 말을 파도처럼 몇 번이고 건넸다.'
       },
       {
         id: 'class-pet-caretaker',
@@ -925,9 +925,9 @@ const STAGES = [
       },
       {
         id: 'field-day-clumsy',
-        text: '운동회에서 넘어져 꼴찌를 한다',
+        text: '운동회 트랙 위에서 넘어져 꼴찌로 결승선을 밟는다',
         deltas: { happiness: -1, health: -1 },
-        result: '꼴찌라는 결과보다, 넘어진 순간의 부끄러움이 더 오래 남았다.'
+        result: '꼴찌라는 순위보다, 넘어진 순간의 부끄러움이 더 오래 발목을 잡았다.'
       },
       {
         id: 'new-hobby-swimming',
@@ -989,9 +989,9 @@ const STAGES = [
       },
       {
         id: 'childhood-best-friend',
-        text: '학교에서 마음이 잘 맞는 짝꿍과 급속도로 친해진다',
+        text: '마음 맞는 짝꿍과 순식간에 한 몸처럼 붙어 다닌다',
         deltas: { happiness: 3, relationship: 2 },
-        result: '쉬는 시간마다 붙어 다니다 보니, 어느새 제일 친한 사이가 됐다.',
+        result: '쉬는 시간마다 그림자처럼 붙어 다니다 보니, 어느새 제일 가까운 사이가 됐다.',
         addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
       },
       {
@@ -1028,9 +1028,9 @@ const STAGES = [
       },
       {
         id: 'talent-show-debut',
-        text: '장기자랑에서 처음으로 무대에 선다',
+        text: '장기자랑 무대 위, 처음으로 조명 한가운데 선다',
         deltas: { fame: 2, happiness: 1 },
-        result: '조명 아래 선 그 몇 분이, 오래도록 잊히지 않았다.'
+        result: '그 몇 분의 빛이, 오래도록 마음속에 남아 반짝였다.'
       },
       {
         id: 'hoards-stickers',
@@ -1048,9 +1048,9 @@ const STAGES = [
     choices: [
       {
         id: "unhappy-9",
-        text: "발표 시간에 목소리가 떨려 웃음거리가 된다",
+        text: "발표대 위에서 목소리가 가늘게 떨려 웃음거리가 된다",
         deltas: { happiness: -3 },
-        result: "얼굴이 새빨개진 채로, 자리에 앉기까지가 영원 같았다."
+        result: "얼굴이 새빨개진 채로, 자리에 앉기까지가 영원처럼 길었다."
       },
       {
         id: 'bookworm',
@@ -1073,9 +1073,9 @@ const STAGES = [
       },
       {
         id: 'first-pet',
-        text: '반려동물을 키우기 시작한다',
+        text: '작은 생명 하나를 집으로 데려와 온기를 나눈다',
         deltas: { happiness: 5, relationship: 3, wealth: -2 },
-        result: '매일 밥 주고 산책시키는 일이 그렇게 뿌듯할 줄 몰랐다.'
+        result: '매일 밥 주고 산책시키는 일이, 뿌듯함이라는 걸 처음 가르쳐줬다.'
       },
       {
         id: 'first-sleepover',
@@ -1177,9 +1177,9 @@ const STAGES = [
       },
       {
         id: 'online-gaming-nights',
-        text: '온라인 게임에 빠져 친구들과 밤늦게까지 접속한다',
+        text: '헤드셋 너머 밤늦도록 친구들과 접속해 있는다',
         deltas: { happiness: 3, health: -4, relationship: 2 },
-        result: '헤드셋 너머로 듣던 친구들 목소리가, 그 시절 가장 가까운 사이였다.'
+        result: '화면 너머로 듣던 친구들 목소리가, 그 시절 가장 가까운 온기였다.'
       },
       {
         id: 'class-president-run',
@@ -1298,9 +1298,9 @@ const STAGES = [
       },
       {
         id: 'leadership-moment-11',
-        text: '모둠장을 맡아 처음으로 리더 역할을 해본다',
+        text: '모둠장이라는 작은 왕관을 처음 써본다',
         deltas: { fame: 1, relationship: 1 },
-        result: '의견을 모으는 일이, 답을 내는 것보다 훨씬 어려웠다.'
+        result: '의견을 모으는 일이, 답을 내는 것보다 훨씬 무거웠다.'
       },
       {
         id: 'crush-rejected',
@@ -1379,9 +1379,9 @@ const STAGES = [
       },
       {
         id: 'awkward-growth-spurt',
-        text: '몸이 갑자기 자라 옷이 안 맞아 어색해한다',
+        text: '몸이 하룻밤 새 자라나 옷소매가 짧아진다',
         deltas: { happiness: -1 },
-        result: '소매 밖으로 삐져나온 손목이, 스스로도 낯설었다.'
+        result: '소매 밖으로 삐져나온 손목이, 스스로도 낯설게 느껴졌다.'
       },
       {
         id: 'elementary-graduation-speech',
@@ -1443,7 +1443,7 @@ const STAGES = [
       },
       {
         id: 'first-sns-account',
-        text: 'SNS 계정을 처음 만들어 또래들과 소통한다',
+        text: 'SNS라는 새 창문을 열어 또래들과 마주 본다',
         deltas: { fame: 4, relationship: 3, happiness: 1 },
         result: '프로필 사진 하나 고르는 데도 삼십 분이 걸렸다.'
       },
@@ -1583,15 +1583,15 @@ const STAGES = [
       },
       {
         id: 'body-image-pressure',
-        text: '또래와 비교하며 외모에 대한 압박을 느낀다',
+        text: '또래와 나를 자꾸 저울 위에 올려놓는다',
         deltas: { happiness: -3 },
-        result: '거울 속 모습이, 자꾸만 못마땅하게 느껴졌다.'
+        result: '거울 속 모습이, 자꾸만 눈금 밖으로 밀려나는 것 같았다.'
       },
       {
         id: 'skips-school-once',
-        text: '처음으로 땡땡이를 쳤다가 걸릴까 봐 조마조마해한다',
+        text: '처음으로 교문 밖 금을 넘었다가 조마조마해한다',
         deltas: { happiness: -1 },
-        result: '짜릿함도 잠시, 하루 종일 마음이 편치 않았다.'
+        result: '짜릿함도 잠시, 하루 종일 마음에 가시가 박힌 듯했다.'
       },
       {
         id: 'wins-schoolwide-recognition-14',
@@ -1712,9 +1712,9 @@ const STAGES = [
       },
       {
         id: 'finds-a-mentor-friend',
-        text: '선배와 각별한 사이가 되어 조언을 얻는다',
+        text: '먼저 그 길을 걸어본 선배의 발자국을 뒤따른다',
         deltas: { relationship: 2 },
-        result: '먼저 겪어본 사람의 한마디가, 생각보다 큰 힘이 됐다.'
+        result: '먼저 겪어본 사람의 한마디가, 생각보다 든든한 지팡이가 됐다.'
       },
       {
         id: 'betrayal-gossip-behind-back-15',
@@ -1734,9 +1734,9 @@ const STAGES = [
     choices: [
       {
         id: "unhappy-16",
-        text: "새 학교, 새 반에서 아는 얼굴 하나 없이 하루를 보낸다",
+        text: "새 학교, 새 반에서 홀로 섬처럼 하루를 떠돈다",
         deltas: { happiness: -3, relationship: -1 },
-        result: "쉬는 시간마다 괜히 휴대폰만 들여다봤다."
+        result: "쉬는 시간마다 괜히 휴대폰 화면에만 눈을 박았다."
       },
       {
         id: 'new-uniform-new-faces',
@@ -1793,9 +1793,9 @@ const STAGES = [
       },
       {
         id: 'fame-mocked-among-friends',
-        text: '친구들 앞에서 SNS 게시물이 놀림거리가 되며 창피를 당한다',
+        text: '친구들 앞에서 SNS 게시물이 웃음거리로 전락한다',
         deltas: { fame: -6, happiness: -4 },
-        result: '지우고 또 지워봐도, 이미 다 본 사람들 앞에서는 소용없었다.'
+        result: '지우고 또 지워봐도, 이미 다 본 눈들 앞에서는 소용없었다.'
       },
       {
         id: 'college-fair-overwhelmed',
@@ -1928,9 +1928,9 @@ const STAGES = [
       },
       {
         id: 'first-part-time-job',
-        text: '친구와 함께 처음으로 아르바이트를 시작한다',
+        text: '처음으로 노동의 대가를 손에 쥐어본다',
         deltas: { wealth: 5, health: -2 },
-        result: '첫 월급을 받던 날, 통장 잔고보다 뿌듯함이 더 컸다.'
+        result: '첫 월급을 받던 날, 통장 잔고보다 뿌듯함이 더 묵직했다.'
       },
       {
         id: 'parents-friction-examstress',
@@ -2005,9 +2005,9 @@ const STAGES = [
       },
       {
         id: 'ent-trainee-appearance-criticism-17',
-        text: '외모 지적 댓글에 시달리며 자존감이 흔들린다',
+        text: '외모 지적 댓글이 화살처럼 날아와 자존감에 박힌다',
         deltas: { happiness: -5, health: -1 },
-        result: '화면 속 나와 거울 속 나 사이의 간극이, 자꾸만 크게 느껴졌다.',
+        result: '화면 속 나와 거울 속 나 사이의 골이, 자꾸만 깊어졌다.',
         requiresRoute: 'entertainment-industry'
       },
       {
@@ -2060,9 +2060,9 @@ const STAGES = [
       },
       {
         id: 'senior-festival-blowout',
-        text: '고3 마지막 축제에서 반 전체와 마음껏 논다',
+        text: '고3의 마지막 불꽃을 반 전체와 함께 태운다',
         deltas: { happiness: 5, relationship: 4 },
-        result: '공부 얘기는 잠깐 잊고, 그냥 다 같이 웃고 떠들었다.'
+        result: '공부 걱정은 잠시 접어두고, 다 같이 실컷 웃고 떠들었다.'
       },
       {
         id: 'early-admission-choice',
@@ -2180,9 +2180,9 @@ const STAGES = [
       },
       {
         id: 'adolescent-depression-onset',
-        text: '입시 압박 속에서 무기력함이 오래도록 이어진다',
+        text: '입시 압박 속에서 마음에 짙은 안개가 오래 머문다',
         deltas: { happiness: -7 },
-        result: '웃어야 할 순간에도, 마음은 자꾸 가라앉았다.',
+        result: '웃어야 할 순간에도, 안개는 좀처럼 걷히지 않았다.',
         addCondition: { id: 'adolescent-depression', label: '🌧️ 청소년 우울증', mental: true }
       },
       {
@@ -2218,7 +2218,7 @@ const STAGES = [
       },
       {
         id: 'ent-trainee-family-doubt-intensifies-18',
-        text: '가족들이 이제 그만 현실적인 선택을 하라며 설득한다',
+        text: '가족들이 현실이라는 이름의 닻을 내리라 설득한다',
         deltas: { relationship: -3, happiness: -2 },
         requiresFamilyMember: ['father', 'mother', 'single-parent'],
         result: '틀린 말은 아니라는 걸 알면서도, 쉽게 고개가 끄덕여지지 않았다.',
@@ -2267,9 +2267,9 @@ const STAGES = [
       },
       {
         id: 'trade-skill',
-        text: '바로 돈이 되는 기술을 배워 취업 전선에 뛰어든다',
+        text: '돈이 되는 기술을 손에 쥐고 사회라는 전장에 뛰어든다',
         deltas: { wealth: 8, happiness: -3, relationship: -2 },
-        result: '또래보다 몇 년 빨리 사회에 들어섰다는 자부심, 그리고 그만큼 빨리 늙는 기분.',
+        result: '또래보다 몇 년 빨리 어른이 됐다는 자부심, 그만큼 빨리 낡아가는 기분.',
         setOccupation: { id: 'tech-worker', label: '🔧 기술직 사원' }
       },
       {
@@ -2348,9 +2348,9 @@ const STAGES = [
       },
       {
         id: 'finds-college-clique',
-        text: '새로운 대학 친구 무리와 급속도로 친해진다',
+        text: '새로운 무리에 스며들어 순식간에 한편이 된다',
         deltas: { relationship: 3 },
-        result: '몇 주 만에, 낯선 캠퍼스가 익숙한 아지트처럼 느껴졌다.',
+        result: '몇 주 만에, 낯선 캠퍼스가 오래된 아지트처럼 느껴졌다.',
         addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
       },
       {
@@ -2419,15 +2419,15 @@ const STAGES = [
       },
       {
         id: 'move-out-independence',
-        text: '본가를 떠나 자취를 시작한다',
+        text: '본가라는 항구를 떠나 첫 항해를 시작한다',
         deltas: { wealth: -4, happiness: 3, relationship: -2 },
-        result: '부모님과의 통금 없는 삶이 이렇게 홀가분할 줄 몰랐다.'
+        result: '부모님과의 통금 없는 삶이 이렇게 가벼울 줄 몰랐다.'
       },
       {
         id: 'deep-community-belonging',
-        text: '동아리·팬덤 등 새로운 공동체에 깊이 소속된다',
+        text: '동아리·팬덤이라는 새 물결 속으로 완전히 잠긴다',
         deltas: { relationship: 5, happiness: 3 },
-        result: '비슷한 걸 좋아하는 사람들 틈에서 처음으로 완전히 스며든 기분이었다.'
+        result: '비슷한 걸 좋아하는 사람들 틈에서, 처음으로 완전히 스며든 기분이었다.'
       },
       {
         id: 'juggling-part-time-jobs',
@@ -2443,9 +2443,9 @@ const STAGES = [
       },
       {
         id: 'metrics-anxiety',
-        text: '학점·구독자 수 등 성과 지표에 예민해진다',
+        text: '학점·구독자 수라는 숫자에 목줄이 매인 듯 예민해진다',
         deltas: { happiness: -3, fame: 2 },
-        result: '숫자 하나에 하루 기분이 좌우되는 게 이상하다는 걸 알면서도 멈출 수 없었다.'
+        result: '숫자 하나에 하루 기분이 오르내리는 게 이상하다는 걸 알면서도 멈출 수 없었다.'
       },
       {
         id: 'lifestyle-collapse',
@@ -2680,9 +2680,9 @@ const STAGES = [
       },
       {
         id: 'comparing-to-peers',
-        text: '동기들과 나를 계속 비교하게 된다',
+        text: '동기들과 나란히 세워두고 자꾸만 눈금을 재본다',
         deltas: { happiness: -4, relationship: -1 },
-        result: 'SNS 속 남들의 속도에 자꾸만 내 속도를 맞춰보게 됐다.'
+        result: 'SNS 속 남들의 속도에 자꾸만 내 걸음을 맞춰보게 됐다.'
       },
       {
         id: 'leading-small-team',
@@ -2739,9 +2739,9 @@ const STAGES = [
       // 연예계 루트 - 데뷔 첫 해(아이돌/연습생 분기, requiresOccupation으로 갈라짐)
       {
         id: 'ent-idol-rookie-award-21',
-        text: '신인상 후보에 올라 벅찬 소감을 전한다',
+        text: '신인상 후보로 이름이 불리며 벅찬 소감을 전한다',
         deltas: { fame: 6, happiness: 5 },
-        result: '무대 위에서 떨리는 목소리로 소감을 전하던 그 순간이, 오래 남았다.',
+        result: '무대 위 떨리던 목소리가, 오래도록 귓가에 남았다.',
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol']
       },
@@ -2853,9 +2853,9 @@ const STAGES = [
       },
       {
         id: 'relationship-betrayed-by-close-one',
-        text: '가까운 사람과의 관계에 균열이 생긴다',
+        text: '가까웠던 사이에 보이지 않는 금이 간다',
         deltas: { relationship: -10, happiness: -5 },
-        result: '믿었던 만큼, 그 자리가 텅 빈 것처럼 느껴졌다.'
+        result: '믿었던 만큼, 그 자리가 텅 빈 항아리처럼 느껴졌다.'
       },
       {
         id: 'public-corp-hire',
@@ -2906,9 +2906,9 @@ const STAGES = [
       },
       {
         id: 'ent-idol-fanmeeting-warmth-22',
-        text: '팬미팅에서 예상 못 한 따뜻함을 느낀다',
+        text: '팬미팅장에서 예상 못 한 온기가 밀려든다',
         deltas: { happiness: 5, relationship: 2 },
-        result: '무대 아래에서 마주친 눈빛들이, 힘들었던 날들을 잊게 해줬다.',
+        result: '무대 아래에서 마주친 눈빛들이, 힘들었던 날들을 씻어냈다.',
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol']
       },
@@ -3028,9 +3028,9 @@ const STAGES = [
       },
       {
         id: 'sf-first-hire-23',
-        text: '첫 직원을 채용해 팀을 꾸린다',
+        text: '첫 항해를 함께할 선원을 배에 태운다',
         deltas: { wealth: -3, relationship: 3 },
-        result: '혼자 하던 일을 나눠 맡기고 나니, 사무실이 갑자기 회사처럼 느껴졌다.',
+        result: '혼자 젓던 노를 나눠 잡고 나니, 사무실이 갑자기 배처럼 나아갔다.',
         requiresOccupation: ['startup-founder']
       },
       {
@@ -3108,9 +3108,9 @@ const STAGES = [
       },
       {
         id: 'ent-idol-group-conflict-23',
-        text: '그룹 내 의견 차이로 갈등이 깊어진다',
+        text: '같은 무대 위, 마음의 화음이 어긋나기 시작한다',
         deltas: { relationship: -4 },
-        result: '같은 무대에 서면서도, 마음은 자꾸 어긋났다.',
+        result: '같은 조명 아래 서면서도, 마음은 자꾸 다른 박자로 흘렀다.',
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol']
       },
@@ -3132,7 +3132,7 @@ const STAGES = [
       },
       {
         id: 'ent-trainee-final-giveup-23',
-        text: '몇 년째 이어진 기다림 끝에 완전히 접기로 한다',
+        text: '몇 년째 두드리던 문 앞에서 손을 내려놓는다',
         deltas: { happiness: 1 },
         result: '긴 기다림의 끝에서, 이제는 다른 문을 두드려보기로 했다.',
         requiresRoute: 'entertainment-industry',
@@ -3157,9 +3157,9 @@ const STAGES = [
     choices: [
       {
         id: "unhappy-24",
-        text: "첫 직장 상사에게 부당한 지적을 받고 속으로 삭인다",
+        text: "첫 직장 상사의 부당한 화살을 묵묵히 속으로 삼킨다",
         deltas: { happiness: -4, relationship: -1 },
-        result: "퇴근길 지하철 안에서야, 겨우 눈물이 났다."
+        result: "퇴근길 지하철 안에서야, 겨우 눈물이 새어 나왔다."
       },
       {
         id: 'learning-the-ropes',
@@ -3205,9 +3205,9 @@ const STAGES = [
       },
       {
         id: 'fame-colleague-expose-damages-image',
-        text: '믿었던 동료의 폭로로 이미지에 큰 타격을 입는다',
+        text: '믿었던 동료의 폭로가 쌓아온 이름에 얼룩을 남긴다',
         deltas: { fame: -9, relationship: -3 },
-        result: '사실이 아니라고 말해도, 이미 퍼진 이야기는 잘 지워지지 않았다.',
+        result: '사실이 아니라고 말해도, 이미 번진 얼룩은 잘 지워지지 않았다.',
         requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
@@ -3261,9 +3261,9 @@ const STAGES = [
       },
       {
         id: 'lw-peak-season-crunch-24',
-        text: '물량이 폭주하는 성수기를 몸으로 버텨낸다',
+        text: '쉼 없는 컨베이어처럼 몰려드는 성수기를 몸으로 버텨낸다',
         deltas: { health: -5, wealth: 3 },
-        result: '컨베이어 벨트가 멈추지 않는 것처럼, 몸도 멈출 새가 없었다.',
+        result: '벨트가 멈추지 않는 것처럼, 몸도 멈출 새가 없었다.',
         requiresOccupation: ['logistics-worker']
       },
       {
@@ -3388,9 +3388,9 @@ const STAGES = [
       },
       {
         id: 'overtime-recognition',
-        text: '밤낮없이 야근하며 성과를 보고한다',
+        text: '밤낮없는 야근 끝에 성과라는 훈장을 받아 든다',
         deltas: { wealth: 4, health: -4, fame: 2 },
-        result: '인정받는 기쁨과 몸이 축나는 속도가 나란히 갔다.',
+        result: '인정받는 기쁨과 몸이 축나는 속도가, 나란히 같은 길을 달렸다.',
         requiresAnyOccupation: true
       },
       {
@@ -3481,16 +3481,16 @@ const STAGES = [
       },
       {
         id: 'cs-stable-worklife-25',
-        text: '정시 퇴근이 보장되는 삶의 안정감을 느낀다',
+        text: '정시에 꺼지는 사무실 불빛 속에서 안정감을 느낀다',
         deltas: { happiness: 3, health: 2 },
-        result: '매일 같은 시간에 불이 꺼지는 사무실이, 이렇게 든든할 줄 몰랐다.',
+        result: '매일 같은 시간에 꺼지는 불빛이, 이렇게 든든할 줄 몰랐다.',
         requiresOccupation: ['civil-servant']
       },
       {
         id: 'cs-promotion-exam-prep-25',
-        text: '승진 시험 준비에 남는 시간을 전부 쏟는다',
+        text: '승진 시험이라는 산을 오르려 남는 시간을 전부 쏟아붓는다',
         deltas: { health: -2, fame: 1 },
-        result: '책과 씨름하는 밤이 늘수록, 합격 발표일이 더 멀게 느껴졌다.',
+        result: '책과 씨름하는 밤이 늘수록, 정상은 오히려 더 멀어 보였다.',
         requiresOccupation: ['civil-servant']
       },
       {
@@ -3502,9 +3502,9 @@ const STAGES = [
       },
       {
         id: 'aw-creative-block-25',
-        text: '몇 주째 이어지는 창작 슬럼프에 빠진다',
+        text: '몇 주째 머릿속 우물이 바짝 말라붙는다',
         deltas: { happiness: -4, health: -1 },
-        result: '빈 화면 앞에 앉아 있는 시간만 길어졌다.',
+        result: '빈 화면 앞에 앉아 있는 시간만 자꾸 길어졌다.',
         requiresOccupation: ['artist-writer']
       },
       {
@@ -3692,9 +3692,9 @@ const STAGES = [
       },
       {
         id: 'insomnia-onset',
-        text: '업무 생각에 잠자리에서도 휴대폰을 손에서 놓지 못한다',
+        text: '업무 생각이 머리맡을 떠나지 않아 밤이 끝없이 길어진다',
         deltas: { health: -5, happiness: -3 },
-        result: '천장 무늬를 셀 수 있을 정도로, 밤이 길어졌다.',
+        result: '천장 무늬를 다 셀 수 있을 만큼, 밤이 늘어졌다.',
         addCondition: { id: 'insomnia', label: '😵 불면증' },
         requiresAnyOccupation: true
       },
@@ -3748,9 +3748,9 @@ const STAGES = [
       },
       {
         id: 'sbo-rent-negotiation-26',
-        text: '임대료 인상 통보에 건물주와 실랑이를 벌인다',
+        text: '임대료 인상 통보에 건물주와 팽팽한 줄다리기를 벌인다',
         deltas: { wealth: -2, happiness: -3 },
-        result: '몇 마디 오가지도 않았는데, 진이 다 빠졌다.',
+        result: '몇 마디 오가지도 않았는데, 밧줄을 당긴 듯 진이 다 빠졌다.',
         requiresOccupation: ['small-business-owner']
       },
       {
@@ -3808,9 +3808,9 @@ const STAGES = [
       },
       {
         id: 'homesick-food-miss-26',
-        text: '익숙한 음식과 일상이 그리워 귀국을 택한다',
+        text: '익숙한 밥상의 냄새가 그리워 귀국행 비행기를 탄다',
         deltas: { happiness: 3 },
-        result: '결국 발길은, 익숙한 것들을 향했다.',
+        result: '결국 발길은, 익숙한 냄새를 향해 되돌아갔다.',
         requiresLocation: ['abroad'],
         setLocation: { id: 'domestic', label: '🇰🇷 국내' }
       },
@@ -3916,9 +3916,9 @@ const STAGES = [
       },
       {
         id: 'marriage-talk',
-        text: '오래 만난 연인과 결혼을 진지하게 이야기한다',
+        text: '오래 걸어온 두 갈래 길을 하나로 잇는 이야기를 꺼낸다',
         deltas: { relationship: 5, wealth: -1 },
-        result: '농담처럼 꺼낸 말이, 어느새 진지한 대화가 됐다.'
+        result: '농담처럼 던진 말이, 어느새 진지한 다리가 됐다.'
       },
       {
         id: 'grad-school-consideration',
@@ -3941,9 +3941,9 @@ const STAGES = [
       },
       {
         id: 'carpal-tunnel-heal',
-        text: '손목 보호대를 차고 스트레칭을 꾸준히 하며 저림이 사라진다',
+        text: '손목에 감았던 보호대를 풀고 저릿함과 작별한다',
         deltas: { health: 5, wealth: -1 },
-        result: '저릿함 없이 마우스를 쥘 수 있다는 게 이렇게 감사한 일일 줄 몰랐다.',
+        result: '저릿함 없이 마우스를 쥘 수 있다는 게, 이렇게 감사한 일일 줄 몰랐다.',
         requiresCondition: 'carpal-tunnel',
         removeCondition: 'carpal-tunnel'
       },
@@ -4019,9 +4019,9 @@ const STAGES = [
       },
       {
         id: 'hw-patient-bond-27',
-        text: '오래 돌본 환자와 특별한 유대가 생긴다',
+        text: '오래 돌본 환자와 말 없는 끈이 생긴다',
         deltas: { relationship: 4, happiness: 3 },
-        result: '퇴원하는 날 손을 꼭 잡아준 그 온기를, 오래 기억할 것 같았다.',
+        result: '퇴원하는 날 꼭 잡아준 그 손의 온기를, 오래 품고 있을 것 같았다.',
         requiresOccupation: ['healthcare-worker']
       },
       {
@@ -4122,9 +4122,9 @@ const STAGES = [
       },
       {
         id: 'ent-idol-overseas-activity-27',
-        text: '해외 활동 기회를 얻어 새로운 팬층을 만난다',
+        text: '국경 너머로 무대를 넓혀 새 팬층과 마주한다',
         deltas: { fame: 6, wealth: 2, health: -2 },
-        result: '말이 안 통해도 함께 부르는 노래는, 국경을 넘어 통했다.',
+        result: '말이 안 통해도 함께 부르는 노래는, 국경 없이 통했다.',
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol'],
         requiresLocation: ['domestic'],
@@ -4262,9 +4262,9 @@ const STAGES = [
       },
       {
         id: 'pce-parachute-controversy-28',
-        text: '낙하산 인사 논란으로 사내 분위기가 뒤숭숭하다',
+        text: '낙하산처럼 내려온 인사 논란에 사내 공기가 뒤숭숭해진다',
         deltas: { happiness: -3, relationship: -1 },
-        result: '실력과 무관한 이유로 자리가 정해지는 걸 보며, 씁쓸함이 오래 남았다.',
+        result: '실력과 무관한 이유로 자리가 정해지는 걸 보며, 씁쓸함이 오래 가라앉지 않았다.',
         requiresOccupation: ['public-corp-employee']
       },
       {
@@ -4304,16 +4304,16 @@ const STAGES = [
       },
       {
         id: 'sr-rejection-streak-28',
-        text: '연이은 거절에도 다시 전화기를 든다',
+        text: '거절의 파도가 연이어 밀려와도 다시 수화기를 든다',
         deltas: { happiness: -3, health: -1 },
-        result: '열 번 중 아홉 번은 거절이라는 걸 알면서도, 매번 마음이 쓰였다.',
+        result: '열 번 중 아홉 번은 거절이라는 걸 알면서도, 매번 마음 한 구석이 젖었다.',
         requiresOccupation: ['sales-rep']
       },
       {
         id: 'sr-client-dinner-28',
-        text: '접대 자리에서 늦은 밤까지 술잔을 기울인다',
+        text: '접대 자리의 술잔이 새벽까지 쉼 없이 채워진다',
         deltas: { health: -3, relationship: 2 },
-        result: '일인지 인연인지 헷갈리는 시간이, 새벽까지 이어졌다.',
+        result: '일인지 인연인지 헷갈리는 시간이, 새벽까지 흘렀다.',
         requiresOccupation: ['sales-rep']
       },
       {
@@ -4459,7 +4459,7 @@ const STAGES = [
       },
       {
         id: 'lottery-check-29',
-        text: '사둔 복권의 당첨 결과를 확인해본다',
+        text: '사둔 복권 한 장의 운명을 확인하려 봉투를 연다',
         result: '결과를 확인했다.',
         requiresAsset: 'lottery-ticket',
         removeAsset: 'lottery-ticket',
@@ -4482,9 +4482,9 @@ const STAGES = [
       },
       {
         id: 'ow-team-dinner-fatigue-29',
-        text: '잦은 회식에 몸도 마음도 지쳐간다',
+        text: '잦은 회식이 파도처럼 밀려와 몸도 마음도 젖어든다',
         deltas: { health: -2, happiness: -2 },
-        result: '즐거워야 할 자리가, 어느새 또 다른 업무처럼 느껴졌다.',
+        result: '즐거워야 할 자리가, 어느새 또 다른 업무처럼 무겁게 느껴졌다.',
         requiresOccupation: ['office-worker']
       },
       {
@@ -4559,7 +4559,7 @@ const STAGES = [
       // 연예계 루트 - 마지막 해(30세부터 maxDurationYears 자동 만료로 정상 콘텐츠 복귀)
       {
         id: 'ent-idol-retirement-consideration-29',
-        text: '은퇴를 진지하게 고민하기 시작한다',
+        text: '언젠가 내려야 할 무대의 커튼을 가만히 떠올린다',
         deltas: { happiness: 1 },
         result: '언젠가는 내려야 할 무대라는 걸, 이제 담담히 받아들일 수 있었다.',
         requiresRoute: 'entertainment-industry',
@@ -4656,9 +4656,9 @@ const STAGES = [
       },
       {
         id: 'relationship-breakup-long-relationship',
-        text: '오래된 연인과 크게 다투고 갈라선다',
+        text: '오래 그려온 미래를 큰 다툼 끝에 지워버린다',
         deltas: { relationship: -9, happiness: -4 },
-        result: '함께 그리던 미래가, 한순간에 지워졌다.',
+        result: '함께 그리던 미래가, 한순간에 지워진 스케치가 됐다.',
         removeAcquaintance: { relation: 'lover' }
       },
       {
@@ -4691,9 +4691,9 @@ const STAGES = [
       },
       {
         id: 'startup-founder-word-of-mouth',
-        text: '서비스가 입소문을 타기 시작한다',
+        text: '입소문이라는 불씨가 서비스 전체로 옮겨붙는다',
         deltas: { fame: 5, wealth: 3 },
-        result: '사용자 수 그래프가 꺾이지 않고 올라가는 걸, 몇 번이고 새로고침했다.',
+        result: '사용자 수 그래프가 꺾이지 않고 오르는 걸, 몇 번이고 새로고침했다.',
         requiresOccupation: ['startup-founder']
       },
       {
@@ -4742,9 +4742,9 @@ const STAGES = [
       },
       {
         id: 'declaring-single-life',
-        text: '비혼을 선언하고 혼자만의 삶을 설계한다',
+        text: '혼자만의 항해를 선언하고 나만의 지도를 그린다',
         deltas: { happiness: 4, wealth: 2, relationship: -2 },
-        result: '누구의 눈치도 보지 않는 삶의 방식이, 홀가분하게 느껴졌다.'
+        result: '누구의 눈치도 보지 않는 삶의 방식이, 날개처럼 가벼웠다.'
       },
       {
         id: 'wedding-budget-compromise',
@@ -4772,7 +4772,7 @@ const STAGES = [
       },
       {
         id: 'pet-family-instead',
-        text: '결혼 대신 반려동물을 입양해 새 가족을 만든다',
+        text: '결혼 대신 작은 발자국 하나를 새 가족으로 들인다',
         deltas: { happiness: 5, relationship: 3, wealth: -2 },
         result: '작은 발소리 하나가 집 안 공기를 완전히 바꿔놓았다.'
       },
@@ -4932,9 +4932,9 @@ const STAGES = [
       },
       {
         id: 'studio-investment',
-        text: '오피스텔에 투자해 임대 수익을 노린다',
+        text: '오피스텔 한 채에 씨앗처럼 돈을 심어 임대 수익을 노린다',
         deltas: { wealth: -7, happiness: 2 },
-        result: '매달 들어오는 월세를 볼 때마다, 잘한 선택이었다는 확신이 들었다.',
+        result: '매달 들어오는 월세를 볼 때마다, 씨앗이 잘 자란 걸 확인하는 기분이었다.',
         addAsset: { id: 'studio-unit', label: '🏢 오피스텔', type: 'realestate' }
       },
       {
@@ -4946,9 +4946,9 @@ const STAGES = [
       },
       {
         id: 'civil-servant-seniority-promotion',
-        text: '연공서열에 따라 안정적으로 승급한다',
+        text: '쌓아온 연공서열이라는 계단을 한 칸 오른다',
         deltas: { wealth: 3, happiness: 2 },
-        result: '화려하진 않아도, 꾸준함이 결국 자리를 만들어줬다.',
+        result: '화려하진 않아도, 꾸준함이 결국 계단 하나를 만들어줬다.',
         requiresOccupation: ['civil-servant']
       },
       {
@@ -5045,9 +5045,9 @@ const STAGES = [
       },
       {
         id: 'maternity-leave-anxiety',
-        text: '육아휴직을 낸다',
+        text: '육아휴직이라는 낯선 항구에 잠시 배를 댄다',
         deltas: { happiness: -3, wealth: -4, relationship: 2 },
-        result: '아이는 예뻤지만, 자리가 사라질까 봐 조바심이 났다.',
+        result: '아이는 예뻤지만, 자리가 사라질까 봐 마음 한켠이 흔들렸다.',
         requiresFamilyMember: ['child']
       },
       {
@@ -5110,9 +5110,9 @@ const STAGES = [
     choices: [
       {
         id: "unhappy-34",
-        text: "가족 행사에서 뜻하지 않은 잔소리 폭탄을 맞는다",
+        text: "가족 행사에서 잔소리라는 폭탄이 예고 없이 떨어진다",
         deltas: { happiness: -2, relationship: -1 },
-        result: "듣기 싫은 말도 웃으며 넘기는 게, 명절의 룰이었다."
+        result: "듣기 싫은 말도 웃으며 넘기는 게, 명절이라는 무대의 규칙이었다."
       },
       {
         id: 'bold-job-change',
@@ -5267,7 +5267,7 @@ const STAGES = [
       },
       {
         id: 'startup-founder-funding-crisis',
-        text: '사업 확장을 서두르며 지출을 늘린다',
+        text: '사업 확장을 서두르며 곳간의 바닥이 조금씩 드러난다',
         deltas: { wealth: -8, happiness: -5 },
         result: '통장 잔고를 확인하는 손이, 매일 조금씩 더 무거워졌다.',
         requiresOccupation: ['startup-founder']
@@ -5401,9 +5401,9 @@ const STAGES = [
       },
       {
         id: 'abroad-holiday-longing-36',
-        text: '명절마다 밀려오는 그리움을 홀로 견딘다',
+        text: '명절마다 밀려오는 그리움의 파도를 홀로 맞는다',
         deltas: { happiness: -4 },
-        result: '괜찮다는 말을, 스스로에게 몇 번이고 되뇌었다.',
+        result: '괜찮다는 말을, 파도가 칠 때마다 스스로에게 되뇌었다.',
         requiresLocation: ['abroad']
       },
       {
@@ -5430,9 +5430,9 @@ const STAGES = [
       },
       {
         id: 'abroad-holiday-cooking-36',
-        text: '명절 음식을 직접 만들어 향수를 달랜다',
+        text: '명절 음식을 손수 빚어 그리움의 빈자리를 메워본다',
         deltas: { happiness: 2 },
-        result: '맛은 비슷했지만, 그리움은 다 채워지지 않았다.',
+        result: '맛은 비슷했지만, 그리움의 그릇은 다 채워지지 않았다.',
         requiresLocation: ['abroad']
       },
       {
@@ -5473,9 +5473,9 @@ const STAGES = [
       },
       {
         id: 'hobby-account-mini-fame',
-        text: 'SNS에 취미 계정을 만들어 소소한 인기를 얻는다',
+        text: 'SNS 취미 계정에 작은 불빛 하나를 켜둔다',
         deltas: { fame: 4, happiness: 3 },
-        result: '본업과 상관없는 곳에서 얻은 관심이, 묘하게 새로운 활력이 됐다.',
+        result: '본업과 상관없는 곳에서 켜진 관심이, 묘하게 새로운 활력이 됐다.',
         requiresAnyHobby: true
       },
       {
@@ -5564,9 +5564,9 @@ const STAGES = [
       },
       {
         id: 'dispatch-abroad-project-37',
-        text: '대형 해외 프로젝트를 맡아 현지로 파견된다',
+        text: '대형 해외 프로젝트라는 파도를 타고 현지로 건너간다',
         deltas: { happiness: 4, wealth: 4 },
-        result: '부담이 컸지만, 그만큼 해내고 싶은 마음도 컸다.',
+        result: '부담이 컸지만, 그만큼 해내고 싶은 마음도 파도처럼 일었다.',
         requiresAnyOccupation: true,
         requiresLocation: ['domestic'],
         setLocation: { id: 'abroad', label: '🌍 해외' }
@@ -5612,9 +5612,9 @@ const STAGES = [
       },
       {
         id: 'declining-stamina',
-        text: '체력이 예전 같지 않음을 절실히 느낀다',
+        text: '몸이라는 배터리가 예전만큼 오래가지 않음을 절실히 느낀다',
         deltas: { health: -3, happiness: -2 },
-        result: '예전엔 아무렇지 않던 일들이, 이제는 다음 날까지 갔다.'
+        result: '예전엔 아무렇지 않던 일들이, 이제는 다음 날까지 방전됐다.'
       },
       {
         id: 'overhauling-habits',
@@ -5709,9 +5709,9 @@ const STAGES = [
       },
       {
         id: 'fame-anonymous-contributor-38',
-        text: '성과는 냈지만 이름은 드러나지 않는다',
+        text: '성과는 냈지만 이름표 없이 그림자로 남는다',
         deltas: { fame: -2, wealth: 2 },
-        result: '공은 다른 이름으로 돌아갔지만, 통장 잔고는 늘어 있었다.'
+        result: '공은 다른 이름으로 돌아갔지만, 통장 잔고는 조용히 채워져 있었다.'
       },
       {
         id: 'jc-new-culture-shock-38',
@@ -5729,9 +5729,9 @@ const STAGES = [
       },
       {
         id: 'jc-new-colleagues-38',
-        text: '새 동료들과 조금씩 가까워진다',
+        text: '낯선 얼굴들과의 거리가 조금씩 좁혀진다',
         deltas: { relationship: 3, happiness: 2 },
-        result: '낯설던 얼굴들이, 이름과 함께 편해지기 시작했다.',
+        result: '낯설던 얼굴들이, 이름과 함께 조금씩 편안한 온도가 됐다.',
         requiresOccupation: ['job-changed'],
         addAcquaintance: { relation: 'colleague', label: '💼 동료' }
       },
@@ -5816,9 +5816,9 @@ const STAGES = [
       },
       {
         id: 'logistics-dawn-coworker-bonding',
-        text: '동료들과 새벽 시간을 함께 보내며 끈끈해진다',
+        text: '아무도 안 깬 새벽, 동료들과 어깨를 나란히 하며 끈끈해진다',
         deltas: { relationship: 4 },
-        result: '아무도 안 깬 새벽, 같이 짐을 나르던 얼굴들이 가족처럼 느껴졌다.',
+        result: '같이 짐을 나르던 새벽의 얼굴들이, 어느새 가족처럼 느껴졌다.',
         requiresOccupation: ['logistics-worker']
       },
       {
@@ -5858,9 +5858,9 @@ const STAGES = [
       },
       {
         id: 'ent-competitor-pressure-39',
-        text: '공격적인 경쟁사의 행보에 위기감을 느낀다',
+        text: '바짝 쫓아오는 경쟁사의 발소리에 위기감이 짙어진다',
         deltas: { happiness: -3, wealth: -1 },
-        result: '뒤를 바짝 쫓는 발소리가, 매일 신경 쓰였다.',
+        result: '뒤를 밟는 그림자가, 매일 신경 쓰였다.',
         requiresOccupation: ['entrepreneur']
       },
       {
@@ -5919,9 +5919,9 @@ const STAGES = [
       },
       {
         id: 'generation-gap-with-juniors',
-        text: '젊은 후배들 사이에서 세대 차이를 실감한다',
+        text: '젊은 후배들과 나 사이에 보이지 않는 강이 흐른다',
         deltas: { happiness: -3, relationship: -1 },
-        result: '농담 하나도 통하지 않는 순간들이 늘어갔다.',
+        result: '농담 하나도 건너가지 않는 순간들이, 조금씩 늘어갔다.',
         requiresAnyOccupation: true
       },
       {
@@ -6032,7 +6032,7 @@ const STAGES = [
       },
       {
         id: 'unexpected-call-returns-40',
-        text: '밤늦게 걸려온 전화 한 통에 급히 짐을 싼다',
+        text: '밤늦게 울린 전화벨 하나에 서둘러 짐을 꾸린다',
         deltas: { happiness: -5 },
         result: '전화를 끊자마자, 짐부터 챙기기 시작했다.',
         requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild'],
@@ -6111,9 +6111,9 @@ const STAGES = [
       },
       {
         id: 'chronic-anxiety-onset-41',
-        text: '가족·일 걱정에 매일 밤 뒤척이며 잠들지 못한다',
+        text: '가족·일 걱정이 밤마다 머리맡을 떠나지 않는다',
         deltas: { health: -2, happiness: -5 },
-        result: '눈을 감아도, 머릿속 걱정은 꺼지지 않았다.',
+        result: '눈을 감아도, 걱정이라는 불씨는 꺼지지 않았다.',
         requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild'],
         addCondition: { id: 'chronic-anxiety', label: '🌙 만성 불안장애', mental: true }
       }
@@ -6152,7 +6152,7 @@ const STAGES = [
       },
       {
         id: 'cutting-back-on-drinking',
-        text: '회식·과음이 줄고 건강한 생활을 택한다',
+        text: '회식·과음이라는 늪에서 조금씩 발을 뺀다',
         deltas: { health: 4, relationship: -1 },
         result: '다음 날이 무서워, 한 잔 더를 거절하는 법을 배웠다.',
         requiresOccupation: COMPANY_OCCUPATION_IDS
@@ -6217,9 +6217,9 @@ const STAGES = [
       },
       {
         id: 'fame-viral-moment-42',
-        text: '우연히 찍힌 영상이 온라인에서 퍼진다',
+        text: '우연히 찍힌 영상 한 장면이 들불처럼 번진다',
         deltas: { fame: 6, happiness: 1 },
-        result: '의도한 적 없는 관심이, 며칠 동안 일상을 뒤흔들었다.'
+        result: '의도한 적 없는 관심이, 며칠간 일상을 흔들어놓았다.'
       },
       {
         id: 'fame-privacy-exposed-42',
@@ -6313,16 +6313,16 @@ const STAGES = [
       },
       {
         id: 'abroad-market-business-grows-43',
-        text: '현지 시장을 공략해 사업을 키운다',
+        text: '낯설던 현지 시장이라는 땅에 뿌리를 내리며 사업을 키운다',
         deltas: { happiness: 4, wealth: 5 },
         result: '낯설던 시장이, 어느새 익숙한 무대가 됐다.',
         requiresLocation: ['abroad']
       },
       {
         id: 'abroad-branch-promotion-43',
-        text: '해외 법인에서 능력을 인정받아 승진한다',
+        text: '타지의 무대에서 실력을 인정받아 한 계단 오른다',
         deltas: { happiness: 5, wealth: 3, fame: 2 },
-        result: '타지에서 인정받았다는 사실이, 남다른 의미로 다가왔다.',
+        result: '타지에서 인정받았다는 사실이, 남다른 무게로 다가왔다.',
         requiresAnyOccupation: true,
         requiresLocation: ['abroad']
       },
@@ -6378,9 +6378,9 @@ const STAGES = [
       },
       {
         id: 'drifting-from-spouse',
-        text: '배우자와의 관계를 돌아보며 소원해진 사이를 자각한다',
+        text: '배우자와의 사이에 조용히 안개가 짙어진 걸 깨닫는다',
         deltas: { relationship: -4, happiness: -2 },
-        result: '언제부터 대화가 이렇게 줄었는지, 기억도 나지 않았다.',
+        result: '언제부터 대화가 이렇게 옅어졌는지, 기억도 나지 않았다.',
         requiresFamilyMember: ['spouse']
       },
       {
@@ -6447,9 +6447,9 @@ const STAGES = [
       },
       {
         id: 'career-changer-confirmation-moment',
-        text: '전환이 옳았다는 확신이 드는 순간을 맞는다',
+        text: '갈아탄 그 길이 옳았다는 이정표를 마주한다',
         deltas: { happiness: 5 },
-        result: '늦었다고 생각했던 그 선택이, 결국 옳았다는 걸 스스로 확인했다.',
+        result: '늦었다고 생각했던 그 선택이, 결국 옳은 길이었음을 확인했다.',
         requiresOccupation: ['career-changer']
       },
       {
@@ -6508,9 +6508,9 @@ const STAGES = [
       },
       {
         id: 'reviving-old-dream',
-        text: '그동안 억눌러온 꿈을 다시 꺼내본다',
+        text: '서랍 깊숙이 눌러뒀던 꿈을 다시 꺼내 먼지를 턴다',
         deltas: { happiness: 4, wealth: -2 },
-        result: '서랍 깊숙이 넣어뒀던 꿈이, 먼지를 털고 다시 나왔다.'
+        result: '묻어뒀던 꿈이, 먼지를 털고 다시 빛을 냈다.'
       },
       {
         id: 'impulsive-big-purchase',
@@ -6606,13 +6606,13 @@ const STAGES = [
       },
       {
         id: 'midlife-old-debt-collection-45',
-        text: '예전에 빌려줬던 돈을 받으러 연락해본다',
+        text: '예전에 흘려보낸 돈을 되찾으러 옛 기억을 두드린다',
         deltas: { wealth: 3 },
-        result: '미안해하며 건넨 돈이, 잊고 있던 만큼 반가웠다.'
+        result: '미안해하며 건넨 돈이, 잊고 있던 만큼 반가운 물건 같았다.'
       },
       {
         id: 'lottery-check-45',
-        text: '사둔 복권의 당첨 결과를 확인해본다',
+        text: '사둔 복권 한 장의 운명을 봉투 속에서 꺼내본다',
         result: '결과를 확인했다.',
         requiresAsset: 'lottery-ticket',
         removeAsset: 'lottery-ticket',
@@ -6699,9 +6699,9 @@ const STAGES = [
       },
       {
         id: 'career-pivot-40s',
-        text: '완전히 다른 분야로 커리어를 전환한다',
+        text: '걸어온 길을 접고 낯선 갈림길로 방향을 튼다',
         deltas: { wealth: -4, happiness: 4, fame: -1 },
-        result: '처음부터 다시 시작한다는 게, 두려우면서도 짜릿했다.',
+        result: '처음부터 다시 시작한다는 게, 두려우면서도 심장이 뛰었다.',
         setOccupation: { id: 'career-pivot', label: '🔄 커리어 전환자' }
       },
       {
@@ -6870,16 +6870,16 @@ const STAGES = [
       },
       {
         id: 'tl-reorg-navigation-47',
-        text: '조직개편 속에서 팀을 지키려 애쓴다',
+        text: '조직개편이라는 파도 속에서 팀이라는 배를 지키려 애쓴다',
         deltas: { health: -2, relationship: 2 },
-        result: '위에서 내려온 결정 앞에서, 할 수 있는 게 많지 않았다.',
+        result: '위에서 내려온 파도 앞에서, 할 수 있는 게 많지 않았다.',
         requiresOccupation: ['team-lead']
       },
       {
         id: 'tl-leadership-doubt-47',
-        text: '이런 리더가 맞는지 스스로에게 자꾸 묻는다',
+        text: '이 자리가 맞는 옷인지 스스로에게 자꾸 되묻는다',
         deltas: { happiness: -2 },
-        result: '정답이 없는 질문을, 매일 밤 되풀이했다.',
+        result: '정답 없는 질문을, 매일 밤 되풀이했다.',
         requiresOccupation: ['team-lead']
       },
       {
@@ -6930,7 +6930,7 @@ const STAGES = [
       },
       {
         id: 'preparing-to-pass-the-torch',
-        text: '후배들에게 자리를 물려줄 준비를 시작한다',
+        text: '쥐고 있던 횃불을 후배의 손에 넘길 준비를 시작한다',
         deltas: { relationship: 3, happiness: 2 },
         result: '내려놓는 법을 배우는 것도, 결국 리더의 몫이었다.',
         requiresAnyOccupation: true
@@ -7049,14 +7049,14 @@ const STAGES = [
       },
       {
         id: 'menopause-onset',
-        text: '예전과 다르게 몸이 보내는 신호를 느낀다',
+        text: '몸이 보내는 낯선 신호에 계절이 바뀌듯 몸이 흔들린다',
         deltas: { health: -5, happiness: -3 },
-        result: '열감과 불면이 번갈아 찾아오는 밤들이 계속됐다.',
+        result: '열감과 불면이 밀물썰물처럼 번갈아 찾아왔다.',
         addCondition: { id: 'menopause-symptoms', label: '🌡️ 갱년기 증상' }
       },
       {
         id: 'public-corp-overseas-training',
-        text: '해외 연수 기회를 얻어 견문을 넓힌다',
+        text: '해외 연수라는 새 창문을 열어 견문을 넓힌다',
         deltas: { happiness: 4, wealth: 2 },
         result: '낯선 나라에서 보낸 몇 주가, 오랜만에 숨통을 틔워줬다.',
         requiresOccupation: ['public-corp-employee']
@@ -7242,7 +7242,7 @@ const STAGES = [
       },
       {
         id: 'checkup-thorough-50',
-        text: '몸 여기저기를 꼼꼼히 살피는 정밀 검진을 받는다',
+        text: '몸 구석구석을 촘촘한 그물로 훑는 정밀 검진을 받는다',
         deltas: { health: 3, wealth: -1 },
         result: '숫자들이 빼곡한 결과지를 받아 들고, 앞으로를 다시 챙기기로 다짐했다.',
         requiresAnyCondition: true,
@@ -7250,9 +7250,9 @@ const STAGES = [
       },
       {
         id: 'visa-denied-returns-50',
-        text: '비자 연장이 거절돼 어쩔 수 없이 귀국한다',
+        text: '비자라는 문이 닫혀 어쩔 수 없이 발길을 돌린다',
         deltas: { happiness: -5, wealth: -2 },
-        result: '몇 번을 다시 신청해봐도, 결과는 같았다.',
+        result: '몇 번을 다시 두드려봐도, 문은 열리지 않았다.',
         requiresLocation: ['abroad'],
         setLocation: { id: 'domestic', label: '🇰🇷 국내' }
       },
@@ -7333,9 +7333,9 @@ const STAGES = [
       },
       {
         id: 'lingering-emptiness',
-        text: '독립한 자녀의 빈자리가 유독 크게 느껴진다',
+        text: '독립한 자녀가 남긴 빈자리가 유독 크게 울린다',
         deltas: { happiness: -4, relationship: -1 },
-        result: '밥상에 놓인 수저 두 벌이, 그렇게 낯설 수가 없었다.',
+        result: '밥상에 놓인 수저 두 벌이, 그렇게 휑할 수가 없었다.',
         requiresFamilyMember: ['child']
       },
       {
@@ -7394,7 +7394,7 @@ const STAGES = [
       },
       {
         id: 'fame-seminar-invited-51',
-        text: '경험을 나누는 세미나에 강연자로 초청받는다',
+        text: '지나온 길을 나누는 자리에 강연자로 초대받는다',
         deltas: { fame: 4, happiness: 2 },
         result: '준비한 자료보다, 질문에 답하는 시간이 더 길어졌다.'
       },
@@ -7484,9 +7484,9 @@ const STAGES = [
       },
       {
         id: 'reviewing-pension-and-savings',
-        text: '연금·노후 자금을 꼼꼼히 재점검한다',
+        text: '연금·노후 자금이라는 저수지의 수위를 꼼꼼히 재본다',
         deltas: { wealth: 3, happiness: -1 },
-        result: '숫자를 두드릴 때마다, 마음이 오락가락했다.'
+        result: '숫자를 두드릴 때마다, 마음이 밀물과 썰물처럼 오갔다.'
       },
       {
         id: 'exploring-second-act-business',
@@ -7556,9 +7556,9 @@ const STAGES = [
     choices: [
       {
         id: "unhappy-53",
-        text: "거울 속 낯선 주름에 세월의 무게를 실감한다",
+        text: "거울 속 낯선 주름에서 세월의 무게를 읽는다",
         deltas: { happiness: -2 },
-        result: "언제 이렇게 변했을까, 한참을 들여다봤다."
+        result: "언제 이렇게 새겨졌을까, 한참을 들여다봤다."
       },
       {
         id: 'organizing-assets-for-retirement',
@@ -7628,7 +7628,7 @@ const STAGES = [
       },
       {
         id: 'lottery-check-53',
-        text: '사둔 복권의 당첨 결과를 확인해본다',
+        text: '사둔 복권 한 장의 운명을 다시 열어본다',
         result: '결과를 확인했다.',
         requiresAsset: 'lottery-ticket',
         removeAsset: 'lottery-ticket',
@@ -7687,9 +7687,9 @@ const STAGES = [
       },
       {
         id: 'reflecting-on-fifteen-years',
-        text: '중년의 마지막 해, 지난 15년을 돌아본다',
+        text: '중년의 마지막 페이지에서 지난 15년의 지도를 펼쳐본다',
         deltas: { happiness: 3, relationship: 2 },
-        result: '짧지 않은 시간이었는데, 돌아보니 순식간이었다.'
+        result: '짧지 않은 길이었는데, 돌아보니 한걸음 같았다.'
       },
       {
         id: 'calm-resolve-for-old-age',
@@ -7773,7 +7773,7 @@ const STAGES = [
       },
       {
         id: 'first-monday-without-work',
-        text: '출근하지 않는 첫 월요일을 맞는다',
+        text: '출근이라는 닻을 처음으로 내려놓는 월요일을 맞는다',
         deltas: { happiness: -4, health: -1 },
         result: '알람을 꺼버린 아침이, 홀가분하기보다 낯설었다.',
         requiresOccupation: COMPANY_OCCUPATION_IDS
@@ -7824,9 +7824,9 @@ const STAGES = [
       },
       {
         id: 'fame-legacy-project-55',
-        text: '마지막으로 남긴 성과가 한동안 회자된다',
+        text: '떠난 자리에 남긴 발자국이 한동안 회자된다',
         deltas: { fame: 4, happiness: 2 },
-        result: '떠난 뒤에도 이름이 오르내린다는 소식이, 뿌듯하게 다가왔다.'
+        result: '떠난 뒤에도 이름이 오르내린다는 소식이, 마음을 뿌듯하게 채웠다.'
       },
       {
         id: 'fame-irrelevant-now-55',
@@ -7894,9 +7894,9 @@ const STAGES = [
     choices: [
       {
         id: "unhappy-56",
-        text: "무릎이 예전 같지 않아 좋아하던 등산도 힘에 부친다",
+        text: "무릎이 예전 같지 않아 좋아하던 산길에서 자꾸 멈춰선다",
         deltas: { happiness: -2, health: -2 },
-        result: "정상까지 못 오르고 중턱에서 돌아선 날, 유독 쓸쓸했다."
+        result: "정상까지 못 오르고 중턱에서 돌아선 날, 유독 마음이 시렸다."
       },
       {
         id: 'questioning-identity',
@@ -7974,9 +7974,9 @@ const STAGES = [
     choices: [
       {
         id: "unhappy-57",
-        text: "손주 재롱을 보러 온 다른 부부를 보며 부러움을 느낀다",
+        text: "손주 재롱을 보러 온 다른 부부를 보며 마음 한쪽이 시큰해진다",
         deltas: { happiness: -2, relationship: -1 },
-        result: "축하하는 마음 한편에, 조용한 부러움이 섞였다."
+        result: "축하하는 마음 한편에, 조용한 부러움이 그림자처럼 드리웠다."
       },
       {
         id: 'joining-local-community',
@@ -8006,9 +8006,9 @@ const STAGES = [
       },
       {
         id: 'online-community-connection',
-        text: '온라인 커뮤니티에서 또래들과 소통하는 재미를 붙인다',
+        text: '온라인이라는 창을 통해 또래들과 새 물길을 튼다',
         deltas: { relationship: 3, happiness: 3 },
-        result: '화면 너머였지만, 대화만큼은 진심으로 즐거웠다.'
+        result: '화면 너머였지만, 대화만큼은 진심으로 따뜻했다.'
       },
       {
         id: 'couples-gathering-energy',
@@ -8157,9 +8157,9 @@ const STAGES = [
       },
       {
         id: 'relationship-acquaintances-drift-away',
-        text: '친했던 지인들과 하나둘 연락이 끊긴다',
+        text: '친했던 지인들과의 연이 하나둘 실처럼 풀려나간다',
         deltas: { relationship: -6, happiness: -2 },
-        result: '명절에도, 이제는 안부를 물을 사람이 줄어 있었다.'
+        result: '명절에도, 이제는 안부를 물을 사람의 자리가 줄어 있었다.'
       },
       {
         id: 'career-pivot-new-vitality',
@@ -8213,9 +8213,9 @@ const STAGES = [
       },
       {
         id: 'vw-meaningful-contribution-58',
-        text: '작은 재능기부가 큰 보람으로 돌아온다',
+        text: '작은 재능 하나를 흘려보냈더니 큰 보람으로 되돌아온다',
         deltas: { happiness: 4, fame: 1 },
-        result: '받는 것보다 주는 게 더 크다는 말을, 이제야 실감했다.',
+        result: '받는 것보다 주는 게 더 크다는 말을, 이제야 몸으로 실감했다.',
         requiresOccupation: ['volunteer-work']
       },
       {
@@ -8287,9 +8287,9 @@ const STAGES = [
       },
       {
         id: 'reducing-activity-due-to-stamina',
-        text: '체력 저하를 실감하며 활동량을 줄인다',
+        text: '기력이라는 곳간이 줄어든 걸 실감하며 걸음을 줄인다',
         deltas: { health: -3, happiness: -1 },
-        result: '예전만큼 움직이지 못하는 게, 못내 아쉬웠다.'
+        result: '예전만큼 움직이지 못하는 게, 못내 아쉬운 그늘로 남았다.'
       },
       {
         id: 'reviewing-medical-insurance',
@@ -8299,9 +8299,9 @@ const STAGES = [
       },
       {
         id: 'accepting-physical-limits',
-        text: '몸이 예전 같지 않다는 걸 받아들이고 무리하지 않는다',
+        text: '몸이라는 배가 예전 같지 않음을 받아들이고 속도를 늦춘다',
         deltas: { happiness: 3, health: 2 },
-        result: '버티기보다 맞춰가는 법을, 천천히 익혀갔다.'
+        result: '버티기보다 물살에 맞춰가는 법을, 천천히 익혀갔다.'
       },
       {
         id: 'retired-every-day-sunday',
@@ -8439,9 +8439,9 @@ const STAGES = [
       },
       {
         id: 'severance-payout',
-        text: '퇴직금을 목돈으로 받는다',
+        text: '평생의 땀이 퇴직금이라는 목돈으로 통장에 내려앉는다',
         deltas: { wealth: 10, happiness: 3 },
-        result: '평생 일한 값이 통장에 찍히던 순간, 만감이 교차했다.',
+        result: '평생 일한 값이 통장에 찍히던 순간, 만감이 밀려왔다.',
         addAsset: { id: 'severance-payout', label: '💰 퇴직금', type: 'cash' }
       },
       {
@@ -8481,9 +8481,9 @@ const STAGES = [
       },
       {
         id: 'lottery-skip-60',
-        text: '차라리 그 돈을 저축하기로 한다',
+        text: '요행 대신 저금통에 동전을 쌓기로 한다',
         deltas: { happiness: 1 },
-        result: '티끌 모아 태산이라는 말을 되새겼다.'
+        result: '티끌 모아 태산이라는 말을, 다시 한번 되새겼다.'
       },
       {
         id: 'late-life-new-lover',
@@ -8518,9 +8518,9 @@ const STAGES = [
     choices: [
       {
         id: "unhappy-61",
-        text: "함께 늙어가던 친구의 건강 악화 소식을 듣는다",
+        text: "함께 늙어가던 친구의 건강 악화 소식이 서늘하게 닿는다",
         deltas: { happiness: -3, relationship: -1 },
-        result: "다음엔 내 차례일까, 라는 생각이 스치고 지나갔다."
+        result: "다음엔 내 차례일까, 라는 그림자가 스치고 지나갔다."
       },
       {
         id: 'new-life-rhythm-settles',
@@ -8596,9 +8596,9 @@ const STAGES = [
       },
       {
         id: 'oldprep-land-rental-61',
-        text: '갖고 있던 땅 한 뙈기를 임대로 내놓는다',
+        text: '묵혀둔 땅 한 뙈기를 세상에 다시 내놓는다',
         deltas: { wealth: 3 },
-        result: '묵혀뒀던 땅이, 매달 조금씩 보탬이 됐다.'
+        result: '묵혀뒀던 땅이, 매달 조금씩 보탬이라는 싹을 틔웠다.'
       },
       {
         id: 'oldprep-selling-golf-membership-61',
@@ -8713,13 +8713,13 @@ const STAGES = [
       },
       {
         id: 'fame-documentary-request-62',
-        text: '다큐멘터리 출연 제안을 받는다',
+        text: '다큐멘터리 카메라가 오래전 무대로 다시 나를 부른다',
         deltas: { fame: 5, happiness: 2 },
         result: '카메라 앞에 다시 서보니, 옛 감각이 낯설게 되살아났다.'
       },
       {
         id: 'fame-comparison-to-past-62',
-        text: '예전에 잘나가지 않았냐는 말을 듣는다',
+        text: '예전 전성기의 그림자와 지금의 나를 나란히 비교당한다',
         deltas: { fame: -2, happiness: -2 },
         result: '칭찬인 듯 아닌 듯한 그 말이, 오래도록 귓가에 맴돌았다.'
       },
@@ -8801,7 +8801,7 @@ const STAGES = [
       },
       {
         id: 'pre-retirement-colleague',
-        text: '은퇴를 앞두고 함께 일해온 동료와 유독 가까워진다',
+        text: '은퇴가 다가올수록 함께 걸어온 동료와의 끈이 더 단단해진다',
         deltas: { happiness: 3, relationship: 2 },
         result: '떠날 날이 가까워질수록, 함께한 시간의 무게가 더 크게 느껴졌다.',
         requiresAnyOccupation: true,
@@ -8831,9 +8831,9 @@ const STAGES = [
       },
       {
         id: 'anxious-over-checkup-results',
-        text: '건강검진 결과 하나하나에 예민해진다',
+        text: '건강검진 결과지의 숫자 하나하나에 마음이 곤두선다',
         deltas: { happiness: -3, health: -1 },
-        result: '숫자 하나에 하루 기분이 오르락내리락했다.'
+        result: '숫자 하나에 하루 기분이 오르락내리락, 파도처럼 출렁였다.'
       },
       {
         id: 'accepting-bodys-signals',
@@ -8855,9 +8855,9 @@ const STAGES = [
       },
       {
         id: 'exercise-group-together',
-        text: '운동 모임에 나가며 건강을 다 함께 챙긴다',
+        text: '운동 모임이라는 무리에 섞여 다 함께 몸을 챙긴다',
         deltas: { health: 4, relationship: 3 },
-        result: '혼자 하면 작심삼일이던 운동이, 함께 하니 꾸준해졌다.',
+        result: '혼자 하면 작심삼일이던 운동이, 함께 하니 강물처럼 이어졌다.',
         requiresNoCondition: ['back-pain', 'knee-pain']
       },
       {
@@ -9030,13 +9030,13 @@ const STAGES = [
       },
       {
         id: 'fame-hobby-community-recognition-65',
-        text: '취미 모임에서 실력을 인정받아 알려진다',
+        text: '취미 모임에서 뒤늦게 피운 재주가 입소문을 탄다',
         deltas: { fame: 3, happiness: 2 },
         result: '뒤늦게 시작한 일로 이름이 알려질 줄은, 생각도 못 했다.'
       },
       {
         id: 'fame-outdated-skills-65',
-        text: '가진 기술·지식이 낡았다는 말을 듣는다',
+        text: '손에 쥔 기술이 낡은 지도처럼 됐다는 말을 듣는다',
         deltas: { fame: -3, happiness: -2 },
         result: '세상이 그새 얼마나 바뀌었는지, 새삼 실감이 났다.'
       },
@@ -9182,9 +9182,9 @@ const STAGES = [
       },
       {
         id: 'oldprep-anniversary-gift-cash-66',
-        text: '결혼기념일에 자녀들이 두둑한 용돈을 보낸다',
+        text: '결혼기념일, 자녀들의 마음이 두둑한 봉투로 도착한다',
         deltas: { wealth: 2, relationship: 2, happiness: 2 },
-        result: '봉투 안 숫자보다, 잊지 않고 챙긴 마음이 더 컸다.',
+        result: '봉투 안 숫자보다, 잊지 않고 챙긴 마음이 더 묵직했다.',
         requiresFamilyMember: ['child']
       },
       {
@@ -9209,9 +9209,9 @@ const STAGES = [
       },
       {
         id: 'oldprep-renting-spare-room-66',
-        text: '빈 방 하나를 세놓기로 한다',
+        text: '빈 방 하나를 세상에 열어 세를 놓는다',
         deltas: { wealth: 3 },
-        result: '빈 방 하나가, 매달 쏠쏠한 보탬이 됐다.'
+        result: '빈 방 하나가, 매달 쏠쏠한 물줄기가 되어 들어왔다.'
       },
       {
         id: 'grief-depression-onset',
@@ -9244,9 +9244,9 @@ const STAGES = [
       },
       {
         id: 'writing-a-will',
-        text: '유언장을 미리 써두며 마음을 정리한다',
+        text: '펜 끝으로 마지막 마음을 유언장에 눌러 담는다',
         deltas: { happiness: 2, relationship: 1 },
-        result: '펜을 든 순간은 무거웠지만, 다 쓰고 나니 마음이 가벼워졌다.'
+        result: '펜을 든 순간은 무거웠지만, 다 쓰고 나니 짐 하나를 내려놓은 듯했다.'
       },
       {
         id: 'early-inheritance-dilemma',
@@ -9290,9 +9290,9 @@ const STAGES = [
       },
       {
         id: 'volunteer-financially-tight',
-        text: '경제적으로 넉넉하지 않아 계속 아등바등한다',
+        text: '넉넉지 않은 살림에 여전히 계산기를 붙들고 산다',
         deltas: { wealth: -2, happiness: -2 },
-        result: '큰돈은 아니어도, 매달 계산기를 두드리는 습관은 여전했다.',
+        result: '큰돈은 아니어도, 매달 계산기를 두드리는 버릇은 여전했다.',
         requiresOccupation: ['volunteer-work']
       },
       {
@@ -9354,7 +9354,7 @@ const STAGES = [
       },
       {
         id: 'reconnecting-at-a-funeral',
-        text: '장례식에서 오랜만에 만난 얼굴들과 안부를 나눈다',
+        text: '장례식장에서 오랜 얼굴들과 끊겼던 인연이 다시 이어진다',
         deltas: { relationship: 3, happiness: -1 },
         result: '슬픈 자리였지만, 그 덕에 다시 이어진 인연도 있었다.'
       },
@@ -9465,9 +9465,9 @@ const STAGES = [
       },
       {
         id: 'lingering-worries',
-        text: '여전히 남은 걱정거리를 안고 지낸다',
+        text: '나이가 들어도 걱정이라는 짐은 좀처럼 가벼워지지 않는다',
         deltas: { happiness: -3 },
-        result: '나이가 든다고 걱정까지 사라지는 건 아니었다.'
+        result: '세월이 흘러도, 짐의 무게까지 함께 줄지는 않았다.'
       },
       {
         id: 'planning-seventieth-party',
@@ -9561,9 +9561,9 @@ const STAGES = [
       },
       {
         id: 'relationship-fewer-people-remain',
-        text: '곁에 남은 사람이 하나둘 줄어드는 걸 실감한다',
+        text: '곁을 지키던 얼굴들이 하나둘 자리를 비운다',
         deltas: { relationship: -6, happiness: -3 },
-        result: '부고 소식이 낯설지 않게 되어가는 나이였다.'
+        result: '부고 소식이 낯설지 않게 되어가는, 그런 나이였다.'
       },
       {
         id: 'volunteer-still-useful',
@@ -9592,9 +9592,9 @@ const STAGES = [
       },
       {
         id: 'fame-nobody-visits-70',
-        text: '찾아오는 이가 줄어든 걸 실감한다',
+        text: '현관 벨소리가 뜸해진 만큼 하루가 길게 늘어진다',
         deltas: { fame: -3, happiness: -3, relationship: -1 },
-        result: '현관 벨소리가 뜸해진 만큼, 하루가 더 길게 느껴졌다.'
+        result: '찾아오는 발걸음이 준 만큼, 하루의 길이만 늘어났다.'
       },
       {
         id: 'fame-community-elder-70',
@@ -9693,15 +9693,15 @@ const STAGES = [
       },
       {
         id: 'twilight-old-stamp-collection-71',
-        text: '서랍 속에 있던 오래된 우표책을 발견한다',
+        text: '서랍 깊은 곳에서 젊은 날의 우표책을 다시 발굴한다',
         deltas: { wealth: 4, happiness: 2 },
-        result: '젊은 날의 취미가, 이렇게 남아있을 줄 몰랐다.'
+        result: '젊은 날의 취미가, 서랍 속에서 그대로 잠들어 있었을 줄 몰랐다.'
       },
       {
         id: 'twilight-community-fund-payout-71',
-        text: '오래 부어온 계 모임이 마침내 순서가 돌아온다',
+        text: '오래 부어온 계 모임의 물줄기가 마침내 내게로 돌아온다',
         deltas: { wealth: 5 },
-        result: '오랜 기다림 끝에, 드디어 순서가 왔다.'
+        result: '오랜 기다림 끝에, 드디어 차례가 돌아왔다.'
       },
       {
         id: 'twilight-selling-unused-appliances-71',
@@ -9746,7 +9746,7 @@ const STAGES = [
       },
       {
         id: 'growing-generation-gap',
-        text: '손주와의 세대 차이가 점점 크게 느껴진다',
+        text: '손주와 나 사이에 놓인 강폭이 점점 넓어진다',
         deltas: { happiness: -3, relationship: -1 },
         result: '무슨 말인지 몰라 자꾸 되묻는 일이, 조금씩 늘었다.',
         requiresFamilyMember: ['grandchild']
@@ -9838,9 +9838,9 @@ const STAGES = [
       },
       {
         id: 'physical-therapy-effort',
-        text: '물리치료를 받으며 남은 체력을 지키려 애쓴다',
+        text: '물리치료실을 오가며 남은 체력의 둑을 지켜낸다',
         deltas: { health: 3, wealth: -2 },
-        result: '꾸준히 다닌 병원이, 조금씩 몸을 지켜주고 있었다.'
+        result: '꾸준히 다닌 병원이, 조금씩 몸이라는 둑을 지켜주고 있었다.'
       },
       {
         id: 'accepting-help-from-others',
@@ -9927,9 +9927,9 @@ const STAGES = [
       },
       {
         id: 'pneumonia-onset',
-        text: '감기 기운이 있는데도 무리하게 외출한다',
+        text: '감기 기운을 안은 채 무리하게 문밖으로 나선다',
         deltas: { health: -6, happiness: -3 },
-        result: '무리한 일정 끝에 찾아온 병치레였다.',
+        result: '무리한 발걸음 끝에 병치레라는 청구서가 돌아왔다.',
         addCondition: { id: 'pneumonia', label: '🫁 폐렴' }
       },
       {
@@ -9977,7 +9977,7 @@ const STAGES = [
       },
       {
         id: 'fame-unremembered-74',
-        text: '함께 활동했던 이들도 하나둘 소식이 끊긴다',
+        text: '함께 활동했던 얼굴들의 소식도 하나둘 물결 아래로 가라앉는다',
         deltas: { fame: -3, happiness: -2, relationship: -1 },
         result: '연락처만 남고 목소리는 점점 희미해져 갔다.'
       },
@@ -10062,9 +10062,9 @@ const STAGES = [
       },
       {
         id: 'fame-name-rarely-mentioned-75',
-        text: '이름이 언급되는 일이 확연히 줄었다는 걸 안다',
+        text: '한때 자주 불리던 이름이 점점 조용해진다',
         deltas: { fame: -3, happiness: -2 },
-        result: '서운함도 잠시, 이내 그런가 보다 하고 넘겼다.'
+        result: '서운함도 잠시, 이내 그런가 보다 하고 흘려보냈다.'
       },
       {
         id: 'fame-wisdom-sought-75',
@@ -10115,9 +10115,9 @@ const STAGES = [
       },
       {
         id: 'stronger-bond-through-illness',
-        text: '함께 병을 이겨내며 부부 사이가 더 단단해진다',
+        text: '함께 병이라는 강을 건너며 부부의 매듭이 더 단단해진다',
         deltas: { relationship: 5, happiness: 2 },
-        result: '힘든 시간을 함께 넘기고 나니, 서로가 더 소중해졌다.',
+        result: '힘든 시간을 함께 건너고 나니, 서로가 더 소중한 존재로 남았다.',
         requiresFamilyMember: ['spouse']
       },
       {
@@ -10178,7 +10178,7 @@ const STAGES = [
     choices: [
       {
         id: "unhappy-77",
-        text: "거동이 불편해지며 혼자 할 수 있는 일이 줄어든다",
+        text: "거동이 무거워지며 혼자 할 수 있는 일들이 하나씩 줄어든다",
         deltas: { happiness: -3, health: -2 },
         result: "누군가에게 부탁해야 하는 일이 늘수록, 자존심도 함께 작아졌다."
       },
@@ -10203,9 +10203,9 @@ const STAGES = [
       },
       {
         id: 'new-family-photo',
-        text: '조용히 가족사진을 새로 찍으며 이 순간을 남긴다',
+        text: '조용히 셔터를 눌러 지금 이 순간을 액자에 가둔다',
         deltas: { happiness: 4, relationship: 3 },
-        result: '카메라 앞에 모인 얼굴들을 보며, 마음이 뭉클했다.',
+        result: '카메라 앞에 모인 얼굴들을 보며, 마음이 뭉클하게 차올랐다.',
         requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
@@ -10363,9 +10363,9 @@ const STAGES = [
       },
       {
         id: 'betrayal-inheritance-scheme-78',
-        text: '믿었던 지인이 상속 문제를 이용해 나를 속이려 한 사실을 알게 된다',
+        text: '믿었던 지인이 상속이라는 그물로 나를 옭아매려 한 걸 뒤늦게 안다',
         deltas: { happiness: -6, relationship: -5, wealth: -4 },
-        result: '가까운 사이일수록, 이런 일은 더 아프게 다가왔다.',
+        result: '가까운 사이일수록, 그 그물의 상처는 더 깊이 파고들었다.',
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
@@ -10423,9 +10423,9 @@ const STAGES = [
       },
       {
         id: 'fame-rediscovery-79',
-        text: '온라인에서 옛 활약이 다시 회자된다',
+        text: '온라인 어딘가에서 잠들어 있던 옛 활약이 다시 떠오른다',
         deltas: { fame: 6, happiness: 3 },
-        result: '손주가 보여준 화면 속에서, 젊은 날의 자신을 다시 만났다.'
+        result: '손주가 보여준 화면 속에서, 젊은 날의 자신을 다시 마주했다.'
       },
       {
         id: 'fame-complete-obscurity-79',
@@ -10494,9 +10494,9 @@ const STAGES = [
       },
       {
         id: 'telling-life-story-to-grandkids',
-        text: '여든 평생 살아온 이야기를 손주들에게 들려준다',
+        text: '여든 해를 건너온 이야기의 실타래를 손주들 앞에 풀어놓는다',
         deltas: { happiness: 5, relationship: 4 },
-        result: '눈을 반짝이며 듣는 손주들 앞에서, 이야기가 절로 술술 나왔다.',
+        result: '눈을 반짝이며 듣는 손주들 앞에서, 이야기가 절로 술술 풀려나왔다.',
         requiresFamilyMember: ['grandchild']
       },
       {
@@ -10521,9 +10521,9 @@ const STAGES = [
       },
       {
         id: 'fame-eightieth-celebration-media-80',
-        text: '팔순 잔치 소식이 동네에서 화제가 된다',
+        text: '팔순 잔치 소식이 동네방네 불빛처럼 번진다',
         deltas: { fame: 4, relationship: 2, happiness: 3 },
-        result: '오랜만에 모인 얼굴들 앞에서, 웃음과 눈물이 함께 났다.'
+        result: '오랜만에 모인 얼굴들 앞에서, 웃음과 눈물이 함께 번져 나왔다.'
       },
       {
         id: 'fame-forgotten-achievements-80',
@@ -10623,9 +10623,9 @@ const STAGES = [
       },
       {
         id: 'grandchildren-generous-birthday-gift-81',
-        text: '온 가족이 모여 생신을 챙긴다',
+        text: '온 가족이 한자리에 모여 생신이라는 잔을 채운다',
         deltas: { wealth: 2, relationship: 3, happiness: 3 },
-        result: '다들 십시일반 모아온 마음이, 봉투 하나에 담겨 있었다.',
+        result: '다들 십시일반 모아온 마음이, 봉투 하나에 고여 있었다.',
         requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
@@ -10697,9 +10697,9 @@ const STAGES = [
       },
       {
         id: 'sharing-old-friend-stories-with-kids',
-        text: '옛 친구와의 추억을 자녀에게 들려준다',
+        text: '옛 친구와의 추억을 꺼내 자녀 앞에 등불처럼 밝힌다',
         deltas: { happiness: 4, relationship: 2 },
-        result: '오래된 이야기를 꺼낼 때마다, 그 시절로 잠시 돌아간 기분이었다.',
+        result: '오래된 이야기를 꺼낼 때마다, 그 시절로 잠시 되돌아간 기분이었다.',
         requiresFamilyMember: ['child']
       },
       {
@@ -10776,9 +10776,9 @@ const STAGES = [
       },
       {
         id: 'using-a-walker-carefully',
-        text: '보행 보조기를 사용하며 조심스레 활동을 이어간다',
+        text: '보행 보조기라는 지팡이에 기대어 조심스레 걸음을 이어간다',
         deltas: { health: 2, happiness: 1 },
-        result: '느리더라도, 스스로 걸을 수 있다는 게 감사했다.'
+        result: '느리더라도, 스스로 걸을 수 있다는 사실이 감사했다.'
       },
       {
         id: 'trying-harder-out-of-guilt',
@@ -10878,9 +10878,9 @@ const STAGES = [
       },
       {
         id: 'deeper-conversations-with-family',
-        text: '가족과 더 깊은 대화를 나누며 서로를 이해한다',
+        text: '가족과의 대화가 마침내 더 깊은 물길로 흘러든다',
         deltas: { relationship: 5, happiness: 3 },
-        result: '이제야 서로에게 하지 못했던 말들을, 조금씩 꺼낼 수 있었다.',
+        result: '이제야 서로에게 못했던 말들을, 조금씩 물길처럼 흘려보냈다.',
         requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
@@ -10920,9 +10920,9 @@ const STAGES = [
       },
       {
         id: 'starting-caregiver-support',
-        text: '요양보호사의 도움을 받기 시작한다',
+        text: '낯선 손길에 몸을 맡기며 요양보호사의 도움을 받기 시작한다',
         deltas: { health: 3, wealth: -3 },
-        result: '낯선 손길이었지만, 그만큼 몸도 마음도 한결 편해졌다.'
+        result: '낯선 손길이었지만, 그만큼 몸도 마음도 한결 가벼워졌다.'
       },
       {
         id: 'awkward-with-strangers-help',
@@ -10957,7 +10957,7 @@ const STAGES = [
       },
       {
         id: 'spouse-passes-away',
-        text: '평생을 함께한 배우자를 먼저 떠나보낸다',
+        text: '평생 함께 걷던 그림자를 먼저 떠나보낸다',
         deltas: { happiness: -9, health: -3, relationship: -2 },
         result: '옆자리가 이렇게 크게 비어 보일 줄은, 그 전엔 미처 몰랐다.',
         requiresFamilyMember: ['spouse'],
@@ -11072,9 +11072,9 @@ const STAGES = [
       },
       {
         id: 'fame-world-unfamiliar-86',
-        text: '달라진 세상이 낯설게만 느껴진다',
+        text: '달라진 세상이 낯선 외국어처럼 느껴진다',
         deltas: { fame: -3, happiness: -2 },
-        result: '눈앞의 것들이 어색해도, 애써 하나씩 다시 익혀나갔다.'
+        result: '눈앞의 것들이 어색해도, 한 글자씩 다시 익혀나갔다.'
       },
       {
         id: 'fame-family-legacy-story-86',
@@ -11169,9 +11169,9 @@ const STAGES = [
       },
       {
         id: 'twilight-medical-expense-refund-87',
-        text: '과다 청구됐던 병원비를 환급받는다',
+        text: '과다 청구됐던 병원비의 물줄기가 거꾸로 돌아온다',
         deltas: { wealth: 2 },
-        result: '따져보길 잘했다, 생각보다 많이 돌아왔다.'
+        result: '따져보길 잘했다, 생각보다 많이 되돌아왔다.'
       },
       {
         id: 'twilight-pension-cost-of-living-adjustment-87',
@@ -11194,9 +11194,9 @@ const STAGES = [
       },
       {
         id: 'twilight-welfare-support-applied-87',
-        text: '지역 복지 지원금을 새로 신청한다',
+        text: '몰랐던 지역 복지라는 그물망에 뒤늦게 몸을 기댄다',
         deltas: { wealth: 3 },
-        result: '몰랐던 지원 제도가, 뒤늦게 도움을 줬다.'
+        result: '몰랐던 지원 제도가, 뒤늦게 그물처럼 받쳐줬다.'
       },
       {
         id: 'twilight-community-support-fund-87',
@@ -11272,9 +11272,9 @@ const STAGES = [
       },
       {
         id: 'lifelong-collection-sold-88',
-        text: '오랫동안 모아온 수집품을 정리해 내놓는다',
+        text: '평생 쌓아온 수집품이라는 탑을 조심히 허물어 내놓는다',
         deltas: { wealth: 4, happiness: 1 },
-        result: '평생 취미로 모은 것들이, 뜻밖에 값진 마무리가 됐다.'
+        result: '평생 취미로 쌓은 탑이, 뜻밖에 값진 마무리가 됐다.'
       }
     ]
   },
@@ -11286,9 +11286,9 @@ const STAGES = [
     choices: [
       {
         id: "unhappy-89",
-        text: "말동무가 하나둘 줄어 적적한 하루하루를 보낸다",
+        text: "말동무가 하나둘 줄어 하루라는 방이 적적해진다",
         deltas: { happiness: -4, relationship: -2 },
-        result: "말을 걸 상대가 줄어드는 만큼, 하루도 함께 길어졌다."
+        result: "말을 걸 상대가 줄어드는 만큼, 하루라는 방도 함께 넓어졌다."
       },
       {
         id: 'preparing-for-ninetieth',
@@ -11397,9 +11397,9 @@ const STAGES = [
       },
       {
         id: 'elderly-depression-onset',
-        text: '하루하루가 무의미하게 느껴지며 깊은 무기력에 빠진다',
+        text: '하루하루가 빛바랜 종이처럼 무의미하게 느껴진다',
         deltas: { happiness: -6 },
-        result: '눈뜨는 아침이, 예전 같지 않게 느껴졌다.',
+        result: '눈뜨는 아침이, 예전 같지 않은 빛깔로 다가왔다.',
         addCondition: { id: 'elderly-depression', label: '🌑 노년기 우울증', mental: true }
       },
       {
@@ -11429,9 +11429,9 @@ const STAGES = [
       },
       {
         id: 'gathering-with-believers-90',
-        text: '같은 믿음을 가진 이들과 함께 모여 시간을 보낸다',
+        text: '같은 믿음을 품은 이들과 둘러앉아 온기를 나눈다',
         deltas: { happiness: 3, relationship: 2 },
-        result: '같은 마음을 가진 이들 곁에 있는 것만으로도, 위안이 됐다.'
+        result: '같은 마음을 가진 이들 곁에 있는 것만으로도, 위안이라는 온기가 스몄다.'
       },
       {
         id: 'reflecting-on-lifes-meaning-90',
@@ -11507,9 +11507,9 @@ const STAGES = [
       },
       {
         id: 'fame-remembered-fondly-91',
-        text: '옛 동료들이 안부를 물으며 이름을 불러준다',
+        text: '옛 동료들이 잊지 않고 이름을 다시 불러준다',
         deltas: { fame: 3, relationship: 3, happiness: 3 },
-        result: '긴 세월에도 잊지 않고 불러주는 이름 하나가, 크게 다가왔다.'
+        result: '긴 세월에도 잊지 않고 불러주는 이름 하나가, 크게 울렸다.'
       },
       {
         id: 'fame-name-fading-91',
@@ -11564,9 +11564,9 @@ const STAGES = [
       },
       {
         id: 'chatting-with-family-from-bed',
-        text: '누워있는 시간에도 가족과 담소를 나누며 하루를 채운다',
+        text: '누운 채로도 가족과의 대화만큼은 활기차게 이어간다',
         deltas: { relationship: 4, happiness: 3 },
-        result: '몸은 누워 있어도, 대화만큼은 여전히 생생했다.',
+        result: '몸은 누워 있어도, 대화만큼은 여전히 생생하게 흘렀다.',
         requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
@@ -11648,9 +11648,9 @@ const STAGES = [
       },
       {
         id: 'checkup-nursing-facility-92',
-        text: '요양병원에서 정밀 검진을 받는다',
+        text: '요양병원 침상에서 몸 구석구석을 다시 촘촘히 살핀다',
         deltas: { health: 3, wealth: -1 },
-        result: '누워서 받은 검사인데도, 결과를 듣고 나니 안도의 한숨이 나왔다.',
+        result: '누워서 받은 검사인데도, 결과를 듣고 나니 안도의 한숨이 흘렀다.',
         requiresAnyCondition: true,
         removeAllConditions: true
       }
@@ -11664,7 +11664,7 @@ const STAGES = [
     choices: [
       {
         id: "unhappy-93",
-        text: "가족들의 방문이 뜸해지며 서운함을 감추기 어렵다",
+        text: "가족들의 발걸음이 뜸해지며 서운함이 조용히 쌓인다",
         deltas: { happiness: -3, relationship: -2 },
         result: "달력에 동그라미 친 날만 손꼽아 기다리는 처지가 됐다."
       },
@@ -11703,9 +11703,9 @@ const STAGES = [
       },
       {
         id: 'frailty-onset',
-        text: '몸을 움직이기 귀찮아 하루 대부분을 누워 지낸다',
+        text: '몸을 일으키는 일조차 큰 산처럼 느껴져 하루 대부분을 눕는다',
         deltas: { health: -5, happiness: -2 },
-        result: '일어나 앉는 것조차, 이제는 큰일이 됐다.',
+        result: '일어나 앉는 것조차, 이제는 큰 산을 넘는 일이 됐다.',
         addCondition: { id: 'frailty', label: '🕊️ 노쇠' }
       },
       {
@@ -11771,7 +11771,7 @@ const STAGES = [
     choices: [
       {
         id: "unhappy-94",
-        text: "몸이 하루가 다르게 쇠약해짐을 스스로 느낀다",
+        text: "몸이라는 초가 하루가 다르게 짧아짐을 스스로 느낀다",
         deltas: { happiness: -3, health: -2 },
         result: "어제보다 오늘이 힘든 게, 눈에 띄게 느껴졌다."
       },
@@ -11896,9 +11896,9 @@ const STAGES = [
       },
       {
         id: 'relief-at-getting-through-another-day',
-        text: '오늘 하루도 무사히 넘겼다는 사실에 안도한다',
+        text: '오늘 하루도 무사히 건넜다는 사실에 조용히 안도한다',
         deltas: { happiness: 3, health: 1 },
-        result: '거창한 것 없이도, 무사한 하루 자체가 충분했다.'
+        result: '거창한 것 없이도, 무사히 건넌 하루 자체가 충분했다.'
       },
       {
         id: 'favorite-meal-served-95',
@@ -12029,9 +12029,9 @@ const STAGES = [
       },
       {
         id: 'betrayal-fought-over-estate-96',
-        text: '믿었던 지인이 내 재산을 두고 다퉜다는 사실을 뒤늦게 전해 듣는다',
+        text: '믿었던 지인이 내 재산을 두고 뒤에서 다퉜다는 걸 뒤늦게 전해 듣는다',
         deltas: { happiness: -6, relationship: -4 },
-        result: '곁을 지켜준 줄로만 알았는데, 속내는 따로 있었던 모양이었다.',
+        result: '곁을 지켜준 줄로만 알았는데, 속내는 다른 저울 위에 있었던 모양이었다.',
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
@@ -12106,7 +12106,7 @@ const STAGES = [
       },
       {
         id: 'twilight-old-debt-finally-repaid-97',
-        text: '잊고 있던 옛 빚 하나를 뒤늦게 돌려받는다',
+        text: '까맣게 잊고 있던 옛 빚 하나가 뒤늦게 물길을 거슬러 돌아온다',
         deltas: { wealth: 3 },
         result: '까맣게 잊고 있었는데, 이렇게 돌아올 줄 몰랐다.'
       },
@@ -12206,9 +12206,9 @@ const STAGES = [
       },
       {
         id: 'family-proud-of-attention-98',
-        text: '관심을 받는 자신의 모습을 가족들에게 보여준다',
+        text: '쏟아지는 관심 속 나의 모습을 가족들 앞에 비춰본다',
         deltas: { happiness: 2, relationship: 2 },
-        result: '신문에 실린 얼굴 옆에서, 가족들이 더 신나 보였다.',
+        result: '신문에 실린 얼굴 옆에서, 가족들이 더 환하게 빛나 보였다.',
         requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       },
       {
@@ -12258,9 +12258,9 @@ const STAGES = [
       },
       {
         id: 'lived-a-century-minus-one-fully',
-        text: '백 년에 하나 모자란 세월을, 온전히 살아냈다고 느낀다',
+        text: '백 년에 하나 모자란 그 세월을, 빈틈없이 살아냈다고 느낀다',
         deltas: { happiness: 5, relationship: 2 },
-        result: '모자란 게 아니라, 그 자체로 완전한 세월이었다.'
+        result: '모자란 게 아니라, 그 자체로 가득 찬 세월이었다.'
       },
       {
         id: 'quietly-sharing-this-moment-with-family',
@@ -12389,9 +12389,9 @@ const STAGES = [
       },
       {
         id: 'content-with-what-was-100',
-        text: '더 바랄 것 없이 지금 이대로도 충분하다고 되뇐다',
+        text: '더는 채울 것 없이 지금 이대로 충분하다고 되뇐다',
         deltas: { happiness: 4 },
-        result: '채워야 할 게 하나도 남지 않은 것 같은, 드문 순간이었다.'
+        result: '채워야 할 빈칸이 하나도 남지 않은 것 같은, 드문 순간이었다.'
       },
       {
         id: 'dreaming-of-one-more-trip-100',
