@@ -627,7 +627,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // 주석 참고). blocksHealthRecovery처럼 별도로 막는 조건은 없다 - 재산은
   // health와 달리 "회복 불가" 컨셉이 없어서 항상 그대로 적용.
   const wealthDelta = effectiveDeltas.wealth || 0;
-  const cashHoldings = Math.max(0, (play.cashHoldings || 0) + wealthDelta * cashUnitForAge(play.stageIndex));
+  let cashHoldings = Math.max(0, (play.cashHoldings || 0) + wealthDelta * cashUnitForAge(play.stageIndex));
 
   // 건강 상세 - 선택지가 addCondition을 붙였으면 부상/질병이 새로 생기고(이미
   // 있으면 중복 추가 안 함), removeCondition을 붙였으면 그 조건이 나아서 빠진다.
@@ -767,6 +767,34 @@ async function applyChoice(db, playRef, play, stage, choice) {
     assets = assets.filter((a) => a.id !== choice.removeAsset);
   }
 
+  // 보험료 자동 납입·3년 연체 해지(2026-08-22, 18장 사용자 확정 - 4장 1년단위
+  // 진행 전환으로 선행 조건 충족돼 구현). 선택지가 아니라 매 턴(=매년) 자동으로
+  // 적용되는 배경 효과라 건강 조건 페널티와 같은 급이다. hasInsurance는 이번
+  // 선택 "이전" 상태(위에서 이미 계산)를 기준으로 삼는다 - 이번 턴에 막 가입한
+  // 경우(buys-insurance-25 등) 가입 즉시 같은 턴에 첫 보험료까지 나가면 이중
+  // 부담처럼 느껴져서, 보장은 다음 턴부터 시작되는 걸로 본다. 연체 카운터
+  // (insuranceUnpaidYears)는 assets[] 항목이 아니라 저장 슬롯의 별도 필드다 -
+  // assets[]의 다른 항목은 전부 "있다/없다"만 표현하는 정적 데이터라, 매 턴
+  // 갱신되는 카운터를 항목 하나에 얹으면 그 패턴이 깨진다.
+  const INSURANCE_PREMIUM_WON = 2000000;
+  const priorUnpaidYears = play.insuranceUnpaidYears || 0;
+  let insuranceUnpaidYears = 0;
+  let insuranceLapsed = false;
+  if (hasInsurance) {
+    if (priorUnpaidYears >= 3) {
+      // "3년째 해에서 다음 해로 넘어가는 시점"에 해지 - 이번 턴의 납입
+      // 시도 자체를 건너뛰고 먼저 계약부터 해지한다.
+      assets = assets.filter((a) => a.id !== 'insurance');
+      insuranceLapsed = true;
+      insuranceUnpaidYears = 0;
+    } else if (cashHoldings >= INSURANCE_PREMIUM_WON) {
+      cashHoldings -= INSURANCE_PREMIUM_WON;
+      insuranceUnpaidYears = 0;
+    } else {
+      insuranceUnpaidYears = priorUnpaidYears + 1;
+    }
+  }
+
   // 재능·취미 상세(2026-08-21, 사용자 설계 - 17장) - 재산 상세와 완전히 같은
   // 패턴이지만 제거 필드는 두지 않는다(removeTalent/removeHobby 없음) - 재산처럼
   // 처분되거나 지인처럼 관계가 끊기는 게 아니라, 한 번 익힌 재능·취미는 그 판이
@@ -819,7 +847,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // 3의 배수일 때 치료 선택지를 강제 노출한다.
   const sickStreak = healthConditions.length ? (play.sickStreak || 0) + 1 : 0;
 
-  const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers, acquaintances, assets, cashHoldings, talents, hobbies, sickStreak };
+  const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers, acquaintances, assets, cashHoldings, talents, hobbies, sickStreak, insuranceUnpaidYears };
 
   let ending = null;
   let nextVisibleIds = null;
@@ -887,6 +915,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
     prizeLabel: resolvedLabel,
     healthRecoverySuppressed,
     insuranceAvoidsCondition,
+    insuranceLapsed,
     completed,
     ending: ending ? { id: ending.id, title: ending.title, text: ending.text } : null,
     nextStage: completed ? null : publicStage(STAGES[nextIndex], nextVisibleIds, nextIntroId, healthConditions),
@@ -951,6 +980,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
       talents: [],
       hobbies: [],
       sickStreak: 0,
+      insuranceUnpaidYears: 0,
       choiceLog: [],
       completed: false,
       startedAt: ServerValue.TIMESTAMP

@@ -1050,6 +1050,12 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   if (data.insuranceAvoidsCondition) {
     resultText += '\n🛡️ 보험 덕분에 진단은 피하고 병원비도 들지 않았다.';
   }
+  // 보험료 3년 연체로 계약이 자동 해지됐을 때(2026-08-22, 18장 -
+  // functions/index.js의 insuranceLapsed) - assets에서 조용히 사라지면
+  // "왜 재산 상세에서 보험이 없어졌지"라는 혼란을 줄 수 있어 결과 문구로 알려준다.
+  if (data.insuranceLapsed) {
+    resultText += '\n⚠️ 보험료를 3년 연속 내지 못해 계약이 해지되었다.';
+  }
   resultBox.textContent = resultText;
   resultBox.classList.remove('hidden');
   resultBox.classList.remove('tone-positive', 'tone-negative');
