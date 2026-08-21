@@ -3134,14 +3134,18 @@
         상관없다). 이 게임에서 <code>requestStreamerVerification</code>을 호출해 신청을 넣으면 <b>이
         게임 쪽 코드를 전혀 안 건드려도 관리자 디스코드 채널에 자동으로 알림이 간다</b> — 새 웹훅 연동을
         만들 필요가 없다.</p>
-        <p class="note"><b>다만 알림 문구가 "새 인증 신청 (주식시장)"으로 고정돼 있다</b>
-        (<code>notifyStockVerifyRequest</code> 정의부의 라벨 문자열) — 이 게임에서 들어온 신청이어도
-        디스코드엔 "주식시장"이라고 뜬다. <code>streamerVerificationRequests</code> 레코드 자체에 어느
-        앱에서 신청했는지 구분하는 필드가 없어서 지금은 구조적으로 구분이 안 된다. 관리자가 어차피
-        admin-center 검수 큐에서 신청 내용을 직접 열어 확인하니 실무에 지장은 없지만, 정확한 라벨이
-        필요해지면 <code>requestStreamerVerification</code> 호출 시 <code>source</code> 같은 필드를 같이
-        보내고 <code>admin-center</code>의 라벨 로직을 그 필드로 분기하는 수정이 별도로 필요하다(이
-        레포가 아니라 soop-stock-market·admin-center 양쪽을 같이 고쳐야 함 — 지금은 손대지 않음).</p>
+        <p class="note"><b>알림 문구가 "새 인증 신청 (주식시장)"으로 고정돼 있는 문제 — 어느 페이지에서
+        온 신청인지 구분해야 한다 (2026-08-21, 사용자 확정).</b> <code>streamerVerificationRequests</code>
+        레코드 자체에 출처 앱을 구분하는 필드가 없어서, 이 게임에서 들어온 신청도 디스코드엔 "주식시장"
+        이라고만 뜬다. 확정된 해결책: <code>requestStreamerVerification</code> 호출 시 클라이언트가
+        <code>source</code> 필드(예: <code>'life-game'</code>, 기존 호출부는 값을 안 보내면 기본값
+        <code>'stock-market'</code>로 하위 호환 유지)를 같이 보내고, 서버가 그 값을 <code>streamerVerificationRequests</code>
+        레코드에 그대로 저장한다. <code>admin-center</code>의 <code>notifyStockVerifyRequest</code> 라벨
+        로직도 그 <code>source</code> 값으로 "주식시장"/"인생게임"을 분기하도록 고친다. <b>다만 이건
+        soop-stock-market(<code>functions/streamerVerification.js</code>)과 admin-center
+        (<code>functions/index.js</code>)를 같이 고쳐야 하는 작업이라, 이 게임 저장소만으로는 끝나지
+        않는다</b> — 실제 코드 반영은 이 게임의 스트리머 인증 로그인 자체를 구현하는 시점(0단계)에 같이
+        진행하기로 하고, 지금은 기획 확정만 해둔다.</p>
 
         <h3>다른 사이트에서 먼저 로그인해도 같은 계정으로 시작 (2026-08-21, 사용자 확정)</h3>
         <p>스트리머 주식시장 등 다른 사이트에서 먼저 로그인한 뒤 이 게임에 처음 접속해도 <b>이미 그
