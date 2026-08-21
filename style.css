@@ -301,13 +301,17 @@
 
   .leaderboard { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
   .leaderboard-row {
-    display: flex; align-items: center; gap: 10px; padding: 11px 14px;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; padding: 11px 14px;
     background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; font-size: 13.5px;
   }
   .leaderboard-row .lb-icon { font-size: 17px; flex: none; }
   .leaderboard-row .lb-label { color: var(--text-dim); flex: none; width: 88px; }
-  .leaderboard-row .lb-name { font-weight: 600; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .leaderboard-row .lb-value { color: var(--gold); font-weight: 600; font-size: 12.5px; flex: none; }
+  /* 이름이 "최고 부자"류 라벨 + 값(예: "보유 현금 25,581만원") 사이에 끼어 폭이
+     거의 안 남는 문제(2026-08-22, 모바일 스크린샷 제보) - 이름을 항상 자기 줄
+     전체(flex-basis 100%)로 강제 개행시켜 라벨/값의 폭과 무관하게 항상 충분한
+     너비를 확보한다. 그래도 너무 길면 그때만 말줄임(ellipsis) 처리. */
+  .leaderboard-row .lb-name { font-weight: 600; flex: 1 1 100%; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .leaderboard-row .lb-value { color: var(--gold); font-weight: 600; font-size: 12.5px; flex: none; margin-left: auto; }
 
   .choice-history-list {
     display: flex; flex-direction: column; gap: 6px; max-height: 380px; overflow-y: auto; padding-right: 4px;
