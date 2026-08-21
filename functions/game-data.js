@@ -10916,7 +10916,9 @@ const STAGES = [
         id: "unhappy-85",
         text: "가까웠던 형제자매의 부고를 듣고 깊은 상실감에 빠진다",
         deltas: { happiness: -5, relationship: -2 },
-        result: "한 뿌리에서 나온 이가 줄어드는 걸, 온몸으로 느꼈다."
+        result: "한 뿌리에서 나온 이가 줄어드는 걸, 온몸으로 느꼈다.",
+        requiresFamilyMember: ['sibling', 'younger-sibling'],
+        removeFamilyMembers: ['sibling', 'younger-sibling']
       },
       {
         id: 'starting-caregiver-support',
