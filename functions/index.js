@@ -11,6 +11,8 @@ const {
   buildDespairEnding,
   buildIsolationEnding
 } = require('./game-data');
+const { linkGoogleAccount } = require('./google');
+const { linkKakaoAccount } = require('./kakao');
 
 // 다섯 스탯 중 하나라도 0 이하로 떨어지면 그 즉시 삶이 끝난다(health만 있던
 // 걸 전부로 확장). 한 선택에서 여러 스탯이 동시에 0을 찍을 수도 있어 순서를
@@ -116,6 +118,23 @@ function resolveCurrentLocation(locationHistory) {
 // 새로 시작하면 기존 진행 중이던 판을 덮어쓴다).
 function playRefFor(db, uid) {
   return db.ref('lifeGame/playthroughs/' + uid);
+}
+
+// 해금 도감(16장, 2026-08-21 사용자 설계 - 2026-08-22 구현) - 열람·저장 모두
+// 로그인 유저 전용이다(익명 uid는 기기·브라우저 저장소에 묶여 다른 기기에서
+// 진행도가 안 이어지므로, 도감처럼 여러 판에 걸쳐 계속 누적돼야 하는 기능은
+// 로그인 요구로 근본적으로 해결). 그래서 이 계정이 실제로 구글·카카오·스트리머
+// 인증 중 하나로 "보호"된 상태일 때만 기록한다 - googleLinked/kakaoLinked/
+// streamerVerified(users/{uid})는 이미 이 생태계 다른 프로젝트가 쓰는 필드를
+// 그대로 공유한다. lifeGame/playthroughs/{uid}는 계정당 슬롯이 1개라 새 판을
+// 시작하면 덮어써지므로, 여러 판에 걸쳐 누적돼야 하는 도감은 별도 노드
+// (lifeGame/collection/{uid}/endings/{endingId})에 둔다.
+async function recordCollectionEndingIfLoggedIn(db, uid, endingId) {
+  const userSnap = await db.ref('users/' + uid).get();
+  const user = userSnap.val() || {};
+  const isLoggedIn = !!(user.googleLinked || user.kakaoLinked || user.streamerVerified);
+  if (!isLoggedIn) return;
+  await db.ref('lifeGame/collection/' + uid + '/endings/' + endingId).set(true);
 }
 
 // 구간마다 최대 6~8개까지 채워둔 choices 중 실제로 그 회차에 "노출"할 3개를
@@ -896,6 +915,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
   if (completed) {
     statWrites.push(db.ref('lifeGame/stats/endings/' + ending.id).set(ServerValue.increment(1)));
     statWrites.push(db.ref('lifeGame/stats/totals/completed').set(ServerValue.increment(1)));
+    statWrites.push(recordCollectionEndingIfLoggedIn(db, playRef.key, ending.id));
   }
   await Promise.all(statWrites);
 
@@ -1226,4 +1246,4 @@ const reportGalleryEntry = onCall({ cors: true, timeoutSeconds: 30, memory: '256
   return { ok: true };
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, rollDice, shareToGallery, reportGalleryEntry };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount };

@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 import { getDatabase, ref, get, onValue } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
 import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-functions.js";
-import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+import { getAuth, signInAnonymously, onAuthStateChanged, signInWithPopup, signInWithCustomToken, linkWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
 // 이 생태계 다른 프로젝트들과 동일한 Firebase 프로젝트(soop-stock-market)를 공유한다
 // - stocks 노드(스트리머 이름 검색)를 새 프로젝트 설정 없이 바로 읽기 위함.
@@ -59,6 +59,15 @@ const resumePlaythroughFn = httpsCallable(functions, 'resumePlaythrough');
 const submitChoiceFn = httpsCallable(functions, 'submitChoice');
 const rollDiceFn = httpsCallable(functions, 'rollDice');
 const shareToGalleryFn = httpsCallable(functions, 'shareToGallery');
+const linkGoogleAccountFn = httpsCallable(functions, 'linkGoogleAccount');
+const linkKakaoAccountFn = httpsCallable(functions, 'linkKakaoAccount');
+// requestStreamerVerification은 이 레포에 없는 함수다 - 같은 Firebase 프로젝트
+// (soop-stock-market)에 이미 배포돼 있는 걸 codebase 구분 없이 이름으로 그대로
+// 호출한다(16장 참고, StreamBet-Market·admin-center CLAUDE.md와 동일 원칙 -
+// "다른 앱 소스에 없다고 삭제하면 안 되는 함수" 목록에 있는 것과 반대로, 여기선
+// 우리가 그 목록에 있는 함수를 갖다 쓰는 입장).
+const requestStreamerVerificationFn = httpsCallable(functions, 'requestStreamerVerification');
+const googleProvider = new GoogleAuthProvider();
 
 let currentUser = null;
 let resumeChecked = false;
@@ -75,6 +84,230 @@ onAuthStateChanged(auth, (user) => {
     resumeChecked = true;
     checkResume(user.uid);
   }
+});
+
+// ------------------------------------------------------------
+// 로그인 연동(16장, 2026-08-22) - soop-stock-market이 이미 구현해둔 구글/카카오
+// "익명 계정 승격" 패턴을 그대로 따른다(기획서.html sec16 참고). 새 계정을
+// 만드는 게 아니라 지금 쓰던 익명 uid를 그대로 보호·승격하는 것이라, 이전에
+// 쌓인 playthroughs/collection 진행도가 로그인 후에도 그대로 이어진다.
+// ------------------------------------------------------------
+// Kakao SDK 스크립트가 네트워크 문제 등으로 못 불러와졌을 때 여기서 바로
+// throw하면 이 모듈(app.js) 전체가 죽어 게임 자체가 안 켜진다 - 로그인은
+// 부가 기능이라 게임 플레이 자체를 막으면 안 되므로 존재 여부만 확인하고 넘어간다.
+if (typeof Kakao !== 'undefined') Kakao.init('ed4f01d6903ca41d5dc0ab32b6ae143c');
+
+// 구글 팝업 인증 직후처럼 "활성 탭이 아니다"로 오판되기 쉬운 순간엔 네이티브
+// confirm()이 브라우저에 따라 조용히 억제될 수 있다(soop-stock-market이 이미
+// 겪은 문제 - 그쪽은 커스텀 확인 모달로 우회해뒀다). 여기서는 그 정도로 자주
+// 겪는 경로가 아니라(구글 계정이 이미 다른 uid에 연동된 극히 드문 경우에만
+// 탐) 일단 네이티브 confirm을 쓰고, 실제로 문제 제보가 오면 그때 커스텀
+// 모달로 교체한다.
+async function completeAccountSwitch(customToken) {
+  await signInWithCustomToken(auth, customToken);
+  alert('✅ 이제 이 기기에서도 같은 계정을 이어서 쓸 수 있어요.');
+  // 계정이 중간에 바뀌면 앱이 메모리에 들고 있던 상태(uid 등)가 예전 걸 그대로
+  // 참조해 화면이 갱신되지 않는다 - 새로고침으로 전체 상태를 새 계정 기준으로
+  // 다시 초기화한다.
+  window.location.reload();
+}
+
+window.loginWithGoogle = async function () {
+  try {
+    await linkWithPopup(auth.currentUser, googleProvider);
+    await linkGoogleAccountFn();
+    alert('✅ 구글 연동 완료! 이제 이 계정의 도감·진행도가 안전하게 보호돼요.');
+    refreshCollectionView();
+  } catch (e) {
+    console.error('구글 로그인 실패:', e);
+    if (e && e.code === 'auth/credential-already-in-use') {
+      if (!confirm('🔗 이미 보호된 계정을 발견했어요!\n이 기기에서도 같은 계정으로 이어서 진행할까요?\n(이 기기에서 지금까지 쌓은 진행도는 함께 옮겨지지 않아요)')) return;
+      try {
+        await signInWithPopup(auth, googleProvider);
+        await linkGoogleAccountFn();
+        alert('✅ 이제 이 기기에서도 같은 계정을 이어서 쓸 수 있어요.');
+        window.location.reload();
+      } catch (e2) {
+        console.error('계정 전환용 재인증 실패:', e2);
+        alert('⚠️ 계정 전환 중 오류가 발생했습니다. 카카오 로그인이나 다른 브라우저로 다시 시도해주세요.');
+      }
+    } else if (e && (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request')) {
+      // 유저가 팝업을 닫은 경우 - 조용히 무시
+    } else {
+      alert('⚠️ 구글 로그인 중 오류가 발생했습니다: ' + (e.message || e));
+    }
+  }
+};
+
+window.loginWithKakao = function () {
+  if (typeof Kakao === 'undefined' || !Kakao.isInitialized()) {
+    return alert('카카오 로그인을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.');
+  }
+  Kakao.Auth.login({
+    // 서버는 계정 식별에 카카오 고유 ID만 쓰고 닉네임·프로필은 전혀 저장하지
+    // 않는다 - 실명 노출을 꺼리는 스트리머 유저의 진입장벽을 낮추기 위해
+    // 프로필 동의 항목은 아예 요청하지 않는다.
+    success: async (authObj) => {
+      try {
+        const result = await linkKakaoAccountFn({ kakaoAccessToken: authObj.access_token });
+        if (result.data.action === 'switch') {
+          if (!confirm('🔗 이미 보호된 계정을 발견했어요!\n이 기기에서도 같은 계정으로 이어서 진행할까요?\n(이 기기에서 지금까지 쌓은 진행도는 함께 옮겨지지 않아요)')) return;
+          await completeAccountSwitch(result.data.customToken);
+        } else if (result.data.action === 'linked') {
+          alert('✅ 카카오 연동 완료! 이제 이 계정의 도감·진행도가 안전하게 보호돼요.');
+          refreshCollectionView();
+        } else {
+          alert('✅ 이미 연동된 계정입니다.');
+        }
+      } catch (e) {
+        alert('카카오 연동 중 오류가 발생했습니다: ' + (e.message || e));
+      }
+    },
+    fail: () => alert('카카오 로그인이 취소되었거나 실패했습니다.')
+  });
+};
+
+// ------------------------------------------------------------
+// 스트리머 인증(구글·카카오를 꺼리는 유저를 위한 대체 계정 보호 경로) -
+// requestStreamerVerification은 신청/재확인을 겸하는 단일 엔드포인트라,
+// "신청하기"와 "승인됐는지 확인하기" 버튼 둘 다 같은 함수를 그대로 호출한다.
+// ------------------------------------------------------------
+const streamerVerifyModal = document.getElementById('streamerVerifyModal');
+const streamerVerifyForm = document.getElementById('streamerVerifyForm');
+const streamerVerifyPending = document.getElementById('streamerVerifyPending');
+const streamerVerifyPendingText = document.getElementById('streamerVerifyPendingText');
+const streamerVerifyNicknameInput = document.getElementById('streamerVerifyNickname');
+const streamerVerifySoopIdInput = document.getElementById('streamerVerifySoopId');
+
+window.openStreamerVerifyModal = function () {
+  streamerVerifyForm.classList.remove('hidden');
+  streamerVerifyPending.classList.add('hidden');
+  streamerVerifyNicknameInput.value = '';
+  streamerVerifySoopIdInput.value = '';
+  streamerVerifyModal.classList.remove('hidden');
+};
+window.closeStreamerVerifyModal = function () {
+  streamerVerifyModal.classList.add('hidden');
+};
+document.getElementById('closeStreamerVerifyBtn').addEventListener('click', closeStreamerVerifyModal);
+
+function showStreamerVerifyPending(nickname, isSwitch) {
+  streamerVerifyForm.classList.add('hidden');
+  streamerVerifyPending.classList.remove('hidden');
+  streamerVerifyPendingText.textContent = isSwitch
+    ? '"' + nickname + '" 계정 전환 신청이 관리자에게 전달됐어요. 확인 후 이 기기에서도 기존 계정을 이어서 쓸 수 있어요.'
+    : '"' + nickname + '" 인증 신청이 관리자에게 전달됐어요. 확인 후 승인해드려요.';
+}
+
+async function submitOrCheckStreamerVerification(data) {
+  try {
+    const result = await requestStreamerVerificationFn(data);
+    const { action, nickname, isSwitch, customToken } = result.data;
+    if (action === 'switch') {
+      closeStreamerVerifyModal();
+      await completeAccountSwitch(customToken);
+    } else if (action === 'already-verified') {
+      closeStreamerVerifyModal();
+      alert('✅ 이미 스트리머 인증이 완료된 계정이에요.');
+      refreshCollectionView();
+    } else {
+      showStreamerVerifyPending(nickname, isSwitch);
+      if (!data.nickname) alert('아직 관리자 확인 전이에요. 잠시 후 다시 확인해주세요.');
+    }
+  } catch (e) {
+    alert('스트리머 인증 처리 중 오류가 발생했습니다: ' + (e.message || e));
+  }
+}
+
+document.getElementById('submitStreamerVerifyBtn').addEventListener('click', () => {
+  const nickname = streamerVerifyNicknameInput.value.trim();
+  if (!nickname) return alert('닉네임을 입력해주세요.');
+  const soopId = streamerVerifySoopIdInput.value.trim();
+  if (!/^[a-z0-9]{2,20}$/.test(soopId)) return alert('SOOP 아이디는 영문 소문자/숫자 2~20자로 입력해주세요.');
+  // source(2026-08-22, 사용자 확정) - 관리자 디스코드 알림에서 어느 앱에서 온
+  // 신청인지 구분하기 위한 필드. 값을 안 보내면 서버가 기본값 'stock-market'로
+  // 처리하므로(하위 호환), 이 게임에서 보낼 땐 반드시 명시한다.
+  submitOrCheckStreamerVerification({ nickname, soopId, source: 'life-game' });
+});
+document.getElementById('checkStreamerVerifyBtn').addEventListener('click', () => {
+  submitOrCheckStreamerVerification({ source: 'life-game' });
+});
+
+// ------------------------------------------------------------
+// 해금 도감(16장) - 엔딩 16종(ENDINGS 11종 + 즉사 엔딩 5종)을 그리드로 나열.
+// functions/game-data.js의 ENDINGS·build*Ending()과 반드시 같은 id·title을
+// 유지해야 한다(서버는 이 목록을 클라이언트에 따로 안 내려주므로 수동 동기화).
+// ------------------------------------------------------------
+const ENDINGS_META = [
+  { id: 'all-in-success', title: '올인 성공형', icon: '💎' },
+  { id: 'all-in-failure', title: '올인 실패형', icon: '💸' },
+  { id: 'burnout', title: '번아웃형', icon: '🔥' },
+  { id: 'stable', title: '안정형', icon: '🏡' },
+  { id: 'relationship-first', title: '관계 중심형', icon: '💞' },
+  { id: 'recluse', title: '은둔형', icon: '🌙' },
+  { id: 'full-family-legacy', title: '대를 이은 가족형', icon: '👨‍👩‍👧‍👦' },
+  { id: 'living-with-illness', title: '평생을 안고 살아온 삶형', icon: '🏥' },
+  { id: 'rising-after-the-fall', title: '다시 일어난 삶형', icon: '🌱' },
+  { id: 'solitary-path', title: '홀로 걸어온 길형', icon: '🚶' },
+  { id: 'enduring-companion', title: '오랜 동행형', icon: '🤝' },
+  { id: 'collapse', title: '쓰러진 삶', icon: '💥' },
+  { id: 'bankruptcy', title: '파산한 삶', icon: '📉' },
+  { id: 'obscurity', title: '완전히 잊힌 삶', icon: '🌫️' },
+  { id: 'despair', title: '완전히 지쳐버린 삶', icon: '😞' },
+  { id: 'isolation', title: '완전히 홀로 남은 삶', icon: '🕸️' }
+];
+
+const collectionModal = document.getElementById('collectionModal');
+const collectionLoggedOut = document.getElementById('collectionLoggedOut');
+const collectionLoggedIn = document.getElementById('collectionLoggedIn');
+const collectionProgress = document.getElementById('collectionProgress');
+const collectionGrid = document.getElementById('collectionGrid');
+
+function renderCollectionGrid(unlockedIds) {
+  collectionGrid.innerHTML = '';
+  ENDINGS_META.forEach((e) => {
+    const unlocked = unlockedIds.includes(e.id);
+    const card = document.createElement('div');
+    card.className = 'collection-card' + (unlocked ? '' : ' locked');
+    card.innerHTML = unlocked
+      ? '<span class="cc-icon">' + e.icon + '</span><span class="cc-title">' + escapeHtml(e.title) + '</span>'
+      : '<span class="cc-icon">🔒</span><span class="cc-title">???</span>';
+    collectionGrid.appendChild(card);
+  });
+  collectionProgress.textContent = ENDINGS_META.length + '종 중 ' + unlockedIds.length + '개 해금';
+}
+
+// 로그인 여부(구글·카카오·스트리머 인증 중 하나) 판별 - users/{uid}는 이
+// 생태계 다른 프로젝트가 이미 쓰는 공유 노드라 그 필드를 그대로 읽는다.
+async function refreshCollectionView() {
+  if (!currentUser) return;
+  const userSnap = await get(ref(db, 'users/' + currentUser.uid));
+  const userData = userSnap.val() || {};
+  const isLoggedIn = !!(userData.googleLinked || userData.kakaoLinked || userData.streamerVerified);
+  if (!isLoggedIn) {
+    collectionLoggedOut.classList.remove('hidden');
+    collectionLoggedIn.classList.add('hidden');
+    return;
+  }
+  collectionLoggedOut.classList.add('hidden');
+  collectionLoggedIn.classList.remove('hidden');
+  const collectionSnap = await get(ref(db, 'lifeGame/collection/' + currentUser.uid + '/endings'));
+  const unlockedIds = Object.keys(collectionSnap.val() || {});
+  renderCollectionGrid(unlockedIds);
+}
+
+document.getElementById('openCollectionBtn').addEventListener('click', () => {
+  collectionModal.classList.remove('hidden');
+  refreshCollectionView();
+});
+document.getElementById('closeCollectionBtn').addEventListener('click', () => {
+  collectionModal.classList.add('hidden');
+});
+document.getElementById('collectionLoginGoogleBtn').addEventListener('click', () => window.loginWithGoogle());
+document.getElementById('collectionLoginKakaoBtn').addEventListener('click', () => window.loginWithKakao());
+document.getElementById('collectionLoginStreamerBtn').addEventListener('click', () => {
+  collectionModal.classList.add('hidden');
+  window.openStreamerVerifyModal();
 });
 
 // ------------------------------------------------------------
