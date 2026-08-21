@@ -3047,11 +3047,15 @@
         <div class="tbl-wrap">
             <table>
                 <tr><th>순서</th><th>루트</th><th>진입 아이디어</th><th>비고</th></tr>
-                <tr><td>①</td><td>연예계(아역·연습생) <span class="badge badge-live">구현됨</span></td>
+                <tr><td>①</td><td>연예계(연습생·아이돌) <span class="badge badge-live">구현됨 (2026-08-22
+                29세까지 확장)</span></td>
                 <td>15세 <code>talent-scout-approach</code>(<code>requiresAnyTalent</code>라 재능만 있으면
-                진입 - <code>startsRoute</code>·<code>maxDurationYears: 4</code> 부여)</td>
-                <td>16~18세 3개 나이 18선택지(6개×3), 19세부터 자동 만료로 정상 복귀. 조기 종료
-                (<code>endsRoute</code>) 선택지 16·17·18세에 각 1개씩</td></tr>
+                진입 - <code>startsRoute</code>·<code>maxDurationYears: 15</code> 부여)</td>
+                <td>16~29세 14개 나이 84선택지(6개×14), 30세부터 자동 만료로 정상 복귀. 16~19세는
+                직업 <code>trainee</code>(🎤 연습생), 20세 데뷔 갈림길에서 성공하면 21세부터
+                <code>idol</code>(⭐ 아이돌)로 전환 - 21세 이후 콘텐츠는 <code>requiresOccupation</code>으로
+                아이돌/연습생(재도전) 갈래를 나눈다(같은 필드 재사용, 엔진 변경 없음). 조기 종료
+                (<code>endsRoute</code>) 선택지가 14개 나이 전부에 최소 1개씩 있어 언제든 발을 뺄 수 있음</td></tr>
                 <tr><td>②</td><td>예체능(예술고·콩쿠르)</td><td>①과 같은 <code>arts-talent</code> 진입점
                 공유 — "방송 vs 콩쿠르" 갈림길로 분기</td><td>① 직후 이어서(같은 트리거 지점 재설계 필요)</td></tr>
                 <tr><td>③</td><td>조기 유학</td><td>10~13세 신설 선택지, 14장의 "장소"(<code>location</code>)

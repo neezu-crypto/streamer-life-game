@@ -1686,12 +1686,16 @@ const STAGES = [
         deltas: { fame: 2, happiness: 2 },
         result: '명함 한 장이, 평소와 다른 하루를 만들었다.',
         requiresAnyTalent: true,
-        // 트리거 루트(14장, 2026-08-22 구현) - 이 제안을 받아들이는 순간 연예계
-        // 연습생 루트에 진입한다. maxDurationYears: 4는 진입한 다음 해(16세)부터
-        // 3개 나이(16·17·18세) 동안 그 루트 전용 콘텐츠만 뜨다가 19세부터 자동
-        // 만료되는 걸 의미한다(buildRouteState 참고 - "시작 나이+1"부터
-        // maxDurationYears-1개 나이가 실제 루트 구간).
-        startsRoute: { id: 'entertainment-industry', label: '🎤 연예계 연습생', maxDurationYears: 4 }
+        // 트리거 루트(14장, 2026-08-22 구현, 2026-08-22 사용자 지시로 29세까지
+        // 확장) - 이 제안을 받아들이는 순간 연예계 연습생 루트에 진입한다.
+        // maxDurationYears: 15는 진입한 다음 해(16세)부터 14개 나이(16~29세)
+        // 동안 그 루트 전용 콘텐츠만 뜨다가 30세부터 자동 만료되는 걸 의미한다
+        // (buildRouteState 참고 - "시작 나이+1"부터 maxDurationYears-1개 나이가
+        // 실제 루트 구간). 16~19세는 연습생(setOccupation: trainee), 20세에
+        // 데뷔 갈림길을 거쳐 성공하면 21세부터 아이돌(setOccupation: idol)로
+        // 직업이 바뀐다 - 21세 이후 콘텐츠는 requiresOccupation으로 트레이니/
+        // 아이돌 갈래를 나눈다(같은 필드를 재사용, 엔진 변경 불필요).
+        startsRoute: { id: 'entertainment-industry', label: '🎤 연예계 연습생', maxDurationYears: 15 }
       },
       {
         id: 'sleep-deprivation-toll',
@@ -1838,42 +1842,49 @@ const STAGES = [
         result: '거울 앞에 서는 시간이, 점점 괴로워졌다.',
         addCondition: { id: 'eating-disorder', label: '🍽️ 섭식장애', mental: true }
       },
-      // 연예계 연습생 루트(14장, 2026-08-22 구현) 1년차 - 15세 talent-scout-approach로
-      // 진입한 경우에만 이 6개만 후보가 된다(다른 선택지는 예외 없이 전부 안 뜸).
+      // 연예계 연습생 루트(14장, 2026-08-22 구현, 29세까지 확장) 1년차 - 15세
+      // talent-scout-approach로 진입한 경우에만 이 6개만 후보가 된다(다른 선택지는
+      // 예외 없이 전부 안 뜸). setOccupation을 6개 전부에 붙여 어느 게 뽑히든
+      // 이 턴에 반드시 직업이 "연습생"으로 반영되게 한다.
       {
         id: 'ent-trainee-hard-schedule-16',
         text: '새벽부터 밤까지 이어지는 연습 스케줄을 버텨낸다',
         deltas: { fame: 2, health: -4, happiness: -2 },
         result: '몸은 파김치가 됐지만, 거울 속 춤선은 조금씩 나아지고 있었다.',
-        requiresRoute: 'entertainment-industry'
+        requiresRoute: 'entertainment-industry',
+        setOccupation: { id: 'trainee', label: '🎤 연습생' }
       },
       {
         id: 'ent-trainee-debut-team-competition-16',
         text: '데뷔조 자리를 놓고 동기들과 경쟁한다',
         deltas: { fame: 3, relationship: -3, happiness: -2 },
         result: '친구였던 얼굴들이, 어느새 넘어야 할 상대로 보이기 시작했다.',
-        requiresRoute: 'entertainment-industry'
+        requiresRoute: 'entertainment-industry',
+        setOccupation: { id: 'trainee', label: '🎤 연습생' }
       },
       {
         id: 'ent-trainee-school-conflict-16',
         text: '학교 수업과 연습 스케줄 사이에서 아슬아슬하게 저글링한다',
         deltas: { health: -3, wealth: -1 },
         result: '졸린 눈으로 교실과 연습실을 오가는 하루하루였다.',
-        requiresRoute: 'entertainment-industry'
+        requiresRoute: 'entertainment-industry',
+        setOccupation: { id: 'trainee', label: '🎤 연습생' }
       },
       {
         id: 'ent-trainee-agency-treatment-16',
         text: '소속사의 부당한 대우에도 계약 때문에 참는다',
         deltas: { happiness: -4, wealth: 1 },
         result: '부당하다고 느껴도, 지금은 버티는 것 말고는 방법이 없어 보였다.',
-        requiresRoute: 'entertainment-industry'
+        requiresRoute: 'entertainment-industry',
+        setOccupation: { id: 'trainee', label: '🎤 연습생' }
       },
       {
         id: 'ent-trainee-bonding-16',
         text: '같은 처지의 연습생 동료와 힘든 시간을 나누며 의지한다',
         deltas: { relationship: 4, happiness: 3 },
         result: '말 안 해도 서로의 힘듦을 아는 사이가, 큰 위안이 됐다.',
-        requiresRoute: 'entertainment-industry'
+        requiresRoute: 'entertainment-industry',
+        setOccupation: { id: 'trainee', label: '🎤 연습생' }
       },
       {
         id: 'ent-trainee-quits-early-16',
@@ -2182,47 +2193,49 @@ const STAGES = [
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       },
-      // 연예계 연습생 루트 3년차 - 데뷔 갈림길(19세부터는 자동 만료로 정상 콘텐츠로 복귀)
+      // 연예계 연습생 루트 3년차(2026-08-22 29세까지 확장 - 데뷔는 20세로 미룸)
       {
-        id: 'ent-trainee-debut-success-18',
-        text: '마침내 데뷔조에 최종 발탁된다',
-        deltas: { fame: 10, happiness: 6, wealth: -2 },
-        result: '몇 년간의 연습이 무대 위 조명 아래에서 보답받는 순간이었다.',
+        id: 'ent-trainee-rivalry-deepens-18',
+        text: '동기와의 경쟁이 우정을 갉아먹을 만큼 깊어진다',
+        deltas: { relationship: -4, fame: 2 },
+        result: '이기고 싶은 마음이, 어느새 좋아하던 사람마저 밀어내고 있었다.',
         requiresRoute: 'entertainment-industry'
       },
       {
-        id: 'ent-trainee-debut-failure-18',
-        text: '최종 데뷔조 발표에서 끝내 이름이 빠진다',
-        deltas: { happiness: -8, fame: -2 },
-        result: '몇 년의 시간이 통보 한 줄에 정리되는 걸, 그저 지켜볼 수밖에 없었다.',
+        id: 'ent-trainee-physical-toll-18',
+        text: '무리한 다이어트와 훈련으로 몸이 상하기 시작한다',
+        deltas: { health: -5 },
+        result: '거울 속 앙상해진 모습이, 문득 낯설게 느껴졌다.',
+        requiresRoute: 'entertainment-industry',
+        addCondition: { id: 'trainee-overexertion', label: '🩹 과훈련 후유증' }
+      },
+      {
+        id: 'ent-trainee-preunit-promo-18',
+        text: '정식 데뷔 전, 임시 유닛으로 소규모 팬미팅에 선다',
+        deltas: { fame: 4, happiness: 3 },
+        result: '몇 안 되는 관객 앞이었지만, 처음 서 본 무대의 떨림은 진짜였다.',
         requiresRoute: 'entertainment-industry'
       },
       {
-        id: 'ent-trainee-solo-pivot-18',
-        text: '그룹 대신 솔로 활동으로 방향을 튼다',
-        deltas: { fame: 4, happiness: 2, relationship: -2 },
-        result: '혼자가 된다는 두려움보다, 스스로 선택했다는 확신이 더 컸다.',
+        id: 'ent-trainee-family-doubt-intensifies-18',
+        text: '가족들이 이제 그만 현실적인 선택을 하라며 설득한다',
+        deltas: { relationship: -3, happiness: -2 },
+        requiresFamilyMember: ['father', 'mother', 'single-parent'],
+        result: '틀린 말은 아니라는 걸 알면서도, 쉽게 고개가 끄덕여지지 않았다.',
         requiresRoute: 'entertainment-industry'
       },
       {
-        id: 'ent-trainee-viral-moment-18',
-        text: '우연히 올린 영상이 화제가 되며 예상 밖의 관심을 받는다',
-        deltas: { fame: 7, happiness: 4 },
-        result: '계획한 적 없던 순간이, 인생의 방향을 슬쩍 틀어놨다.',
+        id: 'ent-trainee-lineup-reshuffle-anxiety-18',
+        text: '갑작스런 라인업 개편 소식에 다시 한번 불안해진다',
+        deltas: { happiness: -3, fame: -1 },
+        result: '몇 년을 쏟아부었는데도, 자리는 늘 위태로웠다.',
         requiresRoute: 'entertainment-industry'
       },
       {
-        id: 'ent-trainee-contract-dispute-18',
-        text: '불공정 계약을 두고 소속사와 정식으로 분쟁을 겪는다',
-        deltas: { wealth: -3, happiness: -3, fame: 2 },
-        result: '정당한 몫을 되찾는 일이, 생각보다 길고 지치는 싸움이었다.',
-        requiresRoute: 'entertainment-industry'
-      },
-      {
-        id: 'ent-trainee-returns-to-school-18',
-        text: '연예계를 뒤로하고 학업으로 완전히 복귀하기로 결심한다',
-        deltas: { happiness: 1, wealth: -1 },
-        result: '다른 길을 걷기로 한 결정에, 이상하게도 마음이 편안해졌다.',
+        id: 'ent-trainee-quits-exhausted-18',
+        text: '쌓인 피로와 불확실함에 결국 짐을 싼다',
+        deltas: { happiness: 2, health: 3 },
+        result: '떠나는 발걸음이 무거우면서도, 동시에 후련했다.',
         requiresRoute: 'entertainment-industry',
         endsRoute: true
       }
@@ -2345,6 +2358,50 @@ const STAGES = [
         text: '혼자 떠난 첫 여행에서 낯선 자유를 만끽한다',
         deltas: { happiness: 3, wealth: -1 },
         result: '아무 계획 없이 걷는 하루가, 이렇게 좋을 줄 몰랐다.'
+      },
+      // 연예계 연습생 루트 4년차 - 데뷔 평가를 앞둔 마지막 스퍼트
+      {
+        id: 'ent-trainee-final-evaluation-prep-19',
+        text: '최종 데뷔 평가를 앞두고 모든 걸 쏟아붓는다',
+        deltas: { fame: 3, health: -4, happiness: -1 },
+        result: '더는 남은 게 없을 만큼, 이번 한 번에 모든 걸 걸었다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-agency-restructuring-19',
+        text: '소속사 사정으로 데뷔 일정 자체가 통째로 미뤄진다',
+        deltas: { happiness: -4 },
+        result: '노력과 무관하게 상황이 흔들리는 것도, 이 바닥의 일부였다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-mentor-bond-19',
+        text: '오래 봐온 트레이너에게 마음을 담은 조언을 듣는다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '냉정한 평가 뒤에 숨어 있던 진심이, 뒤늦게 와닿았다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-peer-departs-19',
+        text: '오랜 시간을 함께한 동기가 먼저 짐을 싸는 걸 지켜본다',
+        deltas: { happiness: -3, relationship: -1 },
+        result: '남은 자리가 홀가분하기보다, 자꾸 허전하게 느껴졌다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-last-minute-doubt-19',
+        text: '데뷔를 코앞에 두고 스스로에 대한 의심이 밀려온다',
+        deltas: { happiness: -3 },
+        result: '여기까지 와서 이런 마음이 들 줄은, 스스로도 몰랐다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-quits-before-eval-19',
+        text: '평가를 코앞에 두고도 결국 마음을 접는다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '끝까지 가보지 않은 선택이었지만, 스스로에게는 솔직한 결정이었다.',
+        requiresRoute: 'entertainment-industry',
+        endsRoute: true
       }
     ]
   },
@@ -2537,6 +2594,57 @@ const STAGES = [
         result: '계획 없는 여행이, 오히려 홀가분했다.',
         requiresLocation: ['domestic'],
         setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      // 연예계 연습생 루트 - 데뷔 갈림길(2026-08-22 29세까지 확장). 성공하면
+      // setOccupation으로 직업이 아이돌로 바뀌며 21세부터 이어지는 콘텐츠가
+      // requiresOccupation: ['idol']로 갈라지고, 실패해도 재도전(연습생 유지,
+      // 루트 계속)과 포기(endsRoute) 두 갈래로 나뉜다.
+      {
+        id: 'ent-trainee-debut-success-20',
+        text: '마침내 데뷔조에 최종 발탁된다',
+        deltas: { fame: 10, happiness: 6, wealth: -2 },
+        result: '몇 년간의 연습이 무대 위 조명 아래에서 보답받는 순간이었다.',
+        requiresRoute: 'entertainment-industry',
+        setOccupation: { id: 'idol', label: '⭐ 아이돌' }
+      },
+      {
+        id: 'ent-trainee-debut-solo-20',
+        text: '그룹이 아닌 솔로 가수로 데뷔한다',
+        deltas: { fame: 8, happiness: 4, relationship: -2 },
+        result: '혼자 서는 무대는 외로웠지만, 누구의 그늘도 아닌 온전한 내 이름이었다.',
+        requiresRoute: 'entertainment-industry',
+        setOccupation: { id: 'idol', label: '⭐ 아이돌' }
+      },
+      {
+        id: 'ent-trainee-viral-predebut-20',
+        text: '데뷔 발표 직전, 연습 영상이 우연히 화제가 되며 조기 데뷔가 확정된다',
+        deltas: { fame: 9, happiness: 5 },
+        result: '계획에도 없던 순간이, 몇 년의 기다림을 단숨에 앞당겨줬다.',
+        requiresRoute: 'entertainment-industry',
+        setOccupation: { id: 'idol', label: '⭐ 아이돌' }
+      },
+      {
+        id: 'ent-trainee-debut-failure-retry-20',
+        text: '최종 데뷔조에서 끝내 밀려나지만, 다음 기회를 기약하며 남는다',
+        deltas: { happiness: -6, fame: -1 },
+        result: '주저앉고 싶은 마음을 누르고, 다시 연습실 문을 열었다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-trainee-debut-failure-quits-20',
+        text: '최종 데뷔조 발표에서 끝내 이름이 빠지자, 그 자리에서 그만두기로 한다',
+        deltas: { happiness: -3 },
+        result: '몇 년의 시간이 통보 한 줄에 정리되는 걸, 그저 지켜볼 수밖에 없었다.',
+        requiresRoute: 'entertainment-industry',
+        endsRoute: true
+      },
+      {
+        id: 'ent-trainee-agency-dissolves-unit-20',
+        text: '소속사 사정으로 데뷔조 자체가 통째로 해체된다',
+        deltas: { happiness: -5, wealth: 1 },
+        result: '내 잘못이 아니라는 걸 알아도, 허무함까지 지워지진 않았다.',
+        requiresRoute: 'entertainment-industry',
+        endsRoute: true
       }
     ]
   },
@@ -2627,6 +2735,55 @@ const STAGES = [
         result: '발표 자리에서, 내 이름은 어디에도 없었다.',
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
+      },
+      // 연예계 루트 - 데뷔 첫 해(아이돌/연습생 분기, requiresOccupation으로 갈라짐)
+      {
+        id: 'ent-idol-rookie-award-21',
+        text: '신인상 후보에 올라 벅찬 소감을 전한다',
+        deltas: { fame: 6, happiness: 5 },
+        result: '무대 위에서 떨리는 목소리로 소감을 전하던 그 순간이, 오래 남았다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-grueling-schedule-21',
+        text: '살인적인 스케줄에 몸이 남아나지 않는다',
+        deltas: { health: -5, fame: 2 },
+        result: '숙소로 돌아가는 길, 정신보다 몸이 먼저 곯아떨어졌다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-sasaeng-problem-21',
+        text: '사생팬의 지나친 행동에 시달린다',
+        deltas: { happiness: -5 },
+        result: '누군가 늘 지켜보고 있다는 감각이, 일상 전체를 갉아먹었다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-group-chemistry-21',
+        text: '멤버들과 손발이 맞아가며 팀워크가 쌓인다',
+        deltas: { relationship: 4, happiness: 3 },
+        result: '말 안 해도 서로의 다음 동작을 알 만큼, 사이가 가까워졌다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-trainee-still-grinding-21',
+        text: '데뷔 대신 여전히 연습생 신분으로 다음 기회를 기다린다',
+        deltas: { happiness: -2 },
+        result: '동기들이 하나둘 자리를 잡는 걸 보며, 조바심을 애써 눌렀다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['trainee']
+      },
+      {
+        id: 'ent-entertainment-life-exit-21',
+        text: '연예계 생활 자체를 완전히 정리하기로 한다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '화려했든 고됐든, 이제는 다른 문을 열어볼 시간이었다.',
+        requiresRoute: 'entertainment-industry',
+        endsRoute: true
       }
     ]
   },
@@ -2729,6 +2886,56 @@ const STAGES = [
         deltas: { health: -2, happiness: -6 },
         result: '아무 일도 아니라는 걸 알면서도, 몸이 먼저 반응했다.',
         addCondition: { id: 'panic-disorder', label: '💨 공황장애', mental: true }
+      },
+      // 연예계 루트 - 데뷔 2년차
+      {
+        id: 'ent-idol-comeback-growing-pains-22',
+        text: '두 번째 컴백에서 성장통을 겪는다',
+        deltas: { happiness: -3, fame: 3 },
+        result: '더 잘해야 한다는 압박이, 첫 데뷔 때보다 오히려 더 무거웠다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-choreo-controversy-22',
+        text: '안무 논란에 휘말려 진화에 나선다',
+        deltas: { happiness: -4, fame: -2 },
+        result: '의도와 다르게 번진 논란을 수습하는 일이, 생각보다 지쳤다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-fanmeeting-warmth-22',
+        text: '팬미팅에서 예상 못 한 따뜻함을 느낀다',
+        deltas: { happiness: 5, relationship: 2 },
+        result: '무대 아래에서 마주친 눈빛들이, 힘들었던 날들을 잊게 해줬다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-dating-rumor-22',
+        text: '열애설이 터지며 사생활 전체가 화제가 된다',
+        deltas: { happiness: -4, fame: 3 },
+        result: '해명 한 줄에도, 온갖 추측이 꼬리를 물었다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-trainee-late-debut-chance-22',
+        text: '늦게라도 새로 꾸려진 팀의 데뷔 기회를 얻는다',
+        deltas: { fame: 7, happiness: 5 },
+        result: '남들보다 늦었다는 조바심 끝에, 마침내 무대에 섰다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['trainee'],
+        setOccupation: { id: 'idol', label: '⭐ 아이돌' }
+      },
+      {
+        id: 'ent-entertainment-life-exit-22',
+        text: '몇 년간의 연예계 생활을 이쯤에서 마무리 짓기로 한다',
+        deltas: { happiness: 2 },
+        result: '아쉬움과 후련함이 반반씩 섞인 채로, 다른 길을 향해 돌아섰다.',
+        requiresRoute: 'entertainment-industry',
+        endsRoute: true
       }
     ]
   },
@@ -2888,6 +3095,57 @@ const STAGES = [
         result: '하고 싶은 공부를 위해서라면, 먼 길도 아깝지 않았다.',
         requiresLocation: ['domestic'],
         setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      // 연예계 루트 - 위기의 3년차
+      {
+        id: 'ent-idol-malicious-comments-23',
+        text: '악플과 근거 없는 소문에 마음이 무너진다',
+        deltas: { happiness: -6 },
+        result: '얼굴도 모르는 사람들의 말이, 왜 이렇게 깊이 박히는지 알 수 없었다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        addCondition: { id: 'idol-public-scrutiny-stress', label: '💔 대중의 시선 스트레스', mental: true }
+      },
+      {
+        id: 'ent-idol-group-conflict-23',
+        text: '그룹 내 의견 차이로 갈등이 깊어진다',
+        deltas: { relationship: -4 },
+        result: '같은 무대에 서면서도, 마음은 자꾸 어긋났다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-acting-offer-23',
+        text: '연기 활동 제안을 받아 새로운 도전을 고민한다',
+        deltas: { fame: 3, happiness: 2 },
+        result: '낯선 장르였지만, 오히려 그 낯섦이 끌렸다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-extreme-diet-23',
+        text: '무대를 위해 극단적인 체중 관리를 이어간다',
+        deltas: { health: -4 },
+        result: '거울 앞에 설 때마다, 만족보다 불안이 먼저 찾아왔다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-trainee-final-giveup-23',
+        text: '몇 년째 이어진 기다림 끝에 완전히 접기로 한다',
+        deltas: { happiness: 1 },
+        result: '긴 기다림의 끝에서, 이제는 다른 문을 두드려보기로 했다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['trainee'],
+        endsRoute: true
+      },
+      {
+        id: 'ent-entertainment-life-exit-23',
+        text: '지친 마음을 인정하고 연예계를 완전히 떠나기로 한다',
+        deltas: { happiness: 3, health: 2 },
+        result: '내려놓고 나서야, 비로소 어깨가 가벼워졌다.',
+        requiresRoute: 'entertainment-industry',
+        endsRoute: true
       }
     ]
   },
@@ -3051,6 +3309,55 @@ const STAGES = [
         result: '좋은 인상을 남기려던 자리가, 오히려 독이 되어 돌아왔다.',
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
+      },
+      // 연예계 루트 - 재정비기
+      {
+        id: 'ent-idol-contract-renewal-24',
+        text: '재계약 협상 테이블에 앉는다',
+        deltas: { wealth: 3, happiness: -1 },
+        result: '숫자로 매겨지는 몇 년간의 가치가, 새삼 낯설게 느껴졌다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-popularity-plateau-24',
+        text: '인기가 정체기에 접어든 걸 체감한다',
+        deltas: { happiness: -3 },
+        result: '더 잘하고 있는 것 같은데, 반응은 제자리걸음이었다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-survival-show-24',
+        text: '서바이벌 예능 출연 제안을 받는다',
+        deltas: { fame: 5, health: -2 },
+        result: '또 한 번 밑바닥부터 증명해야 한다는 게, 부담스러우면서도 짜릿했다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-supports-parents-24',
+        text: '번 돈으로 부모님 노후를 챙긴다',
+        deltas: { relationship: 3, wealth: -2 },
+        result: '통장을 보여드리던 날, 부모님 표정이 오래 남았다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
+      },
+      {
+        id: 'ent-idol-quiet-reflection-24',
+        text: '바쁜 와중에도 잠깐의 여유를 되찾는다',
+        deltas: { happiness: 3 },
+        result: '멈춰 서서 숨 고르는 법을, 이제야 조금씩 배워가고 있었다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-entertainment-life-exit-24',
+        text: '지금이 발을 뺄 적기라 판단하고 연예계를 떠나기로 한다',
+        deltas: { happiness: 2, wealth: 1 },
+        result: '박수칠 때 떠난다는 말을, 스스로 실천에 옮겼다.',
+        requiresRoute: 'entertainment-industry',
+        endsRoute: true
       }
     ]
   },
@@ -3283,6 +3590,54 @@ const STAGES = [
         deltas: { happiness: 5, relationship: 2 },
         result: '다른 세상을 산다는 게, 이런 거였구나 싶었다.',
         requiresLocation: ['abroad']
+      },
+      // 연예계 루트 - 베테랑 아이돌
+      {
+        id: 'ent-idol-rookie-rivals-emerge-25',
+        text: '떠오르는 후배 그룹들 사이에서 위기감을 느낀다',
+        deltas: { happiness: -3, fame: -1 },
+        result: '몇 년 전 내 모습이 겹쳐 보이는 후배들 앞에서, 조바심이 일었다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-brand-business-25',
+        text: '개인 브랜드 사업에 손을 뻗는다',
+        deltas: { wealth: 5, health: -2 },
+        result: '무대 밖에서도 이름 석 자로 뭔가를 해낼 수 있다는 게, 새로운 자신감을 줬다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-burnout-25',
+        text: '몇 년째 이어진 스케줄에 완전히 지쳐버린다',
+        deltas: { happiness: -5, health: -3 },
+        result: '쉬고 싶다는 말이, 이 일에서는 사치처럼 느껴졌다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-mentoring-juniors-25',
+        text: '후배들을 챙기며 뜻밖의 보람을 느낀다',
+        deltas: { relationship: 4, happiness: 3 },
+        result: '가르쳐주는 입장이 되고 나서야, 그동안 받은 것들이 눈에 들어왔다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-milestone-reflection-25',
+        text: '데뷔 이후 지나온 시간을 가만히 돌아본다',
+        deltas: { happiness: 2 },
+        result: '길다면 길고 짧다면 짧은 시간이, 새삼 묵직하게 다가왔다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-entertainment-life-exit-25',
+        text: '번아웃 끝에 연예계 생활을 정리하기로 결심한다',
+        deltas: { happiness: 3, health: 2 },
+        result: '더 늦기 전에 스스로를 챙기기로 한 결정이었다.',
+        requiresRoute: 'entertainment-industry',
+        endsRoute: true
       }
     ]
   },
@@ -3483,6 +3838,55 @@ const STAGES = [
         result: '적응하려 애썼지만, 마음은 자꾸 다른 곳을 향했다.',
         requiresLocation: ['abroad'],
         setLocation: { id: 'domestic', label: '🇰🇷 국내' }
+      },
+      // 연예계 루트 - 전환점
+      {
+        id: 'ent-idol-group-activity-reduced-26',
+        text: '팀 활동이 줄고 개인 활동 비중이 커진다',
+        deltas: { fame: 2, relationship: -2 },
+        result: '같이 있는 시간보다 각자의 시간이 많아진다는 게, 낯설게 느껴졌다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-marriage-rumor-26',
+        text: '결혼설이 퍼지며 사생활이 또 한번 화제가 된다',
+        deltas: { happiness: -3, fame: 2 },
+        result: '사실 여부와 상관없이, 이야기는 이미 걷잡을 수 없이 퍼져 있었다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-health-scare-26',
+        text: '무리한 스케줄 끝에 건강 이상 신호를 겪는다',
+        deltas: { health: -5 },
+        result: '병원 검사 결과를 기다리는 그 며칠이, 유독 길게 느껴졌다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        addCondition: { id: 'idol-chronic-fatigue', label: '😮‍💨 만성 피로' }
+      },
+      {
+        id: 'ent-idol-solo-album-26',
+        text: '첫 솔로 앨범을 준비하며 새로운 색을 시도한다',
+        deltas: { fame: 4, happiness: 4, wealth: -2 },
+        result: '그룹과는 다른 색을 세상에 내놓는 게, 설레면서도 두려웠다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-fan-loyalty-26',
+        text: '오래된 팬들의 한결같은 응원에 힘을 얻는다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '몇 년째 같은 자리를 지켜준 얼굴들이, 가장 큰 힘이었다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-entertainment-life-exit-26',
+        text: '건강 이상을 계기로 연예계 생활을 정리하기로 한다',
+        deltas: { happiness: 2, health: 2 },
+        result: '몸이 보낸 신호를, 이번에는 외면하지 않기로 했다.',
+        requiresRoute: 'entertainment-industry',
+        endsRoute: true
       }
     ]
   },
@@ -3690,6 +4094,56 @@ const STAGES = [
         result: '회의실에서 박수받는 건, 내가 아니라 그 사람이었다.',
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
+      },
+      // 연예계 루트 - 홀로서기
+      {
+        id: 'ent-idol-contract-expires-independent-27',
+        text: '계약 만료 후 1인 기획사로 독립한다',
+        deltas: { wealth: -3, fame: 1, happiness: 3 },
+        result: '기댈 곳 없는 불안함보다, 스스로 결정할 수 있다는 게 더 컸다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-agency-switch-27',
+        text: '새 소속사로 이적해 낯선 시스템에 적응한다',
+        deltas: { happiness: -2, fame: 1 },
+        result: '몇 년간 익숙했던 방식을, 처음부터 다시 배워야 했다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-group-disbands-27',
+        text: '그룹 활동이 사실상 종료됐다는 소식을 접한다',
+        deltas: { happiness: -4, relationship: -2 },
+        result: '누구도 대놓고 말하지 않았지만, 다들 알고 있었다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-overseas-activity-27',
+        text: '해외 활동 기회를 얻어 새로운 팬층을 만난다',
+        deltas: { fame: 6, wealth: 2, health: -2 },
+        result: '말이 안 통해도 함께 부르는 노래는, 국경을 넘어 통했다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        requiresLocation: ['domestic'],
+        setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      {
+        id: 'ent-idol-financial-planning-27',
+        text: '그동안 모은 수입을 정리하며 미래를 계획한다',
+        deltas: { wealth: 2 },
+        result: '화려했던 숫자들을, 이제는 차분히 정리할 시간이었다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-entertainment-life-exit-27',
+        text: '그룹 해체를 계기로 연예계를 완전히 떠나기로 한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '한 시절이 저물었다는 걸, 담담히 받아들이기로 했다.',
+        requiresRoute: 'entertainment-industry',
+        endsRoute: true
       }
     ]
   },
@@ -3882,6 +4336,54 @@ const STAGES = [
         deltas: { happiness: -6 },
         result: '괜찮을 거라는 말을, 스스로도 믿기 어려웠다.',
         addCondition: { id: 'generalized-anxiety', label: '😥 범불안장애', mental: true }
+      },
+      // 연예계 루트 - 안정기
+      {
+        id: 'ent-idol-business-pivot-28',
+        text: '사업가로의 전향을 진지하게 고민한다',
+        deltas: { wealth: 3, happiness: -1 },
+        result: '무대 위와는 다른 종류의 무게가, 어깨를 눌렀다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-mentoring-new-agency-28',
+        text: '새 소속사에서 신인 육성에 참여한다',
+        deltas: { relationship: 3, happiness: 2 },
+        result: '가르치는 자리에 서고 보니, 그동안 지나온 길이 새삼 보였다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-nostalgia-28',
+        text: '데뷔 초 영상을 보며 만감이 교차한다',
+        deltas: { happiness: 3 },
+        result: '풋풋했던 그때의 얼굴이, 낯설면서도 반가웠다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-financial-dispute-28',
+        text: '정산 문제로 소속사와 또 한 번 갈등을 겪는다',
+        deltas: { wealth: -2, happiness: -3 },
+        result: '숫자를 두고 벌이는 실랑이가, 몇 년이 지나도 익숙해지지 않았다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-quiet-life-28',
+        text: '화려함 대신 소박한 일상에 눈을 돌린다',
+        deltas: { happiness: 2 },
+        result: '조명이 꺼진 자리에서도, 삶은 충분히 따뜻할 수 있었다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-entertainment-life-exit-28',
+        text: '정산 갈등을 계기로 미련 없이 이 바닥을 떠나기로 한다',
+        deltas: { happiness: 2, wealth: 1 },
+        result: '더 이상 숫자 때문에 마음 상하고 싶지 않았다.',
+        requiresRoute: 'entertainment-industry',
+        endsRoute: true
       }
     ]
   },
@@ -4053,6 +4555,54 @@ const STAGES = [
         result: '서류 한 장이, 인생의 무대를 통째로 바꿔놓았다.',
         requiresLocation: ['domestic'],
         setLocation: { id: 'abroad', label: '🌍 해외' }
+      },
+      // 연예계 루트 - 마지막 해(30세부터 maxDurationYears 자동 만료로 정상 콘텐츠 복귀)
+      {
+        id: 'ent-idol-retirement-consideration-29',
+        text: '은퇴를 진지하게 고민하기 시작한다',
+        deltas: { happiness: 1 },
+        result: '언젠가는 내려야 할 무대라는 걸, 이제 담담히 받아들일 수 있었다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-farewell-stage-29',
+        text: '오랜 팬들 앞에서 각별한 무대를 갖는다',
+        deltas: { happiness: 6, relationship: 3 },
+        result: '그동안의 모든 순간이, 그 하루의 박수 속에 녹아 있었다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-no-regrets-29',
+        text: '지나온 연예계 생활에 후회 없다고 되뇐다',
+        deltas: { happiness: 4 },
+        result: '힘들었던 순간까지도, 지금은 전부 나를 만든 시간이었다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-new-chapter-plans-29',
+        text: '다음 장을 위한 새로운 계획을 세운다',
+        deltas: { wealth: 2, fame: -1 },
+        result: '무대는 바뀌어도, 살아가는 방식은 계속될 터였다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'ent-idol-industry-legacy-29',
+        text: '이 바닥에 남긴 흔적을 가만히 돌아본다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '누군가에게는 나도, 한때 동경하던 무대 위 얼굴이었을 것이다.',
+        requiresRoute: 'entertainment-industry'
+      },
+      {
+        id: 'ent-entertainment-life-exit-29',
+        text: '스스로 무대의 마지막 페이지를 매듭짓기로 한다',
+        deltas: { happiness: 3 },
+        result: '끝을 스스로 정할 수 있었다는 것만으로도, 충분히 홀가분했다.',
+        requiresRoute: 'entertainment-industry',
+        endsRoute: true
       }
     ]
   },
