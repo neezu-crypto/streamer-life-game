@@ -139,6 +139,7 @@
             <li><a href="#sec15">Google 광고 도입 (설계, 미구현)</a></li>
             <li><a href="#sec16">해금 도감 — 엔딩·루트 컬렉션 (설계, 미구현)</a></li>
             <li><a href="#sec17">나의 재능·나의 취미 (설계, 미구현)</a></li>
+            <li><a href="#sec18">재산 — 보험 추가 (설계, 미구현)</a></li>
         </ol>
     </div>
 
@@ -3256,6 +3257,53 @@
         <h3>콘텐츠 비용</h3>
         <p class="note">직업 이벤트와 같은 "1 사건 = 6 선택지" 단위로, 나이대별로 재능/취미 획득 이벤트를
         묶어 넣는 방식을 기본안으로 삼는다 — 몇 개·어느 나이에 배치할지는 실제 작성 착수 시점에 정한다.</p>
+    </section>
+
+    <section id="sec18">
+        <h2><span class="num">18</span>재산 — 보험 추가 (2026-08-21, 사용자 지시 — 미구현)</h2>
+        <p class="note"><b>이 섹션도 설계 정리 단계이며 아직 구현되지 않았다.</b> 재산 16종에 "보험"을
+        추가하고, 보험 가입 선택지와 보험 없이 다치면 재산이 더 크게 깎이는 선택지를 신설한다. 실제
+        코드(<code>game-data.js</code>·<code>functions/index.js</code>)는 아직 손대지 않았다.</p>
+
+        <h3>새 재산: 보험</h3>
+        <p><code>addAsset: &#123;id: 'insurance', label: '🛡️ 보험', type: 'insurance'&#125;</code> — 기존
+        재산 16종은 전부 <code>type</code>이 <code>realestate</code>/<code>movable</code>/<code>cash</code>
+        셋 중 하나인데, 보험은 팔거나 처분하는 물건이 아니라 <b>가입 상태 그 자체</b>라 셋 중 어디에도 안
+        맞는다 — 새 타입 <code>insurance</code>를 하나 추가한다.</p>
+
+        <h3>선행 조건: <code>requiresNoAsset</code> 필드 신설 필요</h3>
+        <p>지금 엔진엔 <code>requiresAsset</code>(그 재산이 있어야 후보)만 있고, <b>반대로 "그 재산이
+        없어야 후보"인 부정 조건이 없다</b>(직접 확인함 — <code>functions/index.js</code>에
+        <code>requiresNoAsset</code> 검색 결과 없음). "보험이 없을 때만" 뜨는 선택지를 만들려면
+        <code>requiresNoFamilyMember</code>와 완전히 같은 패턴으로 <code>requiresNoAsset</code>을 새로
+        추가해야 한다 — <code>pickVisibleChoiceIds()</code>의 노출 필터와 <code>applyChoice()</code>의
+        방어적 검증 양쪽에 다.</p>
+
+        <h3>보험 가입 선택지 (신설)</h3>
+        <p>재정 관련 선택지가 있는 초반 성인기 이벤트 클러스터에 <code>requiresNoAsset: 'insurance'</code>
+        (이미 가입했으면 다시 안 뜨게)로 신설. 초안: <code>deltas: &#123;wealth: -2&#125;</code> (보험료),
+        <code>addAsset: &#123;id: 'insurance', label: '🛡️ 보험', type: 'insurance'&#125;</code>. 정확한
+        수치·배치 나이는 실제 작성 착수 시점에 확정.</p>
+
+        <h3>기존 사고 선택지 수정 — 보험 유무로 분기</h3>
+        <p><code>sudden-accident-injury</code>(21세, "급하게 무단횡단을 한다" —
+        <code>deltas: &#123;health: -15, happiness: -8, wealth: -5&#125;</code>, <code>accident-aftereffects</code>
+        영구 조건 부여)를 보험 유무에 따라 <b>두 갈래로 분기</b>하는 걸 기본안으로 삼는다:</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>버전</th><th>게이팅</th><th>초안 결과</th></tr>
+                <tr><td>보험 있음</td><td><code>requiresAsset: 'insurance'</code></td><td>같은 사고, 같은
+                건강·행복 손실이지만 <code>wealth</code> 손실이 크게 줄거나(예: -1) 사라짐 — 결과 문구도
+                "보험 덕에 병원비 걱정은 덜었다" 쪽으로 수정</td></tr>
+                <tr><td>보험 없음</td><td><code>requiresNoAsset: 'insurance'</code></td><td>기존보다 더 큰
+                <code>wealth</code> 손실(예: -5→-10) — "보험이 없어 병원비를 고스란히 떠안았다" 쪽으로
+                결과 문구 수정</td></tr>
+            </table>
+        </div>
+        <p class="note"><code>logistics-back-injury</code>(물류직 전용, "혼자서 무거운 짐을 무리하게
+        나른다" — <code>health: -5</code>만 있고 <code>wealth</code> 손실은 원래 없음)도 같은 방식으로
+        확장할 수 있지만, 지금 요청 범위는 이미 재산 손실이 있던 사고 선택지 위주라 이번엔 제외 — 필요하면
+        추후 같은 패턴으로 별도 확장.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
