@@ -3334,6 +3334,26 @@
         전용 필드(예: <code>insuranceUnpaidYears</code>)로 따로 둔다 — <code>assets[]</code>의 다른 항목들은
         지금까지 전부 "있다/없다"만 표현하는 정적 데이터였고, 항목 하나에 매 턴 갱신되는 카운터를 얹으면
         그 패턴이 깨진다. 보험이 해지되거나 다시 가입하면 이 필드도 같이 초기화한다.</p>
+
+        <h3>보험 가입 중 — 회복 가능한 질병·부상은 완전히 회피 (2026-08-22, 사용자 확정)</h3>
+        <p>보험 가입 상태에서 <b>회복 가능한</b>(=영구 지속이 아닌) 질병·부상을 유발하는 선택지를 고르면,
+        <code>addCondition</code> 자체가 적용되지 않고(그 조건에 안 걸림) <code>wealth</code> 손실도
+        취소된다. <b>health·happiness 등 다른 델타는 그대로 적용</b>된다 — 몸은 축나고 기분은 상해도,
+        "진단은 피하고 병원비도 안 든다"는 뜻. 사고 자체를 완전히 없던 일로 만드는 게 아니라 어디까지나
+        addCondition과 wealth 두 가지만 취소하는 범위다.</p>
+        <p class="note"><b>범위는 "회복 가능한" 조건만</b> — 영구 지속으로 설계된 3종
+        (<code>rare-illness</code>·<code>accident-aftereffects</code>·<code>alzheimers</code>, 16장
+        이전부터 존재하는 <code>permanent: true</code> 플래그로 이미 구분됨)은 이 회피 대상에서
+        <b>제외</b>된다 — 보험이 희귀질환·치매까지 막아주는 건 과하다는 판단. 이 예외 때문에 위에서 정리한
+        <code>sudden-accident-injury</code>(<code>accident-aftereffects</code>는 영구)는 이 새 규칙의
+        적용을 안 받고, 그래서 그 선택지 하나만은 여전히 <b>별도로 만든 보험 유무 분기(위 표 참고 — 부상은
+        그대로 겪되 wealth 손실만 줄어드는 방식)</b>가 그대로 유효하다.</p>
+        <p>이건 특정 선택지를 새로 만드는 게 아니라, <code>applyChoice()</code>에서 <code>addCondition</code>이
+        있고 그 조건이 <code>permanent</code>가 아니고 그 선택지의 <code>wealth</code> 델타가 음수이고
+        플레이어가 보험 가입 중이면 <code>wealth</code>를 0으로, <code>addCondition</code> 적용을
+        건너뛰는 <b>엔진 차원의 자동 규칙</b>이다 — 건강 조건 페널티(활성 조건 개수에 따라 델타가 가감되는
+        서버 전용 로직)와 같은 급으로, <code>game-data.js</code>의 기존 질병·부상 선택지들을 하나도 손대지
+        않고 게임 전체에 자동 적용된다.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
