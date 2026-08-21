@@ -2842,6 +2842,14 @@ const STAGES = [
         prizeTable: LOTTERY_PRIZE_TABLE
       },
       {
+        id: 'buys-insurance-25',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
         id: 'adult-crush-confession',
         text: '오래 마음에 품고 있던 상대에게 고백한다',
         deltas: { happiness: 3, relationship: 3 },

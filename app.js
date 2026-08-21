@@ -1043,6 +1043,13 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
     const blockerLabel = blockers.length ? blockers.map((c) => c.label).join(' · ') : '🎗️';
     resultText += '\n' + blockerLabel + ' 때문에 건강이 회복되지는 않았다.';
   }
+  // 보험 가입 중 회복 가능한 질병·부상을 완전히 회피했을 때(2026-08-22, 18장 -
+  // functions/index.js의 insuranceAvoidsCondition) - wealth 손실이 취소되고
+  // addCondition이 아예 안 걸렸다는 걸 결과 문구에 덧붙여, "다쳤다는데 왜 재산
+  // 상세에 아무 조건도 안 생기지"라는 혼란을 막는다.
+  if (data.insuranceAvoidsCondition) {
+    resultText += '\n🛡️ 보험 덕분에 진단은 피하고 병원비도 들지 않았다.';
+  }
   resultBox.textContent = resultText;
   resultBox.classList.remove('hidden');
   resultBox.classList.remove('tone-positive', 'tone-negative');

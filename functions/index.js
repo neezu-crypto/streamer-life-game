@@ -137,6 +137,9 @@ function playRefFor(db, uid) {
 // requiresAsset(문자열, 그 재산을 지금 갖고 있어야 후보)은 requiresCondition을
 // 재산 상세에 그대로 적용한 것 - 복권을 산 사람에게만 "당첨 확인" 선택지가
 // 뜨게 하기 위함(2026-08-17, 사용자 지시).
+// requiresNoAsset(문자열, 그 재산이 없어야 후보 - 2026-08-22, 18장 보험)은
+// requiresNoFamilyMember를 재산 상세에 그대로 적용한 것 - 이미 보험에 가입한
+// 사람에게 가입 선택지가 다시 뜨지 않게 하기 위함.
 // requiresLocation(배열, 지금 있는 장소가 그 중 하나여야 후보)은 requiresOccupation과
 // 같은 결 - 장소는 직업과 달리 항상 값이 있어서(기본 DEFAULT_LOCATION='국내')
 // requiresAnyOccupation 같은 "아무 값이나 있으면" 변형은 필요 없다. 아직 이
@@ -174,6 +177,7 @@ function pickVisibleChoiceIds(choices, activeConditionIds, activeFamilyMemberIds
     if (c.requiresAnyOccupation && !currentOccupationId) return false;
     if (c.requiresIntro && c.requiresIntro !== currentIntroId) return false;
     if (c.requiresAsset && !assetIds.includes(c.requiresAsset)) return false;
+    if (c.requiresNoAsset && assetIds.includes(c.requiresNoAsset)) return false;
     if (c.requiresLocation && !c.requiresLocation.includes(locationId)) return false;
     if (c.requiresAnyAcquaintance && !hasAnyAcquaintance) return false;
     if (c.requiresTalent && !talentIds.includes(c.requiresTalent)) return false;
@@ -376,6 +380,12 @@ async function applyChoice(db, playRef, play, stage, choice) {
   if (choice.requiresAsset && !playAssetsForValidation.some((a) => a.id === choice.requiresAsset)) {
     throw new HttpsError('failed-precondition', '지금 재산 상태에서는 고를 수 없는 선택지입니다.');
   }
+  // requiresNoAsset(문자열, 그 재산이 없어야 후보 - 2026-08-22, 18장 보험) -
+  // requiresNoFamilyMember와 완전히 같은 패턴을 재산 상세에 적용했다. "이미
+  // 보험에 가입했으면 가입 선택지가 다시 안 뜨게" 하기 위한 것.
+  if (choice.requiresNoAsset && playAssetsForValidation.some((a) => a.id === choice.requiresNoAsset)) {
+    throw new HttpsError('failed-precondition', '지금 재산 상태에서는 고를 수 없는 선택지입니다.');
+  }
   // requiresLocation(배열, 지금 있는 장소가 그 중 하나여야 후보) - requiresOccupation과
   // 완전히 같은 패턴을 현재 장소에 적용한 것.
   const priorLocation = resolveCurrentLocation(buildLocationHistory(Array.isArray(play.choiceLog) ? play.choiceLog : []));
@@ -465,6 +475,22 @@ async function applyChoice(db, playRef, play, stage, choice) {
     healthRecoverySuppressed = true;
   }
 
+  // 보험 가입 중 - 회복 가능한 질병·부상 완전 회피(2026-08-22, 18장 사용자
+  // 확정) - 이 선택지가 addCondition을 붙였고 그 조건이 permanent(희귀질환·
+  // 사고후유증·치매 3종만 true)가 아니고 wealth 델타가 음수이면, 진단·병원비를
+  // 아예 피한 것으로 본다: wealth 손실을 취소하고(0으로) addCondition 자체를
+  // 건너뛴다. health·happiness 등 다른 델타는 그대로 둔다 - 몸은 축나고
+  // 기분은 상해도 "진단은 피하고 병원비도 안 든다"는 뜻. 특정 선택지를 고쳐
+  // 만드는 게 아니라 game-data.js를 하나도 안 건드리는 엔진 차원의 자동
+  // 규칙이다(건강 조건 개수 페널티와 같은 급). 무단횡단 사고(sudden-accident-
+  // injury)처럼 addCondition이 permanent인 경우는 애초에 이 규칙 대상이
+  // 아니라 별도 처리 없이도 자동으로 제외된다.
+  const hasInsurance = (Array.isArray(play.assets) ? play.assets : []).some((a) => a.id === 'insurance');
+  const insuranceAvoidsCondition = !!(hasInsurance && choice.addCondition && !choice.addCondition.permanent && effectiveDeltas.wealth < 0);
+  if (insuranceAvoidsCondition) {
+    effectiveDeltas.wealth = 0;
+  }
+
   const stats = Object.assign({}, play.stats);
   for (const key of Object.keys(effectiveDeltas)) {
     stats[key] = clampStat((stats[key] || 0) + effectiveDeltas[key]);
@@ -482,7 +508,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // 영구 지속") 플래그도 그대로 실어둔다 - removeAllConditions가 이 플래그를 보고
   // 영구 조건은 건너뛰기 위해서다.
   let healthConditions = currentConditions.slice();
-  if (choice.addCondition && !healthConditions.some((c) => c.id === choice.addCondition.id)) {
+  if (choice.addCondition && !insuranceAvoidsCondition && !healthConditions.some((c) => c.id === choice.addCondition.id)) {
     healthConditions.push({
       id: choice.addCondition.id,
       label: choice.addCondition.label,
@@ -719,6 +745,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
     deltas: effectiveDeltas,
     prizeLabel: resolvedLabel,
     healthRecoverySuppressed,
+    insuranceAvoidsCondition,
     completed,
     ending: ending ? { id: ending.id, title: ending.title, text: ending.text } : null,
     nextStage: completed ? null : publicStage(STAGES[nextIndex], nextVisibleIds, nextIntroId),

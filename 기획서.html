@@ -139,7 +139,7 @@
             <li><a href="#sec15">Google 광고 도입 (1단계 구현)</a></li>
             <li><a href="#sec16">해금 도감 — 엔딩·루트 컬렉션 (설계, 미구현)</a></li>
             <li><a href="#sec17">나의 재능·나의 취미 (구현 완료)</a></li>
-            <li><a href="#sec18">재산 — 보험 추가 (설계, 미구현)</a></li>
+            <li><a href="#sec18">재산 — 보험 추가 (일부 구현 — 자동 납입·연체 해지는 4장 이후 보류)</a></li>
         </ol>
     </div>
 
@@ -3274,30 +3274,28 @@
     </section>
 
     <section id="sec18">
-        <h2><span class="num">18</span>재산 — 보험 추가 (2026-08-21, 사용자 지시 — 미구현)</h2>
-        <p class="note"><b>이 섹션도 설계 정리 단계이며 아직 구현되지 않았다.</b> 재산 16종에 "보험"을
-        추가하고, 보험 가입 선택지와 보험 없이 다치면 재산이 더 크게 깎이는 선택지를 신설한다. 실제
-        코드(<code>game-data.js</code>·<code>functions/index.js</code>)는 아직 손대지 않았다.</p>
+        <h2><span class="num">18</span>재산 — 보험 추가 (2026-08-21, 사용자 지시 — 2026-08-22 일부 구현)</h2>
+        <p class="note"><b>가입·자동 회피 엔진까지 구현 완료, 보험료 자동 납입·연체 해지는 4장(1년단위
+        진행) 이후로 보류.</b> 아래 "새 재산: 보험"·"<code>requiresNoAsset</code>"·"보험 가입 선택지"·
+        "회복 가능한 질병·부상 완전 회피" 4개 절은 전부 구현됐다. 맨 아래 "보험료 자동 납입·연체 해지"
+        절만 여전히 미구현(사용자 확정대로 4장 뒤로 순서를 미룸).</p>
 
-        <h3>새 재산: 보험</h3>
+        <h3>새 재산: 보험 (구현됨)</h3>
         <p><code>addAsset: &#123;id: 'insurance', label: '🛡️ 보험', type: 'insurance'&#125;</code> — 기존
         재산 16종은 전부 <code>type</code>이 <code>realestate</code>/<code>movable</code>/<code>cash</code>
         셋 중 하나인데, 보험은 팔거나 처분하는 물건이 아니라 <b>가입 상태 그 자체</b>라 셋 중 어디에도 안
-        맞는다 — 새 타입 <code>insurance</code>를 하나 추가한다.</p>
+        맞는다 — 새 타입 <code>insurance</code>를 하나 추가했다.</p>
 
-        <h3>선행 조건: <code>requiresNoAsset</code> 필드 신설 필요</h3>
-        <p>지금 엔진엔 <code>requiresAsset</code>(그 재산이 있어야 후보)만 있고, <b>반대로 "그 재산이
-        없어야 후보"인 부정 조건이 없다</b>(직접 확인함 — <code>functions/index.js</code>에
-        <code>requiresNoAsset</code> 검색 결과 없음). "보험이 없을 때만" 뜨는 선택지를 만들려면
-        <code>requiresNoFamilyMember</code>와 완전히 같은 패턴으로 <code>requiresNoAsset</code>을 새로
-        추가해야 한다 — <code>pickVisibleChoiceIds()</code>의 노출 필터와 <code>applyChoice()</code>의
-        방어적 검증 양쪽에 다.</p>
+        <h3><code>requiresNoAsset</code> 필드 (구현됨)</h3>
+        <p><code>requiresNoFamilyMember</code>와 완전히 같은 패턴으로 <code>requiresNoAsset</code>(문자열,
+        그 재산이 없어야 후보)을 새로 추가했다 — <code>pickVisibleChoiceIds()</code>의 노출 필터와
+        <code>applyChoice()</code>의 방어적 검증 양쪽 다.</p>
 
-        <h3>보험 가입 선택지 (신설)</h3>
-        <p>재정 관련 선택지가 있는 초반 성인기 이벤트 클러스터에 <code>requiresNoAsset: 'insurance'</code>
-        (이미 가입했으면 다시 안 뜨게)로 신설. 초안: <code>deltas: &#123;wealth: -2&#125;</code> (보험료),
-        <code>addAsset: &#123;id: 'insurance', label: '🛡️ 보험', type: 'insurance'&#125;</code>. 정확한
-        수치·배치 나이는 실제 작성 착수 시점에 확정.</p>
+        <h3>보험 가입 선택지 (구현됨)</h3>
+        <p>25세(<code>rookie-25</code>) 재정 관련 선택지 클러스터에 <code>buys-insurance-25</code> 신설 —
+        <code>requiresNoAsset: 'insurance'</code>(이미 가입했으면 다시 안 뜨게), <code>deltas:
+        &#123;wealth: -2, happiness: 1&#125;</code>(보험료 + 안도감), <code>addAsset: &#123;id: 'insurance',
+        label: '🛡️ 보험', type: 'insurance'&#125;</code>.</p>
 
         <h3>기존 사고 선택지 수정 — 철회 (2026-08-22, 사용자 확정)</h3>
         <p>이전에 정리했던 <code>sudden-accident-injury</code>를 보험 유무로 두 갈래 분기하는 방안은
@@ -3346,7 +3344,7 @@
         지금까지 전부 "있다/없다"만 표현하는 정적 데이터였고, 항목 하나에 매 턴 갱신되는 카운터를 얹으면
         그 패턴이 깨진다. 보험이 해지되거나 다시 가입하면 이 필드도 같이 초기화한다.</p>
 
-        <h3>보험 가입 중 — 회복 가능한 질병·부상은 완전히 회피 (2026-08-22, 사용자 확정)</h3>
+        <h3>보험 가입 중 — 회복 가능한 질병·부상은 완전히 회피 (2026-08-22, 사용자 확정 — 구현됨)</h3>
         <p>보험 가입 상태에서 <b>회복 가능한</b>(=영구 지속이 아닌) 질병·부상을 유발하는 선택지를 고르면,
         <code>addCondition</code> 자체가 적용되지 않고(그 조건에 안 걸림) <code>wealth</code> 손실도
         취소된다. <b>health·happiness 등 다른 델타는 그대로 적용</b>된다 — 몸은 축나고 기분은 상해도,
