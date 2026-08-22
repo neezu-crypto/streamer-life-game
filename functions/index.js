@@ -1003,7 +1003,8 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // removeAsset을 붙였으면 그 재산이 처분돼서 빠진다.
   const currentAssets = Array.isArray(play.assets) ? play.assets : [];
   let assets = currentAssets.slice();
-  if (choice.addAsset && !assets.some((a) => a.id === choice.addAsset.id)) {
+  const isNewAsset = !!(choice.addAsset && !assets.some((a) => a.id === choice.addAsset.id));
+  if (isNewAsset) {
     assets.push({
       id: choice.addAsset.id,
       label: choice.addAsset.label,
@@ -1049,7 +1050,8 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // 끝날 때까지 계속 유지된다고 보는 게 자연스럽기 때문(기획서.html 17장 참고).
   const currentTalents = Array.isArray(play.talents) ? play.talents : [];
   let talents = currentTalents.slice();
-  if (choice.addTalent && !talents.some((t) => t.id === choice.addTalent.id)) {
+  const isNewTalent = !!(choice.addTalent && !talents.some((t) => t.id === choice.addTalent.id));
+  if (isNewTalent) {
     talents.push({ id: choice.addTalent.id, label: choice.addTalent.label, sinceStageId: stage.id });
   }
   const currentHobbies = Array.isArray(play.hobbies) ? play.hobbies : [];
@@ -1177,6 +1179,16 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // 건 맞기 때문.
   if (priorRouteState.activeRoute && (!nextActiveRoute || completed)) {
     statWrites.push(recordCollectionEntryIfLoggedIn(db, playRef.key, 'routes', priorRouteState.activeRoute.id));
+  }
+  // 해금 도감 - 재능·재산 칸(2026-08-23, 사용자 지시 - "나의 도감에 [재산 해금],
+  // [재능 해금]도 추가해줘") - 루트·엔딩과 완전히 같은 패턴. isNewAsset/isNewTalent는
+  // "이번 선택으로 처음 생겼다"(이미 갖고 있었으면 false)는 뜻이라, 그 항목을
+  // 정확히 이번 턴에 처음 발견한 순간에만 기록된다(중복 기록 없음).
+  if (isNewAsset) {
+    statWrites.push(recordCollectionEntryIfLoggedIn(db, playRef.key, 'assets', choice.addAsset.id));
+  }
+  if (isNewTalent) {
+    statWrites.push(recordCollectionEntryIfLoggedIn(db, playRef.key, 'talents', choice.addTalent.id));
   }
   if (completed) {
     statWrites.push(db.ref('lifeGame/stats/endings/' + ending.id).set(ServerValue.increment(1)));

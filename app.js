@@ -275,6 +275,42 @@ const ROUTES_META = [
   { id: 'student-leadership', title: '👑 학생 리더십', icon: '👑' }
 ];
 
+// 재능·재산 목록(17장/재산 상세) - functions/game-data.js의 addTalent/addAsset
+// id·label과 반드시 같아야 한다(서버가 클라이언트에 따로 안 내려주므로 수동
+// 동기화, 2026-08-23 사용자 지시 - "나의 도감에 [재산 해금], [재능 해금]도
+// 추가해줘"). 새 재능·재산이 추가되면 여기에도 그대로 이어 붙이면 된다.
+const TALENTS_META = [
+  { id: 'arts', title: '🎵 음악', icon: '🎵' },
+  { id: 'math', title: '🔢 수학', icon: '🔢' },
+  { id: 'dance', title: '💃 춤', icon: '💃' },
+  { id: 'speaking', title: '🗣️ 말솜씨', icon: '🗣️' },
+  { id: 'sports', title: '🏃 운동', icon: '🏃' },
+  { id: 'gaming', title: '🎮 게임', icon: '🎮' },
+  { id: 'business', title: '💼 사업 수완', icon: '💼' },
+  { id: 'leadership', title: '👑 리더십', icon: '👑' },
+  { id: 'acting', title: '🎭 연기', icon: '🎭' },
+  { id: 'hidden-talent', title: '✨ 숨은 끼', icon: '✨' }
+];
+const ASSETS_META = [
+  { id: 'lottery-ticket', title: '🎟️ 복권', icon: '🎟️' },
+  { id: 'insurance', title: '🛡️ 보험', icon: '🛡️' },
+  { id: 'seed-money', title: '💰 종잣돈', icon: '💰' },
+  { id: 'bonus-cash', title: '💰 성과급 목돈', icon: '💰' },
+  { id: 'first-car', title: '🚗 중고차', icon: '🚗' },
+  { id: 'fine-jewelry', title: '💍 예물/보석', icon: '💍' },
+  { id: 'premium-appliances', title: '🛋️ 고급 가전', icon: '🛋️' },
+  { id: 'maturity-savings', title: '💰 만기 적금', icon: '💰' },
+  { id: 'first-home', title: '🏠 내 집', icon: '🏠' },
+  { id: 'studio-unit', title: '🏢 오피스텔', icon: '🏢' },
+  { id: 'commercial-unit', title: '🏬 상가', icon: '🏬' },
+  { id: 'impulse-luxury-item', title: '✨ 충동 구매품', icon: '✨' },
+  { id: 'bigger-home', title: '🏡 넓은 집', icon: '🏡' },
+  { id: 'collectibles', title: '🎨 수집품', icon: '🎨' },
+  { id: 'severance-payout', title: '💰 퇴직금', icon: '💰' },
+  { id: 'vacation-home', title: '🏖️ 별장', icon: '🏖️' },
+  { id: 'compact-car', title: '🚙 소형차', icon: '🚙' }
+];
+
 const collectionModal = document.getElementById('collectionModal');
 const collectionLoggedOut = document.getElementById('collectionLoggedOut');
 const collectionLoggedIn = document.getElementById('collectionLoggedIn');
@@ -282,6 +318,10 @@ const collectionProgress = document.getElementById('collectionProgress');
 const collectionGrid = document.getElementById('collectionGrid');
 const collectionRouteProgress = document.getElementById('collectionRouteProgress');
 const collectionRouteGrid = document.getElementById('collectionRouteGrid');
+const collectionTalentProgress = document.getElementById('collectionTalentProgress');
+const collectionTalentGrid = document.getElementById('collectionTalentGrid');
+const collectionAssetProgress = document.getElementById('collectionAssetProgress');
+const collectionAssetGrid = document.getElementById('collectionAssetGrid');
 
 function renderMetaGrid(gridEl, progressEl, meta, unlockedIds, progressLabel) {
   gridEl.innerHTML = '';
@@ -315,6 +355,8 @@ async function refreshCollectionView() {
   const collectionData = collectionSnap.val() || {};
   renderMetaGrid(collectionGrid, collectionProgress, ENDINGS_META, Object.keys(collectionData.endings || {}), '엔딩');
   renderMetaGrid(collectionRouteGrid, collectionRouteProgress, ROUTES_META, Object.keys(collectionData.routes || {}), '루트');
+  renderMetaGrid(collectionTalentGrid, collectionTalentProgress, TALENTS_META, Object.keys(collectionData.talents || {}), '재능');
+  renderMetaGrid(collectionAssetGrid, collectionAssetProgress, ASSETS_META, Object.keys(collectionData.assets || {}), '재산');
 }
 
 document.getElementById('openCollectionBtn').addEventListener('click', () => {

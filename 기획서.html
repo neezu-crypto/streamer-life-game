@@ -2726,6 +2726,17 @@
         엔딩 그리드 아래 별도 루트 그리드로 나란히 보여준다. 지금은 ①번 연예계 연습생 루트 하나뿐이라
         루트 도감은 "1종 중 N개"로 시작하고, ②~⑧번 루트가 추가될 때마다 클라이언트의
         <code>ROUTES_META</code> 배열에 이어 붙이면 된다.</p>
+        <p class="note"><b>재능·재산 칸 추가(2026-08-23, 사용자 지시 — "나의 도감에 [재산 해금],
+        [재능 해금]도 추가해줘").</b> 엔딩·루트와 완전히 같은 <code>recordCollectionEntryIfLoggedIn()</code>
+        패턴을 재사용 - <code>applyChoice()</code>가 <code>choice.addTalent</code>/
+        <code>choice.addAsset</code>로 "그 항목을 이번 선택에서 처음 얻었을 때"(<code>isNewTalent</code>/
+        <code>isNewAsset</code>, 이미 갖고 있었으면 <code>false</code>라 중복 기록 없음)만
+        <code>lifeGame/collection/{'{uid}'}/talents|assets/{'{id}'}</code>에 기록한다. RTDB 규칙은 이미
+        <code>collection/$uid</code>에 하위 노드 전체를 허용해뒀어서 별도 규칙 변경 없이 그대로 동작.
+        클라이언트는 <code>TALENTS_META</code>(10종)·<code>ASSETS_META</code>(17종) 배열을 새로 추가하고
+        도감 모달에 엔딩·루트 그리드 아래 재능·재산 그리드를 나란히 추가했다. 검증: 3,000회
+        시뮬레이션으로 관측된 모든 재능·재산 id가 두 배열과 정확히 일치하는 것 확인(빠진 항목 없음),
+        즉사율 15.47%로 회귀 없음.</p>
 
         <h3>기본 방향 (사용자 확정)</h3>
         <p>엔딩 목록(<code>ENDINGS</code> 11종 + 즉사 엔딩 5종, <b>총 16종 전부 도감 대상</b> — 즉사 엔딩도
