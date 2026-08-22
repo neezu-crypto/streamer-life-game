@@ -259,12 +259,12 @@ const ENDINGS_META = [
 
 // 트리거 루트 목록(14장) - functions/game-data.js의 startsRoute와 반드시 같은
 // id·label을 유지해야 한다(서버는 이 목록을 클라이언트에 따로 안 내려주므로
-// 수동 동기화). ②번 배우 루트(2026-08-22, 연예계 루트를 끝까지 마친 뒤 3턴
-// 이내 진입 가능)까지 추가됨 - 앞으로 새 루트가 추가되면 여기에도 그대로
-// 이어 붙이면 된다.
+// 수동 동기화). 예술가 루트(2026-08-23, 20세 pursuing-artist-path 선택 즉시
+// 진입)까지 추가됨 - 앞으로 새 루트가 추가되면 여기에도 그대로 이어 붙이면 된다.
 const ROUTES_META = [
   { id: 'entertainment-industry', title: '🎤 연예계 연습생', icon: '🎤' },
-  { id: 'actor', title: '🎭 배우', icon: '🎭' }
+  { id: 'actor', title: '🎭 배우', icon: '🎭' },
+  { id: 'artist', title: '🎨 예술가', icon: '🎨' }
 ];
 
 const collectionModal = document.getElementById('collectionModal');

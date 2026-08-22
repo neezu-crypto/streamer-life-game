@@ -1099,6 +1099,17 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // 시점에" 활성 루트가 무엇인지 다시 계산한다(buildRouteState 주석 참고).
   const { activeRoute: nextActiveRoute, experiencedRouteIds, routeCompletedIds: nextRouteCompletedIds, routeEndAges: nextRouteEndAges } = buildRouteState(choiceLog, nextIndex);
 
+  // 예술가 루트 인기 연동 추가 소득(2026-08-23, 사용자 지시 - "인기 스탯에
+  // 따라 추가 소득 보정도 구현해줘") - 보험료 자동 납입과 같은 급의 매 턴
+  // 배경 효과. 선택지와 무관하게, 루트가 활성인 동안(21~34세) 그 순간의
+  // 인기 스탯이 높을수록 유명세가 곧 작품 판매·강연·의뢰로 이어진다는 설정으로
+  // 현금이 자동으로 더 들어온다. cashUnitForAge(다음 나이)를 그대로 재사용해
+  // "인기 50이면 그 나이대 선택 1번의 wealth 1점만큼", 인기가 오를수록
+  // 최대 2배(인기 100)까지 비례해서 늘어난다.
+  if (nextActiveRoute && nextActiveRoute.id === 'artist') {
+    cashHoldings += Math.round(stats.fame * cashUnitForAge(nextIndex) / 50);
+  }
+
   const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers, acquaintances, assets, cashHoldings, talents, hobbies, sickStreak, insuranceUnpaidYears };
 
   let ending = null;

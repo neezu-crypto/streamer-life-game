@@ -2558,6 +2558,7 @@ const STAGES = [
         deltas: { wealth: -4, happiness: 4 },
         result: '벌이는 불안정했지만, 처음으로 "내 일"을 한다는 느낌이 들었다.',
         setOccupation: { id: 'artist-writer', label: '🎨 예술가' },
+        startsRoute: { id: 'artist', label: '🎨 예술가', maxDurationYears: 15 },
         mandatory: true
       },
       {
@@ -2733,6 +2734,71 @@ const STAGES = [
     intro: '방향을 조금씩 좁혀가는 나이. 막연했던 미래가 서서히 구체적인 모양을 갖추기 시작합니다.',
     choices: [
       {
+        "id": "artist-poverty-struggle-21",
+        "text": "월세를 걱정하며 작업 재료값부터 아낀다",
+        "deltas": {
+                "wealth": -2,
+                "happiness": -3
+        },
+        "result": "물감 하나도 몇 번을 고민하다 겨우 집어 들었다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-family-disapproval-21",
+        "text": "안정적인 직업으로 돌아가라는 가족의 설득을 듣는다",
+        "deltas": {
+                "relationship": -3,
+                "happiness": -2
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent"
+        ],
+        "result": "걱정이라는 걸 알면서도, 매번 마음이 무거웠다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-first-small-sale-21",
+        "text": "온라인 마켓에서 작품 하나가 처음 팔린다",
+        "deltas": {
+                "wealth": 2,
+                "happiness": 4
+        },
+        "result": "몇 만 원이었지만, 내 손으로 번 첫돈이라는 게 벅찼다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-fellow-strugglers-21",
+        "text": "비슷한 처지의 동료 작가들과 작업실을 나눠 쓴다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 2
+        },
+        "result": "가난도 나누니, 조금은 덜 외로웠다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-self-doubt-21",
+        "text": "이 길이 맞는지 스스로에게 되묻는 밤을 보낸다",
+        "deltas": {
+                "happiness": -3
+        },
+        "result": "답이 나오지 않는 질문을, 몇 번이고 되풀이했다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-life-exit-21",
+        "text": "예술가 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "artist"
+},
+      {
         id: "unhappy-21",
         text: "군대·휴학 등으로 친했던 친구들과 자연스레 멀어진다",
         deltas: { happiness: -3, relationship: -2 },
@@ -2871,6 +2937,66 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        "id": "artist-gallery-rejections-22",
+        "text": "여러 갤러리에 문의했지만 줄줄이 거절당한다",
+        "deltas": {
+                "happiness": -4
+        },
+        "result": "정중한 거절 메일이 쌓여갈수록, 마음도 함께 무뎌졌다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-finding-style-22",
+        "text": "이것저것 시도하다 조금씩 자신만의 색을 찾아간다",
+        "deltas": {
+                "happiness": 3,
+                "fame": 1
+        },
+        "result": "흉내가 아니라 진짜 내 것이라 부를 수 있는 순간이 조금씩 보였다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-side-hustle-22",
+        "text": "생활비를 벌기 위해 디자인 외주를 병행한다",
+        "deltas": {
+                "wealth": 3,
+                "health": -2
+        },
+        "result": "남의 일을 하는 시간이, 정작 내 작업 시간을 갉아먹었다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-first-commission-22",
+        "text": "지인의 소개로 첫 개인 의뢰를 받는다",
+        "deltas": {
+                "wealth": 3,
+                "happiness": 3
+        },
+        "result": "누군가 내 그림에 돈을 지불한다는 사실이, 여전히 낯설고 좋았다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-loneliness-22",
+        "text": "혼자 작업하는 시간이 길어질수록 외로움이 깊어진다",
+        "deltas": {
+                "happiness": -3,
+                "relationship": -2
+        },
+        "result": "사람이 그리운 날에도, 마감은 기다려주지 않았다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-life-exit-22",
+        "text": "예술가 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "artist"
+},
       {
         id: "wealth-drain-22-a",
         text: "친구 결혼식 축의금을 예상보다 훨씬 많이 낸다",
@@ -3029,6 +3155,67 @@ const STAGES = [
     ageRange: '23세',
     intro: '스무 살대의 마지막 해. 자립이라는 단어가 더는 남 얘기가 아니게 됩니다.',
     choices: [
+      {
+        "id": "artist-almost-quitting-23",
+        "text": "통장 잔고를 보다 이 길을 접을 뻔한다",
+        "deltas": {
+                "happiness": -5
+        },
+        "result": "포기 직전까지 갔다가, 마지막 순간에 다시 붓을 들었다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-local-award-23",
+        "text": "지역 공모전에서 작은 상을 받는다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 4
+        },
+        "result": "큰 상은 아니었지만, 처음으로 존재를 증명받은 기분이었다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-relationship-strain-23",
+        "text": "불안정한 벌이 탓에 연인과 갈등을 겪는다",
+        "deltas": {
+                "relationship": -4,
+                "happiness": -2
+        },
+        "requiresAnyAcquaintance": true,
+        "result": "사랑만으로는 채워지지 않는 부분이 분명 있었다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-mentor-advice-23",
+        "text": "오래 활동한 선배 작가에게 진심 어린 조언을 듣는다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "냉정한 말 속에 숨어 있던 애정이, 뒤늦게 와닿았다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-online-buzz-23",
+        "text": "올린 작업물 하나가 온라인에서 소소하게 화제가 된다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 2
+        },
+        "result": "몇 백 개의 반응이, 며칠간 마음을 들뜨게 했다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-life-exit-23",
+        "text": "예술가 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "artist"
+},
       {
         id: "unhappy-23",
         text: "졸업은 다가오는데 이렇다 할 성과가 없어 불안하다",
@@ -3239,6 +3426,72 @@ const STAGES = [
     ageRange: '24세',
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
+      {
+        "id": "artist-turning-point-commission-24",
+        "text": "평소와 다른 규모의 의뢰가 인생을 바꿔놓는다",
+        "deltas": {
+                "wealth": 5,
+                "fame": 4,
+                "happiness": 4
+        },
+        "result": "이 일 하나로, 앞으로의 방향이 완전히 달라질 것 같았다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-growing-following-24",
+        "text": "꾸준히 올린 작업물 덕에 팔로워가 눈에 띄게 는다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 2
+        },
+        "result": "숫자가 느는 걸 보는 재미가, 은근한 동기부여가 됐다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-family-softens-24",
+        "text": "결과물을 직접 보여주자 가족의 태도가 조금씩 누그러진다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 2
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent"
+        ],
+        "result": "말은 안 해도, 표정이 예전과는 조금 달라져 있었다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-burnout-warning-24",
+        "text": "쉬지 않고 작업하다 몸에 신호가 오기 시작한다",
+        "deltas": {
+                "health": -4
+        },
+        "result": "무리하고 있다는 걸, 몸이 먼저 알려주고 있었다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-financial-low-24",
+        "text": "몇 달째 수입 없는 시기를 힘겹게 버틴다",
+        "deltas": {
+                "wealth": -3,
+                "happiness": -3
+        },
+        "result": "통장 잔고를 확인하는 손이, 점점 조심스러워졌다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-life-exit-24",
+        "text": "예술가 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "artist"
+},
       {
         id: "wealth-drain-24-a",
         text: "첫 월급으로 갖고 싶던 걸 몽땅 사버린다",
@@ -3595,42 +3848,42 @@ const STAGES = [
         text: '몇 주째 머릿속 우물이 바짝 말라붙는다',
         deltas: { happiness: -4, health: -1 },
         result: '빈 화면 앞에 앉아 있는 시간만 자꾸 길어졌다.',
-        requiresOccupation: ['artist-writer']
+        requiresRoute: 'artist'
       },
       {
         id: 'aw-first-exhibition-25',
         text: '작은 갤러리에서 첫 개인전을 연다',
         deltas: { fame: 4, happiness: 3 },
         result: '낯선 사람들이 내 작업 앞에서 발걸음을 멈추는 걸, 처음 봤다.',
-        requiresOccupation: ['artist-writer']
+        requiresRoute: 'artist'
       },
       {
         id: 'aw-copyright-dispute-25',
         text: '내 작업을 무단으로 쓴 곳과 저작권 문제로 다툰다',
         deltas: { happiness: -3, wealth: 1 },
         result: '허락도 없이 가져다 쓴 걸 보고 나니, 화가 나기 전에 허탈했다.',
-        requiresOccupation: ['artist-writer']
+        requiresRoute: 'artist'
       },
       {
         id: 'aw-fan-letter-25',
         text: '낯선 이에게서 진심 어린 팬레터를 받는다',
         deltas: { happiness: 4, relationship: 2 },
         result: '몇 줄 안 되는 편지를, 몇 번이고 다시 읽었다.',
-        requiresOccupation: ['artist-writer']
+        requiresRoute: 'artist'
       },
       {
         id: 'aw-side-job-balance-25',
         text: '생계를 위해 아르바이트를 병행한다',
         deltas: { wealth: 2, health: -2 },
         result: '창작과 생계 사이에서, 매일 저울질을 해야 했다.',
-        requiresOccupation: ['artist-writer']
+        requiresRoute: 'artist'
       },
       {
         id: 'aw-networking-event-25',
         text: '업계 사람들이 모이는 자리에 처음 나가본다',
         deltas: { relationship: 3, fame: 1 },
         result: '낯가림을 무릅쓰고 건넨 명함 한 장이, 생각보다 오래 이어졌다.',
-        requiresOccupation: ['artist-writer']
+        requiresRoute: 'artist'
       },
       {
         id: 'ocd-onset',
@@ -3738,6 +3991,58 @@ const STAGES = [
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
       {
+        "id": "artist-gallery-representation-26",
+        "text": "갤러리와 정식으로 전속 계약을 맺는다",
+        "deltas": {
+                "wealth": 4,
+                "fame": 3,
+                "happiness": 3
+        },
+        "result": "이제는 혼자가 아니라는 사실이, 큰 힘이 됐다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-media-interview-26",
+        "text": "매체와의 인터뷰에서 작업 세계를 소개한다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 2
+        },
+        "result": "내 이야기가 활자로 남는다는 게, 여전히 신기했다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-peer-jealousy-26",
+        "text": "가까웠던 동료 작가의 은근한 견제를 느낀다",
+        "deltas": {
+                "relationship": -3,
+                "happiness": -2
+        },
+        "result": "축하한다는 말 뒤로, 미묘한 거리감이 생겼다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-financial-windfall-26",
+        "text": "작품 하나가 예상보다 훨씬 높은 값에 팔린다",
+        "deltas": {
+                "wealth": 7,
+                "happiness": 4
+        },
+        "result": "숫자를 보고 몇 번이나 다시 확인했다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-life-exit-26",
+        "text": "예술가 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "artist"
+},
+      {
         id: "wealth-drain-26-a",
         text: "자취방 가구·가전을 한 번에 새로 장만한다",
         deltas: { wealth: -4 },
@@ -3834,7 +4139,7 @@ const STAGES = [
         text: '작품이 뜻밖의 주목을 받으며 이름이 알려진다',
         deltas: { fame: 6, happiness: 3 },
         result: '아무도 안 볼 줄 알았던 작업물이, 어느새 사람들 입에 오르내렸다.',
-        requiresOccupation: ['artist-writer']
+        requiresRoute: 'artist'
       },
       {
         id: 'sbo-regular-customer-bond-26',
@@ -3993,6 +4298,69 @@ const STAGES = [
     ageRange: '27세',
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
+      {
+        "id": "artist-book-deal-27",
+        "text": "그동안의 작업을 엮어 책으로 출간할 기회를 얻는다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 5,
+                "wealth": 2
+        },
+        "result": "내 이름이 박힌 책 한 권이, 꿈만 같았다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-collaboration-27",
+        "text": "다른 분야 작가와 협업 프로젝트를 진행한다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 3,
+                "fame": 2
+        },
+        "result": "혼자서는 못 봤을 것들이, 함께하니 보이기 시작했다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-imitators-appear-27",
+        "text": "내 스타일을 그대로 베낀 듯한 작업물을 발견한다",
+        "deltas": {
+                "happiness": -4,
+                "fame": -1
+        },
+        "result": "화가 나면서도, 한편으론 씁쓸한 방식의 인정이었다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-teaching-workshop-27",
+        "text": "초보 작가를 위한 워크숍을 처음 열어본다",
+        "deltas": {
+                "wealth": 3,
+                "happiness": 3
+        },
+        "result": "가르치면서 오히려 스스로 더 많이 배우는 기분이었다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-contract-stress-27",
+        "text": "계약 조건을 두고 갤러리와 신경전을 벌인다",
+        "deltas": {
+                "wealth": 2,
+                "happiness": -2
+        },
+        "result": "숫자 몇 개를 두고 벌이는 줄다리기가, 생각보다 진을 뺐다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-life-exit-27",
+        "text": "예술가 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "artist"
+},
       {
         id: "unhappy-27",
         text: "친한 동료가 갑작스레 퇴사한다는 소식을 듣는다",
@@ -4252,6 +4620,67 @@ const STAGES = [
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
       {
+        "id": "artist-signature-style-28",
+        "text": "이제는 누가 봐도 알아보는 색깔이 완성된다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 4
+        },
+        "result": "한눈에 알아본다는 말이, 가장 큰 칭찬처럼 들렸다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-merchandise-deal-28",
+        "text": "작품을 활용한 굿즈 제작 제안을 받는다",
+        "deltas": {
+                "wealth": 6,
+                "fame": 2
+        },
+        "result": "그림이 물건이 되어 사람들 손에 들리는 게, 묘하게 뿌듯했다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-award-nomination-28",
+        "text": "권위 있는 시상식 후보에 이름을 올린다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 4
+        },
+        "result": "후보에 오른 것만으로도, 지나온 시간이 헛되지 않았다는 걸 느꼈다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-burnout-crisis-28",
+        "text": "쌓인 압박감에 결국 크게 앓아눕는다",
+        "deltas": {
+                "health": -5,
+                "happiness": -3
+        },
+        "result": "몸도 마음도, 더는 못 버티겠다는 신호를 보냈다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-mentoring-junior-28",
+        "text": "재능 있는 후배 작가를 곁에서 이끌어준다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "몇 년 전 자신의 모습이, 후배에게 겹쳐 보였다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-life-exit-28",
+        "text": "예술가 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "artist"
+},
+      {
         id: "wealth-drain-28-a",
         text: "결혼 준비 자금을 예상보다 크게 쓴다",
         deltas: { wealth: -4 },
@@ -4498,6 +4927,66 @@ const STAGES = [
     intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
     choices: [
       {
+        "id": "artist-controversy-29",
+        "text": "작품 하나가 뜻밖의 논란에 휩싸인다",
+        "deltas": {
+                "fame": -5,
+                "happiness": -4
+        },
+        "result": "해명이 길어질수록, 오히려 논란만 커지는 것 같았다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-online-backlash-29",
+        "text": "악의적인 댓글이 쏟아지며 마음에 상처를 입는다",
+        "deltas": {
+                "happiness": -5
+        },
+        "result": "좋은 말은 눈에 안 들어오고, 나쁜 말만 자꾸 곱씹게 됐다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-fans-defend-29",
+        "text": "오랜 팬들이 나서서 힘을 보태준다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 3
+        },
+        "result": "혼자가 아니라는 사실이, 생각보다 큰 위안이 됐다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-high-value-commission-29",
+        "text": "기업의 대형 프로젝트 의뢰를 맡는다",
+        "deltas": {
+                "wealth": 8,
+                "fame": 3
+        },
+        "result": "규모가 다른 작업 앞에서, 책임감도 그만큼 무거워졌다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-creative-reinvention-29",
+        "text": "기존 스타일을 벗어나 새로운 시도에 도전한다",
+        "deltas": {
+                "happiness": 4,
+                "fame": 1
+        },
+        "result": "낯선 길이었지만, 오랜만에 다시 설레는 기분이었다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-life-exit-29",
+        "text": "예술가 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "artist"
+},
+      {
         id: "unhappy-29",
         text: "20대가 끝나간다는 사실에 괜한 조바심이 밀려온다",
         deltas: { happiness: -3 },
@@ -4718,6 +5207,77 @@ const STAGES = [
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
       {
+        "id": "artist-major-show-30",
+        "text": "유명 미술관·갤러리에서 대규모 개인전을 연다",
+        "deltas": {
+                "fame": 9,
+                "happiness": 6,
+                "wealth": 3
+        },
+        "result": "몇 년의 작업이, 한 공간을 가득 채운 순간이었다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-international-recognition-30",
+        "text": "해외 매체에서 작업이 소개되며 이름이 알려진다",
+        "deltas": {
+                "fame": 7,
+                "happiness": 4
+        },
+        "result": "자막 너머까지 이름이 닿을 거라곤, 상상도 못 했다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-family-pride-30",
+        "text": "가족이 전시회에 찾아와 자랑스러워한다",
+        "deltas": {
+                "relationship": 4,
+                "happiness": 4
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent",
+                "spouse"
+        ],
+        "result": "말없이 작품 앞에 오래 서 있던 뒷모습이, 오래도록 남았다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-health-scare-30",
+        "text": "몇 년간의 무리한 작업 끝에 건강에 적신호가 켜진다",
+        "deltas": {
+                "health": -5
+        },
+        "addCondition": {
+                "id": "artist-overwork-injury",
+                "label": "🩹 과로 후유증"
+        },
+        "result": "몸이 보내는 경고를, 더는 무시할 수 없었다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-financial-peak-30",
+        "text": "작품 판매 수익이 그 어느 때보다 높은 수준에 이른다",
+        "deltas": {
+                "wealth": 8,
+                "happiness": 3
+        },
+        "result": "숫자로만 보던 목표가, 처음으로 손에 잡히는 것 같았다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-life-exit-30",
+        "text": "예술가 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "artist"
+},
+      {
         id: "wealth-drain-30-a",
         text: "내 집 마련을 서두르며 무리한 대출을 낸다",
         deltas: { wealth: -4 },
@@ -4838,6 +5398,56 @@ const STAGES = [
     intro: '곁에 남을 사람과 앞으로의 삶을 어떻게 그릴지, 조금 더 구체적으로 고민하는 나이입니다.',
     choices: [
       {
+        "id": "artist-comeback-project-31",
+        "text": "오래 준비해온 대표작에 마침내 착수한다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 5
+        },
+        "result": "오랫동안 품어온 이야기를, 드디어 세상에 꺼내놓기 시작했다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-new-medium-31",
+        "text": "전혀 다른 매체로 표현 영역을 넓혀본다",
+        "deltas": {
+                "happiness": 4,
+                "fame": 2
+        },
+        "result": "낯선 도구를 손에 쥐는 것만으로도, 다시 배우는 사람이 된 기분이었다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-financial-dip-31",
+        "text": "큰 프로젝트 사이 공백기에 수입이 뚝 끊긴다",
+        "deltas": {
+                "wealth": -5
+        },
+        "result": "화려했던 시기 뒤로, 조용한 불안이 찾아왔다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-torch-passing-31",
+        "text": "후배들에게 자리를 조금씩 내주기 시작한다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "밀려난다기보다, 자연스럽게 넘겨준다는 느낌에 가까웠다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-life-exit-31",
+        "text": "예술가 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "artist"
+},
+      {
         "id": "actor-audition-callback-31",
         "text": "전직 아이돌 이력을 보고 온 캐스팅 제안에 오디션을 본다",
         "deltas": {
@@ -4919,7 +5529,7 @@ const STAGES = [
         text: '창작의 벽에 부딪혀 오랫동안 슬럼프에 빠진다',
         deltas: { happiness: -5 },
         result: '텅 빈 화면 앞에서 몇 시간을 보내는 날이, 점점 잦아졌다.',
-        requiresOccupation: ['artist-writer']
+        requiresRoute: 'artist'
       },
       {
         id: 'fame-early-career-notice-31',
@@ -5019,6 +5629,68 @@ const STAGES = [
     ageRange: '32세',
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
+      {
+        "id": "artist-retrospective-offer-32",
+        "text": "지난 활동을 정리하는 회고전 제안을 받는다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 5
+        },
+        "result": "스스로의 지난 시간을 한자리에서 마주하는 기분은, 묘하고도 벅찼다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-teaching-position-32",
+        "text": "학교의 정식 강사 자리를 제안받는다",
+        "deltas": {
+                "wealth": 5,
+                "happiness": 2
+        },
+        "result": "안정적인 수입과 자유로운 창작 사이에서, 잠시 저울질했다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-memoir-publishing-32",
+        "text": "작업 인생을 담은 에세이를 출간한다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 4,
+                "wealth": 2
+        },
+        "result": "그림 대신 글로 나를 설명하는 일도, 나름의 매력이 있었다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-new-generation-criticism-32",
+        "text": "젊은 세대로부터 시대에 뒤떨어졌다는 평을 듣는다",
+        "deltas": {
+                "fame": -3,
+                "happiness": -3
+        },
+        "result": "한때 앞서갔던 감각이, 어느새 낡은 것으로 불리고 있었다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-big-collector-sale-32",
+        "text": "유명 컬렉터에게 대표작을 판매한다",
+        "deltas": {
+                "wealth": 9,
+                "happiness": 4
+        },
+        "result": "오래 품고 있던 작품을 떠나보내는 마음이, 뿌듯함과 서운함 사이 어딘가였다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-life-exit-32",
+        "text": "예술가 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "artist"
+},
       {
         "id": "actor-audition-callback-32",
         "text": "새로운 진로를 고민하던 중 들어온 연기 오디션에 도전한다",
@@ -5255,6 +5927,65 @@ const STAGES = [
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
       {
+        "id": "artist-longterm-patron-33",
+        "text": "오랜 후원자를 만나 든든한 지원을 받는다",
+        "deltas": {
+                "wealth": 5,
+                "happiness": 4
+        },
+        "result": "조건 없는 응원이라는 게, 이렇게 큰 힘이 될 줄 몰랐다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-cross-medium-collab-33",
+        "text": "음악·영상 등 다른 장르와의 협업에 나선다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 3
+        },
+        "result": "경계를 넘나드는 작업이, 새로운 활력을 불어넣었다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-quiet-contentment-33",
+        "text": "화려함보다 소박한 일상에 만족하는 법을 배운다",
+        "deltas": {
+                "happiness": 4
+        },
+        "result": "조용한 하루하루가, 어느새 가장 큰 사치처럼 느껴졌다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-community-recognition-33",
+        "text": "지역 예술 공동체의 중심 인물로 자리매김한다",
+        "deltas": {
+                "relationship": 3,
+                "fame": 2
+        },
+        "result": "혼자였던 시절을 생각하면, 지금 이 자리가 새삼스러웠다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-minor-health-issue-33",
+        "text": "오랜 세월 쌓인 작업 습관 탓에 손목·허리가 시큰거린다",
+        "deltas": {
+                "health": -3
+        },
+        "result": "몸이 예전 같지 않다는 걸, 조금씩 받아들여야 했다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-life-exit-33",
+        "text": "예술가 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "artist"
+},
+      {
         "id": "actor-audition-callback-33",
         "text": "우연한 소개로 잡힌 연기 오디션 기회를 잡는다",
         "deltas": {
@@ -5426,6 +6157,67 @@ const STAGES = [
     ageRange: '34세',
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
+      {
+        "id": "artist-fifteen-year-reflection-34",
+        "text": "지난 15년의 작업 인생을 가만히 되돌아본다",
+        "deltas": {
+                "happiness": 4
+        },
+        "result": "화려하지 않아도, 스스로 선택한 길이라는 사실이 위안이 됐다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-future-direction-34",
+        "text": "앞으로 어떤 작업을 이어갈지 새롭게 그려본다",
+        "deltas": {
+                "happiness": 3,
+                "fame": 1
+        },
+        "result": "끝이 아니라, 또 다른 시작이라고 되뇌었다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-one-last-big-project-34",
+        "text": "마지막이라는 마음으로 대작에 도전한다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 5,
+                "health": -2
+        },
+        "result": "모든 걸 쏟아붓는 심정으로, 다시 한번 붓을 들었다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-legacy-mentoring-34",
+        "text": "평생의 노하우를 후배들에게 아낌없이 물려준다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 3
+        },
+        "result": "배운 것들을 물려주는 일이, 새로운 보람으로 다가왔다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-financial-satisfaction-34",
+        "text": "지난 시간을 돌아보며 재정적으로도 안정을 느낀다",
+        "deltas": {
+                "wealth": 4,
+                "happiness": 2
+        },
+        "result": "불안했던 시작을 생각하면, 지금 이 안정감이 새삼스러웠다.",
+        "requiresRoute": "artist"
+},
+      {
+        "id": "artist-life-exit-34",
+        "text": "예술가 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "artist"
+},
       {
         "id": "actor-newcomer-webdrama-lead-34",
         "text": "저예산 웹드라마에서 처음으로 주연을 맡는다",
