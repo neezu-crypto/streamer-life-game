@@ -3995,7 +3995,8 @@ const STAGES = [
         id: "unhappy-27",
         text: "친한 동료가 갑작스레 퇴사한다는 소식을 듣는다",
         deltas: { happiness: -2, relationship: -2 },
-        result: "매일 같이 점심 먹던 자리가, 다음 주부터는 비어 있을 터였다."
+        result: "매일 같이 점심 먹던 자리가, 다음 주부터는 비어 있을 터였다.",
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'questioning-the-path',
@@ -4647,7 +4648,8 @@ const STAGES = [
         deltas: { happiness: 5, wealth: -2 },
         result: '밑천은 적었지만, 해보고 싶은 마음만은 컸다.',
         requiresLocation: ['domestic'],
-        setLocation: { id: 'abroad', label: '🌍 해외' }
+        setLocation: { id: 'abroad', label: '🌍 해외' },
+        setOccupation: { id: 'entrepreneur', label: '🚀 창업가' }
       },
       {
         id: 'job-abroad-visa-secured-29',
@@ -8848,7 +8850,8 @@ const STAGES = [
         id: "unhappy-52",
         text: "회사에서 명예퇴직 권고를 넌지시 듣게 된다",
         deltas: { happiness: -5, wealth: -2 },
-        result: "예상은 했지만, 막상 들으니 다리에 힘이 풀렸다."
+        result: "예상은 했지만, 막상 들으니 다리에 힘이 풀렸다.",
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'planning-life-after-retirement',
@@ -9136,7 +9139,9 @@ const STAGES = [
         id: "wealth-drain-55-a",
         text: "퇴직 기념으로 그동안 미뤄온 소비를 한다",
         deltas: { wealth: -4 },
-        result: "참아온 만큼, 이번엔 아끼지 않기로 했다."
+        result: "참아온 만큼, 이번엔 아끼지 않기로 했다.",
+        requiresOccupation: COMPANY_OCCUPATION_IDS,
+        setOccupation: { id: 'retired', label: '🌿 은퇴자' }
       },
       {
         id: "unhappy-55",
@@ -9149,20 +9154,24 @@ const STAGES = [
         text: '정년퇴직을 맞아 회사를 떠난다',
         deltas: { happiness: -3, wealth: -2, relationship: 2 },
         result: '마지막 출근길이, 그렇게 길게 느껴질 줄 몰랐다.',
-        requiresOccupation: COMPANY_OCCUPATION_IDS
+        requiresOccupation: COMPANY_OCCUPATION_IDS,
+        setOccupation: { id: 'retired', label: '🌿 은퇴자' }
       },
       {
         id: 'spending-severance-freely',
         text: '퇴직금으로 그동안 미뤄온 것들을 해본다',
         deltas: { happiness: 5, wealth: -4 },
-        result: '늘 "나중에"라고 미뤘던 일들을, 하나씩 해치우기 시작했다.'
+        result: '늘 "나중에"라고 미뤘던 일들을, 하나씩 해치우기 시작했다.',
+        requiresOccupation: COMPANY_OCCUPATION_IDS,
+        setOccupation: { id: 'retired', label: '🌿 은퇴자' }
       },
       {
         id: 'first-monday-without-work',
         text: '출근이라는 닻을 처음으로 내려놓는 월요일을 맞는다',
         deltas: { happiness: -4, health: -1 },
         result: '알람을 꺼버린 아침이, 홀가분하기보다 낯설었다.',
-        requiresOccupation: COMPANY_OCCUPATION_IDS
+        requiresOccupation: COMPANY_OCCUPATION_IDS,
+        setOccupation: { id: 'retired', label: '🌿 은퇴자' }
       },
       {
         id: 'seeking-new-work',
@@ -9175,7 +9184,9 @@ const STAGES = [
         id: 'finding-post-retirement-job',
         text: '퇴직 후에도 계속 일할 수 있는 자리를 찾는다',
         deltas: { wealth: 5, happiness: 2 },
-        result: '완전히 손을 놓지 않아도 된다는 게, 큰 위안이 됐다.'
+        result: '완전히 손을 놓지 않아도 된다는 게, 큰 위안이 됐다.',
+        requiresOccupation: COMPANY_OCCUPATION_IDS,
+        setOccupation: { id: 'retired', label: '🌿 은퇴자' }
       },
       {
         id: 'mixed-reactions-to-retirement',
@@ -9225,7 +9236,7 @@ const STAGES = [
         text: '다가오는 은퇴를 앞두고 막연한 불안에 시달린다',
         deltas: { happiness: -5 },
         result: '남은 날들을 어떻게 채울지, 자신이 없었다.',
-        requiresAnyOccupation: true,
+        requiresOccupation: COMPANY_OCCUPATION_IDS,
         addCondition: { id: 'retirement-anxiety', label: '🕰️ 은퇴불안장애', mental: true }
       },
       {
@@ -9333,7 +9344,8 @@ const STAGES = [
         id: 'fame-fading-before-retirement',
         text: '은퇴를 앞두고 관심에서 서서히 잊혀져 간다',
         deltas: { fame: -5, happiness: -2 },
-        result: '화려했던 이름 석 자가, 조금씩 낯설어지고 있었다.'
+        result: '화려했던 이름 석 자가, 조금씩 낯설어지고 있었다.',
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'consultant-well-received-insight',
@@ -9347,6 +9359,7 @@ const STAGES = [
         text: '은퇴를 앞두고 몸부터 제대로 점검하기로 한다',
         deltas: { health: 3, wealth: -1 },
         result: '은퇴 전에 몸부터 정리하고 나니, 마음의 짐 하나를 덜어낸 듯했다.',
+        requiresOccupation: COMPANY_OCCUPATION_IDS,
         requiresAnyCondition: true,
         removeAllConditions: true
       }
@@ -9445,14 +9458,16 @@ const STAGES = [
         id: 'oldprep-part-time-consulting-57',
         text: '은퇴 전 마지막으로 자문 요청을 받아들인다',
         deltas: { wealth: 4, happiness: 1 },
-        result: '경력이 아직 쓸모 있다는 확인이자, 짭짤한 부수입이었다.'
+        result: '경력이 아직 쓸모 있다는 확인이자, 짭짤한 부수입이었다.',
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'oldprep-golden-handshake-57',
         text: '명예퇴직 조건을 검토하고 서명한다',
         deltas: { wealth: 6, happiness: -2 },
         result: '서운함보다, 통장에 찍힌 숫자가 먼저 눈에 들어왔다.',
-        requiresOccupation: COMPANY_OCCUPATION_IDS
+        requiresOccupation: COMPANY_OCCUPATION_IDS,
+        setOccupation: { id: 'retired', label: '🌿 은퇴자' }
       },
       {
         id: 'oldprep-selling-commute-car-57',
@@ -9489,7 +9504,8 @@ const STAGES = [
         id: "unhappy-58",
         text: "은퇴 후 소득 공백이 눈앞에 닥쳤음을 실감한다",
         deltas: { happiness: -3, wealth: -2 },
-        result: "매달 들어오던 월급이 끊긴다는 게, 생각보다 무서웠다."
+        result: "매달 들어오던 월급이 끊긴다는 게, 생각보다 무서웠다.",
+        requiresOccupation: ['retired']
       },
       {
         id: 'becoming-a-grandparent',
@@ -9840,6 +9856,7 @@ const STAGES = [
         text: '평생의 땀이 퇴직금이라는 목돈으로 통장에 내려앉는다',
         deltas: { wealth: 10, happiness: 3 },
         result: '평생 일한 값이 통장에 찍히던 순간, 만감이 밀려왔다.',
+        requiresOccupation: ['retired'],
         addAsset: { id: 'severance-payout', label: '💰 퇴직금', type: 'cash' }
       },
       {
@@ -9903,6 +9920,7 @@ const STAGES = [
         text: '믿고 맡긴 퇴직금 운용을 지인이 부실하게 관리해 크게 손해를 본다',
         deltas: { happiness: -6, relationship: -4, wealth: -6 },
         result: '평생 모은 돈이, 몇 마디 설명으로 다 설명되지 않았다.',
+        requiresOccupation: ['retired'],
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
@@ -9984,7 +10002,8 @@ const STAGES = [
         id: 'oldprep-retirement-fund-lumpsum-61',
         text: '퇴직연금을 일시금으로 받기로 한다',
         deltas: { wealth: 7 },
-        result: '매달 나눠 받는 대신, 한 번에 크게 받는 쪽을 택했다.'
+        result: '매달 나눠 받는 대신, 한 번에 크게 받는 쪽을 택했다.',
+        requiresOccupation: ['retired']
       },
       {
         id: 'oldprep-frugal-savings-61',
@@ -10208,7 +10227,7 @@ const STAGES = [
         text: '은퇴가 다가올수록 함께 걸어온 동료와의 끈이 더 단단해진다',
         deltas: { happiness: 3, relationship: 2 },
         result: '떠날 날이 가까워질수록, 함께한 시간의 무게가 더 크게 느껴졌다.',
-        requiresAnyOccupation: true,
+        requiresOccupation: COMPANY_OCCUPATION_IDS,
         addAcquaintance: { relation: 'colleague', label: '💼 동료' }
       },
       {
@@ -10431,7 +10450,8 @@ const STAGES = [
         id: 'fame-retirement-life-feature-65',
         text: '은퇴 후 일상을 다룬 기사에 소개된다',
         deltas: { fame: 3, happiness: 2 },
-        result: '평범한 하루가 남의 눈엔 특별해 보인다는 게, 새삼스러웠다.'
+        result: '평범한 하루가 남의 눈엔 특별해 보인다는 게, 새삼스러웠다.',
+        requiresOccupation: ['retired']
       },
       {
         id: 'fame-forgotten-by-colleagues-65',
@@ -10476,6 +10496,7 @@ const STAGES = [
         text: '은퇴를 계기로 완전히 귀국하기로 한다',
         deltas: { happiness: 4, wealth: 1 },
         result: '더 이상 시차에 맞춰 살지 않아도 된다는 사실이, 홀가분했다.',
+        requiresOccupation: ['retired'],
         requiresLocation: ['abroad'],
         setLocation: { id: 'domestic', label: '🇰🇷 국내' }
       },
