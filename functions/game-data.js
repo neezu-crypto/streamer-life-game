@@ -4870,7 +4870,8 @@ const STAGES = [
         id: 'pet-family-instead',
         text: '결혼 대신 작은 발자국 하나를 새 가족으로 들인다',
         deltas: { happiness: 5, relationship: 3, wealth: -2 },
-        result: '작은 발소리 하나가 집 안 공기를 완전히 바꿔놓았다.'
+        result: '작은 발소리 하나가 집 안 공기를 완전히 바꿔놓았다.',
+        addFamilyMembers: [{ id: 'pet', label: '🐾 반려동물' }]
       },
       {
         id: 'artist-creative-block',
