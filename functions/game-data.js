@@ -165,6 +165,12 @@ const STAGES = [
     random: true,
     choices: [
       {
+        id: "wealth-drain-0-a",
+        text: "태어난 기념으로 친척들에게 답례 선물을 돌린다",
+        deltas: { wealth: -2 },
+        result: "부모님 지갑이 며칠 사이 눈에 띄게 얇아졌다."
+      },
+      {
         id: "unhappy-0",
         text: "밤새 보채는 통에 온 가족이 잠을 설친다",
         deltas: { happiness: -2, health: -1 },
@@ -378,6 +384,12 @@ const STAGES = [
     random: true,
     choices: [
       {
+        id: "wealth-drain-2-a",
+        text: "장난감을 험하게 다루다 새로 사줘야 하는 상황을 만든다",
+        deltas: { wealth: -3 },
+        result: "몇 번째 재구매인지, 부모님도 세는 걸 포기했다."
+      },
+      {
         id: "unhappy-2",
         text: "떼쓰기가 부쩍 늘어 어딜 가든 진땀을 뺀다",
         deltas: { happiness: -3 },
@@ -564,6 +576,12 @@ const STAGES = [
     ageRange: '4세',
     intro: '좋아하는 것과 싫어하는 것이 뚜렷해지기 시작하는 나이.',
     choices: [
+      {
+        id: "wealth-drain-4-a",
+        text: "장난감 욕심에 모아둔 용돈을 한 번에 다 써버린다",
+        deltas: { wealth: -2 },
+        result: "손에 쥔 장난감보다, 빈 저금통이 먼저 눈에 들어왔다."
+      },
       {
         id: "unhappy-4",
         text: "동생이 생긴다는 말에 괜한 심술을 부린다",
@@ -763,6 +781,12 @@ const STAGES = [
     intro: '초등학교 입학을 앞두고, 유아기의 마지막 한 해가 저뭅니다.',
     choices: [
       {
+        id: "wealth-drain-6-a",
+        text: "이가 빠진 기념으로 큰 선물을 사달라고 조른다",
+        deltas: { wealth: -3 },
+        result: "작은 이 하나에, 지출이 꽤 크게 따라왔다."
+      },
+      {
         id: "unhappy-6",
         text: "한글이 또래보다 늦게 트여 자꾸 주눅이 든다",
         deltas: { happiness: -3 },
@@ -943,6 +967,12 @@ const STAGES = [
     ageRange: '8세',
     intro: '학교가 조금은 익숙해진 만큼, 친구 관계도 한층 복잡해지기 시작합니다.',
     choices: [
+      {
+        id: "wealth-drain-8-a",
+        text: "새로 나온 캐릭터 상품을 모으는 데 푹 빠진다",
+        deltas: { wealth: -3 },
+        result: "하나만 더, 하나만 더 하다 보니 어느새 한가득이었다."
+      },
       {
         id: "unhappy-8",
         text: "짝꿍과 사소한 다툼 끝에 하루 종일 말을 안 한다",
@@ -1151,6 +1181,12 @@ const STAGES = [
     intro: '몸도 마음도 슬슬 달라지기 시작하는 나이. 사춘기의 첫 신호가 은근슬쩍 찾아옵니다.',
     choices: [
       {
+        id: "wealth-drain-10-a",
+        text: "온라인 게임 아이템 결제를 몰래 반복한다",
+        deltas: { wealth: -4 },
+        result: "결제 알림이 쌓이는 줄도 모르고 있었다."
+      },
+      {
         id: "unhappy-10",
         text: "짝사랑하던 친구가 다른 애를 좋아한다는 걸 알게 된다",
         deltas: { happiness: -3, relationship: -1 },
@@ -1329,6 +1365,12 @@ const STAGES = [
     ageRange: '12세',
     intro: '초등학교의 마지막 한 해. 졸업과 중학교 진학이 코앞으로 다가옵니다.',
     choices: [
+      {
+        id: "wealth-drain-12-a",
+        text: "졸업 선물을 서로 주고받느라 지출이 커진다",
+        deltas: { wealth: -3 },
+        result: "작은 카드 하나에도, 정성만큼 돈이 들었다."
+      },
       {
         id: "unhappy-12",
         text: "졸업을 앞두고 친한 친구들과 뿔뿔이 흩어진다는 걸 실감한다",
@@ -1517,6 +1559,12 @@ const STAGES = [
     ageRange: '14세',
     intro: '친구 관계가 요동치고 스스로도 잘 모르겠는 감정이 많아지는 나이. 흔히 "중2병"이라 부르는 그 시기입니다.',
     choices: [
+      {
+        id: "wealth-drain-14-a",
+        text: "좋아하는 굿즈를 사려고 웃돈까지 얹어 구매한다",
+        deltas: { wealth: -5 },
+        result: "한정판이라는 말에, 지갑이 먼저 열렸다."
+      },
       {
         id: "unhappy-14",
         text: "친했던 무리에서 은근히 배제되는 걸 느낀다",
@@ -1732,6 +1780,12 @@ const STAGES = [
     ageRange: '16세',
     intro: '고등학교라는 새로운 세계로 첫발을 내딛는 시기. 교복도, 얼굴도, 규칙도 전부 낯섭니다.',
     choices: [
+      {
+        id: "wealth-drain-16-a",
+        text: "친구 생일 선물을 무리해서 준비한다",
+        deltas: { wealth: -2 },
+        result: "마음을 표현하려다, 지갑 사정은 뒷전이 됐다."
+      },
       {
         id: "unhappy-16",
         text: "새 학교, 새 반에서 홀로 섬처럼 하루를 떠돈다",
@@ -2040,6 +2094,12 @@ const STAGES = [
     ageRange: '18세',
     intro: '고등학교의 마지막 해. 수능과 졸업이라는 두 단어가 하루하루를 채웁니다.',
     choices: [
+      {
+        id: "wealth-drain-18-a",
+        text: "수능 끝난 기념으로 친구들과 통 크게 놀러 다닌다",
+        deltas: { wealth: -4 },
+        result: "해방감에 지갑 사정을 깜빡 잊었다."
+      },
       {
         id: "unhappy-18",
         text: "수능을 앞두고 극심한 시험 스트레스에 시달린다",
@@ -2411,6 +2471,12 @@ const STAGES = [
     ageRange: '20세',
     intro: '갓 어른이 된 티가 조금씩 빠지는 나이. 독립과 자유가 생각보다 훨씬 손이 많이 간다는 걸 알아갑니다.',
     choices: [
+      {
+        id: "wealth-drain-20-a",
+        text: "동아리 활동에 필요한 장비를 이것저것 마련한다",
+        deltas: { wealth: -3 },
+        result: "새로 산 물건들이 방 한켠을 채워갔다."
+      },
       {
         id: "unhappy-20",
         text: "첫 아르바이트에서 손님에게 부당하게 화를 당한다",
@@ -2794,6 +2860,12 @@ const STAGES = [
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
       {
+        id: "wealth-drain-22-a",
+        text: "친구 결혼식 축의금을 예상보다 훨씬 많이 낸다",
+        deltas: { wealth: -3 },
+        result: "봉투 두께가 곧 마음의 크기라고, 스스로를 설득했다."
+      },
+      {
         id: "unhappy-22",
         text: "취업 스터디에서 계속 낙방하며 자존감이 무너진다",
         deltas: { happiness: -4 },
@@ -3155,6 +3227,12 @@ const STAGES = [
     ageRange: '24세',
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
+      {
+        id: "wealth-drain-24-a",
+        text: "첫 월급으로 갖고 싶던 걸 몽땅 사버린다",
+        deltas: { wealth: -5 },
+        result: "통장을 스치듯 지나간 첫 월급이었다."
+      },
       {
         id: "unhappy-24",
         text: "첫 직장 상사의 부당한 화살을 묵묵히 속으로 삼킨다",
@@ -3647,6 +3725,12 @@ const STAGES = [
     ageRange: '26세',
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
+      {
+        id: "wealth-drain-26-a",
+        text: "자취방 가구·가전을 한 번에 새로 장만한다",
+        deltas: { wealth: -4 },
+        result: "필요한 것보다, 갖고 싶은 게 더 많았다."
+      },
       {
         id: "unhappy-26",
         text: "월급으로는 도무지 답이 안 보이는 통장을 들여다본다",
@@ -4154,6 +4238,12 @@ const STAGES = [
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
       {
+        id: "wealth-drain-28-a",
+        text: "결혼 준비 자금을 예상보다 크게 쓴다",
+        deltas: { wealth: -4 },
+        result: "작은 결정 하나하나가, 다 돈으로 이어졌다."
+      },
+      {
         id: "unhappy-28",
         text: "결혼식 청첩장이 쏟아지는데 축의금 낼 돈이 빠듯하다",
         deltas: { happiness: -2, wealth: -2 },
@@ -4613,6 +4703,12 @@ const STAGES = [
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
       {
+        id: "wealth-drain-30-a",
+        text: "내 집 마련을 서두르며 무리한 대출을 낸다",
+        deltas: { wealth: -4 },
+        result: "숫자만 보면 아찔했지만, 지금이 기회 같았다."
+      },
+      {
         id: "unhappy-30",
         text: "서른이 됐다는 것만으로 주변의 잔소리가 부쩍 늘어난다",
         deltas: { happiness: -2, relationship: -1 },
@@ -4881,6 +4977,12 @@ const STAGES = [
     ageRange: '32세',
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
+      {
+        id: "wealth-drain-32-a",
+        text: "투자 정보를 믿고 목돈을 넣었다가 마음을 졸인다",
+        deltas: { wealth: -6 },
+        result: "확신했던 만큼, 흔들림도 컸다."
+      },
       {
         id: "unhappy-32",
         text: "몸이 예전 같지 않다는 걸 체감하며 서글퍼진다",
@@ -5207,6 +5309,12 @@ const STAGES = [
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
       {
+        id: "wealth-drain-35-a",
+        text: "사업 확장을 서두르며 지출을 크게 늘린다",
+        deltas: { wealth: -5 },
+        result: "성장에는 대가가 따른다고, 스스로를 다독였다."
+      },
+      {
         id: "unhappy-35",
         text: "반복되는 일상에 문득 이유 모를 무기력이 찾아온다",
         deltas: { happiness: -4 },
@@ -5451,6 +5559,12 @@ const STAGES = [
     ageRange: '37세',
     intro: '잊고 지내던 나 자신을 다시 챙기기 시작하는 나이입니다.',
     choices: [
+      {
+        id: "wealth-drain-37-a",
+        text: "취미 장비를 최고급으로 맞춘다",
+        deltas: { wealth: -4 },
+        result: "제대로 하려면 장비부터라며, 지갑을 열었다."
+      },
       {
         id: "unhappy-37",
         text: "가까운 지인의 성공 소식에 나도 모르게 위축된다",
@@ -5773,6 +5887,12 @@ const STAGES = [
     intro: '서른대의 마지막 해. 다가올 10년을 조용히 준비하게 됩니다.',
     choices: [
       {
+        id: "wealth-drain-39-a",
+        text: "오랜 동료들과의 회식·경조사비가 겹쳐 지출이 커진다",
+        deltas: { wealth: -2 },
+        result: "한 달 새 봉투를 몇 번이나 준비했는지 몰랐다."
+      },
+      {
         id: "unhappy-39",
         text: "마흔을 코앞에 두고 지나온 시간을 후회 섞어 되돌아본다",
         deltas: { happiness: -4 },
@@ -6048,6 +6168,12 @@ const STAGES = [
     intro: '자녀 교육이든 커리어든, 뭔가를 본격적으로 다잡아야 할 것 같은 압박이 느껴지는 나이입니다.',
     choices: [
       {
+        id: "wealth-drain-41-b",
+        text: "오래된 집을 리모델링하며 예산을 초과한다",
+        deltas: { wealth: -6 },
+        result: "시작할 땐 몰랐던 비용이 하나둘 늘어났다."
+      },
+      {
         id: "unhappy-41",
         text: "회사에서 후배에게 밀려나는 듯한 기분을 느낀다",
         deltas: { happiness: -3, fame: -1 },
@@ -6249,6 +6375,12 @@ const STAGES = [
     ageRange: '43세',
     intro: '조직 안에서 자신의 자리를 다시 확인하게 되는 시기입니다.',
     choices: [
+      {
+        id: "wealth-drain-43-b",
+        text: "현지에서 뜻밖의 투자 제안에 목돈을 건다",
+        deltas: { wealth: -6 },
+        result: "기회라는 말이, 판단을 흐리게 했다."
+      },
       {
         id: "unhappy-43",
         text: "노후 자금 계산을 해보고 막막함에 잠을 설친다",
@@ -6488,6 +6620,12 @@ const STAGES = [
     ageRange: '45세',
     intro: '다 가진 것 같은데도 문득 공허해지는, 이른바 중년의 위기가 찾아오는 나이입니다.',
     choices: [
+      {
+        id: "wealth-drain-45-b",
+        text: "오랜 친구에게 사업 자금을 다시 한번 빌려준다",
+        deltas: { wealth: -3 },
+        result: "이번엔 다를 거라는 말을, 또 한 번 믿었다."
+      },
       {
         id: "unhappy-45",
         text: "구조조정 소문이 돌며 회사 분위기가 뒤숭숭해진다",
@@ -6771,6 +6909,12 @@ const STAGES = [
     ageRange: '47세',
     intro: '나를 키워준 사람들의 노년을 마주하며, 삶과 죽음을 조금 더 가까이서 보게 됩니다.',
     choices: [
+      {
+        id: "wealth-drain-47-b",
+        text: "골프·모임 등 사회생활 비용이 눈덩이처럼 불어난다",
+        deltas: { wealth: -5 },
+        result: "관계를 위한 지출이라며, 스스로를 설득했다."
+      },
       {
         id: "unhappy-47",
         text: "배우자와 사소한 일로 냉랭한 며칠을 보낸다",
@@ -7128,6 +7272,12 @@ const STAGES = [
     ageRange: '50세',
     intro: '쉰이라는 숫자 앞에서, 지나온 시간의 무게를 새삼 느끼게 됩니다.',
     choices: [
+      {
+        id: "wealth-drain-50-a",
+        text: "인생 절반을 자축한다며 크게 여행을 떠난다",
+        deltas: { wealth: -4 },
+        result: "이 정도는 누려도 된다고, 스스로를 다독였다."
+      },
       {
         id: "unhappy-50",
         text: "쉰이라는 나이 앞에서 인생의 절반이 지났다는 걸 실감한다",
@@ -7555,6 +7705,12 @@ const STAGES = [
     intro: '숫자로 남은 시간을 가늠하게 되는, 현실적인 재정비의 시기입니다.',
     choices: [
       {
+        id: "wealth-drain-53-a",
+        text: "거울 속 세월에 값비싼 자기관리를 시작한다",
+        deltas: { wealth: -3 },
+        result: "조금이라도 젊어 보이고 싶은 마음이, 지출로 이어졌다."
+      },
+      {
         id: "unhappy-53",
         text: "거울 속 낯선 주름에서 세월의 무게를 읽는다",
         deltas: { happiness: -2 },
@@ -7752,6 +7908,12 @@ const STAGES = [
     ageRange: '55세',
     intro: '정년이라는 단어가 더는 남 얘기가 아니게 되는 나이. 매일 출근하던 삶이 조용히 막을 내립니다.',
     choices: [
+      {
+        id: "wealth-drain-55-a",
+        text: "퇴직 기념으로 그동안 미뤄온 소비를 한다",
+        deltas: { wealth: -4 },
+        result: "참아온 만큼, 이번엔 아끼지 않기로 했다."
+      },
       {
         id: "unhappy-55",
         text: "정년이 가까워질수록 앞날에 대한 막막함이 커진다",
@@ -7972,6 +8134,12 @@ const STAGES = [
     ageRange: '57세',
     intro: '직장이라는 울타리 없이 새로운 사람들과 관계를 다시 엮어가야 하는 시기입니다.',
     choices: [
+      {
+        id: "wealth-drain-57-b",
+        text: "노후 대비라며 권유받은 상품에 목돈을 넣는다",
+        deltas: { wealth: -6 },
+        result: "그럴듯한 설명에, 의심 없이 서명했다."
+      },
       {
         id: "unhappy-57",
         text: "손주 재롱을 보러 온 다른 부부를 보며 마음 한쪽이 시큰해진다",
@@ -8380,6 +8548,12 @@ const STAGES = [
     intro: '환갑. 예순 해를 지나온 삶을 가족과 함께 돌아보는 해입니다.',
     choices: [
       {
+        id: "wealth-drain-60-a",
+        text: "환갑 잔치를 성대하게 치른다",
+        deltas: { wealth: -4 },
+        result: "한 번뿐인 잔치라며, 씀씀이를 키웠다."
+      },
+      {
         id: "unhappy-60",
         text: "환갑을 맞으면서도 축하보다 씁쓸함이 앞선다",
         deltas: { happiness: -3 },
@@ -8630,6 +8804,12 @@ const STAGES = [
     ageRange: '62세',
     intro: '연금이라는 단어가 현실적인 숫자로 다가오기 시작하는 나이입니다.',
     choices: [
+      {
+        id: "wealth-drain-62-a",
+        text: "옛 활약을 그리워하며 관련 물건을 사 모은다",
+        deltas: { wealth: -3 },
+        result: "추억을 사는 데도, 돈이 들었다."
+      },
       {
         id: "unhappy-62",
         text: "연금만으로는 생활이 빠듯하다는 걸 체감한다",
@@ -8945,6 +9125,12 @@ const STAGES = [
     intro: '법정 노인 연령. 사회가 부르는 호칭이 바뀌는 걸 마주하게 됩니다.',
     choices: [
       {
+        id: "wealth-drain-65-a",
+        text: "노인이 됐다는 실감에 값비싼 취미를 시작한다",
+        deltas: { wealth: -3 },
+        result: "남은 시간이 아깝다며, 지출을 아끼지 않았다."
+      },
+      {
         id: "unhappy-65",
         text: "노인이라 불리는 나이가 됐다는 사실에 씁쓸해진다",
         deltas: { happiness: -3 },
@@ -9237,6 +9423,12 @@ const STAGES = [
     intro: '남겨질 것들에 대해 조금씩 마음의 준비를 시작하는 나이입니다.',
     choices: [
       {
+        id: "wealth-drain-67-a",
+        text: "유언장을 정리하며 남은 재산을 미리 나눠준다",
+        deltas: { wealth: -5 },
+        result: "살아있을 때 나누는 게 낫다고 판단했다."
+      },
+      {
         id: "unhappy-67",
         text: "배우자의 잔병치레가 늘어 걱정이 끊이지 않는다",
         deltas: { happiness: -3, relationship: -1 },
@@ -9516,6 +9708,12 @@ const STAGES = [
     intro: '칠순. 황혼이라 불리는 시간의 첫걸음을 내딛습니다.',
     choices: [
       {
+        id: "wealth-drain-70-a",
+        text: "칠순 잔치를 온 가족이 모여 크게 치른다",
+        deltas: { wealth: -4 },
+        result: "한 번뿐인 잔치라, 아끼지 않기로 했다."
+      },
+      {
         id: "unhappy-70",
         text: "칠순을 맞아도 축하보다 세월의 무상함이 크게 다가온다",
         deltas: { happiness: -3 },
@@ -9717,6 +9915,12 @@ const STAGES = [
     ageRange: '72세',
     intro: '자녀와 손주 세대가 저마다의 성취를 이뤄가는 걸 지켜보는 나이입니다.',
     choices: [
+      {
+        id: "wealth-drain-72-a",
+        text: "손주 용돈을 넉넉히 챙기며 세대 차이를 메우려 한다",
+        deltas: { wealth: -2 },
+        result: "말이 안 통해도, 마음만큼은 전하고 싶었다."
+      },
       {
         id: "unhappy-72",
         text: "기억력이 예전 같지 않아 자꾸 깜빡깜빡한다",
@@ -9998,6 +10202,12 @@ const STAGES = [
     ageRange: '75세',
     intro: '남은 시간을 어떻게 채워갈지, 다시 한번 진지하게 그려보는 나이입니다.',
     choices: [
+      {
+        id: "wealth-drain-75-a",
+        text: "이름값을 위해 마지막으로 큰돈을 들인 자리를 마련한다",
+        deltas: { wealth: -3 },
+        result: "잊히기 싫은 마음이, 지출로 나타났다."
+      },
       {
         id: "unhappy-75",
         text: "몸이 마음처럼 안 움직여 하루가 유난히 더디게 간다",
@@ -10281,6 +10491,12 @@ const STAGES = [
     ageRange: '78세',
     intro: '기억이 예전만큼 또렷하지 않다는 걸, 스스로 느끼기 시작하는 나이입니다.',
     choices: [
+      {
+        id: "wealth-drain-78-a",
+        text: "상속 문제로 변호사 비용을 크게 지출한다",
+        deltas: { wealth: -4 },
+        result: "믿었던 이의 속임수를 밝히는 데도, 돈이 들었다."
+      },
       {
         id: "unhappy-78",
         text: "옛 사진첩을 넘기다 그리운 얼굴들에 눈시울이 붉어진다",
@@ -10579,6 +10795,12 @@ const STAGES = [
     intro: '매일 눈을 뜨는 것 자체가, 새삼 감사하게 느껴지는 나이입니다.',
     choices: [
       {
+        id: "wealth-drain-81-a",
+        text: "생신 자리에서 손주들에게 큰돈을 나눠준다",
+        deltas: { wealth: -3 },
+        result: "받는 기쁨보다, 주는 기쁨이 더 컸다."
+      },
+      {
         id: "unhappy-81",
         text: "동네 오랜 이웃이 세상을 떠났다는 소식에 마음이 무겁다",
         deltas: { happiness: -3, relationship: -1 },
@@ -10840,6 +11062,12 @@ const STAGES = [
     intro: '지나온 삶 전체를 조용히 되새기게 되는, 사색의 시간이 깊어지는 나이입니다.',
     choices: [
       {
+        id: "wealth-drain-84-a",
+        text: "가족과의 화해 자리에서 큰 선물을 준비한다",
+        deltas: { wealth: -3 },
+        result: "못했던 말 대신, 마음을 물건에 담았다."
+      },
+      {
         id: "unhappy-84",
         text: "식사량이 줄고 입맛이 예전 같지 않아 서글퍼진다",
         deltas: { happiness: -2, health: -1 },
@@ -11018,6 +11246,12 @@ const STAGES = [
     ageRange: '86세',
     intro: '말보다 존재만으로도, 가족에게 무언가를 전할 수 있는 나이입니다.',
     choices: [
+      {
+        id: "wealth-drain-86-a",
+        text: "달라진 세상에 적응하려 새 기기·서비스를 들인다",
+        deltas: { wealth: -2 },
+        result: "따라가는 데도, 돈이 들었다."
+      },
       {
         id: "unhappy-86",
         text: "밤잠을 설치는 날이 늘며 낮에도 기운이 없다",
@@ -11287,6 +11521,12 @@ const STAGES = [
     intro: '구순을 코앞에 두고, 마음을 가만히 가다듬는 한 해입니다.',
     choices: [
       {
+        id: "wealth-drain-89-a",
+        text: "적적함을 달래려 전화·방문 서비스를 이용한다",
+        deltas: { wealth: -2 },
+        result: "대화 몇 마디에도, 비용이 따랐다."
+      },
+      {
         id: "unhappy-89",
         text: "말동무가 하나둘 줄어 하루라는 방이 적적해진다",
         deltas: { happiness: -4, relationship: -2 },
@@ -11552,6 +11792,12 @@ const STAGES = [
     ageRange: '92세',
     intro: '침상에서 보내는 시간이 조금씩 늘어가는, 조용한 나날입니다.',
     choices: [
+      {
+        id: "wealth-drain-92-a",
+        text: "요양병원 검진·치료비가 예상보다 크게 나간다",
+        deltas: { wealth: -4 },
+        result: "누워서도, 비용은 그대로 나갔다."
+      },
       {
         id: "unhappy-92",
         text: "혼자 힘으로 할 수 있는 일이 눈에 띄게 줄어든다",
@@ -11860,6 +12106,12 @@ const STAGES = [
     intro: '아흔다섯 해를 살아냈다는 사실이, 스스로도 믿기지 않는 나이입니다.',
     choices: [
       {
+        id: "wealth-drain-95-a",
+        text: "무사히 지낸 하루하루를 위해 필요한 지원을 늘린다",
+        deltas: { wealth: -2 },
+        result: "편안한 하루를 위해서라면, 아깝지 않았다."
+      },
+      {
         id: "unhappy-95",
         text: "평생을 함께한 배우자·형제의 빈자리가 더 크게 느껴진다",
         deltas: { happiness: -4, relationship: -2 },
@@ -12142,6 +12394,12 @@ const STAGES = [
     ageRange: '98세',
     intro: '백 살이라는 숫자가, 이제는 정말 눈앞으로 성큼 다가온 나이입니다.',
     choices: [
+      {
+        id: "wealth-drain-98-a",
+        text: "관심을 받는 김에 가족들에게 크게 한턱낸다",
+        deltas: { wealth: -3 },
+        result: "스포트라이트를 받은 김에, 마음도 크게 썼다."
+      },
       {
         id: "unhappy-98",
         text: "찾아오는 이가 줄어 하루가 유독 길고 조용하다",
