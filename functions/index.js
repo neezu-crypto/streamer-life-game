@@ -159,21 +159,22 @@ function playRefFor(db, uid) {
   return db.ref('lifeGame/playthroughs/' + uid);
 }
 
-// 해금 도감(16장, 2026-08-21 사용자 설계 - 2026-08-22 구현) - 열람·저장 모두
-// 로그인 유저 전용이다(익명 uid는 기기·브라우저 저장소에 묶여 다른 기기에서
-// 진행도가 안 이어지므로, 도감처럼 여러 판에 걸쳐 계속 누적돼야 하는 기능은
-// 로그인 요구로 근본적으로 해결). 그래서 이 계정이 실제로 구글·카카오·스트리머
+// 해금 도감(16장, 2026-08-21 사용자 설계 - 2026-08-22 구현, 루트 칸은
+// 2026-08-22 14장 ①번 루트 완료 후 추가) - 열람·저장 모두 로그인 유저
+// 전용이다(익명 uid는 기기·브라우저 저장소에 묶여 다른 기기에서 진행도가
+// 안 이어지므로, 도감처럼 여러 판에 걸쳐 계속 누적돼야 하는 기능은 로그인
+// 요구로 근본적으로 해결). 그래서 이 계정이 실제로 구글·카카오·스트리머
 // 인증 중 하나로 "보호"된 상태일 때만 기록한다 - googleLinked/kakaoLinked/
 // streamerVerified(users/{uid})는 이미 이 생태계 다른 프로젝트가 쓰는 필드를
 // 그대로 공유한다. lifeGame/playthroughs/{uid}는 계정당 슬롯이 1개라 새 판을
 // 시작하면 덮어써지므로, 여러 판에 걸쳐 누적돼야 하는 도감은 별도 노드
-// (lifeGame/collection/{uid}/endings/{endingId})에 둔다.
-async function recordCollectionEndingIfLoggedIn(db, uid, endingId) {
+// (lifeGame/collection/{uid}/endings|routes/{id})에 둔다.
+async function recordCollectionEntryIfLoggedIn(db, uid, category, entryId) {
   const userSnap = await db.ref('users/' + uid).get();
   const user = userSnap.val() || {};
   const isLoggedIn = !!(user.googleLinked || user.kakaoLinked || user.streamerVerified);
   if (!isLoggedIn) return;
-  await db.ref('lifeGame/collection/' + uid + '/endings/' + endingId).set(true);
+  await db.ref('lifeGame/collection/' + uid + '/' + category + '/' + entryId).set(true);
 }
 
 // 구간마다 최대 6~8개까지 채워둔 choices 중 실제로 그 회차에 "노출"할 3개를
@@ -994,10 +995,19 @@ async function applyChoice(db, playRef, play, stage, choice) {
     playRef.update(updates),
     db.ref('lifeGame/stats/choices/' + stage.id + '/' + choice.id).set(ServerValue.increment(1))
   ];
+  // 해금 도감 - 루트 칸(2026-08-22, 사용자 지시로 ①번 루트 완료 후 추가) - 이번
+  // 선택 이전엔 활성 루트가 있었는데(priorRouteState), 이번 선택으로 그 루트가
+  // 끝났거나(endsRoute를 골랐거나 maxDurationYears 만료로 nextActiveRoute가
+  // null이 됨) 그도 아니면 루트 도중에 삶 자체가 끝났으면(completed) 그 순간
+  // "겪은 루트"로 기록한다 - 끝까지 못 가고 죽었어도 그 루트를 실제로 겪은
+  // 건 맞기 때문.
+  if (priorRouteState.activeRoute && (!nextActiveRoute || completed)) {
+    statWrites.push(recordCollectionEntryIfLoggedIn(db, playRef.key, 'routes', priorRouteState.activeRoute.id));
+  }
   if (completed) {
     statWrites.push(db.ref('lifeGame/stats/endings/' + ending.id).set(ServerValue.increment(1)));
     statWrites.push(db.ref('lifeGame/stats/totals/completed').set(ServerValue.increment(1)));
-    statWrites.push(recordCollectionEndingIfLoggedIn(db, playRef.key, ending.id));
+    statWrites.push(recordCollectionEntryIfLoggedIn(db, playRef.key, 'endings', ending.id));
   }
   await Promise.all(statWrites);
 

@@ -257,24 +257,34 @@ const ENDINGS_META = [
   { id: 'isolation', title: '완전히 홀로 남은 삶', icon: '🕸️' }
 ];
 
+// 트리거 루트 목록(14장) - functions/game-data.js의 startsRoute와 반드시 같은
+// id·label을 유지해야 한다(서버는 이 목록을 클라이언트에 따로 안 내려주므로
+// 수동 동기화). 지금은 ①번 연예계 연습생 루트 하나뿐 - ②~⑧번이 추가되면
+// 여기에도 그대로 이어 붙이면 된다.
+const ROUTES_META = [
+  { id: 'entertainment-industry', title: '🎤 연예계 연습생', icon: '🎤' }
+];
+
 const collectionModal = document.getElementById('collectionModal');
 const collectionLoggedOut = document.getElementById('collectionLoggedOut');
 const collectionLoggedIn = document.getElementById('collectionLoggedIn');
 const collectionProgress = document.getElementById('collectionProgress');
 const collectionGrid = document.getElementById('collectionGrid');
+const collectionRouteProgress = document.getElementById('collectionRouteProgress');
+const collectionRouteGrid = document.getElementById('collectionRouteGrid');
 
-function renderCollectionGrid(unlockedIds) {
-  collectionGrid.innerHTML = '';
-  ENDINGS_META.forEach((e) => {
+function renderMetaGrid(gridEl, progressEl, meta, unlockedIds, progressLabel) {
+  gridEl.innerHTML = '';
+  meta.forEach((e) => {
     const unlocked = unlockedIds.includes(e.id);
     const card = document.createElement('div');
     card.className = 'collection-card' + (unlocked ? '' : ' locked');
     card.innerHTML = unlocked
       ? '<span class="cc-icon">' + e.icon + '</span><span class="cc-title">' + escapeHtml(e.title) + '</span>'
       : '<span class="cc-icon">🔒</span><span class="cc-title">???</span>';
-    collectionGrid.appendChild(card);
+    gridEl.appendChild(card);
   });
-  collectionProgress.textContent = ENDINGS_META.length + '종 중 ' + unlockedIds.length + '개 해금';
+  progressEl.textContent = progressLabel + ' ' + meta.length + '종 중 ' + unlockedIds.length + '개 해금';
 }
 
 // 로그인 여부(구글·카카오·스트리머 인증 중 하나) 판별 - users/{uid}는 이
@@ -291,9 +301,10 @@ async function refreshCollectionView() {
   }
   collectionLoggedOut.classList.add('hidden');
   collectionLoggedIn.classList.remove('hidden');
-  const collectionSnap = await get(ref(db, 'lifeGame/collection/' + currentUser.uid + '/endings'));
-  const unlockedIds = Object.keys(collectionSnap.val() || {});
-  renderCollectionGrid(unlockedIds);
+  const collectionSnap = await get(ref(db, 'lifeGame/collection/' + currentUser.uid));
+  const collectionData = collectionSnap.val() || {};
+  renderMetaGrid(collectionGrid, collectionProgress, ENDINGS_META, Object.keys(collectionData.endings || {}), '엔딩');
+  renderMetaGrid(collectionRouteGrid, collectionRouteProgress, ROUTES_META, Object.keys(collectionData.routes || {}), '루트');
 }
 
 document.getElementById('openCollectionBtn').addEventListener('click', () => {
