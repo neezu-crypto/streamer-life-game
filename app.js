@@ -278,10 +278,10 @@ function renderMetaGrid(gridEl, progressEl, meta, unlockedIds, progressLabel) {
   meta.forEach((e) => {
     const unlocked = unlockedIds.includes(e.id);
     const card = document.createElement('div');
+    // 미해금이어도 이름은 그대로 공개한다(2026-08-22, 사용자 지시 - "???" 대신
+    // 이름 표시) - 아이콘만 자물쇠로 가려서 "아직 못 겪었다"는 표시만 남긴다.
     card.className = 'collection-card' + (unlocked ? '' : ' locked');
-    card.innerHTML = unlocked
-      ? '<span class="cc-icon">' + e.icon + '</span><span class="cc-title">' + escapeHtml(e.title) + '</span>'
-      : '<span class="cc-icon">🔒</span><span class="cc-title">???</span>';
+    card.innerHTML = '<span class="cc-icon">' + (unlocked ? e.icon : '🔒') + '</span><span class="cc-title">' + escapeHtml(e.title) + '</span>';
     gridEl.appendChild(card);
   });
   progressEl.textContent = progressLabel + ' ' + meta.length + '종 중 ' + unlockedIds.length + '개 해금';
