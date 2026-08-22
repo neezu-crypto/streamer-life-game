@@ -4823,6 +4823,28 @@ const STAGES = [
     intro: '곁에 남을 사람과 앞으로의 삶을 어떻게 그릴지, 조금 더 구체적으로 고민하는 나이입니다.',
     choices: [
       {
+        "id": "actor-audition-callback-31",
+        "text": "전직 아이돌 이력을 보고 온 캐스팅 제안에 오디션을 본다",
+        "deltas": {
+                "fame": 2,
+                "happiness": 2
+        },
+        "result": "예상 못 한 제안이, 완전히 다른 무대로 이어졌다.",
+        "requiresRouteCompletedWithin": {
+                "routeId": "entertainment-industry",
+                "maxYears": 3
+        },
+        "startsRoute": {
+                "id": "actor",
+                "label": "🎭 배우",
+                "maxDurationYears": 15
+        },
+        "setOccupation": {
+                "id": "actor-newcomer",
+                "label": "🎭 무명 배우"
+        }
+},
+      {
         id: "unhappy-31",
         text: "믿었던 사람에게 뒤통수를 맞는 일을 겪는다",
         deltas: { happiness: -4, relationship: -3 },
@@ -4979,6 +5001,87 @@ const STAGES = [
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
       {
+        "id": "actor-audition-callback-32",
+        "text": "새로운 진로를 고민하던 중 들어온 연기 오디션에 도전한다",
+        "deltas": {
+                "fame": 2,
+                "happiness": 2
+        },
+        "result": "예상 못 한 제안이, 완전히 다른 무대로 이어졌다.",
+        "requiresRouteCompletedWithin": {
+                "routeId": "entertainment-industry",
+                "maxYears": 3
+        },
+        "startsRoute": {
+                "id": "actor",
+                "label": "🎭 배우",
+                "maxDurationYears": 15
+        },
+        "setOccupation": {
+                "id": "actor-newcomer",
+                "label": "🎭 무명 배우"
+        }
+},
+      {
+        "id": "actor-newcomer-auditions-rejected-32",
+        "text": "수많은 오디션에서 줄줄이 탈락을 맛본다",
+        "deltas": {
+                "happiness": -4
+        },
+        "result": "정중한 거절 메일이 쌓여갈수록, 마음도 함께 무뎌졌다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-newcomer-extra-role-32",
+        "text": "대사 한 줄 없는 단역으로 겨우 촬영장에 선다",
+        "deltas": {
+                "fame": 1,
+                "wealth": -1
+        },
+        "result": "카메라에 스치듯 잡힌 옆모습이, 그래도 반가웠다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-newcomer-acting-lessons-32",
+        "text": "사비를 들여 연기 학원에 등록한다",
+        "deltas": {
+                "wealth": -2,
+                "happiness": 1
+        },
+        "result": "늦게 시작한 만큼, 기초부터 다시 다졌다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-newcomer-idol-label-32",
+        "text": "\"왕년의 아이돌\"이라는 꼬리표 때문에 진지하게 안 봐준다",
+        "deltas": {
+                "happiness": -3,
+                "fame": -1
+        },
+        "result": "노래하던 사람이라는 시선이, 생각보다 오래 따라다녔다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-career-reflection-32",
+        "text": "배우로서 첫걸음을 되짚어본다",
+        "deltas": {
+                "happiness": 1
+        },
+        "result": "막막함 속에서도, 스스로 고른 길이라는 확신만은 있었다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-life-exit-32",
+        "text": "배우 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "actor"
+},
+      {
         id: "wealth-drain-32-a",
         text: "투자 정보를 믿고 목돈을 넣었다가 마음을 졸인다",
         deltas: { wealth: -6 },
@@ -5126,6 +5229,87 @@ const STAGES = [
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
       {
+        "id": "actor-audition-callback-33",
+        "text": "우연한 소개로 잡힌 연기 오디션 기회를 잡는다",
+        "deltas": {
+                "fame": 2,
+                "happiness": 2
+        },
+        "result": "예상 못 한 제안이, 완전히 다른 무대로 이어졌다.",
+        "requiresRouteCompletedWithin": {
+                "routeId": "entertainment-industry",
+                "maxYears": 3
+        },
+        "startsRoute": {
+                "id": "actor",
+                "label": "🎭 배우",
+                "maxDurationYears": 15
+        },
+        "setOccupation": {
+                "id": "actor-newcomer",
+                "label": "🎭 무명 배우"
+        }
+},
+      {
+        "id": "actor-newcomer-side-job-33",
+        "text": "생활비를 벌기 위해 아르바이트를 병행한다",
+        "deltas": {
+                "wealth": 2,
+                "health": -2
+        },
+        "result": "배우이자 아르바이트생, 두 얼굴로 하루를 채웠다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-newcomer-small-drama-role-33",
+        "text": "단막극에서 짧은 대사가 있는 배역을 따낸다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 2
+        },
+        "result": "짧은 장면이었지만, 처음으로 이름이 크레딧에 올라갔다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-newcomer-comparison-envy-33",
+        "text": "함께 데뷔했던 동료 배우들의 성공을 지켜본다",
+        "deltas": {
+                "happiness": -3
+        },
+        "result": "축하한다는 말 뒤로, 조바심이 숨겨지지 않았다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-newcomer-agency-search-33",
+        "text": "새로운 소속사를 찾아 여기저기 미팅을 다닌다",
+        "deltas": {
+                "wealth": -1,
+                "happiness": -1
+        },
+        "result": "좋은 말만 하다가도, 계약서 얘기만 나오면 다들 신중해졌다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-career-reflection-33",
+        "text": "지금까지의 배우 생활을 되짚어본다",
+        "deltas": {
+                "happiness": 1
+        },
+        "result": "더딘 걸음이었지만, 멈추지는 않았다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-life-exit-33",
+        "text": "배우 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "actor"
+},
+      {
         id: "unhappy-33",
         text: "동창회에서 남들과 나를 비교하다 씁쓸해진다",
         deltas: { happiness: -3 },
@@ -5211,6 +5395,66 @@ const STAGES = [
     ageRange: '34세',
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
+      {
+        "id": "actor-newcomer-webdrama-lead-34",
+        "text": "저예산 웹드라마에서 처음으로 주연을 맡는다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 3,
+                "wealth": -1
+        },
+        "result": "초라한 세트장이었지만, 처음 들어보는 \"주연님\"이라는 호칭이 낯설고 좋았다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-newcomer-harsh-review-34",
+        "text": "혹평 일색인 리뷰를 마주한다",
+        "deltas": {
+                "happiness": -4
+        },
+        "result": "좋은 말은 눈에 안 들어오고, 나쁜 말만 자꾸 곱씹게 됐다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-newcomer-typecasting-risk-34",
+        "text": "비슷한 배역만 반복해서 들어온다",
+        "deltas": {
+                "happiness": -2,
+                "fame": 1
+        },
+        "result": "얼굴은 알려지는데, 색깔은 점점 하나로 굳어가는 것 같았다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-newcomer-costar-bond-34",
+        "text": "함께 작업한 선배 배우에게 현장에서 배운다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "대본 밖에서 건넨 한마디가, 오래 남는 조언이 됐다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-career-reflection-34",
+        "text": "흔들리던 마음을 다잡아본다",
+        "deltas": {
+                "happiness": 1
+        },
+        "result": "몇 번을 넘어져도, 다시 대본을 펼쳤다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-life-exit-34",
+        "text": "배우 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "actor"
+},
       {
         id: "unhappy-34",
         text: "가족 행사에서 잔소리라는 폭탄이 예고 없이 떨어진다",
@@ -5310,6 +5554,65 @@ const STAGES = [
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
       {
+        "id": "actor-newcomer-commercial-gig-35",
+        "text": "생계를 위해 광고 단역을 소화한다",
+        "deltas": {
+                "wealth": 3
+        },
+        "result": "예술이라기보다 생업에 가까웠지만, 통장은 웃었다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-newcomer-audition-marathon-35",
+        "text": "하루에 오디션 세 곳을 도는 강행군을 치른다",
+        "deltas": {
+                "health": -3,
+                "happiness": -1
+        },
+        "result": "대본을 외우며 이동하는 택시 안이, 어느새 익숙해졌다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-newcomer-self-doubt-35",
+        "text": "이 길이 맞는지 스스로에게 되묻는 밤을 보낸다",
+        "deltas": {
+                "happiness": -3
+        },
+        "result": "답이 나오지 않는 질문을, 몇 번이고 되풀이했다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-newcomer-indie-film-cast-35",
+        "text": "저예산 독립영화 캐스팅에 합격한다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 3,
+                "wealth": -1
+        },
+        "result": "출연료는 적었지만, 오랜만에 진짜 하고 싶던 연기를 했다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-career-reflection-35",
+        "text": "버텨온 시간을 가만히 돌아본다",
+        "deltas": {
+                "happiness": 1
+        },
+        "result": "초라해 보여도, 분명 앞으로 나아가고 있었다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-life-exit-35",
+        "text": "배우 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "actor"
+},
+      {
         id: "wealth-drain-35-a",
         text: "사업 확장을 서두르며 지출을 크게 늘린다",
         deltas: { wealth: -5 },
@@ -5403,6 +5706,71 @@ const STAGES = [
     ageRange: '36세',
     intro: '나를 키워준 사람들을 이제는 내가 돌봐야 할 시기가 다가옵니다.',
     choices: [
+      {
+        "id": "actor-newcomer-financial-strain-36",
+        "text": "불안정한 수입 탓에 생활비 걱정이 깊어진다",
+        "deltas": {
+                "wealth": -2,
+                "happiness": -2
+        },
+        "result": "통장 잔고를 확인하는 손이, 점점 조심스러워졌다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-newcomer-supporting-role-buzz-36",
+        "text": "조연으로 출연한 작품이 예상외로 화제가 된다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 3
+        },
+        "result": "주인공은 아니었지만, 사람들이 이름을 검색하기 시작했다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-newcomer-family-pressure-36",
+        "text": "안정적인 직업으로 돌아가라는 가족의 설득을 듣는다",
+        "deltas": {
+                "relationship": -2,
+                "happiness": -2
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent"
+        ],
+        "result": "걱정이라는 걸 알면서도, 매번 마음이 무거웠다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-newcomer-craft-study-36",
+        "text": "연기 스터디를 만들어 동료들과 실력을 갈고닦는다",
+        "deltas": {
+                "happiness": 2,
+                "relationship": 2
+        },
+        "result": "서로의 연기를 봐주는 시간이, 가장 큰 자산이 됐다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-career-reflection-36",
+        "text": "초심을 잃지 않았는지 스스로를 점검한다",
+        "deltas": {
+                "happiness": 1
+        },
+        "result": "변한 것과 변하지 않은 것을, 천천히 가려봤다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-life-exit-36",
+        "text": "배우 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "actor"
+},
       {
         id: "unhappy-36",
         text: "믿고 투자한 곳에서 예상보다 큰 손실을 본다",
@@ -5561,6 +5929,90 @@ const STAGES = [
     intro: '잊고 지내던 나 자신을 다시 챙기기 시작하는 나이입니다.',
     choices: [
       {
+        "id": "actor-breakthrough-lead-role-37",
+        "text": "오랜 무명 생활 끝에 드라마 주연 자리를 따낸다",
+        "deltas": {
+                "fame": 10,
+                "happiness": 6,
+                "wealth": 2
+        },
+        "requiresOccupation": [
+                "actor-newcomer"
+        ],
+        "setOccupation": {
+                "id": "rising-actor",
+                "label": "🎬 라이징 배우"
+        },
+        "result": "몇 년의 단역과 오디션이, 마침내 하나의 이름으로 모였다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-breakthrough-viral-scene-37",
+        "text": "짧은 장면 하나가 온라인에서 폭발적으로 화제가 된다",
+        "deltas": {
+                "fame": 9,
+                "happiness": 5
+        },
+        "requiresOccupation": [
+                "actor-newcomer"
+        ],
+        "setOccupation": {
+                "id": "rising-actor",
+                "label": "🎬 라이징 배우"
+        },
+        "result": "클립 하나가, 몇 년의 무명 생활을 한순간에 뒤집어놓았다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-breakthrough-award-nomination-37",
+        "text": "신인상 후보에 이름을 올린다",
+        "deltas": {
+                "fame": 7,
+                "happiness": 5
+        },
+        "requiresOccupation": [
+                "actor-newcomer"
+        ],
+        "setOccupation": {
+                "id": "rising-actor",
+                "label": "🎬 라이징 배우"
+        },
+        "result": "후보에 오른 것만으로도, 처음으로 존재를 증명받은 기분이었다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-still-unnoticed-37",
+        "text": "이렇다 할 기회 없이 무명 생활을 이어간다",
+        "deltas": {
+                "happiness": -2
+        },
+        "requiresOccupation": [
+                "actor-newcomer"
+        ],
+        "result": "달라진 건 없었지만, 그래도 카메라 앞에 다시 섰다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-career-reflection-37",
+        "text": "지금까지의 배우 생활을 가만히 되돌아본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "화려하지 않아도, 스스로 선택한 길이라는 사실이 위안이 됐다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-life-exit-37",
+        "text": "배우 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "actor"
+},
+      {
         id: "wealth-drain-37-a",
         text: "취미 장비를 최고급으로 맞춘다",
         deltas: { wealth: -4 },
@@ -5713,6 +6165,79 @@ const STAGES = [
     ageRange: '38세',
     intro: '몸이 예전 같지 않다는 걸, 무시할 수 없을 만큼 또렷하게 느끼게 됩니다.',
     choices: [
+      {
+        "id": "actor-rising-blockbuster-cast-38",
+        "text": "화제의 영화 주연 자리를 제안받는다",
+        "deltas": {
+                "fame": 6,
+                "wealth": 3,
+                "happiness": 3
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "시나리오를 받아든 순간부터, 심장이 다르게 뛰었다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-rising-media-scrutiny-38",
+        "text": "사생활까지 파고드는 취재에 시달린다",
+        "deltas": {
+                "happiness": -5
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "카메라가 향하는 곳이, 이제 무대만이 아니었다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-rising-dating-rumor-38",
+        "text": "열애설이 터지며 화제의 중심에 선다",
+        "deltas": {
+                "fame": 3,
+                "happiness": -3,
+                "relationship": -1
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "사실 여부와 상관없이, 이름 석 자가 연일 오르내렸다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-rising-fee-jump-38",
+        "text": "출연료가 눈에 띄게 오른다",
+        "deltas": {
+                "wealth": 5,
+                "happiness": 2
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "몇 년 전과는 완전히 다른 숫자가, 계약서에 적혔다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-career-reflection-38",
+        "text": "지금의 위치를 담담히 돌아본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "여기까지 오는 동안 놓쳤던 것들이, 문득 떠올랐다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-life-exit-38",
+        "text": "배우 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "스포트라이트보다 평범한 일상이, 더 간절해졌다.",
+        "requiresRoute": "actor"
+},
       {
         id: "unhappy-38",
         text: "체력이 예전 같지 않아 좋아하던 걸 하나씩 포기한다",
@@ -5888,6 +6413,81 @@ const STAGES = [
     intro: '서른대의 마지막 해. 다가올 10년을 조용히 준비하게 됩니다.',
     choices: [
       {
+        "id": "actor-rising-award-win-39",
+        "text": "시상식에서 상을 받아 이름을 알린다",
+        "deltas": {
+                "fame": 8,
+                "happiness": 5
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "트로피보다, 그 자리까지 온 시간이 먼저 떠올랐다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-rising-costar-conflict-39",
+        "text": "공동 주연 배우와 현장에서 갈등을 겪는다",
+        "deltas": {
+                "relationship": -3,
+                "happiness": -2
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "화면 밖 냉기가, 화면 안까지 스며들지 않길 바랄 뿐이었다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-rising-brand-deals-39",
+        "text": "여러 브랜드의 광고 제안이 쏟아진다",
+        "deltas": {
+                "wealth": 6,
+                "fame": 2
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "얼굴 하나로 이렇게 많은 제안이 올 줄은 몰랐다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-newcomer-late-break-39",
+        "text": "뒤늦게 찾아온 조연 기회로 처음 이름을 알린다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 4
+        },
+        "requiresOccupation": [
+                "actor-newcomer"
+        ],
+        "setOccupation": {
+                "id": "rising-actor",
+                "label": "🎬 라이징 배우"
+        },
+        "result": "남들보다 늦었어도, 늦은 만큼 간절했던 순간이었다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-career-reflection-39",
+        "text": "곁을 지켜준 사람들을 떠올려본다",
+        "deltas": {
+                "relationship": 2
+        },
+        "result": "함께 이 길을 걸어준 사람들이, 새삼 고마웠다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-life-exit-39",
+        "text": "배우 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 1
+        },
+        "endsRoute": true,
+        "result": "오래 고민한 끝에, 마침표를 찍기로 했다.",
+        "requiresRoute": "actor"
+},
+      {
         id: "wealth-drain-39-a",
         text: "오랜 동료들과의 회식·경조사비가 겹쳐 지출이 커진다",
         deltas: { wealth: -2 },
@@ -6014,6 +6614,77 @@ const STAGES = [
     ageRange: '40세',
     intro: '인생의 절반 지점. 마흔이라는 숫자가 이유 없이 지난 시간을 돌아보게 만듭니다.',
     choices: [
+      {
+        "id": "actor-rising-genre-versatility-40",
+        "text": "기존 이미지와 정반대인 악역에 도전한다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 3
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "낯선 얼굴을 연기하는 게, 오히려 새로운 자유처럼 느껴졌다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-rising-overwork-collapse-40",
+        "text": "살인적인 촬영 스케줄에 몸이 상한다",
+        "deltas": {
+                "health": -5
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "쪽잠으로 버틴 하루하루가, 결국 몸에 고스란히 쌓였다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-rising-fan-meeting-40",
+        "text": "팬들과 직접 만나는 자리를 갖는다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 2
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "스크린 밖에서 마주한 얼굴들이, 생각보다 더 따뜻했다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-rising-controversy-40",
+        "text": "과거 발언이 논란이 되어 곤욕을 치른다",
+        "deltas": {
+                "fame": -5,
+                "happiness": -4
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "해명이 길어질수록, 오히려 논란만 커지는 것 같았다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-career-reflection-40",
+        "text": "잘 해내고 있는지 스스로에게 물어본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "답은 없었지만, 질문을 멈추지는 않았다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-life-exit-40",
+        "text": "배우 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "화려한 날들이었지만, 이제는 내려놓을 때라고 느꼈다.",
+        "requiresRoute": "actor"
+},
       {
         id: "unhappy-40",
         text: "마흔이라는 숫자 앞에서 이유 모를 상실감을 느낀다",
@@ -6169,6 +6840,78 @@ const STAGES = [
     intro: '자녀 교육이든 커리어든, 뭔가를 본격적으로 다잡아야 할 것 같은 압박이 느껴지는 나이입니다.',
     choices: [
       {
+        "id": "actor-rising-international-offer-41",
+        "text": "해외 작품에 캐스팅 제안을 받는다",
+        "deltas": {
+                "fame": 7,
+                "wealth": 2,
+                "happiness": 3
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "자막 너머까지 이름이 닿을 거라곤, 상상도 못 했다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-rising-agency-dispute-41",
+        "text": "정산 문제로 소속사와 마찰을 겪는다",
+        "deltas": {
+                "wealth": -3,
+                "happiness": -3
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "계약서의 작은 글씨들이, 새삼 크게 다가왔다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-rising-mentoring-newcomer-41",
+        "text": "신인 배우에게 현장 노하우를 나눠준다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "몇 년 전 자신의 모습이, 후배에게 겹쳐 보였다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-newcomer-final-giveup-41",
+        "text": "몇 년째 제자리인 무명 생활에 마침내 마침표를 찍는다",
+        "deltas": {
+                "happiness": 1
+        },
+        "requiresOccupation": [
+                "actor-newcomer"
+        ],
+        "endsRoute": true,
+        "result": "끝까지 가보지 못한 아쉬움보다, 스스로 내린 결정이라는 게 더 컸다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-career-reflection-41",
+        "text": "숫자로 남지 않는 것들을 헤아려본다",
+        "deltas": {
+                "wealth": 1
+        },
+        "result": "숫자로만 남지 않는 것들도, 분명히 쌓여 있었다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-life-exit-41",
+        "text": "배우 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "박수 받을 때 떠나는 것도, 나쁘지 않은 선택이었다.",
+        "requiresRoute": "actor"
+},
+      {
         id: "wealth-drain-41-b",
         text: "오래된 집을 리모델링하며 예산을 초과한다",
         deltas: { wealth: -6 },
@@ -6252,6 +6995,79 @@ const STAGES = [
     ageRange: '42세',
     intro: '몸이 보내는 신호를 더 이상 못 본 척할 수 없게 되는 나이입니다.',
     choices: [
+      {
+        "id": "actor-rising-franchise-role-42",
+        "text": "시리즈물의 고정 배역을 꿰찬다",
+        "deltas": {
+                "fame": 6,
+                "wealth": 4
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "매년 돌아오는 배역이, 안정감과 부담을 동시에 안겼다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-rising-aging-image-42",
+        "text": "젊은 배우들 사이에서 입지 변화를 체감한다",
+        "deltas": {
+                "happiness": -3,
+                "fame": -1
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "캐스팅 제안의 결이, 조금씩 달라지고 있었다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-rising-charity-work-42",
+        "text": "재능 기부로 봉사 활동에 나선다",
+        "deltas": {
+                "happiness": 4,
+                "fame": 2
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "카메라 없는 곳에서 보낸 시간이, 오히려 더 오래 남았다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-rising-directing-debut-42",
+        "text": "직접 연출에 도전해본다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 3,
+                "wealth": -2
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "카메라 반대편에서 보는 세상은, 또 다른 얼굴을 하고 있었다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-career-reflection-42",
+        "text": "몸과 마음을 함께 돌아본다",
+        "deltas": {
+                "happiness": 1,
+                "health": 1
+        },
+        "result": "몸과 마음을 돌보는 일도, 이제는 미룰 수 없었다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-life-exit-42",
+        "text": "배우 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "조용히, 그러나 후회 없이 짐을 정리했다.",
+        "requiresRoute": "actor"
+},
       {
         id: "unhappy-42",
         text: "부모님의 부쩍 흰머리를 보고 마음이 무거워진다",
@@ -6377,6 +7193,87 @@ const STAGES = [
     intro: '조직 안에서 자신의 자리를 다시 확인하게 되는 시기입니다.',
     choices: [
       {
+        "id": "actor-rising-legacy-project-43",
+        "text": "오래 준비해온 작품에 마침내 캐스팅된다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 5
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "오랫동안 품어온 배역을, 드디어 마주하게 됐다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-rising-health-warning-43",
+        "text": "무리한 액션 촬영으로 부상을 입는다",
+        "deltas": {
+                "health": -4
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "addCondition": {
+                "id": "action-shoot-injury",
+                "label": "🩹 촬영 부상 후유증"
+        },
+        "result": "대역 없이 직접 뛴 장면이, 결국 몸에 흔적을 남겼다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-rising-family-time-43",
+        "text": "바쁜 활동 중에도 가족과 시간을 내려 애쓴다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 2
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent",
+                "spouse",
+                "child"
+        ],
+        "result": "짧아도 온전히 함께한 시간이, 그 무엇보다 소중했다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-rising-critics-praise-43",
+        "text": "평단의 극찬을 받으며 연기력을 인정받는다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 4
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "\"발견\"이라는 단어가, 이제는 낯설지 않게 따라붙었다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-career-reflection-43",
+        "text": "남은 시간을 어떻게 채울지 그려본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "앞으로 남은 시간을 어떻게 채울지, 천천히 그려보기 시작했다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-life-exit-43",
+        "text": "배우 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "오랜 여정 끝에, 스스로 커튼을 내리기로 했다.",
+        "requiresRoute": "actor"
+},
+      {
         id: "wealth-drain-43-b",
         text: "현지에서 뜻밖의 투자 제안에 목돈을 건다",
         deltas: { wealth: -6 },
@@ -6496,6 +7393,89 @@ const STAGES = [
     ageRange: '44세',
     intro: '가까운 사이일수록 소원해지기 쉬운 나이. 관계를 다시 들여다보게 됩니다.',
     choices: [
+      {
+        "id": "actor-veteran-lifetime-achievement-44",
+        "text": "공로상 성격의 상을 받으며 경력을 인정받는다",
+        "deltas": {
+                "fame": 8,
+                "happiness": 6
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "setOccupation": {
+                "id": "veteran-actor",
+                "label": "🏆 베테랑 배우"
+        },
+        "result": "트로피 하나에, 지나온 모든 배역이 담겨 있는 듯했다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-veteran-icon-status-44",
+        "text": "한 세대를 대표하는 배우로 자리매김한다",
+        "deltas": {
+                "fame": 7,
+                "happiness": 5
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "setOccupation": {
+                "id": "veteran-actor",
+                "label": "🏆 베테랑 배우"
+        },
+        "result": "어느새 이름 자체가 하나의 장르처럼 여겨지고 있었다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-veteran-institute-founding-44",
+        "text": "후학 양성을 위한 연기 아카데미를 세운다",
+        "deltas": {
+                "happiness": 5,
+                "wealth": -3,
+                "fame": 3
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "setOccupation": {
+                "id": "veteran-actor",
+                "label": "🏆 베테랑 배우"
+        },
+        "result": "배운 것들을 물려주는 일이, 새로운 보람으로 다가왔다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-still-rising-44",
+        "text": "여전히 라이징 배우로서 활동을 이어간다",
+        "deltas": {
+                "happiness": 1
+        },
+        "requiresOccupation": [
+                "rising-actor"
+        ],
+        "result": "특별한 전환점은 없었지만, 꾸준함도 나름의 힘이었다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-career-reflection-44",
+        "text": "오랜 세월 카메라 앞에 선 스스로를 돌아본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "오랜 세월 카메라 앞에 선 스스로가, 새삼 대견했다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-life-exit-44",
+        "text": "배우 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "박수 소리를 뒤로하고, 조용히 무대를 내려왔다.",
+        "requiresRoute": "actor"
+},
       {
         id: "unhappy-44",
         text: "자녀와 대화가 자꾸 겉돌아 서운함을 느낀다",
@@ -6621,6 +7601,77 @@ const STAGES = [
     ageRange: '45세',
     intro: '다 가진 것 같은데도 문득 공허해지는, 이른바 중년의 위기가 찾아오는 나이입니다.',
     choices: [
+      {
+        "id": "actor-veteran-mentoring-juniors-45",
+        "text": "후배 배우들의 든든한 멘토 역할을 한다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 2
+        },
+        "requiresOccupation": [
+                "veteran-actor"
+        ],
+        "result": "조언을 구하러 오는 후배들이, 지나온 시간을 다시 보게 했다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-veteran-retrospective-exhibit-45",
+        "text": "그동안의 필모그래피를 되짚는 회고전이 열린다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 5
+        },
+        "requiresOccupation": [
+                "veteran-actor"
+        ],
+        "result": "스크린 속 젊었던 얼굴이, 낯설고도 반가웠다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-veteran-health-management-45",
+        "text": "체력 관리를 위해 촬영 스케줄을 조절한다",
+        "deltas": {
+                "health": 3,
+                "wealth": -1
+        },
+        "requiresOccupation": [
+                "veteran-actor"
+        ],
+        "result": "예전처럼 몰아붙이지 않는 법도, 이제는 배워야 했다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-veteran-scandal-resurfaces-45",
+        "text": "오래전 논란이 다시 수면 위로 떠오른다",
+        "deltas": {
+                "fame": -4,
+                "happiness": -3
+        },
+        "requiresOccupation": [
+                "veteran-actor"
+        ],
+        "result": "지나간 줄 알았던 일이, 다시 발목을 잡았다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-career-reflection-45",
+        "text": "걸어온 긴 길을 되짚어본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "오래 걸어온 길을 되짚어보는 것만으로도, 마음이 차분해졌다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-life-exit-45",
+        "text": "배우 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "이제는 스스로 마침표를 찍을 시간이었다.",
+        "requiresRoute": "actor"
+},
       {
         id: "wealth-drain-45-b",
         text: "오랜 친구에게 사업 자금을 다시 한번 빌려준다",
@@ -6825,6 +7876,76 @@ const STAGES = [
     intro: '늦지 않았다는 걸 스스로 증명하고 싶어지는 나이입니다.',
     choices: [
       {
+        "id": "actor-veteran-final-curtain-role-46",
+        "text": "배우 인생을 정리하는 마음으로 묵직한 배역에 도전한다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 5
+        },
+        "requiresOccupation": [
+                "veteran-actor"
+        ],
+        "result": "모든 걸 쏟아붓는 심정으로, 마지막처럼 카메라 앞에 섰다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-veteran-industry-honor-46",
+        "text": "영화계 원로로서 공로를 인정받는 자리에 초대된다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 4
+        },
+        "requiresOccupation": [
+                "veteran-actor"
+        ],
+        "result": "후배들의 박수 속에서, 지나온 시간이 헛되지 않았음을 느꼈다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-veteran-quiet-days-46",
+        "text": "활동을 줄이고 조용한 일상을 즐긴다",
+        "deltas": {
+                "happiness": 4,
+                "fame": -2
+        },
+        "requiresOccupation": [
+                "veteran-actor"
+        ],
+        "result": "카메라 없는 하루가, 오히려 더 편안하게 느껴졌다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-veteran-financial-legacy-46",
+        "text": "그동안 모은 자산으로 노후를 준비한다",
+        "deltas": {
+                "wealth": 4
+        },
+        "requiresOccupation": [
+                "veteran-actor"
+        ],
+        "result": "화려했던 시절의 수입이, 이제는 든든한 버팀목이 됐다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-career-reflection-46",
+        "text": "곁을 지켜준 사람들에게 고마움을 느낀다",
+        "deltas": {
+                "relationship": 2
+        },
+        "result": "곁을 지켜준 사람들에게, 새삼 고마운 마음이 들었다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-life-exit-46",
+        "text": "배우 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "오랜 배우 인생에, 스스로 마침표를 찍었다.",
+        "requiresRoute": "actor"
+},
+      {
         id: "unhappy-46",
         text: "건강검진에서 예상 못 한 수치에 덜컥 겁이 난다",
         deltas: { happiness: -3, health: -2 },
@@ -6910,6 +8031,81 @@ const STAGES = [
     ageRange: '47세',
     intro: '나를 키워준 사람들의 노년을 마주하며, 삶과 죽음을 조금 더 가까이서 보게 됩니다.',
     choices: [
+      {
+        "id": "actor-veteran-documentary-subject-47",
+        "text": "배우 인생을 다룬 다큐멘터리 제작에 참여한다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 4
+        },
+        "requiresOccupation": [
+                "veteran-actor"
+        ],
+        "result": "스스로의 지난 삶을 화면으로 마주하는 기분은, 묘하고도 벅찼다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-veteran-passing-torch-47",
+        "text": "자신이 맡았던 대표작의 후속작에서 조연으로 힘을 보탠다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 4,
+                "relationship": 2
+        },
+        "requiresOccupation": [
+                "veteran-actor"
+        ],
+        "result": "주인공 자리를 내주는 게 아니라, 함께 서는 법을 배우는 자리였다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-veteran-health-scare-47",
+        "text": "오랜 활동의 여파로 건강에 적신호가 켜진다",
+        "deltas": {
+                "health": -4
+        },
+        "requiresOccupation": [
+                "veteran-actor"
+        ],
+        "addCondition": {
+                "id": "veteran-actor-fatigue",
+                "label": "🩹 만성 피로"
+        },
+        "result": "화면 밖 몸은, 생각보다 훨씬 지쳐 있었다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-veteran-full-circle-47",
+        "text": "데뷔 초 함께했던 동료들과 재회한다",
+        "deltas": {
+                "happiness": 5,
+                "relationship": 3
+        },
+        "requiresOccupation": [
+                "veteran-actor"
+        ],
+        "result": "그때는 몰랐던 서로의 고생이, 이제는 다 이해가 갔다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-career-reflection-47",
+        "text": "긴 여정의 끝에서 스스로를 돌아본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "긴 여정의 끝에서, 후회보다 감사가 더 컸다.",
+        "requiresRoute": "actor"
+},
+      {
+        "id": "actor-life-exit-47",
+        "text": "배우 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "마지막까지, 스스로 선택한 삶이었다.",
+        "requiresRoute": "actor"
+},
       {
         id: "wealth-drain-47-b",
         text: "골프·모임 등 사회생활 비용이 눈덩이처럼 불어난다",

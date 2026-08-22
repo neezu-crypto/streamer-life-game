@@ -125,15 +125,36 @@ const STAGE_INDEX_BY_ID = new Map(STAGES.map((s, i) => [s.id, i]));
 // 더 이상 활성이 아닌 것으로 취급(별도 종료 선택 없이 자동 종료). 재진입 방지를
 // 위해 "이미 겪은 루트 id 목록"도 같이 반환한다 - choiceLog에 그 startsRoute.id가
 // 단 한 번이라도 나타난 적 있으면 겪은 것으로 간주(끝까지 갔든 조기 종료했든).
+//
+// routeCompletedIds/routeEndAges(2026-08-22, "연예계 루트→배우 루트" 후속 루트
+// 설계용 - 사용자 지시: "연예계 루트가 끝나고 3턴안에 배우 루트에 진입 가능한
+// 트리거", 이어서 "연예계 루트를 끝까지 마친 경우에만"으로 확정) - 다음 루트로
+// 이어지려면 "그 루트가 언제 끝났는지"와 "조기 포기가 아니라 끝까지 다 마쳤는지"를
+// 구분해서 알아야 한다. endsRoute 선택으로 중도 포기한 경우엔 routeCompletedIds에
+// 안 들어가고(끝까지 못 갔으므로), maxDurationYears를 다 채워 자동 만료된 경우만
+// 들어간다. routeEndAges는 두 경우 모두(조기 포기든 자동 만료든) 그 루트가 끝난
+// 나이를 기록한다 - 조기 포기면 그 선택을 고른 나이, 자동 만료면 시작 나이 +
+// maxDurationYears. 진입 나이를 "끝까지 마친 경우"로 좁혀두면 자동 만료 나이가
+// 항상 고정값(시작 나이+maxDurationYears)이라 다음 루트 콘텐츠를 몇 가지 정해진
+// 나이 폭 안에서만 설계하면 된다(요청·구현 배경은 기획서.html 14장 참고).
 function buildRouteState(choiceLog, asOfStageIndex) {
-  if (!Array.isArray(choiceLog)) return { activeRoute: null, experiencedRouteIds: [] };
+  if (!Array.isArray(choiceLog)) return { activeRoute: null, experiencedRouteIds: [], routeCompletedIds: [], routeEndAges: {} };
   const experiencedRouteIds = [];
+  const routeCompletedIds = [];
+  const routeEndAges = {};
   let activeRoute = null;
   for (const entry of choiceLog) {
     const stage = STAGE_BY_ID.get(entry.stageId);
     const choice = stage && stage.choices.find((c) => c.id === entry.choiceId);
     if (!stage || !choice) continue;
     if (choice.startsRoute) {
+      // 앞서 활성 루트가 있었는데 명시적 endsRoute 없이 새 루트가 시작됐다면
+      // (이론상 basePool이 활성 루트 중엔 다른 startsRoute를 후보에서 빼므로
+      // 실제로는 발생하지 않지만, 방어적으로) 그 사이에 자동 만료된 것으로 본다.
+      if (activeRoute) {
+        routeCompletedIds.push(activeRoute.id);
+        routeEndAges[activeRoute.id] = activeRoute.startStageIndex + activeRoute.maxDurationYears;
+      }
       experiencedRouteIds.push(choice.startsRoute.id);
       activeRoute = {
         id: choice.startsRoute.id,
@@ -142,13 +163,16 @@ function buildRouteState(choiceLog, asOfStageIndex) {
         startStageIndex: STAGE_INDEX_BY_ID.get(stage.id)
       };
     } else if (choice.endsRoute && activeRoute) {
+      routeEndAges[activeRoute.id] = STAGE_INDEX_BY_ID.get(stage.id);
       activeRoute = null;
     }
   }
   if (activeRoute && (asOfStageIndex - activeRoute.startStageIndex) >= activeRoute.maxDurationYears) {
+    routeCompletedIds.push(activeRoute.id);
+    routeEndAges[activeRoute.id] = activeRoute.startStageIndex + activeRoute.maxDurationYears;
     activeRoute = null;
   }
-  return { activeRoute, experiencedRouteIds };
+  return { activeRoute, experiencedRouteIds, routeCompletedIds, routeEndAges };
 }
 
 // 계정당 저장 슬롯 1개 - lifeGame/playthroughs/{uid}가 push id 없이 그 유저의
@@ -263,6 +287,9 @@ function pickVisibleChoiceIds(choices, ctx) {
   const guaranteeCure = !!ctx.guaranteeCure;
   const activeRouteId = ctx.activeRouteId || null;
   const experiencedRouteIds = ctx.experiencedRouteIds || [];
+  const routeCompletedIds = ctx.routeCompletedIds || [];
+  const routeEndAges = ctx.routeEndAges || {};
+  const currentAge = ctx.currentAge;
 
   const basePool = activeRouteId
     ? choices.filter((c) => c.requiresRoute === activeRouteId)
@@ -286,6 +313,18 @@ function pickVisibleChoiceIds(choices, ctx) {
     if (c.requiresAnyTalent && !talentIds.length) return false;
     if (c.requiresHobby && !hobbyIds.includes(c.requiresHobby)) return false;
     if (c.requiresAnyHobby && !hobbyIds.length) return false;
+    // requiresRouteCompletedWithin({routeId, maxYears}, 2026-08-22 - "연예계
+    // 루트→배우 루트" 후속 루트) - 그 routeId가 "끝까지 다 마친" 적이 있고
+    // (routeCompletedIds - 조기 포기는 해당 안 됨), 그 종료 나이로부터 1~
+    // maxYears년 이내(0년째=종료된 바로 그 나이는 아직 "그 후"가 아니므로 제외)
+    // 일 때만 후보에 든다.
+    if (c.requiresRouteCompletedWithin) {
+      const { routeId, maxYears } = c.requiresRouteCompletedWithin;
+      if (!routeCompletedIds.includes(routeId)) return false;
+      const endAge = routeEndAges[routeId];
+      const yearsSince = currentAge - endAge;
+      if (endAge === undefined || yearsSince < 1 || yearsSince > maxYears) return false;
+    }
     return true;
   });
   if (eligible.length <= 3) return eligible.map((c) => c.id);
@@ -689,6 +728,17 @@ async function applyChoice(db, playRef, play, stage, choice) {
   if (choice.startsRoute && priorRouteState.experiencedRouteIds.includes(choice.startsRoute.id)) {
     throw new HttpsError('failed-precondition', '이미 겪은 루트라 다시 시작할 수 없습니다.');
   }
+  // requiresRouteCompletedWithin({routeId, maxYears}, 2026-08-22, "연예계
+  // 루트→배우 루트" 후속 루트) - pickVisibleChoiceIds와 완전히 같은 조건을
+  // 여기서도 검증한다(buildRouteState 주석 참고).
+  if (choice.requiresRouteCompletedWithin) {
+    const { routeId, maxYears } = choice.requiresRouteCompletedWithin;
+    const endAge = priorRouteState.routeEndAges[routeId];
+    const yearsSince = play.stageIndex - endAge;
+    if (!priorRouteState.routeCompletedIds.includes(routeId) || endAge === undefined || yearsSince < 1 || yearsSince > maxYears) {
+      throw new HttpsError('failed-precondition', '지금은 고를 수 없는 선택지입니다.');
+    }
+  }
 
   // prizeTable(가중치 배열)이 붙은 선택지(복권 당첨 확인 등)는 choice.deltas·
   // choice.result가 고정값이 아니라, 이 순간 서버에서 무작위로 뽑은 등수의
@@ -996,7 +1046,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
 
   // 트리거 루트(14장) - 방금 갱신된 choiceLog 기준으로 "다음 구간(nextIndex)
   // 시점에" 활성 루트가 무엇인지 다시 계산한다(buildRouteState 주석 참고).
-  const { activeRoute: nextActiveRoute, experiencedRouteIds } = buildRouteState(choiceLog, nextIndex);
+  const { activeRoute: nextActiveRoute, experiencedRouteIds, routeCompletedIds: nextRouteCompletedIds, routeEndAges: nextRouteEndAges } = buildRouteState(choiceLog, nextIndex);
 
   const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers, acquaintances, assets, cashHoldings, talents, hobbies, sickStreak, insuranceUnpaidYears };
 
@@ -1036,7 +1086,10 @@ async function applyChoice(db, playRef, play, stage, choice) {
       hobbyIds: hobbies.map((h) => h.id),
       guaranteeCure: guaranteeCureNow,
       activeRouteId: nextActiveRoute ? nextActiveRoute.id : null,
-      experiencedRouteIds
+      experiencedRouteIds,
+      routeCompletedIds: nextRouteCompletedIds,
+      routeEndAges: nextRouteEndAges,
+      currentAge: nextIndex
     });
     if (!nextActiveRoute) {
       nextVisibleIds = ensureGuaranteedCure(STAGES[nextIndex].choices, nextVisibleIds, healthConditions, guaranteeCureNow);
@@ -1205,7 +1258,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
   const currentOccupation = occupationHistory.length ? occupationHistory[occupationHistory.length - 1] : null;
   const locationHistory = buildLocationHistory(play.choiceLog);
   const currentLocation = resolveCurrentLocation(locationHistory);
-  const { activeRoute, experiencedRouteIds } = buildRouteState(play.choiceLog, play.stageIndex);
+  const { activeRoute, experiencedRouteIds, routeCompletedIds, routeEndAges } = buildRouteState(play.choiceLog, play.stageIndex);
 
   // visibleChoiceIds/currentIntroId가 이미 저장돼 있으면 그대로 재사용해서
   // 재접속해도 같은 3개·같은 상황 설명이 다시 뜨게 한다(이 필드들이 생기기
@@ -1234,7 +1287,10 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       hobbyIds: hobbies.map((h) => h.id),
       guaranteeCure: guaranteeCureNow,
       activeRouteId: activeRoute ? activeRoute.id : null,
-      experiencedRouteIds
+      experiencedRouteIds,
+      routeCompletedIds,
+      routeEndAges,
+      currentAge: play.stageIndex
     });
     if (!activeRoute) {
       visibleChoiceIds = ensureGuaranteedCure(stage.choices, visibleChoiceIds, healthConditions, guaranteeCureNow);
