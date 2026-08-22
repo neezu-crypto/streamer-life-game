@@ -1968,6 +1968,25 @@ const STAGES = [
     intro: '진로와 성적이 본격적으로 무게를 갖기 시작하는 나이. 하루하루가 조금씩 빠듯해집니다.',
     choices: [
       {
+        "id": "se-scout-offer-17",
+        "text": "학교 운동부의 스카우트 제안을 받아들인다",
+        "deltas": {
+                "fame": 2,
+                "happiness": 2
+        },
+        "result": "명함 한 장이, 평소와 다른 하루를 만들었다.",
+        "requiresTalent": "sports",
+        "startsRoute": {
+                "id": "sports-elite",
+                "label": "⚽ 축구",
+                "maxDurationYears": 15
+        },
+        "setOccupation": {
+                "id": "student-athlete",
+                "label": "⚽ 축구 유망주"
+        }
+},
+      {
         id: "unhappy-17",
         text: "모의고사 성적이 계속 제자리라 자신감이 바닥난다",
         deltas: { happiness: -4 },
@@ -2106,6 +2125,75 @@ const STAGES = [
     ageRange: '18세',
     intro: '고등학교의 마지막 해. 수능과 졸업이라는 두 단어가 하루하루를 채웁니다.',
     choices: [
+      {
+        "id": "se-grueling-training-18",
+        "text": "새벽부터 밤까지 이어지는 훈련 스케줄을 버텨낸다",
+        "deltas": {
+                "fame": 2,
+                "health": -4,
+                "happiness": -2
+        },
+        "result": "몸은 파김치가 됐지만, 실력은 조금씩 늘고 있었다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-study-balance-18",
+        "text": "학업과 훈련 사이에서 아슬아슬하게 저글링한다",
+        "deltas": {
+                "health": -3,
+                "wealth": -1
+        },
+        "result": "졸린 눈으로 교실과 운동장을 오가는 하루하루였다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-minor-injury-18",
+        "text": "무리한 훈련 중 발목을 삔다",
+        "deltas": {
+                "health": -4
+        },
+        "addCondition": {
+                "id": "ankle-sprain",
+                "label": "🩹 발목 부상"
+        },
+        "result": "별거 아니라고 넘겼는데, 생각보다 오래갔다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-teammate-bond-18",
+        "text": "같은 처지의 동료들과 힘든 시간을 나누며 의지한다",
+        "deltas": {
+                "relationship": 4,
+                "happiness": 3
+        },
+        "result": "말 안 해도 서로의 힘듦을 아는 사이가, 큰 위안이 됐다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-family-worry-18",
+        "text": "불안정한 미래를 걱정하는 가족과 갈등을 겪는다",
+        "deltas": {
+                "relationship": -3,
+                "happiness": -2
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent"
+        ],
+        "result": "믿어달라는 말과 걱정된다는 말이, 매번 평행선을 그었다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-scout-attention-18",
+        "text": "경기 중 눈에 띄는 활약으로 스카우트들의 시선을 끈다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 2
+        },
+        "result": "관중석 한쪽에서 수첩을 든 사람들이, 부쩍 늘어난 걸 느꼈다.",
+        "requiresRoute": "sports-elite"
+},
       {
         id: "wealth-drain-18-a",
         text: "수능 끝난 기념으로 친구들과 통 크게 놀러 다닌다",
@@ -2320,6 +2408,84 @@ const STAGES = [
     intro: '인생의 첫 갈림길. 대학과 방송, 혹은 곧장 돈이 되는 길 — 스무 살의 선택은 이후 모든 걸 조금씩 흔들어놓습니다.',
     choices: [
       {
+        "id": "se-national-callup-19",
+        "text": "청소년 대표팀 발탁 테스트에서 두각을 나타낸다",
+        "deltas": {
+                "fame": 8,
+                "happiness": 5
+        },
+        "requiresOccupation": [
+                "student-athlete"
+        ],
+        "setOccupation": {
+                "id": "national-athlete",
+                "label": "🥇 축구 국가대표"
+        },
+        "result": "태극마크를 처음 달아본 순간, 다리가 후들거렸다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-contract-19",
+        "text": "실업팀 입단 제안을 수락한다",
+        "deltas": {
+                "wealth": 5,
+                "happiness": 4,
+                "fame": 3
+        },
+        "requiresOccupation": [
+                "student-athlete"
+        ],
+        "setOccupation": {
+                "id": "pro-athlete",
+                "label": "⚽ 프로 축구선수"
+        },
+        "result": "첫 계약서에 사인하던 손이, 조금 떨렸다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-selection-fails-retry-19",
+        "text": "대표팀 선발에서 아깝게 탈락하지만 다음을 기약한다",
+        "deltas": {
+                "happiness": -4
+        },
+        "requiresOccupation": [
+                "student-athlete"
+        ],
+        "result": "주저앉고 싶은 마음을 누르고, 다시 운동장으로 나갔다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-overtraining-risk-19",
+        "text": "무리한 훈련으로 몸에 이상 신호가 온다",
+        "deltas": {
+                "health": -4
+        },
+        "requiresOccupation": [
+                "student-athlete"
+        ],
+        "result": "괜찮다고 되뇌었지만, 몸은 이미 한계를 보내고 있었다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-injury-quits-19",
+        "text": "잦은 부상에 결국 축구를 완전히 접기로 한다",
+        "deltas": {
+                "happiness": 1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-career-reflection-19",
+        "text": "지금까지의 선수 생활을 가만히 되돌아본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "화려하지 않아도, 스스로 선택한 길이라는 사실이 위안이 됐다.",
+        "requiresRoute": "sports-elite"
+},
+      {
         id: "unhappy-19",
         text: "동기들은 다 하나씩 진로를 정하는데 나만 갈피를 못 잡는다",
         deltas: { happiness: -3 },
@@ -2483,6 +2649,78 @@ const STAGES = [
     ageRange: '20세',
     intro: '갓 어른이 된 티가 조금씩 빠지는 나이. 독립과 자유가 생각보다 훨씬 손이 많이 간다는 걸 알아갑니다.',
     choices: [
+      {
+        "id": "se-national-debut-20",
+        "text": "성인 국가대표로 첫 소집을 받는다",
+        "deltas": {
+                "fame": 7,
+                "happiness": 5
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "대표팀 훈련장 문을 여는 손이, 유난히 떨렸다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-national-media-hype-20",
+        "text": "언론이 차세대 스타로 집중 조명한다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 2
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "아직 실감이 안 나는 수식어들이, 자꾸 이름 앞에 붙었다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-debut-20",
+        "text": "프로 리그 데뷔전에 나선다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 4
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "관중석의 함성이, 상상보다 훨씬 크게 다가왔다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-rookie-award-20",
+        "text": "신인상 후보에 이름을 올린다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 3
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "후보에 오른 것만으로도, 처음으로 존재를 증명받은 기분이었다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-career-reflection-20",
+        "text": "지금의 위치를 담담히 돌아본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "여기까지 오는 동안 놓쳤던 것들이, 문득 떠올랐다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-life-exit-20",
+        "text": "선수 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "sports-elite"
+},
       {
         id: "wealth-drain-20-a",
         text: "동아리 활동에 필요한 장비를 이것저것 마련한다",
@@ -2734,6 +2972,81 @@ const STAGES = [
     intro: '방향을 조금씩 좁혀가는 나이. 막연했던 미래가 서서히 구체적인 모양을 갖추기 시작합니다.',
     choices: [
       {
+        "id": "se-asian-games-21",
+        "text": "아시안게임 대표팀에 승선한다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 4
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "태극기 앞에서 사진을 찍는 순간이, 오래도록 남을 것 같았다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-national-injury-return-21",
+        "text": "큰 부상에서 재활 끝에 그라운드로 복귀한다",
+        "deltas": {
+                "health": 3,
+                "happiness": 4
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "다시 뛸 수 있다는 것만으로도, 눈물이 핑 돌았다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-starting-competition-21",
+        "text": "주전 자리를 놓고 동료와 치열하게 경쟁한다",
+        "deltas": {
+                "fame": 2,
+                "relationship": -2
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "친했던 얼굴이, 어느새 넘어야 할 상대로 보이기 시작했다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-late-pro-catchup-21",
+        "text": "뒤늦게 찾아온 실업팀 입단 제의를 받는다",
+        "deltas": {
+                "wealth": 4,
+                "happiness": 4
+        },
+        "requiresOccupation": [
+                "student-athlete"
+        ],
+        "setOccupation": {
+                "id": "pro-athlete",
+                "label": "⚽ 프로 축구선수"
+        },
+        "result": "남들보다 늦었어도, 늦은 만큼 간절했던 순간이었다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-career-reflection-21",
+        "text": "곁을 지켜준 사람들을 떠올려본다",
+        "deltas": {
+                "relationship": 2
+        },
+        "result": "함께 이 길을 걸어준 사람들이, 새삼 고마웠다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-life-exit-21",
+        "text": "선수 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 1
+        },
+        "endsRoute": true,
+        "result": "오래 고민한 끝에, 마침표를 찍기로 했다.",
+        "requiresRoute": "sports-elite"
+},
+      {
         "id": "artist-poverty-struggle-21",
         "text": "월세를 걱정하며 작업 재료값부터 아낀다",
         "deltas": {
@@ -2937,6 +3250,79 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        "id": "se-olympic-selection-22",
+        "text": "올림픽 대표팀 최종 명단에 이름을 올린다",
+        "deltas": {
+                "fame": 8,
+                "happiness": 6
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "4년에 한 번뿐인 무대에 선다는 사실이, 아직도 믿기지 않았다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-europe-offer-22",
+        "text": "유럽 구단의 이적 제안을 받는다",
+        "deltas": {
+                "fame": 6,
+                "wealth": 3,
+                "happiness": 4
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "자막 너머까지 이름이 닿을 거라곤, 상상도 못 했다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-transfer-rumor-22",
+        "text": "이적설에 휘말리며 마음이 어수선해진다",
+        "deltas": {
+                "happiness": -3,
+                "fame": 2
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "사실 여부와 상관없이, 이름 석 자가 연일 오르내렸다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-rehab-22",
+        "text": "무릎 부상으로 긴 재활 기간을 견딘다",
+        "deltas": {
+                "health": -3,
+                "happiness": -2
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "경기장 밖에서 보내는 시간이, 생각보다 훨씬 길게 느껴졌다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-career-reflection-22",
+        "text": "잘 해내고 있는지 스스로에게 물어본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "답은 없었지만, 질문을 멈추지는 않았다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-life-exit-22",
+        "text": "선수 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "화려한 날들이었지만, 이제는 내려놓을 때라고 느꼈다.",
+        "requiresRoute": "sports-elite"
+},
       {
         "id": "artist-gallery-rejections-22",
         "text": "여러 갤러리에 문의했지만 줄줄이 거절당한다",
@@ -3155,6 +3541,78 @@ const STAGES = [
     ageRange: '23세',
     intro: '스무 살대의 마지막 해. 자립이라는 단어가 더는 남 얘기가 아니게 됩니다.',
     choices: [
+      {
+        "id": "se-national-captain-23",
+        "text": "국가대표팀의 주장 완장을 넘겨받는다",
+        "deltas": {
+                "fame": 6,
+                "relationship": 3,
+                "happiness": 4
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "팔에 두른 완장의 무게가, 생각보다 훨씬 묵직했다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-national-sponsor-deal-23",
+        "text": "대형 스폰서와 광고 계약을 맺는다",
+        "deltas": {
+                "wealth": 8,
+                "fame": 3
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "운동장 밖에서도 이름이 팔린다는 게, 낯설고도 새삼스러웠다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-title-contribution-23",
+        "text": "팀의 우승에 결정적인 활약을 펼친다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 5
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "동료들과 부둥켜안고 흘린 눈물이, 오래도록 잊히지 않았다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-student-athlete-final-giveup-23",
+        "text": "몇 년째 제자리인 무명 생활에 마침내 마침표를 찍는다",
+        "deltas": {
+                "happiness": 1
+        },
+        "requiresOccupation": [
+                "student-athlete"
+        ],
+        "endsRoute": true,
+        "result": "끝까지 가보지 못한 아쉬움보다, 스스로 내린 결정이라는 게 더 컸다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-career-reflection-23",
+        "text": "숫자로 남지 않는 것들을 헤아려본다",
+        "deltas": {
+                "wealth": 1
+        },
+        "result": "숫자로만 남지 않는 것들도, 분명히 쌓여 있었다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-life-exit-23",
+        "text": "선수 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "박수 받을 때 떠나는 것도, 나쁘지 않은 선택이었다.",
+        "requiresRoute": "sports-elite"
+},
       {
         "id": "artist-almost-quitting-23",
         "text": "통장 잔고를 보다 이 길을 접을 뻔한다",
@@ -3426,6 +3884,79 @@ const STAGES = [
     ageRange: '24세',
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
+      {
+        "id": "se-national-dropout-scare-24",
+        "text": "부상으로 대표팀 낙마 위기에 놓인다",
+        "deltas": {
+                "happiness": -4,
+                "fame": -2
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "태극마크를 잃을지도 모른다는 두려움이, 처음으로 밀려왔다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-national-dramatic-comeback-24",
+        "text": "극적인 결승골로 팀을 승리로 이끈다",
+        "deltas": {
+                "fame": 7,
+                "happiness": 5
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "그 한 골이, 몇 년의 노력을 한순간에 증명해줬다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-europe-transfer-24",
+        "text": "해외 리그 진출을 결심하고 짐을 싼다",
+        "deltas": {
+                "fame": 5,
+                "wealth": 3,
+                "happiness": 3
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "낯선 땅에서 다시 신인이 된 기분이었지만, 설렘이 더 컸다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-benched-24",
+        "text": "경기력 저하로 벤치 신세를 진다",
+        "deltas": {
+                "happiness": -4,
+                "fame": -2
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "그라운드를 바라보는 시간이, 뛰는 시간보다 길어졌다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-career-reflection-24",
+        "text": "몸과 마음을 함께 돌아본다",
+        "deltas": {
+                "happiness": 1,
+                "health": 1
+        },
+        "result": "몸과 마음을 돌보는 일도, 이제는 미룰 수 없었다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-life-exit-24",
+        "text": "선수 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "조용히, 그러나 후회 없이 짐을 정리했다.",
+        "requiresRoute": "sports-elite"
+},
       {
         "id": "artist-turning-point-commission-24",
         "text": "평소와 다른 규모의 의뢰가 인생을 바꿔놓는다",
@@ -3711,6 +4242,78 @@ const STAGES = [
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
       {
+        "id": "se-world-cup-qualified-25",
+        "text": "월드컵 본선 진출을 확정 짓는 경기에 출전한다",
+        "deltas": {
+                "fame": 9,
+                "happiness": 6
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "휘슬이 울리는 순간, 온몸에 소름이 돋았다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-world-cup-goal-25",
+        "text": "월드컵 본선 무대에서 결승골을 터뜨린다",
+        "deltas": {
+                "fame": 10,
+                "happiness": 7
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "전 세계가 지켜보는 앞에서, 평생 잊지 못할 순간을 만들었다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-veteran-treatment-25",
+        "text": "리그의 베테랑 대우를 받기 시작한다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 3
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "어느새 후배들이 먼저 인사를 건네는 위치가 됐다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-mentoring-25",
+        "text": "어린 후배 선수를 곁에서 이끌어준다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "몇 년 전 자신의 모습이, 후배에게 겹쳐 보였다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-career-reflection-25",
+        "text": "지금까지의 여정을 다시 한번 되짚어본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "숨 가쁘게 달려온 시간들이, 새삼 뿌듯하게 느껴졌다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-life-exit-25",
+        "text": "선수 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "sports-elite"
+},
+      {
         id: "unhappy-25",
         text: "동기가 먼저 승진했다는 소식에 씁쓸함을 감추지 못한다",
         deltas: { happiness: -3, fame: -1 },
@@ -3990,6 +4593,78 @@ const STAGES = [
     ageRange: '26세',
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
+      {
+        "id": "se-national-doping-scandal-26",
+        "text": "근거 없는 도핑 의혹에 휘말린다",
+        "deltas": {
+                "fame": -6,
+                "happiness": -4
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "해명이 길어질수록, 오히려 논란만 커지는 것 같았다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-national-cleared-26",
+        "text": "검사 끝에 누명을 완전히 벗는다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 4
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "떳떳함이 증명된 순간, 그동안의 억울함이 눈 녹듯 사라졌다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-contract-renewal-26",
+        "text": "재계약 협상 테이블에 앉는다",
+        "deltas": {
+                "wealth": 5,
+                "happiness": 1
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "숫자 하나하나가, 지난 활약의 증거처럼 느껴졌다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-released-26",
+        "text": "구단으로부터 방출 통보를 받는다",
+        "deltas": {
+                "happiness": -5,
+                "fame": -2
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "예상은 했지만, 막상 들으니 다리에 힘이 풀렸다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-career-reflection-26",
+        "text": "팬들의 응원을 새삼 떠올려본다",
+        "deltas": {
+                "happiness": 2,
+                "relationship": 1
+        },
+        "result": "묵묵히 응원해준 얼굴들이, 큰 힘이 됐다는 걸 새삼 느꼈다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-life-exit-26",
+        "text": "선수 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 1
+        },
+        "endsRoute": true,
+        "result": "오래 고민한 끝에, 마침표를 찍기로 했다.",
+        "requiresRoute": "sports-elite"
+},
       {
         "id": "artist-gallery-representation-26",
         "text": "갤러리와 정식으로 전속 계약을 맺는다",
@@ -4298,6 +4973,78 @@ const STAGES = [
     ageRange: '27세',
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
+      {
+        "id": "se-national-injury-retirement-consider-27",
+        "text": "거듭된 부상으로 대표팀 은퇴를 고민한다",
+        "deltas": {
+                "happiness": -4,
+                "health": -2
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "몸이 예전 같지 않다는 걸, 인정해야 할 때가 온 것 같았다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-national-last-callup-27",
+        "text": "어쩌면 마지막일 대표팀 발탁 소식을 듣는다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 5
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "이번이 마지막일 수도 있다는 생각에, 모든 순간이 더 소중했다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-captain-armband-27",
+        "text": "소속팀의 주장 완장을 맡는다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 3
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "팔에 두른 완장의 무게가, 생각보다 훨씬 묵직했다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-stays-loyal-27",
+        "text": "더 좋은 조건의 이적 제안을 뿌리치고 팀에 남는다",
+        "deltas": {
+                "relationship": 4,
+                "happiness": 2,
+                "wealth": -2
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "돈보다 중요한 게 있다는 걸, 스스로에게 증명하고 싶었다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-career-reflection-27",
+        "text": "남은 선수 생활을 어떻게 채울지 그려본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "앞으로 남은 시간을 어떻게 채울지, 천천히 그려보기 시작했다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-life-exit-27",
+        "text": "선수 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "오랜 여정 끝에, 스스로 커튼을 내리기로 했다.",
+        "requiresRoute": "sports-elite"
+},
       {
         "id": "artist-book-deal-27",
         "text": "그동안의 작업을 엮어 책으로 출간할 기회를 얻는다",
@@ -4620,6 +5367,77 @@ const STAGES = [
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
       {
+        "id": "se-national-farewell-28",
+        "text": "국가대표 은퇴식 무대에 선다",
+        "deltas": {
+                "fame": 8,
+                "happiness": 6
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "태극마크를 내려놓는 순간, 지나온 시간이 파노라마처럼 스쳤다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-national-coach-offer-28",
+        "text": "대표팀 코칭스태프 합류를 제안받는다",
+        "deltas": {
+                "wealth": 4,
+                "happiness": 4
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "선수가 아닌 다른 자리에서, 다시 이 무대와 이어질 수 있었다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-veteran-spirit-28",
+        "text": "노장의 투혼으로 팀 위기를 이끈다",
+        "deltas": {
+                "fame": 5,
+                "relationship": 3
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "나이는 숫자에 불과하다는 걸, 몸으로 보여줬다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-generation-pressure-28",
+        "text": "어린 선수들 사이에서 세대교체 압박을 느낀다",
+        "deltas": {
+                "happiness": -3,
+                "fame": -1
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "캐스팅 아니, 라인업의 결이, 조금씩 달라지고 있었다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-career-reflection-28",
+        "text": "오랜 세월 그라운드를 지킨 스스로를 돌아본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "오랜 세월 그라운드를 지킨 스스로가, 새삼 대견했다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-life-exit-28",
+        "text": "선수 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "박수 소리를 뒤로하고, 조용히 그라운드를 떠났다.",
+        "requiresRoute": "sports-elite"
+},
+      {
         "id": "artist-signature-style-28",
         "text": "이제는 누가 봐도 알아보는 색깔이 완성된다",
         "deltas": {
@@ -4927,6 +5745,80 @@ const STAGES = [
     intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
     choices: [
       {
+        "id": "se-national-pundit-29",
+        "text": "은퇴 후 방송 해설위원으로 활동을 시작한다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 4
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "마이크를 잡은 첫날, 선수 시절과는 다른 떨림이 있었다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-national-foundation-29",
+        "text": "유소년 육성을 위한 재단을 설립한다",
+        "deltas": {
+                "happiness": 5,
+                "wealth": -4,
+                "fame": 3
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "배운 것들을 물려주는 일이, 새로운 보람으로 다가왔다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-twilight-29",
+        "text": "선수 생활의 황혼기임을 실감한다",
+        "deltas": {
+                "happiness": -2,
+                "health": -2
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "예전만큼 몸이 따라주지 않는다는 걸, 조금씩 받아들여야 했다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-overseas-league-29",
+        "text": "중동·미국 리그의 새로운 도전 제안을 받는다",
+        "deltas": {
+                "wealth": 6,
+                "fame": 3,
+                "happiness": 3
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "늦었다고 생각했던 도전이, 다시 한번 가능해졌다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-career-reflection-29",
+        "text": "팬들과의 시간을 새삼 소중하게 여긴다",
+        "deltas": {
+                "happiness": 2,
+                "relationship": 2
+        },
+        "result": "스쳐 지나간 순간들이, 돌아보니 전부 소중했다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-life-exit-29",
+        "text": "선수 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "스포트라이트보다 평범한 일상이, 더 간절해졌다.",
+        "requiresRoute": "sports-elite"
+},
+      {
         "id": "artist-controversy-29",
         "text": "작품 하나가 뜻밖의 논란에 휩싸인다",
         "deltas": {
@@ -5207,6 +6099,77 @@ const STAGES = [
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
       {
+        "id": "se-national-legend-30",
+        "text": "축구 레전드로 추대되는 자리에 초청받는다",
+        "deltas": {
+                "fame": 7,
+                "happiness": 5
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "후배들의 박수 속에서, 지나온 시간이 헛되지 않았음을 느꼈다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-national-documentary-30",
+        "text": "선수 인생을 다룬 다큐멘터리 제작에 참여한다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 3
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "스스로의 지난 삶을 화면으로 마주하는 기분은, 묘하고도 벅찼다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-final-season-decision-30",
+        "text": "은퇴를 앞두고 마지막 시즌 각오를 다진다",
+        "deltas": {
+                "happiness": 3,
+                "health": -2
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "마지막이라는 마음으로, 다시 한번 신발끈을 조여 맸다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-quiet-life-30",
+        "text": "은퇴를 조용히 준비하며 일상을 정리한다",
+        "deltas": {
+                "happiness": 3,
+                "fame": -2
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "화려함 대신 평온함을 택하는 것도, 나쁘지 않은 결정이었다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-career-reflection-30",
+        "text": "걸어온 긴 길을 되짚어본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "오래 걸어온 길을 되짚어보는 것만으로도, 마음이 차분해졌다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-life-exit-30",
+        "text": "선수 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "이제는 스스로 마침표를 찍을 시간이었다.",
+        "requiresRoute": "sports-elite"
+},
+      {
         "id": "artist-major-show-30",
         "text": "유명 미술관·갤러리에서 대규모 개인전을 연다",
         "deltas": {
@@ -5397,6 +6360,78 @@ const STAGES = [
     ageRange: '31세',
     intro: '곁에 남을 사람과 앞으로의 삶을 어떻게 그릴지, 조금 더 구체적으로 고민하는 나이입니다.',
     choices: [
+      {
+        "id": "se-national-final-interview-31",
+        "text": "축구 인생을 마무리하는 인터뷰에 응한다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 5
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "긴 여정의 끝에서, 후회보다 감사가 더 컸다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-national-academy-31",
+        "text": "후진 양성을 위한 축구 아카데미를 설립한다",
+        "deltas": {
+                "happiness": 5,
+                "wealth": -3,
+                "fame": 2
+        },
+        "requiresOccupation": [
+                "national-athlete"
+        ],
+        "result": "몇 년 전 자신의 모습이, 어린 선수들에게 겹쳐 보였다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-retirement-decision-31",
+        "text": "오랜 고민 끝에 현역 은퇴를 결정한다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "아쉬움도 있었지만, 스스로 내린 결정이라는 게 더 컸다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-pro-coaching-course-31",
+        "text": "지도자 자격을 위한 연수 과정에 등록한다",
+        "deltas": {
+                "wealth": -2,
+                "happiness": 3
+        },
+        "requiresOccupation": [
+                "pro-athlete"
+        ],
+        "result": "선수가 아닌 다른 자리에서, 다시 이 길과 이어지고 싶었다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-career-reflection-31",
+        "text": "15년의 선수 생활을 가만히 되돌아본다",
+        "deltas": {
+                "happiness": 3
+        },
+        "result": "화려하지 않아도, 스스로 선택한 길이라는 사실이 위안이 됐다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-life-exit-31",
+        "text": "선수 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "마지막까지, 스스로 선택한 삶이었다.",
+        "requiresRoute": "sports-elite"
+},
       {
         "id": "artist-comeback-project-31",
         "text": "오래 준비해온 대표작에 마침내 착수한다",

@@ -2382,12 +2382,16 @@
                 <code>idol</code>(⭐ 아이돌)로 전환 - 21세 이후 콘텐츠는 <code>requiresOccupation</code>으로
                 아이돌/연습생(재도전) 갈래를 나눈다(같은 필드 재사용, 엔진 변경 없음). 조기 종료
                 (<code>endsRoute</code>) 선택지가 14개 나이 전부에 최소 1개씩 있어 언제든 발을 뺄 수 있음</td></tr>
-                <tr><td>②</td><td>예체능(예술고·콩쿠르)</td><td>①과 같은 <code>arts-talent</code> 진입점
-                공유 — "방송 vs 콩쿠르" 갈림길로 분기</td><td>① 직후 이어서(같은 트리거 지점 재설계 필요)</td></tr>
+                <tr><td>②</td><td>예체능→축구(체육 계열로 확정, ④와 통합) <span class="badge badge-live">
+                구현됨 (2026-08-23)</span></td><td>16세 <code>sports-day-star</code>가 이미 주던 재능
+                <code>sports</code>(🏃 운동)를 그대로 트리거 조건으로 사용 — 원래 계획한 "예술고·콩쿠르"
+                (예술 계열)는 사용자가 "체육 계열로 확정"하며 폐기, 별도로 있던 ④ 스포츠 엘리트 항목과
+                통합해 하나의 루트로 만들었다. 종목은 "국가대표"로 뭉뚱그리지 않고 <b>축구로 특정</b>(사용자
+                지시: "단순히 국가대표라기보단 어느 종목인지 딱 정하고싶어" → 후보 중 축구 선택).</td></tr>
                 <tr><td>③</td><td>조기 유학</td><td>10~13세 신설 선택지, 14장의 "장소"(<code>location</code>)
                 시스템 재사용</td><td>-</td></tr>
-                <tr><td>④</td><td>스포츠 엘리트(운동부·국가대표 유망주)</td><td>신설 재능 타입
-                <code>sports</code></td><td>-</td></tr>
+                <tr><td>④</td><td><s>스포츠 엘리트(운동부·국가대표 유망주)</s></td><td colspan="2">②(축구
+                루트)로 통합됨(2026-08-23) — 별도 항목 아님</td></tr>
                 <tr><td>⑤</td><td>프로게이머</td><td>신설 재능 타입 <code>gaming</code>(9세
                 <code>youtube-binge</code> 계열과 연결 가능)</td><td>-</td></tr>
                 <tr><td>⑥</td><td>10대 창업가</td><td>16~19세, 20세 <code>startup-gamble</code>의
@@ -2474,6 +2478,39 @@
         일치하는 것을 직접 계산해 확인(인기 62 × cashUnitForAge(21) 8,250,000 ÷ 50 = 10,230,000원 —
         실측치와 일치). 전체 게임 8,000회 회귀 시뮬레이션에서 <code>zeroEligible</code>·멈춤 0건, 즉사율
         16.25%(기존과 동일, 변화 없음).</p>
+
+        <h3>네 번째 루트 - 축구(②+④ 통합, 2026-08-23)</h3>
+        <p class="note"><b>진입 - 기존 재능 재사용, 새 트리거 1개만 추가.</b> 16세
+        <code>sports-day-star</code>("체육대회에서 반 대표로 활약하며 존재감을 알린다")가 이번 세션
+        초반에 이미 재능 <code>sports</code>(🏃 운동)를 부여하도록 고쳐뒀던 것을 그대로 재사용 - 17세에
+        새 선택지 <code>se-scout-offer-17</code>("학교 운동부의 스카우트 제안을 받아들인다",
+        <code>requiresTalent: 'sports'</code>)을 추가해 <code>setOccupation: &#123;id:'student-athlete',
+        label:'⚽ 축구 유망보'&#125;</code>와 <code>startsRoute: &#123;id:'sports-elite', label:'⚽ 축구',
+        maxDurationYears:15&#125;</code>를 걸었다. 16세와 17세로 한 살 차이를 둔 이유 - 같은 나이 안에서
+        "재능을 얻는 선택"과 "그 재능을 요구하는 선택"이 동시에 뜨면 게이팅이 그 턴의 이전 상태만 보므로
+        막 얻은 재능을 그 자리에서 바로 못 쓴다(다른 재능 트리거들도 전부 최소 한 살 차이를 둠). 활성
+        구간은 18~31세(14개 나이).</p>
+        <p class="note"><b>19세 갈림길 - 배우 루트의 신인→라이징 단일 상승과 달리, 두 갈래로 분기.</b>
+        사용자 지시: "통합하는데 19세에 세부적인 갈래길을 나누는건 어때?" → "단순히 국가대표라기보단
+        어느 종목인지 딱 정하고싶어"(후보 축구/야구/수영·육상 중 축구 선택). 19세
+        <code>se-national-callup-19</code>(청소년 대표팀 발탁)는
+        <code>setOccupation: national-athlete</code>(🥇 축구 국가대표)로, <code>se-pro-contract-19</code>
+        (실업팀 입단)는 <code>setOccupation: pro-athlete</code>(⚽ 프로 축구선수)로 각각 이어진다 - 실제
+        축구 선수 커리어가 "국가대표급"과 "생계형 프로"로 갈리는 걸 반영. 선발에서 탈락해도
+        <code>student-athlete</code>로 남아 계속 도전할 수 있고(<code>se-selection-fails-retry-19</code>),
+        21세에 뒤늦은 실업팀 캐치업(<code>se-late-pro-catchup-21</code>), 23세에 최종 포기
+        (<code>se-student-athlete-final-giveup-23</code>)로 이어지는 안전장치까지 연예계·배우 루트와
+        같은 패턴을 그대로 적용했다.</p>
+        <p class="note"><b>콘텐츠.</b> 18세(전향 전 공용 6개) + 19세 갈림길(6개) + 20~31세(12개 나이,
+        국가대표/프로 각 콘텐츠 혼재 + 공용 회고·이탈 2개씩) = 총 85개 신규 선택지. 국가대표 갈래는
+        월드컵 예선·본선·결승골·주장 완장·도핑 의혹·은퇴식·해설위원 전향까지, 프로 갈래는 데뷔전·이적설·
+        재계약·방출·해외 진출·은퇴 후 지도자 연수까지 다뤘다. 매 나이 "선수 생활 정리"
+        (<code>endsRoute</code>) 선택지를 하나씩 둬 언제든 발을 뺄 수 있게 했다.</p>
+        <p class="note"><b>검증.</b> 3,000회 균등 무작위 시뮬레이션: 축구 루트 진입 14건(재능
+        <code>sports</code> 자체가 16세 무작위 노출에 달려 있어 다른 재능 기반 진입보다 확률이 낮음 -
+        구조적으로 정상), 국가대표 전환 3건·프로선수 전환 5건으로 두 갈래 모두 실제 도달 확인,
+        <code>STUCK</code>·<code>ALL_REJECTED</code> 0건. 전체 게임 8,000회 회귀 시뮬레이션에서
+        <code>zeroEligible</code>·멈춤 0건, 즉사율 15.16%(기존과 동일, 변화 없음).</p>
 
         <h3>구현 시 다시 확인이 필요한 세부사항</h3>
         <ul>
