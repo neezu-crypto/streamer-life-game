@@ -7800,7 +7800,8 @@ const STAGES = [
         id: 'midlife-real-estate-flip-45',
         text: '그동안 눈여겨보던 부동산에 다시 손을 댄다',
         deltas: { wealth: 4 },
-        result: '타이밍이 나쁘지 않았던 모양이다.'
+        result: '타이밍이 나쁘지 않았던 모양이다.',
+        requiresAssetType: 'realestate'
       },
       {
         id: 'midlife-stock-account-check-45',
@@ -8980,7 +8981,8 @@ const STAGES = [
         id: 'liquidating-property-for-cashflow',
         text: '부동산을 정리하며 현금 흐름을 확보한다',
         deltas: { wealth: 5, happiness: -1 },
-        result: '오래 품고 있던 걸 놓아주는 데도, 결심이 필요했다.'
+        result: '오래 품고 있던 걸 놓아주는 데도, 결심이 필요했다.',
+        requiresAssetType: 'realestate'
       },
       {
         id: 'health-and-time-over-money',
@@ -10643,7 +10645,8 @@ const STAGES = [
         id: 'oldprep-renting-spare-room-66',
         text: '빈 방 하나를 세상에 열어 세를 놓는다',
         deltas: { wealth: 3 },
-        result: '빈 방 하나가, 매달 쏠쏠한 물줄기가 되어 들어왔다.'
+        result: '빈 방 하나가, 매달 쏠쏠한 물줄기가 되어 들어왔다.',
+        requiresAssetType: 'realestate'
       },
       {
         id: 'grief-depression-onset',
@@ -12760,7 +12763,8 @@ const STAGES = [
         id: 'lifelong-collection-sold-88',
         text: '평생 쌓아온 수집품이라는 탑을 조심히 허물어 내놓는다',
         deltas: { wealth: 4, happiness: 1 },
-        result: '평생 취미로 쌓은 탑이, 뜻밖에 값진 마무리가 됐다.'
+        result: '평생 취미로 쌓은 탑이, 뜻밖에 값진 마무리가 됐다.',
+        requiresAsset: 'collectibles'
       }
     ]
   },

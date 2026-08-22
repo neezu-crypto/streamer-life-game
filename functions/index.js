@@ -232,6 +232,12 @@ async function recordCollectionEntryIfLoggedIn(db, uid, category, entryId) {
 // requiresNoAsset(문자열, 그 재산이 없어야 후보 - 2026-08-22, 18장 보험)은
 // requiresNoFamilyMember를 재산 상세에 그대로 적용한 것 - 이미 보험에 가입한
 // 사람에게 가입 선택지가 다시 뜨지 않게 하기 위함.
+// requiresAssetType(문자열, 그 타입(realestate/movable/cash/insurance)의 재산을
+// 하나라도 갖고 있어야 후보 - 2026-08-23, 사용자 제보로 발견된 재산 게이팅
+// 감사) - requiresAsset은 정확히 하나의 id만 검사할 수 있는데, "집을 세놓는다"
+// 처럼 부동산 자산 중 아무거나(내 집·오피스텔·상가·넓은 집·별장 등 5종) 하나만
+// 있어도 자연스러운 선택지엔 특정 id 하나로 못 좁힌다 - requiresAnyOccupation과
+// 같은 "아무 값이나 있으면" 결을 재산의 type 축에 적용한 것.
 // requiresLocation(배열, 지금 있는 장소가 그 중 하나여야 후보)은 requiresOccupation과
 // 같은 결 - 장소는 직업과 달리 항상 값이 있어서(기본 DEFAULT_LOCATION='국내')
 // requiresAnyOccupation 같은 "아무 값이나 있으면" 변형은 필요 없다. 아직 이
@@ -280,6 +286,7 @@ function pickVisibleChoiceIds(choices, ctx) {
   const currentOccupationId = ctx.occupationId || null;
   const currentIntroId = ctx.introId || null;
   const assetIds = ctx.assetIds || [];
+  const assetTypes = ctx.assetTypes || [];
   const locationId = ctx.locationId || DEFAULT_LOCATION.id;
   const hasAnyAcquaintance = !!(ctx.acquaintances && ctx.acquaintances.length);
   const talentIds = ctx.talentIds || [];
@@ -307,6 +314,7 @@ function pickVisibleChoiceIds(choices, ctx) {
     if (c.requiresIntro && c.requiresIntro !== currentIntroId) return false;
     if (c.requiresAsset && !assetIds.includes(c.requiresAsset)) return false;
     if (c.requiresNoAsset && assetIds.includes(c.requiresNoAsset)) return false;
+    if (c.requiresAssetType && !assetTypes.includes(c.requiresAssetType)) return false;
     if (c.requiresLocation && !c.requiresLocation.includes(locationId)) return false;
     if (c.requiresAnyAcquaintance && !hasAnyAcquaintance) return false;
     if (c.requiresTalent && !talentIds.includes(c.requiresTalent)) return false;
@@ -688,6 +696,10 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // requiresNoFamilyMember와 완전히 같은 패턴을 재산 상세에 적용했다. "이미
   // 보험에 가입했으면 가입 선택지가 다시 안 뜨게" 하기 위한 것.
   if (choice.requiresNoAsset && playAssetsForValidation.some((a) => a.id === choice.requiresNoAsset)) {
+    throw new HttpsError('failed-precondition', '지금 재산 상태에서는 고를 수 없는 선택지입니다.');
+  }
+  // requiresAssetType - pickVisibleChoiceIds와 완전히 같은 조건을 여기서도 검증한다.
+  if (choice.requiresAssetType && !playAssetsForValidation.some((a) => a.type === choice.requiresAssetType)) {
     throw new HttpsError('failed-precondition', '지금 재산 상태에서는 고를 수 없는 선택지입니다.');
   }
   // requiresLocation(배열, 지금 있는 장소가 그 중 하나여야 후보) - requiresOccupation과
@@ -1080,6 +1092,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
       occupationId: currentOccupation ? currentOccupation.id : null,
       introId: nextIntroId,
       assetIds: assets.map((a) => a.id),
+      assetTypes: assets.map((a) => a.type),
       locationId: currentLocation.id,
       acquaintances,
       talentIds: talents.map((t) => t.id),
@@ -1281,6 +1294,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       occupationId: currentOccupation ? currentOccupation.id : null,
       introId: currentIntroId,
       assetIds: assets.map((a) => a.id),
+      assetTypes: assets.map((a) => a.type),
       locationId: currentLocation.id,
       acquaintances,
       talentIds: talents.map((t) => t.id),
