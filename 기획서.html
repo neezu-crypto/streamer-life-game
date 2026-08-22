@@ -2775,6 +2775,24 @@
         전제하므로 게이팅 불필요)는 대상에서 제외했다. 검증: 4,000회 시뮬레이션으로 이번에 손댄 4개
         선택지의 재산 상태 불일치 노출 0건, 자산을 실제로 보유했을 때는 정상 노출되는 것도 확인(positive
         control), 5,000회 전체 회귀 시뮬레이션 즉사율 17.10%(기존과 동일, 변화 없음).</p>
+        <p class="note"><b>반대 방향도 확인(같은 날, 사용자 지시 — "반대로 선택지로 재산을 얻었는데
+        재산 획득이 없던 것도 있나 확인해").</b> 이번엔 "구매·취득을 뜻하는 문구인데
+        <code>addAsset</code>이 빠진 경우"와 "판매·처분 문구인데 <code>requiresAsset</code>이 빠진 경우"
+        양쪽을 함께 훑었다. 대부분(<code>lottery-check-*</code>, <code>first-home-savings-goal</code>,
+        <code>wealth-drain-30-a</code> 등)은 "그 재산을 향한 준비 단계"나 "이미 있는 자산의 결과 확인"일
+        뿐 실제 취득·판매 시점이 아니라 게이팅이 필요 없는 것으로 확인됐지만, <b>진짜 버그 2건</b>을
+        찾았다 — (1) 77세 <code>twilight-selling-jewelry-77</code>("예물로 받았던 패물 일부를 정리한다")은
+        예물(<code>fine-jewelry</code>)을 산 적 없어도 팔 수 있던 버그(지난 재산 게이팅 감사 때 키워드가
+        "예물을"이었는데 실제 문구는 "예물로"라 조사 차이로 놓쳤던 것 — 키워드 기반 감사의 한계가 다시
+        확인된 사례) → <code>requiresAsset: 'fine-jewelry'</code> 추가. (2) 33세
+        <code>office-worker-unexpected-bonus</code>("예상 밖의 성과급을 받아 기분이 들뜬다")가 26세의
+        거의 동일한 문구인 <code>unexpected-bonus-windfall</code>과 달리 <code>addAsset</code>이 빠져
+        있어, 같은 사건인데 "재산 상세"에 💰 성과급 목돈 칩이 안 남는 불일치가 있었다 →
+        <code>addAsset: &#123;id:'bonus-cash', label:'💰 성과급 목돈', type:'cash'&#125;</code> 추가(이미
+        보유 중이면 <code>applyChoice()</code>의 중복 방지 로직이 조용히 무시하므로 안전). 검증: 4,000회
+        시뮬레이션으로 <code>twilight-selling-jewelry-77</code> 예물 없이 노출된 경우 0건, 선택 후
+        실제 <code>bonus-cash</code> 자산이 생기는 것 확인, 5,000회 전체 회귀 시뮬레이션 즉사율
+        17.08%(기존과 동일, 변화 없음).</p>
 
         <h3>보험 가입 선택지 (구현됨)</h3>
         <p>25세(<code>rookie-25</code>) 재정 관련 선택지 클러스터에 <code>buys-insurance-25</code> 신설 —

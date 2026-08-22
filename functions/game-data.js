@@ -5393,7 +5393,8 @@ const STAGES = [
         text: '예상 밖의 성과급을 받아 기분이 들뜬다',
         deltas: { wealth: 5, happiness: 3 },
         result: '입금 문자를 몇 번이고 다시 열어봤다.',
-        requiresOccupation: ['office-worker']
+        requiresOccupation: ['office-worker'],
+        addAsset: { id: 'bonus-cash', label: '💰 성과급 목돈', type: 'cash' }
       },
       {
         id: 'lottery-check-33',
@@ -11705,7 +11706,8 @@ const STAGES = [
         id: 'twilight-selling-jewelry-77',
         text: '예물로 받았던 패물 일부를 정리한다',
         deltas: { wealth: 5 },
-        result: '오래 간직했던 것들이, 마지막으로 큰 보탬이 됐다.'
+        result: '오래 간직했던 것들이, 마지막으로 큰 보탬이 됐다.',
+        requiresAsset: 'fine-jewelry'
       },
       {
         id: 'twilight-grandchild-repaying-favor-77',
