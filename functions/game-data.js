@@ -14705,7 +14705,8 @@ const STAGES = [
         id: "wealth-drain-41-b",
         text: "오래된 집을 리모델링하며 예산을 초과한다",
         deltas: { wealth: -6 },
-        result: "시작할 땐 몰랐던 비용이 하나둘 늘어났다."
+        result: "시작할 땐 몰랐던 비용이 하나둘 늘어났다.",
+        requiresAssetType: 'realestate'
       },
       {
         id: "unhappy-41",
@@ -19799,7 +19800,8 @@ const STAGES = [
         id: 'downsizing-home-profit-73',
         text: '그동안 살던 집을 정리하고 작은 곳으로 옮긴다',
         deltas: { wealth: 5, health: -1 },
-        result: '짐은 줄었지만, 통장은 오히려 두둑해졌다.'
+        result: '짐은 줄었지만, 통장은 오히려 두둑해졌다.',
+        requiresAssetType: 'realestate'
       },
       {
         id: 'selling-old-belongings-73',

@@ -3019,6 +3019,15 @@
         시뮬레이션으로 <code>twilight-selling-jewelry-77</code> 예물 없이 노출된 경우 0건, 선택 후
         실제 <code>bonus-cash</code> 자산이 생기는 것 확인, 5,000회 전체 회귀 시뮬레이션 즉사율
         17.08%(기존과 동일, 변화 없음).</p>
+        <p class="note"><b>재산 게이팅 3차 감사(2026-08-23, 사용자 스크린샷 제보 — "73세
+        <code>downsizing-home-profit-73</code> '그동안 살던 집을 정리하고 작은 곳으로 옮긴다'가 재산이
+        없는데 떴어").</b> "집을"/"부동산" 키워드로 다시 전체 재스캔해 같은 유형 1건을 추가로 발견 -
+        41세 <code>wealth-drain-41-b</code>("오래된 집을 리모델링하며 예산을 초과한다")도 주택 소유를
+        전제하는 문구인데 게이팅이 없었다. 두 선택지 모두 <code>requiresAssetType: 'realestate'</code>
+        추가. <code>first-shared-home</code>("배우자와 함께 살 집을 계약한다")·
+        <code>apartment-hunting</code>("전셋집을 구한다") 등은 신규 임대 계약이지 소유 전제가 아니라
+        게이팅 불필요로 재확인. 검증: 4,000회 시뮬레이션 부동산 없이 노출된 경우 0건, 6,000회 전체
+        회귀 시뮬레이션 즉사율 15.97%(기존과 동일, 변화 없음).</p>
 
         <h3>고가 재산 취득에 현금 검증 - <code>requiresSufficientCash</code> 필드 신설(2026-08-23)</h3>
         <p class="note">사용자 지시: "돈이 많이 필요한 재산(부동산, 중고차 등)은 충분한 현금이 있을때
