@@ -2085,6 +2085,12 @@
                 <code>multiplayerSessions/&#123;hostUid&#125;/participants/&#123;그 uid&#125;</code>가
                 존재할 때만(=강퇴되지 않았을 때만 — 강퇴 시 이 참가자 항목 자체가 지워지므로 자동으로
                 쓰기 권한도 사라짐)</td></tr>
+                <tr><td><code>lifeGame/multiplayerSessions/&#123;hostUid&#125;/adShownUids/&#123;participantUid&#125;</code></td>
+                <td>(2026-08-22, 사용자 확정 — "참가 시 전면 광고" 절 참고) 그 uid가 이 세션에 한 번이라도
+                참여한 적 있으면 <code>true</code>. <code>participants</code>(현재 참가자 목록, 강퇴 시
+                삭제됨)와 달리 <b>강퇴돼도 지워지지 않는다</b> — "한 번이라도 참여했는지"가 목적이라 강퇴
+                여부와 무관해야 하기 때문. <code>multiplayerSessions</code> 본체와 같은 생명주기(엔딩 도달
+                시 함께 삭제)</td><td>없음(서버만 참조)</td><td>Cloud Function만(Admin SDK)</td></tr>
             </table>
         </div>
 
@@ -2122,7 +2128,12 @@
                 다른 참가자라도 같은 닉네임을 쓸 수 있다. 내부적으로는 항상 uid로 구분하므로 투표 집계·강퇴·
                 지인 이름 귀속 전부 문제없이 동작하고, 화면에 표시될 때만 같은 문자열이 여러 번 보일 수 있다.
                 검증 통과하면 <code>multiplayerSessions/&#123;hostUid&#125;/participants/&#123;내 uid&#125;</code>에
-                닉네임 기록</td></tr>
+                닉네임 기록. <b>전면 광고 노출 여부 판단(2026-08-22, 사용자 확정)</b> — 참가자 목록에 추가하기
+                직전에 <code>adShownUids/&#123;내 uid&#125;</code>가 이미 있는지 확인해, 없었으면(=이 세션에
+                처음 참여) <code>true</code>로 기록하고 응답에 <code>showAd: true</code>를 실어 보낸다. 이미
+                있었으면(강퇴 후 재입장 포함) <code>showAd: false</code>. 클라이언트는 이 값을 보고 전면
+                광고를 띄울지 결정한다 — 호스트는 애초에 이 함수를 호출하지 않으므로(자기 게임에 참여자로
+                들어가는 게 아님) 대상에서 자동으로 빠진다</td></tr>
                 <tr><td><code>kickParticipant</code> (신규)</td><td>호출자가 그 세션의 호스트 본인인지 확인 →
                 <code>participants/&#123;대상 uid&#125;</code> 삭제 → <code>kickedNicknames</code>에 그
                 닉네임 추가 → 현재 구간의 <code>multiplayerVotes/.../&#123;대상 uid&#125;</code>도 함께 삭제(살아있는
@@ -2194,11 +2205,17 @@
                 <tr><td>엔딩 후 세션 문서 정리 정책(2026-08-19 추가 확인)</td><td>엔딩 도달 즉시
                 <code>multiplayerSessions</code>·그 판의 <code>multiplayerVotes</code> 전부 삭제 — "지난
                 참여 기록 조회" 기능이 계획에 없어 안 쓰이는 데이터를 남기지 않기로 함</td></tr>
+                <tr><td>참가 시 전면 광고 노출 여부(2026-08-22 추가 확인)</td><td>참가자가 진행중인 게임에
+                참여하는 순간 전면(인터스티셜) 광고 1회 노출. 호스트(스트리머)는 대상 아님 — 진입장벽을
+                낮게 유지. <b>노출은 "그 게임(세션)당 1회"</b> — 나갔다가 같은 세션에 다시 들어와도(강퇴 후
+                재입장 포함) 그 uid가 이 세션에 한 번이라도 참여한 적 있으면 다시 노출하지 않는다
+                (<code>adShownUids</code> 참고). 참가자 입장에서 "스트리머와 함께 게임하고 싶다"는 동기가
+                커서 이 정도 광고는 진입장벽으로 작용하지 않을 거라는 판단(사용자 제안)</td></tr>
             </table>
         </div>
 
-        <p class="note">설계 관련 미확정 사항은 위 표로 전부 정리됐다(2026-08-19 기준). 구현 시작 전 추가
-        확인이 필요한 세부사항은 현재 없음.</p>
+        <p class="note">설계 관련 미확정 사항은 위 표로 전부 정리됐다(2026-08-19 기준, 2026-08-22 전면
+        광고 결정 추가). 구현 시작 전 추가 확인이 필요한 세부사항은 현재 없음.</p>
     </section>
 
     <section id="sec14">
