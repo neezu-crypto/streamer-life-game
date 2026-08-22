@@ -6962,6 +6962,28 @@ const STAGES = [
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
       {
+        "id": "sm-coaching-license-33",
+        "text": "지도자 자격증을 마치고 축구계로 복귀한다",
+        "deltas": {
+                "fame": 2,
+                "happiness": 2
+        },
+        "result": "선수 시절과는 또 다른 무게가, 어깨 위에 얹혔다.",
+        "requiresRouteCompletedWithin": {
+                "routeId": "sports-elite",
+                "maxYears": 3
+        },
+        "startsRoute": {
+                "id": "soccer-manager",
+                "label": "🧢 축구 감독",
+                "maxDurationYears": 15
+        },
+        "setOccupation": {
+                "id": "soccer-manager",
+                "label": "🧢 축구 감독"
+        }
+},
+      {
         "id": "artist-longterm-patron-33",
         "text": "오랜 후원자를 만나 든든한 지원을 받는다",
         "deltas": {
@@ -7193,6 +7215,89 @@ const STAGES = [
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
       {
+        "id": "sm-youth-team-start-34",
+        "text": "유소년팀 코치로 지도자 생활을 시작한다",
+        "deltas": {
+                "happiness": 3,
+                "wealth": -1
+        },
+        "result": "큰 무대는 아니었지만, 처음부터 다시 배운다는 마음이었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-mentor-under-34",
+        "text": "경험 많은 감독 밑에서 코치 수업을 받는다",
+        "deltas": {
+                "happiness": 2,
+                "relationship": 2
+        },
+        "result": "선수 때와는 다른 시야를, 조금씩 배워가고 있었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-first-tactical-fail-34",
+        "text": "자신 있게 낸 전술이 경기에서 크게 실패한다",
+        "deltas": {
+                "happiness": -4,
+                "fame": -1
+        },
+        "result": "머릿속 그림과 실제 경기장은, 완전히 다른 곳이었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-player-relationship-34",
+        "text": "나이 차 크지 않은 선수들과의 관계 설정에 애를 먹는다",
+        "deltas": {
+                "relationship": -2,
+                "happiness": -1
+        },
+        "result": "동료였던 사람들을 이끄는 일이, 생각보다 훨씬 어려웠다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-media-skepticism-34",
+        "text": "\"선수 출신이 감독으로 성공하기 쉽지 않다\"는 평가를 듣는다",
+        "deltas": {
+                "happiness": -3,
+                "fame": -1
+        },
+        "result": "증명해 보이겠다는 오기가, 오히려 더 강하게 솟았다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-life-exit-34",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-coaching-license-34",
+        "text": "지도자 자격증을 마치고 축구계로 복귀한다",
+        "deltas": {
+                "fame": 2,
+                "happiness": 2
+        },
+        "result": "선수 시절과는 또 다른 무게가, 어깨 위에 얹혔다.",
+        "requiresRouteCompletedWithin": {
+                "routeId": "sports-elite",
+                "maxYears": 3
+        },
+        "startsRoute": {
+                "id": "soccer-manager",
+                "label": "🧢 축구 감독",
+                "maxDurationYears": 15
+        },
+        "setOccupation": {
+                "id": "soccer-manager",
+                "label": "🧢 축구 감독"
+        }
+},
+      {
         "id": "artist-fifteen-year-reflection-34",
         "text": "지난 15년의 작업 인생을 가만히 되돌아본다",
         "deltas": {
@@ -7412,6 +7517,89 @@ const STAGES = [
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
       {
+        "id": "sm-first-head-job-35",
+        "text": "하부 리그 팀의 첫 감독직을 제안받는다",
+        "deltas": {
+                "wealth": 3,
+                "happiness": 5,
+                "fame": 2
+        },
+        "result": "내 이름을 걸고 팀을 이끈다는 것이, 벅차고도 두려웠다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-squad-building-35",
+        "text": "선수단을 처음부터 새로 구성하며 색깔을 입힌다",
+        "deltas": {
+                "happiness": 3,
+                "wealth": -2
+        },
+        "result": "조각을 하나씩 맞춰가는 재미가, 생각보다 컸다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-early-losing-streak-35",
+        "text": "부임 초반 연패의 늪에 빠진다",
+        "deltas": {
+                "happiness": -4,
+                "fame": -2
+        },
+        "result": "경기 결과 하나하나가, 그대로 압박이 되어 돌아왔다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-board-pressure-35",
+        "text": "구단 프런트로부터 성적 압박을 받는다",
+        "deltas": {
+                "happiness": -3
+        },
+        "result": "숫자로만 평가받는다는 게, 새삼 냉정하게 느껴졌다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-first-win-35",
+        "text": "감독으로서 첫 승리를 맛본다",
+        "deltas": {
+                "happiness": 5,
+                "fame": 2
+        },
+        "result": "벤치에서 지켜본 마지막 휘슬이, 유난히 길게 느껴졌다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-life-exit-35",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-coaching-license-35",
+        "text": "지도자 자격증을 마치고 축구계로 복귀한다",
+        "deltas": {
+                "fame": 2,
+                "happiness": 2
+        },
+        "result": "선수 시절과는 또 다른 무게가, 어깨 위에 얹혔다.",
+        "requiresRouteCompletedWithin": {
+                "routeId": "sports-elite",
+                "maxYears": 3
+        },
+        "startsRoute": {
+                "id": "soccer-manager",
+                "label": "🧢 축구 감독",
+                "maxDurationYears": 15
+        },
+        "setOccupation": {
+                "id": "soccer-manager",
+                "label": "🧢 축구 감독"
+        }
+},
+      {
         "id": "actor-newcomer-commercial-gig-35",
         "text": "생계를 위해 광고 단역을 소화한다",
         "deltas": {
@@ -7564,6 +7752,74 @@ const STAGES = [
     ageRange: '36세',
     intro: '나를 키워준 사람들을 이제는 내가 돌봐야 할 시기가 다가옵니다.',
     choices: [
+      {
+        "id": "sm-transfer-negotiation-36",
+        "text": "원하는 선수 영입을 위해 직접 협상에 나선다",
+        "deltas": {
+                "wealth": -3,
+                "happiness": 3
+        },
+        "result": "숫자 싸움 뒤에 숨은 자존심 싸움이, 생각보다 치열했다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-tactical-innovation-36",
+        "text": "독창적인 전술로 상위권 팀을 잡아낸다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 4
+        },
+        "result": "아무도 예상 못 한 그림이, 그대로 맞아떨어졌다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-locker-room-conflict-36",
+        "text": "주전 경쟁으로 인한 선수단 내 갈등을 조율한다",
+        "deltas": {
+                "relationship": -1,
+                "happiness": -2
+        },
+        "result": "모두를 만족시킬 수 없다는 걸, 매번 다시 깨달았다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-media-interview-36",
+        "text": "경기 후 인터뷰에서 소신 있는 발언을 한다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 1
+        },
+        "result": "듣기 좋은 말 대신, 하고 싶은 말을 택했다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-family-time-36",
+        "text": "바쁜 시즌 중에도 가족과 시간을 내려 애쓴다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 2
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent",
+                "spouse",
+                "child"
+        ],
+        "result": "짧아도 온전히 함께한 시간이, 그 무엇보다 소중했다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-life-exit-36",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "soccer-manager"
+},
       {
         "id": "actor-newcomer-financial-strain-36",
         "text": "불안정한 수입 탓에 생활비 걱정이 깊어진다",
@@ -7786,6 +8042,67 @@ const STAGES = [
     ageRange: '37세',
     intro: '잊고 지내던 나 자신을 다시 챙기기 시작하는 나이입니다.',
     choices: [
+      {
+        "id": "sm-cup-title-37",
+        "text": "팀을 이끌고 컵대회 우승을 차지한다",
+        "deltas": {
+                "fame": 7,
+                "happiness": 6,
+                "wealth": 3
+        },
+        "result": "선수들과 부둥켜안고 흘린 눈물이, 오래도록 잊히지 않았다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-rival-feud-37",
+        "text": "라이벌 감독과 신경전이 언론을 통해 확대된다",
+        "deltas": {
+                "fame": 3,
+                "happiness": -3
+        },
+        "result": "말 한마디가 이렇게까지 커질 줄은, 몰랐다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-injury-crisis-37",
+        "text": "주전 선수들의 줄부상으로 전력 운용에 애를 먹는다",
+        "deltas": {
+                "happiness": -4
+        },
+        "result": "선수 명단을 볼 때마다, 한숨부터 나왔다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-contract-extension-37",
+        "text": "구단과 재계약에 성공한다",
+        "deltas": {
+                "wealth": 5,
+                "happiness": 3
+        },
+        "result": "믿어준 만큼, 더 잘하고 싶어졌다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-scouting-trip-37",
+        "text": "해외까지 발품을 팔며 유망주를 직접 발굴한다",
+        "deltas": {
+                "wealth": -2,
+                "fame": 2
+        },
+        "result": "남들이 못 본 걸 먼저 알아본다는 게, 감독의 또 다른 재능이었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-life-exit-37",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "soccer-manager"
+},
       {
         "id": "actor-breakthrough-lead-role-37",
         "text": "오랜 무명 생활 끝에 드라마 주연 자리를 따낸다",
@@ -8023,6 +8340,69 @@ const STAGES = [
     ageRange: '38세',
     intro: '몸이 예전 같지 않다는 걸, 무시할 수 없을 만큼 또렷하게 느끼게 됩니다.',
     choices: [
+      {
+        "id": "sm-league-title-38",
+        "text": "마침내 리그 우승 트로피를 들어 올린다",
+        "deltas": {
+                "fame": 9,
+                "happiness": 7,
+                "wealth": 4
+        },
+        "result": "몇 년의 노력이, 트로피 하나로 보답받는 순간이었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-overseas-offer-38",
+        "text": "해외 구단의 감독직 제안을 받는다",
+        "deltas": {
+                "fame": 5,
+                "wealth": 3,
+                "happiness": 3
+        },
+        "result": "자막 너머까지 이름이 닿을 거라곤, 상상도 못 했다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-burnout-38",
+        "text": "살인적인 일정에 몸과 마음이 지쳐간다",
+        "deltas": {
+                "health": -5,
+                "happiness": -3
+        },
+        "result": "이겨도 웃을 힘이 없는 날들이, 늘어가고 있었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-fan-backlash-38",
+        "text": "부진한 경기력에 팬들의 거센 비판을 받는다",
+        "deltas": {
+                "fame": -4,
+                "happiness": -3
+        },
+        "result": "해명이 길어질수록, 오히려 논란만 커지는 것 같았다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-veteran-mentoring-38",
+        "text": "은퇴를 앞둔 베테랑 선수의 마지막 시즌을 함께한다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 2
+        },
+        "result": "선수와 감독이 아니라, 같은 길을 걸어온 동료 같았다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-life-exit-38",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "soccer-manager"
+},
       {
         "id": "actor-rising-blockbuster-cast-38",
         "text": "화제의 영화 주연 자리를 제안받는다",
@@ -8271,6 +8651,66 @@ const STAGES = [
     intro: '서른대의 마지막 해. 다가올 10년을 조용히 준비하게 됩니다.',
     choices: [
       {
+        "id": "sm-relegation-battle-39",
+        "text": "강등권 탈출을 위한 사투를 벌인다",
+        "deltas": {
+                "happiness": -4,
+                "health": -2
+        },
+        "result": "한 경기 한 경기가, 살얼음판을 걷는 기분이었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-philosophy-clash-39",
+        "text": "구단 방향성과 자신의 축구 철학이 부딪힌다",
+        "deltas": {
+                "happiness": -3,
+                "relationship": -1
+        },
+        "result": "타협할 수 있는 것과 없는 것의 경계가, 점점 뚜렷해졌다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-young-talent-breakthrough-39",
+        "text": "직접 키운 유망주가 팀의 주축으로 성장한다",
+        "deltas": {
+                "happiness": 5,
+                "fame": 3
+        },
+        "result": "가르친 것이 결실을 맺는 순간만큼 뿌듯한 일은 없었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-sponsor-deal-39",
+        "text": "팀 성적 상승에 힘입어 스폰서 조건이 개선된다",
+        "deltas": {
+                "wealth": 6
+        },
+        "result": "숫자로 돌아온 성과가, 나쁘지 않았다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-coaching-staff-loyalty-39",
+        "text": "오랜 코칭스태프와의 신뢰가 위기 속에서 빛을 발한다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 3
+        },
+        "result": "혼자였다면 못 버텼을 순간들을, 함께 넘겼다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-life-exit-39",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
         "id": "actor-rising-award-win-39",
         "text": "시상식에서 상을 받아 이름을 알린다",
         "deltas": {
@@ -8472,6 +8912,68 @@ const STAGES = [
     ageRange: '40세',
     intro: '인생의 절반 지점. 마흔이라는 숫자가 이유 없이 지난 시간을 돌아보게 만듭니다.',
     choices: [
+      {
+        "id": "sm-continental-competition-40",
+        "text": "아시아 클럽대항전 무대에 처음 도전한다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 4
+        },
+        "result": "국내 무대와는 다른 긴장감이, 색다른 자극이 됐다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-tactical-book-40",
+        "text": "그동안의 전술 노하우를 책으로 엮어 출간한다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 3,
+                "wealth": 2
+        },
+        "result": "경기장 밖에서도 이름을 알리는 방법이, 또 있었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-referee-controversy-40",
+        "text": "판정 논란으로 언론의 집중포화를 받는다",
+        "deltas": {
+                "happiness": -4,
+                "fame": -2
+        },
+        "result": "억울함을 토로해도, 결과는 뒤집히지 않았다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-player-sale-conflict-40",
+        "text": "주력 선수의 이적을 두고 구단과 마찰을 빚는다",
+        "deltas": {
+                "happiness": -3,
+                "wealth": 2
+        },
+        "result": "팀을 위한 결정과 감독의 자존심 사이에서, 마음이 복잡했다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-derby-win-40",
+        "text": "숙명의 라이벌전에서 짜릿한 승리를 거둔다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 5
+        },
+        "result": "이 한 경기를 위해 산다는 말이, 과장이 아니었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-life-exit-40",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "화려한 날들이었지만, 이제는 내려놓을 때라고 느꼈다.",
+        "requiresRoute": "soccer-manager"
+},
       {
         "id": "actor-rising-genre-versatility-40",
         "text": "기존 이미지와 정반대인 악역에 도전한다",
@@ -8698,6 +9200,65 @@ const STAGES = [
     intro: '자녀 교육이든 커리어든, 뭔가를 본격적으로 다잡아야 할 것 같은 압박이 느껴지는 나이입니다.',
     choices: [
       {
+        "id": "sm-national-team-offer-41",
+        "text": "축구협회로부터 국가대표팀 감독직을 제안받는다",
+        "deltas": {
+                "fame": 8,
+                "happiness": 5
+        },
+        "result": "태극마크를 다른 자리에서 다시 마주할 줄은, 몰랐다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-declines-offer-41",
+        "text": "고민 끝에 클럽에 남기로 결정한다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 2
+        },
+        "result": "지금 이 자리에서 할 일이, 아직 남아 있다고 느꼈다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-tactical-imitators-41",
+        "text": "자신의 전술을 따라 하는 후배 감독들이 늘어난다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 2
+        },
+        "result": "따라 한다는 게, 어떤 면에서는 가장 큰 인정이었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-health-warning-41",
+        "text": "경기장 벤치에서 갑작스러운 어지럼증을 느낀다",
+        "deltas": {
+                "health": -4
+        },
+        "result": "스스로를 돌보는 일도, 이제는 미룰 수 없었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-mentoring-young-coach-41",
+        "text": "지도자를 꿈꾸는 후배에게 조언을 건넨다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "몇 년 전 자신의 모습이, 후배에게 겹쳐 보였다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-life-exit-41",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "박수 받을 때 떠나는 것도, 나쁘지 않은 선택이었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
         "id": "actor-rising-international-offer-41",
         "text": "해외 작품에 캐스팅 제안을 받는다",
         "deltas": {
@@ -8853,6 +9414,67 @@ const STAGES = [
     ageRange: '42세',
     intro: '몸이 보내는 신호를 더 이상 못 본 척할 수 없게 되는 나이입니다.',
     choices: [
+      {
+        "id": "sm-double-title-42",
+        "text": "리그와 컵대회를 동시에 석권하는 더블을 달성한다",
+        "deltas": {
+                "fame": 9,
+                "happiness": 7,
+                "wealth": 4
+        },
+        "result": "한 시즌에 두 개의 트로피를, 두 손 가득 안았다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-star-player-clash-42",
+        "text": "팀의 에이스와 전술적 견해차로 마찰을 빚는다",
+        "deltas": {
+                "relationship": -3,
+                "happiness": -2
+        },
+        "result": "실력만큼이나 자존심도 강한 선수를, 다루는 법을 다시 배워야 했다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-financial-crisis-42",
+        "text": "구단의 재정 위기로 선수단 운용에 제약이 생긴다",
+        "deltas": {
+                "wealth": -3,
+                "happiness": -2
+        },
+        "result": "없는 살림으로 결과를 내야 한다는 게, 새삼 버거웠다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-legacy-system-42",
+        "text": "자신만의 유소년 육성 시스템을 구단에 정착시킨다",
+        "deltas": {
+                "happiness": 4,
+                "fame": 2
+        },
+        "result": "떠난 뒤에도 남을 무언가를 만든다는 게, 큰 의미로 다가왔다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-award-42",
+        "text": "올해의 감독상을 수상한다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 5
+        },
+        "result": "트로피보다, 그 자리까지 온 시간이 먼저 떠올랐다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-life-exit-42",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "조용히, 그러나 후회 없이 짐을 정리했다.",
+        "requiresRoute": "soccer-manager"
+},
       {
         "id": "actor-rising-franchise-role-42",
         "text": "시리즈물의 고정 배역을 꿰찬다",
@@ -9051,6 +9673,74 @@ const STAGES = [
     ageRange: '43세',
     intro: '조직 안에서 자신의 자리를 다시 확인하게 되는 시기입니다.',
     choices: [
+      {
+        "id": "sm-generational-gap-43",
+        "text": "젊은 선수들과의 세대 차이를 실감한다",
+        "deltas": {
+                "happiness": -3,
+                "relationship": -1
+        },
+        "result": "방식은 달라도 목표는 같다는 걸, 계속 되새겨야 했다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-new-tactics-study-43",
+        "text": "최신 축구 트렌드를 배우러 해외 연수를 떠난다",
+        "deltas": {
+                "wealth": -2,
+                "happiness": 3,
+                "fame": 1
+        },
+        "result": "나이가 들수록 배우기를 멈추면 안 된다는 걸, 다시 느꼈다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-sacked-43",
+        "text": "실망스러운 성적 끝에 경질을 통보받는다",
+        "deltas": {
+                "happiness": -6,
+                "fame": -3
+        },
+        "result": "예상은 했지만, 막상 들으니 다리에 힘이 풀렸다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-quick-rehire-43",
+        "text": "경질 소식이 알려지자마자 다른 구단의 러브콜을 받는다",
+        "deltas": {
+                "wealth": 4,
+                "happiness": 4
+        },
+        "result": "떨어진 것도 잠시, 다시 일어설 자리가 있다는 게 다행이었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-family-support-43",
+        "text": "힘든 시기에 가족의 든든한 응원을 받는다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 3
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent",
+                "spouse",
+                "child"
+        ],
+        "result": "결과와 상관없이 곁을 지켜주는 사람들이, 가장 큰 힘이었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-life-exit-43",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "오랜 여정 끝에, 스스로 커튼을 내리기로 했다.",
+        "requiresRoute": "soccer-manager"
+},
       {
         "id": "actor-rising-legacy-project-43",
         "text": "오래 준비해온 작품에 마침내 캐스팅된다",
@@ -9252,6 +9942,65 @@ const STAGES = [
     ageRange: '44세',
     intro: '가까운 사이일수록 소원해지기 쉬운 나이. 관계를 다시 들여다보게 됩니다.',
     choices: [
+      {
+        "id": "sm-comeback-season-44",
+        "text": "새 구단에서 화려한 부활 시즌을 보낸다",
+        "deltas": {
+                "fame": 7,
+                "happiness": 6
+        },
+        "result": "떨어졌던 만큼, 다시 올라서는 기쁨이 더 컸다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-elder-statesman-44",
+        "text": "업계 원로로서 후배 감독들의 조언자 역할을 한다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "어느새 신참이 아니라 어른 취급을 받는다는 게, 낯설고도 새삼스러웠다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-documentary-feature-44",
+        "text": "지도자 인생을 다룬 다큐멘터리 제작에 참여한다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 3
+        },
+        "result": "스스로의 지난 삶을 화면으로 마주하는 기분은, 묘하고도 벅찼다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-injury-prone-squad-44",
+        "text": "잦은 선수단 부상으로 전력 운용에 애를 먹는다",
+        "deltas": {
+                "happiness": -3
+        },
+        "result": "선수 명단을 볼 때마다, 한숨부터 나왔다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-charity-match-44",
+        "text": "자선 경기를 기획해 지역 사회에 기여한다",
+        "deltas": {
+                "happiness": 4,
+                "fame": 2
+        },
+        "result": "승패를 떠나, 오랜만에 순수하게 축구를 즐긴 하루였다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-life-exit-44",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "박수 소리를 뒤로하고, 조용히 벤치를 떠났다.",
+        "requiresRoute": "soccer-manager"
+},
       {
         "id": "actor-veteran-lifetime-achievement-44",
         "text": "공로상 성격의 상을 받으며 경력을 인정받는다",
@@ -9461,6 +10210,66 @@ const STAGES = [
     ageRange: '45세',
     intro: '다 가진 것 같은데도 문득 공허해지는, 이른바 중년의 위기가 찾아오는 나이입니다.',
     choices: [
+      {
+        "id": "sm-final-title-push-45",
+        "text": "은퇴를 염두에 두고 마지막 우승 도전에 나선다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 5,
+                "health": -2
+        },
+        "result": "모든 걸 쏟아붓는 심정으로, 다시 한번 벤치에 앉았다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-succession-plan-45",
+        "text": "후임 감독을 직접 물색하고 인수인계를 준비한다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "떠날 준비를 하는 것도, 감독의 마지막 책임이라 여겼다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-legacy-club-45",
+        "text": "오랜 시간 몸담은 구단의 상징적인 인물로 자리매김한다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 4
+        },
+        "result": "한 팀에 이렇게 오래 남는 감독은, 흔치 않았다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-health-toll-45",
+        "text": "오랜 스트레스로 건강 관리에 더 신경 쓰기 시작한다",
+        "deltas": {
+                "health": 3,
+                "wealth": -1
+        },
+        "result": "예전처럼 몰아붙이지 않는 법도, 이제는 배워야 했다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-career-reflection-45",
+        "text": "지도자로서 걸어온 길을 가만히 되돌아본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "화려하지 않아도, 스스로 선택한 길이라는 사실이 위안이 됐다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-life-exit-45",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "이제는 스스로 마침표를 찍을 시간이었다.",
+        "requiresRoute": "soccer-manager"
+},
       {
         "id": "actor-veteran-mentoring-juniors-45",
         "text": "후배 배우들의 든든한 멘토 역할을 한다",
@@ -9738,6 +10547,66 @@ const STAGES = [
     intro: '늦지 않았다는 걸 스스로 증명하고 싶어지는 나이입니다.',
     choices: [
       {
+        "id": "sm-hall-of-fame-46",
+        "text": "축구 명예의 전당에 이름을 올린다",
+        "deltas": {
+                "fame": 8,
+                "happiness": 6
+        },
+        "result": "선수와 감독, 두 번의 인생이 하나의 벽에 나란히 새겨졌다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-pundit-transition-46",
+        "text": "은퇴를 준비하며 방송 해설 활동을 병행한다",
+        "deltas": {
+                "fame": 4,
+                "wealth": 3
+        },
+        "result": "벤치가 아닌 자리에서 경기를 보는 것도, 나름의 재미가 있었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-academy-founding-46",
+        "text": "후진 양성을 위한 축구 아카데미를 설립한다",
+        "deltas": {
+                "happiness": 5,
+                "wealth": -4,
+                "fame": 2
+        },
+        "result": "배운 것들을 물려주는 일이, 새로운 보람으로 다가왔다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-quiet-season-46",
+        "text": "큰 굴곡 없이 안정적인 한 시즌을 보낸다",
+        "deltas": {
+                "happiness": 3
+        },
+        "result": "평온한 시즌도, 나름의 성취라는 걸 새삼 느꼈다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-former-player-reunion-46",
+        "text": "한때 지도했던 제자들과 오랜만에 재회한다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 3
+        },
+        "result": "그때는 몰랐던 서로의 고생이, 이제는 다 이해가 갔다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-life-exit-46",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "오랜 지도자 인생에, 스스로 마침표를 찍었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
         "id": "actor-veteran-final-curtain-role-46",
         "text": "배우 인생을 정리하는 마음으로 묵직한 배역에 도전한다",
         "deltas": {
@@ -9893,6 +10762,66 @@ const STAGES = [
     ageRange: '47세',
     intro: '나를 키워준 사람들의 노년을 마주하며, 삶과 죽음을 조금 더 가까이서 보게 됩니다.',
     choices: [
+      {
+        "id": "sm-final-match-47",
+        "text": "지도자 인생의 마지막 경기를 치른다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 6
+        },
+        "result": "마지막 휘슬이 울리는 순간, 지나온 시간이 파노라마처럼 스쳤다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-farewell-tribute-47",
+        "text": "선수단과 팬들이 마련한 은퇴 기념 행사를 맞는다",
+        "deltas": {
+                "happiness": 5,
+                "relationship": 3
+        },
+        "result": "혼자 걸어온 줄 알았던 길에, 이렇게 많은 사람이 함께였다는 걸 새삼 느꼈다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-consulting-offer-47",
+        "text": "구단 자문 역할을 제안받는다",
+        "deltas": {
+                "wealth": 4,
+                "happiness": 2
+        },
+        "result": "완전히 손을 놓지 않아도 된다는 게, 큰 위안이 됐다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-memoir-47",
+        "text": "지도자 생활을 정리한 회고록을 집필한다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 4,
+                "wealth": 2
+        },
+        "result": "그림 대신 글로 나를 설명하는 일도, 나름의 매력이 있었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-career-reflection-47",
+        "text": "15년의 지도자 생활을 가만히 되돌아본다",
+        "deltas": {
+                "happiness": 3
+        },
+        "result": "긴 여정의 끝에서, 후회보다 감사가 더 컸다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-life-exit-47",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "마지막까지, 스스로 선택한 삶이었다.",
+        "requiresRoute": "soccer-manager"
+},
       {
         "id": "actor-veteran-documentary-subject-47",
         "text": "배우 인생을 다룬 다큐멘터리 제작에 참여한다",
@@ -10109,6 +11038,65 @@ const STAGES = [
     intro: '커리어가 정점에 이르거나, 정체를 마주하거나 — 갈림이 뚜렷해지는 나이입니다.',
     choices: [
       {
+        "id": "sm-late-title-48",
+        "text": "누구도 예상 못 한 시기에 마지막 우승을 일궈낸다",
+        "deltas": {
+                "fame": 8,
+                "happiness": 7
+        },
+        "result": "늦었다고 생각했던 순간에, 가장 큰 선물이 찾아왔다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-international-consulting-48",
+        "text": "해외 축구협회의 기술 자문으로 위촉된다",
+        "deltas": {
+                "fame": 5,
+                "wealth": 4
+        },
+        "result": "국경을 넘어서까지 쌓아온 경험이 인정받는 기분이었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-declining-health-48",
+        "text": "체력의 한계를 느끼며 은퇴를 진지하게 고민한다",
+        "deltas": {
+                "health": -3,
+                "happiness": -1
+        },
+        "result": "몸이 예전 같지 않다는 걸, 조금씩 받아들여야 했다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-young-coach-succeeds-48",
+        "text": "직접 키운 코치가 다른 팀 감독으로 독립한다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 2
+        },
+        "result": "떠나보내는 마음이, 뿌듯함과 서운함 사이 어딘가였다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-career-reflection-48",
+        "text": "오랜 세월 벤치를 지킨 스스로를 돌아본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "오랜 세월 벤치를 지킨 스스로가, 새삼 대견했다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-life-exit-48",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "박수 소리를 뒤로하고, 조용히 벤치를 떠났다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
         id: "unhappy-48",
         text: "오랜 친구와의 관계가 서서히 멀어지고 있음을 느낀다",
         deltas: { happiness: -2, relationship: -2 },
@@ -10208,6 +11196,66 @@ const STAGES = [
     ageRange: '49세',
     intro: '몸이 새로운 국면으로 접어드는 걸 느끼기 시작하는 나이입니다.',
     choices: [
+      {
+        "id": "sm-fifteen-year-reflection-49",
+        "text": "지난 15년의 지도자 인생을 가만히 되돌아본다",
+        "deltas": {
+                "happiness": 4
+        },
+        "result": "화려하지 않아도, 스스로 선택한 길이라는 사실이 위안이 됐다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-future-direction-49",
+        "text": "은퇴 후 어떤 역할로 축구계에 남을지 그려본다",
+        "deltas": {
+                "happiness": 3,
+                "fame": 1
+        },
+        "result": "끝이 아니라, 또 다른 시작이라고 되뇌었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-one-last-challenge-49",
+        "text": "마지막이라는 마음으로 새로운 도전에 나선다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 5,
+                "health": -2
+        },
+        "result": "모든 걸 쏟아붓는 심정으로, 다시 한번 벤치에 앉았다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-legacy-mentoring-49",
+        "text": "평생의 노하우를 후배 지도자들에게 아낌없이 물려준다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 3
+        },
+        "result": "배운 것들을 물려주는 일이, 새로운 보람으로 다가왔다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-financial-satisfaction-49",
+        "text": "지난 시간을 돌아보며 재정적으로도 안정을 느낀다",
+        "deltas": {
+                "wealth": 4,
+                "happiness": 2
+        },
+        "result": "불안했던 시작을 생각하면, 지금 이 안정감이 새삼스러웠다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-life-exit-49",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "soccer-manager"
+},
       {
         id: "unhappy-49",
         text: "몸의 여기저기가 예고 없이 아파오기 시작한다",
