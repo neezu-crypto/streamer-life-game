@@ -844,7 +844,8 @@ const STAGES = [
         id: 'first-piano-lesson',
         text: '피아노 학원에 처음 다니기 시작한다',
         deltas: { fame: 1, wealth: -1 },
-        result: '삑삑거리는 소리도, 며칠 지나니 제법 곡처럼 들리기 시작했다.'
+        result: '삑삑거리는 소리도, 며칠 지나니 제법 곡처럼 들리기 시작했다.',
+        addHobby: { id: 'piano', label: '🎹 피아노' }
       },
       {
         id: 'bedwetting-phase',
