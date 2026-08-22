@@ -259,14 +259,15 @@ const ENDINGS_META = [
 
 // 트리거 루트 목록(14장) - functions/game-data.js의 startsRoute와 반드시 같은
 // id·label을 유지해야 한다(서버는 이 목록을 클라이언트에 따로 안 내려주므로
-// 수동 동기화). 축구 감독 루트(2026-08-23, 축구 루트 완주 후 진입)까지
-// 추가됨 - 앞으로 새 루트가 추가되면 여기에도 그대로 이어 붙이면 된다.
+// 수동 동기화). 조기유학(미국) 루트(2026-08-23, 10세 진입)까지 추가됨 -
+// 앞으로 새 루트가 추가되면 여기에도 그대로 이어 붙이면 된다.
 const ROUTES_META = [
   { id: 'entertainment-industry', title: '🎤 연예계 연습생', icon: '🎤' },
   { id: 'actor', title: '🎭 배우', icon: '🎭' },
   { id: 'artist', title: '🎨 예술가', icon: '🎨' },
   { id: 'sports-elite', title: '⚽ 축구', icon: '⚽' },
-  { id: 'soccer-manager', title: '🧢 축구 감독', icon: '🧢' }
+  { id: 'soccer-manager', title: '🧢 축구 감독', icon: '🧢' },
+  { id: 'study-abroad-usa', title: '🇺🇸 조기유학(미국)', icon: '🇺🇸' }
 ];
 
 const collectionModal = document.getElementById('collectionModal');

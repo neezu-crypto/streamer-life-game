@@ -1189,6 +1189,29 @@ const STAGES = [
     intro: '몸도 마음도 슬슬 달라지기 시작하는 나이. 사춘기의 첫 신호가 은근슬쩍 찾아옵니다.',
     choices: [
       {
+        "id": "sa-decision-10",
+        "text": "부모님이 미국 조기유학을 결정한다",
+        "deltas": {
+                "happiness": -2,
+                "wealth": -3
+        },
+        "result": "낯선 나라로 간다는 사실이, 아직 실감이 나지 않았다.",
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent"
+        ],
+        "startsRoute": {
+                "id": "study-abroad-usa",
+                "label": "🇺🇸 조기유학(미국)",
+                "maxDurationYears": 15
+        },
+        "setLocation": {
+                "id": "usa",
+                "label": "🇺🇸 미국"
+        }
+},
+      {
         id: "wealth-drain-10-a",
         text: "온라인 게임 아이템 결제를 몰래 반복한다",
         deltas: { wealth: -4 },
@@ -1286,6 +1309,74 @@ const STAGES = [
     intro: '성적과 진로라는 단어가 슬슬 남 얘기가 아니게 되는 시기입니다.',
     choices: [
       {
+        "id": "sa-culture-shock-11",
+        "text": "모든 게 낯선 미국 학교 첫 등교를 맞는다",
+        "deltas": {
+                "happiness": -4
+        },
+        "result": "복도에서 무슨 말을 해야 할지, 도무지 알 수 없었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-language-barrier-11",
+        "text": "영어가 서툴러 수업을 절반도 못 알아듣는다",
+        "deltas": {
+                "happiness": -3,
+                "health": -1
+        },
+        "result": "선생님 말이 끝나면, 옆 친구 노트부터 몰래 훔쳐봤다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-first-friend-11",
+        "text": "먼저 다가와 준 친구 덕에 조금씩 마음을 연다",
+        "deltas": {
+                "relationship": 4,
+                "happiness": 3
+        },
+        "result": "말이 안 통해도 웃음은 통한다는 걸, 처음 알았다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-host-family-adjust-11",
+        "text": "홈스테이 가족의 낯선 생활 방식에 적응해간다",
+        "deltas": {
+                "relationship": 2,
+                "happiness": -1
+        },
+        "result": "식탁 예절부터 잠자는 시간까지, 하나하나가 다 새로웠다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-homesick-call-11",
+        "text": "한국에 있는 가족과 영상통화를 하며 그리움을 달랜다",
+        "deltas": {
+                "happiness": 2,
+                "relationship": 1
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent"
+        ],
+        "result": "화면 속 얼굴을 보는 몇 분이, 하루 중 가장 따뜻한 시간이었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-early-return-11",
+        "text": "적응하지 못하고 한국으로 조기 귀국한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "setLocation": {
+                "id": "domestic",
+                "label": "🇰🇷 국내"
+        },
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
         id: "unhappy-11",
         text: "성적표를 받아든 부모님의 실망한 표정을 마주한다",
         deltas: { happiness: -4 },
@@ -1374,6 +1465,69 @@ const STAGES = [
     ageRange: '12세',
     intro: '초등학교의 마지막 한 해. 졸업과 중학교 진학이 코앞으로 다가옵니다.',
     choices: [
+      {
+        "id": "sa-english-progress-12",
+        "text": "매일 조금씩 영어가 늘어가는 걸 느낀다",
+        "deltas": {
+                "happiness": 3,
+                "fame": 1
+        },
+        "result": "어제는 안 들리던 말이, 오늘은 어렴풋이 들렸다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-academic-pressure-12",
+        "text": "따라가기 벅찬 수업량에 부담을 느낀다",
+        "deltas": {
+                "happiness": -3,
+                "health": -1
+        },
+        "result": "숙제만 하다가 하루가 다 가는 날이, 점점 늘었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-identity-confusion-12",
+        "text": "한국인도 미국인도 아닌 듯한 어중간함을 느낀다",
+        "deltas": {
+                "happiness": -2
+        },
+        "result": "어느 쪽에도 완전히 속하지 못한 기분이, 자꾸 마음에 걸렸다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-racism-incident-12",
+        "text": "외모를 놀리는 또래의 말에 크게 상처받는다",
+        "deltas": {
+                "happiness": -5,
+                "relationship": -2
+        },
+        "result": "웃어넘기려 했지만, 그 말은 오래도록 마음에 남았다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-host-family-bond-12",
+        "text": "홈스테이 가족과 진짜 가족 같은 유대감을 쌓는다",
+        "deltas": {
+                "relationship": 4,
+                "happiness": 3
+        },
+        "result": "핏줄은 아니어도, 어느새 마음을 나누는 사이가 됐다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-early-return-12",
+        "text": "적응하지 못하고 한국으로 조기 귀국한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "setLocation": {
+                "id": "domestic",
+                "label": "🇰🇷 국내"
+        },
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "study-abroad-usa"
+},
       {
         id: "wealth-drain-12-a",
         text: "졸업 선물을 서로 주고받느라 지출이 커진다",
@@ -1475,6 +1629,74 @@ const STAGES = [
     intro: '중학교에 입학하며 몸도 마음도 부쩍 낯설어지는 시기. 거울 속 내가 어제와 조금 달라 보입니다.',
     choices: [
       {
+        "id": "sa-extracurricular-13",
+        "text": "학교 스포츠·음악 활동에 처음 참여해본다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 2
+        },
+        "result": "공부 밖에서도 내 자리가 있다는 게, 새삼 좋았다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-tuition-strain-13",
+        "text": "유학 비용 부담에 한국 가족이 허리띠를 졸라맨다는 소식을 듣는다",
+        "deltas": {
+                "happiness": -3,
+                "wealth": -1
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent"
+        ],
+        "result": "미안한 마음에, 공부라도 더 열심히 해야겠다고 다짐했다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-old-friends-fade-13",
+        "text": "한국 친구들과의 연락이 점점 뜸해진다",
+        "deltas": {
+                "happiness": -2,
+                "relationship": -2
+        },
+        "result": "시차만큼이나, 마음의 거리도 조금씩 벌어지는 것 같았다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-self-reliance-13",
+        "text": "혼자 힘으로 문제를 해결하는 법을 익혀간다",
+        "deltas": {
+                "happiness": 3
+        },
+        "result": "누구에게도 기대지 못하는 상황이, 오히려 스스로를 단단하게 만들었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-cultural-pride-13",
+        "text": "학교 문화 행사에서 한국을 소개하며 자부심을 느낀다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 4
+        },
+        "result": "낯설게만 보던 시선이, 그날만큼은 호기심 어린 눈빛으로 바뀌었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-early-return-13",
+        "text": "적응하지 못하고 한국으로 조기 귀국한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "setLocation": {
+                "id": "domestic",
+                "label": "🇰🇷 국내"
+        },
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
         id: "unhappy-13",
         text: "갑작스런 여드름과 변성기로 거울 보기가 싫어진다",
         deltas: { happiness: -3 },
@@ -1568,6 +1790,74 @@ const STAGES = [
     ageRange: '14세',
     intro: '친구 관계가 요동치고 스스로도 잘 모르겠는 감정이 많아지는 나이. 흔히 "중2병"이라 부르는 그 시기입니다.',
     choices: [
+      {
+        "id": "sa-high-school-start-14",
+        "text": "미국식 고등학교 생활을 처음 시작한다",
+        "deltas": {
+                "happiness": 3,
+                "fame": 1
+        },
+        "result": "락커에 짐을 넣는 순간부터, 완전히 새로운 세계가 열렸다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-dating-culture-14",
+        "text": "한국과는 다른 또래 연애 문화에 당황한다",
+        "deltas": {
+                "happiness": -1,
+                "relationship": 1
+        },
+        "result": "드라마에서 보던 것과는, 또 다른 낯섦이었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-part-time-allowance-14",
+        "text": "용돈을 벌기 위해 방과 후 아르바이트를 시작한다",
+        "deltas": {
+                "wealth": 3,
+                "health": -1
+        },
+        "result": "스스로 번 돈이라는 게, 생각보다 뿌듯했다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-parents-visit-14",
+        "text": "부모님이 오랜만에 미국으로 찾아온다",
+        "deltas": {
+                "relationship": 4,
+                "happiness": 4
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent"
+        ],
+        "result": "공항에서 마주친 얼굴을 보자마자, 눈물부터 났다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-identity-question-14",
+        "text": "\"고향이 어디냐\"는 질문에 선뜻 답하지 못한다",
+        "deltas": {
+                "happiness": -2
+        },
+        "result": "간단한 질문이었는데, 대답이 자꾸 길어졌다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-early-return-14",
+        "text": "적응하지 못하고 한국으로 조기 귀국한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "setLocation": {
+                "id": "domestic",
+                "label": "🇰🇷 국내"
+        },
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "study-abroad-usa"
+},
       {
         id: "wealth-drain-14-a",
         text: "좋아하는 굿즈를 사려고 웃돈까지 얹어 구매한다",
@@ -1683,6 +1973,71 @@ const STAGES = [
     intro: '중학교의 마지막 해. 처음으로 "진로"라는 단어가 남 얘기가 아니게 됩니다.',
     choices: [
       {
+        "id": "sa-college-prep-talk-15",
+        "text": "진학 상담 교사와 대학 준비를 논의한다",
+        "deltas": {
+                "happiness": 2,
+                "fame": 1
+        },
+        "result": "막연했던 미래가, 조금씩 구체적인 모양을 갖추기 시작했다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-teen-rebellion-15",
+        "text": "부모님과 멀리 떨어진 자유를 만끽하며 일탈을 저지른다",
+        "deltas": {
+                "happiness": 2,
+                "relationship": -3
+        },
+        "result": "누구의 눈치도 안 봐도 된다는 게, 짜릿하면서도 불안했다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-close-friendship-15",
+        "text": "평생 갈 것 같은 친구를 만난다",
+        "deltas": {
+                "relationship": 5,
+                "happiness": 4
+        },
+        "result": "언어도 문화도 달랐지만, 마음만큼은 완전히 통했다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-discrimination-15",
+        "text": "입학 지원 과정에서 은근한 차별을 겪는다",
+        "deltas": {
+                "happiness": -4,
+                "fame": -1
+        },
+        "result": "실력만으로는 설명되지 않는 벽이, 분명 존재했다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-summer-internship-15",
+        "text": "여름방학 인턴십 프로그램에 참여한다",
+        "deltas": {
+                "fame": 3,
+                "wealth": 2,
+                "happiness": 2
+        },
+        "result": "교실 밖 세상이, 생각보다 훨씬 넓다는 걸 느꼈다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-early-return-15",
+        "text": "적응하지 못하고 한국으로 조기 귀국한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "setLocation": {
+                "id": "domestic",
+                "label": "🇰🇷 국내"
+        },
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
         id: "unhappy-15",
         text: "원하는 고등학교 원서 점수가 아슬아슬하게 모자란다",
         deltas: { happiness: -3, wealth: -1 },
@@ -1789,6 +2144,75 @@ const STAGES = [
     ageRange: '16세',
     intro: '고등학교라는 새로운 세계로 첫발을 내딛는 시기. 교복도, 얼굴도, 규칙도 전부 낯섭니다.',
     choices: [
+      {
+        "id": "sa-drivers-license-16",
+        "text": "미국에서 운전면허를 처음 취득한다",
+        "deltas": {
+                "happiness": 4,
+                "wealth": -1
+        },
+        "result": "핸들을 처음 잡던 순간의 긴장이, 아직도 생생했다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-prom-16",
+        "text": "고등학교 프롬 파티에 참석한다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 2
+        },
+        "result": "드레스를 차려입고 나선 그 밤이, 오래 기억에 남을 것 같았다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-family-financial-crisis-16",
+        "text": "한국 집안 사정이 어려워져 유학비 지원이 끊길 위기에 처한다",
+        "deltas": {
+                "happiness": -5,
+                "wealth": -2
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent"
+        ],
+        "result": "전화기 너머로 들려오는 목소리에, 죄송함이 앞섰다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-mentor-teacher-16",
+        "text": "한 선생님의 진심 어린 관심 덕에 큰 힘을 얻는다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "낯선 땅에서 만난 어른의 손길이, 생각보다 크게 다가왔다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-volunteer-work-16",
+        "text": "지역 사회 봉사 활동에 꾸준히 참여한다",
+        "deltas": {
+                "happiness": 3,
+                "fame": 2
+        },
+        "result": "작은 손길이 누군가에게 의미가 된다는 걸, 몸으로 배웠다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-early-return-16",
+        "text": "적응하지 못하고 한국으로 조기 귀국한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "setLocation": {
+                "id": "domestic",
+                "label": "🇰🇷 국내"
+        },
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "study-abroad-usa"
+},
       {
         id: "wealth-drain-16-a",
         text: "친구 생일 선물을 무리해서 준비한다",
@@ -1968,6 +2392,70 @@ const STAGES = [
     intro: '진로와 성적이 본격적으로 무게를 갖기 시작하는 나이. 하루하루가 조금씩 빠듯해집니다.',
     choices: [
       {
+        "id": "sa-sat-stress-17",
+        "text": "SAT 시험을 앞두고 밤낮없이 매달린다",
+        "deltas": {
+                "happiness": -3,
+                "health": -2
+        },
+        "result": "숫자 하나에 몇 년의 노력이 걸린 것 같은 기분이었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-sat-good-score-17",
+        "text": "기대 이상의 SAT 성적표를 받아 든다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 6
+        },
+        "result": "숫자 하나가, 그동안의 밤샘을 전부 보상해주는 것 같았다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-extracurricular-award-17",
+        "text": "교내 활동에서 두각을 나타내며 상을 받는다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 3
+        },
+        "result": "성적표에 안 나오는 노력도, 결국은 어딘가에서 빛을 봤다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-homesick-peak-17",
+        "text": "졸업을 앞두고 유난히 짙은 향수병을 앓는다",
+        "deltas": {
+                "happiness": -4
+        },
+        "result": "익숙해진 줄 알았는데, 그리움은 늘 그 자리에 있었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-scholarship-offer-17",
+        "text": "명문대로부터 장학금 제안을 받는다",
+        "deltas": {
+                "wealth": 5,
+                "fame": 3,
+                "happiness": 5
+        },
+        "result": "숫자로 매겨진 그 인정이, 몇 년의 외로움을 다 씻어주는 것 같았다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-early-return-17",
+        "text": "적응하지 못하고 한국으로 조기 귀국한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "setLocation": {
+                "id": "domestic",
+                "label": "🇰🇷 국내"
+        },
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
         "id": "se-scout-offer-17",
         "text": "학교 운동부의 스카우트 제안을 받아들인다",
         "deltas": {
@@ -2125,6 +2613,68 @@ const STAGES = [
     ageRange: '18세',
     intro: '고등학교의 마지막 해. 수능과 졸업이라는 두 단어가 하루하루를 채웁니다.',
     choices: [
+      {
+        "id": "sa-high-school-graduation-18",
+        "text": "미국 고등학교 졸업식 무대에 선다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 6
+        },
+        "result": "학사모를 던지는 순간, 지나온 8년이 파노라마처럼 스쳤다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-college-acceptance-18",
+        "text": "지원한 대학들의 합격 통지를 확인한다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 6
+        },
+        "result": "메일함을 열기 직전, 심장이 터질 것 같았다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-college-choice-dilemma-18",
+        "text": "주립대와 명문 사립대 사이에서 고민한다",
+        "deltas": {
+                "happiness": -1,
+                "wealth": -1
+        },
+        "result": "이름값과 현실적인 부담 사이에서, 계속 저울질했다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-summer-before-college-18",
+        "text": "대학 입학 전 마지막 여름을 만끽한다",
+        "deltas": {
+                "happiness": 4
+        },
+        "result": "어른이 되기 직전의 이 여름이, 유난히 길게 느껴졌다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-years-abroad-reflection-18",
+        "text": "지난 8년의 유학 생활을 가만히 되돌아본다",
+        "deltas": {
+                "happiness": 3
+        },
+        "result": "힘들었던 순간들도, 지나고 보니 전부 나를 키운 시간이었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-early-return-18",
+        "text": "대학 진학 대신 한국으로 완전히 귀국한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "setLocation": {
+                "id": "domestic",
+                "label": "🇰🇷 국내"
+        },
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "study-abroad-usa"
+},
       {
         "id": "se-grueling-training-18",
         "text": "새벽부터 밤까지 이어지는 훈련 스케줄을 버텨낸다",
@@ -2408,6 +2958,69 @@ const STAGES = [
     intro: '인생의 첫 갈림길. 대학과 방송, 혹은 곧장 돈이 되는 길 — 스무 살의 선택은 이후 모든 걸 조금씩 흔들어놓습니다.',
     choices: [
       {
+        "id": "sa-dorm-life-19",
+        "text": "대학 기숙사에서 독립적인 생활을 처음 시작한다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 2
+        },
+        "result": "누구의 도움도 없이 살아간다는 게, 설레면서도 두려웠다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-major-decision-19",
+        "text": "전공을 정하며 앞으로의 방향을 그려본다",
+        "deltas": {
+                "happiness": 2,
+                "fame": 1
+        },
+        "result": "평생 할 일을 지금 정한다는 게, 무겁게 느껴지면서도 설렜다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-financial-aid-19",
+        "text": "학자금 대출과 장학금 사이에서 재정 계획을 세운다",
+        "deltas": {
+                "wealth": -3
+        },
+        "result": "숫자로 가득한 서류들이, 어른이 됐다는 걸 실감하게 했다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-new-friend-group-19",
+        "text": "전혀 다른 배경의 친구들과 새로운 무리를 이룬다",
+        "deltas": {
+                "relationship": 4,
+                "happiness": 3
+        },
+        "result": "세상이 이렇게 다양한 사람들로 가득하다는 걸, 처음 실감했다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-cultural-identity-19",
+        "text": "한인 학생회 활동을 하며 정체성을 다시 생각해본다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "완전히 미국인도, 완전히 한국인도 아닌 나를, 있는 그대로 받아들이게 됐다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-early-return-19",
+        "text": "학업을 중단하고 한국으로 귀국한다",
+        "deltas": {
+                "happiness": 1
+        },
+        "endsRoute": true,
+        "setLocation": {
+                "id": "domestic",
+                "label": "🇰🇷 국내"
+        },
+        "result": "오래 고민한 끝에, 마침표를 찍기로 했다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
         "id": "se-national-callup-19",
         "text": "청소년 대표팀 발탁 테스트에서 두각을 나타낸다",
         "deltas": {
@@ -2649,6 +3262,74 @@ const STAGES = [
     ageRange: '20세',
     intro: '갓 어른이 된 티가 조금씩 빠지는 나이. 독립과 자유가 생각보다 훨씬 손이 많이 간다는 걸 알아갑니다.',
     choices: [
+      {
+        "id": "sa-internship-20",
+        "text": "전공 관련 인턴십 기회를 잡는다",
+        "deltas": {
+                "fame": 3,
+                "wealth": 3,
+                "happiness": 3
+        },
+        "result": "교실에서 배운 것들이, 처음으로 현실과 맞닿는 순간이었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-loneliness-20",
+        "text": "타지 생활의 외로움이 문득 깊게 밀려온다",
+        "deltas": {
+                "happiness": -4
+        },
+        "result": "주위엔 사람이 많은데, 마음은 유난히 허전한 날들이 있었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-relationship-20",
+        "text": "캠퍼스에서 진지하게 만나는 사람이 생긴다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 3
+        },
+        "addAcquaintance": {
+                "relation": "lover",
+                "label": "💕 연인"
+        },
+        "result": "낯선 땅에서 만난 인연이, 생각보다 깊어졌다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-part-time-job-20",
+        "text": "캠퍼스 안에서 근로 장학생으로 일한다",
+        "deltas": {
+                "wealth": 3,
+                "health": -1
+        },
+        "result": "수업과 일을 오가는 하루가 빠듯했지만, 나름의 보람이 있었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-mental-health-struggle-20",
+        "text": "학업과 향수병 사이에서 정신적으로 지쳐간다",
+        "deltas": {
+                "happiness": -3,
+                "health": -2
+        },
+        "result": "괜찮은 척하는 게, 점점 버거워지고 있었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-early-return-20",
+        "text": "학업을 중단하고 한국으로 귀국한다",
+        "deltas": {
+                "happiness": 1
+        },
+        "endsRoute": true,
+        "setLocation": {
+                "id": "domestic",
+                "label": "🇰🇷 국내"
+        },
+        "result": "오래 고민한 끝에, 마침표를 찍기로 했다.",
+        "requiresRoute": "study-abroad-usa"
+},
       {
         "id": "se-national-debut-20",
         "text": "성인 국가대표로 첫 소집을 받는다",
@@ -2972,6 +3653,73 @@ const STAGES = [
     intro: '방향을 조금씩 좁혀가는 나이. 막연했던 미래가 서서히 구체적인 모양을 갖추기 시작합니다.',
     choices: [
       {
+        "id": "sa-study-abroad-again-21",
+        "text": "교환학생으로 제3국에서 한 학기를 보낸다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 4
+        },
+        "result": "유학 속의 또 다른 유학이, 세상을 더 넓게 보여줬다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-career-planning-21",
+        "text": "졸업 후 진로를 미국과 한국 중 어디로 잡을지 고민한다",
+        "deltas": {
+                "happiness": -1
+        },
+        "result": "두 나라 사이에서, 마음이 자꾸 저울질을 했다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-family-milestone-visit-21",
+        "text": "가족이 중요한 순간에 맞춰 미국을 방문한다",
+        "deltas": {
+                "relationship": 4,
+                "happiness": 4
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent"
+        ],
+        "result": "함께 보낸 며칠이, 몇 달 치 그리움을 채워줬다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-financial-independence-21",
+        "text": "더 이상 집에 손 벌리지 않고 스스로를 책임진다",
+        "deltas": {
+                "wealth": 3,
+                "happiness": 3
+        },
+        "result": "완전한 독립이라는 게, 생각보다 뿌듯했다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-career-reflection-21",
+        "text": "지금까지의 유학 생활을 담담히 돌아본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "멀리 돌아온 것 같아도, 결국 나만의 속도였다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-early-return-21",
+        "text": "학업을 중단하고 한국으로 귀국한다",
+        "deltas": {
+                "happiness": 1
+        },
+        "endsRoute": true,
+        "setLocation": {
+                "id": "domestic",
+                "label": "🇰🇷 국내"
+        },
+        "result": "오래 고민한 끝에, 마침표를 찍기로 했다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
         "id": "se-asian-games-21",
         "text": "아시안게임 대표팀에 승선한다",
         "deltas": {
@@ -3250,6 +3998,70 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        "id": "sa-capstone-project-22",
+        "text": "졸업 논문·프로젝트에 마지막 힘을 쏟는다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 3,
+                "health": -2
+        },
+        "result": "몇 년간 배운 것들을, 마지막 한 장에 전부 쏟아부었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-job-hunt-us-22",
+        "text": "미국 현지에서 취업 자리를 알아본다",
+        "deltas": {
+                "wealth": 2,
+                "happiness": -1
+        },
+        "result": "비자 문제까지 겹치니, 취업 준비가 두 배로 힘겨웠다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-grad-school-consider-22",
+        "text": "대학원 진학을 진지하게 고려한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -2
+        },
+        "result": "조금 더 배우고 싶다는 마음이, 자꾸 마음을 흔들었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-graduation-ceremony-22",
+        "text": "대학 졸업식에서 학사모를 던진다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 7
+        },
+        "result": "12년 전 낯설기만 했던 첫 등교가, 문득 떠올랐다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-identity-settled-22",
+        "text": "오랜 방황 끝에 나만의 정체성을 편안하게 받아들인다",
+        "deltas": {
+                "happiness": 4
+        },
+        "result": "어느 한쪽이 아니어도 괜찮다는 걸, 이제는 알 것 같았다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-early-return-22",
+        "text": "학업을 마치지 않고 한국으로 귀국한다",
+        "deltas": {
+                "happiness": 1
+        },
+        "endsRoute": true,
+        "setLocation": {
+                "id": "domestic",
+                "label": "🇰🇷 국내"
+        },
+        "result": "오래 고민한 끝에, 마침표를 찍기로 했다.",
+        "requiresRoute": "study-abroad-usa"
+},
       {
         "id": "se-olympic-selection-22",
         "text": "올림픽 대표팀 최종 명단에 이름을 올린다",
@@ -3541,6 +4353,69 @@ const STAGES = [
     ageRange: '23세',
     intro: '스무 살대의 마지막 해. 자립이라는 단어가 더는 남 얘기가 아니게 됩니다.',
     choices: [
+      {
+        "id": "sa-visa-decision-23",
+        "text": "취업 비자 스폰서를 구하며 미국 잔류를 시도한다",
+        "deltas": {
+                "wealth": -3,
+                "happiness": -1
+        },
+        "result": "서류 한 장이, 앞으로의 인생을 완전히 갈라놓을 수도 있었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-korea-homesick-intense-23",
+        "text": "한국에 대한 그리움이 그 어느 때보다 짙어진다",
+        "deltas": {
+                "happiness": -4
+        },
+        "result": "완전히 익숙해진 줄 알았는데, 그리움은 늘 그 자리에 있었다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-american-identity-embrace-23",
+        "text": "미국 생활에 완전히 뿌리내리기로 마음먹는다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 2
+        },
+        "result": "이곳이 이제는 진짜 내 집처럼 느껴졌다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-first-real-job-23",
+        "text": "전공을 살린 첫 정규직 일자리를 구한다",
+        "deltas": {
+                "wealth": 5,
+                "fame": 2,
+                "happiness": 4
+        },
+        "result": "몇 년의 준비가, 드디어 명함 한 장으로 남았다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-career-reflection-23",
+        "text": "앞으로의 삶을 어디서 이어갈지 그려본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "어디에 있든, 지금까지 쌓아온 것들은 사라지지 않는다는 걸 알았다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-early-return-23",
+        "text": "한국으로 귀국하기로 결정한다",
+        "deltas": {
+                "happiness": 1
+        },
+        "endsRoute": true,
+        "setLocation": {
+                "id": "domestic",
+                "label": "🇰🇷 국내"
+        },
+        "result": "오래 고민한 끝에, 마침표를 찍기로 했다.",
+        "requiresRoute": "study-abroad-usa"
+},
       {
         "id": "se-national-captain-23",
         "text": "국가대표팀의 주장 완장을 넘겨받는다",
@@ -3884,6 +4759,75 @@ const STAGES = [
     ageRange: '24세',
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
+      {
+        "id": "sa-fifteen-year-reflection-24",
+        "text": "지난 15년의 유학·타지 생활을 가만히 되돌아본다",
+        "deltas": {
+                "happiness": 4
+        },
+        "result": "낯설기만 했던 열 살의 그날부터, 참 먼 길을 걸어왔다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-stays-in-usa-24",
+        "text": "완전히 미국에 정착하기로 결정한다",
+        "deltas": {
+                "happiness": 4,
+                "wealth": 2
+        },
+        "result": "두 번째 고향이라는 말이, 이제는 어색하지 않았다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-returns-to-korea-24",
+        "text": "15년 만에 완전히 한국으로 돌아가기로 결정한다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 3
+        },
+        "setLocation": {
+                "id": "domestic",
+                "label": "🇰🇷 국내"
+        },
+        "result": "떠날 때는 어린아이였는데, 어느새 어른이 되어 돌아왔다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-bicultural-career-24",
+        "text": "한미 양쪽을 오가는 커리어를 그려본다",
+        "deltas": {
+                "fame": 3,
+                "wealth": 2,
+                "happiness": 3
+        },
+        "result": "어느 한쪽에 묶이지 않는 삶도, 나쁘지 않을 것 같았다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-gratitude-family-24",
+        "text": "먼 곳에서도 늘 지지해준 가족에게 마음을 전한다",
+        "deltas": {
+                "relationship": 4,
+                "happiness": 3
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent"
+        ],
+        "result": "고맙다는 말 한마디가, 그동안의 미안함을 조금은 덜어줬다.",
+        "requiresRoute": "study-abroad-usa"
+},
+      {
+        "id": "sa-life-exit-24",
+        "text": "유학 생활을 이 시점에서 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "study-abroad-usa"
+},
       {
         "id": "se-national-dropout-scare-24",
         "text": "부상으로 대표팀 낙마 위기에 놓인다",
