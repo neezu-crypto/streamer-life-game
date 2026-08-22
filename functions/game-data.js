@@ -604,7 +604,8 @@ const STAGES = [
         id: 'dance-kid',
         text: '노래만 나오면 즉흥 춤을 춘다',
         deltas: { fame: 5, happiness: 3 },
-        result: '거실이 곧 무대였던 시절.'
+        result: '거실이 곧 무대였던 시절.',
+        addTalent: { id: 'dance', label: '💃 춤' }
       },
       {
         id: 'book-lover',
@@ -1829,7 +1830,8 @@ const STAGES = [
         text: '체육대회에서 반 대표로 활약하며 존재감을 알린다',
         deltas: { fame: 6, health: 3 },
         result: '이겨서라기보다, 반 전체가 한마음이 됐던 그 하루가 오래 남았다.',
-        requiresNoCondition: ['ankle-sprain']
+        requiresNoCondition: ['ankle-sprain'],
+        addTalent: { id: 'sports', label: '🏃 운동' }
       },
       {
         id: 'wrist-sprain-onset',
@@ -1874,7 +1876,8 @@ const STAGES = [
         id: 'wins-debate-competition',
         text: '교내 토론대회에서 우승한다',
         deltas: { fame: 3, happiness: 2 },
-        result: '준비한 논리보다, 그 순간의 떨림이 더 선명하게 남았다.'
+        result: '준비한 논리보다, 그 순간의 떨림이 더 선명하게 남았다.',
+        addTalent: { id: 'speaking', label: '🗣️ 말솜씨' }
       },
       {
         id: 'secretly-dating-16',
