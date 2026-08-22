@@ -1093,7 +1093,7 @@ const STAGES = [
         text: '음악 학원에서 남다른 재능을 보인다',
         deltas: { fame: 3, happiness: 3, wealth: -2 },
         result: '선생님이 부모님을 따로 불러 칭찬했던, 은근히 우쭐했던 기억.',
-        addTalent: { id: 'arts', label: '🎵 음악 재능' }
+        addTalent: { id: 'arts', label: '🎵 음악' }
       },
       {
         id: 'youtube-binge',
@@ -9268,7 +9268,7 @@ const STAGES = [
         text: '새로운 취미에서 뜻밖의 재능을 발견한다',
         deltas: { happiness: 5, fame: 2 },
         result: '이 나이에 이런 걸 다 잘할 줄은, 스스로도 몰랐다.',
-        addTalent: { id: 'hidden-talent', label: '✨ 숨은 재능' }
+        addTalent: { id: 'hidden-talent', label: '✨ 숨은 끼' }
       },
       {
         id: 'volunteering-for-meaning',
