@@ -1123,7 +1123,8 @@ const STAGES = [
         id: 'math-competition-anxiety',
         text: '수학경시대회를 앞두고 부담을 느낀다',
         deltas: { happiness: -2 },
-        result: '문제집을 펼 때마다, 손끝이 조금씩 저려왔다.'
+        result: '문제집을 펼 때마다, 손끝이 조금씩 저려왔다.',
+        addTalent: { id: 'math', label: '🔢 수학' }
       },
       {
         id: 'class-clique-drama',
