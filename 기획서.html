@@ -2403,7 +2403,10 @@
                 ("학교 앞에서 작은 장사를 벌인다")가 이미 사업 수완을 보여주는 문구라 새 선택지 없이
                 그대로 재능만 추가. 20세 <code>startup-gamble</code>과는 별개 직업(<code>teen-
                 entrepreneur</code>)이라 콘텐츠·나이대 겹침 없음</td><td>-</td></tr>
-                <tr><td>⑦</td><td>학생회장·교내 리더십</td><td>14~18세</td><td>톤이 가장 가벼움</td></tr>
+                <tr><td>⑦</td><td>학생회장·교내 리더십 <span class="badge badge-live">구현됨 (2026-08-23)</span></td>
+                <td>신설 재능 타입 <code>leadership</code> - 기존 10세 <code>class-president-run</code>
+                ("전교 회장 선거에 나가본다")에 재능만 추가. 20세 이전 전교 회장→20세 이후 대학
+                학생회장으로 자연스럽게 연결(사용자 확정)</td><td>톤이 가장 가벼움</td></tr>
                 <tr><td>⑧</td><td>학교폭력 피해 극복</td><td>기존 <code>class-clique-drama</code>/
                 <code>betrayal-blamed-by-friend</code> 류를 다년 서사로 확장</td><td>톤이 가장 무거워
                 마지막 배치</td></tr>
@@ -2634,6 +2637,33 @@
         <p class="note"><b>검증.</b> 5,000회 균등 무작위 시뮬레이션: 루트 진입 22건,
         <code>STUCK</code>·<code>ALL_REJECTED</code> 0건. 전체 게임 8,000회 회귀 시뮬레이션에서
         <code>zeroEligible</code>·멈춤 0건, 즉사율 15.97%(기존과 동일, 변화 없음).</p>
+
+        <h3>열한 번째 루트 - 학생 리더십 (2026-08-23)</h3>
+        <p class="note"><b>진입 - 다른 루트와 같은 "재능 먼저" 패턴.</b> 10세
+        <code>class-president-run</code>("전교 회장 선거에 나가본다")에
+        <code>addTalent: &#123;id:'leadership', label:'👑 리더십'&#125;</code>만 추가(새 선택지 불필요 -
+        이미 리더십을 보여주는 문구였음). 14세 <code>sl-council-run-14</code>
+        (<code>requiresTalent: 'leadership'</code>)로 <code>class-president</code>(👑 전교 회장) 직업과
+        함께 15년 루트(15~28세 활성) 진입.</p>
+        <p class="note"><b>20세 이전→이후 자연스러운 연결(핵심 요청).</b> 사용자 지시: "7번은 20세
+        이전 전교회장에서 20세이후 대학 학회장으로 자연스럽게 연결되게 해줘." 다른 루트들처럼 완주 후
+        별도 루트로 이어지는 게 아니라, <b>같은 루트 안에서 직업만 전환</b>되는 방식을 택했다 - 20세에
+        <code>sl-council-election-win-20</code>(대학 학생회장 선거 당선, <code>requiresOccupation:
+        ['class-president']</code> → <code>setOccupation: student-council-president</code>)이 그 나이
+        6개 후보 중 하나로 확률적으로 노출된다(연예계 루트의 20세 데뷔 갈림길과 동일한 방식). 낙선해도
+        <code>class-president</code>로 남아 21세 뒤늦은 캐치업(<code>sl-late-council-catchup-21</code>),
+        22세 최종 포기(<code>sl-final-giveup-22</code>)로 이어지는 안전장치까지 다른 루트들과 같은
+        패턴을 그대로 적용했다. 당선 이후(<code>student-council-president</code>)엔 예산 협상·시위
+        중재·재선 등 대학 학생회 전용 콘텐츠로, 낙선·미당선(<code>class-president</code> 유지)이면
+        공용 콘텐츠만 노출된다.</p>
+        <p class="note"><b>콘텐츠.</b> 15~28세 14개 나이 × 6선택지(총 85개, 진입 포함) - 유세 연설·
+        축제 기획·교내 신문 인터뷰·소문 스캔들(15~18세 학교), 오리엔테이션 리더·학생회장 선거·예산
+        협상·시위 중재·전국 대표자 회의(19~23세 대학), 청년 정치·기업 리더십 프로그램·시민단체·공로상
+        (24~28세 사회 초년)까지 기획서 원안대로 "톤이 가장 가벼운" 결을 유지했다.</p>
+        <p class="note"><b>검증.</b> 5,000회 균등 무작위 시뮬레이션: 루트 진입 14건, 그중 대학
+        학생회장(<code>student-council-president</code>) 전환 3건으로 20세 전후 연결이 실제로 작동하는
+        것 확인, <code>STUCK</code>·<code>ALL_REJECTED</code> 0건. 전체 게임 8,000회 회귀
+        시뮬레이션에서 <code>zeroEligible</code>·멈춤 0건, 즉사율 14.79%(기존과 동일, 변화 없음).</p>
 
         <h3>구현 시 다시 확인이 필요한 세부사항</h3>
         <ul>

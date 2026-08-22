@@ -1253,7 +1253,8 @@ const STAGES = [
         id: 'class-president-run',
         text: '전교 회장 선거에 나가본다',
         deltas: { fame: 6, relationship: -2, happiness: 2 },
-        result: '떨어져도 후회는 없었다 — 단상에 서봤다는 것만으로 충분했다.'
+        result: '떨어져도 후회는 없었다 — 단상에 서봤다는 것만으로 충분했다.',
+        addTalent: { id: 'leadership', label: '👑 리더십' }
       },
       {
         id: 'ankle-sprain-onset',
@@ -1818,6 +1819,25 @@ const STAGES = [
     intro: '친구 관계가 요동치고 스스로도 잘 모르겠는 감정이 많아지는 나이. 흔히 "중2병"이라 부르는 그 시기입니다.',
     choices: [
       {
+        "id": "sl-council-run-14",
+        "text": "중학교 학생회장 선거에 다시 도전한다",
+        "deltas": {
+                "fame": 2,
+                "happiness": 2
+        },
+        "result": "명함 한 장이, 평소와 다른 하루를 만들었다.",
+        "requiresTalent": "leadership",
+        "startsRoute": {
+                "id": "student-leadership",
+                "label": "👑 학생 리더십",
+                "maxDurationYears": 15
+        },
+        "setOccupation": {
+                "id": "class-president",
+                "label": "👑 전교 회장"
+        }
+},
+      {
         "id": "pg-bootcamp-grind-14",
         "text": "새벽까지 이어지는 연습생 합숙 훈련을 버텨낸다",
         "deltas": {
@@ -2066,6 +2086,66 @@ const STAGES = [
     intro: '중학교의 마지막 해. 처음으로 "진로"라는 단어가 남 얘기가 아니게 됩니다.',
     choices: [
       {
+        "id": "sl-campaign-nerves-15",
+        "text": "전교생 앞에서 떨리는 유세 연설을 한다",
+        "deltas": {
+                "happiness": -2,
+                "fame": 3
+        },
+        "result": "손에 든 종이가, 마이크보다 더 크게 떨렸다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-poster-campaign-15",
+        "text": "친구들과 밤새 선거 포스터를 만든다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 3
+        },
+        "result": "색종이와 매직 냄새가, 그 시절을 대표하는 향기가 됐다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-friendly-rival-15",
+        "text": "함께 후보로 나선 친구와 선의의 경쟁을 벌인다",
+        "deltas": {
+                "relationship": 2,
+                "fame": 2
+        },
+        "result": "이겨도 져도, 서로를 응원하는 사이는 변하지 않았다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-first-small-win-15",
+        "text": "학급 대표로 처음 뽑힌다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 4
+        },
+        "result": "작은 자리였지만, 처음 맡아보는 책임이 낯설고 뿌듯했다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-study-balance-15",
+        "text": "학생회 활동과 학업 사이에서 저글링한다",
+        "deltas": {
+                "health": -2,
+                "wealth": -1
+        },
+        "result": "회의와 시험공부를 오가는 하루가, 늘 빠듯했다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-life-exit-15",
+        "text": "학생회 활동을 완전히 그만두기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "student-leadership"
+},
+      {
         "id": "pg-amateur-team-join-15",
         "text": "아마추어 팀에 정식으로 합류한다",
         "deltas": {
@@ -2300,6 +2380,66 @@ const STAGES = [
     ageRange: '16세',
     intro: '고등학교라는 새로운 세계로 첫발을 내딛는 시기. 교복도, 얼굴도, 규칙도 전부 낯섭니다.',
     choices: [
+      {
+        "id": "sl-council-role-16",
+        "text": "정식으로 학생회 임원 자리를 맡는다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 3
+        },
+        "result": "완장은 없어도, 어깨의 무게는 비슷했다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-festival-planning-16",
+        "text": "축제 행사를 처음부터 기획하고 준비한다",
+        "deltas": {
+                "happiness": 4,
+                "health": -2
+        },
+        "result": "무대 뒤에서 뛰어다닌 며칠이, 가장 바빴지만 가장 즐거운 시간이었다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-budget-mishap-16",
+        "text": "행사 예산을 잘못 계산해 곤란을 겪는다",
+        "deltas": {
+                "happiness": -3,
+                "wealth": -1
+        },
+        "result": "숫자 하나 잘못 짚은 대가가, 생각보다 컸다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-advisor-clash-16",
+        "text": "담당 선생님과 행사 방향을 두고 의견이 갈린다",
+        "deltas": {
+                "happiness": -2,
+                "relationship": -1
+        },
+        "result": "어른의 시선과 학생의 시선이, 매번 같을 순 없었다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-popularity-swing-16",
+        "text": "인기와 비판이 동시에 쏟아지는 걸 경험한다",
+        "deltas": {
+                "fame": 2,
+                "happiness": -2
+        },
+        "result": "모두를 만족시킬 수 없다는 걸, 처음으로 실감했다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-life-exit-16",
+        "text": "학생회 활동을 완전히 그만두기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "student-leadership"
+},
       {
         "id": "te-idea-launch-16",
         "text": "사업 아이템을 정하고 첫 시제품을 만들어본다",
@@ -2627,6 +2767,65 @@ const STAGES = [
     ageRange: '17세',
     intro: '진로와 성적이 본격적으로 무게를 갖기 시작하는 나이. 하루하루가 조금씩 빠듯해집니다.',
     choices: [
+      {
+        "id": "sl-grade-president-17",
+        "text": "학년 대표를 맡아 더 큰 책임을 진다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 3
+        },
+        "result": "맡은 자리가 커질수록, 어깨의 무게도 함께 늘었다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-promise-pressure-17",
+        "text": "선거 공약을 지키지 못할까 봐 마음을 졸인다",
+        "deltas": {
+                "happiness": -3
+        },
+        "result": "큰소리쳤던 약속들이, 자꾸 마음에 걸렸다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-clique-mediation-17",
+        "text": "친구 무리 간의 갈등을 중재하며 애를 먹는다",
+        "deltas": {
+                "relationship": -1,
+                "happiness": -2
+        },
+        "result": "어느 편도 들지 않는 게, 생각보다 훨씬 어려웠다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-newspaper-feature-17",
+        "text": "교내 신문에 학생회장으로 소개된다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 2
+        },
+        "result": "내 이야기가 활자로 남는다는 게, 여전히 신기했다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-rumor-scandal-17",
+        "text": "근거 없는 소문에 억울하게 시달린다",
+        "deltas": {
+                "happiness": -4,
+                "relationship": -2
+        },
+        "result": "해명할수록, 오히려 소문만 더 커지는 것 같았다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-life-exit-17",
+        "text": "학생회 활동을 완전히 그만두기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "student-leadership"
+},
       {
         "id": "te-parents-skepticism-17",
         "text": "\"학생이 무슨 사업이냐\"는 가족의 걱정 어린 잔소리를 듣는다",
@@ -2981,6 +3180,66 @@ const STAGES = [
     ageRange: '18세',
     intro: '고등학교의 마지막 해. 수능과 졸업이라는 두 단어가 하루하루를 채웁니다.',
     choices: [
+      {
+        "id": "sl-senior-presidency-18",
+        "text": "고등학교 전교 회장으로 취임한다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 5
+        },
+        "result": "전교생 앞에 선 그 순간, 지나온 시간이 새삼 뿌듯했다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-graduation-speech-18",
+        "text": "졸업식에서 대표로 고별사를 낭독한다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 5
+        },
+        "result": "준비한 원고보다, 그 순간의 떨림이 더 선명하게 남았다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-legacy-project-18",
+        "text": "새로운 학교 전통을 하나 만들어 남긴다",
+        "deltas": {
+                "happiness": 4,
+                "fame": 2
+        },
+        "result": "떠난 뒤에도 남을 무언가를 만든다는 게, 큰 의미로 다가왔다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-torch-passing-18",
+        "text": "후배에게 학생회 운영 노하우를 물려준다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 3
+        },
+        "result": "몇 년 전 자신의 모습이, 후배에게 겹쳐 보였다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-college-app-boost-18",
+        "text": "학생회 경력이 대학 입시에 도움이 됐음을 실감한다",
+        "deltas": {
+                "fame": 2,
+                "happiness": 3
+        },
+        "result": "고생이 헛되지 않았다는 걸, 숫자로 확인받은 기분이었다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-life-exit-18",
+        "text": "학생회 활동을 완전히 그만두기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "student-leadership"
+},
       {
         "id": "te-first-customers-18",
         "text": "입소문을 타며 단골 고객이 하나둘 생긴다",
@@ -3454,6 +3713,65 @@ const STAGES = [
     intro: '인생의 첫 갈림길. 대학과 방송, 혹은 곧장 돈이 되는 길 — 스무 살의 선택은 이후 모든 걸 조금씩 흔들어놓습니다.',
     choices: [
       {
+        "id": "sl-orientation-leader-19",
+        "text": "신입생 오리엔테이션 리더를 자원한다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 3
+        },
+        "result": "낯선 얼굴들을 이끄는 게, 묘하게 익숙한 자리처럼 느껴졌다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-club-presidency-19",
+        "text": "동아리 회장을 맡아 새로운 조직을 이끈다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 3
+        },
+        "result": "학교는 바뀌었어도, 앞장서는 역할은 여전히 잘 맞았다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-bigger-politics-19",
+        "text": "더 커진 대학 사회의 정치 지형에 적응해간다",
+        "deltas": {
+                "happiness": -2
+        },
+        "result": "규칙도 판도 훨씬 복잡해졌다는 걸, 몸으로 배웠다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-personal-life-balance-19",
+        "text": "리더 역할과 개인 생활 사이에서 균형을 고민한다",
+        "deltas": {
+                "health": -1,
+                "happiness": -1
+        },
+        "result": "모든 걸 다 잘하려는 마음이, 가끔은 스스로를 지치게 했다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-first-campus-event-19",
+        "text": "작은 규모의 캠퍼스 행사를 성공적으로 치른다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 3
+        },
+        "result": "작은 성공이었지만, 다음을 향한 자신감이 됐다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-life-exit-19",
+        "text": "학생회 활동을 완전히 그만두기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "student-leadership"
+},
+      {
         "id": "te-viral-moment-19",
         "text": "SNS에 올린 제품 소개 영상이 폭발적으로 퍼진다",
         "deltas": {
@@ -3884,6 +4202,75 @@ const STAGES = [
     ageRange: '20세',
     intro: '갓 어른이 된 티가 조금씩 빠지는 나이. 독립과 자유가 생각보다 훨씬 손이 많이 간다는 걸 알아갑니다.',
     choices: [
+      {
+        "id": "sl-council-election-win-20",
+        "text": "대학 학생회장 선거에 출마해 당선된다",
+        "deltas": {
+                "fame": 8,
+                "happiness": 6,
+                "relationship": 2
+        },
+        "requiresOccupation": [
+                "class-president"
+        ],
+        "setOccupation": {
+                "id": "student-council-president",
+                "label": "👑 대학 학생회장"
+        },
+        "result": "단상에 서서 마이크를 잡던 순간, 지나온 시간이 파노라마처럼 스쳤다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-council-election-loss-20",
+        "text": "아쉽게 낙선했지만 내년을 기약한다",
+        "deltas": {
+                "happiness": -4
+        },
+        "requiresOccupation": [
+                "class-president"
+        ],
+        "result": "주저앉고 싶은 마음을 누르고, 다시 다음을 준비하기로 했다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-campaign-drama-20",
+        "text": "경쟁 후보 진영과의 신경전이 캠퍼스를 뜨겁게 달군다",
+        "deltas": {
+                "fame": 3,
+                "happiness": -2
+        },
+        "result": "말 한마디가 이렇게까지 커질 줄은, 몰랐다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-debate-showdown-20",
+        "text": "전교생이 지켜보는 공개 토론회에서 맞붙는다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 1
+        },
+        "result": "준비한 논리보다, 그 순간의 떨림이 더 선명하게 남았다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-career-reflection-20",
+        "text": "지금까지의 리더십 여정을 되돌아본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "화려하지 않아도, 스스로 선택한 길이라는 사실이 위안이 됐다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-life-exit-20",
+        "text": "학생회 활동을 완전히 그만두기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "student-leadership"
+},
       {
         "id": "te-investor-interest-20",
         "text": "엔젤 투자자로부터 첫 투자 제안을 받는다",
@@ -4405,6 +4792,82 @@ const STAGES = [
     intro: '방향을 조금씩 좁혀가는 나이. 막연했던 미래가 서서히 구체적인 모양을 갖추기 시작합니다.',
     choices: [
       {
+        "id": "sl-budget-fight-21",
+        "text": "학생회 예산 배분을 두고 행정처와 줄다리기를 벌인다",
+        "deltas": {
+                "wealth": -1,
+                "happiness": -2
+        },
+        "requiresOccupation": [
+                "student-council-president"
+        ],
+        "result": "숫자 몇 개를 두고 벌이는 신경전이, 생각보다 진을 뺐다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-protest-mediation-21",
+        "text": "학생들의 시위를 학교 측과 중재한다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 2
+        },
+        "requiresOccupation": [
+                "student-council-president"
+        ],
+        "result": "양쪽 입장을 다 이해하려 애쓰는 게, 가장 어려운 숙제였다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-alumni-networking-21",
+        "text": "동문 선배들과의 네트워킹 자리를 마련한다",
+        "deltas": {
+                "fame": 3,
+                "relationship": 2
+        },
+        "requiresOccupation": [
+                "student-council-president"
+        ],
+        "result": "먼저 걸어간 이들의 조언이, 생각보다 큰 힘이 됐다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-late-council-catchup-21",
+        "text": "뒤늦게 다시 도전한 선거에서 마침내 당선된다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 5
+        },
+        "requiresOccupation": [
+                "class-president"
+        ],
+        "setOccupation": {
+                "id": "student-council-president",
+                "label": "👑 대학 학생회장"
+        },
+        "result": "남들보다 늦었어도, 늦은 만큼 간절했던 순간이었다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-mega-event-21",
+        "text": "캠퍼스 최대 규모의 축제를 성공적으로 이끈다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 4
+        },
+        "result": "몇 달의 준비가, 하루의 함성으로 보답받았다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-life-exit-21",
+        "text": "학생회 활동을 완전히 그만두기로 한다",
+        "deltas": {
+                "happiness": 1
+        },
+        "endsRoute": true,
+        "result": "오래 고민한 끝에, 마침표를 찍기로 했다.",
+        "requiresRoute": "student-leadership"
+},
+      {
         "id": "te-team-expansion-21",
         "text": "팀 규모를 키우며 정식 사무실을 마련한다",
         "deltas": {
@@ -4869,6 +5332,78 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        "id": "sl-reelection-22",
+        "text": "재선에 도전해 학생회장 자리를 지킨다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 4
+        },
+        "requiresOccupation": [
+                "student-council-president"
+        ],
+        "result": "한 번의 신뢰가, 또 한 번의 기회로 이어졌다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-admin-conflict-22",
+        "text": "학교 행정과의 갈등이 표면화된다",
+        "deltas": {
+                "happiness": -3,
+                "relationship": -1
+        },
+        "requiresOccupation": [
+                "student-council-president"
+        ],
+        "result": "학생을 대변하는 자리가, 때로는 대립의 최전선이 됐다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-national-conference-22",
+        "text": "전국 학생 대표자 회의에 참석한다",
+        "deltas": {
+                "fame": 4,
+                "relationship": 2
+        },
+        "requiresOccupation": [
+                "student-council-president"
+        ],
+        "result": "비슷한 고민을 나누는 자리가, 큰 위안이 됐다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-final-giveup-22",
+        "text": "거듭된 낙선 끝에 학생회 도전을 완전히 접는다",
+        "deltas": {
+                "happiness": 1
+        },
+        "requiresOccupation": [
+                "class-president"
+        ],
+        "endsRoute": true,
+        "result": "끝까지 가보지 못한 아쉬움보다, 스스로 내린 결정이라는 게 더 컸다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-political-ambition-22",
+        "text": "정치에 대한 관심이 진지한 꿈으로 자라난다",
+        "deltas": {
+                "happiness": 3,
+                "fame": 1
+        },
+        "result": "학생회에서 시작된 마음이, 더 큰 무대를 그리게 했다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-life-exit-22",
+        "text": "학생회 활동을 완전히 그만두기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "조용히, 그러나 후회 없이 짐을 정리했다.",
+        "requiresRoute": "student-leadership"
+},
       {
         "id": "te-national-scaling-22",
         "text": "전국 단위로 사업을 확장한다",
@@ -5345,6 +5880,64 @@ const STAGES = [
     ageRange: '23세',
     intro: '스무 살대의 마지막 해. 자립이라는 단어가 더는 남 얘기가 아니게 됩니다.',
     choices: [
+      {
+        "id": "sl-graduation-transition-23",
+        "text": "학생회장 임기를 마치고 졸업을 준비한다",
+        "deltas": {
+                "happiness": 4,
+                "fame": 2
+        },
+        "result": "단상 위의 시절이, 이제는 추억으로 남을 준비를 하고 있었다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-successor-mentoring-23",
+        "text": "후임 학생회장에게 노하우를 물려준다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 3
+        },
+        "result": "떠날 준비를 하는 것도, 리더의 마지막 책임이라 여겼다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-legacy-reflection-23",
+        "text": "학생 리더로서 남긴 것들을 되짚어본다",
+        "deltas": {
+                "happiness": 3
+        },
+        "result": "작은 변화들이 모여, 어느새 하나의 흐름이 되어 있었다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-recommendation-letter-23",
+        "text": "교수와 학교로부터 든든한 추천서를 받는다",
+        "deltas": {
+                "fame": 3,
+                "wealth": 1
+        },
+        "result": "몇 년의 활동이, 종이 한 장에 담겼다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-career-crossroads-23",
+        "text": "정치·행정·기업 중 어느 길로 나아갈지 고민한다",
+        "deltas": {
+                "happiness": -1
+        },
+        "result": "리더십 하나로도, 갈 수 있는 길은 여러 갈래였다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-life-exit-23",
+        "text": "학생회 활동을 완전히 그만두기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "박수 받을 때 떠나는 것도, 나쁘지 않은 선택이었다.",
+        "requiresRoute": "student-leadership"
+},
       {
         "id": "te-acquisition-offer-23",
         "text": "큰 기업으로부터 인수 제안을 받는다",
@@ -5871,6 +6464,67 @@ const STAGES = [
     ageRange: '24세',
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
+      {
+        "id": "sl-young-leaders-program-24",
+        "text": "기업의 차세대 리더 육성 프로그램에 선발된다",
+        "deltas": {
+                "wealth": 3,
+                "fame": 3,
+                "happiness": 4
+        },
+        "result": "학생회에서 쌓은 경험이, 전혀 다른 무대에서도 통했다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-community-organizing-24",
+        "text": "지역 사회 문제 해결을 위한 모임을 조직한다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 3
+        },
+        "result": "더 이상 학생이 아니어도, 앞장서는 마음은 그대로였다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-junior-politics-24",
+        "text": "청년 정치 조직에 발을 들인다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 2
+        },
+        "result": "학생회에서 시작된 관심이, 조금씩 현실이 되어가고 있었다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-corporate-rising-24",
+        "text": "회사에서 리더십을 인정받아 팀을 이끈다",
+        "deltas": {
+                "wealth": 3,
+                "fame": 2
+        },
+        "result": "조직의 크기는 달라졌어도, 사람을 이끄는 원리는 비슷했다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-mentoring-students-24",
+        "text": "모교를 찾아 후배 학생회 임원들에게 강연한다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 2
+        },
+        "result": "몇 년 전 자신의 모습이, 눈앞의 학생들에게 겹쳐 보였다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-life-exit-24",
+        "text": "리더십 관련 활동을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "조용히, 그러나 후회 없이 짐을 정리했다.",
+        "requiresRoute": "student-leadership"
+},
       {
         "id": "te-second-product-24",
         "text": "두 번째 제품 라인을 야심 차게 출시한다",
@@ -6418,6 +7072,66 @@ const STAGES = [
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
       {
+        "id": "sl-local-council-candidacy-25",
+        "text": "지역 청년 위원회 위원으로 위촉된다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 4
+        },
+        "result": "작은 자리였지만, 목소리를 낼 수 있다는 것만으로 충분했다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-ngo-leadership-25",
+        "text": "시민단체에서 리더십을 발휘하며 활동을 넓힌다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 2
+        },
+        "result": "받은 것을 조금이나마 돌려준다는 마음이, 뿌듯함으로 돌아왔다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-public-speaking-25",
+        "text": "초청 연사로 여러 자리에서 강연한다",
+        "deltas": {
+                "fame": 5,
+                "wealth": 2
+        },
+        "result": "마이크 앞에 서는 일이, 이제는 낯설지 않았다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-criticism-25",
+        "text": "리더십 스타일을 두고 일각의 비판을 받는다",
+        "deltas": {
+                "happiness": -3,
+                "fame": -1
+        },
+        "result": "모두를 만족시킬 수 없다는 걸, 다시 한번 깨달았다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-network-expansion-25",
+        "text": "다양한 분야의 리더들과 인맥을 넓혀간다",
+        "deltas": {
+                "relationship": 3,
+                "fame": 2
+        },
+        "result": "비슷한 고민을 하는 사람들과의 대화가, 새로운 시야를 열어줬다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-life-exit-25",
+        "text": "리더십 관련 활동을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "박수 소리를 뒤로하고, 조용히 자리를 떠났다.",
+        "requiresRoute": "student-leadership"
+},
+      {
         "id": "te-major-partnership-25",
         "text": "업계를 대표하는 기업과 대형 파트너십을 맺는다",
         "deltas": {
@@ -6912,6 +7626,72 @@ const STAGES = [
     ageRange: '26세',
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
+      {
+        "id": "sl-campaign-manager-26",
+        "text": "지인의 선거 캠프에서 참모 역할을 맡는다",
+        "deltas": {
+                "fame": 3,
+                "wealth": 2,
+                "happiness": 2
+        },
+        "result": "학생회 선거와는 비교도 안 되는 판이었지만, 배운 감각은 그대로 통했다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-media-interview-26",
+        "text": "청년 리더로서 언론 인터뷰에 응한다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 3
+        },
+        "result": "내 이야기가 활자로 남는다는 게, 여전히 신기했다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-burnout-26",
+        "text": "쉼 없이 이어진 활동에 지쳐간다",
+        "deltas": {
+                "health": -3,
+                "happiness": -2
+        },
+        "result": "좋아서 시작한 일인데, 즐거움이 조금씩 옅어지고 있었다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-family-pride-26",
+        "text": "가족이 지금의 모습을 자랑스러워한다",
+        "deltas": {
+                "relationship": 4,
+                "happiness": 3
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent"
+        ],
+        "result": "말은 안 해도, 표정이 예전과는 조금 달라져 있었다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-policy-proposal-26",
+        "text": "청년 정책을 직접 제안하고 추진해본다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 3
+        },
+        "result": "목소리가 실제 변화로 이어지는 걸 보며, 계속할 이유를 찾았다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-life-exit-26",
+        "text": "리더십 관련 활동을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "오랜 여정 끝에, 스스로 커튼을 내리기로 했다.",
+        "requiresRoute": "student-leadership"
+},
       {
         "id": "te-business-plateau-26",
         "text": "성장세가 정체되며 새로운 돌파구를 고민한다",
@@ -7484,6 +8264,65 @@ const STAGES = [
     ageRange: '27세',
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
+      {
+        "id": "sl-recognition-award-27",
+        "text": "청년 리더십 부문에서 공로상을 받는다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 5
+        },
+        "result": "트로피보다, 그 자리까지 온 시간이 먼저 떠올랐다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-mentorship-formalized-27",
+        "text": "차세대 리더 육성 프로그램의 공식 멘토가 된다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 2
+        },
+        "result": "배운 것들을 물려주는 일이, 새로운 보람으로 다가왔다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-career-decision-27",
+        "text": "전업 정치·공직 진출을 진지하게 고민한다",
+        "deltas": {
+                "happiness": -1
+        },
+        "result": "학생회에서 시작된 길이, 어디까지 이어질지 스스로도 궁금했다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-financial-stability-27",
+        "text": "그동안의 활동이 안정적인 커리어로 이어진다",
+        "deltas": {
+                "wealth": 4,
+                "happiness": 3
+        },
+        "result": "불안했던 시작을 생각하면, 지금 이 안정감이 새삼스러웠다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-community-legacy-27",
+        "text": "지역 사회에서 상징적인 청년 리더로 자리매김한다",
+        "deltas": {
+                "fame": 4,
+                "relationship": 2
+        },
+        "result": "이 동네의 일원으로 인정받는다는 게, 뭉클했다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-life-exit-27",
+        "text": "리더십 관련 활동을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "이제는 스스로 마침표를 찍을 시간이었다.",
+        "requiresRoute": "student-leadership"
+},
       {
         "id": "te-economic-downturn-27",
         "text": "경기 침체로 매출이 크게 흔들린다",
@@ -8060,6 +8899,65 @@ const STAGES = [
     ageRange: '28세',
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
+      {
+        "id": "sl-fourteen-year-reflection-28",
+        "text": "전교 회장부터 이어진 15년의 리더십 여정을 되돌아본다",
+        "deltas": {
+                "happiness": 4
+        },
+        "result": "중학교 선거 유세에서 시작된 일이, 여기까지 이어질 줄은 몰랐다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-next-chapter-28",
+        "text": "리더십을 살릴 다음 무대를 진지하게 그려본다",
+        "deltas": {
+                "happiness": 3,
+                "fame": 1
+        },
+        "result": "끝이 아니라, 또 다른 시작이라고 되뇌었다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-legacy-established-28",
+        "text": "학생 리더에서 시작된 발자취가 하나의 이야기로 남는다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 3
+        },
+        "result": "작은 발걸음들이 모여, 어느새 하나의 길이 되어 있었다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-inspiring-others-28",
+        "text": "자신의 이야기가 후배들에게 영감이 됐음을 알게 된다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 4
+        },
+        "result": "누군가에게 시작이 되어준다는 게, 가장 큰 보람이었다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-gratitude-28",
+        "text": "곁에서 함께해준 사람들에게 고마움을 전한다",
+        "deltas": {
+                "relationship": 4,
+                "happiness": 3
+        },
+        "result": "혼자 걸어온 줄 알았던 길에, 이렇게 많은 사람이 함께였다는 걸 새삼 느꼈다.",
+        "requiresRoute": "student-leadership"
+},
+      {
+        "id": "sl-life-exit-28",
+        "text": "지금 이 시점에서 삶을 다시 정리해보기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "student-leadership"
+},
       {
         "id": "te-legacy-building-28",
         "text": "오래 남을 브랜드로서의 정체성을 다진다",
