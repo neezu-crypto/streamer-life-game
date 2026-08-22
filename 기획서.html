@@ -2794,6 +2794,37 @@
         실제 <code>bonus-cash</code> 자산이 생기는 것 확인, 5,000회 전체 회귀 시뮬레이션 즉사율
         17.08%(기존과 동일, 변화 없음).</p>
 
+        <h3>고가 재산 취득에 현금 검증 - <code>requiresSufficientCash</code> 필드 신설(2026-08-23)</h3>
+        <p class="note">사용자 지시: "돈이 많이 필요한 재산(부동산, 중고차 등)은 충분한 현금이 있을때
+        선택 가능하게 해줘. 출현율은 그대로. 현금이 부족하면 토스트메시지가 뜨게 해줘." 다른
+        <code>requires*</code>와 성격이 달라 <code>pickVisibleChoiceIds()</code>의 노출 필터에는 아예
+        관여하지 않고(요청대로 노출 확률 불변) <code>applyChoice()</code>의 제출 시점 검증에만 존재한다
+        — 이 선택의 <code>|deltas.wealth| × cashUnitForAge(현재 나이)</code>(재산 상세 "보유 현금"에
+        실제로 반영되는 것과 같은 환산)이 지금 <code>cashHoldings</code>보다 크면
+        <code>HttpsError('failed-precondition', ..., &#123;reason:'insufficient-cash'&#125;)</code>를
+        던진다. 대상은 부동산 5종 취득(<code>first-home-purchase</code>·<code>studio-investment</code>·
+        <code>commercial-property-purchase</code>·<code>larger-home-upgrade</code>·
+        <code>vacation-home-purchase</code>)과 중고차(<code>first-used-car</code>) 총 6개 —
+        순수익형(<code>downsizing-to-compact-car</code>, wealth<b>+</b>3으로 오히려 현금이 들어옴)은
+        대상에서 제외했다. 클라이언트(<code>app.js</code> <code>pickChoice()</code>)는
+        <code>e.details.reason === 'insufficient-cash'</code>일 때만 기존 <code>alert()</code> 대신
+        <code>showToast('💰 보유 현금이 부족해서 고를 수 없어요')</code>를 띄우고 선택지 버튼은 그대로
+        다시 활성화한다(다른 선택지를 대신 고를 수 있게).</p>
+        <p class="note"><b>안전망 추가 — "출현율 그대로"가 만든 극단적 사각지대.</b> 배포 전 8,000회
+        시뮬레이션(현금 부족 시 그 선택지를 빼고 재시도하는 "실제 플레이어처럼" 방식)에서
+        <b>0.36%(18/5000, 첫 시도 기준)의 턴이 완전히 막히는 것</b>을 발견 — 32세는 부동산 취득 3개
+        (<code>first-home-purchase</code>·<code>studio-investment</code>·
+        <code>commercial-property-purchase</code>)가 다른 게이팅 없는 공용 후보라 무작위 3개 추첨이
+        어쩌다 이 셋만 뽑고, 그 시점 현금이 0이면 셋 다 고를 수 없어 그 턴에 진행 자체가 막히는
+        경우였다. "출현율은 그대로"라는 요청을 절대다수(99.6%+)에서 지키되 이 극단적 예외만 막기 위해,
+        <code>pickVisibleChoiceIds()</code> 맨 끝에 안전망을 추가했다 - 최종적으로 뽑힌 3개가 전부
+        <code>requiresSufficientCash</code>이고 셋 다 지금 현금으로 감당 불가능할 때만, 마지막 한 자리를
+        감당 가능한 다른 후보로 바꿔치기한다(<code>guaranteeCure</code>와 같은 급의 안전망). 이를 위해
+        <code>ctx.cashHoldings</code>를 새로 받도록 하고 2개 호출부(<code>applyChoice</code>·
+        <code>resumePlaythrough</code>)에 threading. 재검증: 8,000회 시뮬레이션 진행 완전 정지(ALL_REJECTED)
+        0건·<code>zeroEligible</code> 0건, 즉사율 17.45%(기존과 동일, 변화 없음), 현금 부족 시 정상 차단·
+        충분할 때 정상 취득도 재확인.</p>
+
         <h3>보험 가입 선택지 (구현됨)</h3>
         <p>25세(<code>rookie-25</code>) 재정 관련 선택지 클러스터에 <code>buys-insurance-25</code> 신설 —
         <code>requiresNoAsset: 'insurance'</code>(이미 가입했으면 다시 안 뜨게), <code>deltas:

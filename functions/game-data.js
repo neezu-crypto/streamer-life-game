@@ -3819,6 +3819,7 @@ const STAGES = [
         text: '중고차를 마련해 첫 차 주인이 된다',
         deltas: { wealth: -4, happiness: 4 },
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresSufficientCash: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'movable' }
       },
       {
@@ -5120,6 +5121,7 @@ const STAGES = [
         text: '영끌해서 내 집 마련에 성공한다',
         deltas: { wealth: -8, happiness: 6 },
         result: '등기부등본에 내 이름이 찍힌 걸 보고 또 봤다.',
+        requiresSufficientCash: true,
         addAsset: { id: 'first-home', label: '🏠 내 집', type: 'realestate' }
       },
       {
@@ -5163,6 +5165,7 @@ const STAGES = [
         text: '오피스텔 한 채에 씨앗처럼 돈을 심어 임대 수익을 노린다',
         deltas: { wealth: -7, happiness: 2 },
         result: '매달 들어오는 월세를 볼 때마다, 씨앗이 잘 자란 걸 확인하는 기분이었다.',
+        requiresSufficientCash: true,
         addAsset: { id: 'studio-unit', label: '🏢 오피스텔', type: 'realestate' }
       },
       {
@@ -5170,6 +5173,7 @@ const STAGES = [
         text: '상가를 매입해 임대업에 뛰어든다',
         deltas: { wealth: -9, happiness: 3 },
         result: '큰돈이 묶였지만, 이름 앞으로 된 상가 하나가 든든했다.',
+        requiresSufficientCash: true,
         addAsset: { id: 'commercial-unit', label: '🏬 상가', type: 'realestate' }
       },
       {
@@ -7755,6 +7759,7 @@ const STAGES = [
         text: '더 넓은 집으로 옮기며 자산을 불린다',
         deltas: { wealth: -8, happiness: 4 },
         result: '넓어진 거실만큼, 마음에도 여유가 생긴 것 같았다.',
+        requiresSufficientCash: true,
         addAsset: { id: 'bigger-home', label: '🏡 넓은 집', type: 'realestate' }
       },
       {
@@ -9868,6 +9873,7 @@ const STAGES = [
         text: '여유 자금으로 별장을 마련한다',
         deltas: { wealth: -10, happiness: 5 },
         result: '주말마다 내려갈 곳이 생겼다는 것만으로도, 마음이 한결 가벼워졌다.',
+        requiresSufficientCash: true,
         addAsset: { id: 'vacation-home', label: '🏖️ 별장', type: 'realestate' }
       },
       {

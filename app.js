@@ -1358,7 +1358,15 @@ async function pickChoice(choiceId) {
     applyOutcome(res.data, undefined, choiceId);
   } catch (e) {
     console.error('선택 제출 실패:', e);
-    alert('선택을 처리하지 못했어요: ' + (e.message || e));
+    // requiresSufficientCash(2026-08-23, 사용자 지시 - "돈이 많이 필요한 재산은
+    // 충분한 현금이 있을때 선택 가능하게, 현금이 부족하면 토스트메시지가 뜨게")
+    // 서버가 details.reason:'insufficient-cash'로 표시해준 경우만 토스트로,
+    // 나머지 오류는 기존처럼 alert로 구분한다.
+    if (e.details && e.details.reason === 'insufficient-cash') {
+      showToast('💰 보유 현금이 부족해서 고를 수 없어요');
+    } else {
+      alert('선택을 처리하지 못했어요: ' + (e.message || e));
+    }
     Array.from(choiceList.children).forEach((b) => { if (b.tagName === 'BUTTON') b.disabled = false; });
   }
 }

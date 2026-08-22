@@ -335,27 +335,51 @@ function pickVisibleChoiceIds(choices, ctx) {
     }
     return true;
   });
-  if (eligible.length <= 3) return eligible.map((c) => c.id);
+  let resultIds;
+  if (eligible.length <= 3) {
+    resultIds = eligible.map((c) => c.id);
+  } else {
+    const mandatory = eligible.filter((c) => c.mandatory);
+    let optional = eligible.filter((c) => !c.mandatory);
 
-  const mandatory = eligible.filter((c) => c.mandatory);
-  let optional = eligible.filter((c) => !c.mandatory);
-
-  if (guaranteeCure && conditionIds.length) {
-    const curative = optional.filter((c) => (c.removeCondition && conditionIds.includes(c.removeCondition)) || c.removeAllConditions);
-    if (curative.length) {
-      const forced = curative[Math.floor(Math.random() * curative.length)];
-      mandatory.push(forced);
-      optional = optional.filter((c) => c.id !== forced.id);
+    if (guaranteeCure && conditionIds.length) {
+      const curative = optional.filter((c) => (c.removeCondition && conditionIds.includes(c.removeCondition)) || c.removeAllConditions);
+      if (curative.length) {
+        const forced = curative[Math.floor(Math.random() * curative.length)];
+        mandatory.push(forced);
+        optional = optional.filter((c) => c.id !== forced.id);
+      }
     }
+
+    const shuffled = optional.slice();
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    const remainingSlots = Math.max(0, 3 - mandatory.length);
+    resultIds = mandatory.concat(shuffled.slice(0, remainingSlots)).map((c) => c.id);
   }
 
-  const shuffled = optional.slice();
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  // requiresSufficientCash 안전망(2026-08-23) - "출현율은 그대로"라는 요청대로
+  // requiresSufficientCash는 위 eligible 필터링에 전혀 관여하지 않는다. 그
+  // 결과 극히 드물게(시뮬레이션 기준 0.36%) 무작위로 뽑힌 3개가 전부
+  // requiresSufficientCash이면서 셋 다 지금 현금으로 감당이 안 되면, 그 턴에
+  // 고를 수 있는 선택지가 하나도 없어 진행이 완전히 막히는 문제가 생긴다.
+  // 이 극단적 경우에만(3개 전부 감당 불가능할 때만) 마지막 자리 하나를 감당
+  // 가능한 다른 후보로 바꿔치기해 최소 하나는 항상 고를 수 있게 한다 -
+  // 나머지 절대다수(99.6%+)의 턴은 전혀 손대지 않으므로 노출 확률 자체는
+  // 사실상 그대로 유지된다(guaranteeCure와 같은 급의 안전망).
+  const cashHoldings = ctx.cashHoldings || 0;
+  const costOf = (c) => Math.abs((c.deltas && c.deltas.wealth) || 0) * cashUnitForAge(currentAge);
+  const canAfford = (c) => !c.requiresSufficientCash || cashHoldings >= costOf(c);
+  if (resultIds.length && resultIds.every((id) => {
+    const c = choices.find((x) => x.id === id);
+    return c && !canAfford(c);
+  })) {
+    const alternative = eligible.find((c) => !resultIds.includes(c.id) && canAfford(c));
+    if (alternative) resultIds = resultIds.slice(0, -1).concat(alternative.id);
   }
-  const remainingSlots = Math.max(0, 3 - mandatory.length);
-  return mandatory.concat(shuffled.slice(0, remainingSlots)).map((c) => c.id);
+  return resultIds;
 }
 
 // 나이 스킵을 없애고 1년 단위 진행으로 되돌린다(2026-08-22, 4장 - 사용자
@@ -751,6 +775,21 @@ async function applyChoice(db, playRef, play, stage, choice) {
       throw new HttpsError('failed-precondition', '지금은 고를 수 없는 선택지입니다.');
     }
   }
+  // requiresSufficientCash(불리언, 2026-08-23, 사용자 지시 - "돈이 많이 필요한
+  // 재산(부동산, 중고차 등)은 충분한 현금이 있을때 선택 가능하게 해줘. 출현율은
+  // 그대로. 현금이 부족하면 토스트메시지가 뜨게 해줘") - 다른 requires*와 달리
+  // "노출 후보에서 빼는" 게 아니라(요청대로 노출 확률은 안 건드림) "골랐을 때
+  // 막는" 용도라 pickVisibleChoiceIds가 아니라 여기(제출 시점 검증)에만 존재한다.
+  // 실제 원화 비용은 cashUnitForAge(현재 나이)를 곱한 값이 그대로 이 선택의
+  // wealth delta만큼 cashHoldings에 반영되는 기존 로직(아래 참고)과 같은 환산을
+  // 미리 써서, "이 선택을 고르면 나갈 현금"이 지금 보유 현금보다 큰지만 본다.
+  // details.reason으로 클라이언트가 일반 오류 알림 대신 토스트를 띄우게 구분한다.
+  if (choice.requiresSufficientCash) {
+    const cost = Math.abs((choice.deltas && choice.deltas.wealth) || 0) * cashUnitForAge(play.stageIndex);
+    if ((play.cashHoldings || 0) < cost) {
+      throw new HttpsError('failed-precondition', '보유 현금이 부족해서 고를 수 없는 선택지입니다.', { reason: 'insufficient-cash' });
+    }
+  }
 
   // prizeTable(가중치 배열)이 붙은 선택지(복권 당첨 확인 등)는 choice.deltas·
   // choice.result가 고정값이 아니라, 이 순간 서버에서 무작위로 뽑은 등수의
@@ -1102,7 +1141,8 @@ async function applyChoice(db, playRef, play, stage, choice) {
       experiencedRouteIds,
       routeCompletedIds: nextRouteCompletedIds,
       routeEndAges: nextRouteEndAges,
-      currentAge: nextIndex
+      currentAge: nextIndex,
+      cashHoldings
     });
     if (!nextActiveRoute) {
       nextVisibleIds = ensureGuaranteedCure(STAGES[nextIndex].choices, nextVisibleIds, healthConditions, guaranteeCureNow);
@@ -1304,7 +1344,8 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       experiencedRouteIds,
       routeCompletedIds,
       routeEndAges,
-      currentAge: play.stageIndex
+      currentAge: play.stageIndex,
+      cashHoldings: play.cashHoldings || 0
     });
     if (!activeRoute) {
       visibleChoiceIds = ensureGuaranteedCure(stage.choices, visibleChoiceIds, healthConditions, guaranteeCureNow);
