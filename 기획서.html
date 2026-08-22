@@ -2398,8 +2398,11 @@
                 <code>youtube-binge</code>(영상 시청)는 재능을 보여주는 문구가 아니라 그대로 두고,
                 11세에 새 선택지("온라인 게임 랭킹에서 또래 사이 상위권에 오른다")를 추가해 재능 부여.
                 축구·축구 감독과 같은 패턴으로 두 루트 연속 구현(15년+15년)</td><td>-</td></tr>
-                <tr><td>⑥</td><td>10대 창업가</td><td>16~19세, 20세 <code>startup-gamble</code>의
-                청소년판</td><td>-</td></tr>
+                <tr><td>⑥</td><td>10대 창업가 <span class="badge badge-live">구현됨 (2026-08-23)</span></td>
+                <td>신설 재능 타입 <code>business</code> - 기존 9세 <code>little-entrepreneur</code>
+                ("학교 앞에서 작은 장사를 벌인다")가 이미 사업 수완을 보여주는 문구라 새 선택지 없이
+                그대로 재능만 추가. 20세 <code>startup-gamble</code>과는 별개 직업(<code>teen-
+                entrepreneur</code>)이라 콘텐츠·나이대 겹침 없음</td><td>-</td></tr>
                 <tr><td>⑦</td><td>학생회장·교내 리더십</td><td>14~18세</td><td>톤이 가장 가벼움</td></tr>
                 <tr><td>⑧</td><td>학교폭력 피해 극복</td><td>기존 <code>class-clique-drama</code>/
                 <code>betrayal-blamed-by-friend</code> 류를 다년 서사로 확장</td><td>톤이 가장 무거워
@@ -2613,6 +2616,24 @@
         이어진 경우 5건, 3개 진입 나이 모두 도달 확인, <code>STUCK</code>·<code>ALL_REJECTED</code> 0건.
         전체 게임 8,000회 회귀 시뮬레이션에서 <code>zeroEligible</code>·멈춤 0건, 즉사율 15.17%(기존과
         동일, 변화 없음).</p>
+
+        <h3>열 번째 루트 - 10대 창업가 (2026-08-23)</h3>
+        <p class="note"><b>진입 - 재능을 먼저, 트리거는 나중에(사용자 지시 그대로).</b> "10대 창업가
+        루트 15년 진행해줘. 재능을 먼저 얻고, 이후 트리거 발동하는 방식." 새 재능
+        <code>business</code>(💼 사업 수완)를 부여할 선택지를 새로 만들 필요가 없었다 - 이미 있던 9세
+        <code>little-entrepreneur</code>("학교 앞에서 작은 장사(문구 되팔기 등)를 벌인다")가 사업
+        수완을 보여주는 문구라, 여기에 <code>addTalent</code>만 얹었다. 16세
+        <code>te-idea-launch-16</code>(<code>requiresTalent: 'business'</code>)로 진입,
+        <code>teen-entrepreneur</code>(💼 10대 창업가)라는 새 직업으로 15년(17~30세 활성) 진행 -
+        20세 <code>startup-gamble</code>(<code>startup-founder</code> 직업)과는 완전히 다른 직업 id라
+        나이대가 겹쳐도(둘 다 20대) 콘텐츠 충돌이 없다.</p>
+        <p class="note"><b>콘텐츠.</b> 17~30세 14개 나이 × 6선택지(총 85개, 진입 포함) - 사업자 등록·
+        현금흐름 위기·바이럴 히트·엔젤 투자·공동창업자 지분 다툼·인수 제안·경기 침체發 구조조정·
+        스톡옵션 분배·후계 승계까지 창업가 생애주기를 다뤘다. 다른 루트와 마찬가지로 직업 하위 분화
+        없이 단일 서사, 매 나이 "창업 생활 정리"(<code>endsRoute</code>) 선택지 포함.</p>
+        <p class="note"><b>검증.</b> 5,000회 균등 무작위 시뮬레이션: 루트 진입 22건,
+        <code>STUCK</code>·<code>ALL_REJECTED</code> 0건. 전체 게임 8,000회 회귀 시뮬레이션에서
+        <code>zeroEligible</code>·멈춤 0건, 즉사율 15.97%(기존과 동일, 변화 없음).</p>
 
         <h3>구현 시 다시 확인이 필요한 세부사항</h3>
         <ul>

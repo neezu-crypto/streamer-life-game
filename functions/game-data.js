@@ -1123,7 +1123,8 @@ const STAGES = [
         id: 'little-entrepreneur',
         text: '학교 앞에서 작은 장사(문구 되팔기 등)를 벌인다',
         deltas: { wealth: 7, fame: 2, relationship: -2 },
-        result: '몇 백 원씩 모은 동전이 그때는 세상에서 제일 큰 재산 같았다.'
+        result: '몇 백 원씩 모은 동전이 그때는 세상에서 제일 큰 재산 같았다.',
+        addTalent: { id: 'business', label: '💼 사업 수완' }
       },
       {
         id: 'math-competition-anxiety',
@@ -2300,6 +2301,25 @@ const STAGES = [
     intro: '고등학교라는 새로운 세계로 첫발을 내딛는 시기. 교복도, 얼굴도, 규칙도 전부 낯섭니다.',
     choices: [
       {
+        "id": "te-idea-launch-16",
+        "text": "사업 아이템을 정하고 첫 시제품을 만들어본다",
+        "deltas": {
+                "fame": 2,
+                "happiness": 2
+        },
+        "result": "명함 한 장이, 평소와 다른 하루를 만들었다.",
+        "requiresTalent": "business",
+        "startsRoute": {
+                "id": "teen-entrepreneur",
+                "label": "💼 10대 창업가",
+                "maxDurationYears": 15
+        },
+        "setOccupation": {
+                "id": "teen-entrepreneur",
+                "label": "💼 10대 창업가"
+        }
+},
+      {
         "id": "pg-pro-contract-16",
         "text": "프로게임단과 정식 계약을 맺는다",
         "deltas": {
@@ -2608,6 +2628,77 @@ const STAGES = [
     intro: '진로와 성적이 본격적으로 무게를 갖기 시작하는 나이. 하루하루가 조금씩 빠듯해집니다.',
     choices: [
       {
+        "id": "te-parents-skepticism-17",
+        "text": "\"학생이 무슨 사업이냐\"는 가족의 걱정 어린 잔소리를 듣는다",
+        "deltas": {
+                "relationship": -2,
+                "happiness": -2
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent"
+        ],
+        "result": "믿어달라는 말과 걱정된다는 말이, 매번 평행선을 그었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-first-sale-17",
+        "text": "처음으로 낯선 사람에게 제품을 판매한다",
+        "deltas": {
+                "wealth": 2,
+                "happiness": 4
+        },
+        "result": "내 손으로 만든 것에 돈을 낸다는 사실이, 벅찼다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-seed-money-borrow-17",
+        "text": "가족에게 사업 초기 자금을 빌린다",
+        "deltas": {
+                "wealth": 3,
+                "relationship": -1
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent"
+        ],
+        "result": "갚아야 할 돈이라는 무게가, 새삼 크게 다가왔다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-study-balance-17",
+        "text": "학업과 사업 사이에서 아슬아슬하게 저글링한다",
+        "deltas": {
+                "health": -3,
+                "wealth": -1
+        },
+        "result": "졸린 눈으로 교실과 작업실을 오가는 하루하루였다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-prototype-fail-17",
+        "text": "심혈을 기울인 시제품이 완전히 실패로 돌아간다",
+        "deltas": {
+                "happiness": -4,
+                "wealth": -2
+        },
+        "result": "몇 주의 밤샘이, 상자 하나로 조용히 정리됐다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-life-exit-17",
+        "text": "창업 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
         "id": "pg-international-lan-17",
         "text": "해외 국제 대회 무대를 처음 밟는다",
         "deltas": {
@@ -2890,6 +2981,67 @@ const STAGES = [
     ageRange: '18세',
     intro: '고등학교의 마지막 해. 수능과 졸업이라는 두 단어가 하루하루를 채웁니다.',
     choices: [
+      {
+        "id": "te-first-customers-18",
+        "text": "입소문을 타며 단골 고객이 하나둘 생긴다",
+        "deltas": {
+                "wealth": 4,
+                "happiness": 4
+        },
+        "result": "같은 사람이 다시 찾아온다는 게, 그렇게 뿌듯할 줄 몰랐다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-cashflow-crisis-18",
+        "text": "재료비 지출이 늘며 현금 흐름이 빠듯해진다",
+        "deltas": {
+                "wealth": -4,
+                "happiness": -2
+        },
+        "result": "통장 잔고를 확인하는 손이, 점점 조심스러워졌다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-first-hire-18",
+        "text": "또래 친구를 첫 직원으로 채용한다",
+        "deltas": {
+                "wealth": -2,
+                "relationship": 3
+        },
+        "result": "혼자가 아니라는 사실이, 생각보다 큰 힘이 됐다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-business-registration-18",
+        "text": "정식으로 사업자 등록을 마친다",
+        "deltas": {
+                "happiness": 3,
+                "fame": 1
+        },
+        "result": "서류 한 장이, 취미와 사업의 경계를 갈라놓았다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-product-pivot-18",
+        "text": "반응이 신통찮은 아이템을 접고 방향을 바꾼다",
+        "deltas": {
+                "happiness": -2,
+                "wealth": -1
+        },
+        "result": "처음부터 다시 시작하는 기분이었지만, 이상하게 홀가분했다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-life-exit-18",
+        "text": "창업 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
       {
         "id": "pg-breakthrough-title-18",
         "text": "마침내 첫 우승 트로피를 들어 올린다",
@@ -3302,6 +3454,67 @@ const STAGES = [
     intro: '인생의 첫 갈림길. 대학과 방송, 혹은 곧장 돈이 되는 길 — 스무 살의 선택은 이후 모든 걸 조금씩 흔들어놓습니다.',
     choices: [
       {
+        "id": "te-viral-moment-19",
+        "text": "SNS에 올린 제품 소개 영상이 폭발적으로 퍼진다",
+        "deltas": {
+                "fame": 7,
+                "happiness": 5
+        },
+        "result": "하룻밤 사이에, 낯선 사람들이 내 이름을 검색하고 있었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-media-feature-19",
+        "text": "지역 매체에 청년 창업가로 소개된다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 3
+        },
+        "result": "내 이야기가 활자로 남는다는 게, 여전히 신기했다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-competitor-emerges-19",
+        "text": "비슷한 아이템을 내세운 경쟁자가 등장한다",
+        "deltas": {
+                "happiness": -3,
+                "fame": -1
+        },
+        "result": "먼저 시작했다는 사실만으로는, 안심할 수 없었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-order-fulfillment-crisis-19",
+        "text": "갑작스레 몰린 주문을 감당하지 못해 배송이 밀린다",
+        "deltas": {
+                "happiness": -3,
+                "relationship": -2
+        },
+        "result": "항의 메시지가 쌓일 때마다, 심장이 철렁 내려앉았다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-mentor-advice-19",
+        "text": "먼저 사업을 시작한 선배에게 진심 어린 조언을 듣는다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "냉정한 평가 뒤에 숨어 있던 진심이, 뒤늦게 와닿았다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-life-exit-19",
+        "text": "창업 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
         "id": "pg-championship-run-19",
         "text": "국제 대회 결승까지 진출하는 쾌거를 이룬다",
         "deltas": {
@@ -3671,6 +3884,73 @@ const STAGES = [
     ageRange: '20세',
     intro: '갓 어른이 된 티가 조금씩 빠지는 나이. 독립과 자유가 생각보다 훨씬 손이 많이 간다는 걸 알아갑니다.',
     choices: [
+      {
+        "id": "te-investor-interest-20",
+        "text": "엔젤 투자자로부터 첫 투자 제안을 받는다",
+        "deltas": {
+                "wealth": 6,
+                "fame": 3,
+                "happiness": 4
+        },
+        "result": "숫자로 매겨진 그 관심이, 그동안의 밤샘을 보상해주는 것 같았다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-first-pitch-20",
+        "text": "투자 유치를 위해 처음으로 정식 피칭에 나선다",
+        "deltas": {
+                "happiness": 2,
+                "fame": 2
+        },
+        "result": "몇 분 안에 사업을 설명해야 한다는 압박이, 상상 이상이었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-growth-pains-20",
+        "text": "빠른 성장 속도를 조직이 따라가지 못해 삐걱댄다",
+        "deltas": {
+                "happiness": -3,
+                "health": -2
+        },
+        "result": "잘되는 것도 관리가 안 되면 위기라는 걸, 처음 알았다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-first-real-profit-20",
+        "text": "처음으로 의미 있는 순이익을 남긴다",
+        "deltas": {
+                "wealth": 5,
+                "happiness": 5
+        },
+        "result": "숫자 하나가, 그동안의 불안을 조금은 잠재워줬다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-family-pride-20",
+        "text": "가족이 사업을 인정하고 자랑스러워하기 시작한다",
+        "deltas": {
+                "relationship": 4,
+                "happiness": 4
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent"
+        ],
+        "result": "말은 안 해도, 표정이 예전과는 조금 달라져 있었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-life-exit-20",
+        "text": "창업 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "화려한 날들이었지만, 이제는 내려놓을 때라고 느꼈다.",
+        "requiresRoute": "teen-entrepreneur"
+},
       {
         "id": "pg-peak-title-20",
         "text": "커리어 최고의 순간, 세계 대회 우승을 차지한다",
@@ -4125,6 +4405,66 @@ const STAGES = [
     intro: '방향을 조금씩 좁혀가는 나이. 막연했던 미래가 서서히 구체적인 모양을 갖추기 시작합니다.',
     choices: [
       {
+        "id": "te-team-expansion-21",
+        "text": "팀 규모를 키우며 정식 사무실을 마련한다",
+        "deltas": {
+                "wealth": -4,
+                "happiness": 4
+        },
+        "result": "책상이 하나둘 늘어나는 걸 보며, 실감이 나기 시작했다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-employee-conflict-21",
+        "text": "직원과의 갈등을 조율하며 리더십을 시험받는다",
+        "deltas": {
+                "relationship": -2,
+                "happiness": -2
+        },
+        "result": "사장이 된다는 게, 생각보다 훨씬 어려운 일이었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-gov-support-program-21",
+        "text": "청년 창업 지원 사업에 선정된다",
+        "deltas": {
+                "wealth": 4,
+                "fame": 2
+        },
+        "result": "혼자 힘으로만 버틴 게 아니었다는 걸, 새삼 느꼈다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-quality-issue-21",
+        "text": "제품 하자로 인한 환불 요청이 몰려든다",
+        "deltas": {
+                "happiness": -4,
+                "wealth": -3
+        },
+        "result": "품질 하나가 무너지면, 신뢰도 함께 무너진다는 걸 배웠다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-interview-young-founder-21",
+        "text": "청년 창업가 인터뷰이로 초청받는다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 3
+        },
+        "result": "누군가에게 본보기가 된다는 게, 낯설고도 뿌듯했다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-life-exit-21",
+        "text": "창업 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 1
+        },
+        "endsRoute": true,
+        "result": "오래 고민한 끝에, 마침표를 찍기로 했다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
         "id": "pg-team-disbands-21",
         "text": "소속팀이 해체되며 자유계약 신분이 된다",
         "deltas": {
@@ -4529,6 +4869,67 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        "id": "te-national-scaling-22",
+        "text": "전국 단위로 사업을 확장한다",
+        "deltas": {
+                "fame": 5,
+                "wealth": 3,
+                "happiness": 4
+        },
+        "result": "한 동네에서 시작한 일이, 전국으로 뻗어 나가고 있었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-cash-crunch-again-22",
+        "text": "성장 속도를 자금이 따라가지 못해 다시 위기를 맞는다",
+        "deltas": {
+                "wealth": -5,
+                "happiness": -3
+        },
+        "result": "잘나가는 것처럼 보여도, 통장은 늘 아슬아슬했다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-cofounder-equity-dispute-22",
+        "text": "공동창업자와 지분 문제로 크게 다툰다",
+        "deltas": {
+                "relationship": -4,
+                "happiness": -3
+        },
+        "result": "돈 문제 앞에서, 우정도 쉽게 흔들렸다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-startup-award-22",
+        "text": "청년 창업 대상을 수상한다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 5
+        },
+        "result": "트로피보다, 그 자리까지 온 시간이 먼저 떠올랐다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-mental-toll-22",
+        "text": "끝없는 의사결정의 무게에 정신적으로 지쳐간다",
+        "deltas": {
+                "happiness": -4,
+                "health": -2
+        },
+        "result": "모든 걸 혼자 짊어진다는 게, 생각보다 훨씬 무거웠다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-life-exit-22",
+        "text": "창업 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "조용히, 그러나 후회 없이 짐을 정리했다.",
+        "requiresRoute": "teen-entrepreneur"
+},
       {
         "id": "pg-aging-out-anxiety-22",
         "text": "반응속도가 예전 같지 않다는 걸 스스로 느낀다",
@@ -4944,6 +5345,67 @@ const STAGES = [
     ageRange: '23세',
     intro: '스무 살대의 마지막 해. 자립이라는 단어가 더는 남 얘기가 아니게 됩니다.',
     choices: [
+      {
+        "id": "te-acquisition-offer-23",
+        "text": "큰 기업으로부터 인수 제안을 받는다",
+        "deltas": {
+                "wealth": 10,
+                "happiness": 6,
+                "fame": 4
+        },
+        "result": "숫자로 매겨진 그 제안 앞에서, 마음이 복잡하게 흔들렸다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-declines-acquisition-23",
+        "text": "인수 제안을 뿌리치고 홀로서기를 이어가기로 한다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 2
+        },
+        "result": "돈보다 중요한 게 있다는 걸, 스스로에게 증명하고 싶었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-big-client-win-23",
+        "text": "대형 거래처와의 계약을 성사시킨다",
+        "deltas": {
+                "wealth": 6,
+                "fame": 3
+        },
+        "result": "이 계약 하나가, 사업의 체급을 완전히 바꿔놓았다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-legal-dispute-23",
+        "text": "계약서 문구를 두고 법적 분쟁에 휘말린다",
+        "deltas": {
+                "happiness": -4,
+                "wealth": -4
+        },
+        "result": "변호사 비용이, 매출만큼이나 신경 쓰이는 숫자가 됐다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-career-reflection-23",
+        "text": "지금까지의 창업 여정을 담담히 돌아본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "여기까지 오는 동안 놓쳤던 것들이, 문득 떠올랐다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-life-exit-23",
+        "text": "창업 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "박수 받을 때 떠나는 것도, 나쁘지 않은 선택이었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
       {
         "id": "pg-last-title-push-23",
         "text": "은퇴를 염두에 두고 마지막 우승 도전에 나선다",
@@ -5409,6 +5871,67 @@ const STAGES = [
     ageRange: '24세',
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
+      {
+        "id": "te-second-product-24",
+        "text": "두 번째 제품 라인을 야심 차게 출시한다",
+        "deltas": {
+                "fame": 4,
+                "wealth": -3,
+                "happiness": 3
+        },
+        "result": "첫 성공에 안주하지 않으려는 마음이, 새로운 도전으로 이어졌다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-team-culture-24",
+        "text": "회사만의 조직 문화를 자리 잡게 한다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 3
+        },
+        "result": "단순한 직장이 아니라, 함께 만드는 무언가가 되길 바랐다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-work-life-balance-24",
+        "text": "일과 삶의 균형을 처음으로 진지하게 고민한다",
+        "deltas": {
+                "health": 2,
+                "happiness": 2
+        },
+        "result": "쉬지 않고 달려온 것도, 이제는 돌아볼 때가 됐다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-community-involvement-24",
+        "text": "지역 창업 커뮤니티 활동에 참여한다",
+        "deltas": {
+                "relationship": 3,
+                "fame": 2
+        },
+        "result": "비슷한 길을 걷는 사람들과의 대화가, 큰 위안이 됐다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-veteran-founder-status-24",
+        "text": "업계에서 어느새 선배 창업가로 불리기 시작한다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 2
+        },
+        "result": "어느새 신참이 아니라 어른 취급을 받는다는 게, 낯설고도 새삼스러웠다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-life-exit-24",
+        "text": "창업 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "조용히, 그러나 후회 없이 짐을 정리했다.",
+        "requiresRoute": "teen-entrepreneur"
+},
       {
         "id": "pg-fulltime-streaming-24",
         "text": "전업 스트리머로 완전히 전환한다",
@@ -5895,6 +6418,70 @@ const STAGES = [
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
       {
+        "id": "te-major-partnership-25",
+        "text": "업계를 대표하는 기업과 대형 파트너십을 맺는다",
+        "deltas": {
+                "fame": 6,
+                "wealth": 5,
+                "happiness": 4
+        },
+        "result": "작은 사무실에서 시작한 일이, 이런 자리까지 이어질 줄 몰랐다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-conference-keynote-25",
+        "text": "창업 컨퍼런스 기조연설자로 무대에 선다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 4
+        },
+        "result": "몇 년 전엔 관객이었는데, 이제는 연단 위에 서 있었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-financial-stability-25",
+        "text": "오랜 시간 끝에 재정적으로 안정된 궤도에 오른다",
+        "deltas": {
+                "wealth": 6,
+                "happiness": 3
+        },
+        "result": "불안했던 시작을 생각하면, 지금 이 안정감이 새삼스러웠다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-competitor-lawsuit-25",
+        "text": "경쟁사로부터 부당한 소송을 당한다",
+        "deltas": {
+                "happiness": -4,
+                "wealth": -3
+        },
+        "result": "억울함을 증명하는 데도, 시간과 돈이 들었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-stress-health-scare-25",
+        "text": "누적된 스트레스로 건강에 적신호가 켜진다",
+        "deltas": {
+                "health": -4
+        },
+        "addCondition": {
+                "id": "stress-related-illness",
+                "label": "🩹 스트레스성 질환"
+        },
+        "result": "몸이 보내는 경고를, 더는 무시할 수 없었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-life-exit-25",
+        "text": "창업 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "박수 소리를 뒤로하고, 조용히 자리를 떠났다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
         "id": "pg-streaming-success-25",
         "text": "스트리밍 채널이 크게 성장하며 자리를 잡는다",
         "deltas": {
@@ -6325,6 +6912,73 @@ const STAGES = [
     ageRange: '26세',
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
+      {
+        "id": "te-business-plateau-26",
+        "text": "성장세가 정체되며 새로운 돌파구를 고민한다",
+        "deltas": {
+                "happiness": -2
+        },
+        "result": "늘 오르막이던 그래프가, 어느새 평평해져 있었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-new-product-line-26",
+        "text": "침체를 딛고 완전히 새로운 제품군에 도전한다",
+        "deltas": {
+                "fame": 4,
+                "wealth": -2,
+                "happiness": 3
+        },
+        "result": "두렵기도 했지만, 다시 배우는 기분이 나쁘지 않았다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-team-restructure-26",
+        "text": "조직을 재정비하며 어려운 인사 결정을 내린다",
+        "deltas": {
+                "happiness": -3,
+                "relationship": -1
+        },
+        "result": "모두를 만족시킬 수 없다는 걸, 매번 다시 깨달았다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-anniversary-milestone-26",
+        "text": "창업 10주년을 기념하는 자리를 마련한다",
+        "deltas": {
+                "happiness": 5,
+                "relationship": 3
+        },
+        "result": "함께 걸어온 사람들과 나눈 축배가, 유난히 뭉클했다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-family-time-26",
+        "text": "바쁜 와중에도 가족과 시간을 내려 애쓴다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 2
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent",
+                "spouse",
+                "child"
+        ],
+        "result": "짧아도 온전히 함께한 시간이, 그 무엇보다 소중했다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-life-exit-26",
+        "text": "창업 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
       {
         "id": "pg-coaching-apprentice-26",
         "text": "비공식적으로 코칭 노하우를 배우기 시작한다",
@@ -6830,6 +7484,66 @@ const STAGES = [
     ageRange: '27세',
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
+      {
+        "id": "te-economic-downturn-27",
+        "text": "경기 침체로 매출이 크게 흔들린다",
+        "deltas": {
+                "wealth": -6,
+                "happiness": -3
+        },
+        "result": "통제할 수 없는 흐름 앞에서, 무력감이 밀려왔다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-layoff-decision-27",
+        "text": "어려운 구조조정을 결정해야 하는 상황에 놓인다",
+        "deltas": {
+                "happiness": -5,
+                "relationship": -2
+        },
+        "result": "숫자로만 봐야 했던 결정이, 사람의 얼굴을 하고 있었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-loyal-customers-support-27",
+        "text": "오랜 단골 고객들의 응원 속에 위기를 버텨낸다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 3
+        },
+        "result": "혼자가 아니라는 사실이, 생각보다 큰 힘이 됐다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-financial-recovery-27",
+        "text": "허리띠를 졸라맨 끝에 재정을 회복한다",
+        "deltas": {
+                "wealth": 4,
+                "happiness": 3
+        },
+        "result": "버텨낸 것만으로도, 스스로가 대견했다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-resilience-award-27",
+        "text": "위기 극복 사례로 업계의 주목을 받는다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 3
+        },
+        "result": "무너지지 않았다는 사실 자체가, 하나의 이야기가 됐다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-life-exit-27",
+        "text": "창업 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "오랜 여정 끝에, 스스로 커튼을 내리기로 했다.",
+        "requiresRoute": "teen-entrepreneur"
+},
       {
         "id": "pg-fourteen-year-reflection-27",
         "text": "지난 14년의 프로게이머 인생을 가만히 되돌아본다",
@@ -7347,6 +8061,66 @@ const STAGES = [
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
       {
+        "id": "te-legacy-building-28",
+        "text": "오래 남을 브랜드로서의 정체성을 다진다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 3
+        },
+        "result": "단순히 파는 것을 넘어, 남길 것을 고민하게 됐다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-second-venture-consider-28",
+        "text": "완전히 새로운 두 번째 사업을 구상해본다",
+        "deltas": {
+                "happiness": 3,
+                "wealth": -1
+        },
+        "result": "한 번 해봤다는 경험이, 다음 도전을 덜 두렵게 만들었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-employee-stock-options-28",
+        "text": "초기 직원들에게 스톡옵션을 나눠준다",
+        "deltas": {
+                "relationship": 4,
+                "wealth": -2
+        },
+        "result": "함께 일군 것을, 함께 나누고 싶었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-giveback-program-28",
+        "text": "지역 사회를 위한 재능기부 프로그램을 운영한다",
+        "deltas": {
+                "happiness": 4,
+                "fame": 2
+        },
+        "result": "받은 것을 조금이나마 돌려준다는 마음이, 뿌듯함으로 돌아왔다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-wealth-milestone-28",
+        "text": "개인 자산이 뜻깊은 목표치에 도달한다",
+        "deltas": {
+                "wealth": 6,
+                "happiness": 3
+        },
+        "result": "숫자로만 보던 목표가, 어느새 손에 잡혀 있었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-life-exit-28",
+        "text": "창업 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "조용히, 그러나 후회 없이 짐을 정리했다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
         "id": "usl-promotion-28",
         "text": "실력을 인정받아 승진 제안을 받는다",
         "deltas": {
@@ -7784,6 +8558,73 @@ const STAGES = [
     ageRange: '29세',
     intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
     choices: [
+      {
+        "id": "te-succession-planning-29",
+        "text": "믿을 만한 후계자에게 경영권을 넘길 준비를 한다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "떠날 준비를 하는 것도, 창업가의 마지막 책임이라 여겼다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-mentor-role-solidified-29",
+        "text": "후배 창업가들의 공식적인 멘토가 된다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 2
+        },
+        "result": "몇 년 전 막막했던 자신의 모습이, 그들에게 겹쳐 보였다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-financial-independence-29",
+        "text": "완전한 경제적 자유를 이뤘음을 실감한다",
+        "deltas": {
+                "wealth": 5,
+                "happiness": 4
+        },
+        "result": "불안했던 시작을 생각하면, 지금 이 안정감이 새삼스러웠다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-work-life-balance-achieved-29",
+        "text": "오랜 시간 끝에 일과 삶의 균형을 되찾는다",
+        "deltas": {
+                "happiness": 4,
+                "health": 2
+        },
+        "result": "더 빨리, 더 높이 대신, 더 오래가는 법을 택했다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-family-celebration-29",
+        "text": "가족과 함께 그동안의 성취를 자축한다",
+        "deltas": {
+                "relationship": 4,
+                "happiness": 4
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent",
+                "spouse",
+                "child"
+        ],
+        "result": "곁에서 지켜봐 준 사람들 덕에, 여기까지 올 수 있었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-life-exit-29",
+        "text": "창업 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "박수 받을 때 떠나는 것도, 나쁘지 않은 선택이었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
       {
         "id": "ec-coaching-start-29",
         "text": "지도자 과정을 마치고 e스포츠 코칭에 뛰어든다",
@@ -8231,6 +9072,66 @@ const STAGES = [
     ageRange: '30세',
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
+      {
+        "id": "te-fourteen-year-reflection-30",
+        "text": "10대에 시작한 창업 여정 전체를 가만히 되돌아본다",
+        "deltas": {
+                "happiness": 4
+        },
+        "result": "학교 앞 작은 장사에서 시작된 일이, 여기까지 이어질 줄은 몰랐다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-continues-as-ceo-30",
+        "text": "앞으로도 계속 대표 자리를 지키기로 한다",
+        "deltas": {
+                "happiness": 3,
+                "fame": 2
+        },
+        "result": "아직 이 자리에서 할 일이, 많이 남아 있다고 느꼈다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-steps-back-30",
+        "text": "경영 일선에서 물러나 이사회로 자리를 옮긴다",
+        "deltas": {
+                "happiness": 3,
+                "health": 2
+        },
+        "endsRoute": true,
+        "result": "내려놓는 것도, 스스로 내린 결정이라는 게 중요했다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-legacy-established-30",
+        "text": "10대 창업가로서 남긴 발자취를 되새긴다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 3
+        },
+        "result": "작은 발걸음들이 모여, 어느새 하나의 길이 되어 있었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-next-generation-inspired-30",
+        "text": "자신의 이야기가 다음 세대 창업가들에게 영감이 됐음을 알게 된다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 4
+        },
+        "result": "누군가에게 시작이 되어준다는 게, 가장 큰 보람이었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
+      {
+        "id": "te-life-exit-30",
+        "text": "지금 이 시점에서 삶을 다시 정리해보기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "teen-entrepreneur"
+},
       {
         "id": "ec-assistant-coach-30",
         "text": "어시스턴트 코치로 팀 문화를 파악해간다",
