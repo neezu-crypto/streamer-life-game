@@ -4843,6 +4843,10 @@ const STAGES = [
         "setOccupation": {
                 "id": "actor-newcomer",
                 "label": "🎭 무명 배우"
+        },
+        "addTalent": {
+                "id": "acting",
+                "label": "🎭 연기"
         }
 },
       {
@@ -5021,6 +5025,10 @@ const STAGES = [
         "setOccupation": {
                 "id": "actor-newcomer",
                 "label": "🎭 무명 배우"
+        },
+        "addTalent": {
+                "id": "acting",
+                "label": "🎭 연기"
         }
 },
       {
@@ -5249,6 +5257,10 @@ const STAGES = [
         "setOccupation": {
                 "id": "actor-newcomer",
                 "label": "🎭 무명 배우"
+        },
+        "addTalent": {
+                "id": "acting",
+                "label": "🎭 연기"
         }
 },
       {
