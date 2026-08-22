@@ -554,7 +554,8 @@ const STAGES = [
         id: 'copies-parents-work',
         text: '부모님 흉내를 내며 역할놀이에 푹 빠진다',
         deltas: { relationship: 2 },
-        result: '장난감 전화기를 붙들고, 제법 진지한 표정으로 통화를 흉내 냈다.'
+        result: '장난감 전화기를 붙들고, 제법 진지한 표정으로 통화를 흉내 냈다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       },
       {
         id: 'bug-catcher-toddler',
@@ -566,7 +567,8 @@ const STAGES = [
         id: 'speech-delay-worry',
         text: '또래보다 말이 트이지 않아 부모님이 걱정한다',
         deltas: { happiness: -1, relationship: -1 },
-        result: '조바심 내는 어른들 사이에서, 정작 본인은 태평했다.'
+        result: '조바심 내는 어른들 사이에서, 정작 본인은 태평했다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       }
     ]
   },
@@ -586,7 +588,8 @@ const STAGES = [
         id: "unhappy-4",
         text: "동생이 생긴다는 말에 괜한 심술을 부린다",
         deltas: { happiness: -2, relationship: -2 },
-        result: "사랑을 나눠 가져야 한다는 게, 아직은 낯설고 서운했다."
+        result: "사랑을 나눠 가져야 한다는 게, 아직은 낯설고 서운했다.",
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       },
       {
         id: 'dino-obsessed',
@@ -816,6 +819,7 @@ const STAGES = [
         text: '동생이 태어나 갑자기 형·누나·오빠·언니가 된다',
         deltas: { relationship: 5, happiness: -2, wealth: -3 },
         result: '축하할 일이었지만, 관심이 나눠지는 건 조금 낯설었다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent'],
         addFamilyMembers: [{ id: 'younger-sibling', label: '🧒 동생' }]
       },
       {
@@ -1137,7 +1141,8 @@ const STAGES = [
         id: 'summer-camp-independence',
         text: '여름 캠프에서 처음으로 부모님 없이 며칠을 보낸다',
         deltas: { relationship: 1, happiness: 2 },
-        result: '보고 싶은 마음과 신나는 마음이, 하루에도 몇 번씩 뒤바뀌었다.'
+        result: '보고 싶은 마음과 신나는 마음이, 하루에도 몇 번씩 뒤바뀌었다.',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       },
       {
         id: 'loses-a-fight',
@@ -1283,7 +1288,8 @@ const STAGES = [
         id: "unhappy-11",
         text: "성적표를 받아든 부모님의 실망한 표정을 마주한다",
         deltas: { happiness: -4 },
-        result: "혼나는 말보다, 그 표정이 더 오래 마음에 남았다."
+        result: "혼나는 말보다, 그 표정이 더 오래 마음에 남았다.",
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       },
       {
         id: 'grade-sensitivity',
@@ -2073,7 +2079,8 @@ const STAGES = [
         text: '불안정한 미래를 걱정하는 부모님과 갈등을 겪는다',
         deltas: { relationship: -3, happiness: -2 },
         result: '믿어달라는 말과 걱정된다는 말이, 매번 평행선을 그었다.',
-        requiresRoute: 'entertainment-industry'
+        requiresRoute: 'entertainment-industry',
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       },
       {
         id: 'ent-trainee-contract-renewal-17',
@@ -7088,7 +7095,8 @@ const STAGES = [
         id: "unhappy-42",
         text: "부모님의 부쩍 흰머리를 보고 마음이 무거워진다",
         deltas: { happiness: -2, relationship: -1 },
-        result: "세월이 나만 비껴가는 게 아니란 걸, 새삼 실감했다."
+        result: "세월이 나만 비껴가는 게 아니란 걸, 새삼 실감했다.",
+        requiresFamilyMember: ['father', 'mother', 'single-parent']
       },
       {
         id: 'multiple-health-flags',
@@ -7496,7 +7504,8 @@ const STAGES = [
         id: "unhappy-44",
         text: "자녀와 대화가 자꾸 겉돌아 서운함을 느낀다",
         deltas: { happiness: -3, relationship: -2 },
-        result: "방문 너머로 짧은 대답만 돌아오는 날이 늘었다."
+        result: "방문 너머로 짧은 대답만 돌아오는 날이 늘었다.",
+        requiresFamilyMember: ['child']
       },
       {
         id: 'teen-child-conflict',
@@ -8132,7 +8141,8 @@ const STAGES = [
         id: "unhappy-47",
         text: "배우자와 사소한 일로 냉랭한 며칠을 보낸다",
         deltas: { happiness: -3, relationship: -3 },
-        result: "같은 집에 살면서도, 말 한마디가 유난히 어려운 날들이었다."
+        result: "같은 집에 살면서도, 말 한마디가 유난히 어려운 날들이었다.",
+        requiresFamilyMember: ['spouse']
       },
       {
         id: 'parent-to-nursing-home',
@@ -8671,7 +8681,8 @@ const STAGES = [
         id: "unhappy-51",
         text: "자녀의 독립 준비 소식에 서운함과 대견함이 뒤섞인다",
         deltas: { happiness: -3, relationship: -1 },
-        result: "잘 컸다는 뿌듯함 뒤로, 빈방이 유난히 크게 느껴졌다."
+        result: "잘 컸다는 뿌듯함 뒤로, 빈방이 유난히 크게 느껴졌다.",
+        requiresFamilyMember: ['child']
       },
       {
         id: 'empty-nest-syndrome',
@@ -10220,7 +10231,8 @@ const STAGES = [
         id: "unhappy-64",
         text: "자녀 가족과의 왕래가 점점 뜸해짐을 느낀다",
         deltas: { happiness: -3, relationship: -2 },
-        result: "명절에나 겨우 마주치는 사이가, 어느새 익숙해졌다."
+        result: "명절에나 겨우 마주치는 사이가, 어느새 익숙해졌다.",
+        requiresFamilyMember: ['child']
       },
       {
         id: 'anxious-over-checkup-results',
@@ -10645,7 +10657,8 @@ const STAGES = [
         id: "unhappy-67",
         text: "배우자의 잔병치레가 늘어 걱정이 끊이지 않는다",
         deltas: { happiness: -3, relationship: -1 },
-        result: "병원 진료실 앞 의자가, 요즘 들어 낯익어졌다."
+        result: "병원 진료실 앞 의자가, 요즘 들어 낯익어졌다.",
+        requiresFamilyMember: ['spouse']
       },
       {
         id: 'writing-a-will',
@@ -11132,7 +11145,8 @@ const STAGES = [
         id: "wealth-drain-72-a",
         text: "손주 용돈을 넉넉히 챙기며 세대 차이를 메우려 한다",
         deltas: { wealth: -2 },
-        result: "말이 안 통해도, 마음만큼은 전하고 싶었다."
+        result: "말이 안 통해도, 마음만큼은 전하고 싶었다.",
+        requiresFamilyMember: ['grandchild']
       },
       {
         id: "unhappy-72",
@@ -11521,7 +11535,8 @@ const STAGES = [
         id: "unhappy-76",
         text: "손주들이 크면서 예전만큼 찾아오지 않는다",
         deltas: { happiness: -3, relationship: -1 },
-        result: "빈 집 안의 정적이, 요즘 들어 유독 크게 들렸다."
+        result: "빈 집 안의 정적이, 요즘 들어 유독 크게 들렸다.",
+        requiresFamilyMember: ['grandchild']
       },
       {
         id: 'spouse-diagnosed-with-illness',
@@ -12011,7 +12026,8 @@ const STAGES = [
         id: "wealth-drain-81-a",
         text: "생신 자리에서 손주들에게 큰돈을 나눠준다",
         deltas: { wealth: -3 },
-        result: "받는 기쁨보다, 주는 기쁨이 더 컸다."
+        result: "받는 기쁨보다, 주는 기쁨이 더 컸다.",
+        requiresFamilyMember: ['grandchild']
       },
       {
         id: "unhappy-81",
@@ -13328,7 +13344,8 @@ const STAGES = [
         id: "unhappy-95",
         text: "평생을 함께한 배우자·형제의 빈자리가 더 크게 느껴진다",
         deltas: { happiness: -4, relationship: -2 },
-        result: "옆자리가 비어있다는 사실이, 매일 새삼스레 사무쳤다."
+        result: "옆자리가 비어있다는 사실이, 매일 새삼스레 사무쳤다.",
+        requiresNoFamilyMember: ['spouse', 'sibling', 'younger-sibling']
       },
       {
         id: 'amazed-at-ninety-five-years-lived',
