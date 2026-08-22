@@ -392,11 +392,67 @@ function buildSyntheticTreatmentChoice(condition, hasInsurance) {
 // 쓰는 publicStage 호출부는 굳이 안 넘겨도 무방하다(기본값 false - 텍스트에는
 // 영향 없음).
 function resolveSyntheticChoice(id, healthConditions, hasInsurance) {
+  if (id === 'farewell:pet') return buildSyntheticPetFarewellChoice();
   if (!id.startsWith('treat:')) return null;
   const conditionId = id.slice('treat:'.length);
   const condition = (healthConditions || []).find((c) => c.id === conditionId);
   if (!condition) return null;
   return buildSyntheticTreatmentChoice(condition, !!hasInsurance);
+}
+
+// 반려동물 수명(2026-08-22, 사용자 지시 - "반려동물 수명을 추천해주고 해당기간이
+// 지나면 반려동물을 떠나보내는 선택지가 뜨게 해줘"). 실제 반려견·반려묘 평균
+// 수명(대략 12~15년)을 참고해 15년으로 추천 - 31세에 입양하는 pet-family-instead
+// 기준 46세에 이별을 맞는 정도라, 너무 이르지도(입양 직후 상실감) 너무
+// 늦지도(100세까지 안 겪음) 않은 지점.
+const PET_LIFESPAN_YEARS = 15;
+
+// 부모님 사별(54세 mandatory)과 달리 pet은 입양 나이가 매번 다르므로(현재는
+// pet-family-instead 하나뿐이지만 나중에 다른 나이의 입양 선택지가 늘어도 이
+// 함수는 그대로 재사용된다) game-data.js에 고정 나이로 심어둘 수 없다 -
+// treat:(guaranteeCure 안전망)과 완전히 같은 합성 선택지 패턴으로, familyMembers에
+// 남아 있는 pet 항목의 sinceStageId(=입양 나이)만으로 그때그때 다시 만들어낸다.
+function buildSyntheticPetFarewellChoice() {
+  return {
+    id: 'farewell:pet',
+    text: '나이 든 반려동물을 떠나보낸다',
+    deltas: { happiness: -4 },
+    resultOptions: [
+      '오랫동안 곁을 지켜준 반려동물이 편안히 눈을 감았다. 빈자리가 유독 크게 느껴졌다.',
+      '나이 든 반려동물이 잠든 듯 조용히 떠났다. 슬픔 속에서도, 함께한 시간만큼은 후회가 없었다.',
+      '갑작스레 몸이 나빠지더니, 며칠을 넘기지 못하고 세상을 떠났다. 마음의 준비가 안 된 이별이었다.'
+    ],
+    removeFamilyMembers: ['pet']
+  };
+}
+
+// 이번 선택으로 방금 막 pet을 들였다면(addFamilyMembers에 pet 포함) 그 순간의
+// sinceStageId가 아직 이번 선택 이전 familyMembers 스냅샷엔 없으므로, 항상 "이번
+// 선택 이후" 갱신된 familyMembers를 기준으로 호출해야 한다(ensurePetFarewell
+// 호출부 참고 - applyChoice가 이미 갱신한 familyMembers를 넘긴다).
+function ensurePetFarewell(stageChoices, ids, familyMembers, currentAge, activeRoute) {
+  // 14장 트리거 루트 - "완전 배타적, 예외 없음"(사용자 확정)을 guaranteeCure와
+  // 똑같이 따른다. 루트 진행 중엔 반려동물 이별도 뒤로 미뤄뒀다가, 루트가
+  // 끝난 뒤 조건을 다시 검사해 그제서야 노출한다.
+  if (activeRoute) return ids;
+  const pet = (familyMembers || []).find((f) => f.id === 'pet');
+  if (!pet) return ids;
+  const adoptedAge = STAGE_INDEX_BY_ID.get(pet.sinceStageId);
+  if (adoptedAge === undefined || currentAge - adoptedAge < PET_LIFESPAN_YEARS) return ids;
+  if (ids.includes('farewell:pet')) return ids;
+  // guaranteeCure가 같은 턴에 이미 'treat:'을 심어둔 자리는 밀어내지 않는다
+  // (반대 방향 보호는 ensureGuaranteedCure 쪽에 'farewell:'로 걸어둠) - 두
+  // 안전망이 같은 나이에 겹치면 그중 하나만 이번 턴에 반영되고, 나머지는
+  // 다음 턴에 다시 시도된다(부모님 사별과 겹칠 때와 같은 원리).
+  const mandatoryIds = new Set(stageChoices.filter((c) => c.mandatory).map((c) => c.id));
+  let replaceIdx = -1;
+  for (let i = ids.length - 1; i >= 0; i--) {
+    if (!mandatoryIds.has(ids[i]) && !String(ids[i]).startsWith('treat:')) { replaceIdx = i; break; }
+  }
+  if (replaceIdx === -1) return ids;
+  const newIds = ids.slice();
+  newIds[replaceIdx] = 'farewell:pet';
+  return newIds;
 }
 
 // guaranteeCure가 필요했는데 pickVisibleChoiceIds가 그 나이의 실제 콘텐츠
@@ -414,7 +470,7 @@ function ensureGuaranteedCure(stageChoices, ids, healthConditions, guaranteeCure
   const mandatoryIds = new Set(stageChoices.filter((c) => c.mandatory).map((c) => c.id));
   let replaceIdx = -1;
   for (let i = ids.length - 1; i >= 0; i--) {
-    if (!mandatoryIds.has(ids[i])) { replaceIdx = i; break; }
+    if (!mandatoryIds.has(ids[i]) && !String(ids[i]).startsWith('farewell:')) { replaceIdx = i; break; }
   }
   if (replaceIdx === -1) return ids;
   const target = curable[Math.floor(Math.random() * curable.length)];
@@ -907,7 +963,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // STAGES에서 다시 못 찾으므로, 그때 보여준 문구를 그대로 같이 저장해둔다
   // (buildChoiceHistory 참고). undefined 필드는 RTDB set/update가 거부하므로
   // synthetic이 아닐 때는 이 키 자체를 안 만든다.
-  if (String(choice.id).startsWith('treat:')) logEntry.syntheticText = choice.text;
+  if (String(choice.id).startsWith('treat:') || choice.id === 'farewell:pet') logEntry.syntheticText = choice.text;
   choiceLog.push(logEntry);
 
   // 직업 상세 - 별도 필드 없이 방금 갱신한 choiceLog에서 다시 계산한다(위
@@ -984,6 +1040,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
     });
     if (!nextActiveRoute) {
       nextVisibleIds = ensureGuaranteedCure(STAGES[nextIndex].choices, nextVisibleIds, healthConditions, guaranteeCureNow);
+      nextVisibleIds = ensurePetFarewell(STAGES[nextIndex].choices, nextVisibleIds, familyMembers, nextIndex, nextActiveRoute);
     }
     updates.visibleChoiceIds = nextVisibleIds;
   }
@@ -1181,6 +1238,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
     });
     if (!activeRoute) {
       visibleChoiceIds = ensureGuaranteedCure(stage.choices, visibleChoiceIds, healthConditions, guaranteeCureNow);
+      visibleChoiceIds = ensurePetFarewell(stage.choices, visibleChoiceIds, familyMembers, play.stageIndex, activeRoute);
     }
     resumeUpdates.visibleChoiceIds = visibleChoiceIds;
   }
@@ -1223,7 +1281,7 @@ const submitChoice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
   // game-data.js의 stage.choices에 없으므로 resolveSyntheticChoice로 따로
   // 되짚어 찾는다. 보험 가입 중이면 치료비가 일부만(할인) 나가므로 지금
   // 재산 상태에서 hasInsurance를 같이 넘긴다.
-  const choice = String(choiceId).startsWith('treat:')
+  const choice = (String(choiceId).startsWith('treat:') || choiceId === 'farewell:pet')
     ? resolveSyntheticChoice(
         choiceId,
         Array.isArray(play.healthConditions) ? play.healthConditions : [],
