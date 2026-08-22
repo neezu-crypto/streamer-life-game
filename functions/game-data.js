@@ -5186,6 +5186,24 @@ const STAGES = [
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
       {
+        "id": "usl-fully-settling-25",
+        "text": "미국에서의 삶을 본격적으로 꾸려나가기 시작한다",
+        "deltas": {
+                "happiness": 3,
+                "wealth": 1
+        },
+        "result": "이제부터가 진짜 시작이라는 생각이 들었다.",
+        "requiresLocation": [
+                "usa"
+        ],
+        "startsRoute": {
+                "id": "us-settled-life",
+                "label": "🇺🇸 미국 정착",
+                "maxDurationYears": 15
+        },
+        "mandatory": true
+},
+      {
         "id": "se-world-cup-qualified-25",
         "text": "월드컵 본선 진출을 확정 짓는 경기에 출전한다",
         "deltas": {
@@ -5537,6 +5555,71 @@ const STAGES = [
     ageRange: '26세',
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
+      {
+        "id": "usl-workplace-culture-26",
+        "text": "수평적인 미국식 회사 문화에 적응해간다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 1
+        },
+        "result": "직급보다 이름을 먼저 부르는 문화가, 여전히 낯설면서도 편했다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-first-car-26",
+        "text": "차 없이는 못 사는 동네라 중고차를 마련한다",
+        "deltas": {
+                "wealth": -4,
+                "happiness": 2
+        },
+        "result": "대중교통 대신 운전대를 잡는 게, 이제는 당연한 일상이 됐다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-fender-bender-26",
+        "text": "고속도로에서 가벼운 접촉사고를 낸다",
+        "deltas": {
+                "wealth": -2,
+                "happiness": -3
+        },
+        "result": "보험사와 통화하며, 미국 자동차 보험 체계를 몸으로 배웠다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-student-loan-26",
+        "text": "학자금 대출 상환이 매달 통장을 압박한다",
+        "deltas": {
+                "wealth": -2,
+                "happiness": -2
+        },
+        "result": "월급날마다 빠져나가는 돈이, 꽤 오랫동안 발목을 잡을 것 같았다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-health-insurance-26",
+        "text": "회사 건강보험에 가입하며 미국 의료체계를 실감한다",
+        "deltas": {
+                "wealth": -2,
+                "happiness": 1
+        },
+        "addAsset": {
+                "id": "insurance",
+                "label": "🛡️ 보험",
+                "type": "insurance"
+        },
+        "result": "보험 없이는 병원 문턱도 못 넘는다는 말이, 괜한 말이 아니었다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-ktown-community-26",
+        "text": "한인타운에서 고향의 맛과 정을 나눈다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 3
+        },
+        "result": "낯선 나라에서도, 마음 붙일 곳이 있다는 게 큰 위안이었다.",
+        "requiresRoute": "us-settled-life"
+},
       {
         "id": "se-national-doping-scandal-26",
         "text": "근거 없는 도핑 의혹에 휘말린다",
@@ -5917,6 +6000,69 @@ const STAGES = [
     ageRange: '27세',
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
+      {
+        "id": "usl-apartment-lease-27",
+        "text": "처음으로 혼자 아파트 임대 계약을 맺는다",
+        "deltas": {
+                "wealth": -3,
+                "happiness": 3
+        },
+        "result": "서류에 서명하는 손이, 완전한 독립을 실감하게 했다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-green-card-stress-27",
+        "text": "영주권 신청 서류를 준비하며 마음을 졸인다",
+        "deltas": {
+                "happiness": -3,
+                "wealth": -2
+        },
+        "result": "서류 한 장이, 앞으로의 인생을 완전히 갈라놓을 수도 있었다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-gun-violence-unease-27",
+        "text": "동네에서 벌어진 총기 사고 소식에 한동안 불안해한다",
+        "deltas": {
+                "happiness": -4
+        },
+        "result": "뉴스 속 먼 이야기인 줄만 알았는데, 이렇게 가까이 있을 줄 몰랐다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-jury-duty-27",
+        "text": "배심원 의무 소환장을 받고 법원에 출석한다",
+        "deltas": {
+                "wealth": -1,
+                "happiness": -1
+        },
+        "result": "드라마에서만 보던 일이, 실제로 내게 벌어질 줄은 몰랐다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-dating-scene-27",
+        "text": "다양한 배경의 사람들과 데이트를 시작한다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "addAcquaintance": {
+                "relation": "lover",
+                "label": "💕 연인"
+        },
+        "result": "언어도 문화도 다른 사람과의 만남이, 새로운 시야를 열어줬다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-thanksgiving-27",
+        "text": "새로 사귄 이들과 첫 추수감사절을 함께 보낸다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 3
+        },
+        "result": "핏줄은 아니어도, 어느새 마음을 나누는 사이가 됐다.",
+        "requiresRoute": "us-settled-life"
+},
       {
         "id": "se-national-injury-retirement-consider-27",
         "text": "거듭된 부상으로 대표팀 은퇴를 고민한다",
@@ -6311,6 +6457,66 @@ const STAGES = [
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
       {
+        "id": "usl-promotion-28",
+        "text": "실력을 인정받아 승진 제안을 받는다",
+        "deltas": {
+                "wealth": 5,
+                "fame": 2,
+                "happiness": 4
+        },
+        "result": "이방인이라는 꼬리표 없이, 실력으로 인정받은 순간이었다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-layoff-risk-28",
+        "text": "회사 구조조정 소식에 해고 불안에 시달린다",
+        "deltas": {
+                "happiness": -4
+        },
+        "result": "계약 하나로 언제든 잘릴 수 있다는 현실이, 새삼 서늘하게 다가왔다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-hurricane-evacuation-28",
+        "text": "허리케인 경보에 급히 대피 준비를 한다",
+        "deltas": {
+                "wealth": -2,
+                "happiness": -2
+        },
+        "result": "생전 처음 겪는 자연재해 앞에서, 준비물 목록부터 허둥지둥 챙겼다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-er-medical-bill-28",
+        "text": "응급실에 실려갔다가 감당하기 힘든 병원비 청구서를 받는다",
+        "deltas": {
+                "wealth": -8,
+                "happiness": -4
+        },
+        "result": "치료보다 청구서가 더 아프다는 말이, 무슨 뜻인지 뼈저리게 느꼈다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-tipping-culture-28",
+        "text": "팁 문화에 익숙해지지 못해 매번 눈치를 본다",
+        "deltas": {
+                "wealth": -1,
+                "happiness": -1
+        },
+        "result": "얼마를 놓아야 적당한지, 계산기를 두드리는 게 매번 일이었다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-road-trip-28",
+        "text": "광활한 대륙을 가로지르는 장거리 로드트립을 떠난다",
+        "deltas": {
+                "happiness": 5,
+                "wealth": -2
+        },
+        "result": "끝없이 이어지는 도로가, 이 나라의 크기를 온몸으로 느끼게 했다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
         "id": "se-national-farewell-28",
         "text": "국가대표 은퇴식 무대에 선다",
         "deltas": {
@@ -6689,6 +6895,77 @@ const STAGES = [
     intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
     choices: [
       {
+        "id": "usl-green-card-approved-29",
+        "text": "몇 년의 기다림 끝에 영주권을 손에 쥔다",
+        "deltas": {
+                "happiness": 6,
+                "wealth": 2
+        },
+        "result": "카드 한 장이, 비로소 이 땅에 뿌리내렸다는 증표가 됐다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-marriage-29",
+        "text": "오래 만나온 사람과 결혼을 결심한다",
+        "deltas": {
+                "happiness": 5,
+                "relationship": 4
+        },
+        "addFamilyMembers": [
+                {
+                        "id": "spouse",
+                        "label": "💍 배우자"
+                }
+        ],
+        "result": "국적도 언어도 다른 두 사람이, 하나의 가정을 이루기로 했다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-remittance-29",
+        "text": "한국의 가족에게 정기적으로 생활비를 보낸다",
+        "deltas": {
+                "wealth": -3,
+                "relationship": 2
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent"
+        ],
+        "result": "멀리서나마 보탬이 된다는 게, 작은 위안이었다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-home-break-in-29",
+        "text": "집에 도둑이 들어 한동안 불안에 떤다",
+        "deltas": {
+                "happiness": -5,
+                "wealth": -3
+        },
+        "result": "문단속을 두 번 세 번 확인하는 버릇이, 그날 이후로 생겼다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-therapy-29",
+        "text": "심리 상담을 받으며 마음을 돌보기 시작한다",
+        "deltas": {
+                "happiness": 4,
+                "health": 2
+        },
+        "result": "털어놓는 것만으로도 이렇게 가벼워질 줄은, 몰랐다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-volunteer-29",
+        "text": "지역 사회 봉사 활동에 꾸준히 참여한다",
+        "deltas": {
+                "happiness": 3,
+                "fame": 2
+        },
+        "result": "받은 것을 조금이나마 돌려준다는 마음이, 뿌듯함으로 돌아왔다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
         "id": "se-national-pundit-29",
         "text": "은퇴 후 방송 해설위원으로 활동을 시작한다",
         "deltas": {
@@ -7043,6 +7320,81 @@ const STAGES = [
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
       {
+        "id": "usl-first-home-purchase-30",
+        "text": "아메리칸 드림이라 불리던 내 집 마련에 성공한다",
+        "deltas": {
+                "wealth": -8,
+                "happiness": 6
+        },
+        "addAsset": {
+                "id": "first-home",
+                "label": "🏠 내 집",
+                "type": "realestate"
+        },
+        "requiresSufficientCash": true,
+        "result": "마당 딸린 집 열쇠를 받아 든 순간, 뭉클함이 밀려왔다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-child-born-30",
+        "text": "미국에서 첫아이를 품에 안는다",
+        "deltas": {
+                "happiness": 7,
+                "relationship": 4,
+                "wealth": -3
+        },
+        "addFamilyMembers": [
+                {
+                        "id": "child",
+                        "label": "👶 자녀"
+                }
+        ],
+        "result": "이중국적으로 태어난 아이의 울음소리가, 낯선 나라를 진짜 집으로 만들었다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-school-choice-30",
+        "text": "아이를 위해 공립과 사립학교 중 하나를 고민한다",
+        "deltas": {
+                "wealth": -1,
+                "happiness": -1
+        },
+        "requiresFamilyMember": [
+                "child"
+        ],
+        "result": "학군 지도를 몇 번이고 다시 들여다봤다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-credit-score-30",
+        "text": "신용점수를 꾸준히 관리하며 미국식 금융에 익숙해진다",
+        "deltas": {
+                "wealth": 2
+        },
+        "result": "숫자 하나가 이렇게 많은 걸 좌우할 줄은, 처음엔 몰랐다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-workplace-burnout-30",
+        "text": "쉴 틈 없는 업무에 번아웃을 겪는다",
+        "deltas": {
+                "health": -4,
+                "happiness": -3
+        },
+        "result": "유급 휴가가 있어도, 마음 편히 쓰기가 쉽지 않았다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-traffic-ticket-30",
+        "text": "과속 딱지를 떼여 억울함에 이의를 제기한다",
+        "deltas": {
+                "wealth": -1,
+                "happiness": -2
+        },
+        "result": "법정까지 가야 하나 고민하다, 결국 벌금을 내기로 했다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
         "id": "se-national-legend-30",
         "text": "축구 레전드로 추대되는 자리에 초청받는다",
         "deltas": {
@@ -7304,6 +7656,74 @@ const STAGES = [
     ageRange: '31세',
     intro: '곁에 남을 사람과 앞으로의 삶을 어떻게 그릴지, 조금 더 구체적으로 고민하는 나이입니다.',
     choices: [
+      {
+        "id": "usl-lockdown-drill-31",
+        "text": "아이 학교의 총기 대비 훈련 소식에 마음이 무거워진다",
+        "deltas": {
+                "happiness": -4
+        },
+        "requiresFamilyMember": [
+                "child"
+        ],
+        "result": "아이가 그런 훈련을 받아야 하는 현실이, 쉽게 받아들여지지 않았다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-tax-season-31",
+        "text": "복잡한 미국 세금 신고와 씨름한다",
+        "deltas": {
+                "wealth": -2,
+                "happiness": -2
+        },
+        "result": "공제 항목을 하나씩 따지다 보니, 하루가 다 갔다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-naturalization-test-31",
+        "text": "시민권 취득을 위한 귀화 시험을 준비한다",
+        "deltas": {
+                "happiness": 2,
+                "fame": 1
+        },
+        "result": "역사와 헌법을 외우다 보니, 이 나라를 다시 보게 됐다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-family-visit-31",
+        "text": "한국의 가족이 오랜만에 미국을 방문한다",
+        "deltas": {
+                "relationship": 4,
+                "happiness": 4
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent"
+        ],
+        "result": "공항에서 마주친 얼굴을 보자마자, 눈물부터 났다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-side-hustle-31",
+        "text": "부수입을 위해 온라인 부업을 시작한다",
+        "deltas": {
+                "wealth": 3,
+                "health": -1
+        },
+        "result": "퇴근 후에도 쉬지 못했지만, 통장은 조금씩 두둑해졌다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-hoa-involvement-31",
+        "text": "주택 소유자 협회 모임에 참여하며 동네 일에 관여한다",
+        "deltas": {
+                "relationship": 2,
+                "happiness": 1
+        },
+        "requiresAssetType": "realestate",
+        "result": "이웃 일이 곧 내 일이 되는 게, 낯설면서도 나쁘지 않았다.",
+        "requiresRoute": "us-settled-life"
+},
       {
         "id": "se-national-final-interview-31",
         "text": "축구 인생을 마무리하는 인터뷰에 응한다",
@@ -7609,6 +8029,69 @@ const STAGES = [
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
       {
+        "id": "usl-economic-layoff-32",
+        "text": "경기 침체로 인한 대규모 해고에 자리를 잃는다",
+        "deltas": {
+                "happiness": -6,
+                "wealth": -3
+        },
+        "result": "몇 년을 몸담았던 자리가, 통보 한 줄에 정리됐다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-unemployment-benefits-32",
+        "text": "실업급여 신청 절차를 밟으며 재취업을 준비한다",
+        "deltas": {
+                "wealth": 2,
+                "happiness": -1
+        },
+        "result": "낯선 서류 뭉치가, 다시 일어설 발판이 되어줬다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-disaster-recovery-32",
+        "text": "지난 자연재해의 여파를 뒤늦게 수습한다",
+        "deltas": {
+                "wealth": -3,
+                "happiness": -1
+        },
+        "result": "복구 비용 청구서가, 재해보다 늦게 찾아왔다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-child-identity-32",
+        "text": "아이가 정체성 혼란을 겪으며 힘들어한다",
+        "deltas": {
+                "happiness": -3,
+                "relationship": -1
+        },
+        "requiresFamilyMember": [
+                "child"
+        ],
+        "result": "자신이 겪었던 혼란을, 아이도 똑같이 겪고 있었다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-career-pivot-32",
+        "text": "완전히 다른 분야로 커리어 전환을 시도한다",
+        "deltas": {
+                "happiness": 3,
+                "wealth": -2
+        },
+        "result": "두렵기도 했지만, 다시 배우는 기분이 나쁘지 않았다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-family-healthcare-cost-32",
+        "text": "가족의 병원비 부담이 눈덩이처럼 불어난다",
+        "deltas": {
+                "wealth": -5,
+                "happiness": -2
+        },
+        "result": "보험이 있어도, 완전히 자유로울 순 없다는 걸 다시 느꼈다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
         "id": "artist-retrospective-offer-32",
         "text": "지난 활동을 정리하는 회고전 제안을 받는다",
         "deltas": {
@@ -7906,6 +8389,70 @@ const STAGES = [
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
       {
+        "id": "usl-reemployment-33",
+        "text": "오랜 구직 끝에 새로운 일자리를 구한다",
+        "deltas": {
+                "wealth": 5,
+                "happiness": 5
+        },
+        "result": "떨어졌던 만큼, 다시 일어서는 기쁨이 더 컸다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-home-renovation-33",
+        "text": "오래된 집을 손봐 새로운 공간으로 꾸민다",
+        "deltas": {
+                "wealth": -4,
+                "happiness": 4
+        },
+        "requiresAssetType": "realestate",
+        "result": "망치질 소리가 시끄러웠지만, 완성된 공간은 그만한 가치가 있었다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-citizenship-ceremony-33",
+        "text": "시민권 선서식에서 새로운 국적을 받는다",
+        "deltas": {
+                "happiness": 6,
+                "fame": 2
+        },
+        "result": "두 개의 국기를 마음에 품고 살아간다는 게, 그제야 실감 났다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-americana-roadtrip-33",
+        "text": "국립공원을 순회하는 캠핑 여행을 떠난다",
+        "deltas": {
+                "happiness": 5,
+                "wealth": -2
+        },
+        "result": "광활한 자연 앞에서, 그동안의 걱정들이 작아 보였다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-ktown-festival-33",
+        "text": "한인 사회 축제를 기획하고 함께 즐긴다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 4
+        },
+        "result": "타지에서 만든 공동체가, 어느새 진짜 고향처럼 느껴졌다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-stress-health-scare-33",
+        "text": "누적된 스트레스로 건강에 적신호가 켜진다",
+        "deltas": {
+                "health": -4
+        },
+        "addCondition": {
+                "id": "stress-related-illness",
+                "label": "🩹 스트레스성 질환"
+        },
+        "result": "몸이 보내는 경고를, 더는 무시할 수 없었다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
         "id": "sm-coaching-license-33",
         "text": "지도자 자격증을 마치고 축구계로 복귀한다",
         "deltas": {
@@ -8158,6 +8705,83 @@ const STAGES = [
     ageRange: '34세',
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
+      {
+        "id": "usl-second-property-34",
+        "text": "여윳돈으로 임대용 부동산에 투자한다",
+        "deltas": {
+                "wealth": -6,
+                "happiness": 3
+        },
+        "addAsset": {
+                "id": "bigger-home",
+                "label": "🏡 넓은 집",
+                "type": "realestate"
+        },
+        "requiresSufficientCash": true,
+        "result": "숫자로만 보던 자산이, 눈에 보이는 형태로 쌓여갔다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-family-roadtrip-34",
+        "text": "온 가족이 함께하는 여름휴가 로드트립을 떠난다",
+        "deltas": {
+                "happiness": 5,
+                "relationship": 3
+        },
+        "requiresFamilyMember": [
+                "spouse",
+                "child"
+        ],
+        "result": "차 안에서 부르는 노래가, 오래도록 기억에 남을 것 같았다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-aging-parents-worry-34",
+        "text": "한국에 계신 부모님의 건강이 걱정되기 시작한다",
+        "deltas": {
+                "happiness": -3,
+                "relationship": -1
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent"
+        ],
+        "result": "멀리 있다는 사실이, 이럴 때마다 더 크게 다가왔다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-401k-planning-34",
+        "text": "은퇴 연금 계좌를 본격적으로 불려나간다",
+        "deltas": {
+                "wealth": 3
+        },
+        "result": "먼 훗날의 자신을 위해, 지금부터 조금씩 씨앗을 심었다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-local-politics-34",
+        "text": "지역 커뮤니티 리더 역할을 맡는다",
+        "deltas": {
+                "relationship": 3,
+                "fame": 2
+        },
+        "result": "이방인이 아니라 이웃으로 인정받는다는 게, 뿌듯했다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-college-savings-34",
+        "text": "아이의 대학 학자금 저축 계좌를 개설한다",
+        "deltas": {
+                "wealth": -2,
+                "happiness": 2
+        },
+        "requiresFamilyMember": [
+                "child"
+        ],
+        "result": "아직 먼 이야기 같아도, 미리 준비해두고 싶었다.",
+        "requiresRoute": "us-settled-life"
+},
       {
         "id": "sm-youth-team-start-34",
         "text": "유소년팀 코치로 지도자 생활을 시작한다",
@@ -8461,6 +9085,71 @@ const STAGES = [
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
       {
+        "id": "usl-career-award-35",
+        "text": "업계에서 공로를 인정받아 상을 받는다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 5
+        },
+        "result": "이방인으로 시작한 커리어가, 이 자리까지 이어졌다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-college-prep-kid-35",
+        "text": "아이의 대학 입시 준비를 함께 고민한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "requiresFamilyMember": [
+                "child"
+        ],
+        "result": "이 나라의 입시 제도도, 이제는 제법 익숙해졌다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-empty-nest-anticipation-35",
+        "text": "머지않아 찾아올 빈 둥지를 미리 그려본다",
+        "deltas": {
+                "happiness": -1
+        },
+        "requiresFamilyMember": [
+                "child"
+        ],
+        "result": "아이가 떠난 집을 상상하는 것만으로도, 마음이 허전해졌다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-midlife-insurance-35",
+        "text": "중년에 접어들며 건강보험 보장 범위를 재점검한다",
+        "deltas": {
+                "wealth": -2,
+                "health": 1
+        },
+        "result": "젊을 때는 몰랐던 것들을, 이제는 꼼꼼히 챙기게 됐다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-faith-community-35",
+        "text": "교회·절 같은 신앙 공동체에서 위안을 얻는다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 2
+        },
+        "result": "같은 언어, 같은 마음을 나누는 자리가, 큰 힘이 됐다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-financial-stability-35",
+        "text": "오랜 시간 끝에 재정적으로 안정된 궤도에 오른다",
+        "deltas": {
+                "wealth": 5,
+                "happiness": 3
+        },
+        "result": "불안했던 시작을 생각하면, 지금 이 안정감이 새삼스러웠다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
         "id": "sm-first-head-job-35",
         "text": "하부 리그 팀의 첫 감독직을 제안받는다",
         "deltas": {
@@ -8696,6 +9385,67 @@ const STAGES = [
     ageRange: '36세',
     intro: '나를 키워준 사람들을 이제는 내가 돌봐야 할 시기가 다가옵니다.',
     choices: [
+      {
+        "id": "usl-retirement-planning-36",
+        "text": "은퇴 후 삶을 구체적으로 계획하기 시작한다",
+        "deltas": {
+                "happiness": 3
+        },
+        "result": "남은 시간을 어떻게 채울지, 천천히 그려보기 시작했다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-mentoring-newcomers-36",
+        "text": "새로 이민 온 사람들에게 정착 노하우를 나눠준다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 2
+        },
+        "result": "몇 년 전 막막했던 자신의 모습이, 그들에게 겹쳐 보였다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-checkup-scare-36",
+        "text": "정기 건강검진에서 뜻밖의 결과를 통보받는다",
+        "deltas": {
+                "happiness": -4,
+                "health": -1
+        },
+        "result": "아무렇지 않던 일상이, 순간 낯설게 느껴졌다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-dual-citizenship-kid-36",
+        "text": "아이의 이중국적 유지 여부를 함께 고민한다",
+        "deltas": {
+                "happiness": 1
+        },
+        "requiresFamilyMember": [
+                "child"
+        ],
+        "result": "아이가 스스로 정체성을 선택할 날이, 머지않았다는 걸 느꼈다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-charity-work-36",
+        "text": "이민자 지원 단체에서 봉사 활동을 이어간다",
+        "deltas": {
+                "happiness": 4,
+                "fame": 1
+        },
+        "result": "받았던 도움을, 이제는 돌려줄 차례라고 느꼈다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-career-winding-down-36",
+        "text": "커리어의 속도를 조금씩 늦추기 시작한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "result": "더 빨리, 더 높이 대신, 더 오래가는 법을 택했다.",
+        "requiresRoute": "us-settled-life"
+},
       {
         "id": "sm-transfer-negotiation-36",
         "text": "원하는 선수 영입을 위해 직접 협상에 나선다",
@@ -8986,6 +9736,66 @@ const STAGES = [
     ageRange: '37세',
     intro: '잊고 지내던 나 자신을 다시 챙기기 시작하는 나이입니다.',
     choices: [
+      {
+        "id": "usl-ageism-concern-37",
+        "text": "직장에서 나이를 이유로 한 은근한 차별을 느낀다",
+        "deltas": {
+                "happiness": -3,
+                "fame": -1
+        },
+        "result": "실력만으로는 설명되지 않는 벽이, 다시 한번 느껴졌다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-natural-disaster-hit-37",
+        "text": "지역을 강타한 자연재해로 큰 피해를 입는다",
+        "deltas": {
+                "wealth": -6,
+                "happiness": -4
+        },
+        "result": "자연 앞에서, 그동안 쌓아온 것들이 얼마나 연약한지 실감했다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-family-legacy-37",
+        "text": "다음 세대에게 물려줄 것들을 정리해본다",
+        "deltas": {
+                "happiness": 3
+        },
+        "result": "남길 것이 재산만은 아니라는 걸, 이제는 알 것 같았다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-community-recognition-37",
+        "text": "지역 사회에서 공로를 인정받는 자리에 초청받는다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 4
+        },
+        "result": "이 동네의 일원으로 인정받는다는 게, 뭉클했다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-investment-payoff-37",
+        "text": "오래 묵혀둔 투자가 예상보다 큰 수익을 낸다",
+        "deltas": {
+                "wealth": 7,
+                "happiness": 3
+        },
+        "result": "기다림이 헛되지 않았다는 걸, 통장이 증명해줬다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-second-car-accident-37",
+        "text": "악천후 속 운전 중 다시 한번 사고를 낸다",
+        "deltas": {
+                "health": -3,
+                "wealth": -3,
+                "happiness": -3
+        },
+        "result": "나이가 들수록, 운전대를 잡는 손이 더 조심스러워졌다.",
+        "requiresRoute": "us-settled-life"
+},
       {
         "id": "sm-cup-title-37",
         "text": "팀을 이끌고 컵대회 우승을 차지한다",
@@ -9284,6 +10094,70 @@ const STAGES = [
     ageRange: '38세',
     intro: '몸이 예전 같지 않다는 걸, 무시할 수 없을 만큼 또렷하게 느끼게 됩니다.',
     choices: [
+      {
+        "id": "usl-kid-graduation-38",
+        "text": "아이의 대학 졸업식에 참석한다",
+        "deltas": {
+                "happiness": 7,
+                "relationship": 3
+        },
+        "requiresFamilyMember": [
+                "child"
+        ],
+        "result": "학사모를 쓴 아이를 보며, 지나온 세월이 새삼 벅찼다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-immigrant-journey-reflection-38",
+        "text": "이민자로 살아온 지난 세월을 가만히 되돌아본다",
+        "deltas": {
+                "happiness": 3
+        },
+        "result": "낯설기만 했던 그 첫날부터, 참 먼 길을 걸어왔다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-retirement-location-38",
+        "text": "은퇴 후 어디서 살지 미국과 한국 사이에서 고민한다",
+        "deltas": {
+                "happiness": -1
+        },
+        "result": "두 나라 사이에서, 마음이 자꾸 저울질을 했다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-grandchild-anticipation-38",
+        "text": "머지않아 태어날 손주 소식에 설렌다",
+        "deltas": {
+                "happiness": 5,
+                "relationship": 2
+        },
+        "requiresFamilyMember": [
+                "child"
+        ],
+        "result": "다음 세대로 이어지는 삶이, 새삼 신비롭게 느껴졌다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-health-stabilizes-38",
+        "text": "꾸준한 관리 끝에 건강이 눈에 띄게 안정된다",
+        "deltas": {
+                "health": 4,
+                "happiness": 2
+        },
+        "result": "몸을 돌보는 습관이, 뒤늦게라도 자리를 잡았다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-community-farewell-tour-38",
+        "text": "그동안 몸담았던 공동체들과 작별 인사를 나눈다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 3
+        },
+        "result": "떠난다는 말을 꺼내자, 생각보다 많은 이들이 아쉬워했다.",
+        "requiresRoute": "us-settled-life"
+},
       {
         "id": "sm-league-title-38",
         "text": "마침내 리그 우승 트로피를 들어 올린다",
@@ -9594,6 +10468,70 @@ const STAGES = [
     ageRange: '39세',
     intro: '서른대의 마지막 해. 다가올 10년을 조용히 준비하게 됩니다.',
     choices: [
+      {
+        "id": "usl-fifteen-year-reflection-39",
+        "text": "미국에서 정착한 지난 15년을 가만히 되돌아본다",
+        "deltas": {
+                "happiness": 4
+        },
+        "result": "낯설기만 했던 시작이, 어느새 온전한 삶이 되어 있었다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-stays-permanently-39",
+        "text": "여생을 미국에서 보내기로 최종적으로 결정한다",
+        "deltas": {
+                "happiness": 4,
+                "wealth": 1
+        },
+        "result": "두 번째 고향이 아니라, 이제는 그냥 고향이었다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-returns-for-retirement-39",
+        "text": "은퇴 후를 한국에서 보내기로 결정하고 귀국 준비를 한다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 3
+        },
+        "setLocation": {
+                "id": "domestic",
+                "label": "🇰🇷 국내"
+        },
+        "endsRoute": true,
+        "result": "돌고 돌아, 결국 처음 떠났던 그 자리로 돌아가기로 했다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-citizenship-fully-embraced-39",
+        "text": "두 나라 모두를 온전히 내 뿌리로 받아들인다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 2
+        },
+        "result": "어느 한쪽이 아니어도 괜찮다는 걸, 이제는 완전히 알게 됐다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-legacy-established-39",
+        "text": "이민 1세대로서 남긴 발자취를 되새긴다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 3
+        },
+        "result": "작은 발걸음들이 모여, 어느새 하나의 길이 되어 있었다.",
+        "requiresRoute": "us-settled-life"
+},
+      {
+        "id": "usl-life-exit-39",
+        "text": "지금 이 시점에서 삶을 다시 정리해보기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "us-settled-life"
+},
       {
         "id": "sm-relegation-battle-39",
         "text": "강등권 탈출을 위한 사투를 벌인다",
