@@ -1309,6 +1309,13 @@ const STAGES = [
     intro: '성적과 진로라는 단어가 슬슬 남 얘기가 아니게 되는 시기입니다.',
     choices: [
       {
+        id: 'gaming-ranked-11',
+        text: '온라인 게임 랭킹에서 또래 사이 상위권에 오른다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '숫자로 매겨진 등수가, 또래들 사이에서 은근한 자랑거리가 됐다.',
+        addTalent: { id: 'gaming', label: '🎮 게임' }
+      },
+      {
         "id": "sa-culture-shock-11",
         "text": "모든 게 낯선 미국 학교 첫 등교를 맞는다",
         "deltas": {
@@ -1629,6 +1636,25 @@ const STAGES = [
     intro: '중학교에 입학하며 몸도 마음도 부쩍 낯설어지는 시기. 거울 속 내가 어제와 조금 달라 보입니다.',
     choices: [
       {
+        "id": "pg-scout-offer-13",
+        "text": "e스포츠팀의 연습생 테스트 제안을 받아들인다",
+        "deltas": {
+                "fame": 2,
+                "happiness": 2
+        },
+        "result": "명함 한 장이, 평소와 다른 하루를 만들었다.",
+        "requiresTalent": "gaming",
+        "startsRoute": {
+                "id": "pro-gamer",
+                "label": "🎮 프로게이머",
+                "maxDurationYears": 15
+        },
+        "setOccupation": {
+                "id": "pro-gamer",
+                "label": "🎮 프로게이머"
+        }
+},
+      {
         "id": "sa-extracurricular-13",
         "text": "학교 스포츠·음악 활동에 처음 참여해본다",
         "deltas": {
@@ -1790,6 +1816,72 @@ const STAGES = [
     ageRange: '14세',
     intro: '친구 관계가 요동치고 스스로도 잘 모르겠는 감정이 많아지는 나이. 흔히 "중2병"이라 부르는 그 시기입니다.',
     choices: [
+      {
+        "id": "pg-bootcamp-grind-14",
+        "text": "새벽까지 이어지는 연습생 합숙 훈련을 버텨낸다",
+        "deltas": {
+                "fame": 2,
+                "health": -4,
+                "happiness": -2
+        },
+        "result": "눈은 침침해졌지만, 실력은 조금씩 늘고 있었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-parents-skepticism-14",
+        "text": "\"게임이 밥 먹여주냐\"는 가족의 걱정 어린 잔소리를 듣는다",
+        "deltas": {
+                "relationship": -2,
+                "happiness": -2
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent"
+        ],
+        "result": "믿어달라는 말과 걱정된다는 말이, 매번 평행선을 그었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-first-scrim-14",
+        "text": "팀 내 첫 연습 경기에서 실력을 인정받는다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 3
+        },
+        "result": "스크림 하나에 이렇게 긴장할 줄은, 몰랐다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-sleep-schedule-14",
+        "text": "낮밤이 뒤바뀐 생활 패턴에 몸이 적응하지 못한다",
+        "deltas": {
+                "health": -3
+        },
+        "result": "해가 뜨고 지는 걸, 연습이 끝나야만 알아챌 때가 많았다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-gaming-setup-14",
+        "text": "용돈을 모아 제대로 된 장비를 마련한다",
+        "deltas": {
+                "wealth": -3,
+                "happiness": 3
+        },
+        "result": "손에 맞는 장비 하나가, 실력을 한 단계 끌어올렸다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-life-exit-14",
+        "text": "프로게이머 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "pro-gamer"
+},
       {
         "id": "sa-high-school-start-14",
         "text": "미국식 고등학교 생활을 처음 시작한다",
@@ -1973,6 +2065,69 @@ const STAGES = [
     intro: '중학교의 마지막 해. 처음으로 "진로"라는 단어가 남 얘기가 아니게 됩니다.',
     choices: [
       {
+        "id": "pg-amateur-team-join-15",
+        "text": "아마추어 팀에 정식으로 합류한다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 3
+        },
+        "result": "팀원이라는 이름표가, 생각보다 무겁게 다가왔다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-first-loss-15",
+        "text": "첫 공식 경기에서 완패를 맛본다",
+        "deltas": {
+                "happiness": -4,
+                "fame": -1
+        },
+        "result": "리플레이를 몇 번이고 돌려봐도, 아픈 기억만 선명해졌다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-toxic-comments-15",
+        "text": "악의적인 댓글과 욕설에 시달린다",
+        "deltas": {
+                "happiness": -4
+        },
+        "result": "화면 너머의 말들이, 생각보다 오래 마음에 남았다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-streaming-side-income-15",
+        "text": "개인 방송으로 소소한 부수입을 올린다",
+        "deltas": {
+                "wealth": 2,
+                "fame": 2
+        },
+        "result": "경기 밖에서도 나를 봐주는 사람들이 있다는 게, 새로운 힘이 됐다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-wrist-strain-15",
+        "text": "무리한 연습으로 손목에 통증을 느낀다",
+        "deltas": {
+                "health": -3
+        },
+        "addCondition": {
+                "id": "wrist-strain",
+                "label": "🩹 손목 부상"
+        },
+        "result": "별거 아니라고 넘겼는데, 생각보다 오래갔다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-life-exit-15",
+        "text": "프로게이머 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
         "id": "sa-college-prep-talk-15",
         "text": "진학 상담 교사와 대학 준비를 논의한다",
         "deltas": {
@@ -2144,6 +2299,67 @@ const STAGES = [
     ageRange: '16세',
     intro: '고등학교라는 새로운 세계로 첫발을 내딛는 시기. 교복도, 얼굴도, 규칙도 전부 낯섭니다.',
     choices: [
+      {
+        "id": "pg-pro-contract-16",
+        "text": "프로게임단과 정식 계약을 맺는다",
+        "deltas": {
+                "wealth": 4,
+                "happiness": 5,
+                "fame": 3
+        },
+        "result": "첫 계약서에 사인하던 손이, 조금 떨렸다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-prodigy-media-16",
+        "text": "\"차세대 유망주\"로 언론의 조명을 받는다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 2
+        },
+        "result": "아직 실감이 안 나는 수식어들이, 자꾸 이름 앞에 붙었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-benched-16",
+        "text": "경기에 나서지 못하고 벤치를 지킨다",
+        "deltas": {
+                "happiness": -3
+        },
+        "result": "대기실 모니터로 지켜보는 경기가, 뛰는 것보다 훨씬 초조했다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-team-synergy-16",
+        "text": "팀원들과 손발을 맞추며 호흡을 다져간다",
+        "deltas": {
+                "relationship": 4,
+                "happiness": 3
+        },
+        "result": "말 안 해도 통하는 순간들이, 하나둘 늘어갔다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-school-balance-16",
+        "text": "학업과 훈련 사이에서 아슬아슬하게 저글링한다",
+        "deltas": {
+                "health": -2,
+                "wealth": -1
+        },
+        "result": "졸린 눈으로 교실과 연습실을 오가는 하루하루였다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-life-exit-16",
+        "text": "프로게이머 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "pro-gamer"
+},
       {
         "id": "sa-drivers-license-16",
         "text": "미국에서 운전면허를 처음 취득한다",
@@ -2392,6 +2608,67 @@ const STAGES = [
     intro: '진로와 성적이 본격적으로 무게를 갖기 시작하는 나이. 하루하루가 조금씩 빠듯해집니다.',
     choices: [
       {
+        "id": "pg-international-lan-17",
+        "text": "해외 국제 대회 무대를 처음 밟는다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 5
+        },
+        "result": "자막 너머까지 이름이 닿을 거라곤, 상상도 못 했다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-choke-under-pressure-17",
+        "text": "중요한 경기에서 결정적인 실수로 무너진다",
+        "deltas": {
+                "happiness": -5,
+                "fame": -2
+        },
+        "result": "그 한 순간이, 몇 달의 노력을 한꺼번에 무너뜨린 것 같았다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-coach-conflict-17",
+        "text": "전술 방향을 두고 코치와 의견 충돌을 겪는다",
+        "deltas": {
+                "relationship": -2,
+                "happiness": -2
+        },
+        "result": "누구 말이 맞는지보다, 서로의 방식을 이해하는 게 먼저였다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-fanbase-grows-17",
+        "text": "팬층이 눈에 띄게 늘어난다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 3
+        },
+        "result": "경기장 응원 소리 속에서, 내 이름을 처음 들었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-first-prize-money-17",
+        "text": "대회 상금으로 목돈을 처음 손에 쥔다",
+        "deltas": {
+                "wealth": 5,
+                "happiness": 4
+        },
+        "result": "통장에 찍힌 숫자를 보고, 몇 번이나 다시 확인했다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-life-exit-17",
+        "text": "프로게이머 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
         "id": "sa-sat-stress-17",
         "text": "SAT 시험을 앞두고 밤낮없이 매달린다",
         "deltas": {
@@ -2613,6 +2890,73 @@ const STAGES = [
     ageRange: '18세',
     intro: '고등학교의 마지막 해. 수능과 졸업이라는 두 단어가 하루하루를 채웁니다.',
     choices: [
+      {
+        "id": "pg-breakthrough-title-18",
+        "text": "마침내 첫 우승 트로피를 들어 올린다",
+        "deltas": {
+                "fame": 8,
+                "happiness": 7,
+                "wealth": 3
+        },
+        "result": "몇 년의 연습이, 트로피 하나로 보답받는 순간이었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-team-captain-18",
+        "text": "팀의 주장 역할을 맡게 된다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 3
+        },
+        "result": "팔에 두른 완장은 없어도, 어깨의 무게는 비슷했다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-rival-feud-18",
+        "text": "라이벌 선수와의 신경전이 커뮤니티를 뜨겁게 달군다",
+        "deltas": {
+                "fame": 3,
+                "happiness": -2
+        },
+        "result": "경기 밖에서도 계속되는 승부가, 은근히 신경 쓰였다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-burnout-signs-18",
+        "text": "쉬지 않고 이어진 일정에 번아웃 조짐을 느낀다",
+        "deltas": {
+                "health": -4,
+                "happiness": -3
+        },
+        "result": "좋아서 시작한 일인데, 즐거움이 조금씩 옅어지고 있었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-family-pride-18",
+        "text": "경기를 지켜본 가족이 처음으로 인정해준다",
+        "deltas": {
+                "relationship": 4,
+                "happiness": 4
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent"
+        ],
+        "result": "말은 안 해도, 표정이 예전과는 조금 달라져 있었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-life-exit-18",
+        "text": "프로게이머 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "pro-gamer"
+},
       {
         "id": "sa-high-school-graduation-18",
         "text": "미국 고등학교 졸업식 무대에 선다",
@@ -2958,6 +3302,71 @@ const STAGES = [
     intro: '인생의 첫 갈림길. 대학과 방송, 혹은 곧장 돈이 되는 길 — 스무 살의 선택은 이후 모든 걸 조금씩 흔들어놓습니다.',
     choices: [
       {
+        "id": "pg-championship-run-19",
+        "text": "국제 대회 결승까지 진출하는 쾌거를 이룬다",
+        "deltas": {
+                "fame": 8,
+                "happiness": 6
+        },
+        "result": "한 걸음 한 걸음이, 꿈만 같은 여정이었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-injury-benched-19",
+        "text": "손목 부상 재발로 한동안 경기에 나서지 못한다",
+        "deltas": {
+                "health": -3,
+                "happiness": -3
+        },
+        "result": "경기장 밖에서 보내는 시간이, 생각보다 훨씬 길게 느껴졌다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-roster-shakeup-19",
+        "text": "팀 로스터 개편으로 어수선한 분위기를 겪는다",
+        "deltas": {
+                "relationship": -2,
+                "happiness": -2
+        },
+        "result": "익숙했던 얼굴들이, 하나둘 자리를 옮겼다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-streaming-revenue-grows-19",
+        "text": "개인 방송 수익이 본업 못지않게 커진다",
+        "deltas": {
+                "wealth": 5,
+                "fame": 2
+        },
+        "result": "경기장 밖에서도, 또 다른 무대가 자라나고 있었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-anxiety-19",
+        "text": "경기 전마다 밀려오는 불안감에 시달린다",
+        "deltas": {
+                "happiness": -4
+        },
+        "addCondition": {
+                "id": "competition-anxiety",
+                "label": "🕰️ 경기불안장애",
+                "mental": true
+        },
+        "result": "잘하고 싶은 마음이 클수록, 손끝이 더 떨렸다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-life-exit-19",
+        "text": "프로게이머 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
         "id": "sa-dorm-life-19",
         "text": "대학 기숙사에서 독립적인 생활을 처음 시작한다",
         "deltas": {
@@ -3262,6 +3671,69 @@ const STAGES = [
     ageRange: '20세',
     intro: '갓 어른이 된 티가 조금씩 빠지는 나이. 독립과 자유가 생각보다 훨씬 손이 많이 간다는 걸 알아갑니다.',
     choices: [
+      {
+        "id": "pg-peak-title-20",
+        "text": "커리어 최고의 순간, 세계 대회 우승을 차지한다",
+        "deltas": {
+                "fame": 10,
+                "happiness": 8,
+                "wealth": 5
+        },
+        "result": "전 세계가 지켜보는 앞에서, 평생 잊지 못할 순간을 만들었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-media-stardom-20",
+        "text": "각종 매체의 인터뷰 요청이 쏟아진다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 3
+        },
+        "result": "게임 안에서만 알려졌던 이름이, 이제는 화면 밖에서도 불렸다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-financial-windfall-20",
+        "text": "상금과 스폰서십으로 목돈이 한꺼번에 들어온다",
+        "deltas": {
+                "wealth": 8,
+                "happiness": 4
+        },
+        "result": "숫자를 보고 몇 번이나 다시 확인했다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-relationship-strain-20",
+        "text": "빡빡한 일정 탓에 연인과의 관계에 금이 간다",
+        "deltas": {
+                "relationship": -3,
+                "happiness": -2
+        },
+        "requiresAnyAcquaintance": true,
+        "result": "사랑만으로는 채워지지 않는 부분이 분명 있었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-rival-trash-talk-20",
+        "text": "라이벌 팀과의 신경전이 언론을 통해 확대된다",
+        "deltas": {
+                "fame": 3,
+                "happiness": -2
+        },
+        "result": "말 한마디가 이렇게까지 커질 줄은, 몰랐다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-life-exit-20",
+        "text": "프로게이머 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "화려한 날들이었지만, 이제는 내려놓을 때라고 느꼈다.",
+        "requiresRoute": "pro-gamer"
+},
       {
         "id": "sa-internship-20",
         "text": "전공 관련 인턴십 기회를 잡는다",
@@ -3653,6 +4125,65 @@ const STAGES = [
     intro: '방향을 조금씩 좁혀가는 나이. 막연했던 미래가 서서히 구체적인 모양을 갖추기 시작합니다.',
     choices: [
       {
+        "id": "pg-team-disbands-21",
+        "text": "소속팀이 해체되며 자유계약 신분이 된다",
+        "deltas": {
+                "happiness": -3,
+                "fame": -1
+        },
+        "result": "갑작스러운 소식에, 다음 발걸음을 어디로 옮겨야 할지 막막했다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-new-team-signs-21",
+        "text": "새로운 팀과 계약을 맺으며 재도약을 노린다",
+        "deltas": {
+                "wealth": 4,
+                "happiness": 4
+        },
+        "result": "낯선 유니폼이었지만, 다시 뛸 수 있다는 것만으로도 충분했다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-longevity-worry-21",
+        "text": "이 커리어가 얼마나 오래갈 수 있을지 문득 불안해진다",
+        "deltas": {
+                "happiness": -3
+        },
+        "result": "반응 속도로 먹고사는 직업의 한계를, 처음으로 실감했다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-loyal-fanbase-21",
+        "text": "팀을 옮겨도 변함없이 응원해주는 팬들을 만난다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 2
+        },
+        "result": "혼자가 아니라는 사실이, 생각보다 큰 위안이 됐다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-charity-stream-21",
+        "text": "자선 방송을 기획해 기부 행사를 연다",
+        "deltas": {
+                "happiness": 4,
+                "fame": 2
+        },
+        "result": "화면 너머로 전한 마음이, 생각보다 크게 돌아왔다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-life-exit-21",
+        "text": "프로게이머 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 1
+        },
+        "endsRoute": true,
+        "result": "오래 고민한 끝에, 마침표를 찍기로 했다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
         "id": "sa-study-abroad-again-21",
         "text": "교환학생으로 제3국에서 한 학기를 보낸다",
         "deltas": {
@@ -3998,6 +4529,66 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        "id": "pg-aging-out-anxiety-22",
+        "text": "반응속도가 예전 같지 않다는 걸 스스로 느낀다",
+        "deltas": {
+                "happiness": -4,
+                "health": -1
+        },
+        "result": "몸이 예전 같지 않다는 걸, 인정해야 할 때가 온 것 같았다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-younger-prodigy-22",
+        "text": "더 어린 신예에게 주전 자리를 위협받는다",
+        "deltas": {
+                "happiness": -3,
+                "fame": -1
+        },
+        "result": "캐스팅... 아니, 라인업의 결이, 조금씩 달라지고 있었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-mentoring-junior-22",
+        "text": "어린 후배 선수를 곁에서 이끌어준다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "몇 년 전 자신의 모습이, 후배에게 겹쳐 보였다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-wrist-surgery-22",
+        "text": "악화된 손목 부상으로 수술을 결심한다",
+        "deltas": {
+                "health": -3,
+                "wealth": -3
+        },
+        "result": "경기를 쉬어야 한다는 사실이, 몸보다 마음을 더 아프게 했다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-brand-ambassador-22",
+        "text": "게임 브랜드의 홍보 대사로 위촉된다",
+        "deltas": {
+                "wealth": 5,
+                "fame": 3
+        },
+        "result": "얼굴 하나로 이렇게 많은 제안이 올 줄은 몰랐다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-life-exit-22",
+        "text": "프로게이머 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "조용히, 그러나 후회 없이 짐을 정리했다.",
+        "requiresRoute": "pro-gamer"
+},
       {
         "id": "sa-capstone-project-22",
         "text": "졸업 논문·프로젝트에 마지막 힘을 쏟는다",
@@ -4353,6 +4944,65 @@ const STAGES = [
     ageRange: '23세',
     intro: '스무 살대의 마지막 해. 자립이라는 단어가 더는 남 얘기가 아니게 됩니다.',
     choices: [
+      {
+        "id": "pg-last-title-push-23",
+        "text": "은퇴를 염두에 두고 마지막 우승 도전에 나선다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 5,
+                "health": -2
+        },
+        "result": "모든 걸 쏟아붓는 심정으로, 다시 한번 자리에 앉았다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-retirement-consider-23",
+        "text": "은퇴를 진지하게 고민하기 시작한다",
+        "deltas": {
+                "happiness": -1
+        },
+        "result": "언제가 적기일지, 스스로에게 몇 번이고 되물었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-streaming-pivot-plan-23",
+        "text": "은퇴 후 전업 스트리머로 전향할 계획을 세운다",
+        "deltas": {
+                "happiness": 3,
+                "wealth": 1
+        },
+        "result": "다른 방식으로도 이 판에 남을 수 있다는 게, 위안이 됐다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-farewell-matches-23",
+        "text": "오랜 팬들 앞에서 은퇴 전 마지막 경기를 치른다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 5
+        },
+        "result": "마지막이라는 말이, 모든 순간을 더 소중하게 만들었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-financial-planning-23",
+        "text": "그동안 모은 상금으로 노후 자금을 계획한다",
+        "deltas": {
+                "wealth": 4
+        },
+        "result": "화려했던 시절의 수입이, 이제는 든든한 버팀목이 됐다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-life-exit-23",
+        "text": "프로게이머 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "박수 받을 때 떠나는 것도, 나쁘지 않은 선택이었다.",
+        "requiresRoute": "pro-gamer"
+},
       {
         "id": "sa-visa-decision-23",
         "text": "취업 비자 스폰서를 구하며 미국 잔류를 시도한다",
@@ -4759,6 +5409,65 @@ const STAGES = [
     ageRange: '24세',
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
+      {
+        "id": "pg-fulltime-streaming-24",
+        "text": "전업 스트리머로 완전히 전환한다",
+        "deltas": {
+                "wealth": 4,
+                "happiness": 4
+        },
+        "result": "경기장 대신 방 안이, 새로운 무대가 됐다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-coaching-offer-24",
+        "text": "친정팀으로부터 코치직 제안을 받는다",
+        "deltas": {
+                "wealth": 3,
+                "happiness": 3
+        },
+        "result": "선수가 아닌 다른 자리에서, 다시 이 판과 이어질 수 있었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-career-reflection-24",
+        "text": "지금까지의 프로게이머 생활을 되돌아본다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "화려하지 않아도, 스스로 선택한 길이라는 사실이 위안이 됐다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-health-recovery-24",
+        "text": "오랜 부상에서 완전히 회복하며 몸을 추스른다",
+        "deltas": {
+                "health": 4
+        },
+        "removeCondition": "wrist-strain",
+        "result": "예전처럼 몰아붙이지 않는 법도, 이제는 배워야 했다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-analyst-consider-24",
+        "text": "해설·분석 위원 자리를 진지하게 고려한다",
+        "deltas": {
+                "happiness": 2,
+                "fame": 1
+        },
+        "result": "마이크를 잡는 것도, 나쁘지 않을 것 같았다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-life-exit-24",
+        "text": "프로게이머 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "조용히, 그러나 후회 없이 짐을 정리했다.",
+        "requiresRoute": "pro-gamer"
+},
       {
         "id": "sa-fifteen-year-reflection-24",
         "text": "지난 15년의 유학·타지 생활을 가만히 되돌아본다",
@@ -5186,6 +5895,67 @@ const STAGES = [
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
       {
+        "id": "pg-streaming-success-25",
+        "text": "스트리밍 채널이 크게 성장하며 자리를 잡는다",
+        "deltas": {
+                "wealth": 5,
+                "fame": 4,
+                "happiness": 4
+        },
+        "result": "경기장 밖에서도, 여전히 이 판의 일원이라는 게 좋았다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-analyst-debut-25",
+        "text": "대회 해설 데스크에 처음 앉는다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 3
+        },
+        "result": "마이크를 잡은 첫날, 선수 시절과는 다른 떨림이 있었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-industry-recognition-25",
+        "text": "업계 공로상 후보에 이름을 올린다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 4
+        },
+        "result": "후보에 오른 것만으로도, 지나온 시간이 헛되지 않았다는 걸 느꼈다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-meta-shift-struggle-25",
+        "text": "빠르게 바뀌는 게임 메타를 따라가기 버거워한다",
+        "deltas": {
+                "happiness": -2,
+                "fame": -1
+        },
+        "result": "한때는 앞서갔던 감각이, 조금씩 뒤처지는 것 같았다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-veteran-respect-25",
+        "text": "커뮤니티에서 존경받는 원로로 자리매김한다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 3
+        },
+        "result": "어느새 신참이 아니라 어른 취급을 받는다는 게, 낯설고도 새삼스러웠다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-life-exit-25",
+        "text": "프로게이머 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "박수 소리를 뒤로하고, 조용히 자리를 떠났다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
         "id": "usl-fully-settling-25",
         "text": "미국에서의 삶을 본격적으로 꾸려나가기 시작한다",
         "deltas": {
@@ -5555,6 +6325,66 @@ const STAGES = [
     ageRange: '26세',
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
+      {
+        "id": "pg-coaching-apprentice-26",
+        "text": "비공식적으로 코칭 노하우를 배우기 시작한다",
+        "deltas": {
+                "happiness": 3,
+                "wealth": -1
+        },
+        "result": "선수 때와는 다른 시야를, 조금씩 배워가고 있었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-mentoring-talent-26",
+        "text": "재능 있는 신인을 발굴해 이끌어준다",
+        "deltas": {
+                "happiness": 4,
+                "fame": 2
+        },
+        "result": "가르친 것이 결실을 맺는 순간만큼 뿌듯한 일은 없었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-retrospective-interview-26",
+        "text": "커리어를 정리하는 인터뷰에 응한다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 4
+        },
+        "result": "스스로의 지난 삶을 화면으로 마주하는 기분은, 묘하고도 벅찼다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-financial-secure-26",
+        "text": "오랜 시간 끝에 재정적으로 안정된 궤도에 오른다",
+        "deltas": {
+                "wealth": 5,
+                "happiness": 3
+        },
+        "result": "불안했던 시작을 생각하면, 지금 이 안정감이 새삼스러웠다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-full-health-26",
+        "text": "몸도 마음도 완전히 회복됐음을 실감한다",
+        "deltas": {
+                "health": 3,
+                "happiness": 2
+        },
+        "result": "예전의 활력이, 조금씩 다시 돌아오고 있었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-life-exit-26",
+        "text": "프로게이머 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "pro-gamer"
+},
       {
         "id": "usl-workplace-culture-26",
         "text": "수평적인 미국식 회사 문화에 적응해간다",
@@ -6000,6 +6830,66 @@ const STAGES = [
     ageRange: '27세',
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
+      {
+        "id": "pg-fourteen-year-reflection-27",
+        "text": "지난 14년의 프로게이머 인생을 가만히 되돌아본다",
+        "deltas": {
+                "happiness": 4
+        },
+        "result": "화려하지 않아도, 스스로 선택한 길이라는 사실이 위안이 됐다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-one-more-comeback-27",
+        "text": "은퇴 대신 한 번 더 컴백을 시도해본다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 4,
+                "health": -2
+        },
+        "result": "늦었다고 생각했던 도전이, 다시 한번 가능해졌다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-full-transition-27",
+        "text": "선수 생활을 완전히 접고 코칭에 전념하기로 한다",
+        "deltas": {
+                "happiness": 3,
+                "wealth": 2
+        },
+        "result": "다음 장을 시작할 준비가, 이제는 되어 있었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-legacy-established-27",
+        "text": "이 판의 개척자 중 하나로 이름을 남긴다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 3
+        },
+        "result": "작은 발걸음들이 모여, 어느새 하나의 길이 되어 있었다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-financial-satisfaction-27",
+        "text": "지난 시간을 돌아보며 재정적으로도 만족을 느낀다",
+        "deltas": {
+                "wealth": 4,
+                "happiness": 2
+        },
+        "result": "불안했던 시작을 생각하면, 지금 이 안정감이 새삼스러웠다.",
+        "requiresRoute": "pro-gamer"
+},
+      {
+        "id": "pg-life-exit-27",
+        "text": "프로게이머 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "pro-gamer"
+},
       {
         "id": "usl-apartment-lease-27",
         "text": "처음으로 혼자 아파트 임대 계약을 맺는다",
@@ -6895,6 +7785,28 @@ const STAGES = [
     intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
     choices: [
       {
+        "id": "ec-coaching-start-29",
+        "text": "지도자 과정을 마치고 e스포츠 코칭에 뛰어든다",
+        "deltas": {
+                "fame": 2,
+                "happiness": 2
+        },
+        "result": "선수 시절과는 또 다른 무게가, 어깨 위에 얹혔다.",
+        "requiresRouteCompletedWithin": {
+                "routeId": "pro-gamer",
+                "maxYears": 3
+        },
+        "startsRoute": {
+                "id": "esports-coach",
+                "label": "🎯 프로게이머 감독",
+                "maxDurationYears": 15
+        },
+        "setOccupation": {
+                "id": "esports-coach",
+                "label": "🎯 프로게이머 감독"
+        }
+},
+      {
         "id": "usl-green-card-approved-29",
         "text": "몇 년의 기다림 끝에 영주권을 손에 쥔다",
         "deltas": {
@@ -7320,6 +8232,89 @@ const STAGES = [
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
       {
+        "id": "ec-assistant-coach-30",
+        "text": "어시스턴트 코치로 팀 문화를 파악해간다",
+        "deltas": {
+                "happiness": 3,
+                "wealth": -1
+        },
+        "result": "큰 무대는 아니었지만, 처음부터 다시 배운다는 마음이었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-losing-streak-30",
+        "text": "부임 초반 연패의 늪에 빠진다",
+        "deltas": {
+                "happiness": -4,
+                "fame": -2
+        },
+        "result": "경기 결과 하나하나가, 그대로 압박이 되어 돌아왔다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-player-mental-support-30",
+        "text": "슬럼프에 빠진 선수의 멘탈 관리를 돕는다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "기술보다 마음을 다잡는 게, 더 어려운 숙제였다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-ex-player-skepticism-30",
+        "text": "\"전직 선수가 코치로 성공하기 쉽지 않다\"는 평가를 듣는다",
+        "deltas": {
+                "happiness": -3,
+                "fame": -1
+        },
+        "result": "증명해 보이겠다는 오기가, 오히려 더 강하게 솟았다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-team-culture-30",
+        "text": "팀의 훈련 문화를 새롭게 정비한다",
+        "deltas": {
+                "happiness": 2,
+                "relationship": 1
+        },
+        "result": "작은 변화들이, 조금씩 팀의 색깔을 바꿔갔다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-life-exit-30",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-coaching-start-30",
+        "text": "지도자 과정을 마치고 e스포츠 코칭에 뛰어든다",
+        "deltas": {
+                "fame": 2,
+                "happiness": 2
+        },
+        "result": "선수 시절과는 또 다른 무게가, 어깨 위에 얹혔다.",
+        "requiresRouteCompletedWithin": {
+                "routeId": "pro-gamer",
+                "maxYears": 3
+        },
+        "startsRoute": {
+                "id": "esports-coach",
+                "label": "🎯 프로게이머 감독",
+                "maxDurationYears": 15
+        },
+        "setOccupation": {
+                "id": "esports-coach",
+                "label": "🎯 프로게이머 감독"
+        }
+},
+      {
         "id": "usl-first-home-purchase-30",
         "text": "아메리칸 드림이라 불리던 내 집 마련에 성공한다",
         "deltas": {
@@ -7656,6 +8651,90 @@ const STAGES = [
     ageRange: '31세',
     intro: '곁에 남을 사람과 앞으로의 삶을 어떻게 그릴지, 조금 더 구체적으로 고민하는 나이입니다.',
     choices: [
+      {
+        "id": "ec-first-head-job-31",
+        "text": "하부 팀의 첫 감독직을 제안받는다",
+        "deltas": {
+                "wealth": 3,
+                "happiness": 5,
+                "fame": 2
+        },
+        "result": "내 이름을 걸고 팀을 이끈다는 것이, 벅차고도 두려웠다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-roster-draft-31",
+        "text": "선수단을 처음부터 새로 구성하며 색깔을 입힌다",
+        "deltas": {
+                "happiness": 3,
+                "wealth": -2
+        },
+        "result": "조각을 하나씩 맞춰가는 재미가, 생각보다 컸다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-philosophy-clash-31",
+        "text": "구단 방향성과 자신의 전략 철학이 부딪힌다",
+        "deltas": {
+                "happiness": -3,
+                "relationship": -1
+        },
+        "result": "타협할 수 있는 것과 없는 것의 경계가, 점점 뚜렷해졌다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-first-win-31",
+        "text": "감독으로서 첫 승리를 맛본다",
+        "deltas": {
+                "happiness": 5,
+                "fame": 2
+        },
+        "result": "벤치에서 지켜본 마지막 순간이, 유난히 길게 느껴졌다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-player-conflict-31",
+        "text": "주전 경쟁으로 인한 선수단 내 갈등을 조율한다",
+        "deltas": {
+                "relationship": -1,
+                "happiness": -2
+        },
+        "result": "모두를 만족시킬 수 없다는 걸, 매번 다시 깨달았다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-life-exit-31",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-coaching-start-31",
+        "text": "지도자 과정을 마치고 e스포츠 코칭에 뛰어든다",
+        "deltas": {
+                "fame": 2,
+                "happiness": 2
+        },
+        "result": "선수 시절과는 또 다른 무게가, 어깨 위에 얹혔다.",
+        "requiresRouteCompletedWithin": {
+                "routeId": "pro-gamer",
+                "maxYears": 3
+        },
+        "startsRoute": {
+                "id": "esports-coach",
+                "label": "🎯 프로게이머 감독",
+                "maxDurationYears": 15
+        },
+        "setOccupation": {
+                "id": "esports-coach",
+                "label": "🎯 프로게이머 감독"
+        }
+},
       {
         "id": "usl-lockdown-drill-31",
         "text": "아이 학교의 총기 대비 훈련 소식에 마음이 무거워진다",
@@ -8029,6 +9108,66 @@ const STAGES = [
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
       {
+        "id": "ec-transfer-negotiation-32",
+        "text": "원하는 선수 영입을 위해 직접 협상에 나선다",
+        "deltas": {
+                "wealth": -3,
+                "happiness": 3
+        },
+        "result": "숫자 싸움 뒤에 숨은 자존심 싸움이, 생각보다 치열했다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-meta-innovation-32",
+        "text": "독창적인 전략으로 강팀을 잡아낸다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 4
+        },
+        "result": "아무도 예상 못 한 그림이, 그대로 맞아떨어졌다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-international-debut-32",
+        "text": "국제 대회 무대에 감독으로 처음 선다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 4
+        },
+        "result": "국내 무대와는 다른 긴장감이, 색다른 자극이 됐다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-press-conference-32",
+        "text": "패배 후 기자회견에서 소신 있는 발언을 한다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 1
+        },
+        "result": "듣기 좋은 말 대신, 하고 싶은 말을 택했다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-sponsor-relations-32",
+        "text": "스폰서와의 관계를 관리하며 팀 재정을 살핀다",
+        "deltas": {
+                "wealth": 4
+        },
+        "result": "경기 밖의 일도, 감독의 몫이라는 걸 새삼 느꼈다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-life-exit-32",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
         "id": "usl-economic-layoff-32",
         "text": "경기 침체로 인한 대규모 해고에 자리를 잃는다",
         "deltas": {
@@ -8389,6 +9528,68 @@ const STAGES = [
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
       {
+        "id": "ec-championship-title-33",
+        "text": "팀을 이끌고 마침내 우승을 차지한다",
+        "deltas": {
+                "fame": 9,
+                "happiness": 7,
+                "wealth": 4
+        },
+        "result": "선수들과 부둥켜안고 흘린 눈물이, 오래도록 잊히지 않았다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-rival-feud-33",
+        "text": "라이벌 감독과 신경전이 커뮤니티를 뜨겁게 달군다",
+        "deltas": {
+                "fame": 3,
+                "happiness": -3
+        },
+        "result": "말 한마디가 이렇게까지 커질 줄은, 몰랐다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-player-burnout-33",
+        "text": "주전 선수의 번아웃을 세심하게 관리한다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "이기는 것보다, 지치지 않게 하는 게 먼저였다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-contract-renewal-33",
+        "text": "구단과 재계약에 성공한다",
+        "deltas": {
+                "wealth": 5,
+                "happiness": 3
+        },
+        "result": "믿어준 만큼, 더 잘하고 싶어졌다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-scouting-trip-33",
+        "text": "해외까지 발품을 팔며 유망주를 직접 발굴한다",
+        "deltas": {
+                "wealth": -2,
+                "fame": 2
+        },
+        "result": "남들이 못 본 걸 먼저 알아본다는 게, 감독의 또 다른 재능이었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-life-exit-33",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2,
+                "wealth": -1
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
         "id": "usl-reemployment-33",
         "text": "오랜 구직 끝에 새로운 일자리를 구한다",
         "deltas": {
@@ -8705,6 +9906,65 @@ const STAGES = [
     ageRange: '34세',
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
+      {
+        "id": "ec-aging-roster-34",
+        "text": "노장 선수 위주의 로스터 운용에 고민이 깊어진다",
+        "deltas": {
+                "happiness": -2
+        },
+        "result": "경험과 패기 사이에서, 매번 저울질해야 했다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-patch-adaptation-34",
+        "text": "큰 패치로 바뀐 게임 환경에 팀을 다시 맞춘다",
+        "deltas": {
+                "happiness": -2,
+                "fame": -1
+        },
+        "result": "어제의 전략이, 오늘은 통하지 않는 일이 잦아졌다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-mentoring-assistants-34",
+        "text": "어시스턴트 코치들을 육성하며 조직을 키운다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "혼자 다 짊어지지 않아도 된다는 걸, 늦게라도 배웠다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-financial-stability-34",
+        "text": "오랜 시간 끝에 재정적으로 안정된 궤도에 오른다",
+        "deltas": {
+                "wealth": 5,
+                "happiness": 3
+        },
+        "result": "불안했던 시작을 생각하면, 지금 이 안정감이 새삼스러웠다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-franchise-consider-34",
+        "text": "구단 지분 투자 제안을 진지하게 검토한다",
+        "deltas": {
+                "wealth": -3,
+                "happiness": 2
+        },
+        "result": "감독을 넘어 구단주가 된다는 상상이, 낯설지만 설렜다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-life-exit-34",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "조용히, 그러나 후회 없이 짐을 정리했다.",
+        "requiresRoute": "esports-coach"
+},
       {
         "id": "usl-second-property-34",
         "text": "여윳돈으로 임대용 부동산에 투자한다",
@@ -9085,6 +10345,67 @@ const STAGES = [
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
       {
+        "id": "ec-world-championship-35",
+        "text": "세계 대회 우승으로 커리어의 정점을 찍는다",
+        "deltas": {
+                "fame": 9,
+                "happiness": 7
+        },
+        "result": "선수 시절 못 이룬 꿈을, 감독으로서 이뤄냈다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-coaching-book-35",
+        "text": "그동안의 코칭 철학을 책으로 엮어 출간한다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 3,
+                "wealth": 2
+        },
+        "result": "경기장 밖에서도 이름을 알리는 방법이, 또 있었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-star-player-retires-35",
+        "text": "오랜 에이스 선수의 은퇴를 함께 준비한다",
+        "deltas": {
+                "happiness": -2,
+                "relationship": 3
+        },
+        "result": "함께 쌓아온 시간이, 이별 앞에서 더 크게 느껴졌다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-team-rebuild-35",
+        "text": "핵심 선수 이탈 후 팀을 처음부터 다시 세운다",
+        "deltas": {
+                "happiness": -3,
+                "wealth": -2
+        },
+        "result": "무너진 자리를, 다시 벽돌부터 쌓아 올려야 했다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-new-title-adapt-35",
+        "text": "새로운 인기 게임 종목으로 팀을 확장한다",
+        "deltas": {
+                "fame": 3,
+                "wealth": -2
+        },
+        "result": "익숙한 판을 떠나는 게 두려웠지만, 기회이기도 했다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-life-exit-35",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "화려한 날들이었지만, 이제는 내려놓을 때라고 느꼈다.",
+        "requiresRoute": "esports-coach"
+},
+      {
         "id": "usl-career-award-35",
         "text": "업계에서 공로를 인정받아 상을 받는다",
         "deltas": {
@@ -9385,6 +10706,65 @@ const STAGES = [
     ageRange: '36세',
     intro: '나를 키워준 사람들을 이제는 내가 돌봐야 할 시기가 다가옵니다.',
     choices: [
+      {
+        "id": "ec-budget-cut-36",
+        "text": "경기 침체로 구단 지원이 크게 줄어든다",
+        "deltas": {
+                "wealth": -4,
+                "happiness": -3
+        },
+        "result": "없는 살림으로 결과를 내야 한다는 게, 새삼 버거웠다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-player-poached-36",
+        "text": "핵심 선수를 라이벌 구단에 빼앗긴다",
+        "deltas": {
+                "happiness": -4,
+                "fame": -2
+        },
+        "result": "붙잡고 싶었지만, 현실적인 조건 앞에서는 별수 없었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-mentoring-young-coaches-36",
+        "text": "지도자를 꿈꾸는 후배에게 조언을 건넨다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "몇 년 전 자신의 모습이, 후배에게 겹쳐 보였다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-community-festival-36",
+        "text": "e스포츠 팬 축제를 기획하고 함께 즐긴다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 4
+        },
+        "result": "승패를 떠나, 오랜만에 순수하게 이 판을 즐긴 하루였다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-financial-plan-36",
+        "text": "남은 커리어를 위한 재정 계획을 다시 세운다",
+        "deltas": {
+                "wealth": 2
+        },
+        "result": "숫자를 정리하다 보니, 마음도 함께 정리되는 기분이었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-life-exit-36",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "박수 받을 때 떠나는 것도, 나쁘지 않은 선택이었다.",
+        "requiresRoute": "esports-coach"
+},
       {
         "id": "usl-retirement-planning-36",
         "text": "은퇴 후 삶을 구체적으로 계획하기 시작한다",
@@ -9736,6 +11116,76 @@ const STAGES = [
     ageRange: '37세',
     intro: '잊고 지내던 나 자신을 다시 챙기기 시작하는 나이입니다.',
     choices: [
+      {
+        "id": "ec-comeback-season-37",
+        "text": "위기 끝에 화려한 부활 시즌을 이끈다",
+        "deltas": {
+                "fame": 7,
+                "happiness": 6
+        },
+        "result": "떨어졌던 만큼, 다시 올라서는 기쁨이 더 컸다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-coach-award-37",
+        "text": "올해의 감독상을 수상한다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 5
+        },
+        "result": "트로피보다, 그 자리까지 온 시간이 먼저 떠올랐다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-health-scare-37",
+        "text": "누적된 스트레스로 건강에 적신호가 켜진다",
+        "deltas": {
+                "health": -4
+        },
+        "addCondition": {
+                "id": "stress-related-illness",
+                "label": "🩹 스트레스성 질환"
+        },
+        "result": "몸이 보내는 경고를, 더는 무시할 수 없었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-family-time-37",
+        "text": "바쁜 시즌 중에도 가족과 시간을 내려 애쓴다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 2
+        },
+        "requiresFamilyMember": [
+                "father",
+                "mother",
+                "single-parent",
+                "spouse",
+                "child"
+        ],
+        "result": "짧아도 온전히 함께한 시간이, 그 무엇보다 소중했다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-generation-gap-37",
+        "text": "젊은 선수들과의 세대 차이를 실감한다",
+        "deltas": {
+                "happiness": -3,
+                "relationship": -1
+        },
+        "result": "방식은 달라도 목표는 같다는 걸, 계속 되새겨야 했다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-life-exit-37",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "오랜 여정 끝에, 스스로 커튼을 내리기로 했다.",
+        "requiresRoute": "esports-coach"
+},
       {
         "id": "usl-ageism-concern-37",
         "text": "직장에서 나이를 이유로 한 은근한 차별을 느낀다",
@@ -10094,6 +11544,66 @@ const STAGES = [
     ageRange: '38세',
     intro: '몸이 예전 같지 않다는 걸, 무시할 수 없을 만큼 또렷하게 느끼게 됩니다.',
     choices: [
+      {
+        "id": "ec-hall-of-fame-consider-38",
+        "text": "e스포츠 명예의 전당 후보로 거론된다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 5
+        },
+        "result": "선수와 감독, 두 번의 인생이 인정받는 순간이었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-retirement-talk-38",
+        "text": "은퇴를 진지하게 고민하기 시작한다",
+        "deltas": {
+                "happiness": -1
+        },
+        "result": "언제가 적기일지, 스스로에게 몇 번이고 되물었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-successor-mentoring-38",
+        "text": "후임 감독을 직접 물색하고 육성한다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "떠날 준비를 하는 것도, 감독의 마지막 책임이라 여겼다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-one-last-title-38",
+        "text": "은퇴를 염두에 두고 마지막 우승 도전에 나선다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 5,
+                "health": -2
+        },
+        "result": "모든 걸 쏟아붓는 심정으로, 다시 한번 벤치에 앉았다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-veteran-status-38",
+        "text": "업계 원로로서 후배 감독들의 조언자 역할을 한다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "어느새 신참이 아니라 어른 취급을 받는다는 게, 낯설고도 새삼스러웠다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-life-exit-38",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "박수 소리를 뒤로하고, 조용히 벤치를 떠났다.",
+        "requiresRoute": "esports-coach"
+},
       {
         "id": "usl-kid-graduation-38",
         "text": "아이의 대학 졸업식에 참석한다",
@@ -10469,6 +11979,64 @@ const STAGES = [
     intro: '서른대의 마지막 해. 다가올 10년을 조용히 준비하게 됩니다.',
     choices: [
       {
+        "id": "ec-coaching-burnout-39",
+        "text": "오랜 압박감에 코칭 번아웃을 느낀다",
+        "deltas": {
+                "happiness": -4,
+                "health": -2
+        },
+        "result": "이겨도 웃을 힘이 없는 날들이, 늘어가고 있었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-analyst-offer-39",
+        "text": "방송사의 해설·분석 위원 제안을 받는다",
+        "deltas": {
+                "wealth": 4,
+                "happiness": 3
+        },
+        "result": "벤치가 아닌 자리에서 경기를 보는 것도, 나름의 재미가 있었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-financial-security-39",
+        "text": "재정적으로 완전히 안정된 상태에 이른다",
+        "deltas": {
+                "wealth": 5
+        },
+        "result": "숫자로만 보던 목표가, 어느새 손에 잡혀 있었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-legacy-solidified-39",
+        "text": "팀에 남긴 유산이 후배들 사이에서 이어진다",
+        "deltas": {
+                "happiness": 4,
+                "fame": 2
+        },
+        "result": "떠난 뒤에도 남을 무언가를 만든다는 게, 큰 의미로 다가왔다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-checkup-39",
+        "text": "정기 건강검진에서 컨디션을 점검한다",
+        "deltas": {
+                "health": 2
+        },
+        "result": "몸을 돌보는 습관이, 뒤늦게라도 자리를 잡았다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-life-exit-39",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "이제는 스스로 마침표를 찍을 시간이었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
         "id": "usl-fifteen-year-reflection-39",
         "text": "미국에서 정착한 지난 15년을 가만히 되돌아본다",
         "deltas": {
@@ -10795,6 +12363,70 @@ const STAGES = [
     intro: '인생의 절반 지점. 마흔이라는 숫자가 이유 없이 지난 시간을 돌아보게 만듭니다.',
     choices: [
       {
+        "id": "ec-renewed-passion-40",
+        "text": "새로운 마음으로 코칭에 대한 열정을 되찾는다",
+        "deltas": {
+                "happiness": 4,
+                "fame": 2
+        },
+        "result": "지쳤던 마음에, 다시 불씨가 붙는 게 느껴졌다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-global-expansion-40",
+        "text": "해외 리그로 코칭 영역을 넓힌다",
+        "deltas": {
+                "fame": 5,
+                "wealth": 3
+        },
+        "result": "국경을 넘어서까지 쌓아온 경험이 인정받는 기분이었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-international-mentoring-40",
+        "text": "해외 유망주 육성 프로그램에 참여한다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 2
+        },
+        "result": "언어는 달라도, 이 판에 대한 열정만은 똑같았다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-documentary-40",
+        "text": "코칭 인생을 다룬 다큐멘터리 제작에 참여한다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 3
+        },
+        "result": "스스로의 지난 삶을 화면으로 마주하는 기분은, 묘하고도 벅찼다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-family-pride-40",
+        "text": "가족이 자랑스러워하는 모습에 뭉클해진다",
+        "deltas": {
+                "relationship": 3,
+                "happiness": 3
+        },
+        "requiresFamilyMember": [
+                "spouse",
+                "child"
+        ],
+        "result": "곁에서 지켜봐 준 사람들 덕에, 여기까지 올 수 있었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-life-exit-40",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
         "id": "sm-continental-competition-40",
         "text": "아시아 클럽대항전 무대에 처음 도전한다",
         "deltas": {
@@ -11082,6 +12714,64 @@ const STAGES = [
     intro: '자녀 교육이든 커리어든, 뭔가를 본격적으로 다잡아야 할 것 같은 압박이 느껴지는 나이입니다.',
     choices: [
       {
+        "id": "ec-near-retirement-reflection-41",
+        "text": "은퇴를 앞두고 지도자 인생을 되돌아본다",
+        "deltas": {
+                "happiness": 3
+        },
+        "result": "화려하지 않아도, 스스로 선택한 길이라는 사실이 위안이 됐다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-succession-plan-41",
+        "text": "팀의 미래를 위한 승계 계획을 마무리한다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "떠날 준비를 하는 것도, 감독의 마지막 책임이라 여겼다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-final-championship-attempt-41",
+        "text": "마지막이라는 마음으로 우승에 도전한다",
+        "deltas": {
+                "fame": 6,
+                "happiness": 5,
+                "health": -2
+        },
+        "result": "모든 걸 쏟아붓는 심정으로, 다시 한번 벤치에 앉았다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-farewell-tour-prep-41",
+        "text": "은퇴 기념 행사를 조용히 준비하기 시작한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "떠날 날을 그리는 것도, 나름의 마무리였다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-financial-finalize-41",
+        "text": "은퇴 후 재정 계획을 최종적으로 확정한다",
+        "deltas": {
+                "wealth": 3
+        },
+        "result": "숫자로 정리된 미래가, 마음을 한결 가볍게 했다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-life-exit-41",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "오랜 여정 끝에, 스스로 커튼을 내리기로 했다.",
+        "requiresRoute": "esports-coach"
+},
+      {
         "id": "sm-national-team-offer-41",
         "text": "축구협회로부터 국가대표팀 감독직을 제안받는다",
         "deltas": {
@@ -11296,6 +12986,65 @@ const STAGES = [
     ageRange: '42세',
     intro: '몸이 보내는 신호를 더 이상 못 본 척할 수 없게 되는 나이입니다.',
     choices: [
+      {
+        "id": "ec-legacy-cemented-42",
+        "text": "이 판의 역사에 남을 업적을 완성한다",
+        "deltas": {
+                "fame": 8,
+                "happiness": 6
+        },
+        "result": "이름 하나가, 이제는 하나의 시대를 대표하게 됐다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-retirement-ceremony-consider-42",
+        "text": "은퇴식을 어떻게 치를지 고민한다",
+        "deltas": {
+                "happiness": 3
+        },
+        "result": "조용히 떠날지, 성대하게 마무리할지, 마음이 오갔다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-formal-mentoring-42",
+        "text": "차세대 감독 육성 프로그램을 공식적으로 이끈다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 2
+        },
+        "result": "배운 것들을 물려주는 일이, 새로운 보람으로 다가왔다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-consulting-role-42",
+        "text": "구단 자문 역할을 겸하기 시작한다",
+        "deltas": {
+                "wealth": 4,
+                "happiness": 2
+        },
+        "result": "완전히 손을 놓지 않아도 된다는 게, 큰 위안이 됐다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-charity-work-42",
+        "text": "e스포츠 유망주 지원을 위한 자선 활동을 펼친다",
+        "deltas": {
+                "happiness": 4,
+                "fame": 1
+        },
+        "result": "받았던 도움을, 이제는 돌려줄 차례라고 느꼈다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-life-exit-42",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "조용히, 그러나 후회 없이 짐을 정리했다.",
+        "requiresRoute": "esports-coach"
+},
       {
         "id": "sm-double-title-42",
         "text": "리그와 컵대회를 동시에 석권하는 더블을 달성한다",
@@ -11555,6 +13304,65 @@ const STAGES = [
     ageRange: '43세',
     intro: '조직 안에서 자신의 자리를 다시 확인하게 되는 시기입니다.',
     choices: [
+      {
+        "id": "ec-final-season-43",
+        "text": "지도자 인생의 마지막 시즌에 돌입한다",
+        "deltas": {
+                "fame": 5,
+                "happiness": 5
+        },
+        "result": "한 경기 한 경기가, 유난히 소중하게 느껴졌다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-emotional-farewell-match-43",
+        "text": "선수단과 팬들이 마련한 마지막 경기를 치른다",
+        "deltas": {
+                "happiness": 6,
+                "relationship": 3
+        },
+        "result": "마지막 휘슬이 울리는 순간, 지나온 시간이 파노라마처럼 스쳤다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-team-tribute-43",
+        "text": "팀으로부터 헌정 행사를 받는다",
+        "deltas": {
+                "happiness": 5,
+                "fame": 3
+        },
+        "result": "혼자 걸어온 줄 알았던 길에, 이렇게 많은 사람이 함께였다는 걸 새삼 느꼈다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-consultant-transition-43",
+        "text": "현장을 떠나 컨설턴트로 전향할 준비를 한다",
+        "deltas": {
+                "wealth": 3,
+                "happiness": 2
+        },
+        "result": "완전히 손을 놓지 않아도 된다는 게, 큰 위안이 됐다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-thirty-year-reflection-43",
+        "text": "선수와 감독, 30년의 커리어를 함께 되돌아본다",
+        "deltas": {
+                "happiness": 4
+        },
+        "result": "긴 여정의 끝에서, 후회보다 감사가 더 컸다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-life-exit-43",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "마지막까지, 스스로 선택한 삶이었다.",
+        "requiresRoute": "esports-coach"
+},
       {
         "id": "sm-generational-gap-43",
         "text": "젊은 선수들과의 세대 차이를 실감한다",
@@ -11825,6 +13633,66 @@ const STAGES = [
     intro: '가까운 사이일수록 소원해지기 쉬운 나이. 관계를 다시 들여다보게 됩니다.',
     choices: [
       {
+        "id": "ec-post-coaching-consulting-44",
+        "text": "은퇴 후 컨설턴트로 새로운 역할을 시작한다",
+        "deltas": {
+                "wealth": 4,
+                "happiness": 3
+        },
+        "result": "완전히 손을 놓지 않아도 된다는 게, 큰 위안이 됐다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-memoir-44",
+        "text": "두 번의 커리어를 정리한 회고록을 집필한다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 4,
+                "wealth": 2
+        },
+        "result": "그림 대신 글로 나를 설명하는 일도, 나름의 매력이 있었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-informal-mentoring-44",
+        "text": "가끔씩 후배들에게 조언을 건네며 인연을 이어간다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "완전히 떠나도, 마음만은 여전히 이 판에 남아 있었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-financial-complete-44",
+        "text": "재정적으로 완전한 안정을 이룬다",
+        "deltas": {
+                "wealth": 3
+        },
+        "result": "불안했던 시작을 생각하면, 지금 이 안정감이 새삼스러웠다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-community-legacy-44",
+        "text": "지역 e스포츠 커뮤니티의 상징적인 인물이 된다",
+        "deltas": {
+                "fame": 3,
+                "relationship": 2
+        },
+        "result": "이 판의 일원으로 인정받는다는 게, 뭉클했다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-life-exit-44",
+        "text": "지도자 생활을 완전히 정리하기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "박수 소리를 뒤로하고, 조용히 벤치를 떠났다.",
+        "requiresRoute": "esports-coach"
+},
+      {
         "id": "sm-comeback-season-44",
         "text": "새 구단에서 화려한 부활 시즌을 보낸다",
         "deltas": {
@@ -12092,6 +13960,66 @@ const STAGES = [
     ageRange: '45세',
     intro: '다 가진 것 같은데도 문득 공허해지는, 이른바 중년의 위기가 찾아오는 나이입니다.',
     choices: [
+      {
+        "id": "ec-fifteen-year-reflection-45",
+        "text": "지난 15년의 지도자 인생을 가만히 되돌아본다",
+        "deltas": {
+                "happiness": 4
+        },
+        "result": "화려하지 않아도, 스스로 선택한 길이라는 사실이 위안이 됐다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-stays-in-industry-45",
+        "text": "여생을 e스포츠 업계에 남아 보내기로 한다",
+        "deltas": {
+                "happiness": 4,
+                "wealth": 1
+        },
+        "result": "이 판을 떠나서는, 스스로를 온전히 설명할 수 없을 것 같았다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-full-retirement-45",
+        "text": "업계를 완전히 떠나 평범한 일상으로 돌아가기로 한다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "endsRoute": true,
+        "result": "화려했던 두 번의 인생 뒤로, 이제는 조용한 나날을 그려봤다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-future-direction-45",
+        "text": "은퇴 후 어떤 역할로 이 판에 남을지 그려본다",
+        "deltas": {
+                "happiness": 3,
+                "fame": 1
+        },
+        "result": "끝이 아니라, 또 다른 시작이라고 되뇌었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-legacy-fully-established-45",
+        "text": "선수와 감독, 두 커리어의 유산을 완전히 정리한다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 3
+        },
+        "result": "작은 발걸음들이 모여, 어느새 하나의 길이 되어 있었다.",
+        "requiresRoute": "esports-coach"
+},
+      {
+        "id": "ec-life-exit-45",
+        "text": "지금 이 시점에서 삶을 다시 정리해보기로 한다",
+        "deltas": {
+                "happiness": 2
+        },
+        "endsRoute": true,
+        "result": "아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.",
+        "requiresRoute": "esports-coach"
+},
       {
         "id": "sm-final-title-push-45",
         "text": "은퇴를 염두에 두고 마지막 우승 도전에 나선다",

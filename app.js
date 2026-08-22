@@ -259,8 +259,8 @@ const ENDINGS_META = [
 
 // 트리거 루트 목록(14장) - functions/game-data.js의 startsRoute와 반드시 같은
 // id·label을 유지해야 한다(서버는 이 목록을 클라이언트에 따로 안 내려주므로
-// 수동 동기화). 미국 정착 루트(2026-08-23, 조기유학 후 미국에 남는 선택 시
-// 진입)까지 추가됨 - 앞으로 새 루트가 추가되면 여기에도 그대로 이어 붙이면 된다.
+// 수동 동기화). 프로게이머+프로게이머 감독 루트(2026-08-23)까지 추가됨 -
+// 앞으로 새 루트가 추가되면 여기에도 그대로 이어 붙이면 된다.
 const ROUTES_META = [
   { id: 'entertainment-industry', title: '🎤 연예계 연습생', icon: '🎤' },
   { id: 'actor', title: '🎭 배우', icon: '🎭' },
@@ -268,7 +268,9 @@ const ROUTES_META = [
   { id: 'sports-elite', title: '⚽ 축구', icon: '⚽' },
   { id: 'soccer-manager', title: '🧢 축구 감독', icon: '🧢' },
   { id: 'study-abroad-usa', title: '🇺🇸 조기유학(미국)', icon: '🇺🇸' },
-  { id: 'us-settled-life', title: '🇺🇸 미국 정착', icon: '🇺🇸' }
+  { id: 'us-settled-life', title: '🇺🇸 미국 정착', icon: '🇺🇸' },
+  { id: 'pro-gamer', title: '🎮 프로게이머', icon: '🎮' },
+  { id: 'esports-coach', title: '🎯 프로게이머 감독', icon: '🎯' }
 ];
 
 const collectionModal = document.getElementById('collectionModal');
