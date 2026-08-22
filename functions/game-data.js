@@ -1090,10 +1090,10 @@ const STAGES = [
       },
       {
         id: 'arts-talent',
-        text: '미술·음악 학원에서 남다른 재능을 보인다',
+        text: '음악 학원에서 남다른 재능을 보인다',
         deltas: { fame: 3, happiness: 3, wealth: -2 },
         result: '선생님이 부모님을 따로 불러 칭찬했던, 은근히 우쭐했던 기억.',
-        addTalent: { id: 'arts', label: '🎨 미술·음악 재능' }
+        addTalent: { id: 'arts', label: '🎵 음악 재능' }
       },
       {
         id: 'youtube-binge',
