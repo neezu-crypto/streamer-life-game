@@ -12147,6 +12147,52 @@ const STAGES = [
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
       {
+        "id": "trainee-legacy-reflection-35",
+        "text": "지난 연습생 시절을 가끔 떠올린다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "힘들었던 기억도, 지나고 보니 나름의 자산이었다.",
+        "requiresOccupation": [
+                "trainee"
+        ]
+},
+      {
+        "id": "idol-royalty-income-35",
+        "text": "예전 히트곡의 저작권료가 꾸준히 들어온다",
+        "deltas": {
+                "wealth": 3
+        },
+        "result": "몇 년 전 부른 노래가, 지금도 조용히 통장을 채워주고 있었다.",
+        "requiresOccupation": [
+                "idol"
+        ]
+},
+      {
+        "id": "pg2-streaming-legacy-35",
+        "text": "은퇴한 프로게이머로서 여전히 방송을 이어간다",
+        "deltas": {
+                "wealth": 2,
+                "fame": 2
+        },
+        "result": "경기장은 떠났어도, 화면 속 자리는 여전했다.",
+        "requiresOccupation": [
+                "pro-gamer"
+        ]
+},
+      {
+        "id": "cp2-community-role-35",
+        "text": "동네 반상회에서 자연스레 목소리를 낸다",
+        "deltas": {
+                "relationship": 2,
+                "happiness": 2
+        },
+        "result": "작은 자리였지만, 앞장서는 습관은 여전했다.",
+        "requiresOccupation": [
+                "class-president"
+        ]
+},
+      {
         "id": "ec-world-championship-35",
         "text": "세계 대회 우승으로 커리어의 정점을 찍는다",
         "deltas": {
@@ -14165,6 +14211,66 @@ const STAGES = [
     intro: '인생의 절반 지점. 마흔이라는 숫자가 이유 없이 지난 시간을 돌아보게 만듭니다.',
     choices: [
       {
+        "id": "stath-amateur-league-40",
+        "text": "동호인 축구 리그에서 계속 공을 찬다",
+        "deltas": {
+                "health": 2,
+                "happiness": 3
+        },
+        "result": "프로는 못 됐어도, 축구를 향한 마음만은 여전했다.",
+        "requiresOccupation": [
+                "student-athlete"
+        ]
+},
+      {
+        "id": "na2-legend-status-40",
+        "text": "축구 레전드로 여전히 회자된다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 2
+        },
+        "result": "은퇴한 지 오래여도, 이름은 여전히 그라운드를 맴돌았다.",
+        "requiresOccupation": [
+                "national-athlete"
+        ]
+},
+      {
+        "id": "pa2-opens-business-40",
+        "text": "선수 시절 인지도로 작은 사업을 시작한다",
+        "deltas": {
+                "wealth": 3,
+                "fame": 1
+        },
+        "result": "그라운드 밖에서도, 이름 하나가 힘이 되어줬다.",
+        "requiresOccupation": [
+                "pro-athlete"
+        ]
+},
+      {
+        "id": "te2-legacy-brand-40",
+        "text": "젊은 시절 세운 브랜드가 여전히 사랑받는다",
+        "deltas": {
+                "wealth": 3,
+                "fame": 2
+        },
+        "result": "오래전 시작한 일이, 여전히 누군가의 일상 속에 남아 있었다.",
+        "requiresOccupation": [
+                "teen-entrepreneur"
+        ]
+},
+      {
+        "id": "scp2-civic-role-40",
+        "text": "지역 사회 자문위원으로 꾸준히 활동한다",
+        "deltas": {
+                "fame": 2,
+                "relationship": 2
+        },
+        "result": "학생회에서 시작된 마음이, 여전히 같은 방향을 향해 있었다.",
+        "requiresOccupation": [
+                "student-council-president"
+        ]
+},
+      {
         "id": "ec-renewed-passion-40",
         "text": "새로운 마음으로 코칭에 대한 열정을 되찾는다",
         "deltas": {
@@ -15764,6 +15870,18 @@ const STAGES = [
     intro: '다 가진 것 같은데도 문득 공허해지는, 이른바 중년의 위기가 찾아오는 나이입니다.',
     choices: [
       {
+        "id": "idol-comeback-nostalgia-45",
+        "text": "추억의 무대로 꾸며진 콘서트에 게스트로 선다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 4
+        },
+        "result": "오랜만에 선 무대에서, 그 시절 함성이 그대로 되살아났다.",
+        "requiresOccupation": [
+                "idol"
+        ]
+},
+      {
         "id": "ec-fifteen-year-reflection-45",
         "text": "지난 15년의 지도자 인생을 가만히 되돌아본다",
         "deltas": {
@@ -16994,6 +17112,42 @@ const STAGES = [
     intro: '쉰이라는 숫자 앞에서, 지나온 시간의 무게를 새삼 느끼게 됩니다.',
     choices: [
       {
+        "id": "trainee-still-auditioning-50",
+        "text": "여전히 미련을 버리지 못하고 오디션을 기웃거린다",
+        "deltas": {
+                "happiness": -1,
+                "fame": 1
+        },
+        "result": "늦었다는 걸 알면서도, 마음 한구석은 여전히 무대를 향해 있었다.",
+        "requiresOccupation": [
+                "trainee"
+        ]
+},
+      {
+        "id": "pg2-guest-appearance-50",
+        "text": "레전드 초청전에 게스트로 참가한다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 3
+        },
+        "result": "옛 실력이 녹슬지 않았다는 걸, 스스로도 놀랐다.",
+        "requiresOccupation": [
+                "pro-gamer"
+        ]
+},
+      {
+        "id": "cp2-school-reunion-50",
+        "text": "동창회에서 그 시절 별명으로 불린다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "학생회장이라는 이름이, 몇십 년이 지나도 꼬리표처럼 따라다녔다.",
+        "requiresOccupation": [
+                "class-president"
+        ]
+},
+      {
         id: "wealth-drain-50-a",
         text: "인생 절반을 자축한다며 크게 여행을 떠난다",
         deltas: { wealth: -4 },
@@ -17632,6 +17786,113 @@ const STAGES = [
     ageRange: '55세',
     intro: '정년이라는 단어가 더는 남 얘기가 아니게 되는 나이. 매일 출근하던 삶이 조용히 막을 내립니다.',
     choices: [
+      {
+        "id": "an-veteran-unknown-55",
+        "text": "여전히 무명이지만 꾸준히 단역을 소화한다",
+        "deltas": {
+                "wealth": 1,
+                "happiness": 1
+        },
+        "result": "화려하진 않아도, 카메라 앞에 서는 순간만큼은 늘 진심이었다.",
+        "requiresOccupation": [
+                "actor-newcomer"
+        ]
+},
+      {
+        "id": "ra-continued-success-55",
+        "text": "여전히 활발하게 작품 활동을 이어간다",
+        "deltas": {
+                "fame": 4,
+                "wealth": 2
+        },
+        "result": "나이가 들어도, 찾아주는 이야기는 끊이지 않았다.",
+        "requiresOccupation": [
+                "rising-actor"
+        ]
+},
+      {
+        "id": "va-full-retirement-55",
+        "text": "연기 인생에서 완전히 은퇴하기로 한다",
+        "deltas": {
+                "happiness": 3
+        },
+        "result": "무대를 내려오는 마음이, 홀가분함과 아쉬움 사이 어딘가였다.",
+        "requiresOccupation": [
+                "veteran-actor"
+        ]
+},
+      {
+        "id": "stath-coaching-kids-55",
+        "text": "동네 아이들에게 재능기부로 축구를 가르친다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "어린 시절 꿈꿨던 모습을, 다른 방식으로 이어가고 있었다.",
+        "requiresOccupation": [
+                "student-athlete"
+        ]
+},
+      {
+        "id": "na2-motivational-speaker-55",
+        "text": "청소년 대상 동기부여 강연을 다닌다",
+        "deltas": {
+                "happiness": 3,
+                "wealth": 2
+        },
+        "result": "자신의 이야기가 누군가에게 힘이 된다는 게, 새로운 보람이었다.",
+        "requiresOccupation": [
+                "national-athlete"
+        ]
+},
+      {
+        "id": "pa2-informal-coaching-55",
+        "text": "동네 축구교실에서 아이들을 가르친다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "공 하나로 아이들과 통하는 게, 여전히 즐거웠다.",
+        "requiresOccupation": [
+                "pro-athlete"
+        ]
+},
+      {
+        "id": "ec2-consulting-legacy-55",
+        "text": "은퇴 후에도 업계 자문으로 종종 불려간다",
+        "deltas": {
+                "wealth": 2,
+                "fame": 2
+        },
+        "result": "완전히 손을 놓지 않아도 된다는 게, 큰 위안이 됐다.",
+        "requiresOccupation": [
+                "esports-coach"
+        ]
+},
+      {
+        "id": "te2-mentoring-continues-55",
+        "text": "여전히 후배 창업가들의 멘토로 활동한다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "몇 년 전 막막했던 자신의 모습이, 후배에게 겹쳐 보였다.",
+        "requiresOccupation": [
+                "teen-entrepreneur"
+        ]
+},
+      {
+        "id": "scp2-legacy-leadership-55",
+        "text": "후배 정치·사회 활동가들의 조언자가 된다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "몇 년 전 자신의 모습이, 후배에게 겹쳐 보였다.",
+        "requiresOccupation": [
+                "student-council-president"
+        ]
+},
       {
         id: "wealth-drain-55-a",
         text: "퇴직 기념으로 그동안 미뤄온 소비를 한다",
@@ -18285,6 +18546,30 @@ const STAGES = [
     intro: '환갑. 예순 해를 지나온 삶을 가족과 함께 돌아보는 해입니다.',
     choices: [
       {
+        "id": "idol-mentoring-newcomers-60",
+        "text": "후배 아이돌에게 데뷔 시절 이야기를 들려준다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "몇 년 전 자신의 모습이, 눈앞의 후배에게 겹쳐 보였다.",
+        "requiresOccupation": [
+                "idol"
+        ]
+},
+      {
+        "id": "sm2-honorary-role-60",
+        "text": "축구협회 명예직을 제안받는다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 2
+        },
+        "result": "현장을 떠나서도, 이 판과 이어질 방법은 여전히 있었다.",
+        "requiresOccupation": [
+                "soccer-manager"
+        ]
+},
+      {
         id: "wealth-drain-60-a",
         text: "환갑 잔치를 성대하게 치른다",
         deltas: { wealth: -4 },
@@ -18866,6 +19151,64 @@ const STAGES = [
     ageRange: '65세',
     intro: '법정 노인 연령. 사회가 부르는 호칭이 바뀌는 걸 마주하게 됩니다.',
     choices: [
+      {
+        "id": "trainee-reunion-65",
+        "text": "오랜 연습생 동기들과 모임을 갖는다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 2
+        },
+        "result": "그때는 경쟁자였던 얼굴들이, 이제는 가장 편한 사이가 됐다.",
+        "requiresOccupation": [
+                "trainee"
+        ]
+},
+      {
+        "id": "an-acting-class-teacher-65",
+        "text": "동네 문화센터에서 연기를 가르친다",
+        "deltas": {
+                "happiness": 3,
+                "wealth": 1
+        },
+        "result": "가르치면서 오히려 스스로 더 많이 배우는 기분이었다.",
+        "requiresOccupation": [
+                "actor-newcomer"
+        ]
+},
+      {
+        "id": "ra-aging-gracefully-65",
+        "text": "나이 든 배역으로도 자연스럽게 녹아든다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 3
+        },
+        "result": "젊음이 아니어도, 연기할 수 있는 이야기는 오히려 더 많아졌다.",
+        "requiresOccupation": [
+                "rising-actor"
+        ]
+},
+      {
+        "id": "pg2-wrist-pain-65",
+        "text": "젊은 시절 혹사한 손목이 다시 시큰거린다",
+        "deltas": {
+                "health": -2
+        },
+        "result": "오래된 부상은, 세월이 지나도 완전히 잊히지 않았다.",
+        "requiresOccupation": [
+                "pro-gamer"
+        ]
+},
+      {
+        "id": "cp2-nostalgia-65",
+        "text": "학창 시절 리더십 경험을 가끔 떠올린다",
+        "deltas": {
+                "happiness": 2
+        },
+        "result": "작았던 그 무대가, 돌아보면 많은 것의 시작이었다.",
+        "requiresOccupation": [
+                "class-president"
+        ]
+},
       {
         id: "wealth-drain-65-a",
         text: "노인이 됐다는 실감에 값비싼 취미를 시작한다",
@@ -19454,6 +19797,84 @@ const STAGES = [
     intro: '칠순. 황혼이라 불리는 시간의 첫걸음을 내딛습니다.',
     choices: [
       {
+        "id": "va-legacy-project-70",
+        "text": "은퇴 후에도 뜻깊은 마지막 프로젝트에 참여한다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 3
+        },
+        "result": "완전히 손을 놓지 않아도 된다는 게, 큰 위안이 됐다.",
+        "requiresOccupation": [
+                "veteran-actor"
+        ]
+},
+      {
+        "id": "stath-old-injury-70",
+        "text": "젊은 시절 축구로 다친 무릎이 다시 말썽이다",
+        "deltas": {
+                "health": -3
+        },
+        "result": "오래된 부상은, 세월이 지나도 완전히 잊히지 않았다.",
+        "requiresOccupation": [
+                "student-athlete"
+        ]
+},
+      {
+        "id": "na2-old-injury-toll-70",
+        "text": "선수 시절 혹사한 몸이 뒤늦게 아파온다",
+        "deltas": {
+                "health": -3
+        },
+        "result": "화려했던 시절의 대가를, 이제야 몸으로 치르고 있었다.",
+        "requiresOccupation": [
+                "national-athlete"
+        ]
+},
+      {
+        "id": "pa2-old-injury-70",
+        "text": "선수 시절 부상 후유증이 뒤늦게 찾아온다",
+        "deltas": {
+                "health": -3
+        },
+        "result": "오래된 부상은, 세월이 지나도 완전히 잊히지 않았다.",
+        "requiresOccupation": [
+                "pro-athlete"
+        ]
+},
+      {
+        "id": "ec2-reflection-70",
+        "text": "지도자 인생을 가끔 떠올리며 미소 짓는다",
+        "deltas": {
+                "happiness": 3
+        },
+        "result": "벤치 위에서 보낸 시간들이, 여전히 선명하게 남아 있었다.",
+        "requiresOccupation": [
+                "esports-coach"
+        ]
+},
+      {
+        "id": "te2-retirement-reflection-70",
+        "text": "10대에 시작한 사업가 인생을 흐뭇하게 되돌아본다",
+        "deltas": {
+                "happiness": 3
+        },
+        "result": "학교 앞 작은 장사에서 시작된 일이, 참 먼 길을 걸어왔다.",
+        "requiresOccupation": [
+                "teen-entrepreneur"
+        ]
+},
+      {
+        "id": "scp2-reflection-70",
+        "text": "학생 리더에서 시작된 인생 전체를 되돌아본다",
+        "deltas": {
+                "happiness": 3
+        },
+        "result": "작은 선거 유세에서 시작된 길이, 이렇게 길게 이어질 줄은 몰랐다.",
+        "requiresOccupation": [
+                "student-council-president"
+        ]
+},
+      {
         id: "wealth-drain-70-a",
         text: "칠순 잔치를 온 가족이 모여 크게 치른다",
         deltas: { wealth: -4 },
@@ -19950,6 +20371,40 @@ const STAGES = [
     ageRange: '75세',
     intro: '남은 시간을 어떻게 채워갈지, 다시 한번 진지하게 그려보는 나이입니다.',
     choices: [
+      {
+        "id": "an-no-regrets-75",
+        "text": "화려하진 않았지만 후회 없던 배우 인생을 돌아본다",
+        "deltas": {
+                "happiness": 3
+        },
+        "result": "무명이었어도, 스스로 선택한 길이라는 사실이 위안이 됐다.",
+        "requiresOccupation": [
+                "actor-newcomer"
+        ]
+},
+      {
+        "id": "ra-lifetime-fanbase-75",
+        "text": "오랜 팬들과 함께 나이 들어가는 걸 실감한다",
+        "deltas": {
+                "happiness": 4,
+                "relationship": 2
+        },
+        "result": "함께 나이 들어간다는 게, 이렇게 든든한 일인 줄 몰랐다.",
+        "requiresOccupation": [
+                "rising-actor"
+        ]
+},
+      {
+        "id": "sm2-old-reflection-75",
+        "text": "지도자 인생을 가끔 떠올리며 미소 짓는다",
+        "deltas": {
+                "happiness": 3
+        },
+        "result": "벤치 위에서 보낸 시간들이, 여전히 선명하게 남아 있었다.",
+        "requiresOccupation": [
+                "soccer-manager"
+        ]
+},
       {
         id: "wealth-drain-75-a",
         text: "이름값을 위해 마지막으로 큰돈을 들인 자리를 마련한다",
@@ -20892,6 +21347,30 @@ const STAGES = [
     intro: '누군가의 손길이 일상 속에 자연스레 스며드는 시기입니다.',
     choices: [
       {
+        "id": "va-industry-icon-85",
+        "text": "영화계의 살아있는 전설로 회자된다",
+        "deltas": {
+                "fame": 4,
+                "happiness": 3
+        },
+        "result": "이름 하나가, 이제는 하나의 시대를 대표하게 됐다.",
+        "requiresOccupation": [
+                "veteran-actor"
+        ]
+},
+      {
+        "id": "ec2-industry-icon-85",
+        "text": "e스포츠 역사에 이름을 남긴 인물로 회자된다",
+        "deltas": {
+                "fame": 3,
+                "happiness": 3
+        },
+        "result": "이름 하나가, 이제는 하나의 시대를 대표하게 됐다.",
+        "requiresOccupation": [
+                "esports-coach"
+        ]
+},
+      {
         id: "unhappy-85",
         text: "가까웠던 형제자매의 부고를 듣고 깊은 상실감에 빠진다",
         deltas: { happiness: -5, relationship: -2 },
@@ -21346,6 +21825,18 @@ const STAGES = [
     ageRange: '90세',
     intro: '구순. 아흔 해를 살아낸 시간이, 온 가족의 축하 속에 다시 한번 빛납니다.',
     choices: [
+      {
+        "id": "sm2-final-years-90",
+        "text": "여전히 축구 이야기만 나오면 눈이 반짝인다",
+        "deltas": {
+                "happiness": 3,
+                "relationship": 1
+        },
+        "result": "몸은 늙어도, 그 마음만은 조금도 변하지 않았다.",
+        "requiresOccupation": [
+                "soccer-manager"
+        ]
+},
       {
         id: "unhappy-90",
         text: "구순을 맞으면서도 몸 곳곳의 통증이 축하를 무색게 한다",

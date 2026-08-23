@@ -3149,6 +3149,62 @@
         않고 게임 전체에 자동 적용된다.</p>
     </section>
 
+    <section>
+        <h2><span class="num">19</span>루트 직업 — 정식 루트 종료 후 후속 이벤트 42종 (2026-08-23, 사용자 지시 — 구현 완료)</h2>
+        <p><b>발견 경위</b> — 사용자가 "각 직업별로 관련 이벤트가 몇개나 있는지 알려줘" → "예술가 루트는 왜
+        이벤트가 3개뿐이야?" → "그럼 각 직업별로 정식 루트가 끝나고 이후에 나오는 전용 이벤트가 몇개인지
+        알려줘"로 이어지는 연속 질문 끝에, <code>artist-writer</code> 직업만 정식 루트(예술가) 종료 후에도
+        전용 이벤트 3개(<code>requiresOccupation</code>만으로 게이팅, <code>requiresRoute</code> 없음)를
+        갖고 있고, 나머지 14개 루트 연계 직업(<code>trainee</code>, <code>idol</code>,
+        <code>actor-newcomer</code>, <code>rising-actor</code>, <code>veteran-actor</code>,
+        <code>student-athlete</code>, <code>national-athlete</code>, <code>pro-athlete</code>,
+        <code>soccer-manager</code>, <code>pro-gamer</code>, <code>esports-coach</code>,
+        <code>teen-entrepreneur</code>, <code>class-president</code>,
+        <code>student-council-president</code>)는 전용 후속 이벤트가 <b>0개</b>임을 확인했다. 사용자
+        지시: "골고루 다양한 나이에 이벤트 추가하고싶어. 직업별로 순서대로 구현해줘."</p>
+        <h3>구현 방식</h3>
+        <p>위 14개 직업 각각에 <b>3개씩, 총 42개</b> 선택지를 추가했다. 모두 <code>artist-writer</code>
+        선례와 동일하게 <code>requiresOccupation: [해당 직업]</code>만으로 게이팅하고
+        <code>requiresRoute</code>는 부여하지 않았다 — 루트가 이미 만료됐어도(또는 조기 종료됐어도) 그
+        직업이 계속 유지되는 한 계속 노출되는 "직업 정체성" 이벤트라는 뜻. 나이는 직업마다 다른 3개 나이대에
+        분산 배치(35/40/45/50/55/60/65/70/75/85/90 중 선택)해 "골고루 다양한 나이" 요구를 반영했다.</p>
+        <table>
+        <tr><th>직업</th><th>나이(3개)</th><th>비고</th></tr>
+        <tr><td>trainee</td><td>35 / 50 / 65</td><td>연습생 신분 그대로 지속</td></tr>
+        <tr><td>idol</td><td>35 / 45 / 60</td><td>로열티 수입, 컴백, 후배 멘토링</td></tr>
+        <tr><td>actor-newcomer</td><td>55 / 65 / 75</td><td>무명 배우 지속 분기</td></tr>
+        <tr><td>rising-actor</td><td>55 / 65 / 75</td><td></td></tr>
+        <tr><td>veteran-actor</td><td>55 / 70 / 85</td><td></td></tr>
+        <tr><td>student-athlete</td><td>40 / 55 / 70</td><td>국대·프로 전향 실패 분기</td></tr>
+        <tr><td>national-athlete</td><td>40 / 55 / 70</td><td></td></tr>
+        <tr><td>pro-athlete</td><td>40 / 55 / 70</td><td></td></tr>
+        <tr><td>soccer-manager</td><td>60 / 75 / 90</td><td></td></tr>
+        <tr><td>pro-gamer</td><td>35 / 50 / 65</td><td></td></tr>
+        <tr><td>esports-coach</td><td>55 / 70 / 85</td><td></td></tr>
+        <tr><td>teen-entrepreneur</td><td>40 / 55 / 70</td><td></td></tr>
+        <tr><td>class-president</td><td>35 / 50 / 65</td><td><code>sl-final-giveup-22</code>(학생회장 낙선
+        후 완전 포기) 분기로 <code>class-president</code> 직업이 20세 이후에도 영구 유지되는 경우에만 도달
+        — 자연스러운 <code>student-council-president</code> 승격 분기와는 별도 경로</td></tr>
+        <tr><td>student-council-president</td><td>40 / 55 / 70</td><td></td></tr>
+        </table>
+        <h3>검증</h3>
+        <ul>
+            <li><code>node -c game-data.js</code> 통과, 전체 2675개 선택지 중 id 중복 0건.</li>
+            <li>직업별 <code>requiresOccupation</code>(non-route) 카운트 재집계 — 14개 직업 모두 정확히
+            3개씩, 기존 회사직군(46개)·비회사직군(11개)·<code>retired</code>(19개)·기존
+            <code>artist-writer</code>(3개) 카운트는 변동 없음.</li>
+            <li>8,000회 전체 회귀 시뮬레이션 — 즉사 비율 14.10%(기존 기준선 범위 내), STUCK 0건,
+            ALL_REJECTED 0건.</li>
+            <li>42개 선택지 각각을 실제 <code>game-data.js</code>에서 재조회해 나이(스테이지)·
+            <code>requiresOccupation</code> 값이 설계와 정확히 일치하는지 전수 대조 — 42/42 일치, 이상 없음.</li>
+            <li><code>class-president</code> 케이스는 20세 승격 로직이 <b>무조건</b>이 아니라 낙선 시
+            <code>sl-final-giveup-22</code>(직업 변경 없이 <code>endsRoute</code>만 적용)로 빠지는 분기가
+            있어야 35세 이후에도 <code>class-president</code>로 남아 새 이벤트에 도달 가능함을 소스에서
+            직접 확인 — 승격에 성공한 플레이어는 <code>student-council-president</code> 쪽 3개 이벤트로
+            대신 도달한다.</li>
+        </ul>
+    </section>
+
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
 </div>
 </body>
