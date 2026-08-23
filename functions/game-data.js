@@ -8377,7 +8377,7 @@ const STAGES = [
         deltas: { wealth: -4, happiness: 4 },
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresSufficientCash: true,
-        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'movable' }
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
         id: 'startup-founder-equity-fight',
@@ -19348,7 +19348,8 @@ const STAGES = [
         text: '차를 작고 실속 있는 걸로 바꾼다',
         deltas: { wealth: 3, happiness: 1 },
         result: '크고 화려한 차보다, 이제는 이 편이 훨씬 편했다.',
-        addAsset: { id: 'compact-car', label: '🚙 소형차', type: 'movable' }
+        requiresAssetType: 'vehicle',
+        addAsset: { id: 'compact-car', label: '🚙 소형차', type: 'vehicle' }
       },
       {
         id: 'team-lead-review-season-stress',
@@ -20213,7 +20214,8 @@ const STAGES = [
         text: '부부가 차를 한 대로 줄인다',
         deltas: { wealth: 4 },
         result: '차 한 대로도 충분하다는 걸, 새삼 깨달았다.',
-        requiresFamilyMember: ['spouse']
+        requiresFamilyMember: ['spouse'],
+        requiresAssetType: 'vehicle'
       },
       {
         id: 'oldprep-hobby-workshop-66',
