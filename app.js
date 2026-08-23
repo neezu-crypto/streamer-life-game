@@ -273,7 +273,8 @@ const ROUTES_META = [
   { id: 'esports-coach', title: '🎯 프로게이머 감독', icon: '🎯' },
   { id: 'teen-entrepreneur', title: '💼 10대 창업가', icon: '💼' },
   { id: 'student-leadership', title: '👑 학생 리더십', icon: '👑' },
-  { id: 'prison', title: '🔒 수감 생활', icon: '🔒' }
+  { id: 'prison', title: '🔒 수감 생활', icon: '🔒' },
+  { id: 'developer', title: '💻 개발자', icon: '💻' }
 ];
 
 // 재능·재산 목록(17장/재산 상세) - functions/game-data.js의 addTalent/addAsset
@@ -290,7 +291,8 @@ const TALENTS_META = [
   { id: 'business', title: '💼 사업 수완', icon: '💼' },
   { id: 'leadership', title: '👑 리더십', icon: '👑' },
   { id: 'acting', title: '🎭 연기', icon: '🎭' },
-  { id: 'hidden-talent', title: '✨ 숨은 끼', icon: '✨' }
+  { id: 'hidden-talent', title: '✨ 숨은 끼', icon: '✨' },
+  { id: 'coding', title: '💻 코딩', icon: '💻' }
 ];
 const ASSETS_META = [
   { id: 'lottery-ticket', title: '🎟️ 복권', icon: '🎟️' },

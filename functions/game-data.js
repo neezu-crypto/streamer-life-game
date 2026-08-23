@@ -1514,6 +1514,14 @@ const STAGES = [
     intro: '초등학교의 마지막 한 해. 졸업과 중학교 진학이 코앞으로 다가옵니다.',
     choices: [
       {
+        id: 'coding-self-taught-12',
+        text: '혼자 코딩을 독학해 간단한 프로그램을 만들어본다',
+        deltas: {"happiness":3,"fame":1},
+        result: '화면에 뜬 결과물이, 마법처럼 신기했다.',
+        addTalent: {"id":"coding","label":"💻 코딩"}
+      },
+
+      {
         id: 'deviant-prank-call-12',
         text: '장난 전화를 걸고 몰래 낄낄댄다',
         prizeTable: [
@@ -4386,6 +4394,38 @@ const STAGES = [
     intro: '갓 어른이 된 티가 조금씩 빠지는 나이. 독립과 자유가 생각보다 훨씬 손이 많이 간다는 걸 알아갑니다.',
     choices: [
       {
+        id: 'dev-bootcamp-decision-20',
+        text: '코딩 재능을 살려 개발자의 길을 걷기로 결심한다',
+        deltas: {"happiness":3,"wealth":-2},
+        result: '늦지 않았을까 걱정도 됐지만, 일단 부딪혀보기로 했다.',
+        requiresTalent: 'coding',
+        mandatory: true,
+        startsRoute: {"id":"developer","label":"💻 개발자","maxDurationYears":15},
+        setOccupation: {"id":"junior-developer","label":"💻 주니어 개발자"}
+      },
+      {
+        id: 'dev-first-laptop-setup-20',
+        text: '개발 환경을 처음부터 하나하나 세팅한다',
+        deltas: {"happiness":2},
+        result: '에러 메시지와의 첫 싸움이, 벌써부터 만만치 않았다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-bootcamp-allnighter-20',
+        text: '부트캠프 과제를 끝내려 밤을 꼬박 새운다',
+        deltas: {"happiness":-2,"health":-2},
+        result: '눈은 감기는데, 코드는 안 돌아갔다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-first-code-review-shame-20',
+        text: '첫 코드 리뷰에서 지적을 잔뜩 받는다',
+        deltas: {"happiness":-3},
+        result: '빨간 줄이 화면을 뒤덮을수록, 자신감도 함께 쪼그라들었다.',
+        requiresRoute: 'developer'
+      },
+
+      {
         id: 'deviant-fake-parttime-hours-20',
         text: '알바 출근 기록을 살짝 부풀린다',
         prizeTable: [
@@ -4992,6 +5032,28 @@ const STAGES = [
     intro: '방향을 조금씩 좁혀가는 나이. 막연했던 미래가 서서히 구체적인 모양을 갖추기 시작합니다.',
     choices: [
       {
+        id: 'dev-internship-life-21',
+        text: '인턴으로 실무의 첫 발을 뗀다',
+        deltas: {"happiness":3,"wealth":1},
+        result: '학교에서 배운 것과 현실은, 확실히 달랐다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-debugging-marathon-21',
+        text: '원인 모를 버그를 잡느라 밤새 씨름한다',
+        deltas: {"happiness":-3,"health":-1},
+        result: '세미콜론 하나가, 하룻밤을 통째로 잡아먹었다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-first-deploy-incident-21',
+        text: '첫 배포에서 실수로 서비스 장애를 낸다',
+        deltas: {"happiness":-4,"wealth":-1},
+        result: '식은땀이 흐르는 그 몇 분이, 평생 잊히지 않을 것 같았다.',
+        requiresRoute: 'developer'
+      },
+
+      {
         id: 'lover-anniversary-gift',
         text: '연인과의 기념일을 정성껏 챙긴다',
         deltas: { happiness: 2, wealth: -2 },
@@ -5557,6 +5619,28 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        id: 'dev-first-fulltime-job-22',
+        text: '드디어 정식 개발자로 첫 출근을 한다',
+        deltas: {"happiness":4,"wealth":3},
+        result: '사원증을 목에 거는 순간, 실감이 나기 시작했다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-mentor-advice-22',
+        text: '사수의 조언 덕분에 막혔던 문제를 풀어낸다',
+        deltas: {"happiness":2,"relationship":1},
+        result: '한 줄 힌트가, 며칠을 헤매던 문제를 풀어줬다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-legacy-code-struggle-22',
+        text: '아무도 손대기 싫어하는 레거시 코드와 씨름한다',
+        deltas: {"happiness":-2},
+        result: '누가 이렇게 짰나 욕하다, 알고 보니 6개월 전의 나였다.',
+        requiresRoute: 'developer'
+      },
+
       {
         id: 'lover-petty-fight',
         text: '연인과 사소한 일로 다툰다',
@@ -6130,6 +6214,28 @@ const STAGES = [
     ageRange: '23세',
     intro: '스무 살대의 마지막 해. 자립이라는 단어가 더는 남 얘기가 아니게 됩니다.',
     choices: [
+      {
+        id: 'dev-opensource-contribution-23',
+        text: '오픈소스 프로젝트에 처음으로 기여한다',
+        deltas: {"happiness":3,"fame":1},
+        result: '전 세계 누군가가 내 코드를 쓴다는 게, 묘하게 뿌듯했다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-side-project-launch-23',
+        text: '개인 사이드 프로젝트를 세상에 공개한다',
+        deltas: {"happiness":4,"wealth":1},
+        result: '아무도 안 써도 상관없었다, 내가 만들었다는 게 중요했다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-tech-conference-23',
+        text: '업계 컨퍼런스에 참가해 최신 기술 흐름을 접한다',
+        deltas: {"happiness":2,"wealth":-1},
+        result: '모르는 용어가 쏟아졌지만, 자극이 되는 하루였다.',
+        requiresRoute: 'developer'
+      },
+
       {
         id: 'lover-makeup-closer',
         text: '다툰 연인과 화해하며 더 가까워진다',
@@ -6739,6 +6845,28 @@ const STAGES = [
     ageRange: '24세',
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
+      {
+        id: 'dev-burnout-signs-24',
+        text: '번아웃 초기 증상이 슬금슬금 찾아온다',
+        deltas: {"happiness":-3,"health":-1},
+        result: '코드를 보는 것조차 버거운 날이, 조금씩 늘어갔다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-job-change-consideration-24',
+        text: '더 나은 조건을 찾아 이직을 고민한다',
+        deltas: {"happiness":1},
+        result: '지금이 안정적인 만큼, 새로운 도전이 망설여졌다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-new-tech-study-24',
+        text: '퇴근 후에도 새로운 기술 스택을 독학한다',
+        deltas: {"happiness":2,"health":-1},
+        result: '배워야 할 게 끝이 없다는 게, 이 일의 숙명 같았다.',
+        requiresRoute: 'developer'
+      },
+
       {
         id: 'lover-meet-parents',
         text: '연인의 부모님께 처음 인사드리러 간다',
@@ -7372,6 +7500,28 @@ const STAGES = [
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
       {
+        id: 'dev-startup-offer-25',
+        text: '스타트업의 파격적인 이직 제안을 받는다',
+        deltas: {"happiness":3,"wealth":2},
+        result: '안정과 도전 사이에서, 마음이 크게 흔들렸다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-salary-negotiation-25',
+        text: '연봉 협상 테이블에서 용기 내 목소리를 낸다',
+        deltas: {"happiness":2,"wealth":3},
+        result: '떨리는 마음을 숨기고, 준비한 말을 끝까지 밀어붙였다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-code-ownership-25',
+        text: '맡은 시스템에 대한 책임감이 부쩍 커진다',
+        deltas: {"happiness":2,"relationship":1},
+        result: '내 이름이 걸린 코드라는 생각에, 어깨가 무거워졌다.',
+        requiresRoute: 'developer'
+      },
+
+      {
         id: 'lover-long-distance-strain',
         text: '장거리 연애로 지쳐간다',
         deltas: { happiness: -3 },
@@ -7951,6 +8101,28 @@ const STAGES = [
     ageRange: '26세',
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
+      {
+        id: 'dev-team-lead-offer-26',
+        text: '작은 팀을 이끌어보라는 제안을 받는다',
+        deltas: {"happiness":3,"wealth":2},
+        result: '코드만 짜다가, 사람까지 챙겨야 한다는 게 낯설었다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-mentoring-junior-26',
+        text: '갓 입사한 신입 개발자를 멘토링한다',
+        deltas: {"happiness":3,"relationship":2},
+        result: '가르치면서, 오히려 내가 더 많이 배우는 것 같았다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-tech-debt-cleanup-26',
+        text: '쌓여있던 기술 부채를 정리하는 데 매달린다',
+        deltas: {"happiness":-1,"wealth":1},
+        result: '티도 안 나는 일이지만, 누군가는 해야 할 일이었다.',
+        requiresRoute: 'developer'
+      },
+
       {
         id: 'lover-future-talk',
         text: '연인과 서로의 미래 계획을 진지하게 이야기한다',
@@ -8615,6 +8787,28 @@ const STAGES = [
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
       {
+        id: 'dev-promotion-review-prep-27',
+        text: '승진 심사를 앞두고 성과를 정리한다',
+        deltas: {"happiness":-1,"wealth":1},
+        result: '해온 일을 숫자로 정리하려니, 새삼 뿌듯하면서도 초조했다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-performance-pressure-27',
+        text: '높아진 성과 압박에 어깨가 무거워진다',
+        deltas: {"happiness":-3},
+        result: '잘하고 있다는 걸 알면서도, 불안은 쉽게 가시지 않았다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-work-life-balance-27',
+        text: '일과 삶의 균형을 다시 챙기기로 마음먹는다',
+        deltas: {"happiness":3,"health":1},
+        result: '야근이 훈장이 아니라는 걸, 이제야 깨달았다.',
+        requiresRoute: 'developer'
+      },
+
+      {
         id: 'lover-friends-awkward-meet',
         text: '연인과 내 친구들의 첫 만남이 어색하게 흘러간다',
         deltas: { happiness: 1, relationship: 1 },
@@ -9275,6 +9469,17 @@ const STAGES = [
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
       {
+        id: 'dev-senior-promotion-28',
+        text: '6년 차 개발자로 시니어 승진 심사를 통과한다',
+        deltas: {"happiness":4,"wealth":4,"fame":1},
+        result: '주니어 딱지를 뗀다는 게, 뿌듯하면서도 무거웠다.',
+        requiresRoute: 'developer',
+        requiresOccupation: ["junior-developer"],
+        mandatory: true,
+        setOccupation: {"id":"senior-developer","label":"👨‍💻 시니어 개발자"}
+      },
+
+      {
         id: 'deviant-secret-gambling-friends-28',
         text: '친구들과 몰래 판돈을 걸고 게임을 한다',
         prizeTable: [
@@ -9849,6 +10054,28 @@ const STAGES = [
     intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
     choices: [
       {
+        id: 'dev-mentors-more-juniors-29',
+        text: '여러 후배 개발자를 동시에 멘토링한다',
+        deltas: {"happiness":3,"relationship":2},
+        result: '내가 헤맸던 자리를, 이제는 앞에서 비춰주고 있었다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-architecture-lead-29',
+        text: '새 시스템 아키텍처 설계를 주도적으로 이끈다',
+        deltas: {"happiness":4,"wealth":2},
+        result: '백지에서 시작해 그림을 그려나가는 게, 짜릿했다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-tech-talk-speaker-29',
+        text: '사내 기술 세미나에서 발표자로 나선다',
+        deltas: {"happiness":2,"fame":1},
+        result: '떨리는 목소리로 시작했지만, 끝날 땐 뿌듯함이 남았다.',
+        requiresRoute: 'developer'
+      },
+
+      {
         id: 'lover-breakup-consideration',
         text: '연인과 헤어질지 진지하게 고민한다',
         deltas: { happiness: -3 },
@@ -10388,6 +10615,28 @@ const STAGES = [
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
       {
+        id: 'dev-startup-founding-temptation-30',
+        text: '직접 창업할지 진지하게 고민한다',
+        deltas: {"happiness":2,"wealth":-1},
+        result: '월급쟁이로 남을지, 판을 벌일지 갈림길에 섰다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-stock-option-dream-30',
+        text: '스톡옵션이 대박 날 상상에 잠시 들뜬다',
+        deltas: {"happiness":2},
+        result: '현실성은 낮아도, 상상만으로 하루가 즐거웠다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-remote-work-shift-30',
+        text: '전면 재택근무 체제로 업무 방식을 바꾼다',
+        deltas: {"happiness":3,"health":1},
+        result: '출퇴근이 사라진 자리에, 여유가 조금 들어왔다.',
+        requiresRoute: 'developer'
+      },
+
+      {
         id: 'parenting-first-solid-food',
         text: '아이에게 처음으로 이유식을 먹인다',
         deltas: { happiness: 3, health: -1 },
@@ -10885,6 +11134,28 @@ const STAGES = [
     intro: '곁에 남을 사람과 앞으로의 삶을 어떻게 그릴지, 조금 더 구체적으로 고민하는 나이입니다.',
     choices: [
       {
+        id: 'dev-burnout-relapse-31',
+        text: '몇 년 만에 다시 번아웃이 찾아온다',
+        deltas: {"happiness":-4,"health":-2},
+        result: '이번엔 좀 다를 줄 알았는데, 결국 똑같이 지쳐버렸다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-sabbatical-consideration-31',
+        text: '잠시 일을 쉬는 안식년을 고민한다',
+        deltas: {"happiness":1,"wealth":-2},
+        result: '멈춰도 괜찮을까, 스스로에게 묻고 또 물었다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-ai-tools-adoption-31',
+        text: 'AI 코딩 도구를 업무에 적극 도입한다',
+        deltas: {"happiness":2,"wealth":1},
+        result: '반나절 걸리던 일이 순식간에 끝나는 게, 신기하면서도 낯설었다.',
+        requiresRoute: 'developer'
+      },
+
+      {
         id: 'parenting-sleepless-nights',
         text: '밤새 우는 아이를 달래느라 뜬눈으로 지새운다',
         deltas: { happiness: -2, health: -2 },
@@ -11367,6 +11638,28 @@ const STAGES = [
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
       {
+        id: 'dev-leadership-conflict-32',
+        text: '기술 방향을 두고 다른 리더와 부딪힌다',
+        deltas: {"happiness":-3,"relationship":-2},
+        result: '옳고 그름의 문제가 아니라, 취향의 싸움 같기도 했다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-opensource-maintainer-32',
+        text: '작은 오픈소스 프로젝트의 관리자를 맡는다',
+        deltas: {"happiness":2,"fame":1},
+        result: '이슈 하나하나에 답하는 게 번거로워도, 보람이 있었다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-overseas-conference-speaker-32',
+        text: '해외 컨퍼런스 무대에 연사로 선다',
+        deltas: {"happiness":4,"fame":2,"wealth":-1},
+        result: '낯선 언어로 발표하는 그 순간이, 오래 기억에 남을 것 같았다.',
+        requiresRoute: 'developer'
+      },
+
+      {
         id: 'lover-forgot-anniversary',
         text: '연인과의 기념일을 깜빡해 크게 다툰다',
         deltas: { happiness: -4, relationship: -3 },
@@ -11818,6 +12111,35 @@ const STAGES = [
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
       {
+        id: 'hobby-side-project-33',
+        text: '퇴근 후 취미로 간단한 웹사이트나 앱을 만들어본다',
+        deltas: {"happiness":3},
+        result: '남한테 보여줄 것도 아닌데, 완성하고 나니 뿌듯했다.',
+        addHobby: {"id":"side-project","label":"🖥️ 사이드 프로젝트"}
+      },
+      {
+        id: 'dev-layoff-scare-33',
+        text: '회사의 구조조정 소식에 불안해진다',
+        deltas: {"happiness":-3},
+        result: '내 자리는 괜찮을까, 매일 뉴스를 확인하는 습관이 생겼다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-successful-job-switch-33',
+        text: '더 나은 조건으로 이직에 성공한다',
+        deltas: {"happiness":4,"wealth":3},
+        result: '새로운 명함을 받아 드니, 그동안의 고민이 헛되지 않았다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-tech-advisory-side-33',
+        text: '스타트업 기술 자문으로 부업을 시작한다',
+        deltas: {"happiness":2,"wealth":3},
+        result: '경력이 곧 자산이 된다는 걸, 이럴 때 실감했다.',
+        requiresRoute: 'developer'
+      },
+
+      {
         id: 'married-different-schedule',
         text: '배우자와 생활 패턴이 달라 서로 겉돈다',
         deltas: { happiness: -2 },
@@ -12228,6 +12550,28 @@ const STAGES = [
     ageRange: '34세',
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
+      {
+        id: 'dev-reflects-on-career-34',
+        text: '개발자로 걸어온 지난 시간을 돌아본다',
+        deltas: {"happiness":3,"relationship":1},
+        result: '많이 헤맸지만, 그만큼 많이 자랐다는 생각이 들었다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-plans-next-chapter-34',
+        text: '앞으로도 계속 개발자로 남을지 다음 장을 고민한다',
+        deltas: {"happiness":2},
+        result: '정답은 없었지만, 여기까지 온 것만으로도 의미가 있었다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-final-team-dinner-34',
+        text: '오랫동안 함께한 팀원들과 뜻깊은 회식 자리를 갖는다',
+        deltas: {"happiness":3,"relationship":2},
+        result: '수많은 밤샘과 배포가, 결국 이 사람들과의 추억으로 남았다.',
+        requiresRoute: 'developer'
+      },
+
       {
         id: 'married-inlaw-visit-stress',
         text: '명절에 시댁·처가 방문 문제로 신경전을 벌인다',
@@ -14891,6 +15235,14 @@ const STAGES = [
     ageRange: '40세',
     intro: '인생의 절반 지점. 마흔이라는 숫자가 이유 없이 지난 시간을 돌아보게 만듭니다.',
     choices: [
+      {
+        id: 'dev2-tech-consulting-40',
+        text: '쌓아온 경력으로 기술 자문 부업을 시작한다',
+        deltas: {"wealth":4,"happiness":2},
+        result: '경험 자체가 돈이 된다는 게, 새삼스럽게 느껴졌다.',
+        requiresOccupation: ["senior-developer"]
+      },
+
       {
         id: 'parenting-first-day-of-school',
         text: '아이의 초등학교 입학식에 함께한다',
@@ -18803,6 +19155,14 @@ const STAGES = [
     intro: '정년이라는 단어가 더는 남 얘기가 아니게 되는 나이. 매일 출근하던 삶이 조용히 막을 내립니다.',
     choices: [
       {
+        id: 'dev2-legacy-system-reunion-55',
+        text: '오래전 직접 만든 시스템이 아직도 쓰이고 있다는 소식을 듣는다',
+        deltas: {"happiness":4,"fame":1},
+        result: '흔적 하나가, 여전히 세상 어딘가에서 돌아가고 있었다.',
+        requiresOccupation: ["senior-developer"]
+      },
+
+      {
         id: 'married-considers-separation-marriage',
         text: '함께 살되 각자의 삶을 존중하는 졸혼을 고민한다',
         deltas: { happiness: 1, relationship: -1 },
@@ -21044,6 +21404,14 @@ const STAGES = [
     ageRange: '70세',
     intro: '칠순. 황혼이라 불리는 시간의 첫걸음을 내딛습니다.',
     choices: [
+      {
+        id: 'dev2-mentoring-legacy-70',
+        text: '평생 쌓은 노하우를 후배 개발자들에게 정리해 남긴다',
+        deltas: {"happiness":3,"fame":1},
+        result: '한 줄 한 줄에, 지나온 세월이 담겨 있었다.',
+        requiresOccupation: ["senior-developer"]
+      },
+
       {
         id: 'deviant-secret-smoke-defy-doctor-70',
         text: '의사가 금지한 담배를 몰래 다시 태운다',
