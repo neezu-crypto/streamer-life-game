@@ -977,7 +977,8 @@ const STAGES = [
         id: "wealth-drain-8-a",
         text: "새로 나온 캐릭터 상품을 모으는 데 푹 빠진다",
         deltas: { wealth: -3 },
-        result: "하나만 더, 하나만 더 하다 보니 어느새 한가득이었다."
+        result: "하나만 더, 하나만 더 하다 보니 어느새 한가득이었다.",
+        addHobby: { id: 'collecting', label: '🧸 수집' }
       },
       {
         id: "unhappy-8",
