@@ -3509,27 +3509,33 @@
         <p>25세 <code>yp-decides-to-run-25</code>(<code>requiresEverOccupation:['student-council-president']</code>,
         <code>mandatory:true</code>)로 진입, <code>local-council-candidate</code>(🗳️ 지방의회 후보)로
         시작해 27세 <code>yp-wins-first-election-27</code>(<code>mandatory:true</code>, 자동 당선)에서
-        <code>local-council-member</code>(🏛️ 지방의원)로 전환 - 개발자 루트의 시니어 승진과 같은 급의
-        실패 없는 단일 마일스톤. 25~39세 15년간 루트 전용 선택지 42개(선거 유세·예산 심의·언론 스캔들·
-        여야 갈등·뇌물 유혹·재선·차기 총선 고민·고별 연설 등) + 후속 이벤트 3개(50/65/80세,
-        <code>local-council-member</code> 전용).</p>
+        <code>local-council-member</code>(🏛️ 지방의원)로 전환하는 초안을 먼저 만들었다.</p>
+        <p class="note"><b>버그 발견·수정 — 선행 루트와의 기간 겹침</b> (2026-08-23, 사용자 지시 - "대학
+        학생회장을 마치고 진입 가능해야하니까 기간이 겹치면 안돼") — <code>student-leadership</code>은
+        14세 진입·<code>maxDurationYears:15</code>로 <b>항상 정확히 29세에 자동 만료</b>된다(진입
+        나이가 고정이라 종료 나이도 고정). 그런데 초안의 트리거를 25세에 뒀던 게 문제였다 - 25세는 아직
+        그 루트가 활성 상태인 구간이라, <code>pickVisibleChoiceIds</code>의 루트 배타 규칙(활성 루트가
+        있으면 그 나이엔 그 루트 전용 콘텐츠만 노출되고 다른 모든 선택지는 완전히 배제됨) 때문에
+        <code>yp-decides-to-run-25</code>는 실전에서 <b>절대 뜰 수 없는 선택지</b>였다(직접 조작한
+        단위 테스트에서는 활성 루트 자체가 없는 상태로 검증해서 이 문제를 못 잡았음). 트리거·루트 본문
+        전체를 25~39세에서 <b>30~44세</b>로 5년씩 밀고, 마일스톤도 27→32세로 옮겼다 - 30세부터는
+        <code>student-leadership</code>이 항상 이미 만료된 뒤라 겹침이 구조적으로 불가능하다(별도
+        <code>requiresRouteCompletedWithin</code> 없이도 진입 나이 자체가 만료 이후이므로 충분).</p>
+        <p>30~44세 15년간 루트 전용 선택지 42개(선거 유세·예산 심의·언론 스캔들·여야 갈등·뇌물 유혹·
+        재선·차기 총선 고민·고별 연설 등) + 후속 이벤트 3개(50/65/80세, <code>local-council-member</code>
+        전용) - 총 47개는 그대로.</p>
         <h3>검증</h3>
         <ul>
             <li><code>node -c game-data.js</code>/<code>node -c index.js</code> 통과, 47개 id 중복
-            0건(전체 2,965개 중), 25~39세 15개 나이 전부 <code>requiresRoute:'youth-politics'</code>
-            선택지 1개 이상 확인(zeroEligible 방지 - 초안에서 35세가 누락됐던 걸 사전 점검으로 발견해
-            보강).</li>
-            <li>10,000회 회귀(순수 무작위) — 즉사 비율 16.73%(정상 범위), STUCK/ALL_REJECTED 0건.
-            다만 트리거가 자연 발생 0회였는데, 원인은 선행 조건 체인이 김(재능 leadership 획득 →
-            14세 트리거 → 20세 학생회장 당선 → 25세 재도전)이라 순수 무작위 표본에서 우연히 한 번도
-            안 걸린 것으로 확인(강제 선호 시뮬레이션·격리 단위 테스트로 메커니즘 자체는 정상 확인 -
-            아래 참고).</li>
-            <li>단위 테스트 — choiceLog를 직접 조작해 "25세, 과거 학생회장 이력 있음, 현재 직업은
-            다른 직장인"으로 강제 세팅 → 트리거가 정확히 노출되고(<code>requiresEverOccupation</code>이
-            "지금 직업"이 아니라 "과거 이력"을 본다는 것도 함께 확인), 선택 시
-            <code>local-council-candidate</code>로 직업 전환·<code>youth-politics</code> 루트 시작,
-            26세 루트 전용 3개만 정상 노출, 27세 마일스톤 단독 노출 후
-            <code>local-council-member</code>로 자동 전환까지 전부 의도대로 동작함을 확인.</li>
+            0건(전체 2,965개 중), 30~44세 15개 나이 전부 <code>requiresRoute:'youth-politics'</code>
+            선택지 1개 이상 확인(zeroEligible 방지).</li>
+            <li>10,000회 회귀(순수 무작위) — 즉사 비율 16.46%(정상 범위), STUCK/ALL_REJECTED 0건.</li>
+            <li><b>겹침 재현·수정 확인 테스트</b> — choiceLog를 "14세 학생회 트리거 + 20세 학생회장
+            당선"으로 강제 세팅한 뒤 22/25/28/29세에서 노출 목록을 확인 → 전부
+            <code>sl-*</code>(학생 리더십 전용) 콘텐츠만 뜨고 <code>yp-decides-to-run-30</code>은 단
+            한 번도 노출되지 않음을 확인(수정 전이었다면 25세에서 이미 노출됐어야 함). 30세부터는
+            루트가 자동 만료돼 정확히 그 순간부터 트리거가 노출됨을 확인 - 이후 31세엔 이미 선택을
+            마쳐 그 choiceId 자체가 그 나이엔 없으므로 재노출되지 않음도 함께 확인.</li>
         </ul>
     </section>
 

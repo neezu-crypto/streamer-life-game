@@ -7534,37 +7534,6 @@ const STAGES = [
     ageRange: '25세',
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
-      {
-        id: 'yp-decides-to-run-25',
-        text: '학생회장 경력을 살려 지방의회 선거에 도전하기로 결심한다',
-        deltas: {"happiness":3,"wealth":-3,"fame":2},
-        result: '학생회 시절의 다짐이, 더 큰 무대로 이어졌다.',
-        requiresEverOccupation: ["student-council-president"],
-        mandatory: true,
-        startsRoute: {"id":"youth-politics","label":"🏛️ 청년 정치","maxDurationYears":15},
-        setOccupation: {"id":"local-council-candidate","label":"🗳️ 지방의회 후보"}
-      },
-      {
-        id: 'yp-campaign-doorknocking-25',
-        text: '한 표라도 더 얻기 위해 집집마다 발로 뛰며 인사한다',
-        deltas: {"happiness":-1,"health":-1},
-        result: '문전박대도 여러 번이었지만, 악수 한 번에 힘을 얻었다.',
-        requiresRoute: 'youth-politics'
-      },
-      {
-        id: 'yp-campaign-funding-25',
-        text: '선거 자금을 마련하느라 이곳저곳 발품을 판다',
-        deltas: {"happiness":-2,"wealth":-2},
-        result: '돈 없이는 유세도 못 한다는 걸, 뼈저리게 실감했다.',
-        requiresRoute: 'youth-politics'
-      },
-      {
-        id: 'yp-campaign-debate-25',
-        text: '상대 후보와의 토론회에서 정책을 놓고 설전을 벌인다',
-        deltas: {"happiness":2,"fame":1},
-        result: '떨리는 목소리를 애써 감추며, 준비한 논리를 풀어냈다.',
-        requiresRoute: 'youth-politics'
-      },
 
       {
         id: 'japan-trip-shinkansen-25',
@@ -8175,27 +8144,6 @@ const STAGES = [
     ageRange: '26세',
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
-      {
-        id: 'yp-grassroots-support-26',
-        text: '지역 주민들과 직접 만나며 밑바닥 민심을 다진다',
-        deltas: {"happiness":2,"relationship":1},
-        result: '큰 공약보다, 소소한 대화가 마음을 더 움직였다.',
-        requiresRoute: 'youth-politics'
-      },
-      {
-        id: 'yp-campaign-exhaustion-26',
-        text: '끝없는 유세 일정에 몸도 마음도 지쳐간다',
-        deltas: {"happiness":-3,"health":-2},
-        result: '이겨도 좋고 져도 좋으니, 일단 좀 쉬고 싶다는 생각뿐이었다.',
-        requiresRoute: 'youth-politics'
-      },
-      {
-        id: 'yp-media-interview-26',
-        text: '지역 언론과의 인터뷰에서 소신 있게 정책을 밝힌다',
-        deltas: {"happiness":2,"fame":2},
-        result: '내 목소리가 활자로 남는다는 게, 묘한 책임감을 줬다.',
-        requiresRoute: 'youth-politics'
-      },
 
       {
         id: 'japan-trip-onsen-ryokan-26',
@@ -8889,16 +8837,6 @@ const STAGES = [
     ageRange: '27세',
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
-      {
-        id: 'yp-wins-first-election-27',
-        text: '치열한 선거전 끝에 지방의회 의원으로 당선된다',
-        deltas: {"happiness":5,"wealth":2,"fame":3},
-        result: '개표 결과가 뜨는 순간, 그동안의 밤샘 유세가 주마등처럼 스쳤다.',
-        requiresRoute: 'youth-politics',
-        requiresOccupation: ["local-council-candidate"],
-        mandatory: true,
-        setOccupation: {"id":"local-council-member","label":"🏛️ 지방의원"}
-      },
 
       {
         id: 'japan-trip-lost-in-tokyo-27',
@@ -9589,27 +9527,6 @@ const STAGES = [
     ageRange: '28세',
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
-      {
-        id: 'yp-first-committee-assignment-28',
-        text: '의회 상임위원회에 배정받아 본격적인 의정 활동을 시작한다',
-        deltas: {"happiness":3,"wealth":1},
-        result: '회의 자료 두께만큼, 배워야 할 것도 산더미였다.',
-        requiresRoute: 'youth-politics'
-      },
-      {
-        id: 'yp-constituent-complaint-28',
-        text: '주민 민원을 해결하려 관련 부서를 이리저리 뛰어다닌다',
-        deltas: {"happiness":-1,"relationship":2},
-        result: '작은 민원 하나 해결하는 데도, 생각보다 많은 발품이 필요했다.',
-        requiresRoute: 'youth-politics'
-      },
-      {
-        id: 'yp-budget-review-28',
-        text: '지역 예산안 심의에서 밤늦도록 숫자와 씨름한다',
-        deltas: {"happiness":-1,"wealth":1},
-        result: '숫자 하나하나에, 누군가의 생활이 걸려 있다는 걸 실감했다.',
-        requiresRoute: 'youth-politics'
-      },
 
       {
         id: 'japan-trip-kyoto-temple-28',
@@ -10203,27 +10120,6 @@ const STAGES = [
     ageRange: '29세',
     intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
     choices: [
-      {
-        id: 'yp-local-festival-appearance-29',
-        text: '지역 축제에 참석해 주민들과 어울린다',
-        deltas: {"happiness":3,"relationship":2},
-        result: '명함을 돌리기보다, 그냥 함께 웃는 시간이 더 값졌다.',
-        requiresRoute: 'youth-politics'
-      },
-      {
-        id: 'yp-press-scandal-scare-29',
-        text: '악의적인 허위 보도로 곤욕을 치른다',
-        deltas: {"happiness":-4,"fame":-2},
-        result: '해명 한 줄 내는 데도, 며칠 밤을 새워야 했다.',
-        requiresRoute: 'youth-politics'
-      },
-      {
-        id: 'yp-policy-proposal-29',
-        text: '지역 발전을 위한 새 조례안을 직접 발의한다',
-        deltas: {"happiness":3,"fame":1},
-        result: '아이디어가 실제 조문이 되어가는 과정이, 뿌듯하면서도 어려웠다.',
-        requiresRoute: 'youth-politics'
-      },
 
       {
         id: 'japan-trip-convenience-store-food-29',
@@ -10794,26 +10690,37 @@ const STAGES = [
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
       {
-        id: 'yp-coalition-building-30',
-        text: '다른 정당 의원들과 협치를 위해 물밑 대화를 시도한다',
-        deltas: {"happiness":1,"relationship":2},
-        result: '입장은 달라도, 지역을 위한다는 마음만은 다르지 않았다.',
+        id: 'yp-decides-to-run-30',
+        text: '학생회장 경력을 살려 지방의회 선거에 도전하기로 결심한다',
+        deltas: {"happiness":3,"wealth":-3,"fame":2},
+        result: '학생회 시절의 다짐이, 더 큰 무대로 이어졌다.',
+        requiresEverOccupation: ["student-council-president"],
+        mandatory: true,
+        startsRoute: {"id":"youth-politics","label":"🏛️ 청년 정치","maxDurationYears":15},
+        setOccupation: {"id":"local-council-candidate","label":"🗳️ 지방의회 후보"}
+      },
+      {
+        id: 'yp-campaign-doorknocking-30',
+        text: '한 표라도 더 얻기 위해 집집마다 발로 뛰며 인사한다',
+        deltas: {"happiness":-1,"health":-1},
+        result: '문전박대도 여러 번이었지만, 악수 한 번에 힘을 얻었다.',
         requiresRoute: 'youth-politics'
       },
       {
-        id: 'yp-partisan-conflict-30',
-        text: '여야 갈등 속에서 곤란한 입장에 놓인다',
-        deltas: {"happiness":-3,"relationship":-2},
-        result: '양쪽 눈치를 다 봐야 하는 자리가, 새삼 고단하게 느껴졌다.',
+        id: 'yp-campaign-funding-30',
+        text: '선거 자금을 마련하느라 이곳저곳 발품을 판다',
+        deltas: {"happiness":-2,"wealth":-2},
+        result: '돈 없이는 유세도 못 한다는 걸, 뼈저리게 실감했다.',
         requiresRoute: 'youth-politics'
       },
       {
-        id: 'yp-local-development-project-30',
-        text: '지역 개발 사업을 유치하는 데 성공한다',
-        deltas: {"happiness":4,"fame":2,"wealth":1},
-        result: '오랜 설득 끝에, 마침내 삽을 뜨게 됐다.',
+        id: 'yp-campaign-debate-30',
+        text: '상대 후보와의 토론회에서 정책을 놓고 설전을 벌인다',
+        deltas: {"happiness":2,"fame":1},
+        result: '떨리는 목소리를 애써 감추며, 준비한 논리를 풀어냈다.',
         requiresRoute: 'youth-politics'
       },
+
 
       {
         id: 'japan-trip-earthquake-scare-30',
@@ -11342,26 +11249,27 @@ const STAGES = [
     intro: '곁에 남을 사람과 앞으로의 삶을 어떻게 그릴지, 조금 더 구체적으로 고민하는 나이입니다.',
     choices: [
       {
-        id: 'yp-corruption-temptation-31',
-        text: '업체로부터 은근한 뇌물성 제안을 받고 흔들린다',
-        deltas: {"happiness":-2,"relationship":-1},
-        result: '단호히 거절했지만, 그 순간의 유혹은 오래 마음에 남았다.',
+        id: 'yp-grassroots-support-31',
+        text: '지역 주민들과 직접 만나며 밑바닥 민심을 다진다',
+        deltas: {"happiness":2,"relationship":1},
+        result: '큰 공약보다, 소소한 대화가 마음을 더 움직였다.',
         requiresRoute: 'youth-politics'
       },
       {
-        id: 'yp-civic-group-collab-31',
-        text: '시민단체와 손잡고 지역 현안을 함께 풀어간다',
-        deltas: {"happiness":3,"relationship":2},
-        result: '한쪽 편만 들지 않으니, 오히려 더 많은 것이 보였다.',
+        id: 'yp-campaign-exhaustion-31',
+        text: '끝없는 유세 일정에 몸도 마음도 지쳐간다',
+        deltas: {"happiness":-3,"health":-2},
+        result: '이겨도 좋고 져도 좋으니, 일단 좀 쉬고 싶다는 생각뿐이었다.',
         requiresRoute: 'youth-politics'
       },
       {
-        id: 'yp-reelection-preparation-31',
-        text: '재선을 위한 다음 선거를 미리 준비한다',
-        deltas: {"happiness":1,"wealth":-2},
-        result: '벌써부터 다음 선거 걱정이라니, 정치란 끝이 없는 일 같았다.',
+        id: 'yp-media-interview-31',
+        text: '지역 언론과의 인터뷰에서 소신 있게 정책을 밝힌다',
+        deltas: {"happiness":2,"fame":2},
+        result: '내 목소리가 활자로 남는다는 게, 묘한 책임감을 줬다.',
         requiresRoute: 'youth-politics'
       },
+
 
       {
         id: 'japan-trip-family-onsen-31',
@@ -11876,26 +11784,16 @@ const STAGES = [
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
       {
-        id: 'yp-successful-reelection-32',
-        text: '치열한 경쟁 끝에 재선에 성공한다',
-        deltas: {"happiness":5,"fame":2,"wealth":1},
-        result: '한 번보다 두 번이 더 어렵다는 말을, 이제야 실감했다.',
-        requiresRoute: 'youth-politics'
+        id: 'yp-wins-first-election-32',
+        text: '치열한 선거전 끝에 지방의회 의원으로 당선된다',
+        deltas: {"happiness":5,"wealth":2,"fame":3},
+        result: '개표 결과가 뜨는 순간, 그동안의 밤샘 유세가 주마등처럼 스쳤다.',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ["local-council-candidate"],
+        mandatory: true,
+        setOccupation: {"id":"local-council-member","label":"🏛️ 지방의원"}
       },
-      {
-        id: 'yp-work-life-balance-32',
-        text: '가족과 보낼 시간이 부족해 미안함을 느낀다',
-        deltas: {"happiness":-2,"relationship":-2},
-        result: '지역을 챙기는 사이, 정작 집은 뒷전이 되어가고 있었다.',
-        requiresRoute: 'youth-politics'
-      },
-      {
-        id: 'yp-mentors-young-candidate-32',
-        text: '정치에 뜻을 품은 후배를 진심으로 조언해준다',
-        deltas: {"happiness":2,"relationship":2},
-        result: '내가 받았던 도움을, 이제는 돌려줄 차례였다.',
-        requiresRoute: 'youth-politics'
-      },
+
 
       {
         id: 'dev-leadership-conflict-32',
@@ -12371,26 +12269,27 @@ const STAGES = [
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
       {
-        id: 'yp-national-office-temptation-33',
-        text: '국회의원 도전을 은근히 제안받고 고민에 빠진다',
-        deltas: {"happiness":2,"wealth":-1},
-        result: '더 큰 무대의 유혹이, 만만치 않게 다가왔다.',
+        id: 'yp-first-committee-assignment-33',
+        text: '의회 상임위원회에 배정받아 본격적인 의정 활동을 시작한다',
+        deltas: {"happiness":3,"wealth":1},
+        result: '회의 자료 두께만큼, 배워야 할 것도 산더미였다.',
         requiresRoute: 'youth-politics'
       },
       {
-        id: 'yp-local-priority-decision-33',
-        text: '더 큰 자리보다 지역을 지키기로 마음을 굳힌다',
-        deltas: {"happiness":3,"relationship":2},
-        result: '화려함보다, 뿌리내린 자리가 더 소중하다는 걸 알았다.',
+        id: 'yp-constituent-complaint-33',
+        text: '주민 민원을 해결하려 관련 부서를 이리저리 뛰어다닌다',
+        deltas: {"happiness":-1,"relationship":2},
+        result: '작은 민원 하나 해결하는 데도, 생각보다 많은 발품이 필요했다.',
         requiresRoute: 'youth-politics'
       },
       {
-        id: 'yp-disaster-response-33',
-        text: '지역에 재해가 닥치자 밤낮없이 수습에 매달린다',
-        deltas: {"happiness":-2,"health":-2,"relationship":3},
-        result: '주민들이 안심하는 얼굴을 보고서야, 겨우 숨을 돌렸다.',
+        id: 'yp-budget-review-33',
+        text: '지역 예산안 심의에서 밤늦도록 숫자와 씨름한다',
+        deltas: {"happiness":-1,"wealth":1},
+        result: '숫자 하나하나에, 누군가의 생활이 걸려 있다는 걸 실감했다.',
         requiresRoute: 'youth-politics'
       },
+
 
       {
         id: 'japan-trip-sapporo-snow-festival-33',
@@ -12840,26 +12739,27 @@ const STAGES = [
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
       {
-        id: 'yp-budget-cut-conflict-34',
-        text: '예산 삭감을 둘러싸고 집행부와 크게 충돌한다',
-        deltas: {"happiness":-3,"relationship":-1},
-        result: '주민을 위한 싸움이라 믿었지만, 마음은 편치 않았다.',
+        id: 'yp-local-festival-appearance-34',
+        text: '지역 축제에 참석해 주민들과 어울린다',
+        deltas: {"happiness":3,"relationship":2},
+        result: '명함을 돌리기보다, 그냥 함께 웃는 시간이 더 값졌다.',
         requiresRoute: 'youth-politics'
       },
       {
-        id: 'yp-community-center-opening-34',
-        text: '오랜 노력 끝에 지역 주민센터 개관식을 연다',
-        deltas: {"happiness":4,"fame":1},
-        result: '테이프를 자르는 그 순간, 그동안의 고생이 다 씻겨나갔다.',
+        id: 'yp-press-scandal-scare-34',
+        text: '악의적인 허위 보도로 곤욕을 치른다',
+        deltas: {"happiness":-4,"fame":-2},
+        result: '해명 한 줄 내는 데도, 며칠 밤을 새워야 했다.',
         requiresRoute: 'youth-politics'
       },
       {
-        id: 'yp-public-approval-rating-34',
-        text: '지역 여론조사에서 높은 지지율을 확인하고 안도한다',
+        id: 'yp-policy-proposal-34',
+        text: '지역 발전을 위한 새 조례안을 직접 발의한다',
         deltas: {"happiness":3,"fame":1},
-        result: '숫자 하나에 일희일비하는 스스로가, 조금 낯설게 느껴졌다.',
+        result: '아이디어가 실제 조문이 되어가는 과정이, 뿌듯하면서도 어려웠다.',
         requiresRoute: 'youth-politics'
       },
+
 
       {
         id: 'japan-trip-fuji-climb-34',
@@ -13353,26 +13253,27 @@ const STAGES = [
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
       {
-        id: 'yp-town-hall-meeting-35',
-        text: '주민들과 직접 소통하는 타운홀 미팅을 정기적으로 연다',
-        deltas: {"happiness":3,"relationship":2},
-        result: '날 선 질문도 많았지만, 그만큼 진솔한 자리였다.',
+        id: 'yp-coalition-building-35',
+        text: '다른 정당 의원들과 협치를 위해 물밑 대화를 시도한다',
+        deltas: {"happiness":1,"relationship":2},
+        result: '입장은 달라도, 지역을 위한다는 마음만은 다르지 않았다.',
         requiresRoute: 'youth-politics'
       },
       {
-        id: 'yp-overwork-health-scare-35',
-        text: '무리한 의정 활동으로 건강에 적신호가 켜진다',
-        deltas: {"happiness":-3,"health":-3},
-        result: '몸이 보내는 신호를, 너무 오래 무시해왔다는 걸 깨달았다.',
+        id: 'yp-partisan-conflict-35',
+        text: '여야 갈등 속에서 곤란한 입장에 놓인다',
+        deltas: {"happiness":-3,"relationship":-2},
+        result: '양쪽 눈치를 다 봐야 하는 자리가, 새삼 고단하게 느껴졌다.',
         requiresRoute: 'youth-politics'
       },
       {
-        id: 'yp-regional-cooperation-35',
-        text: '이웃 지자체와 손잡고 공동 사업을 추진한다',
-        deltas: {"happiness":3,"fame":1},
-        result: '경계를 넘어선 협력이, 생각보다 큰 시너지를 냈다.',
+        id: 'yp-local-development-project-35',
+        text: '지역 개발 사업을 유치하는 데 성공한다',
+        deltas: {"happiness":4,"fame":2,"wealth":1},
+        result: '오랜 설득 끝에, 마침내 삽을 뜨게 됐다.',
         requiresRoute: 'youth-politics'
       },
+
 
       {
         id: 'married-anniversary-trip',
@@ -13815,26 +13716,27 @@ const STAGES = [
     intro: '나를 키워준 사람들을 이제는 내가 돌봐야 할 시기가 다가옵니다.',
     choices: [
       {
-        id: 'yp-third-term-decision-36',
-        text: '3선에 도전할지, 이쯤에서 물러날지 고민한다',
-        deltas: {"happiness":1},
-        result: '계속할 이유도, 멈출 이유도 둘 다 충분했다.',
+        id: 'yp-corruption-temptation-36',
+        text: '업체로부터 은근한 뇌물성 제안을 받고 흔들린다',
+        deltas: {"happiness":-2,"relationship":-1},
+        result: '단호히 거절했지만, 그 순간의 유혹은 오래 마음에 남았다.',
         requiresRoute: 'youth-politics'
       },
       {
-        id: 'yp-legacy-project-36',
-        text: '임기 내 마무리하고 싶은 숙원 사업에 총력을 기울인다',
-        deltas: {"happiness":3,"wealth":-1},
-        result: '이름을 남기기보다, 결과를 남기고 싶다는 마음이 컸다.',
+        id: 'yp-civic-group-collab-36',
+        text: '시민단체와 손잡고 지역 현안을 함께 풀어간다',
+        deltas: {"happiness":3,"relationship":2},
+        result: '한쪽 편만 들지 않으니, 오히려 더 많은 것이 보였다.',
         requiresRoute: 'youth-politics'
       },
       {
-        id: 'yp-staff-loyalty-36',
-        text: '오랫동안 함께한 보좌진들과의 신뢰를 다진다',
-        deltas: {"happiness":2,"relationship":2},
-        result: '혼자였다면 절대 여기까지 못 왔을 거란 걸, 잘 알고 있었다.',
+        id: 'yp-reelection-preparation-36',
+        text: '재선을 위한 다음 선거를 미리 준비한다',
+        deltas: {"happiness":1,"wealth":-2},
+        result: '벌써부터 다음 선거 걱정이라니, 정치란 끝이 없는 일 같았다.',
         requiresRoute: 'youth-politics'
       },
+
 
       {
         id: 'japan-trip-hanabi-festival-36',
@@ -14278,26 +14180,27 @@ const STAGES = [
     intro: '잊고 지내던 나 자신을 다시 챙기기 시작하는 나이입니다.',
     choices: [
       {
-        id: 'yp-political-fatigue-37',
-        text: '반복되는 정쟁에 깊은 회의감을 느낀다',
-        deltas: {"happiness":-4},
-        result: '처음의 순수했던 마음이, 조금씩 옅어지는 것 같아 씁쓸했다.',
+        id: 'yp-successful-reelection-37',
+        text: '치열한 경쟁 끝에 재선에 성공한다',
+        deltas: {"happiness":5,"fame":2,"wealth":1},
+        result: '한 번보다 두 번이 더 어렵다는 말을, 이제야 실감했다.',
         requiresRoute: 'youth-politics'
       },
       {
-        id: 'yp-renewed-purpose-37',
-        text: '주민의 감사 인사에 다시금 초심을 되새긴다',
-        deltas: {"happiness":4,"relationship":2},
-        result: '작은 말 한마디가, 지쳐가던 마음을 다시 붙잡아줬다.',
+        id: 'yp-work-life-balance-37',
+        text: '가족과 보낼 시간이 부족해 미안함을 느낀다',
+        deltas: {"happiness":-2,"relationship":-2},
+        result: '지역을 챙기는 사이, 정작 집은 뒷전이 되어가고 있었다.',
         requiresRoute: 'youth-politics'
       },
       {
-        id: 'yp-third-election-win-37',
-        text: '3선에 성공하며 지역의 터줏대감으로 자리 잡는다',
-        deltas: {"happiness":4,"fame":2},
-        result: '이제는 얼굴만 봐도 알아보는 주민들이, 훨씬 많아졌다.',
+        id: 'yp-mentors-young-candidate-37',
+        text: '정치에 뜻을 품은 후배를 진심으로 조언해준다',
+        deltas: {"happiness":2,"relationship":2},
+        result: '내가 받았던 도움을, 이제는 돌려줄 차례였다.',
         requiresRoute: 'youth-politics'
       },
+
 
       {
         id: 'married-finance-disagreement',
@@ -14760,26 +14663,27 @@ const STAGES = [
     intro: '몸이 예전 같지 않다는 걸, 무시할 수 없을 만큼 또렷하게 느끼게 됩니다.',
     choices: [
       {
-        id: 'yp-successor-grooming-38',
-        text: '다음 세대를 이끌 후계자를 눈여겨보며 키운다',
-        deltas: {"happiness":2,"relationship":1},
-        result: '언젠가 물려줄 자리라는 걸, 서서히 받아들이고 있었다.',
+        id: 'yp-national-office-temptation-38',
+        text: '국회의원 도전을 은근히 제안받고 고민에 빠진다',
+        deltas: {"happiness":2,"wealth":-1},
+        result: '더 큰 무대의 유혹이, 만만치 않게 다가왔다.',
         requiresRoute: 'youth-politics'
       },
       {
-        id: 'yp-reflects-on-service-38',
-        text: '주민을 위해 살아온 지난 시간을 돌아본다',
-        deltas: {"happiness":3,"relationship":1},
-        result: '화려하진 않아도, 후회 없는 시간이었다는 확신이 들었다.',
+        id: 'yp-local-priority-decision-38',
+        text: '더 큰 자리보다 지역을 지키기로 마음을 굳힌다',
+        deltas: {"happiness":3,"relationship":2},
+        result: '화려함보다, 뿌리내린 자리가 더 소중하다는 걸 알았다.',
         requiresRoute: 'youth-politics'
       },
       {
-        id: 'yp-final-term-announcement-38',
-        text: '이번 임기를 마지막으로 정계 은퇴를 선언한다',
-        deltas: {"happiness":2,"relationship":2},
-        result: '박수보다 아쉬움이 큰 회견이었지만, 후련한 마음도 있었다.',
+        id: 'yp-disaster-response-38',
+        text: '지역에 재해가 닥치자 밤낮없이 수습에 매달린다',
+        deltas: {"happiness":-2,"health":-2,"relationship":3},
+        result: '주민들이 안심하는 얼굴을 보고서야, 겨우 숨을 돌렸다.',
         requiresRoute: 'youth-politics'
       },
+
 
       {
         id: 'japan-trip-business-trip-38',
@@ -15240,26 +15144,27 @@ const STAGES = [
     intro: '서른대의 마지막 해. 다가올 10년을 조용히 준비하게 됩니다.',
     choices: [
       {
-        id: 'yp-farewell-address-39',
-        text: '고별 연설에서 지역 주민들에게 진심 어린 감사를 전한다',
-        deltas: {"happiness":4,"relationship":3},
-        result: '목이 메어 몇 번이나 말을 멈춰야 했다.',
+        id: 'yp-budget-cut-conflict-39',
+        text: '예산 삭감을 둘러싸고 집행부와 크게 충돌한다',
+        deltas: {"happiness":-3,"relationship":-1},
+        result: '주민을 위한 싸움이라 믿었지만, 마음은 편치 않았다.',
         requiresRoute: 'youth-politics'
       },
       {
-        id: 'yp-successor-support-39',
-        text: '뒤를 이을 후배 정치인의 선거를 힘껏 돕는다',
-        deltas: {"happiness":3,"relationship":2},
-        result: '내가 걸었던 길을, 이제는 다른 이가 걷고 있었다.',
+        id: 'yp-community-center-opening-39',
+        text: '오랜 노력 끝에 지역 주민센터 개관식을 연다',
+        deltas: {"happiness":4,"fame":1},
+        result: '테이프를 자르는 그 순간, 그동안의 고생이 다 씻겨나갔다.',
         requiresRoute: 'youth-politics'
       },
       {
-        id: 'yp-plans-next-chapter-39',
-        text: '정치 이후의 삶을 새롭게 그려본다',
-        deltas: {"happiness":2},
-        result: '끝이 아니라, 또 다른 시작이라는 생각이 들었다.',
+        id: 'yp-public-approval-rating-39',
+        text: '지역 여론조사에서 높은 지지율을 확인하고 안도한다',
+        deltas: {"happiness":3,"fame":1},
+        result: '숫자 하나에 일희일비하는 스스로가, 조금 낯설게 느껴졌다.',
         requiresRoute: 'youth-politics'
       },
+
 
       {
         id: 'married-in-law-money-request',
@@ -15677,6 +15582,28 @@ const STAGES = [
     ageRange: '40세',
     intro: '인생의 절반 지점. 마흔이라는 숫자가 이유 없이 지난 시간을 돌아보게 만듭니다.',
     choices: [
+      {
+        id: 'yp-town-hall-meeting-40',
+        text: '주민들과 직접 소통하는 타운홀 미팅을 정기적으로 연다',
+        deltas: {"happiness":3,"relationship":2},
+        result: '날 선 질문도 많았지만, 그만큼 진솔한 자리였다.',
+        requiresRoute: 'youth-politics'
+      },
+      {
+        id: 'yp-overwork-health-scare-40',
+        text: '무리한 의정 활동으로 건강에 적신호가 켜진다',
+        deltas: {"happiness":-3,"health":-3},
+        result: '몸이 보내는 신호를, 너무 오래 무시해왔다는 걸 깨달았다.',
+        requiresRoute: 'youth-politics'
+      },
+      {
+        id: 'yp-regional-cooperation-40',
+        text: '이웃 지자체와 손잡고 공동 사업을 추진한다',
+        deltas: {"happiness":3,"fame":1},
+        result: '경계를 넘어선 협력이, 생각보다 큰 시너지를 냈다.',
+        requiresRoute: 'youth-politics'
+      },
+
       {
         id: 'japan-trip-golf-package-40',
         text: '골프 패키지 여행으로 일본을 찾는다',
@@ -16122,6 +16049,28 @@ const STAGES = [
     intro: '자녀 교육이든 커리어든, 뭔가를 본격적으로 다잡아야 할 것 같은 압박이 느껴지는 나이입니다.',
     choices: [
       {
+        id: 'yp-third-term-decision-41',
+        text: '3선에 도전할지, 이쯤에서 물러날지 고민한다',
+        deltas: {"happiness":1},
+        result: '계속할 이유도, 멈출 이유도 둘 다 충분했다.',
+        requiresRoute: 'youth-politics'
+      },
+      {
+        id: 'yp-legacy-project-41',
+        text: '임기 내 마무리하고 싶은 숙원 사업에 총력을 기울인다',
+        deltas: {"happiness":3,"wealth":-1},
+        result: '이름을 남기기보다, 결과를 남기고 싶다는 마음이 컸다.',
+        requiresRoute: 'youth-politics'
+      },
+      {
+        id: 'yp-staff-loyalty-41',
+        text: '오랫동안 함께한 보좌진들과의 신뢰를 다진다',
+        deltas: {"happiness":2,"relationship":2},
+        result: '혼자였다면 절대 여기까지 못 왔을 거란 걸, 잘 알고 있었다.',
+        requiresRoute: 'youth-politics'
+      },
+
+      {
         id: 'married-separate-rooms-debate',
         text: '코골이 문제로 각방을 쓸지 진지하게 고민한다',
         deltas: { happiness: -1, relationship: -1 },
@@ -16420,6 +16369,28 @@ const STAGES = [
     ageRange: '42세',
     intro: '몸이 보내는 신호를 더 이상 못 본 척할 수 없게 되는 나이입니다.',
     choices: [
+      {
+        id: 'yp-political-fatigue-42',
+        text: '반복되는 정쟁에 깊은 회의감을 느낀다',
+        deltas: {"happiness":-4},
+        result: '처음의 순수했던 마음이, 조금씩 옅어지는 것 같아 씁쓸했다.',
+        requiresRoute: 'youth-politics'
+      },
+      {
+        id: 'yp-renewed-purpose-42',
+        text: '주민의 감사 인사에 다시금 초심을 되새긴다',
+        deltas: {"happiness":4,"relationship":2},
+        result: '작은 말 한마디가, 지쳐가던 마음을 다시 붙잡아줬다.',
+        requiresRoute: 'youth-politics'
+      },
+      {
+        id: 'yp-third-election-win-42',
+        text: '3선에 성공하며 지역의 터줏대감으로 자리 잡는다',
+        deltas: {"happiness":4,"fame":2},
+        result: '이제는 얼굴만 봐도 알아보는 주민들이, 훨씬 많아졌다.',
+        requiresRoute: 'youth-politics'
+      },
+
       {
         id: 'japan-trip-anime-pilgrimage-42',
         text: '좋아하던 애니메이션의 실제 배경지를 찾아간다',
@@ -16769,6 +16740,28 @@ const STAGES = [
     ageRange: '43세',
     intro: '조직 안에서 자신의 자리를 다시 확인하게 되는 시기입니다.',
     choices: [
+      {
+        id: 'yp-successor-grooming-43',
+        text: '다음 세대를 이끌 후계자를 눈여겨보며 키운다',
+        deltas: {"happiness":2,"relationship":1},
+        result: '언젠가 물려줄 자리라는 걸, 서서히 받아들이고 있었다.',
+        requiresRoute: 'youth-politics'
+      },
+      {
+        id: 'yp-reflects-on-service-43',
+        text: '주민을 위해 살아온 지난 시간을 돌아본다',
+        deltas: {"happiness":3,"relationship":1},
+        result: '화려하진 않아도, 후회 없는 시간이었다는 확신이 들었다.',
+        requiresRoute: 'youth-politics'
+      },
+      {
+        id: 'yp-final-term-announcement-43',
+        text: '이번 임기를 마지막으로 정계 은퇴를 선언한다',
+        deltas: {"happiness":2,"relationship":2},
+        result: '박수보다 아쉬움이 큰 회견이었지만, 후련한 마음도 있었다.',
+        requiresRoute: 'youth-politics'
+      },
+
       {
         id: 'married-date-night-revival',
         text: '오랜만에 배우자와 단둘이 데이트를 즐긴다',
@@ -17130,6 +17123,28 @@ const STAGES = [
     ageRange: '44세',
     intro: '가까운 사이일수록 소원해지기 쉬운 나이. 관계를 다시 들여다보게 됩니다.',
     choices: [
+      {
+        id: 'yp-farewell-address-44',
+        text: '고별 연설에서 지역 주민들에게 진심 어린 감사를 전한다',
+        deltas: {"happiness":4,"relationship":3},
+        result: '목이 메어 몇 번이나 말을 멈춰야 했다.',
+        requiresRoute: 'youth-politics'
+      },
+      {
+        id: 'yp-successor-support-44',
+        text: '뒤를 이을 후배 정치인의 선거를 힘껏 돕는다',
+        deltas: {"happiness":3,"relationship":2},
+        result: '내가 걸었던 길을, 이제는 다른 이가 걷고 있었다.',
+        requiresRoute: 'youth-politics'
+      },
+      {
+        id: 'yp-plans-next-chapter-44',
+        text: '정치 이후의 삶을 새롭게 그려본다',
+        deltas: {"happiness":2},
+        result: '끝이 아니라, 또 다른 시작이라는 생각이 들었다.',
+        requiresRoute: 'youth-politics'
+      },
+
       {
         id: 'japan-trip-okinawa-beach-44',
         text: '오키나와의 푸른 바다에서 여유를 즐긴다',
@@ -18867,6 +18882,7 @@ const STAGES = [
     ageRange: '50세',
     intro: '쉰이라는 숫자 앞에서, 지나온 시간의 무게를 새삼 느끼게 됩니다.',
     choices: [
+
       {
         id: 'yp2-elder-statesman-50',
         text: '오랜 정치 경력을 인정받아 원로 정치인으로 대우받는다',
@@ -21219,6 +21235,7 @@ const STAGES = [
     ageRange: '65세',
     intro: '법정 노인 연령. 사회가 부르는 호칭이 바뀌는 걸 마주하게 됩니다.',
     choices: [
+
       {
         id: 'yp2-memoir-writing-65',
         text: '평생의 정치 인생을 회고록으로 정리한다',
@@ -23140,6 +23157,7 @@ const STAGES = [
     ageRange: '80세',
     intro: '팔순. 여든 해를 살아낸 삶을 온 가족과 함께 기립니다.',
     choices: [
+
       {
         id: 'yp2-honorary-award-80',
         text: '지역 발전에 기여한 공로로 명예 시민상을 받는다',
