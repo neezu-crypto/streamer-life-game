@@ -7326,7 +7326,8 @@ const STAGES = [
         id: "unhappy-24",
         text: "첫 직장 상사의 부당한 화살을 묵묵히 속으로 삼킨다",
         deltas: { happiness: -4, relationship: -1 },
-        result: "퇴근길 지하철 안에서야, 겨우 눈물이 새어 나왔다."
+        result: "퇴근길 지하철 안에서야, 겨우 눈물이 새어 나왔다.",
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'learning-the-ropes',
@@ -7339,7 +7340,8 @@ const STAGES = [
         id: 'scolded-by-mentor',
         text: '사수·선배에게 혼나며 하나씩 배워간다',
         deltas: { relationship: 2, happiness: -3 },
-        result: '혼나는 것도 배우는 과정이라는 말을, 그땐 몰랐다.'
+        result: '혼나는 것도 배우는 과정이라는 말을, 그땐 몰랐다.',
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'first-team-dinner',
@@ -7868,7 +7870,8 @@ const STAGES = [
         id: "unhappy-25",
         text: "동기가 먼저 승진했다는 소식에 씁쓸함을 감추지 못한다",
         deltas: { happiness: -3, fame: -1 },
-        result: "축하한다는 말을 하면서도, 마음은 계속 딴 데 있었다."
+        result: "축하한다는 말을 하면서도, 마음은 계속 딴 데 있었다.",
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'work-becomes-easier',
@@ -10170,6 +10173,7 @@ const STAGES = [
       {
         id: 'deviant-office-secret-flirt-29',
         text: '회사에서 묘한 썸을 은근히 즐긴다',
+        requiresOccupation: COMPANY_OCCUPATION_IDS,
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { happiness: 3, relationship: -1 }, result: '괜히 마음이 들뜨는 하루하루였다.' },
           { weight: 10, label: '발각', deltas: { relationship: -4, happiness: -3 }, result: '탕비실에서의 대화를 동료들이 목격했다.' }
@@ -11689,7 +11693,8 @@ const STAGES = [
         id: 'fame-early-career-notice-31',
         text: '업무 성과가 사내에서 화제가 된다',
         deltas: { fame: 3, happiness: 1 },
-        result: '복도에서 마주치는 사람들의 인사가, 며칠 새 부쩍 늘었다.'
+        result: '복도에서 마주치는 사람들의 인사가, 며칠 새 부쩍 늘었다.',
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'fame-social-post-backfire-31',
@@ -12672,7 +12677,9 @@ const STAGES = [
         id: 'dink-satisfaction',
         text: '아이 없이 둘만의 삶(딩크)을 선택한다',
         deltas: { happiness: 4, relationship: 3 },
-        result: '우리 둘의 속도로 사는 삶이, 누구보다 우리에게 잘 맞았다.'
+        result: '우리 둘의 속도로 사는 삶이, 누구보다 우리에게 잘 맞았다.',
+        requiresFamilyMember: ['spouse'],
+        requiresNoFamilyMember: ['child']
       },
       {
         id: 'maternity-leave-anxiety',
@@ -16301,7 +16308,8 @@ const STAGES = [
         id: "unhappy-41",
         text: "회사에서 후배에게 밀려나는 듯한 기분을 느낀다",
         deltas: { happiness: -3, fame: -1 },
-        result: "예전 같으면 내 몫이었을 자리가, 어느새 다른 이름표를 달고 있었다."
+        result: "예전 같으면 내 몫이었을 자리가, 어느새 다른 이름표를 달고 있었다.",
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'focus-on-childs-education',
@@ -16329,6 +16337,7 @@ const STAGES = [
         text: '아이 없는 삶에서 자유로움을 만끽한다',
         deltas: { happiness: 4, wealth: 2 },
         result: '평일 저녁의 여유가, 그 무엇과도 바꿀 수 없이 소중했다.',
+        requiresFamilyMember: ['spouse'],
         requiresNoFamilyMember: ['child']
       },
       {
@@ -17883,6 +17892,7 @@ const STAGES = [
         deltas: { happiness: -6, relationship: -5 },
         result: '믿었던 만큼, 배신감도 그만큼 컸다.',
         requiresAnyAcquaintance: true,
+        requiresOccupation: COMPANY_OCCUPATION_IDS,
         removeAcquaintance: {}
       },
       {
