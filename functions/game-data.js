@@ -19613,14 +19613,6 @@ const STAGES = [
         requiresFamilyMember: ['child']
       },
 
-      {
-        id: 'deviant-underreport-severance-tax-54',
-        text: '퇴직금 세금 신고를 슬쩍 줄인다',
-        prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '세금 몇 푼을 아꼈다는 생각에 흡족했다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
-        ]
-      },
 
       {
         id: "unhappy-54",
@@ -20734,6 +20726,16 @@ const STAGES = [
     ageRange: '61세',
     intro: '은퇴 이후의 삶이 서서히 새로운 리듬을 찾아가는 시기입니다.',
     choices: [
+      {
+        id: 'deviant-underreport-severance-tax-61',
+        text: '퇴직금 세금 신고를 슬쩍 줄인다',
+        requiresAsset: 'severance-payout',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '세금 몇 푼을 아꼈다는 생각에 흡족했다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+        ]
+      },
+
       {
         id: 'lover-late-life-date',
         text: '늦게 만난 연인과 소박한 데이트를 즐긴다',
