@@ -19502,7 +19502,8 @@ const STAGES = [
         id: 'oldprep-land-rental-61',
         text: '묵혀둔 땅 한 뙈기를 세상에 다시 내놓는다',
         deltas: { wealth: 3 },
-        result: '묵혀뒀던 땅이, 매달 조금씩 보탬이라는 싹을 틔웠다.'
+        result: '묵혀뒀던 땅이, 매달 조금씩 보탬이라는 싹을 틔웠다.',
+        requiresAssetType: 'realestate'
       },
       {
         id: 'oldprep-selling-golf-membership-61',
@@ -21901,7 +21902,8 @@ const STAGES = [
         id: 'long-held-land-sells-81',
         text: '오래전부터 갖고 있던 땅을 처분하기로 한다',
         deltas: { wealth: 8 },
-        result: '평생 붙들고 있던 땅이, 마지막으로 큰 보탬이 됐다.'
+        result: '평생 붙들고 있던 땅이, 마지막으로 큰 보탬이 됐다.',
+        requiresAssetType: 'realestate'
       },
       {
         id: 'lottery-check-81',
