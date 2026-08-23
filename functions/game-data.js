@@ -21559,7 +21559,8 @@ const STAGES = [
         id: 'considering-late-divorce',
         text: '황혼 이혼을 진지하게 고민한다',
         deltas: { relationship: -5, happiness: -2 },
-        result: '이제 와서, 라는 말과 지금이라도, 라는 말 사이에서 흔들렸다.'
+        result: '이제 와서, 라는 말과 지금이라도, 라는 말 사이에서 흔들렸다.',
+        requiresFamilyMember: ['spouse']
       },
       {
         id: 'respecting-each-others-time',
@@ -21652,6 +21653,7 @@ const STAGES = [
         text: '가까운 사람을 떠나보낸 뒤 슬픔에서 헤어나지 못한다',
         deltas: { happiness: -8 },
         result: '시간이 약이라지만, 마음은 여전히 그 자리에 머물러 있었다.',
+        requiresFamilyMember: ['spouse'],
         addCondition: { id: 'grief-depression', label: '🕯️ 사별 후 우울증', mental: true }
       },
       {
