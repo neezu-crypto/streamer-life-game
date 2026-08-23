@@ -3543,6 +3543,49 @@
         </ul>
     </section>
 
+    <section>
+        <h2><span class="num">28</span>자영업 루트 (2026-08-24, 사용자 지시 — 구현 완료)</h2>
+        <p>사용자 지시: "자영업자 직업 획득시 다음해부터 자영업자 루트 진입하게 해줘." 기존 전용 루트가
+        없던 19개 직업 중 하나인 <code>small-business-owner</code>는 20세 <code>small-business-startup</code>
+        (작은 가게를 차려 자영업을 시작한다, <code>requiresRoute</code>/<code>requiresOccupation</code>
+        둘 다 없는 유일한 진입 선택지)로만 획득되므로, 청년 정치 루트처럼 여러 나이에 흩어진 진입 조건을
+        받을 필요 없이 21세 고정 트리거 하나로 충분했다.</p>
+        <h3>루트 — small-business(🏪 자영업, 15년)</h3>
+        <p>21세 <code>sb-trigger-21</code>(<code>requiresOccupation:['small-business-owner']</code>,
+        <code>mandatory:true</code>)로 진입, 22~35세 14년간 루트 전용 선택지 45개(초기 손님 없음·단골
+        확보·배달앱·알바생 채용/갈등·경쟁 가게·프랜차이즈 제안/거절·세무조사·비수기·2호점 확장·대출·지역방송
+        소개·재료비 인상·번아웃·10주년·3호점 유혹·온라인몰·악플·경기침체·후계자 준비·매각 고민·젊은층
+        마케팅·확장 중단 결정·멘토링·직원 작별·다음 단계 계획 등) + 루트 종료 후 이어지는 후속 이벤트
+        3개(45/60/75세, <code>small-business-owner</code> 전용, 단골손님 재회·가게 레거시·매각 소회) - 총
+        49개.</p>
+        <p class="note"><b>버그 발견·수정 — 트리거와 같은 나이에 배치한 루트 본문은 도달 불가</b>
+        (자체 단위 테스트로 배포 전 발견, 사용자 보고 아님) — 처음엔 루트 본문 45개를 21~35세(트리거와
+        같은 21세부터)로 배치했다. 그런데 <code>activeRouteId</code>는 그 턴의 선택을 적용하기 전 상태로
+        계산되므로, 21세 시점엔 트리거가 아직 선택되지 않아 루트가 비활성 상태다 - 21세에 넣은
+        <code>requiresRoute:'small-business'</code> 선택지 3개(<code>sb-early-struggle-21</code> 등)는
+        구조적으로 절대 노출될 수 없는 죽은 콘텐츠였다. 이건 이번 세션에서 이미 다른 형태로 두 번 마주친
+        같은 근본 메커니즘이다 - 수감 루트의 기간이 의도보다 1년 짧게 나왔던 버그(진입 나이가 루트
+        콘텐츠 턴으로 안 쳐지는 것 때문에 롤 범위를 <code>3+...</code>에서 <code>4+...</code>로 보정),
+        청년 정치 루트의 "기간이 겹치면 안돼" 버그(선행 루트가 아직 활성인 나이에 트리거를 둠)와 마찬가지로,
+        <b>"진입 나이 자체는 그 루트의 콘텐츠 턴으로 카운트되지 않는다"</b>는 동일한 오프바이원 규칙이
+        원인이었다. 21세 본문 3개를 22세로 옮겨(22세는 6개, 21세는 트리거 1개만) 해결 - 21세는 어차피
+        <code>mandatory:true</code>로 트리거 노출이 보장되므로 문제없다.</p>
+        <h3>검증</h3>
+        <ul>
+            <li><code>node -c game-data.js</code>/<code>node -c index.js</code> 통과, 49개 id 중복
+            0건(전체 3,014개 중).</li>
+            <li><b>단위 테스트</b> — choiceLog를 "20세 <code>small-business-startup</code> 선택"으로
+            강제 세팅한 뒤 21세 노출 목록 확인 → 수정 전엔 <code>sb-early-struggle-21</code> 등 3개가
+            누락되고 <code>sb-trigger-21</code>만 노출됨을 재현, 트리거 제출 후 22~35세를 순회하며 매
+            나이 노출 선택지가 전부 <code>sb-*</code>(루트 전용)임을 확인, 35→36세 전환 시점에 루트가
+            정확히 자동 만료됨(진입 21세+15년)을 확인.</li>
+            <li>10,000회 회귀(순수 무작위) — 즉사 비율 15.95%(정상 범위), STUCK/ALL_REJECTED 0건,
+            small-business 루트 활성 관측 7,855회(연인원).</li>
+            <li><code>app.js</code>의 <code>ROUTES_META</code>에 <code>{ id: 'small-business', title:
+            '🏪 자영업', icon: '🏪' }</code> 추가 — 도감(나의 도감 → 루트) 표시용.</li>
+        </ul>
+    </section>
+
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
 </div>
 </body>

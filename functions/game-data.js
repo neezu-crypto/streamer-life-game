@@ -5041,6 +5041,16 @@ const STAGES = [
     intro: '방향을 조금씩 좁혀가는 나이. 막연했던 미래가 서서히 구체적인 모양을 갖추기 시작합니다.',
     choices: [
       {
+        id: 'sb-trigger-21',
+        text: '가게를 본격적으로 키워보기로 결심한다',
+        deltas: {"happiness":2,"wealth":-1},
+        result: '작게 시작한 가게였지만, 여기서 끝낼 생각은 없었다.',
+        requiresOccupation: ["small-business-owner"],
+        mandatory: true,
+        startsRoute: {"id":"small-business","label":"🏪 자영업","maxDurationYears":15}
+      },
+
+      {
         id: 'japan-trip-osaka-food-tour-21',
         text: '오사카로 먹방 여행을 떠난다',
         deltas: { happiness: 5, wealth: -3 },
@@ -5635,6 +5645,50 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        id: 'sb-early-struggle-21',
+        text: '손님이 없는 텅 빈 가게를 지키며 하루를 보낸다',
+        deltas: {"happiness":-3,"wealth":-1},
+        result: '문을 열어놓고도, 파리만 날리는 날이 이어졌다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-first-regular-21',
+        text: '처음으로 단골이 생겨 뿌듯함을 느낀다',
+        deltas: {"happiness":3,"relationship":1},
+        result: '이름까지 기억하게 된 손님이, 하루의 낙이 됐다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-menu-tinkering-21',
+        text: '메뉴를 이리저리 바꿔보며 반응을 살핀다',
+        deltas: {"happiness":1,"wealth":-1},
+        result: '뭐가 먹힐지는, 해봐야 아는 거였다.',
+        requiresRoute: 'small-business'
+      },
+
+      {
+        id: 'sb-rent-negotiation-22',
+        text: '임대료 인상 통보에 건물주와 힘겹게 협상한다',
+        deltas: {"happiness":-2,"wealth":-1},
+        result: '한 마디 한 마디에, 생계가 걸려 있었다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-delivery-app-signup-22',
+        text: '배달 앱에 입점해 매출 채널을 넓힌다',
+        deltas: {"happiness":2,"wealth":2},
+        result: '주문이 하나둘 늘어가는 걸 보며, 잘한 선택이란 확신이 들었다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-delivery-fee-burden-22',
+        text: '배달 앱 수수료 부담에 속이 쓰리다',
+        deltas: {"happiness":-2,"wealth":-2},
+        result: '팔아도 남는 게 없다는 말이, 이제야 실감 났다.',
+        requiresRoute: 'small-business'
+      },
+
       {
         id: 'japan-trip-akihabara-pilgrimage-22',
         text: '아키하바라로 오타쿠 성지순례를 떠난다',
@@ -6237,6 +6291,28 @@ const STAGES = [
     ageRange: '23세',
     intro: '스무 살대의 마지막 해. 자립이라는 단어가 더는 남 얘기가 아니게 됩니다.',
     choices: [
+      {
+        id: 'sb-hiring-parttime-23',
+        text: '아르바이트생을 처음으로 채용한다',
+        deltas: {"happiness":2,"wealth":-2},
+        result: '혼자가 아니라는 사실만으로도, 어깨가 조금 가벼워졌다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-staff-conflict-23',
+        text: '아르바이트생과의 갈등으로 골머리를 앓는다',
+        deltas: {"happiness":-3,"relationship":-1},
+        result: '사장 노릇도 처음이라, 서투른 게 한둘이 아니었다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-good-review-viral-23',
+        text: 'SNS 리뷰가 입소문을 타며 손님이 몰려든다',
+        deltas: {"happiness":4,"wealth":3,"fame":2},
+        result: '갑자기 밀려든 줄에, 정신없이 즐거운 하루였다.',
+        requiresRoute: 'small-business'
+      },
+
       {
         id: 'japan-trip-tokyo-disneyland-23',
         text: '도쿄 디즈니랜드에서 하루 종일 논다',
@@ -6875,6 +6951,28 @@ const STAGES = [
     ageRange: '24세',
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
+      {
+        id: 'sb-competitor-opens-24',
+        text: '바로 옆에 경쟁 가게가 새로 문을 연다',
+        deltas: {"happiness":-3,"wealth":-1},
+        result: '남 일 같지 않은 긴장감이, 매일 감돌았다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-loyalty-card-24',
+        text: '단골 관리를 위해 적립 카드를 도입한다',
+        deltas: {"happiness":2,"relationship":2},
+        result: '작은 도장 하나에도, 손님들이 즐거워했다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-equipment-breakdown-24',
+        text: '핵심 장비가 고장 나 급하게 수리비를 지출한다',
+        deltas: {"happiness":-2,"wealth":-3},
+        result: '하필 대목에 고장 날 건 뭐람, 속이 탔다.',
+        requiresRoute: 'small-business'
+      },
+
       {
         id: 'japan-trip-language-barrier-24',
         text: '서툰 일본어로 길을 물어보다 진땀을 뺀다',
@@ -7538,6 +7636,28 @@ const STAGES = [
     ageRange: '25세',
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
+      {
+        id: 'sb-franchise-offer-25',
+        text: '프랜차이즈로 전환하자는 제안을 받는다',
+        deltas: {"happiness":2,"wealth":1},
+        result: '편해질 것 같으면서도, 내 것이 아니게 될까 걱정도 됐다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-stays-independent-25',
+        text: '프랜차이즈 대신 나만의 방식을 지키기로 한다',
+        deltas: {"happiness":3,"relationship":1},
+        result: '느려도, 내 색깔이 있는 가게로 남고 싶었다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-tax-audit-scare-25',
+        text: '세무조사 통보에 며칠간 잠을 설친다',
+        deltas: {"happiness":-4,"wealth":-2},
+        result: '숫자 하나하나를 다시 뒤지며, 식은땀을 흘렸다.',
+        requiresRoute: 'small-business'
+      },
+
 
       {
         id: 'japan-trip-shinkansen-25',
@@ -8149,6 +8269,28 @@ const STAGES = [
     ageRange: '26세',
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
+      {
+        id: 'sb-slow-season-26',
+        text: '비수기 매출 부진으로 자금난에 시달린다',
+        deltas: {"happiness":-3,"wealth":-3},
+        result: '월세 낼 날짜가, 유독 빨리 다가오는 것 같았다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-record-sales-day-26',
+        text: '역대 최고 매출을 찍으며 뿌듯한 하루를 보낸다',
+        deltas: {"happiness":4,"wealth":3},
+        result: '정산기를 두드리는 손이, 오랜만에 신났다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-work-life-imbalance-26',
+        text: '쉬는 날 없이 일하다 몸이 상하기 시작한다',
+        deltas: {"happiness":-2,"health":-2},
+        result: '가게 문을 닫는 날이, 손에 꼽을 만큼 드물었다.',
+        requiresRoute: 'small-business'
+      },
+
 
       {
         id: 'japan-trip-onsen-ryokan-26',
@@ -8842,6 +8984,28 @@ const STAGES = [
     ageRange: '27세',
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
+      {
+        id: 'sb-second-location-scouting-27',
+        text: '2호점 자리를 알아보러 다닌다',
+        deltas: {"happiness":2,"wealth":-1},
+        result: '가능성을 확인하는 발걸음이, 설레면서도 조심스러웠다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-loan-for-expansion-27',
+        text: '확장을 위해 대출을 받기로 결정한다',
+        deltas: {"happiness":1,"wealth":3},
+        result: '빚이지만, 미래를 위한 투자라고 스스로를 다독였다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-loyal-staff-promotion-27',
+        text: '오래 함께한 직원을 매니저로 승진시킨다',
+        deltas: {"happiness":3,"relationship":3},
+        result: '믿고 맡길 사람이 있다는 게, 큰 힘이 됐다.',
+        requiresRoute: 'small-business'
+      },
+
 
       {
         id: 'japan-trip-lost-in-tokyo-27',
@@ -9532,6 +9696,28 @@ const STAGES = [
     ageRange: '28세',
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
+      {
+        id: 'sb-second-store-opens-28',
+        text: '드디어 2호점을 오픈한다',
+        deltas: {"happiness":5,"wealth":-2,"fame":1},
+        result: '가게 두 개를 오가는 하루가, 벅차면서도 신기했다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-quality-control-issue-28',
+        text: '2호점 품질 관리가 안 돼 골머리를 앓는다',
+        deltas: {"happiness":-3,"relationship":-1},
+        result: '눈이 두 개로 늘어난 것도 아닌데, 감당이 안 됐다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-local-media-feature-28',
+        text: '지역 방송에 가게가 소개된다',
+        deltas: {"happiness":4,"fame":3},
+        result: '카메라 앞에서 어색했지만, 그날 이후 매출이 확 늘었다.',
+        requiresRoute: 'small-business'
+      },
+
 
       {
         id: 'japan-trip-kyoto-temple-28',
@@ -10125,6 +10311,28 @@ const STAGES = [
     ageRange: '29세',
     intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
     choices: [
+      {
+        id: 'sb-supplier-price-hike-29',
+        text: '재료비 인상으로 마진이 크게 줄어든다',
+        deltas: {"happiness":-3,"wealth":-2},
+        result: '가격을 올릴지 버틸지, 계산기를 몇 번이나 두드렸다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-community-donation-29',
+        text: '동네 행사에 재료를 후원하며 존재감을 알린다',
+        deltas: {"happiness":3,"relationship":2,"wealth":-1},
+        result: '작은 나눔이, 큰 신뢰로 돌아왔다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-burnout-warning-29',
+        text: '번아웃 직전까지 몰아붙인 스스로를 돌아본다',
+        deltas: {"happiness":-3,"health":-2},
+        result: '가게를 위해 나를 갈아 넣고 있었다는 걸, 뒤늦게 깨달았다.',
+        requiresRoute: 'small-business'
+      },
+
 
       {
         id: 'japan-trip-convenience-store-food-29',
@@ -10697,6 +10905,28 @@ const STAGES = [
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
       {
+        id: 'sb-decade-milestone-30',
+        text: '가게를 연 지 10년째, 감회에 젖는다',
+        deltas: {"happiness":4,"relationship":2},
+        result: '버텨온 시간이, 스스로도 대견했다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-third-store-temptation-30',
+        text: '3호점 확장 제안에 마음이 흔들린다',
+        deltas: {"happiness":1,"wealth":-1},
+        result: '더 키울지, 지금에 만족할지 갈림길이었다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-stays-small-30',
+        text: '무리한 확장 대신 지금 규모를 지키기로 한다',
+        deltas: {"happiness":3,"health":1},
+        result: '커지는 것보다, 오래가는 게 더 중요하다고 생각했다.',
+        requiresRoute: 'small-business'
+      },
+
+      {
         id: 'yp-decides-to-run-30',
         text: '학생회장 경력을 살려 지방의회 선거에 도전하기로 결심한다',
         deltas: {"happiness":3,"wealth":-3,"fame":2},
@@ -11256,6 +11486,28 @@ const STAGES = [
     intro: '곁에 남을 사람과 앞으로의 삶을 어떻게 그릴지, 조금 더 구체적으로 고민하는 나이입니다.',
     choices: [
       {
+        id: 'sb-online-store-launch-31',
+        text: '온라인 판매 채널을 새로 연다',
+        deltas: {"happiness":2,"wealth":2},
+        result: '가게 문턱을 넘지 않아도 되는 손님들이, 새롭게 늘었다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-negative-review-crisis-31',
+        text: '악의적인 악플로 곤욕을 치른다',
+        deltas: {"happiness":-4,"fame":-2},
+        result: '해명 한 줄에도, 밤잠을 설쳤다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-regular-becomes-friend-31',
+        text: '오래된 단골과 진짜 친구가 된다',
+        deltas: {"happiness":3,"relationship":2},
+        result: '장사로 시작된 인연이, 어느새 마음을 나누는 사이가 됐다.',
+        requiresRoute: 'small-business'
+      },
+
+      {
         id: 'yp-grassroots-support-31',
         text: '지역 주민들과 직접 만나며 밑바닥 민심을 다진다',
         deltas: {"happiness":2,"relationship":1},
@@ -11792,6 +12044,28 @@ const STAGES = [
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
       {
+        id: 'sb-economic-downturn-32',
+        text: '전반적인 경기 침체로 손님 발길이 뜸해진다',
+        deltas: {"happiness":-3,"wealth":-3},
+        result: '내 탓이 아닌 걸 알면서도, 마음은 무거웠다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-cost-cutting-32',
+        text: '허리띠를 졸라매며 비용을 줄여나간다',
+        deltas: {"happiness":-1,"wealth":2},
+        result: '아끼고 또 아끼는 게, 버티는 유일한 방법이었다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-successor-training-32',
+        text: '가게를 물려받을 후계자를 눈여겨보기 시작한다',
+        deltas: {"happiness":2,"relationship":1},
+        result: '언젠가는 넘겨줄 자리라는 걸, 서서히 받아들였다.',
+        requiresRoute: 'small-business'
+      },
+
+      {
         id: 'yp-wins-first-election-32',
         text: '치열한 선거전 끝에 지방의회 의원으로 당선된다',
         deltas: {"happiness":5,"wealth":2,"fame":3},
@@ -12277,6 +12551,28 @@ const STAGES = [
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
       {
+        id: 'sb-anniversary-event-33',
+        text: '가게 기념일을 맞아 손님들과 함께 자축한다',
+        deltas: {"happiness":4,"relationship":3,"wealth":-1},
+        result: '함께해준 사람들 얼굴을 보니, 가슴이 뭉클했다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-considers-selling-33',
+        text: '가게를 정리하고 물러날지 진지하게 고민한다',
+        deltas: {"happiness":-1},
+        result: '이만하면 됐다는 마음과, 아직 이르다는 마음이 부딪혔다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-new-generation-appeal-33',
+        text: '젊은 손님층을 잡기 위해 SNS 마케팅을 시작한다',
+        deltas: {"happiness":2,"wealth":1,"fame":1},
+        result: '낯설었지만, 새로운 얼굴들이 하나둘 늘어갔다.',
+        requiresRoute: 'small-business'
+      },
+
+      {
         id: 'yp-first-committee-assignment-33',
         text: '의회 상임위원회에 배정받아 본격적인 의정 활동을 시작한다',
         deltas: {"happiness":3,"wealth":1},
@@ -12751,6 +13047,28 @@ const STAGES = [
     ageRange: '34세',
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
+      {
+        id: 'sb-final-expansion-decision-34',
+        text: '더 이상의 확장은 없다고 마음을 정리한다',
+        deltas: {"happiness":2,"health":1},
+        result: '지금 있는 것들을 잘 지키는 게, 이제는 더 중요했다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-mentoring-young-owner-34',
+        text: '창업을 준비하는 젊은이에게 노하우를 전해준다',
+        deltas: {"happiness":3,"relationship":2},
+        result: '내가 헤맸던 길을, 조금이라도 덜 헤매게 해주고 싶었다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-legacy-reflection-34',
+        text: '가게와 함께한 지난 시간을 돌아본다',
+        deltas: {"happiness":3,"relationship":1},
+        result: '작은 가게 하나가, 인생의 큰 부분이 되어 있었다.',
+        requiresRoute: 'small-business'
+      },
+
       {
         id: 'yp-local-festival-appearance-34',
         text: '지역 축제에 참석해 주민들과 어울린다',
@@ -13265,6 +13583,28 @@ const STAGES = [
     ageRange: '35세',
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
+      {
+        id: 'sb-stable-routine-35',
+        text: '이제는 안정된 루틴 속에서 가게를 운영한다',
+        deltas: {"happiness":3,"health":1},
+        result: '큰 변화 없이도, 꾸준함이 주는 안정감이 있었다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-longtime-staff-farewell-35',
+        text: '오래 함께한 직원을 떠나보내며 아쉬움을 느낀다',
+        deltas: {"happiness":-2,"relationship":1},
+        result: '가족 같던 사람 하나가 떠나는 게, 유독 허전했다.',
+        requiresRoute: 'small-business'
+      },
+      {
+        id: 'sb-plans-next-phase-35',
+        text: '앞으로 가게를 어떻게 이어갈지 다시 그려본다',
+        deltas: {"happiness":2},
+        result: '끝이 아니라, 다음 장을 준비하는 마음이었다.',
+        requiresRoute: 'small-business'
+      },
+
       {
         id: 'yp-coalition-building-35',
         text: '다른 정당 의원들과 협치를 위해 물밑 대화를 시도한다',
@@ -17523,6 +17863,14 @@ const STAGES = [
     intro: '다 가진 것 같은데도 문득 공허해지는, 이른바 중년의 위기가 찾아오는 나이입니다.',
     choices: [
       {
+        id: 'sb2-longtime-regular-45',
+        text: '오래된 단골이 한결같이 가게를 찾아준다',
+        deltas: {"happiness":3,"relationship":2},
+        result: '한 사람 한 사람이, 가게를 지탱해온 힘이었다.',
+        requiresOccupation: ["small-business-owner"]
+      },
+
+      {
         id: 'married-conversation-fading',
         text: '배우자와의 대화가 점점 줄어드는 걸 느낀다',
         deltas: { happiness: -3, relationship: -2 },
@@ -20540,6 +20888,14 @@ const STAGES = [
     intro: '환갑. 예순 해를 지나온 삶을 가족과 함께 돌아보는 해입니다.',
     choices: [
       {
+        id: 'sb2-local-legacy-60',
+        text: '동네에서 오래된 가게로 소문이 나기 시작한다',
+        deltas: {"happiness":3,"fame":2},
+        result: '세월이 그대로 간판이 되어가고 있었다.',
+        requiresOccupation: ["small-business-owner"]
+      },
+
+      {
         id: 'japan-trip-retirement-celebration-60',
         text: '환갑 기념으로 일본 온천 여행을 떠난다',
         deltas: { happiness: 5, wealth: -4 },
@@ -22632,6 +22988,14 @@ const STAGES = [
     ageRange: '75세',
     intro: '남은 시간을 어떻게 채워갈지, 다시 한번 진지하게 그려보는 나이입니다.',
     choices: [
+      {
+        id: 'sb2-handover-thoughts-75',
+        text: '가게를 물려줄 사람을 조용히 고민한다',
+        deltas: {"happiness":2,"relationship":1},
+        result: '평생 일군 자리를, 누구에게 맡길지 마음이 복잡했다.',
+        requiresOccupation: ["small-business-owner"]
+      },
+
       {
         id: 'deviant-senior-highstakes-gambling-75',
         text: '경로당 몰래 큰 판돈이 걸린 도박에 낀다',
