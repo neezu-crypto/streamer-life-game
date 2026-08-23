@@ -7328,7 +7328,8 @@ const STAGES = [
         text: '부업 소득을 세금 신고에서 슬쩍 뺀다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '아낀 세금만큼 통장이 두둑해졌다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -6, happiness: -4 }, result: '국세청 사후 검증 안내문이 날아들었다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -6, happiness: -4 }, result: '국세청 사후 검증 안내문이 날아들었다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
       {
@@ -7900,7 +7901,8 @@ const STAGES = [
         text: '법인카드로 개인 물건을 슬쩍 결제한다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 2 }, result: '영수증을 슬쩍 구겨 넣으며 안도했다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -5, relationship: -4, happiness: -5 }, result: '회계팀 정산 과정에서 항목이 그대로 드러났다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -5, relationship: -4, happiness: -5 }, result: '회계팀 정산 과정에서 항목이 그대로 드러났다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
       {
@@ -9207,7 +9209,8 @@ const STAGES = [
         text: '친구들과 몰래 판돈을 걸고 게임을 한다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 3 }, result: '오랜만에 짜릿한 승부에 신이 났다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -6, relationship: -3, happiness: -3 }, result: '판이 커지면서 크게 잃고 말았다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -6, relationship: -3, happiness: -3 }, result: '판이 커지면서 크게 잃고 말았다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '상습도박 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
       {
@@ -9781,7 +9784,8 @@ const STAGES = [
         text: '가벼운 부상을 부풀려 보험금을 청구한다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '생각보다 많은 보험금이 입금됐다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -8, happiness: -5, relationship: -2 }, result: '보험사 정밀 조사에서 꾀병이 들통났다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -8, happiness: -5, relationship: -2 }, result: '보험사 정밀 조사에서 꾀병이 들통났다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '보험사기 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
       {
@@ -10312,7 +10316,8 @@ const STAGES = [
         text: '출장 비용 영수증을 부풀려 청구한다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '별 탈 없이 정산이 끝났다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -6, relationship: -4, happiness: -4 }, result: '카드 내역과 영수증 금액이 맞지 않는다는 지적을 받았다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -6, relationship: -4, happiness: -4 }, result: '카드 내역과 영수증 금액이 맞지 않는다는 지적을 받았다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -11703,7 +11708,8 @@ const STAGES = [
         text: '가짜 세금계산서로 지출을 부풀린다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '절세 효과에 잠시 흐뭇했다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -8, happiness: -5 }, result: '세무조사에서 허위 거래가 그대로 드러났다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -8, happiness: -5 }, result: '세무조사에서 허위 거래가 그대로 드러났다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
       {
@@ -12546,7 +12552,8 @@ const STAGES = [
         text: '회삿돈 자투리를 슬쩍 개인 용도로 쓴다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '푼돈이라 티도 안 날 거라 생각했다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -6, relationship: -6, happiness: -5 }, result: '정기 감사에서 자잘한 차액이 결국 발각됐다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -6, relationship: -6, happiness: -5 }, result: '정기 감사에서 자잘한 차액이 결국 발각됐다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
       {
@@ -12554,7 +12561,8 @@ const STAGES = [
         text: '임대 소득을 세금 신고에서 축소해 신고한다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '아낀 세금만큼 여유가 생겼다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -8, happiness: -4 }, result: '임차인의 현금영수증 신청으로 소득이 그대로 드러났다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -8, happiness: -4 }, result: '임차인의 현금영수증 신청으로 소득이 그대로 드러났다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -12971,7 +12979,8 @@ const STAGES = [
         text: '기부하지 않은 금액을 기부금 영수증에 적는다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '연말정산 환급액이 두둑해졌다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -5, happiness: -4 }, result: '국세청 소명 요구서가 집으로 날아들었다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -5, happiness: -4 }, result: '국세청 소명 요구서가 집으로 날아들었다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -13398,7 +13407,8 @@ const STAGES = [
         text: '안 아픈데 진단서를 위조해 병가를 낸다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { happiness: 3, wealth: 1 }, result: '푹 쉰 며칠이 보약 같았다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -4, relationship: -3, happiness: -4 }, result: '병원에 조회한 인사팀에게 위조 사실이 들통났다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -4, relationship: -3, happiness: -4 }, result: '병원에 조회한 인사팀에게 위조 사실이 들통났다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '문서위조 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -14286,7 +14296,8 @@ const STAGES = [
         text: '접대 골프 비용을 실제보다 부풀려 청구한다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '차액만큼 용돈이 두둑해졌다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -6, relationship: -4 }, result: '골프장 결제 내역 조회로 금액이 딱 들통났다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -6, relationship: -4 }, result: '골프장 결제 내역 조회로 금액이 딱 들통났다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -15099,7 +15110,8 @@ const STAGES = [
         text: '회사 법인카드로 가족 여행 경비를 결제한다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 3 }, result: '공짜 여행이라는 생각에 발걸음이 가벼웠다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -6, relationship: -5, happiness: -5 }, result: '숙박업소 상호가 감사 보고서에 그대로 찍혔다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -6, relationship: -5, happiness: -5 }, result: '숙박업소 상호가 감사 보고서에 그대로 찍혔다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
       {
@@ -15390,7 +15402,8 @@ const STAGES = [
         text: '안전 점검 결과를 대충 통과시킨다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '번거로운 절차를 건너뛴 게 편했다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -6, happiness: -5 }, result: '뒤늦게 문제가 불거지며 책임 소재가 가려졌다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -6, happiness: -5 }, result: '뒤늦게 문제가 불거지며 책임 소재가 가려졌다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '안전서류 조작 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -16063,7 +16076,8 @@ const STAGES = [
         text: '하청 대금을 슬쩍 늦게, 적게 지급한다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '당장의 자금 압박은 넘겼다.' },
-          { weight: 18, label: '발각', deltas: { relationship: -6, happiness: -4 }, result: '하청업체가 공정거래 신고를 접수했다.' }
+          { weight: 15, label: '발각', deltas: { relationship: -6, happiness: -4 }, result: '하청업체가 공정거래 신고를 접수했다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '하도급법 위반 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -16400,7 +16414,8 @@ const STAGES = [
         text: '회사 장부 숫자를 살짝 눈속임한다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '이번 분기 실적이 그럴듯하게 포장됐다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -9, relationship: -6, happiness: -6 }, result: '외부 감사에서 차액이 낱낱이 드러났다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -9, relationship: -6, happiness: -6 }, result: '외부 감사에서 차액이 낱낱이 드러났다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '분식회계 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
       {
@@ -16825,7 +16840,8 @@ const STAGES = [
         text: '멀쩡한 물건을 파손됐다며 보험금을 청구한다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '생각보다 순조롭게 보험금이 나왔다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -8, happiness: -5 }, result: '보험사 현장 조사에서 조작 흔적이 드러났다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -8, happiness: -5 }, result: '보험사 현장 조사에서 조작 흔적이 드러났다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '보험사기 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -17058,7 +17074,8 @@ const STAGES = [
         text: '여윳돈 일부를 세금 안 내려고 몰래 숨겨둔다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '아낀 세금이 쏠쏠하게 느껴졌다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -9, happiness: -5 }, result: '차명 계좌 추적 끝에 꼬리가 밟혔다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -9, happiness: -5 }, result: '차명 계좌 추적 끝에 꼬리가 밟혔다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -17518,7 +17535,8 @@ const STAGES = [
         text: '안 한 기부를 한 것처럼 서류를 꾸민다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '연말정산에서 짭짤한 환급을 받았다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -6, happiness: -4 }, result: '기부 단체 조회에서 존재하지 않는 내역임이 드러났다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -6, happiness: -4 }, result: '기부 단체 조회에서 존재하지 않는 내역임이 드러났다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -17711,7 +17729,8 @@ const STAGES = [
         text: '명예퇴직 조건을 맞추려 서류를 손본다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '두둑한 위로금을 손에 쥐었다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -6, relationship: -4, happiness: -4 }, result: '허위 서류가 인사 감사에서 뒤늦게 밝혀졌다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -6, relationship: -4, happiness: -4 }, result: '허위 서류가 인사 감사에서 뒤늦게 밝혀졌다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '사문서위조 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -17938,7 +17957,8 @@ const STAGES = [
         text: '젊은 날의 도박 버릇이 몰래 되살아난다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 3 }, result: '오랜만에 손맛을 되찾은 듯했다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -8, relationship: -5, happiness: -5 }, result: '판이 커지면서 노후 자금까지 손을 댔다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -8, relationship: -5, happiness: -5 }, result: '판이 커지면서 노후 자금까지 손을 댔다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '상습도박 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -18349,7 +18369,8 @@ const STAGES = [
         text: '퇴직금 세금 신고를 슬쩍 줄인다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '세금 몇 푼을 아꼈다는 생각에 흡족했다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -8, happiness: -4 }, result: '국세청 전산 대조에서 차액이 그대로 잡혔다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -8, happiness: -4 }, result: '국세청 전산 대조에서 차액이 그대로 잡혔다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -18792,7 +18813,8 @@ const STAGES = [
         text: '은퇴 후 컨설팅비를 실제보다 부풀려 청구한다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '한 건에 짭짤한 수입이 들어왔다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -6, relationship: -4 }, result: '견적서 사본이 다른 업체와 비교되며 들통났다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -6, relationship: -4 }, result: '견적서 사본이 다른 업체와 비교되며 들통났다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '사기 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -19415,7 +19437,8 @@ const STAGES = [
         text: '실제보다 소득을 낮춰 신고해 연금 혜택을 더 받는다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '매달 나오는 연금이 조금 더 두둑했다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -8, happiness: -5 }, result: '소득 대조 과정에서 부정 수급이 적발됐다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -8, happiness: -5 }, result: '소득 대조 과정에서 부정 수급이 적발됐다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '부정수급 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -19888,7 +19911,8 @@ const STAGES = [
         text: '소일거리 수입을 연금공단에 숨긴다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '연금이 깎이지 않아 다행이었다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -6, happiness: -4 }, result: '정기 소득 조사에서 숨긴 내역이 드러났다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -6, happiness: -4 }, result: '정기 소득 조사에서 숨긴 내역이 드러났다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '부정수급 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -20129,7 +20153,8 @@ const STAGES = [
         text: '경로당 화투판에서 몰래 판돈을 키운다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 2 }, result: '오랜만에 손이 풀리며 짭짤하게 땄다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -6, relationship: -4, happiness: -4 }, result: '판이 커진 걸 알게 된 자식들에게 크게 혼났다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -6, relationship: -4, happiness: -4 }, result: '판이 커진 걸 알게 된 자식들에게 크게 혼났다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '상습도박 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -20266,7 +20291,8 @@ const STAGES = [
         text: '필요 이상으로 약을 처방받아 되판다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '용돈벌이가 쏠쏠했다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -6, happiness: -5 }, result: '약국 이상 처방 패턴이 신고돼 조사를 받았다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -6, happiness: -5 }, result: '약국 이상 처방 패턴이 신고돼 조사를 받았다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '약사법 위반 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -20773,7 +20799,8 @@ const STAGES = [
         text: '실제보다 부풀려 장애 등급 혜택을 신청한다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '생활비 부담이 한결 가벼워졌다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -8, happiness: -5 }, result: '재심사 과정에서 등급 조작이 밝혀졌다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -8, happiness: -5 }, result: '재심사 과정에서 등급 조작이 밝혀졌다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '부정수급 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -21181,7 +21208,8 @@ const STAGES = [
         text: '경로당 몰래 큰 판돈이 걸린 도박에 낀다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 2 }, result: '오랜만에 짜릿한 승부욕이 되살아났다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -8, relationship: -5, happiness: -5 }, result: '큰돈이 오간 판이 결국 신고로 이어졌다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -8, relationship: -5, happiness: -5 }, result: '큰돈이 오간 판이 결국 신고로 이어졌다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '상습도박 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -21627,7 +21655,8 @@ const STAGES = [
         text: '경로당 로또 계모임 돈에 몰래 손을 댄다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '급한 불을 끄고 나니 마음이 놓였다.' },
-          { weight: 18, label: '발각', deltas: { wealth: -8, relationship: -6, happiness: -5 }, result: '장부 대조 끝에 빈 자리가 그대로 드러났다.' }
+          { weight: 15, label: '발각', deltas: { wealth: -8, relationship: -6, happiness: -5 }, result: '장부 대조 끝에 빈 자리가 그대로 드러났다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -22440,7 +22469,8 @@ const STAGES = [
         text: '가족 몰래 유언장 내용을 슬쩍 바꾼다',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '오랜 고민 끝에 마음의 짐을 하나 덜었다.' },
-          { weight: 18, label: '발각', deltas: { relationship: -8, happiness: -4 }, result: '변경 사실을 알게 된 가족들 사이에 큰 다툼이 벌어졌다.' }
+          { weight: 15, label: '발각', deltas: { relationship: -8, happiness: -4 }, result: '변경 사실을 알게 된 가족들 사이에 큰 다툼이 벌어졌다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '사문서위조 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
 
@@ -23963,8 +23993,194 @@ function buildIsolationEnding(ageRange) {
   };
 }
 
+const PRISON_CHOICES = [
+  {
+    id: "prison-cell-adjustment",
+    text: "좁은 감방 생활에 조금씩 적응해간다",
+    deltas: {
+      happiness: -2,
+      health: -1
+    },
+    result: "낯설던 규칙들이, 어느새 하루의 틀이 되어갔다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-ged-study",
+    text: "남는 시간에 검정고시 공부를 시작한다",
+    deltas: {
+      happiness: 2
+    },
+    result: "펜을 쥐는 시간만큼은, 여기가 아닌 것 같았다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-family-visit",
+    text: "면회 온 가족의 얼굴을 오랜만에 마주한다",
+    deltas: {
+      happiness: 3,
+      relationship: 2
+    },
+    result: "유리창 너머 얼굴을 보는 것만으로도, 눈시울이 뜨거워졌다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-family-visit-none",
+    text: "이번 달에도 아무도 면회를 오지 않았다",
+    deltas: {
+      happiness: -4,
+      relationship: -2
+    },
+    result: "텅 빈 면회실 의자가, 유독 크게 느껴졌다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-model-inmate-review",
+    text: "모범수로 인정받아 감형 심사를 신청한다",
+    deltas: {
+      happiness: 3
+    },
+    result: "작은 희망 하나가, 하루하루를 버티게 해줬다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-cellmate-conflict",
+    text: "같은 방 수감자와 사소한 일로 부딪힌다",
+    deltas: {
+      happiness: -3,
+      relationship: -1
+    },
+    result: "좁은 공간일수록, 작은 마찰도 크게 번졌다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-cellmate-bond",
+    text: "같은 처지의 수감자와 속내를 터놓는다",
+    deltas: {
+      happiness: 2,
+      relationship: 1
+    },
+    result: "비슷한 아픔을 가진 사람의 말이, 뜻밖의 위로가 됐다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-labor-duty",
+    text: "교도소 작업장에서 하루치 노역을 마친다",
+    deltas: {
+      happiness: -1,
+      wealth: 1
+    },
+    result: "몸은 고됐지만, 손에 쥔 적은 돈이 묘하게 소중했다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-writes-letters",
+    text: "못다 한 말을 편지에 눌러 담는다",
+    deltas: {
+      happiness: 1
+    },
+    result: "펜 끝에서 나오는 말들이, 미처 못 한 사과를 대신했다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-reads-books",
+    text: "교도소 도서실에서 책을 빌려 읽으며 시간을 보낸다",
+    deltas: {
+      happiness: 2
+    },
+    result: "갇힌 몸과 달리, 마음만은 잠시 다른 곳을 여행했다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-exercise-routine",
+    text: "운동 시간마다 몸을 단련하며 마음을 다잡는다",
+    deltas: {
+      health: 2,
+      happiness: 1
+    },
+    result: "땀을 흘리는 그 순간만큼은, 잡생각이 사라졌다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-counseling",
+    text: "교정 상담 프로그램에 참여해 마음을 들여다본다",
+    deltas: {
+      happiness: 2,
+      relationship: 1
+    },
+    result: "처음으로 스스로에게 왜 그랬냐고 물어봤다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-longing-for-old-life",
+    text: "문득 예전 일상이 사무치게 그리워진다",
+    deltas: {
+      happiness: -3
+    },
+    result: "당연했던 것들이, 이제는 사무치게 그리운 것들이 됐다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-plans-after-release",
+    text: "출소 후의 삶을 조용히 그려본다",
+    deltas: {
+      happiness: 2
+    },
+    result: "아직 오지 않은 날들이지만, 그리는 것만으로도 힘이 났다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-family-disappointment",
+    text: "실망한 가족의 편지를 받고 마음이 무거워진다",
+    deltas: {
+      happiness: -3,
+      relationship: -3
+    },
+    result: "차마 다 읽지 못하고, 몇 번을 접었다 펼쳤다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-friend-cuts-ties",
+    text: "오랜 친구에게서 더 이상 연락이 오지 않는다",
+    deltas: {
+      happiness: -2,
+      relationship: -2
+    },
+    result: "누구를 탓할 수도 없는 일이라는 걸, 스스로도 알고 있었다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-religious-turn",
+    text: "교정 시설의 종교 모임에서 위안을 얻는다",
+    deltas: {
+      happiness: 2
+    },
+    result: "기댈 곳 하나가 있다는 사실만으로도, 조금은 편해졌다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-reflects-on-crime",
+    text: "왜 그런 선택을 했는지 밤새 되짚어본다",
+    deltas: {
+      happiness: -1,
+      relationship: 1
+    },
+    result: "후회는 늦었지만, 그래도 하지 않는 것보단 나았다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-amnesty-hope",
+    text: "특별사면 소식에 실낱같은 기대를 걸어본다",
+    deltas: {
+      happiness: 2
+    },
+    result: "이뤄지지 않을 걸 알면서도, 기대를 접기는 쉽지 않았다.",
+    requiresRoute: "prison"
+  }
+];
+
 module.exports = {
   STAGES,
+  PRISON_CHOICES,
   ENDINGS,
   resolveEnding,
   buildCollapseEnding,

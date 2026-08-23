@@ -4,6 +4,7 @@ const { getDatabase, ServerValue } = require('firebase-admin/database');
 const { STAT_KEYS, STAT_START, clampStat, requireAuth } = require('./common');
 const {
   STAGES,
+  PRISON_CHOICES,
   resolveEnding,
   buildCollapseEnding,
   buildBankruptcyEnding,
@@ -60,7 +61,7 @@ function buildChoiceHistory(choiceLog) {
       history.push({ stageId: stage.id, stageName: stage.name, ageRange: stage.ageRange, choiceText: entry.syntheticText, stats: entry.stats || null });
       continue;
     }
-    const choice = stage.choices.find((c) => c.id === entry.choiceId);
+    const choice = findChoiceById(stage, entry.choiceId);
     if (!choice) continue;
     history.push({ stageId: stage.id, stageName: stage.name, ageRange: stage.ageRange, choiceText: choice.text, stats: entry.stats || null });
   }
@@ -77,8 +78,10 @@ function buildOccupationHistory(choiceLog) {
   const history = [];
   for (const entry of choiceLog) {
     const stage = STAGE_BY_ID.get(entry.stageId);
-    const choice = stage && stage.choices.find((c) => c.id === entry.choiceId);
-    if (!stage || !choice || !choice.setOccupation) continue;
+    const rawChoice = stage && findChoiceById(stage, entry.choiceId);
+    if (!stage || !rawChoice) continue;
+    const choice = resolveEffectiveChoiceForEntry(rawChoice, entry);
+    if (!choice.setOccupation) continue;
     history.push({ id: choice.setOccupation.id, label: choice.setOccupation.label, stageId: stage.id, ageRange: stage.ageRange });
   }
   return history;
@@ -102,14 +105,67 @@ function buildLocationHistory(choiceLog) {
   const history = [];
   for (const entry of choiceLog) {
     const stage = STAGE_BY_ID.get(entry.stageId);
-    const choice = stage && stage.choices.find((c) => c.id === entry.choiceId);
-    if (!stage || !choice || !choice.setLocation) continue;
+    const rawChoice = stage && findChoiceById(stage, entry.choiceId);
+    if (!stage || !rawChoice) continue;
+    const choice = resolveEffectiveChoiceForEntry(rawChoice, entry);
+    if (!choice.setLocation) continue;
     history.push({ id: choice.setLocation.id, label: choice.setLocation.label, stageId: stage.id, ageRange: stage.ageRange });
   }
   return history;
 }
 function resolveCurrentLocation(locationHistory) {
   return locationHistory.length ? locationHistory[locationHistory.length - 1] : DEFAULT_LOCATION;
+}
+
+// 징역 루트(2026-08-23, 사용자 지시 - "일탈로 인해 발각됐을때 징역에 가는
+// 루트도 있으면 재밌을것같은데") 전용 선택지 풀. 다른 루트(배우·축구 등)는
+// 진입 나이가 고정이라 STAGES의 해당 나이 구간에 콘텐츠를 심어두면 됐지만,
+// 징역은 100개 일탈 중 아무 "중범죄"에서나(25~87세 사이 어느 나이든) 걸릴 수
+// 있고 복역 3~5년도 매번 달라 진입 나이 자체가 불특정하다. "나이에 상관없이
+// 진입하면 3~5년간 징역 이벤트만 보여달라"(사용자 확정)를 만족하려면 특정
+// 나이 구간에 콘텐츠를 심는 대신, activeRoute===prison일 때 stage.choices 대신
+// 이 전역 풀(PRISON_CHOICES)에서 매번 4개를 새로 뽑도록 pickVisibleChoiceIds를
+// 특별 취급한다(아래 참고). game-data.js STAGES 안에는 존재하지 않는
+// choiceId라, treat:/farewell:pet 같은 합성 선택지와 동일하게 stage.choices에서
+// 못 찾으면 이 배열에서 한 번 더 찾아야 한다(findChoiceById 참고) - choiceLog
+// replay(buildOccupationHistory 등)·publicStage·submitChoice 전부 이 경로를 탄다.
+function findChoiceById(stage, choiceId) {
+  const real = stage && stage.choices.find((c) => c.id === choiceId);
+  if (real) return real;
+  return PRISON_CHOICES.find((c) => c.id === choiceId) || null;
+}
+
+// prizeTable이 붙은 선택지(복권·일탈 발각 등)는 매번 랜덤으로 갈래가 정해지는데,
+// 그 갈래에 setOccupation/startsRoute 같은 구조적 효과(2026-08-23, 징역 갈래
+// 전용)가 실려 있을 수 있다. choiceLog는 choiceId만 저장하므로 나중에 replay할
+// 때 "그때 어느 갈래가 뽑혔는지"를 알아야 하는데, 이를 위해 applyChoice가 그
+// 갈래의 label을 logEntry.prizeLabel로 같이 저장해둔다(아래 참고). 이 함수는
+// choice와 entry(둘 다)를 받아 그 갈래의 필드를 base choice 위에 덮어써
+// "이 순간 실제로 적용됐던 선택지"를 재구성한다 - prizeTable이 없거나
+// prizeLabel이 없으면(기존 복권처럼 구조적 효과가 없는 갈래) 원래 choice
+// 그대로다.
+function resolveEffectiveChoiceForEntry(choice, entry) {
+  if (choice.prizeTable && entry.prizeLabel) {
+    const picked = choice.prizeTable.find((p) => p.label === entry.prizeLabel);
+    if (picked) return Object.assign({}, choice, picked);
+  }
+  return choice;
+}
+
+// 직업엔 만료 개념이 없어(buildOccupationHistory는 마지막 setOccupation을 그대로
+// 씀) 복역 기간이 끝나 prison 루트가 자동 만료돼도 직업은 'inmate'로 그대로
+// 남는다. 그래서 occupationHistory의 마지막 값을 그대로 쓰는 대신 항상 이
+// 함수를 거친다 - 마지막 직업이 inmate인데 지금 활성 루트가 prison이
+// 아니면(=이미 출소했으면) 자동으로 ex-convict(출소자)로 바꿔치기한다. 특정
+// 선택지가 아니라 엔진 차원의 자동 규칙(보험료 자동 납입·건강 조건 페널티와
+// 같은 급)이라 game-data.js에 "출소" 선택지를 별도로 만들 필요가 없다.
+const EX_CONVICT_OCCUPATION = { id: 'ex-convict', label: '🔓 출소자' };
+function resolveEffectiveOccupation(occupationHistory, activeRoute) {
+  const last = occupationHistory.length ? occupationHistory[occupationHistory.length - 1] : null;
+  if (last && last.id === 'inmate' && (!activeRoute || activeRoute.id !== 'prison')) {
+    return EX_CONVICT_OCCUPATION;
+  }
+  return last;
 }
 
 // STAGES 인덱스가 곧 나이라는 전제(pickNextStageIndex 참고)를 이용해 stage.id로
@@ -145,8 +201,9 @@ function buildRouteState(choiceLog, asOfStageIndex) {
   let activeRoute = null;
   for (const entry of choiceLog) {
     const stage = STAGE_BY_ID.get(entry.stageId);
-    const choice = stage && stage.choices.find((c) => c.id === entry.choiceId);
-    if (!stage || !choice) continue;
+    const rawChoice = stage && findChoiceById(stage, entry.choiceId);
+    if (!stage || !rawChoice) continue;
+    const choice = resolveEffectiveChoiceForEntry(rawChoice, entry);
     if (choice.startsRoute) {
       // 앞서 활성 루트가 있었는데 명시적 endsRoute 없이 새 루트가 시작됐다면
       // (이론상 basePool이 활성 루트 중엔 다른 startsRoute를 후보에서 빼므로
@@ -156,10 +213,16 @@ function buildRouteState(choiceLog, asOfStageIndex) {
         routeEndAges[activeRoute.id] = activeRoute.startStageIndex + activeRoute.maxDurationYears;
       }
       experiencedRouteIds.push(choice.startsRoute.id);
+      // routeDurationOverride(2026-08-23, 징역 루트 전용) - 다른 루트는
+      // maxDurationYears가 game-data.js에 고정값으로 박혀 있지만, 징역은
+      // "3~5년, 매번 무작위"(사용자 확정)라 고정값을 둘 수 없다. applyChoice가
+      // 징역 갈래가 뽑힌 바로 그 순간 3~5 중 하나를 굴려 logEntry에 저장해둔
+      // 값을 여기서 그대로 재사용한다 - 매번 다시 굴리면 재접속마다 복역
+      // 기간이 바뀌는 모순이 생기므로 반드시 저장된 값을 써야 한다.
       activeRoute = {
         id: choice.startsRoute.id,
         label: choice.startsRoute.label,
-        maxDurationYears: choice.startsRoute.maxDurationYears,
+        maxDurationYears: entry.routeDurationOverride || choice.startsRoute.maxDurationYears,
         startStageIndex: STAGE_INDEX_BY_ID.get(stage.id)
       };
     } else if (choice.endsRoute && activeRoute) {
@@ -302,8 +365,13 @@ function pickVisibleChoiceIds(choices, ctx) {
   const routeEndAges = ctx.routeEndAges || {};
   const currentAge = ctx.currentAge;
 
+  // 징역 루트(2026-08-23)는 진입 나이가 불특정해 그 나이 stage.choices 안에
+  // 콘텐츠를 심어둘 수 없다 - activeRouteId가 'prison'이면 그 나이가 몇 살이든
+  // PRISON_CHOICES(전역 풀)에서만 뽑는다. 다른 루트는 기존과 완전히 동일하게
+  // 그 나이의 choices 배열 안에서만 찾는다.
+  const routeChoicePool = activeRouteId === 'prison' ? PRISON_CHOICES : choices;
   const basePool = activeRouteId
-    ? choices.filter((c) => c.requiresRoute === activeRouteId)
+    ? routeChoicePool.filter((c) => c.requiresRoute === activeRouteId)
     : choices.filter((c) => !c.requiresRoute && !(c.startsRoute && experiencedRouteIds.includes(c.startsRoute.id)));
 
   const eligible = basePool.filter((c) => {
@@ -378,7 +446,7 @@ function pickVisibleChoiceIds(choices, ctx) {
   const costOf = (c) => Math.abs((c.deltas && c.deltas.wealth) || 0) * cashUnitForAge(currentAge);
   const canAfford = (c) => !c.requiresSufficientCash || cashHoldings >= costOf(c);
   if (resultIds.length && resultIds.every((id) => {
-    const c = choices.find((x) => x.id === id);
+    const c = routeChoicePool.find((x) => x.id === id);
     return c && !canAfford(c);
   })) {
     const alternative = eligible.find((c) => !resultIds.includes(c.id) && canAfford(c));
@@ -573,7 +641,7 @@ function publicStage(stage, visibleIds, introId, healthConditions) {
   // 그 자리에서 다시 만들어 끼워 넣는다.
   const visibleChoices = ids
     .map((id) => {
-      const real = stage.choices.find((c) => c.id === id);
+      const real = findChoiceById(stage, id);
       if (real) return { id: real.id, text: real.text };
       const synthetic = resolveSyntheticChoice(id, healthConditions);
       return synthetic ? { id: synthetic.id, text: synthetic.text } : null;
@@ -703,8 +771,13 @@ async function applyChoice(db, playRef, play, stage, choice) {
   if (choice.requiresAllFamilyMemberGroups && !choice.requiresAllFamilyMemberGroups.every((group) => group.some((id) => currentFamilyIds.includes(id)))) {
     throw new HttpsError('failed-precondition', '지금 가족 상태에서는 고를 수 없는 선택지입니다.');
   }
+  // priorRouteState를 직업 판정보다 먼저 계산해야 한다 - 징역 루트가 이미
+  // 끝났는데도 occupationHistory엔 'inmate'가 그대로 남아있어(resolveEffectiveOccupation
+  // 주석 참고) 활성 루트 정보 없이는 "출소했는지"를 판단할 수 없기 때문.
+  const priorRouteState = buildRouteState(Array.isArray(play.choiceLog) ? play.choiceLog : [], play.stageIndex);
   const priorOccupationHistory = buildOccupationHistory(Array.isArray(play.choiceLog) ? play.choiceLog : []);
-  const priorOccupationId = priorOccupationHistory.length ? priorOccupationHistory[priorOccupationHistory.length - 1].id : null;
+  const priorOccupation = resolveEffectiveOccupation(priorOccupationHistory, priorRouteState.activeRoute);
+  const priorOccupationId = priorOccupation ? priorOccupation.id : null;
   if (choice.requiresOccupation && !choice.requiresOccupation.includes(priorOccupationId)) {
     throw new HttpsError('failed-precondition', '지금 직업 상태에서는 고를 수 없는 선택지입니다.');
   }
@@ -762,7 +835,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
   }
   // 트리거 루트(14장) - requiresRoute는 지금 그 루트가 활성 상태일 때만,
   // startsRoute는 그 루트를 이미 겪은 적이 없을 때만(재진입 방지) 허용한다.
-  const priorRouteState = buildRouteState(Array.isArray(play.choiceLog) ? play.choiceLog : [], play.stageIndex);
+  // priorRouteState는 위 직업 판정 때 이미 계산해뒀다(재사용).
   if (choice.requiresRoute && (!priorRouteState.activeRoute || priorRouteState.activeRoute.id !== choice.requiresRoute)) {
     throw new HttpsError('failed-precondition', '지금은 그 루트가 활성 상태가 아니라 고를 수 없는 선택지입니다.');
   }
@@ -804,6 +877,12 @@ async function applyChoice(db, playRef, play, stage, choice) {
   let resolvedDeltas = choice.deltas;
   let resolvedResult = choice.result;
   let resolvedLabel = null;
+  // pickedBranch(2026-08-23, 징역 루트 전용) - 예전엔 이 if 블록 안에서만
+  // picked를 썼지만(deltas/result/label만 갈래별로 다름), 징역 갈래는
+  // setOccupation/startsRoute 같은 구조적 효과도 갈래별로 달라야 해서
+  // 블록 밖 pickedBranch에 그대로 남겨둔다 - 아래 logEntry.prizeLabel 저장,
+  // routeDurationOverride 굴리기, effectiveChoice 구성에 재사용.
+  let pickedBranch = null;
   if (choice.prizeTable && choice.prizeTable.length) {
     const totalWeight = choice.prizeTable.reduce((sum, p) => sum + p.weight, 0);
     let roll = Math.random() * totalWeight;
@@ -812,10 +891,25 @@ async function applyChoice(db, playRef, play, stage, choice) {
       if (roll < p.weight) { picked = p; break; }
       roll -= p.weight;
     }
+    pickedBranch = picked;
     resolvedDeltas = picked.deltas;
     resolvedResult = picked.result;
     resolvedLabel = picked.label;
   }
+  // prizeTable 갈래에 startsRoute가 실려 있는데(현재는 징역 갈래뿐)
+  // maxDurationYears가 없으면 "3~5년, 매번 무작위"(사용자 확정)라는 뜻이라
+  // 여기서 굴려서 logEntry에 저장해둔다 - buildRouteState가 재구성할 때마다
+  // 다시 굴리면 재접속마다 복역 기간이 바뀌는 모순이 생기므로 반드시 이
+  // 시점에 한 번만 굴리고 고정한다.
+  // +1 보정: buildRouteState의 만료 판정은 "(다음 나이 - 시작 나이) >=
+  // maxDurationYears"라, 선고를 받은 그 나이 자체는 아직 감옥 콘텐츠가 아닌
+  // 일반 콘텐츠 턴이고 실제 감옥 전용 턴 수는 maxDurationYears보다 정확히
+  // 1 적게 나온다(시뮬레이션으로 확인 - maxDurationYears=3을 그대로 쓰면
+  // 실제로는 2년치만 노출됨). "3~5년"이 실제 체감 복역 기간이 되도록 굴리는
+  // 값 자체를 1씩 올려 저장한다.
+  const routeDurationOverride = (pickedBranch && pickedBranch.startsRoute && !pickedBranch.startsRoute.maxDurationYears)
+    ? (4 + Math.floor(Math.random() * 3))
+    : undefined;
 
   // blocksHealthRecovery가 붙은 조건(예: 희귀 난치병)을 이미 갖고 있으면,
   // 이번 선택이 건강을 "회복시키는" 방향(양수 delta)이어도 그 효과가 막힌다 -
@@ -1072,17 +1166,18 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // (buildChoiceHistory 참고). undefined 필드는 RTDB set/update가 거부하므로
   // synthetic이 아닐 때는 이 키 자체를 안 만든다.
   if (String(choice.id).startsWith('treat:') || choice.id === 'farewell:pet') logEntry.syntheticText = choice.text;
+  // prizeLabel/routeDurationOverride(2026-08-23, 징역 루트 전용) - 나중에
+  // buildOccupationHistory/buildRouteState가 이 항목을 다시 훑을 때 "그때
+  // 어느 갈래가 뽑혔는지"를 알아야 그 갈래의 setOccupation/startsRoute를
+  // 재구성할 수 있다(resolveEffectiveChoiceForEntry 참고). undefined 필드는
+  // RTDB가 거부하므로 값이 있을 때만 키를 만든다.
+  if (resolvedLabel) logEntry.prizeLabel = resolvedLabel;
+  if (routeDurationOverride !== undefined) logEntry.routeDurationOverride = routeDurationOverride;
   choiceLog.push(logEntry);
 
-  // 직업 상세 - 별도 필드 없이 방금 갱신한 choiceLog에서 다시 계산한다(위
-  // buildOccupationHistory 주석 참고). 이번 선택이 setOccupation을 붙였다면
-  // 이 시점의 마지막 항목이 곧 그 선택으로 바뀐 새 직업이다.
-  const occupationHistory = buildOccupationHistory(choiceLog);
-  const currentOccupation = occupationHistory.length ? occupationHistory[occupationHistory.length - 1] : null;
-
-  // 현재 장소 - 직업과 완전히 같은 패턴(buildLocationHistory 주석 참고). 이번
-  // 선택이 setLocation을 붙였다면 이 시점의 마지막 항목이 곧 새 장소이고,
-  // 한 번도 해외로 나간 적 없으면 DEFAULT_LOCATION(국내) 그대로다.
+  // 현재 장소 - buildLocationHistory 주석 참고. 이번 선택이 setLocation을
+  // 붙였다면 이 시점의 마지막 항목이 곧 새 장소이고, 한 번도 해외로 나간 적
+  // 없으면 DEFAULT_LOCATION(국내) 그대로다.
   const locationHistory = buildLocationHistory(choiceLog);
   const currentLocation = resolveCurrentLocation(locationHistory);
 
@@ -1104,7 +1199,17 @@ async function applyChoice(db, playRef, play, stage, choice) {
 
   // 트리거 루트(14장) - 방금 갱신된 choiceLog 기준으로 "다음 구간(nextIndex)
   // 시점에" 활성 루트가 무엇인지 다시 계산한다(buildRouteState 주석 참고).
+  // 직업 판정(occupationHistory)보다 먼저 계산해야 resolveEffectiveOccupation이
+  // "출소했는지"를 알 수 있다.
   const { activeRoute: nextActiveRoute, experiencedRouteIds, routeCompletedIds: nextRouteCompletedIds, routeEndAges: nextRouteEndAges } = buildRouteState(choiceLog, nextIndex);
+
+  // 직업 상세 - 별도 필드 없이 방금 갱신한 choiceLog에서 다시 계산한다(위
+  // buildOccupationHistory 주석 참고). 이번 선택이 setOccupation을 붙였다면
+  // 이 시점의 마지막 항목이 곧 그 선택으로 바뀐 새 직업이다. resolveEffectiveOccupation은
+  // 징역 루트가 이미 끝났는데 직업이 'inmate'로 남아있는 경우만 ex-convict로
+  // 바꿔치기한다(그 외엔 마지막 항목 그대로).
+  const occupationHistory = buildOccupationHistory(choiceLog);
+  const currentOccupation = resolveEffectiveOccupation(occupationHistory, nextActiveRoute);
 
   // 예술가 루트 인기 연동 추가 소득(2026-08-23, 사용자 지시 - "인기 스탯에
   // 따라 추가 소득 보정도 구현해줘") - 보험료 자동 납입과 같은 급의 매 턴
@@ -1345,11 +1450,11 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
   const assets = Array.isArray(play.assets) ? play.assets : [];
   const talents = Array.isArray(play.talents) ? play.talents : [];
   const hobbies = Array.isArray(play.hobbies) ? play.hobbies : [];
-  const occupationHistory = buildOccupationHistory(play.choiceLog);
-  const currentOccupation = occupationHistory.length ? occupationHistory[occupationHistory.length - 1] : null;
   const locationHistory = buildLocationHistory(play.choiceLog);
   const currentLocation = resolveCurrentLocation(locationHistory);
   const { activeRoute, experiencedRouteIds, routeCompletedIds, routeEndAges } = buildRouteState(play.choiceLog, play.stageIndex);
+  const occupationHistory = buildOccupationHistory(play.choiceLog);
+  const currentOccupation = resolveEffectiveOccupation(occupationHistory, activeRoute);
 
   // visibleChoiceIds/currentIntroId가 이미 저장돼 있으면 그대로 재사용해서
   // 재접속해도 같은 4개·같은 상황 설명이 다시 뜨게 한다(이 필드들이 생기기
@@ -1436,7 +1541,7 @@ const submitChoice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
         Array.isArray(play.healthConditions) ? play.healthConditions : [],
         (Array.isArray(play.assets) ? play.assets : []).some((a) => a.id === 'insurance')
       )
-    : stage.choices.find((c) => c.id === choiceId);
+    : findChoiceById(stage, choiceId);
   if (!choice) throw new HttpsError('invalid-argument', '유효하지 않은 선택지입니다.');
   // 화면에 노출되지 않은(그 회차에 뽑히지 않은) 선택지를 우회로 제출하는 걸 막는다.
   if (play.visibleChoiceIds && play.visibleChoiceIds.length && !play.visibleChoiceIds.includes(choiceId)) {

@@ -272,7 +272,8 @@ const ROUTES_META = [
   { id: 'pro-gamer', title: '🎮 프로게이머', icon: '🎮' },
   { id: 'esports-coach', title: '🎯 프로게이머 감독', icon: '🎯' },
   { id: 'teen-entrepreneur', title: '💼 10대 창업가', icon: '💼' },
-  { id: 'student-leadership', title: '👑 학생 리더십', icon: '👑' }
+  { id: 'student-leadership', title: '👑 학생 리더십', icon: '👑' },
+  { id: 'prison', title: '🔒 수감 생활', icon: '🔒' }
 ];
 
 // 재능·재산 목록(17장/재산 상세) - functions/game-data.js의 addTalent/addAsset
