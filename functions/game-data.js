@@ -6720,7 +6720,7 @@ const STAGES = [
         text: '입사 초기, 유독 마음이 맞는 동료가 생긴다',
         deltas: { happiness: 2, relationship: 3 },
         result: '낯설던 사무실에서, 유독 편하게 말을 붙일 수 있는 사람이 생겼다.',
-        requiresAnyOccupation: true,
+        requiresOccupation: COMPANY_OCCUPATION_IDS,
         addAcquaintance: { relation: 'colleague', label: '💼 동료' }
       },
       {
@@ -11765,7 +11765,7 @@ const STAGES = [
         text: '함께 일하는 현지 동료와 각별해진다',
         deltas: { happiness: 3, relationship: 2 },
         result: '말이 잘 통하지 않아도, 손발은 척척 맞았다.',
-        requiresAnyOccupation: true,
+        requiresOccupation: COMPANY_OCCUPATION_IDS,
         requiresLocation: ['abroad'],
         addAcquaintance: { relation: 'colleague', label: '💼 동료' }
       },
@@ -15988,7 +15988,7 @@ const STAGES = [
         text: '오랜 직장 생활 속에서 각별한 동료가 생긴다',
         deltas: { happiness: 2, relationship: 3 },
         result: '같은 풍파를 겪고 나니, 동료 이상의 무언가가 생겼다.',
-        requiresAnyOccupation: true,
+        requiresOccupation: COMPANY_OCCUPATION_IDS,
         addAcquaintance: { relation: 'colleague', label: '💼 동료' }
       },
       {
