@@ -274,7 +274,8 @@ const ROUTES_META = [
   { id: 'teen-entrepreneur', title: '💼 10대 창업가', icon: '💼' },
   { id: 'student-leadership', title: '👑 학생 리더십', icon: '👑' },
   { id: 'prison', title: '🔒 수감 생활', icon: '🔒' },
-  { id: 'developer', title: '💻 개발자', icon: '💻' }
+  { id: 'developer', title: '💻 개발자', icon: '💻' },
+  { id: 'youth-politics', title: '🏛️ 청년 정치', icon: '🏛️' }
 ];
 
 // 재능·재산 목록(17장/재산 상세) - functions/game-data.js의 addTalent/addAsset
@@ -355,7 +356,9 @@ const OCCUPATIONS_META = [
   { id: 'teen-entrepreneur', title: '💼 10대 창업가', icon: '💼' },
   { id: 'trainee', title: '🎤 연습생', icon: '🎤' },
   { id: 'veteran-actor', title: '🏆 베테랑 배우', icon: '🏆' },
-  { id: 'volunteer-work', title: '🤝 재능기부/파트타임', icon: '🤝' }
+  { id: 'volunteer-work', title: '🤝 재능기부/파트타임', icon: '🤝' },
+  { id: 'local-council-candidate', title: '🗳️ 지방의회 후보', icon: '🗳️' },
+  { id: 'local-council-member', title: '🏛️ 지방의원', icon: '🏛️' }
 ];
 
 const collectionModal = document.getElementById('collectionModal');

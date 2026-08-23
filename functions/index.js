@@ -351,6 +351,13 @@ function pickVisibleChoiceIds(choices, ctx) {
   const conditionIds = ctx.conditionIds || [];
   const familyIds = ctx.familyIds || [];
   const currentOccupationId = ctx.occupationId || null;
+  // requiresEverOccupation(2026-08-23, 사용자 지시 - "루트 본문 이후 리더쉽
+  // 관련 추가 루트 만들어줘. 대학 학생회장을 한적있을때 진입가능") - 기존
+  // requiresOccupation은 "지금" 직업만 보는데, 이건 "과거에 한 번이라도"
+  // 그 직업을 가졌는지가 기준이라 다르다(지금은 다른 직업이어도, 심지어
+  // 은퇴했어도 통과). occupationHistory 전체를 훑어야 하므로 ctx로
+  // everOccupationIds(과거 직업 id 배열, 중복 가능)를 따로 받는다.
+  const everOccupationIds = ctx.everOccupationIds || [];
   const currentIntroId = ctx.introId || null;
   const assetIds = ctx.assetIds || [];
   const assetTypes = ctx.assetTypes || [];
@@ -388,6 +395,7 @@ function pickVisibleChoiceIds(choices, ctx) {
     if (c.requiresAllFamilyMemberGroups && !c.requiresAllFamilyMemberGroups.every((group) => group.some((id) => familyIds.includes(id)))) return false;
     if (c.requiresOccupation && !c.requiresOccupation.includes(currentOccupationId || null)) return false;
     if (c.requiresAnyOccupation && !currentOccupationId) return false;
+    if (c.requiresEverOccupation && !c.requiresEverOccupation.some((id) => everOccupationIds.includes(id))) return false;
     if (c.requiresIntro && c.requiresIntro !== currentIntroId) return false;
     if (c.requiresAsset && !assetIds.includes(c.requiresAsset)) return false;
     if (c.requiresNoAsset && assetIds.includes(c.requiresNoAsset)) return false;
@@ -789,6 +797,13 @@ async function applyChoice(db, playRef, play, stage, choice) {
   }
   if (choice.requiresAnyOccupation && !priorOccupationId) {
     throw new HttpsError('failed-precondition', '지금 직업 상태에서는 고를 수 없는 선택지입니다.');
+  }
+  // requiresEverOccupation - pickVisibleChoiceIds와 완전히 같은 조건을 여기서도
+  // 검증한다. 과거 직업이므로 priorOccupationHistory 전체(원본 setOccupation
+  // 로그, resolveEffectiveOccupation 보정 전)에서 찾는다.
+  const priorEverOccupationIds = priorOccupationHistory.map((o) => o.id);
+  if (choice.requiresEverOccupation && !choice.requiresEverOccupation.some((id) => priorEverOccupationIds.includes(id))) {
+    throw new HttpsError('failed-precondition', '지금까지의 직업 이력으로는 고를 수 없는 선택지입니다.');
   }
   if (choice.requiresIntro && choice.requiresIntro !== play.currentIntroId) {
     throw new HttpsError('failed-precondition', '지금 상황에서는 고를 수 없는 선택지입니다.');
@@ -1286,6 +1301,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
       conditionIds: healthConditions.map((c) => c.id),
       familyIds: familyMembers.map((f) => f.id),
       occupationId: currentOccupation ? currentOccupation.id : null,
+      everOccupationIds: occupationHistory.map((o) => o.id),
       introId: nextIntroId,
       assetIds: assets.map((a) => a.id),
       assetTypes: assets.map((a) => a.type),
@@ -1509,6 +1525,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       conditionIds: healthConditions.map((c) => c.id),
       familyIds: familyMembers.map((f) => f.id),
       occupationId: currentOccupation ? currentOccupation.id : null,
+      everOccupationIds: occupationHistory.map((o) => o.id),
       introId: currentIntroId,
       assetIds: assets.map((a) => a.id),
       assetTypes: assets.map((a) => a.type),
