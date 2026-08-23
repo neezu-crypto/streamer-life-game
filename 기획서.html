@@ -3627,6 +3627,32 @@
         </ul>
     </section>
 
+    <section>
+        <h2><span class="num">30</span>창업가·자영업자 계열 인기 연동 소득 (2026-08-24, 사용자 지시 — 구현 완료)</h2>
+        <p>사용자 지시: "창업가 / 자영업자 계열(비슷한 계열도 포함)은 인기 스탯에 따라 추가 소득
+        발생하게 해줘." 예술가 루트(2026-08-23)에 이미 있던 공식(<code>Math.round(fame *
+        cashUnitForAge(다음 나이) / 50)</code>)을 그대로 재사용하되, 예술가처럼 특정 루트가 활성인
+        구간에만 붙이지 않고 <b>현재 직업</b> 기준으로 걸었다 - 자영업은 small-business 루트(21~35세)가
+        끝난 뒤에도 폐업 전까지 평생 그 직업을 유지하는 게 보통이라, 소득도 루트 종료와 무관하게 계속
+        나와야 자연스럽다는 판단.</p>
+        <p><code>ENTREPRENEUR_OCCUPATION_IDS = ['entrepreneur', 'startup-founder',
+        'small-business-owner', 'teen-entrepreneur']</code> - 게임 안에서 본인이 직접 운영하는 사업체를
+        가진 4개 직업(창업가·초기 창업가·자영업자·10대 창업가) 전부. "인기=고객 유입·평판"으로 이어진다는
+        설정이 성립하는 직업만 포함했고, 회사 소속 직업(COMPANY_OCCUPATION_IDS)이나 컨설턴트처럼 본인
+        사업체가 없는 직업은 제외했다. <code>applyChoice</code>에서 매 턴 <code>currentOccupation.id</code>가
+        이 목록에 있으면, 선택지와 무관하게 배경 효과로 <code>cashHoldings</code>에 더해진다(보험료
+        자동 납입·상가 임대 소득과 같은 급).</p>
+        <h3>검증</h3>
+        <ul>
+            <li><code>node -c index.js</code> 통과.</li>
+            <li><b>단위 테스트</b> — 4개 직업(entrepreneur/startup-founder/small-business-owner/
+            teen-entrepreneur) 각각 획득시켜 fame=80 상태로 40세 선택 1회 제출 → 전부 동일하게
+            +21,600,000원 증가 확인. 대조군으로 office-worker(비대상 직업)는 같은 조건에서 증가분 0원
+            확인(오적용 없음).</li>
+            <li>10,000회 회귀(순수 무작위) — 즉사 비율 16.13%(정상 범위), STUCK/ALL_REJECTED 0건.</li>
+        </ul>
+    </section>
+
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
 </div>
 </body>

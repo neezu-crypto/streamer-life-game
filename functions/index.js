@@ -1261,6 +1261,23 @@ async function applyChoice(db, playRef, play, stage, choice) {
     cashHoldings += Math.round(stats.fame * cashUnitForAge(nextIndex) / 50);
   }
 
+  // 창업가·자영업자 계열 인기 연동 추가 소득(2026-08-24, 사용자 지시 - "창업가 /
+  // 자영업자 계열(비슷한 계열도 포함)은 인기 스탯에 따라 추가 소득 발생하게 해줘")
+  // - 예술가 루트와 같은 공식(Math.round(fame * cashUnitForAge / 50))을 그대로
+  // 재사용하되, 예술가처럼 특정 루트 활성 구간(21~34세)에만 붙이지 않고
+  // currentOccupation 기준으로 건다 - 자영업은 small-business 루트(21~35세)가
+  // 끝난 뒤(36세~)에도 폐업 전까지 평생 그 직업을 유지하는 게 보통이라, 소득도
+  // 루트 종료와 무관하게 계속 나와야 자연스럽다. entrepreneur(창업가)·
+  // startup-founder(초기 창업가)·small-business-owner(자영업자)·
+  // teen-entrepreneur(10대 창업가) 4개 - 전부 본인이 직접 운영하는 사업체를
+  // 가진 직업이라 "인기=고객 유입·평판"으로 이어진다는 설정이 성립하고, 회사
+  // 소속 직업(COMPANY_OCCUPATION_IDS)이나 컨설턴트처럼 사업체가 없는 직업은
+  // 제외했다.
+  const ENTREPRENEUR_OCCUPATION_IDS = ['entrepreneur', 'startup-founder', 'small-business-owner', 'teen-entrepreneur'];
+  if (currentOccupation && ENTREPRENEUR_OCCUPATION_IDS.includes(currentOccupation.id)) {
+    cashHoldings += Math.round(stats.fame * cashUnitForAge(nextIndex) / 50);
+  }
+
   // 상가 임대 소득(2026-08-23, 사용자 지시 - "상가를 매입해 임대업을 시작하면
   // 매년 일정금액으로 현금 소득이 발생하게 해줘") - 예술가 루트의 인기 연동
   // 소득과 같은 급의 매 턴 배경 효과. 인기처럼 오르내리는 스탯에 비례시킬
