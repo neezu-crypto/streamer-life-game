@@ -356,6 +356,11 @@ function pickVisibleChoiceIds(choices, ctx) {
   const assetTypes = ctx.assetTypes || [];
   const locationId = ctx.locationId || DEFAULT_LOCATION.id;
   const hasAnyAcquaintance = !!(ctx.acquaintances && ctx.acquaintances.length);
+  // requiresAnyLover(2026-08-23, 사용자 지시 - "연인-결혼-결혼생활-육아가
+  // 연결되는 이벤트") - requiresAnyAcquaintance는 관계 종류를 안 가리는데(친구·
+  // 동료·짝사랑도 다 통과), "연애 중" 전용 콘텐츠(데이트·다툼·프로포즈 고민 등)는
+  // 지인 관계가 정확히 lover여야 한다. requiresAnyOccupation과 같은 결.
+  const hasAnyLover = !!(ctx.acquaintances && ctx.acquaintances.some((a) => a.relation === 'lover'));
   const talentIds = ctx.talentIds || [];
   const hobbyIds = ctx.hobbyIds || [];
   const guaranteeCure = !!ctx.guaranteeCure;
@@ -389,6 +394,7 @@ function pickVisibleChoiceIds(choices, ctx) {
     if (c.requiresAssetType && !assetTypes.includes(c.requiresAssetType)) return false;
     if (c.requiresLocation && !c.requiresLocation.includes(locationId)) return false;
     if (c.requiresAnyAcquaintance && !hasAnyAcquaintance) return false;
+    if (c.requiresAnyLover && !hasAnyLover) return false;
     if (c.requiresTalent && !talentIds.includes(c.requiresTalent)) return false;
     if (c.requiresAnyTalent && !talentIds.length) return false;
     if (c.requiresHobby && !hobbyIds.includes(c.requiresHobby)) return false;
@@ -816,6 +822,10 @@ async function applyChoice(db, playRef, play, stage, choice) {
   const priorAcquaintances = Array.isArray(play.acquaintances) ? play.acquaintances : [];
   if (choice.requiresAnyAcquaintance && !priorAcquaintances.length) {
     throw new HttpsError('failed-precondition', '지금 지인이 없어서 고를 수 없는 선택지입니다.');
+  }
+  // requiresAnyLover - pickVisibleChoiceIds와 완전히 같은 조건을 여기서도 검증한다.
+  if (choice.requiresAnyLover && !priorAcquaintances.some((a) => a.relation === 'lover')) {
+    throw new HttpsError('failed-precondition', '지금 연인이 없어서 고를 수 없는 선택지입니다.');
   }
   // requiresTalent/requiresAnyTalent, requiresHobby/requiresAnyHobby - requiresAsset·
   // requiresAnyAcquaintance와 완전히 같은 패턴을 재능·취미 상세에 적용했다.

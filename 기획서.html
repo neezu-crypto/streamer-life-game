@@ -3366,6 +3366,49 @@
         범위 근처로 복원 확인, STUCK/ALL_REJECTED 0건, 정상 출소 4,124건.</p>
     </section>
 
+    <section>
+        <h2><span class="num">23</span>연인-결혼-결혼생활-육아 연결 이벤트 64종 (2026-08-23, 사용자 지시 — 구현 완료)</h2>
+        <p>사용자 지시: "연인 - 결혼 - 결혼생활 - 육아가 연결되는 이벤트를 다수 추가해줘." 착수 전 감사
+        결과, 연인 생성 선택지는 8개뿐이고 "연애 중" 전용 콘텐츠(데이트·다툼·프로포즈 고민 등)가 전혀
+        없었다. 결혼생활(배우자 단독 게이팅) 콘텐츠는 25개 중 32~39세 구간에 딱 1개뿐으로 거의 비어
+        있었고, 육아(자녀 단독 게이팅)는 55개가 있지만 51/58/82세 등 특정 나이(자녀 결혼·손주 등
+        생애주기 이벤트)에 몰려 있어 정작 초기 양육기(30~45세)의 하루하루 texture가 옅었다.</p>
+        <h3>엔진 추가 — requiresAnyLover</h3>
+        <p>기존 <code>requiresAnyAcquaintance</code>는 지인의 관계 종류(친구·동료·짝사랑·연인)를 안
+        가리는데, "연애 중" 전용 콘텐츠는 정확히 연인(lover) 관계가 있어야 자연스럽다.
+        <code>requiresAnyOccupation</code>/<code>requiresAnyHobby</code>와 완전히 같은 패턴으로
+        <code>requiresAnyLover</code>(불리언)를 신설해 <code>pickVisibleChoiceIds</code>·
+        <code>applyChoice</code> 양쪽에 검증을 추가했다.</p>
+        <h3>감사 중 발견한 기존 버그 수정</h3>
+        <p>연인 생성 선택지 8개를 점검하던 중, <code>abroad-lover-met-31</code>(해외에서 새 인연을 만남)과
+        <code>late-life-new-lover</code>(인생 후반부 새로운 사람을 만남) 둘 다 이미 배우자가 있어도
+        뜰 수 있었다 - 불륜을 의도한 콘텐츠가 아니라 "새로운 만남" 문구인데 기혼자에게도 노출되는 게이팅
+        누락이었다. 둘 다 <code>requiresNoFamilyMember: ['spouse']</code>를 추가해 수정.</p>
+        <h3>콘텐츠 — 64개</h3>
+        <table>
+        <tr><th>구간</th><th>게이팅</th><th>개수</th><th>나이대</th><th>내용</th></tr>
+        <tr><td>연애 중</td><td><code>requiresAnyLover</code></td><td>15개</td><td>17~29세, 61~67세</td>
+        <td>데이트·손잡기·기념일·다툼·화해·상견례·장거리 연애·이별 고민·재혼 상대와의 데이트 등</td></tr>
+        <tr><td>결혼생활</td><td><code>requiresFamilyMember: ['spouse']</code></td><td>25개</td>
+        <td>32~55세 위주(공백 구간 집중 보강) + 62~78세</td>
+        <td>신혼 가사분담 다툼·명절 갈등·권태기·부부 상담·졸혼 고민·은혼식·황혼기 서로 돌봄 등</td></tr>
+        <tr><td>육아</td><td><code>requiresFamilyMember: ['child']</code></td><td>24개</td>
+        <td>30~65세, 초기 양육기(30~50세) 밀도 보강</td>
+        <td>이유식·밤샘 육아·어린이집 적응·미운 세 살·초등 입학·사춘기·진로 상담·독립·결혼 준비 등</td></tr>
+        </table>
+        <h3>검증</h3>
+        <ul>
+            <li><code>node -c game-data.js</code> 통과, 64개 id 중복 0건(전체 2,839개 중).</li>
+            <li>10,000회 회귀 시뮬레이션 — 즉사 비율 17.91%(기존 기준선 범위 내), STUCK/ALL_REJECTED
+            0건.</li>
+            <li>게이팅 정확도 전수 검사 — 연인 없이 <code>lover-*</code> 노출 0/3,749건, 배우자 없이
+            <code>married-*</code> 노출 0/13,921건, 자녀 없이 <code>parenting-*</code> 노출
+            0/1,203건.</li>
+            <li>기존 버그 수정분 검증 — 15,000회 시뮬레이션에서 배우자가 있는데도
+            <code>abroad-lover-met-31</code>/<code>late-life-new-lover</code>가 노출된 경우 0/4,336건.</li>
+        </ul>
+    </section>
+
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
 </div>
 </body>

@@ -2884,6 +2884,14 @@ const STAGES = [
     intro: '진로와 성적이 본격적으로 무게를 갖기 시작하는 나이. 하루하루가 조금씩 빠듯해집니다.',
     choices: [
       {
+        id: 'lover-first-movie-date',
+        text: '연인과 함께 첫 영화 데이트를 즐긴다',
+        deltas: { happiness: 3, wealth: -1 },
+        result: '팝콘보다 옆자리가 더 신경 쓰였다.',
+        requiresAnyLover: true
+      },
+
+      {
         id: 'deviant-teen-fake-id-club-17',
         text: '부모님 몰래 신분증을 위조해 클럽에 들어간다',
         prizeTable: [
@@ -3313,6 +3321,14 @@ const STAGES = [
     ageRange: '18세',
     intro: '고등학교의 마지막 해. 수능과 졸업이라는 두 단어가 하루하루를 채웁니다.',
     choices: [
+      {
+        id: 'lover-first-handhold',
+        text: '연인과 처음으로 손을 잡는다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '별거 아닌 손끝의 온기가, 하루 종일 맴돌았다.',
+        requiresAnyLover: true
+      },
+
       {
         id: 'deviant-exam-earpiece-cheat-18',
         text: '수능 감독을 피해 몰래 이어폰으로 답을 듣는다',
@@ -4976,6 +4992,14 @@ const STAGES = [
     intro: '방향을 조금씩 좁혀가는 나이. 막연했던 미래가 서서히 구체적인 모양을 갖추기 시작합니다.',
     choices: [
       {
+        id: 'lover-anniversary-gift',
+        text: '연인과의 기념일을 정성껏 챙긴다',
+        deltas: { happiness: 2, wealth: -2 },
+        result: '작은 선물 하나에도, 활짝 웃는 얼굴이 좋았다.',
+        requiresAnyLover: true
+      },
+
+      {
         id: 'deviant-inflate-resume-21',
         text: '이력서 경력을 살짝 부풀려 적는다',
         prizeTable: [
@@ -5533,6 +5557,14 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        id: 'lover-petty-fight',
+        text: '연인과 사소한 일로 다툰다',
+        deltas: { happiness: -3, relationship: -2 },
+        result: '별것 아닌 말 한마디가, 며칠을 서먹하게 만들었다.',
+        requiresAnyLover: true
+      },
+
       {
         id: 'deviant-copy-club-report-22',
         text: '동아리 발표 자료를 선배 것 그대로 베낀다',
@@ -6098,6 +6130,14 @@ const STAGES = [
     ageRange: '23세',
     intro: '스무 살대의 마지막 해. 자립이라는 단어가 더는 남 얘기가 아니게 됩니다.',
     choices: [
+      {
+        id: 'lover-makeup-closer',
+        text: '다툰 연인과 화해하며 더 가까워진다',
+        deltas: { happiness: 3, relationship: 3 },
+        result: '싸운 만큼, 서로를 더 잘 알게 된 기분이었다.',
+        requiresAnyLover: true
+      },
+
       {
         id: 'deviant-speeding-nearmiss-23',
         text: '과속하다 걸릴 뻔한 걸 아슬아슬하게 피한다',
@@ -6699,6 +6739,14 @@ const STAGES = [
     ageRange: '24세',
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
+      {
+        id: 'lover-meet-parents',
+        text: '연인의 부모님께 처음 인사드리러 간다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '긴장한 티가 역력했지만, 무사히 넘겼다.',
+        requiresAnyLover: true
+      },
+
       {
         id: 'deviant-fake-overtime-claim-24',
         text: '야근하지 않았는데 야근 수당을 신청한다',
@@ -7324,6 +7372,14 @@ const STAGES = [
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
       {
+        id: 'lover-long-distance-strain',
+        text: '장거리 연애로 지쳐간다',
+        deltas: { happiness: -3 },
+        result: '보고 싶은 마음이 클수록, 거리도 더 멀게 느껴졌다.',
+        requiresAnyLover: true
+      },
+
+      {
         id: 'deviant-underreport-side-income-25',
         text: '부업 소득을 세금 신고에서 슬쩍 뺀다',
         prizeTable: [
@@ -7895,6 +7951,14 @@ const STAGES = [
     ageRange: '26세',
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
+      {
+        id: 'lover-future-talk',
+        text: '연인과 서로의 미래 계획을 진지하게 이야기한다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '같은 그림을 그리고 있다는 게, 든든했다.',
+        requiresAnyLover: true
+      },
+
       {
         id: 'deviant-company-card-personal-26',
         text: '법인카드로 개인 물건을 슬쩍 결제한다',
@@ -8550,6 +8614,14 @@ const STAGES = [
     ageRange: '27세',
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
+      {
+        id: 'lover-friends-awkward-meet',
+        text: '연인과 내 친구들의 첫 만남이 어색하게 흘러간다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '다들 서먹했지만, 그래도 나쁘지 않은 자리였다.',
+        requiresAnyLover: true
+      },
+
       {
         id: 'deviant-secret-side-job-27',
         text: '본업 몰래 겹치는 시간에 부업을 뛴다',
@@ -9777,6 +9849,14 @@ const STAGES = [
     intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
     choices: [
       {
+        id: 'lover-breakup-consideration',
+        text: '연인과 헤어질지 진지하게 고민한다',
+        deltas: { happiness: -3 },
+        result: '답을 내리지 못한 채, 마음만 무거워졌다.',
+        requiresAnyLover: true
+      },
+
+      {
         id: 'deviant-fake-injury-insurance-29',
         text: '가벼운 부상을 부풀려 보험금을 청구한다',
         prizeTable: [
@@ -10308,6 +10388,14 @@ const STAGES = [
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
       {
+        id: 'parenting-first-solid-food',
+        text: '아이에게 처음으로 이유식을 먹인다',
+        deltas: { happiness: 3, health: -1 },
+        result: '뱉어내는 것도, 삼키는 것도 다 신기하고 예뻤다.',
+        requiresFamilyMember: ['child']
+      },
+
+      {
         id: 'deviant-inflate-expense-report-30',
         text: '출장 비용 영수증을 부풀려 청구한다',
         prizeTable: [
@@ -10797,6 +10885,14 @@ const STAGES = [
     intro: '곁에 남을 사람과 앞으로의 삶을 어떻게 그릴지, 조금 더 구체적으로 고민하는 나이입니다.',
     choices: [
       {
+        id: 'parenting-sleepless-nights',
+        text: '밤새 우는 아이를 달래느라 뜬눈으로 지새운다',
+        deltas: { happiness: -2, health: -2 },
+        result: '눈은 감겨도, 마음만은 아이에게 가 있었다.',
+        requiresFamilyMember: ['child']
+      },
+
+      {
         id: 'deviant-secret-side-business-31',
         text: '회사 몰래 개인 사업을 병행한다',
         prizeTable: [
@@ -11220,6 +11316,7 @@ const STAGES = [
         deltas: { happiness: 5, relationship: 3 },
         result: '몇 마디 나누지도 않았는데, 자꾸 눈이 갔다.',
         requiresLocation: ['abroad'],
+        requiresNoFamilyMember: ['spouse'],
         addAcquaintance: { relation: 'lover', label: '💕 연인' }
       },
       {
@@ -11269,6 +11366,28 @@ const STAGES = [
     ageRange: '32세',
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
+      {
+        id: 'lover-forgot-anniversary',
+        text: '연인과의 기념일을 깜빡해 크게 다툰다',
+        deltas: { happiness: -4, relationship: -3 },
+        result: '달력에 적어뒀어야 했다고, 뒤늦게 후회했다.',
+        requiresAnyLover: true
+      },
+      {
+        id: 'married-newlywed-chore-fight',
+        text: '신혼집 가사 분담을 두고 배우자와 다툰다',
+        deltas: { happiness: -3, relationship: -2 },
+        result: '누가 더 힘든지 따지다, 정작 대화는 사라졌다.',
+        requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'parenting-daycare-adjustment',
+        text: '어린이집에 처음 보낸 아이가 적응하도록 함께 애쓴다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '떨어지지 않으려는 손을 떼어내는 게, 매일 아침 숙제였다.',
+        requiresFamilyMember: ['child']
+      },
+
       {
         id: 'deviant-fake-business-trip-32',
         text: '출장을 핑계로 몰래 여행을 다녀온다',
@@ -11699,6 +11818,21 @@ const STAGES = [
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
       {
+        id: 'married-different-schedule',
+        text: '배우자와 생활 패턴이 달라 서로 겉돈다',
+        deltas: { happiness: -2 },
+        result: '한집에 살아도, 마주치는 시간이 점점 줄었다.',
+        requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'parenting-first-steps',
+        text: '아이가 처음으로 뒤뚱뒤뚱 걸음을 뗀다',
+        deltas: { happiness: 5 },
+        result: '몇 걸음이 전부였지만, 온 세상을 다 가진 기분이었다.',
+        requiresFamilyMember: ['child']
+      },
+
+      {
         id: 'deviant-fake-tax-invoice-33',
         text: '가짜 세금계산서로 지출을 부풀린다',
         prizeTable: [
@@ -12094,6 +12228,21 @@ const STAGES = [
     ageRange: '34세',
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
+      {
+        id: 'married-inlaw-visit-stress',
+        text: '명절에 시댁·처가 방문 문제로 신경전을 벌인다',
+        deltas: { happiness: -3, relationship: -2 },
+        result: '해마다 반복되는 실랑이에, 명절이 달갑지 않아졌다.',
+        requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'parenting-terrible-twos',
+        text: '미운 세 살 아이의 떼쓰기에 진땀을 뺀다',
+        deltas: { happiness: -3, health: -1 },
+        result: '이유도 없이 우는 아이 앞에서, 인내심이 바닥을 쳤다.',
+        requiresFamilyMember: ['child']
+      },
+
       {
         id: 'deviant-borrow-disabled-permit-34',
         text: '장애인 주차증을 빌려 몰래 사용한다',
@@ -12542,6 +12691,21 @@ const STAGES = [
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
       {
+        id: 'married-anniversary-trip',
+        text: '배우자와 결혼기념일을 기념해 짧은 여행을 떠난다',
+        deltas: { happiness: 4, wealth: -3, relationship: 2 },
+        result: '오랜만에 둘만의 시간이, 처음 만났을 때를 떠올리게 했다.',
+        requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'parenting-picky-eater-worry',
+        text: '편식하는 아이 때문에 매 끼니 골머리를 앓는다',
+        deltas: { happiness: -2 },
+        result: '숨겨서 넣고, 모양을 바꿔봐도 소용없었다.',
+        requiresFamilyMember: ['child']
+      },
+
+      {
         id: 'deviant-embezzle-petty-cash-35',
         text: '회삿돈 자투리를 슬쩍 개인 용도로 쓴다',
         prizeTable: [
@@ -12967,6 +13131,21 @@ const STAGES = [
     intro: '나를 키워준 사람들을 이제는 내가 돌봐야 할 시기가 다가옵니다.',
     choices: [
       {
+        id: 'married-shared-hobby-start',
+        text: '배우자와 함께 즐길 취미를 새로 시작한다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '같은 걸 배우며 다시 연애하던 기분이 났다.',
+        requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'parenting-daycare-recital',
+        text: '어린이집 재롱잔치에서 아이의 무대를 지켜본다',
+        deltas: { happiness: 4, relationship: 1 },
+        result: '서툰 춤사위 하나에도, 눈시울이 뜨거워졌다.',
+        requiresFamilyMember: ['child']
+      },
+
+      {
         id: 'deviant-fake-charity-receipt-36',
         text: '기부하지 않은 금액을 기부금 영수증에 적는다',
         prizeTable: [
@@ -13385,6 +13564,21 @@ const STAGES = [
     ageRange: '37세',
     intro: '잊고 지내던 나 자신을 다시 챙기기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'married-finance-disagreement',
+        text: '가계 지출 방식을 두고 배우자와 의견이 갈린다',
+        deltas: { happiness: -3, relationship: -2 },
+        result: '통장을 사이에 두고, 서로 다른 그림을 그리고 있었다.',
+        requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'parenting-burnout',
+        text: '육아에 지쳐 번아웃이 찾아온다',
+        deltas: { happiness: -4, health: -2 },
+        result: '아이는 사랑스러운데, 나 자신은 점점 사라지는 것 같았다.',
+        requiresFamilyMember: ['child']
+      },
+
       {
         id: 'deviant-workplace-affair-hint-37',
         text: '직장 동료와 위험한 썸을 은근히 즐긴다',
@@ -13831,6 +14025,14 @@ const STAGES = [
     intro: '몸이 예전 같지 않다는 걸, 무시할 수 없을 만큼 또렷하게 느끼게 됩니다.',
     choices: [
       {
+        id: 'married-supports-promotion',
+        text: '배우자의 승진 소식을 진심으로 축하해준다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '내 일처럼 기뻐하는 모습에, 배우자도 뭉클해했다.',
+        requiresFamilyMember: ['spouse']
+      },
+
+      {
         id: 'deviant-secret-loan-shark-38',
         text: '몰래 사채로 급한 돈을 돌려막는다',
         prizeTable: [
@@ -14274,6 +14476,21 @@ const STAGES = [
     intro: '서른대의 마지막 해. 다가올 10년을 조용히 준비하게 됩니다.',
     choices: [
       {
+        id: 'married-in-law-money-request',
+        text: '시댁·처가의 금전적 부탁으로 부부 사이가 껄끄러워진다',
+        deltas: { happiness: -3, wealth: -3, relationship: -2 },
+        result: '가족이라 거절하기도, 다 들어주기도 애매했다.',
+        requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'parenting-chores-split-fight',
+        text: '배우자와 육아 분담 문제로 다툰다',
+        deltas: { happiness: -3, relationship: -2 },
+        result: '누가 더 힘든지가 아니라, 함께한다는 확신이 필요했다.',
+        requiresFamilyMember: ['child']
+      },
+
+      {
         id: 'deviant-secret-motorcycle-installment-39',
         text: '가족 몰래 할부로 오토바이를 지른다',
         prizeTable: [
@@ -14674,6 +14891,14 @@ const STAGES = [
     ageRange: '40세',
     intro: '인생의 절반 지점. 마흔이라는 숫자가 이유 없이 지난 시간을 돌아보게 만듭니다.',
     choices: [
+      {
+        id: 'parenting-first-day-of-school',
+        text: '아이의 초등학교 입학식에 함께한다',
+        deltas: { happiness: 4, wealth: -2 },
+        result: '작은 가방을 멘 뒷모습이, 유독 크고 대견해 보였다.',
+        requiresFamilyMember: ['child']
+      },
+
       {
         id: 'deviant-early-pension-withdrawal-40',
         text: '퇴직연금을 몰래 중도 인출해 쓴다',
@@ -15095,6 +15320,14 @@ const STAGES = [
     intro: '자녀 교육이든 커리어든, 뭔가를 본격적으로 다잡아야 할 것 같은 압박이 느껴지는 나이입니다.',
     choices: [
       {
+        id: 'married-separate-rooms-debate',
+        text: '코골이 문제로 각방을 쓸지 진지하게 고민한다',
+        deltas: { happiness: -1, relationship: -1 },
+        result: '편한 잠과 나란한 잠 사이에서, 답을 찾기 어려웠다.',
+        requiresFamilyMember: ['spouse']
+      },
+
+      {
         id: 'deviant-corpcard-family-trip-41',
         text: '회사 법인카드로 가족 여행 경비를 결제한다',
         prizeTable: [
@@ -15385,6 +15618,21 @@ const STAGES = [
     ageRange: '42세',
     intro: '몸이 보내는 신호를 더 이상 못 본 척할 수 없게 되는 나이입니다.',
     choices: [
+      {
+        id: 'married-boredom-onset',
+        text: '결혼 생활에 문득 권태로움을 느낀다',
+        deltas: { happiness: -3 },
+        result: '싫은 건 아닌데, 설렘도 딱히 없다는 게 낯설었다.',
+        requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'parenting-homework-help',
+        text: '아이의 숙제를 봐주다 예상외로 진땀을 뺀다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '내가 배울 때보다, 가르치는 게 더 어렵다는 걸 알았다.',
+        requiresFamilyMember: ['child']
+      },
+
       {
         id: 'deviant-fake-safety-inspection-42',
         text: '안전 점검 결과를 대충 통과시킨다',
@@ -15712,6 +15960,21 @@ const STAGES = [
     ageRange: '43세',
     intro: '조직 안에서 자신의 자리를 다시 확인하게 되는 시기입니다.',
     choices: [
+      {
+        id: 'married-date-night-revival',
+        text: '오랜만에 배우자와 단둘이 데이트를 즐긴다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '아이 없이 둘만 마주 앉으니, 그제야 서로가 보였다.',
+        requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'parenting-smartphone-dispute',
+        text: '스마트폰 사용 시간을 두고 아이와 실랑이를 벌인다',
+        deltas: { happiness: -2, relationship: -1 },
+        result: '정한 규칙이 매일 새로운 협상 대상이 됐다.',
+        requiresFamilyMember: ['child']
+      },
+
       {
         id: 'deviant-midlife-secret-splurge-43',
         text: '가족 몰래 목돈을 혼자만의 사치에 쓴다',
@@ -16059,6 +16322,21 @@ const STAGES = [
     intro: '가까운 사이일수록 소원해지기 쉬운 나이. 관계를 다시 들여다보게 됩니다.',
     choices: [
       {
+        id: 'married-complains-to-friend',
+        text: '친구에게 배우자 흉을 늘어놓으며 스트레스를 푼다',
+        deltas: { happiness: 2, relationship: -1 },
+        result: '속은 시원했지만, 돌아서니 조금 미안했다.',
+        requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'parenting-allowance-lesson',
+        text: '아이에게 용돈 관리하는 법을 가르친다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '헤프게 쓰다 후회하는 모습도, 배움의 과정이라 여겼다.',
+        requiresFamilyMember: ['child']
+      },
+
+      {
         id: 'deviant-underpay-subcontractor-44',
         text: '하청 대금을 슬쩍 늦게, 적게 지급한다',
         prizeTable: [
@@ -16395,6 +16673,14 @@ const STAGES = [
     ageRange: '45세',
     intro: '다 가진 것 같은데도 문득 공허해지는, 이른바 중년의 위기가 찾아오는 나이입니다.',
     choices: [
+      {
+        id: 'married-conversation-fading',
+        text: '배우자와의 대화가 점점 줄어드는 걸 느낀다',
+        deltas: { happiness: -3, relationship: -2 },
+        result: '할 말이 없어서가 아니라, 안 하는 게 익숙해진 탓이었다.',
+        requiresFamilyMember: ['spouse']
+      },
+
       {
         id: 'deviant-fudge-audit-numbers-45',
         text: '회사 장부 숫자를 살짝 눈속임한다',
@@ -16820,6 +17106,21 @@ const STAGES = [
     ageRange: '46세',
     intro: '늦지 않았다는 걸 스스로 증명하고 싶어지는 나이입니다.',
     choices: [
+      {
+        id: 'married-supports-through-illness',
+        text: '몸이 안 좋은 배우자를 곁에서 살뜰히 챙긴다',
+        deltas: { happiness: 2, relationship: 3 },
+        result: '아플 때 곁을 지키는 게, 결혼이라는 걸 새삼 느꼈다.',
+        requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'parenting-teen-rebellion',
+        text: '사춘기에 접어든 아이와 사사건건 부딪힌다',
+        deltas: { happiness: -3, relationship: -2 },
+        result: '문을 쾅 닫는 소리가, 마음에도 그대로 부딪혔다.',
+        requiresFamilyMember: ['child']
+      },
+
       {
         id: 'deviant-fake-property-damage-claim-46',
         text: '멀쩡한 물건을 파손됐다며 보험금을 청구한다',
@@ -17338,6 +17639,21 @@ const STAGES = [
     intro: '커리어가 정점에 이르거나, 정체를 마주하거나 — 갈림이 뚜렷해지는 나이입니다.',
     choices: [
       {
+        id: 'married-couple-counseling',
+        text: '갈등이 깊어져 부부 상담을 받아보기로 한다',
+        deltas: { happiness: 2, relationship: 2, wealth: -2 },
+        result: '남 앞에서 속마음을 꺼내는 게 어색했지만, 도움이 됐다.',
+        requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'parenting-career-talk',
+        text: '아이의 진로 고민을 함께 들어주며 조언한다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '정답을 주기보다, 옆에서 들어주는 게 먼저라는 걸 배웠다.',
+        requiresFamilyMember: ['child']
+      },
+
+      {
         id: 'deviant-fake-remote-attendance-48',
         text: '재택근무인 척 실제론 딴짓만 한다',
         prizeTable: [
@@ -17505,6 +17821,21 @@ const STAGES = [
     ageRange: '49세',
     intro: '몸이 새로운 국면으로 접어드는 걸 느끼기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'married-forgets-anniversary',
+        text: '결혼기념일을 깜빡해 배우자를 서운하게 한다',
+        deltas: { happiness: -3, relationship: -3 },
+        result: '달력 앱 알림도 소용없었던 하루였다.',
+        requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'parenting-report-card-disappoint',
+        text: '기대에 못 미친 아이의 성적표에 실망감을 감추지 못한다',
+        deltas: { happiness: -2, relationship: -2 },
+        result: '실망한 티를 안 내려 했는데, 표정은 숨겨지지 않았다.',
+        requiresFamilyMember: ['child']
+      },
+
       {
         id: 'deviant-midlife-dangerous-meeting-49',
         text: '선을 넘을 뻔한 위험한 만남을 은밀히 이어간다',
@@ -17706,6 +18037,21 @@ const STAGES = [
     ageRange: '50세',
     intro: '쉰이라는 숫자 앞에서, 지나온 시간의 무게를 새삼 느끼게 됩니다.',
     choices: [
+      {
+        id: 'married-exercise-together',
+        text: '배우자와 함께 운동을 시작하며 건강을 챙긴다',
+        deltas: { happiness: 3, health: 2, relationship: 2 },
+        result: '같이 흘리는 땀이, 대화보다 더 많은 걸 말해줬다.',
+        requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'parenting-friend-troubles',
+        text: '친구 문제로 힘들어하는 아이의 이야기를 들어준다',
+        deltas: { happiness: 1, relationship: 2 },
+        result: '해결해줄 순 없어도, 들어주는 것만으로 힘이 되는 듯했다.',
+        requiresFamilyMember: ['child']
+      },
+
       {
         id: 'deviant-fake-early-retirement-doc-50',
         text: '명예퇴직 조건을 맞추려 서류를 손본다',
@@ -18110,6 +18456,21 @@ const STAGES = [
     intro: '은퇴라는 단어가 더는 먼 이야기가 아니게 되는 나이입니다.',
     choices: [
       {
+        id: 'married-hobby-disapproval',
+        text: '배우자의 새 취미가 못마땅해 눈치를 준다',
+        deltas: { happiness: -2, relationship: -2 },
+        result: '좋아하는 걸 하는 게 뭐가 문제냐는 말에, 할 말이 없었다.',
+        requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'parenting-first-heartbreak',
+        text: '첫 이별을 겪은 아이를 조용히 다독인다',
+        deltas: { happiness: 1, relationship: 2 },
+        result: '나도 겪어본 아픔이라, 그 마음이 더 잘 보였다.',
+        requiresFamilyMember: ['child']
+      },
+
+      {
         id: 'deviant-secret-slush-fund-52',
         text: '가족 몰래 비상금을 빼돌려 혼자만의 취미에 쓴다',
         prizeTable: [
@@ -18345,6 +18706,21 @@ const STAGES = [
     intro: '중년의 마지막 해. 다가올 노년을 향해 조용히 마음을 다잡습니다.',
     choices: [
       {
+        id: 'married-empty-nest-adjust',
+        text: '자녀가 독립한 뒤 둘만 남은 집에 적응해간다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '허전함도 잠시, 둘만의 시간이 다시 소중해졌다.',
+        requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'parenting-college-entrance-support',
+        text: '대학 입시를 앞둔 아이를 곁에서 응원한다',
+        deltas: { happiness: 2, wealth: -3, relationship: 1 },
+        result: '해줄 수 있는 게 응원뿐이라는 게, 못내 아쉬웠다.',
+        requiresFamilyMember: ['child']
+      },
+
+      {
         id: 'deviant-underreport-severance-tax-54',
         text: '퇴직금 세금 신고를 슬쩍 줄인다',
         prizeTable: [
@@ -18426,6 +18802,14 @@ const STAGES = [
     ageRange: '55세',
     intro: '정년이라는 단어가 더는 남 얘기가 아니게 되는 나이. 매일 출근하던 삶이 조용히 막을 내립니다.',
     choices: [
+      {
+        id: 'married-considers-separation-marriage',
+        text: '함께 살되 각자의 삶을 존중하는 졸혼을 고민한다',
+        deltas: { happiness: 1, relationship: -1 },
+        result: '헤어지자는 게 아니라, 서로에게 숨 쉴 틈을 주자는 마음이었다.',
+        requiresFamilyMember: ['spouse']
+      },
+
       {
         id: 'deviant-secret-retirement-fund-trip-55',
         text: '노후 자금 일부를 몰래 여행 경비로 빼돌린다',
@@ -18696,6 +19080,14 @@ const STAGES = [
     ageRange: '56세',
     intro: '평생 "어디 소속"으로 나를 소개하던 습관이 사라지며, 나는 누구인가를 새삼 다시 묻게 됩니다.',
     choices: [
+      {
+        id: 'parenting-discovers-talent',
+        text: '아이에게서 뜻밖의 재능을 발견하고 적극 지원한다',
+        deltas: { happiness: 3, wealth: -2, relationship: 2 },
+        result: '몰랐던 모습을 발견할 때마다, 아이가 새롭게 보였다.',
+        requiresFamilyMember: ['child']
+      },
+
       {
         id: 'deviant-hide-checkup-results-56',
         text: '건강검진 결과를 가족에게 속여 말한다',
@@ -19104,6 +19496,14 @@ const STAGES = [
     intro: '건강이 더 이상 당연한 게 아니라는 걸 받아들이고, 본격적으로 몸을 챙기기 시작하는 나이입니다.',
     choices: [
       {
+        id: 'parenting-private-education-cost',
+        text: '치솟는 사교육비 부담에 한숨이 늘어간다',
+        deltas: { happiness: -2, wealth: -3 },
+        result: '아이를 위한 지출인데, 통장은 점점 가벼워졌다.',
+        requiresFamilyMember: ['child']
+      },
+
+      {
         id: 'deviant-hospital-queue-jump-59',
         text: '병원에서 새치기로 순서를 앞당긴다',
         prizeTable: [
@@ -19230,6 +19630,14 @@ const STAGES = [
     ageRange: '60세',
     intro: '환갑. 예순 해를 지나온 삶을 가족과 함께 돌아보는 해입니다.',
     choices: [
+      {
+        id: 'parenting-child-independence-worry',
+        text: '독립을 준비하는 아이를 보며 대견함과 걱정이 교차한다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '잘 컸다는 뿌듯함 뒤로, 빈자리 걱정이 슬쩍 스쳤다.',
+        requiresFamilyMember: ['child']
+      },
+
       {
         id: 'deviant-priority-seat-abuse-60',
         text: '노약자석에 앉아 모르는 척한다',
@@ -19383,6 +19791,7 @@ const STAGES = [
         text: '인생 후반부, 마음이 통하는 새로운 사람을 만난다',
         deltas: { happiness: 4, relationship: 4 },
         result: '이 나이에 이런 감정을 다시 느낄 줄은, 스스로도 몰랐다.',
+        requiresNoFamilyMember: ['spouse'],
         addAcquaintance: { relation: 'lover', label: '💕 연인' }
       },
       {
@@ -19410,6 +19819,14 @@ const STAGES = [
     ageRange: '61세',
     intro: '은퇴 이후의 삶이 서서히 새로운 리듬을 찾아가는 시기입니다.',
     choices: [
+      {
+        id: 'lover-late-life-date',
+        text: '늦게 만난 연인과 소박한 데이트를 즐긴다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '이 나이에 설렌다는 게, 스스로도 신기했다.',
+        requiresAnyLover: true
+      },
+
       {
         id: 'deviant-pension-income-underreport-61',
         text: '실제보다 소득을 낮춰 신고해 연금 혜택을 더 받는다',
@@ -19536,6 +19953,28 @@ const STAGES = [
     intro: '연금이라는 단어가 현실적인 숫자로 다가오기 시작하는 나이입니다.',
     choices: [
       {
+        id: 'lover-family-disapproval',
+        text: '자녀들이 새 연인을 못마땅해해 마음이 복잡하다',
+        deltas: { happiness: -3, relationship: -2 },
+        result: '내 행복인데, 왜 눈치를 봐야 하나 싶었다.',
+        requiresAnyLover: true
+      },
+      {
+        id: 'married-golden-anniversary-plan',
+        text: '배우자와 함께 은혼식을 계획한다',
+        deltas: { happiness: 4, relationship: 3, wealth: -2 },
+        result: '함께 걸어온 세월이, 새삼 뭉클하게 다가왔다.',
+        requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'parenting-child-wedding-prep',
+        text: '아이의 결혼 준비를 함께 챙긴다',
+        deltas: { happiness: 4, wealth: -4, relationship: 2 },
+        result: '분주한 준비 속에서도, 감회가 남달랐다.',
+        requiresFamilyMember: ['child']
+      },
+
+      {
         id: 'deviant-forbidden-drink-62',
         text: '의사 몰래 금지된 술 한잔을 즐긴다',
         prizeTable: [
@@ -19659,6 +20098,14 @@ const STAGES = [
     ageRange: '63세',
     intro: '취미와 가족, 두 가지 모두에서 깊이가 더해지는 시기입니다.',
     choices: [
+      {
+        id: 'lover-decide-to-remarry',
+        text: '연인과 재혼을 진지하게 의논한다',
+        deltas: { happiness: 3 },
+        result: '남은 시간을 함께 보내고 싶다는 마음이 분명해졌다.',
+        requiresAnyLover: true
+      },
+
       {
         id: 'deviant-inflate-volunteer-hours-63',
         text: '봉사활동 시간을 부풀려 기록한다',
@@ -19883,6 +20330,21 @@ const STAGES = [
     ageRange: '65세',
     intro: '법정 노인 연령. 사회가 부르는 호칭이 바뀌는 걸 마주하게 됩니다.',
     choices: [
+      {
+        id: 'lover-quiet-companionship',
+        text: '연인과 말없이도 편안한 시간을 보낸다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '굳이 말하지 않아도, 마음이 통하는 사이가 됐다.',
+        requiresAnyLover: true
+      },
+      {
+        id: 'parenting-empty-nest-pride',
+        text: '독립한 아이가 잘 지내는 모습에 뿌듯함을 느낀다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '떠나보낸 자리가 허전해도, 잘 자란 모습이 더 크게 다가왔다.',
+        requiresFamilyMember: ['child']
+      },
+
       {
         id: 'deviant-hide-sideincome-pension-65',
         text: '소일거리 수입을 연금공단에 숨긴다',
@@ -20381,6 +20843,14 @@ const STAGES = [
     intro: '가까운 이들의 부고를 마주하며, 남은 삶의 무게를 다시 느끼게 됩니다.',
     choices: [
       {
+        id: 'married-retirement-together',
+        text: '둘 다 은퇴한 뒤 하루를 어떻게 보낼지 새로 맞춰간다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '종일 붙어 있는 하루가, 처음엔 낯설고 나중엔 편해졌다.',
+        requiresFamilyMember: ['spouse']
+      },
+
+      {
         id: 'deviant-market-queue-jump-68',
         text: '재래시장에서 슬쩍 새치기를 한다',
         prizeTable: [
@@ -20769,6 +21239,14 @@ const STAGES = [
     intro: '거창한 일 없이도, 하루하루의 작은 순간들이 새삼 소중하게 다가오는 나이입니다.',
     choices: [
       {
+        id: 'married-caring-for-each-other',
+        text: '나이 들어가는 배우자를 서로 챙기며 살아간다',
+        deltas: { happiness: 2, relationship: 2, health: 1 },
+        result: '젊을 때와는 다른 방식으로, 서로가 서로의 버팀목이 됐다.',
+        requiresFamilyMember: ['spouse']
+      },
+
+      {
         id: 'deviant-inflate-disability-benefit-71',
         text: '실제보다 부풀려 장애 등급 혜택을 신청한다',
         prizeTable: [
@@ -20974,6 +21452,14 @@ const STAGES = [
     ageRange: '73세',
     intro: '몸이 더는 예전 같지 않다는 걸, 이제는 확실히 받아들여야 하는 시기입니다.',
     choices: [
+      {
+        id: 'married-reminisce-together',
+        text: '배우자와 함께 지난 세월을 추억하며 웃는다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '옛날 사진 한 장에, 밤늦도록 이야기가 이어졌다.',
+        requiresFamilyMember: ['spouse']
+      },
+
       {
         id: 'deviant-welfare-card-lend-73',
         text: '복지 교통카드를 빌려줘 부정 승차를 돕는다',
@@ -21519,6 +22005,14 @@ const STAGES = [
     ageRange: '78세',
     intro: '기억이 예전만큼 또렷하지 않다는 걸, 스스로 느끼기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'married-worry-for-spouse-health',
+        text: '배우자의 건강이 걱정돼 매일 마음을 졸인다',
+        deltas: { happiness: -2, relationship: 1 },
+        result: '걱정도 사랑의 다른 이름이라는 걸, 이 나이에 알게 됐다.',
+        requiresFamilyMember: ['spouse']
+      },
+
       {
         id: "wealth-drain-78-a",
         text: "상속 문제로 변호사 비용을 크게 지출한다",
