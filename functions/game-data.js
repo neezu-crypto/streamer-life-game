@@ -1409,7 +1409,8 @@ const STAGES = [
         id: 'class-officer-duty',
         text: '학급 임원을 맡아 책임감을 느낀다',
         deltas: { fame: 4, relationship: 3, happiness: -1 },
-        result: '작은 완장 하나가 생각보다 무겁다는 걸 그때 처음 배웠다.'
+        result: '작은 완장 하나가 생각보다 무겁다는 걸 그때 처음 배웠다.',
+        addTalent: { id: 'leadership', label: '👑 리더십' }
       },
       {
         id: 'late-night-texting',
@@ -1428,7 +1429,8 @@ const STAGES = [
         id: 'streamer-roleplay',
         text: '좋아하는 스트리머를 따라 방송 흉내를 내본다',
         deltas: { fame: 3, happiness: 3 },
-        result: '카메라도 없는 방에서 혼자 떠들면서도 이상하게 신이 났다.'
+        result: '카메라도 없는 방에서 혼자 떠들면서도 이상하게 신이 났다.',
+        addTalent: { id: 'acting', label: '🎭 연기' }
       },
       {
         id: 'puberty-onset-awkward',
