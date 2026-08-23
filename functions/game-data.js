@@ -15494,7 +15494,8 @@ const STAGES = [
         text: '낯설던 현지 시장이라는 땅에 뿌리를 내리며 사업을 키운다',
         deltas: { happiness: 4, wealth: 5 },
         result: '낯설던 시장이, 어느새 익숙한 무대가 됐다.',
-        requiresLocation: ['abroad']
+        requiresLocation: ['abroad'],
+        setOccupation: { id: 'entrepreneur', label: '🚀 창업가' }
       },
       {
         id: 'abroad-branch-promotion-43',
