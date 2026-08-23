@@ -11614,9 +11614,9 @@ const STAGES = [
       },
       {
         id: 'betrayal-unpaid-loan-30',
-        text: '믿고 빌려준 돈을 지인이 차일피일 미루며 갚지 않는다',
+        text: '지인에게 돈을 빌려준다',
         deltas: { happiness: -5, relationship: -4, wealth: -3 },
-        result: '연락은 점점 뜸해지고, 돈 이야기만 꺼내면 말을 돌렸다.',
+        result: '연락은 점점 뜸해지고, 돈 이야기만 꺼내면 말을 돌렸다. 결국 그 돈은 돌려받지 못했다.',
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
@@ -13246,9 +13246,9 @@ const STAGES = [
       },
       {
         id: 'betrayal-partner-vanishes-33',
-        text: '동업을 제안했던 지인이 투자금만 챙기고 연락을 끊는다',
+        text: '지인의 동업 제안을 믿고 투자금을 건넨다',
         deltas: { happiness: -7, relationship: -5, wealth: -6 },
-        result: '사무실 문은 잠겨 있었고, 전화는 신호조차 가지 않았다.',
+        result: '사무실 문은 잠겨 있었고, 전화는 신호조차 가지 않았다. 지인은 투자금만 챙긴 채 사라졌다.',
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
@@ -14754,7 +14754,7 @@ const STAGES = [
       },
       {
         id: 'betrayal-identity-misused-36',
-        text: '믿었던 지인이 내 명의를 몰래 이용해 대출을 받는다',
+        text: '믿었던 지인이 내 명의를 몰래 이용해 대출받은 사실을 알게 된다',
         deltas: { happiness: -6, relationship: -5, wealth: -5 },
         result: '본 적도 없는 대출 서류에, 내 이름과 도장이 찍혀 있었다.',
         requiresAnyAcquaintance: true,
@@ -17407,9 +17407,9 @@ const STAGES = [
       },
       {
         id: 'betrayal-guarantee-disappears-42',
-        text: '믿고 보증을 서준 지인이 잠적하며 빚만 남긴다',
+        text: '지인의 부탁으로 대출 보증을 서준다',
         deltas: { happiness: -7, relationship: -5, wealth: -7 },
-        result: '서명 한 번의 대가가, 이렇게 클 줄은 몰랐다.',
+        result: '서명 한 번의 대가가, 이렇게 클 줄은 몰랐다. 지인은 잠적했고, 빚만 고스란히 남았다.',
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
@@ -19441,9 +19441,9 @@ const STAGES = [
       },
       {
         id: 'betrayal-business-fund-taken-48',
-        text: '믿고 맡긴 사업 자금을 지인이 자기 명의로 슬쩍 빼돌린다',
+        text: '지인에게 사업 자금을 빌려준다',
         deltas: { happiness: -6, relationship: -5, wealth: -6 },
-        result: '통장을 확인한 순간, 남은 숫자가 눈을 의심하게 만들었다.',
+        result: '통장을 확인한 순간, 남은 숫자가 눈을 의심하게 만들었다. 지인이 자기 명의로 슬쩍 빼돌린 뒤였다.',
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
@@ -21025,9 +21025,9 @@ const STAGES = [
       },
       {
         id: 'betrayal-savings-club-vanishes-57',
-        text: '오래 알고 지낸 지인이 곗돈을 들고 사라진다',
+        text: '오래 알고 지낸 지인과 함께 곗돈 모임을 시작한다',
         deltas: { happiness: -6, relationship: -5, wealth: -5 },
-        result: '다달이 부은 돈이, 흔적도 없이 사라졌다.',
+        result: '다달이 부은 돈이, 흔적도 없이 사라졌다. 지인이 곗돈을 들고 자취를 감춘 뒤였다.',
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
@@ -21541,9 +21541,9 @@ const STAGES = [
       },
       {
         id: 'betrayal-mismanaged-pension-60',
-        text: '믿고 맡긴 퇴직금 운용을 지인이 부실하게 관리해 크게 손해를 본다',
+        text: '지인에게 퇴직금 운용을 맡긴다',
         deltas: { happiness: -6, relationship: -4, wealth: -6 },
-        result: '평생 모은 돈이, 몇 마디 설명으로 다 설명되지 않았다.',
+        result: '평생 모은 돈이, 몇 마디 설명으로 다 설명되지 않았다. 지인의 부실한 관리 탓에 크게 손해를 본 뒤였다.',
         requiresOccupation: ['retired'],
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
