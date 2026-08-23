@@ -10612,6 +10612,7 @@ const STAGES = [
       {
         "id": "usl-marriage-29",
         "text": "오래 만나온 사람과 결혼을 결심한다",
+        "requiresAnyLover": true,
         "deltas": {
                 "happiness": 5,
                 "relationship": 4
@@ -12060,6 +12061,7 @@ const STAGES = [
         text: '오래 만난 연인과 결혼식을 올린다',
         deltas: { happiness: 6, relationship: 5, wealth: -6 },
         result: '많은 사람 앞에서 서약하는 그 몇 분이, 유독 길게 느껴졌다.',
+        requiresAnyLover: true,
         requiresNoFamilyMember: ['spouse'],
         addFamilyMembers: [{ id: 'spouse', label: '💍 배우자' }]
       },
@@ -12074,6 +12076,7 @@ const STAGES = [
         text: '결혼식 비용과 현실 사이에서 씁쓸한 타협을 한다',
         deltas: { happiness: -3, wealth: -3 },
         result: '꿈꾸던 것과 가계부 사이에서, 결국 가계부가 이겼다.',
+        requiresAnyLover: true,
         requiresNoFamilyMember: ['spouse'],
         addFamilyMembers: [{ id: 'spouse', label: '💍 배우자' }]
       },
@@ -12082,6 +12085,7 @@ const STAGES = [
         text: '배우자·파트너와 함께 살 집을 처음으로 계약한다',
         deltas: { wealth: -5, relationship: 4 },
         result: '도장 하나로 삶의 반경이 통째로 바뀌었다.',
+        requiresAnyLover: true,
         requiresNoFamilyMember: ['spouse'],
         addFamilyMembers: [{ id: 'spouse', label: '💍 배우자' }]
       },
@@ -12090,6 +12094,7 @@ const STAGES = [
         text: '양가 부모님 사이를 조율한다',
         deltas: { happiness: -3, relationship: 1 },
         result: '둘의 문제인 줄 알았는데, 생각보다 훨씬 많은 사람이 얽혀 있었다.',
+        requiresAnyLover: true,
         requiresNoFamilyMember: ['spouse'],
         addFamilyMembers: [{ id: 'spouse', label: '💍 배우자' }]
       },

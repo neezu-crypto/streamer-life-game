@@ -3653,6 +3653,38 @@
         </ul>
     </section>
 
+    <section>
+        <h2><span class="num">31</span>결혼 선택지 — 연인 없이도 뜨는 버그 5건 (2026-08-24, 사용자 보고 — 구현 완료)</h2>
+        <p>사용자 보고(스크린샷) - 지인·가족·연인 전부 없는 31세 상태에서 "오래 만난 연인과 결혼식을
+        올린다"(<code>wedding-day</code>)가 노출됨. 배우자를 만드는 <code>addFamilyMembers:['spouse']</code>
+        선택지는 게임 전체에 6개뿐인데, 그중 5개가 <code>requiresAnyLover</code> 없이 뜨고 있었다.</p>
+        <p>기존 <code>applyChoice</code>엔 이미 "연인이 있으면 그 지인을 배우자로 이어받고, 없으면 이름
+        없는 배우자가 생긴다"는 로직이 있었고 주석에 "연인 지인이 결혼의 필수 조건은 아니다"라고 명시돼
+        있었다 - 즉 <b>메커니즘 자체는 의도된 설계</b>였다. 문제는 텍스트 쪽이었다 - "오래 만난 연인과",
+        "오래 만나온 사람과", "배우자·파트너와 함께", "양가 부모님 사이를" 같은 문구는 전부 기존에
+        연인이 있었다는 걸 전제하는데, 정작 그 선택지들엔 연인 보유를 확인하는 조건이 없었다. 이번
+        세션에서 이미 4차례 반복된 "선택지 텍스트가 플레이어가 갖지 않은 상태를 전제한다" 버그와 같은
+        계열([[streamer_life_game_family_gating_audits]]).</p>
+        <p>수정: <code>usl-marriage-29</code>(us-settled-life 루트 전용), <code>wedding-day</code>,
+        <code>wedding-budget-compromise</code>, <code>first-shared-home</code>,
+        <code>inlaws-negotiation</code> 5개에 <code>requiresAnyLover: true</code> 추가. 나머지 1개
+        <code>late-remarriage</code>("새로운 인연을 만나 인생 후반부에 결혼한다")는 만남과 결혼을 한
+        선택지에 압축한 자기완결형 텍스트라 연인 보유를 전제하지 않으므로 그대로 두고, 연인이 한 번도
+        없었던 플레이어의 결혼 경로로 남겼다(기존 주석의 설계 의도와 일치).</p>
+        <p class="note"><code>us-settled-life</code> 루트는 27세 <code>usl-dating-scene-27</code>(연인
+        지인 획득)이 29세 <code>usl-marriage-29</code>보다 먼저 있어, 대부분의 플레이어가 자연스럽게
+        연인을 먼저 얻은 뒤 결혼 단계에 도달하는 구조라 게이팅을 추가해도 그 루트 안에서 결혼이 막히지
+        않는다.</p>
+        <h3>검증</h3>
+        <ul>
+            <li><code>node -c game-data.js</code> 통과, 5개 모두 <code>requiresAnyLover: true</code>
+            반영 확인, id 중복 0건.</li>
+            <li>10,000회 회귀(순수 무작위) — 즉사 비율 16.86%(정상 범위), STUCK/ALL_REJECTED 0건,
+            결혼(배우자 보유) 비율 7.16%(수정 후에도 <code>late-remarriage</code> 안전망 덕분에 결혼
+            경로 자체는 막히지 않음을 확인).</li>
+        </ul>
+    </section>
+
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
 </div>
 </body>
