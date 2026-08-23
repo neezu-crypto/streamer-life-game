@@ -14564,7 +14564,8 @@ const STAGES = [
         id: 'new-club-connections',
         text: '동호회에서 또래와는 다른 새로운 인연을 만난다',
         deltas: { relationship: 4, happiness: 3 },
-        result: '나이도, 하는 일도 다른 사람들과의 대화가 신선했다.'
+        result: '나이도, 하는 일도 다른 사람들과의 대화가 신선했다.',
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
       },
       {
         id: 'burnout-career-break',
@@ -21209,7 +21210,8 @@ const STAGES = [
         text: '재능기부로 만난 사람들과 새로운 인연을 쌓는다',
         deltas: { relationship: 4 },
         result: '보수 없이 만난 사이인데, 오히려 마음은 더 깊어졌다.',
-        requiresOccupation: ['volunteer-work']
+        requiresOccupation: ['volunteer-work'],
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
       },
       {
         id: 're-younger-boss-64',
@@ -21380,7 +21382,8 @@ const STAGES = [
         id: 'first-visit-to-senior-center',
         text: '경로당에 처음 나가보며 새로운 인연을 만든다',
         deltas: { relationship: 4, happiness: 3 },
-        result: '문턱을 넘기까지가 어려웠지, 막상 들어가니 편안했다.'
+        result: '문턱을 넘기까지가 어려웠지, 막상 들어가니 편안했다.',
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
       },
       {
         id: 'free-subway-adventures',
@@ -22539,7 +22542,8 @@ const STAGES = [
         id: 'unexpected-friendship-on-trip',
         text: '여행지에서 낯선 사람과 대화를 나눈다',
         deltas: { happiness: 5, relationship: 3 },
-        result: '낯선 곳에서 생긴 인연이, 여행의 가장 큰 선물이었다.'
+        result: '낯선 곳에서 생긴 인연이, 여행의 가장 큰 선물이었다.',
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
       },
       {
         id: 'short-local-outing',
