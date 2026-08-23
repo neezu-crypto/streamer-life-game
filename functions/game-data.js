@@ -6952,6 +6952,16 @@ const STAGES = [
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
       {
+        id: 're-trigger-24',
+        text: '정규직으로서 회사 생활에 본격적으로 적응해나간다',
+        deltas: {"wealth":1,"happiness":1},
+        result: '이제부터는 매일 아침 같은 자리로 출근하는 삶이었다.',
+        requiresOccupation: ["office-worker"],
+        mandatory: true,
+        startsRoute: {"id":"regular-employee","label":"💼 정규직 직장인","maxDurationYears":15}
+      },
+
+      {
         id: 'sb-competitor-opens-24',
         text: '바로 옆에 경쟁 가게가 새로 문을 연다',
         deltas: {"happiness":-3,"wealth":-1},
@@ -7637,6 +7647,28 @@ const STAGES = [
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
       {
+        id: 're-onboarding-overwhelm-25',
+        text: 'undefined',
+        deltas: {"happiness":-2,"wealth":1},
+        result: '처음 며칠은 이름과 자리를 외우는 것만으로도 벅찼다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-first-mentor-25',
+        text: 'undefined',
+        deltas: {"happiness":3},
+        result: '친절히 알려주는 사수 덕분에, 낯선 공간이 조금씩 익숙해졌다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-first-overtime-25',
+        text: 'undefined',
+        deltas: {"wealth":2,"happiness":-3},
+        result: '막차를 놓칠 뻔하고서야, 야근이 뭔지 몸으로 배웠다.',
+        requiresRoute: 'regular-employee'
+      },
+
+      {
         id: 'sb-franchise-offer-25',
         text: '프랜차이즈로 전환하자는 제안을 받는다',
         deltas: {"happiness":2,"wealth":1},
@@ -8269,6 +8301,28 @@ const STAGES = [
     ageRange: '26세',
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
+      {
+        id: 're-team-dinner-26',
+        text: 'undefined',
+        deltas: {"happiness":2,"wealth":-1},
+        result: '술잔이 몇 번 오가자, 낯설던 얼굴들이 조금 가까워졌다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-office-politics-observe-26',
+        text: 'undefined',
+        deltas: {"happiness":-2},
+        result: '보이지 않는 편이 있다는 걸, 서서히 눈치채기 시작했다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-skill-certificate-26',
+        text: 'undefined',
+        deltas: {"wealth":-2,"happiness":2},
+        result: '퇴근 후 학원을 다니며, 다음 단계를 준비했다.',
+        requiresRoute: 'regular-employee'
+      },
+
       {
         id: 'sb-slow-season-26',
         text: '비수기 매출 부진으로 자금난에 시달린다',
@@ -8985,6 +9039,28 @@ const STAGES = [
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
       {
+        id: 're-first-review-good-27',
+        text: 'undefined',
+        deltas: {"happiness":4,"wealth":2},
+        result: '기대 이상의 평가에, 그동안의 밤들이 보상받는 기분이었다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-first-review-bad-27',
+        text: 'undefined',
+        deltas: {"happiness":-4},
+        result: '냉정한 피드백 앞에서, 자신감이 흔들렸다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-coworker-friendship-27',
+        text: 'undefined',
+        deltas: {"happiness":3},
+        result: '같은 시기에 입사한 동기가, 든든한 버팀목이 되어주었다.',
+        requiresRoute: 'regular-employee'
+      },
+
+      {
         id: 'sb-second-location-scouting-27',
         text: '2호점 자리를 알아보러 다닌다',
         deltas: {"happiness":2,"wealth":-1},
@@ -9697,6 +9773,28 @@ const STAGES = [
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
       {
+        id: 're-work-life-balance-struggle-28',
+        text: 'undefined',
+        deltas: {"happiness":-3,"wealth":2},
+        result: '통장은 채워졌지만, 저녁이 있는 삶은 자꾸 미뤄졌다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-hobby-outside-work-28',
+        text: 'undefined',
+        deltas: {"happiness":3,"wealth":-1},
+        result: '퇴근 후 취미 하나를 붙잡고, 숨통을 틔웠다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-headhunter-contact-28',
+        text: 'undefined',
+        deltas: {"happiness":1,"wealth":1},
+        result: '이직 제안 메일 하나에, 마음이 잠시 흔들렸다.',
+        requiresRoute: 'regular-employee'
+      },
+
+      {
         id: 'sb-second-store-opens-28',
         text: '드디어 2호점을 오픈한다',
         deltas: {"happiness":5,"wealth":-2,"fame":1},
@@ -10312,6 +10410,28 @@ const STAGES = [
     intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
     choices: [
       {
+        id: 're-department-transfer-29',
+        text: 'undefined',
+        deltas: {"happiness":-1,"wealth":1},
+        result: '새 부서는 익숙한 것과 낯선 것이 반반 섞여 있었다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-project-lead-first-29',
+        text: 'undefined',
+        deltas: {"happiness":4,"wealth":2},
+        result: '작은 프로젝트였지만, 처음으로 이름이 앞에 걸렸다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-late-night-deadline-29',
+        text: 'undefined',
+        deltas: {"happiness":-3,"wealth":1},
+        result: '마감 전날 밤, 사무실 불빛만이 유일한 동료였다.',
+        requiresRoute: 'regular-employee'
+      },
+
+      {
         id: 'sb-supplier-price-hike-29',
         text: '재료비 인상으로 마진이 크게 줄어든다',
         deltas: {"happiness":-3,"wealth":-2},
@@ -10905,6 +11025,28 @@ const STAGES = [
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
       {
+        id: 're-office-romance-30',
+        text: 'undefined',
+        deltas: {"happiness":4},
+        result: '같은 회사라는 게, 뜻밖의 설렘이 되기도 했다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-salary-plateau-30',
+        text: 'undefined',
+        deltas: {"happiness":-2,"wealth":-1},
+        result: '연봉 인상률이 물가를 못 따라가는 걸, 숫자로 실감했다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-side-project-attempt-30',
+        text: 'undefined',
+        deltas: {"wealth":1,"happiness":2},
+        result: '퇴근 후 작은 부업을 시작하며, 다른 가능성을 열어봤다.',
+        requiresRoute: 'regular-employee'
+      },
+
+      {
         id: 'sb-decade-milestone-30',
         text: '가게를 연 지 10년째, 감회에 젖는다',
         deltas: {"happiness":4,"relationship":2},
@@ -11486,6 +11628,28 @@ const STAGES = [
     intro: '곁에 남을 사람과 앞으로의 삶을 어떻게 그릴지, 조금 더 구체적으로 고민하는 나이입니다.',
     choices: [
       {
+        id: 're-reorg-anxiety-31',
+        text: 'undefined',
+        deltas: {"happiness":-3},
+        result: '조직도가 다시 그려질 때마다, 마음 한구석이 불안했다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-new-boss-clash-31',
+        text: 'undefined',
+        deltas: {"happiness":-3,"fame":-1},
+        result: '새로 온 상사와는, 처음부터 결이 잘 맞지 않았다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-quiet-quitting-decision-31',
+        text: 'undefined',
+        deltas: {"happiness":2,"fame":-2},
+        result: '더 이상 초과로 애쓰지 않기로, 조용히 마음을 정했다.',
+        requiresRoute: 'regular-employee'
+      },
+
+      {
         id: 'sb-online-store-launch-31',
         text: '온라인 판매 채널을 새로 연다',
         deltas: {"happiness":2,"wealth":2},
@@ -12044,6 +12208,28 @@ const STAGES = [
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
       {
+        id: 're-becomes-go-to-person-32',
+        text: 'undefined',
+        deltas: {"happiness":3,"fame":3},
+        result: '어느새 사람들이 먼저 찾는 이름이 되어 있었다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-remote-work-trial-32',
+        text: 'undefined',
+        deltas: {"happiness":3},
+        result: '재택근무 첫 날, 통근 시간만큼 하루가 길어진 기분이었다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-work-injury-stress-32',
+        text: 'undefined',
+        deltas: {"happiness":-4},
+        result: '스트레스성 증상으로, 처음으로 병원을 찾았다.',
+        requiresRoute: 'regular-employee'
+      },
+
+      {
         id: 'sb-economic-downturn-32',
         text: '전반적인 경기 침체로 손님 발길이 뜸해진다',
         deltas: {"happiness":-3,"wealth":-3},
@@ -12551,6 +12737,28 @@ const STAGES = [
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
       {
+        id: 're-promotion-competition-33',
+        text: 'undefined',
+        deltas: {"happiness":-2,"fame":2},
+        result: '동기와 나란히 후보에 오르자, 마음이 복잡해졌다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-mentoring-junior-33',
+        text: 'undefined',
+        deltas: {"happiness":3},
+        result: '후배를 가르치며, 스스로도 다시 배우는 기분이 들었다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-company-scandal-33',
+        text: 'undefined',
+        deltas: {"happiness":-3,"fame":-2},
+        result: '뉴스에 뜬 회사 이름을 보며, 착잡한 하루를 보냈다.',
+        requiresRoute: 'regular-employee'
+      },
+
+      {
         id: 'sb-anniversary-event-33',
         text: '가게 기념일을 맞아 손님들과 함께 자축한다',
         deltas: {"happiness":4,"relationship":3,"wealth":-1},
@@ -13047,6 +13255,28 @@ const STAGES = [
     ageRange: '34세',
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
+      {
+        id: 're-job-offer-tempting-34',
+        text: 'undefined',
+        deltas: {"wealth":3,"happiness":-1},
+        result: '더 좋은 조건의 제안 앞에서, 익숙함과 새로움을 저울질했다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-stays-loyal-34',
+        text: 'undefined',
+        deltas: {"happiness":2,"fame":1},
+        result: '결국 지금 자리를 지키기로, 스스로 답을 내렸다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-team-building-trip-34',
+        text: 'undefined',
+        deltas: {"happiness":3,"wealth":-1},
+        result: '워크숍에서의 웃음이, 오래 쌓인 피로를 잠시 잊게 했다.',
+        requiresRoute: 'regular-employee'
+      },
+
       {
         id: 'sb-final-expansion-decision-34',
         text: '더 이상의 확장은 없다고 마음을 정리한다',
@@ -13584,6 +13814,28 @@ const STAGES = [
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
       {
+        id: 're-burnout-onset-35',
+        text: 'undefined',
+        deltas: {"happiness":-5},
+        result: '아침에 눈을 떠도, 몸이 좀처럼 일어나지지 않았다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-takes-vacation-35',
+        text: 'undefined',
+        deltas: {"happiness":4,"wealth":-2},
+        result: '오랜만의 연차에, 잊고 있던 여유를 되찾았다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-financial-planning-35',
+        text: 'undefined',
+        deltas: {"wealth":2},
+        result: '월급의 흐름을 다시 짜며, 미래를 조금 더 구체적으로 그려봤다.',
+        requiresRoute: 'regular-employee'
+      },
+
+      {
         id: 'sb-stable-routine-35',
         text: '이제는 안정된 루틴 속에서 가게를 운영한다',
         deltas: {"happiness":3,"health":1},
@@ -14070,6 +14322,28 @@ const STAGES = [
     intro: '나를 키워준 사람들을 이제는 내가 돌봐야 할 시기가 다가옵니다.',
     choices: [
       {
+        id: 're-informal-leader-role-36',
+        text: 'undefined',
+        deltas: {"happiness":2,"fame":2},
+        result: '직함은 아니었지만, 이미 팀의 중심 역할을 하고 있었다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-work-friend-departs-36',
+        text: 'undefined',
+        deltas: {"happiness":-2},
+        result: '오래 함께한 동료의 퇴사 소식에, 자리 하나가 허전해졌다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-side-income-grows-36',
+        text: 'undefined',
+        deltas: {"wealth":3},
+        result: '작게 시작한 부업이, 어느새 무시 못 할 수입이 되어 있었다.',
+        requiresRoute: 'regular-employee'
+      },
+
+      {
         id: 'yp-corruption-temptation-36',
         text: '업체로부터 은근한 뇌물성 제안을 받고 흔들린다',
         deltas: {"happiness":-2,"relationship":-1},
@@ -14533,6 +14807,28 @@ const STAGES = [
     ageRange: '37세',
     intro: '잊고 지내던 나 자신을 다시 챙기기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 're-promotion-passed-over-37',
+        text: 'undefined',
+        deltas: {"happiness":-4,"fame":-1},
+        result: '기대했던 자리가 다른 이름으로 채워지자, 씁쓸함이 오래 남았다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-quiet-satisfaction-37',
+        text: 'undefined',
+        deltas: {"happiness":3},
+        result: '큰 자리는 아니어도, 지금의 균형에 나름의 만족을 느꼈다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-industry-network-37',
+        text: 'undefined',
+        deltas: {"fame":2,"happiness":1},
+        result: '업계 사람들과 쌓아온 인연이, 어느새 든든한 자산이 되어 있었다.',
+        requiresRoute: 'regular-employee'
+      },
+
       {
         id: 'yp-successful-reelection-37',
         text: '치열한 경쟁 끝에 재선에 성공한다',
@@ -15017,6 +15313,28 @@ const STAGES = [
     ageRange: '38세',
     intro: '몸이 예전 같지 않다는 걸, 무시할 수 없을 만큼 또렷하게 느끼게 됩니다.',
     choices: [
+      {
+        id: 're-decade-reflection-38',
+        text: 'undefined',
+        deltas: {"happiness":3},
+        result: '입사한 지 10년을 넘기며, 지나온 길을 가만히 돌아봤다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-considers-manager-track-38',
+        text: 'undefined',
+        deltas: {"happiness":1,"fame":2},
+        result: '관리자의 길로 갈지, 실무자로 남을지 진지하게 저울질했다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-stable-routine-38',
+        text: 'undefined',
+        deltas: {"happiness":2,"wealth":1},
+        result: '이제는 회사 생활의 리듬이, 몸에 완전히 배어 있었다.',
+        requiresRoute: 'regular-employee'
+      },
+
       {
         id: 'yp-national-office-temptation-38',
         text: '국회의원 도전을 은근히 제안받고 고민에 빠진다',
@@ -17482,6 +17800,16 @@ const STAGES = [
     intro: '가까운 사이일수록 소원해지기 쉬운 나이. 관계를 다시 들여다보게 됩니다.',
     choices: [
       {
+        id: 're-trigger-44',
+        text: '팀장으로서 조직을 이끄는 무게를 실감하기 시작한다',
+        deltas: {"wealth":1,"fame":1},
+        result: '이름 앞에 붙은 직함이, 매일의 책임으로 다가왔다.',
+        requiresOccupation: ["team-lead"],
+        mandatory: true,
+        startsRoute: {"id":"regular-employee","label":"💼 정규직 직장인","maxDurationYears":7}
+      },
+
+      {
         id: 'yp-farewell-address-44',
         text: '고별 연설에서 지역 주민들에게 진심 어린 감사를 전한다',
         deltas: {"happiness":4,"relationship":3},
@@ -17862,6 +18190,28 @@ const STAGES = [
     ageRange: '45세',
     intro: '다 가진 것 같은데도 문득 공허해지는, 이른바 중년의 위기가 찾아오는 나이입니다.',
     choices: [
+      {
+        id: 're-mgr-first-oneonone-45',
+        text: 'undefined',
+        deltas: {"happiness":-2,"fame":2},
+        result: '처음 진행한 1:1 면담에서, 듣는 일이 얼마나 어려운지 실감했다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-mgr-team-conflict-45',
+        text: 'undefined',
+        deltas: {"happiness":-3},
+        result: '팀원 간 갈등을 조율하느라, 하루가 다 지나갔다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-mgr-delegates-well-45',
+        text: 'undefined',
+        deltas: {"happiness":3,"fame":2},
+        result: '일을 믿고 맡기는 법을, 조금씩 터득해갔다.',
+        requiresRoute: 'regular-employee'
+      },
+
       {
         id: 'sb2-longtime-regular-45',
         text: '오래된 단골이 한결같이 가게를 찾아준다',
@@ -18305,6 +18655,28 @@ const STAGES = [
     intro: '늦지 않았다는 걸 스스로 증명하고 싶어지는 나이입니다.',
     choices: [
       {
+        id: 're-mgr-performance-pressure-46',
+        text: 'undefined',
+        deltas: {"happiness":-4,"wealth":1},
+        result: '팀의 실적이 곧 내 이름표가 된다는 게, 무겁게 다가왔다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-mgr-praised-upward-46',
+        text: 'undefined',
+        deltas: {"happiness":3,"fame":2},
+        result: '윗선에서 좋은 평가가 내려오자, 그간의 무게가 조금 가벼워졌다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-mgr-junior-resigns-46',
+        text: 'undefined',
+        deltas: {"happiness":-3},
+        result: '아끼던 후배의 사직서를, 붙잡지 못하고 받아들었다.',
+        requiresRoute: 'regular-employee'
+      },
+
+      {
         id: 'japan-trip-pickpocket-scare-46',
         text: '번화가에서 소매치기를 당할 뻔한다',
         deltas: { happiness: -3, wealth: -1 },
@@ -18552,6 +18924,28 @@ const STAGES = [
     ageRange: '47세',
     intro: '나를 키워준 사람들의 노년을 마주하며, 삶과 죽음을 조금 더 가까이서 보게 됩니다.',
     choices: [
+      {
+        id: 're-mgr-family-time-sacrifice-47',
+        text: 'undefined',
+        deltas: {"happiness":-3,"wealth":2},
+        result: '늦은 퇴근이 반복되며, 가족과의 저녁이 자꾸 미뤄졌다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-mgr-sets-boundary-47',
+        text: 'undefined',
+        deltas: {"happiness":3},
+        result: '퇴근 후 연락은 받지 않기로, 스스로와 약속했다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-mgr-executive-eye-47',
+        text: 'undefined',
+        deltas: {"fame":3,"happiness":1},
+        result: '임원진의 시야에 이름이 오르내리기 시작했다는 소문이 들렸다.',
+        requiresRoute: 'regular-employee'
+      },
+
       {
         id: 'deviant-nepotism-hire-47',
         text: '실력보다 인맥으로 후배를 몰래 채용한다',
@@ -18845,6 +19239,28 @@ const STAGES = [
     intro: '커리어가 정점에 이르거나, 정체를 마주하거나 — 갈림이 뚜렷해지는 나이입니다.',
     choices: [
       {
+        id: 're-mgr-caught-between-48',
+        text: 'undefined',
+        deltas: {"happiness":-3},
+        result: '위와 아래 사이에서, 어느 쪽에도 온전히 서지 못했다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-mgr-budget-negotiation-48',
+        text: 'undefined',
+        deltas: {"wealth":2,"happiness":-1},
+        result: '팀 예산을 지키기 위해, 회의실에서 목소리를 높였다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-mgr-mentors-successor-48',
+        text: 'undefined',
+        deltas: {"happiness":3},
+        result: '언젠가 내 자리를 이을 사람을, 눈여겨보기 시작했다.',
+        requiresRoute: 'regular-employee'
+      },
+
+      {
         id: 'japan-trip-sumo-match-48',
         text: '스모 경기를 직접 관람하며 열기를 느낀다',
         deltas: { happiness: 4, wealth: -2 },
@@ -19034,6 +19450,28 @@ const STAGES = [
     ageRange: '49세',
     intro: '몸이 새로운 국면으로 접어드는 걸 느끼기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 're-mgr-executive-offer-49',
+        text: 'undefined',
+        deltas: {"wealth":3,"happiness":-2,"fame":3},
+        result: '임원 자리 제안 앞에서, 설렘과 두려움이 동시에 밀려왔다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-mgr-declines-executive-49',
+        text: 'undefined',
+        deltas: {"happiness":3},
+        result: '더 무거운 자리 대신, 지금의 균형을 지키기로 했다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-mgr-health-warning-49',
+        text: 'undefined',
+        deltas: {"happiness":-3},
+        result: '건강검진 결과지를 받아들고, 처음으로 속도를 늦춰야겠다고 생각했다.',
+        requiresRoute: 'regular-employee'
+      },
+
       {
         id: 'married-forgets-anniversary',
         text: '결혼기념일을 깜빡해 배우자를 서운하게 한다',
@@ -19250,6 +19688,28 @@ const STAGES = [
     ageRange: '50세',
     intro: '쉰이라는 숫자 앞에서, 지나온 시간의 무게를 새삼 느끼게 됩니다.',
     choices: [
+      {
+        id: 're-mgr-team-legacy-50',
+        text: 'undefined',
+        deltas: {"happiness":4,"fame":2},
+        result: '거쳐 간 팀원들의 성장을 지켜보는 게, 뜻밖의 보람이었다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-mgr-looks-back-50',
+        text: 'undefined',
+        deltas: {"happiness":2},
+        result: '평사원에서 팀장까지, 걸어온 길을 조용히 되짚어봤다.',
+        requiresRoute: 'regular-employee'
+      },
+      {
+        id: 're-mgr-prepares-next-chapter-50',
+        text: 'undefined',
+        deltas: {"happiness":1,"wealth":1},
+        result: '다음 몇 년을 어떻게 보낼지, 차분히 계획을 세우기 시작했다.',
+        requiresRoute: 'regular-employee'
+      },
+
 
       {
         id: 'yp2-elder-statesman-50',

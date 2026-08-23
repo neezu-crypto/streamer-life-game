@@ -276,7 +276,8 @@ const ROUTES_META = [
   { id: 'prison', title: '🔒 수감 생활', icon: '🔒' },
   { id: 'developer', title: '💻 개발자', icon: '💻' },
   { id: 'youth-politics', title: '🏛️ 청년 정치', icon: '🏛️' },
-  { id: 'small-business', title: '🏪 자영업', icon: '🏪' }
+  { id: 'small-business', title: '🏪 자영업', icon: '🏪' },
+  { id: 'regular-employee', title: '💼 정규직 직장인', icon: '💼' }
 ];
 
 // 재능·재산 목록(17장/재산 상세) - functions/game-data.js의 addTalent/addAsset

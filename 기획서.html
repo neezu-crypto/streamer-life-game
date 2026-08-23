@@ -3586,6 +3586,47 @@
         </ul>
     </section>
 
+    <section>
+        <h2><span class="num">29</span>정규직 직장인 루트 — 팀장 포함 이원 진입 (2026-08-24, 사용자 지시 — 구현 완료)</h2>
+        <p>사용자 지시: "정규직 직장인 안에 팀장을 포함시키고, 정규직 직장인 루트를 만들어줘. 직업획득후
+        다음해부터 루트 진입." office-worker(💼 정규직 직장인, 23세 <code>first-full-time-contract</code>
+        고정 진입)와 team-lead(📈 팀장/부서장, 43세 <code>promoted-to-manager</code> 고정 승진 — office-worker를
+        포함해 <code>COMPANY_OCCUPATION_IDS</code> 아무 직업에서나 승진 가능) 둘 다 진입 트리거가 되는
+        하나의 루트로 설계했다.</p>
+        <h3>루트 — regular-employee(💼 정규직 직장인)</h3>
+        <p><b>진입 경로 1</b> — 24세 <code>re-trigger-24</code>(<code>requiresOccupation:['office-worker']</code>,
+        <code>mandatory:true</code>, <code>maxDurationYears:15</code>)로 진입, 25~38세 14년간 신입 적응·
+        회식·성과평가·워라밸·부서 이동·번아웃·승진 경쟁 등 초중반 직장 생활 42개.</p>
+        <p><b>진입 경로 2</b> — 44세 <code>re-trigger-44</code>(<code>requiresOccupation:['team-lead']</code>,
+        <code>mandatory:true</code>, <code>maxDurationYears:7</code>)로 진입, 45~50세 6년간 팀 관리·성과 압박·
+        조직 정치·임원 승진 갈림길 등 관리자 시점 18개 - office-worker를 거치지 않고 바로 팀장이 된 경우(예:
+        교사·공무원 등에서 <code>promoted-to-manager</code>로 승진)에만 실질적으로 발동한다. 경로1을 이미
+        완주한 사람은 나중에 팀장이 되어도 <code>experiencedRouteIds</code>에 <code>regular-employee</code>가
+        이미 있어 재진입하지 않는다(의도된 동작 - 같은 루트를 두 번 겪지 않게 함).</p>
+        <p class="note"><b>duration 설계 — 55세 정년퇴직 클러스터와의 겹침 방지</b> — 52~63세 구간에
+        <code>COMPANY_OCCUPATION_IDS</code> 전체(office-worker·team-lead 포함)를 대상으로 한 정년퇴직
+        관련 필수 이벤트 클러스터(<code>official-retirement</code>, <code>offered-early-retirement</code> 등
+        20여 개)가 이미 있다. 경로2를 경로1과 같은 15년으로 뒀다면 44+15=59세까지 활성 상태가 되어, 루트
+        배타 규칙 때문에 그 클러스터 전체가 가려질 뻔했다 - 배포 전 duration을 7년(45~50세, 51세 만료)으로
+        줄여 52세 클러스터와 겹치지 않게 했다.</p>
+        <h3>검증</h3>
+        <ul>
+            <li><code>node -c game-data.js</code>/<code>node -c index.js</code> 통과, 62개 id 중복
+            0건(전체 3,076개 중), 25~38세·45~50세 전 구간 <code>requiresRoute:'regular-employee'</code>
+            선택지 1개 이상 확인(zeroEligible 방지).</li>
+            <li><b>단위 테스트 3종</b> — (1) 23세 <code>first-full-time-contract</code> 강제 선택 후
+            24세부터 트리거·25~38세 루트 전용 노출·39세 정상 만료 확인. (2) civil-servant로 시작해 43세
+            <code>promoted-to-manager</code>로 team-lead 승진 후 44세 트리거·45~50세 루트 전용 노출·51세
+            만료 확인, 52세에 <code>offered-early-retirement</code> 등 정년퇴직 클러스터가 정상적으로
+            다시 노출됨을 확인(겹침 없음 실증). (3) 경로1을 완주한 뒤 43세에 team-lead로 승진해도
+            44세에 <code>re-trigger-44</code>가 노출되지 않음을 확인(재진입 방지 실증).</li>
+            <li>10,000회 회귀(순수 무작위) — 즉사 비율 16.25%(정상 범위), STUCK/ALL_REJECTED 0건,
+            경로1 트리거 노출 1,879회·경로2 트리거 노출 339회(둘 다 정상 발생).</li>
+            <li><code>app.js</code>의 <code>ROUTES_META</code>에 <code>{ id: 'regular-employee', title:
+            '💼 정규직 직장인', icon: '💼' }</code> 추가 — 도감(나의 도감 → 루트) 표시용.</li>
+        </ul>
+    </section>
+
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
 </div>
 </body>
