@@ -10161,6 +10161,7 @@ const STAGES = [
       {
         id: 'deviant-fake-injury-insurance-29',
         text: '가벼운 부상을 부풀려 보험금을 청구한다',
+        requiresAsset: 'insurance',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '생각보다 많은 보험금이 입금됐다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '보험사기 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
@@ -13304,6 +13305,7 @@ const STAGES = [
       {
         id: 'deviant-underreport-rental-income-35',
         text: '임대 소득을 세금 신고에서 축소해 신고한다',
+        requiresAssetType: 'realestate',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '아낀 세금만큼 여유가 생겼다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
@@ -17966,6 +17968,7 @@ const STAGES = [
       {
         id: 'deviant-fake-property-damage-claim-46',
         text: '멀쩡한 물건을 파손됐다며 보험금을 청구한다',
+        requiresAsset: 'insurance',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '생각보다 순조롭게 보험금이 나왔다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '보험사기 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
