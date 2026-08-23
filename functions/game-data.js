@@ -3887,6 +3887,13 @@ const STAGES = [
     intro: '인생의 첫 갈림길. 대학과 방송, 혹은 곧장 돈이 되는 길 — 스무 살의 선택은 이후 모든 걸 조금씩 흔들어놓습니다.',
     choices: [
       {
+        id: 'japan-trip-cherry-blossom-19',
+        text: '친구들과 벚꽃철 일본 여행을 떠난다',
+        deltas: { happiness: 4, wealth: -3 },
+        result: '흩날리는 벚꽃 아래서, 사진을 몇 장이나 찍었는지 몰랐다.'
+      },
+
+      {
         id: 'deviant-underage-smoke-19',
         text: '성인인 척 몰래 담배를 배운다',
         prizeTable: [
@@ -5032,6 +5039,13 @@ const STAGES = [
     intro: '방향을 조금씩 좁혀가는 나이. 막연했던 미래가 서서히 구체적인 모양을 갖추기 시작합니다.',
     choices: [
       {
+        id: 'japan-trip-osaka-food-tour-21',
+        text: '오사카로 먹방 여행을 떠난다',
+        deltas: { happiness: 5, wealth: -3 },
+        result: '다코야키와 오코노미야키에, 지갑보다 배가 먼저 터질 뻔했다.'
+      },
+
+      {
         id: 'dev-internship-life-21',
         text: '인턴으로 실무의 첫 발을 뗀다',
         deltas: {"happiness":3,"wealth":1},
@@ -5619,6 +5633,13 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        id: 'japan-trip-akihabara-pilgrimage-22',
+        text: '아키하바라로 오타쿠 성지순례를 떠난다',
+        deltas: { happiness: 5, wealth: -4 },
+        result: '피규어 매장 사이를 걷는 내내, 시간 가는 줄 몰랐다.'
+      },
+
       {
         id: 'dev-first-fulltime-job-22',
         text: '드디어 정식 개발자로 첫 출근을 한다',
@@ -6214,6 +6235,13 @@ const STAGES = [
     ageRange: '23세',
     intro: '스무 살대의 마지막 해. 자립이라는 단어가 더는 남 얘기가 아니게 됩니다.',
     choices: [
+      {
+        id: 'japan-trip-tokyo-disneyland-23',
+        text: '도쿄 디즈니랜드에서 하루 종일 논다',
+        deltas: { happiness: 5, wealth: -4 },
+        result: '동심으로 돌아간 하루가, 생각보다 훨씬 즐거웠다.'
+      },
+
       {
         id: 'dev-opensource-contribution-23',
         text: '오픈소스 프로젝트에 처음으로 기여한다',
@@ -6845,6 +6873,13 @@ const STAGES = [
     ageRange: '24세',
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
+      {
+        id: 'japan-trip-language-barrier-24',
+        text: '서툰 일본어로 길을 물어보다 진땀을 뺀다',
+        deltas: { happiness: 1 },
+        result: '손짓 발짓까지 동원한 끝에, 겨우 목적지를 찾았다.'
+      },
+
       {
         id: 'dev-burnout-signs-24',
         text: '번아웃 초기 증상이 슬금슬금 찾아온다',
@@ -7500,6 +7535,13 @@ const STAGES = [
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
       {
+        id: 'japan-trip-shinkansen-25',
+        text: '신칸센을 타고 여러 도시를 빠르게 돌아본다',
+        deltas: { happiness: 3, wealth: -3 },
+        result: '창밖 풍경이 순식간에 바뀌는 속도가, 신기하기만 했다.'
+      },
+
+      {
         id: 'dev-startup-offer-25',
         text: '스타트업의 파격적인 이직 제안을 받는다',
         deltas: {"happiness":3,"wealth":2},
@@ -8101,6 +8143,13 @@ const STAGES = [
     ageRange: '26세',
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
+      {
+        id: 'japan-trip-onsen-ryokan-26',
+        text: '온천 료칸에서 하룻밤 묵으며 피로를 푼다',
+        deltas: { happiness: 5, wealth: -4 },
+        result: '따뜻한 물에 몸을 담그니, 여행의 피로가 싹 가셨다.'
+      },
+
       {
         id: 'dev-team-lead-offer-26',
         text: '작은 팀을 이끌어보라는 제안을 받는다',
@@ -8787,6 +8836,13 @@ const STAGES = [
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
       {
+        id: 'japan-trip-lost-in-tokyo-27',
+        text: '도쿄 지하철에서 길을 잃고 헤맨다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '환승만 몇 번을 반복하다, 결국 역무원의 도움을 받았다.'
+      },
+
+      {
         id: 'dev-promotion-review-prep-27',
         text: '승진 심사를 앞두고 성과를 정리한다',
         deltas: {"happiness":-1,"wealth":1},
@@ -9469,6 +9525,13 @@ const STAGES = [
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
       {
+        id: 'japan-trip-kyoto-temple-28',
+        text: '교토의 오래된 사찰들을 천천히 둘러본다',
+        deltas: { happiness: 4, wealth: -2 },
+        result: '고요한 절 마당을 걷는 것만으로도, 마음이 차분해졌다.'
+      },
+
+      {
         id: 'dev-senior-promotion-28',
         text: '6년 차 개발자로 시니어 승진 심사를 통과한다',
         deltas: {"happiness":4,"wealth":4,"fame":1},
@@ -10054,6 +10117,13 @@ const STAGES = [
     intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
     choices: [
       {
+        id: 'japan-trip-convenience-store-food-29',
+        text: '편의점 음식 투어에 진심으로 빠져든다',
+        deltas: { happiness: 3, wealth: -1 },
+        result: '별거 아닌 삼각김밥 하나가, 여행의 소소한 즐거움이 됐다.'
+      },
+
+      {
         id: 'dev-mentors-more-juniors-29',
         text: '여러 후배 개발자를 동시에 멘토링한다',
         deltas: {"happiness":3,"relationship":2},
@@ -10615,6 +10685,13 @@ const STAGES = [
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
       {
+        id: 'japan-trip-earthquake-scare-30',
+        text: '여행 중 지진을 겪고 크게 놀란다',
+        deltas: { happiness: -4, health: -1 },
+        result: '흔들리는 방 안에서, 별의별 생각이 다 스쳐 지나갔다.'
+      },
+
+      {
         id: 'dev-startup-founding-temptation-30',
         text: '직접 창업할지 진지하게 고민한다',
         deltas: {"happiness":2,"wealth":-1},
@@ -11133,6 +11210,14 @@ const STAGES = [
     ageRange: '31세',
     intro: '곁에 남을 사람과 앞으로의 삶을 어떻게 그릴지, 조금 더 구체적으로 고민하는 나이입니다.',
     choices: [
+      {
+        id: 'japan-trip-family-onsen-31',
+        text: '가족과 함께 온천 여행을 떠난다',
+        deltas: { happiness: 4, wealth: -4, relationship: 2 },
+        result: '뜨끈한 물속에서 나누는 대화가, 유독 편안했다.',
+        requiresFamilyMember: ["spouse","child","father","mother"]
+      },
+
       {
         id: 'dev-burnout-relapse-31',
         text: '몇 년 만에 다시 번아웃이 찾아온다',
@@ -12111,6 +12196,13 @@ const STAGES = [
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
       {
+        id: 'japan-trip-sapporo-snow-festival-33',
+        text: '삿포로 눈축제에서 거대한 눈조각에 감탄한다',
+        deltas: { happiness: 5, wealth: -4 },
+        result: '눈으로 만든 성 앞에서, 한참을 넋 놓고 바라봤다.'
+      },
+
+      {
         id: 'hobby-side-project-33',
         text: '퇴근 후 취미로 간단한 웹사이트나 앱을 만들어본다',
         deltas: {"happiness":3},
@@ -12550,6 +12642,13 @@ const STAGES = [
     ageRange: '34세',
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
+      {
+        id: 'japan-trip-fuji-climb-34',
+        text: '후지산 등반에 도전한다',
+        deltas: { happiness: 4, health: -3, wealth: -2 },
+        result: '숨이 턱까지 차올랐지만, 정상에서 본 풍경은 그만한 가치가 있었다.'
+      },
+
       {
         id: 'dev-reflects-on-career-34',
         text: '개발자로 걸어온 지난 시간을 돌아본다',
@@ -13475,6 +13574,13 @@ const STAGES = [
     intro: '나를 키워준 사람들을 이제는 내가 돌봐야 할 시기가 다가옵니다.',
     choices: [
       {
+        id: 'japan-trip-hanabi-festival-36',
+        text: '여름밤 하나비(불꽃축제)를 유카타 차림으로 즐긴다',
+        deltas: { happiness: 5, wealth: -2 },
+        result: '밤하늘을 수놓는 불꽃에, 잠시 모든 걸 잊었다.'
+      },
+
+      {
         id: 'married-shared-hobby-start',
         text: '배우자와 함께 즐길 취미를 새로 시작한다',
         deltas: { happiness: 3, relationship: 2 },
@@ -14369,6 +14475,13 @@ const STAGES = [
     intro: '몸이 예전 같지 않다는 걸, 무시할 수 없을 만큼 또렷하게 느끼게 됩니다.',
     choices: [
       {
+        id: 'japan-trip-business-trip-38',
+        text: '출장차 일본을 방문해 짬을 내 시내를 둘러본다',
+        deltas: { happiness: 2, wealth: 1 },
+        result: '일 때문에 온 거였지만, 잠깐의 산책이 숨통을 틔워줬다.'
+      },
+
+      {
         id: 'married-supports-promotion',
         text: '배우자의 승진 소식을 진심으로 축하해준다',
         deltas: { happiness: 3, relationship: 2 },
@@ -15236,6 +15349,14 @@ const STAGES = [
     intro: '인생의 절반 지점. 마흔이라는 숫자가 이유 없이 지난 시간을 돌아보게 만듭니다.',
     choices: [
       {
+        id: 'japan-trip-golf-package-40',
+        text: '골프 패키지 여행으로 일본을 찾는다',
+        deltas: { happiness: 3, wealth: -5 },
+        result: '푸른 잔디 위에서, 오랜만에 여유를 만끽했다.',
+        requiresSufficientCash: true
+      },
+
+      {
         id: 'dev2-tech-consulting-40',
         text: '쌓아온 경력으로 기술 자문 부업을 시작한다',
         deltas: {"wealth":4,"happiness":2},
@@ -15971,6 +16092,13 @@ const STAGES = [
     intro: '몸이 보내는 신호를 더 이상 못 본 척할 수 없게 되는 나이입니다.',
     choices: [
       {
+        id: 'japan-trip-anime-pilgrimage-42',
+        text: '좋아하던 애니메이션의 실제 배경지를 찾아간다',
+        deltas: { happiness: 4, wealth: -3 },
+        result: '화면 속 장면과 눈앞의 풍경이 겹쳐 보이는 순간, 뭉클했다.'
+      },
+
+      {
         id: 'married-boredom-onset',
         text: '결혼 생활에 문득 권태로움을 느낀다',
         deltas: { happiness: -3 },
@@ -16673,6 +16801,13 @@ const STAGES = [
     ageRange: '44세',
     intro: '가까운 사이일수록 소원해지기 쉬운 나이. 관계를 다시 들여다보게 됩니다.',
     choices: [
+      {
+        id: 'japan-trip-okinawa-beach-44',
+        text: '오키나와의 푸른 바다에서 여유를 즐긴다',
+        deltas: { happiness: 5, wealth: -4 },
+        result: '에메랄드빛 바다를 보고 있자니, 다른 나라에 온 것 같았다.'
+      },
+
       {
         id: 'married-complains-to-friend',
         text: '친구에게 배우자 흉을 늘어놓으며 스트레스를 푼다',
@@ -17459,6 +17594,13 @@ const STAGES = [
     intro: '늦지 않았다는 걸 스스로 증명하고 싶어지는 나이입니다.',
     choices: [
       {
+        id: 'japan-trip-pickpocket-scare-46',
+        text: '번화가에서 소매치기를 당할 뻔한다',
+        deltas: { happiness: -3, wealth: -1 },
+        result: '가방을 꽉 붙잡은 손에, 여행 내내 힘이 들어갔다.'
+      },
+
+      {
         id: 'married-supports-through-illness',
         text: '몸이 안 좋은 배우자를 곁에서 살뜰히 챙긴다',
         deltas: { happiness: 2, relationship: 3 },
@@ -17991,6 +18133,13 @@ const STAGES = [
     intro: '커리어가 정점에 이르거나, 정체를 마주하거나 — 갈림이 뚜렷해지는 나이입니다.',
     choices: [
       {
+        id: 'japan-trip-sumo-match-48',
+        text: '스모 경기를 직접 관람하며 열기를 느낀다',
+        deltas: { happiness: 4, wealth: -2 },
+        result: '거대한 몸집의 선수들이 부딪히는 소리에, 절로 감탄이 나왔다.'
+      },
+
+      {
         id: 'married-couple-counseling',
         text: '갈등이 깊어져 부부 상담을 받아보기로 한다',
         deltas: { happiness: 2, relationship: 2, wealth: -2 },
@@ -18389,6 +18538,13 @@ const STAGES = [
     ageRange: '50세',
     intro: '쉰이라는 숫자 앞에서, 지나온 시간의 무게를 새삼 느끼게 됩니다.',
     choices: [
+      {
+        id: 'japan-trip-tea-ceremony-50',
+        text: '전통 다도 체험으로 차분한 시간을 보낸다',
+        deltas: { happiness: 3, wealth: -1 },
+        result: '한 잔의 차를 준비하는 정성이, 색다르게 다가왔다.'
+      },
+
       {
         id: 'married-exercise-together',
         text: '배우자와 함께 운동을 시작하며 건강을 챙긴다',
@@ -18808,6 +18964,13 @@ const STAGES = [
     intro: '은퇴라는 단어가 더는 먼 이야기가 아니게 되는 나이입니다.',
     choices: [
       {
+        id: 'japan-trip-osaka-castle-52',
+        text: '오사카성을 둘러보며 역사에 잠긴다',
+        deltas: { happiness: 3, wealth: -2 },
+        result: '높이 솟은 천수각을 올려다보니, 세월의 무게가 느껴졌다.'
+      },
+
+      {
         id: 'married-hobby-disapproval',
         text: '배우자의 새 취미가 못마땅해 눈치를 준다',
         deltas: { happiness: -2, relationship: -2 },
@@ -19057,6 +19220,14 @@ const STAGES = [
     ageRange: '54세',
     intro: '중년의 마지막 해. 다가올 노년을 향해 조용히 마음을 다잡습니다.',
     choices: [
+      {
+        id: 'japan-trip-anniversary-couple-54',
+        text: '배우자와 결혼기념일을 일본 여행으로 기념한다',
+        deltas: { happiness: 5, wealth: -4, relationship: 3 },
+        result: '낯선 거리를 손잡고 걷는 것만으로도, 다시 신혼 같았다.',
+        requiresFamilyMember: ["spouse"]
+      },
+
       {
         id: 'married-empty-nest-adjust',
         text: '자녀가 독립한 뒤 둘만 남은 집에 적응해간다',
@@ -19540,6 +19711,13 @@ const STAGES = [
     intro: '직장이라는 울타리 없이 새로운 사람들과 관계를 다시 엮어가야 하는 시기입니다.',
     choices: [
       {
+        id: 'japan-trip-beppu-hell-tour-57',
+        text: '벳푸의 독특한 지옥온천 투어를 즐긴다',
+        deltas: { happiness: 3, wealth: -2 },
+        result: '펄펄 끓는 색색의 온천을, 신기한 눈으로 구경했다.'
+      },
+
+      {
         id: 'deviant-inflate-consulting-fee-57',
         text: '은퇴 후 컨설팅비를 실제보다 부풀려 청구한다',
         prizeTable: [
@@ -19990,6 +20168,13 @@ const STAGES = [
     ageRange: '60세',
     intro: '환갑. 예순 해를 지나온 삶을 가족과 함께 돌아보는 해입니다.',
     choices: [
+      {
+        id: 'japan-trip-retirement-celebration-60',
+        text: '환갑 기념으로 일본 온천 여행을 떠난다',
+        deltas: { happiness: 5, wealth: -4 },
+        result: '평생 고생한 스스로에게, 이 정도 호사는 괜찮다 싶었다.'
+      },
+
       {
         id: 'parenting-child-independence-worry',
         text: '독립을 준비하는 아이를 보며 대견함과 걱정이 교차한다',
@@ -20458,6 +20643,13 @@ const STAGES = [
     ageRange: '63세',
     intro: '취미와 가족, 두 가지 모두에서 깊이가 더해지는 시기입니다.',
     choices: [
+      {
+        id: 'japan-trip-ghibli-museum-63',
+        text: '지브리 미술관을 방문해 동심에 젖는다',
+        deltas: { happiness: 4, wealth: -2 },
+        result: '어릴 적 보던 장면들이 눈앞에 펼쳐지자, 나이를 잊었다.'
+      },
+
       {
         id: 'lover-decide-to-remarry',
         text: '연인과 재혼을 진지하게 의논한다',
@@ -20947,6 +21139,13 @@ const STAGES = [
     intro: '오랜 세월을 함께한 배우자와의 관계를 다시 들여다보게 되는 나이입니다.',
     choices: [
       {
+        id: 'japan-trip-kyushu-onsen-66',
+        text: '규슈 지역 온천을 순회하며 여유로운 시간을 보낸다',
+        deltas: { happiness: 4, wealth: -3, health: 1 },
+        result: '온천마다 다른 물빛과 향이, 은근한 재미를 줬다.'
+      },
+
+      {
         id: 'deviant-senior-center-gambling-66',
         text: '경로당 화투판에서 몰래 판돈을 키운다',
         prizeTable: [
@@ -21404,6 +21603,13 @@ const STAGES = [
     ageRange: '70세',
     intro: '칠순. 황혼이라 불리는 시간의 첫걸음을 내딛습니다.',
     choices: [
+      {
+        id: 'japan-trip-friends-reunion-70',
+        text: '오랜 친구들과 함께 마지막이 될지도 모를 일본 여행을 떠난다',
+        deltas: { happiness: 5, wealth: -4, relationship: 2 },
+        result: '함께 웃는 순간순간이, 무엇보다 소중하게 느껴졌다.'
+      },
+
       {
         id: 'dev2-mentoring-legacy-70',
         text: '평생 쌓은 노하우를 후배 개발자들에게 정리해 남긴다',
@@ -22175,6 +22381,13 @@ const STAGES = [
     ageRange: '76세',
     intro: '평생을 함께한 배우자의 건강이 흔들리는 걸 지켜보게 되는, 힘겨운 나이입니다.',
     choices: [
+      {
+        id: 'japan-trip-slow-travel-76',
+        text: '무리하지 않고 천천히 일본의 소도시를 둘러본다',
+        deltas: { happiness: 4, health: -1 },
+        result: '서두르지 않으니, 오히려 더 많은 게 눈에 들어왔다.'
+      },
+
       {
         id: "unhappy-76",
         text: "손주들이 크면서 예전만큼 찾아오지 않는다",

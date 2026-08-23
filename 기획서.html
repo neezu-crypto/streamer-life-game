@@ -3445,6 +3445,29 @@
         </ul>
     </section>
 
+    <section>
+        <h2><span class="num">25</span>일본 여행 이벤트 30종 (2026-08-23, 사용자 지시 — 구현 완료)</h2>
+        <p>사용자 지시: "일본 관련 이벤트 여러개 추가하고싶어" → 종류를 묻자 "일본 여행"을 선택(유학/이민
+        루트나 오타쿠 취미 신설이 아니라, 짧은 여행 경험 위주). 기존 "여행" 계열 선택지(예:
+        <code>tokyo-disneyland</code> 류가 아니라 이미 게임에 있던 <code>usl-first-car</code> 등과
+        마찬가지로 장소를 바꾸지 않는 일회성 경험 - deltas/result만 있고 <code>setLocation</code> 없음)와
+        완전히 같은 패턴으로 설계했다.</p>
+        <h3>콘텐츠 — 30개, 19~76세 폭넓게 분산</h3>
+        <p>대부분 직업·가족 상태와 무관하게 노출되는 범용 콘텐츠(벚꽃놀이·오사카 먹방·아키하바라·도쿄
+        디즈니랜드·신칸센·온천 료칸·후지산 등반·삿포로 눈축제·하나비·오키나와 해변·스모 관람·다도 체험·
+        지브리 미술관 등)이고, 딱 2개만 가족 상태에 게이팅했다(<code>japan-trip-family-onsen-31</code>은
+        배우자·자녀·부모 중 하나 필요, <code>japan-trip-anniversary-couple-54</code>는 배우자 필요).
+        비용이 특히 큰 <code>japan-trip-golf-package-40</code>은 <code>requiresSufficientCash</code>로
+        게이팅. 좋은 경험 위주지만 지진·소매치기·길 잃음 같은 리얼한 해프닝도 일부 섞어 톤의 단조로움을
+        피했다.</p>
+        <h3>검증</h3>
+        <ul>
+            <li><code>node -c game-data.js</code> 통과, 30개 id 중복 0건(전체 2,918개 중).</li>
+            <li>10,000회 회귀 시뮬레이션 — 즉사 비율 16.83%(정상 범위), STUCK/ALL_REJECTED 0건.</li>
+            <li>가족 게이팅 2개 전수 검사 — 조건 안 맞는데 노출된 경우 0/1,947건.</li>
+        </ul>
+    </section>
+
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
 </div>
 </body>
