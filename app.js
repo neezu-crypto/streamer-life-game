@@ -585,8 +585,8 @@ function showToast(message) {
     const rect = toast.getBoundingClientRect();
     const w = rect.width || 200;
     const h = rect.height || 40;
-    const x = Math.min(Math.max(lastMouseX - w / 2, 12), window.innerWidth - w - 12);
-    const y = Math.min(Math.max(lastMouseY - h - 18, 12), window.innerHeight - h - 12);
+    const x = Math.min(Math.max(lastMouseX + 18, 12), window.innerWidth - w - 12);
+    const y = Math.min(Math.max(lastMouseY - h / 2, 12), window.innerHeight - h - 12);
     toast.style.left = x + 'px';
     toast.style.top = y + 'px';
     toast.style.bottom = 'auto';
