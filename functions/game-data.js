@@ -12353,6 +12353,7 @@ const STAGES = [
       {
         id: 'deviant-secret-old-flame-contact-33',
         text: '배우자 몰래 옛 인연과 은밀히 연락을 이어간다',
+        requiresFamilyMember: ['spouse'],
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { happiness: 3, relationship: -1 }, result: '오래된 설렘이 다시 살아나는 기분이었다.' },
           { weight: 18, label: '발각', deltas: { relationship: -8, happiness: -6 }, result: '휴대폰 메시지를 배우자가 우연히 보고 말았다.' }
@@ -12696,7 +12697,9 @@ const STAGES = [
         id: 'career-over-kids',
         text: '아이 대신 커리어에 더 집중하기로 결심한다',
         deltas: { wealth: 4, fame: 3, relationship: -2 },
-        result: '선택에 후회는 없었지만, 가끔 명절마다 듣는 질문은 피곤했다.'
+        result: '선택에 후회는 없었지만, 가끔 명절마다 듣는 질문은 피곤했다.',
+        requiresFamilyMember: ['spouse'],
+        requiresNoFamilyMember: ['child']
       },
       {
         id: 'healthcare-saved-a-patient',
@@ -15178,7 +15181,7 @@ const STAGES = [
         text: '배우자와 육아 분담 문제로 다툰다',
         deltas: { happiness: -3, relationship: -2 },
         result: '누가 더 힘든지가 아니라, 함께한다는 확신이 필요했다.',
-        requiresFamilyMember: ['child']
+        requiresAllFamilyMemberGroups: [['spouse'], ['child']]
       },
 
       {
@@ -16089,6 +16092,7 @@ const STAGES = [
       {
         id: 'deviant-hide-side-income-spouse-41',
         text: '부업 수입을 배우자에게 숨긴다',
+        requiresFamilyMember: ['spouse'],
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { wealth: 2, happiness: 1 }, result: '비상금이 조용히 쌓여갔다.' },
           { weight: 10, label: '발각', deltas: { relationship: -5, happiness: -3 }, result: '통장 앱 알림 소리 하나에 모든 게 들통났다.' }
@@ -19586,7 +19590,7 @@ const STAGES = [
         text: '자녀가 독립한 뒤 둘만 남은 집에 적응해간다',
         deltas: { happiness: 2, relationship: 2 },
         result: '허전함도 잠시, 둘만의 시간이 다시 소중해졌다.',
-        requiresFamilyMember: ['spouse']
+        requiresAllFamilyMemberGroups: [['spouse'], ['child']]
       },
       {
         id: 'parenting-college-entrance-support',
@@ -20855,7 +20859,8 @@ const STAGES = [
         text: '자녀들이 새 연인을 못마땅해해 마음이 복잡하다',
         deltas: { happiness: -3, relationship: -2 },
         result: '내 행복인데, 왜 눈치를 봐야 하나 싶었다.',
-        requiresAnyLover: true
+        requiresAnyLover: true,
+        requiresFamilyMember: ['child']
       },
       {
         id: 'married-golden-anniversary-plan',
