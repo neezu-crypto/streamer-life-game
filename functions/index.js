@@ -1112,6 +1112,16 @@ async function applyChoice(db, playRef, play, stage, choice) {
     cashHoldings += Math.round(stats.fame * cashUnitForAge(nextIndex) / 50);
   }
 
+  // 상가 임대 소득(2026-08-23, 사용자 지시 - "상가를 매입해 임대업을 시작하면
+  // 매년 일정금액으로 현금 소득이 발생하게 해줘") - 예술가 루트의 인기 연동
+  // 소득과 같은 급의 매 턴 배경 효과. 인기처럼 오르내리는 스탯에 비례시킬
+  // 이유가 없어서(임대료는 세입자 유무와 무관하게 고정) 통장을 팔지 않는 한
+  // 매 턴 고정 500만원을 그대로 더한다. commercial-property-purchase 외에
+  // commercial-unit을 제거하는 선택지가 없어 한 번 사면 평생 유지된다.
+  if (assets.some((a) => a.id === 'commercial-unit')) {
+    cashHoldings += 5000000;
+  }
+
   const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers, acquaintances, assets, cashHoldings, talents, hobbies, sickStreak, insuranceUnpaidYears };
 
   let ending = null;

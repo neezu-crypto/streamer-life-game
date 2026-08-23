@@ -3205,6 +3205,31 @@
         </ul>
     </section>
 
+    <section>
+        <h2><span class="num">20</span>상가 매입 — 매년 고정 임대 소득 (2026-08-23, 사용자 지시 — 구현 완료)</h2>
+        <p>사용자 지시: "상가를 매입해 임대업을 시작하면 매년 일정금액으로 현금 소득이 발생하게 해줘."
+        예술가 루트의 인기 연동 소득(19장 이전, <code>applyChoice()</code> 매 턴 배경 효과)과 같은 급으로
+        구현했다 — 다만 임대료는 세입자 유무와 무관하게 매달 고정으로 들어오는 게 자연스러워서, 인기처럼
+        오르내리는 스탯에 비례시키지 않고 <b>고정 500만원/년</b>으로 뒀다.</p>
+        <h3>구현</h3>
+        <p><code>applyChoice()</code>에서 그 턴에 확정된 <code>assets</code> 배열에
+        <code>commercial-unit</code>(🏬 상가, <code>commercial-property-purchase</code> 선택지로 취득)이
+        있으면 매 턴 <code>cashHoldings</code>에 500만원을 더한다. 상가를 제거하는 선택지가 아직 없어서
+        한 번 사면 평생 유지되고, 소득도 평생 계속된다.</p>
+        <h3>검증</h3>
+        <ul>
+            <li><code>node -c index.js</code> 통과.</li>
+            <li>격리 테스트 — <code>commercial-unit</code>을 강제로 심고 wealth 델타가 없는 선택지만 골라
+            제출했을 때, <code>cashHoldings</code>가 정확히 <b>+5,000,000</b>만 늘어남을 확인(다른
+            델타 영향과 완전히 분리해서 검증).</li>
+            <li>실제 매입 플레이 시뮬레이션 — 32~33세에 상가를 매입한 뒤 보유 현금이 매년 꾸준히 증가함을
+            확인.</li>
+            <li>8,000회 전체 회귀 시뮬레이션 — 즉사 비율 15.95%(기존 기준선 범위 내), STUCK 0건,
+            ALL_REJECTED 0건. 생애 최대 누적 현금은 약 9.3억원으로, 이 기능 추가 전 문서화된 그리디 최댓값
+            (약 8억원)보다 다소 높아졌지만 같은 자릿수 범위 내.</li>
+        </ul>
+    </section>
+
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
 </div>
 </body>
