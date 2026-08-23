@@ -19831,7 +19831,8 @@ const STAGES = [
         id: "unhappy-55",
         text: "정년이 가까워질수록 앞날에 대한 막막함이 커진다",
         deltas: { happiness: -4 },
-        result: "월급 없는 삶이 어떤 모습일지, 도무지 그려지지 않았다."
+        result: "월급 없는 삶이 어떤 모습일지, 도무지 그려지지 않았다.",
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'official-retirement',
@@ -19862,6 +19863,7 @@ const STAGES = [
         text: '새로운 일(재취업·재능기부)을 찾아 나선다',
         deltas: { wealth: 3, happiness: 3 },
         result: '월급보다, 갈 곳이 있다는 사실 자체가 반가웠다.',
+        requiresOccupation: COMPANY_OCCUPATION_IDS,
         setOccupation: { id: 'volunteer-work', label: '🤝 재능기부/파트타임' }
       },
       {
@@ -19877,25 +19879,29 @@ const STAGES = [
         text: '은퇴 소식에 주변에서 축하와 걱정이 뒤섞여 쏟아진다',
         deltas: { relationship: 2, happiness: -1 },
         result: '축하한다는 말 뒤에 숨은 걱정이, 은근히 신경 쓰였다.',
+        requiresOccupation: COMPANY_OCCUPATION_IDS,
         setOccupation: { id: 'retired', label: '🌿 은퇴자' }
       },
       {
         id: 'fame-retirement-announcement-55',
         text: '은퇴 소식이 알려지며 관심을 받는다',
         deltas: { fame: 3, happiness: 1 },
-        result: '축하와 아쉬움이 섞인 인사들이, 하루 종일 이어졌다.'
+        result: '축하와 아쉬움이 섞인 인사들이, 하루 종일 이어졌다.',
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'fame-being-replaced-55',
         text: '후임 소식에 밀려 존재감이 사라진다',
         deltas: { fame: -4, happiness: -3 },
-        result: '당연한 순서인데도, 자리를 비운 게 이렇게 빠를 줄 몰랐다.'
+        result: '당연한 순서인데도, 자리를 비운 게 이렇게 빠를 줄 몰랐다.',
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'fame-farewell-tribute-55',
         text: '동료들이 마련한 송별 자리에서 주목받는다',
         deltas: { fame: 4, relationship: 2, happiness: 2 },
-        result: '준비된 줄 몰랐던 자리에, 눈시울이 뜨거워졌다.'
+        result: '준비된 줄 몰랐던 자리에, 눈시울이 뜨거워졌다.',
+        requiresOccupation: COMPANY_OCCUPATION_IDS
       },
       {
         id: 'fame-quietly-exits-55',
