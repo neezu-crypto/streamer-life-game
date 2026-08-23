@@ -567,8 +567,33 @@ const toastMsg = document.getElementById('toastMsg');
 const TOAST_MS = 2200;
 
 let toastTimer = null;
+// PC(마우스 사용 가능 기기)에서는 토스트를 화면 하단 고정 대신 마지막 마우스
+// 위치 근처에 띄운다 - 모바일은 마우스 좌표 자체가 없으므로 기존 하단 고정
+// 위치를 그대로 유지한다.
+const IS_MOUSE_DEVICE = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+let lastMouseX = null;
+let lastMouseY = null;
+if (IS_MOUSE_DEVICE) {
+  window.addEventListener('mousemove', (e) => { lastMouseX = e.clientX; lastMouseY = e.clientY; });
+}
 function showToast(message) {
   toastMsg.textContent = message;
+  if (IS_MOUSE_DEVICE && lastMouseX !== null && lastMouseY !== null) {
+    const rect = toast.getBoundingClientRect();
+    const w = rect.width || 200;
+    const h = rect.height || 40;
+    const x = Math.min(Math.max(lastMouseX - w / 2, 12), window.innerWidth - w - 12);
+    const y = Math.min(Math.max(lastMouseY - h - 18, 12), window.innerHeight - h - 12);
+    toast.style.left = x + 'px';
+    toast.style.top = y + 'px';
+    toast.style.bottom = 'auto';
+    toast.style.transform = 'none';
+  } else {
+    toast.style.left = '';
+    toast.style.top = '';
+    toast.style.bottom = '';
+    toast.style.transform = '';
+  }
   toast.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => toast.classList.remove('show'), TOAST_MS);
