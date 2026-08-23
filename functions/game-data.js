@@ -21572,7 +21572,8 @@ const STAGES = [
         id: 'hobby-painting-78',
         text: '그림 그리기를 새로 배운다',
         deltas: { happiness: 4 },
-        result: '손끝으로 색을 입히는 시간이, 하루 중 가장 평온했다.'
+        result: '손끝으로 색을 입히는 시간이, 하루 중 가장 평온했다.',
+        addHobby: { id: 'painting', label: '🎨 그림' }
       },
       {
         id: 'hobby-gardening-78',
