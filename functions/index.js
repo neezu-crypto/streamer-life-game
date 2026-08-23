@@ -1334,6 +1334,16 @@ async function applyChoice(db, playRef, play, stage, choice) {
   if (isNewTalent) {
     statWrites.push(recordCollectionEntryIfLoggedIn(db, playRef.key, 'talents', choice.addTalent.id));
   }
+  // 해금 도감 - 직업 칸(2026-08-23, 사용자 지시 - "나의 도감에 직업도 추가해줘") -
+  // 재능·재산과 달리 "새로" 생겼는지가 아니라 "이번 선택으로 직업이 바뀌었는지"를
+  // 본다(priorOccupation !== currentOccupation) - ex-convict(징역 루트 출소,
+  // resolveEffectiveOccupation의 엔진 자동 규칙)처럼 특정 선택지의 setOccupation이
+  // 아니라 배경 규칙으로 바뀌는 직업도 똑같이 잡아내려면 이 방식이 맞다.
+  // recordCollectionEntryIfLoggedIn은 set(true)라 이미 겪은 직업으로 다시
+  // 바뀌어도(예: 이직 후 같은 직군 복귀) 그냥 덮어쓰기라 안전하다.
+  if (currentOccupation && (!priorOccupation || priorOccupation.id !== currentOccupation.id)) {
+    statWrites.push(recordCollectionEntryIfLoggedIn(db, playRef.key, 'occupations', currentOccupation.id));
+  }
   if (completed) {
     statWrites.push(db.ref('lifeGame/stats/endings/' + ending.id).set(ServerValue.increment(1)));
     statWrites.push(db.ref('lifeGame/stats/totals/completed').set(ServerValue.increment(1)));

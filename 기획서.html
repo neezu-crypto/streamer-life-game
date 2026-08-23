@@ -3468,6 +3468,28 @@
         </ul>
     </section>
 
+    <section>
+        <h2><span class="num">26</span>나의 도감 — 직업 칸 추가 (2026-08-23, 사용자 지시 — 구현 완료)</h2>
+        <p>사용자 지시: "나의 도감에 직업도 추가해줘." 재능·재산과 같은 패턴이지만 판정 기준이 다르다 -
+        재능·재산은 "이번 선택으로 처음 생겼는지"(isNewAsset/isNewTalent)를 보지만, 직업은 "이번
+        선택으로 직업이 바뀌었는지"(<code>priorOccupation.id !== currentOccupation.id</code>)를 본다.
+        징역 루트 출소로 <code>ex-convict</code>가 되는 경우처럼, 특정 선택지의 <code>setOccupation</code>
+        이 아니라 <code>resolveEffectiveOccupation</code>의 엔진 자동 규칙으로 바뀌는 직업도 똑같이
+        잡아내려면 이 방식이 맞다. <code>recordCollectionEntryIfLoggedIn</code>은 <code>set(true)</code>라
+        이미 겪은 직업으로 다시 바뀌어도(이직 후 같은 직군 복귀 등) 그냥 덮어쓰기라 안전하다.</p>
+        <p><code>OCCUPATIONS_META</code>(38종) — game-data.js 전체에서 <code>setOccupation</code>으로
+        쓰이는 모든 직업 id·label을 그대로 옮겼고, 엔진 전용인 <code>ex-convict</code>도 수동으로
+        추가했다.</p>
+        <h3>검증</h3>
+        <ul>
+            <li><code>node -c app.js</code>/<code>node -c index.js</code> 통과.</li>
+            <li>300회 시뮬레이션(로그인 상태로 강제 설정) — 295/300 플레이에서 직업 도감에 최소 1개
+            이상 기록됨, <code>inmate</code>/<code>ex-convict</code> 포함 27종 이상 관측.</li>
+            <li>10,000회 전체 회귀 — 즉사 비율 16.85%(정상 범위), STUCK/ALL_REJECTED 0건(도감 기록
+            로직 추가가 기존 게임 흐름에 영향 없음을 확인).</li>
+        </ul>
+    </section>
+
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
 </div>
 </body>

@@ -313,6 +313,50 @@ const ASSETS_META = [
   { id: 'vacation-home', title: '🏖️ 별장', icon: '🏖️' },
   { id: 'compact-car', title: '🚙 소형차', icon: '🚙' }
 ];
+// 직업 목록(2026-08-23, 사용자 지시 - "나의 도감에 직업도 추가해줘") - 재능·
+// 재산과 완전히 같은 패턴. functions/game-data.js에서 setOccupation으로 쓰이는
+// 모든 id·label을 그대로 옮겼다(ex-convict는 특정 선택지가 아니라 엔진 자동
+// 규칙으로 붙는 직업이라 game-data.js엔 없지만 여기엔 포함).
+const OCCUPATIONS_META = [
+  { id: 'actor-newcomer', title: '🎭 무명 배우', icon: '🎭' },
+  { id: 'artist-writer', title: '🎨 예술가', icon: '🎨' },
+  { id: 'career-changer', title: '✨ 진로 전환', icon: '✨' },
+  { id: 'career-pivot', title: '🔄 커리어 전환자', icon: '🔄' },
+  { id: 'civil-servant', title: '🏛️ 공무원', icon: '🏛️' },
+  { id: 'class-president', title: '👑 전교 회장', icon: '👑' },
+  { id: 'consultant', title: '🎤 컨설턴트/강사', icon: '🎤' },
+  { id: 'entrepreneur', title: '🚀 창업가', icon: '🚀' },
+  { id: 'esports-coach', title: '🎯 프로게이머 감독', icon: '🎯' },
+  { id: 'ex-convict', title: '🔓 출소자', icon: '🔓' },
+  { id: 'healthcare-worker', title: '🏥 의료직', icon: '🏥' },
+  { id: 'idol', title: '⭐ 아이돌', icon: '⭐' },
+  { id: 'inmate', title: '🔒 수감자', icon: '🔒' },
+  { id: 'job-changed', title: '🏢 이직 후 직장인', icon: '🏢' },
+  { id: 'junior-developer', title: '💻 주니어 개발자', icon: '💻' },
+  { id: 'logistics-worker', title: '🚚 물류직', icon: '🚚' },
+  { id: 'national-athlete', title: '🥇 축구 국가대표', icon: '🥇' },
+  { id: 'office-worker', title: '💼 정규직 직장인', icon: '💼' },
+  { id: 'pro-athlete', title: '⚽ 프로 축구선수', icon: '⚽' },
+  { id: 'pro-gamer', title: '🎮 프로게이머', icon: '🎮' },
+  { id: 'public-corp-employee', title: '🏢 공기업 직원', icon: '🏢' },
+  { id: 're-employed', title: '💼 재취업', icon: '💼' },
+  { id: 'retired', title: '🌿 은퇴자', icon: '🌿' },
+  { id: 'rising-actor', title: '🎬 라이징 배우', icon: '🎬' },
+  { id: 'sales-rep', title: '💼 영업직', icon: '💼' },
+  { id: 'senior-developer', title: '👨‍💻 시니어 개발자', icon: '👨‍💻' },
+  { id: 'small-business-owner', title: '🏪 자영업자', icon: '🏪' },
+  { id: 'soccer-manager', title: '🧢 축구 감독', icon: '🧢' },
+  { id: 'startup-founder', title: '🚀 초기 창업가', icon: '🚀' },
+  { id: 'student-athlete', title: '⚽ 축구 유망주', icon: '⚽' },
+  { id: 'student-council-president', title: '👑 대학 학생회장', icon: '👑' },
+  { id: 'teacher', title: '📚 교사', icon: '📚' },
+  { id: 'team-lead', title: '📈 팀장/부서장', icon: '📈' },
+  { id: 'tech-worker', title: '🔧 기술직 사원', icon: '🔧' },
+  { id: 'teen-entrepreneur', title: '💼 10대 창업가', icon: '💼' },
+  { id: 'trainee', title: '🎤 연습생', icon: '🎤' },
+  { id: 'veteran-actor', title: '🏆 베테랑 배우', icon: '🏆' },
+  { id: 'volunteer-work', title: '🤝 재능기부/파트타임', icon: '🤝' }
+];
 
 const collectionModal = document.getElementById('collectionModal');
 const collectionLoggedOut = document.getElementById('collectionLoggedOut');
@@ -325,6 +369,8 @@ const collectionTalentProgress = document.getElementById('collectionTalentProgre
 const collectionTalentGrid = document.getElementById('collectionTalentGrid');
 const collectionAssetProgress = document.getElementById('collectionAssetProgress');
 const collectionAssetGrid = document.getElementById('collectionAssetGrid');
+const collectionOccupationProgress = document.getElementById('collectionOccupationProgress');
+const collectionOccupationGrid = document.getElementById('collectionOccupationGrid');
 
 function renderMetaGrid(gridEl, progressEl, meta, unlockedIds, progressLabel) {
   gridEl.innerHTML = '';
@@ -360,6 +406,7 @@ async function refreshCollectionView() {
   renderMetaGrid(collectionRouteGrid, collectionRouteProgress, ROUTES_META, Object.keys(collectionData.routes || {}), '루트');
   renderMetaGrid(collectionTalentGrid, collectionTalentProgress, TALENTS_META, Object.keys(collectionData.talents || {}), '재능');
   renderMetaGrid(collectionAssetGrid, collectionAssetProgress, ASSETS_META, Object.keys(collectionData.assets || {}), '재산');
+  renderMetaGrid(collectionOccupationGrid, collectionOccupationProgress, OCCUPATIONS_META, Object.keys(collectionData.occupations || {}), '직업');
 }
 
 document.getElementById('openCollectionBtn').addEventListener('click', () => {
