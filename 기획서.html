@@ -1932,6 +1932,10 @@
                 <tr><td><code>rollDice</code></td><td><span class="badge badge-live">lifegame</span></td><td><code>random</code> 구간(유아기 0~3세) 전용 — 서버가 <code>visibleChoiceIds</code>(노출 중인 3개)로 한정한 뒤 그중 하나를 균등 확률로 직접 뽑아 반영. 통계 카운터 증가는 submitChoice와 동일</td></tr>
                 <tr><td><code>shareToGallery</code></td><td><span class="badge badge-live">lifegame</span></td><td>완료한 플레이스루를 공개 갤러리에 복사(1회 한정). <code>stats.totals.shared</code> 증가</td></tr>
                 <tr><td><code>reportGalleryEntry</code></td><td><span class="badge badge-live">lifegame</span></td><td>갤러리 항목 신고 접수</td></tr>
+                <tr><td><code>adminDeletePlaythrough</code></td><td><span class="badge badge-live">lifegame</span></td><td>관리자 전용(2026-08-24, 사용자 지시) — 호출자가
+                <code>adminCenter/adminUids/{uid}</code>에 등록된 관리자일 때만 <code>targetUid</code>로 지정한
+                다른 유저의 <code>lifeGame/playthroughs/{targetUid}</code>를 삭제. 해금 도감·공개 갤러리는
+                별개 노드라 영향 없음</td></tr>
                 <tr><td><code>getLifeGameStats</code></td><td><span class="badge badge-admin">admincenter</span></td><td>admin-center 전용 — <code>lifeGame/stats</code>를 Admin SDK로 읽어 통계 카드에 표시</td></tr>
             </table>
         </div>

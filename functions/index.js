@@ -1,7 +1,7 @@
 const { onCall, HttpsError } = require('firebase-functions/v2/https');
 const { initializeApp } = require('firebase-admin/app');
 const { getDatabase, ServerValue } = require('firebase-admin/database');
-const { STAT_KEYS, STAT_START, clampStat, requireAuth } = require('./common');
+const { STAT_KEYS, STAT_START, clampStat, requireAuth, isAdminUid } = require('./common');
 const {
   STAGES,
   PRISON_CHOICES,
@@ -1708,4 +1708,30 @@ const reportGalleryEntry = onCall({ cors: true, timeoutSeconds: 30, memory: '256
   return { ok: true };
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount };
+// 관리자 - 다른 유저 인생 로그(진행 중이거나 완료된 플레이스루) 삭제(2026-08-24,
+// 사용자 지시 - "관리자 uid는 다른 유저 인생 로그를 삭제 가능하게 해줘"). 이
+// 생태계 다른 프로젝트들과 동일하게 adminCenter/adminUids/{uid}가 true인
+// 계정만 허용(common.js의 isAdminUid, 이미 export만 돼 있고 그동안 실제로 쓰인
+// 곳은 없었음). lifeGame/playthroughs/{targetUid} 하나만 지운다 - 해금 도감
+// (lifeGame/collection)은 여러 판에 걸쳐 누적되는 별개 데이터라 같이 안
+// 지운다(요청 범위는 "그 인생 로그"이지 도감 진행도가 아님). 이미 공유된
+// 갤러리 항목(lifeGame/gallery)도 별도 노드라 영향 없음 - 그건 신고 처리
+// (reportGalleryEntry)로 별도 관리한다.
+const adminDeletePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  if (!(await isAdminUid(uid))) {
+    throw new HttpsError('permission-denied', '관리자만 사용할 수 있는 기능입니다.');
+  }
+  const targetUid = request.data && request.data.targetUid;
+  if (!targetUid) throw new HttpsError('invalid-argument', 'targetUid가 필요합니다.');
+
+  const db = getDatabase();
+  const targetRef = db.ref('lifeGame/playthroughs/' + targetUid);
+  const snap = await targetRef.get();
+  if (!snap.exists()) throw new HttpsError('not-found', '해당 유저의 인생 로그를 찾을 수 없습니다.');
+
+  await targetRef.remove();
+  return { ok: true, deletedUid: targetUid };
+});
+
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough };
