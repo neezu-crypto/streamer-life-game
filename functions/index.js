@@ -1211,6 +1211,20 @@ async function applyChoice(db, playRef, play, stage, choice) {
   const occupationHistory = buildOccupationHistory(choiceLog);
   const currentOccupation = resolveEffectiveOccupation(occupationHistory, nextActiveRoute);
 
+  // 출소 회복 보정(2026-08-23, 사용자 지시 - "출소하면 스탯을 소폭 상승시키면
+  // 어때?") - 발각 시 무조건 징역(위 30개 중범죄)으로 바꾼 뒤 즉사 비율이
+  // 16.79%→19.18%로 튀는 걸 시뮬레이션으로 확인, 그 완충용으로 추가한 배경
+  // 효과. priorRouteState.activeRoute가 prison이었는데 이번 선택으로 막
+  // 끝났을 때(nextActiveRoute가 더 이상 prison이 아님) 딱 한 번만, "자유의
+  // 안도감"으로 happiness·health를 소폭 회복시킨다 - 매 턴 반복되는 예술가
+  // 소득·상가 임대료와 달리 "출소하는 그 순간" 1회성 사건이라 조건을
+  // completed가 아닐 때로 한정한다(그 턴에 죽었으면 출소를 못 봤으므로).
+  if (priorRouteState.activeRoute && priorRouteState.activeRoute.id === 'prison'
+    && (!nextActiveRoute || nextActiveRoute.id !== 'prison') && !completed) {
+    stats.happiness = clampStat(stats.happiness + 5);
+    stats.health = clampStat(stats.health + 3);
+  }
+
   // 예술가 루트 인기 연동 추가 소득(2026-08-23, 사용자 지시 - "인기 스탯에
   // 따라 추가 소득 보정도 구현해줘") - 보험료 자동 납입과 같은 급의 매 턴
   // 배경 효과. 선택지와 무관하게, 루트가 활성인 동안(21~34세) 그 순간의
