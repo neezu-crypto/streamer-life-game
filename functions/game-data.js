@@ -974,6 +974,15 @@ const STAGES = [
     intro: '학교가 조금은 익숙해진 만큼, 친구 관계도 한층 복잡해지기 시작합니다.',
     choices: [
       {
+        id: 'deviant-copy-homework-8',
+        text: '친구 숙제를 몰래 베껴 낸다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '들키지 않은 게 오히려 신기했다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -2 }, result: '베낀 티가 너무 났던 모양이다.' }
+        ]
+      },
+
+      {
         id: "wealth-drain-8-a",
         text: "새로 나온 캐릭터 상품을 모으는 데 푹 빠진다",
         deltas: { wealth: -3 },
@@ -1084,6 +1093,15 @@ const STAGES = [
     intro: '취미와 특기가 하나둘 뚜렷해지는 시기. 좋아하는 게 무엇인지 스스로 알아가기 시작합니다.',
     choices: [
       {
+        id: 'deviant-candy-shoplift-9',
+        text: '동네 슈퍼에서 사탕 하나를 몰래 손에 쥐고 나온다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '입 안 가득 퍼지는 단맛이 짜릿했다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -4, happiness: -3 }, result: '주인 아저씨의 불호령이 오래도록 귓가에 맴돌았다.' }
+        ]
+      },
+
+      {
         id: "unhappy-9",
         text: "발표대 위에서 목소리가 가늘게 떨려 웃음거리가 된다",
         deltas: { happiness: -3 },
@@ -1190,6 +1208,15 @@ const STAGES = [
     ageRange: '10세',
     intro: '몸도 마음도 슬슬 달라지기 시작하는 나이. 사춘기의 첫 신호가 은근슬쩍 찾아옵니다.',
     choices: [
+      {
+        id: 'deviant-fake-report-card-10',
+        text: '성적표 점수를 몰래 고쳐 부모님께 보여드린다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2, relationship: 1 }, result: '칭찬받는 기분이 나쁘지 않았다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -5, happiness: -3 }, result: '원본 성적표가 어디선가 툭 튀어나왔다.' }
+        ]
+      },
+
       {
         "id": "sa-decision-10",
         "text": "부모님이 미국 조기유학을 결정한다",
@@ -1311,6 +1338,15 @@ const STAGES = [
     ageRange: '11세',
     intro: '성적과 진로라는 단어가 슬슬 남 얘기가 아니게 되는 시기입니다.',
     choices: [
+      {
+        id: 'deviant-cut-in-line-11',
+        text: '매점 줄을 슬쩍 새치기한다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '아무도 눈치채지 못한 것 같아 우쭐했다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -3 }, result: '뒤에 서 있던 친구가 큰 소리로 항의했다.' }
+        ]
+      },
+
       {
         id: 'gaming-ranked-11',
         text: '온라인 게임 랭킹에서 또래 사이 상위권에 오른다',
@@ -1478,6 +1514,15 @@ const STAGES = [
     intro: '초등학교의 마지막 한 해. 졸업과 중학교 진학이 코앞으로 다가옵니다.',
     choices: [
       {
+        id: 'deviant-prank-call-12',
+        text: '장난 전화를 걸고 몰래 낄낄댄다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '숨죽인 웃음을 참느라 배가 아팠다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -2, happiness: -2 }, result: '발신번호가 그대로 찍혀 있었다.' }
+        ]
+      },
+
+      {
         "id": "sa-english-progress-12",
         "text": "매일 조금씩 영어가 늘어가는 걸 느낀다",
         "deltas": {
@@ -1640,6 +1685,23 @@ const STAGES = [
     ageRange: '13세',
     intro: '중학교에 입학하며 몸도 마음도 부쩍 낯설어지는 시기. 거울 속 내가 어제와 조금 달라 보입니다.',
     choices: [
+      {
+        id: 'deviant-cheat-exam-13',
+        text: '시험 중 커닝 페이퍼를 몰래 훔쳐본다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '평소보다 좋은 점수에 마음이 놓였다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -4 }, result: '감독 선생님의 눈을 피하지 못했다.' }
+        ]
+      },
+      {
+        id: 'deviant-skip-class-rooftop-13',
+        text: '수업을 땡땡이치고 옥상에서 시간을 보낸다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4, relationship: 1 }, result: '햇볕 아래 흘려보낸 시간이 꿀맛 같았다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -3, relationship: -2 }, result: '옥상 문 앞에서 선생님과 딱 마주쳤다.' }
+        ]
+      },
+
       {
         "id": "pg-scout-offer-13",
         "text": "e스포츠팀의 연습생 테스트 제안을 받아들인다",
@@ -1821,6 +1883,23 @@ const STAGES = [
     ageRange: '14세',
     intro: '친구 관계가 요동치고 스스로도 잘 모르겠는 감정이 많아지는 나이. 흔히 "중2병"이라 부르는 그 시기입니다.',
     choices: [
+      {
+        id: 'deviant-fake-early-leave-note-14',
+        text: '아프지 않은데 조퇴증을 위조한다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '오후 내내 자유를 만끽했다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -3, relationship: -3 }, result: '담임 선생님이 직접 확인 전화를 걸었다.' }
+        ]
+      },
+      {
+        id: 'deviant-snack-pocket-14',
+        text: '매점 물건을 몰래 주머니에 넣는다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '심장이 쿵쾅댔지만 무사히 빠져나왔다.' },
+          { weight: 18, label: '발각', deltas: { happiness: -5, relationship: -5, wealth: -2 }, result: 'CCTV에 고스란히 찍혀 있었다.' }
+        ]
+      },
+
       {
         "id": "sl-council-run-14",
         "text": "중학교 학생회장 선거에 다시 도전한다",
@@ -2088,6 +2167,23 @@ const STAGES = [
     ageRange: '15세',
     intro: '중학교의 마지막 해. 처음으로 "진로"라는 단어가 남 얘기가 아니게 됩니다.',
     choices: [
+      {
+        id: 'deviant-underage-drink-15',
+        text: '친구들과 몰래 술을 마셔본다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4, relationship: 2 }, result: '어른이 된 것 같은 착각에 빠졌다.' },
+          { weight: 18, label: '발각', deltas: { health: -2, happiness: -4, relationship: -3 }, result: '집에 들어서자마자 술 냄새로 들통났다.' }
+        ]
+      },
+      {
+        id: 'deviant-borrow-sibling-id-15',
+        text: '언니·오빠의 신분증을 빌려 노래방에 들어가려 한다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '문 안으로 들어서는 순간까지 심장이 떨렸다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -3, relationship: -2 }, result: '사진이 너무 다르다며 바로 돌려보내졌다.' }
+        ]
+      },
+
       {
         "id": "sl-campaign-nerves-15",
         "text": "전교생 앞에서 떨리는 유세 연설을 한다",
@@ -2383,6 +2479,23 @@ const STAGES = [
     ageRange: '16세',
     intro: '고등학교라는 새로운 세계로 첫발을 내딛는 시기. 교복도, 얼굴도, 규칙도 전부 낯섭니다.',
     choices: [
+      {
+        id: 'deviant-motorbike-noheadgear-16',
+        text: '헬멧 없이 친구 오토바이 뒷자리에 올라탄다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4 }, result: '머리카락을 스치는 바람이 자유로웠다.' },
+          { weight: 18, label: '발각', deltas: { health: -4, happiness: -5 }, result: '급브레이크에 그대로 넘어지고 말았다.' }
+        ]
+      },
+      {
+        id: 'deviant-plagiarize-essay-16',
+        text: '과제를 인터넷에서 그대로 베껴 제출한다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '들인 시간에 비해 결과가 나쁘지 않았다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -4, relationship: -2 }, result: '표절 검사기에 그대로 걸려버렸다.' }
+        ]
+      },
+
       {
         "id": "sl-council-role-16",
         "text": "정식으로 학생회 임원 자리를 맡는다",
@@ -2770,6 +2883,23 @@ const STAGES = [
     ageRange: '17세',
     intro: '진로와 성적이 본격적으로 무게를 갖기 시작하는 나이. 하루하루가 조금씩 빠듯해집니다.',
     choices: [
+      {
+        id: 'deviant-teen-fake-id-club-17',
+        text: '부모님 몰래 신분증을 위조해 클럽에 들어간다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4, relationship: -2 }, result: '들키면 안 된다는 긴장감마저 짜릿했다.' },
+          { weight: 18, label: '발각', deltas: { happiness: -6, relationship: -4 }, result: '위조 티가 나는 신분증에 입구에서 바로 붙잡혔다.' }
+        ]
+      },
+      {
+        id: 'deviant-street-race-standoff-17',
+        text: '친구들과 신호 대기 중 즉석 레이스를 벌인다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 5 }, result: '엔진 소리와 함께 스트레스가 다 날아가는 기분이었다.' },
+          { weight: 18, label: '발각', deltas: { health: -5, wealth: -3, happiness: -5 }, result: '커브를 돌다 그대로 도랑에 처박히고 말았다.' }
+        ]
+      },
+
       {
         "id": "sl-grade-president-17",
         "text": "학년 대표를 맡아 더 큰 책임을 진다",
@@ -3183,6 +3313,23 @@ const STAGES = [
     ageRange: '18세',
     intro: '고등학교의 마지막 해. 수능과 졸업이라는 두 단어가 하루하루를 채웁니다.',
     choices: [
+      {
+        id: 'deviant-exam-earpiece-cheat-18',
+        text: '수능 감독을 피해 몰래 이어폰으로 답을 듣는다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '떨리는 손으로 답을 옮겨 적었다.' },
+          { weight: 18, label: '발각', deltas: { happiness: -8, relationship: -4 }, result: '감독관에게 이어폰 선이 그대로 들키고 말았다.' }
+        ]
+      },
+      {
+        id: 'deviant-parents-car-joyride-18',
+        text: '부모님 차를 몰래 끌고 나가 드라이브를 즐긴다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4 }, result: '텅 빈 새벽 도로가 온전히 내 것 같았다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -3, relationship: -4, happiness: -3 }, result: '주차 자국이 평소와 다르다는 걸 바로 들켰다.' }
+        ]
+      },
+
       {
         "id": "sl-senior-presidency-18",
         "text": "고등학교 전교 회장으로 취임한다",
@@ -3716,6 +3863,23 @@ const STAGES = [
     intro: '인생의 첫 갈림길. 대학과 방송, 혹은 곧장 돈이 되는 길 — 스무 살의 선택은 이후 모든 걸 조금씩 흔들어놓습니다.',
     choices: [
       {
+        id: 'deviant-underage-smoke-19',
+        text: '성인인 척 몰래 담배를 배운다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '기침을 참으며 억지로 태연한 척했다.' },
+          { weight: 10, label: '발각', deltas: { health: -2, happiness: -3 }, result: '옷에 밴 냄새로 바로 들통났다.' }
+        ]
+      },
+      {
+        id: 'deviant-illegal-movie-download-19',
+        text: '불법으로 영화를 다운로드해 몰아본다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '밤새 화면 앞을 떠나지 못했다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -2, happiness: -3 }, result: '경고장이 메일함에 날아들었다.' }
+        ]
+      },
+
+      {
         "id": "sl-orientation-leader-19",
         "text": "신입생 오리엔테이션 리더를 자원한다",
         "deltas": {
@@ -4205,6 +4369,23 @@ const STAGES = [
     ageRange: '20세',
     intro: '갓 어른이 된 티가 조금씩 빠지는 나이. 독립과 자유가 생각보다 훨씬 손이 많이 간다는 걸 알아갑니다.',
     choices: [
+      {
+        id: 'deviant-fake-parttime-hours-20',
+        text: '알바 출근 기록을 살짝 부풀린다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 1, happiness: 2 }, result: '몇 푼 더 들어온 월급이 쏠쏠했다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -3, happiness: -4, relationship: -2 }, result: 'CCTV 기록과 어긋난다는 사장님의 추궁이 이어졌다.' }
+        ]
+      },
+      {
+        id: 'deviant-habitual-jaywalk-20',
+        text: '바쁘다는 핑계로 무단횡단을 상습적으로 한다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 1 }, result: '몇 초 아꼈다는 뿌듯함이 있었다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -1, happiness: -3 }, result: '단속 카메라에 그대로 찍히고 말았다.' }
+        ]
+      },
+
       {
         "id": "sl-council-election-win-20",
         "text": "대학 학생회장 선거에 출마해 당선된다",
@@ -4795,6 +4976,23 @@ const STAGES = [
     intro: '방향을 조금씩 좁혀가는 나이. 막연했던 미래가 서서히 구체적인 모양을 갖추기 시작합니다.',
     choices: [
       {
+        id: 'deviant-inflate-resume-21',
+        text: '이력서 경력을 살짝 부풀려 적는다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3, wealth: 1 }, result: '서류 통과 소식에 안도의 한숨이 나왔다.' },
+          { weight: 18, label: '발각', deltas: { happiness: -5, relationship: -3 }, result: '평판 조회 과정에서 거짓말이 들통났다.' }
+        ]
+      },
+      {
+        id: 'deviant-drunk-noise-complaint-21',
+        text: '새벽까지 술 마시고 소란을 피운다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '오랜만에 스트레스를 실컷 풀었다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -3 }, result: '이웃의 신고로 경찰이 출동했다.' }
+        ]
+      },
+
+      {
         "id": "sl-budget-fight-21",
         "text": "학생회 예산 배분을 두고 행정처와 줄다리기를 벌인다",
         "deltas": {
@@ -5335,6 +5533,23 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        id: 'deviant-copy-club-report-22',
+        text: '동아리 발표 자료를 선배 것 그대로 베낀다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '발표는 무사히 잘 넘어갔다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -2 }, result: '선배가 자기 자료를 알아보고 말았다.' }
+        ]
+      },
+      {
+        id: 'deviant-fake-disabled-parking-22',
+        text: '장애인 주차구역에 잠깐이라며 차를 세운다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 1 }, result: '금방 뺄 거라 생각하며 자리를 떴다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -3, happiness: -4 }, result: '단속 요원이 이미 스티커를 붙이고 있었다.' }
+        ]
+      },
+
       {
         "id": "sl-reelection-22",
         "text": "재선에 도전해 학생회장 자리를 지킨다",
@@ -5883,6 +6098,23 @@ const STAGES = [
     ageRange: '23세',
     intro: '스무 살대의 마지막 해. 자립이라는 단어가 더는 남 얘기가 아니게 됩니다.',
     choices: [
+      {
+        id: 'deviant-speeding-nearmiss-23',
+        text: '과속하다 걸릴 뻔한 걸 아슬아슬하게 피한다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '가슴을 쓸어내리며 속도를 줄였다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -4, happiness: -4 }, result: '결국 과속 단속 카메라 플래시가 터졌다.' }
+        ]
+      },
+      {
+        id: 'deviant-office-printer-personal-23',
+        text: '회사 프린터로 개인 서류를 몰래 잔뜩 뽑는다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 1 }, result: '종이 뭉치를 가방에 슬쩍 넣었다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -2, happiness: -2 }, result: '토너 교체 담당자에게 딱 걸렸다.' }
+        ]
+      },
+
       {
         "id": "sl-graduation-transition-23",
         "text": "학생회장 임기를 마치고 졸업을 준비한다",
@@ -6467,6 +6699,23 @@ const STAGES = [
     ageRange: '24세',
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
+      {
+        id: 'deviant-fake-overtime-claim-24',
+        text: '야근하지 않았는데 야근 수당을 신청한다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 2 }, result: '통장에 찍힌 추가 수당이 반가웠다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -4, relationship: -4, happiness: -4 }, result: '출입 기록과 신청서가 맞지 않는다는 지적을 받았다.' }
+        ]
+      },
+      {
+        id: 'deviant-office-toilet-nap-24',
+        text: '화장실 칸에서 몰래 낮잠을 잔다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '단잠 뒤 개운함이 밀려왔다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -2, relationship: -1 }, result: '코 고는 소리가 문밖까지 새어나갔다.' }
+        ]
+      },
+
       {
         "id": "sl-young-leaders-program-24",
         "text": "기업의 차세대 리더 육성 프로그램에 선발된다",
@@ -7075,6 +7324,23 @@ const STAGES = [
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
       {
+        id: 'deviant-underreport-side-income-25',
+        text: '부업 소득을 세금 신고에서 슬쩍 뺀다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '아낀 세금만큼 통장이 두둑해졌다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, happiness: -4 }, result: '국세청 사후 검증 안내문이 날아들었다.' }
+        ]
+      },
+      {
+        id: 'deviant-fake-online-review-25',
+        text: '받지도 않은 서비스에 후기를 조작해 올린다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 1, happiness: 1 }, result: '적립금이 통장 대신 포인트로 쌓였다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -3, relationship: -2 }, result: '플랫폼 측에 조작 계정으로 신고당했다.' }
+        ]
+      },
+
+      {
         "id": "sl-local-council-candidacy-25",
         "text": "지역 청년 위원회 위원으로 위촉된다",
         "deltas": {
@@ -7629,6 +7895,23 @@ const STAGES = [
     ageRange: '26세',
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
+      {
+        id: 'deviant-company-card-personal-26',
+        text: '법인카드로 개인 물건을 슬쩍 결제한다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 2 }, result: '영수증을 슬쩍 구겨 넣으며 안도했다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -5, relationship: -4, happiness: -5 }, result: '회계팀 정산 과정에서 항목이 그대로 드러났다.' }
+        ]
+      },
+      {
+        id: 'deviant-ghosting-breakup-26',
+        text: '마음이 식은 상대를 말없이 잠수 이별한다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '복잡한 대화를 피했다는 안도감이 컸다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -4, happiness: -2 }, result: '공통 지인들 사이에서 소문이 순식간에 퍼졌다.' }
+        ]
+      },
+
       {
         "id": "sl-campaign-manager-26",
         "text": "지인의 선거 캠프에서 참모 역할을 맡는다",
@@ -8268,6 +8551,23 @@ const STAGES = [
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
       {
+        id: 'deviant-secret-side-job-27',
+        text: '본업 몰래 겹치는 시간에 부업을 뛴다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 2, happiness: 2 }, result: '두 배로 번 돈에 피곤함도 잊었다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -2, relationship: -3, happiness: -3 }, result: '겸업 사실이 회사 귀에 들어가고 말았다.' }
+        ]
+      },
+      {
+        id: 'deviant-fake-emergency-leave-27',
+        text: '거짓 사유로 급하게 연차를 낸다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '눈치 안 보고 하루를 온전히 즐겼다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -2, happiness: -2 }, result: 'SNS에 올린 사진이 상사 눈에 띄고 말았다.' }
+        ]
+      },
+
+      {
         "id": "sl-recognition-award-27",
         "text": "청년 리더십 부문에서 공로상을 받는다",
         "deltas": {
@@ -8903,6 +9203,23 @@ const STAGES = [
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
       {
+        id: 'deviant-secret-gambling-friends-28',
+        text: '친구들과 몰래 판돈을 걸고 게임을 한다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 3 }, result: '오랜만에 짜릿한 승부에 신이 났다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, relationship: -3, happiness: -3 }, result: '판이 커지면서 크게 잃고 말았다.' }
+        ]
+      },
+      {
+        id: 'deviant-steal-coworker-idea-28',
+        text: '동료 아이디어를 자기 것처럼 발표한다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3, wealth: 1 }, result: '박수갈채가 오롯이 내 것 같았다.' },
+          { weight: 18, label: '발각', deltas: { relationship: -6, happiness: -4 }, result: '원래 주인이 회의 자리에서 사실을 밝혔다.' }
+        ]
+      },
+
+      {
         "id": "sl-fourteen-year-reflection-28",
         "text": "전교 회장부터 이어진 15년의 리더십 여정을 되돌아본다",
         "deltas": {
@@ -9460,6 +9777,23 @@ const STAGES = [
     intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
     choices: [
       {
+        id: 'deviant-fake-injury-insurance-29',
+        text: '가벼운 부상을 부풀려 보험금을 청구한다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '생각보다 많은 보험금이 입금됐다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -8, happiness: -5, relationship: -2 }, result: '보험사 정밀 조사에서 꾀병이 들통났다.' }
+        ]
+      },
+      {
+        id: 'deviant-office-secret-flirt-29',
+        text: '회사에서 묘한 썸을 은근히 즐긴다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3, relationship: -1 }, result: '괜히 마음이 들뜨는 하루하루였다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -4, happiness: -3 }, result: '탕비실에서의 대화를 동료들이 목격했다.' }
+        ]
+      },
+
+      {
         "id": "te-succession-planning-29",
         "text": "믿을 만한 후계자에게 경영권을 넘길 준비를 한다",
         "deltas": {
@@ -9974,6 +10308,15 @@ const STAGES = [
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
       {
+        id: 'deviant-inflate-expense-report-30',
+        text: '출장 비용 영수증을 부풀려 청구한다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '별 탈 없이 정산이 끝났다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, relationship: -4, happiness: -4 }, result: '카드 내역과 영수증 금액이 맞지 않는다는 지적을 받았다.' }
+        ]
+      },
+
+      {
         "id": "te-fourteen-year-reflection-30",
         "text": "10대에 시작한 창업 여정 전체를 가만히 되돌아본다",
         "deltas": {
@@ -10454,6 +10797,23 @@ const STAGES = [
     intro: '곁에 남을 사람과 앞으로의 삶을 어떻게 그릴지, 조금 더 구체적으로 고민하는 나이입니다.',
     choices: [
       {
+        id: 'deviant-secret-side-business-31',
+        text: '회사 몰래 개인 사업을 병행한다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 2 }, result: '두 가지 일을 병행하며 통장이 두둑해졌다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -4, relationship: -4, happiness: -4 }, result: '겸업 금지 조항 위반으로 인사팀에 불려갔다.' }
+        ]
+      },
+      {
+        id: 'deviant-company-car-personal-31',
+        text: '법인 차량으로 개인 용무를 몰래 본다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2, wealth: 1 }, result: '기름값 아낀 게 은근히 뿌듯했다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -3, relationship: -2 }, result: '운행 기록과 다른 동선이 그대로 남아 있었다.' }
+        ]
+      },
+
+      {
         "id": "ec-first-head-job-31",
         "text": "하부 팀의 첫 감독직을 제안받는다",
         "deltas": {
@@ -10910,6 +11270,15 @@ const STAGES = [
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
       {
+        id: 'deviant-fake-business-trip-32',
+        text: '출장을 핑계로 몰래 여행을 다녀온다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4, wealth: -1 }, result: '업무 없는 며칠이 꿀같이 달았다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -3, relationship: -4, happiness: -4 }, result: '올린 SNS 사진 위치가 출장지와 완전히 달랐다.' }
+        ]
+      },
+
+      {
         "id": "ec-transfer-negotiation-32",
         "text": "원하는 선수 영입을 위해 직접 협상에 나선다",
         "deltas": {
@@ -11330,6 +11699,23 @@ const STAGES = [
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
       {
+        id: 'deviant-fake-tax-invoice-33',
+        text: '가짜 세금계산서로 지출을 부풀린다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '절세 효과에 잠시 흐뭇했다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -8, happiness: -5 }, result: '세무조사에서 허위 거래가 그대로 드러났다.' }
+        ]
+      },
+      {
+        id: 'deviant-secret-old-flame-contact-33',
+        text: '배우자 몰래 옛 인연과 은밀히 연락을 이어간다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3, relationship: -1 }, result: '오래된 설렘이 다시 살아나는 기분이었다.' },
+          { weight: 18, label: '발각', deltas: { relationship: -8, happiness: -6 }, result: '휴대폰 메시지를 배우자가 우연히 보고 말았다.' }
+        ]
+      },
+
+      {
         "id": "ec-championship-title-33",
         "text": "팀을 이끌고 마침내 우승을 차지한다",
         "deltas": {
@@ -11708,6 +12094,15 @@ const STAGES = [
     ageRange: '34세',
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
+      {
+        id: 'deviant-borrow-disabled-permit-34',
+        text: '장애인 주차증을 빌려 몰래 사용한다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 1 }, result: '편하게 주차하고 볼일을 봤다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -4, happiness: -4 }, result: '명의자와 다른 얼굴이라는 걸 단속반이 알아챘다.' }
+        ]
+      },
+
       {
         "id": "ec-aging-roster-34",
         "text": "노장 선수 위주의 로스터 운용에 고민이 깊어진다",
@@ -12147,6 +12542,23 @@ const STAGES = [
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
       {
+        id: 'deviant-embezzle-petty-cash-35',
+        text: '회삿돈 자투리를 슬쩍 개인 용도로 쓴다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '푼돈이라 티도 안 날 거라 생각했다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, relationship: -6, happiness: -5 }, result: '정기 감사에서 자잘한 차액이 결국 발각됐다.' }
+        ]
+      },
+      {
+        id: 'deviant-underreport-rental-income-35',
+        text: '임대 소득을 세금 신고에서 축소해 신고한다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '아낀 세금만큼 여유가 생겼다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -8, happiness: -4 }, result: '임차인의 현금영수증 신청으로 소득이 그대로 드러났다.' }
+        ]
+      },
+
+      {
         "id": "trainee-legacy-reflection-35",
         "text": "지난 연습생 시절을 가끔 떠올린다",
         "deltas": {
@@ -12554,6 +12966,15 @@ const STAGES = [
     ageRange: '36세',
     intro: '나를 키워준 사람들을 이제는 내가 돌봐야 할 시기가 다가옵니다.',
     choices: [
+      {
+        id: 'deviant-fake-charity-receipt-36',
+        text: '기부하지 않은 금액을 기부금 영수증에 적는다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '연말정산 환급액이 두둑해졌다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -5, happiness: -4 }, result: '국세청 소명 요구서가 집으로 날아들었다.' }
+        ]
+      },
+
       {
         "id": "ec-budget-cut-36",
         "text": "경기 침체로 구단 지원이 크게 줄어든다",
@@ -12964,6 +13385,23 @@ const STAGES = [
     ageRange: '37세',
     intro: '잊고 지내던 나 자신을 다시 챙기기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'deviant-workplace-affair-hint-37',
+        text: '직장 동료와 위험한 썸을 은근히 즐긴다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3, relationship: -1 }, result: '업무 시간이 이상하게 설레기 시작했다.' },
+          { weight: 18, label: '발각', deltas: { relationship: -7, happiness: -5 }, result: '메신저 대화 캡처가 사내에 떠돌기 시작했다.' }
+        ]
+      },
+      {
+        id: 'deviant-fake-doctor-note-37',
+        text: '안 아픈데 진단서를 위조해 병가를 낸다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3, wealth: 1 }, result: '푹 쉰 며칠이 보약 같았다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -4, relationship: -3, happiness: -4 }, result: '병원에 조회한 인사팀에게 위조 사실이 들통났다.' }
+        ]
+      },
+
       {
         "id": "ec-comeback-season-37",
         "text": "위기 끝에 화려한 부활 시즌을 이끈다",
@@ -13392,6 +13830,15 @@ const STAGES = [
     ageRange: '38세',
     intro: '몸이 예전 같지 않다는 걸, 무시할 수 없을 만큼 또렷하게 느끼게 됩니다.',
     choices: [
+      {
+        id: 'deviant-secret-loan-shark-38',
+        text: '몰래 사채로 급한 돈을 돌려막는다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '급한 불은 우선 껐다는 안도감이 들었다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -9, happiness: -6 }, result: '눈덩이처럼 불어난 이자가 결국 발목을 잡았다.' }
+        ]
+      },
+
       {
         "id": "ec-hall-of-fame-consider-38",
         "text": "e스포츠 명예의 전당 후보로 거론된다",
@@ -13827,6 +14274,23 @@ const STAGES = [
     intro: '서른대의 마지막 해. 다가올 10년을 조용히 준비하게 됩니다.',
     choices: [
       {
+        id: 'deviant-secret-motorcycle-installment-39',
+        text: '가족 몰래 할부로 오토바이를 지른다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '오랜만에 느끼는 해방감이 짜릿했다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -4, happiness: -2 }, result: '집 앞에 세워둔 오토바이를 가족이 먼저 발견했다.' }
+        ]
+      },
+      {
+        id: 'deviant-inflate-golf-entertainment-39',
+        text: '접대 골프 비용을 실제보다 부풀려 청구한다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '차액만큼 용돈이 두둑해졌다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, relationship: -4 }, result: '골프장 결제 내역 조회로 금액이 딱 들통났다.' }
+        ]
+      },
+
+      {
         "id": "ec-coaching-burnout-39",
         "text": "오랜 압박감에 코칭 번아웃을 느낀다",
         "deltas": {
@@ -14210,6 +14674,15 @@ const STAGES = [
     ageRange: '40세',
     intro: '인생의 절반 지점. 마흔이라는 숫자가 이유 없이 지난 시간을 돌아보게 만듭니다.',
     choices: [
+      {
+        id: 'deviant-early-pension-withdrawal-40',
+        text: '퇴직연금을 몰래 중도 인출해 쓴다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 2 }, result: '급한 목돈 걱정을 덜었다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, happiness: -4 }, result: '중도 인출 사실을 뒤늦게 안 배우자와 크게 다퉜다.' }
+        ]
+      },
+
       {
         "id": "stath-amateur-league-40",
         "text": "동호인 축구 리그에서 계속 공을 찬다",
@@ -14622,6 +15095,23 @@ const STAGES = [
     intro: '자녀 교육이든 커리어든, 뭔가를 본격적으로 다잡아야 할 것 같은 압박이 느껴지는 나이입니다.',
     choices: [
       {
+        id: 'deviant-corpcard-family-trip-41',
+        text: '회사 법인카드로 가족 여행 경비를 결제한다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 3 }, result: '공짜 여행이라는 생각에 발걸음이 가벼웠다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, relationship: -5, happiness: -5 }, result: '숙박업소 상호가 감사 보고서에 그대로 찍혔다.' }
+        ]
+      },
+      {
+        id: 'deviant-hide-side-income-spouse-41',
+        text: '부업 수입을 배우자에게 숨긴다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 2, happiness: 1 }, result: '비상금이 조용히 쌓여갔다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -5, happiness: -3 }, result: '통장 앱 알림 소리 하나에 모든 게 들통났다.' }
+        ]
+      },
+
+      {
         "id": "ec-near-retirement-reflection-41",
         "text": "은퇴를 앞두고 지도자 인생을 되돌아본다",
         "deltas": {
@@ -14895,6 +15385,15 @@ const STAGES = [
     ageRange: '42세',
     intro: '몸이 보내는 신호를 더 이상 못 본 척할 수 없게 되는 나이입니다.',
     choices: [
+      {
+        id: 'deviant-fake-safety-inspection-42',
+        text: '안전 점검 결과를 대충 통과시킨다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '번거로운 절차를 건너뛴 게 편했다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, happiness: -5 }, result: '뒤늦게 문제가 불거지며 책임 소재가 가려졌다.' }
+        ]
+      },
+
       {
         "id": "ec-legacy-cemented-42",
         "text": "이 판의 역사에 남을 업적을 완성한다",
@@ -15213,6 +15712,23 @@ const STAGES = [
     ageRange: '43세',
     intro: '조직 안에서 자신의 자리를 다시 확인하게 되는 시기입니다.',
     choices: [
+      {
+        id: 'deviant-midlife-secret-splurge-43',
+        text: '가족 몰래 목돈을 혼자만의 사치에 쓴다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '오랜만에 나 자신에게 아낌없이 썼다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -5, happiness: -3 }, result: '카드 명세서를 먼저 뜯어본 배우자와 냉전이 시작됐다.' }
+        ]
+      },
+      {
+        id: 'deviant-fake-medical-leave-vacation-43',
+        text: '몸이 멀쩡한데 병가를 내고 여행을 간다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4, wealth: -1 }, result: '아무도 모르게 훌쩍 떠난 여행이 달콤했다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -3, relationship: -3, happiness: -4 }, result: '여행지 사진이 회사 단체방에 잘못 전송됐다.' }
+        ]
+      },
+
       {
         "id": "ec-final-season-43",
         "text": "지도자 인생의 마지막 시즌에 돌입한다",
@@ -15543,6 +16059,15 @@ const STAGES = [
     intro: '가까운 사이일수록 소원해지기 쉬운 나이. 관계를 다시 들여다보게 됩니다.',
     choices: [
       {
+        id: 'deviant-underpay-subcontractor-44',
+        text: '하청 대금을 슬쩍 늦게, 적게 지급한다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '당장의 자금 압박은 넘겼다.' },
+          { weight: 18, label: '발각', deltas: { relationship: -6, happiness: -4 }, result: '하청업체가 공정거래 신고를 접수했다.' }
+        ]
+      },
+
+      {
         "id": "ec-post-coaching-consulting-44",
         "text": "은퇴 후 컨설턴트로 새로운 역할을 시작한다",
         "deltas": {
@@ -15870,6 +16395,23 @@ const STAGES = [
     ageRange: '45세',
     intro: '다 가진 것 같은데도 문득 공허해지는, 이른바 중년의 위기가 찾아오는 나이입니다.',
     choices: [
+      {
+        id: 'deviant-fudge-audit-numbers-45',
+        text: '회사 장부 숫자를 살짝 눈속임한다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '이번 분기 실적이 그럴듯하게 포장됐다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -9, relationship: -6, happiness: -6 }, result: '외부 감사에서 차액이 낱낱이 드러났다.' }
+        ]
+      },
+      {
+        id: 'deviant-secret-second-phone-45',
+        text: '가족 몰래 세컨폰으로 딴 세상을 만든다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3, relationship: -1 }, result: '나만의 비밀 공간이 생긴 것 같았다.' },
+          { weight: 18, label: '발각', deltas: { relationship: -8, happiness: -6 }, result: '충전기가 꽂힌 낯선 휴대폰을 가족이 발견했다.' }
+        ]
+      },
+
       {
         "id": "idol-comeback-nostalgia-45",
         "text": "추억의 무대로 꾸며진 콘서트에 게스트로 선다",
@@ -16279,6 +16821,15 @@ const STAGES = [
     intro: '늦지 않았다는 걸 스스로 증명하고 싶어지는 나이입니다.',
     choices: [
       {
+        id: 'deviant-fake-property-damage-claim-46',
+        text: '멀쩡한 물건을 파손됐다며 보험금을 청구한다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '생각보다 순조롭게 보험금이 나왔다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -8, happiness: -5 }, result: '보험사 현장 조사에서 조작 흔적이 드러났다.' }
+        ]
+      },
+
+      {
         "id": "sm-hall-of-fame-46",
         "text": "축구 명예의 전당에 이름을 올린다",
         "deltas": {
@@ -16494,6 +17045,23 @@ const STAGES = [
     ageRange: '47세',
     intro: '나를 키워준 사람들의 노년을 마주하며, 삶과 죽음을 조금 더 가까이서 보게 됩니다.',
     choices: [
+      {
+        id: 'deviant-nepotism-hire-47',
+        text: '실력보다 인맥으로 후배를 몰래 채용한다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2, relationship: 1 }, result: '든든한 내 사람이 하나 늘었다는 생각이 들었다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -5, happiness: -3 }, result: '채용 비리 제보가 인사팀에 접수됐다.' }
+        ]
+      },
+      {
+        id: 'deviant-hide-savings-tax-47',
+        text: '여윳돈 일부를 세금 안 내려고 몰래 숨겨둔다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '아낀 세금이 쏠쏠하게 느껴졌다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -9, happiness: -5 }, result: '차명 계좌 추적 끝에 꼬리가 밟혔다.' }
+        ]
+      },
+
       {
         "id": "sm-final-match-47",
         "text": "지도자 인생의 마지막 경기를 치른다",
@@ -16770,6 +17338,15 @@ const STAGES = [
     intro: '커리어가 정점에 이르거나, 정체를 마주하거나 — 갈림이 뚜렷해지는 나이입니다.',
     choices: [
       {
+        id: 'deviant-fake-remote-attendance-48',
+        text: '재택근무인 척 실제론 딴짓만 한다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '느긋한 하루가 오랜만에 달콤했다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -2, relationship: -2, happiness: -3 }, result: '갑작스러운 화상회의 요청에 딱 걸리고 말았다.' }
+        ]
+      },
+
+      {
         "id": "sm-late-title-48",
         "text": "누구도 예상 못 한 시기에 마지막 우승을 일궈낸다",
         "deltas": {
@@ -16928,6 +17505,23 @@ const STAGES = [
     ageRange: '49세',
     intro: '몸이 새로운 국면으로 접어드는 걸 느끼기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'deviant-midlife-dangerous-meeting-49',
+        text: '선을 넘을 뻔한 위험한 만남을 은밀히 이어간다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3, relationship: -1 }, result: '일상에서 느끼지 못했던 설렘이 있었다.' },
+          { weight: 18, label: '발각', deltas: { relationship: -10, happiness: -7 }, result: '지인의 목격담이 가족 귀에까지 들어갔다.' }
+        ]
+      },
+      {
+        id: 'deviant-fake-donation-tax-49',
+        text: '안 한 기부를 한 것처럼 서류를 꾸민다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '연말정산에서 짭짤한 환급을 받았다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, happiness: -4 }, result: '기부 단체 조회에서 존재하지 않는 내역임이 드러났다.' }
+        ]
+      },
+
       {
         "id": "sm-fifteen-year-reflection-49",
         "text": "지난 15년의 지도자 인생을 가만히 되돌아본다",
@@ -17112,6 +17706,15 @@ const STAGES = [
     ageRange: '50세',
     intro: '쉰이라는 숫자 앞에서, 지나온 시간의 무게를 새삼 느끼게 됩니다.',
     choices: [
+      {
+        id: 'deviant-fake-early-retirement-doc-50',
+        text: '명예퇴직 조건을 맞추려 서류를 손본다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '두둑한 위로금을 손에 쥐었다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, relationship: -4, happiness: -4 }, result: '허위 서류가 인사 감사에서 뒤늦게 밝혀졌다.' }
+        ]
+      },
+
       {
         "id": "trainee-still-auditioning-50",
         "text": "여전히 미련을 버리지 못하고 오디션을 기웃거린다",
@@ -17331,6 +17934,15 @@ const STAGES = [
     intro: '자녀가 떠난 자리, 그 빈자리를 어떻게 채우느냐가 이 시기의 숙제입니다.',
     choices: [
       {
+        id: 'deviant-old-gambling-habit-returns-51',
+        text: '젊은 날의 도박 버릇이 몰래 되살아난다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 3 }, result: '오랜만에 손맛을 되찾은 듯했다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -8, relationship: -5, happiness: -5 }, result: '판이 커지면서 노후 자금까지 손을 댔다.' }
+        ]
+      },
+
+      {
         id: "unhappy-51",
         text: "자녀의 독립 준비 소식에 서운함과 대견함이 뒤섞인다",
         deltas: { happiness: -3, relationship: -1 },
@@ -17498,6 +18110,15 @@ const STAGES = [
     intro: '은퇴라는 단어가 더는 먼 이야기가 아니게 되는 나이입니다.',
     choices: [
       {
+        id: 'deviant-secret-slush-fund-52',
+        text: '가족 몰래 비상금을 빼돌려 혼자만의 취미에 쓴다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2, relationship: -2 }, result: '들키지만 않으면 된다고, 스스로를 다독였다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -5, happiness: -3 }, result: '숨겨둔 통장을 배우자가 우연히 발견했다.' }
+        ]
+      },
+
+      {
         id: "unhappy-52",
         text: "회사에서 명예퇴직 권고를 넌지시 듣게 된다",
         deltas: { happiness: -5, wealth: -2 },
@@ -17582,6 +18203,15 @@ const STAGES = [
     ageRange: '53세',
     intro: '숫자로 남은 시간을 가늠하게 되는, 현실적인 재정비의 시기입니다.',
     choices: [
+      {
+        id: 'deviant-fake-charity-gala-attendance-53',
+        text: '참석하지도 않은 자선 행사에 이름만 올린다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2, fame: 1 }, result: '명단에 이름 석 자가 오른 게 뿌듯했다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -3 }, result: '실제 참석자 명단과 대조되며 허위가 드러났다.' }
+        ]
+      },
+
       {
         id: "wealth-drain-53-a",
         text: "거울 속 세월에 값비싼 자기관리를 시작한다",
@@ -17715,6 +18345,15 @@ const STAGES = [
     intro: '중년의 마지막 해. 다가올 노년을 향해 조용히 마음을 다잡습니다.',
     choices: [
       {
+        id: 'deviant-underreport-severance-tax-54',
+        text: '퇴직금 세금 신고를 슬쩍 줄인다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '세금 몇 푼을 아꼈다는 생각에 흡족했다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -8, happiness: -4 }, result: '국세청 전산 대조에서 차액이 그대로 잡혔다.' }
+        ]
+      },
+
+      {
         id: "unhappy-54",
         text: "동창의 부고 소식에 인생의 유한함을 절감한다",
         deltas: { happiness: -3, relationship: -1 },
@@ -17787,6 +18426,15 @@ const STAGES = [
     ageRange: '55세',
     intro: '정년이라는 단어가 더는 남 얘기가 아니게 되는 나이. 매일 출근하던 삶이 조용히 막을 내립니다.',
     choices: [
+      {
+        id: 'deviant-secret-retirement-fund-trip-55',
+        text: '노후 자금 일부를 몰래 여행 경비로 빼돌린다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '평생 처음 가보는 곳에서 마음이 들떴다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -4, happiness: -2 }, result: '여행 경비 출처를 캐묻는 자식들과 마주해야 했다.' }
+        ]
+      },
+
       {
         "id": "an-veteran-unknown-55",
         "text": "여전히 무명이지만 꾸준히 단역을 소화한다",
@@ -18049,6 +18697,15 @@ const STAGES = [
     intro: '평생 "어디 소속"으로 나를 소개하던 습관이 사라지며, 나는 누구인가를 새삼 다시 묻게 됩니다.',
     choices: [
       {
+        id: 'deviant-hide-checkup-results-56',
+        text: '건강검진 결과를 가족에게 속여 말한다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '괜한 걱정을 끼치지 않았다는 안도감이 들었다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -4, happiness: -3 }, result: '병원에서 걸려온 전화를 가족이 먼저 받았다.' }
+        ]
+      },
+
+      {
         id: "unhappy-56",
         text: "무릎이 예전 같지 않아 좋아하던 산길에서 자꾸 멈춰선다",
         deltas: { happiness: -2, health: -2 },
@@ -18130,6 +18787,15 @@ const STAGES = [
     ageRange: '57세',
     intro: '직장이라는 울타리 없이 새로운 사람들과 관계를 다시 엮어가야 하는 시기입니다.',
     choices: [
+      {
+        id: 'deviant-inflate-consulting-fee-57',
+        text: '은퇴 후 컨설팅비를 실제보다 부풀려 청구한다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '한 건에 짭짤한 수입이 들어왔다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, relationship: -4 }, result: '견적서 사본이 다른 업체와 비교되며 들통났다.' }
+        ]
+      },
+
       {
         id: "wealth-drain-57-b",
         text: "노후 대비라며 권유받은 상품에 목돈을 넣는다",
@@ -18259,6 +18925,15 @@ const STAGES = [
     ageRange: '58세',
     intro: '자녀 세대가 이제 자기 가정을 꾸리며, 가족 안에서의 내 역할도 조금씩 달라집니다.',
     choices: [
+      {
+        id: 'deviant-hide-assets-remarriage-58',
+        text: '재혼을 준비하며 상대에게 자산을 숨긴다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 2, wealth: 1 }, result: '든든한 뒷주머니가 있다는 사실에 안심이 됐다.' },
+          { weight: 18, label: '발각', deltas: { relationship: -7, happiness: -5 }, result: '혼인신고 준비 중 감춰둔 자산이 드러나고 말았다.' }
+        ]
+      },
+
       {
         id: "unhappy-58",
         text: "은퇴 후 소득 공백이 눈앞에 닥쳤음을 실감한다",
@@ -18429,6 +19104,15 @@ const STAGES = [
     intro: '건강이 더 이상 당연한 게 아니라는 걸 받아들이고, 본격적으로 몸을 챙기기 시작하는 나이입니다.',
     choices: [
       {
+        id: 'deviant-hospital-queue-jump-59',
+        text: '병원에서 새치기로 순서를 앞당긴다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '기다리는 시간을 줄였다는 게 다행이었다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -2 }, result: '먼저 온 환자들의 따가운 눈총을 받았다.' }
+        ]
+      },
+
+      {
         id: "unhappy-59",
         text: "오랜 지병으로 병원 출입이 부쩍 잦아진다",
         deltas: { happiness: -2, health: -3 },
@@ -18546,6 +19230,15 @@ const STAGES = [
     ageRange: '60세',
     intro: '환갑. 예순 해를 지나온 삶을 가족과 함께 돌아보는 해입니다.',
     choices: [
+      {
+        id: 'deviant-priority-seat-abuse-60',
+        text: '노약자석에 앉아 모르는 척한다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 1 }, result: '편하게 앉아 목적지까지 갔다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -2 }, result: '더 연로한 승객의 눈총에 자리를 내줘야 했다.' }
+        ]
+      },
+
       {
         "id": "idol-mentoring-newcomers-60",
         "text": "후배 아이돌에게 데뷔 시절 이야기를 들려준다",
@@ -18717,6 +19410,15 @@ const STAGES = [
     intro: '은퇴 이후의 삶이 서서히 새로운 리듬을 찾아가는 시기입니다.',
     choices: [
       {
+        id: 'deviant-pension-income-underreport-61',
+        text: '실제보다 소득을 낮춰 신고해 연금 혜택을 더 받는다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '매달 나오는 연금이 조금 더 두둑했다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -8, happiness: -5 }, result: '소득 대조 과정에서 부정 수급이 적발됐다.' }
+        ]
+      },
+
+      {
         id: "unhappy-61",
         text: "함께 늙어가던 친구의 건강 악화 소식이 서늘하게 닿는다",
         deltas: { happiness: -3, relationship: -1 },
@@ -18831,6 +19533,15 @@ const STAGES = [
     ageRange: '62세',
     intro: '연금이라는 단어가 현실적인 숫자로 다가오기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'deviant-forbidden-drink-62',
+        text: '의사 몰래 금지된 술 한잔을 즐긴다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '오랜만에 느끼는 짜릿한 해방감이었다.' },
+          { weight: 10, label: '발각', deltas: { health: -3, happiness: -2 }, result: '다음 날 검진에서 수치가 바로 튀어 올랐다.' }
+        ]
+      },
+
       {
         id: "wealth-drain-62-a",
         text: "옛 활약을 그리워하며 관련 물건을 사 모은다",
@@ -18947,6 +19658,15 @@ const STAGES = [
     intro: '취미와 가족, 두 가지 모두에서 깊이가 더해지는 시기입니다.',
     choices: [
       {
+        id: 'deviant-inflate-volunteer-hours-63',
+        text: '봉사활동 시간을 부풀려 기록한다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2, fame: 1 }, result: '표창장에 이름이 오른 게 뿌듯했다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -2 }, result: '실제 출석부와 대조되며 거짓이 드러났다.' }
+        ]
+      },
+
+      {
         id: "unhappy-63",
         text: "몸이 예전 같지 않아 하고 싶던 일을 자꾸 미룬다",
         deltas: { happiness: -2, health: -1 },
@@ -19030,6 +19750,15 @@ const STAGES = [
     ageRange: '64세',
     intro: '몸의 변화를 있는 그대로 받아들이는 연습이 필요한 나이입니다.',
     choices: [
+      {
+        id: 'deviant-secret-loan-to-friend-64',
+        text: '가족 몰래 친구에게 큰돈을 빌려준다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '오랜 우정을 지켰다는 생각에 흐뭇했다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -4, relationship: -4 }, result: '돈을 빌려준 사실을 가족이 통장에서 발견했다.' }
+        ]
+      },
+
       {
         id: "unhappy-64",
         text: "자녀 가족과의 왕래가 점점 뜸해짐을 느낀다",
@@ -19152,6 +19881,15 @@ const STAGES = [
     ageRange: '65세',
     intro: '법정 노인 연령. 사회가 부르는 호칭이 바뀌는 걸 마주하게 됩니다.',
     choices: [
+      {
+        id: 'deviant-hide-sideincome-pension-65',
+        text: '소일거리 수입을 연금공단에 숨긴다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '연금이 깎이지 않아 다행이었다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, happiness: -4 }, result: '정기 소득 조사에서 숨긴 내역이 드러났다.' }
+        ]
+      },
+
       {
         "id": "trainee-reunion-65",
         "text": "오랜 연습생 동기들과 모임을 갖는다",
@@ -19385,6 +20123,15 @@ const STAGES = [
     intro: '오랜 세월을 함께한 배우자와의 관계를 다시 들여다보게 되는 나이입니다.',
     choices: [
       {
+        id: 'deviant-senior-center-gambling-66',
+        text: '경로당 화투판에서 몰래 판돈을 키운다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 2 }, result: '오랜만에 손이 풀리며 짭짤하게 땄다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, relationship: -4, happiness: -4 }, result: '판이 커진 걸 알게 된 자식들에게 크게 혼났다.' }
+        ]
+      },
+
+      {
         id: "unhappy-66",
         text: "젊은 시절 꿈꿨던 일들을 결국 못 이뤘음을 인정한다",
         deltas: { happiness: -4 },
@@ -19512,6 +20259,15 @@ const STAGES = [
     intro: '남겨질 것들에 대해 조금씩 마음의 준비를 시작하는 나이입니다.',
     choices: [
       {
+        id: 'deviant-prescription-resale-67',
+        text: '필요 이상으로 약을 처방받아 되판다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '용돈벌이가 쏠쏠했다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, happiness: -5 }, result: '약국 이상 처방 패턴이 신고돼 조사를 받았다.' }
+        ]
+      },
+
+      {
         id: "wealth-drain-67-a",
         text: "유언장을 정리하며 남은 재산을 미리 나눠준다",
         deltas: { wealth: -5 },
@@ -19622,6 +20378,15 @@ const STAGES = [
     intro: '가까운 이들의 부고를 마주하며, 남은 삶의 무게를 다시 느끼게 됩니다.',
     choices: [
       {
+        id: 'deviant-market-queue-jump-68',
+        text: '재래시장에서 슬쩍 새치기를 한다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 1 }, result: '기다림 없이 장을 보고 돌아섰다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -2 }, result: '단골 상인이 순서를 지키라며 타박했다.' }
+        ]
+      },
+
+      {
         id: "unhappy-68",
         text: "예전만큼 몸이 따라주지 않아 무력감을 느낀다",
         deltas: { happiness: -3, health: -2 },
@@ -19722,6 +20487,15 @@ const STAGES = [
     intro: '노년 준비의 마지막 해. 진짜 노년이 코앞으로 다가옵니다.',
     choices: [
       {
+        id: 'deviant-hide-savings-from-kids-69',
+        text: '자식들 모르게 비상금을 숨겨둔다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '나만 아는 곳간이 하나 있다는 게 든든했다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -4, happiness: -2 }, result: '이사 준비 중 숨겨둔 돈뭉치가 발견됐다.' }
+        ]
+      },
+
+      {
         id: "unhappy-69",
         text: "일흔을 앞두고 남은 시간에 대한 두려움이 밀려온다",
         deltas: { happiness: -4 },
@@ -19797,6 +20571,15 @@ const STAGES = [
     ageRange: '70세',
     intro: '칠순. 황혼이라 불리는 시간의 첫걸음을 내딛습니다.',
     choices: [
+      {
+        id: 'deviant-secret-smoke-defy-doctor-70',
+        text: '의사가 금지한 담배를 몰래 다시 태운다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '오랜만의 한 모금이 유독 진하게 느껴졌다.' },
+          { weight: 18, label: '발각', deltas: { health: -4, happiness: -3 }, result: '옷에 밴 냄새를 자식들이 바로 알아챘다.' }
+        ]
+      },
+
       {
         "id": "va-legacy-project-70",
         "text": "은퇴 후에도 뜻깊은 마지막 프로젝트에 참여한다",
@@ -19982,6 +20765,15 @@ const STAGES = [
     ageRange: '71세',
     intro: '거창한 일 없이도, 하루하루의 작은 순간들이 새삼 소중하게 다가오는 나이입니다.',
     choices: [
+      {
+        id: 'deviant-inflate-disability-benefit-71',
+        text: '실제보다 부풀려 장애 등급 혜택을 신청한다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '생활비 부담이 한결 가벼워졌다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -8, happiness: -5 }, result: '재심사 과정에서 등급 조작이 밝혀졌다.' }
+        ]
+      },
+
       {
         id: "unhappy-71",
         text: "오랜 친구들이 하나둘 세상을 떠났다는 소식을 듣는다",
@@ -20180,6 +20972,15 @@ const STAGES = [
     intro: '몸이 더는 예전 같지 않다는 걸, 이제는 확실히 받아들여야 하는 시기입니다.',
     choices: [
       {
+        id: 'deviant-welfare-card-lend-73',
+        text: '복지 교통카드를 빌려줘 부정 승차를 돕는다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 1 }, result: '작은 도움을 줬다는 뿌듯함이 있었다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -2 }, result: '단속 요원이 카드 명의자와 얼굴을 대조했다.' }
+        ]
+      },
+
+      {
         id: "unhappy-73",
         text: "혼자 보내는 시간이 늘며 외로움이 짙어진다",
         deltas: { happiness: -4, relationship: -2 },
@@ -20372,6 +21173,15 @@ const STAGES = [
     ageRange: '75세',
     intro: '남은 시간을 어떻게 채워갈지, 다시 한번 진지하게 그려보는 나이입니다.',
     choices: [
+      {
+        id: 'deviant-senior-highstakes-gambling-75',
+        text: '경로당 몰래 큰 판돈이 걸린 도박에 낀다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 2 }, result: '오랜만에 짜릿한 승부욕이 되살아났다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -8, relationship: -5, happiness: -5 }, result: '큰돈이 오간 판이 결국 신고로 이어졌다.' }
+        ]
+      },
+
       {
         "id": "an-no-regrets-75",
         "text": "화려하진 않았지만 후회 없던 배우 인생을 돌아본다",
@@ -20592,6 +21402,15 @@ const STAGES = [
     intro: '희수(喜壽). 예로부터 기쁘게 오래 산 것을 기리는 나이입니다.',
     choices: [
       {
+        id: 'deviant-hide-illness-from-family-77',
+        text: '몸이 안 좋은 걸 자식들에게 숨긴다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 1 }, result: '걱정 끼치지 않았다는 생각에 마음이 편했다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -4, happiness: -3, health: -1 }, result: '숨기다 늦어진 진단에 가족 모두가 놀랐다.' }
+        ]
+      },
+
+      {
         id: "unhappy-77",
         text: "거동이 무거워지며 혼자 할 수 있는 일들이 하나씩 줄어든다",
         deltas: { happiness: -3, health: -2 },
@@ -20800,6 +21619,15 @@ const STAGES = [
     intro: '팔순을 코앞에 두고, 지나온 삶을 조용히 정리해보는 한 해입니다.',
     choices: [
       {
+        id: 'deviant-senior-lottery-pool-skim-79',
+        text: '경로당 로또 계모임 돈에 몰래 손을 댄다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '급한 불을 끄고 나니 마음이 놓였다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -8, relationship: -6, happiness: -5 }, result: '장부 대조 끝에 빈 자리가 그대로 드러났다.' }
+        ]
+      },
+
+      {
         id: "unhappy-79",
         text: "청력이 나빠져 가족과의 대화도 힘겨워진다",
         deltas: { happiness: -3, health: -1, relationship: -1 },
@@ -21000,6 +21828,15 @@ const STAGES = [
     ageRange: '81세',
     intro: '매일 눈을 뜨는 것 자체가, 새삼 감사하게 느껴지는 나이입니다.',
     choices: [
+      {
+        id: 'deviant-defy-diet-sweets-81',
+        text: '의사가 말린 단 음식을 몰래 즐긴다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '입안 가득 퍼지는 단맛이 오랜만이었다.' },
+          { weight: 10, label: '발각', deltas: { health: -3, happiness: -2 }, result: '혈당 수치가 바로 다음 날 튀어 올랐다.' }
+        ]
+      },
+
       {
         id: "wealth-drain-81-a",
         text: "생신 자리에서 손주들에게 큰돈을 나눠준다",
@@ -21268,6 +22105,15 @@ const STAGES = [
     ageRange: '84세',
     intro: '지나온 삶 전체를 조용히 되새기게 되는, 사색의 시간이 깊어지는 나이입니다.',
     choices: [
+      {
+        id: 'deviant-skip-medication-84',
+        text: '귀찮은 약을 몰래 안 먹고 버린다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '쓴 약을 안 먹으니 한결 편했다.' },
+          { weight: 10, label: '발각', deltas: { health: -4, happiness: -2 }, result: '갑자기 나빠진 몸 상태에 병원 신세를 졌다.' }
+        ]
+      },
+
       {
         id: "wealth-drain-84-a",
         text: "가족과의 화해 자리에서 큰 선물을 준비한다",
@@ -21585,6 +22431,15 @@ const STAGES = [
     intro: '병원을 오가는 일이 조금씩 일상의 한 부분이 되어가는 시기입니다.',
     choices: [
       {
+        id: 'deviant-secret-will-edit-87',
+        text: '가족 몰래 유언장 내용을 슬쩍 바꾼다',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '오랜 고민 끝에 마음의 짐을 하나 덜었다.' },
+          { weight: 18, label: '발각', deltas: { relationship: -8, happiness: -4 }, result: '변경 사실을 알게 된 가족들 사이에 큰 다툼이 벌어졌다.' }
+        ]
+      },
+
+      {
         id: "unhappy-87",
         text: "예전에 잘하던 일도 이제는 버겁게 느껴진다",
         deltas: { happiness: -3, health: -1 },
@@ -21827,6 +22682,15 @@ const STAGES = [
     intro: '구순. 아흔 해를 살아낸 시간이, 온 가족의 축하 속에 다시 한번 빛납니다.',
     choices: [
       {
+        id: 'deviant-secret-nightcap-90',
+        text: '요양보호사 몰래 술 한잔을 숨겨 마신다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '오랜만의 한 잔이 인생의 낙처럼 느껴졌다.' },
+          { weight: 10, label: '발각', deltas: { health: -3, happiness: -2 }, result: '알코올 냄새를 요양보호사가 바로 알아챘다.' }
+        ]
+      },
+
+      {
         "id": "sm2-final-years-90",
         "text": "여전히 축구 이야기만 나오면 눈이 반짝인다",
         "deltas": {
@@ -22036,6 +22900,15 @@ const STAGES = [
     ageRange: '92세',
     intro: '침상에서 보내는 시간이 조금씩 늘어가는, 조용한 나날입니다.',
     choices: [
+      {
+        id: 'deviant-hide-fall-from-family-92',
+        text: '넘어진 걸 자식들 걱정할까 봐 숨긴다',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 1 }, result: '별일 아니라며 스스로를 다독였다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -2, health: -1 }, result: '멍든 자국을 결국 자식들에게 들키고 말았다.' }
+        ]
+      },
+
       {
         id: "wealth-drain-92-a",
         text: "요양병원 검진·치료비가 예상보다 크게 나간다",

@@ -201,9 +201,13 @@ async function recordCollectionEntryIfLoggedIn(db, uid, category, entryId) {
   await db.ref('lifeGame/collection/' + uid + '/' + category + '/' + entryId).set(true);
 }
 
-// 구간마다 최대 6~8개까지 채워둔 choices 중 실제로 그 회차에 "노출"할 3개를
-// 무작위로 고른다 - 매번 같은 3개만 뜨면 재미가 없고, 그렇다고 다 보여주면
-// 화면이 복잡해지니 매 판마다 다른 3개가 뜨게 한다. requiresCondition이 붙은
+// 구간마다 최대 6~8개까지 채워둔 choices 중 실제로 그 회차에 "노출"할 4개를
+// 무작위로 고른다(2026-08-23, 원래 3개 - "일탈" 100개 추가로 선택지 총량이
+// 크게 늘면서 기존 위험 선택지들의 노출 빈도가 희석돼 즉사 비율이 15%대→
+// 10.6%로 떨어지는 걸 시뮬레이션으로 확인, 사용자 지시로 4개로 늘려 원래
+// 범위로 복원 - 아래 회귀 시뮬레이션 결과 참고). 매번 같은 4개만 뜨면 재미가
+// 없고, 그렇다고 다 보여주면 화면이 복잡해지니 매 판마다 다른 4개가 뜨게
+// 한다. requiresCondition이 붙은
 // 선택지(부상·질병 회복용)는 activeConditionIds에 그 조건이 없으면 애초에
 // 후보에서 빠진다 - 부러진 적 없는 팔이 "다 나았다"고 나오는 일이 없도록.
 // requiresFamilyMember(배열, 그 중 하나라도 있어야 후보)/requiresNoFamilyMember
@@ -252,15 +256,15 @@ async function recordCollectionEntryIfLoggedIn(db, uid, category, entryId) {
 // 재능·취미 상세에 적용한 것. 값 구조는 지인처럼 여러 개를 동시에 누적 보유하되
 // (activeTalentIds/activeHobbyIds가 배열), 획득 시점은 직업처럼 특정 선택지를
 // 고르는 순간이다(addTalent/addHobby, applyChoice 참고).
-// 후보가 3개 이하면 그냥 전부 노출한다. mandatory가 붙은 선택지(자격만
-// 되면 반드시 겪어야 하는 이벤트 - 예: 50대에 부모님과 사별)는 3개 무작위
+// 후보가 4개 이하면 그냥 전부 노출한다. mandatory가 붙은 선택지(자격만
+// 되면 반드시 겪어야 하는 이벤트 - 예: 50대에 부모님과 사별)는 4개 무작위
 // 추첨에서 밀려날 일 없이 항상 노출 목록에 들어가고, 나머지 자리만 무작위로
 // 채운다.
 // guaranteeCure(불리언, 2026-08-22 - 4장 1년단위 진행 되돌리기 후속 조치)는
 // "건강 조건이 있는 상태로 3턴째"일 때 true가 된다(계산은 applyChoice의
 // sickStreak 참고) - 이 경우 그 조건을 치료하는 선택지(removeCondition이
 // 지금 조건 중 하나와 일치하거나, removeAllConditions가 붙은 건강검진류)가
-// 후보 중에 있으면 mandatory와 똑같이 3개 추첨에서 밀려나지 않고 강제로
+// 후보 중에 있으면 mandatory와 똑같이 4개 추첨에서 밀려나지 않고 강제로
 // 노출된다. 도입 배경: 1년단위 진행으로 평균 선택 횟수가 38회→101회로
 // 늘면서, 무작위 플레이로는 치료 선택지를 자주 못 골라 조건이 계속 쌓이고
 // 조건이 쌓일수록 건강 회복이 더뎌지는(활성 조건 개수 페널티) 악순환으로
@@ -336,7 +340,7 @@ function pickVisibleChoiceIds(choices, ctx) {
     return true;
   });
   let resultIds;
-  if (eligible.length <= 3) {
+  if (eligible.length <= 4) {
     resultIds = eligible.map((c) => c.id);
   } else {
     const mandatory = eligible.filter((c) => c.mandatory);
@@ -356,16 +360,17 @@ function pickVisibleChoiceIds(choices, ctx) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    const remainingSlots = Math.max(0, 3 - mandatory.length);
+    const remainingSlots = Math.max(0, 4 - mandatory.length);
     resultIds = mandatory.concat(shuffled.slice(0, remainingSlots)).map((c) => c.id);
   }
 
   // requiresSufficientCash 안전망(2026-08-23) - "출현율은 그대로"라는 요청대로
   // requiresSufficientCash는 위 eligible 필터링에 전혀 관여하지 않는다. 그
-  // 결과 극히 드물게(시뮬레이션 기준 0.36%) 무작위로 뽑힌 3개가 전부
-  // requiresSufficientCash이면서 셋 다 지금 현금으로 감당이 안 되면, 그 턴에
-  // 고를 수 있는 선택지가 하나도 없어 진행이 완전히 막히는 문제가 생긴다.
-  // 이 극단적 경우에만(3개 전부 감당 불가능할 때만) 마지막 자리 하나를 감당
+  // 결과 극히 드물게(시뮬레이션 기준 0.36%, 2026-08-23 노출 개수 4개 변경 후
+  // 재검증 결과도 아래 참고) 무작위로 뽑힌 4개가 전부 requiresSufficientCash이면서
+  // 넷 다 지금 현금으로 감당이 안 되면, 그 턴에 고를 수 있는 선택지가 하나도
+  // 없어 진행이 완전히 막히는 문제가 생긴다.
+  // 이 극단적 경우에만(4개 전부 감당 불가능할 때만) 마지막 자리 하나를 감당
   // 가능한 다른 후보로 바꿔치기해 최소 하나는 항상 고를 수 있게 한다 -
   // 나머지 절대다수(99.6%+)의 턴은 전혀 손대지 않으므로 노출 확률 자체는
   // 사실상 그대로 유지된다(guaranteeCure와 같은 급의 안전망).
@@ -395,7 +400,7 @@ function pickVisibleChoiceIds(choices, ctx) {
 // 부모님 사별)로 건너뛰는 폭을 잘라내는 메커니즘이 있었지만, 이제 모든
 // 나이를 어차피 다 지나가므로 그 배열·계산은 더 이상 필요 없어 제거했다 -
 // 54세 사별 선택지 자체는 여전히 mandatory: true(pickVisibleChoiceIds가
-// 3개 무작위 추첨에서 절대 밀어내지 않음)로 보장된다.
+// 4개 무작위 추첨에서 절대 밀어내지 않음)로 보장된다.
 function pickNextStageIndex(currentIndex) {
   return currentIndex + 1;
 }
@@ -556,8 +561,8 @@ function ensureGuaranteedCure(stageChoices, ids, healthConditions, guaranteeCure
 // "고르는" 게 아니라 "굴리는" 구간이라는 걸 클라이언트에 알려준다(태어날 집안처럼
 // 본인이 선택할 수 없는 것들 - submitChoice가 아니라 rollDice로만 진행 가능).
 //
-// visibleIds가 주어지면(그 판의 저장 슬롯에 이미 뽑아둔 3개) choices를 그
-// 3개로만 필터링해서 내려준다 - 안 보여준 선택지가 나중에 rollDice 결과로
+// visibleIds가 주어지면(그 판의 저장 슬롯에 이미 뽑아둔 4개) choices를 그
+// 4개로만 필터링해서 내려준다 - 안 보여준 선택지가 나중에 rollDice 결과로
 // 튀어나오는 일이 없도록, "노출 = 실제로 뽑힐 수 있는 후보"가 항상 일치해야 함.
 // introId가 주어지면(그 판의 저장 슬롯에 이미 뽑아둔 상황 설명 id) 그
 // 상황의 텍스트를 resolveIntroText로 찾아 쓴다 - pickIntroId() 참고.
@@ -1137,8 +1142,8 @@ async function applyChoice(db, playRef, play, stage, choice) {
     // (pickIntroId 참고 - 지금은 intros 배열을 가진 구간이 없어 항상 null).
     nextIntroId = pickIntroId(STAGES[nextIndex]);
     updates.currentIntroId = nextIntroId;
-    // 다음 구간에서 보여줄 3개를 여기서 미리 뽑아 저장 슬롯에 남겨둔다 - 이걸
-    // 지금 뽑아둬야 이어하기로 재접속했을 때도 같은 3개가 다시 뜬다. 이때
+    // 다음 구간에서 보여줄 4개를 여기서 미리 뽑아 저장 슬롯에 남겨둔다 - 이걸
+    // 지금 뽑아둬야 이어하기로 재접속했을 때도 같은 4개가 다시 뜬다. 이때
     // 방금 갱신된 healthConditions/familyMembers/assets를 기준으로
     // requiresCondition·requiresFamilyMember·requiresNoFamilyMember·
     // requiresAsset을 걸러야 "이번 선택으로 막 낫거나 생긴 조건/가족/재산"이
@@ -1347,7 +1352,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
   const { activeRoute, experiencedRouteIds, routeCompletedIds, routeEndAges } = buildRouteState(play.choiceLog, play.stageIndex);
 
   // visibleChoiceIds/currentIntroId가 이미 저장돼 있으면 그대로 재사용해서
-  // 재접속해도 같은 3개·같은 상황 설명이 다시 뜨게 한다(이 필드들이 생기기
+  // 재접속해도 같은 4개·같은 상황 설명이 다시 뜨게 한다(이 필드들이 생기기
   // 전에 만들어진 저장분 등 없을 때만 새로 뽑아서 지금부터라도 고정해둔다).
   // currentIntroId는 intros 없는 구간이면 정상값이 null이라(undefined가
   // 아니라) falsy 체크(!currentIntroId)를 쓰면 매번 다시 뽑게 되므로 반드시
@@ -1452,7 +1457,7 @@ const rollDice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, as
   if (!stage.random) {
     throw new HttpsError('failed-precondition', '이 구간은 주사위가 아니라 직접 골라야 합니다.');
   }
-  // 화면에 보여준(노출된) 3개 중에서만 뽑는다 - 미리보기로 안 보여준 선택지가
+  // 화면에 보여준(노출된) 4개 중에서만 뽑는다 - 미리보기로 안 보여준 선택지가
   // 당첨되면 플레이어 입장에서 "보지도 못한 결과"가 튀어나오는 셈이라 안 됨.
   const pool = play.visibleChoiceIds && play.visibleChoiceIds.length
     ? stage.choices.filter((c) => play.visibleChoiceIds.includes(c.id))
