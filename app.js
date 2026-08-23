@@ -652,6 +652,52 @@ function showToast(message) {
   toastTimer = setTimeout(() => toast.classList.remove('show'), TOAST_MS);
 }
 
+// 좌측 패널 항목 호버 설명(2026-08-24, 사용자 지시 - "이 곳에 표시되는 모든
+// 항목에 마우스를 올리면 설명이 뜨고 마우스를 따라다니게 해줘. 마우스가
+// 벗어나면 다시 사라지게 해줘") - 재산/건강/가족/지인/재능/취미 칩과 스탯 바는
+// renderXXX가 innerHTML로 매번 통째로 새로 그려서 개별 엘리먼트에 리스너를
+// 붙이면 재렌더링마다 다시 붙여야 한다. 대신 안 바뀌는 부모(gameLeftPage) 하나에
+// 위임(delegation)해서, data-tooltip 속성이 있는 엘리먼트 위에서만 반응하게
+// 한다 - 렌더 함수는 그 속성만 채워주면 되고 리스너를 신경 쓸 필요가 없다.
+const hoverTooltipEl = document.getElementById('hoverTooltip');
+let hoverTooltipTarget = null;
+function positionHoverTooltip(x, y) {
+  const rect = hoverTooltipEl.getBoundingClientRect();
+  const w = rect.width || 160;
+  const h = rect.height || 30;
+  const px = Math.min(Math.max(x + 16, 8), window.innerWidth - w - 8);
+  const py = Math.min(Math.max(y + 16, 8), window.innerHeight - h - 8);
+  hoverTooltipEl.style.left = px + 'px';
+  hoverTooltipEl.style.top = py + 'px';
+}
+function hideHoverTooltip() {
+  hoverTooltipTarget = null;
+  hoverTooltipEl.classList.remove('show');
+}
+function setupHoverTooltips(root) {
+  if (!root) return;
+  root.addEventListener('mouseover', (e) => {
+    const el = e.target.closest('[data-tooltip]');
+    if (!el || el === hoverTooltipTarget) return;
+    hoverTooltipTarget = el;
+    hoverTooltipEl.textContent = el.dataset.tooltip;
+    hoverTooltipEl.classList.add('show');
+    positionHoverTooltip(e.clientX, e.clientY);
+  });
+  root.addEventListener('mousemove', (e) => {
+    if (!hoverTooltipTarget) return;
+    positionHoverTooltip(e.clientX, e.clientY);
+  });
+  root.addEventListener('mouseout', (e) => {
+    if (!hoverTooltipTarget) return;
+    // relatedTarget이 여전히 같은 데이터-툴팁 엘리먼트 안이면(자식 태그 사이
+    // 이동 등) 유지하고, 완전히 벗어났을 때만 숨긴다.
+    if (e.relatedTarget && hoverTooltipTarget.contains(e.relatedTarget)) return;
+    hideHoverTooltip();
+  });
+}
+setupHoverTooltips(document.getElementById('gameLeftPage'));
+
 // ------------------------------------------------------------
 // 방송 콘텐츠 백로그 3번째 항목: 복권 1등·2등 대박 축하 이펙트
 // (2026-08-17). 서버가 prizeTable로 등수를 뽑았을 때만 응답에
@@ -796,6 +842,15 @@ let pendingNextStage = null;
 
 const STAT_LABELS = { wealth: '재산', fame: '인기', happiness: '행복', health: '건강', relationship: '관계' };
 const STAT_COLORS = { wealth: 'var(--gold)', fame: 'var(--coral)', happiness: 'var(--rose)', health: 'var(--sage)', relationship: 'var(--sky)' };
+// 스탯 호버 설명(2026-08-24) - 각 스탯이 0이 됐을 때 어떤 즉시 사망 엔딩으로
+// 이어지는지(INSTANT_ENDING_BUILDERS, functions/index.js 참고)까지 같이 알려준다.
+const STAT_TOOLTIPS = {
+  wealth: '재산 — 보유 자산과 소득 수준. 0이 되면 파산으로 삶이 끝나요.',
+  fame: '인기 — 대중적 인지도와 화제성. 0이 되면 잊혀진 삶으로 삶이 끝나요.',
+  happiness: '행복 — 삶에 대한 만족도. 0이 되면 절망으로 삶이 끝나요.',
+  health: '건강 — 신체·정신 건강 상태. 0이 되면 건강 붕괴로 삶이 끝나요.',
+  relationship: '관계 — 가족·지인과의 유대감. 0이 되면 고립으로 삶이 끝나요.'
+};
 
 function renderStatBars(el, stats) {
   el.innerHTML = '';
@@ -803,6 +858,7 @@ function renderStatBars(el, stats) {
     const row = document.createElement('div');
     row.className = 'stat-bar-row';
     row.dataset.stat = key;
+    row.dataset.tooltip = STAT_TOOLTIPS[key];
     row.innerHTML =
       '<span class="stat-bar-label">' + STAT_LABELS[key] + '</span>' +
       '<span class="stat-bar-track"><span class="stat-bar-fill" style="width:' + (stats[key] || 0) + '%; background:' + STAT_COLORS[key] + ';"></span></span>' +
@@ -978,6 +1034,15 @@ function renderCashHoldings(el, won) {
 // 갱신해서 내려주는 assets를 그대로 표시만 한다(건강/가족 상세와 동일 패턴).
 // container를 받아서 진행 화면(#assets)과 엔딩 화면(#endingAssets) 양쪽에
 // 재사용한다.
+// 재산 자산 종류(2026-08-24, 호버 설명용) - functions/game-data.js의
+// addAsset.type과 그대로 대응(realestate/movable/cash/insurance/vehicle).
+const ASSET_TYPE_LABELS = {
+  realestate: '🏠 부동산',
+  movable: '📦 동산',
+  cash: '💵 현금성',
+  insurance: '🛡️ 보험',
+  vehicle: '🚗 차량'
+};
 function renderAssetsInto(container, assets) {
   container.innerHTML = '';
   if (!assets || !assets.length) {
@@ -991,6 +1056,7 @@ function renderAssetsInto(container, assets) {
     const chip = document.createElement('span');
     chip.className = 'asset-chip';
     chip.textContent = asset.label;
+    chip.dataset.tooltip = asset.label + ' — ' + (ASSET_TYPE_LABELS[asset.type] || '재산') + ' 자산';
     container.appendChild(chip);
   });
 }
@@ -1026,6 +1092,9 @@ function renderHealthConditionsInto(container, conditions) {
     const chip = document.createElement('span');
     chip.className = 'health-chip';
     chip.textContent = cond.label;
+    const tags = [cond.mental ? '정신 건강 조건' : '신체 건강 조건'];
+    if (cond.permanent) tags.push('완치 불가(영구 지속)');
+    chip.dataset.tooltip = cond.label + ' — ' + tags.join(' · ');
     container.appendChild(chip);
   });
 }
@@ -1040,6 +1109,14 @@ const familyMembersEl = document.getElementById('familyMembers');
 // 붙이면 서버가 갱신해서 내려주는 familyMembers를 그대로 표시만 한다(건강 상세와
 // 동일 패턴). container를 받아서 진행 화면(#familyMembers)과 엔딩 화면
 // (#endingFamilyMembers) 양쪽에 재사용한다.
+// "OO세부터" 접미사(2026-08-24, 호버 설명용) - 가족/지인/재능/취미가 모두
+// sinceStageId(예: 'teen-14')를 갖고 있어서, 끝의 나이 숫자만 뽑아 공통으로
+// 쓴다. 형식이 안 맞거나 없으면(옛 저장분 등) 빈 문자열로 조용히 생략.
+function sinceAgeSuffix(stageId) {
+  if (!stageId) return '';
+  const m = /-(\d+)$/.exec(stageId);
+  return m ? ' (' + m[1] + '세부터)' : '';
+}
 function renderFamilyMembersInto(container, members) {
   container.innerHTML = '';
   if (!members || !members.length) {
@@ -1053,6 +1130,7 @@ function renderFamilyMembersInto(container, members) {
     const chip = document.createElement('span');
     chip.className = 'family-chip';
     chip.textContent = member.name ? member.label + ' · ' + member.name : member.label;
+    chip.dataset.tooltip = '가족 — ' + member.label + sinceAgeSuffix(member.sinceStageId);
     container.appendChild(chip);
   });
 }
@@ -1078,6 +1156,7 @@ function renderAcquaintancesInto(container, acquaintances) {
     const chip = document.createElement('span');
     chip.className = 'family-chip';
     chip.textContent = acq.label + ' · ' + acq.name;
+    chip.dataset.tooltip = '지인 — ' + acq.label + ' ' + acq.name + sinceAgeSuffix(acq.sinceStageId);
     container.appendChild(chip);
   });
 }
@@ -1105,6 +1184,7 @@ function renderTalentsInto(container, talents) {
     const chip = document.createElement('span');
     chip.className = 'family-chip';
     chip.textContent = t.label;
+    chip.dataset.tooltip = '재능 — ' + t.label + sinceAgeSuffix(t.sinceStageId);
     container.appendChild(chip);
   });
 }
@@ -1124,6 +1204,7 @@ function renderHobbiesInto(container, hobbies) {
     const chip = document.createElement('span');
     chip.className = 'family-chip';
     chip.textContent = h.label;
+    chip.dataset.tooltip = '취미 — ' + h.label + sinceAgeSuffix(h.sinceStageId);
     container.appendChild(chip);
   });
 }
@@ -1140,9 +1221,12 @@ function renderCurrentOccupation(occupation) {
   if (occupation && occupation.label) {
     currentOccupationEl.textContent = occupation.label;
     currentOccupationEl.classList.remove('is-empty');
+    currentOccupationEl.dataset.tooltip = '직업 — ' + occupation.label +
+      (occupation.ageRange ? ' (' + occupation.ageRange + '부터)' : '');
   } else {
     currentOccupationEl.textContent = '아직 특별한 직업 없음';
     currentOccupationEl.classList.add('is-empty');
+    currentOccupationEl.dataset.tooltip = '직업 — 아직 특별한 직업을 갖지 않았어요.';
   }
 }
 
@@ -1174,6 +1258,8 @@ const currentLocationEl = document.getElementById('currentLocation');
 function renderCurrentLocation(location) {
   currentLocationEl.textContent = location && location.label ? location.label : '🇰🇷 국내';
   currentLocationEl.classList.remove('is-empty');
+  currentLocationEl.dataset.tooltip = '현재 장소 — ' + (location && location.label ? location.label : '🇰🇷 국내') +
+    (location && location.ageRange ? ' (' + location.ageRange + '부터)' : '');
 }
 
 // 장소 이력("지금까지 머문 장소") - 엔딩 화면에서만 보여준다. 직업 이력과

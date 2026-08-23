@@ -180,6 +180,22 @@
   }
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
+  /* 좌측 패널 항목 호버 설명(2026-08-24, 사용자 지시 - "이 곳에 표시되는 모든
+     항목에 마우스를 올리면 설명이 뜨고 마우스를 따라다니게 해줘") - 토스트와
+     같은 "마우스 오른쪽에 뜨는" 위치 계산을 그대로 재사용하되, 토스트는 클릭
+     시 한 번 뜨는 반면 이건 hover 중 계속 마우스를 따라다녀야 해서 별도
+     엘리먼트로 분리했다. */
+  .hover-tooltip {
+    position: fixed; z-index: 90;
+    background: var(--panel); border: 1px solid var(--line); color: var(--text);
+    padding: 8px 12px; border-radius: 8px; font-size: 12.5px; line-height: 1.45;
+    max-width: 240px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.26);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.12s ease;
+  }
+  .hover-tooltip.show { opacity: 1; }
+
   .confetti-canvas { position: fixed; inset: 0; z-index: 70; pointer-events: none; }
   .confetti-canvas.hidden { display: none; }
 
