@@ -1496,7 +1496,8 @@ const STAGES = [
         id: 'hobby-competition-win',
         text: '취미로 시작한 걸로 대회에서 성과를 낸다',
         deltas: { fame: 2, happiness: 2 },
-        result: '그저 좋아서 한 일이, 결과로도 인정받는 순간이었다.'
+        result: '그저 좋아서 한 일이, 결과로도 인정받는 순간이었다.',
+        requiresAnyHobby: true
       },
       {
         id: 'sibling-comparison-stress',
@@ -1675,7 +1676,8 @@ const STAGES = [
         id: 'hobby-becomes-serious-12',
         text: '그냥 좋아하던 취미를 본격적으로 파고들기 시작한다',
         deltas: { fame: 1, happiness: 2 },
-        result: '놀이였던 것이, 어느새 목표가 되어 있었다.'
+        result: '놀이였던 것이, 어느새 목표가 되어 있었다.',
+        requiresAnyHobby: true
       },
       {
         id: 'betrayal-secret-spread-12',
@@ -23049,13 +23051,15 @@ const STAGES = [
         id: 'hobby-gardening-78',
         text: '작은 화분을 가꾸며 하루를 보낸다',
         deltas: { happiness: 3, health: 2 },
-        result: '조그만 새싹 하나에도, 마음이 환해졌다.'
+        result: '조그만 새싹 하나에도, 마음이 환해졌다.',
+        addHobby: { id: 'gardening', label: '🌱 원예' }
       },
       {
         id: 'hobby-calligraphy-78',
         text: '붓글씨를 배운다',
         deltas: { happiness: 3 },
-        result: '한 획 한 획에, 흐트러졌던 마음이 가지런해졌다.'
+        result: '한 획 한 획에, 흐트러졌던 마음이 가지런해졌다.',
+        addHobby: { id: 'calligraphy', label: '🖌️ 붓글씨' }
       },
       {
         id: 'hobby-tries-several-briefly-78',
@@ -23067,13 +23071,15 @@ const STAGES = [
         id: 'hobby-group-meetup-78',
         text: '동네 취미 모임에 나가 사람들과 어울린다',
         deltas: { happiness: 4, relationship: 3 },
-        result: '같은 걸 좋아하는 사람과 나누는 시간이, 새삼 즐거웠다.'
+        result: '같은 걸 좋아하는 사람과 나누는 시간이, 새삼 즐거웠다.',
+        requiresAnyHobby: true
       },
       {
         id: 'hobby-showcase-to-family-78',
         text: '직접 만든 작품을 가족들에게 보여준다',
         deltas: { happiness: 3, relationship: 2 },
-        result: '별거 아니라면서도, 내심 뿌듯한 미소를 감추지 못했다.'
+        result: '별거 아니라면서도, 내심 뿌듯한 미소를 감추지 못했다.',
+        requiresAnyHobby: true
       },
       {
         id: 'betrayal-inheritance-scheme-78',
