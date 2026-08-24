@@ -2078,8 +2078,8 @@
         가짓수가 너무 많아(재산 16종·직업 20종 이상) 이번 스코프에서 뺐다 - 나중에 필요하면 그때
         추가로 검토.</p>
 
-        <h4>진행 현황 - 35/39 삽입 완료(2026-08-24) — 엔딩 16종 + 2순위 루트 진입 17종 전체 완료 +
-        3순위 감정적 전환점 2종</h4>
+        <h4>진행 현황 - 36/39 삽입 완료(2026-08-24) — 엔딩 16종 + 2순위 루트 진입 17종 전체 완료 +
+        3순위 감정적 전환점 3종</h4>
         <p>구현 방식(고정) - PNG 원본을 JPG 품질 82로 압축해
         <code>assets/scenes/&#123;ending.id&#125;.jpg</code>에 커밋(<code>interior-3d-viewer</code>의
         <code>textures/backdrops/</code>와 동일 패턴). 엔딩 화면(<code>#endingSection</code>) 제목
@@ -2212,7 +2212,14 @@
                 <tr><td><code>mother-passes-away</code></td><td>✅ 159KB</td><td>조용한 스토브 옆 고리에
                 걸린 앞치마, 따뜻한 늦은 오후 빛 - 텍스트 없음. <code>father-passes-away</code>와 같은
                 EVENT_SCENE_IMAGES 인프라 재사용, 신규 코드 없이 맵에 한 줄만 추가</td></tr>
-                <tr><td colspan="3">3순위 감정적 전환점 4종 남음</td></tr>
+                <tr><td><code>losing-a-parent</code></td><td>✅ 103KB</td><td>아이 시절 부모님과 함께
+                찍은 작은 사진 액자, 부드러운 아침 빛 - 텍스트 없음. <b>연령 정정</b>: 원래 기획
+                프롬프트엔 "이른 나이"로 적었지만, 실제 이 choice.id는 47세 스테이지에서 발동함(어릴
+                때 부모를 잃는 게 아니라 47세 성인이 부모를 떠나보내는 이벤트). 다만 사진 액자가
+                "돌아가신 부모의 유품·추억"으로도 자연스럽게 읽혀서 그대로 채택 -
+                <code>father-passes-away</code>·<code>mother-passes-away</code>(36세)와는 다른
+                별개 스테이지의 choice.id</td></tr>
+                <tr><td colspan="3">3순위 감정적 전환점 3종 남음</td></tr>
             </table>
         </div>
 

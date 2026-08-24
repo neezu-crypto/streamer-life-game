@@ -1750,7 +1750,8 @@ function updateRouteSceneImage(currentRoute) {
 const eventSceneImage = document.getElementById('eventSceneImage');
 const EVENT_SCENE_IMAGES = {
   'father-passes-away': 'assets/scenes/father-passes-away.jpg',
-  'mother-passes-away': 'assets/scenes/mother-passes-away.jpg'
+  'mother-passes-away': 'assets/scenes/mother-passes-away.jpg',
+  'losing-a-parent': 'assets/scenes/losing-a-parent.jpg'
 };
 function updateEventSceneImage(selectedChoiceId) {
   if (selectedChoiceId && EVENT_SCENE_IMAGES[selectedChoiceId]) {
