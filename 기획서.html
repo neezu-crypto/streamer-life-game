@@ -2395,6 +2395,35 @@
         <code>advanceMultiplayerSession</code>은 그냥 <code>mirrored:false</code>로 조용히 끝나므로,
         모든 진입 경로(새 시작·이어하기·새로고침 후 이어하기, 멀티플레이 켜짐/꺼짐 불문)에서 안전하게
         호출해도 된다.</p>
+
+        <p class="note"><b>호스트 연결 끊김 시 자동 정리 + 재접속 시 자동 재생성(2026-08-24, 사용자
+        지시 - "호스트의 연결이 끊기면 처음화면에서도 참가 불가능한지 확인해줘" → 확인 결과 막혀있지
+        않음을 보고 → "그렇게 해주고 호스트가 다시 게임을 이어하면 그때 다시 참가 가능하게 해줘").</b>
+        기존엔 <code>multiplayerSessions</code> 문서를 지우는 경로가 호스트의 명시적 토글 끄기와 엔딩
+        도달, 둘 다 "정상 종료"뿐이었다 - 브라우저 강제 종료·네트워크 끊김 같은 비정상 종료를 처리하는
+        코드가 전혀 없어, 연결이 끊긴 뒤에도 세션이 검색 화면 "진행중인 게임" 목록에 계속 남고 참가도
+        그대로 성공했다.</p>
+        <p>RTDB 표준 기능 <code>onDisconnect()</code>로 해결 - 클라이언트(호스트 브라우저)가 이 커넥션이
+        끊기는 순간 서버가 자동 실행할 예약을 걸어둔다. 문제는 <code>multiplayerSessions</code>가 지금까지
+        완전히 <code>.write: false</code>(Cloud Function 전용)였다는 점 - <code>onDisconnect</code>는
+        클라이언트 SDK가 직접 등록해야 해서 그 권한이 필요했다. RTDB 규칙을
+        <code>auth.uid === $hostUid && !newData.exists()</code>로 완화해, <b>호스트 본인 uid가 자기
+        세션을 "삭제"만</b> 직접 할 수 있게 열었다(생성·수정은 여전히 Cloud Function 전용 - 실제 게임
+        데이터 <code>playthroughs</code>는 전혀 영향 없음). <code>attachMultiplayerHostListeners()</code>의
+        세션 구독 콜백에서, 세션이 있을 때마다(최초 생성·재접속·재생성 전부 포함) 매번
+        <code>onDisconnect(...).remove()</code>를 다시 걸고, 세션이 없어지면(정상 종료)
+        <code>.cancel()</code>로 이미 걸어둔 예약을 취소한다 - 안 그러면 재접속해 새로 만든 세션을
+        "이전 연결"의 예약이 뒤늦게 지워버릴 위험이 있다.</p>
+        <p>재접속 시 자동 재생성 - <code>playthroughs/&#123;uid&#125;</code>에 새 필드
+        <code>multiplayerEnabled</code>를 추가해(<code>startPlaythrough</code>·
+        <code>setMultiplayerEnabled</code> 양쪽에서 기록) "이 유저가 멀티플레이를 켜뒀었는지" 선호도를
+        세션 문서와 별개로 영속화했다 - 세션 자체는 <code>onDisconnect</code>로 사라질 수 있어도 이
+        선호도는 남아있어야 재접속 시 무엇을 할지 판단할 수 있기 때문. <code>enterHostMode()</code>가
+        이제 세션 존재 여부에 따라 갈래를 탄다 - <b>세션이 이미 있으면</b>(정상 이어하기, 연결이 안
+        끊겼던 경우) 기존처럼 <code>advanceMultiplayerSession</code>으로 stage/stats만 최신화하고,
+        <b>세션이 없는데 선호도가 true면</b>(연결 끊김으로 지워진 뒤 재접속) <code>setMultiplayerEnabled
+        (true)</code>로 통째로 다시 만든다 - 이 갈래를 반드시 "세션이 없을 때만"으로 제한해야 한다(이미
+        살아있는 세션에 그대로 호출하면 <code>set()</code>이 참가자 목록을 빈 값으로 덮어써버림).</p>
         <h3>검증</h3>
         <ul>
             <li><code>node -c index.js</code>, RTDB 규칙 <code>firebase deploy --only database
@@ -2420,10 +2449,24 @@
             건드리지 않음을 확인, 나간 뒤 같은 uid로 재참가가 정상적으로 성공함을 확인(강퇴와의 차이
             실증), 참가한 적 없는 uid의 나가기 호출은 <code>left:false</code>로 조용히 무시됨을 확인,
             존재하지 않는 세션에 대한 나가기 호출도 마찬가지로 안전하게 무시됨을 확인.</li>
+            <li><b>연결 끊김/재접속 단위 테스트 5종</b> - <code>multiplayerEnabled:true</code>로 시작 시
+            <code>playthroughs.multiplayerEnabled</code>가 true로 기록됨을 확인, 멀티플레이 없이 시작
+            시 false로 기록됨을 확인, <code>setMultiplayerEnabled</code>로 중간에 켜고 끌 때도 양쪽 다
+            <code>playthroughs.multiplayerEnabled</code>가 함께 갱신됨을 확인, 세션 문서를 직접
+            지워(연결 끊김 시뮬레이션) <code>onDisconnect</code>가 지운 상황을 흉내낸 뒤
+            <code>setMultiplayerEnabled(true)</code> 재호출로 세션이 정상적으로 다시 만들어짐을 확인
+            (재생성된 세션의 participants는 빈 값으로 시작 - 신규 생성이므로 정상).</li>
+            <li>RTDB 규칙 <code>firebase deploy --only database --dry-run</code> 재통과, 규칙 파일
+            4개 레포 diff 0줄 동기화 확인.</li>
+            <li>10,000회 전체 게임 회귀(플레이스루 절반을 멀티플레이 활성 상태로, 매 진행형 선택마다
+            <code>advanceMultiplayerSession</code> 동반 호출) - 즉사 비율 16.21%(정상 범위),
+            STUCK/ALL_REJECTED 0건.</li>
             <li><b>미검증 항목</b> - 이 세션엔 브라우저 자동화 도구가 없어 실제 브라우저에서 호스트·
             참가자 화면이 그려지는 모습을 직접 확인하지는 못했다. 정적 검사(문법·태그 짝·id 중복)와
             코드 리뷰로 배선(엘리먼트 id·함수명·데이터 경로)이 서로 일치함은 확인했지만, 실제 시각적
-            레이아웃·애니메이션 타이밍은 배포 후 실사용 중 확인이 필요하다.</li>
+            레이아웃·애니메이션 타이밍, 그리고 <code>onDisconnect</code>의 실제 브라우저 탭 종료·네트워크
+            끊김 시나리오는 배포 후 실사용 중 확인이 필요하다(RTDB Admin SDK 목(mock) 환경에서는
+            onDisconnect 자체를 재현할 방법이 없어 백엔드 재생성 로직만 검증했다).</li>
         </ul>
     </section>
 

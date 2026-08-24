@@ -1529,6 +1529,13 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
       insuranceUnpaidYears: 0,
       choiceLog: [],
       completed: false,
+      // 멀티플레이 선호도 영속화(2026-08-24, 사용자 지시 - "호스트가 다시
+      // 게임을 이어하면 그때 다시 참가 가능하게 해줘") - multiplayerSessions
+      // 문서는 onDisconnect로 사라질 수 있어(연결 끊김 감지), "이 유저가
+      // 멀티플레이를 켜뒀었는지" 자체는 이 필드로 따로 기억해둔다. 새로고침
+      // 후 이어하기(enterHostMode)에서 이 값이 true인데 세션이 없으면
+      // setMultiplayerEnabled(true)로 다시 만든다.
+      multiplayerEnabled,
       startedAt: ServerValue.TIMESTAMP
     }),
     // 관리 센터 통계용 집계 카운터 - interior-3d-viewer의 presetGallery stats와 동일한
@@ -1882,25 +1889,29 @@ const setMultiplayerEnabled = onCall({ cors: true, timeoutSeconds: 30, memory: '
   const enabled = !!(request.data && request.data.enabled);
   const db = getDatabase();
   const mpRef = db.ref('lifeGame/multiplayerSessions/' + uid);
+  const playRef = playRefFor(db, uid);
   if (!enabled) {
-    await mpRef.remove();
+    await Promise.all([mpRef.remove(), playRef.child('multiplayerEnabled').set(false)]);
     return { ok: true, enabled: false };
   }
-  const playSnap = await playRefFor(db, uid).get();
+  const playSnap = await playRef.get();
   const play = playSnap.val();
   if (!play) throw new HttpsError('not-found', '진행 중인 인생을 찾을 수 없습니다.');
   if (play.completed) throw new HttpsError('failed-precondition', '이미 끝난 인생은 멀티플레이를 켤 수 없습니다.');
-  await mpRef.set({
-    streamerName: play.streamerName,
-    streamerId: play.streamerId || null,
-    stats: play.stats,
-    stage: publicStage(STAGES[play.stageIndex], play.visibleChoiceIds, play.currentIntroId, play.healthConditions || []),
-    participants: {},
-    kickedNicknames: {},
-    kickedUids: {},
-    completed: false,
-    createdAt: ServerValue.TIMESTAMP
-  });
+  await Promise.all([
+    mpRef.set({
+      streamerName: play.streamerName,
+      streamerId: play.streamerId || null,
+      stats: play.stats,
+      stage: publicStage(STAGES[play.stageIndex], play.visibleChoiceIds, play.currentIntroId, play.healthConditions || []),
+      participants: {},
+      kickedNicknames: {},
+      kickedUids: {},
+      completed: false,
+      createdAt: ServerValue.TIMESTAMP
+    }),
+    playRef.child('multiplayerEnabled').set(true)
+  ]);
   return { ok: true, enabled: true };
 });
 

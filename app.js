@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-import { getDatabase, ref, get, set, onValue } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
+import { getDatabase, ref, get, set, onValue, onDisconnect } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
 import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-functions.js";
 import { getAuth, signInAnonymously, onAuthStateChanged, signInWithPopup, signInWithCustomToken, linkWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
@@ -2145,9 +2145,24 @@ function attachMultiplayerHostListeners() {
   if (mpHostListenersAttached || !currentUser) return;
   mpHostListenersAttached = true;
   const hostUid = currentUser.uid;
-  onValue(ref(db, 'lifeGame/multiplayerSessions/' + hostUid), (snap) => {
+  const mySessionRef = ref(db, 'lifeGame/multiplayerSessions/' + hostUid);
+  onValue(mySessionRef, (snap) => {
     mpHostLatestSession = snap.val();
     renderHostMultiplayerPanel();
+    // 연결이 끊기면 처음 화면에서도 참가 불가능하게(2026-08-24, 사용자 지시 -
+    // "호스트의 연결이 끊기면... 확인해줘" → "그렇게 해주고") - 세션이 있을
+    // 때마다(재접속·재생성 포함) onDisconnect를 다시 걸어 이 커넥션이 끊기는
+    // 순간 서버가 자동으로 이 문서를 지우게 한다. RTDB 규칙상 호스트 본인
+    // uid는 자기 세션을 "삭제"만 할 수 있어(생성/수정은 여전히 Cloud
+    // Function 전용) 이 등록 자체가 데이터 무결성을 해치지 않는다. 세션이
+    // 없어지면(정상 종료) 이미 걸어둔 예약은 취소한다 - 안 그러면 다음에
+    // 재접속해 새로 만든 세션을 "이전 연결"의 onDisconnect가 뒤늦게 지워버릴
+    // 수 있다.
+    if (mpHostLatestSession) {
+      onDisconnect(mySessionRef).remove().catch((e) => console.error('onDisconnect 등록 실패:', e));
+    } else {
+      onDisconnect(mySessionRef).cancel().catch(() => {});
+    }
   });
   onValue(ref(db, 'lifeGame/multiplayerVotes/' + hostUid), (snap) => {
     mpHostLatestVotes = snap.val() || {};
@@ -2243,7 +2258,7 @@ multiplayerToggleGame.addEventListener('change', async () => {
   }
 });
 
-function enterHostMode() {
+async function enterHostMode() {
   mpParticipantMode = false;
   document.body.classList.remove('mp-participant-mode');
   mpParticipantBanner.classList.add('hidden');
@@ -2254,12 +2269,32 @@ function enterHostMode() {
   // attachMultiplayerHostListeners()는 이미 구독 중이면 아무 일도 안 하므로
   // (mpHostListenersAttached 플래그), 이 화면이 다시 보이는 시점에 지금 갖고
   // 있는 최신 값으로 한 번 더 명시적으로 그려서 확실히 최신 상태로 맞춘다.
-  // 또한 "다음"을 누르기 전에 새로고침한 경우엔 공개 미러의 stage가 refresh
-  // 이전 나이에 멈춰 있을 수 있는데(advanceMultiplayerSession은 다음 버튼
-  // 클릭 시에만 호출됨), resumePlaythrough는 이미 다음 나이로 넘어간 최신
-  // 상태를 그대로 돌려주므로 그 시점 기준으로 한 번 더 동기화해준다.
   renderHostMultiplayerPanel();
-  advanceMultiplayerSessionFn().catch((e) => console.error('멀티플레이 미러 재동기화 실패:', e));
+  if (!currentUser) return;
+
+  // 연결 끊김 후 재접속 시 세션 재생성(2026-08-24, 사용자 지시 - "호스트가
+  // 다시 게임을 이어하면 그때 다시 참가 가능하게 해줘") - onDisconnect로
+  // 세션이 지워졌더라도, playthroughs에 저장해둔 "이 유저가 멀티플레이를
+  // 켜뒀었는지" 선호도가 true이면 setMultiplayerEnabled(true)로 다시 만든다.
+  // 세션이 이미 살아있는 상태에서 이걸 호출하면 참가자 목록이 빈 값으로
+  // 통째로 덮어써지므로(setMultiplayerEnabled의 재생성 로직은 항상 새로
+  // set()함), 반드시 "지금 세션이 없을 때만" 호출해야 한다 - 이미 있으면
+  // (정상 이어하기, 아직 연결이 안 끊긴 경우) 대신 advanceMultiplayerSession으로
+  // stage/stats만 최신화한다("다음"을 누르기 전에 새로고침한 경우의 시차 보정,
+  // 기존 로직 그대로).
+  try {
+    const [sessionSnap, prefSnap] = await Promise.all([
+      get(ref(db, 'lifeGame/multiplayerSessions/' + currentUser.uid)),
+      get(ref(db, 'lifeGame/playthroughs/' + currentUser.uid + '/multiplayerEnabled'))
+    ]);
+    if (sessionSnap.exists()) {
+      await advanceMultiplayerSessionFn();
+    } else if (prefSnap.val()) {
+      await setMultiplayerEnabledFn({ enabled: true });
+    }
+  } catch (e) {
+    console.error('멀티플레이 세션 재확인 실패:', e);
+  }
 }
 
 // renderStage가 선택지 버튼을 다시 그릴 때마다(구간 전환 등) 투표 수 배지도
