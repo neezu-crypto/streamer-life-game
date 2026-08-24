@@ -1336,6 +1336,7 @@ function renderStage(stage) {
   storyText.textContent = stage.intro || '';
   choiceList.innerHTML = '';
   resultBox.classList.add('hidden');
+  eventSceneImage.classList.add('hidden');
   nextBtn.classList.add('hidden');
 
   if (stage.random) {
@@ -1522,6 +1523,7 @@ function celebrateAchievements(data) {
 
 function applyOutcome(data, resultPrefix, selectedChoiceId) {
   updateRouteSceneImage(data.currentRoute);
+  updateEventSceneImage(selectedChoiceId);
   let resultText = (resultPrefix ? resultPrefix + '\n' : '') + data.result;
   // blocksHealthRecovery 조건(희귀 난치병뿐 아니라 사고 후유증 등 더 있을 수
   // 있음)을 갖고 있어서 이번 선택의 건강 회복 효과가 막혔을 때만 덧붙인다 -
@@ -1739,6 +1741,25 @@ function updateRouteSceneImage(currentRoute) {
     routeSceneImage.classList.add('hidden');
   }
   lastKnownRouteId = newRouteId;
+}
+// 감정적 전환점 삽화(11장 3순위, 2026-08-24 착수) - 특정 choice.id를 선택한
+// 바로 그 결과에만 한 번 표시하고, 다음 스테이지로 넘어가면(renderStage) 숨긴다.
+// 루트 진입과 달리 재진입 방지용 상태 추적이 필요 없다 - 이 choice들은 전부
+// removeFamilyMembers 등으로 한 번 일어나면 되돌릴 수 없는 단발성 이벤트라
+// 같은 선택을 다시 고를 수 없기 때문.
+const eventSceneImage = document.getElementById('eventSceneImage');
+const EVENT_SCENE_IMAGES = {
+  'father-passes-away': 'assets/scenes/father-passes-away.jpg'
+};
+function updateEventSceneImage(selectedChoiceId) {
+  if (selectedChoiceId && EVENT_SCENE_IMAGES[selectedChoiceId]) {
+    eventSceneImage.src = EVENT_SCENE_IMAGES[selectedChoiceId];
+    eventSceneImage.alt = '';
+    eventSceneImage.classList.remove('hidden');
+  } else {
+    eventSceneImage.removeAttribute('src');
+    eventSceneImage.classList.add('hidden');
+  }
 }
 const endingText = document.getElementById('endingText');
 const endingStatBars = document.getElementById('endingStatBars');
@@ -2608,6 +2629,7 @@ function renderParticipantStage(stage, selectedChoiceId) {
   storyText.textContent = stage.intro || '';
   choiceList.innerHTML = '';
   resultBox.classList.add('hidden');
+  eventSceneImage.classList.add('hidden');
   nextBtn.classList.add('hidden');
 
   (stage.choices || []).forEach((choice) => {

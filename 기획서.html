@@ -2078,7 +2078,8 @@
         가짓수가 너무 많아(재산 16종·직업 20종 이상) 이번 스코프에서 뺐다 - 나중에 필요하면 그때
         추가로 검토.</p>
 
-        <h4>진행 현황 - 33/39 삽입 완료(2026-08-24) — 엔딩 16종 + 2순위 루트 진입 17종 전체 완료</h4>
+        <h4>진행 현황 - 34/39 삽입 완료(2026-08-24) — 엔딩 16종 + 2순위 루트 진입 17종 전체 완료 +
+        3순위 감정적 전환점 1종</h4>
         <p>구현 방식(고정) - PNG 원본을 JPG 품질 82로 압축해
         <code>assets/scenes/&#123;ending.id&#125;.jpg</code>에 커밋(<code>interior-3d-viewer</code>의
         <code>textures/backdrops/</code>와 동일 패턴). 엔딩 화면(<code>#endingSection</code>) 제목
@@ -2192,7 +2193,23 @@
                 <tr><td><code>logistics</code></td><td>✅ 249KB</td><td>높은 창고 선반 사이에서 지게차를
                 모는 노동자, 산업용 조명, 안정된 자세 - 텍스트 없음. <b>여기까지 2순위(루트 진입 17종)
                 전체 완료.</b></td></tr>
-                <tr><td colspan="3">3순위 감정적 전환점 6종만 남음</td></tr>
+                <tr><td><code>father-passes-away</code></td><td>✅ 185KB</td><td>낡은 가죽 안락의자
+                팔걸이 위 빈 안경, 따뜻한 오후 빛 - 텍스트 없음. 3순위 감정적 전환점 첫 삽화라 엔딩·
+                루트와는 다른 신규 인프라 구축: 감정적 전환점은 특정 choice.id를 골랐을 때 그
+                <b>결과(resultBox) 바로 아래</b>에만 한 번 표시(엔딩·루트는 결과 위에 표시하는 것과
+                반대). <code>index.html</code>의 <code>resultBox</code> 바로 다음에
+                <code>&lt;img id="eventSceneImage"&gt;</code> 추가(같은
+                <code>.ending-scene-image</code> 클래스 재사용), <code>app.js</code>에
+                <code>EVENT_SCENE_IMAGES</code> 맵(choice.id → 경로) +
+                <code>updateEventSceneImage(selectedChoiceId)</code> 추가 -
+                <code>applyOutcome()</code>이 이미 갖고 있던 <code>selectedChoiceId</code>를 그대로
+                재사용해 별도 상태 추적 없이 매 결과마다 갱신. 루트 진입과 달리 "이미 진입한 루트
+                재노출 방지" 같은 지속 상태 추적이 필요 없음 -
+                <code>father-passes-away</code>류는 <code>removeFamilyMembers</code>로 그 가족
+                구성원을 아예 없애버리는 단발성 이벤트라 같은 선택을 다시 고를 수 없기 때문.
+                <code>renderStage</code>·<code>renderParticipantStage</code> 양쪽 다 다음 스테이지로
+                넘어갈 때 숨김 처리</td></tr>
+                <tr><td colspan="3">3순위 감정적 전환점 5종 남음</td></tr>
             </table>
         </div>
 
