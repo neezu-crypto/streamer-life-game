@@ -1709,7 +1709,8 @@ const ENDING_SCENE_IMAGES = {
 // applyOutcome이 매번 갱신한다.
 const routeSceneImage = document.getElementById('routeSceneImage');
 const ROUTE_SCENE_IMAGES = {
-  'entertainment-industry': 'assets/scenes/entertainment-industry.jpg'
+  'entertainment-industry': 'assets/scenes/entertainment-industry.jpg',
+  'actor': 'assets/scenes/actor.jpg'
 };
 let lastKnownRouteId = null;
 function updateRouteSceneImage(currentRoute) {
