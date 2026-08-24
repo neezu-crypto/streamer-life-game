@@ -1436,6 +1436,14 @@ async function applyChoice(db, playRef, play, stage, choice) {
   if (mpSessionVal && completed) {
     statWrites.push(db.ref('lifeGame/multiplayerSessions/' + uid).remove());
     statWrites.push(db.ref('lifeGame/multiplayerVotes/' + uid).remove());
+  } else if (mpSessionVal) {
+    // 호스트가 고른 선택지를 참가자에게도 즉시 알림(2026-08-24, 사용자 지시 -
+    // "호스트가 선택지 결정후에... 참여자에게도 적용시켜 호스트가 어떤
+    // 선택지를 결정했는지 알게해줘") - stage/stats와 달리 이건 "다음"을
+    // 누르기 전, 선택하는 그 즉시 반영해야 한다(호스트 화면의 markSelectedChoice와
+    // 같은 타이밍). advanceMultiplayerSession이 다음 나이로 넘어갈 때 다시
+    // null로 되돌린다.
+    statWrites.push(db.ref('lifeGame/multiplayerSessions/' + uid + '/selectedChoiceId').set(choice.id));
   }
   await Promise.all(statWrites);
 
@@ -1936,7 +1944,10 @@ const advanceMultiplayerSession = onCall({ cors: true, timeoutSeconds: 30, memor
 
   await mpRef.update({
     stats: play.stats,
-    stage: publicStage(STAGES[play.stageIndex], play.visibleChoiceIds, play.currentIntroId, play.healthConditions || [])
+    stage: publicStage(STAGES[play.stageIndex], play.visibleChoiceIds, play.currentIntroId, play.healthConditions || []),
+    // 다음 나이로 넘어가는 시점이므로 지난 턴에 골랐던 선택지 표시는 지운다 -
+    // 새 나이는 아직 아무도 고르지 않은 상태여야 한다.
+    selectedChoiceId: null
   });
   return { ok: true, mirrored: true };
 });

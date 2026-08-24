@@ -2424,6 +2424,27 @@
         <b>세션이 없는데 선호도가 true면</b>(연결 끊김으로 지워진 뒤 재접속) <code>setMultiplayerEnabled
         (true)</code>로 통째로 다시 만든다 - 이 갈래를 반드시 "세션이 없을 때만"으로 제한해야 한다(이미
         살아있는 세션에 그대로 호출하면 <code>set()</code>이 참가자 목록을 빈 값으로 덮어써버림).</p>
+
+        <p class="note"><b>참가자 화면에 호스트의 결정·전환 애니메이션 반영(2026-08-24, 사용자 지시 -
+        "호스트가 선택지 결정후에... 참여자에게도 적용시켜 호스트가 어떤 선택지를 결정했는지
+        알게해줘", "호스트가 다음 버튼을 누르면 페이드아웃-인 애니메이션을 참여자게에도 적용해줘").</b>
+        <code>stage</code>/<code>stats</code>는 "다음"을 누를 때만 미러가 갱신되도록 이미 지연시켜뒀지만,
+        <b>호스트가 선택하는 그 즉시</b> 알려줘야 하는 정보가 하나 더 있었다 - 어떤 선택지를 골랐는지.
+        새 필드 <code>multiplayerSessions/&#123;hostUid&#125;/selectedChoiceId</code>를 추가해, 이것만은
+        <code>applyChoice</code>에서 선택 제출 즉시(stage/stats와 달리 지연 없이) 기록하고,
+        <code>advanceMultiplayerSession</code>이 다음 나이로 넘어갈 때 다시 <code>null</code>로
+        되돌린다.</p>
+        <p>참가자 쪽 구독 콜백이 매 스냅샷마다 <code>stage.id</code>가 바뀌었는지로 두 갈래를 탄다 -
+        <b>바뀌지 않았는데 <code>selectedChoiceId</code>만 새로 생긴 경우</b>(호스트가 방금 골랐지만
+        아직 "다음"은 안 누른 상태)엔 화면을 다시 그리지 않고
+        <code>applyParticipantSelectionDimming()</code>으로 그 즉시 호스트 쪽
+        <code>markSelectedChoice</code>와 똑같이(고른 것만 100%, 나머지 30% 불투명도) 처리하면서
+        모든 선택지·주사위 버튼을 비활성화한다(더 이상 투표해도 의미 없으므로). <b>stage.id가 바뀐
+        경우</b>(호스트가 "다음"을 눌러 다음 나이로 전환)엔 새로 만든
+        <code>fadeToParticipantStage()</code>로 페이드아웃→<code>renderParticipantStage</code> 재호출→
+        페이드인 순서를 밟는다 - 호스트용 <code>fadeToStage</code>와 완전히 같은 <code>#stageContent</code>·
+        <code>FADE_MS</code>·<code>SWAP_BUFFER_MS</code>를 그대로 재사용하되 안에서 부르는 렌더 함수만
+        참가자 전용으로 바꾼 별도 함수라, 호스트 쪽 코드는 전혀 건드리지 않았다.</p>
         <h3>검증</h3>
         <ul>
             <li><code>node -c index.js</code>, RTDB 규칙 <code>firebase deploy --only database
@@ -2461,6 +2482,12 @@
             <li>10,000회 전체 게임 회귀(플레이스루 절반을 멀티플레이 활성 상태로, 매 진행형 선택마다
             <code>advanceMultiplayerSession</code> 동반 호출) - 즉사 비율 16.21%(정상 범위),
             STUCK/ALL_REJECTED 0건.</li>
+            <li><b>selectedChoiceId 단위 테스트</b> - 시작 직후엔 없음을 확인, 선택 제출 직후엔 실제
+            고른 <code>choiceId</code>와 정확히 일치하면서 이 시점 미러 <code>stage.id</code>는 아직
+            안 바뀌었음을 확인(선택 즉시 알림 + 진행은 여전히 "다음" 대기라는 두 원칙이 동시에 성립),
+            <code>advanceMultiplayerSession</code> 호출 후엔 <code>null</code>로 정확히 초기화됨을
+            확인. 10,000회 회귀에도 매 멀티플레이 턴마다 "선택 직후 값이 비어있는지"·"다음 이후에도
+            안 지워졌는지" 이중 점검을 끼워 넣어 재실행, 전부 정상(위반 0건).</li>
             <li><b>미검증 항목</b> - 이 세션엔 브라우저 자동화 도구가 없어 실제 브라우저에서 호스트·
             참가자 화면이 그려지는 모습을 직접 확인하지는 못했다. 정적 검사(문법·태그 짝·id 중복)와
             코드 리뷰로 배선(엘리먼트 id·함수명·데이터 경로)이 서로 일치함은 확인했지만, 실제 시각적

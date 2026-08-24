@@ -2432,7 +2432,20 @@ async function enterParticipantMode(hostUid, hostName) {
       return;
     }
     renderStatBars(statBars, val.stats || {});
-    renderParticipantStage(val.stage);
+    // 호스트가 고른 선택지 표시(2026-08-24, 사용자 지시 - "호스트가 선택지
+    // 결정후에... 참여자에게도 적용시켜 어떤 선택지를 결정했는지 알게해줘") +
+    // "다음" 버튼을 눌렀을 때만 다음 나이로 전환되는 페이드 애니메이션도
+    // 참가자에게 적용(같은 지시). stage.id가 바뀐 경우에만 페이드 전환하고,
+    // 같은 stage에서 selectedChoiceId만 새로 생긴 경우(호스트가 방금
+    // 골랐지만 아직 "다음"은 안 누른 상태)엔 화면을 다시 그리지 않고 즉시
+    // 불투명화만 적용한다 - 호스트 쪽 markSelectedChoice와 동일한 타이밍.
+    const newStageId = val.stage && val.stage.id;
+    const stageChanged = !mpParticipantCurrentStage || newStageId !== mpParticipantCurrentStage.id;
+    if (stageChanged) {
+      fadeToParticipantStage(val.stage, val.selectedChoiceId || null);
+    } else {
+      applyParticipantSelectionDimming(val.selectedChoiceId || null);
+    }
   }, (err) => {
     console.error('참가자 구독 실패:', err);
   });
@@ -2472,7 +2485,43 @@ function renderParticipantVoteBadges() {
   });
 }
 
-function renderParticipantStage(stage) {
+// 페이드아웃-인 전환(2026-08-24, 사용자 지시 - "호스트가 다음 버튼을 누르면
+// 페이드아웃-인 애니메이션을 참여자에게도 적용해줘") - 호스트용 fadeToStage와
+// 완전히 같은 타이밍·트랜지션(#stageContent, FADE_MS/SWAP_BUFFER_MS)을
+// 그대로 재사용하되, 안에서 부르는 렌더 함수만 renderParticipantStage로
+// 바꾼 참가자 전용 버전이다 - 호스트 쪽 fadeToStage/renderStage는 그대로
+// 두고 건드리지 않는다.
+function fadeToParticipantStage(stage, selectedChoiceId) {
+  stageContent.style.transition = 'none';
+  stageContent.style.opacity = '1';
+  void stageContent.offsetWidth;
+  stageContent.style.transition = 'opacity ' + FADE_MS + 'ms ease';
+  stageContent.style.opacity = '0';
+  setTimeout(() => {
+    renderParticipantStage(stage, selectedChoiceId);
+    void stageContent.offsetWidth;
+    stageContent.style.opacity = '1';
+  }, FADE_MS + SWAP_BUFFER_MS);
+}
+
+// 호스트가 고른 선택지를 참가자 화면에서도 불투명화(2026-08-24, 사용자
+// 지시) - 호스트 쪽 markSelectedChoice와 동일한 방식(고른 것만 100%, 나머지
+// 30%)이되, 다음 나이로 넘어가기 전까지는 더 이상 투표해도 의미가 없으므로
+// 버튼도 함께 비활성화한다(주사위 굴리기 버튼 포함). selectedChoiceId가
+// null이면(아직 호스트가 고르지 않았거나 새 나이로 넘어가 초기화된 상태)
+// 원래대로 되돌린다.
+function applyParticipantSelectionDimming(selectedChoiceId) {
+  Array.from(choiceList.children).forEach((el) => {
+    if (el.dataset && el.dataset.choiceId) {
+      el.style.opacity = selectedChoiceId ? (el.dataset.choiceId === selectedChoiceId ? '1' : '0.3') : '';
+      el.disabled = !!selectedChoiceId;
+    } else if (el.classList && el.classList.contains('dice-btn')) {
+      el.disabled = !!selectedChoiceId;
+    }
+  });
+}
+
+function renderParticipantStage(stage, selectedChoiceId) {
   if (!stage) return;
   mpParticipantCurrentStage = stage;
   if (stage.id !== mpMyLastVoteStageId) {
@@ -2523,6 +2572,7 @@ function renderParticipantStage(stage) {
     choiceList.appendChild(hint);
   }
   renderParticipantVoteBadges();
+  applyParticipantSelectionDimming(selectedChoiceId || null);
 }
 
 async function voteForChoice(stageId, choiceId) {
