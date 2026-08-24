@@ -1710,7 +1710,8 @@ const ENDING_SCENE_IMAGES = {
 const routeSceneImage = document.getElementById('routeSceneImage');
 const ROUTE_SCENE_IMAGES = {
   'entertainment-industry': 'assets/scenes/entertainment-industry.jpg',
-  'actor': 'assets/scenes/actor.jpg'
+  'actor': 'assets/scenes/actor.jpg',
+  'artist': 'assets/scenes/artist.jpg'
 };
 let lastKnownRouteId = null;
 function updateRouteSceneImage(currentRoute) {
