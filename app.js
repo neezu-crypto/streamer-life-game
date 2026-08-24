@@ -1674,6 +1674,13 @@ nextBtn.addEventListener('click', () => {
 // ------------------------------------------------------------
 const endingSection = document.getElementById('endingSection');
 const endingTitle = document.getElementById('endingTitle');
+const endingSceneImage = document.getElementById('endingSceneImage');
+// 엔딩 삽화(11장, 2026-08-24 착수) - 아직 16종 중 일부만 그려져 있다.
+// assets/scenes/에 없는 엔딩은 그냥 <img>를 숨긴다(깨진 이미지 아이콘 방지).
+// 새 삽화를 추가할 땐 이 맵에 한 줄만 더하면 된다.
+const ENDING_SCENE_IMAGES = {
+  'all-in-success': 'assets/scenes/all-in-success.jpg'
+};
 const endingText = document.getElementById('endingText');
 const endingStatBars = document.getElementById('endingStatBars');
 const endingFamilyMembersEl = document.getElementById('endingFamilyMembers');
@@ -1720,6 +1727,15 @@ async function showEnding(ending, stats, choiceHistory, familyMembers, occupatio
   await fadeOut([mainHeader, gameSection]);
 
   endingTitle.textContent = ending.title;
+  const sceneImageSrc = ENDING_SCENE_IMAGES[ending.id];
+  if (sceneImageSrc) {
+    endingSceneImage.src = sceneImageSrc;
+    endingSceneImage.alt = ending.title;
+    endingSceneImage.classList.remove('hidden');
+  } else {
+    endingSceneImage.removeAttribute('src');
+    endingSceneImage.classList.add('hidden');
+  }
   endingText.textContent = ending.text;
   renderStatBars(endingStatBars, stats);
   renderAssetsInto(endingAssetsEl, assets);

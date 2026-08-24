@@ -2078,6 +2078,17 @@
         가짓수가 너무 많아(재산 16종·직업 20종 이상) 이번 스코프에서 뺐다 - 나중에 필요하면 그때
         추가로 검토.</p>
 
+        <h4>진행 현황 - 1/39 삽입 완료(2026-08-24)</h4>
+        <p><code>all-in-success</code> 1건을 실제로 삽입했다 - 사용자가 Gemini로 위 프롬프트 그대로
+        생성한 이미지를 검토(구도·팔레트·인물이 혼자인 점이 이 엔딩의 "성공했지만 옆을 오래 비워둔"
+        양면적 텍스트 톤과 잘 맞는다고 판단)한 뒤 반영. PNG 1.1MB → JPG 품질 82로 압축해 105KB로 줄여
+        <code>assets/scenes/all-in-success.jpg</code>에 커밋(<code>interior-3d-viewer</code>의
+        <code>textures/backdrops/</code>와 동일하게 큰 장면 이미지는 jpg 사용). 엔딩 화면
+        (<code>#endingSection</code>) 제목 바로 아래에 <code>&lt;img id="endingSceneImage"&gt;</code>를
+        추가하고, <code>ENDING_SCENE_IMAGES</code> 맵(<code>ending.id → 경로</code>)에 없는 엔딩은
+        <code>&lt;img&gt;</code> 자체를 숨겨 깨진 이미지 아이콘이 안 뜨게 했다 - 나머지 38개는 이 맵에
+        한 줄씩 추가하면 되는 구조라, 이후엔 이미지 파일만 받아 커밋하면 된다.</p>
+
         <h4>프롬프트 추천 (2026-08-24, 사용자 지시 — 39개 전부, 이미지 생성은 아직 안 함)</h4>
         <p>전체 39개에 아래 공통 스타일 프리픽스를 그대로 앞에 붙여 톤을 통일한다.</p>
         <p class="note"><em>Warm minimalist flat illustration, soft muted color palette (cream, gold,
