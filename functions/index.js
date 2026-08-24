@@ -1247,7 +1247,16 @@ async function applyChoice(db, playRef, play, stage, choice) {
   if (priorRouteState.activeRoute && priorRouteState.activeRoute.id === 'prison'
     && (!nextActiveRoute || nextActiveRoute.id !== 'prison') && !completed) {
     stats.happiness = clampStat(stats.happiness + 5);
-    stats.health = clampStat(stats.health + 3);
+    // blocksHealthRecovery(2026-08-24, 사용자 지시 - "건강 상태 보정이
+    // 적용안되는거 찾아줘"로 발견) - 이 보너스는 위 effectiveDeltas 파이프라인을
+    // 거치지 않고 stats.health를 직접 올리는 유일한 지점이라, 희귀질환·
+    // 사고후유증·치매처럼 blocksHealthRecovery가 붙은 영구 조건을 갖고
+    // 출소해도 이 +3만은 그대로 새 나가고 있었다. "영구 조건을 안고 있는 한
+    // 건강은 더 나빠질 순 있어도 완전히 좋아지진 않는다"는 규칙과 어긋나
+    // 다른 모든 양수 health delta와 동일하게 이 조건도 걸었다.
+    if (!healthConditions.some((c) => c.blocksHealthRecovery)) {
+      stats.health = clampStat(stats.health + 3);
+    }
   }
 
   // 예술가 루트 인기 연동 추가 소득(2026-08-23, 사용자 지시 - "인기 스탯에

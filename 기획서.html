@@ -3815,6 +3815,32 @@
         </ul>
     </section>
 
+    <section>
+        <h2><span class="num">35</span>출소 보정이 blocksHealthRecovery를 무시하던 버그 (2026-08-24, 사용자 지시 — 구현 완료)</h2>
+        <p>사용자 지시: "건강 스탯에 영향을 주는 선택지중에 건강상테 보정이 적용안되는거 찾아줘." 감사
+        결과, <code>applyChoice</code> 전체에서 <code>stats.health</code>를
+        <code>effectiveDeltas</code> 파이프라인 밖에서 직접 수정하는 지점이 단 하나 있었다 - 2026-08-23에
+        추가된 "출소 회복 보정"(prison 루트가 이번 선택으로 막 끝났을 때 1회성으로 happiness +5, health
+        +3). 이 파이프라인 밖 직접 수정이라, <code>blocksHealthRecovery</code>가 붙은 영구 조건
+        (희귀질환·사고후유증·치매 3종)을 안고 출소해도 이 +3만은 그대로 적용되고 있었다 - "영구 조건을
+        안고 있는 한 건강은 더 나빠질 순 있어도 완전히 좋아지진 않는다"는, 다른 모든 양수 health delta에
+        이미 적용 중인 규칙과 정면으로 어긋났다.</p>
+        <p>수정: 이 보너스 블록에도 다른 양수 health delta와 동일하게
+        <code>!healthConditions.some(c => c.blocksHealthRecovery)</code> 조건을 걸었다. happiness +5는
+        원래도 건강 조건과 무관하므로 그대로 둠.</p>
+        <h3>검증</h3>
+        <ul>
+            <li><code>node -c index.js</code> 통과.</li>
+            <li><b>단위 테스트</b> — 25세에 징역 4년(routeDurationOverride:4) 확정 후 28세에서 아무
+            prison 선택을 골라 29세 진입 시점에 출소가 발생하도록 강제. 영구 조건 없는 플레이어는
+            health 50→52(선택 자체 -1 + 보너스 +3, 정상), <code>blocksHealthRecovery: true</code>인
+            희귀질환을 가진 플레이어는 health 50→48(선택 -1, 조건 개수 페널티 -1, 보너스 미적용 -
+            수정 전이었다면 51이 나왔어야 함)로 정확히 차단됨을 확인. happiness는 두 경우 모두 동일하게
+            53으로 영향받지 않음을 확인.</li>
+            <li>10,000회 회귀(순수 무작위) — 즉사 비율 17.60%(정상 범위), STUCK/ALL_REJECTED 0건.</li>
+        </ul>
+    </section>
+
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
 </div>
 </body>
