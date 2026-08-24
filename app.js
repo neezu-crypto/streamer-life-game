@@ -1659,6 +1659,14 @@ nextBtn.addEventListener('click', () => {
   // "다음"을 누르는 경우가 많다 - 다음 구간 제목/상황 문구가 화면 위쪽에서
   // 시작되도록 맨 위로 스크롤을 되돌린다.
   window.scrollTo({ top: 0, behavior: REDUCE_MOTION ? 'auto' : 'smooth' });
+  // 멀티플레이(2026-08-24, 사용자 지시 - "호스트가 다음 버튼을 눌르면
+  // 참가자도 다음 이벤트를 같이 보는거야?" → "고쳐줘") - 공개 미러는
+  // 선택 제출 시점이 아니라 호스트가 실제로 "다음"을 눌러 넘어가는 이
+  // 순간에만 갱신된다(functions/index.js의 advanceMultiplayerSession).
+  // 실패해도 다음 턴에 다시 시도되므로(매번 호출) 조용히 무시한다.
+  if (mpHostLatestSession) {
+    advanceMultiplayerSessionFn().catch((e) => console.error('멀티플레이 미러 갱신 실패:', e));
+  }
 });
 
 // ------------------------------------------------------------
@@ -2112,6 +2120,7 @@ const closeJoinAdBtn = document.getElementById('closeJoinAdBtn');
 const setMultiplayerEnabledFn = httpsCallable(functions, 'setMultiplayerEnabled');
 const joinMultiplayerSessionFn = httpsCallable(functions, 'joinMultiplayerSession');
 const kickParticipantFn = httpsCallable(functions, 'kickParticipant');
+const advanceMultiplayerSessionFn = httpsCallable(functions, 'advanceMultiplayerSession');
 
 let mpHostListenersAttached = false;
 let mpHostLatestSession = null;

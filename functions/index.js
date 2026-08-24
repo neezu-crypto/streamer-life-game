@@ -1424,22 +1424,18 @@ async function applyChoice(db, playRef, play, stage, choice) {
     statWrites.push(db.ref('lifeGame/stats/totals/completed').set(ServerValue.increment(1)));
     statWrites.push(recordCollectionEntryIfLoggedIn(db, playRef.key, 'endings', ending.id));
   }
-  // 멀티플레이 - 호스트 쪽 진행 상태를 공개 미러에 반영(2026-08-24, 13장 설계
-  // 구현). mpSessionVal은 위 지인 이름 단계에서 이미 한 번 읽어둔 값을 그대로
-  // 재사용(같은 턴에 존재 여부가 두 번 바뀔 리 없음). 엔딩 도달 시엔 세션
-  // 문서와 그 판의 투표를 통째로 지운다(2026-08-19, 사용자 확정) - participants/
-  // kickedNicknames/kickedUids 등 나머지 필드는 완료와 동시에 의미가 없어지므로
-  // 문서 자체를 지우는 게 부분 필드 정리보다 깔끔하다.
-  if (mpSessionVal) {
-    if (completed) {
-      statWrites.push(db.ref('lifeGame/multiplayerSessions/' + uid).remove());
-      statWrites.push(db.ref('lifeGame/multiplayerVotes/' + uid).remove());
-    } else {
-      statWrites.push(db.ref('lifeGame/multiplayerSessions/' + uid).update({
-        stats,
-        stage: publicStage(STAGES[nextIndex], nextVisibleIds, nextIntroId, healthConditions)
-      }));
-    }
+  // 멀티플레이 - 엔딩 도달 시에만 여기서 즉시 정리(2026-08-24, 13장 설계 구현,
+  // 2026-08-24 재조정 - "호스트가 다음 버튼을 눌르면 참가자도 다음 이벤트를
+  // 같이 보는거야?" 질문으로 시차가 있다는 걸 확인 후 "고쳐줘" 지시). 애초엔
+  // 이 시점(선택 제출 직후)에 바로 stats/stage를 미러에 반영했는데, 그러면
+  // 호스트가 결과 문구를 읽고 "다음"을 누르기도 전에 참가자 화면이 먼저
+  // 다음 나이로 넘어가버리는 시차가 생겼다. 진행 중(non-completed) 갱신은
+  // advanceMultiplayerSession(아래)으로 옮기고, 호스트가 실제로 "다음"을
+  // 눌렀을 때만 미러가 갱신되게 했다 - 엔딩은 "다음" 단계 자체가 없이
+  // 결과 확인 즉시 엔딩 화면으로 넘어가므로 여기서 바로 정리한다.
+  if (mpSessionVal && completed) {
+    statWrites.push(db.ref('lifeGame/multiplayerSessions/' + uid).remove());
+    statWrites.push(db.ref('lifeGame/multiplayerVotes/' + uid).remove());
   }
   await Promise.all(statWrites);
 
@@ -1908,6 +1904,32 @@ const setMultiplayerEnabled = onCall({ cors: true, timeoutSeconds: 30, memory: '
   return { ok: true, enabled: true };
 });
 
+// 호스트가 "다음" 버튼을 눌러 실제로 다음 나이 화면으로 넘어가는 그 순간에만
+// 공개 미러를 갱신(2026-08-24, 사용자 지시 - "호스트가 다음 버튼을 눌르면
+// 참가자도 다음 이벤트를 같이 보는거야?" → "고쳐줘"). submitChoice/rollDice
+// 시점엔 이미 playthroughs/{uid}에 다음 나이 상태가 전부 저장돼 있으므로,
+// 이 함수는 그걸 그대로 읽어 multiplayerSessions/{uid}에 옮겨 적기만 한다 -
+// 새로 계산하는 게 없어 game-data.js 재해석 위험이 없다. 세션이 없으면
+// (그 사이 토글이 꺼졌거나 애초에 멀티플레이가 아니면) 조용히 아무 일도
+// 하지 않는다 - 클라이언트가 "호스트 모드일 때만" 호출하지만 방어적으로 둔다.
+const advanceMultiplayerSession = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const db = getDatabase();
+  const mpRef = db.ref('lifeGame/multiplayerSessions/' + uid);
+  const mpSnap = await mpRef.get();
+  if (!mpSnap.exists()) return { ok: true, mirrored: false };
+
+  const playSnap = await playRefFor(db, uid).get();
+  const play = playSnap.val();
+  if (!play || play.completed) return { ok: true, mirrored: false };
+
+  await mpRef.update({
+    stats: play.stats,
+    stage: publicStage(STAGES[play.stageIndex], play.visibleChoiceIds, play.currentIntroId, play.healthConditions || [])
+  });
+  return { ok: true, mirrored: true };
+});
+
 // 참가자 닉네임 형식(사용자 확정) - 한글 1~6자.
 const MULTIPLAYER_NICKNAME_REGEX = /^[가-힣]{1,6}$/;
 
@@ -2008,4 +2030,4 @@ const kickParticipant = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB
   return { ok: true, kickedUid: targetUid };
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession };
