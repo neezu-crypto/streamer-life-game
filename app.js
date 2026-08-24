@@ -2120,6 +2120,9 @@ let mpFrozenVoteCounts = null;
 let mpParticipantMode = false;
 let mpParticipantHostUid = null;
 let mpParticipantUnsub = null;
+let mpParticipantVotesUnsub = null;
+let mpParticipantLatestVotes = {};
+let mpParticipantCurrentStage = null;
 let mpPendingJoinHostUid = null;
 let mpPendingJoinHostName = '';
 let mpMyLastVoteChoiceId = null;
@@ -2377,10 +2380,45 @@ async function enterParticipantMode(hostUid, hostName) {
   }, (err) => {
     console.error('참가자 구독 실패:', err);
   });
+
+  // 참가자 화면에도 투표 수 표시(2026-08-24, 사용자 지시 - "참가자 화면에서도
+  // 다음으로 넘어가기 전까지 투표수 보이게 해줘") - 호스트와 같은
+  // multiplayerVotes/{hostUid} 전체를 구독해, 지금 보고 있는 stage.id 기준으로만
+  // 배지를 뽑아 보여준다. 호스트 쪽과 달리 "얼려두기"가 필요 없다 - 참가자
+  // 화면엔 결과 확인 대기 단계가 없어서, 다음 나이로 넘어가는 순간 stage.id가
+  // 바뀌며 choiceList 자체가 다시 그려지므로 이전 투표 수는 자연스럽게 사라진다.
+  if (mpParticipantVotesUnsub) mpParticipantVotesUnsub();
+  mpParticipantVotesUnsub = onValue(ref(db, 'lifeGame/multiplayerVotes/' + hostUid), (snap) => {
+    mpParticipantLatestVotes = snap.val() || {};
+    renderParticipantVoteBadges();
+  });
+}
+
+function renderParticipantVoteBadges() {
+  if (!mpParticipantCurrentStage) return;
+  const votesForStage = mpParticipantLatestVotes[mpParticipantCurrentStage.id] || {};
+  const countByChoiceId = {};
+  Object.values(votesForStage).forEach((choiceId) => {
+    countByChoiceId[choiceId] = (countByChoiceId[choiceId] || 0) + 1;
+  });
+  Array.from(choiceList.children).forEach((el) => {
+    const cid = el.dataset && el.dataset.choiceId;
+    if (!cid) return;
+    const existingBadge = el.querySelector('.mp-vote-count');
+    if (existingBadge) existingBadge.remove();
+    const count = countByChoiceId[cid] || 0;
+    if (count > 0) {
+      const badge = document.createElement('span');
+      badge.className = 'mp-vote-count';
+      badge.textContent = count + '표';
+      el.appendChild(badge);
+    }
+  });
 }
 
 function renderParticipantStage(stage) {
   if (!stage) return;
+  mpParticipantCurrentStage = stage;
   if (stage.id !== mpMyLastVoteStageId) {
     mpMyLastVoteChoiceId = null;
     mpMyLastVoteStageId = stage.id;
@@ -2428,6 +2466,7 @@ function renderParticipantStage(stage) {
     hint.textContent = '실제 결과는 방장이 굴리는 주사위로 정해져요. 위 선택지를 직접 눌러 투표하거나, 이 버튼으로 무작위로 투표할 수 있어요.';
     choiceList.appendChild(hint);
   }
+  renderParticipantVoteBadges();
 }
 
 async function voteForChoice(stageId, choiceId) {
@@ -2445,6 +2484,9 @@ async function voteForChoice(stageId, choiceId) {
 
 function leaveParticipantMode() {
   if (mpParticipantUnsub) { mpParticipantUnsub(); mpParticipantUnsub = null; }
+  if (mpParticipantVotesUnsub) { mpParticipantVotesUnsub(); mpParticipantVotesUnsub = null; }
+  mpParticipantLatestVotes = {};
+  mpParticipantCurrentStage = null;
   mpParticipantMode = false;
   mpParticipantHostUid = null;
   document.body.classList.remove('mp-participant-mode');
