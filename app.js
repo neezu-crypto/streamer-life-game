@@ -1679,7 +1679,8 @@ const endingSceneImage = document.getElementById('endingSceneImage');
 // assets/scenes/에 없는 엔딩은 그냥 <img>를 숨긴다(깨진 이미지 아이콘 방지).
 // 새 삽화를 추가할 땐 이 맵에 한 줄만 더하면 된다.
 const ENDING_SCENE_IMAGES = {
-  'all-in-success': 'assets/scenes/all-in-success.jpg'
+  'all-in-success': 'assets/scenes/all-in-success.jpg',
+  'all-in-failure': 'assets/scenes/all-in-failure.jpg'
 };
 const endingText = document.getElementById('endingText');
 const endingStatBars = document.getElementById('endingStatBars');
