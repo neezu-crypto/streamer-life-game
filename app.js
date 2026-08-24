@@ -2121,6 +2121,7 @@ const setMultiplayerEnabledFn = httpsCallable(functions, 'setMultiplayerEnabled'
 const joinMultiplayerSessionFn = httpsCallable(functions, 'joinMultiplayerSession');
 const kickParticipantFn = httpsCallable(functions, 'kickParticipant');
 const advanceMultiplayerSessionFn = httpsCallable(functions, 'advanceMultiplayerSession');
+const leaveMultiplayerSessionFn = httpsCallable(functions, 'leaveMultiplayerSession');
 
 let mpHostListenersAttached = false;
 let mpHostLatestSession = null;
@@ -2492,6 +2493,14 @@ async function voteForChoice(stageId, choiceId) {
 }
 
 function leaveParticipantMode() {
+  // 참가자가 나가면 호스트 화면에서도 곧바로 갱신되게(2026-08-24, 사용자
+  // 지시) - participants에서 스스로를 빼는 건 클라이언트 쓰기 권한이 없어
+  // (multiplayerSessions는 Cloud Function만 쓸 수 있음) 서버 함수를 호출한다.
+  // 게임이 이미 끝나 세션이 사라진 경우(엔딩 도달로 이 함수가 호출된 경우)엔
+  // 그냥 left:false로 조용히 끝나므로 매번 호출해도 안전하다.
+  if (mpParticipantHostUid) {
+    leaveMultiplayerSessionFn({ hostUid: mpParticipantHostUid }).catch((e) => console.error('나가기 처리 실패:', e));
+  }
   if (mpParticipantUnsub) { mpParticipantUnsub(); mpParticipantUnsub = null; }
   if (mpParticipantVotesUnsub) { mpParticipantVotesUnsub(); mpParticipantVotesUnsub = null; }
   mpParticipantLatestVotes = {};

@@ -1968,6 +1968,34 @@ const joinMultiplayerSession = onCall({ cors: true, timeoutSeconds: 30, memory: 
   return { ok: true, showAd: !alreadyShown };
 });
 
+// 참가자가 스스로 게임에서 나가기(2026-08-24, 사용자 지시 - "참가자가
+// 호스트의 게임에서 나가면 호스트 화면에서도 갱신되게 해줘"). kickParticipant와
+// 달리 자발적 퇴장이라 kickedUids/kickedNicknames는 건드리지 않는다 - 나중에
+// 다시 참가하고 싶으면 그냥 다시 참가할 수 있어야 하기 때문. participants에서
+// 빠지는 순간 호스트 쪽 multiplayerSessions 구독이 자동으로 다시 그려지고
+// (기존 onValue 패턴), 참가자 본인의 이후 투표 쓰기도 participants 존재 확인이
+// 실패하면서 자연히 막힌다.
+const leaveMultiplayerSession = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const hostUid = request.data && request.data.hostUid;
+  if (!hostUid) throw new HttpsError('invalid-argument', 'hostUid가 필요합니다.');
+  const db = getDatabase();
+  const mpRef = db.ref('lifeGame/multiplayerSessions/' + hostUid);
+  const mpSnap = await mpRef.get();
+  if (!mpSnap.exists()) return { ok: true, left: false };
+  const mpVal = mpSnap.val();
+  const participants = mpVal.participants || {};
+  if (!participants[uid]) return { ok: true, left: false };
+
+  const tasks = [mpRef.child('participants/' + uid).remove()];
+  const stageId = mpVal.stage && mpVal.stage.id;
+  if (stageId) {
+    tasks.push(db.ref('lifeGame/multiplayerVotes/' + hostUid + '/' + stageId + '/' + uid).remove());
+  }
+  await Promise.all(tasks);
+  return { ok: true, left: true };
+});
+
 // 호스트가 참가자를 강퇴 - 참가자 목록에서 제거하고, uid·닉네임 둘 다
 // 블록리스트에 올려 재입장을 막는다(2026-08-24, 사용자 지시 - "강퇴시 uid도
 // 해당게임에 재입장 불가하게 해줘"). 현재 구간 투표에서도 즉시 제외하고,
@@ -2030,4 +2058,4 @@ const kickParticipant = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB
   return { ok: true, kickedUid: targetUid };
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession };

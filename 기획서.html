@@ -2367,6 +2367,17 @@
         시차 문제가 없었음). 위 (1)번 투표 수 얼려두기 로직은 이 수정 이후로도 안전하게 동작한다 - 이제
         미러 stage가 "다음"을 누르기 전까진 아예 안 바뀌므로 얼린 값과 라이브 값이 사실상 같아져
         중복이지만, 굳이 제거하지 않아도 무해하다.</p>
+
+        <p class="note"><b>참가자 퇴장 시 호스트 화면 갱신(2026-08-24, 사용자 지시 - "참가자가 호스트의
+        게임에서 나가면 호스트 화면에서도 갱신되게 해줘").</b> 기존엔 참가자가 "나가기"를 눌러도
+        클라이언트에서 로컬 구독만 끊을 뿐, <code>multiplayerSessions/&#123;hostUid&#125;/participants</code>는
+        그대로 남아 있어 호스트 화면엔 여전히 참가중으로 보였다 - <code>multiplayerSessions</code>는
+        클라이언트 쓰기가 전면 차단(<code>.write: false</code>)이라 참가자가 스스로 그 항목을 지울 방법이
+        없었다. 신규 <code>leaveMultiplayerSession</code> 함수로 해결 - <code>kickParticipant</code>와
+        같은 정리(participants 제거 + 현재 구간 투표 제거)를 하되, <b>자발적 퇴장이라
+        kickedUids/kickedNicknames는 건드리지 않는다</b>(다시 참가하고 싶으면 그냥 재참가할 수 있어야
+        하므로 - 강퇴와의 핵심 차이). 참가자 목록은 호스트가 이미 구독 중인 <code>multiplayerSessions</code>
+        <code>onValue</code>로 자동 갱신되므로 호스트 쪽엔 별도 코드가 필요 없었다.</p>
         <h3>검증</h3>
         <ul>
             <li><code>node -c index.js</code>, RTDB 규칙 <code>firebase deploy --only database
@@ -2387,6 +2398,11 @@
             꺼진) 유저가 호출하면 <code>mirrored:false</code>로 조용히 무시됨을 확인, 100세 완주 시
             세션이 여전히(수정 전과 동일하게) 즉시 삭제됨을 확인 - 10,000회 회귀도 매 진행형 선택마다
             <code>advanceMultiplayerSession</code>을 함께 호출하도록 갱신해 재실행, 동일하게 정상.</li>
+            <li><b>참가자 퇴장 단위 테스트 6종</b> - 나가기 전 participants에 정상 등록 확인, 나간 뒤
+            participants에서 제거됨 + 현재 구간 투표도 함께 제거됨을 확인, kickedUids/kickedNicknames는
+            건드리지 않음을 확인, 나간 뒤 같은 uid로 재참가가 정상적으로 성공함을 확인(강퇴와의 차이
+            실증), 참가한 적 없는 uid의 나가기 호출은 <code>left:false</code>로 조용히 무시됨을 확인,
+            존재하지 않는 세션에 대한 나가기 호출도 마찬가지로 안전하게 무시됨을 확인.</li>
             <li><b>미검증 항목</b> - 이 세션엔 브라우저 자동화 도구가 없어 실제 브라우저에서 호스트·
             참가자 화면이 그려지는 모습을 직접 확인하지는 못했다. 정적 검사(문법·태그 짝·id 중복)와
             코드 리뷰로 배선(엘리먼트 id·함수명·데이터 경로)이 서로 일치함은 확인했지만, 실제 시각적
