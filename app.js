@@ -608,6 +608,9 @@ resumeBtn.addEventListener('click', async () => {
       renderHobbies(res.data.hobbies);
       renderStage(res.data.stage);
       initAchievementBaseline(res.data);
+      // 이어하기 시점엔 이미 진행 중이던 루트를 "방금 진입"으로 오인해 삽화를
+      // 다시 띄우지 않도록, 보여주지 않고 상태만 기록해둔다.
+      lastKnownRouteId = res.data.currentRoute ? res.data.currentRoute.id : null;
       enterHostMode();
       fadeIn([gameSection]);
     }
@@ -1389,6 +1392,7 @@ startBtn.addEventListener('click', async () => {
     renderHobbies(res.data.hobbies);
     renderStage(res.data.stage);
     initAchievementBaseline(res.data);
+    lastKnownRouteId = res.data.currentRoute ? res.data.currentRoute.id : null;
     enterHostMode();
     fadeIn([gameSection]);
   } catch (e) {
@@ -1517,6 +1521,7 @@ function celebrateAchievements(data) {
 }
 
 function applyOutcome(data, resultPrefix, selectedChoiceId) {
+  updateRouteSceneImage(data.currentRoute);
   let resultText = (resultPrefix ? resultPrefix + '\n' : '') + data.result;
   // blocksHealthRecovery 조건(희귀 난치병뿐 아니라 사고 후유증 등 더 있을 수
   // 있음)을 갖고 있어서 이번 선택의 건강 회복 효과가 막혔을 때만 덧붙인다 -
@@ -1696,6 +1701,29 @@ const ENDING_SCENE_IMAGES = {
   'despair': 'assets/scenes/despair.jpg',
   'isolation': 'assets/scenes/isolation.jpg'
 };
+
+// 루트 진입 삽화(11장 2순위, 2026-08-24 착수) - 새 루트에 막 들어선 그
+// 턴에만(이전 턴엔 없던 루트가 이번 턴부터 생김) 결과 박스 위에 한 번
+// 보여준다. lastKnownRouteId는 시작/이어하기 응답으로 한 번 초기화해두고
+// (이미 진행 중이던 루트를 "방금 진입"으로 오인해 다시 보여주지 않기 위해)
+// applyOutcome이 매번 갱신한다.
+const routeSceneImage = document.getElementById('routeSceneImage');
+const ROUTE_SCENE_IMAGES = {
+  'entertainment-industry': 'assets/scenes/entertainment-industry.jpg'
+};
+let lastKnownRouteId = null;
+function updateRouteSceneImage(currentRoute) {
+  const newRouteId = currentRoute ? currentRoute.id : null;
+  if (newRouteId && newRouteId !== lastKnownRouteId && ROUTE_SCENE_IMAGES[newRouteId]) {
+    routeSceneImage.src = ROUTE_SCENE_IMAGES[newRouteId];
+    routeSceneImage.alt = currentRoute.label || '';
+    routeSceneImage.classList.remove('hidden');
+  } else {
+    routeSceneImage.removeAttribute('src');
+    routeSceneImage.classList.add('hidden');
+  }
+  lastKnownRouteId = newRouteId;
+}
 const endingText = document.getElementById('endingText');
 const endingStatBars = document.getElementById('endingStatBars');
 const endingFamilyMembersEl = document.getElementById('endingFamilyMembers');

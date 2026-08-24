@@ -2078,7 +2078,7 @@
         가짓수가 너무 많아(재산 16종·직업 20종 이상) 이번 스코프에서 뺐다 - 나중에 필요하면 그때
         추가로 검토.</p>
 
-        <h4>진행 현황 - 16/39 삽입 완료(2026-08-24) — 엔딩 16종 전체 완료</h4>
+        <h4>진행 현황 - 17/39 삽입 완료(2026-08-24) — 엔딩 16종 전체 완료 + 2순위 루트 진입 1종</h4>
         <p>구현 방식(고정) - PNG 원본을 JPG 품질 82로 압축해
         <code>assets/scenes/&#123;ending.id&#125;.jpg</code>에 커밋(<code>interior-3d-viewer</code>의
         <code>textures/backdrops/</code>와 동일 패턴). 엔딩 화면(<code>#endingSection</code>) 제목
@@ -2135,6 +2135,20 @@
                 <code>despair</code>·<code>obscurity</code>와 같은 회화풍 계열, 텍스트 없음</td></tr>
                 <tr><td colspan="3"><b>여기까지 1순위(엔딩 16종) 전체 완료.</b> 이후는 2순위 루트 진입
                 17종 + 3순위 감정적 전환점 6종, 총 23종 남음</td></tr>
+                <tr><td><code>entertainment-industry</code></td><td>✅ 278KB</td><td>2순위 루트 진입 첫
+                삽화 - 거울 앞에서 홀로 춤 연습하는 연습생. 엔딩과 달리 루트 진입용 삽화 인프라가
+                아예 없어서 이번에 신규로 구축: <code>index.html</code>에 <code>#stageContent</code>
+                내부(<code>choiceList</code>와 <code>resultBox</code> 사이)
+                <code>&lt;img id="routeSceneImage"&gt;</code> 추가(<code>endingSceneImage</code>와
+                같은 <code>.ending-scene-image</code> 클래스 재사용, 신규 CSS 없음),
+                <code>app.js</code>에 <code>ROUTE_SCENE_IMAGES</code> 맵 +
+                <code>updateRouteSceneImage()</code> 추가 -
+                <code>lastKnownRouteId</code>로 직전 렌더 때와 route id가 바뀐 시점(=루트에 막 진입한
+                순간)에만 표시하고 그 외엔 숨김. <code>applyOutcome()</code> 진입 시 매번 호출하고,
+                시작(<code>startBtn</code>)·재개(<code>resumeBtn</code>) 성공 분기에서도
+                <code>lastKnownRouteId</code>를 서버가 준 <code>currentRoute.id</code>로 초기화해
+                이미 루트 진행 중에 새로고침/재개해도 삽화가 다시 뜨지 않게 함</td></tr>
+                <tr><td colspan="3">2순위 루트 진입 16종 + 3순위 감정적 전환점 6종, 총 22종 남음</td></tr>
             </table>
         </div>
 
