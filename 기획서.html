@@ -4420,15 +4420,24 @@
         검증하기 쉽다는 판단.</p>
 
         <h3>구조 - light/dark 테마 전환과 같은 패턴</h3>
-        <p><code>#gameSection</code> 서브트리에 한정된 CSS 커스텀 프로퍼티 재정의(<code>--bg</code>·
-        <code>--panel</code>·<code>--panel-2</code>·<code>--text</code>·<code>--gold</code>·
-        <code>--line</code> 등)만으로 끝난다 - 이미 사이트 전체가 <code>prefers-color-scheme</code>로
-        light/dark를 이 변수들만 바꿔서 전환하고 있어서, 같은 원리를 <code>#gameSection.route-theme-
-        developer</code> 스코프로 좁혀 재사용했다. 버튼·스탯바·패널 등 기존 컴포넌트를 하나하나
-        오버라이드할 필요 없이, <code>var(--gold)</code>·<code>var(--panel)</code>를 쓰는 기존 스타일이
-        전부 자동으로 새 색을 입는다. 추가로 코드 라인 느낌의 은은한 배경 패턴(<code>repeating-linear-
-        gradient</code>), 버튼·구간명에 모노스페이스 폰트, 선택지 버튼 왼쪽에 민트색 세로선, 좌/우
-        페이지에 미세한 글로우(inset box-shadow)를 얹었다.</p>
+        <p>CSS 커스텀 프로퍼티 재정의(<code>--bg</code>·<code>--panel</code>·<code>--panel-2</code>·
+        <code>--text</code>·<code>--gold</code>·<code>--line</code> 등)만으로 끝난다 - 이미 사이트
+        전체가 <code>prefers-color-scheme</code>로 light/dark를 이 변수들만 바꿔서 전환하고 있어서,
+        같은 원리를 재사용했다. 버튼·스탯바·패널 등 기존 컴포넌트를 하나하나 오버라이드할 필요 없이,
+        <code>var(--gold)</code>·<code>var(--panel)</code>를 쓰는 기존 스타일이 전부 자동으로 새 색을
+        입는다. 추가로 코드 라인 느낌의 은은한 배경 패턴(<code>repeating-linear-gradient</code>),
+        버튼·구간명에 모노스페이스 폰트, 선택지 버튼 왼쪽에 민트색 세로선, 좌/우 페이지에 미세한 글로우
+        (inset box-shadow)를 얹었다.</p>
+        <p class="note"><b>캔버스 바깥쪽 배경까지 확장(2026-08-25, 사용자 지시 - "게임 캔버스
+        바깥쪽(배경)도 디자인 변경되게 해줘").</b> 처음엔 <code>route-theme-developer</code> 클래스를
+        <code>#gameSection</code>에만 붙였는데, 그러면 게임 패널 안쪽만 바뀌고 그 바깥 페이지 여백은
+        기존 크림톤 그대로 남았다. 클래스를 붙이는 대상을 <code>#gameSection</code>에서
+        <code>&lt;body&gt;</code>로 올려 해결 - 이미 <code>html, body { background: var(--bg) }</code>가
+        전역 배경을 그 변수로 그리고 있어서, body에 새 <code>--bg</code>를 얹으면 패널 바깥 여백까지
+        같이 바뀐다(별도 선택자 추가 없이 변수 재정의 하나로 해결, light/dark 테마와 동일한 원리).
+        코드 라인 배경 패턴도 body와 <code>#gameSection</code> 양쪽에 둬 안팎이 이어져 보이게 했다.
+        devbar(상단 게임 링크 바)는 원래부터 "다른 페이지들과 시각적으로 한 세트"를 유지하려고 테마
+        무관 고정색이라 의도적으로 안 바뀐다.</p>
 
         <h3>디졸브 전환 - dissolve fade</h3>
         <p><code>lastKnownRouteId</code>(삽화용, 11장)와 다른 별도 상태
@@ -4437,12 +4446,16 @@
         매 <code>applyOutcome()</code>마다 호출되어, 이전 턴과 route id가 같으면 아무 것도 안 하고(불필요한
         리렌더 방지), route id가 바뀌었어도 두 route가 매핑되는 테마 클래스가 같으면(둘 다 테마 없음 등)
         역시 스킵한다. 실제로 테마가 달라질 때만 <code>#gameSection</code>에 <code>.route-theme-fade</code>
-        클래스를 추가해 <code>opacity</code>를 0으로 내리고, CSS <code>transition</code> 시간과 정확히
-        맞춘 350ms 뒤 <code>setTimeout</code>에서 실제 테마 클래스를 교체하고 fade 클래스를 뗀다(다시
-        opacity 1로 복귀). <code>prefers-reduced-motion</code>이면 애니메이션 없이 즉시 교체.
-        새로고침·이어하기(<code>resumeBtn</code>) 시점엔 이미 진행 중이던 루트를 "방금 진입"으로 오인해
-        디졸브가 뜨지 않도록, <code>initRouteTheme()</code>이 애니메이션 없이 상태만 맞춰둔다(삽화의
-        <code>lastKnownRouteId</code> 초기화와 동일한 원칙).</p>
+        클래스를 추가해 그 패널만 <code>opacity</code>를 0으로 내리고, CSS <code>transition</code>
+        시간과 정확히 맞춘 350ms 뒤 <code>setTimeout</code>에서 실제 테마 클래스(<code>body</code>에)를
+        교체하고 fade 클래스를 뗀다(다시 opacity 1로 복귀) - 패널 바깥 배경은 안 보이게 할 필요가 없어
+        <code>opacity</code>가 아니라 <code>background-color</code>/<code>-image</code> 자체에
+        <code>transition</code>을 걸어 부드럽게 색만 바뀌도록 구분했다(패널은 페이드 아웃→색 교체→
+        페이드 인, 바깥 배경은 그냥 색이 스르륵 바뀜 - 둘 다 같은 350ms 타이밍 안에서 동시에 일어나
+        하나의 전환처럼 보인다). <code>prefers-reduced-motion</code>이면 둘 다 애니메이션 없이 즉시
+        교체. 새로고침·이어하기(<code>resumeBtn</code>) 시점엔 이미 진행 중이던 루트를 "방금 진입"으로
+        오인해 디졸브가 뜨지 않도록, <code>initRouteTheme()</code>이 애니메이션 없이 상태만 맞춰둔다
+        (삽화의 <code>lastKnownRouteId</code> 초기화와 동일한 원칙).</p>
 
         <h3>검증</h3>
         <ul>

@@ -1757,8 +1757,8 @@ const ROUTE_THEME_CLASS = {
 let currentThemeRouteId = null;
 const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function applyRouteThemeClass(routeId) {
-  Object.values(ROUTE_THEME_CLASS).forEach((cls) => gameSection.classList.remove(cls));
-  if (routeId && ROUTE_THEME_CLASS[routeId]) gameSection.classList.add(ROUTE_THEME_CLASS[routeId]);
+  Object.values(ROUTE_THEME_CLASS).forEach((cls) => document.body.classList.remove(cls));
+  if (routeId && ROUTE_THEME_CLASS[routeId]) document.body.classList.add(ROUTE_THEME_CLASS[routeId]);
 }
 // 새로고침·재개 직후처럼 화면이 막 나타나는 시점엔 dissolve 없이 즉시 적용.
 function initRouteTheme(currentRoute) {
