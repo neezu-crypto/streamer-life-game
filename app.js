@@ -1685,7 +1685,8 @@ const ENDING_SCENE_IMAGES = {
   'stable': 'assets/scenes/stable.jpg',
   'relationship-first': 'assets/scenes/relationship-first.jpg',
   'recluse': 'assets/scenes/recluse.jpg',
-  'full-family-legacy': 'assets/scenes/full-family-legacy.jpg'
+  'full-family-legacy': 'assets/scenes/full-family-legacy.jpg',
+  'living-with-illness': 'assets/scenes/living-with-illness.jpg'
 };
 const endingText = document.getElementById('endingText');
 const endingStatBars = document.getElementById('endingStatBars');
