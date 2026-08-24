@@ -54,6 +54,12 @@
     <h2>1. 스트리머 검색</h2>
     <input type="text" id="searchInput" placeholder="스트리머 이름을 검색해보세요" autocomplete="off">
     <div id="searchResults"></div>
+    <!-- 멀티플레이(13장, 2026-08-24 구현) - 진행중인 게임 목록. multiplayerSessions
+         전체를 gallery 목록과 같은 onValue+정렬+상한 패턴으로 구독한다. -->
+    <div id="multiplayerSessionSection" style="margin-top:20px;">
+      <p class="pitch" style="margin:0 0 10px; font-weight:600;">🙋 진행중인 다른 유저의 게임에 참여하기</p>
+      <div id="multiplayerSessionList"><p class="empty-msg">불러오는 중...</p></div>
+    </div>
   </section>
 
   <section id="nameSection" class="panel hidden">
@@ -62,10 +68,20 @@
       <input type="text" id="nameInput" maxlength="40">
       <button class="primary" id="startBtn">인생 시작</button>
     </div>
+    <label class="mp-toggle-label">
+      <input type="checkbox" id="multiplayerToggleStart">
+      다른 참여자 허용 (다른 유저가 내 게임에 참여해 투표할 수 있어요)
+    </label>
     <button id="backToSearchBtn" type="button" class="text-link">← 다른 스트리머 다시 검색</button>
   </section>
 
   <section id="gameSection" class="panel hidden">
+    <!-- 멀티플레이(13장) - 참가자 모드일 땐 이 배너로 대체되고, 호스트 모드일 땐
+         숨겨진 채로 아래 mpHostPanel(토글+참가자 목록+투표 수)만 쓰인다. -->
+    <div id="mpParticipantBanner" class="mp-participant-banner hidden">
+      <span id="mpParticipantHostLabel"></span>
+      <button id="mpLeaveBtn" type="button" class="text-link">나가기</button>
+    </div>
     <div class="game-right-page" id="gameRightPage">
       <div id="stageContent">
         <div class="stage-head">
@@ -79,6 +95,13 @@
       <button id="nextBtn" class="hidden">다음</button>
     </div>
     <div class="game-left-page" id="gameLeftPage">
+      <div id="mpHostPanel" class="mp-host-panel hidden">
+        <label class="mp-toggle-label">
+          <input type="checkbox" id="multiplayerToggleGame">
+          다른 참여자 허용
+        </label>
+        <div id="mpParticipantList" class="mp-participant-list"></div>
+      </div>
       <div class="stat-bars" id="statBars"></div>
       <div class="asset-panel">
         <p class="asset-panel-title">현재 재산 상세</p>
@@ -237,6 +260,29 @@
       <button class="primary" id="checkStreamerVerifyBtn" type="button" style="width:100%;">🔄 승인됐는지 확인하기</button>
     </div>
     <button class="text-link" id="closeStreamerVerifyBtn" type="button">닫기</button>
+  </div>
+</div>
+
+<!-- 멀티플레이 참가 - 닉네임 입력(13장, 2026-08-24 구현) -->
+<div id="joinMultiplayerModal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <h2>🙋 게임 참여하기</h2>
+    <p class="pitch" style="margin:0 0 14px;"><span id="joinMultiplayerHostName"></span>님의 게임에 참여할
+    닉네임을 정해주세요. 한글 1~6자, 같은 게임 안에서 중복돼도 괜찮아요.</p>
+    <input type="text" id="joinMultiplayerNicknameInput" maxlength="6" placeholder="닉네임 입력" style="margin-bottom:10px;">
+    <button class="primary" id="joinMultiplayerSubmitBtn" type="button" style="width:100%;">참여하기</button>
+    <button class="text-link" id="closeJoinMultiplayerBtn" type="button">닫기</button>
+  </div>
+</div>
+
+<!-- 참가 시 전면 광고 자리(2026-08-22 확정 - 세션당 1회, 15장 1단계와 같은
+     자리표시자 방식) -->
+<div id="joinAdModal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="ad-slot">
+      <p class="ad-slot-label">광고 자리 (테스트 — 13장, 참가 시 1회)</p>
+    </div>
+    <button class="primary" id="closeJoinAdBtn" type="button" style="width:100%; margin-top:14px;">게임 참여 계속하기</button>
   </div>
 </div>
 

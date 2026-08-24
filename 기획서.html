@@ -134,7 +134,7 @@
             <li><a href="#sec10">관리 센터(admin-center) 연동</a></li>
             <li><a href="#sec11">향후 보완 과제</a></li>
             <li><a href="#sec12">방송 콘텐츠 개선 백로그</a></li>
-            <li><a href="#sec13">멀티플레이 시청자 참여 (설계, 미구현)</a></li>
+            <li><a href="#sec13">멀티플레이 시청자 참여 (구현 완료)</a></li>
             <li><a href="#sec14">트리거 루트 (엔진+①번 구현 완료, ②~⑧ 순서대로 진행 중)</a></li>
             <li><a href="#sec15">Google 광고 도입 (1단계 구현)</a></li>
             <li><a href="#sec16">해금 도감 — 엔딩·루트 컬렉션 (로그인·엔딩 도감 구현 완료, 루트 도감 UI는 별도 후속 작업)</a></li>
@@ -2101,12 +2101,12 @@
     </section>
 
     <section id="sec13">
-        <h2><span class="num">13</span>멀티플레이 시청자 참여 (2026-08-19, 사용자 설계 — 미구현)</h2>
-        <p class="note"><b>이 섹션은 설계 정리 단계이며 아직 구현되지 않았다.</b> 사용자가 제안한 설계를 검토한 뒤,
-        구현에 직접 영향을 주는 3가지(주사위 구간 처리·지인 이름 귀속·투표 반영 경로)를 먼저 확인받고, 이어서
-        "구현 시 다시 확인이 필요한 세부사항"으로 남겨뒀던 3가지(닉네임 중복 허용 여부·멀티플레이 토글
-        시점·엔딩 후 세션 문서 정리 정책)도 순차로 확인받아 전부 확정했다(2026-08-19). 실제 코드(RTDB 규칙·
-        Cloud Functions·클라이언트)는 아직 손대지 않았다 — 다음 지시가 오면 이 설계를 그대로 구현한다.</p>
+        <h2><span class="num">13</span>멀티플레이 시청자 참여 (2026-08-19, 사용자 설계 — 2026-08-24 구현 완료)</h2>
+        <p class="note">2026-08-19 설계 확정(주사위 구간 처리·지인 이름 귀속·투표 반영 경로 + 닉네임 중복
+        허용·토글 시점·세션 정리 정책), 2026-08-22 참가 시 전면 광고 결정 추가, 2026-08-24 강퇴 우회 방지
+        (<code>kickedUids</code>)·새로고침 동작·참가자 상한 결정을 거쳐 같은 날 RTDB 규칙·Cloud
+        Functions·클라이언트까지 전체 구현·배포 완료했다. 구현 중 확정한 세부사항과 검증 내역은 이 절
+        끝의 "구현 세부사항" 참고.</p>
 
         <h3>핵심 설계 원칙</h3>
         <ul>
@@ -2309,6 +2309,54 @@
         <p class="note">설계 관련 미확정 사항은 위 표로 전부 정리됐다(2026-08-19 기준, 2026-08-22 전면
         광고 결정 추가, 2026-08-24 강퇴 우회 방지·새로고침 동작·참가자 상한 결정 추가). 구현 시작 전
         추가 확인이 필요한 세부사항은 현재 없음.</p>
+
+        <h3>구현 세부사항 (2026-08-24, 사용자 지시 - "구현 시작하자")</h3>
+        <p><b>설계와 다르게 구현한 지점 - adShownUids 경로 분리.</b> 설계상
+        <code>lifeGame/multiplayerSessions/&#123;hostUid&#125;/adShownUids/&#123;participantUid&#125;</code>였는데,
+        RTDB 보안 규칙은 조상 노드의 <code>.read: true</code>가 하위 전체에 상속되고 더 깊은 곳에 별도
+        <code>.read: false</code>를 둬도 그 상속을 되돌릴 수 없다(허용만 누적, 회수 불가) - 그대로 구현하면
+        <code>multiplayerSessions</code>가 공개(<code>.read: true</code>)인 이상 "서버만 참조"라는 설계
+        의도가 실제로는 깨진다. 이를 구현 중 발견해 <code>lifeGame/multiplayerAdShown/&#123;hostUid&#125;/
+        &#123;participantUid&#125;</code>라는 별도 최상위 노드로 분리하고 <code>.read: false</code>를
+        걸었다 - 동작(그 uid가 그 세션에 한 번이라도 참여했는지, 강퇴돼도 안 지워짐)은 설계 그대로다.</p>
+        <p><b>RTDB 규칙.</b> <code>multiplayerSessions</code>/<code>multiplayerVotes</code>는 gallery와
+        같은 패턴(<code>.read: true</code>, 클라이언트 <code>.write: false</code>) - 단
+        <code>multiplayerVotes/&#123;hostUid&#125;/&#123;stageId&#125;/&#123;participantUid&#125;</code>만
+        본인 uid + 강퇴 안 됐을 때(<code>participants/&#123;uid&#125;</code> 존재) 조건부 클라이언트 직접
+        쓰기를 허용해 설계의 "참가자가 RTDB에 직접 기록" 원칙을 그대로 구현했다. 이 파일은
+        database.rules.json 동기화 규칙(CLAUDE.md)에 따라 StreamBet-Market·soop-stock-market·
+        interior-3d-viewer 3개 레포에도 diff 0줄로 동기화·커밋했다.</p>
+        <p><b>백엔드.</b> <code>startPlaythrough</code>에 <code>multiplayerEnabled</code> 파라미터 추가,
+        신규 <code>setMultiplayerEnabled</code>/<code>joinMultiplayerSession</code>/<code>kickParticipant</code>
+        3개 함수, <code>applyChoice</code>(submitChoice/rollDice 공용)에 세션 미러링(매 턴
+        <code>stats</code>·<code>stage</code> 갱신, 엔딩 도달 시 세션+투표 일괄 삭제)과
+        <code>addAcquaintance</code> 투표자 닉네임 반영 로직을 추가했다.</p>
+        <p><b>프런트엔드.</b> 이름 짓기 화면에 시작 시 토글, 게임 화면엔 언제든 켜고 끌 수 있는 토글 +
+        참가자 목록(강퇴 버튼) + 선택지별 투표 수 배지(호스트 전용). 검색 화면엔 "진행중인 다른 유저의
+        게임" 목록과 참가 흐름(닉네임 입력 → 첫 참가 시 전면 광고 자리표시자 → 참가자 화면)을 추가했다.
+        참가자 화면은 <code>#gameSection</code>을 재사용하되 건강·가족·재산 등 상세 패널은 숨기고(그
+        데이터는 미러에 없음) 선택지 클릭이 제출이 아니라 투표 기록으로 동작하며, 진행은 오직 호스트
+        세션 구독(<code>onValue</code>)만으로 따라간다 - 참가자 쪽 "주사위 굴리기"는 서버에 아무것도
+        쓰지 않는 순수 로컬 연출(사용자 확정 그대로).</p>
+        <h3>검증</h3>
+        <ul>
+            <li><code>node -c index.js</code>, RTDB 규칙 <code>firebase deploy --only database
+            --dry-run</code> 통과, <code>node --input-type=module --check</code>로 app.js 문법 검사
+            통과, index.html 태그 짝(div/section/button/label) 전부 일치, id 중복 0건.</li>
+            <li><b>백엔드 단위 테스트 16종</b> - 토글 켜기/끄기(시작 시·중간에), 정상 참가, 같은 uid
+            재참가 시 <code>showAd:false</code>, 닉네임 형식 오류 2종, 존재하지 않는 세션, 닉네임 중복
+            허용(다른 uid가 같은 닉네임), 강퇴 후 participants/kickedUids/kickedNicknames 갱신 확인,
+            강퇴된 uid가 새 닉네임으로도 재입장 거부, 강퇴된 닉네임을 새 uid가 재사용 시도 거부, 강퇴
+            안 된 같은 닉네임 참가자는 그대로 유지, 호스트 아닌 사람의 강퇴 시도 거부, 투표한 참가자
+            닉네임이 실제로 지인 이름에 반영됨 + 세션 stage도 함께 갱신됨, 100세 완주 시 세션·투표
+            둘 다 삭제 - 전부 의도대로 확인.</li>
+            <li>10,000회 전체 게임 회귀(플레이스루 절반을 멀티플레이 활성 상태로 시작) - 즉사 비율
+            17.13%(정상 범위), STUCK/ALL_REJECTED 0건, 완료 후 세션 잔존(leak) 0건.</li>
+            <li><b>미검증 항목</b> - 이 세션엔 브라우저 자동화 도구가 없어 실제 브라우저에서 호스트·
+            참가자 화면이 그려지는 모습을 직접 확인하지는 못했다. 정적 검사(문법·태그 짝·id 중복)와
+            코드 리뷰로 배선(엘리먼트 id·함수명·데이터 경로)이 서로 일치함은 확인했지만, 실제 시각적
+            레이아웃·애니메이션 타이밍은 배포 후 실사용 중 확인이 필요하다.</li>
+        </ul>
     </section>
 
     <section id="sec14">

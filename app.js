@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-import { getDatabase, ref, get, onValue } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
+import { getDatabase, ref, get, set, onValue } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
 import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-functions.js";
 import { getAuth, signInAnonymously, onAuthStateChanged, signInWithPopup, signInWithCustomToken, linkWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
@@ -608,6 +608,7 @@ resumeBtn.addEventListener('click', async () => {
       renderHobbies(res.data.hobbies);
       renderStage(res.data.stage);
       initAchievementBaseline(res.data);
+      enterHostMode();
       fadeIn([gameSection]);
     }
   } catch (e) {
@@ -1373,7 +1374,8 @@ startBtn.addEventListener('click', async () => {
   if (!streamerName) return;
   startBtn.disabled = true;
   try {
-    const res = await startPlaythroughFn({ streamerName, streamerId: selectedStreamerId });
+    const multiplayerEnabled = !!multiplayerToggleStart.checked;
+    const res = await startPlaythroughFn({ streamerName, streamerId: selectedStreamerId, multiplayerEnabled });
     await fadeOut([searchSection, nameSection, mainHeader]);
     renderStatBars(statBars, res.data.stats);
     renderAssets(res.data.assets);
@@ -1387,6 +1389,7 @@ startBtn.addEventListener('click', async () => {
     renderHobbies(res.data.hobbies);
     renderStage(res.data.stage);
     initAchievementBaseline(res.data);
+    enterHostMode();
     fadeIn([gameSection]);
   } catch (e) {
     console.error('인생 시작 실패:', e);
@@ -2084,3 +2087,337 @@ loadLeaderboard();
     resizeTimer = setTimeout(rebuild, 200);
   });
 })();
+// ============================================================
+// 멀티플레이 시청자 참여(13장, 2026-08-24 구현) - 설계는 기획서 13장 참고.
+// 호스트 단독 결정권(투표는 표시용) - 실제 스탯을 바꾸는 유일한 경로는
+// submitChoiceFn/rollDiceFn뿐이고, 여기서는 그 위에 얹는 표시·투표 레이어만
+// 다룬다.
+// ============================================================
+const multiplayerToggleStart = document.getElementById('multiplayerToggleStart');
+const multiplayerToggleGame = document.getElementById('multiplayerToggleGame');
+const mpHostPanel = document.getElementById('mpHostPanel');
+const mpParticipantListEl = document.getElementById('mpParticipantList');
+const mpParticipantBanner = document.getElementById('mpParticipantBanner');
+const mpParticipantHostLabel = document.getElementById('mpParticipantHostLabel');
+const mpLeaveBtn = document.getElementById('mpLeaveBtn');
+const multiplayerSessionListEl = document.getElementById('multiplayerSessionList');
+const joinMultiplayerModal = document.getElementById('joinMultiplayerModal');
+const joinMultiplayerHostName = document.getElementById('joinMultiplayerHostName');
+const joinMultiplayerNicknameInput = document.getElementById('joinMultiplayerNicknameInput');
+const joinMultiplayerSubmitBtn = document.getElementById('joinMultiplayerSubmitBtn');
+const closeJoinMultiplayerBtn = document.getElementById('closeJoinMultiplayerBtn');
+const joinAdModal = document.getElementById('joinAdModal');
+const closeJoinAdBtn = document.getElementById('closeJoinAdBtn');
+
+const setMultiplayerEnabledFn = httpsCallable(functions, 'setMultiplayerEnabled');
+const joinMultiplayerSessionFn = httpsCallable(functions, 'joinMultiplayerSession');
+const kickParticipantFn = httpsCallable(functions, 'kickParticipant');
+
+let mpHostListenersAttached = false;
+let mpHostLatestSession = null;
+let mpHostLatestVotes = {};
+let mpParticipantMode = false;
+let mpParticipantHostUid = null;
+let mpParticipantUnsub = null;
+let mpPendingJoinHostUid = null;
+let mpPendingJoinHostName = '';
+let mpMyLastVoteChoiceId = null;
+let mpMyLastVoteStageId = null;
+
+// ---- 호스트 쪽: 내 uid 기준 세션·투표를 한 번만 구독해두고, 존재 여부로
+// 패널 표시를 그때그때 판단한다(2026-08-19 "게임도중 토글 변경 가능" 대응 -
+// 별도 활성화 신호 없이도 문서 존재 자체가 곧 상태) ----
+function attachMultiplayerHostListeners() {
+  if (mpHostListenersAttached || !currentUser) return;
+  mpHostListenersAttached = true;
+  const hostUid = currentUser.uid;
+  onValue(ref(db, 'lifeGame/multiplayerSessions/' + hostUid), (snap) => {
+    mpHostLatestSession = snap.val();
+    renderHostMultiplayerPanel();
+  });
+  onValue(ref(db, 'lifeGame/multiplayerVotes/' + hostUid), (snap) => {
+    mpHostLatestVotes = snap.val() || {};
+    renderHostMultiplayerPanel();
+  });
+}
+
+function renderHostMultiplayerPanel() {
+  if (mpParticipantMode) return; // 참가자 모드에서는 이 패널 자체를 안 씀
+  multiplayerToggleGame.checked = !!mpHostLatestSession;
+  mpParticipantListEl.innerHTML = '';
+  if (!mpHostLatestSession) return;
+  const participants = mpHostLatestSession.participants || {};
+  const currentStageId = mpHostLatestSession.stage && mpHostLatestSession.stage.id;
+  const votesForStage = (currentStageId && mpHostLatestVotes[currentStageId]) || {};
+  // 선택지별 투표 수 - choiceList 버튼 옆에 배지로 붙인다(주사위 구간도 동일).
+  const countByChoiceId = {};
+  Object.values(votesForStage).forEach((choiceId) => {
+    countByChoiceId[choiceId] = (countByChoiceId[choiceId] || 0) + 1;
+  });
+  Array.from(choiceList.children).forEach((el) => {
+    const cid = el.dataset && el.dataset.choiceId;
+    if (!cid) return;
+    const existingBadge = el.querySelector('.mp-vote-count');
+    if (existingBadge) existingBadge.remove();
+    const count = countByChoiceId[cid] || 0;
+    if (count > 0) {
+      const badge = document.createElement('span');
+      badge.className = 'mp-vote-count';
+      badge.textContent = count + '표';
+      el.appendChild(badge);
+    }
+  });
+  const participantUids = Object.keys(participants);
+  if (!participantUids.length) {
+    const empty = document.createElement('p');
+    empty.className = 'empty-msg';
+    empty.style.margin = '0';
+    empty.textContent = '아직 참가자가 없어요.';
+    mpParticipantListEl.appendChild(empty);
+    return;
+  }
+  participantUids.forEach((puid) => {
+    const row = document.createElement('div');
+    row.className = 'mp-participant-row';
+    const nameSpan = document.createElement('span');
+    nameSpan.textContent = '🙋 ' + participants[puid];
+    row.appendChild(nameSpan);
+    const kickBtn = document.createElement('button');
+    kickBtn.type = 'button';
+    kickBtn.className = 'mp-kick-btn';
+    kickBtn.textContent = '강퇴';
+    kickBtn.addEventListener('click', async () => {
+      if (!confirm('"' + participants[puid] + '"님을 강퇴할까요?')) return;
+      kickBtn.disabled = true;
+      try {
+        await kickParticipantFn({ targetUid: puid });
+      } catch (e) {
+        console.error('강퇴 실패:', e);
+        alert('강퇴에 실패했어요: ' + (e.message || e));
+        kickBtn.disabled = false;
+      }
+    });
+    row.appendChild(kickBtn);
+    mpParticipantListEl.appendChild(row);
+  });
+}
+
+multiplayerToggleGame.addEventListener('change', async () => {
+  const enabled = multiplayerToggleGame.checked;
+  multiplayerToggleGame.disabled = true;
+  try {
+    await setMultiplayerEnabledFn({ enabled });
+  } catch (e) {
+    console.error('멀티플레이 토글 실패:', e);
+    alert('설정을 바꾸지 못했어요: ' + (e.message || e));
+    multiplayerToggleGame.checked = !enabled;
+  } finally {
+    multiplayerToggleGame.disabled = false;
+  }
+});
+
+function enterHostMode() {
+  mpParticipantMode = false;
+  document.body.classList.remove('mp-participant-mode');
+  mpParticipantBanner.classList.add('hidden');
+  mpHostPanel.classList.remove('hidden');
+  attachMultiplayerHostListeners();
+}
+
+// renderStage가 선택지 버튼을 다시 그릴 때마다(구간 전환 등) 투표 수 배지도
+// 함께 다시 붙어야 하므로, renderStage 호출 직후 이어서 패널을 다시 그린다 -
+// renderStage 본체를 직접 수정하지 않고 감싸는 쪽이 기존 페이드 애니메이션
+// 로직과 덜 얽힌다.
+const originalRenderStageForMp = renderStage;
+renderStage = function (stage) {
+  originalRenderStageForMp(stage);
+  if (!mpParticipantMode) renderHostMultiplayerPanel();
+};
+
+// ------------------------------------------------------------
+// 검색 화면 - 진행중인 다른 유저의 게임 목록
+// ------------------------------------------------------------
+let mpLatestSessionListVal = {};
+function renderMultiplayerSessionList() {
+  const val = mpLatestSessionListVal;
+  const myUid = currentUser ? currentUser.uid : null;
+  const entries = Object.keys(val)
+    .filter((hostUid) => hostUid !== myUid && val[hostUid] && val[hostUid].completed !== true)
+    .map((hostUid) => Object.assign({ hostUid }, val[hostUid]))
+    .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))
+    .slice(0, 30);
+  if (!entries.length) {
+    multiplayerSessionListEl.innerHTML = '<p class="empty-msg">지금 진행중인 다른 유저의 게임이 없어요.</p>';
+    return;
+  }
+  multiplayerSessionListEl.innerHTML = '';
+  entries.forEach((e) => {
+    const item = document.createElement('div');
+    item.className = 'mp-session-item';
+    const left = document.createElement('span');
+    left.innerHTML = '<span class="mp-session-name">' + escapeHtml(e.streamerName || '이름 없음') + '</span>' +
+      '<span class="mp-session-age">' + escapeHtml((e.stage && e.stage.ageRange) || '') + '</span>';
+    item.appendChild(left);
+    const joinBtn = document.createElement('button');
+    joinBtn.type = 'button';
+    joinBtn.className = 'primary';
+    joinBtn.textContent = '참가하기';
+    joinBtn.addEventListener('click', () => openJoinMultiplayerModal(e.hostUid, e.streamerName || '이름 없음'));
+    item.appendChild(joinBtn);
+    multiplayerSessionListEl.appendChild(item);
+  });
+}
+onValue(ref(db, 'lifeGame/multiplayerSessions'), (snap) => {
+  mpLatestSessionListVal = snap.val() || {};
+  renderMultiplayerSessionList();
+}, (err) => {
+  console.error('진행중인 게임 목록 읽기 실패:', err);
+  multiplayerSessionListEl.innerHTML = '<p class="empty-msg">목록을 불러올 수 없습니다.</p>';
+});
+// currentUser가 이 구독보다 늦게 확정될 수 있어(비동기 로그인), auth가
+// 확정되는 시점에도 한 번 다시 그려서 "내 게임이 잠깐 내 목록에 뜨는" 경합을
+// 없앤다.
+onAuthStateChanged(auth, (user) => { if (user) renderMultiplayerSessionList(); });
+
+function openJoinMultiplayerModal(hostUid, hostName) {
+  mpPendingJoinHostUid = hostUid;
+  mpPendingJoinHostName = hostName;
+  joinMultiplayerHostName.textContent = hostName;
+  joinMultiplayerNicknameInput.value = '';
+  joinMultiplayerModal.classList.remove('hidden');
+}
+closeJoinMultiplayerBtn.addEventListener('click', () => joinMultiplayerModal.classList.add('hidden'));
+
+joinMultiplayerSubmitBtn.addEventListener('click', async () => {
+  const nickname = joinMultiplayerNicknameInput.value.trim();
+  if (!/^[가-힣]{1,6}$/.test(nickname)) {
+    alert('닉네임은 한글 1~6자로 입력해주세요.');
+    return;
+  }
+  joinMultiplayerSubmitBtn.disabled = true;
+  try {
+    const res = await joinMultiplayerSessionFn({ hostUid: mpPendingJoinHostUid, nickname });
+    joinMultiplayerModal.classList.add('hidden');
+    if (res.data.showAd) {
+      joinAdModal.classList.remove('hidden');
+    } else {
+      await enterParticipantMode(mpPendingJoinHostUid, mpPendingJoinHostName);
+    }
+  } catch (e) {
+    console.error('참가 실패:', e);
+    alert('참가하지 못했어요: ' + (e.message || e));
+  } finally {
+    joinMultiplayerSubmitBtn.disabled = false;
+  }
+});
+
+closeJoinAdBtn.addEventListener('click', async () => {
+  joinAdModal.classList.add('hidden');
+  await enterParticipantMode(mpPendingJoinHostUid, mpPendingJoinHostName);
+});
+
+// ------------------------------------------------------------
+// 참가자 모드 - #gameSection을 재사용하되, 선택지는 제출이 아니라 투표를
+// 기록하고, 구간 진행은 호스트의 multiplayerSessions 구독으로만 반영된다
+// (호스트가 다음 구간으로 넘어가면 참가자 화면도 자동으로 따라간다).
+// ------------------------------------------------------------
+async function enterParticipantMode(hostUid, hostName) {
+  mpParticipantMode = true;
+  mpParticipantHostUid = hostUid;
+  mpMyLastVoteChoiceId = null;
+  mpMyLastVoteStageId = null;
+  document.body.classList.add('mp-participant-mode');
+  mpHostPanel.classList.add('hidden');
+  mpParticipantBanner.classList.remove('hidden');
+  mpParticipantHostLabel.textContent = '🙋 ' + hostName + '님의 게임에 참가중';
+  await fadeOut([searchSection, nameSection, resumeSection, mainHeader]);
+  fadeIn([gameSection]);
+
+  if (mpParticipantUnsub) mpParticipantUnsub();
+  mpParticipantUnsub = onValue(ref(db, 'lifeGame/multiplayerSessions/' + hostUid), (snap) => {
+    const val = snap.val();
+    if (!val) {
+      alert('게임이 종료됐어요.');
+      leaveParticipantMode();
+      return;
+    }
+    renderStatBars(statBars, val.stats || {});
+    renderParticipantStage(val.stage);
+  }, (err) => {
+    console.error('참가자 구독 실패:', err);
+  });
+}
+
+function renderParticipantStage(stage) {
+  if (!stage) return;
+  if (stage.id !== mpMyLastVoteStageId) {
+    mpMyLastVoteChoiceId = null;
+    mpMyLastVoteStageId = stage.id;
+  }
+  stageName.textContent = stage.name;
+  stageAge.textContent = stage.ageRange;
+  storyText.textContent = stage.intro || '';
+  choiceList.innerHTML = '';
+  resultBox.classList.add('hidden');
+  nextBtn.classList.add('hidden');
+
+  (stage.choices || []).forEach((choice) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn mp-vote-btn';
+    btn.dataset.choiceId = choice.id;
+    btn.textContent = (stage.random ? '🎲 ' : '') + choice.text;
+    if (choice.id === mpMyLastVoteChoiceId) btn.classList.add('mp-my-vote');
+    btn.addEventListener('click', () => voteForChoice(stage.id, choice.id));
+    choiceList.appendChild(btn);
+  });
+
+  if (stage.random) {
+    // 참가자 쪽 "주사위 굴리기"는 순수 로컬 연출일 뿐 서버에는 아무것도 쓰지
+    // 않는다(사용자 확정) - 실제 결과는 호스트의 rollDice로만 정해지고,
+    // 참가자 화면은 위 onValue 구독으로 자동 갱신된다.
+    const rollBtn = document.createElement('button');
+    rollBtn.className = 'dice-btn';
+    rollBtn.textContent = '🎲 주사위 굴리기(연출용)';
+    rollBtn.addEventListener('click', () => {
+      diceOverlay.classList.remove('hidden');
+      setTimeout(() => diceOverlay.classList.add('hidden'), 1200);
+    });
+    choiceList.appendChild(rollBtn);
+    const hint = document.createElement('p');
+    hint.className = 'dice-hint';
+    hint.textContent = '실제 결과는 방장이 굴리는 주사위로 정해져요. 위 선택지에 투표만 할 수 있어요.';
+    choiceList.appendChild(hint);
+  }
+}
+
+async function voteForChoice(stageId, choiceId) {
+  if (!mpParticipantHostUid || !currentUser) return;
+  mpMyLastVoteChoiceId = choiceId;
+  Array.from(choiceList.children).forEach((el) => {
+    if (el.dataset && el.dataset.choiceId) el.classList.toggle('mp-my-vote', el.dataset.choiceId === choiceId);
+  });
+  try {
+    await set(ref(db, 'lifeGame/multiplayerVotes/' + mpParticipantHostUid + '/' + stageId + '/' + currentUser.uid), choiceId);
+  } catch (e) {
+    console.error('투표 실패:', e);
+  }
+}
+
+function leaveParticipantMode() {
+  if (mpParticipantUnsub) { mpParticipantUnsub(); mpParticipantUnsub = null; }
+  mpParticipantMode = false;
+  mpParticipantHostUid = null;
+  document.body.classList.remove('mp-participant-mode');
+  mpParticipantBanner.classList.add('hidden');
+  fadeOut([gameSection]).then(() => {
+    fadeIn([searchSection, mainHeader]);
+  });
+}
+mpLeaveBtn.addEventListener('click', leaveParticipantMode);
+
+// 로그인이 확정되면(익명 포함) 호스트 리스너를 한 번 걸어둔다 - 세션이 없는
+// 상태에서도 구독 자체는 걸려 있어야, 게임 시작/이어하기 이후 언제 토글을
+// 켜도(또는 이미 켜진 채로 시작해도) 곧바로 패널이 반영된다.
+onAuthStateChanged(auth, (user) => {
+  if (user) attachMultiplayerHostListeners();
+});
