@@ -1712,7 +1712,8 @@ const ROUTE_SCENE_IMAGES = {
   'entertainment-industry': 'assets/scenes/entertainment-industry.jpg',
   'actor': 'assets/scenes/actor.jpg',
   'artist': 'assets/scenes/artist.jpg',
-  'sports-elite': 'assets/scenes/sports-elite.jpg'
+  'sports-elite': 'assets/scenes/sports-elite.jpg',
+  'soccer-manager': 'assets/scenes/soccer-manager.jpg'
 };
 let lastKnownRouteId = null;
 function updateRouteSceneImage(currentRoute) {
