@@ -1690,7 +1690,8 @@ const ENDING_SCENE_IMAGES = {
   'rising-after-the-fall': 'assets/scenes/rising-after-the-fall.jpg',
   'solitary-path': 'assets/scenes/solitary-path.jpg',
   'enduring-companion': 'assets/scenes/enduring-companion.jpg',
-  'collapse': 'assets/scenes/collapse.jpg'
+  'collapse': 'assets/scenes/collapse.jpg',
+  'bankruptcy': 'assets/scenes/bankruptcy.jpg'
 };
 const endingText = document.getElementById('endingText');
 const endingStatBars = document.getElementById('endingStatBars');
