@@ -1099,18 +1099,51 @@ async function applyChoice(db, playRef, play, stage, choice) {
       acquaintances = acquaintances.filter((a) => a.id !== lost.id);
     }
   }
+  // 멀티플레이 - 지인 이름을 그 선택지에 투표한 참가자 닉네임으로(2026-08-24,
+  // 13장 설계 구현 - "지인 추가 시 어느 참가자 닉네임을 쓸지" 확정안). uid당
+  // multiplayerSessions 존재 확인은 이 함수 안에서 딱 한 번만(mpSessionVal,
+  // 아래 미러링 단계에서 재사용) - addAcquaintance가 있을 때만 투표 노드까지
+  // 추가로 읽는다. 투표자가 없으면(참가자 없음/아무도 이 선택지에 투표 안 함)
+  // voterNicknames가 빈 배열로 남아 기존처럼 pickRandomStreamerName()만 쓰인다.
+  const uid = playRef.key;
+  const mpSessionSnap = await db.ref('lifeGame/multiplayerSessions/' + uid).get();
+  const mpSessionVal = mpSessionSnap.exists() ? mpSessionSnap.val() : null;
+  let voterNicknames = [];
+  if (choice.addAcquaintance && mpSessionVal) {
+    const votesSnap = await db.ref('lifeGame/multiplayerVotes/' + uid + '/' + stage.id).get();
+    const votesVal = votesSnap.val() || {};
+    const participants = mpSessionVal.participants || {};
+    voterNicknames = Object.keys(votesVal)
+      .filter((participantUid) => votesVal[participantUid] === choice.id && participants[participantUid])
+      .map((participantUid) => participants[participantUid]);
+    for (let i = voterNicknames.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = voterNicknames[i]; voterNicknames[i] = voterNicknames[j]; voterNicknames[j] = tmp;
+    }
+  }
   if (choice.addAcquaintance) {
     const addCount = choice.addAcquaintance.count || 1;
     const usedNames = new Set(acquaintances.map((a) => a.name));
+    const pickFallbackName = () => {
+      let name = pickRandomStreamerName();
+      let retries = 0;
+      while (usedNames.has(name) && retries < 10) {
+        name = pickRandomStreamerName();
+        retries++;
+      }
+      return name;
+    };
+    let voterIdx = 0;
     for (let i = 0; i < addCount; i++) {
       const acquaintanceId = addCount > 1 ? stage.id + '-' + choice.id + '-' + i : stage.id + '-' + choice.id;
       if (acquaintances.some((a) => a.id === acquaintanceId)) continue;
-      let acquaintanceName = pickRandomStreamerName();
-      let retries = 0;
-      while (usedNames.has(acquaintanceName) && retries < 10) {
-        acquaintanceName = pickRandomStreamerName();
-        retries++;
+      let acquaintanceName = null;
+      if (voterIdx < voterNicknames.length) {
+        const candidate = voterNicknames[voterIdx];
+        voterIdx++;
+        if (!usedNames.has(candidate)) acquaintanceName = candidate;
       }
+      if (!acquaintanceName) acquaintanceName = pickFallbackName();
       usedNames.add(acquaintanceName);
       acquaintances.push({
         id: acquaintanceId,
@@ -1391,6 +1424,23 @@ async function applyChoice(db, playRef, play, stage, choice) {
     statWrites.push(db.ref('lifeGame/stats/totals/completed').set(ServerValue.increment(1)));
     statWrites.push(recordCollectionEntryIfLoggedIn(db, playRef.key, 'endings', ending.id));
   }
+  // 멀티플레이 - 호스트 쪽 진행 상태를 공개 미러에 반영(2026-08-24, 13장 설계
+  // 구현). mpSessionVal은 위 지인 이름 단계에서 이미 한 번 읽어둔 값을 그대로
+  // 재사용(같은 턴에 존재 여부가 두 번 바뀔 리 없음). 엔딩 도달 시엔 세션
+  // 문서와 그 판의 투표를 통째로 지운다(2026-08-19, 사용자 확정) - participants/
+  // kickedNicknames/kickedUids 등 나머지 필드는 완료와 동시에 의미가 없어지므로
+  // 문서 자체를 지우는 게 부분 필드 정리보다 깔끔하다.
+  if (mpSessionVal) {
+    if (completed) {
+      statWrites.push(db.ref('lifeGame/multiplayerSessions/' + uid).remove());
+      statWrites.push(db.ref('lifeGame/multiplayerVotes/' + uid).remove());
+    } else {
+      statWrites.push(db.ref('lifeGame/multiplayerSessions/' + uid).update({
+        stats,
+        stage: publicStage(STAGES[nextIndex], nextVisibleIds, nextIntroId, healthConditions)
+      }));
+    }
+  }
   await Promise.all(statWrites);
 
   // resultOptions가 붙은 선택지(예: 부모님과의 사별 - 이유를 고정하지 않고
@@ -1455,11 +1505,16 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
     throw new HttpsError('invalid-argument', '주인공 이름을 1~' + MAX_NAME_LEN + '자로 입력해주세요.');
   }
 
+  // 멀티플레이 - 시작할 때 이미 켜둔 경우의 초기값(2026-08-24, 13장 설계 구현).
+  // 게임 도중에 언제든 setMultiplayerEnabled로 따로 켜고 끌 수 있어, 이 값은
+  // "처음부터 켜져 있었는지"만 결정한다.
+  const multiplayerEnabled = !!(request.data && request.data.multiplayerEnabled);
+
   const db = getDatabase();
   const stats = freshStats();
   const currentIntroId = pickIntroId(STAGES[0]);
   const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices, { introId: currentIntroId, locationId: DEFAULT_LOCATION.id });
-  await Promise.all([
+  const writes = [
     playRefFor(db, uid).set({
       streamerName,
       streamerId,
@@ -1484,7 +1539,21 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
     // ServerValue.increment 패턴(원본 로그를 admin-center가 매번 다시 훑지 않도록
     // 이 함수가 직접 카운터를 올려둔다).
     db.ref('lifeGame/stats/totals/started').set(ServerValue.increment(1))
-  ]);
+  ];
+  if (multiplayerEnabled) {
+    writes.push(db.ref('lifeGame/multiplayerSessions/' + uid).set({
+      streamerName,
+      streamerId,
+      stats,
+      stage: publicStage(STAGES[0], visibleChoiceIds, currentIntroId, []),
+      participants: {},
+      kickedNicknames: {},
+      kickedUids: {},
+      completed: false,
+      createdAt: ServerValue.TIMESTAMP
+    }));
+  }
+  await Promise.all(writes);
 
   return { stats, healthConditions: [], familyMembers: [], acquaintances: [], assets: [], cashHoldings: 0, talents: [], hobbies: [], currentOccupation: null, currentLocation: DEFAULT_LOCATION, currentRoute: null, stage: publicStage(STAGES[0], visibleChoiceIds, currentIntroId, []) };
 });
@@ -1800,4 +1869,143 @@ const adminDeleteGalleryEntry = onCall({ cors: true, timeoutSeconds: 30, memory:
   return { ok: true, deletedEntryId: entryId };
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry };
+// ------------------------------------------------------------
+// 멀티플레이 시청자 참여(13장, 2026-08-24 구현 착수) - 설계는 기획서 13장 참고.
+// 호스트 단독 결정권(투표는 표시용) 원칙이라, playthroughs는 그대로 두고
+// multiplayerSessions/multiplayerVotes/multiplayerAdShown 세 개의 새 공개
+// 노드만 쓴다.
+// ------------------------------------------------------------
+
+// 게임 도중 언제든 멀티플레이를 켜고 끄는 토글(2026-08-19, 사용자 확정 -
+// "게임도중 멀티플레이 허용 토글 변경가능"). 켜면 그 순간의 현재 상태로
+// multiplayerSessions를 새로 만들고(startPlaythrough가 처음부터 켠 경우와
+// 결과가 같아지도록), 끄면 문서를 통째로 지운다 - 그 순간 접속해 있던
+// 참가자들의 이후 투표 쓰기는 참가자 존재 확인이 실패하면서 자연히 막힌다.
+const setMultiplayerEnabled = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const enabled = !!(request.data && request.data.enabled);
+  const db = getDatabase();
+  const mpRef = db.ref('lifeGame/multiplayerSessions/' + uid);
+  if (!enabled) {
+    await mpRef.remove();
+    return { ok: true, enabled: false };
+  }
+  const playSnap = await playRefFor(db, uid).get();
+  const play = playSnap.val();
+  if (!play) throw new HttpsError('not-found', '진행 중인 인생을 찾을 수 없습니다.');
+  if (play.completed) throw new HttpsError('failed-precondition', '이미 끝난 인생은 멀티플레이를 켤 수 없습니다.');
+  await mpRef.set({
+    streamerName: play.streamerName,
+    streamerId: play.streamerId || null,
+    stats: play.stats,
+    stage: publicStage(STAGES[play.stageIndex], play.visibleChoiceIds, play.currentIntroId, play.healthConditions || []),
+    participants: {},
+    kickedNicknames: {},
+    kickedUids: {},
+    completed: false,
+    createdAt: ServerValue.TIMESTAMP
+  });
+  return { ok: true, enabled: true };
+});
+
+// 참가자 닉네임 형식(사용자 확정) - 한글 1~6자.
+const MULTIPLAYER_NICKNAME_REGEX = /^[가-힣]{1,6}$/;
+
+// 참가자가 진행중인 게임에 입장 - 닉네임 검증 → kickedUids/kickedNicknames
+// 확인(2026-08-24, 사용자 지시로 kickedUids 추가 - 강퇴된 uid는 닉네임을
+// 바꿔도 재입장 불가) → participants에 등록 → 전면 광고 노출 여부 판단
+// (2026-08-22 확정, "그 세션당 1회" - multiplayerAdShown으로 판정).
+const joinMultiplayerSession = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const hostUid = request.data && request.data.hostUid;
+  const nickname = (request.data && request.data.nickname || '').toString().trim();
+  if (!hostUid) throw new HttpsError('invalid-argument', 'hostUid가 필요합니다.');
+  if (!MULTIPLAYER_NICKNAME_REGEX.test(nickname)) {
+    throw new HttpsError('invalid-argument', '닉네임은 한글 1~6자로 입력해주세요.');
+  }
+  const db = getDatabase();
+  const mpRef = db.ref('lifeGame/multiplayerSessions/' + hostUid);
+  const mpSnap = await mpRef.get();
+  if (!mpSnap.exists()) throw new HttpsError('not-found', '진행 중인 게임을 찾을 수 없습니다.');
+  const mpVal = mpSnap.val();
+  const kickedUids = mpVal.kickedUids || {};
+  if (kickedUids[uid]) {
+    throw new HttpsError('permission-denied', '이 게임에서 강퇴되어 다시 참여할 수 없습니다.');
+  }
+  const kickedNicknames = mpVal.kickedNicknames || {};
+  if (kickedNicknames[nickname]) {
+    throw new HttpsError('invalid-argument', '강퇴 이력이 있는 닉네임입니다. 다른 닉네임을 사용해주세요.');
+  }
+
+  const adShownRef = db.ref('lifeGame/multiplayerAdShown/' + hostUid + '/' + uid);
+  const adShownSnap = await adShownRef.get();
+  const alreadyShown = adShownSnap.exists();
+  const tasks = [mpRef.child('participants/' + uid).set(nickname)];
+  if (!alreadyShown) tasks.push(adShownRef.set(true));
+  await Promise.all(tasks);
+  return { ok: true, showAd: !alreadyShown };
+});
+
+// 호스트가 참가자를 강퇴 - 참가자 목록에서 제거하고, uid·닉네임 둘 다
+// 블록리스트에 올려 재입장을 막는다(2026-08-24, 사용자 지시 - "강퇴시 uid도
+// 해당게임에 재입장 불가하게 해줘"). 현재 구간 투표에서도 즉시 제외하고,
+// 지인 이름 자동 재배정(2026-08-21 확정) - 호스트의 acquaintances/
+// familyMembers 중 강퇴된 닉네임과 정확히 일치하는 이름을 새 무작위 이름으로
+// 교체해 부적절한 이름이 남지 않게 한다.
+const kickParticipant = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const hostUid = requireAuth(request);
+  const targetUid = request.data && request.data.targetUid;
+  if (!targetUid) throw new HttpsError('invalid-argument', 'targetUid가 필요합니다.');
+  const db = getDatabase();
+  const mpRef = db.ref('lifeGame/multiplayerSessions/' + hostUid);
+  const mpSnap = await mpRef.get();
+  if (!mpSnap.exists()) throw new HttpsError('not-found', '진행 중인 게임을 찾을 수 없습니다.');
+  const mpVal = mpSnap.val();
+  const participants = mpVal.participants || {};
+  const targetNickname = participants[targetUid];
+  if (!targetNickname) throw new HttpsError('not-found', '참가자를 찾을 수 없습니다.');
+
+  const tasks = [
+    mpRef.child('participants/' + targetUid).remove(),
+    mpRef.child('kickedUids/' + targetUid).set(true),
+    mpRef.child('kickedNicknames/' + targetNickname).set(true)
+  ];
+  const stageId = mpVal.stage && mpVal.stage.id;
+  if (stageId) {
+    tasks.push(db.ref('lifeGame/multiplayerVotes/' + hostUid + '/' + stageId + '/' + targetUid).remove());
+  }
+
+  const hostPlayRef = playRefFor(db, hostUid);
+  const hostPlaySnap = await hostPlayRef.get();
+  const hostPlay = hostPlaySnap.val();
+  if (hostPlay) {
+    const usedNames = new Set([
+      ...(Array.isArray(hostPlay.acquaintances) ? hostPlay.acquaintances.map((a) => a.name) : []),
+      ...(Array.isArray(hostPlay.familyMembers) ? hostPlay.familyMembers.filter((f) => f.name).map((f) => f.name) : [])
+    ]);
+    const renamePick = () => {
+      let name = pickRandomStreamerName();
+      let retries = 0;
+      while (usedNames.has(name) && retries < 10) { name = pickRandomStreamerName(); retries++; }
+      usedNames.add(name);
+      return name;
+    };
+    let acqChanged = false;
+    const acquaintances = (Array.isArray(hostPlay.acquaintances) ? hostPlay.acquaintances : []).map((a) => {
+      if (a.name === targetNickname) { acqChanged = true; return Object.assign({}, a, { name: renamePick() }); }
+      return a;
+    });
+    let famChanged = false;
+    const familyMembers = (Array.isArray(hostPlay.familyMembers) ? hostPlay.familyMembers : []).map((f) => {
+      if (f.name === targetNickname) { famChanged = true; return Object.assign({}, f, { name: renamePick() }); }
+      return f;
+    });
+    if (acqChanged) tasks.push(hostPlayRef.child('acquaintances').set(acquaintances));
+    if (famChanged) tasks.push(hostPlayRef.child('familyMembers').set(familyMembers));
+  }
+
+  await Promise.all(tasks);
+  return { ok: true, kickedUid: targetUid };
+});
+
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant };
