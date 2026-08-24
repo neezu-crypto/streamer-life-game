@@ -1680,7 +1680,8 @@ const endingSceneImage = document.getElementById('endingSceneImage');
 // 새 삽화를 추가할 땐 이 맵에 한 줄만 더하면 된다.
 const ENDING_SCENE_IMAGES = {
   'all-in-success': 'assets/scenes/all-in-success.jpg',
-  'all-in-failure': 'assets/scenes/all-in-failure.jpg'
+  'all-in-failure': 'assets/scenes/all-in-failure.jpg',
+  'burnout': 'assets/scenes/burnout.jpg'
 };
 const endingText = document.getElementById('endingText');
 const endingStatBars = document.getElementById('endingStatBars');
