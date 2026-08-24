@@ -4403,6 +4403,16 @@ const STAGES = [
     intro: '갓 어른이 된 티가 조금씩 빠지는 나이. 독립과 자유가 생각보다 훨씬 손이 많이 간다는 걸 알아갑니다.',
     choices: [
       {
+        id: 'lw-trigger-20',
+        text: '물류센터 정직원으로서 본격적인 현장 생활을 시작한다',
+        deltas: {"wealth":1,"health":-1},
+        result: '컨베이어 벨트 소리가, 이제 매일 듣는 배경음이 됐다.',
+        requiresOccupation: ["logistics-worker"],
+        mandatory: true,
+        startsRoute: {"id":"logistics","label":"🚚 물류직","maxDurationYears":15}
+      },
+
+      {
         id: 'dev-bootcamp-decision-20',
         text: '코딩 재능을 살려 개발자의 길을 걷기로 결심한다',
         deltas: {"happiness":3,"wealth":-2},
@@ -5041,6 +5051,28 @@ const STAGES = [
     intro: '방향을 조금씩 좁혀가는 나이. 막연했던 미래가 서서히 구체적인 모양을 갖추기 시작합니다.',
     choices: [
       {
+        id: 'lw-night-shift-assign-21',
+        text: 'undefined',
+        deltas: {"wealth":2,"health":-2},
+        result: '해가 지고 나서야 하루가 시작되는 삶에, 몸이 먼저 적응해야 했다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-first-forklift-21',
+        text: 'undefined',
+        deltas: {"happiness":2},
+        result: '처음 손에 쥔 조종간이, 낯설고도 짜릿했다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-loading-knowhow-21',
+        text: 'undefined',
+        deltas: {"happiness":1,"wealth":1},
+        result: '요령 하나 터득할 때마다, 몸이 조금씩 덜 힘들어졌다.',
+        requiresRoute: 'logistics'
+      },
+
+      {
         id: 'sb-trigger-21',
         text: '가게를 본격적으로 키워보기로 결심한다',
         deltas: {"happiness":2,"wealth":-1},
@@ -5645,6 +5677,28 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        id: 'lw-forklift-license-22',
+        text: 'undefined',
+        deltas: {"happiness":3,"wealth":1},
+        result: '자격증 한 장이, 손끝의 기술을 증명해줬다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-automation-training-22',
+        text: 'undefined',
+        deltas: {"happiness":1},
+        result: '낯선 화면 앞에서도, 배우는 속도만큼은 남 못지않았다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-syncing-with-team-22',
+        text: 'undefined',
+        deltas: {"happiness":2,"relationship":2},
+        result: '손발이 맞기 시작하자, 일이 눈에 띄게 수월해졌다.',
+        requiresRoute: 'logistics'
+      },
+
       {
         id: 'sb-early-struggle-21',
         text: '손님이 없는 텅 빈 가게를 지키며 하루를 보낸다',
@@ -6291,6 +6345,28 @@ const STAGES = [
     ageRange: '23세',
     intro: '스무 살대의 마지막 해. 자립이라는 단어가 더는 남 얘기가 아니게 됩니다.',
     choices: [
+      {
+        id: 'lw-musculoskeletal-onset-23',
+        text: 'undefined',
+        deltas: {"happiness":-2,"health":-2},
+        result: '무거운 걸 든 다음 날이면, 어김없이 몸이 신호를 보냈다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-safety-gear-habit-23',
+        text: 'undefined',
+        deltas: {"health":2},
+        result: '귀찮던 보호장비가, 어느새 없으면 허전한 습관이 됐다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-stamina-training-23',
+        text: 'undefined',
+        deltas: {"health":2,"happiness":1},
+        result: '퇴근 후 운동 한 번이, 다음 날 몸을 조금 가볍게 했다.',
+        requiresRoute: 'logistics'
+      },
+
       {
         id: 'sb-hiring-parttime-23',
         text: '아르바이트생을 처음으로 채용한다',
@@ -6951,6 +7027,28 @@ const STAGES = [
     ageRange: '24세',
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
+      {
+        id: 'lw-volume-prep-24',
+        text: 'undefined',
+        deltas: {"happiness":-1,"wealth":2},
+        result: '몰려올 물량을 미리 그려보는 것만으로도, 어깨가 무거워졌다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-workload-dispute-24',
+        text: 'undefined',
+        deltas: {"happiness":-3,"relationship":-1},
+        result: '누구 몫이 더 많은지를 두고, 날 선 말들이 오갔다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-trains-newbie-24',
+        text: 'undefined',
+        deltas: {"happiness":3,"relationship":2},
+        result: '가르쳐주는 입장이 되고서야, 스스로도 다시 배우는 기분이었다.',
+        requiresRoute: 'logistics'
+      },
+
       {
         id: 're-trigger-24',
         text: '정규직으로서 회사 생활에 본격적으로 적응해나간다',
@@ -7647,6 +7745,28 @@ const STAGES = [
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
       {
+        id: 'lw-safety-near-miss-25',
+        text: 'undefined',
+        deltas: {"happiness":-4,"health":-1},
+        result: '몇 초만 늦었어도, 상상하기 싫은 일이 벌어질 뻔했다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-industrial-insurance-25',
+        text: 'undefined',
+        deltas: {"wealth":-1,"happiness":1},
+        result: '만일을 대비한 서류 한 장이, 마음 한켠을 든든하게 했다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-witness-coworker-accident-25',
+        text: 'undefined',
+        deltas: {"happiness":-3},
+        result: '동료가 다치는 걸 본 뒤로, 매 순간이 조심스러워졌다.',
+        requiresRoute: 'logistics'
+      },
+
+      {
         id: 're-onboarding-overwhelm-25',
         text: '새 부서에 첫 출근해 낯선 자리에 적응한다',
         deltas: {"happiness":-2,"wealth":1},
@@ -8301,6 +8421,28 @@ const STAGES = [
     ageRange: '26세',
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
+      {
+        id: 'lw-cold-shift-26',
+        text: 'undefined',
+        deltas: {"happiness":-2,"health":-2},
+        result: '손끝이 곱을 만큼 추운 새벽에도, 물량은 어김없이 밀려들었다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-heatwave-shift-26',
+        text: 'undefined',
+        deltas: {"happiness":-2,"health":-2},
+        result: '찜통 같은 창고 안에서, 땀이 쉴 새 없이 흘렀다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-night-pay-calc-26',
+        text: 'undefined',
+        deltas: {"wealth":2},
+        result: '고된 시간만큼, 명세서의 숫자도 조금씩 두툼해졌다.',
+        requiresRoute: 'logistics'
+      },
+
       {
         id: 're-team-dinner-26',
         text: '팀 회식 자리에서 동료들과 어울린다',
@@ -9039,6 +9181,28 @@ const STAGES = [
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
       {
+        id: 'lw-headhunted-27',
+        text: 'undefined',
+        deltas: {"wealth":1,"happiness":1},
+        result: '다른 물류센터에서 온 제안에, 마음이 잠시 흔들렸다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-considers-office-switch-27',
+        text: 'undefined',
+        deltas: {"happiness":-1},
+        result: '몸 대신 머리를 쓰는 자리는 어떨지, 문득 궁금해졌다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-decides-to-stay-27',
+        text: 'undefined',
+        deltas: {"happiness":2,"relationship":1},
+        result: '결국 익숙해진 이 자리를, 조금 더 지켜보기로 했다.',
+        requiresRoute: 'logistics'
+      },
+
+      {
         id: 're-first-review-good-27',
         text: '첫 성과평가에서 좋은 평가를 받는다',
         deltas: {"happiness":4,"wealth":2},
@@ -9773,6 +9937,28 @@ const STAGES = [
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
       {
+        id: 'lw-special-cargo-cert-28',
+        text: 'undefined',
+        deltas: {"happiness":2,"wealth":2},
+        result: '아무나 맡지 않는 화물이, 어느새 자신의 몫이 되어 있었다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-hazmat-certification-28',
+        text: 'undefined',
+        deltas: {"happiness":2,"wealth":1},
+        result: '위험물 자격증 한 장이, 손에 쥔 무게를 다르게 만들었다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-becomes-go-to-veteran-28',
+        text: 'undefined',
+        deltas: {"happiness":3,"fame":1},
+        result: '헷갈리는 일이 생기면, 다들 먼저 자신을 찾았다.',
+        requiresRoute: 'logistics'
+      },
+
+      {
         id: 're-work-life-balance-struggle-28',
         text: '워라밸 없이 일에만 매달린다',
         deltas: {"happiness":-3,"wealth":2},
@@ -10410,6 +10596,28 @@ const STAGES = [
     intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
     choices: [
       {
+        id: 'lw-team-friction-29',
+        text: 'undefined',
+        deltas: {"happiness":-3,"relationship":-2},
+        result: '피곤이 쌓일수록, 사소한 말 한마디도 날카롭게 부딪혔다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-team-dinner-29',
+        text: 'undefined',
+        deltas: {"happiness":3,"relationship":2},
+        result: '고단한 하루 끝의 술 한잔이, 서로를 조금 더 가깝게 했다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-finds-work-partner-29',
+        text: 'undefined',
+        deltas: {"happiness":3,"relationship":2},
+        result: '말 없이도 손발이 맞는 동료 하나가, 하루를 훨씬 가볍게 했다.',
+        requiresRoute: 'logistics'
+      },
+
+      {
         id: 're-department-transfer-29',
         text: '다른 부서로 발령을 받는다',
         deltas: {"happiness":-1,"wealth":1},
@@ -11026,6 +11234,28 @@ const STAGES = [
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
       {
+        id: 'lw-mentors-rookies-30',
+        text: 'undefined',
+        deltas: {"happiness":3,"relationship":1},
+        result: '신입들 사이에서, 어느새 믿고 물어보는 선임이 되어 있었다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-coordinates-line-30',
+        text: 'undefined',
+        deltas: {"happiness":2,"fame":1},
+        result: '어수선한 라인도, 한마디면 정리가 됐다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-conveyor-breakdown-30',
+        text: 'undefined',
+        deltas: {"happiness":-2,"wealth":-1},
+        result: '멈춰버린 벨트 앞에서, 다급한 손길들이 분주해졌다.',
+        requiresRoute: 'logistics'
+      },
+
+      {
         id: 're-office-romance-30',
         text: '같은 회사 동료와 연애를 시작한다',
         deltas: {"happiness":4},
@@ -11629,6 +11859,28 @@ const STAGES = [
     intro: '곁에 남을 사람과 앞으로의 삶을 어떻게 그릴지, 조금 더 구체적으로 고민하는 나이입니다.',
     choices: [
       {
+        id: 'lw-robot-arrival-31',
+        text: 'undefined',
+        deltas: {"happiness":-2},
+        result: '조용히 움직이는 기계 앞에서, 낯선 위기감이 스쳤다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-automation-anxiety-31',
+        text: 'undefined',
+        deltas: {"happiness":-3},
+        result: '언젠가 이 자리도 기계로 채워질까, 문득 두려워졌다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-adapts-to-new-system-31',
+        text: 'undefined',
+        deltas: {"happiness":2,"wealth":1},
+        result: '새 시스템도 결국, 손에 익어갔다.',
+        requiresRoute: 'logistics'
+      },
+
+      {
         id: 're-reorg-anxiety-31',
         text: '조직 개편 소식에 불안해한다',
         deltas: {"happiness":-3},
@@ -12213,6 +12465,28 @@ const STAGES = [
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
       {
+        id: 'lw-joins-labor-union-32',
+        text: 'undefined',
+        deltas: {"happiness":2,"relationship":1},
+        result: '혼자 말하기 어려웠던 것들이, 함께니 목소리가 됐다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-demands-better-hours-32',
+        text: 'undefined',
+        deltas: {"happiness":1,"wealth":1},
+        result: '조금씩이라도, 바뀔 수 있다는 걸 확인한 하루였다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-negotiates-conditions-32',
+        text: 'undefined',
+        deltas: {"wealth":2,"happiness":1},
+        result: '어렵게 앉은 협상 테이블에서, 작은 성과 하나를 얻었다.',
+        requiresRoute: 'logistics'
+      },
+
+      {
         id: 're-becomes-go-to-person-32',
         text: '팀에서 먼저 찾는 사람이 된다',
         deltas: {"happiness":3,"fame":3},
@@ -12742,6 +13016,28 @@ const STAGES = [
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
       {
+        id: 'lw-logistics-management-cert-33',
+        text: 'undefined',
+        deltas: {"happiness":3,"wealth":1},
+        result: '현장 밖에서도 통할 자격 하나를, 손에 쥐었다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-suggests-layout-improvement-33',
+        text: 'undefined',
+        deltas: {"happiness":2,"fame":1},
+        result: '몸으로 부딪히며 배운 것들이, 제안서 한 장에 담겼다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-decade-veteran-recognized-33',
+        text: 'undefined',
+        deltas: {"happiness":3,"fame":1},
+        result: '10년이라는 시간이, 이름 앞에 무게를 더했다.',
+        requiresRoute: 'logistics'
+      },
+
+      {
         id: 're-promotion-competition-33',
         text: '동기와 승진 후보로 함께 오른다',
         deltas: {"happiness":-2,"fame":2},
@@ -13260,6 +13556,28 @@ const STAGES = [
     ageRange: '34세',
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
+      {
+        id: 'lw-body-not-what-it-was-34',
+        text: 'undefined',
+        deltas: {"happiness":-2,"health":-1},
+        result: '예전만큼 가뿐하지 않은 몸이, 세월을 실감하게 했다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-passes-down-tips-34',
+        text: 'undefined',
+        deltas: {"happiness":3,"relationship":2},
+        result: '오래 쌓은 요령들을, 하나씩 후배들에게 넘겨주었다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-plans-next-years-34',
+        text: 'undefined',
+        deltas: {"happiness":2},
+        result: '앞으로의 시간을 어떻게 보낼지, 차분히 그려보기 시작했다.',
+        requiresRoute: 'logistics'
+      },
+
       {
         id: 're-job-offer-tempting-34',
         text: '더 좋은 조건의 이직 제안을 받는다',
@@ -18196,6 +18514,14 @@ const STAGES = [
     intro: '다 가진 것 같은데도 문득 공허해지는, 이른바 중년의 위기가 찾아오는 나이입니다.',
     choices: [
       {
+        id: 'lw2-veteran-reflection-45',
+        text: '오랜 현장 경력을 돌아보며 그동안의 노하우를 정리해본다',
+        deltas: {"happiness":3,"fame":1},
+        result: '몸으로 익힌 것들이, 어느새 남에게 가르칠 만한 것이 되어 있었다.',
+        requiresOccupation: ["logistics-worker"]
+      },
+
+      {
         id: 're-mgr-first-oneonone-45',
         text: '팀원과 첫 1:1 면담을 진행한다',
         deltas: {"happiness":-2,"fame":2},
@@ -21352,6 +21678,14 @@ const STAGES = [
     ageRange: '60세',
     intro: '환갑. 예순 해를 지나온 삶을 가족과 함께 돌아보는 해입니다.',
     choices: [
+      {
+        id: 'lw2-retirement-prep-60',
+        text: '평생 몸으로 뛰어온 현장 생활의 마무리를 준비한다',
+        deltas: {"happiness":2,"health":1},
+        result: '떠날 준비를 하면서도, 발걸음은 여전히 익숙한 곳을 향했다.',
+        requiresOccupation: ["logistics-worker"]
+      },
+
       {
         id: 'sb2-local-legacy-60',
         text: '동네에서 오래된 가게로 소문이 나기 시작한다',
