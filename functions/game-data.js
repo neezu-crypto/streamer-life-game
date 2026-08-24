@@ -24512,6 +24512,42 @@ const STAGES = [
     intro: '누군가의 손길이 일상 속에 자연스레 스며드는 시기입니다.',
     choices: [
       {
+        id: 'old-career-idol-1-85',
+        text: '옛 팬이 보낸 편지를 발견하고 다시 읽어본다',
+        deltas: {"happiness":4,"fame":2},
+        result: '빛바랜 종이 위에서도, 그 시절 함성이 들리는 것 같았다.',
+        requiresEverOccupation: ["trainee","idol"]
+      },
+      {
+        id: 'old-career-entrepreneur-2-85',
+        text: '처음 사업을 시작하던 시절의 낡은 장부를 꺼내본다',
+        deltas: {"happiness":3},
+        result: '삐뚤빼뚤한 숫자 하나하나가, 그때의 절박함을 고스란히 담고 있었다.',
+        requiresEverOccupation: ["entrepreneur","startup-founder","small-business-owner","teen-entrepreneur"]
+      },
+      {
+        id: 'old-hobby-gardening-1-85',
+        text: '몸이 예전 같지 않아도 텃밭 손질만은 거르지 않는다',
+        deltas: {"happiness":4,"health":1},
+        result: '흙을 만지는 그 순간만큼은, 몸의 통증도 잠시 잊혔다.',
+        requiresHobby: 'gardening'
+      },
+      {
+        id: 'old-talent-arts-2-85',
+        text: '가족 모임에서 오랜만에 노래 한 곡을 뽑는다',
+        deltas: {"happiness":4,"relationship":2},
+        result: '박수와 웃음 속에, 잠시 젊은 날로 돌아간 기분이었다.',
+        requiresTalent: 'arts'
+      },
+      {
+        id: 'old-talent-speaking-1-85',
+        text: '지역 행사에서 지나온 인생을 주제로 짧은 강연을 한다',
+        deltas: {"happiness":5,"fame":1},
+        result: '떨리는 목소리였지만, 그 말 한마디 한마디에 무게가 실렸다.',
+        requiresTalent: 'speaking'
+      },
+
+      {
         "id": "va-industry-icon-85",
         "text": "영화계의 살아있는 전설로 회자된다",
         "deltas": {
@@ -24642,6 +24678,42 @@ const STAGES = [
     intro: '말보다 존재만으로도, 가족에게 무언가를 전할 수 있는 나이입니다.',
     choices: [
       {
+        id: 'old-career-actor-1-86',
+        text: '젊은 배우 후배가 연기 조언을 구하러 찾아온다',
+        deltas: {"happiness":4,"fame":2},
+        result: '묻는 눈빛이, 예전 자신의 것과 꼭 닮아 있었다.',
+        requiresEverOccupation: ["actor-newcomer","rising-actor","veteran-actor"]
+      },
+      {
+        id: 'old-career-office-2-86',
+        text: '정년까지 다녔던 회사 건물 앞을 오랜만에 지나쳐본다',
+        deltas: {"happiness":2,"relationship":1},
+        result: '낯선 간판이 걸려 있었지만, 발걸음은 여전히 그 문 앞에서 멈췄다.',
+        requiresEverOccupation: ["office-worker","team-lead","job-changed","re-employed","career-changer","tech-worker","civil-servant","logistics-worker","sales-rep","public-corp-employee"]
+      },
+      {
+        id: 'old-hobby-painting-1-86',
+        text: '떨리는 손으로도 붓을 놓지 않고 그림을 이어간다',
+        deltas: {"happiness":4},
+        result: '선은 예전만큼 곧지 않았지만, 그림엔 더 깊은 색이 실렸다.',
+        requiresHobby: 'painting'
+      },
+      {
+        id: 'old-talent-business-2-86',
+        text: '가계부를 꼼꼼히 정리하며 여전한 감각을 확인한다',
+        deltas: {"happiness":3,"wealth":1},
+        result: '숫자를 다루는 손끝만큼은, 나이를 먹지 않은 것 같았다.',
+        requiresTalent: 'business'
+      },
+      {
+        id: 'old-talent-sports-1-86',
+        text: '몸이 허락하는 선에서 매일 가벼운 운동을 거르지 않는다',
+        deltas: {"happiness":3,"health":2},
+        result: '젊을 때만큼은 아니어도, 몸을 움직이는 그 습관만은 놓지 않았다.',
+        requiresTalent: 'sports'
+      },
+
+      {
         id: "wealth-drain-86-a",
         text: "달라진 세상에 적응하려 새 기기·서비스를 들인다",
         deltas: { wealth: -2 },
@@ -24748,6 +24820,35 @@ const STAGES = [
     ageRange: '87세',
     intro: '병원을 오가는 일이 조금씩 일상의 한 부분이 되어가는 시기입니다.',
     choices: [
+      {
+        id: 'old-career-athlete-1-87',
+        text: '동네 아이들에게 공 차는 법을 가르쳐준다',
+        deltas: {"happiness":4,"relationship":2},
+        result: '다리는 예전만 못해도, 시범 하나는 여전히 정확했다.',
+        requiresEverOccupation: ["student-athlete","national-athlete","pro-athlete"]
+      },
+      {
+        id: 'old-career-teacher-2-87',
+        text: '손주의 숙제를 봐주다 예전 가르치던 습관이 되살아난다',
+        deltas: {"happiness":3,"relationship":2},
+        result: '설명하는 말투에, 잊고 있던 교단의 리듬이 저절로 묻어났다.',
+        requiresEverOccupation: ["teacher"]
+      },
+      {
+        id: 'old-hobby-piano-1-87',
+        text: '굳은 손가락을 풀어가며 오랜만에 건반 앞에 앉는다',
+        deltas: {"happiness":4},
+        result: '예전만큼 매끄럽진 않아도, 몸은 그 선율을 여전히 기억했다.',
+        requiresHobby: 'piano'
+      },
+      {
+        id: 'old-talent-coding-2-87',
+        text: '오래전 취미로 짜둔 프로그램을 다시 손봐본다',
+        deltas: {"happiness":3},
+        result: '구식 코드였지만, 손을 대는 순간 다시 살아 움직이는 것 같았다.',
+        requiresTalent: 'coding'
+      },
+
       {
         id: 'deviant-secret-will-edit-87',
         text: '가족 몰래 유언장 내용을 슬쩍 바꾼다',
@@ -24861,6 +24962,35 @@ const STAGES = [
     intro: '미수(米壽). 쌀 미(米) 자에 여든여덟이라는 숫자가 담긴, 풍성한 나이입니다.',
     choices: [
       {
+        id: 'old-career-manager-1-88',
+        text: '후배 감독의 전술 자문 요청에 응한다',
+        deltas: {"happiness":4,"fame":1},
+        result: '현장을 떠난 지 오래여도, 눈은 아직 살아 있었다.',
+        requiresEverOccupation: ["soccer-manager"]
+      },
+      {
+        id: 'old-career-healthcare-2-88',
+        text: '가족의 증상을 보고 예전 배운 지식으로 먼저 살펴본다',
+        deltas: {"happiness":3,"relationship":1},
+        result: '손은 떨려도, 눈만큼은 여전히 예리하게 짚어냈다.',
+        requiresEverOccupation: ["healthcare-worker"]
+      },
+      {
+        id: 'old-hobby-revived-1-88',
+        text: '한동안 손 놓았던 취미를 다시 붙잡는다',
+        deltas: {"happiness":4},
+        result: '오랜만이라 서툴렀지만, 다시 시작한다는 것 자체가 좋았다.',
+        requiresHobby: 'revived-hobby'
+      },
+      {
+        id: 'old-talent-dance-2-88',
+        text: '손주의 재롱잔치 음악에 맞춰 슬쩍 몸을 흔들어본다',
+        deltas: {"happiness":4,"relationship":2},
+        result: '쑥스러운 손짓 하나에도, 온 가족이 함께 웃었다.',
+        requiresTalent: 'dance'
+      },
+
+      {
         id: "unhappy-88",
         text: "미수를 맞아도 텅 빈 것 같은 허전함이 크다",
         deltas: { happiness: -3 },
@@ -24925,6 +25055,35 @@ const STAGES = [
     ageRange: '89세',
     intro: '구순을 코앞에 두고, 마음을 가만히 가다듬는 한 해입니다.',
     choices: [
+      {
+        id: 'old-career-esports-1-89',
+        text: '손주에게 옛날 즐겼던 게임을 가르쳐준다',
+        deltas: {"happiness":4,"relationship":2},
+        result: '낡은 손끝이었지만, 반응 속도만큼은 아직 죽지 않았다.',
+        requiresEverOccupation: ["pro-gamer","esports-coach"]
+      },
+      {
+        id: 'old-career-advisor-2-89',
+        text: '여러 번 길을 바꿔온 삶을 돌아보며 후회 없다고 되뇐다',
+        deltas: {"happiness":3},
+        result: '곧게 뻗은 길은 아니었어도, 걸어온 궤적만큼은 온전히 자신의 것이었다.',
+        requiresEverOccupation: ["consultant","volunteer-work","career-pivot"]
+      },
+      {
+        id: 'old-hobby-shared-1-89',
+        text: '오랫동안 함께해온 취미 친구와 마지막까지 함께한다',
+        deltas: {"happiness":4,"relationship":2},
+        result: '말이 없어도, 같은 것을 좋아한다는 사실만으로 충분했다.',
+        requiresHobby: 'shared-hobby'
+      },
+      {
+        id: 'old-talent-gaming-2-89',
+        text: '요즘 유행하는 게임에 서툴게나마 도전해본다',
+        deltas: {"happiness":3},
+        result: '손가락은 헤맸지만, 새로운 것에 대한 호기심만은 여전했다.',
+        requiresTalent: 'gaming'
+      },
+
       {
         id: "wealth-drain-89-a",
         text: "적적함을 달래려 전화·방문 서비스를 이용한다",
@@ -24999,6 +25158,35 @@ const STAGES = [
     ageRange: '90세',
     intro: '구순. 아흔 해를 살아낸 시간이, 온 가족의 축하 속에 다시 한번 빛납니다.',
     choices: [
+      {
+        id: 'old-career-developer-1-90',
+        text: '예전 짜둔 코드가 아직도 쓰이고 있다는 소식을 듣는다',
+        deltas: {"happiness":4,"fame":1},
+        result: '이름 석 자는 잊혀도, 흔적은 어딘가에 남아 있었다.',
+        requiresEverOccupation: ["junior-developer","senior-developer"]
+      },
+      {
+        id: 'old-hobby-calligraphy-2-90',
+        text: '직접 쓴 글씨를 액자에 담아 가족에게 선물한다',
+        deltas: {"happiness":3,"relationship":2},
+        result: '먹물 냄새 속에, 평생 다져온 손끝의 시간이 배어 있었다.',
+        requiresHobby: 'calligraphy'
+      },
+      {
+        id: 'old-hobby-sideproject-1-90',
+        text: '오래전 시작했던 사이드 프로젝트를 마침내 마무리 짓는다',
+        deltas: {"happiness":5},
+        result: '누가 알아주지 않아도, 스스로에게는 완결이 필요했다.',
+        requiresHobby: 'side-project'
+      },
+      {
+        id: 'old-talent-hidden-2-90',
+        text: '숨겨온 재주 하나로 마을 행사에서 깜짝 무대를 선보인다',
+        deltas: {"happiness":4,"fame":1},
+        result: '숨겨둔 만큼, 그 순간의 놀라움도 더 컸다.',
+        requiresTalent: 'hidden-talent'
+      },
+
       {
         id: 'deviant-secret-nightcap-90',
         text: '요양보호사 몰래 술 한잔을 숨겨 마신다',
@@ -25124,6 +25312,35 @@ const STAGES = [
     intro: '하루하루가 마치 선물처럼 느껴지는, 그런 나이입니다.',
     choices: [
       {
+        id: 'old-career-politician-1-91',
+        text: '예전 추진했던 정책이 여전히 동네에 남아있는 걸 발견한다',
+        deltas: {"happiness":4,"fame":1},
+        result: '이름은 잊혀도, 그 결정은 여전히 거리 어딘가에 남아 있었다.',
+        requiresEverOccupation: ["class-president","student-council-president","local-council-candidate","local-council-member"]
+      },
+      {
+        id: 'old-hobby-childhood-2-91',
+        text: '오래된 그 취미 도구를 다시 꺼내 만지작거린다',
+        deltas: {"happiness":3},
+        result: '낡은 물건 하나에도, 어린 시절이 고스란히 묻어 있었다.',
+        requiresHobby: 'childhood-hobby'
+      },
+      {
+        id: 'old-hobby-wellness-1-91',
+        text: '몸이 허락하는 만큼만 꾸준히 건강 관리 루틴을 이어간다',
+        deltas: {"happiness":3,"health":2},
+        result: '무리하지 않는 법을 아는 것도, 오랜 시간이 준 지혜였다.',
+        requiresHobby: 'wellness-hobby'
+      },
+      {
+        id: 'old-talent-leadership-2-91',
+        text: '동네 어르신 모임을 이끌며 크고 작은 일들을 조율한다',
+        deltas: {"happiness":3,"fame":1},
+        result: '이끄는 자리가 다시 주어지자, 오랜 감각이 자연스레 되살아났다.',
+        requiresTalent: 'leadership'
+      },
+
+      {
         id: "unhappy-91",
         text: "옛 동료·친구들의 이름을 하나씩 잊어가는 자신을 발견한다",
         deltas: { happiness: -4 },
@@ -25218,6 +25435,35 @@ const STAGES = [
     ageRange: '92세',
     intro: '침상에서 보내는 시간이 조금씩 늘어가는, 조용한 나날입니다.',
     choices: [
+      {
+        id: 'old-career-artist-1-92',
+        text: '서랍 속에 남겨둔 미완성 원고를 다시 펼쳐본다',
+        deltas: {"happiness":3},
+        result: '끝맺지 못한 이야기가, 여태 그 자리에서 기다리고 있었다.',
+        requiresEverOccupation: ["artist-writer"]
+      },
+      {
+        id: 'old-hobby-collecting-2-92',
+        text: '수집품 목록을 정리하며 그때그때의 기억을 되짚는다',
+        deltas: {"happiness":3},
+        result: '물건 하나하나가, 지나온 계절을 하나씩 소환했다.',
+        requiresHobby: 'collecting'
+      },
+      {
+        id: 'old-talent-acting-1-92',
+        text: '동네 노인정 장기자랑에서 옛 장기를 뽐낸다',
+        deltas: {"happiness":4,"fame":1},
+        result: '무대는 작아졌어도, 그 순간의 떨림만은 여전했다.',
+        requiresTalent: 'acting'
+      },
+      {
+        id: 'old-talent-math-2-92',
+        text: '머릿속으로 복잡한 셈을 척척 해내며 스스로도 놀란다',
+        deltas: {"happiness":3},
+        result: '숫자 앞에서만큼은, 세월도 비켜가는 듯했다.',
+        requiresTalent: 'math'
+      },
+
       {
         id: 'deviant-hide-fall-from-family-92',
         text: '넘어진 걸 자식들 걱정할까 봐 숨긴다',
@@ -25346,6 +25592,42 @@ const STAGES = [
     intro: '못다 한 말들을, 이제는 하나씩 꺼내어 전하는 시기입니다.',
     choices: [
       {
+        id: 'old-career-idol-2-93',
+        text: '거울 앞에서 옛 무대 동작을 슬쩍 흉내내본다',
+        deltas: {"happiness":3},
+        result: '몸은 예전 같지 않았지만, 리듬만큼은 몸이 먼저 기억하고 있었다.',
+        requiresEverOccupation: ["trainee","idol"]
+      },
+      {
+        id: 'old-career-entrepreneur-1-93',
+        text: '직접 세운 사업체가 다음 세대 손에서 이어지고 있다는 소식을 듣는다',
+        deltas: {"happiness":5,"wealth":1},
+        result: '이름은 바뀌었어도, 그 뿌리는 여전히 자신이 심은 것이었다.',
+        requiresEverOccupation: ["entrepreneur","startup-founder","small-business-owner","teen-entrepreneur"]
+      },
+      {
+        id: 'old-hobby-gardening-2-93',
+        text: '직접 기른 채소를 이웃들과 나눈다',
+        deltas: {"happiness":3,"relationship":2},
+        result: '작은 봉지 하나에도, 오래 가꿔온 정성이 담겨 있었다.',
+        requiresHobby: 'gardening'
+      },
+      {
+        id: 'old-talent-arts-1-93',
+        text: '귀에 익은 옛 노래를 흥얼거리며 하루를 시작한다',
+        deltas: {"happiness":4},
+        result: '음정은 흔들려도, 그 가락만큼은 여전히 마음을 채웠다.',
+        requiresTalent: 'arts'
+      },
+      {
+        id: 'old-talent-speaking-2-93',
+        text: '가족 모임에서 좌중을 사로잡는 이야기꾼 역할을 자처한다',
+        deltas: {"happiness":4,"relationship":2},
+        result: '같은 이야기를 몇 번을 해도, 다들 처음 듣는 것처럼 웃어주었다.',
+        requiresTalent: 'speaking'
+      },
+
+      {
         id: "unhappy-93",
         text: "가족들의 발걸음이 뜸해지며 서운함이 조용히 쌓인다",
         deltas: { happiness: -3, relationship: -2 },
@@ -25453,6 +25735,42 @@ const STAGES = [
     intro: '지녀온 것들과 마음을, 차분히 정리해보는 한 해입니다.',
     choices: [
       {
+        id: 'old-career-actor-2-94',
+        text: '출연했던 옛 작품이 재방송되는 걸 우연히 본다',
+        deltas: {"happiness":3,"fame":1},
+        result: '낯선 얼굴의 젊은 자신이, 화면 속에서 계속 연기하고 있었다.',
+        requiresEverOccupation: ["actor-newcomer","rising-actor","veteran-actor"]
+      },
+      {
+        id: 'old-career-office-1-94',
+        text: '오랜 회사 동료 모임에 나가 옛 이야기를 나눈다',
+        deltas: {"happiness":4,"relationship":3},
+        result: '직급도 부서도 사라진 자리에서, 그제야 사람으로 만났다.',
+        requiresEverOccupation: ["office-worker","team-lead","job-changed","re-employed","career-changer","tech-worker","civil-servant","logistics-worker","sales-rep","public-corp-employee"]
+      },
+      {
+        id: 'old-hobby-painting-2-94',
+        text: '평생 그린 그림들을 모아 작은 전시회를 연다',
+        deltas: {"happiness":5,"fame":1},
+        result: '낯선 이들의 눈길 속에서, 오랜 시간이 새삼 뿌듯하게 느껴졌다.',
+        requiresHobby: 'painting'
+      },
+      {
+        id: 'old-talent-business-1-94',
+        text: '동네 소상공인들에게 지나온 경험을 바탕으로 조언을 건넨다',
+        deltas: {"happiness":4,"fame":1},
+        result: '숫자 너머의 감을, 말로 풀어주는 게 뜻밖에도 즐거웠다.',
+        requiresTalent: 'business'
+      },
+      {
+        id: 'old-talent-sports-2-94',
+        text: '동네 체육대회에서 어르신부 종목에 슬쩍 출전해본다',
+        deltas: {"happiness":4,"relationship":1},
+        result: '결과는 상관없었다. 몸을 던지는 그 순간이 오랜만에 짜릿했다.',
+        requiresTalent: 'sports'
+      },
+
+      {
         id: "unhappy-94",
         text: "몸이라는 초가 하루가 다르게 짧아짐을 스스로 느낀다",
         deltas: { happiness: -3, health: -2 },
@@ -25540,6 +25858,35 @@ const STAGES = [
     ageRange: '95세',
     intro: '아흔다섯 해를 살아냈다는 사실이, 스스로도 믿기지 않는 나이입니다.',
     choices: [
+      {
+        id: 'old-career-athlete-2-95',
+        text: '예전 활약이 담긴 경기 영상을 다시 찾아본다',
+        deltas: {"happiness":3},
+        result: '그 순간의 함성이, 화면 밖에서도 여전히 생생했다.',
+        requiresEverOccupation: ["student-athlete","national-athlete","pro-athlete"]
+      },
+      {
+        id: 'old-career-teacher-1-95',
+        text: '예전 가르쳤던 제자가 스승의 날에 안부를 전해온다',
+        deltas: {"happiness":5,"relationship":2},
+        result: '이름조차 가물가물했는데, 그 마음만은 또렷하게 전해졌다.',
+        requiresEverOccupation: ["teacher"]
+      },
+      {
+        id: 'old-hobby-piano-2-95',
+        text: '손주 앞에서 자랑하듯 좋아하던 곡을 연주해준다',
+        deltas: {"happiness":4,"relationship":2},
+        result: '박수 소리보다, 그 눈빛이 더 큰 앙코르였다.',
+        requiresHobby: 'piano'
+      },
+      {
+        id: 'old-talent-coding-1-95',
+        text: '손주의 숙제로 나온 코딩 문제를 함께 풀어본다',
+        deltas: {"happiness":4,"relationship":2},
+        result: '낯선 최신 용어 사이에서도, 논리를 짚는 감만은 그대로였다.',
+        requiresTalent: 'coding'
+      },
+
       {
         id: "wealth-drain-95-a",
         text: "무사히 지낸 하루하루를 위해 필요한 지원을 늘린다",
@@ -25636,6 +25983,35 @@ const STAGES = [
     ageRange: '96세',
     intro: '몸은 약해져도 마음의 평화를 지켜내려 애쓰는, 고요한 나이입니다.',
     choices: [
+      {
+        id: 'old-career-manager-2-96',
+        text: '예전 지휘했던 팀의 우승 소식에 눈시울이 붉어진다',
+        deltas: {"happiness":3},
+        result: '이름은 빠졌어도, 마음만은 그 벤치에 앉아 있었다.',
+        requiresEverOccupation: ["soccer-manager"]
+      },
+      {
+        id: 'old-career-healthcare-1-96',
+        text: '같은 병동에서 일했던 옛 동료의 병문안을 받는다',
+        deltas: {"happiness":4,"relationship":2},
+        result: '환자와 의료진, 그 경계를 넘나든 세월이 새삼스러웠다.',
+        requiresEverOccupation: ["healthcare-worker"]
+      },
+      {
+        id: 'old-hobby-revived-2-96',
+        text: '그 취미 덕분에 얻은 인연들과 오랜만에 모인다',
+        deltas: {"happiness":3,"relationship":2},
+        result: '다시 이어간 손끝의 취미가, 사람까지 다시 이어주었다.',
+        requiresHobby: 'revived-hobby'
+      },
+      {
+        id: 'old-talent-dance-1-96',
+        text: '동네 경로당 모임에서 옛 춤 솜씨를 보여준다',
+        deltas: {"happiness":4,"relationship":1},
+        result: '몸은 무거워졌어도, 리듬을 타는 흥만큼은 그대로였다.',
+        requiresTalent: 'dance'
+      },
+
       {
         id: "unhappy-96",
         text: "귀도 눈도 예전 같지 않아 세상과 조금씩 멀어진다",
@@ -25734,6 +26110,35 @@ const STAGES = [
     intro: '백수(白壽)를 코앞에 두고, 마음 한구석이 설레는 나이입니다.',
     choices: [
       {
+        id: 'old-career-esports-2-97',
+        text: '이름을 알렸던 대회 다시보기 영상을 찾아본다',
+        deltas: {"happiness":3},
+        result: '화면 속 젊은 손놀림이, 남의 일처럼 낯설고도 반가웠다.',
+        requiresEverOccupation: ["pro-gamer","esports-coach"]
+      },
+      {
+        id: 'old-career-advisor-1-97',
+        text: '지역 후배 사업가들에게 무료로 자문을 해준다',
+        deltas: {"happiness":4,"fame":1},
+        result: '대가 없이 건네는 조언이, 오히려 더 홀가분했다.',
+        requiresEverOccupation: ["consultant","volunteer-work","career-pivot"]
+      },
+      {
+        id: 'old-hobby-shared-2-97',
+        text: '함께 취미를 즐기던 이들과의 추억을 사진첩으로 정리한다',
+        deltas: {"happiness":3},
+        result: '낡은 사진 속에서도, 그 시절 웃음소리가 여전히 들리는 것 같았다.',
+        requiresHobby: 'shared-hobby'
+      },
+      {
+        id: 'old-talent-gaming-1-97',
+        text: '손주와 나란히 앉아 오랜만에 게임 한 판을 즐긴다',
+        deltas: {"happiness":4,"relationship":2},
+        result: '반응은 느려졌어도, 승부욕만큼은 조금도 줄지 않았다.',
+        requiresTalent: 'gaming'
+      },
+
+      {
         id: "unhappy-97",
         text: "하루의 대부분을 침상에서 보내야 하는 처지가 된다",
         deltas: { happiness: -4, health: -3 },
@@ -25830,6 +26235,35 @@ const STAGES = [
     ageRange: '98세',
     intro: '백 살이라는 숫자가, 이제는 정말 눈앞으로 성큼 다가온 나이입니다.',
     choices: [
+      {
+        id: 'old-career-developer-2-98',
+        text: '손주의 컴퓨터가 말썽이라기에 옛 감으로 살펴봐준다',
+        deltas: {"happiness":3,"relationship":2},
+        result: '낯선 기계 앞에서도, 손은 여전히 길을 알고 있었다.',
+        requiresEverOccupation: ["junior-developer","senior-developer"]
+      },
+      {
+        id: 'old-hobby-calligraphy-1-98',
+        text: '붓을 들어 오랜만에 서예 작품을 완성한다',
+        deltas: {"happiness":4},
+        result: '손끝이 떨려도, 획 하나하나엔 여전히 정성이 담겼다.',
+        requiresHobby: 'calligraphy'
+      },
+      {
+        id: 'old-hobby-sideproject-2-98',
+        text: '그때 끄적이던 아이디어 노트를 다시 펼쳐본다',
+        deltas: {"happiness":3},
+        result: '빛바랜 메모 속에도, 여전히 설레던 순간이 남아 있었다.',
+        requiresHobby: 'side-project'
+      },
+      {
+        id: 'old-talent-hidden-1-98',
+        text: '평생 남들에게 잘 안 보여준 재주를 가족 앞에서 슬쩍 꺼내본다',
+        deltas: {"happiness":4,"relationship":1},
+        result: '놀란 얼굴들 앞에서, 뒤늦은 박수가 쏟아졌다.',
+        requiresTalent: 'hidden-talent'
+      },
+
       {
         id: "wealth-drain-98-a",
         text: "관심을 받는 김에 가족들에게 크게 한턱낸다",
@@ -25934,6 +26368,35 @@ const STAGES = [
     intro: '백수(白壽). 백(百)에서 한 획을 뺀 흰 백(白) 자로, 아흔아홉 해를 기립니다.',
     choices: [
       {
+        id: 'old-career-politician-2-99',
+        text: '후배 정치인의 선거 유세 소식에 옛 생각이 난다',
+        deltas: {"happiness":3},
+        result: '그 열기 속에, 자신의 젊은 날도 함께 서 있는 것 같았다.',
+        requiresEverOccupation: ["class-president","student-council-president","local-council-candidate","local-council-member"]
+      },
+      {
+        id: 'old-hobby-childhood-1-99',
+        text: '어릴 적 즐기던 놀이를 손주에게 그대로 알려준다',
+        deltas: {"happiness":4,"relationship":2},
+        result: '세대를 건너, 같은 웃음이 다시 한번 터져 나왔다.',
+        requiresHobby: 'childhood-hobby'
+      },
+      {
+        id: 'old-hobby-wellness-2-99',
+        text: '같은 루틴을 즐기는 또래들과 어울려 시간을 보낸다',
+        deltas: {"happiness":4,"relationship":1},
+        result: '몸을 움직이는 그 시간이, 마음까지 함께 움직여주었다.',
+        requiresHobby: 'wellness-hobby'
+      },
+      {
+        id: 'old-talent-leadership-1-99',
+        text: '가족 모임에서 자연스럽게 좌장 역할을 맡는다',
+        deltas: {"happiness":4,"relationship":2},
+        result: '직함은 없어도, 사람들은 여전히 그 말을 따라 움직였다.',
+        requiresTalent: 'leadership'
+      },
+
+      {
         id: "unhappy-99",
         text: "백수를 자축하기엔 몸 이곳저곳이 예전 같지 않음을 느낀다",
         deltas: { happiness: -3, health: -2 },
@@ -26027,6 +26490,35 @@ const STAGES = [
     ageRange: '100세',
     intro: '백세. 한 세기를 온전히 살아낸 삶이, 마침내 이 자리에 도착합니다.',
     choices: [
+      {
+        id: 'old-career-artist-2-100',
+        text: '오래전 작품에 대한 독자의 편지를 받는다',
+        deltas: {"happiness":4,"fame":1},
+        result: '몇 십 년 전 문장이, 누군가의 삶에 여전히 남아 있었다.',
+        requiresEverOccupation: ["artist-writer"]
+      },
+      {
+        id: 'old-hobby-collecting-1-100',
+        text: '평생 모은 수집품 중 가장 아끼던 것을 손주에게 물려준다',
+        deltas: {"happiness":4,"relationship":2},
+        result: '값어치보다 더 무거운 마음이, 그 물건에 함께 얹혀 건네졌다.',
+        requiresHobby: 'collecting'
+      },
+      {
+        id: 'old-talent-acting-2-100',
+        text: '손주에게 옛날이야기를 실감나게 연기하듯 들려준다',
+        deltas: {"happiness":3,"relationship":2},
+        result: '표정 하나, 목소리 하나에도, 몸에 밴 습관이 묻어났다.',
+        requiresTalent: 'acting'
+      },
+      {
+        id: 'old-talent-math-1-100',
+        text: '손주의 수학 숙제를 봐주며 옛 실력을 뽐낸다',
+        deltas: {"happiness":4,"relationship":2},
+        result: '공식은 가물가물해도, 풀어가는 감각만은 여전히 날카로웠다.',
+        requiresTalent: 'math'
+      },
+
       {
         id: "unhappy-100",
         text: "백 년을 다 살아도 여전히 풀리지 않는 그리움이 남는다",
