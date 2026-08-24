@@ -1746,39 +1746,52 @@ function updateRouteSceneImage(currentRoute) {
   lastKnownRouteId = newRouteId;
 }
 // 루트 테마 UI(2026-08-25, 사용자 지시) - 루트에 맞춰 #gameSection 전체
-// 배경·버튼 스타일이 dissolve(불투명도 페이드)로 전환된다. 시범 구현으로
-// developer(개발자) 루트 하나만 - 나머지 루트는 검증 후 이 맵에 한 줄씩
-// 추가하면 된다(CSS는 style.css에 #gameSection.route-theme-{id} 블록으로
-// 새로 하나씩 늘어남). lastKnownRouteId(삽화용)와 달리 이건 "루트가 활성인
-// 동안 계속" 적용돼야 하는 상태라 별도 변수로 추적한다.
-const ROUTE_THEME_CLASS = {
-  developer: 'route-theme-developer'
-};
+// 배경·버튼 스타일이 dissolve로 전환된다. 시범 구현으로 developer(개발자)
+// 루트 하나만 - 나머지 루트는 검증 후 이 맵에 한 줄씩 추가하면 된다.
+// lastKnownRouteId(삽화용)와 달리 이건 "루트가 활성인 동안 계속" 적용돼야
+// 하는 상태라 별도 변수로 추적한다.
+//
+// 클래스가 둘로 나뉜다(2026-08-25, 사용자 지적 - "배경도 페이드
+// 전환되는거야?" 확인 후 분리) - 바깥 배경(body)은 패널이 안 가려주는
+// 항상 보이는 영역이라 지연 없이 즉시 바꿔야 background-color transition이
+// 실제로 눈에 보이고, 패널 안쪽(#gameSection)은 아직 다 안 사라진 상태에서
+// 색이 바뀌면 순간적으로 튀어 보이므로(pop) 완전히 투명해지는 350ms
+// 시점까지 미룬다.
+const ROUTE_THEME_IDS = { developer: true };
+function routeBgClass(id) { return 'route-bg-' + id; }
+function routePanelClass(id) { return 'route-theme-' + id; }
 let currentThemeRouteId = null;
 const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-function applyRouteThemeClass(routeId) {
-  Object.values(ROUTE_THEME_CLASS).forEach((cls) => document.body.classList.remove(cls));
-  if (routeId && ROUTE_THEME_CLASS[routeId]) document.body.classList.add(ROUTE_THEME_CLASS[routeId]);
+function applyOuterBgClass(routeId) {
+  Object.keys(ROUTE_THEME_IDS).forEach((id) => document.body.classList.remove(routeBgClass(id)));
+  if (routeId && ROUTE_THEME_IDS[routeId]) document.body.classList.add(routeBgClass(routeId));
+}
+function applyPanelThemeClass(routeId) {
+  Object.keys(ROUTE_THEME_IDS).forEach((id) => gameSection.classList.remove(routePanelClass(id)));
+  if (routeId && ROUTE_THEME_IDS[routeId]) gameSection.classList.add(routePanelClass(routeId));
 }
 // 새로고침·재개 직후처럼 화면이 막 나타나는 시점엔 dissolve 없이 즉시 적용.
 function initRouteTheme(currentRoute) {
   currentThemeRouteId = currentRoute ? currentRoute.id : null;
-  applyRouteThemeClass(currentThemeRouteId);
+  applyOuterBgClass(currentThemeRouteId);
+  applyPanelThemeClass(currentThemeRouteId);
 }
 function updateRouteTheme(currentRoute) {
   const newRouteId = currentRoute ? currentRoute.id : null;
   if (newRouteId === currentThemeRouteId) return;
-  const oldClass = ROUTE_THEME_CLASS[currentThemeRouteId] || null;
-  const newClass = ROUTE_THEME_CLASS[newRouteId] || null;
+  const oldThemed = !!(currentThemeRouteId && ROUTE_THEME_IDS[currentThemeRouteId]);
+  const newThemed = !!(newRouteId && ROUTE_THEME_IDS[newRouteId]);
   currentThemeRouteId = newRouteId;
-  if (oldClass === newClass) return;
+  if (!oldThemed && !newThemed) return;
   if (prefersReducedMotion) {
-    applyRouteThemeClass(newRouteId);
+    applyOuterBgClass(newRouteId);
+    applyPanelThemeClass(newRouteId);
     return;
   }
+  applyOuterBgClass(newRouteId); // 바깥 배경은 즉시 - CSS transition이 알아서 부드럽게 흘려준다
   gameSection.classList.add('route-theme-fade');
   setTimeout(() => {
-    applyRouteThemeClass(newRouteId);
+    applyPanelThemeClass(newRouteId); // 패널 안쪽은 완전히 투명해진 뒤 스냅
     gameSection.classList.remove('route-theme-fade');
   }, 350);
 }

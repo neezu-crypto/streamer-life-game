@@ -4435,27 +4435,42 @@
         <code>&lt;body&gt;</code>로 올려 해결 - 이미 <code>html, body { background: var(--bg) }</code>가
         전역 배경을 그 변수로 그리고 있어서, body에 새 <code>--bg</code>를 얹으면 패널 바깥 여백까지
         같이 바뀐다(별도 선택자 추가 없이 변수 재정의 하나로 해결, light/dark 테마와 동일한 원리).
-        코드 라인 배경 패턴도 body와 <code>#gameSection</code> 양쪽에 둬 안팎이 이어져 보이게 했다.
         devbar(상단 게임 링크 바)는 원래부터 "다른 페이지들과 시각적으로 한 세트"를 유지하려고 테마
         무관 고정색이라 의도적으로 안 바뀐다.</p>
+        <p class="note"><b>바깥 배경 페이드가 실제로는 안 보이던 버그(2026-08-25, 사용자 지적 -
+        "배경도 페이드 전환되는거야? 스크린샷만 보면 배경은 전환효과가 적용안된것같은데").</b> 스크린샷을
+        찍어 보여드렸더니 정확히 짚으셨다 - 바깥 배경에 <code>background-color</code>
+        <code>transition</code>은 걸려 있었지만, 그 색 자체를 바꾸는 JS 클래스 교체가 패널과 <b>같은
+        350ms 지연 시점</b>에 일어나도록 짜여 있었다. 즉 "즉시 전환 시작 → 이미 다 바뀐 채로 350ms
+        대기"였을 뿐, 실제로 눈에 보이는 페이드는 없었다. 원인 - 바깥 배경과 패널 안쪽을 <b>같은
+        클래스 하나</b>(<code>body.route-theme-developer</code>)로 묶어서, 패널의 "안 보일 때까지
+        기다렸다 스냅"하는 타이밍을 바깥 배경까지 그대로 물려받은 것.</p>
+        <p class="note"><b>클래스를 둘로 분리해 해결.</b> <code>route-bg-developer</code>(body) -
+        바깥 배경(<code>--bg</code>)만 담당하고, 패널이 가려줄 필요가 없는 항상 보이는 영역이라
+        <b>지연 없이 즉시</b> 클래스를 바꾼다 - 그래야 <code>background-color</code>
+        <code>transition</code>이 트리거된 순간부터 실제로 흐른다. <code>route-theme-developer</code>
+        (<code>#gameSection</code>) - 패널 안쪽(<code>--panel</code>·<code>--gold</code> 등)만
+        담당하고, 기존처럼 패널이 완전히 투명해지는 350ms 시점까지 지연 - 안 그러면 아직 다 안
+        사라진 패널 색이 순간적으로 튀어 보인다(pop). 결과: 진입 시 0~350ms 동안 바깥 배경은 부드럽게
+        색이 흐르고 패널은 페이드 아웃, 350ms 시점에 패널 색이 스냅되며 350~700ms 동안 이미 바뀐 색으로
+        페이드 인 - 바깥은 "즉시 흐름", 안쪽은 "안 보일 때 바뀜", 서로 다른 두 방식이 같은 흐름 안에서
+        맞물린다.</p>
 
         <h3>디졸브 전환 - dissolve fade</h3>
         <p><code>lastKnownRouteId</code>(삽화용, 11장)와 다른 별도 상태
         <code>currentThemeRouteId</code>로 추적 - 삽화는 "루트에 막 진입한 한 턴만" 보여주지만, 테마는
         "루트가 활성인 동안 계속" 적용돼야 하는 상태이기 때문이다. <code>updateRouteTheme(currentRoute)</code>가
         매 <code>applyOutcome()</code>마다 호출되어, 이전 턴과 route id가 같으면 아무 것도 안 하고(불필요한
-        리렌더 방지), route id가 바뀌었어도 두 route가 매핑되는 테마 클래스가 같으면(둘 다 테마 없음 등)
-        역시 스킵한다. 실제로 테마가 달라질 때만 <code>#gameSection</code>에 <code>.route-theme-fade</code>
-        클래스를 추가해 그 패널만 <code>opacity</code>를 0으로 내리고, CSS <code>transition</code>
-        시간과 정확히 맞춘 350ms 뒤 <code>setTimeout</code>에서 실제 테마 클래스(<code>body</code>에)를
-        교체하고 fade 클래스를 뗀다(다시 opacity 1로 복귀) - 패널 바깥 배경은 안 보이게 할 필요가 없어
-        <code>opacity</code>가 아니라 <code>background-color</code>/<code>-image</code> 자체에
-        <code>transition</code>을 걸어 부드럽게 색만 바뀌도록 구분했다(패널은 페이드 아웃→색 교체→
-        페이드 인, 바깥 배경은 그냥 색이 스르륵 바뀜 - 둘 다 같은 350ms 타이밍 안에서 동시에 일어나
-        하나의 전환처럼 보인다). <code>prefers-reduced-motion</code>이면 둘 다 애니메이션 없이 즉시
-        교체. 새로고침·이어하기(<code>resumeBtn</code>) 시점엔 이미 진행 중이던 루트를 "방금 진입"으로
-        오인해 디졸브가 뜨지 않도록, <code>initRouteTheme()</code>이 애니메이션 없이 상태만 맞춰둔다
-        (삽화의 <code>lastKnownRouteId</code> 초기화와 동일한 원칙).</p>
+        리렌더 방지), route id가 바뀌었어도 둘 다 테마가 없는 루트끼리의 전환이면 역시 스킵한다(현재는
+        테마 있는 루트가 developer 하나뿐이라 항상 해당). 실제로 시각적 변화가 있을 때만
+        <code>applyOuterBgClass()</code>(즉시)와 <code>#gameSection</code>의
+        <code>.route-theme-fade</code>(opacity 0으로) 를 같이 트리거하고, CSS <code>transition</code>
+        시간과 정확히 맞춘 350ms 뒤 <code>setTimeout</code>에서 <code>applyPanelThemeClass()</code>로
+        패널 클래스를 교체하고 fade 클래스를 뗀다(다시 opacity 1로 복귀).
+        <code>prefers-reduced-motion</code>이면 둘 다 애니메이션 없이 즉시 교체. 새로고침·이어하기
+        (<code>resumeBtn</code>) 시점엔 이미 진행 중이던 루트를 "방금 진입"으로 오인해 디졸브가 뜨지
+        않도록, <code>initRouteTheme()</code>이 애니메이션 없이 두 클래스 다 즉시 맞춰둔다(삽화의
+        <code>lastKnownRouteId</code> 초기화와 동일한 원칙).</p>
 
         <h3>검증</h3>
         <ul>
@@ -4463,10 +4478,13 @@
             <li>Playwright로 <code>#gameSection</code>에 <code>.route-theme-developer</code> 클래스를
             직접 부여해 스크린샷 비교 - 다크 네이비 배경, 민트 포인트 컬러, 모노스페이스 버튼 폰트,
             선택지 왼쪽 민트 세로선, 은은한 격자 패턴이 전부 의도대로 렌더링됨을 눈으로 확인.</li>
-            <li>Playwright로 <code>.route-theme-fade</code> 클래스의 실제 <code>opacity</code> 계산값을
-            시간대별로 측정 - 0ms 시점 1 → 150ms 시점 약 0.35(중간 페이드 진행 중) → 350ms 시점 0(완전히
-            투명) → 클래스 교체 후 1로 복귀, CSS <code>transition</code> 타이밍과 JS
-            <code>setTimeout(…, 350)</code>이 정확히 맞물려 있음을 확인.</li>
+            <li>Playwright로 진입/이탈 양방향 모두 <code>opacity</code>·<code>background-color</code>
+            계산값을 시간대별로 측정 - 진입: 0ms 크림톤·opacity 1 → 120ms 바깥 배경
+            <code>rgb(107,106,100)</code>(크림↔네이비 중간 블렌드, 패널은 아직 안 바뀐 채 opacity만
+            하락 중) → 350ms 바깥 배경 완전히 네이비로 정착 + 패널 색 스냅(이 순간 opacity는 사실상 0) →
+            700ms대 패널도 opacity 1로 복귀. 이탈(34→35세, 루트 만료)도 대칭적으로 동일하게 확인 -
+            루트 중 opacity 1·네이비 → 150ms 시점 패널 opacity 약 0.43(배경은 아직 네이비, 클래스
+            교체 전) → 완료 후 패널 opacity 1·배경 크림톤 정상 복귀.</li>
         </ul>
 
         <h3>알려진 한계 (v1 시범 범위)</h3>
