@@ -2378,6 +2378,23 @@
         kickedUids/kickedNicknames는 건드리지 않는다</b>(다시 참가하고 싶으면 그냥 재참가할 수 있어야
         하므로 - 강퇴와의 핵심 차이). 참가자 목록은 호스트가 이미 구독 중인 <code>multiplayerSessions</code>
         <code>onValue</code>로 자동 갱신되므로 호스트 쪽엔 별도 코드가 필요 없었다.</p>
+
+        <p class="note"><b>호스트 새로고침 후 이어하기 시 재동기화(2026-08-24, 사용자 지시 - "호스트가
+        페이지를 새로고침해서 게임을 이어할때 참가자 목록을 다시 갱신되게 해줘").</b>
+        <code>enterHostMode()</code>가 이미 전역 구독(<code>attachMultiplayerHostListeners</code>)을
+        걸어두긴 하지만, 새로고침 자체는 구독을 처음부터 다시 맺는 것이라 그 구독이 아직 최신 스냅샷을
+        받아오기 전에 화면이 먼저 그려질 수 있다 - 여기에 한 가지 더, 바로 위 "진행 동기화 시차 수정"에서
+        생긴 사각지대도 있다: 호스트가 선택 결과를 확인하고 <b>"다음"을 누르기 전에 새로고침</b>하면
+        <code>advanceMultiplayerSession</code>이 호출될 기회 자체가 없었으므로 공개 미러의
+        <code>stage</code>가 새로고침 이전 나이에 그대로 멈춰버린다(반면
+        <code>resumePlaythrough</code>는 이미 다음 나이로 넘어간 최신 상태를 그대로 돌려주므로, 호스트
+        화면과 미러가 서로 어긋난 채로 굳어짐). <code>enterHostMode()</code>에
+        <code>renderHostMultiplayerPanel()</code> 명시적 호출(캐시된 최신 값으로 즉시 한 번 더 그리기) +
+        <code>advanceMultiplayerSessionFn()</code> 호출(현재 <code>playthroughs</code> 기준으로 미러를
+        강제 재동기화)을 추가해 두 가지를 한 번에 해결했다 - 멀티플레이가 꺼져 있거나 세션이 없으면
+        <code>advanceMultiplayerSession</code>은 그냥 <code>mirrored:false</code>로 조용히 끝나므로,
+        모든 진입 경로(새 시작·이어하기·새로고침 후 이어하기, 멀티플레이 켜짐/꺼짐 불문)에서 안전하게
+        호출해도 된다.</p>
         <h3>검증</h3>
         <ul>
             <li><code>node -c index.js</code>, RTDB 규칙 <code>firebase deploy --only database

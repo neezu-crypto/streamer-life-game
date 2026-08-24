@@ -2249,6 +2249,17 @@ function enterHostMode() {
   mpParticipantBanner.classList.add('hidden');
   mpHostPanel.classList.remove('hidden');
   attachMultiplayerHostListeners();
+  // 새로고침 후 이어하기(2026-08-24, 사용자 지시 - "호스트가 페이지를
+  // 새로고침해서 게임을 이어할때 참가자 목록을 다시 갱신되게 해줘") - 위
+  // attachMultiplayerHostListeners()는 이미 구독 중이면 아무 일도 안 하므로
+  // (mpHostListenersAttached 플래그), 이 화면이 다시 보이는 시점에 지금 갖고
+  // 있는 최신 값으로 한 번 더 명시적으로 그려서 확실히 최신 상태로 맞춘다.
+  // 또한 "다음"을 누르기 전에 새로고침한 경우엔 공개 미러의 stage가 refresh
+  // 이전 나이에 멈춰 있을 수 있는데(advanceMultiplayerSession은 다음 버튼
+  // 클릭 시에만 호출됨), resumePlaythrough는 이미 다음 나이로 넘어간 최신
+  // 상태를 그대로 돌려주므로 그 시점 기준으로 한 번 더 동기화해준다.
+  renderHostMultiplayerPanel();
+  advanceMultiplayerSessionFn().catch((e) => console.error('멀티플레이 미러 재동기화 실패:', e));
 }
 
 // renderStage가 선택지 버튼을 다시 그릴 때마다(구간 전환 등) 투표 수 배지도
