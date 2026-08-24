@@ -1752,7 +1752,8 @@ const EVENT_SCENE_IMAGES = {
   'father-passes-away': 'assets/scenes/father-passes-away.jpg',
   'mother-passes-away': 'assets/scenes/mother-passes-away.jpg',
   'losing-a-parent': 'assets/scenes/losing-a-parent.jpg',
-  'parent-passing-50s': 'assets/scenes/parent-passing-50s.jpg'
+  'parent-passing-50s': 'assets/scenes/parent-passing-50s.jpg',
+  'spouse-passes-away': 'assets/scenes/spouse-passes-away.jpg'
 };
 function updateEventSceneImage(selectedChoiceId) {
   if (selectedChoiceId && EVENT_SCENE_IMAGES[selectedChoiceId]) {
