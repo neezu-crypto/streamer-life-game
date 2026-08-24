@@ -2116,6 +2116,7 @@ const kickParticipantFn = httpsCallable(functions, 'kickParticipant');
 let mpHostListenersAttached = false;
 let mpHostLatestSession = null;
 let mpHostLatestVotes = {};
+let mpFrozenVoteCounts = null;
 let mpParticipantMode = false;
 let mpParticipantHostUid = null;
 let mpParticipantUnsub = null;
@@ -2147,13 +2148,26 @@ function renderHostMultiplayerPanel() {
   mpParticipantListEl.innerHTML = '';
   if (!mpHostLatestSession) return;
   const participants = mpHostLatestSession.participants || {};
-  const currentStageId = mpHostLatestSession.stage && mpHostLatestSession.stage.id;
-  const votesForStage = (currentStageId && mpHostLatestVotes[currentStageId]) || {};
   // 선택지별 투표 수 - choiceList 버튼 옆에 배지로 붙인다(주사위 구간도 동일).
-  const countByChoiceId = {};
-  Object.values(votesForStage).forEach((choiceId) => {
-    countByChoiceId[choiceId] = (countByChoiceId[choiceId] || 0) + 1;
-  });
+  // mpFrozenVoteCounts(2026-08-24, 사용자 지시 - "호스트가 선택하면 참가자들의
+  // 최종투표결과가 사라지는데... 호스트의 선택 후에도 보이게 해줘") - 호스트가
+  // 선택을 제출하는 순간 세션 미러의 stage는 이미 다음 나이로 넘어가 있어서
+  // (mpHostLatestSession.stage.id가 곧바로 다음 턴 것이 됨), 라이브 투표 집계를
+  // 그대로 쓰면 방금 끝난 턴의 투표가 즉시 0으로 보였다. disableChoiceList
+  // 시점(제출 직전, 아직 이전 나이 기준)에 한 번 얼려두고, 다음 renderStage가
+  // 실제로 다음 나이 화면을 그릴 때(= "다음" 버튼을 눌러 진짜로 넘어갈 때)
+  // 해제해 그 사이(결과 확인 중)엔 계속 보이게 한다.
+  let countByChoiceId;
+  if (mpFrozenVoteCounts) {
+    countByChoiceId = mpFrozenVoteCounts;
+  } else {
+    const currentStageId = mpHostLatestSession.stage && mpHostLatestSession.stage.id;
+    const votesForStage = (currentStageId && mpHostLatestVotes[currentStageId]) || {};
+    countByChoiceId = {};
+    Object.values(votesForStage).forEach((choiceId) => {
+      countByChoiceId[choiceId] = (countByChoiceId[choiceId] || 0) + 1;
+    });
+  }
   Array.from(choiceList.children).forEach((el) => {
     const cid = el.dataset && el.dataset.choiceId;
     if (!cid) return;
@@ -2230,8 +2244,25 @@ function enterHostMode() {
 // 로직과 덜 얽힌다.
 const originalRenderStageForMp = renderStage;
 renderStage = function (stage) {
+  // 다음 나이 화면이 실제로 그려지는 시점 = 얼려뒀던 투표 수를 해제하고 이번
+  // 새 나이의 라이브 집계로 되돌아갈 시점(위 mpFrozenVoteCounts 주석 참고).
+  mpFrozenVoteCounts = null;
   originalRenderStageForMp(stage);
   if (!mpParticipantMode) renderHostMultiplayerPanel();
+};
+
+const originalDisableChoiceListForMp = disableChoiceList;
+disableChoiceList = function () {
+  if (!mpParticipantMode && mpHostLatestSession) {
+    const currentStageId = mpHostLatestSession.stage && mpHostLatestSession.stage.id;
+    const votesForStage = (currentStageId && mpHostLatestVotes[currentStageId]) || {};
+    const snapshot = {};
+    Object.values(votesForStage).forEach((choiceId) => {
+      snapshot[choiceId] = (snapshot[choiceId] || 0) + 1;
+    });
+    mpFrozenVoteCounts = snapshot;
+  }
+  originalDisableChoiceListForMp();
 };
 
 // ------------------------------------------------------------
