@@ -1810,7 +1810,9 @@ const EVENT_SCENE_IMAGES = {
   'wedding-day': 'assets/scenes/wedding.jpg',
   'late-remarriage': 'assets/scenes/wedding.jpg',
   'choosing-divorce': 'assets/scenes/choosing-divorce.jpg',
-  'first-childbirth': 'assets/scenes/first-childbirth.jpg'
+  'first-childbirth': 'assets/scenes/first-childbirth.jpg',
+  'first-home-purchase': 'assets/scenes/first-home.jpg',
+  'usl-first-home-purchase-30': 'assets/scenes/first-home.jpg'
 };
 function updateEventSceneImage(selectedChoiceId) {
   if (selectedChoiceId && EVENT_SCENE_IMAGES[selectedChoiceId]) {
