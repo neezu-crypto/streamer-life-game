@@ -1711,7 +1711,8 @@ const routeSceneImage = document.getElementById('routeSceneImage');
 const ROUTE_SCENE_IMAGES = {
   'entertainment-industry': 'assets/scenes/entertainment-industry.jpg',
   'actor': 'assets/scenes/actor.jpg',
-  'artist': 'assets/scenes/artist.jpg'
+  'artist': 'assets/scenes/artist.jpg',
+  'sports-elite': 'assets/scenes/sports-elite.jpg'
 };
 let lastKnownRouteId = null;
 function updateRouteSceneImage(currentRoute) {
