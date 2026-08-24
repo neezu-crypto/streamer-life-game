@@ -1689,7 +1689,8 @@ const ENDING_SCENE_IMAGES = {
   'living-with-illness': 'assets/scenes/living-with-illness.jpg',
   'rising-after-the-fall': 'assets/scenes/rising-after-the-fall.jpg',
   'solitary-path': 'assets/scenes/solitary-path.jpg',
-  'enduring-companion': 'assets/scenes/enduring-companion.jpg'
+  'enduring-companion': 'assets/scenes/enduring-companion.jpg',
+  'collapse': 'assets/scenes/collapse.jpg'
 };
 const endingText = document.getElementById('endingText');
 const endingStatBars = document.getElementById('endingStatBars');
