@@ -1691,7 +1691,8 @@ const ENDING_SCENE_IMAGES = {
   'solitary-path': 'assets/scenes/solitary-path.jpg',
   'enduring-companion': 'assets/scenes/enduring-companion.jpg',
   'collapse': 'assets/scenes/collapse.jpg',
-  'bankruptcy': 'assets/scenes/bankruptcy.jpg'
+  'bankruptcy': 'assets/scenes/bankruptcy.jpg',
+  'obscurity': 'assets/scenes/obscurity.jpg'
 };
 const endingText = document.getElementById('endingText');
 const endingStatBars = document.getElementById('endingStatBars');
