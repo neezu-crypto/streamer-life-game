@@ -2023,10 +2023,60 @@
     <section id="sec11">
         <h2><span class="num">11</span>향후 보완 과제</h2>
         <ul class="todo-list">
-            <li><span class="todo-check"></span>AI 사전 생성 삽화 제작 — <code>interior-3d-viewer</code>의 <code>textures/backdrops/</code> 패턴처럼 <code>assets/scenes/</code>에 정적 이미지로 커밋 예정</li>
+            <li><span class="todo-check"></span>AI 사전 생성 삽화 제작 — <code>interior-3d-viewer</code>의 <code>textures/backdrops/</code> 패턴처럼 <code>assets/scenes/</code>에 정적 이미지로 커밋 예정. 대상 이벤트 목록은 아래 참고</li>
             <li><span class="todo-check"></span><code>devbarLinks/lifeGame</code> 항목을 admin-center UI에서 등록 (사용자 진행 예정)</li>
             <li><span class="todo-check"></span>보상형 광고·후원형 광고 연동 (v1은 완전 무료로 우선 출시)</li>
         </ul>
+
+        <h3>AI 삽화 대상 이벤트 정리(2026-08-24, 사용자 지시 — 계획만, 이미지 생성·삽입은 아직 미착수)</h3>
+        <p>선택지가 3,000개를 넘는 게임이라 개별 선택지 단위로 삽화를 붙이는 건 현실적으로 유지보수가
+        안 된다 - 12장에서 이미 확립한 "이벤트 크기·성격별 차별화" 원칙을 그대로 가져와, <b>플레이어
+        여정에서 감정적으로 가장 크게 남는 고정 지점만</b> 골랐다. 전부 id가 고정돼 있어(무작위 문구
+        선택이 아님) 정적 이미지 하나씩을 그대로 매핑할 수 있다. 총 39개로 스코프를 잡았다.</p>
+
+        <h4>1순위 - 엔딩 전체 16종 (반드시)</h4>
+        <p>모든 플레이스루가 도달하는 단 하나의 순간이라 삽화의 효용이 가장 크다. 엔딩 화면
+        (<code>#endingSection</code>) 상단, 제목 바로 아래에 배치하는 안을 제안한다.</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>구분</th><th>id (11종 아키타입 + 5종 즉사)</th></tr>
+                <tr><td>완주 아키타입 11종</td><td><code>all-in-success</code>(올인 성공형),
+                <code>all-in-failure</code>(올인 실패형), <code>burnout</code>(번아웃형),
+                <code>stable</code>(안정형), <code>relationship-first</code>(관계 중심형),
+                <code>recluse</code>(은둔형), <code>full-family-legacy</code>(대를 이은 가족형),
+                <code>living-with-illness</code>(평생을 안고 살아온 삶형),
+                <code>rising-after-the-fall</code>(다시 일어난 삶형), <code>solitary-path</code>(홀로
+                걸어온 길형), <code>enduring-companion</code>(오랜 동행형)</td></tr>
+                <tr><td>즉시 사망 5종</td><td><code>collapse</code>(건강 붕괴), <code>bankruptcy</code>
+                (파산), <code>obscurity</code>(무명), <code>despair</code>(절망), <code>isolation</code>
+                (고립) - <code>INSTANT_ENDING_BUILDERS</code>, 12장 "위기(긴장)" 이펙트와 같은 5종</td></tr>
+            </table>
+        </div>
+
+        <h4>2순위 - 루트 진입 삽화 17종 (권장)</h4>
+        <p>각 루트에 들어서는 순간을 "챕터 표지"처럼 보여주는 안 - 트리거 선택지를 고른 직후, 결과 박스
+        위나 다음 구간 전환 시 한 번 노출. 현재 <code>ROUTES_META</code>(도감 화면)에 등록된 17개
+        루트와 동일한 목록이라 별도 매핑 관리 없이 그대로 재사용 가능하다.</p>
+        <p><code>entertainment-industry</code>(연예계 연습생), <code>actor</code>(배우),
+        <code>artist</code>(예술가), <code>sports-elite</code>(축구), <code>soccer-manager</code>(축구
+        감독), <code>study-abroad-usa</code>(조기유학), <code>us-settled-life</code>(미국 정착),
+        <code>pro-gamer</code>(프로게이머), <code>esports-coach</code>(프로게이머 감독),
+        <code>teen-entrepreneur</code>(10대 창업가), <code>student-leadership</code>(학생 리더십),
+        <code>prison</code>(수감 생활), <code>developer</code>(개발자), <code>youth-politics</code>(청년
+        정치), <code>small-business</code>(자영업), <code>regular-employee</code>(정규직 직장인),
+        <code>logistics</code>(물류직)</p>
+
+        <h4>3순위 - 감정적 전환점 6종 (선택)</h4>
+        <p>이미 톤다운 시각 이펙트(느린 페이드 + 채도 저하)가 걸려 있는 지점과 정확히 같은 6개
+        <code>EMOTIONAL_TONEDOWN_IDS</code> - 삽화를 더하면 기존 이펙트와 시너지가 난다.
+        <code>father-passes-away</code>·<code>mother-passes-away</code>·<code>losing-a-parent</code>·
+        <code>parent-passing-50s</code>(부모님 사별 4종, 나이대별 문구만 다름),
+        <code>spouse-passes-away</code>(배우자 사별), <code>choosing-divorce</code>(이혼).</p>
+
+        <p class="note">제외한 것 - 복권 1등·2등 같은 확률형 대박 이벤트는 이미 컨페티+합성 팡파르
+        이펙트가 있어 우선순위를 낮췄고, 재산·직업·건강회복 같은 "획득·성취" 팝업(12장 표 참고)은
+        가짓수가 너무 많아(재산 16종·직업 20종 이상) 이번 스코프에서 뺐다 - 나중에 필요하면 그때
+        추가로 검토.</p>
     </section>
 
     <section id="sec12">
