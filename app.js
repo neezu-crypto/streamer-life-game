@@ -1682,7 +1682,8 @@ const ENDING_SCENE_IMAGES = {
   'all-in-success': 'assets/scenes/all-in-success.jpg',
   'all-in-failure': 'assets/scenes/all-in-failure.jpg',
   'burnout': 'assets/scenes/burnout.jpg',
-  'stable': 'assets/scenes/stable.jpg'
+  'stable': 'assets/scenes/stable.jpg',
+  'relationship-first': 'assets/scenes/relationship-first.jpg'
 };
 const endingText = document.getElementById('endingText');
 const endingStatBars = document.getElementById('endingStatBars');
