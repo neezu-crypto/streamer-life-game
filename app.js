@@ -1714,7 +1714,8 @@ const ROUTE_SCENE_IMAGES = {
   'artist': 'assets/scenes/artist.jpg',
   'sports-elite': 'assets/scenes/sports-elite.jpg',
   'soccer-manager': 'assets/scenes/soccer-manager.jpg',
-  'study-abroad-usa': 'assets/scenes/study-abroad-usa.jpg'
+  'study-abroad-usa': 'assets/scenes/study-abroad-usa.jpg',
+  'us-settled-life': 'assets/scenes/us-settled-life.jpg'
 };
 let lastKnownRouteId = null;
 function updateRouteSceneImage(currentRoute) {
