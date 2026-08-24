@@ -1723,7 +1723,8 @@ const ROUTE_SCENE_IMAGES = {
   'prison': 'assets/scenes/prison.jpg',
   'developer': 'assets/scenes/developer.jpg',
   'youth-politics': 'assets/scenes/youth-politics.jpg',
-  'small-business': 'assets/scenes/small-business.jpg'
+  'small-business': 'assets/scenes/small-business.jpg',
+  'regular-employee': 'assets/scenes/regular-employee.jpg'
 };
 let lastKnownRouteId = null;
 function updateRouteSceneImage(currentRoute) {
