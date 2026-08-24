@@ -1718,7 +1718,8 @@ const ROUTE_SCENE_IMAGES = {
   'us-settled-life': 'assets/scenes/us-settled-life.jpg',
   'pro-gamer': 'assets/scenes/pro-gamer.jpg',
   'esports-coach': 'assets/scenes/esports-coach.jpg',
-  'teen-entrepreneur': 'assets/scenes/teen-entrepreneur.jpg'
+  'teen-entrepreneur': 'assets/scenes/teen-entrepreneur.jpg',
+  'student-leadership': 'assets/scenes/student-leadership.jpg'
 };
 let lastKnownRouteId = null;
 function updateRouteSceneImage(currentRoute) {
