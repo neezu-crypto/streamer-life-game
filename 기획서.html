@@ -2255,6 +2255,44 @@
             </table>
         </div>
 
+        <h4>4순위 - 인생 대사건 3종(신규, 2026-08-25 착수)</h4>
+        <p>39종 완료 후 사용자 요청 - "AI 이미지가 들어가면 좋을것같은곳 찾아줘." 처음 39종을 고를 때
+        "재산·직업 획득 팝업은 가짓수가 너무 많아 제외"했던 것과 같은 원칙이지만, 그 중에서도
+        <b>결혼·출산·내 집 마련</b> 셋만은 인생에서 감정적으로 가장 크게 남는 지점이라 별도로 재검토했다.
+        선택지 id 자체는 여러 개로 흩어져 있어도(문구·나이대만 다름) <b>결과가 동일</b>하면(같은
+        <code>addFamilyMembers</code>/<code>addAsset</code> id) 이미지 하나로 대표할 수 있다는 게
+        핵심 - 신규 인프라 없이 기존 <code>EVENT_SCENE_IMAGES</code> 맵에 여러 choice.id를 같은 파일에
+        매핑하는 것만으로 끝난다.</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>항목</th><th>매핑되는 choice.id</th><th>비고</th></tr>
+                <tr><td>결혼</td><td><code>wedding-day</code>(31세), <code>late-remarriage</code>
+                (53세)</td><td>배우자가 생기는 choice는 5개(<code>wedding-budget-compromise</code>·
+                <code>first-shared-home</code>·<code>inlaws-negotiation</code> 포함)지만, 텍스트가
+                실제 결혼식 장면인 것만 골랐다 - 나머지 3개는 예산 타협·이사 계약·상견례라 결혼식
+                삽화를 붙이면 문구와 안 맞음</td></tr>
+                <tr><td>출산</td><td><code>first-childbirth</code>(33세)</td><td>자기 자녀
+                (<code>child</code>)가 생기는 choice는 이 하나뿐 - 변형 자체가 없어서 고민할 것도
+                없었음</td></tr>
+                <tr><td>내 집 마련</td><td><code>first-home-purchase</code>(32세),
+                <code>usl-first-home-purchase-30</code>(미국 정착 루트, 30세)</td><td>둘 다
+                <code>first-home</code> 자산을 얻는 동일한 순간(문구만 국내판/미국판으로 다름)</td></tr>
+            </table>
+        </div>
+        <p class="note">제외한 후보 - 루트 테마 배경 아트(방금 만든 developer 테마의 CSS 패턴을 실제
+        삽화로 교체), 첫 화면(검색·이름짓기) 히어로 이미지, 멀티플레이 참가 화면 삽화는 이번 스코프에서
+        빠짐(사용자가 이 3종부터 먼저 진행하기로 확정, 2026-08-25).</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>id</th><th>완료</th><th>비고</th></tr>
+                <tr><td><code>wedding</code></td><td>✅ 244KB</td><td>야외 결혼식 아치 아래 서약하는
+                신랑신부, 양옆으로 하객들, 노을빛 - 첫 시도는 포토리얼리스틱 사진 스타일로 나와서
+                "flat vector illustration, NOT photorealistic" 같은 부정형 지시를 프롬프트에 덧붙여
+                재생성 요청, 두 번째 시도가 플랫 벡터 스타일로 정확히 맞아떨어져 채택</td></tr>
+                <tr><td colspan="3">출산·내 집 마련 2종 남음</td></tr>
+            </table>
+        </div>
+
         <h4>프롬프트 추천 (2026-08-24, 사용자 지시 — 39개 전부, 이미지 생성은 아직 안 함)</h4>
         <p>전체 39개에 아래 공통 스타일 프리픽스를 그대로 앞에 붙여 톤을 통일한다.</p>
         <p class="note"><em>Warm minimalist flat illustration, soft muted color palette (cream, gold,

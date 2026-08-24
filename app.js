@@ -1807,6 +1807,8 @@ const EVENT_SCENE_IMAGES = {
   'losing-a-parent': 'assets/scenes/losing-a-parent.jpg',
   'parent-passing-50s': 'assets/scenes/parent-passing-50s.jpg',
   'spouse-passes-away': 'assets/scenes/spouse-passes-away.jpg',
+  'wedding-day': 'assets/scenes/wedding.jpg',
+  'late-remarriage': 'assets/scenes/wedding.jpg',
   'choosing-divorce': 'assets/scenes/choosing-divorce.jpg'
 };
 function updateEventSceneImage(selectedChoiceId) {
