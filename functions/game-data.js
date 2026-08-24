@@ -26950,7 +26950,268 @@ const PRISON_CHOICES = [
     },
     result: "이뤄지지 않을 걸 알면서도, 기대를 접기는 쉽지 않았다.",
     requiresRoute: "prison"
-  }
+  },
+  {
+    id: "prison-solitary-confinement",
+    text: "규칙을 어겨 독방에 들어간다",
+    deltas: {"happiness":-6,"health":-2},
+    result: "사방이 벽뿐인 곳에서, 시간은 더 느리게 흘렀다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-rule-violation-caught",
+    text: "사소한 규칙 위반이 적발돼 조사를 받는다",
+    deltas: {"happiness":-3},
+    result: "별일 아니라 여겼던 것도, 이곳에서는 별일이 됐다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-model-status-revoked",
+    text: "작은 실수로 모범수 자격을 박탈당한다",
+    deltas: {"happiness":-4,"relationship":-1},
+    result: "쌓아온 시간이, 한순간에 원점으로 돌아간 기분이었다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-belongings-confiscated",
+    text: "규정 위반으로 개인 소지품을 압수당한다",
+    deltas: {"happiness":-2},
+    result: "별것 아닌 물건들이었는데도, 빈자리가 유독 허전했다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-mail-censored",
+    text: "검열로 지연된 편지를 뒤늦게 건네받는다",
+    deltas: {"happiness":-2},
+    result: "이미 늦어버린 소식이, 손 안에서 뒤늦게 펼쳐졌다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-vocational-enroll",
+    text: "교도소 직업훈련 프로그램에 등록한다",
+    deltas: {"happiness":2},
+    result: "손끝의 감각부터 다시 익혀나가야 했다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-vocational-certificate",
+    text: "직업훈련 과정을 마치고 자격증을 손에 쥔다",
+    deltas: {"happiness":4,"wealth":1},
+    result: "종이 한 장이지만, 출소 후를 다르게 그리게 해줬다.",
+    requiresRoute: "prison",
+    addTalent: {"id":"business","label":"💼 사업 수완"}
+  },
+  {
+    id: "prison-calligraphy-class",
+    text: "교정 프로그램으로 서예를 배운다",
+    deltas: {"happiness":2},
+    result: "먹을 가는 그 시간이, 마음까지 가라앉혀 주었다.",
+    requiresRoute: "prison",
+    addHobby: {"id":"calligraphy","label":"🖌 서예"}
+  },
+  {
+    id: "prison-correspondence-enroll",
+    text: "통신대학 강의를 신청해 학위를 준비한다",
+    deltas: {"happiness":2},
+    result: "좁은 방 한켠이, 작은 강의실이 되었다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-correspondence-graduate",
+    text: "통신대학 과정을 마치고 학위를 받는다",
+    deltas: {"happiness":4,"fame":1},
+    result: "철창 안에서 딴 학위지만, 그 무게만큼은 진짜였다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-ged-pass",
+    text: "검정고시 합격 통지를 받는다",
+    deltas: {"happiness":4},
+    result: "만학의 결실이, 손에 쥔 종이 한 장으로 증명됐다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-hazing-encounter",
+    text: "텃세를 부리는 고참 수감자와 마주친다",
+    deltas: {"happiness":-4,"relationship":-1},
+    result: "낯선 위계 앞에서, 몸이 먼저 움츠러들었다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-mentors-newcomer",
+    text: "새로 들어온 수감자에게 이곳 생활을 알려준다",
+    deltas: {"happiness":3,"relationship":2},
+    result: "가르쳐주는 입장이 되고서야, 자신이 걸어온 시간이 보였다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-guard-kindness",
+    text: "교도관에게서 뜻밖의 배려를 받는다",
+    deltas: {"happiness":3},
+    result: "작은 친절 하나가, 하루의 무게를 조금 덜어줬다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-guard-harshness",
+    text: "유독 가혹한 교도관에게 트집을 잡힌다",
+    deltas: {"happiness":-4},
+    result: "이유를 물어도, 돌아오는 건 냉담한 눈빛뿐이었다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-caught-in-gang-friction",
+    text: "수감자들 사이의 파벌 다툼에 휘말린다",
+    deltas: {"happiness":-5,"health":-1},
+    result: "끼고 싶지 않았던 일에, 어느새 발이 걸쳐져 있었다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-child-growth-in-letter",
+    text: "자녀가 훌쩍 자란 소식을 편지로 전해 듣는다",
+    deltas: {"happiness":-2,"relationship":1},
+    result: "사진 속 낯선 키가, 흘러간 시간을 실감하게 했다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-divorce-request",
+    text: "배우자로부터 이혼을 요구하는 편지를 받는다",
+    deltas: {"happiness":-6,"relationship":-4},
+    result: "예상했던 일인데도, 막상 눈으로 보니 다른 무게였다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-world-moved-on",
+    text: "몰라보게 달라진 바깥세상 소식을 뒤늦게 접한다",
+    deltas: {"happiness":-2},
+    result: "세상은 이미 저만치 앞서가 있었다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-parent-death-belated-news",
+    text: "부모님의 부고를 한참 지나서야 전해 듣는다",
+    deltas: {"happiness":-7,"relationship":-2},
+    result: "마지막 순간에도 곁에 있어드리지 못했다는 사실이, 오래 남았다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-hometown-changed",
+    text: "고향 동네가 몰라보게 변했다는 소식을 듣는다",
+    deltas: {"happiness":-2},
+    result: "기억 속 풍경과 지금의 풍경이, 서로 다른 곳처럼 느껴졌다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-injury-from-scuffle",
+    text: "몸싸움에 휘말려 다친다",
+    deltas: {"happiness":-3,"health":-3},
+    result: "작은 상처였지만, 낫는 데도 유독 더뎠다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-illness-onset",
+    text: "갑작스러운 몸살로 며칠을 앓아눕는다",
+    deltas: {"happiness":-3,"health":-2},
+    result: "아파도 마음 편히 쉴 곳 하나 없다는 게, 새삼 서러웠다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-medical-care-lacking",
+    text: "진료 신청을 했지만 며칠째 순서를 기다린다",
+    deltas: {"happiness":-3},
+    result: "아픈 것보다, 기다려야 한다는 사실이 더 지치게 했다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-insomnia-nights",
+    text: "낯선 소리들 탓에 밤마다 잠을 설친다",
+    deltas: {"happiness":-2,"health":-1},
+    result: "눈을 감아도, 하루가 온전히 끝나지 않은 기분이었다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-stress-toll",
+    text: "쌓인 스트레스로 몸 상태가 눈에 띄게 나빠진다",
+    deltas: {"happiness":-3,"health":-2},
+    result: "마음의 무게가, 어느새 몸으로 옮겨붙고 있었다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-lawyer-visit",
+    text: "변호사와 접견해 남은 절차를 상의한다",
+    deltas: {"happiness":2,"wealth":-2},
+    result: "차분한 설명 몇 마디가, 막막함을 조금 걷어냈다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-appeal-preparation",
+    text: "항소를 준비하며 서류를 검토한다",
+    deltas: {"happiness":1},
+    result: "지푸라기라도, 잡지 않을 이유는 없었다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-assets-managed-by-family",
+    text: "가족에게 남은 재산 관리를 모두 맡긴다",
+    deltas: {"happiness":1,"wealth":-1},
+    result: "통장을 넘기는 손이, 무겁고도 홀가분했다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-fine-fully-paid",
+    text: "남은 벌금을 가족의 도움으로 완납한다",
+    deltas: {"happiness":2,"wealth":-3},
+    result: "숫자 하나가 지워졌을 뿐인데, 어깨가 한결 가벼워졌다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-retrial-petition",
+    text: "재심을 청구하며 마지막 기대를 걸어본다",
+    deltas: {"happiness":2,"wealth":-2},
+    result: "될지 안 될지보다, 시도해봤다는 사실이 더 중요했다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-parole-approved",
+    text: "가석방 심사 결과를 초조하게 기다리다 통과 소식을 듣는다",
+    deltas: {"happiness":6,"relationship":1},
+    result: "벽 너머의 날이, 마침내 손에 잡히는 것 같았다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-parole-denied",
+    text: "가석방 심사 결과를 기다렸지만 탈락 통보를 받는다",
+    deltas: {"happiness":-6},
+    result: "기대했던 만큼, 무너지는 마음도 컸다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-amnesty-list-included",
+    text: "특별사면 대상자 명단에 이름이 올랐다는 소식을 듣는다",
+    deltas: {"happiness":7,"fame":1},
+    result: "믿기지 않아, 몇 번이고 이름을 다시 확인했다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-claims-innocence",
+    text: "억울함을 풀어달라며 계속해서 목소리를 낸다",
+    deltas: {"happiness":-2,"relationship":1},
+    result: "들어주는 사람이 적어도, 멈출 수는 없었다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-losing-track-of-time",
+    text: "날짜와 요일 감각을 점점 잃어간다",
+    deltas: {"happiness":-3},
+    result: "달력을 봐도, 오늘이 며칠인지 낯설게 느껴졌다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-quiet-acceptance",
+    text: "지나온 삶을 담담하게 받아들이기로 한다",
+    deltas: {"happiness":3},
+    result: "체념이 아니라, 스스로 골라낸 평온이었다.",
+    requiresRoute: "prison"
+  },
 ];
 
 module.exports = {
