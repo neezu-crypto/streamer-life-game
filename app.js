@@ -1809,7 +1809,8 @@ const EVENT_SCENE_IMAGES = {
   'spouse-passes-away': 'assets/scenes/spouse-passes-away.jpg',
   'wedding-day': 'assets/scenes/wedding.jpg',
   'late-remarriage': 'assets/scenes/wedding.jpg',
-  'choosing-divorce': 'assets/scenes/choosing-divorce.jpg'
+  'choosing-divorce': 'assets/scenes/choosing-divorce.jpg',
+  'first-childbirth': 'assets/scenes/first-childbirth.jpg'
 };
 function updateEventSceneImage(selectedChoiceId) {
   if (selectedChoiceId && EVENT_SCENE_IMAGES[selectedChoiceId]) {
