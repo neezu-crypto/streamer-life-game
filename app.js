@@ -1684,7 +1684,8 @@ const ENDING_SCENE_IMAGES = {
   'burnout': 'assets/scenes/burnout.jpg',
   'stable': 'assets/scenes/stable.jpg',
   'relationship-first': 'assets/scenes/relationship-first.jpg',
-  'recluse': 'assets/scenes/recluse.jpg'
+  'recluse': 'assets/scenes/recluse.jpg',
+  'full-family-legacy': 'assets/scenes/full-family-legacy.jpg'
 };
 const endingText = document.getElementById('endingText');
 const endingStatBars = document.getElementById('endingStatBars');
