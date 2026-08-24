@@ -1749,7 +1749,8 @@ function updateRouteSceneImage(currentRoute) {
 // 같은 선택을 다시 고를 수 없기 때문.
 const eventSceneImage = document.getElementById('eventSceneImage');
 const EVENT_SCENE_IMAGES = {
-  'father-passes-away': 'assets/scenes/father-passes-away.jpg'
+  'father-passes-away': 'assets/scenes/father-passes-away.jpg',
+  'mother-passes-away': 'assets/scenes/mother-passes-away.jpg'
 };
 function updateEventSceneImage(selectedChoiceId) {
   if (selectedChoiceId && EVENT_SCENE_IMAGES[selectedChoiceId]) {
