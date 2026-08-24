@@ -1688,7 +1688,8 @@ const ENDING_SCENE_IMAGES = {
   'full-family-legacy': 'assets/scenes/full-family-legacy.jpg',
   'living-with-illness': 'assets/scenes/living-with-illness.jpg',
   'rising-after-the-fall': 'assets/scenes/rising-after-the-fall.jpg',
-  'solitary-path': 'assets/scenes/solitary-path.jpg'
+  'solitary-path': 'assets/scenes/solitary-path.jpg',
+  'enduring-companion': 'assets/scenes/enduring-companion.jpg'
 };
 const endingText = document.getElementById('endingText');
 const endingStatBars = document.getElementById('endingStatBars');
