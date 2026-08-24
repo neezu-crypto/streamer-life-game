@@ -611,6 +611,7 @@ resumeBtn.addEventListener('click', async () => {
       // 이어하기 시점엔 이미 진행 중이던 루트를 "방금 진입"으로 오인해 삽화를
       // 다시 띄우지 않도록, 보여주지 않고 상태만 기록해둔다.
       lastKnownRouteId = res.data.currentRoute ? res.data.currentRoute.id : null;
+      initRouteTheme(res.data.currentRoute);
       enterHostMode();
       fadeIn([gameSection]);
     }
@@ -1394,6 +1395,7 @@ startBtn.addEventListener('click', async () => {
     renderStage(res.data.stage);
     initAchievementBaseline(res.data);
     lastKnownRouteId = res.data.currentRoute ? res.data.currentRoute.id : null;
+    initRouteTheme(res.data.currentRoute);
     enterHostMode();
     fadeIn([gameSection]);
   } catch (e) {
@@ -1523,6 +1525,7 @@ function celebrateAchievements(data) {
 
 function applyOutcome(data, resultPrefix, selectedChoiceId) {
   updateRouteSceneImage(data.currentRoute);
+  updateRouteTheme(data.currentRoute);
   updateEventSceneImage(selectedChoiceId);
   let resultText = (resultPrefix ? resultPrefix + '\n' : '') + data.result;
   // blocksHealthRecovery 조건(희귀 난치병뿐 아니라 사고 후유증 등 더 있을 수
@@ -1741,6 +1744,43 @@ function updateRouteSceneImage(currentRoute) {
     routeSceneImage.classList.add('hidden');
   }
   lastKnownRouteId = newRouteId;
+}
+// 루트 테마 UI(2026-08-25, 사용자 지시) - 루트에 맞춰 #gameSection 전체
+// 배경·버튼 스타일이 dissolve(불투명도 페이드)로 전환된다. 시범 구현으로
+// developer(개발자) 루트 하나만 - 나머지 루트는 검증 후 이 맵에 한 줄씩
+// 추가하면 된다(CSS는 style.css에 #gameSection.route-theme-{id} 블록으로
+// 새로 하나씩 늘어남). lastKnownRouteId(삽화용)와 달리 이건 "루트가 활성인
+// 동안 계속" 적용돼야 하는 상태라 별도 변수로 추적한다.
+const ROUTE_THEME_CLASS = {
+  developer: 'route-theme-developer'
+};
+let currentThemeRouteId = null;
+const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function applyRouteThemeClass(routeId) {
+  Object.values(ROUTE_THEME_CLASS).forEach((cls) => gameSection.classList.remove(cls));
+  if (routeId && ROUTE_THEME_CLASS[routeId]) gameSection.classList.add(ROUTE_THEME_CLASS[routeId]);
+}
+// 새로고침·재개 직후처럼 화면이 막 나타나는 시점엔 dissolve 없이 즉시 적용.
+function initRouteTheme(currentRoute) {
+  currentThemeRouteId = currentRoute ? currentRoute.id : null;
+  applyRouteThemeClass(currentThemeRouteId);
+}
+function updateRouteTheme(currentRoute) {
+  const newRouteId = currentRoute ? currentRoute.id : null;
+  if (newRouteId === currentThemeRouteId) return;
+  const oldClass = ROUTE_THEME_CLASS[currentThemeRouteId] || null;
+  const newClass = ROUTE_THEME_CLASS[newRouteId] || null;
+  currentThemeRouteId = newRouteId;
+  if (oldClass === newClass) return;
+  if (prefersReducedMotion) {
+    applyRouteThemeClass(newRouteId);
+    return;
+  }
+  gameSection.classList.add('route-theme-fade');
+  setTimeout(() => {
+    applyRouteThemeClass(newRouteId);
+    gameSection.classList.remove('route-theme-fade');
+  }, 350);
 }
 // 감정적 전환점 삽화(11장 3순위, 2026-08-24 착수) - 특정 choice.id를 선택한
 // 바로 그 결과에만 한 번 표시하고, 다음 스테이지로 넘어가면(renderStage) 숨긴다.

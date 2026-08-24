@@ -4402,6 +4402,72 @@
         </ul>
     </section>
 
+    <section>
+        <h2><span class="num">38</span>루트 테마 UI (2026-08-25, 사용자 지시 — developer 1개 시범 구현)</h2>
+        <p>사용자 지시: "루트 진입시 페이지 UI도 루트와 어울리는 UI로 바뀌게 하는 기획도 추가하고싶어.
+        예를들면 직장인 루트에 들어가면 배경에 문서, 펜, 마우스 같은 사무실에서 흔히 볼수있는 요소들과
+        버튼이나 기타 대부분 ui들이 사무실과 어울리는 ui로 변경되게 한다는지. 변경될땐 디졸브 트렌지션
+        효과 적용하고싶어." 디졸브 트랜지션 인프라 자체를 처음 만드는 거라, 17개 루트 전부가 아니라
+        <b>developer(개발자) 루트 하나로 먼저 검증한 뒤 나머지로 확장하기로 확정.</b></p>
+
+        <h3>후보 루트 정리 (시범 전 검토)</h3>
+        <p>이미 삽화(11장)로 색상팔레트가 검증된 17개 루트 중, 배경·오브젝트·컬러가 뚜렷하고 서로
+        구별되는 순으로 우선순위를 매겼다 - developer/pro-gamer·esports-coach/logistics/prison/
+        small-business·regular-employee/sports-elite·soccer-manager/entertainment-industry·actor
+        (상위), artist/teen-entrepreneur/study-abroad-usa·us-settled-life/youth-politics(중위),
+        student-leadership(하위, 구도가 정적이라 모티프 약함). 이 중 <b>developer</b>를 시범 대상으로
+        확정 - 기본 UI가 따뜻한 크림톤인데 반해 다크 네이비+민트 코드색 대비가 가장 확실해서 효과를
+        검증하기 쉽다는 판단.</p>
+
+        <h3>구조 - light/dark 테마 전환과 같은 패턴</h3>
+        <p><code>#gameSection</code> 서브트리에 한정된 CSS 커스텀 프로퍼티 재정의(<code>--bg</code>·
+        <code>--panel</code>·<code>--panel-2</code>·<code>--text</code>·<code>--gold</code>·
+        <code>--line</code> 등)만으로 끝난다 - 이미 사이트 전체가 <code>prefers-color-scheme</code>로
+        light/dark를 이 변수들만 바꿔서 전환하고 있어서, 같은 원리를 <code>#gameSection.route-theme-
+        developer</code> 스코프로 좁혀 재사용했다. 버튼·스탯바·패널 등 기존 컴포넌트를 하나하나
+        오버라이드할 필요 없이, <code>var(--gold)</code>·<code>var(--panel)</code>를 쓰는 기존 스타일이
+        전부 자동으로 새 색을 입는다. 추가로 코드 라인 느낌의 은은한 배경 패턴(<code>repeating-linear-
+        gradient</code>), 버튼·구간명에 모노스페이스 폰트, 선택지 버튼 왼쪽에 민트색 세로선, 좌/우
+        페이지에 미세한 글로우(inset box-shadow)를 얹었다.</p>
+
+        <h3>디졸브 전환 - dissolve fade</h3>
+        <p><code>lastKnownRouteId</code>(삽화용, 11장)와 다른 별도 상태
+        <code>currentThemeRouteId</code>로 추적 - 삽화는 "루트에 막 진입한 한 턴만" 보여주지만, 테마는
+        "루트가 활성인 동안 계속" 적용돼야 하는 상태이기 때문이다. <code>updateRouteTheme(currentRoute)</code>가
+        매 <code>applyOutcome()</code>마다 호출되어, 이전 턴과 route id가 같으면 아무 것도 안 하고(불필요한
+        리렌더 방지), route id가 바뀌었어도 두 route가 매핑되는 테마 클래스가 같으면(둘 다 테마 없음 등)
+        역시 스킵한다. 실제로 테마가 달라질 때만 <code>#gameSection</code>에 <code>.route-theme-fade</code>
+        클래스를 추가해 <code>opacity</code>를 0으로 내리고, CSS <code>transition</code> 시간과 정확히
+        맞춘 350ms 뒤 <code>setTimeout</code>에서 실제 테마 클래스를 교체하고 fade 클래스를 뗀다(다시
+        opacity 1로 복귀). <code>prefers-reduced-motion</code>이면 애니메이션 없이 즉시 교체.
+        새로고침·이어하기(<code>resumeBtn</code>) 시점엔 이미 진행 중이던 루트를 "방금 진입"으로 오인해
+        디졸브가 뜨지 않도록, <code>initRouteTheme()</code>이 애니메이션 없이 상태만 맞춰둔다(삽화의
+        <code>lastKnownRouteId</code> 초기화와 동일한 원칙).</p>
+
+        <h3>검증</h3>
+        <ul>
+            <li><code>node --input-type=module --check</code>로 <code>app.js</code> 문법 통과.</li>
+            <li>Playwright로 <code>#gameSection</code>에 <code>.route-theme-developer</code> 클래스를
+            직접 부여해 스크린샷 비교 - 다크 네이비 배경, 민트 포인트 컬러, 모노스페이스 버튼 폰트,
+            선택지 왼쪽 민트 세로선, 은은한 격자 패턴이 전부 의도대로 렌더링됨을 눈으로 확인.</li>
+            <li>Playwright로 <code>.route-theme-fade</code> 클래스의 실제 <code>opacity</code> 계산값을
+            시간대별로 측정 - 0ms 시점 1 → 150ms 시점 약 0.35(중간 페이드 진행 중) → 350ms 시점 0(완전히
+            투명) → 클래스 교체 후 1로 복귀, CSS <code>transition</code> 타이밍과 JS
+            <code>setTimeout(…, 350)</code>이 정확히 맞물려 있음을 확인.</li>
+        </ul>
+
+        <h3>알려진 한계 (v1 시범 범위)</h3>
+        <ul>
+            <li><b>멀티플레이 참가자 화면엔 미적용.</b> <code>updateRouteTheme()</code>은 호스트 경로
+            (<code>applyOutcome</code>)에서만 호출되고, 참가자 화면을 그리는
+            <code>renderParticipantStage()</code>에는 아직 연결하지 않았다 - 참가자는 호스트가 어느
+            루트에 있든 항상 기본 테마로 보인다.</li>
+            <li><b>나머지 16개 루트는 테마 없음.</b> <code>ROUTE_THEME_CLASS</code> 맵에
+            <code>developer</code> 한 줄만 있어서, 다른 루트에 진입해도 UI는 그대로다 - 이번 시범이
+            검증되면 위 "후보 루트 정리" 우선순위대로 하나씩 CSS 블록 + 맵 한 줄씩 추가하면 된다.</li>
+        </ul>
+    </section>
+
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
 </div>
 </body>
