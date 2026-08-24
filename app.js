@@ -2372,20 +2372,29 @@ function renderParticipantStage(stage) {
   });
 
   if (stage.random) {
-    // 참가자 쪽 "주사위 굴리기"는 순수 로컬 연출일 뿐 서버에는 아무것도 쓰지
-    // 않는다(사용자 확정) - 실제 결과는 호스트의 rollDice로만 정해지고,
-    // 참가자 화면은 위 onValue 구독으로 자동 갱신된다.
+    // 참가자 쪽 "주사위 굴리기"(2026-08-24, 사용자 지시 - "참가자도 투표용으로
+    // 주사위굴리기 가능하게 해줘") - 위 미리보기 선택지 중 하나를 무작위로 골라
+    // 그걸 내 투표로 기록한다. 실제 결과에는 영향이 없다(호스트의 rollDice로만
+    // 정해짐, 참가자 화면은 onValue 구독으로 자동 갱신) - 어느 쪽을 직접 눌러
+    // 투표하든, 주사위로 무작위로 뽑아 투표하든 결과는 똑같이 표시용 집계일
+    // 뿐이라는 원칙은 그대로다.
     const rollBtn = document.createElement('button');
     rollBtn.className = 'dice-btn';
-    rollBtn.textContent = '🎲 주사위 굴리기(연출용)';
+    rollBtn.textContent = '🎲 주사위 굴려서 투표하기';
     rollBtn.addEventListener('click', () => {
+      const choices = stage.choices || [];
+      if (!choices.length) return;
       diceOverlay.classList.remove('hidden');
-      setTimeout(() => diceOverlay.classList.add('hidden'), 1200);
+      setTimeout(() => {
+        diceOverlay.classList.add('hidden');
+        const picked = choices[Math.floor(Math.random() * choices.length)];
+        voteForChoice(stage.id, picked.id);
+      }, 1200);
     });
     choiceList.appendChild(rollBtn);
     const hint = document.createElement('p');
     hint.className = 'dice-hint';
-    hint.textContent = '실제 결과는 방장이 굴리는 주사위로 정해져요. 위 선택지에 투표만 할 수 있어요.';
+    hint.textContent = '실제 결과는 방장이 굴리는 주사위로 정해져요. 위 선택지를 직접 눌러 투표하거나, 이 버튼으로 무작위로 투표할 수 있어요.';
     choiceList.appendChild(hint);
   }
 }
