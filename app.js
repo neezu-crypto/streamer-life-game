@@ -1722,7 +1722,8 @@ const ROUTE_SCENE_IMAGES = {
   'student-leadership': 'assets/scenes/student-leadership.jpg',
   'prison': 'assets/scenes/prison.jpg',
   'developer': 'assets/scenes/developer.jpg',
-  'youth-politics': 'assets/scenes/youth-politics.jpg'
+  'youth-politics': 'assets/scenes/youth-politics.jpg',
+  'small-business': 'assets/scenes/small-business.jpg'
 };
 let lastKnownRouteId = null;
 function updateRouteSceneImage(currentRoute) {
