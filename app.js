@@ -1693,7 +1693,8 @@ const ENDING_SCENE_IMAGES = {
   'collapse': 'assets/scenes/collapse.jpg',
   'bankruptcy': 'assets/scenes/bankruptcy.jpg',
   'obscurity': 'assets/scenes/obscurity.jpg',
-  'despair': 'assets/scenes/despair.jpg'
+  'despair': 'assets/scenes/despair.jpg',
+  'isolation': 'assets/scenes/isolation.jpg'
 };
 const endingText = document.getElementById('endingText');
 const endingStatBars = document.getElementById('endingStatBars');
