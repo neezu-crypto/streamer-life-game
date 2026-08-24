@@ -1760,4 +1760,44 @@ const adminDeletePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: 
   return { ok: true, deletedUid: targetUid };
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough };
+// 관리자 - 갤러리에 공유된 항목 삭제(2026-08-24, 사용자 지시 - "관리자 uid로
+// 다른 인생 갤러리에서 로그 삭제 가능하게 수정해달라고 지시했었는데 어떻게
+// 삭제하는지 알려줘" → 실제로는 adminDeletePlaythrough가 playthroughs만
+// 지우고 lifeGame/gallery는 별도 노드라 갤러리 화면엔 전혀 반영이 안 됐던
+// 걸 발견해 새로 추가). galleryChoiceLogs·galleryDetails까지 같은 entryId로
+// 함께 지우고, 원본 소유자의 playthroughs/{uid}에 남아있는 galleryEntryId가
+// 이 entryId를 가리키고 있을 때만(이미 새 판을 시작해 galleryEntryId가
+// 다른 값으로 바뀌었거나 아예 없어졌을 수 있어 무작정 지우면 안 됨) 그
+// 필드만 제거해 재공유가 가능하게 정리한다 - playthroughs 자체는 건드리지
+// 않는다(그건 adminDeletePlaythrough의 책임).
+const adminDeleteGalleryEntry = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  if (!(await isAdminUid(uid))) {
+    throw new HttpsError('permission-denied', '관리자만 사용할 수 있는 기능입니다.');
+  }
+  const entryId = request.data && request.data.entryId;
+  if (!entryId) throw new HttpsError('invalid-argument', 'entryId가 필요합니다.');
+
+  const db = getDatabase();
+  const entryRef = db.ref('lifeGame/gallery/' + entryId);
+  const entrySnap = await entryRef.get();
+  if (!entrySnap.exists()) throw new HttpsError('not-found', '갤러리 항목을 찾을 수 없습니다.');
+  const ownerUid = entrySnap.val().uid;
+
+  const tasks = [
+    entryRef.remove(),
+    db.ref('lifeGame/galleryChoiceLogs/' + entryId).remove(),
+    db.ref('lifeGame/galleryDetails/' + entryId).remove()
+  ];
+  if (ownerUid) {
+    const ownerPlayRef = db.ref('lifeGame/playthroughs/' + ownerUid);
+    const ownerSnap = await ownerPlayRef.get();
+    if (ownerSnap.exists() && ownerSnap.val().galleryEntryId === entryId) {
+      tasks.push(ownerPlayRef.child('galleryEntryId').remove());
+    }
+  }
+  await Promise.all(tasks);
+  return { ok: true, deletedEntryId: entryId };
+});
+
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry };

@@ -61,6 +61,7 @@ const rollDiceFn = httpsCallable(functions, 'rollDice');
 const shareToGalleryFn = httpsCallable(functions, 'shareToGallery');
 const linkGoogleAccountFn = httpsCallable(functions, 'linkGoogleAccount');
 const linkKakaoAccountFn = httpsCallable(functions, 'linkKakaoAccount');
+const adminDeleteGalleryEntryFn = httpsCallable(functions, 'adminDeleteGalleryEntry');
 // requestStreamerVerification은 이 레포에 없는 함수다 - 같은 Firebase 프로젝트
 // (soop-stock-market)에 이미 배포돼 있는 걸 codebase 구분 없이 이름으로 그대로
 // 호출한다(16장 참고, StreamBet-Market·admin-center CLAUDE.md와 동일 원칙 -
@@ -71,12 +72,31 @@ const googleProvider = new GoogleAuthProvider();
 
 let currentUser = null;
 let resumeChecked = false;
+// 관리자 여부(2026-08-24, 사용자 지시 - "관리자 uid로 다른 인생 갤러리에서
+// 로그 삭제 가능하게" UI 연결) - adminCenter/adminUids 자체는
+// database.rules.json에서 .read:false라 클라이언트가 직접 "내가 관리자인가"를
+// 읽을 방법이 없다. 대신 관리자만 읽을 수 있는 다른 노드(lifeGame/galleryReports,
+// 신고 열람용)를 한 번 읽어보는 방식으로 우회 확인한다 - 성공하면 관리자,
+// permission-denied면 일반 유저. 갤러리 렌더링이 이 판정보다 먼저 끝날 수 있어
+// isAdminUser가 true로 바뀌면 renderGalleryList로 마지막 스냅샷을 다시 그린다.
+let isAdminUser = false;
+let latestGallerySnapVal = null;
+async function checkAdminStatus(uid) {
+  try {
+    await get(ref(db, 'lifeGame/galleryReports'));
+    isAdminUser = true;
+    if (latestGallerySnapVal !== null) renderGalleryList(latestGallerySnapVal);
+  } catch (e) {
+    isAdminUser = false;
+  }
+}
 onAuthStateChanged(auth, (user) => {
   currentUser = user;
   if (!user) {
     signInAnonymously(auth).catch((e) => console.error('익명 로그인 실패:', e));
     return;
   }
+  checkAdminStatus(user.uid);
   // 계정당 저장 슬롯 1개 - 로그인(익명 포함)이 확정되면 저장된 판이 있는지 한 번만
   // 확인한다. 검색 화면을 먼저 보여줬다가 뒤늦게 "이어하기"로 바꾸면 화면이
   // 깜빡여서, 확인이 끝나기 전까진 검색/이어하기 둘 다 숨겨둔다(아래 checkResume).
@@ -1797,8 +1817,7 @@ async function loadGalleryDetails(entryId, els) {
   }
 }
 
-onValue(ref(db, 'lifeGame/gallery'), (snap) => {
-  const val = snap.val() || {};
+function renderGalleryList(val) {
   const entries = Object.keys(val)
     .map((id) => Object.assign({ id }, val[id]))
     .sort((a, b) => (b.sharedAt || 0) - (a.sharedAt || 0))
@@ -1818,6 +1837,30 @@ onValue(ref(db, 'lifeGame/gallery'), (snap) => {
       '<span class="g-left"><span class="g-caret">▸</span><span class="g-name">' + escapeHtml(e.streamerName || '이름 없음') + '</span></span>' +
       '<span class="g-ending">' + escapeHtml((e.ending && e.ending.title) || '') + '</span>';
     details.appendChild(summary);
+
+    // 관리자 전용 삭제 버튼(2026-08-24, 사용자 지시) - <summary> 안에 넣으면
+    // 클릭이 details 토글과 겹치므로 바깥에 별도로 붙이고 stopPropagation으로
+    // 분리한다.
+    if (isAdminUser) {
+      const adminDeleteBtn = document.createElement('button');
+      adminDeleteBtn.type = 'button';
+      adminDeleteBtn.className = 'gallery-admin-delete-btn';
+      adminDeleteBtn.textContent = '🗑 관리자 삭제';
+      adminDeleteBtn.addEventListener('click', async (evt) => {
+        evt.preventDefault();
+        evt.stopPropagation();
+        if (!confirm('"' + (e.streamerName || '이름 없음') + '"의 갤러리 항목을 삭제할까요? 되돌릴 수 없습니다.')) return;
+        adminDeleteBtn.disabled = true;
+        try {
+          await adminDeleteGalleryEntryFn({ entryId: e.id });
+        } catch (err) {
+          console.error('갤러리 항목 삭제 실패:', err);
+          alert('삭제에 실패했어요: ' + (err.message || err));
+          adminDeleteBtn.disabled = false;
+        }
+      });
+      details.appendChild(adminDeleteBtn);
+    }
 
     // 다섯 스탯 최종값(2026-08-18, 사용자 지시 - "갤러리에 공유된 다른 유저
     // 인생을 볼때도 스탯과 상세 기능이 기록되게 해줘") - stats는 이미
@@ -1953,6 +1996,12 @@ onValue(ref(db, 'lifeGame/gallery'), (snap) => {
 
     galleryList.appendChild(details);
   });
+}
+
+onValue(ref(db, 'lifeGame/gallery'), (snap) => {
+  const val = snap.val() || {};
+  latestGallerySnapVal = val;
+  renderGalleryList(val);
 }, (err) => {
   console.error('갤러리 읽기 실패:', err);
   galleryList.innerHTML = '<p class="empty-msg">갤러리를 불러올 수 없습니다.</p>';
