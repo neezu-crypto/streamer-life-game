@@ -1276,3 +1276,72 @@
     opacity: 0.85;
   }
 
+  /* regular-employee(정규직 직장인) 전용(2026-08-26) - 사무실 큐비클
+     톤. 다른 화려한 테마들과 대비되게 무채색 위주(그레이-블루 + 스틸
+     실버)로 잡았다. */
+  body.route-bg-regular-employee {
+    --bg: #14171c;
+    background-color: var(--bg);
+    background-image: url('assets/scenes/office-cubicles.jpg');
+    background-size: cover;
+    background-position: center 30%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  #gameSection.route-theme-regular-employee {
+    --panel: #232830; --panel-2: #2c323c;
+    --text: #eef1f4; --text-dim: #a6adb8; --text-faint: #707986;
+    --gold: #b8c2cf; --gold-dim: rgba(184, 194, 207, 0.14);
+    --line: #3a414c;
+    --sage: #8fd4a0; --sage-dim: rgba(143, 212, 160, 0.14);
+    --coral: #ffab8a; --coral-dim: rgba(255, 171, 138, 0.14);
+    --sky: #9fc4f5; --sky-dim: rgba(159, 196, 245, 0.16);
+    color: var(--text);
+    background-color: #232830;
+    border: 1px solid #b8c2cf;
+    border-radius: 3px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+    position: relative;
+  }
+  #gameSection.route-theme-regular-employee .choice-btn {
+    border-left: 3px solid var(--gold);
+  }
+  #gameSection.route-theme-regular-employee .stat-bar-fill {
+    box-shadow: 0 0 6px 0 rgba(184, 194, 207, 0.5);
+  }
+  /* 사원증 아이콘 + 실버 밑줄, 형광등 은은한 깜빡임 */
+  #gameSection.route-theme-regular-employee .stage-name {
+    position: relative;
+    display: inline-block;
+    padding-left: 20px;
+    animation: route-office-flicker 6s ease-in-out infinite;
+  }
+  #gameSection.route-theme-regular-employee .stage-name::before {
+    content: '🪪';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.85em;
+  }
+  #gameSection.route-theme-regular-employee .stage-name::after {
+    content: '';
+    position: absolute;
+    left: 20px;
+    bottom: -3px;
+    right: 0;
+    height: 2px;
+    background: var(--gold);
+    opacity: 0.85;
+  }
+  @keyframes route-office-flicker {
+    0%, 92%, 100% { opacity: 1; }
+    94% { opacity: 0.75; }
+    96% { opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #gameSection.route-theme-regular-employee .stage-name {
+      animation: none;
+    }
+  }
+
