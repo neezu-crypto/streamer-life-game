@@ -4583,6 +4583,22 @@
         문구 포함)로 스크린샷 확인 - 콘크리트 그레이 배경에 대각선 경고 줄무늬, 두꺼운 옐로 좌측 테두리,
         각진 버튼 모서리가 developer(다크 네이비+민트, 둥근 모서리)와 확실히 구별되는 것을 눈으로
         확인.</p>
+        <p class="note"><b>명암비 버그 발견·수정(2026-08-25, 사용자 지적 - "실제 플레이시 색이 겹쳐서
+        잘 안보이는지 확인해줘").</b> 스크린샷만으로는 안 보이던 문제 - 건강 상세(<code>health-chip</code>,
+        <code>--coral</code>)·가족 상세(<code>family-chip</code>, <code>--sky</code>)·직업 상세
+        (<code>occupation-current</code>, <code>--sage</code>) 세 칩이 이 세 변수를 쓰는데, 두 루트
+        테마 모두 <code>--gold</code>·<code>--bg</code>·<code>--panel</code> 등만 재정의하고
+        <code>--sage</code>/<code>--coral</code>/<code>--sky</code>는 그대로 뒀다 - 그 결과 사용자의
+        OS 라이트/다크 모드 설정에 따라 <code>:root</code>의 원래 값(원래 크림톤·기본 다크 패널에
+        맞춰 튜닝된 색)이 새 어두운 테마 패널 위에 그대로 얹혀, 실측 명암비가 라이트 OS 기준 최저
+        1.59:1까지(WCAG AA 기준 4.5:1의 1/3 수준) 떨어졌다 - 사실상 글자가 배경에 거의 묻히는
+        수준이었다. Node로 WCAG 상대휘도·명암비 공식을 직접 구현해 Playwright로 뽑은 실제 합성(반투명
+        칩 배경이 패널 위에 겹친 최종 렌더링) RGB 값을 검사하는 스크립트로 정량 확인 후,
+        <code>--sage</code>/<code>--coral</code>/<code>--sky</code>(및 각 <code>-dim</code>)를 두
+        테마 패널 배경 모두에서 4.5:1 이상이 나오는 밝은 색으로 재정의 - developer 5.5~6.8:1,
+        logistics 4.5~4.9:1까지 끌어올렸다(logistics 패널이 더 밝은 올리브톤이라 여유가 더 적음). 이후
+        새 루트 테마를 추가할 때마다 이 세 변수를 반드시 같이 재정의해야 한다는 걸 코드 주석으로
+        남겨뒀다.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>

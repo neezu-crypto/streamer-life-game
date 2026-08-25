@@ -553,6 +553,16 @@
     --text: #d4d4d4; --text-dim: #8b949e; --text-faint: #6e7681;
     --gold: #4ec9b0; --gold-dim: rgba(78, 201, 176, 0.14);
     --line: #2d333b;
+    /* 2026-08-25, 사용자 지적 - "실제 플레이시 색이 겹쳐서 잘 안보이는지
+       확인해줘" - 건강/가족/직업 칩(health-chip·family-chip·occupation-current)이
+       --coral/--sky/--sage를 쓰는데, 이 변수들은 여기서 재정의 안 하면
+       :root의 원래(라이트/다크 OS 설정에 따른) 값이 그대로 남아 새 어두운
+       패널 배경 위에서 명암비가 1.6~4:1까지 떨어졌다(WCAG AA 4.5:1 미달).
+       테마 패널 배경에 맞춰 밝게 다시 정의 - 이후 새 루트 테마를 추가할 때도
+       이 세 변수를 빠뜨리면 같은 문제가 재발하니 항상 같이 재정의할 것. */
+    --sage: #8fd4a0; --sage-dim: rgba(143, 212, 160, 0.14);
+    --coral: #ffab8a; --coral-dim: rgba(255, 171, 138, 0.14);
+    --sky: #9fc4f5; --sky-dim: rgba(159, 196, 245, 0.16);
     background-color: #0f1419;
     background-image:
       repeating-linear-gradient(180deg, rgba(78,201,176,0.035) 0px, rgba(78,201,176,0.035) 1px, transparent 1px, transparent 24px),
@@ -585,6 +595,12 @@
     --text: #e8e4d8; --text-dim: #a8a498; --text-faint: #78756a;
     --gold: #e8b923; --gold-dim: rgba(232, 185, 35, 0.14);
     --line: #4a483d;
+    /* developer와 동일한 이유로 재정의 필요(위 주석 참고) - logistics 패널이
+       developer보다 밝은 올리브톤이라 명암비 문제가 더 심했다(라이트 OS
+       기준 1.6:1까지 하락). 같은 밝은 색으로 통일해 재사용. */
+    --sage: #8fd4a0; --sage-dim: rgba(143, 212, 160, 0.14);
+    --coral: #ffab8a; --coral-dim: rgba(255, 171, 138, 0.14);
+    --sky: #9fc4f5; --sky-dim: rgba(159, 196, 245, 0.16);
     background-color: #26251f;
     background-image:
       repeating-linear-gradient(45deg, rgba(232,185,35,0.06) 0px, rgba(232,185,35,0.06) 14px, transparent 14px, transparent 28px);
