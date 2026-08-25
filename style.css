@@ -1201,7 +1201,7 @@
     padding-left: 20px;
   }
   #gameSection.route-theme-student-leadership .stage-name::before {
-    content: '🎗️';
+    content: '👑';
     position: absolute;
     left: 0;
     top: 50%;
