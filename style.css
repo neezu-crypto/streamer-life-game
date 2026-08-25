@@ -574,6 +574,14 @@
     --sage: #8fd4a0; --sage-dim: rgba(143, 212, 160, 0.14);
     --coral: #ffab8a; --coral-dim: rgba(255, 171, 138, 0.14);
     --sky: #9fc4f5; --sky-dim: rgba(159, 196, 245, 0.16);
+    /* 2026-08-25, 사용자 지적 - "'청년기' 글자는 색이 희미해보이네?" -
+       .stage-name처럼 자기 color를 따로 안 정하고 상속만 받는 요소는, 여기서
+       --text를 재정의해도 자동으로 안 바뀐다 - color는 상속형 속성이라
+       부모의 "계산된 값"을 그대로 물려받을 뿐, 자식이 var(--text)를 다시
+       안 쓰면 body에 남아있는 옛 --text(테마 미적용) 값이 그대로 굳어있다.
+       #gameSection 자신에게 color: var(--text)를 명시해야 그 아래 상속
+       체인 전체가 새 값으로 갱신된다. */
+    color: var(--text);
     background-color: #0f1419;
     background-image:
       repeating-linear-gradient(180deg, rgba(78,201,176,0.035) 0px, rgba(78,201,176,0.035) 1px, transparent 1px, transparent 24px),
@@ -626,6 +634,9 @@
     --sage: #8fd4a0; --sage-dim: rgba(143, 212, 160, 0.14);
     --coral: #ffab8a; --coral-dim: rgba(255, 171, 138, 0.14);
     --sky: #9fc4f5; --sky-dim: rgba(159, 196, 245, 0.16);
+    /* developer와 동일한 이유로 필요(위 주석 참고) - .stage-name 등 자기
+       color를 안 정하는 요소를 위한 상속 갱신. */
+    color: var(--text);
     background-color: #26251f;
     background-image:
       repeating-linear-gradient(45deg, rgba(232,185,35,0.06) 0px, rgba(232,185,35,0.06) 14px, transparent 14px, transparent 28px);

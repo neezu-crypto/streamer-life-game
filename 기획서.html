@@ -4624,6 +4624,21 @@
         <code>content</code>·<code>animationName</code>도 의도한 값("▌"/
         <code>route-dev-cursor-blink</code>)으로 적용됨을 확인. 스크린샷으로 커서가 구간명 옆에 자연스럽게
         보이고 다른 텍스트를 가리지 않는 것도 눈으로 확인.</p>
+        <p class="note"><b>구간명 색 상속 버그 발견·수정(2026-08-25, 사용자 지적 - "'청년기' 글자는
+        색이 희미해보이네?").</b> 스크린샷을 보고 정확히 짚으셨다 - <code>.stage-name</code>은 자기
+        <code>color</code>를 따로 안 정하고 상위 요소에서 상속만 받는데, <code>color</code>는 상속형
+        속성이라 <b>부모의 계산된 값을 그대로 물려받을 뿐</b> 자식이 <code>var(--text)</code>를 다시
+        쓰지 않으면 갱신되지 않는다. 두 테마 모두 <code>#gameSection</code>에서 <code>--text</code>
+        변수는 재정의했지만 정작 <code>color</code> 속성 자체는 안 썼던 게 원인 - 그 결과
+        <code>.stage-name</code>은 <code>body</code>에 남아있던 옛 <code>--text</code>(테마 미적용,
+        라이트 OS 기준 <code>rgb(36,31,22)</code> 어두운 갈색)를 그대로 물려받아 다크 네이비 배경 위에서
+        거의 안 보이는 수준이었다(반대로 버튼·본문 텍스트 등은 각자 <code>color: var(--text)</code>를
+        직접 쓰고 있어서 문제없이 갱신됐었다). <code>#gameSection.route-theme-{id}</code>에
+        <code>color: var(--text);</code> 한 줄을 추가해 해결 - 이제 그 자신부터 상속 체인이 새 값으로
+        갱신되므로, 앞으로 색 지정을 안 한 요소가 추가돼도 같은 문제가 재발하지 않는다. Playwright로
+        <code>.stage-name</code>의 실제 렌더링 색이 developer는 <code>rgb(212,212,212)</code>,
+        logistics는 <code>rgb(232,228,216)</code>(각 테마의 <code>--text</code>와 정확히 일치)로
+        바뀐 것을 재확인.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
