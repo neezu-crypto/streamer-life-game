@@ -5052,21 +5052,21 @@ const STAGES = [
     choices: [
       {
         id: 'lw-night-shift-assign-21',
-        text: 'undefined',
+        text: '야간조로 배치돼 낮과 밤이 뒤바뀐 생활을 시작한다',
         deltas: {"wealth":2,"health":-2},
         result: '해가 지고 나서야 하루가 시작되는 삶에, 몸이 먼저 적응해야 했다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-first-forklift-21',
-        text: 'undefined',
+        text: '처음으로 지게차 조종간을 잡아본다',
         deltas: {"happiness":2},
         result: '처음 손에 쥔 조종간이, 낯설고도 짜릿했다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-loading-knowhow-21',
-        text: 'undefined',
+        text: '상하차 요령을 하나씩 몸으로 익혀간다',
         deltas: {"happiness":1,"wealth":1},
         result: '요령 하나 터득할 때마다, 몸이 조금씩 덜 힘들어졌다.',
         requiresRoute: 'logistics'
@@ -5679,21 +5679,21 @@ const STAGES = [
     choices: [
       {
         id: 'lw-forklift-license-22',
-        text: 'undefined',
+        text: '지게차 운전 자격증을 취득한다',
         deltas: {"happiness":3,"wealth":1},
         result: '자격증 한 장이, 손끝의 기술을 증명해줬다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-automation-training-22',
-        text: 'undefined',
+        text: '새로 도입된 자동화 설비 사용법을 교육받는다',
         deltas: {"happiness":1},
         result: '낯선 화면 앞에서도, 배우는 속도만큼은 남 못지않았다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-syncing-with-team-22',
-        text: 'undefined',
+        text: '동료들과 손발을 맞춰가며 팀워크를 다진다',
         deltas: {"happiness":2,"relationship":2},
         result: '손발이 맞기 시작하자, 일이 눈에 띄게 수월해졌다.',
         requiresRoute: 'logistics'
@@ -6347,21 +6347,21 @@ const STAGES = [
     choices: [
       {
         id: 'lw-musculoskeletal-onset-23',
-        text: 'undefined',
+        text: '반복되는 중노동에 근골격계 통증이 시작된다',
         deltas: {"happiness":-2,"health":-2},
         result: '무거운 걸 든 다음 날이면, 어김없이 몸이 신호를 보냈다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-safety-gear-habit-23',
-        text: 'undefined',
+        text: '귀찮았던 안전장비 착용이 어느새 습관이 된다',
         deltas: {"health":2},
         result: '귀찮던 보호장비가, 어느새 없으면 허전한 습관이 됐다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-stamina-training-23',
-        text: 'undefined',
+        text: '퇴근 후 체력 관리를 위해 꾸준히 운동한다',
         deltas: {"health":2,"happiness":1},
         result: '퇴근 후 운동 한 번이, 다음 날 몸을 조금 가볍게 했다.',
         requiresRoute: 'logistics'
@@ -7029,21 +7029,21 @@ const STAGES = [
     choices: [
       {
         id: 'lw-volume-prep-24',
-        text: 'undefined',
+        text: '다가올 물량 폭주에 미리 마음의 준비를 한다',
         deltas: {"happiness":-1,"wealth":2},
         result: '몰려올 물량을 미리 그려보는 것만으로도, 어깨가 무거워졌다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-workload-dispute-24',
-        text: 'undefined',
+        text: '업무량 분담을 두고 동료와 신경전을 벌인다',
         deltas: {"happiness":-3,"relationship":-1},
         result: '누구 몫이 더 많은지를 두고, 날 선 말들이 오갔다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-trains-newbie-24',
-        text: 'undefined',
+        text: '신입 직원에게 현장 요령을 가르쳐준다',
         deltas: {"happiness":3,"relationship":2},
         result: '가르쳐주는 입장이 되고서야, 스스로도 다시 배우는 기분이었다.',
         requiresRoute: 'logistics'
@@ -7746,21 +7746,21 @@ const STAGES = [
     choices: [
       {
         id: 'lw-safety-near-miss-25',
-        text: 'undefined',
+        text: '아찔한 안전사고를 가까스로 피한다',
         deltas: {"happiness":-4,"health":-1},
         result: '몇 초만 늦었어도, 상상하기 싫은 일이 벌어질 뻔했다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-industrial-insurance-25',
-        text: 'undefined',
+        text: '만일에 대비해 산재보험 서류를 챙겨둔다',
         deltas: {"wealth":-1,"happiness":1},
         result: '만일을 대비한 서류 한 장이, 마음 한켠을 든든하게 했다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-witness-coworker-accident-25',
-        text: 'undefined',
+        text: '눈앞에서 동료의 사고를 목격한다',
         deltas: {"happiness":-3},
         result: '동료가 다치는 걸 본 뒤로, 매 순간이 조심스러워졌다.',
         requiresRoute: 'logistics'
@@ -8423,21 +8423,21 @@ const STAGES = [
     choices: [
       {
         id: 'lw-cold-shift-26',
-        text: 'undefined',
+        text: '매서운 한파 속에서도 새벽 근무를 이어간다',
         deltas: {"happiness":-2,"health":-2},
         result: '손끝이 곱을 만큼 추운 새벽에도, 물량은 어김없이 밀려들었다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-heatwave-shift-26',
-        text: 'undefined',
+        text: '폭염 속 창고 안에서 땀에 젖은 채 일한다',
         deltas: {"happiness":-2,"health":-2},
         result: '찜통 같은 창고 안에서, 땀이 쉴 새 없이 흘렀다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-night-pay-calc-26',
-        text: 'undefined',
+        text: '야간·특근 수당이 쌓여가는 걸 확인한다',
         deltas: {"wealth":2},
         result: '고된 시간만큼, 명세서의 숫자도 조금씩 두툼해졌다.',
         requiresRoute: 'logistics'
@@ -9182,21 +9182,21 @@ const STAGES = [
     choices: [
       {
         id: 'lw-headhunted-27',
-        text: 'undefined',
+        text: '다른 물류센터에서 스카우트 제안을 받는다',
         deltas: {"wealth":1,"happiness":1},
         result: '다른 물류센터에서 온 제안에, 마음이 잠시 흔들렸다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-considers-office-switch-27',
-        text: 'undefined',
+        text: '사무직으로 전향하는 걸 잠시 고민한다',
         deltas: {"happiness":-1},
         result: '몸 대신 머리를 쓰는 자리는 어떨지, 문득 궁금해졌다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-decides-to-stay-27',
-        text: 'undefined',
+        text: '고민 끝에 지금 이 자리에 남기로 한다',
         deltas: {"happiness":2,"relationship":1},
         result: '결국 익숙해진 이 자리를, 조금 더 지켜보기로 했다.',
         requiresRoute: 'logistics'
@@ -9938,21 +9938,21 @@ const STAGES = [
     choices: [
       {
         id: 'lw-special-cargo-cert-28',
-        text: 'undefined',
+        text: '특수화물을 다루는 자격을 취득한다',
         deltas: {"happiness":2,"wealth":2},
         result: '아무나 맡지 않는 화물이, 어느새 자신의 몫이 되어 있었다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-hazmat-certification-28',
-        text: 'undefined',
+        text: '위험물 취급 자격증을 새로 딴다',
         deltas: {"happiness":2,"wealth":1},
         result: '위험물 자격증 한 장이, 손에 쥔 무게를 다르게 만들었다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-becomes-go-to-veteran-28',
-        text: 'undefined',
+        text: '현장에서 다들 먼저 찾는 베테랑이 된다',
         deltas: {"happiness":3,"fame":1},
         result: '헷갈리는 일이 생기면, 다들 먼저 자신을 찾았다.',
         requiresRoute: 'logistics'
@@ -10597,21 +10597,21 @@ const STAGES = [
     choices: [
       {
         id: 'lw-team-friction-29',
-        text: 'undefined',
+        text: '쌓인 피로에 동료들과 사소한 갈등이 잦아진다',
         deltas: {"happiness":-3,"relationship":-2},
         result: '피곤이 쌓일수록, 사소한 말 한마디도 날카롭게 부딪혔다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-team-dinner-29',
-        text: 'undefined',
+        text: '고단한 하루를 마치고 동료들과 회식을 한다',
         deltas: {"happiness":3,"relationship":2},
         result: '고단한 하루 끝의 술 한잔이, 서로를 조금 더 가깝게 했다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-finds-work-partner-29',
-        text: 'undefined',
+        text: '손발이 척척 맞는 단짝 동료를 만난다',
         deltas: {"happiness":3,"relationship":2},
         result: '말 없이도 손발이 맞는 동료 하나가, 하루를 훨씬 가볍게 했다.',
         requiresRoute: 'logistics'
@@ -11235,21 +11235,21 @@ const STAGES = [
     choices: [
       {
         id: 'lw-mentors-rookies-30',
-        text: 'undefined',
+        text: '신입들이 믿고 의지하는 선임 역할을 맡는다',
         deltas: {"happiness":3,"relationship":1},
         result: '신입들 사이에서, 어느새 믿고 물어보는 선임이 되어 있었다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-coordinates-line-30',
-        text: 'undefined',
+        text: '어수선한 작업 라인을 능숙하게 정리한다',
         deltas: {"happiness":2,"fame":1},
         result: '어수선한 라인도, 한마디면 정리가 됐다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-conveyor-breakdown-30',
-        text: 'undefined',
+        text: '컨베이어 벨트가 갑자기 멈춰서 현장이 분주해진다',
         deltas: {"happiness":-2,"wealth":-1},
         result: '멈춰버린 벨트 앞에서, 다급한 손길들이 분주해졌다.',
         requiresRoute: 'logistics'
@@ -11860,21 +11860,21 @@ const STAGES = [
     choices: [
       {
         id: 'lw-robot-arrival-31',
-        text: 'undefined',
+        text: '현장에 물류 로봇이 처음 도입되는 걸 지켜본다',
         deltas: {"happiness":-2},
         result: '조용히 움직이는 기계 앞에서, 낯선 위기감이 스쳤다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-automation-anxiety-31',
-        text: 'undefined',
+        text: '자동화가 계속되면서 자리를 잃을까 불안해진다',
         deltas: {"happiness":-3},
         result: '언젠가 이 자리도 기계로 채워질까, 문득 두려워졌다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-adapts-to-new-system-31',
-        text: 'undefined',
+        text: '낯설던 새 시스템에도 차츰 익숙해진다',
         deltas: {"happiness":2,"wealth":1},
         result: '새 시스템도 결국, 손에 익어갔다.',
         requiresRoute: 'logistics'
@@ -12466,21 +12466,21 @@ const STAGES = [
     choices: [
       {
         id: 'lw-joins-labor-union-32',
-        text: 'undefined',
+        text: '노동조합에 가입해 목소리를 보탠다',
         deltas: {"happiness":2,"relationship":1},
         result: '혼자 말하기 어려웠던 것들이, 함께니 목소리가 됐다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-demands-better-hours-32',
-        text: 'undefined',
+        text: '근무 시간 개선을 회사에 요구한다',
         deltas: {"happiness":1,"wealth":1},
         result: '조금씩이라도, 바뀔 수 있다는 걸 확인한 하루였다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-negotiates-conditions-32',
-        text: 'undefined',
+        text: '어렵게 마련된 협상 자리에서 처우 개선을 이끌어낸다',
         deltas: {"wealth":2,"happiness":1},
         result: '어렵게 앉은 협상 테이블에서, 작은 성과 하나를 얻었다.',
         requiresRoute: 'logistics'
@@ -13017,21 +13017,21 @@ const STAGES = [
     choices: [
       {
         id: 'lw-logistics-management-cert-33',
-        text: 'undefined',
+        text: '물류관리사 자격증을 취득한다',
         deltas: {"happiness":3,"wealth":1},
         result: '현장 밖에서도 통할 자격 하나를, 손에 쥐었다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-suggests-layout-improvement-33',
-        text: 'undefined',
+        text: '현장 경험을 살려 작업 동선 개선안을 제안한다',
         deltas: {"happiness":2,"fame":1},
         result: '몸으로 부딪히며 배운 것들이, 제안서 한 장에 담겼다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-decade-veteran-recognized-33',
-        text: 'undefined',
+        text: '10년차 베테랑으로 현장에서 인정받는다',
         deltas: {"happiness":3,"fame":1},
         result: '10년이라는 시간이, 이름 앞에 무게를 더했다.',
         requiresRoute: 'logistics'
@@ -13558,21 +13558,21 @@ const STAGES = [
     choices: [
       {
         id: 'lw-body-not-what-it-was-34',
-        text: 'undefined',
+        text: '예전 같지 않은 체력에 세월을 실감한다',
         deltas: {"happiness":-2,"health":-1},
         result: '예전만큼 가뿐하지 않은 몸이, 세월을 실감하게 했다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-passes-down-tips-34',
-        text: 'undefined',
+        text: '오랫동안 쌓아온 요령을 후배들에게 전수한다',
         deltas: {"happiness":3,"relationship":2},
         result: '오래 쌓은 요령들을, 하나씩 후배들에게 넘겨주었다.',
         requiresRoute: 'logistics'
       },
       {
         id: 'lw-plans-next-years-34',
-        text: 'undefined',
+        text: '앞으로 남은 시간을 어떻게 보낼지 차분히 계획한다',
         deltas: {"happiness":2},
         result: '앞으로의 시간을 어떻게 보낼지, 차분히 그려보기 시작했다.',
         requiresRoute: 'logistics'
