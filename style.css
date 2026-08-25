@@ -651,12 +651,7 @@
 
   /* prison(수감 생활, 2026-08-25) - 차갑게 억눌린 그레이-그린, 다른 두
      루트처럼 밝고 선명한 포인트색을 안 쓰고 채도를 확 낮춘 청회색 하나만
-     - "억눌린" 무드를 의도한 선택. 사용자 지시로 캔버스 테두리 자체를
-     세로 창살(bars) 무늬로 두른다 - border-image에 repeating-linear-
-     gradient를 흘려 넣는 방식(순수 CSS, 이미지 파일 없음). border-image는
-     border-radius를 따라 둥글게 안 잘리는 브라우저 호환성 문제가 있어,
-     아예 모서리를 거의 직각(2px)으로 만들어 "감방"다운 딱딱한 느낌을
-     의도적으로 살렸다. */
+     - "억눌린" 무드를 의도한 선택. */
   body.route-bg-prison {
     --bg: #1c211f;
     background-color: var(--bg);
@@ -675,15 +670,40 @@
     background-color: #1c211f;
     background-image:
       repeating-linear-gradient(90deg, rgba(157,179,174,0.06) 0px, rgba(157,179,174,0.06) 3px, transparent 3px, transparent 46px);
-    border-radius: 2px;
-    border-width: 12px;
-    border-style: solid;
-    border-image-slice: 12;
-    border-image-repeat: repeat;
-    border-image-source: repeating-linear-gradient(90deg,
-      rgba(20, 24, 22, 0.95) 0px, rgba(20, 24, 22, 0.95) 5px,
-      rgba(157, 179, 174, 0.55) 5px, rgba(157, 179, 174, 0.55) 8px,
-      rgba(20, 24, 22, 0.95) 8px, rgba(20, 24, 22, 0.95) 13px);
+    position: relative;
+  }
+  /* 캔버스 창살 오버레이(2026-08-25, 사용자가 참고 이미지로 재지시 - 얇은
+     테두리 무늬 대신 화면을 가로지르는 두꺼운 금속 창살). border-image
+     테두리 프레임 방식을 버리고, #gameSection 전체를 덮는 절대위치
+     의사요소(::before)로 교체 - pointer-events:none이라 아래 버튼 클릭을
+     막지 않는다. 세로 창살(repeating-linear-gradient, 원통형 하이라이트를
+     주려고 한 창살 안에서 어둠→밝음→어둠 5단 그라데이션) + 위/아래 가로
+     창살 2개(반복 없이 background-size/-position으로 상단·하단에 고정
+     두께로 배치)를 같은 요소의 서로 다른 background-image 레이어로 합쳤다. */
+  #gameSection.route-theme-prison::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+    border-radius: inherit;
+    background-repeat: repeat, no-repeat, no-repeat;
+    background-size: auto 100%, 100% 22px, 100% 22px;
+    background-position: 0 0, top, bottom;
+    background-image:
+      repeating-linear-gradient(90deg,
+        transparent 0px, transparent 130px,
+        rgba(15, 17, 16, 0.3) 130px, rgba(120, 128, 125, 0.32) 138px,
+        rgba(205, 212, 209, 0.38) 146px, rgba(120, 128, 125, 0.32) 154px,
+        rgba(15, 17, 16, 0.3) 162px, transparent 162px, transparent 300px),
+      linear-gradient(180deg,
+        rgba(15, 17, 16, 0.85) 0%, rgba(120, 128, 125, 0.85) 35%,
+        rgba(205, 212, 209, 0.9) 50%, rgba(120, 128, 125, 0.85) 65%,
+        rgba(15, 17, 16, 0.85) 100%),
+      linear-gradient(180deg,
+        rgba(15, 17, 16, 0.85) 0%, rgba(120, 128, 125, 0.85) 35%,
+        rgba(205, 212, 209, 0.9) 50%, rgba(120, 128, 125, 0.85) 65%,
+        rgba(15, 17, 16, 0.85) 100%);
   }
   #gameSection.route-theme-prison button { border-radius: 0; }
   #gameSection.route-theme-prison .choice-btn { border-left: 3px solid var(--gold); }
