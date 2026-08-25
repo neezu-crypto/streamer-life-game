@@ -4854,6 +4854,27 @@
         클래스 적용 후 스크린샷 확인 - 별 아이콘 펄스·로즈골드 글로우 테두리·칩 대비 전부 의도대로
         렌더링. <code>ROUTE_THEME_IDS</code>에 <code>entertainment-industry</code>·<code>actor</code>·
         <code>artist</code> 세 id 등록, CSS 선택자도 셋을 나란히 묶어 하나의 테마 공유.</p>
+
+        <h3>youth-politics(청년 정치) - 국회의사당 테마(2026-08-26)</h3>
+        <p>정치 소재라 <b>특정 정당을 연상시키는 색상(빨강/파랑 이분법, 정당 로고)을 의도적으로
+        배제</b>하고, 국회 배지에 흔히 쓰이는 <b>네이비+골드</b> 조합만으로 구성했다. 배경 삽화
+        프롬프트 단계에서도 "실존 정당 색상·로고·건물명 없음"을 명시해 사용자가 확인 후 채택.</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>루트</th><th>색상</th><th>패턴·디테일</th></tr>
+                <tr><td><code>youth-politics</code></td><td>네이비 패널(<code>#141e30</code>) + 골드
+                포인트(<code>#c9a63c</code>)</td><td>배경은 실제 삽화
+                (<code>assets/scenes/assembly-plaza.jpg</code>, 가상의 의사당 돔 건물 원경 + 연단·
+                마이크 + 광장 깃발 게양대, 정당색 없는 중립 배색). 패널은 얇은 골드 단선 테두리,
+                <code>.stage-name</code> 왼쪽에 원형 배지(●) 아이콘 + 고정 골드 밑줄(명패 느낌,
+                격식 있는 톤이라 애니메이션 없이 차분하게 유지).</td></tr>
+            </table>
+        </div>
+        <p class="note"><b>검증.</b> 명암비 스크립트로 텍스트/패널 14.7:1, 골드/패널 7.2:1, 재산·건강·
+        가족·직업 칩 3종 전부 6.5~7.1:1로 통과(처음부터 밝은 sage/coral/sky 값 사용). Playwright로
+        <code>route-bg-youth-politics</code>/<code>route-theme-youth-politics</code> 클래스 적용 후
+        스크린샷 확인 - 배지 아이콘·골드 밑줄·칩 대비 전부 의도대로 렌더링, 정당색 오해 소지 없이
+        중립적으로 나온 것 확인. <code>ROUTE_THEME_IDS</code>에 <code>youth-politics</code> 등록.</p>
     </section>
 
     <section>

@@ -1054,3 +1054,64 @@
       opacity: 1;
     }
   }
+
+  /* youth-politics(청년 정치) 전용(2026-08-26) - 국회의사당 톤. 특정
+     정당을 연상시키지 않도록 빨강/파랑 이분법 대신 네이비+골드(공식
+     휘장 느낌)로만 구성 - 배경 삽화 프롬프트 단계에서도 정당 로고·색상
+     배제를 명시해뒀다. */
+  body.route-bg-youth-politics {
+    --bg: #0f1420;
+    background-color: var(--bg);
+    background-image: url('assets/scenes/assembly-plaza.jpg');
+    background-size: cover;
+    background-position: center 30%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  #gameSection.route-theme-youth-politics {
+    --panel: #141e30; --panel-2: #1a263c;
+    --text: #eef1f6; --text-dim: #a6afc0; --text-faint: #707a8c;
+    --gold: #c9a63c; --gold-dim: rgba(201, 166, 60, 0.14);
+    --line: #2c3a52;
+    --sage: #8fd4a0; --sage-dim: rgba(143, 212, 160, 0.14);
+    --coral: #ffab8a; --coral-dim: rgba(255, 171, 138, 0.14);
+    --sky: #9fc4f5; --sky-dim: rgba(159, 196, 245, 0.16);
+    color: var(--text);
+    background-color: #141e30;
+    border: 2px solid #c9a63c;
+    border-radius: 2px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+    position: relative;
+  }
+  #gameSection.route-theme-youth-politics .choice-btn {
+    border-left: 3px solid var(--gold);
+  }
+  #gameSection.route-theme-youth-politics .stat-bar-fill {
+    box-shadow: 0 0 6px 0 rgba(201, 166, 60, 0.5);
+  }
+  /* 명패 느낌의 원형 배지 아이콘 + 고정 골드 밑줄(격식 있는 톤이라
+     애니메이션 없이 차분하게) */
+  #gameSection.route-theme-youth-politics .stage-name {
+    position: relative;
+    display: inline-block;
+    padding-left: 18px;
+  }
+  #gameSection.route-theme-youth-politics .stage-name::before {
+    content: '●';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.6em;
+    color: var(--gold);
+  }
+  #gameSection.route-theme-youth-politics .stage-name::after {
+    content: '';
+    position: absolute;
+    left: 18px;
+    bottom: -3px;
+    right: 0;
+    height: 2px;
+    background: var(--gold);
+    opacity: 0.85;
+  }
