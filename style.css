@@ -818,3 +818,93 @@
   #gameSection.route-theme-esports-coach .game-right-page {
     box-shadow: inset 0 0 40px rgba(94, 230, 230, 0.05);
   }
+
+  /* sports-elite(선수)·soccer-manager(감독) 공용(2026-08-25) - 사용자 제안
+     "게임 캔버스는 전략보드 느낌 어때?" - 캔버스 자체를 라커룸 벽에 걸린
+     전술 화이트보드처럼 디자인. 배경 삽화(라커룸+전술판)는 중앙을 일부러
+     저대비로 비워둬서(프로게이머 모니터 베젤 때와 같은 이유 - #gameSection
+     크기가 콘텐츠 길이에 따라 매번 달라짐) 그 자리에 진짜 UI 패널이 겹쳐도
+     삽화 속 흐릿한 보드와 자연스럽게 이어진다. */
+  body.route-bg-sports-elite, body.route-bg-soccer-manager {
+    --bg: #0f1a13;
+    background-color: var(--bg);
+    background-image: url('assets/scenes/soccer-tactics-room.jpg');
+    background-size: cover;
+    background-position: center 30%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  #gameSection.route-theme-sports-elite, #gameSection.route-theme-soccer-manager {
+    --panel: #16241c; --panel-2: #1c2e23;
+    --text: #eef2ea; --text-dim: #a9b7ab; --text-faint: #71827a;
+    --gold: #f2f0e8; --gold-dim: rgba(242, 240, 232, 0.14);
+    --line: #2e3f33;
+    --sage: #8fd4a0; --sage-dim: rgba(143, 212, 160, 0.14);
+    --coral: #ffab8a; --coral-dim: rgba(255, 171, 138, 0.14);
+    --sky: #9fc4f5; --sky-dim: rgba(159, 196, 245, 0.16);
+    color: var(--text);
+    background-color: #16241c;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(242,240,232,0.025) 0px, rgba(242,240,232,0.025) 1px, transparent 1px, transparent 32px),
+      repeating-linear-gradient(90deg, rgba(242,240,232,0.025) 0px, rgba(242,240,232,0.025) 1px, transparent 1px, transparent 32px);
+    border: 6px solid #cfd6c9;
+    border-radius: 4px;
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.4),
+      0 8px 30px rgba(0, 0, 0, 0.4);
+    position: relative;
+  }
+  /* 화이트보드 모서리 클립 장식 - 4개 코너에 원형 클립 표시 */
+  #gameSection.route-theme-sports-elite::before,
+  #gameSection.route-theme-soccer-manager::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+    border-radius: inherit;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+    background-size: 18px 18px, 18px 18px, 18px 18px, 18px 18px;
+    background-position: -3px -3px, calc(100% - 15px) -3px, -3px calc(100% - 15px), calc(100% - 15px) calc(100% - 15px);
+    background-image:
+      radial-gradient(circle at 50% 50%, #56655c 0%, #56655c 48%, transparent 50%),
+      radial-gradient(circle at 50% 50%, #56655c 0%, #56655c 48%, transparent 50%),
+      radial-gradient(circle at 50% 50%, #56655c 0%, #56655c 48%, transparent 50%),
+      radial-gradient(circle at 50% 50%, #56655c 0%, #56655c 48%, transparent 50%);
+  }
+  #gameSection.route-theme-sports-elite .choice-btn,
+  #gameSection.route-theme-soccer-manager .choice-btn {
+    border-left: 3px solid var(--gold);
+  }
+  #gameSection.route-theme-sports-elite .stat-bar-fill,
+  #gameSection.route-theme-soccer-manager .stat-bar-fill {
+    box-shadow: 0 0 6px 0 rgba(242, 240, 232, 0.5);
+  }
+  /* 스테이지 이름 아래 분필로 밑줄을 긋는 듯한 애니메이션 */
+  #gameSection.route-theme-sports-elite .stage-name,
+  #gameSection.route-theme-soccer-manager .stage-name {
+    position: relative;
+    display: inline-block;
+  }
+  #gameSection.route-theme-sports-elite .stage-name::after,
+  #gameSection.route-theme-soccer-manager .stage-name::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    height: 2px;
+    width: 100%;
+    background: var(--gold);
+    opacity: 0.7;
+    animation: route-tactics-chalk-draw 1.6s ease-out;
+  }
+  @keyframes route-tactics-chalk-draw {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #gameSection.route-theme-sports-elite .stage-name::after,
+    #gameSection.route-theme-soccer-manager .stage-name::after {
+      animation: none;
+    }
+  }

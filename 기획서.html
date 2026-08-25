@@ -4779,6 +4779,34 @@
         클래스를 나란히 묶어(<code>body.route-bg-pro-gamer, body.route-bg-esports-coach {'{'} ... {'}'}</code>)
         하나의 테마를 공유하게 했다 - 두 직업이 서로 이어지는 루트라 같은 무대에 있는 게 자연스럽다는
         판단.</p>
+
+        <h3>sports-elite(선수)·soccer-manager(감독) - 라커룸 전술보드 테마(2026-08-25, 사용자 제안 -
+        "게임 캔버스는 전략보드 느낌 어때?")</h3>
+        <p>처음엔 야간 경기장(스타디움) 배경을 추천했는데, 사용자가 <b>캔버스 자체를 전술보드처럼
+        만들자</b>고 방향을 좁혀서 제안 - 선수·감독 두 루트 모두 "감독이 그리는 작전판"과 자연스럽게
+        엮이는 컨셉이라 배경도 스타디움 야경 대신 <b>라커룸 벽에 걸린 전술 화이트보드</b> 삽화로
+        교체했다. pro-gamer 모니터 베젤과 같은 이유로 삽화 중앙은 저대비로 비워 요청 - 실제 UI 패널이
+        그 자리에 겹쳐도 삽화 속 흐릿한 보드와 자연스럽게 이어진다.</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>루트</th><th>색상</th><th>패턴·디테일</th></tr>
+                <tr><td><code>sports-elite</code>/<code>soccer-manager</code></td><td>짙은 파인그린
+                패널(<code>#16241c</code>) + 분필 화이트(<code>#f2f0e8</code>) 포인트</td><td>배경은
+                실제 삽화(<code>assets/scenes/soccer-tactics-room.jpg</code>, 라커룸+전술 화이트보드,
+                유니폼·라커 실루엣). 패널 자체는 <b>화이트보드 프레임</b> - 크림색 6px 테두리 + 네 모서리
+                원형 클립 장식(<code>::before</code> 다층 <code>radial-gradient</code>, prison 창살과
+                같은 기법), 안쪽엔 아주 옅은 격자 패턴(분필판 질감, opacity 0.025라 텍스트 안 가림).
+                <code>.stage-name</code>엔 분필로 밑줄을 긋는 듯한 1.6초 드로잉 애니메이션(chalk-draw,
+                reduced-motion 대응 포함).</td></tr>
+            </table>
+        </div>
+        <p class="note"><b>검증.</b> 명암비 스크립트로 텍스트/패널 14.2:1, 재산·건강·가족·직업 칩
+        3종 전부 6.3~6.7:1로 여유 있게 통과(이번엔 처음부터 밝은 sage/coral/sky 값을 넣어서 시작 -
+        이전 developer/logistics 때 겪었던 "칩 명암비 누락" 실수 재발 방지). Playwright로 로컬 정적
+        서버 띄워 실제 CSS 클래스(<code>route-bg-soccer-manager</code>/<code>route-theme-soccer-manager</code>)
+        적용 후 스크린샷 확인 - 화이트보드 프레임·모서리 클립·칩 대비·분필 밑줄 전부 의도대로 렌더링.
+        <code>ROUTE_THEME_IDS</code>에 <code>sports-elite</code>·<code>soccer-manager</code> 두 id
+        등록, pro-gamer 때처럼 CSS 선택자를 나란히 묶어 하나의 테마 공유.</p>
     </section>
 
     <section>
