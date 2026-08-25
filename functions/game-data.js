@@ -4801,6 +4801,15 @@ const STAGES = [
         "requiresRoute": "sports-elite"
 },
       {
+        "id": "se-manager-carousel-20",
+        "text": "성적 부진 몇 경기 만에 감독이 또 경질되는 걸 지켜본다",
+        "deltas": {
+                "happiness": -3
+        },
+        "result": "신임 감독 환영 현수막이 채 내려가기도 전에, 다음 감독 이름이 벌써 오르내렸다.",
+        "requiresRoute": "sports-elite"
+},
+      {
         id: "wealth-drain-20-a",
         text: "동아리 활동에 필요한 장비를 이것저것 마련한다",
         deltas: { wealth: -3 },
@@ -5471,6 +5480,16 @@ const STAGES = [
         },
         "endsRoute": true,
         "result": "오래 고민한 끝에, 마침표를 찍기로 했다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-exemption-pressure-21",
+        "text": "병역 혜택이 걸린 대회라는 부담감 속에 경기에 나선다",
+        "deltas": {
+                "happiness": -2,
+                "health": -2
+        },
+        "result": "실력을 증명하는 자리인지, 서류 한 장을 증명하는 자리인지 스스로도 헷갈릴 때가 있었다.",
         "requiresRoute": "sports-elite"
 },
       {
@@ -6757,6 +6776,16 @@ const STAGES = [
         "requiresRoute": "sports-elite"
 },
       {
+        "id": "se-hometown-lineup-controversy-23",
+        "text": "실력보다 인맥이 앞섰다는 라인업 논란에 휘말린다",
+        "deltas": {
+                "happiness": -2,
+                "relationship": -1
+        },
+        "result": "누가 왜 뽑혔는지보다, 누가 왜 빠졌는지가 더 오래 회자됐다.",
+        "requiresRoute": "sports-elite"
+},
+      {
         "id": "artist-almost-quitting-23",
         "text": "통장 잔고를 보다 이 길을 접을 뻔한다",
         "deltas": {
@@ -7456,6 +7485,16 @@ const STAGES = [
         },
         "endsRoute": true,
         "result": "조용히, 그러나 후회 없이 짐을 정리했다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-fanbase-mood-swing-24",
+        "text": "한 경기 만에 영웅에서 역적으로 뒤바뀌는 여론을 실감한다",
+        "deltas": {
+                "happiness": -3,
+                "fame": -1
+        },
+        "result": "어제까지 칭송하던 댓글창이, 오늘은 완전히 다른 사람 얘기를 하고 있었다.",
         "requiresRoute": "sports-elite"
 },
       {
@@ -9616,6 +9655,15 @@ const STAGES = [
         "requiresRoute": "sports-elite"
 },
       {
+        "id": "se-tactics-copycat-27",
+        "text": "새로 도입됐다는 전술이 어디서 본 듯하다는 걸 눈치챈다",
+        "deltas": {
+                "happiness": -1
+        },
+        "result": "새 옷을 입었다는데, 어디서 본 무늬 같다는 인상은 지울 수 없었다.",
+        "requiresRoute": "sports-elite"
+},
+      {
         "id": "artist-book-deal-27",
         "text": "그동안의 작업을 엮어 책으로 출간할 기회를 얻는다",
         "deltas": {
@@ -10951,6 +10999,16 @@ const STAGES = [
         },
         "endsRoute": true,
         "result": "스포트라이트보다 평범한 일상이, 더 간절해졌다.",
+        "requiresRoute": "sports-elite"
+},
+      {
+        "id": "se-national-callup-friction-29",
+        "text": "소속팀과 국가대표 소집 사이에서 이러지도 저러지도 못한다",
+        "deltas": {
+                "happiness": -2,
+                "relationship": -1
+        },
+        "result": "몸은 하나인데, 부르는 곳은 언제나 둘이었다.",
         "requiresRoute": "sports-elite"
 },
       {
