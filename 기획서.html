@@ -4917,6 +4917,27 @@
         <code>route-bg-student-leadership</code>/<code>route-theme-student-leadership</code> 클래스
         적용 후 스크린샷 확인 - 배지 아이콘·밑줄·칩 대비 전부 의도대로 렌더링.
         <code>ROUTE_THEME_IDS</code>에 <code>student-leadership</code> 등록.</p>
+
+        <h3>small-business(자영업) - 개인 카페/식당 테마(2026-08-26)</h3>
+        <p>따뜻한 우드브라운 + 테라코타/구리 포인트로 아늑한 개인 가게 분위기를 냈다.</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>루트</th><th>색상</th><th>패턴·디테일</th></tr>
+                <tr><td><code>small-business</code></td><td>우드브라운 패널(<code>#2e2318</code>) +
+                테라코타 포인트(<code>#dd9868</code>)</td><td>배경은 실제 삽화
+                (<code>assets/scenes/small-business-cafe.jpg</code>, 카페 내부+조명줄+칠판 메뉴+
+                OPEN 사인). 패널은 두꺼운 원목 액자 느낌 테두리(<code>border: 6px solid</code>),
+                <code>.stage-name</code> 왼쪽에 가게 종(🔔) 아이콘 + 구리색 밑줄(손님이 들어올 때
+                울리는 도어벨 모티프).</td></tr>
+            </table>
+        </div>
+        <p class="note"><b>검증.</b> 처음 골드값(<code>#c97b4a</code>)은 패널 대비 4.68:1로 AA
+        기준(4.5:1)을 겨우 넘겨 여유가 부족했다 - 이 색이 <code>.eyebrow</code>/엔딩 타이틀 등 실제
+        텍스트에도 쓰이는 걸 확인하고 <code>#dd9868</code>(6.4:1)로 밝혀서 여유를 확보. 재산·건강·
+        가족·직업 칩 3종 전부 6.0~6.5:1 통과. Playwright로
+        <code>route-bg-small-business</code>/<code>route-theme-small-business</code> 클래스 적용 후
+        스크린샷 확인 - 원목 테두리·종 아이콘·칩 대비 전부 의도대로 렌더링.
+        <code>ROUTE_THEME_IDS</code>에 <code>small-business</code> 등록.</p>
     </section>
 
     <section>
