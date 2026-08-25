@@ -5705,6 +5705,17 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         endsRoute: true
       }
+    ,
+      {
+        id: 'et-trigger-21',
+        text: '어학 실력을 살려 영어 학원 강사로 첫발을 내딛는다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '칠판 앞에 선 첫날, 목소리가 떨리는 걸 애써 감췄다.',
+        requiresTalent: 'language',
+        mandatory: true,
+        setOccupation: { id: 'english-teacher', label: '🌐 영어 강사' },
+        startsRoute: { id: 'english-teacher', label: '🌐 영어 강사', maxDurationYears: 15 }
+      },
     ]
   },
   {
@@ -6373,6 +6384,36 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         endsRoute: true
       }
+    ,
+      {
+        id: 'et-pronunciation-clinic-22',
+        text: '발음 교정 특강을 열어 학생들의 호응을 얻는다',
+        deltas: { fame: 1, happiness: 2 },
+        result: '어색하던 혀 굴림이 하나둘 자연스러워지는 걸 지켜보는 재미가 있었다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-parent-consult-pressure-22',
+        text: '성적 상담을 요구하는 학부모 전화에 진땀을 뺀다',
+        deltas: { happiness: -2 },
+        result: '수화기 너머 목소리가 점점 날카로워졌다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-native-teacher-collab-22',
+        text: '원어민 강사와 손발을 맞춰가며 수업을 꾸린다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '서로 다른 말투가, 어느새 하나의 수업으로 맞춰졌다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-life-exit-22',
+        text: '영어 강사 생활을 완전히 정리하기로 한다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
+        endsRoute: true,
+        requiresRoute: 'english-teacher'
+      },
     ]
   },
   {
@@ -7065,6 +7106,36 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         endsRoute: true
       }
+    ,
+      {
+        id: 'et-toeic-class-boom-23',
+        text: '토익 전문반이 입소문을 타며 문전성시를 이룬다',
+        deltas: { fame: 2, wealth: 2 },
+        result: '대기 명단이 생길 줄은, 스스로도 예상 못 했다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-late-night-classes-23',
+        text: '야간 수업까지 겹치며 체력이 바닥난다',
+        deltas: { health: -2 },
+        result: '막차를 타고 집에 가는 날이 늘어갔다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-textbook-writing-start-23',
+        text: '자체 교재 집필을 처음으로 시작한다',
+        deltas: { fame: 1, wealth: -1 },
+        result: '빈 페이지 앞에서, 가르치는 것과 쓰는 것은 다른 일이라는 걸 깨달았다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-life-exit-23',
+        text: '영어 강사 생활을 완전히 정리하기로 한다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
+        endsRoute: true,
+        requiresRoute: 'english-teacher'
+      },
     ]
   },
   {
@@ -7823,7 +7894,6 @@ const STAGES = [
         deltas: { happiness: -1, relationship: 1 },
         result: '언제 일어나야 할지 눈치를 살피는 것도 일이었다.'
       },
-    ,
       {
         id: 'first-business-card-24',
         text: '처음 받은 명함을 한참 들여다본다',
@@ -7847,6 +7917,35 @@ const STAGES = [
         text: '직장 선배와 가까워지며 조언을 얻는다',
         deltas: { relationship: 1, happiness: 1 },
         result: '먼저 겪어본 사람의 한마디가, 큰 힘이 됐다.'
+      },
+      {
+        id: 'et-scout-offer-24',
+        text: '경쟁 학원에서 더 좋은 조건으로 스카우트를 제안한다',
+        deltas: { wealth: 2, happiness: 1 },
+        result: '흔들리지 않는다면 거짓말이었다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-student-score-jump-24',
+        text: '담당 학생의 성적이 눈에 띄게 오르며 보람을 느낀다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '오른 점수보다, 아이의 자신감이 더 크게 다가왔다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-burnout-signs-24',
+        text: '쉴 새 없는 수업 준비로 번아웃 조짐을 느낀다',
+        deltas: { health: -2, happiness: -2 },
+        result: '눈을 감아도 교재 페이지가 아른거렸다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-life-exit-24',
+        text: '영어 강사 생활을 완전히 정리하기로 한다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
+        endsRoute: true,
+        requiresRoute: 'english-teacher'
       },
     ]
   },
@@ -8549,6 +8648,35 @@ const STAGES = [
         text: '친한 친구가 타지로 떠나며 서운함을 느낀다',
         deltas: { happiness: -2 },
         result: '자주 보던 얼굴 하나가, 이제는 화면 속에만 있게 됐다.'
+      },
+      {
+        id: 'et-online-lecture-consider-25',
+        text: '인터넷 강의 플랫폼 진출을 진지하게 고민한다',
+        deltas: { happiness: 1 },
+        result: '칠판 앞과 카메라 앞은, 생각보다 많이 다를 것 같았다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-youtube-channel-25',
+        text: '영어 학습 유튜브 채널을 개설한다',
+        deltas: { fame: 2, wealth: -1 },
+        result: '구독자 수보다, 댓글 하나하나가 더 신경 쓰였다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-star-instructor-25',
+        text: '학원 내 "스타 강사"로 떠오르며 주목받는다',
+        deltas: { fame: 3, relationship: -1 },
+        result: '스포트라이트가 따뜻하면서도, 조금은 부담스러웠다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-life-exit-25',
+        text: '영어 강사 생활을 완전히 정리하기로 한다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
+        endsRoute: true,
+        requiresRoute: 'english-teacher'
       },
     ]
   },
@@ -9309,6 +9437,36 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         endsRoute: true
       }
+    ,
+      {
+        id: 'et-textbook-published-26',
+        text: '집필한 교재가 정식으로 출간된다',
+        deltas: { fame: 2, wealth: 2 },
+        result: '표지에 박힌 이름을 몇 번이고 다시 쓸어봤다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-director-conflict-26',
+        text: '원장과 커리큘럼 방향을 두고 크게 부딪힌다',
+        deltas: { happiness: -2, relationship: -1 },
+        result: '가르치는 방식에도, 결국 타협이 필요했다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-study-abroad-consulting-26',
+        text: '유학원과 연계해 컨설팅 부업을 시작한다',
+        deltas: { wealth: 2 },
+        result: '가르치는 일과 상담하는 일 사이, 새로운 감각이 필요했다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-life-exit-26',
+        text: '영어 강사 생활을 완전히 정리하기로 한다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
+        endsRoute: true,
+        requiresRoute: 'english-teacher'
+      },
     ]
   },
   {
@@ -10099,6 +10257,35 @@ const STAGES = [
         deltas: { wealth: -1, fame: 1 },
         result: '퇴근 후 책상 앞에 앉는 게, 어느새 습관이 됐다.'
       },
+      {
+        id: 'et-student-admission-news-27',
+        text: '가르친 제자의 명문대 합격 소식을 듣는다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '문자 한 통에, 지난 새벽들이 전부 보상받는 기분이었다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-broadcast-offer-27',
+        text: '교육 방송 출연 제안을 받는다',
+        deltas: { fame: 3 },
+        result: '카메라 앞에 선다는 게, 교단과는 또 다른 긴장이었다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-enrollment-drop-27',
+        text: '수강생 수가 갑자기 뚝 떨어져 위기감을 느낀다',
+        deltas: { wealth: -2, happiness: -2 },
+        result: '빈자리가 늘어난 강의실이, 유독 크게 느껴졌다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-life-exit-27',
+        text: '영어 강사 생활을 완전히 정리하기로 한다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
+        endsRoute: true,
+        requiresRoute: 'english-teacher'
+      },
     ]
   },
   {
@@ -10758,6 +10945,36 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         endsRoute: true
       }
+    ,
+      {
+        id: 'et-own-academy-consider-28',
+        text: '자신의 이름을 건 학원 개원을 진지하게 고민한다',
+        deltas: { happiness: 1 },
+        result: '누군가 밑에서 벗어난다는 게, 설레면서도 두려웠다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-franchise-offer-28',
+        text: '프랜차이즈 학원 브랜드의 제휴 제안을 받는다',
+        deltas: { wealth: 1 },
+        result: '이름을 빌리는 대신, 무언가를 내줘야 했다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-rival-comparison-28',
+        text: '인기 있는 다른 강사와 자꾸 비교당한다',
+        deltas: { happiness: -2 },
+        result: '같은 과목을 가르쳐도, 사람들은 늘 순위를 매기고 싶어 했다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-life-exit-28',
+        text: '영어 강사 생활을 완전히 정리하기로 한다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
+        endsRoute: true,
+        requiresRoute: 'english-teacher'
+      },
     ]
   },
   {
@@ -11432,6 +11649,35 @@ const STAGES = [
         deltas: { happiness: -1 },
         result: '확신 없이도, 일단은 계속 걸어가 보기로 했다.'
       },
+      {
+        id: 'et-academy-open-29',
+        text: '마침내 자신의 학원 문을 연다',
+        deltas: { wealth: -3, happiness: 3 },
+        result: '간판에 불이 들어오던 순간, 만감이 교차했다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-initial-recruit-struggle-29',
+        text: '초기 원생 모집에 애를 먹는다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '전단지를 돌리며, 강단에 서는 것과는 다른 근육을 썼다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-hire-instructors-29',
+        text: '함께할 강사진을 새로 채용한다',
+        deltas: { relationship: 1, wealth: -1 },
+        result: '혼자 하던 일을, 이제는 나눠야 했다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-life-exit-29',
+        text: '영어 강사 생활을 완전히 정리하기로 한다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
+        endsRoute: true,
+        requiresRoute: 'english-teacher'
+      },
     ]
   },
   {
@@ -12058,6 +12304,36 @@ const STAGES = [
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
+    ,
+      {
+        id: 'et-ten-year-reflection-30',
+        text: '강단에 선 지 10년, 지나온 시간을 되돌아본다',
+        deltas: { happiness: 1 },
+        result: '떨리던 첫날의 목소리가, 이제는 잘 기억나지 않았다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-breakeven-30',
+        text: '학원 운영이 마침내 손익분기점을 넘는다',
+        deltas: { wealth: 3 },
+        result: '숫자 하나가, 그동안의 밤들을 조용히 증명해줬다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-parent-complaint-crisis-30',
+        text: '학부모의 거센 항의로 곤욕을 치른다',
+        deltas: { happiness: -3, relationship: -1 },
+        result: '아이를 위한다는 마음은 같았는데, 방식이 자꾸 부딪혔다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-life-exit-30',
+        text: '영어 강사 생활을 완전히 정리하기로 한다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
+        endsRoute: true,
+        requiresRoute: 'english-teacher'
+      },
     ]
   },
   {
@@ -12666,6 +12942,36 @@ const STAGES = [
         result: '설렘보다 조심스러움이, 먼저 앞섰다.',
         requiresLocation: ['abroad']
       }
+    ,
+      {
+        id: 'et-online-platform-hit-31',
+        text: '온라인 강의가 예상 밖으로 큰 인기를 끈다',
+        deltas: { wealth: 3, fame: 2 },
+        result: '화면 너머 얼굴 없는 수강생들이, 어느새 훨씬 많아져 있었다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-copyright-dispute-31',
+        text: '교재 저작권을 두고 분쟁에 휘말린다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '공들여 쓴 문장 하나하나가, 법정 용어로 오갔다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-satisfaction-survey-31',
+        text: '수강생 만족도 조사에서 높은 점수를 받는다',
+        deltas: { fame: 1, happiness: 2 },
+        result: '숫자로 돌아온 평가가, 생각보다 큰 위로가 됐다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-life-exit-31',
+        text: '영어 강사 생활을 완전히 정리하기로 한다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
+        endsRoute: true,
+        requiresRoute: 'english-teacher'
+      },
     ]
   },
   {
@@ -13243,6 +13549,35 @@ const STAGES = [
         deltas: { happiness: -1, relationship: -1 },
         result: '연락 한 번이 이렇게 어려워질 줄은 몰랐다.'
       },
+      {
+        id: 'et-exam-proctor-32',
+        text: '국제 영어 인증시험 감독관으로 위촉된다',
+        deltas: { fame: 2 },
+        result: '가르치던 자리에서, 잠시 지켜보는 자리로 옮겨 앉았다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-instructor-defection-32',
+        text: '믿었던 강사가 독립해 학원을 떠난다',
+        deltas: { happiness: -2, relationship: -2 },
+        result: '키워낸 사람을 떠나보내는 게, 처음도 아닌데 매번 서운했다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-remodel-investment-32',
+        text: '학원 시설을 리모델링하는 데 큰돈을 투자한다',
+        deltas: { wealth: -3, happiness: 1 },
+        result: '먼지 쌓인 복도가, 며칠 새 몰라보게 달라졌다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-life-exit-32',
+        text: '영어 강사 생활을 완전히 정리하기로 한다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
+        endsRoute: true,
+        requiresRoute: 'english-teacher'
+      },
     ]
   },
   {
@@ -13817,6 +14152,35 @@ const STAGES = [
         deltas: { happiness: -1, relationship: 1 },
         result: '언제나 그 자리일 것 같던 부모님도, 나이를 먹고 있었다.',
         requiresFamilyMember: ['father', 'mother', 'single-parent']
+      },
+      {
+        id: 'et-neglecting-own-family-33',
+        text: '정작 자기 아이 교육엔 소홀했음을 깨닫는다',
+        deltas: { happiness: -2 },
+        result: '남의 아이 성적표는 훤히 꿰면서, 정작 내 아이 것은 낯설었다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-old-student-reunion-33',
+        text: '오래전 가르쳤던 제자와 우연히 재회한다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '몰라보게 자란 얼굴 속에서, 그때 그 눈빛만은 그대로였다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-industry-competition-33',
+        text: '경쟁 심화로 인근 학원들이 하나둘 문을 닫는 걸 지켜본다',
+        deltas: { happiness: -1 },
+        result: '남의 일 같지 않아, 마음 한구석이 서늘해졌다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-life-exit-33',
+        text: '영어 강사 생활을 완전히 정리하기로 한다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
+        endsRoute: true,
+        requiresRoute: 'english-teacher'
       },
     ]
   },
@@ -14424,6 +14788,35 @@ const STAGES = [
         deltas: { happiness: 2 },
         result: '별것 아닌 하루가, 오래 남을 추억이 됐다.'
       },
+      {
+        id: 'et-succession-plan-34',
+        text: '학원을 물려줄 후계자를 눈여겨보기 시작한다',
+        deltas: { happiness: 1 },
+        result: '누군가에게 넘긴다는 상상이, 조금씩 현실감을 띠었다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-farewell-lecture-prep-34',
+        text: '마지막이 될지도 모를 강의를 정성껏 준비한다',
+        deltas: { happiness: 1 },
+        result: '늘 하던 준비인데, 이번엔 유독 오래 붙잡고 있었다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-gratitude-letters-34',
+        text: '그동안 가르친 제자들에게 감사 인사를 전한다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '보낸 것보다 많은 답장이, 예상치 못하게 돌아왔다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-life-exit-34',
+        text: '영어 강사 생활을 완전히 정리하기로 한다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
+        endsRoute: true,
+        requiresRoute: 'english-teacher'
+      },
     ]
   },
   {
@@ -14964,6 +15357,35 @@ const STAGES = [
         deltas: { wealth: 1, relationship: 1 },
         result: '같은 목표를 그리자, 씀씀이도 자연히 맞춰졌다.',
         requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'et-fifteen-year-legacy-35',
+        text: '15년의 강단 인생을 돌아보며 남긴 것들을 헤아려본다',
+        deltas: { happiness: 2 },
+        result: '숫자로 셀 수 없는 것들이, 훨씬 많이 남아 있었다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-inspired-next-generation-35',
+        text: '자신의 수업을 들은 학생이 영어 강사의 길을 걷기 시작했다는 소식을 듣는다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '가르친 것이 대물림된다는 게, 이렇게 뭉클할 줄 몰랐다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-continues-as-director-35',
+        text: '계속 원장 자리를 지키며 학원을 이어가기로 한다',
+        deltas: { happiness: 1 },
+        result: '내려놓을 이유가 없다면, 계속 서 있기로 했다.',
+        requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'et-life-exit-35',
+        text: '영어 강사 생활을 완전히 정리하기로 한다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
+        endsRoute: true,
+        requiresRoute: 'english-teacher'
       },
     ]
   },
@@ -17467,6 +17889,13 @@ const STAGES = [
         deltas: { health: 1 },
         result: '숫자 하나가, 오랜만에 운동화 끈을 다시 묶게 만들었다.'
       },
+      {
+        id: 'et2-old-student-tutoring-40',
+        text: '오랜만에 옛 제자의 부탁으로 과외를 봐준다',
+        deltas: { happiness: 2 },
+        result: '분필 대신 화이트보드 마카를 쥐었을 뿐, 감각은 그대로였다.',
+        requiresEverOccupation: ['english-teacher']
+      },
     ]
   },
   {
@@ -17833,7 +18262,6 @@ const STAGES = [
         deltas: { wealth: -1, happiness: 2 },
         result: '공이 잘 맞는 날도, 안 맞는 날도, 나름의 낙이 됐다.'
       },
-    ,
       {
         id: 'child-puberty-distance-41',
         text: '사춘기 자녀와의 거리감을 느낀다',
@@ -19544,6 +19972,14 @@ const STAGES = [
         requiresLocation: ['domestic'],
         setLocation: { id: 'abroad', label: '🌍 해외' }
       }
+    ,
+      {
+        id: 'et2-neighborhood-reputation-45',
+        text: '동네에서 소문난 영어 과외 선생님으로 불린다',
+        deltas: { fame: 1, wealth: 1 },
+        result: '간판 없이도, 입소문만으로 충분했다.',
+        requiresEverOccupation: ['english-teacher']
+      },
     ]
   },
   {
@@ -20936,6 +21372,14 @@ const STAGES = [
         requiresLocation: ['abroad'],
         setLocation: { id: 'domestic', label: '🇰🇷 국내' }
       }
+    ,
+      {
+        id: 'et2-volunteer-teaching-50',
+        text: '손주뻘 아이들에게 재능기부로 영어를 가르친다',
+        deltas: { happiness: 2 },
+        result: '돈 받지 않고 가르치는 수업이, 오히려 더 즐거웠다.',
+        requiresEverOccupation: ['english-teacher']
+      },
     ]
   },
   {
@@ -21853,7 +22297,6 @@ const STAGES = [
         deltas: { happiness: 1 },
         result: '잘한 것도 아쉬운 것도 많았지만, 후회는 없었다.'
       },
-    ,
       {
         id: 'longtime-hobby-mastery-55',
         text: '오래 취미로 삼아온 일에서 제법 능숙한 경지에 오른다',
@@ -21878,6 +22321,13 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 1 },
         result: '지도를 펼쳐놓고 나누는 대화만으로도, 벌써 설렜다.',
         requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'et2-online-study-group-55',
+        text: '온라인으로 소규모 영어 스터디를 계속 이끈다',
+        deltas: { wealth: 1 },
+        result: '화면 속 얼굴은 바뀌어도, 가르치는 마음은 그대로였다.',
+        requiresEverOccupation: ['english-teacher']
       },
     ]
   },
@@ -22699,6 +23149,14 @@ const STAGES = [
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
+    ,
+      {
+        id: 'et2-teachers-day-greetings-60',
+        text: '옛 제자들이 스승의 날에 안부를 전해온다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '카네이션 한 송이보다, 안부 문자 한 줄이 더 오래 남았다.',
+        requiresEverOccupation: ['english-teacher']
+      },
     ]
   },
   {
@@ -23586,6 +24044,14 @@ const STAGES = [
         requiresLocation: ['abroad'],
         setLocation: { id: 'domestic', label: '🇰🇷 국내' }
       }
+    ,
+      {
+        id: 'et2-library-free-class-65',
+        text: '동네 도서관에서 무료 영어 강좌를 연다',
+        deltas: { happiness: 2 },
+        result: '월급은 없어도, 채워지는 게 분명히 있었다.',
+        requiresEverOccupation: ['english-teacher']
+      },
     ]
   },
   {
@@ -23764,7 +24230,6 @@ const STAGES = [
         deltas: { health: 2, happiness: 1 },
         result: '정해진 시간, 정해진 길이, 하루를 단단하게 잡아줬다.'
       },
-    ,
       {
         id: 'pension-budget-adjustment-66',
         text: '연금 수입에 맞춰 생활비를 조정한다',
@@ -24352,6 +24817,14 @@ const STAGES = [
         deltas: { fame: -2, happiness: -2 },
         result: '그때 그 이야기를 꺼내도, 알아듣는 사람이 점점 줄어갔다.'
       }
+    ,
+      {
+        id: 'et2-successful-student-visit-70',
+        text: '가르쳤던 제자가 성공해 인사를 온다',
+        deltas: { happiness: 3 },
+        result: '문 앞에 선 얼굴을 한참 알아보지 못하다가, 이내 눈시울이 붉어졌다.',
+        requiresEverOccupation: ['english-teacher']
+      },
     ]
   },
   {
@@ -24963,6 +25436,14 @@ const STAGES = [
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
+    ,
+      {
+        id: 'et2-memoir-writing-75',
+        text: '지나온 강단 인생을 담은 회고록을 써본다',
+        deltas: { happiness: 1 },
+        result: '한 문장 한 문장이, 오래된 교실 냄새를 불러왔다.',
+        requiresEverOccupation: ['english-teacher']
+      },
     ]
   },
   {
@@ -25534,6 +26015,14 @@ const STAGES = [
         result: '적막한 집안 공기가, 마음까지 무겁게 눌렀다.',
         addCondition: { id: 'isolation-depression', label: '🏚️ 고립성 우울증', mental: true }
       }
+    ,
+      {
+        id: 'et2-humming-old-songs-80',
+        text: '여전히 또렷한 발음으로 팝송 가사를 흥얼거린다',
+        deltas: { happiness: 1 },
+        result: '가사는 잊어도, 발음만은 몸에 새겨져 있었다.',
+        requiresEverOccupation: ['english-teacher']
+      },
     ]
   },
   {
@@ -26149,6 +26638,14 @@ const STAGES = [
         deltas: { fame: -3, happiness: 0 },
         result: '특별할 것 없는 하루하루가, 의외로 편안하게 느껴졌다.'
       }
+    ,
+      {
+        id: 'et2-lifelong-hobby-85',
+        text: '평생 가르친 영어가, 이제는 그저 즐거운 취미로 남았다',
+        deltas: { happiness: 2 },
+        result: '더는 시험도 성적도 없이, 언어 그 자체가 좋아졌다.',
+        requiresEverOccupation: ['english-teacher']
+      },
     ]
   },
   {

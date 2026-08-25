@@ -5296,6 +5296,56 @@
         game-data.js</code> 통과, <code>sa-english-progress-12</code>가 정확히
         <code>addTalent: {'{'}id:'language'{'}'}</code>를 갖는지 스크립트로 재확인. 순수 추가 diff,
         <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
+
+        <h3>영어 강사(english-teacher) 루트 신설(2026-08-26, 사용자 지시 - "영어 재능을 획득한 후
+        영어 교사가 되는 선택지/루트를 추가해줘")</h3>
+        <p>규모를 먼저 확인 - "가벼운 선택지 1개" / "전용 직업+소규모 선택지" / "pro-gamer급 전용
+        루트" 세 선택지를 제시했고, 사용자가 세 번째보다 더 구체적인 안(트리거 1개 → 15년 정식
+        루트 → 이후 넓은 범위에 과외 이벤트)을 직접 지정. pro-gamer/teen-entrepreneur와 동일한
+        "재능 기반 트리거 → 15년 전용 루트" 패턴을 그대로 따랐다.</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>구간</th><th>내용</th></tr>
+                <tr><td>트리거(21세, 1개)</td><td><code>et-trigger-21</code> - "어학 실력을 살려
+                영어 학원 강사로 첫발을 내딛는다". <code>requiresTalent: 'language'</code> +
+                <code>mandatory: true</code>(조건 충족 시 항상 노출 - 바로 앞서 고친 트리거
+                패턴과 동일하게 처음부터 mandatory로 설계). <code>setOccupation</code>으로 새 직업
+                <code>english-teacher</code>(🌐 영어 강사) 부여, <code>startsRoute</code>
+                maxDurationYears: 15.</td></tr>
+                <tr><td>정식 루트(22~35세, 56개)</td><td>나이마다 플레이버 3개 + 자발적 종료
+                (<code>et-life-exit-{'{'}나이{'}'}</code>, <code>endsRoute: true</code>) 1개 =
+                총 4개씩, teen-entrepreneur/student-leadership와 같은 구조. 학원 강사 취업 →
+                토익반 인기 → 자체 교재 집필 → 스타 강사 등극 → 학원 개원(29세) → 손익분기
+                돌파(30세) → 온라인 강의 확장 → 15년 회고(35세, 계속 원장으로 남을지 은퇴할지
+                갈림길)로 이어지는 서사.</td></tr>
+                <tr><td>루트 종료 후 산발적 이벤트(40~85세, 10개)</td><td>5년 간격
+                (40/45/50/55/60/65/70/75/80/85세)으로 <code>requiresEverOccupation:
+                ['english-teacher']</code> 게이트를 건 "영어 과외" 계열 선택지 1개씩 - 옛 제자
+                과외 부탁, 재능기부 강의, 스승의 날 안부, 도서관 무료 강좌 등 "넓은 범위에 골고루"
+                요청을 그대로 반영.</td></tr>
+            </table>
+        </div>
+        <p class="note"><b>구현 중 발견한 버그 2건(둘 다 이번 작업 자체에서 발생, 실제 배포 전에
+        스스로 잡음).</b> ① 선택지 객체 생성 스크립트가 각 필드 끝에 쉼표를 직접 넣고 그걸 다시
+        <code>",\n".join()</code>으로 이어 붙이면서 쉼표가 두 번씩(<code>,,</code>) 찍혀 67개
+        선택지 중 다수에서 문법 오류가 났다 - 전체 파일에서 <code>,,</code> → <code>,</code> 일괄
+        치환으로 수정. ② 그 과정에서 한 선택지 텍스트에 작은따옴표를 중첩(<code>'학원 내 '스타
+        강사'로...'</code>)해 문자열이 깨진 것도 발견, 큰따옴표로 교체. ③ 더 심각했던 건 <b>배열
+        홀(hole) 버그</b> - 오늘 세 차례 진행한 범용 콘텐츠 보강 작업들이 서로 다른 시점에 같은
+        나이(40세·55세 등)에 콘텐츠를 추가하면서, 이전 삽입이 남긴 트레일링 쉼표 뒤에 새 삽입이
+        또 쉼표를 붙여 <code>},,{</code> 형태의 빈 배열 칸이 12곳 생겨 있었다(문법 오류는 아니라서
+        <code>node -c</code>로는 안 잡히고, <code>forEach</code>/<code>filter</code>는 홀을
+        건너뛰어 겉보기엔 멀쩡해 보였음 - <code>for...of</code>로 순회했을 때만 표면화됨). 전체
+        스캔으로 12곳 전부 확인 후 제거, 이제 배열 홀 0건.</p>
+        <p class="note"><b>검증.</b> <code>node -c game-data.js</code>/<code>node -c index.js</code>
+        통과. 전체 3444개 선택지 중 id 중복 0건, 배열 홀 0건, 스탯 키 전부
+        <code>wealth/fame/happiness/health/relationship</code> 중 하나임을 재확인. 22~35세 전부
+        정확히 4개씩(플레이버 3+종료 1), 40~85세 산발 이벤트 10개 전부 올바른 나이에 정확한
+        <code>requiresEverOccupation</code> 게이트로 존재함을 스크립트로 확인.
+        <code>COMPANY_OCCUPATION_IDS</code>(회사 소속 계열 직업 목록)엔 의도적으로 미포함 -
+        학원 개원 이후엔 자영업자에 가까워 소속 회사가 있다고 보기 어려움. 순수 추가 diff(삭제분은
+        전부 방금 고친 배열 홀 잔재) 확인 후 <code>functions:lifegame</code> 15개 전체 재배포로
+        반영.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
