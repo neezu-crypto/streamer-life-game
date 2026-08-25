@@ -34,6 +34,14 @@
     line-height: 1.65;
     display: flex;
     flex-direction: column;
+    /* 2026-08-25, 루트 테마 UI 검증 중 발견 - body가 콘텐츠 높이만큼만
+       박스를 갖고 뷰포트보다 짧으면(예: 넓은 화면에 짧은 페이지), <html>은
+       테마 미적용 기본 --bg(크림톤)을 그대로 쓰고 있어서 body 박스 아래
+       남는 여백이 원래 색으로 도로 드러난다(캔버스 배경 페인팅은 body가
+       아니라 html 기준이라, body에만 --bg를 재정의해선 body 박스 밖까지
+       못 덮음). body가 항상 최소 뷰포트 높이를 채우도록 강제해 이 여백
+       자체가 생기지 않게 한다. */
+    min-height: 100vh;
   }
 
   /* devbar - 다른 제작 게임 홍보용 상단 바 (이 생태계 다른 페이지들과 동일 구조),
@@ -647,6 +655,25 @@
   #gameSection.route-theme-logistics .game-left-page,
   #gameSection.route-theme-logistics .game-right-page {
     box-shadow: inset 0 0 50px rgba(232, 185, 35, 0.04);
+  }
+
+  /* 물류 이송 로봇(2026-08-25, 사용자 지시) - 캔버스 바깥(페이지 여백)을
+     왼쪽에서 오른쪽으로 천천히 가로지르는 이모지 하나. position:fixed로
+     스크롤과 무관하게 항상 화면 하단에 떠 있고, pointer-events:none이라
+     클릭을 가로채지 않는다. 화면 밖(-60px)에서 시작해 화면 밖(오른쪽)으로
+     나갔다가 다시 왼쪽에서 등장하는 컨베이어 벨트 같은 단방향 순환 - 이모지를
+     좌우로 뒤집으면 어색해 보여서 왕복 대신 편도 루프를 택했다. */
+  .logistics-robot {
+    position: fixed; bottom: 22px; left: 0; font-size: 28px; z-index: 2;
+    pointer-events: none; user-select: none;
+    animation: logistics-robot-drive 16s linear infinite;
+  }
+  @keyframes logistics-robot-drive {
+    0% { transform: translateX(-60px); }
+    100% { transform: translateX(calc(100vw + 60px)); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .logistics-robot { animation: none; display: none; }
   }
 
   /* prison(수감 생활, 2026-08-25) - 차갑게 억눌린 그레이-그린, 다른 두

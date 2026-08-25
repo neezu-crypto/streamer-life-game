@@ -4600,6 +4600,34 @@
         새 루트 테마를 추가할 때마다 이 세 변수를 반드시 같이 재정의해야 한다는 걸 코드 주석으로
         남겨뒀다.</p>
 
+        <h3>logistics 전용 - 캔버스 바깥을 돌아다니는 물류 이송 로봇(2026-08-25, 사용자 지시 - "물류직
+        루트 디자인에서 캔버스 바깥 배경에 물류 이송 로봇이 돌아다니게 하는 아이디어 어때?")</h3>
+        <p>이모지(🤖) 하나를 <code>#gameSection</code>의 형제 엘리먼트로 두고(패널의
+        <code>overflow:hidden</code>에 안 잘리도록), <code>position:fixed</code> + CSS
+        <code>translateX</code> 애니메이션으로 화면 하단을 16초 주기로 왼쪽→오른쪽 편도 순환시켰다
+        (왕복시키면 이모지가 좌우反전돼 보여 어색하므로, 화면 밖(-60px)에서 등장해 화면 밖(오른쪽)으로
+        나간 뒤 다시 왼쪽에서 등장하는 컨베이어 벨트식 편도 루프를 택함). <code>pointer-events:none</code>
+        이라 클릭을 가로채지 않고, <code>logisticsRobot.classList.toggle('hidden', routeId !==
+        'logistics')</code>로 <code>applyOuterBgClass()</code> 안에서 바깥 배경과 같은 타이밍(즉시)에
+        등장/퇴장하도록 묶었다 - 다른 루트에선 안 보임. <code>prefers-reduced-motion</code>이면 애니메이션
+        없이 아예 숨김.</p>
+        <p class="note"><b>부수 발견 - 뷰포트보다 콘텐츠가 짧을 때 바깥 배경이 안 채워지던 버그.</b>
+        검증 스크린샷을 준비하며 헤더·검색 섹션을 가려 화면을 짧게 만들었더니, body 박스 아래 남는
+        여백에 테마 미적용 기본 크림톤이 그대로 드러났다 - 캔버스(뷰포트 전체) 배경은 <code>&lt;body&gt;</code>가
+        아니라 <code>&lt;html&gt;</code> 기준으로 페인팅되는데(브라우저의 "캔버스 배경 전파" 규칙상
+        html도 이미 자기 <code>background</code>를 명시적으로 갖고 있어 body의 배경이 전파되지 않음),
+        <code>--bg</code>는 body에만 재정의해서 body 박스 밖(뷰포트가 더 클 때 남는 영역)은 못 덮었던
+        것 - 실제 게임에서도 콘텐츠가 짧고 화면이 큰 경우(예: 넓은 모니터) 똑같이 재발할 수 있는
+        일반적인 문제였다. <code>body { min-height: 100vh }</code> 한 줄로 해결 - body 박스가 항상
+        최소 뷰포트 높이를 채우게 강제해 애초에 그 여백 자체가 안 생기게 했다(루트 테마와 무관하게
+        전체 사이트에 적용되는 일반 수정).</p>
+        <p class="note"><b>검증.</b> Playwright로 로봇의 <code>transform</code> 값을 시간차(t=0,
+        t=4s)로 측정해 실제로 좌→우로 이동 중임을 확인, 기본 상태(테마 없음)에선
+        <code>.hidden</code> 클래스가 유지돼 안 보이는 것도 확인. <code>min-height</code> 수정 전/후로
+        <code>document.body.getBoundingClientRect().height</code>가 각각 콘텐츠 높이(409px)·뷰포트
+        높이(760px)로 바뀌는 것과, 수정 후 스크린샷에서 바깥 배경 패턴이 화면 최하단까지 끊김 없이
+        채워지는 것을 확인.</p>
+
         <h3>developer 전용 - 라이브 코딩 느낌 배경(2026-08-25, 사용자 지시 - "프로그래머 루트의 배경은
         실제 코딩을 하는 느낌의 라이브 css로 하는건 어때?")</h3>
         <p>실제 코드 텍스트를 흉내내면 가독성을 해칠 위험이 있어(선택지 버튼 텍스트와 겹쳐 읽기

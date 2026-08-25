@@ -1762,9 +1762,12 @@ function routeBgClass(id) { return 'route-bg-' + id; }
 function routePanelClass(id) { return 'route-theme-' + id; }
 let currentThemeRouteId = null;
 const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const logisticsRobot = document.getElementById('logisticsRobot');
 function applyOuterBgClass(routeId) {
   Object.keys(ROUTE_THEME_IDS).forEach((id) => document.body.classList.remove(routeBgClass(id)));
   if (routeId && ROUTE_THEME_IDS[routeId]) document.body.classList.add(routeBgClass(routeId));
+  // 물류 이송 로봇 - logistics 테마일 때만, 바깥 배경과 같은 타이밍(즉시)에 등장/퇴장.
+  logisticsRobot.classList.toggle('hidden', routeId !== 'logistics');
 }
 function applyPanelThemeClass(routeId) {
   Object.keys(ROUTE_THEME_IDS).forEach((id) => gameSection.classList.remove(routePanelClass(id)));

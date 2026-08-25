@@ -91,6 +91,13 @@
     <button id="backToSearchBtn" type="button" class="text-link">← 다른 스트리머 다시 검색</button>
   </section>
 
+  <!-- logistics 루트 테마 전용(2026-08-25, 사용자 지시 - "캔버스 바깥 배경에
+       물류 이송 로봇이 돌아다니게 하는 아이디어 어때?") - #gameSection 형제로
+       둬야 패널의 overflow:hidden에 안 잘리고 캔버스 바깥(페이지 여백)까지
+       돌아다닐 수 있다. 기본은 hidden, logistics 테마 활성화 때만 app.js가
+       보여준다. -->
+  <div id="logisticsRobot" class="logistics-robot hidden" aria-hidden="true">🤖</div>
+
   <section id="gameSection" class="panel hidden">
     <!-- 멀티플레이(13장) - 참가자 모드일 땐 이 배너로 대체되고, 호스트 모드일 땐
          숨겨진 채로 아래 mpHostPanel(토글+참가자 목록+투표 수)만 쓰인다. -->
