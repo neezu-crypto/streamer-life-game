@@ -1240,6 +1240,7 @@ const STAGES = [
                 "mother",
                 "single-parent"
         ],
+        "mandatory": true,
         "startsRoute": {
                 "id": "study-abroad-usa",
                 "label": "🇺🇸 조기유학(미국)",
@@ -1731,6 +1732,7 @@ const STAGES = [
         },
         "result": "명함 한 장이, 평소와 다른 하루를 만들었다.",
         "requiresTalent": "gaming",
+        "mandatory": true,
         "startsRoute": {
                 "id": "pro-gamer",
                 "label": "🎮 프로게이머",
@@ -1929,6 +1931,7 @@ const STAGES = [
         },
         "result": "명함 한 장이, 평소와 다른 하루를 만들었다.",
         "requiresTalent": "leadership",
+        "mandatory": true,
         "startsRoute": {
                 "id": "student-leadership",
                 "label": "👑 학생 리더십",
@@ -2453,6 +2456,7 @@ const STAGES = [
         deltas: { fame: 2, happiness: 2 },
         result: '명함 한 장이, 평소와 다른 하루를 만들었다.',
         requiresAnyTalent: true,
+        mandatory: true,
         // 트리거 루트(14장, 2026-08-22 구현, 2026-08-22 사용자 지시로 29세까지
         // 확장) - 이 제안을 받아들이는 순간 연예계 연습생 루트에 진입한다.
         // maxDurationYears: 15는 진입한 다음 해(16세)부터 14개 나이(16~29세)
@@ -2585,6 +2589,7 @@ const STAGES = [
         },
         "result": "명함 한 장이, 평소와 다른 하루를 만들었다.",
         "requiresTalent": "business",
+        "mandatory": true,
         "startsRoute": {
                 "id": "teen-entrepreneur",
                 "label": "💼 10대 창업가",
@@ -3192,6 +3197,7 @@ const STAGES = [
         },
         "result": "명함 한 장이, 평소와 다른 하루를 만들었다.",
         "requiresTalent": "sports",
+        "mandatory": true,
         "startsRoute": {
                 "id": "sports-elite",
                 "label": "⚽ 축구",
@@ -10961,6 +10967,7 @@ const STAGES = [
                 "routeId": "pro-gamer",
                 "maxYears": 3
         },
+        "mandatory": true,
         "startsRoute": {
                 "id": "esports-coach",
                 "label": "🎯 프로게이머 감독",
@@ -11710,6 +11717,7 @@ const STAGES = [
                 "routeId": "pro-gamer",
                 "maxYears": 3
         },
+        "mandatory": true,
         "startsRoute": {
                 "id": "esports-coach",
                 "label": "🎯 프로게이머 감독",
@@ -12275,6 +12283,7 @@ const STAGES = [
                 "routeId": "pro-gamer",
                 "maxYears": 3
         },
+        "mandatory": true,
         "startsRoute": {
                 "id": "esports-coach",
                 "label": "🎯 프로게이머 감독",
@@ -12487,6 +12496,7 @@ const STAGES = [
                 "routeId": "entertainment-industry",
                 "maxYears": 3
         },
+        "mandatory": true,
         "startsRoute": {
                 "id": "actor",
                 "label": "🎭 배우",
@@ -12991,6 +13001,7 @@ const STAGES = [
                 "routeId": "entertainment-industry",
                 "maxYears": 3
         },
+        "mandatory": true,
         "startsRoute": {
                 "id": "actor",
                 "label": "🎭 배우",
@@ -13535,6 +13546,7 @@ const STAGES = [
                 "routeId": "sports-elite",
                 "maxYears": 3
         },
+        "mandatory": true,
         "startsRoute": {
                 "id": "soccer-manager",
                 "label": "🧢 축구 감독",
@@ -13616,6 +13628,7 @@ const STAGES = [
                 "routeId": "entertainment-industry",
                 "maxYears": 3
         },
+        "mandatory": true,
         "startsRoute": {
                 "id": "actor",
                 "label": "🎭 배우",
@@ -14163,6 +14176,7 @@ const STAGES = [
                 "routeId": "sports-elite",
                 "maxYears": 3
         },
+        "mandatory": true,
         "startsRoute": {
                 "id": "soccer-manager",
                 "label": "🧢 축구 감독",
@@ -14762,6 +14776,7 @@ const STAGES = [
                 "routeId": "sports-elite",
                 "maxYears": 3
         },
+        "mandatory": true,
         "startsRoute": {
                 "id": "soccer-manager",
                 "label": "🧢 축구 감독",

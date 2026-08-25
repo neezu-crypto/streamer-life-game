@@ -5252,6 +5252,34 @@
         해당 origin 고유의 가족 구성)를 확실히 만든다. <code>node -c game-data.js</code> 통과,
         0세 14개 선택지 전부 순회하며 family effect 여부 스크립트로 재확인.
         <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
+
+        <h3>루트 진입 트리거 - "조건 켜지면 항상 노출" 일관 적용(2026-08-26, 사용자 제안 - "트리거가
+        켜져있을땐 해당 루트로 진입할 수 있는 선택지는 항상 출현하도록 하는건 어떻게 생각해?")</h3>
+        <p>실은 이미 있는 메커니즘이었다 - <code>pickVisibleChoiceIds</code>의
+        <code>mandatory: true</code> 플래그가 붙은 선택지는 <code>requires*</code> 조건만
+        만족하면 매번 4개 추첨에서 밀리지 않고 항상 노출된다. 다만 <code>startsRoute</code>가
+        있는 루트 진입 트리거 22개 중 절반가량(<code>lw-trigger-20</code>,
+        <code>re-trigger-24</code> 등)만 이 플래그가 있었고, 나머지 15개는 조건을 갖춰도 랜덤
+        추첨에 밀려 안 나올 수 있었다 - 특히 <code>requiresRouteCompletedWithin</code>로 게이트된
+        것들(e스포츠 코치/배우/축구 감독 전환)은 <b>딱 2~3년짜리 좁은 창</b>만 열려 있어서, 그
+        기간 내내 추첨에서 밀리면 조건을 완벽히 갖췄어도 그 루트를 영영 못 들어가게 되는 구조였다.</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>유형</th><th>대상(15개)</th></tr>
+                <tr><td>가족 이벤트(1개)</td><td><code>sa-decision-10</code>(미국 조기유학)</td></tr>
+                <tr><td>재능 기반(5개)</td><td><code>pg-scout-offer-13, sl-council-run-14,
+                talent-scout-approach(15세), te-idea-launch-16, se-scout-offer-17</code></td></tr>
+                <tr><td>직전 루트 종료 후 좁은 창(9개)</td><td><code>ec-coaching-start-29/30/31,
+                actor-audition-callback-31/32/33, sm-coaching-license-33/34/35</code></td></tr>
+            </table>
+        </div>
+        <p class="note"><b>조치.</b> 15개 전부 <code>mandatory: true</code> 추가(순수 추가, 로직
+        변경 없음). <code>node -c game-data.js</code> 통과, 이제 <code>startsRoute</code>가 있는
+        22개 루트 트리거 전부 <code>mandatory: true</code>임을 스크립트로 재확인. 한 나이에 여러
+        mandatory 선택지가 동시에 자격을 갖출 수 있는 경우(예: 33세 3개)도 있지만
+        <code>pickVisibleChoiceIds</code>는 mandatory 개수가 4개를 넘어도 전부 노출하는 기존
+        방식(20세 등에서 이미 쓰이던 패턴)을 그대로 따르므로 별도 처리 불필요.
+        <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
