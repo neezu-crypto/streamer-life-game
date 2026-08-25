@@ -7488,13 +7488,13 @@ const STAGES = [
         "requiresRoute": "sports-elite"
 },
       {
-        "id": "se-fanbase-mood-swing-24",
-        "text": "한 경기 만에 영웅에서 역적으로 뒤바뀌는 여론을 실감한다",
+        "id": "se-lax-selection-standard-24",
+        "text": "무승부해도 선발되는 경기에 설렁설렁 참가한다",
         "deltas": {
-                "happiness": -3,
-                "fame": -1
+                "happiness": 1,
+                "fame": -2
         },
-        "result": "어제까지 칭송하던 댓글창이, 오늘은 완전히 다른 사람 얘기를 하고 있었다.",
+        "result": "어차피 무승부만 해도 다음 명단에 또 이름이 오른다는 걸, 모두가 알고 있었다.",
         "requiresRoute": "sports-elite"
 },
       {
