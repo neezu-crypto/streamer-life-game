@@ -4802,11 +4802,11 @@ const STAGES = [
 },
       {
         "id": "se-manager-carousel-20",
-        "text": "성적 부진 몇 경기 만에 감독이 또 경질되는 걸 지켜본다",
+        "text": "감독 경질 속보가 뜬 라커룸 TV를 무심하게 지나친다",
         "deltas": {
                 "happiness": -3
         },
-        "result": "신임 감독 환영 현수막이 채 내려가기도 전에, 다음 감독 이름이 벌써 오르내렸다.",
+        "result": "몇 번째인지 세는 것도, 어느새 그만두었다.",
         "requiresRoute": "sports-elite"
 },
       {
@@ -5484,7 +5484,7 @@ const STAGES = [
 },
       {
         "id": "se-exemption-pressure-21",
-        "text": "병역 혜택이 걸린 대회라는 부담감 속에 경기에 나선다",
+        "text": "병역 안내 문자를 슬쩍 확인하고 말없이 그라운드로 나선다",
         "deltas": {
                 "happiness": -2,
                 "health": -2
@@ -6777,7 +6777,7 @@ const STAGES = [
 },
       {
         "id": "se-hometown-lineup-controversy-23",
-        "text": "실력보다 인맥이 앞섰다는 라인업 논란에 휘말린다",
+        "text": "라인업 발표 후 쏟아지는 댓글창을 조용히 닫고 훈련장으로 향한다",
         "deltas": {
                 "happiness": -2,
                 "relationship": -1
@@ -9656,7 +9656,7 @@ const STAGES = [
 },
       {
         "id": "se-tactics-copycat-27",
-        "text": "새로 도입됐다는 전술이 어디서 본 듯하다는 걸 눈치챈다",
+        "text": "전술 미팅 화이트보드에 그려진 도형을 보고 고개를 갸웃한다",
         "deltas": {
                 "happiness": -1
         },
@@ -11003,7 +11003,7 @@ const STAGES = [
 },
       {
         "id": "se-national-callup-friction-29",
-        "text": "소속팀과 국가대표 소집 사이에서 이러지도 저러지도 못한다",
+        "text": "소속팀과 대표팀에서 온 소집 문자를 번갈아 보다가 답장 없이 휴대폰을 내려놓는다",
         "deltas": {
                 "happiness": -2,
                 "relationship": -1
@@ -15458,7 +15458,7 @@ const STAGES = [
 },
       {
         "id": "sm-instant-firing-demand-37",
-        "text": "몇 경기 결과만으로 온라인에서 경질 여론이 들끓는 걸 지켜본다",
+        "text": "경질 여론 기사에 달린 댓글을 읽다가 휴대폰을 뒤집어 놓는다",
         "deltas": {
                 "happiness": -3
         },
@@ -16445,7 +16445,7 @@ const STAGES = [
 },
       {
         "id": "sm-federation-meddling-39",
-        "text": "협회 위원회가 선수 선발에 이런저런 훈수를 두는 걸 견딘다",
+        "text": "협회에서 보내온 선수 명단 참고자료를 훑어보고 서랍 깊숙이 넣어둔다",
         "deltas": {
                 "happiness": -2,
                 "relationship": -1
@@ -17288,7 +17288,7 @@ const STAGES = [
 },
       {
         "id": "sm-domestic-foreign-debate-41",
-        "text": "국내파냐 해외파냐를 둘러싼 여론전에 휘말린다",
+        "text": "출신 이력을 묻는 기자 질문에 대답 대신 물 한 모금을 마신다",
         "deltas": {
                 "happiness": -1,
                 "fame": -1
@@ -18393,7 +18393,7 @@ const STAGES = [
 },
       {
         "id": "sm-no-continuity-legacy-44",
-        "text": "전임 감독이 쌓아온 방식을 처음부터 다시 갈아엎는다",
+        "text": "전임 감독의 전술 노트를 몇 장 넘기다 그대로 서랍에 넣어버린다",
         "deltas": {
                 "happiness": 1,
                 "wealth": -2
@@ -19198,12 +19198,12 @@ const STAGES = [
 },
       {
         "id": "sm-media-double-standard-46",
-        "text": "이기면 명장, 지면 무능이라는 언론의 이중잣대를 실감한다",
+        "text": "인터뷰가 끝난 뒤 주머니에 손을 넣고 기자회견장을 떠난다",
         "deltas": {
                 "happiness": -2,
                 "fame": -1
         },
-        "result": "같은 전술인데, 결과 하나로 평가가 통째로 뒤집혔다.",
+        "result": "이겨도 져도 매번 똑같은 질문이라, 이제는 대답할 기운도 없었다.",
         "requiresRoute": "soccer-manager"
 },
       {
@@ -19790,12 +19790,12 @@ const STAGES = [
 },
       {
         "id": "sm-shortterm-pressure-48",
-        "text": "유소년 투자보다 당장의 성적을 요구받는다",
+        "text": "전반전이 끝나고 작전회의 없이 후반전을 지켜본다",
         "deltas": {
                 "happiness": -2,
                 "wealth": 1
         },
-        "result": "10년 뒤를 그리자는 말은, 이번 시즌 앞에서 항상 뒤로 밀렸다.",
+        "result": "어차피 정해진 결과라면, 애쓸 이유도 딱히 없었다.",
         "requiresRoute": "soccer-manager"
 },
       {
