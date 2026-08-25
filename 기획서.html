@@ -4828,6 +4828,40 @@
             일치).</li>
             <li><code>functions:lifegame</code> 15개 함수 전체 재배포로 실제 서버에 반영.</li>
         </ul>
+
+        <h3>축구 감독(soccer-manager) 루트 - 풍자 선택지 6종 추가(2026-08-25, 사용자 지시 - "축구 감독
+        선택지에도 유머섞인 풍자 몇개 추가해줘")</h3>
+        <p>선수(<code>sports-elite</code>) 쪽과 소재가 겹치지 않게, <b>감독 입장에서 겪는 고질적
+        문제</b>로 골랐다 - 즉각적 경질 여론, 협회 행정 간섭, 국내파/해외파 논쟁, 전임자 성과 계승 없이
+        매번 갈아엎기, 언론의 결과론적 이중잣대, 유소년 투자보다 당장의 성적 압박. 마찬가지로 실명·특정
+        인물·조직 언급 없음.</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>id</th><th>나이</th><th>풍자 소재</th><th>문구</th></tr>
+                <tr><td><code>sm-instant-firing-demand-37</code></td><td>37세</td><td>즉각적 경질
+                여론</td><td>"몇 경기 결과만으로 온라인에서 경질 여론이 들끓는 걸 지켜본다" - "시즌은
+                아직 반도 안 지났는데, 벌써 후임 하마평이 나돌았다."</td></tr>
+                <tr><td><code>sm-federation-meddling-39</code></td><td>39세</td><td>협회 행정 간섭</td>
+                <td>"협회 위원회가 선수 선발에 이런저런 훈수를 두는 걸 견딘다" - "누가 감독인지 헷갈릴
+                때가, 가끔 있었다."</td></tr>
+                <tr><td><code>sm-domestic-foreign-debate-41</code></td><td>41세</td><td>국내파·해외파
+                논쟁</td><td>"국내파냐 해외파냐를 둘러싼 여론전에 휘말린다" - "성적표보다 출신 이력이
+                먼저 도마에 올랐다."</td></tr>
+                <tr><td><code>sm-no-continuity-legacy-44</code></td><td>44세</td><td>전임자 계승 없이
+                매번 리셋</td><td>"전임 감독이 쌓아온 방식을 처음부터 다시 갈아엎는다" - "이어받기보다
+                지우고 다시 그리는 쪽이, 어느새 익숙한 방식이 됐다."</td></tr>
+                <tr><td><code>sm-media-double-standard-46</code></td><td>46세</td><td>언론의 결과론적
+                이중잣대</td><td>"이기면 명장, 지면 무능이라는 언론의 이중잣대를 실감한다" - "같은
+                전술인데, 결과 하나로 평가가 통째로 뒤집혔다."</td></tr>
+                <tr><td><code>sm-shortterm-pressure-48</code></td><td>48세</td><td>유소년 투자 대신
+                즉각적 성적 압박</td><td>"유소년 투자보다 당장의 성적을 요구받는다" - "10년 뒤를 그리자는
+                말은, 이번 시즌 앞에서 항상 뒤로 밀렸다."</td></tr>
+            </table>
+        </div>
+        <p class="note">6개 전부 <code>requiresRoute: 'soccer-manager'</code>로 각 나이 기존 6개
+        선택지에 7번째로 추가(교체 아님). <code>node -c game-data.js</code> 통과, 6개 id 전부
+        의도한 나이(37/39/41/44/46/48세) <code>choices</code> 배열에 정확히 들어가 있는지 스크립트로
+        대조 확인, <code>functions:lifegame</code> 전체 재배포로 반영.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>

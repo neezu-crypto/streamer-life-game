@@ -15457,6 +15457,15 @@ const STAGES = [
         "requiresRoute": "soccer-manager"
 },
       {
+        "id": "sm-instant-firing-demand-37",
+        "text": "몇 경기 결과만으로 온라인에서 경질 여론이 들끓는 걸 지켜본다",
+        "deltas": {
+                "happiness": -3
+        },
+        "result": "시즌은 아직 반도 안 지났는데, 벌써 후임 하마평이 나돌았다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
         "id": "actor-breakthrough-lead-role-37",
         "text": "오랜 무명 생활 끝에 드라마 주연 자리를 따낸다",
         "deltas": {
@@ -16435,6 +16444,16 @@ const STAGES = [
         "requiresRoute": "soccer-manager"
 },
       {
+        "id": "sm-federation-meddling-39",
+        "text": "협회 위원회가 선수 선발에 이런저런 훈수를 두는 걸 견딘다",
+        "deltas": {
+                "happiness": -2,
+                "relationship": -1
+        },
+        "result": "누가 감독인지 헷갈릴 때가, 가끔 있었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
         "id": "actor-rising-award-win-39",
         "text": "시상식에서 상을 받아 이름을 알린다",
         "deltas": {
@@ -17265,6 +17284,16 @@ const STAGES = [
         },
         "endsRoute": true,
         "result": "박수 받을 때 떠나는 것도, 나쁘지 않은 선택이었다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-domestic-foreign-debate-41",
+        "text": "국내파냐 해외파냐를 둘러싼 여론전에 휘말린다",
+        "deltas": {
+                "happiness": -1,
+                "fame": -1
+        },
+        "result": "성적표보다 출신 이력이 먼저 도마에 올랐다.",
         "requiresRoute": "soccer-manager"
 },
       {
@@ -18363,6 +18392,16 @@ const STAGES = [
         "requiresRoute": "soccer-manager"
 },
       {
+        "id": "sm-no-continuity-legacy-44",
+        "text": "전임 감독이 쌓아온 방식을 처음부터 다시 갈아엎는다",
+        "deltas": {
+                "happiness": 1,
+                "wealth": -2
+        },
+        "result": "이어받기보다 지우고 다시 그리는 쪽이, 어느새 익숙한 방식이 됐다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
         "id": "actor-veteran-lifetime-achievement-44",
         "text": "공로상 성격의 상을 받으며 경력을 인정받는다",
         "deltas": {
@@ -19158,6 +19197,16 @@ const STAGES = [
         "requiresRoute": "soccer-manager"
 },
       {
+        "id": "sm-media-double-standard-46",
+        "text": "이기면 명장, 지면 무능이라는 언론의 이중잣대를 실감한다",
+        "deltas": {
+                "happiness": -2,
+                "fame": -1
+        },
+        "result": "같은 전술인데, 결과 하나로 평가가 통째로 뒤집혔다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
         "id": "actor-veteran-final-curtain-role-46",
         "text": "배우 인생을 정리하는 마음으로 묵직한 배역에 도전한다",
         "deltas": {
@@ -19737,6 +19786,16 @@ const STAGES = [
         },
         "endsRoute": true,
         "result": "박수 소리를 뒤로하고, 조용히 벤치를 떠났다.",
+        "requiresRoute": "soccer-manager"
+},
+      {
+        "id": "sm-shortterm-pressure-48",
+        "text": "유소년 투자보다 당장의 성적을 요구받는다",
+        "deltas": {
+                "happiness": -2,
+                "wealth": 1
+        },
+        "result": "10년 뒤를 그리자는 말은, 이번 시즌 앞에서 항상 뒤로 밀렸다.",
         "requiresRoute": "soccer-manager"
 },
       {
