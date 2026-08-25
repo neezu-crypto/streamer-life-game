@@ -5280,6 +5280,22 @@
         <code>pickVisibleChoiceIds</code>는 mandatory 개수가 4개를 넘어도 전부 노출하는 기존
         방식(20세 등에서 이미 쓰이던 패턴)을 그대로 따르므로 별도 처리 불필요.
         <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
+
+        <h3>study-abroad-usa 루트 - "영어 실력 향상" 선택지에 어학 재능 추가(2026-08-26, 사용자
+        플레이 스크린샷 지적)</h3>
+        <p>사용자가 실제 플레이 스크린샷(12세, study-abroad-usa 루트)을 보내며 "매일 조금씩
+        영어가 늘어가는 걸 느낀다" 선택지에 영어 재능이 안 붙는다고 지적. 확인해보니
+        <code>sa-english-progress-12</code>는 <code>happiness</code>·<code>fame</code> 스탯만
+        올리고 <code>addTalent</code>가 아예 없었다 - dance/arts/business/math/leadership/
+        gaming/acting/sports/speaking/coding처럼 특정 순간에 재능이 생기는 기존 패턴과 어긋났다.
+        게임에 아직 "어학" 계열 재능이 없어 새로 <code>{'{'} id: 'language', label: '🌐 어학' {'}'}</code>를
+        만들어 추가했다(중복 부여 방지는 <code>addFamilyMembers</code>와 동일하게
+        <code>addTalent</code>도 id 기준 dedup 처리).</p>
+        <p class="note"><b>검증.</b> 같은 나이대 다른 "영어가 서툴다"류 부정적 선택지(1379행)에는
+        재능을 붙이지 않음(습득이 아니라 좌절 묘사라 재능 획득과 안 맞음). <code>node -c
+        game-data.js</code> 통과, <code>sa-english-progress-12</code>가 정확히
+        <code>addTalent: {'{'}id:'language'{'}'}</code>를 갖는지 스크립트로 재확인. 순수 추가 diff,
+        <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>

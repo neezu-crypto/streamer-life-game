@@ -1550,7 +1550,8 @@ const STAGES = [
                 "fame": 1
         },
         "result": "어제는 안 들리던 말이, 오늘은 어렴풋이 들렸다.",
-        "requiresRoute": "study-abroad-usa"
+        "requiresRoute": "study-abroad-usa",
+        "addTalent": { "id": "language", "label": "🌐 어학" }
 },
       {
         "id": "sa-academic-pressure-12",
