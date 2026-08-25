@@ -4896,6 +4896,24 @@
         <code>route-theme-teen-entrepreneur</code> 클래스 적용 후 스크린샷 확인 - 네온 테두리·
         포스트잇 태그·칩 대비 전부 의도대로 렌더링. <code>ROUTE_THEME_IDS</code>에
         <code>teen-entrepreneur</code> 등록.</p>
+
+        <h3>student-leadership(학생 리더십) - 학생회실 선거 캠페인 테마(2026-08-26)</h3>
+        <p>youth-politics(국회, 격식·차분한 네이비+골드)와 구분되게, 더 밝고 캐주얼한 스쿨블루+화이트
+        조합으로 잡았다.</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>루트</th><th>색상</th><th>패턴·디테일</th></tr>
+                <tr><td><code>student-leadership</code></td><td>스쿨블루 패널(<code>#1c2b3a</code>) +
+                화이트 포인트</td><td>배경은 실제 삽화(<code>assets/scenes/student-council.jpg</code>,
+                교실+칠판 캠페인 포스터+배지 리본+투표함+파랑/화이트 페넌트). 패널은 화이트 단선
+                테두리, <code>.stage-name</code> 왼쪽에 배지 리본(🎗️) 이모지 + 스카이블루 밑줄.</td></tr>
+            </table>
+        </div>
+        <p class="note"><b>검증.</b> 명암비 스크립트로 텍스트/패널 13.1:1, 화이트/패널 12.2:1, 재산·
+        건강·가족·직업 칩 3종 전부 5.6~6.0:1로 통과. Playwright로
+        <code>route-bg-student-leadership</code>/<code>route-theme-student-leadership</code> 클래스
+        적용 후 스크린샷 확인 - 배지 아이콘·밑줄·칩 대비 전부 의도대로 렌더링.
+        <code>ROUTE_THEME_IDS</code>에 <code>student-leadership</code> 등록.</p>
     </section>
 
     <section>
