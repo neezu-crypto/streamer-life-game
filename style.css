@@ -687,15 +687,25 @@
     z-index: 4;
     pointer-events: none;
     border-radius: inherit;
-    background-repeat: repeat, no-repeat, no-repeat;
-    background-size: auto 100%, 100% 22px, 100% 22px;
-    background-position: 0 0, top, bottom;
+    /* 2026-08-25, 사용자 지시 - "세로방향 창살을 캔버스 안에 배치하지 말고
+       테두리에 배치해줘" - 인테리어를 가로지르며 반복(repeating-linear-
+       gradient)되던 세로 창살을 없애고, 왼쪽/오른쪽 가장자리에만 딱 한
+       가닥씩(위/아래 창살과 같은 두께 22px) 고정 배치 - 4개 레이어 전부
+       비반복(no-repeat), 네 변에 하나씩. 이제 창살이 캔버스 안쪽 텍스트를
+       가로지르지 않고 액자 테두리처럼만 두른다(오른쪽으로 갈수록 콘텐츠는
+       그대로, 테두리만 금속 창살 프레임). */
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+    background-size: 22px 100%, 22px 100%, 100% 22px, 100% 22px;
+    background-position: left, right, top, bottom;
     background-image:
-      repeating-linear-gradient(90deg,
-        transparent 0px, transparent 130px,
-        rgba(15, 17, 16, 0.3) 130px, rgba(120, 128, 125, 0.32) 138px,
-        rgba(205, 212, 209, 0.38) 146px, rgba(120, 128, 125, 0.32) 154px,
-        rgba(15, 17, 16, 0.3) 162px, transparent 162px, transparent 300px),
+      linear-gradient(90deg,
+        rgba(15, 17, 16, 0.85) 0%, rgba(120, 128, 125, 0.85) 35%,
+        rgba(205, 212, 209, 0.9) 50%, rgba(120, 128, 125, 0.85) 65%,
+        rgba(15, 17, 16, 0.85) 100%),
+      linear-gradient(90deg,
+        rgba(15, 17, 16, 0.85) 0%, rgba(120, 128, 125, 0.85) 35%,
+        rgba(205, 212, 209, 0.9) 50%, rgba(120, 128, 125, 0.85) 65%,
+        rgba(15, 17, 16, 0.85) 100%),
       linear-gradient(180deg,
         rgba(15, 17, 16, 0.85) 0%, rgba(120, 128, 125, 0.85) 35%,
         rgba(205, 212, 209, 0.9) 50%, rgba(120, 128, 125, 0.85) 65%,
