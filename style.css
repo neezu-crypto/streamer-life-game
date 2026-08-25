@@ -663,16 +663,22 @@
      교체). position:fixed로 스크롤과 무관하게 항상 화면 하단에 떠 있고,
      pointer-events:none이라 클릭을 가로채지 않는다. 화면 밖(-70px)에서
      시작해 화면 밖(오른쪽)으로 나갔다가 다시 왼쪽에서 등장하는 컨베이어
-     벨트 같은 단방향 순환 - 이미지 자체에 이미 오른쪽 방향 화살표가 그려져
-     있어(프롬프트 단계에서 의도) 왕복 없이 편도 루프만으로 자연스럽다. */
+     벨트 같은 단방향 순환.
+     방향 보정(2026-08-25, 사용자 지적 - "로봇이 아래를 향하고 오른쪽으로
+     이동하는거같은데 맞아?") - 이미지 자체는 정면(화살표·헤드라이트)이
+     아래쪽을 향하도록 그려져 있어서, 회전 없이 그냥 옆으로 밀기만 하면
+     "아래를 보며 옆으로 게걸음"치는 것처럼 보였다. rotate(-90deg)로
+     반시계 방향으로 90도 돌려 아래쪽 정면이 오른쪽(이동 방향)을 보도록
+     맞췄다 - translateX와 rotate를 같은 transform에 같이 걸어둬야
+     회전축이 흐트러지지 않는다. */
   .logistics-robot {
     position: fixed; bottom: 18px; left: 0; width: 60px; height: 60px; z-index: 2;
     pointer-events: none; user-select: none;
     animation: logistics-robot-drive 16s linear infinite;
   }
   @keyframes logistics-robot-drive {
-    0% { transform: translateX(-70px); }
-    100% { transform: translateX(calc(100vw + 70px)); }
+    0% { transform: translateX(-70px) rotate(-90deg); }
+    100% { transform: translateX(calc(100vw + 70px)) rotate(-90deg); }
   }
   @media (prefers-reduced-motion: reduce) {
     .logistics-robot { animation: none; display: none; }
