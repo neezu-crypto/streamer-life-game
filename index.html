@@ -95,8 +95,11 @@
        물류 이송 로봇이 돌아다니게 하는 아이디어 어때?") - #gameSection 형제로
        둬야 패널의 overflow:hidden에 안 잘리고 캔버스 바깥(페이지 여백)까지
        돌아다닐 수 있다. 기본은 hidden, logistics 테마 활성화 때만 app.js가
-       보여준다. -->
-  <div id="logisticsRobot" class="logistics-robot hidden" aria-hidden="true">🤖</div>
+       보여준다. 처음엔 🤖 이모지였는데 "너무 허접해보인다"는 피드백으로
+       탑뷰 AGV 삽화(assets/sprites/logistics-robot.png, 흰 배경 투명 처리)로
+       교체 - 이미지 자체에 오른쪽 방향 화살표가 그려져 있어 왼→오 이동
+       방향과 그대로 맞아떨어져 별도 회전 없이 사용. -->
+  <img id="logisticsRobot" class="logistics-robot hidden" aria-hidden="true" src="assets/sprites/logistics-robot.png" alt="">
 
   <section id="gameSection" class="panel hidden">
     <!-- 멀티플레이(13장) - 참가자 모드일 땐 이 배너로 대체되고, 호스트 모드일 땐

@@ -658,19 +658,21 @@
   }
 
   /* 물류 이송 로봇(2026-08-25, 사용자 지시) - 캔버스 바깥(페이지 여백)을
-     왼쪽에서 오른쪽으로 천천히 가로지르는 이모지 하나. position:fixed로
-     스크롤과 무관하게 항상 화면 하단에 떠 있고, pointer-events:none이라
-     클릭을 가로채지 않는다. 화면 밖(-60px)에서 시작해 화면 밖(오른쪽)으로
-     나갔다가 다시 왼쪽에서 등장하는 컨베이어 벨트 같은 단방향 순환 - 이모지를
-     좌우로 뒤집으면 어색해 보여서 왕복 대신 편도 루프를 택했다. */
+     왼쪽에서 오른쪽으로 천천히 가로지르는 탑뷰 AGV 삽화(원래 🤖 이모지였는데
+     "너무 허접해보인다"는 피드백으로 assets/sprites/logistics-robot.png로
+     교체). position:fixed로 스크롤과 무관하게 항상 화면 하단에 떠 있고,
+     pointer-events:none이라 클릭을 가로채지 않는다. 화면 밖(-70px)에서
+     시작해 화면 밖(오른쪽)으로 나갔다가 다시 왼쪽에서 등장하는 컨베이어
+     벨트 같은 단방향 순환 - 이미지 자체에 이미 오른쪽 방향 화살표가 그려져
+     있어(프롬프트 단계에서 의도) 왕복 없이 편도 루프만으로 자연스럽다. */
   .logistics-robot {
-    position: fixed; bottom: 22px; left: 0; font-size: 28px; z-index: 2;
+    position: fixed; bottom: 18px; left: 0; width: 60px; height: 60px; z-index: 2;
     pointer-events: none; user-select: none;
     animation: logistics-robot-drive 16s linear infinite;
   }
   @keyframes logistics-robot-drive {
-    0% { transform: translateX(-60px); }
-    100% { transform: translateX(calc(100vw + 60px)); }
+    0% { transform: translateX(-70px); }
+    100% { transform: translateX(calc(100vw + 70px)); }
   }
   @media (prefers-reduced-motion: reduce) {
     .logistics-robot { animation: none; display: none; }
