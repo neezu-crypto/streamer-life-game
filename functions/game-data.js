@@ -14756,6 +14756,37 @@ const STAGES = [
         result: '월말이 다가올 때마다, 숫자가 목을 조여오는 기분이었다.',
         requiresOccupation: ['sales-rep']
       }
+    ,
+      {
+        id: 'home-loan-refinance-35',
+        text: '더 나은 조건으로 대출을 갈아탄다',
+        deltas: { wealth: 2 },
+        result: '이자 몇 푼에도, 통장 숨통이 조금 트였다.'
+      },
+      {
+        id: 'child-daycare-adjustment-35',
+        text: '아이 어린이집 적응 문제로 마음을 졸인다',
+        deltas: { happiness: -1 },
+        result: '울며 떨어지지 않으려는 손을 떼어놓는 게, 매번 쉽지 않았다.'
+      },
+      {
+        id: 'weekend-golf-lessons-35',
+        text: '사회생활을 위해 골프 레슨을 시작한다',
+        deltas: { wealth: -1, relationship: 1 },
+        result: '공보다 사람 사이의 거리를 좁히는 데 더 마음을 썼다.'
+      },
+      {
+        id: 'certification-exam-pass-35',
+        text: '오래 준비한 자격증 시험에 합격한다',
+        deltas: { wealth: 1, fame: 1 },
+        result: '합격 통지 한 줄이, 그간의 밤들을 보상해줬다.'
+      },
+      {
+        id: 'couple-savings-goal-35',
+        text: '부부가 함께 저축 목표를 세운다',
+        deltas: { wealth: 1, relationship: 1 },
+        result: '같은 목표를 그리자, 씀씀이도 자연히 맞춰졌다.'
+      },
     ]
   },
   {
@@ -15242,6 +15273,37 @@ const STAGES = [
         requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild'],
         requiresLocation: ['abroad']
       }
+    ,
+      {
+        id: 'home-renovation-decision-36',
+        text: '낡은 신혼집을 새로 꾸미기로 결심한다',
+        deltas: { wealth: -2, happiness: 2 },
+        result: '먼지 속에서도, 달라질 집을 상상하니 견딜 만했다.'
+      },
+      {
+        id: 'second-child-consideration-36',
+        text: '둘째를 가질지 부부가 진지하게 상의한다',
+        deltas: { happiness: 1 },
+        result: '정답은 없었지만, 함께 고민한다는 것 자체가 위안이 됐다.'
+      },
+      {
+        id: 'weekend-running-club-36',
+        text: '주말마다 러닝 모임에 나가 땀을 흘린다',
+        deltas: { health: 2, happiness: 1 },
+        result: '숨이 찰수록, 머릿속은 오히려 맑아졌다.'
+      },
+      {
+        id: 'office-politics-fatigue-36',
+        text: '사내 정치에 지쳐 이직을 알아본다',
+        deltas: { happiness: -2 },
+        result: '능력보다 줄서기가 앞서는 걸 볼 때마다, 마음이 식어갔다.'
+      },
+      {
+        id: 'parenting-book-study-36',
+        text: '육아서를 읽으며 부모 역할을 공부한다',
+        deltas: { happiness: 1 },
+        result: '책 속의 정답이, 현실에선 늘 조금씩 달랐다.'
+      },
     ]
   },
   {
@@ -20739,6 +20801,37 @@ const STAGES = [
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
+    ,
+      {
+        id: 'cataract-first-symptoms-51',
+        text: '눈이 침침해지고 백내장 초기 증상을 느낀다',
+        deltas: { health: -1 },
+        result: '안개가 낀 듯한 시야가, 자꾸 신경 쓰였다.'
+      },
+      {
+        id: 'retirement-fund-checkup-51',
+        text: '은퇴 자금이 충분한지 계산기를 두드려본다',
+        deltas: { wealth: 1, happiness: -1 },
+        result: '숫자를 맞춰볼수록, 마음은 오히려 복잡해졌다.'
+      },
+      {
+        id: 'old-hobby-revival-51',
+        text: '젊은 시절 즐기던 취미를 다시 시작한다',
+        deltas: { happiness: 2 },
+        result: '손끝이 기억하고 있던 감각이, 반갑게 되살아났다.'
+      },
+      {
+        id: 'sibling-inheritance-tension-51',
+        text: '부모님 유산 문제로 형제자매와 갈등을 겪는다',
+        deltas: { happiness: -2, relationship: -1 },
+        result: '돈 앞에서, 오랜 정도 잠시 흔들렸다.'
+      },
+      {
+        id: 'couple-hiking-trip-51',
+        text: '부부가 함께 근교 산행을 떠난다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '나란히 걷는 발걸음 속에, 말없이도 통하는 게 있었다.'
+      },
     ]
   },
   {
@@ -21093,6 +21186,37 @@ const STAGES = [
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
+    ,
+      {
+        id: 'pre-retirement-anxiety-54',
+        text: '다가올 퇴직을 앞두고 밤잠을 설친다',
+        deltas: { happiness: -2 },
+        result: '정해진 날짜가 다가올수록, 뒤척이는 밤이 늘었다.'
+      },
+      {
+        id: 'health-checkup-scare-54',
+        text: '건강검진에서 재검사 통보를 받는다',
+        deltas: { health: -1, happiness: -2 },
+        result: '별일 아니길 바라며, 다음 병원 예약을 잡았다.'
+      },
+      {
+        id: 'grandchild-first-news-54',
+        text: '곧 할머니·할아버지가 된다는 소식을 듣는다',
+        deltas: { happiness: 3 },
+        result: '믿기지 않는 소식에, 한참을 실감하지 못했다.'
+      },
+      {
+        id: 'downsizing-home-consideration-54',
+        text: '넓은 집을 정리하고 작은 집으로 옮길지 고민한다',
+        deltas: { wealth: 1 },
+        result: '빈 방이 늘수록, 굳이 넓을 필요가 있나 싶었다.'
+      },
+      {
+        id: 'old-mentor-reunion-54',
+        text: '오래전 은사님을 다시 찾아뵙는다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '세월이 지나도, 가르침의 무게는 그대로였다.'
+      },
     ]
   },
   {
@@ -22583,6 +22707,37 @@ const STAGES = [
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
+    ,
+      {
+        id: 'full-pension-start-63',
+        text: '국민연금을 정식으로 수령하기 시작한다',
+        deltas: { wealth: 2, happiness: 1 },
+        result: '매달 들어오는 그 돈이, 생각보다 큰 안심을 줬다.'
+      },
+      {
+        id: 'spouse-retirement-adjustment-63',
+        text: '은퇴한 배우자와 종일 붙어 지내는 게 낯설다',
+        deltas: { happiness: -1 },
+        result: '각자의 시간이 사라지자, 서로 어색한 순간들이 늘었다.'
+      },
+      {
+        id: 'grandchild-babysit-again-63',
+        text: '손주를 봐주며 다시 육아 전선에 뛰어든다',
+        deltas: { health: -1, happiness: 2 },
+        result: '몸은 힘들어도, 웃음소리만은 예전 그대로 좋았다.'
+      },
+      {
+        id: 'old-friend-farewell-63',
+        text: '오랜 친구를 먼저 떠나보낸다',
+        deltas: { happiness: -3 },
+        result: '함께 나눴던 시간들이, 한꺼번에 밀려왔다.'
+      },
+      {
+        id: 'senior-computer-class-63',
+        text: '노인 대상 스마트폰·컴퓨터 강좌에 등록한다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '손주에게 영상통화 거는 법 하나를 배운 게, 뿌듯했다.'
+      },
     ]
   },
   {
@@ -22715,6 +22870,37 @@ const STAGES = [
         result: '예전 같으면 안 했을 일을, 지금은 묵묵히 해냈다.',
         requiresOccupation: ['re-employed']
       }
+    ,
+      {
+        id: 'part-time-reentry-64',
+        text: '소일거리 삼아 파트타임 일자리를 알아본다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '다시 일한다는 감각이, 나쁘지 않게 느껴졌다.'
+      },
+      {
+        id: 'dental-implant-decision-64',
+        text: '큰맘 먹고 치아 임플란트 시술을 받는다',
+        deltas: { wealth: -2, health: 2 },
+        result: '비용은 만만치 않았지만, 씹는 즐거움을 되찾았다.'
+      },
+      {
+        id: 'class-reunion-declining-64',
+        text: '동창회 인원이 눈에 띄게 줄어든 걸 실감한다',
+        deltas: { happiness: -2 },
+        result: '빈자리가 하나둘 늘어가는 걸, 애써 모른 척했다.'
+      },
+      {
+        id: 'grandchild-education-support-64',
+        text: '손주 학비에 보탬이 되고 싶어 용돈을 보탠다',
+        deltas: { wealth: -1, relationship: 2 },
+        result: '많지 않은 돈이었지만, 마음만은 넉넉히 담았다.'
+      },
+      {
+        id: 'morning-routine-satisfaction-64',
+        text: '규칙적인 아침 루틴에서 소소한 만족을 느낀다',
+        deltas: { happiness: 1 },
+        result: '특별할 것 없는 하루의 시작이, 오히려 든든했다.'
+      },
     ]
   },
   {
@@ -23479,6 +23665,37 @@ const STAGES = [
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
+    ,
+      {
+        id: 'medication-routine-69',
+        text: '매일 챙겨 먹는 약 봉지가 하나둘 늘어난다',
+        deltas: { health: 1, happiness: -1 },
+        result: '식탁 위 약봉지가, 어느새 하루의 일부가 됐다.'
+      },
+      {
+        id: 'great-grandchild-birth-news-69',
+        text: '증손주가 태어났다는 소식을 듣는다',
+        deltas: { happiness: 3 },
+        result: '4대가 이어졌다는 사실에, 가슴이 뭉클해졌다.'
+      },
+      {
+        id: 'old-belongings-donation-69',
+        text: '안 쓰는 물건들을 정리해 기부한다',
+        deltas: { happiness: 1 },
+        result: '누군가에게는 쓸모가 있을 거라는 생각에, 마음이 가벼워졌다.'
+      },
+      {
+        id: 'spouse-companionship-gratitude-69',
+        text: '곁을 지켜준 배우자에게 새삼 고마움을 느낀다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '긴 세월, 묵묵히 곁을 지켜준 그 존재가 새삼 크게 느껴졌다.'
+      },
+      {
+        id: 'slower-reading-pace-69',
+        text: '돋보기를 끼고도 예전만큼 책이 잘 읽히지 않는다',
+        deltas: { health: -1 },
+        result: '한 페이지 넘기는 데도, 예전보다 시간이 더 걸렸다.'
+      },
     ]
   },
   {
@@ -24965,6 +25182,37 @@ const STAGES = [
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
+    ,
+      {
+        id: 'hospital-checkup-routine-81',
+        text: '정기 검진을 위해 병원을 오간다',
+        deltas: { health: 1 },
+        result: '번거로워도, 이제는 익숙해진 걸음이었다.'
+      },
+      {
+        id: 'great-grandchild-visit-81',
+        text: '증손주가 재롱을 부리러 놀러 온다',
+        deltas: { happiness: 3 },
+        result: '작은 웃음소리 하나가, 집안 전체를 환하게 밝혔다.'
+      },
+      {
+        id: 'old-letter-rereading-81',
+        text: '오래전 받은 편지를 꺼내 다시 읽어본다',
+        deltas: { happiness: 2 },
+        result: '빛바랜 글씨 속에서, 그 시절 마음이 그대로 느껴졌다.'
+      },
+      {
+        id: 'simplifying-daily-routine-81',
+        text: '하루 일과를 최대한 단순하게 줄인다',
+        deltas: { happiness: 1 },
+        result: '덜어낼수록, 하루가 오히려 편안해졌다.'
+      },
+      {
+        id: 'caregiver-help-acceptance-81',
+        text: '요양보호사의 도움을 받아들이기 시작한다',
+        deltas: { health: 1, happiness: -1 },
+        result: '낯선 손길이었지만, 곧 없어서는 안 될 존재가 됐다.'
+      },
     ]
   },
   {
@@ -25777,6 +26025,37 @@ const STAGES = [
         result: '평생 취미로 쌓은 탑이, 뜻밖에 값진 마무리가 됐다.',
         requiresAsset: 'collectibles'
       }
+    ,
+      {
+        id: 'wheelchair-consideration-88',
+        text: '이동에 휠체어를 쓸지 고민한다',
+        deltas: { health: -1 },
+        result: '받아들이기까지, 마음의 시간이 조금 필요했다.'
+      },
+      {
+        id: 'life-story-recording-88',
+        text: '자손들에게 남길 인생 이야기를 녹음해둔다',
+        deltas: { happiness: 2 },
+        result: '말로 풀어낼수록, 지나온 세월이 더 선명해졌다.'
+      },
+      {
+        id: 'daily-caregiver-visit-88',
+        text: '매일 찾아오는 요양보호사와 정이 든다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '가족 아닌 사람에게도, 마음을 나눌 수 있다는 걸 알았다.'
+      },
+      {
+        id: 'sunlight-afternoon-nap-88',
+        text: '따뜻한 햇볕 아래 낮잠을 즐긴다',
+        deltas: { happiness: 1, health: 1 },
+        result: '짧은 낮잠 한 번이, 하루의 큰 위안이 됐다.'
+      },
+      {
+        id: 'great-great-grandchild-news-88',
+        text: '고손주 소식을 전해 듣는다',
+        deltas: { happiness: 3 },
+        result: '다섯 세대가 이어졌다는 사실이, 좀처럼 믿기지 않았다.'
+      },
     ]
   },
   {
@@ -25880,6 +26159,37 @@ const STAGES = [
         mandatory: true,
         prizeTable: LOTTERY_PRIZE_TABLE
       }
+    ,
+      {
+        id: 'hearing-aid-consideration-89',
+        text: '보청기를 새로 맞출지 고민한다',
+        deltas: { health: -1 },
+        result: '안 들리는 걸 인정하는 데도, 시간이 필요했다.'
+      },
+      {
+        id: 'old-diary-rereading-89',
+        text: '젊은 시절 써둔 일기장을 다시 펼쳐본다',
+        deltas: { happiness: 2 },
+        result: '삐뚤빼뚤한 글씨 속에, 잊고 있던 내가 있었다.'
+      },
+      {
+        id: 'family-video-call-89',
+        text: '타지에 있는 가족과 영상통화로 얼굴을 본다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '작은 화면 속 얼굴이, 그리움을 잠시 달래줬다.'
+      },
+      {
+        id: 'slow-meal-savoring-89',
+        text: '한 끼 식사를 천천히 오래 음미한다',
+        deltas: { happiness: 1 },
+        result: '서두를 이유가 없는 식사가, 오히려 더 맛있게 느껴졌다.'
+      },
+      {
+        id: 'quiet-gratitude-for-today-89',
+        text: '무사히 하루를 보냈다는 사실에 조용히 감사한다',
+        deltas: { happiness: 1 },
+        result: '별일 없이 지나간 하루가, 그 자체로 고마웠다.'
+      },
     ]
   },
   {
