@@ -1757,7 +1757,7 @@ function updateRouteSceneImage(currentRoute) {
 // 실제로 눈에 보이고, 패널 안쪽(#gameSection)은 아직 다 안 사라진 상태에서
 // 색이 바뀌면 순간적으로 튀어 보이므로(pop) 완전히 투명해지는 350ms
 // 시점까지 미룬다.
-const ROUTE_THEME_IDS = { developer: true, logistics: true, prison: true, 'pro-gamer': true, 'esports-coach': true, 'sports-elite': true, 'soccer-manager': true, 'study-abroad-usa': true, 'us-settled-life': true, 'entertainment-industry': true, actor: true, artist: true, 'youth-politics': true };
+const ROUTE_THEME_IDS = { developer: true, logistics: true, prison: true, 'pro-gamer': true, 'esports-coach': true, 'sports-elite': true, 'soccer-manager': true, 'study-abroad-usa': true, 'us-settled-life': true, 'entertainment-industry': true, actor: true, artist: true, 'youth-politics': true, 'teen-entrepreneur': true };
 function routeBgClass(id) { return 'route-bg-' + id; }
 function routePanelClass(id) { return 'route-theme-' + id; }
 let currentThemeRouteId = null;

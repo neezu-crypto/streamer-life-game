@@ -4875,6 +4875,27 @@
         <code>route-bg-youth-politics</code>/<code>route-theme-youth-politics</code> 클래스 적용 후
         스크린샷 확인 - 배지 아이콘·골드 밑줄·칩 대비 전부 의도대로 렌더링, 정당색 오해 소지 없이
         중립적으로 나온 것 확인. <code>ROUTE_THEME_IDS</code>에 <code>youth-politics</code> 등록.</p>
+
+        <h3>teen-entrepreneur(10대 창업가) - 차고 스타트업 테마(2026-08-26)</h3>
+        <p>developer(사무실 코딩) 테마와 대비되게, 갓 시작한 스타트업 특유의 활기찬 느낌을 라임그린
+        네온 포인트로 표현했다.</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>루트</th><th>색상</th><th>패턴·디테일</th></tr>
+                <tr><td><code>teen-entrepreneur</code></td><td>웜그레이 패널(<code>#2a2622</code>) +
+                라임그린 네온 포인트(<code>#c5f24e</code>)</td><td>배경은 실제 삽화
+                (<code>assets/scenes/startup-garage.jpg</code>, 차고 개조 사무실 + 로켓 모양 네온
+                사인 + 화이트보드 + 골판지 박스 + 조명줄). 패널은 라임그린 네온 테두리 + 은은한
+                글로우, <code>.stage-name</code>은 포스트잇 메모처럼 골드-딤 배경에 살짝 기울어진
+                (<code>rotate(-1.5deg)</code>) 태그 스타일.</td></tr>
+            </table>
+        </div>
+        <p class="note"><b>검증.</b> 명암비 스크립트로 텍스트/패널 13.1:1, 네온/패널 11.6:1,
+        스테이지 태그(네온 텍스트 온 네온-딤 배경) 7.9:1, 재산·건강·가족·직업 칩 3종 전부
+        5.9~6.3:1로 통과. Playwright로 <code>route-bg-teen-entrepreneur</code>/
+        <code>route-theme-teen-entrepreneur</code> 클래스 적용 후 스크린샷 확인 - 네온 테두리·
+        포스트잇 태그·칩 대비 전부 의도대로 렌더링. <code>ROUTE_THEME_IDS</code>에
+        <code>teen-entrepreneur</code> 등록.</p>
     </section>
 
     <section>

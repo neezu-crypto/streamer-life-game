@@ -1115,3 +1115,49 @@
     background: var(--gold);
     opacity: 0.85;
   }
+
+  /* teen-entrepreneur(10대 창업가) 전용(2026-08-26) - 차고 스타트업 톤.
+     developer(사무실 코딩)와 대비되게, 형광 라임그린 네온 포인트로 갓
+     시작한 스타트업의 활기찬 느낌을 냈다. */
+  body.route-bg-teen-entrepreneur {
+    --bg: #16150f;
+    background-color: var(--bg);
+    background-image: url('assets/scenes/startup-garage.jpg');
+    background-size: cover;
+    background-position: center 40%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  #gameSection.route-theme-teen-entrepreneur {
+    --panel: #2a2622; --panel-2: #332e28;
+    --text: #f2f0e6; --text-dim: #aca999; --text-faint: #757266;
+    --gold: #c5f24e; --gold-dim: rgba(197, 242, 78, 0.14);
+    --line: #423d33;
+    --sage: #8fd4a0; --sage-dim: rgba(143, 212, 160, 0.14);
+    --coral: #ffab8a; --coral-dim: rgba(255, 171, 138, 0.14);
+    --sky: #9fc4f5; --sky-dim: rgba(159, 196, 245, 0.16);
+    color: var(--text);
+    background-color: #2a2622;
+    border: 2px solid #c5f24e;
+    border-radius: 3px;
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.4),
+      0 0 26px rgba(197, 242, 78, 0.12);
+    position: relative;
+  }
+  #gameSection.route-theme-teen-entrepreneur .choice-btn {
+    border-left: 3px solid var(--gold);
+  }
+  #gameSection.route-theme-teen-entrepreneur .stat-bar-fill {
+    box-shadow: 0 0 6px 0 rgba(197, 242, 78, 0.6);
+  }
+  /* 포스트잇 메모 느낌으로 살짝 기울어진 스테이지 이름 태그 */
+  #gameSection.route-theme-teen-entrepreneur .stage-name {
+    display: inline-block;
+    background: var(--gold-dim);
+    color: var(--gold);
+    padding: 2px 10px;
+    border-radius: 2px;
+    transform: rotate(-1.5deg);
+  }
+
