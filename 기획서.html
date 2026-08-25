@@ -5160,6 +5160,77 @@
         나왔는데, 이는 콘텐츠가 줄어든 게 아니라 <b>평균 자체가 채울 때마다 계속 올라가기 때문</b>
         (10.9 → 11.87)이라는 점을 문서로 남겨둔다 - "부족한 나이대"는 고정된 목표가 아니라 상대적
         기준이라 완전히 없앨 수는 없고, 필요할 때마다 같은 방식으로 재집계해서 채우면 된다.</p>
+
+        <h3>"가족이 안 채워지는 선택지" 감사 및 수정(2026-08-26, 사용자 지시 - "게임 초반구간에
+        가족이 안채워지는 선택지가 몇개 있는것같은데 확인해줘")</h3>
+        <p>텍스트가 가족 관계(배우자·자녀·손주·증손주·부모님)의 존재를 전제하거나 새로 생기는
+        사건을 서술하는데, 정작 <code>requires*</code> 게이트도 없고 <code>addFamilyMembers</code>
+        효과도 없는 선택지를 정규식으로 전수 스캔했다. 두 갈래로 나뉘었다.</p>
+        <ul>
+            <li><b>기존(세션 이전) 코드의 진짜 버그 2건</b> - 초반구간(사용자가 지목한 대로)에서
+            발견: <code>clingy-kid</code>(3세, "엄마 아빠와 떨어지기 싫어 매일 운다")와
+            <code>deviant-fake-report-card-10</code>(10세, "성적표를 몰래 고쳐 부모님께
+            보여드린다") 둘 다 부모(father/mother/single-parent) 존재를 전제하면서 게이트가
+            없었다 - <code>foster-care</code>(0세, 보육시설 출신이라 부모를 아예 안 만드는 선택지)
+            출신 플레이어에게도 이 두 선택지가 노출돼, 있지도 않은 부모에게 울거나 성적표를 보여주는
+            모순이 발생할 수 있었다. <code>requiresFamilyMember: ['father', 'mother',
+            'single-parent']</code> 추가로 수정.</li>
+            <li><b>이번 세션에 직접 추가한 범용 콘텐츠 176개 중 섞여 있던 버그 20건</b> - 밀도
+            보강 작업을 빠르게 반복하며 "부부가~", "자녀가~", "손주가~" 같은 표현을 쓰면서
+            <code>requiresFamilyMember</code> 게이트 다는 걸 빠뜨렸다(코드베이스 전체엔 이미 같은
+            표현을 쓰는 선택지가 28개 있었는데, 그중 게이트 없는 7개가 전부 이번 세션에 내가 새로
+            추가한 것들이었다 - 기존 코드는 이 패턴을 항상 지켜왔다는 뜻).</li>
+        </ul>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>유형</th><th>대상</th><th>조치</th></tr>
+                <tr><td>배우자 전제(7건)</td><td><code>couple-savings-goal-35, couple-hiking-trip-51,
+                couple-travel-plan-55, spouse-retirement-plan-talk-56,
+                spouse-retirement-adjustment-63, spouse-health-worry-72</code> +
+                <code>second-child-consideration-36</code></td><td>
+                <code>requiresFamilyMember: ['spouse']</code> 추가(마지막 하나는 자녀도 같이
+                전제해 <code>requiresAllFamilyMemberGroups: [['spouse'], ['child']]</code>로
+                AND 조건 적용)</td></tr>
+                <tr><td>자녀 전제(6건)</td><td><code>child-puberty-distance-41,
+                child-college-entrance-prep-43, child-highschool-entrance-44, child-first-job-47,
+                child-military-service-48, child-marriage-preparation-55</code></td><td>
+                <code>requiresFamilyMember: ['child']</code> 추가</td></tr>
+                <tr><td>손주 전제(6건)</td><td><code>grandchild-schoolwork-help-61,
+                grandchild-babysit-again-63, grandchild-education-support-64,
+                grandchild-visit-joy-66, grandchild-schoolwork-support-66,
+                grandchild-growing-up-72</code></td><td><code>requiresFamilyMember:
+                ['grandchild']</code> 추가</td></tr>
+                <tr><td>증손주·고손주 전제(5건)</td><td><code>great-grandchild-birth-news-69,
+                great-grandchild-news-76, great-grandchild-visit-81,
+                great-grandchild-first-meeting-82, great-great-grandchild-news-88</code></td>
+                <td>게임에 "증손주"라는 별도 가족 슬롯 자체가 없어(기존 91/98세의
+                <code>joy-with-great-grandchildren</code> 계열도 같은 방식) 새 슬롯을 만드는
+                대신, 기존 관례를 따라 <code>requiresFamilyMember: ['grandchild']</code>로
+                논리적 선행조건만 걸었다(증손주가 있으려면 손주가 먼저 있어야 하니까)</td></tr>
+                <tr><td>부모 전제(3건, 신규분)</td><td><code>parents-aging-realization-33,
+                parents-retirement-support-40, parents-health-scare-41</code></td><td>
+                <code>requiresFamilyMember: ['father', 'mother', 'single-parent']</code>
+                추가</td></tr>
+                <tr><td><b>진짜 구조적 버그(3건) - 게이트로 못 고침</b></td><td>
+                <code>child-second-birth-34</code>("둘째 아이가 태어난다"),
+                <code>grandchild-first-meeting-56</code>("처음으로 손주를 품에 안아본다"),
+                <code>grandchild-babysitting-request-55</code>("손주를 봐달라는 부탁을
+                받는다")</td><td>가족 시스템은 <code>addFamilyMembers</code>가 id 중복이면
+                조용히 무시되는 구조라(<code>child</code>는 이미 한 번 생기면 "둘째"를 표현할
+                방법 자체가 없음), 첫 번째는 표현 불가능한 개념이었다. 뒤 둘은 게임 전체에서
+                손주를 얻는 사건이 <b>정확히 58세 한 곳(3가지 문구 중 무작위)에서만</b> 발생하도록
+                설계돼 있어(<code>becoming-a-grandparent</code> 등), 55·56세에 손주 관련
+                선택지를 두는 것 자체가 시점상 모순이었다. 게이트를 다는 대신 셋 다 가족과 무관한
+                다른 소재로 완전히 교체했다(각각 노트북 교체, 옷장 정리, 오랜 취미 숙련).</td></tr>
+            </table>
+        </div>
+        <p class="note"><b>검증.</b> 정규식 전수 스캔으로 "게이트도 효과도 없이 가족을 전제하는
+        선택지"가 0건이 될 때까지 반복 확인. <code>node -c game-data.js</code>/<code>node -c
+        index.js</code> 통과, id 중복 0건, 수정 후 19개 저밀도 나이의 범용 선택지 수는 10~13개로
+        여전히 전체 평균(12.34) 근접 수준 유지. <code>requiresFamilyMember</code>는 OR,
+        <code>requiresAllFamilyMemberGroups</code>는 AND-of-OR 시맨틱이라는 걸
+        <code>index.js</code> 소스로 재확인 후 정확한 필드를 선택해 적용.
+        <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
