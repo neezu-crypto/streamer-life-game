@@ -5231,6 +5231,27 @@
         <code>requiresAllFamilyMemberGroups</code>는 AND-of-OR 시맨틱이라는 걸
         <code>index.js</code> 소스로 재확인 후 정확한 필드를 선택해 적용.
         <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
+
+        <h3>0세 출생 선택지 2건 - 부모가 전혀 안 생기던 진짜 원인 발견(2026-08-26, 사용자 지적 -
+        "태어난 기념으로 친척들에게 답례 선물을 돌린다 - 이때도 부모님이 안생기는데 친척들에게
+        선물을 하는게 어색해")</h3>
+        <p>0세 스테이지(<code>infancy-0</code>)는 <code>random: true</code>라 플레이어가 직접
+        고르는 게 아니라 서버가 노출된 후보 중 <b>정확히 하나를 주사위로 뽑아 그게 곧 출생
+        스토리 전체가 되는</b> 구조다(<code>rollDice</code>). 14개 후보 중 <code>foster-care</code>
+        (보육시설 출신)만 의도적으로 부모를 안 만드는 대신 지인 3명을 붙여 보완했는데,
+        <code>wealth-drain-0-a</code>("친척들에게 답례 선물을 돌린다")와 <code>unhappy-0</code>
+        ("온 가족이 잠을 설친다") 이 두 개는 <b>특별한 사연 없는 '평범한 가정' 취지의 플레이버
+        선택지였을 뿐인데 <code>addFamilyMembers</code>가 아예 없었다</b> - 앞서 감사한 20건과
+        달리 이번 건 발견 전까진 정규식 스캔에도 안 걸렸다(부모 존재를 요구하는 게이트 여부가 아니라,
+        <b>부모를 만드는 효과 자체가 빠진</b> 다른 종류의 결함이었기 때문). 주사위가 이 둘 중 하나로
+        떨어지면 그 즉시 "친척/가족은 있다고 말하는 텍스트인데 실제 가족 상세엔 아무도 없는" 플레이가
+        시작되는, 사용자가 지적한 대로 초반구간에서 가장 자주 겪을 법한 결함이었다.</p>
+        <p class="note"><b>조치.</b> 다른 "평범한" 출생 선택지들과 동일하게 두 곳 모두
+        <code>addFamilyMembers: [{'{'} id: 'father', ... {'}'}, {'{'} id: 'mother', ... {'}'}]</code>
+        추가 - 이제 14개 후보 중 <code>foster-care</code>를 제외한 13개 전부 아버지·어머니(또는
+        해당 origin 고유의 가족 구성)를 확실히 만든다. <code>node -c game-data.js</code> 통과,
+        0세 14개 선택지 전부 순회하며 family effect 여부 스크립트로 재확인.
+        <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>

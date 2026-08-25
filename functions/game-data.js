@@ -168,13 +168,21 @@ const STAGES = [
         id: "wealth-drain-0-a",
         text: "태어난 기념으로 친척들에게 답례 선물을 돌린다",
         deltas: { wealth: -2 },
-        result: "부모님 지갑이 며칠 사이 눈에 띄게 얇아졌다."
+        result: "부모님 지갑이 며칠 사이 눈에 띄게 얇아졌다.",
+        addFamilyMembers: [
+          { id: 'father', label: '👨 아버지' },
+          { id: 'mother', label: '👩 어머니' }
+        ]
       },
       {
         id: "unhappy-0",
         text: "밤새 보채는 통에 온 가족이 잠을 설친다",
         deltas: { happiness: -2, health: -1 },
-        result: "쪽잠도 못 자고 뜬눈으로 밤을 지새운 날들이었다."
+        result: "쪽잠도 못 자고 뜬눈으로 밤을 지새운 날들이었다.",
+        addFamilyMembers: [
+          { id: 'father', label: '👨 아버지' },
+          { id: 'mother', label: '👩 어머니' }
+        ]
       },
       {
         id: 'warm-poor',
