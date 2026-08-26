@@ -1353,6 +1353,22 @@ async function applyChoice(db, playRef, play, stage, choice) {
     cashHoldings += Math.round(stats.fame * cashUnitForAge(nextIndex) / 50);
   }
 
+  // 아이돌·배우 인기 연동 추가 소득(2026-08-26, 사용자 지적 - "아이돌 루트를
+  // 플레이해보니 현금 수입이 전혀 없던데?") - 확인 결과 idol 직업 선택지 51개 중
+  // wealth 델타가 있는 게 9개뿐이고(actor도 96개 중 28개), 예술가·창업가처럼
+  // 인기 연동 패시브 소득도 아예 없어서 운이 나쁘면 활동 기간 내내 현금을 한 번도
+  // 못 만질 수 있었다. 같은 공식을 그대로 재사용. 아이돌은 연습생 시절(트레이니)엔
+  // 정식 수입이 없는 게 자연스러워 currentOccupation이 'idol'로 전환된 뒤부터만
+  // 적용(연습생 트레이니 급여 없음 컨셉 유지) - 반면 배우는 예술가와 동일하게 무명
+  // 시절(actor-newcomer)부터도 단역 출연료가 있는 게 자연스러워 루트 활성 구간
+  // 전체(actor 루트, 32~46세)에 적용한다.
+  if (currentOccupation && currentOccupation.id === 'idol') {
+    cashHoldings += Math.round(stats.fame * cashUnitForAge(nextIndex) / 50);
+  }
+  if (nextActiveRoute && nextActiveRoute.id === 'actor') {
+    cashHoldings += Math.round(stats.fame * cashUnitForAge(nextIndex) / 50);
+  }
+
   // 임대사업 소득(2026-08-23 상가 도입, 2026-08-26 오피스텔로 확대 - 사용자
   // 지시 "모든 임대사업이 해당 부동산을 팔때까지 매년 일정 수입이 들어오게
   // 해줘") - 예술가 루트의 인기 연동 소득과 같은 급의 매 턴 배경 효과. 인기처럼
