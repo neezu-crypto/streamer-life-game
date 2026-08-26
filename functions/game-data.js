@@ -12702,6 +12702,27 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-yp-candidate-fake-endorsement-30',
+        text: '받지 않은 유명인 지지 선언을 받은 것처럼 홍보물에 슬쩍 끼워 넣는다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-candidate'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3, fame: 2 }, result: '홍보 효과는 확실했고, 아무도 눈치채지 못했다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -3, fame: -4 }, result: '해당 인사가 직접 부인하는 성명을 내며 곤혹스러워졌다.' }
+        ]
+      },
+      {
+        id: 'deviant-yp-candidate-opponent-smear-30',
+        text: '익명 계정을 만들어 상대 후보에 대한 근거 없는 소문을 퍼뜨린다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-candidate'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { fame: 2 }, result: '여론이 조금씩 흔들리는 걸 지켜보며 만족스러워했다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -4, fame: -3, relationship: -2 }, result: 'IP 추적 끝에 유포자로 지목되며 역풍을 맞았다.' }
+        ]
+      }
     ]
   },
   {
@@ -13350,6 +13371,27 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-yp-candidate-illegal-canvassing-31',
+        text: '법정 선거운동 기간이 시작되기 전부터 몰래 사전 선거운동을 벌인다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-candidate'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { fame: 3 }, result: '남들보다 한발 앞서, 얼굴을 더 많이 알렸다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -3, fame: -6, happiness: -4 }, result: '선거관리위원회에 적발되며 경고 조치를 받았다.' }
+        ]
+      },
+      {
+        id: 'deviant-yp-candidate-campaign-fund-padding-31',
+        text: '선거 자금 지출 내역을 허위로 부풀려 보고한다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-candidate'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '남는 자금을 슬쩍 챙기며, 별 문제 없이 넘어갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '정치자금법 위반 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+        ]
+      }
     ]
   },
   {
@@ -13965,6 +14007,17 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-yp-council-nepotism-hire-32',
+        text: '지역 사업 관련 자리에 지인을 몰래 채용되도록 손을 써준다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-member'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { relationship: 3 }, result: '아무도 눈치채지 못한 채, 인맥이 두터워졌다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -3, fame: -3 }, result: '특혜 채용 의혹이 제기되며 해명 자료를 내야 했다.' }
+        ]
+      }
     ]
   },
   {
@@ -14583,6 +14636,27 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-yp-perk-abuse-33',
+        text: '의정 활동비 영수증을 개인 용도 지출로 슬쩍 채운다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-member'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '별다른 확인 없이, 정산이 그대로 통과됐다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -2, fame: -3 }, result: '감사에서 부적절한 지출 내역이 그대로 걸렸다.' }
+        ]
+      },
+      {
+        id: 'deviant-yp-family-benefit-33',
+        text: '가족 명의를 빌려 지역 사업 계약을 몰래 따내게 한다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-member'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '말끔하게 처리된 것 같아 마음이 놓였다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -3, fame: -4, relationship: -2 }, result: '입찰 서류에서 가족 명의가 드러나며 특혜 의혹이 불거졌다.' }
+        ]
+      }
     ]
   },
   {
@@ -15229,6 +15303,17 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-yp-lobbyist-gift-34',
+        text: '로비스트가 건넨 고가의 선물을 못 이기는 척 받는다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-member'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4, happiness: 2 }, result: '별다른 죄책감 없이, 선물을 챙겼다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -4, fame: -8, happiness: -5 }, result: '청탁금지법 위반 의혹이 제기되며 여론의 뭇매를 맞았다.' }
+        ]
+      }
     ]
   },
   {
@@ -15809,6 +15894,17 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-yp-fake-attendance-35',
+        text: '본회의 불참을 대리 서명으로 슬쩍 감춘다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-member'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '아무 일도 없었다는 듯, 회의록이 그대로 넘어갔다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -3, fame: -3 }, result: '대리 서명 흔적이 드러나며 신뢰에 금이 갔다.' }
+        ]
+      }
     ]
   },
   {
@@ -16338,6 +16434,17 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-yp-poll-rigging-36',
+        text: '여론조사 업체에 몰래 응답 표본 조작을 청탁한다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-member'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { fame: 5 }, result: '유리한 지지율 발표에, 다음 선거가 한결 든든해졌다.' },
+          { weight: 18, label: '발각', deltas: { fame: -9, happiness: -6, relationship: -3 }, result: '조작 정황이 언론에 포착되며 여론조사 신뢰도 논란의 중심에 섰다.' }
+        ]
+      }
     ]
   },
   {
@@ -16888,6 +16995,17 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-yp-contract-kickback-37',
+        text: '지역 공사 발주 대가로 업체로부터 뒷돈을 받는다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-member'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '큰 액수가 조용히 통장에 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '뇌물수수 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+        ]
+      }
     ]
   },
   {
@@ -17401,6 +17519,27 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-yp-permit-favor-38',
+        text: '인허가를 대가로 은밀한 청탁을 들어준다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-member'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '별 탈 없이, 조용한 거래가 마무리됐다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -4, fame: -7, happiness: -4 }, result: '특혜 인허가 정황이 드러나며 감사원 조사를 받았다.' }
+        ]
+      },
+      {
+        id: 'deviant-yp-blackmail-silence-38',
+        text: '내부고발 조짐을 보이는 보좌관을 회유해 입을 막는다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-member'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '불안했던 마음이, 일단은 가라앉았다.' },
+          { weight: 18, label: '발각', deltas: { fame: -8, happiness: -6, relationship: -4 }, result: '보좌관의 폭로가 결국 터지며 걷잡을 수 없이 커졌다.' }
+        ]
+      }
     ]
   },
   {
@@ -17860,6 +17999,17 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-yp-staff-bullying-politics-39',
+        text: '수행비서에게 사적인 심부름을 강요하며 갑질을 반복한다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-member'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '편했지만, 아무도 문제 삼지 않았다.' },
+          { weight: 18, label: '발각', deltas: { fame: -9, happiness: -5, relationship: -4 }, result: '폭로 글이 퍼지며 "갑질 의원" 논란에 휩싸였다.' }
+        ]
+      }
     ]
   },
   {
@@ -18368,6 +18518,17 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-yp-budget-embezzlement-40',
+        text: '지역구 예산 일부를 개인 계좌로 몰래 빼돌린다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-member'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '아무도 알아채지 못한 채, 넉넉한 여윳돈이 생겼다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '예산 횡령 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+        ]
+      }
     ]
   },
   {
@@ -18768,6 +18929,17 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-yp-double-job-violation-41',
+        text: '겸직 금지 규정을 어기고 몰래 개인 사업을 운영한다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-member'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '부수입은 짭짤했고, 아무도 알지 못했다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -3, fame: -4 }, result: '겸직 사실이 알려지며 윤리위원회에 회부됐다.' }
+        ]
+      }
     ]
   },
   {
@@ -19150,6 +19322,27 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-yp-donor-payback-42',
+        text: '후원금 일부를 은밀히 페이백 받기로 후원자와 약속한다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-member'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '약속대로, 뒷돈이 조용히 돌아왔다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -4, fame: -7, happiness: -4 }, result: '페이백 정황이 포착되며 정치자금법 위반 논란이 일었다.' }
+        ]
+      },
+      {
+        id: 'deviant-yp-slush-fund-42',
+        text: '남는 정치자금을 개인 비자금으로 슬쩍 조성한다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-member'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '몰래 챙긴 자금이 차곡차곡 쌓였다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -5, fame: -8, happiness: -5 }, result: '회계 감사에서 비자금 정황이 포착돼 곤욕을 치렀다.' }
+        ]
+      }
     ]
   },
   {
@@ -19574,6 +19767,17 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-yp-secret-poll-leak-43',
+        text: '비공개 정책 자료를 지인 사업가에게 몰래 흘려준다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-member'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { relationship: 3 }, result: '말없이 오간 호의가, 관계를 더 끈끈하게 만들었다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -3, fame: -4 }, result: '정보 유출 경로가 추적되며 곤란한 처지에 놓였다.' }
+        ]
+      }
     ]
   },
   {
@@ -20012,6 +20216,17 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-yp-budget-collusion-44',
+        text: '예산 배분을 두고 동료 의원들과 은밀한 담합에 가담한다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-member'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4, fame: 2 }, result: '서로의 이해관계가 맞아떨어져, 조용히 넘어갔다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -4, fame: -8, happiness: -5 }, result: '담합 정황이 폭로되며 정치적 입지가 크게 흔들렸다.' }
+        ]
+      }
     ]
   },
   {
