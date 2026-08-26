@@ -1249,6 +1249,23 @@ async function applyChoice(db, playRef, play, stage, choice) {
   if (routeDurationOverride !== undefined) logEntry.routeDurationOverride = routeDurationOverride;
   choiceLog.push(logEntry);
 
+  // 100년 버튼(2026-08-26, 사용자 지시 - "선택지를 선택하면 다음해에 지금
+  // 가진 모든것을 소유한채로 0세로 돌아갈수 있는 기회를 얻는거야 ... 돌아가면
+  // 가지고있던 모든것을 유지하고 스탯만 전부 50으로 초기화된채 0세로
+  // 돌아가게돼") - choice.resetToInfancy가 붙은 선택지(91~99세 사이 등장하는
+  // "100년 버튼"을 누른 다음 해의 "돌아가기" 갈래)를 고르면, 가족·재산·재능·
+  // 취미·지인은 그대로 두고 나이·스탯·건강 상태만 새로 태어난 것처럼 리셋한다.
+  // 직업·활성 루트·거주지는 별도 필드가 아니라 choiceLog를 매번 다시 훑어
+  // 계산하는 구조라(buildOccupationHistory/buildRouteState/buildLocationHistory
+  // 참고) choiceLog 자체를 비우면 셋 다 자동으로 초기화된다 - 이 사용자
+  // 확인사항(직업·루트·건강·거주지는 초기화)을 위해 따로 손볼 코드가 없다.
+  // nextIndex를 0으로 강제하는 처리는 아래에서 한다.
+  if (choice.resetToInfancy) {
+    choiceLog.length = 0;
+    for (const key of STAT_KEYS) stats[key] = STAT_START;
+    healthConditions = [];
+  }
+
   // 현재 장소 - buildLocationHistory 주석 참고. 이번 선택이 setLocation을
   // 붙였다면 이 시점의 마지막 항목이 곧 새 장소이고, 한 번도 해외로 나간 적
   // 없으면 DEFAULT_LOCATION(국내) 그대로다.
@@ -1263,7 +1280,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
   const instantEnding = INSTANT_ENDING_BUILDERS.find((e) => stats[e.stat] <= 0);
   const collapsed = !!instantEnding;
 
-  const nextIndex = pickNextStageIndex(play.stageIndex);
+  const nextIndex = choice.resetToInfancy ? 0 : pickNextStageIndex(play.stageIndex);
   const completed = collapsed || nextIndex >= STAGES.length;
   // sickStreak(2026-08-22, guaranteeCure 참고) - 건강 조건이 하나라도 있는
   // 채로 몇 턴째인지 세는 카운터. 조건이 없어지면(전부 나으면) 0으로

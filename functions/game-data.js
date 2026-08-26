@@ -27964,6 +27964,13 @@ const STAGES = [
         deltas: { fame: -2, happiness: 1 },
         result: '화려했던 날들도, 이제는 그저 지나온 시간의 일부일 뿐이었다.'
       }
+    ,
+      {
+        id: 'time-loop-button-91',
+        text: '[100년 버튼을 눌러 0세때로 되돌아간다]',
+        result: '알 수 없는 힘에 이끌려, 손끝이 버튼 위에서 한참을 머물렀다.',
+        addAsset: { id: 'time-loop-ticket', label: '⏳ 100년의 기억', type: 'movable' }
+      },
     ]
   },
   {
@@ -28120,6 +28127,30 @@ const STAGES = [
         requiresAnyCondition: true,
         removeAllConditions: true
       }
+    ,
+      {
+        id: 'time-loop-button-92',
+        text: '[100년 버튼을 눌러 0세때로 되돌아간다]',
+        result: '알 수 없는 힘에 이끌려, 손끝이 버튼 위에서 한참을 머물렀다.',
+        addAsset: { id: 'time-loop-ticket', label: '⏳ 100년의 기억', type: 'movable' }
+      },
+      {
+        id: 'time-loop-return-92',
+        text: '버튼을 눌러 모든 것을 간직한 채 0세로 돌아간다',
+        result: '눈을 감았다 뜨자, 세상이 다시 처음부터 시작되고 있었다.',
+        requiresAsset: 'time-loop-ticket',
+        removeAsset: 'time-loop-ticket',
+        mandatory: true,
+        resetToInfancy: true
+      },
+      {
+        id: 'time-loop-decline-92',
+        text: '버튼을 누르지 않고 지금의 삶을 그대로 이어간다',
+        result: '되돌릴 수 있었지만, 지금 이대로도 나쁘지 않다고 생각했다.',
+        requiresAsset: 'time-loop-ticket',
+        removeAsset: 'time-loop-ticket',
+        mandatory: true
+      },
     ]
   },
   {
@@ -28263,6 +28294,30 @@ const STAGES = [
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
+    ,
+      {
+        id: 'time-loop-button-93',
+        text: '[100년 버튼을 눌러 0세때로 되돌아간다]',
+        result: '알 수 없는 힘에 이끌려, 손끝이 버튼 위에서 한참을 머물렀다.',
+        addAsset: { id: 'time-loop-ticket', label: '⏳ 100년의 기억', type: 'movable' }
+      },
+      {
+        id: 'time-loop-return-93',
+        text: '버튼을 눌러 모든 것을 간직한 채 0세로 돌아간다',
+        result: '눈을 감았다 뜨자, 세상이 다시 처음부터 시작되고 있었다.',
+        requiresAsset: 'time-loop-ticket',
+        removeAsset: 'time-loop-ticket',
+        mandatory: true,
+        resetToInfancy: true
+      },
+      {
+        id: 'time-loop-decline-93',
+        text: '버튼을 누르지 않고 지금의 삶을 그대로 이어간다',
+        result: '되돌릴 수 있었지만, 지금 이대로도 나쁘지 않다고 생각했다.',
+        requiresAsset: 'time-loop-ticket',
+        removeAsset: 'time-loop-ticket',
+        mandatory: true
+      },
     ]
   },
   {
@@ -28387,6 +28442,30 @@ const STAGES = [
         result: '화면 속 얼굴인데도, 옆에 있는 것만 같았다.',
         requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
       }
+    ,
+      {
+        id: 'time-loop-button-94',
+        text: '[100년 버튼을 눌러 0세때로 되돌아간다]',
+        result: '알 수 없는 힘에 이끌려, 손끝이 버튼 위에서 한참을 머물렀다.',
+        addAsset: { id: 'time-loop-ticket', label: '⏳ 100년의 기억', type: 'movable' }
+      },
+      {
+        id: 'time-loop-return-94',
+        text: '버튼을 눌러 모든 것을 간직한 채 0세로 돌아간다',
+        result: '눈을 감았다 뜨자, 세상이 다시 처음부터 시작되고 있었다.',
+        requiresAsset: 'time-loop-ticket',
+        removeAsset: 'time-loop-ticket',
+        mandatory: true,
+        resetToInfancy: true
+      },
+      {
+        id: 'time-loop-decline-94',
+        text: '버튼을 누르지 않고 지금의 삶을 그대로 이어간다',
+        result: '되돌릴 수 있었지만, 지금 이대로도 나쁘지 않다고 생각했다.',
+        requiresAsset: 'time-loop-ticket',
+        removeAsset: 'time-loop-ticket',
+        mandatory: true
+      },
     ]
   },
   {
@@ -28512,6 +28591,30 @@ const STAGES = [
         result: '별것 아닌 과자 하나에도, 마음이 흐뭇해졌다.',
         requiresFamilyMember: ['grandchild']
       }
+    ,
+      {
+        id: 'time-loop-button-95',
+        text: '[100년 버튼을 눌러 0세때로 되돌아간다]',
+        result: '알 수 없는 힘에 이끌려, 손끝이 버튼 위에서 한참을 머물렀다.',
+        addAsset: { id: 'time-loop-ticket', label: '⏳ 100년의 기억', type: 'movable' }
+      },
+      {
+        id: 'time-loop-return-95',
+        text: '버튼을 눌러 모든 것을 간직한 채 0세로 돌아간다',
+        result: '눈을 감았다 뜨자, 세상이 다시 처음부터 시작되고 있었다.',
+        requiresAsset: 'time-loop-ticket',
+        removeAsset: 'time-loop-ticket',
+        mandatory: true,
+        resetToInfancy: true
+      },
+      {
+        id: 'time-loop-decline-95',
+        text: '버튼을 누르지 않고 지금의 삶을 그대로 이어간다',
+        result: '되돌릴 수 있었지만, 지금 이대로도 나쁘지 않다고 생각했다.',
+        requiresAsset: 'time-loop-ticket',
+        removeAsset: 'time-loop-ticket',
+        mandatory: true
+      },
     ]
   },
   {
@@ -28638,6 +28741,30 @@ const STAGES = [
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
+    ,
+      {
+        id: 'time-loop-button-96',
+        text: '[100년 버튼을 눌러 0세때로 되돌아간다]',
+        result: '알 수 없는 힘에 이끌려, 손끝이 버튼 위에서 한참을 머물렀다.',
+        addAsset: { id: 'time-loop-ticket', label: '⏳ 100년의 기억', type: 'movable' }
+      },
+      {
+        id: 'time-loop-return-96',
+        text: '버튼을 눌러 모든 것을 간직한 채 0세로 돌아간다',
+        result: '눈을 감았다 뜨자, 세상이 다시 처음부터 시작되고 있었다.',
+        requiresAsset: 'time-loop-ticket',
+        removeAsset: 'time-loop-ticket',
+        mandatory: true,
+        resetToInfancy: true
+      },
+      {
+        id: 'time-loop-decline-96',
+        text: '버튼을 누르지 않고 지금의 삶을 그대로 이어간다',
+        result: '되돌릴 수 있었지만, 지금 이대로도 나쁘지 않다고 생각했다.',
+        requiresAsset: 'time-loop-ticket',
+        removeAsset: 'time-loop-ticket',
+        mandatory: true
+      },
     ]
   },
   {
@@ -28764,6 +28891,30 @@ const STAGES = [
         mandatory: true,
         prizeTable: LOTTERY_PRIZE_TABLE
       }
+    ,
+      {
+        id: 'time-loop-button-97',
+        text: '[100년 버튼을 눌러 0세때로 되돌아간다]',
+        result: '알 수 없는 힘에 이끌려, 손끝이 버튼 위에서 한참을 머물렀다.',
+        addAsset: { id: 'time-loop-ticket', label: '⏳ 100년의 기억', type: 'movable' }
+      },
+      {
+        id: 'time-loop-return-97',
+        text: '버튼을 눌러 모든 것을 간직한 채 0세로 돌아간다',
+        result: '눈을 감았다 뜨자, 세상이 다시 처음부터 시작되고 있었다.',
+        requiresAsset: 'time-loop-ticket',
+        removeAsset: 'time-loop-ticket',
+        mandatory: true,
+        resetToInfancy: true
+      },
+      {
+        id: 'time-loop-decline-97',
+        text: '버튼을 누르지 않고 지금의 삶을 그대로 이어간다',
+        result: '되돌릴 수 있었지만, 지금 이대로도 나쁘지 않다고 생각했다.',
+        requiresAsset: 'time-loop-ticket',
+        removeAsset: 'time-loop-ticket',
+        mandatory: true
+      },
     ]
   },
   {
@@ -28896,6 +29047,30 @@ const STAGES = [
         deltas: { happiness: 2, fame: 1 },
         result: '오가는 인사말이, 평소보다 조금 더 따뜻하게 느껴졌다.'
       }
+    ,
+      {
+        id: 'time-loop-button-98',
+        text: '[100년 버튼을 눌러 0세때로 되돌아간다]',
+        result: '알 수 없는 힘에 이끌려, 손끝이 버튼 위에서 한참을 머물렀다.',
+        addAsset: { id: 'time-loop-ticket', label: '⏳ 100년의 기억', type: 'movable' }
+      },
+      {
+        id: 'time-loop-return-98',
+        text: '버튼을 눌러 모든 것을 간직한 채 0세로 돌아간다',
+        result: '눈을 감았다 뜨자, 세상이 다시 처음부터 시작되고 있었다.',
+        requiresAsset: 'time-loop-ticket',
+        removeAsset: 'time-loop-ticket',
+        mandatory: true,
+        resetToInfancy: true
+      },
+      {
+        id: 'time-loop-decline-98',
+        text: '버튼을 누르지 않고 지금의 삶을 그대로 이어간다',
+        result: '되돌릴 수 있었지만, 지금 이대로도 나쁘지 않다고 생각했다.',
+        requiresAsset: 'time-loop-ticket',
+        removeAsset: 'time-loop-ticket',
+        mandatory: true
+      },
     ]
   },
   {
@@ -29050,6 +29225,29 @@ const STAGES = [
         deltas: { happiness: 1 },
         result: '말로 다 못할 마음을, 몇 번이고 되뇌어봤다.'
       },
+      {
+        id: 'time-loop-button-99',
+        text: '[100년 버튼을 눌러 0세때로 되돌아간다]',
+        result: '알 수 없는 힘에 이끌려, 손끝이 버튼 위에서 한참을 머물렀다.',
+        addAsset: { id: 'time-loop-ticket', label: '⏳ 100년의 기억', type: 'movable' }
+      },
+      {
+        id: 'time-loop-return-99',
+        text: '버튼을 눌러 모든 것을 간직한 채 0세로 돌아간다',
+        result: '눈을 감았다 뜨자, 세상이 다시 처음부터 시작되고 있었다.',
+        requiresAsset: 'time-loop-ticket',
+        removeAsset: 'time-loop-ticket',
+        mandatory: true,
+        resetToInfancy: true
+      },
+      {
+        id: 'time-loop-decline-99',
+        text: '버튼을 누르지 않고 지금의 삶을 그대로 이어간다',
+        result: '되돌릴 수 있었지만, 지금 이대로도 나쁘지 않다고 생각했다.',
+        requiresAsset: 'time-loop-ticket',
+        removeAsset: 'time-loop-ticket',
+        mandatory: true
+      },
     ]
   },
   {
@@ -29168,6 +29366,24 @@ const STAGES = [
         deltas: { happiness: 1 },
         result: '거창한 것 없이, 그 정도면 충분하다고 느꼈다.'
       }
+    ,
+      {
+        id: 'time-loop-return-100',
+        text: '버튼을 눌러 모든 것을 간직한 채 0세로 돌아간다',
+        result: '눈을 감았다 뜨자, 세상이 다시 처음부터 시작되고 있었다.',
+        requiresAsset: 'time-loop-ticket',
+        removeAsset: 'time-loop-ticket',
+        mandatory: true,
+        resetToInfancy: true
+      },
+      {
+        id: 'time-loop-decline-100',
+        text: '버튼을 누르지 않고 지금의 삶을 그대로 이어간다',
+        result: '되돌릴 수 있었지만, 지금 이대로도 나쁘지 않다고 생각했다.',
+        requiresAsset: 'time-loop-ticket',
+        removeAsset: 'time-loop-ticket',
+        mandatory: true
+      },
     ]
   }
   // 생애 10카테고리 전부 구현 완료(유아기~황혼, 0~100세). 이후 확장은
