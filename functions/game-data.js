@@ -5826,6 +5826,17 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-sb-cash-sales-skim-21',
+        text: '카드 결제 대신 현금 결제를 유도해 매출 일부를 누락시킨다',
+        requiresRoute: 'small-business',
+        requiresOccupation: ['small-business-owner'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '세금 낼 걱정이 줄어드니, 마음이 한결 가벼웠다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -2, fame: -2 }, result: '세무서 현장 조사에서 누락된 매출이 그대로 드러났다.' }
+        ]
+      }
     ]
   },
   {
@@ -6553,6 +6564,17 @@ const STAGES = [
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '아찔했지만, 무사히 집에 도착했다.' },
           { weight: 18, label: '발각', deltas: { wealth: -6, fame: -8, happiness: -6 }, result: '음주 단속에 걸리며 뉴스 헤드라인을 장식했다.' }
+        ]
+      }
+    ,
+      {
+        id: 'deviant-sb-fake-review-22',
+        text: '지인들에게 부탁해 좋은 리뷰를 몰래 올리게 한다',
+        requiresRoute: 'small-business',
+        requiresOccupation: ['small-business-owner'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { fame: 2, happiness: 2 }, result: '별점이 오르는 걸 보며 흐뭇해했다.' },
+          { weight: 10, label: '발각', deltas: { fame: -4, happiness: -2 }, result: '같은 IP 리뷰라는 게 밝혀지며 "조작 논란"에 휩싸였다.' }
         ]
       }
     ]
@@ -7306,6 +7328,17 @@ const STAGES = [
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { happiness: 4 }, result: '아무 일도 없었다는 듯, 평소처럼 무대에 올랐다.' },
           { weight: 18, label: '발각', deltas: { happiness: -6, fame: -6, relationship: -3 }, result: '사생팬이 찍은 사진이 순식간에 퍼지며 감당할 수 없는 화제가 됐다.' }
+        ]
+      }
+    ,
+      {
+        id: 'deviant-sb-labor-law-violation-23',
+        text: '최저임금보다 적게 주고 야근수당도 챙겨주지 않는다',
+        requiresRoute: 'small-business',
+        requiresOccupation: ['small-business-owner'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '인건비를 아낀 만큼, 통장 잔고가 두둑해졌다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, fame: -5, relationship: -3 }, result: '노동청 진정이 접수되며 체불 임금을 전액 물어줘야 했다.' }
         ]
       }
     ]
@@ -8149,6 +8182,27 @@ const STAGES = [
           { weight: 18, label: '발각', deltas: { fame: -10, happiness: -5, relationship: -4 }, result: '폭로 글이 올라오며 "갑질 논란"으로 포털을 뒤덮었다.' }
         ]
       }
+    ,
+      {
+        id: 'deviant-sb-counterfeit-goods-24',
+        text: '유명 브랜드 짝퉁 제품을 진품 사이에 몰래 섞어 판다',
+        requiresRoute: 'small-business',
+        requiresOccupation: ['small-business-owner'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '차익이 쏠쏠해, 계속 들여오기로 마음먹었다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -8, fame: -8, happiness: -4 }, result: '상표법 위반으로 단속에 걸리며 매장 이미지가 크게 실추됐다.' }
+        ]
+      },
+      {
+        id: 'deviant-sb-parallel-import-fake-origin-24',
+        text: '저가 수입산 재료를 국내산으로 속여 판매한다',
+        requiresRoute: 'small-business',
+        requiresOccupation: ['small-business-owner'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '원가를 크게 줄이고도, 손님들은 눈치채지 못했다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -5, fame: -8, happiness: -4 }, result: '원산지 표시 위반이 적발되며 뉴스에까지 오르내렸다.' }
+        ]
+      }
     ]
   },
   {
@@ -8911,6 +8965,17 @@ const STAGES = [
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { happiness: 2, fame: 2 }, result: '차트 1위 소식에 아무 걱정 없이 기뻐했다.' },
           { weight: 18, label: '발각', deltas: { fame: -9, happiness: -6, wealth: -3 }, result: '원곡 비교 영상이 퍼지며 표절 논란에 휩싸였다.' }
+        ]
+      }
+    ,
+      {
+        id: 'deviant-sb-health-code-violation-25',
+        text: '위생 점검이 있는 날에만 대충 청소하고 넘어간다',
+        requiresRoute: 'small-business',
+        requiresOccupation: ['small-business-owner'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 2 }, result: '점검관은 별다른 문제를 발견하지 못했다.' },
+          { weight: 10, label: '발각', deltas: { fame: -4, happiness: -2 }, result: '불시 재점검에서 위생 상태가 그대로 드러나 영업정지 경고를 받았다.' }
         ]
       }
     ]
@@ -9734,6 +9799,17 @@ const STAGES = [
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { happiness: 4 }, result: '아슬아슬했지만, 이번에도 무사히 넘어갔다.' },
           { weight: 18, label: '발각', deltas: { fame: -12, happiness: -10, relationship: -6 }, result: '상간 소송 소식이 터지며 커리어에 치명타를 입었다.' }
+        ]
+      }
+    ,
+      {
+        id: 'deviant-sb-unreported-income-26',
+        text: '매출 상당 부분을 무자료 거래로 처리해 세금 신고에서 누락시킨다',
+        requiresRoute: 'small-business',
+        requiresOccupation: ['small-business-owner'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '신고 안 한 돈이, 조용히 쌓여만 갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       }
     ]
@@ -10589,6 +10665,17 @@ const STAGES = [
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, relationship: -3 }, result: '전속 계약 위반이 드러나며 위약금 소송에 휘말렸다.' }
         ]
       }
+    ,
+      {
+        id: 'deviant-sb-noshow-deposit-scam-27',
+        text: '예약 노쇼가 아닌 손님에게도 트집을 잡아 보증금을 몰수한다',
+        requiresRoute: 'small-business',
+        requiresOccupation: ['small-business-owner'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 2 }, result: '몇 푼 안 되는 돈이지만, 쏠쏠하게 챙겼다.' },
+          { weight: 10, label: '발각', deltas: { fame: -3, relationship: -2 }, result: '억울함을 호소하는 후기 글이 퍼지며 평판에 금이 갔다.' }
+        ]
+      }
     ]
   },
   {
@@ -11308,6 +11395,17 @@ const STAGES = [
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '화는 풀렸고, 이번엔 별일 없이 넘어갔다.' },
           { weight: 18, label: '발각', deltas: { fame: -9, happiness: -5, relationship: -4 }, result: '현장 목격담이 퍼지며 "인성 논란"에 휩싸였다.' }
+        ]
+      }
+    ,
+      {
+        id: 'deviant-sb-fire-safety-fake-inspection-28',
+        text: '소방 점검 서류를 몰래 조작해 통과시킨다',
+        requiresRoute: 'small-business',
+        requiresOccupation: ['small-business-owner'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '번거로운 보수 공사를 하지 않아도 돼, 마음이 놓였다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, fame: -7, happiness: -4 }, result: '안전서류 조작 사실이 드러나며 영업정지 처분을 받았다.' }
         ]
       }
     ]
@@ -12035,6 +12133,27 @@ const STAGES = [
           { weight: 18, label: '발각', deltas: { wealth: -5, fame: -4, relationship: -3 }, result: '영수증 대조 과정에서 들통나 정산 전액을 반환해야 했다.' }
         ]
       }
+    ,
+      {
+        id: 'deviant-sb-supplier-kickback-29',
+        text: '납품업체에게 은근히 뒷돈을 요구해 챙긴다',
+        requiresRoute: 'small-business',
+        requiresOccupation: ['small-business-owner'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '납품 단가 뒤에 숨겨진 돈이, 조용히 들어왔다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, relationship: -3 }, result: '업체의 폭로로 갑질·리베이트 의혹에 휩싸였다.' }
+        ]
+      },
+      {
+        id: 'deviant-sb-illegal-loan-shark-side-biz-29',
+        text: '여윳돈으로 지인들에게 몰래 고금리로 돈을 빌려준다',
+        requiresRoute: 'small-business',
+        requiresOccupation: ['small-business-owner'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '이자 수입이 짭짤하게 들어왔다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -2, relationship: -3 }, result: '뒷말이 돌기 시작하며 껄끄러운 사이가 생겼다.' }
+        ]
+      }
     ]
   },
   {
@@ -12723,6 +12842,17 @@ const STAGES = [
           { weight: 10, label: '발각', deltas: { happiness: -4, fame: -3, relationship: -2 }, result: 'IP 추적 끝에 유포자로 지목되며 역풍을 맞았다.' }
         ]
       }
+    ,
+      {
+        id: 'deviant-sb-employee-unpaid-overtime-30',
+        text: '직원들에게 무급으로 야근을 강요한다',
+        requiresRoute: 'small-business',
+        requiresOccupation: ['small-business-owner'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '인건비를 아꼈다는 사실에, 별다른 죄책감은 없었다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -5, fame: -6, relationship: -4 }, result: '직원의 신고로 노동청 조사를 받으며 체불 임금을 물어냈다.' }
+        ]
+      }
     ]
   },
   {
@@ -13392,6 +13522,27 @@ const STAGES = [
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '정치자금법 위반 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       }
+    ,
+      {
+        id: 'deviant-sb-subsidy-fraud-31',
+        text: '정부 소상공인 지원금을 허위 서류로 신청해 받는다',
+        requiresRoute: 'small-business',
+        requiresOccupation: ['small-business-owner'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '생각보다 큰 돈이 들어오며 한숨 돌릴 수 있었다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '부정수급 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+        ]
+      },
+      {
+        id: 'deviant-sb-employee-injury-coverup-31',
+        text: '매장 내 산재 사고를 숨기고 개인 치료비로 무마한다',
+        requiresRoute: 'small-business',
+        requiresOccupation: ['small-business-owner'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 1 }, result: '조용히 넘어가는 듯해, 안도했다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, fame: -6, relationship: -3 }, result: '산재 은폐 사실이 드러나며 근로감독 조사를 받았다.' }
+        ]
+      }
     ]
   },
   {
@@ -14016,6 +14167,17 @@ const STAGES = [
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { relationship: 3 }, result: '아무도 눈치채지 못한 채, 인맥이 두터워졌다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, fame: -3 }, result: '특혜 채용 의혹이 제기되며 해명 자료를 내야 했다.' }
+        ]
+      }
+    ,
+      {
+        id: 'deviant-sb-expired-ingredient-32',
+        text: '유통기한이 지난 재료를 몰래 손질해 사용한다',
+        requiresRoute: 'small-business',
+        requiresOccupation: ['small-business-owner'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '재료비를 아낀 만큼, 마진이 조금 늘었다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -7, fame: -9, happiness: -4 }, result: '식중독 신고가 접수되며 위생 점검에서 그대로 적발됐다.' }
         ]
       }
     ]
@@ -14655,6 +14817,27 @@ const STAGES = [
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '말끔하게 처리된 것 같아 마음이 놓였다.' },
           { weight: 10, label: '발각', deltas: { wealth: -3, fame: -4, relationship: -2 }, result: '입찰 서류에서 가족 명의가 드러나며 특혜 의혹이 불거졌다.' }
+        ]
+      }
+    ,
+      {
+        id: 'deviant-sb-tax-invoice-fraud-33',
+        text: '가짜 세금계산서를 주고받아 부가세 부담을 줄인다',
+        requiresRoute: 'small-business',
+        requiresOccupation: ['small-business-owner'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '부가세 부담이 줄어든 만큼, 여유가 생겼다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -3, fame: -3 }, result: '거래 흐름이 이상하다는 세무 조사에 걸려 진땀을 뺐다.' }
+        ]
+      },
+      {
+        id: 'deviant-sb-vat-underreport-33',
+        text: '부가가치세 신고 매출을 실제보다 줄여서 신고한다',
+        requiresRoute: 'small-business',
+        requiresOccupation: ['small-business-owner'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '신고 금액이 줄어든 만큼, 부담도 가벼워졌다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -3, fame: -2 }, result: '매입·매출 대사 과정에서 차이가 드러나 추징금을 물었다.' }
         ]
       }
     ]
@@ -15314,6 +15497,17 @@ const STAGES = [
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -8, happiness: -5 }, result: '청탁금지법 위반 의혹이 제기되며 여론의 뭇매를 맞았다.' }
         ]
       }
+    ,
+      {
+        id: 'deviant-sb-illegal-parttime-hire-34',
+        text: '미성년 아르바이트생의 서류상 나이를 속여 고용한다',
+        requiresRoute: 'small-business',
+        requiresOccupation: ['small-business-owner'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 2 }, result: '일손이 아쉬웠던 차라, 별생각 없이 넘어갔다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -3, fame: -5 }, result: '근로기준법 위반이 적발되며 벌금과 함께 크게 곤욕을 치렀다.' }
+        ]
+      }
     ]
   },
   {
@@ -15903,6 +16097,27 @@ const STAGES = [
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '아무 일도 없었다는 듯, 회의록이 그대로 넘어갔다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, fame: -3 }, result: '대리 서명 흔적이 드러나며 신뢰에 금이 갔다.' }
+        ]
+      }
+    ,
+      {
+        id: 'deviant-sb-franchise-fee-evasion-35',
+        text: '본사 몰래 매출 일부를 숨겨 로열티 정산을 축소 보고한다',
+        requiresRoute: 'small-business',
+        requiresOccupation: ['small-business-owner'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '정산 금액이 줄어든 만큼, 순이익이 늘었다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, fame: -6, relationship: -3 }, result: '본사 감사에서 매출 누락이 드러나며 가맹 계약 해지 경고를 받았다.' }
+        ]
+      },
+      {
+        id: 'deviant-sb-closing-sale-fraud-35',
+        text: '폐업 정리 세일을 빙자해 재고를 부풀려 광고한다',
+        requiresRoute: 'small-business',
+        requiresOccupation: ['small-business-owner'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '평소보다 손님이 몰리며 재고를 빠르게 털어냈다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, happiness: -3 }, result: '허위 광고 신고가 접수되며 소비자원의 조사를 받았다.' }
         ]
       }
     ]
