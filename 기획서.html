@@ -174,6 +174,7 @@
             <li><a href="#sec49">아이돌·배우 인기 연동 소득 추가</a></li>
             <li><a href="#sec50">전체 직업 wealth 커버리지 전수 조사 + 축구선수 소득 추가</a></li>
             <li><a href="#sec51">의사(doctor) 직업 정식 신설 + 전용 일탈 이벤트 20종</a></li>
+            <li><a href="#sec52">연예계 스카우트 트리거 - 무관한 재능으로도 발동하던 버그</a></li>
         </ol>
     </div>
 
@@ -6012,6 +6013,31 @@
             개수(8/12/2) 스크립트로 재확인, 도감 META 4종 누락 0건 재확인.</li>
             <li><code>functions:lifegame</code> 15개 전체 재배포로 반영.</li>
         </ul>
+    </section>
+
+    <section id="sec52">
+        <h2><span class="num">52</span>연예계 스카우트 트리거 - 무관한 재능으로도 발동하던 버그
+        (2026-08-27, 사용자 보고 — 구현 완료)</h2>
+        <p>"재능이 없는데 아티스트 스카우트 선택지가 나왔어" - 실제로 플레이해보니 <b>코딩 재능만
+        가진 캐릭터</b>에게 <code>talent-scout-approach</code>("우연히 재능을 눈여겨본 어른에게
+        제안을 받는다", 연예계 루트 진입 트리거)가 떴다. 원인은 이 선택지가
+        <code>requiresAnyTalent: true</code>로 걸려 있었던 것 - 이 필드는 이름과 달리 "특정
+        재능이 있어야"가 아니라 <b>"재능이 하나라도 있으면"</b>이라는 뜻이라, 코딩·수학·사업
+        수완처럼 연예계와 무관한 재능만 있어도 조건을 만족해버렸다. 코드베이스 전체에서 이 필드를
+        쓰는 곳은 이 선택지 하나뿐이었다.</p>
+        <h3>수정 - requiresTalent를 배열도 받도록 확장</h3>
+        <p><code>requiresTalent</code>는 원래 문자열 하나만 받았는데(<code>requiresTalent:
+        'coding'</code>처럼), 이번에 <b>배열도 받을 수 있게 확장</b>해 "여러 재능 중 하나만
+        있으면 OK"를 표현할 수 있게 했다(<code>requiresOccupation</code>이 이미 배열을 받는 것과
+        같은 결). <code>pickVisibleChoiceIds</code>·<code>submitChoice</code> 두 곳 모두
+        <code>Array.isArray(...)</code>로 분기해 기존 문자열 호출부(25곳)는 그대로 배열
+        <code>[value]</code>로 감싸 처리하므로 호환성 문제 없음. <code>talent-scout-approach</code>는
+        <code>requiresAnyTalent: true</code>를 지우고 <code>requiresTalent: ['arts', 'dance',
+        'acting', 'hidden-talent', 'speaking']</code>(음악·춤·연기·숨은 끼·말솜씨 - 연예계와
+        실제로 관련 있는 재능만)로 교체했다.</p>
+        <p class="note"><b>검증.</b> <code>node -c game-data.js</code>/<code>node -c index.js</code>
+        통과. 기존 25개 <code>requiresTalent: '문자열'</code> 호출부가 배열 확장 후에도 동일하게
+        동작함을 확인. <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>

@@ -410,7 +410,10 @@ function pickVisibleChoiceIds(choices, ctx) {
     if (c.requiresLocation && !c.requiresLocation.includes(locationId)) return false;
     if (c.requiresAnyAcquaintance && !hasAnyAcquaintance) return false;
     if (c.requiresAnyLover && !hasAnyLover) return false;
-    if (c.requiresTalent && !talentIds.includes(c.requiresTalent)) return false;
+    if (c.requiresTalent) {
+      const requiredTalents = Array.isArray(c.requiresTalent) ? c.requiresTalent : [c.requiresTalent];
+      if (!requiredTalents.some((t) => talentIds.includes(t))) return false;
+    }
     if (c.requiresAnyTalent && !talentIds.length) return false;
     if (c.requiresHobby && !hobbyIds.includes(c.requiresHobby)) return false;
     if (c.requiresAnyHobby && !hobbyIds.length) return false;
@@ -861,8 +864,11 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // requiresTalent/requiresAnyTalent, requiresHobby/requiresAnyHobby - requiresAsset·
   // requiresAnyAcquaintance와 완전히 같은 패턴을 재능·취미 상세에 적용했다.
   const priorTalents = Array.isArray(play.talents) ? play.talents : [];
-  if (choice.requiresTalent && !priorTalents.some((t) => t.id === choice.requiresTalent)) {
-    throw new HttpsError('failed-precondition', '지금 재능 상태에서는 고를 수 없는 선택지입니다.');
+  if (choice.requiresTalent) {
+    const requiredTalents = Array.isArray(choice.requiresTalent) ? choice.requiresTalent : [choice.requiresTalent];
+    if (!requiredTalents.some((rt) => priorTalents.some((t) => t.id === rt))) {
+      throw new HttpsError('failed-precondition', '지금 재능 상태에서는 고를 수 없는 선택지입니다.');
+    }
   }
   if (choice.requiresAnyTalent && !priorTalents.length) {
     throw new HttpsError('failed-precondition', '지금 재능이 없어서 고를 수 없는 선택지입니다.');

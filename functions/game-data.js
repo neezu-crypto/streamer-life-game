@@ -2464,7 +2464,12 @@ const STAGES = [
         text: '우연히 재능을 눈여겨본 어른에게 제안을 받는다',
         deltas: { fame: 2, happiness: 2 },
         result: '명함 한 장이, 평소와 다른 하루를 만들었다.',
-        requiresAnyTalent: true,
+        // requiresTalent가 배열도 받을 수 있도록 확장(2026-08-27, 사용자 지적 -
+        // "재능이 없는데 아티스트 스카우트 선택지가 나왔어") - 원래
+        // requiresAnyTalent: true였는데, 이건 "재능이 하나라도 있으면"이라 코딩
+        // 재능만 있어도 연예계 스카우트를 받는 게 말이 안 됐다. 연예계와
+        // 실제로 관련 있는 재능(음악·춤·연기·숨은 끼·말솜씨)만 인정하도록 좁힘.
+        requiresTalent: ['arts', 'dance', 'acting', 'hidden-talent', 'speaking'],
         mandatory: true,
         // 트리거 루트(14장, 2026-08-22 구현, 2026-08-22 사용자 지시로 29세까지
         // 확장) - 이 제안을 받아들이는 순간 연예계 연습생 루트에 진입한다.
