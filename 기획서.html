@@ -5415,6 +5415,26 @@
         있던 기존 필드들이 그대로 보존됐는지 diff로 육안 확인(재산 외 스탯 델타 - happiness/
         health/relationship - 는 전혀 건드리지 않음). id 중복 0건, 배열 홀 0건. 순수 수정 diff
         확인 후 <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
+
+        <h3>자산 구매 선택지 9건 - 현금 충분 조건 누락 추가 발견(2026-08-26, 사용자 플레이
+        스크린샷 지적 - "현금이 없는데 [미술품·시계 등 수집품에 투자한다] 선택이 가능해")</h3>
+        <p>여행 계열 감사 때 "재산이 음수인 <code>addAsset</code> 선택지는 현금 충분 조건이
+        있어야 한다"는 원칙을 세워놓고도, 정작 <code>addAsset</code>가 붙은 선택지 전체를
+        훑지는 않았던 게 드러났다. 이번엔 <code>addAsset</code>가 있는 모든 선택지를 전수 조사해
+        <code>requiresSufficientCash</code> 유무를 대조했다.</p>
+        <p class="note">art-collection-investment(45세, 사용자가 지적한 것)를 포함해 9건에서
+        누락 발견: <code>buys-insurance-25, usl-first-car-26, usl-health-insurance-26,
+        car-purchase-decision-27, fine-jewelry-purchase, premium-appliance-set,
+        mortgage-loan-decision-33, impulsive-big-purchase, art-collection-investment</code>.
+        이 중 <code>usl-first-car-26</code>/<code>car-purchase-decision-27</code>/
+        <code>mortgage-loan-decision-33</code>는 앞서 "자산이 안 채워지는 선택지" 감사 때
+        <code>addAsset</code> 누락만 고치고 <code>requiresSufficientCash</code>는 놓쳤던
+        재발 사례. 9건 전부 추가, 복권류(<code>lottery-buy-*</code>, 재산 델타 자체가 없는
+        고정 소액 취급이라 정상)와 소득 획득 선택지(적금 만기·성과급·퇴직금 등 재산이 늘어나는
+        쪽이라 애초에 해당 없음)는 제외 대상으로 재확인.</p>
+        <p class="note"><b>검증.</b> <code>node -c game-data.js</code> 통과, 9건 전부
+        <code>requiresSufficientCash === true</code> 스크립트로 재확인, id 중복 0건·배열 홀
+        0건. 순수 추가 diff 확인 후 <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>

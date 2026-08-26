@@ -8448,7 +8448,8 @@ const STAGES = [
         deltas: { wealth: -2, happiness: 1 },
         result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
         requiresNoAsset: 'insurance',
-        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' },
+        requiresSufficientCash: true
       },
       {
         id: 'adult-crush-confession',
@@ -9034,8 +9035,9 @@ const STAGES = [
         },
         "result": "대중교통 대신 운전대를 잡는 게, 이제는 당연한 일상이 됐다.",
         "requiresRoute": "us-settled-life",
-        "addAsset": { "id": "first-car", "label": "🚗 중고차", "type": "vehicle" }
-},
+        "addAsset": { "id": "first-car", "label": "🚗 중고차", "type": "vehicle" },
+        requiresSufficientCash: true
+      },
       {
         "id": "usl-fender-bender-26",
         "text": "고속도로에서 가벼운 접촉사고를 낸다",
@@ -9069,8 +9071,9 @@ const STAGES = [
                 "type": "insurance"
         },
         "result": "보험 없이는 병원 문턱도 못 넘는다는 말이, 괜한 말이 아니었다.",
-        "requiresRoute": "us-settled-life"
-},
+        "requiresRoute": "us-settled-life",
+        requiresSufficientCash: true
+      },
       {
         "id": "usl-ktown-community-26",
         "text": "한인타운에서 고향의 맛과 정을 나눈다",
@@ -10268,7 +10271,8 @@ const STAGES = [
         text: '큰맘 먹고 첫 자동차를 구입한다',
         deltas: { wealth: -3, happiness: 2 },
         result: '할부금은 늘었지만, 운전대를 잡을 때마다 뿌듯함이 밀려왔다.',
-        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' },
+        requiresSufficientCash: true
       },
       {
         id: 'skill-certification-study-27',
@@ -12275,14 +12279,16 @@ const STAGES = [
         text: '스스로에게 주는 선물로 고가의 예물을 마련한다',
         deltas: { wealth: -4, happiness: 4 },
         result: '큰맘 먹고 산 물건인데, 볼 때마다 웃음이 났다.',
-        addAsset: { id: 'fine-jewelry', label: '💍 예물/보석', type: 'movable' }
+        addAsset: { id: 'fine-jewelry', label: '💍 예물/보석', type: 'movable' },
+        requiresSufficientCash: true
       },
       {
         id: 'premium-appliance-set',
         text: '가전을 고급으로 싹 바꾼다',
         deltas: { wealth: -3, happiness: 3 },
         result: '별거 아닌 것 같아도, 집에 들어오는 기분이 확 달라졌다.',
-        addAsset: { id: 'premium-appliances', label: '🛋️ 고급 가전', type: 'movable' }
+        addAsset: { id: 'premium-appliances', label: '🛋️ 고급 가전', type: 'movable' },
+        requiresSufficientCash: true
       },
       {
         id: 'savings-milestone',
@@ -14154,7 +14160,8 @@ const STAGES = [
         text: '내 집 마련을 위해 큰맘 먹고 대출을 받는다',
         deltas: { wealth: -2, happiness: 2 },
         result: '빚이 늘었지만, 이제 내 집이라는 게 있었다.',
-        addAsset: { id: 'first-home', label: '🏠 내 집', type: 'realestate' }
+        addAsset: { id: 'first-home', label: '🏠 내 집', type: 'realestate' },
+        requiresSufficientCash: true
       },
       {
         id: 'wedding-invitation-overload-33',
@@ -19846,7 +19853,8 @@ const STAGES = [
         text: '갑작스레 큰 지출을 하며 스스로를 위로한다',
         deltas: { happiness: 3, wealth: -6 },
         result: '카드를 긁는 순간만큼은, 마음이 후련했다.',
-        addAsset: { id: 'impulse-luxury-item', label: '✨ 충동 구매품', type: 'movable' }
+        addAsset: { id: 'impulse-luxury-item', label: '✨ 충동 구매품', type: 'movable' },
+        requiresSufficientCash: true
       },
       {
         id: 'therapy-and-meditation',
@@ -19873,7 +19881,8 @@ const STAGES = [
         text: '미술품·시계 등 수집품에 투자한다',
         deltas: { wealth: -6, happiness: 3 },
         result: '보는 눈이 느는 만큼, 애정도 함께 쌓여갔다.',
-        addAsset: { id: 'collectibles', label: '🎨 수집품', type: 'movable' }
+        addAsset: { id: 'collectibles', label: '🎨 수집품', type: 'movable' },
+        requiresSufficientCash: true
       },
       {
         id: 'tech-repetitive-strain',
