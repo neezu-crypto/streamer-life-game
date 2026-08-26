@@ -238,6 +238,31 @@
   **백그라운드로 돌리면 "공유 리소스 변경" 안전 분류기에 자동 차단된다** —
   같은 스크립트를 포그라운드로, 넉넉한 타임아웃(수백 초)을 주고 실행하면 통과한다.
 
+## 직업별 wealth 커버리지 기준선 + 스타성 직업 패시브 소득 패턴 (2026-08-26)
+
+- 이 게임의 "정상적인 급여직" 선택지는 대략 **30~37%가 `wealth` 델타를 가짐**(회사원 계열
+  전부 이 범위 — `civil-servant`/`tech-worker`/`teacher`/`office-worker` 등). 새 직업·루트를
+  추가한 뒤 이 비율에서 크게 벗어나는지 확인할 것.
+- 예외적으로 낮아도 되는 경우(버그 아님): `trainee`·`class-president`·
+  `student-council-president`·`student-athlete`처럼 **아직 정식 소득이 없는 학생/수련
+  신분**. 이런 직업은 0~22%도 정상.
+- **"스타성 직업"(인기가 곧 수입인 직업 — 아이돌·배우·프로 운동선수 등)은 위 기준선보다도
+  낮으면서 패시브 소득 메커닉이 없는 경우가 실제로 3번 발견됐다**(idol, actor, sports-elite의
+  pro-athlete/national-athlete — 전부 2026-08-26 사용자가 직접 플레이하다 "현금이 안 들어온다"고
+  보고해서 발견). 이런 직업을 새로 만들 때는 `functions/index.js`의
+  `Math.round(stats.fame * cashUnitForAge(nextIndex) / 50)` 공식(예술가 루트가 원형, 20장)을
+  재사용해 패시브 소득을 기본으로 검토할 것 — "아직 무명/신인" 단계(연습생·유망주 등)는 소득
+  없음이 자연스러우므로 제외하고, "떴다"고 볼 수 있는 단계(데뷔한 아이돌·프로 선수 등)부터만
+  적용한다.
+- 새 직업·루트 추가 후 전체 커버리지를 재점검하는 스크립트 패턴(매번 그대로 재사용 가능):
+  ```js
+  const gd = require('./game-data.js');
+  const all = []; for (const s of gd.STAGES) for (const c of (s.choices||[])) all.push(c);
+  const hasWealth = c => (c.deltas && typeof c.deltas.wealth === 'number')
+    || (c.prizeTable && c.prizeTable.some(b => b.deltas && typeof b.deltas.wealth === 'number'));
+  // requiresRoute 또는 requiresOccupation으로 그룹화해 그룹별 wealth 보유 비율(%) 계산
+  ```
+
 ## 커밋·푸시 · 구현 후 검증
 
 - 이 생태계 다른 프로젝트들과 동일한 지침을 따른다: 커밋 완료 시 별도 확인 없이
