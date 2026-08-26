@@ -9018,7 +9018,8 @@ const STAGES = [
                 "happiness": 2
         },
         "result": "대중교통 대신 운전대를 잡는 게, 이제는 당연한 일상이 됐다.",
-        "requiresRoute": "us-settled-life"
+        "requiresRoute": "us-settled-life",
+        "addAsset": { "id": "first-car", "label": "🚗 중고차", "type": "vehicle" }
 },
       {
         "id": "usl-fender-bender-26",
@@ -10249,7 +10250,8 @@ const STAGES = [
         id: 'car-purchase-decision-27',
         text: '큰맘 먹고 첫 자동차를 구입한다',
         deltas: { wealth: -3, happiness: 2 },
-        result: '할부금은 늘었지만, 운전대를 잡을 때마다 뿌듯함이 밀려왔다.'
+        result: '할부금은 늘었지만, 운전대를 잡을 때마다 뿌듯함이 밀려왔다.',
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
         id: 'skill-certification-study-27',
@@ -14126,7 +14128,8 @@ const STAGES = [
         id: 'mortgage-loan-decision-33',
         text: '내 집 마련을 위해 큰맘 먹고 대출을 받는다',
         deltas: { wealth: -2, happiness: 2 },
-        result: '빚이 늘었지만, 이제 내 집이라는 게 있었다.'
+        result: '빚이 늘었지만, 이제 내 집이라는 게 있었다.',
+        addAsset: { id: 'first-home', label: '🏠 내 집', type: 'realestate' }
       },
       {
         id: 'wedding-invitation-overload-33',
@@ -25651,7 +25654,8 @@ const STAGES = [
         text: '예물로 받았던 패물 일부를 정리한다',
         deltas: { wealth: 5 },
         result: '오래 간직했던 것들이, 마지막으로 큰 보탬이 됐다.',
-        requiresAsset: 'fine-jewelry'
+        requiresAsset: 'fine-jewelry',
+        removeAsset: 'fine-jewelry'
       },
       {
         id: 'twilight-grandchild-repaying-favor-77',
@@ -27047,7 +27051,8 @@ const STAGES = [
         text: '평생 쌓아온 수집품이라는 탑을 조심히 허물어 내놓는다',
         deltas: { wealth: 4, happiness: 1 },
         result: '평생 취미로 쌓은 탑이, 뜻밖에 값진 마무리가 됐다.',
-        requiresAsset: 'collectibles'
+        requiresAsset: 'collectibles',
+        removeAsset: 'collectibles'
       }
     ,
       {

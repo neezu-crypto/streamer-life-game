@@ -5346,6 +5346,51 @@
         학원 개원 이후엔 자영업자에 가까워 소속 회사가 있다고 보기 어려움. 순수 추가 diff(삭제분은
         전부 방금 고친 배열 홀 잔재) 확인 후 <code>functions:lifegame</code> 15개 전체 재배포로
         반영.</p>
+
+        <h3>"자산이 안 채워지는/안 빠지는 선택지" 감사 및 수정(2026-08-26, 사용자 플레이 스크린샷
+        지적 - "차 없이는 못 사는 동네라 중고차를 마련한다 - 중고차 추가가 안됐어. 비슷한 버그가
+        또 있는지 찾아줘")</h3>
+        <p>가족 감사와 같은 방법론을 자산(<code>addAsset</code>/<code>removeAsset</code>)에도
+        적용 - 텍스트가 차·집·보석·수집품 등을 마련/처분한다고 서술하는데 실제 효과가 없는
+        선택지를 정규식으로 스캔했다.</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>id</th><th>문제</th><th>조치</th></tr>
+                <tr><td><code>usl-first-car-26</code>(us-settled-life 루트, 사용자가 실제로 지적한
+                건)</td><td>"차 없이는 못 사는 동네라 중고차를 마련한다"인데 <code>addAsset</code>
+                없음</td><td><code>addAsset: {'{'}id:'first-car', label:'🚗 중고차',
+                type:'vehicle'{'}'}</code> 추가(같은 나이 <code>first-used-car</code>가 이미 쓰던
+                정확히 같은 asset id 재사용)</td></tr>
+                <tr><td><code>car-purchase-decision-27</code>(범용 콘텐츠 3차 보강 때 내가
+                추가한 것)</td><td>"첫 자동차를 구입한다"인데 <code>addAsset</code> 없음</td>
+                <td>동일하게 <code>first-car</code> 추가</td></tr>
+                <tr><td><code>mortgage-loan-decision-33</code>(2차 보강 때 내가 추가)</td>
+                <td>결과문이 "이제 내 집이라는 게 있었다"로 명확히 소유를 확정하는데
+                <code>addAsset</code> 없음</td><td><code>addAsset: {'{'}id:'first-home',
+                label:'🏠 내 집', type:'realestate'{'}'}</code> 추가</td></tr>
+                <tr><td><code>twilight-selling-jewelry-77</code>(기존 코드)</td><td>"예물을
+                정리한다"(처분)+<code>requiresAsset:'fine-jewelry'</code>로 팔 대상이 있어야만
+                뜨는데, 팔고 나서도 <code>fine-jewelry</code>가 자산 목록에 영원히 남음</td>
+                <td><code>removeAsset: 'fine-jewelry'</code> 추가</td></tr>
+                <tr><td><code>lifelong-collection-sold-88</code>(기존 코드)</td><td>"수집품
+                탑을 허물어 내놓는다"(처분)도 동일하게 <code>removeAsset</code> 누락</td>
+                <td><code>removeAsset: 'collectibles'</code> 추가</td></tr>
+            </table>
+        </div>
+        <p class="note">오탐(false positive)으로 걸러낸 것들 - <code>first-home-savings-goal</code>
+        (28세, "내 집 마련의 <b>첫걸음을 뗀다</b>")과 <code>home-purchase-search-34</code>(34세,
+        "집을 <b>알아본다</b>")는 아직 구매 전 예비 단계를 그리는 문구라 자산이 안 생기는 게 맞음.
+        <code>wealth-drain-30-a</code>("무리한 대출을 낸다")는 게임 전체의 "wealth-drain" 계열
+        선택지가 원래 "자산 없이 돈만 나가는 실수"를 의도적으로 그리는 카테고리라 정상.
+        <code>oldprep-land-rental-61</code>("땅을 다시 내놓는다")은 매각이 아니라 임대 개시라
+        <code>removeAsset</code> 없는 게 맞음(결과문 "매달 조금씩 보탬"이 임대 수입임을 확인).
+        <code>old-hobby-collecting-1-100</code>(손주에게 수집품 하나를 물려줌)은 재산으로서의
+        <code>collectibles</code> 자산이 아니라 <code>requiresHobby</code>로 걸린 취미 서사라
+        범위 밖으로 판단.</p>
+        <p class="note"><b>검증.</b> <code>node -c game-data.js</code> 통과, 5건 전부
+        <code>addAsset</code>/<code>removeAsset</code> 필드가 정확히 들어갔는지 스크립트로 재확인,
+        id 중복 0건·배열 홀 0건 재확인. 순수 추가 diff,
+        <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
