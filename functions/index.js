@@ -1389,6 +1389,17 @@ async function applyChoice(db, playRef, play, stage, choice) {
     cashHoldings += Math.round(stats.fame * cashUnitForAge(nextIndex) / 50);
   }
 
+  // 프로게이머·프로게이머 감독 인기 연동 추가 소득(2026-08-27, 사용자 지시 -
+  // "프로게이머도 인기 스탯에 따라 수입이 다른지 확인해줘" → 확인 결과 전부 고정
+  // 금액이라 인기와 무관했음, "추가해줘") - 스트리밍 부수입·상금·연봉·해설
+  // 출연료 전부 인지도에 비례한다는 설정이 현실적이라, idol/actor/
+  // pro-athlete와 같은 공식을 그대로 재사용. 둘 다 루트 활성 구간 전체에
+  // 적용(연습생/코치 보조 시절 없이 데뷔 즉시 계약금이 있는 시장 특성 반영,
+  // artist와 같은 구조).
+  if (nextActiveRoute && (nextActiveRoute.id === 'pro-gamer' || nextActiveRoute.id === 'esports-coach')) {
+    cashHoldings += Math.round(stats.fame * cashUnitForAge(nextIndex) / 50);
+  }
+
   // 임대사업 소득(2026-08-23 상가 도입, 2026-08-26 오피스텔로 확대 - 사용자
   // 지시 "모든 임대사업이 해당 부동산을 팔때까지 매년 일정 수입이 들어오게
   // 해줘") - 예술가 루트의 인기 연동 소득과 같은 급의 매 턴 배경 효과. 인기처럼

@@ -3089,6 +3089,7 @@ const STAGES = [
         "id": "pg-international-lan-17",
         "text": "해외 국제 대회 무대를 처음 밟는다",
         "deltas": {
+                "wealth": 3,
                 "fame": 6,
                 "happiness": 5
         },
@@ -4127,6 +4128,7 @@ const STAGES = [
         "id": "pg-championship-run-19",
         "text": "국제 대회 결승까지 진출하는 쾌거를 이룬다",
         "deltas": {
+                "wealth": 4,
                 "fame": 8,
                 "happiness": 6
         },
@@ -6993,6 +6995,7 @@ const STAGES = [
         "id": "pg-last-title-push-23",
         "text": "은퇴를 염두에 두고 마지막 우승 도전에 나선다",
         "deltas": {
+                "wealth": 4,
                 "fame": 6,
                 "happiness": 5,
                 "health": -2
@@ -7142,6 +7145,7 @@ const STAGES = [
         "id": "se-pro-title-contribution-23",
         "text": "팀의 우승에 결정적인 활약을 펼친다",
         "deltas": {
+                "wealth": 3,
                 "fame": 5,
                 "happiness": 5
         },
@@ -7961,6 +7965,7 @@ const STAGES = [
         "id": "se-national-dramatic-comeback-24",
         "text": "극적인 결승골로 팀을 승리로 이끈다",
         "deltas": {
+                "wealth": 4,
                 "fame": 7,
                 "happiness": 5
         },
@@ -8768,6 +8773,7 @@ const STAGES = [
         "id": "pg-analyst-debut-25",
         "text": "대회 해설 데스크에 처음 앉는다",
         "deltas": {
+                "wealth": 2,
                 "fame": 4,
                 "happiness": 3
         },
@@ -8849,6 +8855,7 @@ const STAGES = [
         "id": "se-world-cup-goal-25",
         "text": "월드컵 본선 무대에서 결승골을 터뜨린다",
         "deltas": {
+                "wealth": 6,
                 "fame": 10,
                 "happiness": 7
         },
@@ -13711,6 +13718,7 @@ const STAGES = [
         "id": "ec-first-win-31",
         "text": "감독으로서 첫 승리를 맛본다",
         "deltas": {
+                "wealth": 2,
                 "happiness": 5,
                 "fame": 2
         },
@@ -14435,6 +14443,7 @@ const STAGES = [
         "id": "ec-international-debut-32",
         "text": "국제 대회 무대에 감독으로 처음 선다",
         "deltas": {
+                "wealth": 3,
                 "fame": 5,
                 "happiness": 4
         },
@@ -16555,6 +16564,7 @@ const STAGES = [
         "id": "ec-world-championship-35",
         "text": "세계 대회 우승으로 커리어의 정점을 찍는다",
         "deltas": {
+                "wealth": 6,
                 "fame": 9,
                 "happiness": 7
         },
@@ -16721,6 +16731,7 @@ const STAGES = [
         "id": "sm-first-win-35",
         "text": "감독으로서 첫 승리를 맛본다",
         "deltas": {
+                "wealth": 2,
                 "happiness": 5,
                 "fame": 2
         },
@@ -17711,6 +17722,7 @@ const STAGES = [
         "id": "ec-coach-award-37",
         "text": "올해의 감독상을 수상한다",
         "deltas": {
+                "wealth": 3,
                 "fame": 6,
                 "happiness": 5
         },
@@ -18310,6 +18322,7 @@ const STAGES = [
         "id": "ec-one-last-title-38",
         "text": "은퇴를 염두에 두고 마지막 우승 도전에 나선다",
         "deltas": {
+                "wealth": 4,
                 "fame": 6,
                 "happiness": 5,
                 "health": -2
@@ -19473,6 +19486,7 @@ const STAGES = [
         "id": "sm-derby-win-40",
         "text": "숙명의 라이벌전에서 짜릿한 승리를 거둔다",
         "deltas": {
+                "wealth": 3,
                 "fame": 5,
                 "happiness": 5
         },
@@ -19839,6 +19853,7 @@ const STAGES = [
         "id": "ec-final-championship-attempt-41",
         "text": "마지막이라는 마음으로 우승에 도전한다",
         "deltas": {
+                "wealth": 4,
                 "fame": 6,
                 "happiness": 5,
                 "health": -2
@@ -20337,6 +20352,7 @@ const STAGES = [
         "id": "sm-award-42",
         "text": "올해의 감독상을 수상한다",
         "deltas": {
+                "wealth": 3,
                 "fame": 6,
                 "happiness": 5
         },
@@ -21605,6 +21621,7 @@ const STAGES = [
         "id": "sm-final-title-push-45",
         "text": "은퇴를 염두에 두고 마지막 우승 도전에 나선다",
         "deltas": {
+                "wealth": 4,
                 "fame": 6,
                 "happiness": 5,
                 "health": -2
@@ -22661,6 +22678,7 @@ const STAGES = [
         "id": "sm-late-title-48",
         "text": "누구도 예상 못 한 시기에 마지막 우승을 일궈낸다",
         "deltas": {
+                "wealth": 5,
                 "fame": 8,
                 "happiness": 7
         },
