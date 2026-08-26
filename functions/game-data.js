@@ -3905,6 +3905,17 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         endsRoute: true
       }
+    ,
+      {
+        id: 'lover-route-attempt-18',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -4421,6 +4432,17 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         endsRoute: true
       }
+    ,
+      {
+        id: 'lover-route-attempt-19',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -5084,6 +5106,17 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         endsRoute: true
       }
+    ,
+      {
+        id: 'lover-route-attempt-20',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -5733,6 +5766,16 @@ const STAGES = [
         mandatory: true,
         setOccupation: { id: 'english-teacher', label: '🌐 영어 강사' },
         startsRoute: { id: 'english-teacher', label: '🌐 영어 강사', maxDurationYears: 15 }
+      },
+      {
+        id: 'lover-route-attempt-21',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
       },
     ]
   },
@@ -6432,6 +6475,16 @@ const STAGES = [
         result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
         endsRoute: true,
         requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'lover-route-attempt-22',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
       },
     ]
   },
@@ -7155,6 +7208,16 @@ const STAGES = [
         result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
         endsRoute: true,
         requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'lover-route-attempt-23',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
       },
     ]
   },
@@ -7967,6 +8030,16 @@ const STAGES = [
         endsRoute: true,
         requiresRoute: 'english-teacher'
       },
+      {
+        id: 'lover-route-attempt-24',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -8700,6 +8773,16 @@ const STAGES = [
         result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
         endsRoute: true,
         requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'lover-route-attempt-25',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
       },
     ]
   },
@@ -9493,6 +9576,16 @@ const STAGES = [
         result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
         endsRoute: true,
         requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'lover-route-attempt-26',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
       },
     ]
   },
@@ -10317,6 +10410,16 @@ const STAGES = [
         endsRoute: true,
         requiresRoute: 'english-teacher'
       },
+      {
+        id: 'lover-route-attempt-27',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -11007,6 +11110,16 @@ const STAGES = [
         result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
         endsRoute: true,
         requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'lover-route-attempt-28',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
       },
     ]
   },
@@ -11713,6 +11826,16 @@ const STAGES = [
         endsRoute: true,
         requiresRoute: 'english-teacher'
       },
+      {
+        id: 'lover-route-attempt-29',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -12371,6 +12494,16 @@ const STAGES = [
         endsRoute: true,
         requiresRoute: 'english-teacher'
       },
+      {
+        id: 'lover-route-attempt-30',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -13010,6 +13143,16 @@ const STAGES = [
         endsRoute: true,
         requiresRoute: 'english-teacher'
       },
+      {
+        id: 'lover-route-attempt-31',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -13615,6 +13758,16 @@ const STAGES = [
         result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
         endsRoute: true,
         requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'lover-route-attempt-32',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
       },
     ]
   },
@@ -14224,6 +14377,16 @@ const STAGES = [
         result: '아쉬움도 있었지만, 이제는 다른 문을 열어볼 시간이었다.',
         endsRoute: true,
         requiresRoute: 'english-teacher'
+      },
+      {
+        id: 'lover-route-attempt-33',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
       },
     ]
   },
@@ -14862,6 +15025,16 @@ const STAGES = [
         endsRoute: true,
         requiresRoute: 'english-teacher'
       },
+      {
+        id: 'lover-route-attempt-34',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -15433,6 +15606,16 @@ const STAGES = [
         endsRoute: true,
         requiresRoute: 'english-teacher'
       },
+      {
+        id: 'lover-route-attempt-35',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -15952,6 +16135,16 @@ const STAGES = [
         text: '육아서를 읽으며 부모 역할을 공부한다',
         deltas: { happiness: 1 },
         result: '책 속의 정답이, 현실에선 늘 조금씩 달랐다.'
+      },
+      {
+        id: 'lover-route-attempt-36',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
       },
     ]
   },
@@ -16494,6 +16687,16 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 1 },
         result: '불멍 앞에 둘러앉은 시간이, 오래 남을 것 같았다.'
       },
+      {
+        id: 'lover-route-attempt-37',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -16997,6 +17200,17 @@ const STAGES = [
         requiresAnyCondition: true,
         removeAllConditions: true
       }
+    ,
+      {
+        id: 'lover-route-attempt-38',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -17446,6 +17660,17 @@ const STAGES = [
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
+    ,
+      {
+        id: 'lover-route-attempt-39',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -17945,6 +18170,16 @@ const STAGES = [
         result: '분필 대신 화이트보드 마카를 쥐었을 뿐, 감각은 그대로였다.',
         requiresEverOccupation: ['english-teacher']
       },
+      {
+        id: 'lover-route-attempt-40',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -18336,6 +18571,16 @@ const STAGES = [
         deltas: { happiness: 1, relationship: 1 },
         result: '잊고 지냈던 인연이, 뜻밖의 반가움으로 다가왔다.'
       },
+      {
+        id: 'lover-route-attempt-41',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -18708,6 +18953,17 @@ const STAGES = [
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
+    ,
+      {
+        id: 'lover-route-attempt-42',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -19122,6 +19378,16 @@ const STAGES = [
         text: '불어난 체중을 관리하기로 마음먹는다',
         deltas: { health: 2, happiness: -1 },
         result: '숟가락을 내려놓는 게, 생각보다 훨씬 힘들었다.'
+      },
+      {
+        id: 'lover-route-attempt-43',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
       },
     ]
   },
@@ -19551,6 +19817,16 @@ const STAGES = [
         text: '재무 상담을 받으며 노후 계획을 점검한다',
         deltas: { wealth: 1 },
         result: '막연했던 숫자들이, 조금씩 구체적인 그림으로 바뀌었다.'
+      },
+      {
+        id: 'lover-route-attempt-44',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
       },
     ]
   },
@@ -20034,6 +20310,16 @@ const STAGES = [
         result: '간판 없이도, 입소문만으로 충분했다.',
         requiresEverOccupation: ['english-teacher']
       },
+      {
+        id: 'lover-route-attempt-45',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -20315,6 +20601,17 @@ const STAGES = [
         result: '여기까지 왔는데, 왜 이렇게 허전한지 알 수 없었다.',
         addCondition: { id: 'midlife-depression', label: '🌀 중년 우울증', mental: true }
       }
+    ,
+      {
+        id: 'lover-route-attempt-46',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -20661,6 +20958,16 @@ const STAGES = [
         result: '축하한다는 말 한마디에, 그동안의 시간이 다 녹아내렸다.',
         requiresFamilyMember: ['child']
       },
+      {
+        id: 'lover-route-attempt-47',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -20910,6 +21217,16 @@ const STAGES = [
         deltas: { happiness: 2 },
         result: '물결을 바라보는 것만으로도, 복잡한 마음이 가라앉았다.'
       },
+      {
+        id: 'lover-route-attempt-48',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -21148,6 +21465,17 @@ const STAGES = [
         deltas: { fame: -3, happiness: -2 },
         result: '바빠서 그런 거라 여겼지만, 마음 한구석은 자꾸 신경이 쓰였다.'
       }
+    ,
+      {
+        id: 'lover-route-attempt-49',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -21439,6 +21767,16 @@ const STAGES = [
         result: '돈 받지 않고 가르치는 수업이, 오히려 더 즐거웠다.',
         requiresEverOccupation: ['english-teacher']
       },
+      {
+        id: 'lover-route-attempt-50',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -21648,6 +21986,16 @@ const STAGES = [
         result: '나란히 걷는 발걸음 속에, 말없이도 통하는 게 있었다.',
         requiresFamilyMember: ['spouse']
       },
+      {
+        id: 'lover-route-attempt-51',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -21765,6 +22113,17 @@ const STAGES = [
         result: '나이 들어 사귄 친구가 더 편할 수 있다는 걸, 이제야 알았다.',
         addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
       }
+    ,
+      {
+        id: 'lover-route-attempt-52',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -21906,6 +22265,17 @@ const STAGES = [
         deltas: { fame: 2, relationship: 3, happiness: 2 },
         result: '화려하진 않아도, 꾸준한 마음들이 더 크게 다가왔다.'
       }
+    ,
+      {
+        id: 'lover-route-attempt-53',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -22034,6 +22404,16 @@ const STAGES = [
         text: '오래전 은사님을 다시 찾아뵙는다',
         deltas: { happiness: 2, relationship: 1 },
         result: '세월이 지나도, 가르침의 무게는 그대로였다.'
+      },
+      {
+        id: 'lover-route-attempt-54',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
       },
     ]
   },
@@ -22391,6 +22771,16 @@ const STAGES = [
         result: '화면 속 얼굴은 바뀌어도, 가르치는 마음은 그대로였다.',
         requiresEverOccupation: ['english-teacher']
       },
+      {
+        id: 'lover-route-attempt-55',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -22515,6 +22905,16 @@ const STAGES = [
         deltas: { happiness: 1, relationship: 1 },
         result: '함께 그리는 미래가, 혼자일 때보다 덜 막막했다.',
         requiresFamilyMember: ['spouse']
+      },
+      {
+        id: 'lover-route-attempt-56',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
       },
     ]
   },
@@ -22662,6 +23062,17 @@ const STAGES = [
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
+    ,
+      {
+        id: 'lover-route-attempt-57',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -22865,6 +23276,16 @@ const STAGES = [
         deltas: { wealth: 1 },
         result: '필요 없어진 것들을 하나씩 정리하는 재미가 있었다.'
       },
+      {
+        id: 'lover-route-attempt-58',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -23000,6 +23421,17 @@ const STAGES = [
         result: '매일 마주치던 얼굴들이, 한순간에 사라졌다.',
         requiresOccupation: ['retired']
       }
+    ,
+      {
+        id: 'lover-route-attempt-59',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
+      },
     ]
   },
   {
@@ -23221,6 +23653,16 @@ const STAGES = [
         deltas: { happiness: 3, relationship: 1 },
         result: '카네이션 한 송이보다, 안부 문자 한 줄이 더 오래 남았다.',
         requiresEverOccupation: ['english-teacher']
+      },
+      {
+        id: 'lover-route-attempt-60',
+        text: '연인과 좀 더 진지한 관계로 나아가 볼지 고민한다',
+        requiresAnyLover: true,
+        mandatory: true,
+        prizeTable: [
+          { weight: 20, label: '진입', deltas: { happiness: 3 }, result: '이번엔, 정말 다른 마음으로 다가가 보기로 했다.', startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 } },
+          { weight: 80, label: '보류', deltas: { happiness: 1 }, result: '아직은, 지금 이대로도 괜찮았다.' }
+        ]
       },
     ]
   },
@@ -29384,9 +29826,224 @@ const PRISON_CHOICES = [
   },
 ];
 
+// LOVER_ROUTE_CHOICES(2026-08-26, 사용자 지시 - "연인이 있을때 연애 과정이
+// 담긴 루트도 추가하고싶어. 이 루트는 나이 기준으로 등장하지 않고 연인이 있을때
+// 매년 20%확률로 루트에 진입해") - prison과 같은 원리(PRISON_CHOICES 참고)의
+// 전역 풀. 진입 나이가 18~60세 사이 아무 때나 될 수 있어 특정 나이의 choices
+// 배열 안에 넣을 수 없다. 진입 자체는 각 나이(18~60세)에 심어둔
+// lover-route-attempt-<나이> 트리거가 담당 - requiresAnyLover + mandatory로
+// 연인이 있는 한 매년 반드시 노출되고, prizeTable로 20%만 실제 startsRoute가
+// 발동한다(나머지 80%는 아무 일도 안 일어나고 다음 해에 다시 시도).
+const LOVER_ROUTE_CHOICES = [
+  {
+    id: 'romance-first-date',
+    text: '연인과 처음으로 정식 데이트를 나간다',
+    deltas: { happiness: 4, relationship: 2 },
+    result: '무슨 옷을 입을지 세 번은 바꿔 입었다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-daily-calls',
+    text: '매일 밤 통화하며 하루를 나눈다',
+    deltas: { happiness: 2, relationship: 1 },
+    result: '별일 없는 하루도, 나누고 나면 특별해졌다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-meet-friends',
+    text: '서로의 친구들에게 소개하는 자리를 갖는다',
+    deltas: { happiness: 2, relationship: 2 },
+    result: '긴장한 티가 역력했지만, 다행히 분위기는 좋았다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-first-trip',
+    text: '함께 짧은 여행을 떠난다',
+    deltas: { happiness: 4, relationship: 2, wealth: -1 },
+    result: '낯선 풍경보다, 옆자리가 더 오래 기억에 남았다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-small-fight',
+    text: '사소한 일로 처음 다툰다',
+    deltas: { happiness: -2, relationship: -1 },
+    result: '별것 아닌 말 한마디가, 생각보다 오래 마음에 남았다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-jealousy-onset',
+    text: '상대의 이성 친구 관계에 신경이 쓰이기 시작한다',
+    deltas: { happiness: -2 },
+    result: '믿는다고 말하면서도, 마음 한구석은 자꾸 삐걱댔다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-makeup-after-fight',
+    text: '다툰 뒤 먼저 손을 내밀어 화해한다',
+    deltas: { happiness: 3, relationship: 3 },
+    result: '먼저 건넨 말 한마디가, 생각보다 어렵지 않았다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-meet-parents',
+    text: '상대의 부모님께 처음 인사드린다',
+    deltas: { happiness: 3, relationship: 2 },
+    result: '차 한잔 마시는 동안, 손에 땀이 흥건했다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-family-disapproval',
+    text: '가족이 이 관계를 탐탁지 않아 한다',
+    deltas: { happiness: -3, relationship: -1 },
+    result: '축복받지 못하는 사랑이라는 게, 이렇게 무거울 줄 몰랐다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-long-distance-strain',
+    text: '떨어져 지내는 시간이 길어지며 마음이 지친다',
+    deltas: { happiness: -2 },
+    result: '화면 너머 얼굴만으로는, 채워지지 않는 게 있었다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-surprise-event',
+    text: '깜짝 이벤트를 준비해 상대를 감동시킨다',
+    deltas: { happiness: 4, relationship: 3, wealth: -1 },
+    result: '준비하는 내내 들킬까 봐 조마조마했다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-financial-disagreement',
+    text: '데이트 비용을 두고 은근한 신경전을 벌인다',
+    deltas: { happiness: -1, relationship: -1 },
+    result: '사랑과 돈은, 생각보다 자주 부딪혔다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-supports-through-hardship',
+    text: '힘든 시기를 겪는 상대의 곁을 묵묵히 지킨다',
+    deltas: { happiness: 2, relationship: 4 },
+    result: '특별한 말보다, 그저 곁에 있는 것이 더 큰 힘이 됐다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-different-life-goals',
+    text: '서로 그리는 미래의 모습이 다르다는 걸 깨닫는다',
+    deltas: { happiness: -2 },
+    result: '같은 곳을 보고 있다고 믿었는데, 조금씩 방향이 갈렸다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-anniversary-celebration',
+    text: '만난 지 1년 되는 날을 함께 기념한다',
+    deltas: { happiness: 4, relationship: 2 },
+    result: '365일이 이렇게 빨리 지나갈 줄 몰랐다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-rival-appears',
+    text: '상대에게 관심을 보이는 사람이 나타나 불안해진다',
+    deltas: { happiness: -3 },
+    result: '질투인지 불안인지 모를 감정이, 자꾸 마음을 흔들었다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-moving-in-together',
+    text: '함께 살아보기로 하며 동거를 시작한다',
+    deltas: { happiness: 3, relationship: 3, wealth: -2 },
+    result: '매일 얼굴을 본다는 게, 설렘과 낯섦을 동시에 안겼다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-habits-friction',
+    text: '생활 습관 차이로 자잘한 갈등이 쌓인다',
+    deltas: { happiness: -2, relationship: -1 },
+    result: '사소한 습관 하나가, 큰 다툼의 씨앗이 될 줄 몰랐다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-career-support',
+    text: '상대의 커리어를 위해 기꺼이 희생을 감수한다',
+    deltas: { happiness: 1, relationship: 3 },
+    result: '미룬 것은 있었지만, 후회는 없었다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-third-party-temptation',
+    text: '잠깐의 흔들림을 스스로 다잡는다',
+    deltas: { happiness: -1, relationship: 1 },
+    result: '마음이 흔들린 순간도 있었지만, 결국 지키기로 했다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-quiet-comfortable',
+    text: '말이 없어도 편안한 사이가 됐음을 느낀다',
+    deltas: { happiness: 3, relationship: 2 },
+    result: '굳이 채우지 않아도 되는 침묵이, 오히려 좋았다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-engagement-talk',
+    text: '결혼 이야기가 진지하게 오가기 시작한다',
+    deltas: { happiness: 3, relationship: 2 },
+    result: '농담처럼 꺼낸 말이, 어느새 진심이 되어 있었다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-proposal',
+    text: '긴 고민 끝에 프러포즈를 한다',
+    deltas: { happiness: 6, relationship: 4 },
+    result: '떨리는 손으로 내민 반지에, 두 사람 다 눈시울이 붉어졌다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-marriage-decision',
+    text: '오랜 연애 끝에 결혼을 결심한다',
+    deltas: { happiness: 6, relationship: 4 },
+    result: '긴 여정 끝에, 마침내 같은 곳을 바라보기로 했다.',
+    requiresRoute: 'romance',
+    endsRoute: true,
+    addFamilyMembers: [{ id: 'spouse', label: '💍 배우자' }]
+  },
+  {
+    id: 'romance-quiet-fade',
+    text: '연락이 뜸해지며 관계가 서서히 식어간다',
+    deltas: { happiness: -3 },
+    result: '누구의 잘못도 아니었지만, 마음은 이미 멀어져 있었다.',
+    requiresRoute: 'romance'
+  },
+  {
+    id: 'romance-breakup-mutual',
+    text: '서로 다른 길을 가기로 합의하며 이별한다',
+    deltas: { happiness: -4, relationship: -3 },
+    result: '덤덤하게 나눈 마지막 인사가, 오히려 더 아팠다.',
+    requiresRoute: 'romance',
+    endsRoute: true,
+    removeAcquaintance: { relation: 'lover' }
+  },
+  {
+    id: 'romance-breakup-heartbreak',
+    text: '일방적인 이별 통보에 크게 무너진다',
+    deltas: { happiness: -6, relationship: -4 },
+    result: '예상 못 한 이별 앞에서, 한동안 아무것도 손에 잡히지 않았다.',
+    requiresRoute: 'romance',
+    endsRoute: true,
+    removeAcquaintance: { relation: 'lover' }
+  },
+  {
+    id: 'romance-post-fight-growth',
+    text: '큰 다툼을 겪은 뒤 오히려 더 단단해진다',
+    deltas: { happiness: 2, relationship: 3 },
+    result: '부딪힌 만큼, 서로를 더 깊이 알게 됐다.',
+    requiresRoute: 'romance'
+  },
+];
+
+
 module.exports = {
   STAGES,
   PRISON_CHOICES,
+  LOVER_ROUTE_CHOICES,
   ENDINGS,
   resolveEnding,
   buildCollapseEnding,

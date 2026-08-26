@@ -5466,6 +5466,61 @@
         전체 재배포로 반영.</p>
     </section>
 
+    <section>
+        <h2><span class="num">41</span>연애(romance) 루트 신설 - 나이 무관, 매년 확률 진입형 첫 루트
+        (2026-08-26, 사용자 지시 - "연인이 있을때 연애 과정이 담긴 루트도 추가하고싶어. 이 루트는
+        나이 기준으로 등장하지 않고 연인이 있을때 매년 20%확률로 루트에 진입해")</h2>
+        <p>기존 17개 루트는 전부 "특정 나이의 트리거 선택지 하나"로 진입했는데, 이번 요청은
+        "나이 무관, 조건만 맞으면 매년 확률로 진입"이라 새로운 진입 방식이 필요했다. 마침
+        <code>prison</code> 루트가 이미 정확히 같은 문제(징역 시작 나이가 불특정)를 풀어둔 전례가
+        있어 그 설계를 그대로 재사용했다 - <code>PRISON_CHOICES</code>라는 전역 선택지 풀을 만들고,
+        <code>activeRouteId</code>가 그 루트일 땐 나이와 무관하게 이 풀에서만 4개를 뽑도록
+        <code>index.js</code>의 <code>pickVisibleChoiceIds</code>에 분기가 있었다.</p>
+        <h3>범위 확정(사용자 선택)</h3>
+        <p>두 질문으로 규모를 먼저 좁혔다 - "매년 20% 체크를 몇 살까지 걸까"는 18~60세(추천안),
+        "진입 후 연애 과정 자체는 몇 년짜리로 만들까"는 5년(추천안)으로 확정.</p>
+        <h3>구현</h3>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>구성 요소</th><th>내용</th></tr>
+                <tr><td>매년 체크(18~60세, 43개)</td><td><code>lover-route-attempt-&lt;나이&gt;</code>
+                - <code>requiresAnyLover: true</code> + <code>mandatory: true</code>로 연인이 있는
+                한 매년 반드시 노출(직전에 다른 루트 트리거들에 적용한 것과 같은 원칙). 텍스트는
+                "연인과 좀 더 진지한 관계로 나아가 볼지 고민한다" 하나로 43개 나이 전부 동일(다른
+                루트들의 <code>life-exit</code> 계열과 같은 방식), <code>prizeTable</code>로
+                20%(진입, <code>startsRoute: {'{'}id:'romance', maxDurationYears: 5{'}'}</code>)
+                /80%(보류, 아무 효과 없이 다음 해에 다시 시도) 분기.</td></tr>
+                <tr><td>전역 풀(<code>LOVER_ROUTE_CHOICES</code>, 28개)</td><td><code>PRISON_CHOICES</code>와
+                같은 방식으로 <code>game-data.js</code>에 신설, <code>index.js</code> require와
+                <code>routeChoicePool</code> 분기에 <code>romance</code> 케이스 추가. 첫 데이트→
+                갈등·질투→상대 부모님께 인사→동거→프러포즈/결혼 또는 이별까지 이어지는 서사.</td></tr>
+                <tr><td>결혼 엔딩(1개)</td><td><code>romance-marriage-decision</code> -
+                <code>endsRoute: true</code> + <code>addFamilyMembers: [{'{'}id:'spouse'{'}'}]</code>.
+                기존에 이미 있던 "결혼 시 연인 지인의 이름을 배우자로 자동 승계"
+                로직(<code>applyChoice</code>, 2026-08-18 구현)이 그대로 적용돼, 연애 루트 진입의
+                전제 조건이었던 그 연인이 자연스럽게 이름을 가진 배우자가 된다.</td></tr>
+                <tr><td>이별 엔딩(2개)</td><td><code>romance-breakup-mutual</code>(합의 이별),
+                <code>romance-breakup-heartbreak</code>(일방적 이별) - 둘 다 <code>endsRoute: true</code>
+                + <code>removeAcquaintance: {'{'}relation:'lover'{'}'}</code>로 연인 지인을 제거하고
+                일반 생활로 복귀.</td></tr>
+            </table>
+        </div>
+        <h3>구현 중 발견·수정한 버그</h3>
+        <p>43개 트리거를 18~60세 각 나이의 <code>choices</code> 배열에 스크립트로 주입하는 과정에서,
+        이미 이전 세션들이 여러 차례 건드려둔 나이들과 삽입 위치가 겹치며 <b>배열 홀(hole) 버그가
+        31곳 새로 생겼다</b> - 이전 삽입이 남긴 트레일링 쉼표 뒤에 이번 삽입이 또 쉼표를 붙이는,
+        지난번(40장)과 똑같은 유형의 실수가 이번엔 훨씬 큰 규모(43개 삽입 지점)로 재발한 것.
+        전체 파일을 다시 스캔해 31곳 전부 제거했다.</p>
+        <p class="note"><b>검증.</b> <code>node -c game-data.js</code>/<code>node -c index.js</code>
+        통과. <code>STAGES</code>+<code>LOVER_ROUTE_CHOICES</code> 합쳐 전체 3516개 선택지 중 id
+        중복 0건, 배열 홀 0건(31곳 수정 후 재확인). 18~60세 43개 나이 전부
+        <code>lover-route-attempt-&lt;나이&gt;</code> 존재 확인. <code>prizeTable</code> weight
+        합계 20+80=100 확인. 결혼/이별 선택지의 <code>addFamilyMembers</code>/
+        <code>removeAcquaintance</code> 필드가 기존 엔진 로직과 정확히 맞물리는지
+        <code>index.js</code> 소스로 재확인(신규 서버 로직 없이 기존 메커니즘만 재사용).
+        <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
+    </section>
+
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
 </div>
 </body>

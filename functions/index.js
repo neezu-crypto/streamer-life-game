@@ -5,6 +5,7 @@ const { STAT_KEYS, STAT_START, clampStat, requireAuth, isAdminUid } = require('.
 const {
   STAGES,
   PRISON_CHOICES,
+  LOVER_ROUTE_CHOICES,
   resolveEnding,
   buildCollapseEnding,
   buildBankruptcyEnding,
@@ -379,9 +380,15 @@ function pickVisibleChoiceIds(choices, ctx) {
 
   // 징역 루트(2026-08-23)는 진입 나이가 불특정해 그 나이 stage.choices 안에
   // 콘텐츠를 심어둘 수 없다 - activeRouteId가 'prison'이면 그 나이가 몇 살이든
-  // PRISON_CHOICES(전역 풀)에서만 뽑는다. 다른 루트는 기존과 완전히 동일하게
-  // 그 나이의 choices 배열 안에서만 찾는다.
-  const routeChoicePool = activeRouteId === 'prison' ? PRISON_CHOICES : choices;
+  // PRISON_CHOICES(전역 풀)에서만 뽑는다. 연애(romance) 루트(2026-08-26)도
+  // 같은 이유(18~60세 아무 때나 진입 가능)로 LOVER_ROUTE_CHOICES 전역 풀을
+  // 쓴다. 다른 루트는 기존과 완전히 동일하게 그 나이의 choices 배열 안에서만
+  // 찾는다.
+  const routeChoicePool = activeRouteId === 'prison'
+    ? PRISON_CHOICES
+    : activeRouteId === 'romance'
+      ? LOVER_ROUTE_CHOICES
+      : choices;
   const basePool = activeRouteId
     ? routeChoicePool.filter((c) => c.requiresRoute === activeRouteId)
     : choices.filter((c) => !c.requiresRoute && !(c.startsRoute && experiencedRouteIds.includes(c.startsRoute.id)));
