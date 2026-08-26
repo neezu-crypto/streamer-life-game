@@ -3348,6 +3348,27 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         endsRoute: true
       }
+    ,
+      {
+        id: 'deviant-trainee-secret-dating-17',
+        text: '연습생 계약의 열애 금지 조항을 어기고 몰래 연애를 시작한다',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['trainee'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4, relationship: 3 }, result: '아무도 모르게, 설레는 비밀이 하나 생겼다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -4, fame: -1 }, result: '매니저에게 딱 걸려 불려가 한참을 혼났다.' }
+        ]
+      },
+      {
+        id: 'deviant-trainee-diet-cheat-17',
+        text: '숙소 몰래 야식을 시켜 먹으며 체중 관리 규정을 어긴다',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['trainee'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '죄책감보다 포만감이 더 크게 느껴진 밤이었다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -2, health: -1 }, result: '저울 위에 오르자마자 잔소리가 쏟아졌다.' }
+        ]
+      }
     ]
   },
   {
@@ -3915,6 +3936,27 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-trainee-curfew-break-18',
+        text: '숙소 통금을 어기고 몰래 밖으로 나갔다 온다',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['trainee'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '까맣게 물든 골목을 걸으며, 자유를 만끽했다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -3, relationship: -2 }, result: '현관문을 여는 순간, 굳은 표정의 매니저와 눈이 마주쳤다.' }
+        ]
+      },
+      {
+        id: 'deviant-trainee-plagiarize-choreo-18',
+        text: '연습 시간을 아끼려 다른 팀의 안무를 몰래 베껴 짠다',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['trainee'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '무사히 넘어가는가 싶어 마음이 놓였다.' },
+          { weight: 18, label: '발각', deltas: { happiness: -5, fame: -2, relationship: -2 }, result: '안무 감독에게 원작자와의 비교 영상을 들이밀리며 크게 혼났다.' }
+        ]
+      }
     ]
   },
   {
@@ -4441,6 +4483,17 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-trainee-debut-sabotage-19',
+        text: '경쟁 연습생의 실수를 은근히 유도해 데뷔조 자리를 노린다',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['trainee'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3, fame: 1 }, result: '아무도 눈치채지 못한 채, 원하는 자리를 얻었다.' },
+          { weight: 18, label: '발각', deltas: { happiness: -6, relationship: -4 }, result: '뒷조사 끝에 진실이 드러나며 동료들 사이에서 완전히 고립됐다.' }
+        ]
+      }
     ]
   },
   {
@@ -6481,6 +6534,27 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-idol-secret-boyfriend-22',
+        text: '팬들 몰래 열애 상대를 만나러 변장하고 나선다',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 5 }, result: '아무에게도 들키지 않은 완벽한 하루였다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -3, fame: -2 }, result: '몰래 찍힌 뒷모습 사진이 결국 커뮤니티에 퍼지고 말았다.' }
+        ]
+      },
+      {
+        id: 'deviant-idol-drunk-driving-22',
+        text: '술자리 후 대리를 부르지 않고 직접 운전대를 잡는다',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '아찔했지만, 무사히 집에 도착했다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, fame: -8, happiness: -6 }, result: '음주 단속에 걸리며 뉴스 헤드라인을 장식했다.' }
+        ]
+      }
     ]
   },
   {
@@ -7213,6 +7287,27 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-idol-diet-pill-23',
+        text: '무대 준비를 위해 검증 안 된 다이어트약에 손을 댄다',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2, wealth: -1 }, result: '생각보다 효과가 빨라, 안도의 한숨을 쉬었다.' },
+          { weight: 10, label: '발각', deltas: { health: -5, happiness: -2 }, result: '심장이 미친 듯이 뛰는 부작용에 응급실로 실려갔다.' }
+        ]
+      },
+      {
+        id: 'deviant-idol-privacy-leak-23',
+        text: '사생활 노출 위험을 알면서도 위험한 만남을 이어간다',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4 }, result: '아무 일도 없었다는 듯, 평소처럼 무대에 올랐다.' },
+          { weight: 18, label: '발각', deltas: { happiness: -6, fame: -6, relationship: -3 }, result: '사생팬이 찍은 사진이 순식간에 퍼지며 감당할 수 없는 화제가 됐다.' }
+        ]
+      }
     ]
   },
   {
@@ -8033,6 +8128,27 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-idol-anti-fan-clash-24',
+        text: '악플러 계정에 몰래 들어가 직접 설전을 벌인다',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '속은 시원했지만, 아무도 알아채지 못했다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -4, fame: -3 }, result: '캡처가 삽시간에 퍼지며 "본인 등판" 논란이 됐다.' }
+        ]
+      },
+      {
+        id: 'deviant-idol-staff-bullying-24',
+        text: '마음에 안 드는 스태프에게 은근한 갑질을 반복한다',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '스트레스는 풀렸지만, 아무도 뭐라 하지 않았다.' },
+          { weight: 18, label: '발각', deltas: { fame: -10, happiness: -5, relationship: -4 }, result: '폭로 글이 올라오며 "갑질 논란"으로 포털을 뒤덮었다.' }
+        ]
+      }
     ]
   },
   {
@@ -8776,6 +8892,27 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-idol-luxury-flex-25',
+        text: '소속사 몰래 협찬받은 명품을 개인 SNS에 자랑하듯 올린다',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3, fame: 1 }, result: '댓글 반응이 좋아, 뿌듯한 기분이 들었다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -2, wealth: -3 }, result: '협찬사에서 항의가 들어와 소속사가 대신 물어줘야 했다.' }
+        ]
+      },
+      {
+        id: 'deviant-idol-plagiarism-scandal-25',
+        text: '신곡 후렴구를 해외 무명 아티스트의 곡과 비슷하게 만든다',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 2, fame: 2 }, result: '차트 1위 소식에 아무 걱정 없이 기뻐했다.' },
+          { weight: 18, label: '발각', deltas: { fame: -9, happiness: -6, wealth: -3 }, result: '원곡 비교 영상이 퍼지며 표절 논란에 휩싸였다.' }
+        ]
+      }
     ]
   },
   {
@@ -9578,6 +9715,27 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-idol-ghostwritten-post-26',
+        text: '감성 가득한 팬 편지 답장을 대필 작가에게 몰래 맡긴다',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2, relationship: 2 }, result: '팬들의 감동한 반응에, 안도하며 웃었다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -3, relationship: -3 }, result: '문체가 이상하다는 팬들의 의심이 결국 사실로 드러났다.' }
+        ]
+      },
+      {
+        id: 'deviant-idol-affair-scandal-26',
+        text: '유부남·유부녀인 걸 알면서도 위험한 만남을 이어간다',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4 }, result: '아슬아슬했지만, 이번에도 무사히 넘어갔다.' },
+          { weight: 18, label: '발각', deltas: { fame: -12, happiness: -10, relationship: -6 }, result: '상간 소송 소식이 터지며 커리어에 치명타를 입었다.' }
+        ]
+      }
     ]
   },
   {
@@ -10410,6 +10568,28 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-idol-tax-evasion-27',
+        text: '해외 행사 수입을 신고하지 않고 몰래 챙긴다',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '세금 걱정 없이, 수입이 고스란히 통장에 쌓였다.' },
+          { weight: 15, label: '발각-벌금', deltas: { wealth: -10, fame: -5, happiness: -4 }, result: '국세청 세무조사에 걸려 거액의 추징금을 물었다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '상습적인 조세포탈 혐의가 인정되며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+        ]
+      },
+      {
+        id: 'deviant-idol-side-deal-27',
+        text: '소속사 몰래 개인 SNS로 광고를 따로 수주한다',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '남몰래 짭짤한 부수입이 생겼다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, relationship: -3 }, result: '전속 계약 위반이 드러나며 위약금 소송에 휘말렸다.' }
+        ]
+      }
     ]
   },
   {
@@ -11110,6 +11290,28 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-idol-illegal-gambling-28',
+        text: '동료들과 어울려 불법 온라인 도박 사이트에 상습적으로 접속한다',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 2, wealth: 2 }, result: '짜릿함과 함께, 이번에도 조용히 넘어갔다.' },
+          { weight: 15, label: '발각-벌금', deltas: { wealth: -8, fame: -6, happiness: -4 }, result: '단속에 걸려 벌금형과 함께 이름이 기사에 오르내렸다.' },
+          { weight: 3, label: '징역', deltas: { wealth: -12, fame: -15, happiness: -10, relationship: -5 }, result: '상습 도박 혐의가 중하게 인정되며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+        ]
+      },
+      {
+        id: 'deviant-idol-tantrum-scandal-28',
+        text: '방송 스태프 앞에서 감정을 조절하지 못하고 폭언을 쏟아낸다',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '화는 풀렸고, 이번엔 별일 없이 넘어갔다.' },
+          { weight: 18, label: '발각', deltas: { fame: -9, happiness: -5, relationship: -4 }, result: '현장 목격담이 퍼지며 "인성 논란"에 휩싸였다.' }
+        ]
+      }
     ]
   },
   {
@@ -11824,6 +12026,17 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'deviant-idol-ad-fee-fraud-29',
+        text: '행사 참여 경비를 부풀려 소속사에 정산을 요청한다',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '별다른 의심 없이, 정산이 그대로 처리됐다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -5, fame: -4, relationship: -3 }, result: '영수증 대조 과정에서 들통나 정산 전액을 반환해야 했다.' }
+        ]
+      }
     ]
   },
   {
