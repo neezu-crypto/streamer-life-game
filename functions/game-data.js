@@ -27969,6 +27969,7 @@ const STAGES = [
         id: 'time-loop-button-91',
         text: '[100년 버튼을 눌러 0세때로 되돌아간다]',
         result: '알 수 없는 힘에 이끌려, 손끝이 버튼 위에서 한참을 머물렀다.',
+        requiresNoAsset: 'time-loop-declined',
         addAsset: { id: 'time-loop-ticket', label: '⏳ 100년의 기억', type: 'movable' }
       },
     ]
@@ -28132,6 +28133,7 @@ const STAGES = [
         id: 'time-loop-button-92',
         text: '[100년 버튼을 눌러 0세때로 되돌아간다]',
         result: '알 수 없는 힘에 이끌려, 손끝이 버튼 위에서 한참을 머물렀다.',
+        requiresNoAsset: 'time-loop-declined',
         addAsset: { id: 'time-loop-ticket', label: '⏳ 100년의 기억', type: 'movable' }
       },
       {
@@ -28149,7 +28151,8 @@ const STAGES = [
         result: '되돌릴 수 있었지만, 지금 이대로도 나쁘지 않다고 생각했다.',
         requiresAsset: 'time-loop-ticket',
         removeAsset: 'time-loop-ticket',
-        mandatory: true
+        mandatory: true,
+        addAsset: { id: 'time-loop-declined', label: '⏳ 흘려보낸 기회', type: 'movable' }
       },
     ]
   },
@@ -28299,6 +28302,7 @@ const STAGES = [
         id: 'time-loop-button-93',
         text: '[100년 버튼을 눌러 0세때로 되돌아간다]',
         result: '알 수 없는 힘에 이끌려, 손끝이 버튼 위에서 한참을 머물렀다.',
+        requiresNoAsset: 'time-loop-declined',
         addAsset: { id: 'time-loop-ticket', label: '⏳ 100년의 기억', type: 'movable' }
       },
       {
@@ -28316,7 +28320,8 @@ const STAGES = [
         result: '되돌릴 수 있었지만, 지금 이대로도 나쁘지 않다고 생각했다.',
         requiresAsset: 'time-loop-ticket',
         removeAsset: 'time-loop-ticket',
-        mandatory: true
+        mandatory: true,
+        addAsset: { id: 'time-loop-declined', label: '⏳ 흘려보낸 기회', type: 'movable' }
       },
     ]
   },
@@ -28447,6 +28452,7 @@ const STAGES = [
         id: 'time-loop-button-94',
         text: '[100년 버튼을 눌러 0세때로 되돌아간다]',
         result: '알 수 없는 힘에 이끌려, 손끝이 버튼 위에서 한참을 머물렀다.',
+        requiresNoAsset: 'time-loop-declined',
         addAsset: { id: 'time-loop-ticket', label: '⏳ 100년의 기억', type: 'movable' }
       },
       {
@@ -28464,7 +28470,8 @@ const STAGES = [
         result: '되돌릴 수 있었지만, 지금 이대로도 나쁘지 않다고 생각했다.',
         requiresAsset: 'time-loop-ticket',
         removeAsset: 'time-loop-ticket',
-        mandatory: true
+        mandatory: true,
+        addAsset: { id: 'time-loop-declined', label: '⏳ 흘려보낸 기회', type: 'movable' }
       },
     ]
   },
@@ -28596,6 +28603,7 @@ const STAGES = [
         id: 'time-loop-button-95',
         text: '[100년 버튼을 눌러 0세때로 되돌아간다]',
         result: '알 수 없는 힘에 이끌려, 손끝이 버튼 위에서 한참을 머물렀다.',
+        requiresNoAsset: 'time-loop-declined',
         addAsset: { id: 'time-loop-ticket', label: '⏳ 100년의 기억', type: 'movable' }
       },
       {
@@ -28613,7 +28621,8 @@ const STAGES = [
         result: '되돌릴 수 있었지만, 지금 이대로도 나쁘지 않다고 생각했다.',
         requiresAsset: 'time-loop-ticket',
         removeAsset: 'time-loop-ticket',
-        mandatory: true
+        mandatory: true,
+        addAsset: { id: 'time-loop-declined', label: '⏳ 흘려보낸 기회', type: 'movable' }
       },
     ]
   },
@@ -28746,6 +28755,7 @@ const STAGES = [
         id: 'time-loop-button-96',
         text: '[100년 버튼을 눌러 0세때로 되돌아간다]',
         result: '알 수 없는 힘에 이끌려, 손끝이 버튼 위에서 한참을 머물렀다.',
+        requiresNoAsset: 'time-loop-declined',
         addAsset: { id: 'time-loop-ticket', label: '⏳ 100년의 기억', type: 'movable' }
       },
       {
@@ -28763,7 +28773,8 @@ const STAGES = [
         result: '되돌릴 수 있었지만, 지금 이대로도 나쁘지 않다고 생각했다.',
         requiresAsset: 'time-loop-ticket',
         removeAsset: 'time-loop-ticket',
-        mandatory: true
+        mandatory: true,
+        addAsset: { id: 'time-loop-declined', label: '⏳ 흘려보낸 기회', type: 'movable' }
       },
     ]
   },
@@ -28896,6 +28907,7 @@ const STAGES = [
         id: 'time-loop-button-97',
         text: '[100년 버튼을 눌러 0세때로 되돌아간다]',
         result: '알 수 없는 힘에 이끌려, 손끝이 버튼 위에서 한참을 머물렀다.',
+        requiresNoAsset: 'time-loop-declined',
         addAsset: { id: 'time-loop-ticket', label: '⏳ 100년의 기억', type: 'movable' }
       },
       {
@@ -28913,7 +28925,8 @@ const STAGES = [
         result: '되돌릴 수 있었지만, 지금 이대로도 나쁘지 않다고 생각했다.',
         requiresAsset: 'time-loop-ticket',
         removeAsset: 'time-loop-ticket',
-        mandatory: true
+        mandatory: true,
+        addAsset: { id: 'time-loop-declined', label: '⏳ 흘려보낸 기회', type: 'movable' }
       },
     ]
   },
@@ -29052,6 +29065,7 @@ const STAGES = [
         id: 'time-loop-button-98',
         text: '[100년 버튼을 눌러 0세때로 되돌아간다]',
         result: '알 수 없는 힘에 이끌려, 손끝이 버튼 위에서 한참을 머물렀다.',
+        requiresNoAsset: 'time-loop-declined',
         addAsset: { id: 'time-loop-ticket', label: '⏳ 100년의 기억', type: 'movable' }
       },
       {
@@ -29069,7 +29083,8 @@ const STAGES = [
         result: '되돌릴 수 있었지만, 지금 이대로도 나쁘지 않다고 생각했다.',
         requiresAsset: 'time-loop-ticket',
         removeAsset: 'time-loop-ticket',
-        mandatory: true
+        mandatory: true,
+        addAsset: { id: 'time-loop-declined', label: '⏳ 흘려보낸 기회', type: 'movable' }
       },
     ]
   },
@@ -29229,6 +29244,7 @@ const STAGES = [
         id: 'time-loop-button-99',
         text: '[100년 버튼을 눌러 0세때로 되돌아간다]',
         result: '알 수 없는 힘에 이끌려, 손끝이 버튼 위에서 한참을 머물렀다.',
+        requiresNoAsset: 'time-loop-declined',
         addAsset: { id: 'time-loop-ticket', label: '⏳ 100년의 기억', type: 'movable' }
       },
       {
@@ -29246,7 +29262,8 @@ const STAGES = [
         result: '되돌릴 수 있었지만, 지금 이대로도 나쁘지 않다고 생각했다.',
         requiresAsset: 'time-loop-ticket',
         removeAsset: 'time-loop-ticket',
-        mandatory: true
+        mandatory: true,
+        addAsset: { id: 'time-loop-declined', label: '⏳ 흘려보낸 기회', type: 'movable' }
       },
     ]
   },
@@ -29382,7 +29399,8 @@ const STAGES = [
         result: '되돌릴 수 있었지만, 지금 이대로도 나쁘지 않다고 생각했다.',
         requiresAsset: 'time-loop-ticket',
         removeAsset: 'time-loop-ticket',
-        mandatory: true
+        mandatory: true,
+        addAsset: { id: 'time-loop-declined', label: '⏳ 흘려보낸 기회', type: 'movable' }
       },
     ]
   }

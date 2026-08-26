@@ -5635,6 +5635,22 @@
         로직(stats→50, healthConditions→[], choiceLog→[], nextIndex→0)을 Node로 격리 시뮬레이션해
         출력값 검증. id 중복 0건, 배열 홀 0건(주입 중 1곳 새로 발생해 즉시 수정).
         <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
+        <h3>추가 - "돌아가지 않기" 선택 시 엔딩까지 버튼 영구 비활성화(2026-08-26, 사용자 지시
+        - "돌아가지 않기를 선택하면 엔딩때까지 100년버튼은 다시 출연하지 않아")</h3>
+        <p>최초 구현엔 이 부분이 빠져 있었다 - "돌아가지 않기"를 골라도 91~99세 사이 남은 나이에서
+        <code>time-loop-button-&lt;나이&gt;</code>가 게이트 없이 또 뜰 수 있는 상태였다. 복권
+        (<code>lottery-ticket</code>)처럼 "티켓 소모형" 자산 하나를 더 추가해 해결했다 -
+        <code>time-loop-decline-&lt;나이&gt;</code>가 기존 <code>removeAsset</code>(티켓 소모)에
+        더해 새 자산 <code>time-loop-declined</code>(⏳ 흘려보낸 기회)를 부여하고, 9개
+        트리거(<code>time-loop-button-91~99</code>) 전부에 <code>requiresNoAsset:
+        'time-loop-declined'</code>를 추가했다. 이제 한 번이라도 "돌아가지 않기"를 고르면 그
+        판에서는 버튼이 다시는 후보에 뜨지 않는다(엔딩까지) - 반대로 "돌아가기"를 고르면
+        <code>choiceLog</code>가 통째로 비워지면서 이 자산도 애초에 생긴 적이 없는 새 삶이
+        시작되므로, 다음 삶에서는 버튼이 다시 정상적으로 등장할 수 있다.</p>
+        <p class="note"><b>검증.</b> <code>node -c game-data.js</code> 통과. 트리거 9개 전부
+        <code>requiresNoAsset==='time-loop-declined'</code>, 갈림길의 "돌아가지 않기" 9개 전부
+        <code>addAsset.id==='time-loop-declined'</code>임을 스크립트로 재확인. id 중복 0건·배열
+        홀 0건. <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
