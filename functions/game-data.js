@@ -10576,8 +10576,7 @@ const STAGES = [
         requiresOccupation: ['idol'],
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '세금 걱정 없이, 수입이 고스란히 통장에 쌓였다.' },
-          { weight: 15, label: '발각-벌금', deltas: { wealth: -10, fame: -5, happiness: -4 }, result: '국세청 세무조사에 걸려 거액의 추징금을 물었다.' },
-          { weight: 3, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '상습적인 조세포탈 혐의가 인정되며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
       {
@@ -11298,8 +11297,7 @@ const STAGES = [
         requiresOccupation: ['idol'],
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { happiness: 2, wealth: 2 }, result: '짜릿함과 함께, 이번에도 조용히 넘어갔다.' },
-          { weight: 15, label: '발각-벌금', deltas: { wealth: -8, fame: -6, happiness: -4 }, result: '단속에 걸려 벌금형과 함께 이름이 기사에 오르내렸다.' },
-          { weight: 3, label: '징역', deltas: { wealth: -12, fame: -15, happiness: -10, relationship: -5 }, result: '상습 도박 혐의가 중하게 인정되며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -12, fame: -15, happiness: -10, relationship: -5 }, result: '상습 도박 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       },
       {
