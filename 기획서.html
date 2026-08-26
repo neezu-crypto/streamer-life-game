@@ -176,6 +176,7 @@
             <li><a href="#sec51">의사(doctor) 직업 정식 신설 + 전용 일탈 이벤트 20종</a></li>
             <li><a href="#sec52">연예계 스카우트 트리거 - 무관한 재능으로도 발동하던 버그</a></li>
             <li><a href="#sec53">프로게이머·감독 인기 연동 소득 추가 + 우승/수상 이벤트 상금 누락 18건 수정</a></li>
+            <li><a href="#sec54">아이돌 루트 종료 후 후속 수입원 8종 보강</a></li>
         </ol>
     </div>
 
@@ -6063,6 +6064,33 @@
         <p class="note"><b>검증.</b> <code>node -c game-data.js</code>/<code>node -c index.js</code>
         통과, 18건 전부 <code>wealth</code> 필드 정상 삽입 확인, id 중복 0건(전체 3,775개 유지 —
         기존 선택지 수정만 있고 신규 추가 없음), 배열 홀 0건, 스탯 키 오타 0건.
+        <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
+    </section>
+
+    <section id="sec54">
+        <h2><span class="num">54</span>아이돌 루트 종료 후 후속 수입원 8종 보강 (2026-08-27, 사용자
+        지시 — 구현 완료)</h2>
+        <p>"연예계/배우도 루트 종료 후에도 일감 있는지 봐줘" → 확인 결과 배우는 46~94세에 걸쳐
+        20개(무명·라이징·베테랑 세 갈래, wealth 4개)나 있는데, 아이돌은 35~93세 8개뿐이고 그중
+        <code>wealth</code>가 있는 건 저작권료(<code>idol-royalty-income-35</code>) 하나뿐이었다.
+        "보강해줘"라는 답을 받아 배우 수준으로 맞췄다.</p>
+        <h3>추가 8개 - 아이돌 출신 특유의 후속 수입원</h3>
+        <ul>
+            <li>40세 — 셀프 브랜드 화장품 론칭(<code>idol-brand-launch-40</code>, +5), 예능 고정
+            출연(<code>idol-variety-show-regular-40</code>, +3)</li>
+            <li>55세 — 후배 그룹 프로듀싱 로열티(<code>idol-producing-royalty-55</code>, +4),
+            라디오 DJ 고정 출연(<code>idol-radio-dj-55</code>, +2)</li>
+            <li>70세 — 향수 마케팅 광고 출연(<code>idol-nostalgia-ad-70</code>, +3)</li>
+            <li>75세 — 데뷔 기념 팬미팅 투어(<code>idol-fan-meeting-tour-75</code>, +4)</li>
+            <li>80세 — 대표곡 드라마 OST 리메이크 저작권료(<code>idol-ost-royalty-80</code>, +3)</li>
+            <li>90세 — 음악 인생 다큐멘터리 출연료(<code>idol-legacy-documentary-90</code>, +2)</li>
+        </ul>
+        <p>전부 <code>requiresOccupation: ['idol']</code>만 걸어(루트 종료 후에도 직업 필드는
+        유지되므로 <code>requiresRoute</code> 불필요) 기존 8개와 같은 패턴을 그대로 따랐다. 결과
+        총 16개 중 9개(56.3%)가 wealth 보유 - 배우의 후속 수입 비율(20%)보다도 오히려 높아졌다.</p>
+        <p class="note"><b>검증.</b> <code>node -c game-data.js</code>/<code>node -c index.js</code>
+        통과, id 중복 0건(전체 3,783개 중 신규 8개 전부 존재), 배열 홀 0건, 스탯 키 오타 0건. 새
+        직업·루트·재능·자산 id는 추가되지 않아 도감 META 갱신 불필요.
         <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
     </section>
 

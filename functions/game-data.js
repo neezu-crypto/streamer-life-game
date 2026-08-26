@@ -19774,6 +19774,21 @@ const STAGES = [
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '예산 횡령 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       }
+    ,
+      {
+        id: 'idol-brand-launch-40',
+        text: '자신의 이름을 건 화장품 브랜드를 론칭한다',
+        deltas: { wealth: 5, happiness: 3 },
+        result: '무대 위에서 쌓은 신뢰가, 매출로 고스란히 이어졌다.',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'idol-variety-show-regular-40',
+        text: '예능 프로그램 고정 출연을 시작한다',
+        deltas: { wealth: 3, fame: 2 },
+        result: '노래가 아닌 입담으로 사랑받는 것도, 나쁘지 않았다.',
+        requiresOccupation: ['idol']
+      }
     ]
   },
   {
@@ -24418,6 +24433,21 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'idol-producing-royalty-55',
+        text: '프로듀싱에 참여한 후배 그룹이 히트하며 로열티가 들어온다',
+        deltas: { wealth: 4, happiness: 2 },
+        result: '무대 뒤에서 만든 노래가, 또 다른 세대의 히트곡이 됐다.',
+        requiresOccupation: ['idol']
+      },
+      {
+        id: 'idol-radio-dj-55',
+        text: '라디오 DJ로 고정 출연을 시작한다',
+        deltas: { wealth: 2, happiness: 3 },
+        result: '목소리만으로 전하는 이야기에도, 나름의 매력이 있었다.',
+        requiresOccupation: ['idol']
+      }
     ]
   },
   {
@@ -26969,6 +26999,14 @@ const STAGES = [
         result: '문 앞에 선 얼굴을 한참 알아보지 못하다가, 이내 눈시울이 붉어졌다.',
         requiresEverOccupation: ['english-teacher']
       },
+    
+      {
+        id: 'idol-nostalgia-ad-70',
+        text: '추억의 아이콘으로 향수 마케팅 광고에 출연한다',
+        deltas: { wealth: 3, fame: 2 },
+        result: '그 시절을 기억하는 이들에게, 여전히 반가운 얼굴이었다.',
+        requiresOccupation: ['idol']
+      }
     ]
   },
   {
@@ -27589,6 +27627,14 @@ const STAGES = [
         result: '한 문장 한 문장이, 오래된 교실 냄새를 불러왔다.',
         requiresEverOccupation: ['english-teacher']
       },
+    
+      {
+        id: 'idol-fan-meeting-tour-75',
+        text: '데뷔 기념일에 맞춰 팬미팅 투어를 연다',
+        deltas: { wealth: 4, happiness: 4 },
+        result: '오랜 팬들의 얼굴에서, 지나온 세월이 함께 보였다.',
+        requiresOccupation: ['idol']
+      }
     ]
   },
   {
@@ -28169,6 +28215,14 @@ const STAGES = [
         result: '가사는 잊어도, 발음만은 몸에 새겨져 있었다.',
         requiresEverOccupation: ['english-teacher']
       },
+    
+      {
+        id: 'idol-ost-royalty-80',
+        text: '대표곡이 드라마 OST로 리메이크되며 저작권료가 들어온다',
+        deltas: { wealth: 3, happiness: 3 },
+        result: '낯선 목소리로 다시 태어난 노래가, 반갑고도 신기했다.',
+        requiresOccupation: ['idol']
+      }
     ]
   },
   {
@@ -29514,6 +29568,14 @@ const STAGES = [
         result: '가장 힘들던 시간에, 그 사람의 자리는 비어 있었다.',
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
+      }
+    ,
+      {
+        id: 'idol-legacy-documentary-90',
+        text: '자신의 음악 인생을 다룬 다큐멘터리 제작에 참여해 출연료를 받는다',
+        deltas: { wealth: 2, fame: 3 },
+        result: '지나온 무대들이, 화면 속에서 다시 한번 빛났다.',
+        requiresOccupation: ['idol']
       }
     ]
   },
