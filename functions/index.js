@@ -1369,6 +1369,20 @@ async function applyChoice(db, playRef, play, stage, choice) {
     cashHoldings += Math.round(stats.fame * cashUnitForAge(nextIndex) / 50);
   }
 
+  // 프로/국가대표 축구선수 인기 연동 추가 소득(2026-08-26, 사용자 지시 -
+  // "다른 직업도 전부 확인해줘"로 전수 조사 중 발견) - idol/actor와 같은 방식으로
+  // 전체 20개 루트·38개 직업의 wealth 델타 비율을 스크립트로 전수 조사한 결과,
+  // sports-elite 루트만 18.9%로 다른 스타성 직업(연예계 25%, 배우 29%, 프로게이머
+  // 33%, 축구 감독 31%)보다 확연히 낮았고 패시브 소득도 없었다 - idol/actor
+  // 수정 전과 완전히 같은 패턴. student-athlete(유망주, 아직 무명 시절)는
+  // trainee와 같은 이유로 제외하고, "떴다"고 볼 수 있는 pro-athlete(프로
+  // 선수)·national-athlete(국가대표) 두 단계부터만 적용(연봉+광고 수입이 인기에
+  // 비례한다는 설정).
+  const HIGH_FAME_ATHLETE_OCCUPATION_IDS = ['pro-athlete', 'national-athlete'];
+  if (currentOccupation && HIGH_FAME_ATHLETE_OCCUPATION_IDS.includes(currentOccupation.id)) {
+    cashHoldings += Math.round(stats.fame * cashUnitForAge(nextIndex) / 50);
+  }
+
   // 임대사업 소득(2026-08-23 상가 도입, 2026-08-26 오피스텔로 확대 - 사용자
   // 지시 "모든 임대사업이 해당 부동산을 팔때까지 매년 일정 수입이 들어오게
   // 해줘") - 예술가 루트의 인기 연동 소득과 같은 급의 매 턴 배경 효과. 인기처럼
