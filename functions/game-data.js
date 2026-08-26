@@ -21981,6 +21981,35 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'pg2-game-consultant-45',
+        text: '게임 개발사 밸런스 자문으로 위촉된다',
+        deltas: { wealth: 3, fame: 1 },
+        result: '컨트롤러 대신 기획서를 손에 쥔 하루가, 낯설지만 즐거웠다.',
+        requiresOccupation: ['pro-gamer']
+      },
+      {
+        id: 'ec2-memoir-royalty-45',
+        text: '감독 경험을 담은 책을 출간해 인세를 받는다',
+        deltas: { wealth: 3, happiness: 2 },
+        result: '벤치에서의 시간들이, 활자로 다시 태어났다.',
+        requiresOccupation: ['esports-coach']
+      },
+      {
+        id: 'dev-stock-option-cashout-45',
+        text: '예전에 참여했던 스타트업의 스톡옵션이 뒤늦게 현금화된다',
+        deltas: { wealth: 3, happiness: 3 },
+        result: '잊고 있던 종이 쪼가리가, 뜻밖의 목돈이 되어 돌아왔다.',
+        requiresOccupation: ['junior-developer']
+      },
+      {
+        id: 'str2-viral-throwback-45',
+        text: '예전 인기 영상이 알고리즘을 타고 역주행하며 화제가 된다',
+        deltas: { wealth: 3, happiness: 3 },
+        result: '까맣게 잊고 있던 클립이, 새로운 세대에게 발견됐다.',
+        requiresOccupation: ['streamer']
+      }
     ]
   },
   {
@@ -22886,6 +22915,35 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'pa2-brand-ambassador-48',
+        text: '스포츠 브랜드 앰배서더로 위촉된다',
+        deltas: { wealth: 3 },
+        result: '유니폼 대신 정장을 입었지만, 여전히 그 브랜드와 함께였다.',
+        requiresOccupation: ['pro-athlete']
+      },
+      {
+        id: 'na2-hall-of-fame-48',
+        text: '축구 명예의 전당에 헌액되며 기념 사업 수익을 나눠 받는다',
+        deltas: { wealth: 3, fame: 2 },
+        result: '이름이 새겨진 명패 앞에서, 오래도록 자리를 뜨지 못했다.',
+        requiresOccupation: ['national-athlete']
+      },
+      {
+        id: 'dev2-startup-advisor-48',
+        text: '여러 스타트업의 기술 자문으로 위촉된다',
+        deltas: { wealth: 4, happiness: 2 },
+        result: '코드는 줄었지만, 대신 조언할 일이 늘었다.',
+        requiresOccupation: ['senior-developer']
+      },
+      {
+        id: 'ra-brand-ambassador-48',
+        text: '화보 및 광고 모델로 활동을 이어간다',
+        deltas: { wealth: 3, fame: 2 },
+        result: '카메라 앞에 서는 감각만은, 여전히 무뎌지지 않았다.',
+        requiresOccupation: ['rising-actor']
+      }
     ]
   },
   {
@@ -23779,6 +23837,14 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'doc2-practice-handover-52',
+        text: '오랜 세월 키운 병원을 후배에게 넘기며 권리금을 받는다',
+        deltas: { wealth: 6, happiness: 3 },
+        result: '간판을 내리던 날, 서운함보다 홀가분함이 더 컸다.',
+        requiresOccupation: ['doctor']
+      }
     ]
   },
   {
@@ -24950,6 +25016,35 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'artist-retrospective-exhibit-58',
+        text: '회고전이 열리며 예전 작품들이 재조명되어 팔린다',
+        deltas: { wealth: 4, happiness: 3 },
+        result: '먼지 쌓였던 그림들이, 다시 빛을 보는 순간이었다.',
+        requiresOccupation: ['artist-writer']
+      },
+      {
+        id: 'yp2-advisory-committee-58',
+        text: '지역 원로 자문위원회에 위촉돼 자문료를 받는다',
+        deltas: { wealth: 3, fame: 1 },
+        result: '현역은 아니었지만, 여전히 부르는 자리가 있었다.',
+        requiresOccupation: ['local-council-member']
+      },
+      {
+        id: 'et2-textbook-royalty-58',
+        text: '예전에 만든 교재가 꾸준히 팔리며 인세가 들어온다',
+        deltas: { wealth: 3 },
+        result: '오래전 밤새 써 내려간 문장들이, 여전히 밥값을 하고 있었다.',
+        requiresOccupation: ['english-teacher']
+      },
+      {
+        id: 'str2-history-documentary-58',
+        text: '인터넷 방송 역사 다큐멘터리에 인터뷰이로 출연해 출연료를 받는다',
+        deltas: { wealth: 2, fame: 2 },
+        result: '초창기 화면 속 자신의 모습이, 낯설고도 반가웠다.',
+        requiresOccupation: ['streamer']
+      }
     ]
   },
   {
@@ -25642,6 +25737,35 @@ const STAGES = [
         requiresAnyCondition: true,
         removeAllConditions: true
       }
+    ,
+      {
+        id: 'va-memoir-royalties-62',
+        text: '배우 인생을 담은 회고록을 출간해 인세를 받는다',
+        deltas: { wealth: 4 },
+        result: '무대 뒤 이야기들이, 활자로 새로운 관객을 만났다.',
+        requiresOccupation: ['veteran-actor']
+      },
+      {
+        id: 'pa2-charity-match-62',
+        text: '은퇴 선수 자선 경기에 참가해 사례금을 받는다',
+        deltas: { wealth: 2, happiness: 3 },
+        result: '예전만큼은 아니었지만, 그라운드는 여전히 설렜다.',
+        requiresOccupation: ['pro-athlete']
+      },
+      {
+        id: 'na2-broadcast-commentator-62',
+        text: '국가대표 경기 해설위원으로 고정 출연한다',
+        deltas: { wealth: 3, fame: 1 },
+        result: '뛰던 자리 대신, 마이크 앞에서 경기를 읽었다.',
+        requiresOccupation: ['national-athlete']
+      },
+      {
+        id: 'ra-memoir-writing-62',
+        text: '연기 인생을 담은 회고록을 출간한다',
+        deltas: { wealth: 3, happiness: 2 },
+        result: '수많은 배역 뒤에 감춰뒀던 진짜 이야기를 꺼냈다.',
+        requiresOccupation: ['rising-actor']
+      }
     ]
   },
   {
@@ -25785,6 +25909,14 @@ const STAGES = [
         deltas: { happiness: 1, fame: 1 },
         result: '손주에게 영상통화 거는 법 하나를 배운 게, 뿌듯했다.'
       },
+    
+      {
+        id: 'dev2-online-course-63',
+        text: '자신의 이름을 건 온라인 강의를 공개해 수익을 낸다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '평생 쌓은 코드가, 이제는 다음 세대의 교재가 됐다.',
+        requiresOccupation: ['senior-developer']
+      }
     ]
   },
   {
@@ -26223,6 +26355,21 @@ const STAGES = [
         result: '월급은 없어도, 채워지는 게 분명히 있었다.',
         requiresEverOccupation: ['english-teacher']
       },
+    
+      {
+        id: 'sm2-broadcast-analyst-65',
+        text: '축구 해설위원으로 방송에 고정 출연한다',
+        deltas: { wealth: 3, fame: 1 },
+        result: '벤치 대신 중계석에서, 여전히 경기를 읽었다.',
+        requiresOccupation: ['soccer-manager']
+      },
+      {
+        id: 'doc2-advisory-board-65',
+        text: '의료 자문위원회에 위촉돼 자문료를 받는다',
+        deltas: { wealth: 3, fame: 1 },
+        result: '진료는 줄었어도, 찾는 곳은 여전히 많았다.',
+        requiresOccupation: ['doctor']
+      }
     ]
   },
   {
@@ -26662,6 +26809,14 @@ const STAGES = [
         result: '이 병원 저 병원 도는 게 일이었지만, 다 끝내고 나니 홀가분했다.',
         requiresAnyCondition: true,
         removeAllConditions: true
+      }
+    ,
+      {
+        id: 'et2-online-course-68',
+        text: '온라인 영어 강의 플랫폼에 출연해 강의료를 받는다',
+        deltas: { wealth: 2 },
+        result: '칠판 대신 화면 너머로, 여전히 가르치는 삶을 이어갔다.',
+        requiresOccupation: ['english-teacher']
       }
     ]
   },
@@ -27254,6 +27409,21 @@ const STAGES = [
         deltas: { happiness: 2 },
         result: '빛바랜 사진 속에서, 그때의 웃음소리가 들리는 듯했다.'
       },
+    
+      {
+        id: 'artist-textbook-royalty-72',
+        text: '작품이 교과서에 실리며 인세를 받는다',
+        deltas: { wealth: 2 },
+        result: '평생 그린 그림 하나가, 이제 교실 벽을 장식하고 있었다.',
+        requiresOccupation: ['artist-writer']
+      },
+      {
+        id: 'str2-fan-reunion-72',
+        text: '오랜 팬들이 모여 깜짝 후원금을 전달한다',
+        deltas: { wealth: 2, happiness: 4 },
+        result: '화면 너머 얼굴들을 실제로 마주하니, 모든 게 새삼 뭉클했다.',
+        requiresOccupation: ['streamer']
+      }
     ]
   },
   {
@@ -27348,6 +27518,14 @@ const STAGES = [
         removeAsset: 'lottery-ticket',
         mandatory: true,
         prizeTable: LOTTERY_PRIZE_TABLE
+      }
+    ,
+      {
+        id: 'yp2-book-lecture-tour-73',
+        text: '회고록 출간 기념 강연 투어로 강연료를 받는다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '정치를 떠난 지 오래됐지만, 사람들은 여전히 이야기를 궁금해했다.',
+        requiresOccupation: ['local-council-member']
       }
     ]
   },
@@ -27988,6 +28166,35 @@ const STAGES = [
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
       }
+    ,
+      {
+        id: 'va-honorary-appearance-78',
+        text: '영화제 명예 시상식 게스트로 초청되며 사례금을 받는다',
+        deltas: { wealth: 2, fame: 2 },
+        result: '레드카펫을 걷는 발걸음이, 예전만큼 가볍진 않았지만 여전히 설렜다.',
+        requiresOccupation: ['veteran-actor']
+      },
+      {
+        id: 'pg2-legend-exhibition-78',
+        text: 'e스포츠 레전드 초청전에 참가해 상금을 받는다',
+        deltas: { wealth: 2, happiness: 3 },
+        result: '반응 속도는 예전 같지 않았지만, 관중의 함성만은 그대로였다.',
+        requiresOccupation: ['pro-gamer']
+      },
+      {
+        id: 'ec2-hall-of-fame-78',
+        text: 'e스포츠 명예의 전당 헌액식에서 기념 강연료를 받는다',
+        deltas: { wealth: 2, fame: 2 },
+        result: '자신이 키운 선수들의 이름이, 헌액사 곳곳에서 언급됐다.',
+        requiresOccupation: ['esports-coach']
+      },
+      {
+        id: 'doc2-memoir-writing-78',
+        text: '의사로서의 삶을 담은 회고록을 출간해 인세를 받는다',
+        deltas: { wealth: 2, happiness: 3 },
+        result: '수많은 환자들과의 기억이, 한 권의 책으로 남았다.',
+        requiresOccupation: ['doctor']
+      }
     ]
   },
   {
@@ -28469,6 +28676,14 @@ const STAGES = [
         deltas: { relationship: 1, happiness: 1 },
         result: '옛이야기를 꺼낼 때마다, 눈빛들이 초롱초롱해졌다.'
       },
+    
+      {
+        id: 'sm2-coaching-clinic-82',
+        text: '지도자 강연·클리닉에 초청돼 강연료를 받는다',
+        deltas: { wealth: 2 },
+        result: '후배 지도자들 앞에서, 평생의 노하우를 풀어놓았다.',
+        requiresOccupation: ['soccer-manager']
+      }
     ]
   },
   {
@@ -29282,6 +29497,14 @@ const STAGES = [
         result: '다섯 세대가 이어졌다는 사실이, 좀처럼 믿기지 않았다.',
         requiresFamilyMember: ['grandchild']
       },
+    
+      {
+        id: 'str2-legend-status-88',
+        text: '1세대 스트리머로 회자되며 추모 특별방송에 초청된다',
+        deltas: { wealth: 2, fame: 3 },
+        result: '초창기를 함께한 이들의 이름이, 방송 내내 오르내렸다.',
+        requiresOccupation: ['streamer']
+      }
     ]
   },
   {
@@ -29891,6 +30114,14 @@ const STAGES = [
         mandatory: true,
         addAsset: { id: 'time-loop-declined', label: '⏳ 흘려보낸 기회', type: 'movable' }
       },
+    
+      {
+        id: 'doc2-lifetime-honor-92',
+        text: '의료계 원로로서 공로상과 함께 기념 사업 지원금을 받는다',
+        deltas: { wealth: 2, fame: 2 },
+        result: '오랜 세월의 헌신이, 마지막 순간 조명받았다.',
+        requiresOccupation: ['doctor']
+      }
     ]
   },
   {
