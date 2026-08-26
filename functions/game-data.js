@@ -4332,7 +4332,9 @@ const STAGES = [
         id: 'streaming-debut',
         text: '다니던 학교를 관두고 방송을 시작해본다',
         deltas: { fame: 12, wealth: -6, health: -4, happiness: 4 },
-        result: '통장은 늘 아슬아슬했지만, 카메라 앞에 있는 순간만큼은 살아있는 기분이었다.'
+        result: '통장은 늘 아슬아슬했지만, 카메라 앞에 있는 순간만큼은 살아있는 기분이었다.',
+        setOccupation: { id: 'streamer', label: '🎥 스트리머' },
+        startsRoute: { id: 'streamer', label: '🎥 스트리머', maxDurationYears: 15 }
       },
       {
         id: 'trade-skill',
@@ -5167,6 +5169,38 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'str-early-gear-investment-20',
+        text: '방송 장비에 초기 자금을 아낌없이 투자한다',
+        deltas: { wealth: -3, happiness: 2 },
+        result: '화질과 음질이 좋아지니, 조금은 프로 같아 보였다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-no-viewers-grind-20',
+        text: '보는 사람이 아무도 없는 방송을 묵묵히 이어간다',
+        deltas: { happiness: -3 },
+        result: '숫자 0이 찍힌 시청자 창을 보며, 그래도 마이크를 껐다 켰다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-sleep-schedule-collapse-20',
+        text: '늦은 밤까지 이어지는 방송 준비로 생활 패턴이 완전히 무너진다',
+        deltas: { health: -2, happiness: -1 },
+        result: '해가 뜰 때 잠드는 게 어느새 당연한 일이 됐다.',
+        requiresRoute: 'streamer'
+      }
+    ,
+      {
+        id: 'deviant-str-fake-viewer-bots-20',
+        text: '실제보다 많아 보이려고 시청자 수를 늘려주는 봇을 몰래 돌린다',
+        requiresRoute: 'streamer',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { fame: 3 }, result: '숫자가 늘어난 방송이, 조금 더 그럴듯해 보였다.' },
+          { weight: 10, label: '발각', deltas: { fame: -4, happiness: -2 }, result: '플랫폼 어뷰징 탐지에 걸려 계정 경고를 받았다.' }
+        ]
+      }
     ]
   },
   {
@@ -5835,6 +5869,31 @@ const STAGES = [
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '세금 낼 걱정이 줄어드니, 마음이 한결 가벼웠다.' },
           { weight: 10, label: '발각', deltas: { wealth: -2, fame: -2 }, result: '세무서 현장 조사에서 누락된 매출이 그대로 드러났다.' }
+        ]
+      }
+    ,
+      {
+        id: 'str-viral-clip-blowup-21',
+        text: '우연히 올린 짧은 클립 하나가 알고리즘을 타며 폭발적으로 떡상한다',
+        deltas: { fame: 8, happiness: 4 },
+        result: '자고 일어나니 알림이 수백 개 쌓여 있었다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-hate-comment-burnout-21',
+        text: '악플러들의 인신공격성 댓글에 시달리며 정신적으로 지친다',
+        deltas: { happiness: -4, health: -1 },
+        result: '방송이 끝나도 마음속엔 날 선 문장들이 계속 맴돌았다.',
+        requiresRoute: 'streamer'
+      }
+    ,
+      {
+        id: 'deviant-str-sponsor-money-diversion-21',
+        text: '지인 이름으로 별도 계좌를 만들어 후원금 일부를 몰래 빼돌린다',
+        requiresRoute: 'streamer',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '아무도 눈치채지 못한 채, 여윳돈이 조금씩 쌓였다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, relationship: -3 }, result: '팬이 직접 계좌 내역을 캐물으며 신뢰가 무너졌다.' }
         ]
       }
     ]
@@ -6575,6 +6634,38 @@ const STAGES = [
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { fame: 2, happiness: 2 }, result: '별점이 오르는 걸 보며 흐뭇해했다.' },
           { weight: 10, label: '발각', deltas: { fame: -4, happiness: -2 }, result: '같은 IP 리뷰라는 게 밝혀지며 "조작 논란"에 휩싸였다.' }
+        ]
+      }
+    ,
+      {
+        id: 'str-big-collab-22',
+        text: '유명 스트리머와 첫 콜라보 방송을 진행한다',
+        deltas: { fame: 5, relationship: 1 },
+        result: '평소 팬이었던 상대와 나란히 앉으니 손이 다 떨렸다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-copyright-strike-22',
+        text: '저작권 스트라이크를 맞아 채널이 일시 정지된다',
+        deltas: { wealth: -3, happiness: -3 },
+        result: '몇 년 치 영상이 순식간에 사라질 뻔한 아찔한 경험이었다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-giveaway-out-of-pocket-22',
+        text: '시청자 이벤트에 필요한 경품을 사비로 준비한다',
+        deltas: { wealth: -2, happiness: 2 },
+        result: '당첨자의 감사 인사에, 지갑 사정은 잠시 잊혔다.',
+        requiresRoute: 'streamer'
+      }
+    ,
+      {
+        id: 'deviant-str-fake-sponsorship-claim-22',
+        text: '실제로 받지 않은 협찬을 받은 것처럼 광고성 리뷰를 올린다',
+        requiresRoute: 'streamer',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '가짜 협찬 티가 안 나서, 별 탈 없이 지나갔다.' },
+          { weight: 10, label: '발각', deltas: { fame: -4, happiness: -2 }, result: '해당 업체가 직접 부인하며 "뒷광고" 논란이 됐다.' }
         ]
       }
     ]
@@ -7339,6 +7430,40 @@ const STAGES = [
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '인건비를 아낀 만큼, 통장 잔고가 두둑해졌다.' },
           { weight: 18, label: '발각', deltas: { wealth: -6, fame: -5, relationship: -3 }, result: '노동청 진정이 접수되며 체불 임금을 전액 물어줘야 했다.' }
+        ]
+      }
+    ,
+      {
+        id: 'str-donation-income-surge-23',
+        text: '후원(도네이션) 수익이 본업 수준을 훌쩍 넘어선다',
+        deltas: { wealth: 6, happiness: 3 },
+        result: '통장을 확인하며, 이 길을 택하길 잘했다는 확신이 들었다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-donation-terror-23',
+        text: '악성 후원(도네이션 테러)에 시달리며 방송 중 곤욕을 치른다',
+        deltas: { happiness: -4 },
+        result: '차마 읽을 수 없는 메시지가 화면 위로 계속 흘러갔다.',
+        requiresRoute: 'streamer'
+      }
+    ,
+      {
+        id: 'deviant-str-copyright-piracy-23',
+        text: '허락 없이 남의 영상·음악을 몰래 도용해 콘텐츠에 쓴다',
+        requiresRoute: 'streamer',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '편하게 만든 만큼, 시간을 크게 아꼈다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6 }, result: '원저작자의 신고로 콘텐츠가 전부 내려가는 곤욕을 치렀다.' }
+        ]
+      },
+      {
+        id: 'deviant-str-fake-controversy-farming-23',
+        text: '일부러 자극적인 거짓 논란을 만들어 화제성을 키운다',
+        requiresRoute: 'streamer',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { fame: 6 }, result: '조회수가 폭발적으로 늘며, 원했던 화제성을 얻었다.' },
+          { weight: 18, label: '발각', deltas: { fame: -8, happiness: -5, relationship: -3 }, result: '조작이 들통나며 "어그로" 방송인이라는 낙인이 찍혔다.' }
         ]
       }
     ]
@@ -8203,6 +8328,38 @@ const STAGES = [
           { weight: 18, label: '발각', deltas: { wealth: -5, fame: -8, happiness: -4 }, result: '원산지 표시 위반이 적발되며 뉴스에까지 오르내렸다.' }
         ]
       }
+    ,
+      {
+        id: 'str-membership-launch-24',
+        text: '유료 멤버십(구독) 시스템을 도입해 안정적인 수익 구조를 만든다',
+        deltas: { wealth: 4 },
+        result: '매달 들어오는 고정 수입이, 마음을 한결 편하게 해줬다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-24hour-challenge-24',
+        text: '무리한 24시간 스트리밍 챌린지에 도전한다',
+        deltas: { health: -5, fame: 3 },
+        result: '방송이 끝난 뒤, 며칠을 앓아누워야 했다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-content-idea-drought-24',
+        text: '방송 콘텐츠 아이디어가 고갈돼 슬럼프에 빠진다',
+        deltas: { happiness: -3 },
+        result: '빈 화면을 켜놓고, 한참을 아무 말도 하지 못했다.',
+        requiresRoute: 'streamer'
+      }
+    ,
+      {
+        id: 'deviant-str-undeclared-ad-income-24',
+        text: '광고·협찬 수입 상당 부분을 세금 신고에서 누락시킨다',
+        requiresRoute: 'streamer',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '신고 안 한 수입이, 조용히 통장에 쌓여만 갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+        ]
+      }
     ]
   },
   {
@@ -8976,6 +9133,31 @@ const STAGES = [
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { wealth: 2 }, result: '점검관은 별다른 문제를 발견하지 못했다.' },
           { weight: 10, label: '발각', deltas: { fame: -4, happiness: -2 }, result: '불시 재점검에서 위생 상태가 그대로 드러나 영업정지 경고를 받았다.' }
+        ]
+      }
+    ,
+      {
+        id: 'str-mcn-contract-25',
+        text: '다중 채널 네트워크(MCN)와 계약하며 소속 방송인이 된다',
+        deltas: { wealth: 3, relationship: 2 },
+        result: '혼자가 아니라는 사실이, 생각보다 큰 위안이 됐다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-onair-privacy-incident-25',
+        text: '사생활이 노출되는 방송 사고를 겪으며 큰 곤욕을 치른다',
+        deltas: { happiness: -5, fame: -3 },
+        result: '되돌릴 수 없는 몇 초가, 오래도록 발목을 잡았다.',
+        requiresRoute: 'streamer'
+      }
+    ,
+      {
+        id: 'deviant-str-doxxing-rival-25',
+        text: '경쟁 스트리머의 개인정보를 몰래 캐내 커뮤니티에 흘린다',
+        requiresRoute: 'streamer',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { fame: 3 }, result: '상대의 곤란한 처지를, 남몰래 지켜봤다.' },
+          { weight: 18, label: '발각', deltas: { fame: -9, happiness: -6, relationship: -4 }, result: '유포자로 지목되며 "신상 유출" 가해자라는 비난을 받았다.' }
         ]
       }
     ]
@@ -9810,6 +9992,47 @@ const STAGES = [
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '신고 안 한 돈이, 조용히 쌓여만 갔다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+        ]
+      }
+    ,
+      {
+        id: 'str-fanmeeting-26',
+        text: '팬미팅을 열어 실제 시청자들과 처음으로 만난다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '화면 너머의 얼굴들을 직접 보니, 모든 게 새삼 실감났다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-rival-feud-26',
+        text: '경쟁 스트리머와의 갈등이 여론전으로 번진다',
+        deltas: { happiness: -3, fame: -2 },
+        result: '양쪽 팬덤까지 가세하며, 사태가 걷잡을 수 없이 커졌다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-new-category-pivot-26',
+        text: '요리·토크 등 새로운 카테고리로 방송 영역을 넓혀본다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '낯선 시도였지만, 의외로 반응이 나쁘지 않았다.',
+        requiresRoute: 'streamer'
+      }
+    ,
+      {
+        id: 'deviant-str-underage-content-exploit-26',
+        text: '미성년 시청자를 겨냥한 자극적인 콘텐츠로 화제를 노린다',
+        requiresRoute: 'streamer',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { fame: 4 }, result: '조회수는 늘었지만, 마음 한구석이 편치 않았다.' },
+          { weight: 18, label: '발각', deltas: { fame: -10, happiness: -6, relationship: -3 }, result: '청소년보호법 위반 논란이 커지며 방송 정지 조치를 받았다.' }
+        ]
+      },
+      {
+        id: 'deviant-str-gambling-stream-26',
+        text: '불법 도박 사이트를 몰래 홍보하며 뒷돈을 받는다',
+        requiresRoute: 'streamer',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '뒷광고 수익이, 남몰래 통장에 꽂혔다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, fame: -9, happiness: -4 }, result: '불법 도박 알선 정황이 드러나며 채널이 통째로 정지됐다.' }
         ]
       }
     ]
@@ -10676,6 +10899,31 @@ const STAGES = [
           { weight: 10, label: '발각', deltas: { fame: -3, relationship: -2 }, result: '억울함을 호소하는 후기 글이 퍼지며 평판에 금이 갔다.' }
         ]
       }
+    ,
+      {
+        id: 'str-game-sponsorship-27',
+        text: '게임사와 정식 협찬 계약을 맺는다',
+        deltas: { wealth: 5 },
+        result: '더 이상 사비로 게임을 살 필요가 없다는 게, 새삼 신기했다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-burnout-break-27',
+        text: '번아웃이 찾아와 며칠간 방송을 완전히 쉰다',
+        deltas: { happiness: -3, health: 2 },
+        result: '죄책감이 들었지만, 몸이 먼저 멈추라고 신호를 보냈다.',
+        requiresRoute: 'streamer'
+      }
+    ,
+      {
+        id: 'deviant-str-fake-charity-stream-27',
+        text: '자선 방송인 척 모금하고 기부금 일부를 몰래 빼돌린다',
+        requiresRoute: 'streamer',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '아무도 의심하지 않는 눈치라, 안도했다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '기부금 횡령 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+        ]
+      }
     ]
   },
   {
@@ -11406,6 +11654,47 @@ const STAGES = [
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '번거로운 보수 공사를 하지 않아도 돼, 마음이 놓였다.' },
           { weight: 18, label: '발각', deltas: { wealth: -6, fame: -7, happiness: -4 }, result: '안전서류 조작 사실이 드러나며 영업정지 처분을 받았다.' }
+        ]
+      }
+    ,
+      {
+        id: 'str-offline-event-guest-28',
+        text: '오프라인 행사 무대에 게스트로 초청된다',
+        deltas: { fame: 4, wealth: 2 },
+        result: '화면이 아닌 무대 조명 아래 서는 건, 또 다른 긴장감이었다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-platform-migration-28',
+        text: '더 나은 조건을 찾아 플랫폼을 옮기며 시청자 이탈을 감수한다',
+        deltas: { wealth: -2, fame: -2 },
+        result: '옮긴 첫 주, 텅 빈 채팅창이 유난히 낯설게 느껴졌다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-charity-stream-28',
+        text: '시청자들과 함께하는 자선 방송으로 기부금을 모은다',
+        deltas: { happiness: 4, fame: 2 },
+        result: '숫자로 찍히는 후원금보다, 함께한다는 마음이 더 크게 다가왔다.',
+        requiresRoute: 'streamer'
+      }
+    ,
+      {
+        id: 'deviant-str-editor-uncredited-28',
+        text: '편집자의 작업물을 자기 실력인 것처럼 소개한다',
+        requiresRoute: 'streamer',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { fame: 2 }, result: '실력 있어 보인다는 댓글에, 조용히 뿌듯해했다.' },
+          { weight: 10, label: '발각', deltas: { fame: -4, relationship: -3 }, result: '전 편집자의 폭로로 "노예 노동" 논란에 휩싸였다.' }
+        ]
+      },
+      {
+        id: 'deviant-str-manager-unpaid-labor-28',
+        text: '개인 매니저에게 계약에 없는 잡무를 무급으로 시킨다',
+        requiresRoute: 'streamer',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 2 }, result: '편했지만, 크게 신경 쓰지 않았다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, relationship: -3 }, result: '매니저의 폭로 글이 퍼지며 "갑질 방송인" 논란이 됐다.' }
         ]
       }
     ]
@@ -12154,6 +12443,41 @@ const STAGES = [
           { weight: 10, label: '발각', deltas: { wealth: -2, relationship: -3 }, result: '뒷말이 돌기 시작하며 껄끄러운 사이가 생겼다.' }
         ]
       }
+    ,
+      {
+        id: 'str-merch-launch-29',
+        text: '자체 굿즈를 제작해 판매한다',
+        deltas: { wealth: 4, happiness: 2 },
+        result: '내 이름이 박힌 물건을 들고 다니는 팬들을 보니 뿌듯했다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-data-leak-scare-29',
+        text: '실시간 방송 사고로 개인정보가 유출될 뻔한 아찔한 순간을 겪는다',
+        deltas: { happiness: -3, health: -1 },
+        result: '식은땀이 흐르는 몇 분이 지나서야 겨우 화면을 껐다.',
+        requiresRoute: 'streamer'
+      }
+    ,
+      {
+        id: 'deviant-str-merch-defect-coverup-29',
+        text: '불량이 많은 걸 알면서도 자체 굿즈를 그대로 판매한다',
+        requiresRoute: 'streamer',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '재고를 그대로 처분하며, 손실을 피했다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -3, fame: -4 }, result: '환불 요청이 쏟아지며 소비자원에 민원이 접수됐다.' }
+        ]
+      }
+    ,
+      {
+        id: 'deviant-str-fake-apology-pr-stunt-29',
+        text: '논란을 무마하려 진정성 없는 사과 영상을 미리 짜고 연기한다',
+        requiresRoute: 'streamer',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '눈물 연기가 통했는지, 여론이 금세 잠잠해졌다.' },
+          { weight: 10, label: '발각', deltas: { fame: -5, happiness: -3 }, result: '대본이 유출되며 "가짜 사과" 논란이 두 배로 커졌다.' }
+        ]
+      }
     ]
   },
   {
@@ -12853,6 +13177,47 @@ const STAGES = [
           { weight: 18, label: '발각', deltas: { wealth: -5, fame: -6, relationship: -4 }, result: '직원의 신고로 노동청 조사를 받으며 체불 임금을 물어냈다.' }
         ]
       }
+    ,
+      {
+        id: 'str-mentor-junior-30',
+        text: '후배 스트리머를 발굴해 멘토링을 시작한다',
+        deltas: { relationship: 3, happiness: 2 },
+        result: '내가 겪었던 시행착오를 조금이라도 덜어주고 싶었다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-stamina-decline-30',
+        text: '장시간 방송으로 인한 체력 저하를 절실히 실감한다',
+        deltas: { health: -3 },
+        result: '예전 같지 않은 몸 상태에, 처음으로 나이를 의식했다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-legacy-media-offer-30',
+        text: '방송국(레거시 미디어) 출연 제안을 받는다',
+        deltas: { fame: 5, wealth: 2 },
+        result: '작은 화면 밖에서도 나를 알아본다는 사실이 낯설고도 뿌듯했다.',
+        requiresRoute: 'streamer'
+      }
+    ,
+      {
+        id: 'deviant-str-plagiarized-content-format-30',
+        text: '해외 인기 방송 포맷을 그대로 베껴 새 콘텐츠인 척 내놓는다',
+        requiresRoute: 'streamer',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { fame: 4 }, result: '반응이 좋았고, 아무도 원작을 알아채지 못했다.' },
+          { weight: 18, label: '발각', deltas: { fame: -7, happiness: -4 }, result: '원작자가 직접 비교 영상을 올리며 표절 논란이 커졌다.' }
+        ]
+      },
+      {
+        id: 'deviant-str-fake-collab-schedule-30',
+        text: '협업 상대와 상의 없이 콜라보를 확정된 것처럼 미리 홍보한다',
+        requiresRoute: 'streamer',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { fame: 3 }, result: '홍보 효과는 확실했고, 뒷수습도 무난했다.' },
+          { weight: 10, label: '발각', deltas: { fame: -4, relationship: -3 }, result: '상대측이 직접 부인하며 민망한 상황이 벌어졌다.' }
+        ]
+      }
     ]
   },
   {
@@ -13543,6 +13908,38 @@ const STAGES = [
           { weight: 18, label: '발각', deltas: { wealth: -6, fame: -6, relationship: -3 }, result: '산재 은폐 사실이 드러나며 근로감독 조사를 받았다.' }
         ]
       }
+    ,
+      {
+        id: 'str-youtube-expansion-31',
+        text: '방송 활동을 기반으로 유튜브 채널까지 확장한다',
+        deltas: { wealth: 5, fame: 3 },
+        result: '편집이라는 새로운 산이 기다리고 있었지만, 수확은 확실했다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-management-dispute-31',
+        text: '매니지먼트와의 정산 문제로 갈등을 겪는다',
+        deltas: { happiness: -3, relationship: -2 },
+        result: '믿었던 만큼, 배신감도 컸다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-old-fans-leaving-31',
+        text: '오래된 팬들이 하나둘 떠나가는 걸 지켜보며 씁쓸함을 느낀다',
+        deltas: { happiness: -2, relationship: -1 },
+        result: '유행은 흘러가고, 남는 사람만 남는다는 걸 실감했다.',
+        requiresRoute: 'streamer'
+      }
+    ,
+      {
+        id: 'deviant-str-agency-fund-embezzlement-31',
+        text: '소속사 정산 시스템의 허점을 이용해 정산금을 몰래 부풀려 받는다',
+        requiresRoute: 'streamer',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '아무도 확인하지 않는 틈을 타, 조용히 챙겼다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -5, fame: -7, relationship: -4 }, result: '정산 내역 감사에서 부풀린 금액이 그대로 드러나 소속사와 큰 갈등을 겪었다.' }
+        ]
+      }
     ]
   },
   {
@@ -14178,6 +14575,32 @@ const STAGES = [
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '재료비를 아낀 만큼, 마진이 조금 늘었다.' },
           { weight: 18, label: '발각', deltas: { wealth: -7, fame: -9, happiness: -4 }, result: '식중독 신고가 접수되며 위생 점검에서 그대로 적발됐다.' }
+        ]
+      }
+    ,
+      {
+        id: 'str-first-major-sponsor-32',
+        text: '인생 첫 대형 스폰서 계약을 성사시킨다',
+        deltas: { wealth: 8, fame: 3 },
+        result: '계약서에 찍힌 숫자를 보고도, 한참 실감이 나지 않았다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-burnout-retirement-32',
+        text: '번아웃 끝에 방송 활동을 완전히 그만두기로 결심한다',
+        deltas: { happiness: 2 },
+        result: '카메라를 끄던 순간, 후련함과 아쉬움이 동시에 밀려왔다.',
+        requiresRoute: 'streamer',
+        endsRoute: true
+      }
+    ,
+      {
+        id: 'deviant-str-fake-follower-purchase-32',
+        text: '해외 업체를 통해 가짜 구독자·팔로워를 대량으로 구매한다',
+        requiresRoute: 'streamer',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { fame: 4 }, result: '숫자가 부쩍 늘어난 채널이, 훨씬 그럴듯해 보였다.' },
+          { weight: 10, label: '발각', deltas: { fame: -5, happiness: -2 }, result: '플랫폼 정책 위반으로 채널 인증이 박탈됐다.' }
         ]
       }
     ]
@@ -14838,6 +15261,48 @@ const STAGES = [
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '신고 금액이 줄어든 만큼, 부담도 가벼워졌다.' },
           { weight: 10, label: '발각', deltas: { wealth: -3, fame: -2 }, result: '매입·매출 대사 과정에서 차이가 드러나 추징금을 물었다.' }
+        ]
+      }
+    ,
+      {
+        id: 'str-farewell-broadcast-33',
+        text: '오랜 방송 생활을 정리하며 은퇴 방송을 진행한다',
+        deltas: { happiness: 5, fame: 2 },
+        result: '마지막 채팅창을 가득 채운 인사말에, 눈시울이 붉어졌다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-passing-the-torch-33',
+        text: '후배들에게 그동안의 노하우를 전수하는 마지막 강연을 연다',
+        deltas: { relationship: 3, happiness: 2 },
+        result: '내가 받았던 도움을, 이제는 돌려줄 차례였다.',
+        requiresRoute: 'streamer'
+      },
+      {
+        id: 'str-post-retirement-plans-33',
+        text: '은퇴 후 정말 하고 싶었던 일에 대한 고민을 시작한다',
+        deltas: { happiness: 1 },
+        result: '방송이 전부였던 삶에도, 다음 페이지가 있다는 걸 깨달았다.',
+        requiresRoute: 'streamer'
+      }
+    ,
+      {
+        id: 'deviant-str-legacy-clip-monetize-fraud-33',
+        text: '은퇴를 앞두고 저작권이 불분명한 옛 영상들을 긁어모아 수익화한다',
+        requiresRoute: 'streamer',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '마지막까지 알뜰하게, 수익을 챙겼다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -4, fame: -5 }, result: '권리자들의 무더기 신고로 채널 수익화가 정지됐다.' }
+        ]
+      }
+    ,
+      {
+        id: 'deviant-str-borrowed-content-idea-33',
+        text: '다른 스트리머의 콘텐츠 아이디어를 몰래 베껴 먼저 올린다',
+        requiresRoute: 'streamer',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { fame: 3 }, result: '먼저 올린 덕에, 아이디어의 주인공처럼 보였다.' },
+          { weight: 10, label: '발각', deltas: { fame: -4, relationship: -2 }, result: '원작자가 타임스탬프를 공개하며 "아이디어 도용" 지적을 받았다.' }
         ]
       }
     ]
