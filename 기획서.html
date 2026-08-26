@@ -5391,6 +5391,30 @@
         <code>addAsset</code>/<code>removeAsset</code> 필드가 정확히 들어갔는지 스크립트로 재확인,
         id 중복 0건·배열 홀 0건 재확인. 순수 추가 diff,
         <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
+
+        <h3>여행 계열 선택지 전체에 현금 충분 조건 추가 + 지출 1천만원 상한(2026-08-26, 사용자
+        지시 - "여행 계열도 반드시 현금이 필요한 조건을 걸어줘. 대신 여행관련 선택지는 현금지출이
+        1천만원을 넘지 않게 해줘")</h3>
+        <p>직전에 <code>family-trip-reconciliation</code>이 <code>requiresSufficientCash</code>
+        없이 항상 선택 가능한 걸 확인시켜준 뒤, 여행 계열 전체에 이 조건을 걸어달라는 요청. 실제
+        원화 비용은 <code>|deltas.wealth| × cashUnitForAge(나이)</code>로 계산되는데, 나이대별
+        환율이 20대 825만원/포인트, <b>30~64세 1,300만~1,350만원/포인트</b>, 65세+ 520만원/포인트라
+        - 1천만원 상한을 엄격히 지키려면 30~64세는 재산 델타가 <b>0</b>이어야 하는(즉 사실상
+        무료 여행이 되는) 딜레마가 있음을 먼저 설명하고, "이 구간만 델타 0" vs "전 연령대 일괄
+        -1(30~64세만 1,300만~1,350만원으로 소폭 초과)" 중 후자를 사용자가 선택.</p>
+        <p>텍스트에 "여행"·"트립"이 들어가거나 id에 <code>trip</code>이 포함된 선택지 72개를
+        전수 조사 - 재산 델타가 없거나 0 이상인 19개(무료 소풍·출장·낚시 등 실제 지출이 없는
+        것, <code>deviant-*</code> 계열 사기성 무료 여행 3개는 <code>prizeTable</code> 구조라
+        고정 비용 개념 자체가 없어 제외)는 그대로 두고, <b>재산 델타가 음수인 53개</b> 전부
+        <code>deltas.wealth</code>를 <code>-1</code>로 통일하고
+        <code>requiresSufficientCash: true</code>를 추가했다(기존에 이미 있던
+        <code>japan-trip-golf-package-40</code> 1건도 -5→-1로 맞춤).</p>
+        <p class="note"><b>검증.</b> <code>node -c game-data.js</code> 통과. 대상 53개 전부
+        <code>wealth === -1</code> ∧ <code>requiresSufficientCash === true</code>임을 스크립트로
+        재확인. <code>requiresLocation</code>/<code>setLocation</code>처럼 선택지마다 다르게 붙어
+        있던 기존 필드들이 그대로 보존됐는지 diff로 육안 확인(재산 외 스탯 델타 - happiness/
+        health/relationship - 는 전혀 건드리지 않음). id 중복 0건, 배열 홀 0건. 순수 수정 diff
+        확인 후 <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>

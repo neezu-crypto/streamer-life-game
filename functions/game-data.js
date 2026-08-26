@@ -3908,8 +3908,9 @@ const STAGES = [
       {
         id: 'japan-trip-cherry-blossom-19',
         text: '친구들과 벚꽃철 일본 여행을 떠난다',
-        deltas: { happiness: 4, wealth: -3 },
-        result: '흩날리는 벚꽃 아래서, 사진을 몇 장이나 찍었는지 몰랐다.'
+        deltas: { happiness: 4, wealth: -1 },
+        result: '흩날리는 벚꽃 아래서, 사진을 몇 장이나 찍었는지 몰랐다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -4365,7 +4366,8 @@ const STAGES = [
         id: 'first-solo-travel',
         text: '혼자 떠난 첫 여행에서 낯선 자유를 만끽한다',
         deltas: { happiness: 3, wealth: -1 },
-        result: '아무 계획 없이 걷는 하루가, 이렇게 좋을 줄 몰랐다.'
+        result: '아무 계획 없이 걷는 하루가, 이렇게 좋을 줄 몰랐다.',
+        requiresSufficientCash: true
       },
       // 연예계 연습생 루트 4년차 - 데뷔 평가를 앞둔 마지막 스퍼트
       {
@@ -4972,50 +4974,56 @@ const STAGES = [
       {
         id: 'long-trip-decision-20',
         text: '모아둔 돈으로 장기 해외여행을 떠나기로 결심한다',
-        deltas: { happiness: 5, wealth: -3 },
+        deltas: { happiness: 5, wealth: -1 },
         result: '짐을 꾸리는 손길에도, 설렘이 묻어났다.',
         requiresLocation: ['domestic'],
-        setLocation: { id: 'abroad', label: '🌍 해외' }
+        setLocation: { id: 'abroad', label: '🌍 해외' },
+        requiresSufficientCash: true
       },
       {
         id: 'long-trip-backpack-20',
         text: '배낭 하나만 메고 무작정 해외로 떠난다',
-        deltas: { happiness: 6, wealth: -4, health: -1 },
+        deltas: { happiness: 6, wealth: -1, health: -1 },
         result: '낯선 공항에 첫발을 내딛는 순간, 심장이 두근거렸다.',
         requiresLocation: ['domestic'],
-        setLocation: { id: 'abroad', label: '🌍 해외' }
+        setLocation: { id: 'abroad', label: '🌍 해외' },
+        requiresSufficientCash: true
       },
       {
         id: 'long-trip-friend-along-20',
         text: '친구와 의기투합해 함께 해외로 떠난다',
-        deltas: { happiness: 5, wealth: -3, relationship: 3 },
+        deltas: { happiness: 5, wealth: -1, relationship: 3 },
         result: '둘이라 무서울 게 없다는 마음으로, 비행기에 올랐다.',
         requiresLocation: ['domestic'],
-        setLocation: { id: 'abroad', label: '🌍 해외' }
+        setLocation: { id: 'abroad', label: '🌍 해외' },
+        requiresSufficientCash: true
       },
       {
         id: 'long-trip-solo-20',
         text: '혼자만의 시간을 갖고 싶어 홀로 해외로 떠난다',
-        deltas: { happiness: 4, wealth: -2, relationship: -2 },
+        deltas: { happiness: 4, wealth: -1, relationship: -2 },
         result: '누구의 일정에도 맞추지 않아도 되는 자유가, 낯설고도 좋았다.',
         requiresLocation: ['domestic'],
-        setLocation: { id: 'abroad', label: '🌍 해외' }
+        setLocation: { id: 'abroad', label: '🌍 해외' },
+        requiresSufficientCash: true
       },
       {
         id: 'long-trip-gap-year-20',
         text: '휴학을 하고 갭이어 삼아 해외로 떠난다',
-        deltas: { happiness: 5, wealth: -3 },
+        deltas: { happiness: 5, wealth: -1 },
         result: '학교보다 먼저, 세상을 배우고 싶었다.',
         requiresLocation: ['domestic'],
-        setLocation: { id: 'abroad', label: '🌍 해외' }
+        setLocation: { id: 'abroad', label: '🌍 해외' },
+        requiresSufficientCash: true
       },
       {
         id: 'long-trip-sudden-20',
         text: '충동적으로 편도 항공권을 끊고 해외로 떠난다',
-        deltas: { happiness: 7, wealth: -5 },
+        deltas: { happiness: 7, wealth: -1 },
         result: '계획 없는 여행이, 오히려 홀가분했다.',
         requiresLocation: ['domestic'],
-        setLocation: { id: 'abroad', label: '🌍 해외' }
+        setLocation: { id: 'abroad', label: '🌍 해외' },
+        requiresSufficientCash: true
       },
       // 연예계 연습생 루트 - 데뷔 갈림길(2026-08-22 29세까지 확장). 성공하면
       // setOccupation으로 직업이 아이돌로 바뀌며 21세부터 이어지는 콘텐츠가
@@ -5111,8 +5119,9 @@ const STAGES = [
       {
         id: 'japan-trip-osaka-food-tour-21',
         text: '오사카로 먹방 여행을 떠난다',
-        deltas: { happiness: 5, wealth: -3 },
-        result: '다코야키와 오코노미야키에, 지갑보다 배가 먼저 터질 뻔했다.'
+        deltas: { happiness: 5, wealth: -1 },
+        result: '다코야키와 오코노미야키에, 지갑보다 배가 먼저 터질 뻔했다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -5589,8 +5598,9 @@ const STAGES = [
       {
         id: 'gap-year-trip',
         text: '휴학하고 훌쩍 장기 여행을 떠난다',
-        deltas: { wealth: -6, happiness: 6 },
-        result: '통장은 텅 비었지만, 그 몇 달이 평생 곱씹을 이야깃거리가 됐다.'
+        deltas: { wealth: -1, happiness: 6 },
+        result: '통장은 텅 비었지만, 그 몇 달이 평생 곱씹을 이야깃거리가 됐다.',
+        requiresSufficientCash: true
       },
       {
         id: 'building-portfolio',
@@ -5793,8 +5803,9 @@ const STAGES = [
       {
         id: 'japan-trip-akihabara-pilgrimage-22',
         text: '아키하바라로 오타쿠 성지순례를 떠난다',
-        deltas: { happiness: 5, wealth: -4 },
-        result: '피규어 매장 사이를 걷는 내내, 시간 가는 줄 몰랐다.'
+        deltas: { happiness: 5, wealth: -1 },
+        result: '피규어 매장 사이를 걷는 내내, 시간 가는 줄 몰랐다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -6469,8 +6480,9 @@ const STAGES = [
       {
         id: 'japan-trip-tokyo-disneyland-23',
         text: '도쿄 디즈니랜드에서 하루 종일 논다',
-        deltas: { happiness: 5, wealth: -4 },
-        result: '동심으로 돌아간 하루가, 생각보다 훨씬 즐거웠다.'
+        deltas: { happiness: 5, wealth: -1 },
+        result: '동심으로 돌아간 하루가, 생각보다 훨씬 즐거웠다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -8025,8 +8037,9 @@ const STAGES = [
       {
         id: 'japan-trip-shinkansen-25',
         text: '신칸센을 타고 여러 도시를 빠르게 돌아본다',
-        deltas: { happiness: 3, wealth: -3 },
-        result: '창밖 풍경이 순식간에 바뀌는 속도가, 신기하기만 했다.'
+        deltas: { happiness: 3, wealth: -1 },
+        result: '창밖 풍경이 순식간에 바뀌는 속도가, 신기하기만 했다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -8381,9 +8394,10 @@ const STAGES = [
       {
         id: 'preburnout-escape-trip',
         text: '번아웃 직전, 훌쩍 짧은 퇴사 여행을 다녀온다',
-        deltas: { happiness: 5, wealth: -3 },
+        deltas: { happiness: 5, wealth: -1 },
         result: '퇴사는 아니었지만, 며칠은 온전히 도망쳤다.',
-        requiresAnyOccupation: true
+        requiresAnyOccupation: true,
+        requiresSufficientCash: true
       },
       {
         id: 'office-romance',
@@ -8756,8 +8770,9 @@ const STAGES = [
       {
         id: 'japan-trip-onsen-ryokan-26',
         text: '온천 료칸에서 하룻밤 묵으며 피로를 푼다',
-        deltas: { happiness: 5, wealth: -4 },
-        result: '따뜻한 물에 몸을 담그니, 여행의 피로가 싹 가셨다.'
+        deltas: { happiness: 5, wealth: -1 },
+        result: '따뜻한 물에 몸을 담그니, 여행의 피로가 싹 가셨다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -9547,7 +9562,8 @@ const STAGES = [
         id: 'japan-trip-lost-in-tokyo-27',
         text: '도쿄 지하철에서 길을 잃고 헤맨다',
         deltas: { happiness: -2, wealth: -1 },
-        result: '환승만 몇 번을 반복하다, 결국 역무원의 도움을 받았다.'
+        result: '환승만 몇 번을 반복하다, 결국 역무원의 도움을 받았다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -10238,7 +10254,8 @@ const STAGES = [
         id: 'first-solo-trip-27',
         text: '혼자 떠나는 여행을 처음으로 계획한다',
         deltas: { happiness: 2, wealth: -1 },
-        result: '낯선 길 위에서, 온전히 나만의 속도로 걸었다.'
+        result: '낯선 길 위에서, 온전히 나만의 속도로 걸었다.',
+        requiresSufficientCash: true
       },
       {
         id: 'workplace-friend-betrayal-27',
@@ -10366,8 +10383,9 @@ const STAGES = [
       {
         id: 'japan-trip-kyoto-temple-28',
         text: '교토의 오래된 사찰들을 천천히 둘러본다',
-        deltas: { happiness: 4, wealth: -2 },
-        result: '고요한 절 마당을 걷는 것만으로도, 마음이 차분해졌다.'
+        deltas: { happiness: 4, wealth: -1 },
+        result: '고요한 절 마당을 걷는 것만으로도, 마음이 차분해졌다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -10572,11 +10590,12 @@ const STAGES = [
         "text": "광활한 대륙을 가로지르는 장거리 로드트립을 떠난다",
         "deltas": {
                 "happiness": 5,
-                "wealth": -2
+                "wealth": -1
         },
         "result": "끝없이 이어지는 도로가, 이 나라의 크기를 온몸으로 느끼게 했다.",
-        "requiresRoute": "us-settled-life"
-},
+        "requiresRoute": "us-settled-life",
+        requiresSufficientCash: true
+      },
       {
         "id": "se-national-farewell-28",
         "text": "국가대표 은퇴식 무대에 선다",
@@ -11056,7 +11075,8 @@ const STAGES = [
         id: 'japan-trip-convenience-store-food-29',
         text: '편의점 음식 투어에 진심으로 빠져든다',
         deltas: { happiness: 3, wealth: -1 },
-        result: '별거 아닌 삼각김밥 하나가, 여행의 소소한 즐거움이 됐다.'
+        result: '별거 아닌 삼각김밥 하나가, 여행의 소소한 즐거움이 됐다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -11441,8 +11461,9 @@ const STAGES = [
       {
         id: 'twenties-friends-trip',
         text: '20대를 함께한 친구들과 여행을 떠난다',
-        deltas: { relationship: 5, happiness: 4, wealth: -3 },
-        result: '다들 조금씩 변했지만, 웃는 포인트는 여전히 똑같았다.'
+        deltas: { relationship: 5, happiness: 4, wealth: -1 },
+        result: '다들 조금씩 변했지만, 웃는 포인트는 여전히 똑같았다.',
+        requiresSufficientCash: true
       },
       {
         id: 'weight-of-turning-thirty',
@@ -12436,9 +12457,10 @@ const STAGES = [
       {
         id: 'japan-trip-family-onsen-31',
         text: '가족과 함께 온천 여행을 떠난다',
-        deltas: { happiness: 4, wealth: -4, relationship: 2 },
+        deltas: { happiness: 4, wealth: -1, relationship: 2 },
         result: '뜨끈한 물속에서 나누는 대화가, 유독 편안했다.',
-        requiresFamilyMember: ["spouse","child","father","mother"]
+        requiresFamilyMember: ["spouse","child","father","mother"],
+        requiresSufficientCash: true
       },
 
       {
@@ -13680,8 +13702,9 @@ const STAGES = [
       {
         id: 'japan-trip-sapporo-snow-festival-33',
         text: '삿포로 눈축제에서 거대한 눈조각에 감탄한다',
-        deltas: { happiness: 5, wealth: -4 },
-        result: '눈으로 만든 성 앞에서, 한참을 넋 놓고 바라봤다.'
+        deltas: { happiness: 5, wealth: -1 },
+        result: '눈으로 만든 성 앞에서, 한참을 넋 놓고 바라봤다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -13791,12 +13814,13 @@ const STAGES = [
         "id": "ec-scouting-trip-33",
         "text": "해외까지 발품을 팔며 유망주를 직접 발굴한다",
         "deltas": {
-                "wealth": -2,
+                "wealth": -1,
                 "fame": 2
         },
         "result": "남들이 못 본 걸 먼저 알아본다는 게, 감독의 또 다른 재능이었다.",
-        "requiresRoute": "esports-coach"
-},
+        "requiresRoute": "esports-coach",
+        requiresSufficientCash: true
+      },
       {
         "id": "ec-life-exit-33",
         "text": "지도자 생활을 완전히 정리하기로 한다",
@@ -13844,11 +13868,12 @@ const STAGES = [
         "text": "국립공원을 순회하는 캠핑 여행을 떠난다",
         "deltas": {
                 "happiness": 5,
-                "wealth": -2
+                "wealth": -1
         },
         "result": "광활한 자연 앞에서, 그동안의 걱정들이 작아 보였다.",
-        "requiresRoute": "us-settled-life"
-},
+        "requiresRoute": "us-settled-life",
+        requiresSufficientCash: true
+      },
       {
         "id": "usl-ktown-festival-33",
         "text": "한인 사회 축제를 기획하고 함께 즐긴다",
@@ -14234,7 +14259,8 @@ const STAGES = [
         text: '팀 워크숍에 참여한다',
         deltas: {"happiness":3,"wealth":-1},
         result: '워크숍에서의 웃음이, 오래 쌓인 피로를 잠시 잊게 했다.',
-        requiresRoute: 'regular-employee'
+        requiresRoute: 'regular-employee',
+        requiresSufficientCash: true
       },
 
       {
@@ -14285,8 +14311,9 @@ const STAGES = [
       {
         id: 'japan-trip-fuji-climb-34',
         text: '후지산 등반에 도전한다',
-        deltas: { happiness: 4, health: -3, wealth: -2 },
-        result: '숨이 턱까지 차올랐지만, 정상에서 본 풍경은 그만한 가치가 있었다.'
+        deltas: { happiness: 4, health: -3, wealth: -1 },
+        result: '숨이 턱까지 차올랐지만, 정상에서 본 풍경은 그만한 가치가 있었다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -14898,9 +14925,10 @@ const STAGES = [
       {
         id: 'married-anniversary-trip',
         text: '배우자와 결혼기념일을 기념해 짧은 여행을 떠난다',
-        deltas: { happiness: 4, wealth: -3, relationship: 2 },
+        deltas: { happiness: 4, wealth: -1, relationship: 2 },
         result: '오랜만에 둘만의 시간이, 처음 만났을 때를 떠올리게 했다.',
-        requiresFamilyMember: ['spouse']
+        requiresFamilyMember: ['spouse'],
+        requiresSufficientCash: true
       },
       {
         id: 'parenting-picky-eater-worry',
@@ -15446,8 +15474,9 @@ const STAGES = [
       {
         id: 'japan-trip-hanabi-festival-36',
         text: '여름밤 하나비(불꽃축제)를 유카타 차림으로 즐긴다',
-        deltas: { happiness: 5, wealth: -2 },
-        result: '밤하늘을 수놓는 불꽃에, 잠시 모든 걸 잊었다.'
+        deltas: { happiness: 5, wealth: -1 },
+        result: '밤하늘을 수놓는 불꽃에, 잠시 모든 걸 잊었다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -15757,9 +15786,10 @@ const STAGES = [
       {
         id: 'trip-with-parents',
         text: '부모님과 여행을 다녀오며 소중한 시간을 쌓는다',
-        deltas: { relationship: 5, happiness: 4, wealth: -3 },
+        deltas: { relationship: 5, happiness: 4, wealth: -1 },
         result: '늦었지만, 그래도 지금이라 다행이라는 생각이 들었다.',
-        requiresFamilyMember: ['father', 'mother', 'single-parent']
+        requiresFamilyMember: ['father', 'mother', 'single-parent'],
+        requiresSufficientCash: true
       },
       {
         id: 'balancing-two-families',
@@ -16167,12 +16197,13 @@ const STAGES = [
         "id": "sm-scouting-trip-37",
         "text": "해외까지 발품을 팔며 유망주를 직접 발굴한다",
         "deltas": {
-                "wealth": -2,
+                "wealth": -1,
                 "fame": 2
         },
         "result": "남들이 못 본 걸 먼저 알아본다는 게, 감독의 또 다른 재능이었다.",
-        "requiresRoute": "soccer-manager"
-},
+        "requiresRoute": "soccer-manager",
+        requiresSufficientCash: true
+      },
       {
         "id": "sm-life-exit-37",
         "text": "지도자 생활을 완전히 정리하기로 한다",
@@ -17433,7 +17464,7 @@ const STAGES = [
       {
         id: 'japan-trip-golf-package-40',
         text: '골프 패키지 여행으로 일본을 찾는다',
-        deltas: { happiness: 3, wealth: -5 },
+        deltas: { happiness: 3, wealth: -1 },
         result: '푸른 잔디 위에서, 오랜만에 여유를 만끽했다.',
         requiresSufficientCash: true
       },
@@ -18323,8 +18354,9 @@ const STAGES = [
       {
         id: 'japan-trip-anime-pilgrimage-42',
         text: '좋아하던 애니메이션의 실제 배경지를 찾아간다',
-        deltas: { happiness: 4, wealth: -3 },
-        result: '화면 속 장면과 눈앞의 풍경이 겹쳐 보이는 순간, 뭉클했다.'
+        deltas: { happiness: 4, wealth: -1 },
+        result: '화면 속 장면과 눈앞의 풍경이 겹쳐 보이는 순간, 뭉클했다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -19119,8 +19151,9 @@ const STAGES = [
       {
         id: 'japan-trip-okinawa-beach-44',
         text: '오키나와의 푸른 바다에서 여유를 즐긴다',
-        deltas: { happiness: 5, wealth: -4 },
-        result: '에메랄드빛 바다를 보고 있자니, 다른 나라에 온 것 같았다.'
+        deltas: { happiness: 5, wealth: -1 },
+        result: '에메랄드빛 바다를 보고 있자니, 다른 나라에 온 것 같았다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -19411,9 +19444,10 @@ const STAGES = [
       {
         id: 'family-trip-reconciliation',
         text: '소원했던 가족과 함께 여행을 떠난다',
-        deltas: { relationship: 5, happiness: 4, wealth: -4 },
+        deltas: { relationship: 5, happiness: 4, wealth: -1 },
         result: '낯선 풍경 앞에서, 오랜만에 다 같이 웃었다.',
-        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild']
+        requiresFamilyMember: ['father', 'mother', 'single-parent', 'sibling', 'younger-sibling', 'spouse', 'child', 'grandchild'],
+        requiresSufficientCash: true
       },
       {
         id: 'knee-pain-onset',
@@ -20017,7 +20051,8 @@ const STAGES = [
         id: 'japan-trip-pickpocket-scare-46',
         text: '번화가에서 소매치기를 당할 뻔한다',
         deltas: { happiness: -3, wealth: -1 },
-        result: '가방을 꽉 붙잡은 손에, 여행 내내 힘이 들어갔다.'
+        result: '가방을 꽉 붙잡은 손에, 여행 내내 힘이 들어갔다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -20642,8 +20677,9 @@ const STAGES = [
       {
         id: 'japan-trip-sumo-match-48',
         text: '스모 경기를 직접 관람하며 열기를 느낀다',
-        deltas: { happiness: 4, wealth: -2 },
-        result: '거대한 몸집의 선수들이 부딪히는 소리에, 절로 감탄이 나왔다.'
+        deltas: { happiness: 4, wealth: -1 },
+        result: '거대한 몸집의 선수들이 부딪히는 소리에, 절로 감탄이 나왔다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -21138,7 +21174,8 @@ const STAGES = [
         id: 'japan-trip-tea-ceremony-50',
         text: '전통 다도 체험으로 차분한 시간을 보낸다',
         deltas: { happiness: 3, wealth: -1 },
-        result: '한 잔의 차를 준비하는 정성이, 색다르게 다가왔다.'
+        result: '한 잔의 차를 준비하는 정성이, 색다르게 다가왔다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -21204,8 +21241,9 @@ const STAGES = [
       {
         id: "wealth-drain-50-a",
         text: "인생 절반을 자축한다며 크게 여행을 떠난다",
-        deltas: { wealth: -4 },
-        result: "이 정도는 누려도 된다고, 스스로를 다독였다."
+        deltas: { wealth: -1 },
+        result: "이 정도는 누려도 된다고, 스스로를 다독였다.",
+        requiresSufficientCash: true
       },
       {
         id: "unhappy-50",
@@ -21228,8 +21266,9 @@ const STAGES = [
       {
         id: 'big-fiftieth-celebration',
         text: '쉰 살 기념으로 큰 파티·여행을 계획한다',
-        deltas: { happiness: 5, wealth: -5, relationship: 4 },
-        result: '촛불 오십 개를 다 끄는 데, 숨이 꽤 찼다.'
+        deltas: { happiness: 5, wealth: -1, relationship: 4 },
+        result: '촛불 오십 개를 다 끄는 데, 숨이 꽤 찼다.',
+        requiresSufficientCash: true
       },
       {
         id: 'planning-second-half-of-life',
@@ -21438,9 +21477,10 @@ const STAGES = [
       {
         id: 'new-hobbies-and-travel',
         text: '취미·부부 여행으로 새로운 일상을 채워간다',
-        deltas: { happiness: 4, wealth: -3 },
+        deltas: { happiness: 4, wealth: -1 },
         result: '둘만의 여행이 이렇게 홀가분할 줄, 예전엔 몰랐다.',
-        requiresFamilyMember: ['spouse']
+        requiresFamilyMember: ['spouse'],
+        requiresSufficientCash: true
       },
       {
         id: 'grandchild-news-excitement',
@@ -21602,8 +21642,9 @@ const STAGES = [
       {
         id: 'japan-trip-osaka-castle-52',
         text: '오사카성을 둘러보며 역사에 잠긴다',
-        deltas: { happiness: 3, wealth: -2 },
-        result: '높이 솟은 천수각을 올려다보니, 세월의 무게가 느껴졌다.'
+        deltas: { happiness: 3, wealth: -1 },
+        result: '높이 솟은 천수각을 올려다보니, 세월의 무게가 느껴졌다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -21859,9 +21900,10 @@ const STAGES = [
       {
         id: 'japan-trip-anniversary-couple-54',
         text: '배우자와 결혼기념일을 일본 여행으로 기념한다',
-        deltas: { happiness: 5, wealth: -4, relationship: 3 },
+        deltas: { happiness: 5, wealth: -1, relationship: 3 },
         result: '낯선 거리를 손잡고 걷는 것만으로도, 다시 신혼 같았다.',
-        requiresFamilyMember: ["spouse"]
+        requiresFamilyMember: ["spouse"],
+        requiresSufficientCash: true
       },
 
       {
@@ -22468,8 +22510,9 @@ const STAGES = [
       {
         id: 'japan-trip-beppu-hell-tour-57',
         text: '벳푸의 독특한 지옥온천 투어를 즐긴다',
-        deltas: { happiness: 3, wealth: -2 },
-        result: '펄펄 끓는 색색의 온천을, 신기한 눈으로 구경했다.'
+        deltas: { happiness: 3, wealth: -1 },
+        result: '펄펄 끓는 색색의 온천을, 신기한 눈으로 구경했다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -22967,8 +23010,9 @@ const STAGES = [
       {
         id: 'japan-trip-retirement-celebration-60',
         text: '환갑 기념으로 일본 온천 여행을 떠난다',
-        deltas: { happiness: 5, wealth: -4 },
-        result: '평생 고생한 스스로에게, 이 정도 호사는 괜찮다 싶었다.'
+        deltas: { happiness: 5, wealth: -1 },
+        result: '평생 고생한 스스로에게, 이 정도 호사는 괜찮다 싶었다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -23040,8 +23084,9 @@ const STAGES = [
       {
         id: 'dream-trip-for-sixtieth',
         text: '환갑 기념으로 평생 가보고 싶던 곳으로 여행을 떠난다',
-        deltas: { happiness: 6, wealth: -6 },
-        result: '더 늦기 전에 다녀오길 잘했다는 생각이 내내 들었다.'
+        deltas: { happiness: 6, wealth: -1 },
+        result: '더 늦기 전에 다녀오길 잘했다는 생각이 내내 들었다.',
+        requiresSufficientCash: true
       },
       {
         id: 'quiet-family-day',
@@ -23487,8 +23532,9 @@ const STAGES = [
       {
         id: 'japan-trip-ghibli-museum-63',
         text: '지브리 미술관을 방문해 동심에 젖는다',
-        deltas: { happiness: 4, wealth: -2 },
-        result: '어릴 적 보던 장면들이 눈앞에 펼쳐지자, 나이를 잊었다.'
+        deltas: { happiness: 4, wealth: -1 },
+        result: '어릴 적 보던 장면들이 눈앞에 펼쳐지자, 나이를 잊었다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -23551,8 +23597,9 @@ const STAGES = [
       {
         id: 'travel-club-adventures',
         text: '여행 동호회에 가입해 전국을 누빈다',
-        deltas: { happiness: 5, wealth: -4 },
-        result: '이 나이에도 새로운 곳을 다닐 수 있다는 게, 새삼 즐거웠다.'
+        deltas: { happiness: 5, wealth: -1 },
+        result: '이 나이에도 새로운 곳을 다닐 수 있다는 게, 새삼 즐거웠다.',
+        requiresSufficientCash: true
       },
       {
         id: 'hearing-loss-onset',
@@ -24066,8 +24113,9 @@ const STAGES = [
       {
         id: 'japan-trip-kyushu-onsen-66',
         text: '규슈 지역 온천을 순회하며 여유로운 시간을 보낸다',
-        deltas: { happiness: 4, wealth: -3, health: 1 },
-        result: '온천마다 다른 물빛과 향이, 은근한 재미를 줬다.'
+        deltas: { happiness: 4, wealth: -1, health: 1 },
+        result: '온천마다 다른 물빛과 향이, 은근한 재미를 줬다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -24622,8 +24670,9 @@ const STAGES = [
       {
         id: 'japan-trip-friends-reunion-70',
         text: '오랜 친구들과 함께 마지막이 될지도 모를 일본 여행을 떠난다',
-        deltas: { happiness: 5, wealth: -4, relationship: 2 },
-        result: '함께 웃는 순간순간이, 무엇보다 소중하게 느껴졌다.'
+        deltas: { happiness: 5, wealth: -1, relationship: 2 },
+        result: '함께 웃는 순간순간이, 무엇보다 소중하게 느껴졌다.',
+        requiresSufficientCash: true
       },
 
       {
@@ -24756,8 +24805,9 @@ const STAGES = [
       {
         id: 'final-big-trip',
         text: '칠순 기념으로 인생 마지막 큰 여행을 떠난다',
-        deltas: { happiness: 6, wealth: -6 },
-        result: '"마지막"이라는 말을 붙이니, 매 순간이 더 선명하게 남았다.'
+        deltas: { happiness: 6, wealth: -1 },
+        result: '"마지막"이라는 말을 붙이니, 매 순간이 더 선명하게 남았다.',
+        requiresSufficientCash: true
       },
       {
         id: 'writing-life-story',
@@ -25187,8 +25237,9 @@ const STAGES = [
       {
         id: 'last-long-trip-with-friends',
         text: '다리에 힘 있을 때라며 친구들과 마지막 장거리 여행을 떠난다',
-        deltas: { happiness: 6, wealth: -5, health: -2 },
-        result: '더 늦기 전에 나서길 잘했다는 생각이, 내내 떠나지 않았다.'
+        deltas: { happiness: 6, wealth: -1, health: -2 },
+        result: '더 늦기 전에 나서길 잘했다는 생각이, 내내 떠나지 않았다.',
+        requiresSufficientCash: true
       },
       {
         id: 'giving-up-trip-over-stamina',
@@ -28686,7 +28737,8 @@ const STAGES = [
         id: 'dreaming-of-one-more-trip-100',
         text: '가보고 싶었던 곳을 마지막으로 한 번 더 그려본다',
         deltas: { happiness: 2, wealth: -1 },
-        result: '발걸음은 무거워도, 마음만은 이미 그곳에 가 있었다.'
+        result: '발걸음은 무거워도, 마음만은 이미 그곳에 가 있었다.',
+        requiresSufficientCash: true
       },
       {
         id: 'leaving-a-message-for-the-future-100',
