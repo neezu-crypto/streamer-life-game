@@ -2909,6 +2909,14 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         endsRoute: true
       }
+    ,
+      {
+        id: 'top-of-class-effort-16',
+        text: '전교 1등을 목표로 밤낮없이 공부에 매진한다',
+        deltas: { happiness: 3, health: -2 },
+        result: '치열한 경쟁 끝에, 마침내 전교 1등이라는 이름표를 얻었다.',
+        setOccupation: { id: 'top-of-class', label: '📖 전교 1등' }
+      }
     ]
   },
   {
@@ -4496,6 +4504,17 @@ const STAGES = [
           { weight: 18, label: '발각', deltas: { happiness: -6, relationship: -4 }, result: '뒷조사 끝에 진실이 드러나며 동료들 사이에서 완전히 고립됐다.' }
         ]
       }
+    ,
+      {
+        id: 'med-school-decision-19',
+        text: '의대에 진학해 의사의 길을 걷기로 결심한다',
+        deltas: { happiness: 3, wealth: -2 },
+        result: '긴 여정의 시작이라는 걸, 그때는 미처 실감하지 못했다.',
+        requiresEverOccupation: ['top-of-class'],
+        mandatory: true,
+        startsRoute: { id: 'doctor', label: '⚕️ 의사', maxDurationYears: 20 },
+        setOccupation: { id: 'med-student', label: '🩺 의대생' }
+      }
     ]
   },
   {
@@ -5201,6 +5220,33 @@ const STAGES = [
           { weight: 10, label: '발각', deltas: { fame: -4, happiness: -2 }, result: '플랫폼 어뷰징 탐지에 걸려 계정 경고를 받았다.' }
         ]
       }
+    ,
+      {
+        id: 'doc-cadaver-lab-20',
+        text: '해부실습 첫날 시신을 마주하며 의사가 된다는 무게를 실감한다',
+        deltas: { happiness: -2, health: -1 },
+        result: '숙연해진 실습실 안에서, 각오를 새로 다졌다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['med-student']
+      },
+      {
+        id: 'doc-tuition-burden-20',
+        text: '감당하기 벅찬 의대 등록금 고지서를 받아든다',
+        deltas: { wealth: -4, happiness: -2 },
+        result: '숫자를 보는 것만으로도 한숨이 나왔다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['med-student']
+      },
+      {
+        id: 'deviant-doc-exam-notes-scalping-20',
+        text: '시험 족보를 몰래 만들어 후배들에게 유료로 판매한다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['med-student'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '용돈벌이치곤 짭짤한 부수입이었다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -3, relationship: -2 }, result: '출처가 드러나며 동기들 사이에서 눈총을 받았다.' }
+        ]
+      }
     ]
   },
   {
@@ -5895,6 +5941,23 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '아무도 눈치채지 못한 채, 여윳돈이 조금씩 쌓였다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, relationship: -3 }, result: '팬이 직접 계좌 내역을 캐물으며 신뢰가 무너졌다.' }
         ]
+      }
+    ,
+      {
+        id: 'doc-anatomy-cram-21',
+        text: '방대한 해부학 암기량에 파묻혀 밤을 지새운다',
+        deltas: { health: -3, happiness: -2 },
+        result: '눈을 감아도 뼈 이름이 아른거리는 날들이었다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['med-student']
+      },
+      {
+        id: 'doc-first-patient-encounter-21',
+        text: '실습 중 처음으로 환자와 직접 대화를 나눈다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '하얀 가운이 조금은 무겁게 느껴진 순간이었다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['med-student']
       }
     ]
   },
@@ -6666,6 +6729,33 @@ const STAGES = [
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '가짜 협찬 티가 안 나서, 별 탈 없이 지나갔다.' },
           { weight: 10, label: '발각', deltas: { fame: -4, happiness: -2 }, result: '해당 업체가 직접 부인하며 "뒷광고" 논란이 됐다.' }
+        ]
+      }
+    ,
+      {
+        id: 'doc-exam-failure-fear-22',
+        text: '낙제 위기의 과목 재시험을 앞두고 극심한 압박을 느낀다',
+        deltas: { happiness: -3, health: -2 },
+        result: '한 번 밀리면 1년이 늦어진다는 생각에 잠이 오지 않았다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['med-student']
+      },
+      {
+        id: 'doc-study-group-bond-22',
+        text: '밤샘 스터디 그룹 동기들과 끈끈한 전우애를 쌓는다',
+        deltas: { relationship: 3, happiness: 2 },
+        result: '같이 버텨주는 사람이 있다는 게, 큰 힘이 됐다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['med-student']
+      },
+      {
+        id: 'deviant-doc-copied-lab-notes-22',
+        text: '실습 노트를 무단으로 복사해 후배에게 유료로 넘긴다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['med-student'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 2 }, result: '몇 부 팔았을 뿐인데, 생각보다 쏠쏠했다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -2, relationship: -2 }, result: '원저작자인 조교에게 걸려 한소리를 들었다.' }
         ]
       }
     ]
@@ -7465,6 +7555,23 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { fame: 6 }, result: '조회수가 폭발적으로 늘며, 원했던 화제성을 얻었다.' },
           { weight: 18, label: '발각', deltas: { fame: -8, happiness: -5, relationship: -3 }, result: '조작이 들통나며 "어그로" 방송인이라는 낙인이 찍혔다.' }
         ]
+      }
+    ,
+      {
+        id: 'doc-clinical-rotation-shock-23',
+        text: '병원 실습 중 처음 겪는 응급 상황에 압도된다',
+        deltas: { happiness: -2, health: -2 },
+        result: '몸이 먼저 움직였지만, 손이 떨리는 건 어쩔 수 없었다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['med-student']
+      },
+      {
+        id: 'doc-specialty-crossroads-23',
+        text: '어떤 진료과를 선택할지 진지하게 고민하기 시작한다',
+        deltas: { happiness: 1 },
+        result: '적성과 현실 사이에서, 답은 쉽게 나오지 않았다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['med-student']
       }
     ]
   },
@@ -8360,6 +8467,33 @@ const STAGES = [
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       }
+    ,
+      {
+        id: 'doc-thesis-allnighter-24',
+        text: '졸업 논문 마감에 쫓겨 며칠 밤을 꼬박 새운다',
+        deltas: { health: -4, happiness: -2 },
+        result: '커피로 버틴 며칠이, 눈 밑 그늘로 고스란히 남았다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['med-student']
+      },
+      {
+        id: 'doc-graduation-relief-24',
+        text: '길고 길었던 의대 6년 과정을 마침내 졸업한다',
+        deltas: { happiness: 5, wealth: -1 },
+        result: '가운을 입던 첫날의 각오가, 비로소 결실을 맺었다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['med-student']
+      },
+      {
+        id: 'deviant-doc-licensing-exam-cheat-24',
+        text: '국가고시에서 부정행위의 유혹에 넘어간다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['med-student'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '아슬아슬했지만, 무사히 시험장을 빠져나왔다.' },
+          { weight: 18, label: '발각', deltas: { happiness: -6, fame: -4, relationship: -3 }, result: '부정행위가 적발되며 응시 자격이 정지될 뻔했다.' }
+        ]
+      }
     ]
   },
   {
@@ -9158,6 +9292,35 @@ const STAGES = [
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { fame: 3 }, result: '상대의 곤란한 처지를, 남몰래 지켜봤다.' },
           { weight: 18, label: '발각', deltas: { fame: -9, happiness: -6, relationship: -4 }, result: '유포자로 지목되며 "신상 유출" 가해자라는 비난을 받았다.' }
+        ]
+      }
+    ,
+      {
+        id: 'doctor-license-exam-25',
+        text: '국가고시에 합격해 의사 면허를 취득한다',
+        deltas: { happiness: 4, fame: 1 },
+        result: '이름 석 자 옆에 "의사"라는 두 글자가 붙는 순간이었다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['med-student'],
+        mandatory: true,
+        setOccupation: { id: 'intern-resident', label: '🩺 전공의' }
+      },
+      {
+        id: 'doc-first-oncall-shift-25',
+        text: '첫 당직 근무에서 36시간 연속 근무를 버텨낸다',
+        deltas: { health: -4, wealth: 1 },
+        result: '몸은 한계였지만, 처음 받은 당직비가 묘하게 뿌듯했다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['intern-resident']
+      },
+      {
+        id: 'deviant-doc-unlicensed-procedure-25',
+        text: '지도의 없이 아직 자격이 없는 시술을 몰래 감행한다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['intern-resident'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 2, wealth: 1 }, result: '무사히 끝났다는 사실에, 가슴을 쓸어내렸다.' },
+          { weight: 18, label: '발각', deltas: { happiness: -5, fame: -3, relationship: -3 }, result: '지도전문의에게 발각되며 크게 질책받았다.' }
         ]
       }
     ]
@@ -10033,6 +10196,33 @@ const STAGES = [
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '뒷광고 수익이, 남몰래 통장에 꽂혔다.' },
           { weight: 18, label: '발각', deltas: { wealth: -6, fame: -9, happiness: -4 }, result: '불법 도박 알선 정황이 드러나며 채널이 통째로 정지됐다.' }
+        ]
+      }
+    ,
+      {
+        id: 'doc-senior-abuse-26',
+        text: '선배 의사의 부당한 갑질을 묵묵히 견딘다',
+        deltas: { happiness: -4, relationship: -2 },
+        result: '억울했지만, 아직은 버텨야 할 위치였다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['intern-resident']
+      },
+      {
+        id: 'doc-emergency-save-26',
+        text: '응급실에서 위급한 환자를 극적으로 살려낸다',
+        deltas: { happiness: 5, fame: 2 },
+        result: '심장이 다시 뛰는 걸 확인한 순간, 온몸에 힘이 풀렸다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['intern-resident']
+      },
+      {
+        id: 'deviant-doc-oncall-abandonment-26',
+        text: '당직 근무 중 몰래 자리를 비워 개인 용무를 본다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['intern-resident'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '아무 일도 없었다는 듯, 조용히 자리로 돌아왔다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -3, relationship: -3 }, result: '호출에 응답이 없어 부재가 그대로 들통났다.' }
         ]
       }
     ]
@@ -10924,6 +11114,33 @@ const STAGES = [
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '기부금 횡령 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       }
+    ,
+      {
+        id: 'doc-malpractice-scare-27',
+        text: '사소한 실수가 큰 사고로 이어질 뻔한 아찔한 순간을 겪는다',
+        deltas: { happiness: -4, health: -1 },
+        result: '다행히 큰일은 없었지만, 오래도록 손이 떨렸다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['intern-resident']
+      },
+      {
+        id: 'doc-mentor-bond-27',
+        text: '존경하는 지도전문의에게 실력을 인정받는다',
+        deltas: { happiness: 3, wealth: 1 },
+        result: '짧은 칭찬 한마디가, 오래도록 힘이 됐다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['intern-resident']
+      },
+      {
+        id: 'deviant-doc-chart-cover-up-27',
+        text: '사소한 의료사고를 감추려 진료기록을 슬쩍 수정한다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['intern-resident'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '들키지 않았다는 사실에, 일단 안도했다.' },
+          { weight: 18, label: '발각', deltas: { happiness: -6, fame: -5, relationship: -4 }, result: '기록 조작 정황이 감사에서 드러나며 큰 징계를 받았다.' }
+        ]
+      }
     ]
   },
   {
@@ -11695,6 +11912,33 @@ const STAGES = [
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 2 }, result: '편했지만, 크게 신경 쓰지 않았다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, relationship: -3 }, result: '매니저의 폭로 글이 퍼지며 "갑질 방송인" 논란이 됐다.' }
+        ]
+      }
+    ,
+      {
+        id: 'doc-burnout-collapse-28',
+        text: '만성 수면 부족으로 근무 중 잠깐 쓰러진다',
+        deltas: { health: -5, happiness: -3 },
+        result: '몸이 보내는 경고를, 더는 무시할 수 없었다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['intern-resident']
+      },
+      {
+        id: 'doc-resident-union-28',
+        text: '열악한 처우 개선을 요구하는 전공의 집단행동에 동참한다',
+        deltas: { happiness: 2, wealth: 1 },
+        result: '혼자였다면 못 했을 목소리를, 함께라서 낼 수 있었다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['intern-resident']
+      },
+      {
+        id: 'deviant-doc-pharma-kickback-28',
+        text: '제약회사로부터 리베이트를 받고 특정 약을 몰아 처방한다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['intern-resident'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '조용한 거래가, 통장 잔고를 채워줬다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -5, fame: -8, happiness: -5 }, result: '리베이트 수수 정황이 적발되며 의사 사회에서 신뢰를 잃었다.' }
         ]
       }
     ]
@@ -12478,6 +12722,35 @@ const STAGES = [
           { weight: 10, label: '발각', deltas: { fame: -5, happiness: -3 }, result: '대본이 유출되며 "가짜 사과" 논란이 두 배로 커졌다.' }
         ]
       }
+    ,
+      {
+        id: 'board-certification-29',
+        text: '전문의 시험에 합격해 정식 전문의가 된다',
+        deltas: { happiness: 5, fame: 2 },
+        result: '기나긴 수련의 시간이, 마침내 하나의 매듭을 지었다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['intern-resident'],
+        mandatory: true,
+        setOccupation: { id: 'doctor', label: '⚕️ 의사' }
+      },
+      {
+        id: 'doc-first-attending-salary-29',
+        text: '전문의로서 받은 첫 월급에 그동안의 고생이 스친다',
+        deltas: { wealth: 6, happiness: 4 },
+        result: '숫자 하나에, 지난 10년이 전부 담긴 것 같았다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor']
+      },
+      {
+        id: 'deviant-doc-fake-insurance-diagnosis-29',
+        text: '허위 진단서를 발급해 환자의 보험사기를 도와준다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '부탁을 들어준 대가로, 사례를 두둑이 받았다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '허위 진단서 발급에 의한 보험사기 방조 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+        ]
+      }
     ]
   },
   {
@@ -13218,6 +13491,33 @@ const STAGES = [
           { weight: 10, label: '발각', deltas: { fame: -4, relationship: -3 }, result: '상대측이 직접 부인하며 민망한 상황이 벌어졌다.' }
         ]
       }
+    ,
+      {
+        id: 'doc-lifesaving-surgery-30',
+        text: '위험한 대수술을 성공적으로 마친다',
+        deltas: { happiness: 5, fame: 2, wealth: 2 },
+        result: '수술실을 나서는 발걸음이, 유난히 가벼웠다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor']
+      },
+      {
+        id: 'doc-work-life-balance-30',
+        text: '가정과 병원 사이에서 균형을 잡으려 애쓴다',
+        deltas: { relationship: 2, happiness: -1 },
+        result: '둘 다 놓치고 싶지 않아, 매일이 저글링 같았다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor']
+      },
+      {
+        id: 'deviant-doc-pharma-rep-perks-30',
+        text: '제약회사 영업사원의 과도한 식사 접대를 은근히 즐긴다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '부담 없는 자리라고, 스스로를 다독였다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -3, fame: -3 }, result: '청탁금지법 위반 소지가 있다는 지적에 뜨끔했다.' }
+        ]
+      }
     ]
   },
   {
@@ -13940,6 +14240,33 @@ const STAGES = [
           { weight: 18, label: '발각', deltas: { wealth: -5, fame: -7, relationship: -4 }, result: '정산 내역 감사에서 부풀린 금액이 그대로 드러나 소속사와 큰 갈등을 겪었다.' }
         ]
       }
+    ,
+      {
+        id: 'doc-conference-invite-31',
+        text: '해외 학회에 초청받아 논문을 발표한다',
+        deltas: { fame: 3, wealth: 2 },
+        result: '낯선 언어의 박수 소리가, 오래도록 귓가에 남았다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor']
+      },
+      {
+        id: 'doc-difficult-diagnosis-31',
+        text: '진단이 까다로운 희귀 케이스를 끝내 밝혀낸다',
+        deltas: { happiness: 4, fame: 1 },
+        result: '몇 날 며칠 매달린 끝에, 마침내 답을 찾아냈다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor']
+      },
+      {
+        id: 'deviant-doc-unnecessary-tests-31',
+        text: '불필요한 검사를 남발해 과잉진료로 수익을 부풀린다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '매출은 늘었고, 아무도 의문을 제기하지 않았다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -5, fame: -7, happiness: -4 }, result: '건강보험공단 실사에서 과잉진료 정황이 그대로 드러났다.' }
+        ]
+      }
     ]
   },
   {
@@ -14601,6 +14928,33 @@ const STAGES = [
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { fame: 4 }, result: '숫자가 부쩍 늘어난 채널이, 훨씬 그럴듯해 보였다.' },
           { weight: 10, label: '발각', deltas: { fame: -5, happiness: -2 }, result: '플랫폼 정책 위반으로 채널 인증이 박탈됐다.' }
+        ]
+      }
+    ,
+      {
+        id: 'doc-own-clinic-opening-32',
+        text: '대출을 받아 개인 병원을 개업한다',
+        deltas: { wealth: -3, happiness: 3 },
+        result: '내 이름을 건 병원 간판이, 두렵고도 설렜다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor']
+      },
+      {
+        id: 'doc-clinic-startup-costs-32',
+        text: '개원 초기 운영비 부담에 허덕인다',
+        deltas: { wealth: -2, happiness: -2 },
+        result: '환자보다 청구서가 먼저 쌓이는 나날이었다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor']
+      },
+      {
+        id: 'deviant-doc-supply-pilfering-32',
+        text: '병원 비품을 개인적으로 슬쩍 챙긴다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 2 }, result: '작은 물건 몇 개쯤이야, 대수롭지 않게 여겼다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -2, relationship: -2 }, result: '재고 조사에서 차이가 드러나며 민망해졌다.' }
         ]
       }
     ]
@@ -15305,6 +15659,33 @@ const STAGES = [
           { weight: 10, label: '발각', deltas: { fame: -4, relationship: -2 }, result: '원작자가 타임스탬프를 공개하며 "아이디어 도용" 지적을 받았다.' }
         ]
       }
+    ,
+      {
+        id: 'doc-loyal-patient-base-33',
+        text: '단골 환자들의 신뢰가 쌓이며 병원이 자리를 잡는다',
+        deltas: { wealth: 4, relationship: 2 },
+        result: '입소문이 곧 최고의 광고라는 걸, 몸소 느꼈다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor']
+      },
+      {
+        id: 'doc-difficult-patient-33',
+        text: '무리한 요구를 하는 환자와 갈등을 겪는다',
+        deltas: { happiness: -3 },
+        result: '진료실 문을 닫고도, 한참 마음이 가라앉지 않았다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor']
+      },
+      {
+        id: 'deviant-doc-opioid-diversion-33',
+        text: '마약성 진통제 처방전을 불법으로 유용한다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '위험한 줄 알면서도, 손을 대고 말았다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '마약류 관리법 위반 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+        ]
+      }
     ]
   },
   {
@@ -15973,6 +16354,43 @@ const STAGES = [
           { weight: 10, label: '발각', deltas: { wealth: -3, fame: -5 }, result: '근로기준법 위반이 적발되며 벌금과 함께 크게 곤욕을 치렀다.' }
         ]
       }
+    ,
+      {
+        id: 'doc-med-device-investment-34',
+        text: '최신 의료 장비에 거액을 투자한다',
+        deltas: { wealth: -4, fame: 1 },
+        result: '큰돈이 나갔지만, 더 정확한 진단을 위한 투자라 믿었다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor']
+      },
+      {
+        id: 'doc-charity-clinic-34',
+        text: '저소득층을 위한 무료 진료 봉사에 나선다',
+        deltas: { happiness: 4, relationship: 1 },
+        result: '청진기 너머로 전해지는 감사 인사가, 마음을 채웠다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor']
+      },
+      {
+        id: 'deviant-doc-covering-colleague-mistake-34',
+        text: '동료 의사의 진료 실수를 눈감아준다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { relationship: 3 }, result: '의리를 지켰다는 생각에, 마음이 편했다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -3, fame: -3 }, result: '은폐 정황이 드러나며 함께 책임을 추궁당했다.' }
+        ]
+      },
+      {
+        id: 'deviant-doc-insurance-double-billing-34',
+        text: '의료보험 진료비를 이중으로 청구한다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '청구가 그대로 승인되며, 조용히 넘어갔다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, fame: -6, happiness: -4 }, result: '건강보험심사평가원 조사에서 이중청구가 적발됐다.' }
+        ]
+      }
     ]
   },
   {
@@ -16585,6 +17003,33 @@ const STAGES = [
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, happiness: -3 }, result: '허위 광고 신고가 접수되며 소비자원의 조사를 받았다.' }
         ]
       }
+    ,
+      {
+        id: 'doc-tv-appearance-35',
+        text: '건강 정보 프로그램에 출연 제안을 받는다',
+        deltas: { fame: 4, wealth: 2 },
+        result: '진료실 밖에서도 얼굴이 알려지기 시작했다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor']
+      },
+      {
+        id: 'doc-second-opinion-praise-35',
+        text: '다른 병원에서 놓친 진단을 정확히 짚어내 화제가 된다',
+        deltas: { fame: 3, happiness: 3 },
+        result: '입소문을 타고, 먼 지역에서도 환자들이 찾아오기 시작했다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor']
+      },
+      {
+        id: 'deviant-doc-misdiagnosis-cover-35',
+        text: '자신의 오진을 숨기려 환자 차트를 손본다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '들키지 않았다는 안도감이, 오래가진 못했다.' },
+          { weight: 18, label: '발각', deltas: { happiness: -6, fame: -7, relationship: -3 }, result: '유족의 문제 제기로 오진 은폐 정황이 드러났다.' }
+        ]
+      }
     ]
   },
   {
@@ -17123,6 +17568,43 @@ const STAGES = [
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { fame: 5 }, result: '유리한 지지율 발표에, 다음 선거가 한결 든든해졌다.' },
           { weight: 18, label: '발각', deltas: { fame: -9, happiness: -6, relationship: -3 }, result: '조작 정황이 언론에 포착되며 여론조사 신뢰도 논란의 중심에 섰다.' }
+        ]
+      }
+    ,
+      {
+        id: 'doc-staff-management-stress-36',
+        text: '병원 직원 관리 문제로 골머리를 앓는다',
+        deltas: { happiness: -3 },
+        result: '진료보다 사람 관리가 더 어렵다는 걸, 새삼 깨달았다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor']
+      },
+      {
+        id: 'doc-insurance-review-battle-36',
+        text: '건강보험심사 삭감과 씨름한다',
+        deltas: { wealth: -2, happiness: -2 },
+        result: '정당한 진료비마저 깎이는 현실에, 한숨이 나왔다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor']
+      },
+      {
+        id: 'deviant-doc-queue-jumping-favor-36',
+        text: '지인 환자의 진료 순서를 몰래 앞당겨준다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { relationship: 3 }, result: '별일 아니라고 생각하며, 순서를 슬쩍 바꿔줬다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -3, relationship: -2 }, result: '대기하던 다른 환자의 항의로 곤란해졌다.' }
+        ]
+      },
+      {
+        id: 'deviant-doc-ghost-surgery-assist-36',
+        text: '집도의가 아닌 다른 의사가 몰래 대리 수술을 하게 둔다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '수술은 무사히 끝났고, 아무도 눈치채지 못했다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, fame: -12, happiness: -6, relationship: -4 }, result: '유령수술 정황이 폭로되며 의사 면허 자격 정지 위기에 몰렸다.' }
         ]
       }
     ]
@@ -17686,6 +18168,33 @@ const STAGES = [
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '뇌물수수 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
       }
+    ,
+      {
+        id: 'doc-mentoring-students-37',
+        text: '후배 의대생들을 가르치는 겸임 교수직을 맡는다',
+        deltas: { relationship: 2, wealth: 2 },
+        result: '가르치며 다시 배우는 게 많다는 걸 깨달았다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor']
+      },
+      {
+        id: 'doc-health-scare-personal-37',
+        text: '정작 본인의 건강을 소홀히 했다는 걸 뒤늦게 깨닫는다',
+        deltas: { health: -3 },
+        result: '남을 돌보느라, 정작 자신을 돌보지 못했다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor']
+      },
+      {
+        id: 'deviant-doc-er-patient-dumping-37',
+        text: '병상이 없다며 위중한 응급 환자를 은근히 다른 병원으로 떠넘긴다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 1, happiness: 1 }, result: '번거로운 상황을 피했다는 생각에, 마음이 놓였다.' },
+          { weight: 18, label: '발각', deltas: { happiness: -6, fame: -8, relationship: -3 }, result: '응급실 뺑뺑이 논란의 당사자로 언론에 오르내렸다.' }
+        ]
+      }
     ]
   },
   {
@@ -18218,6 +18727,43 @@ const STAGES = [
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '불안했던 마음이, 일단은 가라앉았다.' },
           { weight: 18, label: '발각', deltas: { fame: -8, happiness: -6, relationship: -4 }, result: '보좌관의 폭로가 결국 터지며 걷잡을 수 없이 커졌다.' }
+        ]
+      }
+    ,
+      {
+        id: 'doc-hospital-expansion-38',
+        text: '병원을 확장 이전하며 새로운 도약을 준비한다',
+        deltas: { wealth: 5, fame: 2 },
+        result: '더 넓어진 진료실만큼, 마음도 든든해졌다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor']
+      },
+      {
+        id: 'doc-reflecting-on-career-38',
+        text: '지나온 의사로서의 길을 돌아보며 자부심을 느낀다',
+        deltas: { happiness: 4 },
+        result: '힘들었던 순간들조차, 이제는 훈장처럼 느껴졌다.',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor']
+      },
+      {
+        id: 'deviant-doc-conference-expense-padding-38',
+        text: '학회 출장비를 개인 여행 경비로 슬쩍 부풀린다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '영수증 몇 장으로, 여행 경비를 충당했다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -2, happiness: -2 }, result: '병원 회계 감사에서 지출 내역이 걸렸다.' }
+        ]
+      },
+      {
+        id: 'deviant-doc-drug-sample-resale-38',
+        text: '제약회사가 준 무료 샘플 약품을 몰래 되판다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '남는 샘플이었을 뿐이라고, 스스로를 합리화했다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, happiness: -3 }, result: '약사법 위반 소지가 있다는 신고로 조사를 받았다.' }
         ]
       }
     ]

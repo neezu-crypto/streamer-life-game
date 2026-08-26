@@ -301,7 +301,8 @@ const ROUTES_META = [
   { id: 'logistics', title: '🚚 물류직', icon: '🚚' },
   { id: 'english-teacher', title: '🌐 영어 강사', icon: '🌐' },
   { id: 'romance', title: '💕 연애', icon: '💕' },
-  { id: 'streamer', title: '🎥 스트리머', icon: '🎥' }
+  { id: 'streamer', title: '🎥 스트리머', icon: '🎥' },
+  { id: 'doctor', title: '⚕️ 의사', icon: '⚕️' }
 ];
 
 // 재능·재산 목록(17장/재산 상세) - functions/game-data.js의 addTalent/addAsset
@@ -389,7 +390,11 @@ const OCCUPATIONS_META = [
   { id: 'local-council-candidate', title: '🗳️ 지방의회 후보', icon: '🗳️' },
   { id: 'local-council-member', title: '🏛️ 지방의원', icon: '🏛️' },
   { id: 'english-teacher', title: '🌐 영어 강사', icon: '🌐' },
-  { id: 'streamer', title: '🎥 스트리머', icon: '🎥' }
+  { id: 'streamer', title: '🎥 스트리머', icon: '🎥' },
+  { id: 'top-of-class', title: '📖 전교 1등', icon: '📖' },
+  { id: 'med-student', title: '🩺 의대생', icon: '🩺' },
+  { id: 'intern-resident', title: '🩺 전공의', icon: '🩺' },
+  { id: 'doctor', title: '⚕️ 의사', icon: '⚕️' }
 ];
 
 const collectionModal = document.getElementById('collectionModal');
