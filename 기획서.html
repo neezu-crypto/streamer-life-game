@@ -5484,12 +5484,12 @@
             <table>
                 <tr><th>구성 요소</th><th>내용</th></tr>
                 <tr><td>매년 체크(18~60세, 43개)</td><td><code>lover-route-attempt-&lt;나이&gt;</code>
-                - <code>requiresAnyLover: true</code> + <code>mandatory: true</code>로 연인이 있는
-                한 매년 반드시 노출(직전에 다른 루트 트리거들에 적용한 것과 같은 원칙). 텍스트는
-                "연인과 좀 더 진지한 관계로 나아가 볼지 고민한다" 하나로 43개 나이 전부 동일(다른
-                루트들의 <code>life-exit</code> 계열과 같은 방식), <code>prizeTable</code>로
-                20%(진입, <code>startsRoute: {'{'}id:'romance', maxDurationYears: 5{'}'}</code>)
-                /80%(보류, 아무 효과 없이 다음 해에 다시 시도) 분기.</td></tr>
+                - <code>requiresAnyLover: true</code> + 신설 필드 <code>appearChance: 0.2</code>.
+                텍스트는 "연인과의 관계를 더 진지하게 발전시켜 보기로 결심한다" 하나로 43개 나이
+                전부 동일. 선택지 자체엔 <code>prizeTable</code> 없이 곧장
+                <code>startsRoute: {'{'}id:'romance', maxDurationYears: 5{'}'}</code>가 붙어 있어
+                "노출되면 100% 진입"이 자동으로 성립한다 - "노출 확률 20%"는 선택지 등장 자체를
+                통제하는 <code>appearChance</code>가 담당(아래 정정 참고).</td></tr>
                 <tr><td>전역 풀(<code>LOVER_ROUTE_CHOICES</code>, 28개)</td><td><code>PRISON_CHOICES</code>와
                 같은 방식으로 <code>game-data.js</code>에 신설, <code>index.js</code> require와
                 <code>routeChoicePool</code> 분기에 <code>romance</code> 케이스 추가. 첫 데이트→
@@ -5505,6 +5505,29 @@
                 일반 생활로 복귀.</td></tr>
             </table>
         </div>
+        <h3>정정(2026-08-26) - "노출 확률 20%"였는데 "선택 성공 확률 20%"로 잘못 구현했던 것 수정</h3>
+        <p>최초 구현은 트리거를 <code>mandatory: true</code>(매번 100% 노출)로 만들고,
+        선택했을 때 <code>prizeTable</code>로 20%만 실제 <code>startsRoute</code>가 발동하는
+        방식이었다. 사용자가 "아니야. 연인이 있으면 선택지의 노출 확률이 20%라는거야. 선택지를
+        선택하면 연애 루트로 100% 진입"이라고 바로잡아, 확률이 걸리는 지점이 정반대(노출 여부 vs
+        선택 성공 여부)라는 걸 확인했다.</p>
+        <p>이건 <code>requires*</code> 같은 정적 조건으로는 표현이 안 되는 새로운 종류의 게이트라
+        <code>index.js</code>에 <code>appearChance</code>(0~1) 필드를 새로 만들었다 -
+        <code>pickVisibleChoiceIds</code>의 eligible 판정 마지막 단계에서 이 필드가 있으면
+        <code>Math.random() &gt;= appearChance</code>일 때 이번 턴 후보에서 완전히 제외하고(=이번
+        해엔 아예 등장 안 함), 통과하면 곧바로 <code>mandatory</code> 취급돼 4개 추첨과 무관하게
+        반드시 노출된다. 트리거 선택지 자체는 <code>prizeTable</code>을 완전히 제거하고 곧장
+        <code>startsRoute</code>를 갖도록 바꿔, "노출되면 선택 시 100% 진입"이 자동으로 성립한다.
+        기존 다른 루트들의 게이트(재능·직업·가족 등)는 전부 정적이라 이 필드가 필요 없었고,
+        연애 루트가 이 필드를 쓰는 유일한 콘텐츠다.</p>
+        <p class="note"><b>검증.</b> 30,000번 나이당 노출 여부를 몬테카를로 시뮬레이션한 결과
+        관측 노출률 19.90%(목표 20%)로 일치, 경쟁 선택지 개수와 무관하게 일정함을 확인(기존
+        <code>mandatory</code>는 있으면 무조건, 일반 선택지는 후보 풀 크기에 따라 노출 확률이
+        들쭉날쭉했는데 이 필드는 항상 고정 확률). <code>node -c</code> 통과, 43개 트리거 전부
+        <code>appearChance===0.2</code>·<code>requiresAnyLover===true</code>·
+        <code>mandatory</code> 없음·<code>prizeTable</code> 없음·
+        <code>startsRoute.id==='romance'</code>임을 스크립트로 재확인.
+        <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
         <h3>구현 중 발견·수정한 버그</h3>
         <p>43개 트리거를 18~60세 각 나이의 <code>choices</code> 배열에 스크립트로 주입하는 과정에서,
         이미 이전 세션들이 여러 차례 건드려둔 나이들과 삽입 위치가 겹치며 <b>배열 홀(hole) 버그가

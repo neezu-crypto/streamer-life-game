@@ -426,14 +426,23 @@ function pickVisibleChoiceIds(choices, ctx) {
       const yearsSince = currentAge - endAge;
       if (endAge === undefined || yearsSince < 1 || yearsSince > maxYears) return false;
     }
+    // appearChance(0~1, 2026-08-26, 연애 루트 - "연인이 있으면 선택지의 노출
+    // 확률이 20%, 선택하면 100% 진입") - 다른 requires*는 정적 조건이라
+    // "자격이 되면 후보 풀에 얼마나 자주 뽑히느냐"는 eligible 크기에 좌우되는데,
+    // 이 필드는 "자격이 돼도 이번 턴엔 아예 등장 안 할 확률"을 선택지 자체에
+    // 박아 넣는다. 여기서 실패하면 이번 턴 eligible에서 완전히 빠지고(다음
+    // 해에 다시 시도), 통과하면 아래에서 mandatory 취급돼 반드시 노출된다 -
+    // "노출되면 100% 진입"은 이 선택지 자체가 prizeTable 없이 곧장
+    // startsRoute를 갖기 때문에 자동으로 만족된다.
+    if (typeof c.appearChance === 'number' && Math.random() >= c.appearChance) return false;
     return true;
   });
   let resultIds;
   if (eligible.length <= 4) {
     resultIds = eligible.map((c) => c.id);
   } else {
-    const mandatory = eligible.filter((c) => c.mandatory);
-    let optional = eligible.filter((c) => !c.mandatory);
+    const mandatory = eligible.filter((c) => c.mandatory || typeof c.appearChance === 'number');
+    let optional = eligible.filter((c) => !c.mandatory && typeof c.appearChance !== 'number');
 
     if (guaranteeCure && conditionIds.length) {
       const curative = optional.filter((c) => (c.removeCondition && conditionIds.includes(c.removeCondition)) || c.removeAllConditions);
