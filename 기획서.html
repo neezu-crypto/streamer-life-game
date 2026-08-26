@@ -5544,6 +5544,42 @@
         <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
     </section>
 
+    <section>
+        <h2><span class="num">42</span>임대사업 자산 - 오피스텔도 상가처럼 매년 수입 발생(2026-08-26,
+        사용자 질문 - "임대사업을 하면 매년 수입이 들어오는지 알려줘" → 확인 후 "모든 임대사업이
+        해당 부동산을 팔때까지 매년 일정 수입이 들어오게 해줘")</h2>
+        <p>사용자 질문에 <code>index.js</code>를 확인해보니, 매 턴 자동으로 현금이 붙는 배경 효과는
+        전체 게임 통틀어 딱 3곳(예술가/창업가 인기 연동 수입 2곳,
+        <code>commercial-unit</code>(상가) 고정 500만원/년 1곳)뿐이었다. 그런데 "임대"를 명시적으로
+        언급하는 선택지는 이거 하나가 아니었다 - <code>studio-investment</code>(32세, "오피스텔 한
+        채에 씨앗처럼 돈을 심어 임대 수익을 노린다")는 결과 문구가 "매달 들어오는 월세를 볼 때마다..."
+        라고 명시적으로 월세 수입을 말하는데, 실제로는 <code>studio-unit</code> 자산을 부여할 뿐
+        수입 로직은 <code>commercial-unit</code>만 체크해서 <b>평생 단 한 푼도 안 들어오고
+        있었다</b>. <code>usl-second-property-34</code>(34세, "여윳돈으로 임대용 부동산에
+        투자한다")도 "임대용"이라 해놓고 실제 부여 자산은 <code>bigger-home</code>(개인 거주지
+        업그레이드용 자산)이라, 애초에 임대 수입과 무관한 자산이 잘못 연결돼 있었다.</p>
+        <p class="note"><b>조치.</b> ① <code>index.js</code>의 임대 소득 로직을
+        <code>RENTAL_INCOME_BY_ASSET_ID</code> 맵으로 일반화 -
+        <code>commercial-unit</code>(500만원/년, 기존 유지) +
+        <code>studio-unit</code>(300만원/년, 신규 - 매입가가 상가보다 저렴한 걸 반영해 더 적게
+        책정) 둘 다 보유하는 동안 매년 누적. ② <code>usl-second-property-34</code>의
+        <code>addAsset</code>을 <code>bigger-home</code> → <code>studio-unit</code>으로 교체해
+        실제 임대 자산을 부여하도록 수정. <code>first-home</code>(내 집)·<code>bigger-home</code>
+        (넓은 집)·<code>vacation-home</code>(별장)은 거주용이지 임대업이 아니라 수입 대상에서
+        제외했고, <code>oldprep-land-rental-61</code>(땅 임대)은 특정 자산을 새로 부여하는 게
+        아니라 이미 보유한 부동산에 대한 일회성 문구라 이번 범위에서 제외(현재도 +3 일회성
+        보너스만 있음 - 필요하면 후속으로 다룰 수 있음).</p>
+        <p class="note"><b>검증.</b> <code>node -c game-data.js</code>/<code>node -c index.js</code>
+        통과. <code>RENTAL_INCOME_BY_ASSET_ID</code> 로직을 Node로 직접 시뮬레이션해 상가만/
+        오피스텔만/둘 다/둘 다 없음 4가지 케이스의 금액이 정확한지 확인.
+        <code>usl-second-property-34</code>가 <code>studio-unit</code>을 정확히 부여하는지
+        재확인, id 중복 0건·배열 홀 0건. <code>removeAsset</code>으로 팔면(둘 다 아직 해당 자산을
+        제거하는 선택지는 <code>commercial-unit</code>은 없고 <code>studio-unit</code>도 없음 -
+        "팔 때까지"라는 표현대로 현재는 평생 유지되는 자산이라 매각 선택지가 따로 없어도 요구사항과
+        모순되지 않음) 수입도 즉시 멈추는 기존 <code>if (choice.removeAsset)</code> 로직 재확인.
+        <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
+    </section>
+
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
 </div>
 </body>

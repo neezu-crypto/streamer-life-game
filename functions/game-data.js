@@ -14591,8 +14591,8 @@ const STAGES = [
                 "happiness": 3
         },
         "addAsset": {
-                "id": "bigger-home",
-                "label": "🏡 넓은 집",
+                "id": "studio-unit",
+                "label": "🏢 오피스텔",
                 "type": "realestate"
         },
         "requiresSufficientCash": true,

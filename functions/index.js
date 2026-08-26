@@ -1336,14 +1336,19 @@ async function applyChoice(db, playRef, play, stage, choice) {
     cashHoldings += Math.round(stats.fame * cashUnitForAge(nextIndex) / 50);
   }
 
-  // 상가 임대 소득(2026-08-23, 사용자 지시 - "상가를 매입해 임대업을 시작하면
-  // 매년 일정금액으로 현금 소득이 발생하게 해줘") - 예술가 루트의 인기 연동
-  // 소득과 같은 급의 매 턴 배경 효과. 인기처럼 오르내리는 스탯에 비례시킬
-  // 이유가 없어서(임대료는 세입자 유무와 무관하게 고정) 통장을 팔지 않는 한
-  // 매 턴 고정 500만원을 그대로 더한다. commercial-property-purchase 외에
-  // commercial-unit을 제거하는 선택지가 없어 한 번 사면 평생 유지된다.
-  if (assets.some((a) => a.id === 'commercial-unit')) {
-    cashHoldings += 5000000;
+  // 임대사업 소득(2026-08-23 상가 도입, 2026-08-26 오피스텔로 확대 - 사용자
+  // 지시 "모든 임대사업이 해당 부동산을 팔때까지 매년 일정 수입이 들어오게
+  // 해줘") - 예술가 루트의 인기 연동 소득과 같은 급의 매 턴 배경 효과. 인기처럼
+  // 오르내리는 스탯에 비례시킬 이유가 없어서(임대료는 세입자 유무와 무관하게
+  // 고정) 통장을 팔지 않는 한(removeAsset) 매 턴 고정 금액을 그대로 더한다.
+  // 상가(commercial-unit)가 오피스텔(studio-unit)보다 매입가가 더 비싸
+  // (wealth -9 vs -7) 수익도 더 크게 잡았다. 첫 집(first-home)·넓은 집
+  // (bigger-home)·별장(vacation-home)은 임대가 아니라 거주용 자산이라 제외.
+  const RENTAL_INCOME_BY_ASSET_ID = { 'commercial-unit': 5000000, 'studio-unit': 3000000 };
+  for (const assetId of Object.keys(RENTAL_INCOME_BY_ASSET_ID)) {
+    if (assets.some((a) => a.id === assetId)) {
+      cashHoldings += RENTAL_INCOME_BY_ASSET_ID[assetId];
+    }
   }
 
   const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers, acquaintances, assets, cashHoldings, talents, hobbies, sickStreak, insuranceUnpaidYears };
