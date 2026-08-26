@@ -2183,6 +2183,14 @@ const STAGES = [
         deltas: { happiness: -2, fame: 1 },
         result: '다 같이 하자던 일이, 결국 혼자 챙기는 일이 되어 있었다.'
       }
+    ,
+      {
+        id: 'english-self-study-14',
+        text: '해외 유튜브 콘텐츠에 빠져 혼자 영어를 독학한다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '자막 없이도 조금씩 들리기 시작한 대사가, 묘한 성취감을 줬다.',
+        addTalent: { id: 'language', label: '🌐 어학' }
+      },
     ]
   },
   {

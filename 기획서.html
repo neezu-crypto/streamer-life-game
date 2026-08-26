@@ -5435,6 +5435,35 @@
         <p class="note"><b>검증.</b> <code>node -c game-data.js</code> 통과, 9건 전부
         <code>requiresSufficientCash === true</code> 스크립트로 재확인, id 중복 0건·배열 홀
         0건. 순수 추가 diff 확인 후 <code>functions:lifegame</code> 15개 전체 재배포로 반영.</p>
+
+        <h3>직접 플레이 QA + 영어 강사 루트 도달 불가 구조적 버그 발견·수정(2026-08-26, 사용자 지시 -
+        "직접 플레이하고 다른 선택지 버그도 있는지 찾아줘")</h3>
+        <p>Playwright로 실제 배포된 사이트에서 0세부터 100세까지 103턴 실플레이(랜덤 선택) -
+        콘솔 에러 0건, 중단 없이 엔딩까지 도달. 사이드바에서 "가족" 항목이 두 배로 잡히는 것처럼
+        보인 건 실제 버그가 아니라 가족·지인·재능·취미가 전부 같은 CSS 클래스
+        (<code>family-chip</code>)를 공유해서 테스트 스크립트가 여러 패널을 겹쳐 센 것으로 확인.</p>
+        <p>이 플레이에서 12세에 study-abroad-usa 루트로 어학 재능을 얻었는데도 21세에
+        <code>et-trigger-21</code>(영어 강사 루트 진입)이 한 번도 후보로 뜨지 않는 걸 발견.
+        원인을 추적한 결과 <b>구조적으로 진입 자체가 불가능한 루트였다</b> - <code>pickVisibleChoiceIds</code>는
+        플레이어가 활성 루트 안에 있는 동안(<code>activeRouteId</code> 존재) 그 루트 전용
+        콘텐츠만 후보 풀에 넣고 나머지는(다른 루트의 <code>mandatory</code> 트리거 포함) 전부
+        배제하는데, <code>study-abroad-usa</code>(10~24세 활성)→<code>us-settled-life</code>
+        (25~39세 활성)가 끊김 없이 이어져 있고, 그런데 <b>어학(<code>language</code>) 재능을
+        얻는 유일한 선택지가 <code>study-abroad-usa</code> 전용</b>(<code>sa-english-progress-12</code>)
+        이었다. 즉 이 재능을 가진 플레이어는 예외 없이 10~39세 내내 활성 루트 안에 갇혀 있어,
+        <code>requiresRoute</code>가 없는 <code>et-trigger-21</code>(21세)은 mandatory 여부와
+        무관하게 애초에 후보에 낄 수조차 없었다 - 영어 강사 루트는 그 누구도 도달 못 하는 죽은
+        콘텐츠였던 셈.</p>
+        <p class="note"><b>조치.</b> 두 가지 해결책(① 어학 재능을 딸 수 있는 통로를 study-abroad-usa
+        밖에도 추가 ② 트리거 나이를 두 루트가 다 끝나는 39세 이후로 이동) 중 사용자가 ①을 선택.
+        14세에 범용(게이트 없음) 선택지 <code>english-self-study-14</code>("해외 유튜브 콘텐츠에
+        빠져 혼자 영어를 독학한다")를 신설 - <code>coding-self-taught-12</code>와 같은 패턴(자기주도
+        학습으로 재능 습득)으로, 같은 <code>addTalent: {'{'}id:'language'{'}'}</code>를 부여한다.
+        이제 study-abroad-usa를 안 거친 플레이어도 어학 재능을 얻을 길이 생겨, 활성 루트 밖에서
+        21세를 맞으면 <code>et-trigger-21</code>이 정상적으로 후보에 뜬다.</p>
+        <p class="note"><b>검증.</b> <code>node -c game-data.js</code> 통과, id 중복 0건·배열 홀
+        0건, 신규 선택지가 정확한 필드로 들어갔는지 재확인. <code>functions:lifegame</code> 15개
+        전체 재배포로 반영.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
