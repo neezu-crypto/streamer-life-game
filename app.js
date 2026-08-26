@@ -298,7 +298,10 @@ const ROUTES_META = [
   { id: 'youth-politics', title: '🏛️ 청년 정치', icon: '🏛️' },
   { id: 'small-business', title: '🏪 자영업', icon: '🏪' },
   { id: 'regular-employee', title: '💼 정규직 직장인', icon: '💼' },
-  { id: 'logistics', title: '🚚 물류직', icon: '🚚' }
+  { id: 'logistics', title: '🚚 물류직', icon: '🚚' },
+  { id: 'english-teacher', title: '🌐 영어 강사', icon: '🌐' },
+  { id: 'romance', title: '💕 연애', icon: '💕' },
+  { id: 'streamer', title: '🎥 스트리머', icon: '🎥' }
 ];
 
 // 재능·재산 목록(17장/재산 상세) - functions/game-data.js의 addTalent/addAsset
@@ -316,7 +319,8 @@ const TALENTS_META = [
   { id: 'leadership', title: '👑 리더십', icon: '👑' },
   { id: 'acting', title: '🎭 연기', icon: '🎭' },
   { id: 'hidden-talent', title: '✨ 숨은 끼', icon: '✨' },
-  { id: 'coding', title: '💻 코딩', icon: '💻' }
+  { id: 'coding', title: '💻 코딩', icon: '💻' },
+  { id: 'language', title: '🌐 어학', icon: '🌐' }
 ];
 const ASSETS_META = [
   { id: 'lottery-ticket', title: '🎟️ 복권', icon: '🎟️' },
@@ -335,7 +339,9 @@ const ASSETS_META = [
   { id: 'collectibles', title: '🎨 수집품', icon: '🎨' },
   { id: 'severance-payout', title: '💰 퇴직금', icon: '💰' },
   { id: 'vacation-home', title: '🏖️ 별장', icon: '🏖️' },
-  { id: 'compact-car', title: '🚙 소형차', icon: '🚙' }
+  { id: 'compact-car', title: '🚙 소형차', icon: '🚙' },
+  { id: 'time-loop-ticket', title: '⏳ 100년의 기억', icon: '⏳' },
+  { id: 'time-loop-declined', title: '⏳ 흘려보낸 기회', icon: '⏳' }
 ];
 // 직업 목록(2026-08-23, 사용자 지시 - "나의 도감에 직업도 추가해줘") - 재능·
 // 재산과 완전히 같은 패턴. functions/game-data.js에서 setOccupation으로 쓰이는
@@ -381,7 +387,9 @@ const OCCUPATIONS_META = [
   { id: 'veteran-actor', title: '🏆 베테랑 배우', icon: '🏆' },
   { id: 'volunteer-work', title: '🤝 재능기부/파트타임', icon: '🤝' },
   { id: 'local-council-candidate', title: '🗳️ 지방의회 후보', icon: '🗳️' },
-  { id: 'local-council-member', title: '🏛️ 지방의원', icon: '🏛️' }
+  { id: 'local-council-member', title: '🏛️ 지방의원', icon: '🏛️' },
+  { id: 'english-teacher', title: '🌐 영어 강사', icon: '🌐' },
+  { id: 'streamer', title: '🎥 스트리머', icon: '🎥' }
 ];
 
 const collectionModal = document.getElementById('collectionModal');
