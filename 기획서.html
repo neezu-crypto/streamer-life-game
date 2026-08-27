@@ -6241,6 +6241,34 @@
             → 무마 성공이 늘면 치안(trackerB)도 같이 악화되는 방향으로 자연스럽게 이어져, 경찰↔시민이
             간접적으로도 연결된다.</li>
         </ul>
+        <h4>현행범 상태 선택지 예시 (2026-08-28, 사용자 지시)</h4>
+        <p>현행범은 멀티턴 루트가 아니라, 발각 즉시 진입해 그 자리에서 하나를 고르고 바로 결과가
+        갈리는 <b>단발성 선택 화면</b>으로 설계한다. 예시 4개:</p>
+        <ul>
+            <li><b>① 뇌물 시도</b> (<code>caught-bribe-attempt</code>) — "다가온 경찰에게 넌지시
+            돈 봉투를 건넨다". <code>prizeTable</code> 성공/실패, 성공률은
+            <code>policeCorruption</code> rate에 비례(부패할수록 잘 먹힘). 성공 시
+            <code>wealth: -5</code>로 그냥 풀려나고, 실패 시 뇌물공여 혐의까지 얹혀
+            <code>prison</code> 루트로 가중 처벌.</li>
+            <li><b>② 순순히 자백</b> (<code>caught-confess-cooperate</code>) — "더 이상 발뺌하지
+            않고 순순히 자백한다". 고정 결과, <code>relationship: 1</code>. 초범·협조 정상참작으로
+            <code>prison</code> 대신 집행유예·벌금 쪽으로 가중치를 옮긴다.</li>
+            <li><b>③ 도주 시도</b> (<code>caught-flee-attempt</code>) — "정신없이 그 자리를
+            벗어나려 한다". <code>prizeTable</code> 성공/실패, <b>성공률도 ①과 마찬가지로
+            <code>policeCorruption</code> rate에 연동</b>(2026-08-28, 사용자 지시로 고정값에서
+            변경) — 공식 <code>도주 성공률 = 0.25 + 0.50 × rate</code>(rate=0 → 25%, rate=1 →
+            75%, 기존 <code>dynamicAppearChance</code>의 25%~75% 범위와 동일 스케일 재사용).
+            성공 시 지명수배 상태로 남아 <b>trackerB <code>publicSafety</code></b>를 target 1
+            방향으로 강하게 이동시키고, 실패 시 공무집행방해 혐의가 추가돼 <code>happiness: -8</code>
+            + 가중 처벌.</li>
+            <li><b>④ 묵비권 행사</b> (<code>caught-lawyer-silence</code>) — "변호사가 올 때까지
+            아무 말도 하지 않는다". <code>happiness: -2</code>, 확정적이지 않은 소폭 유리 조정 —
+            확률 기반인 ①·③과 확정 결과인 ②·④로 성격이 골고루 갈린다.</li>
+        </ul>
+        <p class="note">①·③(뇌물·도주 성공률)과 아래 "발각확률"은 셋 다 "부패할수록 범인에게
+        유리"라는 같은 방향의 이야기지만, 수식상 rate가 올라갈 때 값이 늘어나는 것(뇌물·도주
+        성공률)과 줄어드는 것(발각확률)이 섞여 있다 — 구현 시 필드마다
+        <code>invert</code> 플래그로 방향을 명시해 헷갈리지 않게 한다.</p>
         <h4>기존 중범죄 일탈 선택지 41개 — 발각확률의 <code>policeCorruption</code> 연동
         (2026-08-28, 사용자 지시)</h4>
         <p>게임 전체(직업 무관)에 걸쳐 <code>prizeTable</code>로 "징역" 결과를 갖는 중범죄 일탈
@@ -6443,6 +6471,8 @@
             <li><s>중범죄 발각확률 동적화</s> — 41개 대상, <code>policeCorruption</code> 연동, 5%~50%
             범위(공식 <code>0.50 − 0.45×rate</code>) 확정. 초기값 rate=0.5일 때 27.5%로 기존 고정
             18%보다 높아지는 점은 구현 시 시뮬레이션으로 재확인 필요.</li>
+            <li><s>현행범 상태 선택지 예시·도주 성공률</s> — 4개 예시(뇌물·자백·도주·묵비권) 확정,
+            도주 성공률도 <code>policeCorruption</code> 연동 25%~75% 확정.</li>
             <li><s>주가 조회 방식</s> — 실제 매매·보유 구조로 재설계되며 캐시/스케줄러 방식은
             폐기, 턴 진행 시 보유 종목만 실시간 조회하는 것으로 확정(위 B안 참고).</li>
             <li>투자 원금 고정값(1억원 제안) — 시뮬레이션으로 밸런스 확인 필요, 아직 미확정.</li>
