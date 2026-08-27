@@ -6560,8 +6560,10 @@
                 ['junior-trader']</code>, mandatory) → 실적 인정, <code>setOccupation:
                 {"id":"trader","label":"💹 트레이더"}</code></li>
                 <li>32세 <code>fund-manager-promotion-32</code> (<code>requiresOccupation:
-                ['trader']</code>, 선택 분기 — 승진을 노릴지 트레이더로 남을지 갈리는 선택지) →
-                <code>setOccupation: {"id":"fund-manager","label":"💰 펀드매니저"}</code></li>
+                ['trader']</code>, <b>비-mandatory 확정(2026-08-28)</b> — 팀장 승진과 같은
+                "확률적 인생 이벤트"로 취급, <code>appearChance</code>로 등장하며 매번 뜨지도,
+                모든 트레이더가 겪지도 않는다) → <code>setOccupation: {"id":"fund-manager",
+                "label":"💰 펀드매니저"}</code></li>
             </ul></li>
             <li><b>전용 콘텐츠</b>: 장중 변동성 스트레스, 손실 시즌의 압박, 대박 시즌 성과급,
             새벽 해외장 모니터링, 동료와의 실적 경쟁, 번아웃, 고객 응대(펀드매니저 분기) —
@@ -6611,8 +6613,9 @@
             등락배율 자체가 드물다는 점으로 밸런스 우려 해소, 추가 시뮬레이션 없음.</li>
             <li><s>인생게임→실제 주가 반영 포함 여부</s> — v1 포함으로 확정(위 D항 참고). 반대
             방향(주식시장 TOP5→스카우트 확률)은 아직 범위 밖.</li>
-            <li>주식 트레이더 직업(위 E항) — 진입·중간 단계·일탈은 확정. 32세 펀드매니저 분기
-            mandatory 여부, 성과급-실제 시장 연동 포함 여부는 아직 미확정.</li>
+            <li><s>주식 트레이더 직업(위 E항)</s> — 진입·중간 단계·일탈 확정. 32세 펀드매니저 분기는
+            비-mandatory(팀장 승진 계열, appearChance 기반)로 확정. 성과급-실제 시장 연동 포함
+            여부만 아직 미확정.</li>
         </ul>
     </section>
 
