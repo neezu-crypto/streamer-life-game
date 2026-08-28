@@ -7603,6 +7603,18 @@ const STAGES = [
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
       {
+        id: 'newcomer-unpaid-overtime-report-24',
+        text: '팀장의 부당한 야근 지시를 참다못해 노동청에 신고한다',
+        deltas: { happiness: 2, relationship: -3 },
+        result: '속은 후련했지만, 사무실 공기는 눈에 띄게 서늘해졌다.',
+        dynamicAppearChance: { key: 'teamLeadUnfairness', min: 0.25, max: 0.75 },
+        worldStateNote: {
+          key: 'teamLeadUnfairness',
+          corruptText: ' 요즘 팀장급 사이에서 이런 부당 지시가 워낙 흔하다 보니, 신고할 일도 그만큼 잦았다.',
+          honestText: ' 흔한 일은 아니었지만, 이번엔 참지 않기로 했다.'
+        }
+      },
+      {
         id: 'lw-volume-prep-24',
         text: '다가올 물량 폭주에 미리 마음의 준비를 한다',
         deltas: {"happiness":-1,"wealth":2},
@@ -12779,10 +12791,20 @@ const STAGES = [
         text: '허위 진단서를 발급해 환자의 보험사기를 도와준다',
         requiresRoute: 'doctor',
         requiresOccupation: ['doctor'],
+        worldStateSignal: { key: 'doctorCorruption', target: 1 },
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '부탁을 들어준 대가로, 사례를 두둑이 받았다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '허위 진단서 발급에 의한 보험사기 방조 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
         ]
+      },
+      {
+        id: 'doc-refuses-fake-diagnosis-29',
+        text: '환자의 허위 진단서 부탁을 단호히 거절한다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor'],
+        deltas: { happiness: 2, relationship: -1 },
+        result: '서운해하는 얼굴을 뒤로하고도, 원칙을 접지는 않았다.',
+        worldStateSignal: { key: 'doctorCorruption', target: 0 }
       }
     ]
   },
@@ -18769,10 +18791,20 @@ const STAGES = [
         text: '인허가를 대가로 은밀한 청탁을 들어준다',
         requiresRoute: 'youth-politics',
         requiresOccupation: ['local-council-member'],
+        worldStateSignal: { key: 'politicianCorruption', target: 1 },
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '별 탈 없이, 조용한 거래가 마무리됐다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -7, happiness: -4 }, result: '특혜 인허가 정황이 드러나며 감사원 조사를 받았다.' }
         ]
+      },
+      {
+        id: 'yp-refuses-permit-favor-38',
+        text: '인허가 대가로 들어온 은밀한 청탁을 단호히 거절한다',
+        requiresRoute: 'youth-politics',
+        requiresOccupation: ['local-council-member'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '아쉬운 소리를 들었지만, 원칙을 접을 이유는 되지 못했다.',
+        worldStateSignal: { key: 'politicianCorruption', target: 0 }
       },
       {
         id: 'deviant-yp-blackmail-silence-38',
@@ -21535,6 +21567,18 @@ const STAGES = [
     intro: '다 가진 것 같은데도 문득 공허해지는, 이른바 중년의 위기가 찾아오는 나이입니다.',
     choices: [
       {
+        id: 'patient-bribes-doctor-for-fake-diagnosis-45',
+        text: '의사에게 청탁해 허위 진단서를 받는다',
+        deltas: { wealth: 3, happiness: -1 },
+        result: '당장의 이득은 챙겼지만, 서류 한 장의 무게가 마음 한구석을 계속 짓눌렀다.',
+        dynamicAppearChance: { key: 'doctorCorruption', min: 0.25, max: 0.75 },
+        worldStateNote: {
+          key: 'doctorCorruption',
+          corruptText: ' 요즘 의료계 청렴도가 워낙 낮다 보니, 이런 부탁도 어렵지 않게 통했다.',
+          honestText: ' 평소라면 어림도 없었을 텐데, 그래도 이번엔 운 좋게 받아들여졌다.'
+        }
+      },
+      {
         id: 'lw2-veteran-reflection-45',
         text: '오랜 현장 경력을 돌아보며 그동안의 노하우를 정리해본다',
         deltas: {"happiness":3,"fame":1},
@@ -22651,6 +22695,24 @@ const STAGES = [
         deltas: { relationship: 3, wealth: -1 },
         result: '내가 받았던 것들을, 이제는 건네줄 차례라는 생각이 들었다.',
         requiresOccupation: ['team-lead']
+      },
+      {
+        id: 'deviant-tl-forced-unpaid-overtime-47',
+        text: '실적을 이유로 팀원에게 부당한 야근을 강요한다',
+        requiresOccupation: ['team-lead'],
+        worldStateSignal: { key: 'teamLeadUnfairness', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3, fame: 1 }, result: '숫자로 나온 성과 앞에서, 방식에 대한 뒷말은 묻혔다.' },
+          { weight: 18, label: '발각', deltas: { happiness: -4, relationship: -5, fame: -3 }, result: '직원의 신고로 노동청 조사를 받으며 부서 전체가 뒤숭숭해졌다.' }
+        ]
+      },
+      {
+        id: 'tl-refuses-forced-overtime-47',
+        text: '실적이 급해도 팀원에게 부당한 야근은 강요하지 않는다',
+        requiresOccupation: ['team-lead'],
+        deltas: { happiness: 2, relationship: 2 },
+        result: '당장의 숫자보다, 함께 갈 사람들이 먼저라고 생각했다.',
+        worldStateSignal: { key: 'teamLeadUnfairness', target: 0 }
       }
     ,
       {
@@ -23237,6 +23299,18 @@ const STAGES = [
     ageRange: '50세',
     intro: '쉰이라는 숫자 앞에서, 지나온 시간의 무게를 새삼 느끼게 됩니다.',
     choices: [
+      {
+        id: 'citizen-bribes-official-for-permit-50',
+        text: '지역 정치인에게 청탁을 넣어 인허가를 앞당긴다',
+        deltas: { wealth: -2, happiness: 2 },
+        result: '일은 빨리 풀렸지만, 뒷맛이 마냥 개운하지만은 않았다.',
+        dynamicAppearChance: { key: 'politicianCorruption', min: 0.25, max: 0.75 },
+        worldStateNote: {
+          key: 'politicianCorruption',
+          corruptText: ' 요즘 정치권 청렴도가 워낙 낮다 보니, 이런 청탁도 어렵지 않게 통했다.',
+          honestText: ' 평소라면 어림도 없었을 텐데, 그래도 이번엔 운 좋게 받아들여졌다.'
+        }
+      },
       {
         id: 're-mgr-team-legacy-50',
         text: '거쳐 간 팀원들의 성장을 돌아본다',
