@@ -784,7 +784,11 @@ function publicStage(stage, visibleIds, introId, healthConditions) {
   const visibleChoices = ids
     .map((id) => {
       const real = findChoiceById(stage, id);
-      if (real) return { id: real.id, text: real.text };
+      // requiresStockPurchase(2026-08-28, 56장 D항) - 클라이언트가 이 선택지는
+      // 곧바로 제출하지 말고 종목 검색 모달을 먼저 띄워야 한다는 걸 알아야
+      // 하므로, 다른 requires*와 달리 이 플래그만 예외적으로 클라이언트에
+      // 그대로 전달한다(결과 스포일러가 아니라 UI 분기 정보라 안전함).
+      if (real) return real.requiresStockPurchase ? { id: real.id, text: real.text, requiresStockPurchase: true } : { id: real.id, text: real.text };
       const synthetic = resolveSyntheticChoice(id, healthConditions);
       return synthetic ? { id: synthetic.id, text: synthetic.text } : null;
     })
@@ -1702,7 +1706,11 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // "이번 선택으로 처음 생겼다"(이미 갖고 있었으면 false)는 뜻이라, 그 항목을
   // 정확히 이번 턴에 처음 발견한 순간에만 기록된다(중복 기록 없음).
   if (isNewAsset) {
-    statWrites.push(recordCollectionEntryIfLoggedIn(db, playRef.key, 'assets', choice.addAsset.id));
+    // 주식 자산(2026-08-28, 56장 D항)은 종목마다 id가 달라 ASSETS_META의
+    // "고정 id 자산 전제"가 깨진다 - 종목별로 도감 칸을 만드는 대신 확정된
+    // 대로 "📈 주식 투자" 단일 범주 칸(stock-investment) 하나로 몰아준다.
+    const collectionAssetId = choice.addAsset.type === 'stock' ? 'stock-investment' : choice.addAsset.id;
+    statWrites.push(recordCollectionEntryIfLoggedIn(db, playRef.key, 'assets', collectionAssetId));
   }
   if (isNewTalent) {
     statWrites.push(recordCollectionEntryIfLoggedIn(db, playRef.key, 'talents', choice.addTalent.id));

@@ -323,6 +323,30 @@
   </div>
 </div>
 
+<!-- 주식 매수(2026-08-28, 56장 D항) - 게임 시작 화면의 스트리머 검색과 같은
+     UX를 모달 안에서 재사용. 검색 결과를 고르면 buyStockChoiceId(선택 당시
+     클릭한 선택지 id)와 함께 submitChoice를 호출한다. -->
+<div id="buyStockModal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <h2>📈 주식 투자</h2>
+    <p class="pitch" style="margin:0 0 14px;">투자할 스트리머 종목을 검색해서 골라주세요. 투자 원금은 1억원(게임 내 환산)이에요.</p>
+    <input type="text" id="buyStockSearchInput" placeholder="스트리머 이름을 검색해보세요" autocomplete="off" style="margin-bottom:10px;">
+    <div id="buyStockSearchResults"></div>
+    <button class="text-link" id="closeBuyStockBtn" type="button">닫기</button>
+  </div>
+</div>
+
+<!-- 주식 매도(2026-08-28, 56장 D항) - 재산 뱃지 클릭(5의 배수 나이 + 보유 중인
+     주식일 때만) 시 뜨는 판매 안내. -->
+<div id="sellStockModal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <h2 id="sellStockTitle">📈 주식 매도</h2>
+    <p id="sellStockInfo" class="pitch" style="margin:0 0 14px;"></p>
+    <button class="primary" id="confirmSellStockBtn" type="button" style="width:100%; margin-bottom:8px;">판매</button>
+    <button class="text-link" id="closeSellStockBtn" type="button">닫기</button>
+  </div>
+</div>
+
 <div id="adAnchorBanner" class="ad-anchor-banner">
   <p class="ad-slot-label">광고 자리 (테스트 — 15장 1단계)</p>
 </div>

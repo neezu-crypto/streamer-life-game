@@ -57,6 +57,7 @@ const functions = getFunctions(app, 'us-central1');
 const startPlaythroughFn = httpsCallable(functions, 'startPlaythrough');
 const resumePlaythroughFn = httpsCallable(functions, 'resumePlaythrough');
 const submitChoiceFn = httpsCallable(functions, 'submitChoice');
+const sellStockFn = httpsCallable(functions, 'sellStock');
 const rollDiceFn = httpsCallable(functions, 'rollDice');
 const shareToGalleryFn = httpsCallable(functions, 'shareToGallery');
 const linkGoogleAccountFn = httpsCallable(functions, 'linkGoogleAccount');
@@ -342,7 +343,10 @@ const ASSETS_META = [
   { id: 'vacation-home', title: '🏖️ 별장', icon: '🏖️' },
   { id: 'compact-car', title: '🚙 소형차', icon: '🚙' },
   { id: 'time-loop-ticket', title: '⏳ 100년의 기억', icon: '⏳' },
-  { id: 'time-loop-declined', title: '⏳ 흘려보낸 기회', icon: '⏳' }
+  { id: 'time-loop-declined', title: '⏳ 흘려보낸 기회', icon: '⏳' },
+  // 주식 투자(2026-08-28, 56장 D항) - 종목마다 id가 달라 개별 도감 칸을 만들 수
+  // 없어서, 어떤 종목이든 한 번이라도 사면 해금되는 단일 범주 칸.
+  { id: 'stock-investment', title: '📈 주식 투자', icon: '📈' }
 ];
 // 직업 목록(2026-08-23, 사용자 지시 - "나의 도감에 직업도 추가해줘") - 재능·
 // 재산과 완전히 같은 패턴. functions/game-data.js에서 setOccupation으로 쓰이는
@@ -503,6 +507,107 @@ function escapeHtml(s) {
 }
 
 // ------------------------------------------------------------
+// 주식 매수 검색 모달(2026-08-28, 56장 D항) - 위 시작화면 검색과 같은
+// allStocks/streamer-names.json 데이터를 재사용하되, 결과 클릭 시
+// selectStreamer가 아니라 pendingStockChoiceId를 채워 submitChoice로
+// 이어지는 별도 콜백(selectStockToBuy)으로 분기한다.
+// ------------------------------------------------------------
+const buyStockModal = document.getElementById('buyStockModal');
+const buyStockSearchInput = document.getElementById('buyStockSearchInput');
+const buyStockSearchResults = document.getElementById('buyStockSearchResults');
+let pendingStockChoiceId = null;
+
+buyStockSearchInput.addEventListener('input', () => {
+  const q = buyStockSearchInput.value.trim();
+  buyStockSearchResults.innerHTML = '';
+  if (!q) return;
+  const matches = allStocks.filter((s) => s.name.includes(q)).slice(0, 12);
+  if (!matches.length) {
+    buyStockSearchResults.innerHTML = '<p class="empty-msg">일치하는 스트리머가 없어요.</p>';
+    return;
+  }
+  matches.forEach((s) => {
+    const row = document.createElement('div');
+    row.className = 'streamer-row';
+    row.innerHTML = '<span>' + escapeHtml(s.name) + '</span>';
+    row.addEventListener('click', () => selectStockToBuy(s.name, s.id));
+    buyStockSearchResults.appendChild(row);
+  });
+});
+
+function openBuyStockModal(choiceId) {
+  pendingStockChoiceId = choiceId;
+  buyStockSearchInput.value = '';
+  buyStockSearchResults.innerHTML = '';
+  buyStockModal.classList.remove('hidden');
+}
+
+document.getElementById('closeBuyStockBtn').addEventListener('click', () => {
+  buyStockModal.classList.add('hidden');
+  pendingStockChoiceId = null;
+});
+
+async function selectStockToBuy(name, id) {
+  if (!pendingStockChoiceId) return;
+  const choiceId = pendingStockChoiceId;
+  buyStockModal.classList.add('hidden');
+  pendingStockChoiceId = null;
+  await pickChoice(choiceId, { stockId: id, stockName: name });
+}
+
+// ------------------------------------------------------------
+// 주식 매도 모달(2026-08-28, 56장 D항) - renderAssetsInto가 5의 배수 나이일
+// 때만 뱃지에 click 리스너를 달아서 여는 화면. submitChoice와 달리 턴을
+// 넘기지 않는 별도 액션(sellStock)이라, 성공 시 응답으로 내려온
+// stats/cashHoldings/assets만 화면에 반영하고 다음 선택지는 그대로 둔다.
+// ------------------------------------------------------------
+const sellStockModal = document.getElementById('sellStockModal');
+const sellStockTitle = document.getElementById('sellStockTitle');
+const sellStockInfo = document.getElementById('sellStockInfo');
+let pendingSellAsset = null;
+
+function openSellStockModal(asset) {
+  pendingSellAsset = asset;
+  const price = typeof asset.currentPrice === 'number' ? asset.currentPrice : asset.buyPrice;
+  const ratio = price / asset.buyPrice;
+  const estimatedProfitWon = Math.round(100000000 * (ratio - 1));
+  sellStockTitle.textContent = '📈 ' + asset.label + ' 매도';
+  sellStockInfo.textContent = '매수가 ' + asset.buyPrice.toLocaleString() + '원 → 현재가 ' + price.toLocaleString() + '원. '
+    + '지금 판매하면 약 ' + estimatedProfitWon.toLocaleString() + '원의 ' + (estimatedProfitWon >= 0 ? '차익' : '손실') + '이 발생해요.';
+  sellStockModal.classList.remove('hidden');
+}
+
+document.getElementById('closeSellStockBtn').addEventListener('click', () => {
+  sellStockModal.classList.add('hidden');
+  pendingSellAsset = null;
+});
+
+document.getElementById('confirmSellStockBtn').addEventListener('click', async () => {
+  if (!pendingSellAsset) return;
+  const stockId = pendingSellAsset.id;
+  const confirmBtn = document.getElementById('confirmSellStockBtn');
+  confirmBtn.disabled = true;
+  try {
+    const res = await sellStockFn({ stockId });
+    sellStockModal.classList.add('hidden');
+    pendingSellAsset = null;
+    renderStatBars(statBars, res.data.stats);
+    renderAssets(res.data.assets, lastKnownAgeRange);
+    renderCashHoldings(cashHoldingsEl, res.data.cashHoldings);
+    showToast((res.data.profitWon >= 0 ? '📈 ' : '📉 ') + Math.abs(res.data.profitWon).toLocaleString() + '원 ' + (res.data.profitWon >= 0 ? '차익 실현!' : '손실 확정'));
+  } catch (e) {
+    console.error('매도 실패:', e);
+    if (e.details && e.details.reason === 'stock-frozen') {
+      showToast('🧊 거래 정지(동결) 중인 종목이에요');
+    } else {
+      alert('매도를 처리하지 못했어요: ' + (e.message || e));
+    }
+  } finally {
+    confirmBtn.disabled = false;
+  }
+});
+
+// ------------------------------------------------------------
 // 화면 전환 페이드 - 패널이 통째로 바뀌는 모든 지점(검색→이름짓기→게임 시작/
 // 이어하기→다음 구간→엔딩)에서 뚝 끊기지 않고 페이드아웃 후 페이드인 되게
 // 하는 공통 헬퍼. hidden 클래스는 display:none이라 그 자체로는 트랜지션이
@@ -610,7 +715,7 @@ resumeBtn.addEventListener('click', async () => {
     } else {
       await fadeOut([mainHeader]);
       renderStatBars(statBars, res.data.stats);
-      renderAssets(res.data.assets);
+      renderAssets(res.data.assets, res.data.stage && res.data.stage.ageRange);
       renderCashHoldings(cashHoldingsEl, res.data.cashHoldings);
       renderHealthConditions(res.data.healthConditions);
       renderFamilyMembers(res.data.familyMembers);
@@ -1082,9 +1187,14 @@ const ASSET_TYPE_LABELS = {
   movable: '📦 동산',
   cash: '💵 현금성',
   insurance: '🛡️ 보험',
-  vehicle: '🚗 차량'
+  vehicle: '🚗 차량',
+  stock: '📈 주식'
 };
-function renderAssetsInto(container, assets) {
+// currentAge(2026-08-28, 56장 D항 - 주식 자산 전용)를 옵션으로 받는다 - 절대
+// 나이가 5의 배수일 때만 주식 뱃지를 클릭 가능하게(매도 모달 오픈) 만들어야
+// 해서, 이 함수가 "지금 몇 살인지"를 알아야 한다. 다른 자산 종류는 그대로
+// textContent만 쓰던 예전 동작 그대로다.
+function renderAssetsInto(container, assets, currentAge) {
   container.innerHTML = '';
   if (!assets || !assets.length) {
     const empty = document.createElement('span');
@@ -1096,13 +1206,27 @@ function renderAssetsInto(container, assets) {
   assets.forEach((asset) => {
     const chip = document.createElement('span');
     chip.className = 'asset-chip';
-    chip.textContent = asset.label;
-    chip.dataset.tooltip = asset.label + ' — ' + (ASSET_TYPE_LABELS[asset.type] || '재산') + ' 자산';
+    if (asset.type === 'stock') {
+      const price = typeof asset.currentPrice === 'number' ? asset.currentPrice : asset.buyPrice;
+      const up = price >= asset.buyPrice;
+      chip.classList.add('stock');
+      chip.innerHTML = escapeHtml(asset.label) + ' <span class="asset-chip-delta ' + (up ? 'up' : 'down') + '">' + (up ? '▲' : '▼') + '</span>';
+      chip.dataset.tooltip = asset.label + ' — 매수가 ' + asset.buyPrice.toLocaleString() + '원 · 현재가 ' + price.toLocaleString() + '원';
+      if (typeof currentAge === 'number' && currentAge % 5 === 0) {
+        chip.classList.add('clickable');
+        chip.addEventListener('click', () => openSellStockModal(asset));
+      }
+    } else {
+      chip.textContent = asset.label;
+      chip.dataset.tooltip = asset.label + ' — ' + (ASSET_TYPE_LABELS[asset.type] || '재산') + ' 자산';
+    }
     container.appendChild(chip);
   });
 }
-function renderAssets(assets) {
-  renderAssetsInto(assetsEl, assets);
+let lastKnownAgeRange = null;
+function renderAssets(assets, ageRange) {
+  if (ageRange) lastKnownAgeRange = ageRange;
+  renderAssetsInto(assetsEl, assets, ageRange ? parseInt(ageRange, 10) : undefined);
 }
 
 const healthConditionsEl = document.getElementById('healthConditions');
@@ -1381,7 +1505,14 @@ function renderStage(stage) {
     btn.className = 'choice-btn';
     btn.dataset.choiceId = choice.id;
     btn.textContent = choice.text;
-    btn.addEventListener('click', () => pickChoice(choice.id));
+    // requiresStockPurchase(2026-08-28, 56장 D항) - 곧바로 제출하지 않고
+    // 종목 검색 모달을 먼저 띄운다. 모달에서 종목을 고른 뒤에야 실제
+    // submitChoice가 나간다(openBuyStockModal 참고).
+    if (choice.requiresStockPurchase) {
+      btn.addEventListener('click', () => openBuyStockModal(choice.id));
+    } else {
+      btn.addEventListener('click', () => pickChoice(choice.id));
+    }
     choiceList.appendChild(btn);
   });
   applyAlzheimersFadeout();
@@ -1396,7 +1527,7 @@ startBtn.addEventListener('click', async () => {
     const res = await startPlaythroughFn({ streamerName, streamerId: selectedStreamerId, multiplayerEnabled });
     await fadeOut([searchSection, nameSection, mainHeader]);
     renderStatBars(statBars, res.data.stats);
-    renderAssets(res.data.assets);
+    renderAssets(res.data.assets, res.data.stage && res.data.stage.ageRange);
     renderCashHoldings(cashHoldingsEl, res.data.cashHoldings);
     renderHealthConditions(res.data.healthConditions);
     renderFamilyMembers(res.data.familyMembers);
@@ -1576,7 +1707,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   celebrateIfJackpot(data.prizeLabel);
   applyTonedownIfNeeded(selectedChoiceId);
   celebrateAchievements(data);
-  renderAssets(data.assets);
+  renderAssets(data.assets, data.nextStage && data.nextStage.ageRange);
   renderCashHoldings(cashHoldingsEl, data.cashHoldings);
   renderHealthConditions(data.healthConditions);
   renderFamilyMembers(data.familyMembers);
@@ -1614,19 +1745,24 @@ function markSelectedChoice(selectedId) {
   });
 }
 
-async function pickChoice(choiceId) {
+async function pickChoice(choiceId, extra) {
   disableChoiceList();
   try {
-    const res = await submitChoiceFn({ choiceId });
+    const res = await submitChoiceFn(Object.assign({ choiceId }, extra));
     applyOutcome(res.data, undefined, choiceId);
   } catch (e) {
     console.error('선택 제출 실패:', e);
     // requiresSufficientCash(2026-08-23, 사용자 지시 - "돈이 많이 필요한 재산은
     // 충분한 현금이 있을때 선택 가능하게, 현금이 부족하면 토스트메시지가 뜨게")
     // 서버가 details.reason:'insufficient-cash'로 표시해준 경우만 토스트로,
-    // 나머지 오류는 기존처럼 alert로 구분한다.
+    // 나머지 오류는 기존처럼 alert로 구분한다. stock-frozen/already-held
+    // (2026-08-28, 56장 D항)도 같은 패턴으로 추가.
     if (e.details && e.details.reason === 'insufficient-cash') {
       showToast('💰 보유 현금이 부족해서 고를 수 없어요');
+    } else if (e.details && e.details.reason === 'stock-frozen') {
+      showToast('🧊 거래 정지(동결) 중인 종목이에요');
+    } else if (e.details && e.details.reason === 'already-held') {
+      showToast('📈 이미 보유 중인 종목이에요');
     } else {
       alert('선택을 처리하지 못했어요: ' + (e.message || e));
     }

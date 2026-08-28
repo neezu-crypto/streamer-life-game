@@ -293,6 +293,13 @@
     color: var(--gold); font-size: 12.5px;
   }
   .asset-empty { font-size: 12.5px; color: var(--text-faint); }
+  /* 주식 자산(2026-08-28, 56장 D항) - 5의 배수 나이일 때만 클릭 가능(매도
+     모달 오픈), 매수가 대비 현재가 상승/하락을 색상 화살표로 표시. */
+  .asset-chip.clickable { cursor: pointer; }
+  .asset-chip.clickable:hover { background: color-mix(in srgb, var(--gold) 18%, var(--gold-dim)); }
+  .asset-chip-delta { margin-left: 3px; font-weight: 700; }
+  .asset-chip-delta.up { color: #4caf7d; }
+  .asset-chip-delta.down { color: #e0654f; }
 
   .score-chart-summary { font-size: 12.5px; color: var(--text-faint); margin: 0 0 8px; font-variant-numeric: tabular-nums; }
   .score-chart { display: block; width: 100%; height: 160px; }
