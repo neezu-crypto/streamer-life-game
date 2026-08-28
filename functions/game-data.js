@@ -9955,6 +9955,15 @@ const STAGES = [
         requiresOccupation: ['startup-founder']
       },
       {
+        id: 'deviant-sf-employee-wage-delay-26',
+        text: '자금난을 이유로 직원 월급을 몇 달째 미룬다',
+        requiresOccupation: ['startup-founder'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '당장의 급한 불은 껐다는 사실에, 죄책감은 잠시 미뤄뒀다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, fame: -5, relationship: -3 }, result: '직원의 신고로 노동청 조사를 받으며 체불 임금을 물어냈다.' }
+        ]
+      },
+      {
         id: 'artist-unexpected-recognition',
         text: '작품이 뜻밖의 주목을 받으며 이름이 알려진다',
         deltas: { fame: 6, happiness: 3 },
