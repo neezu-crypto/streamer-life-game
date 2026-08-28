@@ -993,7 +993,7 @@ const STAGES = [
         id: 'deviant-copy-homework-8',
         text: '친구 숙제를 몰래 베껴 낸다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '들키지 않은 게 오히려 신기했다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '들키지 않은 게 오히려 신기했다.' },
           { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -2 }, result: '베낀 티가 너무 났던 모양이다.' }
         ]
       },
@@ -1112,7 +1112,7 @@ const STAGES = [
         id: 'deviant-candy-shoplift-9',
         text: '동네 슈퍼에서 사탕 하나를 몰래 손에 쥐고 나온다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '입 안 가득 퍼지는 단맛이 짜릿했다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '입 안 가득 퍼지는 단맛이 짜릿했다.' },
           { weight: 10, label: '발각', deltas: { relationship: -4, happiness: -3 }, result: '주인 아저씨의 불호령이 오래도록 귓가에 맴돌았다.' }
         ]
       },
@@ -1229,7 +1229,7 @@ const STAGES = [
         text: '성적표 점수를 몰래 고쳐 부모님께 보여드린다',
         requiresFamilyMember: ['father', 'mother', 'single-parent'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2, relationship: 1 }, result: '칭찬받는 기분이 나쁘지 않았다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3, relationship: 2 }, result: '칭찬받는 기분이 나쁘지 않았다.' },
           { weight: 10, label: '발각', deltas: { relationship: -5, happiness: -3 }, result: '원본 성적표가 어디선가 툭 튀어나왔다.' }
         ]
       },
@@ -1360,7 +1360,7 @@ const STAGES = [
         id: 'deviant-cut-in-line-11',
         text: '매점 줄을 슬쩍 새치기한다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '아무도 눈치채지 못한 것 같아 우쭐했다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '아무도 눈치채지 못한 것 같아 우쭐했다.' },
           { weight: 10, label: '발각', deltas: { relationship: -3 }, result: '뒤에 서 있던 친구가 큰 소리로 항의했다.' }
         ]
       },
@@ -1544,7 +1544,7 @@ const STAGES = [
         id: 'deviant-prank-call-12',
         text: '장난 전화를 걸고 몰래 낄낄댄다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '숨죽인 웃음을 참느라 배가 아팠다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '숨죽인 웃음을 참느라 배가 아팠다.' },
           { weight: 10, label: '발각', deltas: { relationship: -2, happiness: -2 }, result: '발신번호가 그대로 찍혀 있었다.' }
         ]
       },
@@ -1718,7 +1718,7 @@ const STAGES = [
         id: 'deviant-cheat-exam-13',
         text: '시험 중 커닝 페이퍼를 몰래 훔쳐본다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '평소보다 좋은 점수에 마음이 놓였다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '평소보다 좋은 점수에 마음이 놓였다.' },
           { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -4 }, result: '감독 선생님의 눈을 피하지 못했다.' }
         ]
       },
@@ -1726,7 +1726,7 @@ const STAGES = [
         id: 'deviant-skip-class-rooftop-13',
         text: '수업을 땡땡이치고 옥상에서 시간을 보낸다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 4, relationship: 1 }, result: '햇볕 아래 흘려보낸 시간이 꿀맛 같았다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 5, relationship: 2 }, result: '햇볕 아래 흘려보낸 시간이 꿀맛 같았다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, relationship: -2 }, result: '옥상 문 앞에서 선생님과 딱 마주쳤다.' }
         ]
       },
@@ -1917,7 +1917,7 @@ const STAGES = [
         id: 'deviant-fake-early-leave-note-14',
         text: '아프지 않은데 조퇴증을 위조한다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '오후 내내 자유를 만끽했다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '오후 내내 자유를 만끽했다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, relationship: -3 }, result: '담임 선생님이 직접 확인 전화를 걸었다.' }
         ]
       },
@@ -1925,7 +1925,7 @@ const STAGES = [
         id: 'deviant-snack-pocket-14',
         text: '매점 물건을 몰래 주머니에 넣는다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '심장이 쿵쾅댔지만 무사히 빠져나왔다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '심장이 쿵쾅댔지만 무사히 빠져나왔다.' },
           { weight: 18, label: '발각', deltas: { happiness: -5, relationship: -5, wealth: -2 }, result: 'CCTV에 고스란히 찍혀 있었다.' }
         ]
       },
@@ -2210,7 +2210,7 @@ const STAGES = [
         id: 'deviant-underage-drink-15',
         text: '친구들과 몰래 술을 마셔본다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 4, relationship: 2 }, result: '어른이 된 것 같은 착각에 빠졌다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 5, relationship: 3 }, result: '어른이 된 것 같은 착각에 빠졌다.' },
           { weight: 18, label: '발각', deltas: { health: -2, happiness: -4, relationship: -3 }, result: '집에 들어서자마자 술 냄새로 들통났다.' }
         ]
       },
@@ -2218,7 +2218,7 @@ const STAGES = [
         id: 'deviant-borrow-sibling-id-15',
         text: '언니·오빠의 신분증을 빌려 노래방에 들어가려 한다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '문 안으로 들어서는 순간까지 심장이 떨렸다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '문 안으로 들어서는 순간까지 심장이 떨렸다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, relationship: -2 }, result: '사진이 너무 다르다며 바로 돌려보내졌다.' }
         ]
       },
@@ -2540,7 +2540,7 @@ const STAGES = [
         id: 'deviant-motorbike-noheadgear-16',
         text: '헬멧 없이 친구 오토바이 뒷자리에 올라탄다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 4 }, result: '머리카락을 스치는 바람이 자유로웠다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 5 }, result: '머리카락을 스치는 바람이 자유로웠다.' },
           { weight: 18, label: '발각', deltas: { health: -4, happiness: -5 }, result: '급브레이크에 그대로 넘어지고 말았다.' }
         ]
       },
@@ -2548,7 +2548,7 @@ const STAGES = [
         id: 'deviant-plagiarize-essay-16',
         text: '과제를 인터넷에서 그대로 베껴 제출한다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '들인 시간에 비해 결과가 나쁘지 않았다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '들인 시간에 비해 결과가 나쁘지 않았다.' },
           { weight: 10, label: '발각', deltas: { happiness: -4, relationship: -2 }, result: '표절 검사기에 그대로 걸려버렸다.' }
         ]
       },
@@ -2961,7 +2961,7 @@ const STAGES = [
         id: 'deviant-teen-fake-id-club-17',
         text: '부모님 몰래 신분증을 위조해 클럽에 들어간다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 4, relationship: -2 }, result: '들키면 안 된다는 긴장감마저 짜릿했다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 5, relationship: -2 }, result: '들키면 안 된다는 긴장감마저 짜릿했다.' },
           { weight: 18, label: '발각', deltas: { happiness: -6, relationship: -4 }, result: '위조 티가 나는 신분증에 입구에서 바로 붙잡혔다.' }
         ]
       },
@@ -2969,7 +2969,7 @@ const STAGES = [
         id: 'deviant-street-race-standoff-17',
         text: '친구들과 신호 대기 중 즉석 레이스를 벌인다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 5 }, result: '엔진 소리와 함께 스트레스가 다 날아가는 기분이었다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 6 }, result: '엔진 소리와 함께 스트레스가 다 날아가는 기분이었다.' },
           { weight: 18, label: '발각', deltas: { health: -5, wealth: -3, happiness: -5 }, result: '커브를 돌다 그대로 도랑에 처박히고 말았다.' }
         ]
       },
@@ -3388,7 +3388,7 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['trainee'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 4, relationship: 3 }, result: '아무도 모르게, 설레는 비밀이 하나 생겼다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 5, relationship: 4 }, result: '아무도 모르게, 설레는 비밀이 하나 생겼다.' },
           { weight: 10, label: '발각', deltas: { happiness: -4, fame: -1 }, result: '매니저에게 딱 걸려 불려가 한참을 혼났다.' }
         ]
       },
@@ -3398,7 +3398,7 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['trainee'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '죄책감보다 포만감이 더 크게 느껴진 밤이었다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '죄책감보다 포만감이 더 크게 느껴진 밤이었다.' },
           { weight: 10, label: '발각', deltas: { happiness: -2, health: -1 }, result: '저울 위에 오르자마자 잔소리가 쏟아졌다.' }
         ]
       }
@@ -3422,7 +3422,7 @@ const STAGES = [
         id: 'deviant-exam-earpiece-cheat-18',
         text: '수능 감독을 피해 몰래 이어폰으로 답을 듣는다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '떨리는 손으로 답을 옮겨 적었다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4 }, result: '떨리는 손으로 답을 옮겨 적었다.' },
           { weight: 18, label: '발각', deltas: { happiness: -8, relationship: -4 }, result: '감독관에게 이어폰 선이 그대로 들키고 말았다.' }
         ]
       },
@@ -3430,7 +3430,7 @@ const STAGES = [
         id: 'deviant-parents-car-joyride-18',
         text: '부모님 차를 몰래 끌고 나가 드라이브를 즐긴다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 4 }, result: '텅 빈 새벽 도로가 온전히 내 것 같았다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 5 }, result: '텅 빈 새벽 도로가 온전히 내 것 같았다.' },
           { weight: 18, label: '발각', deltas: { wealth: -3, relationship: -4, happiness: -3 }, result: '주차 자국이 평소와 다르다는 걸 바로 들켰다.' }
         ]
       },
@@ -3976,7 +3976,7 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['trainee'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '까맣게 물든 골목을 걸으며, 자유를 만끽했다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 5 }, result: '까맣게 물든 골목을 걸으며, 자유를 만끽했다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, relationship: -2 }, result: '현관문을 여는 순간, 굳은 표정의 매니저와 눈이 마주쳤다.' }
         ]
       },
@@ -3986,7 +3986,7 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['trainee'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '무사히 넘어가는가 싶어 마음이 놓였다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '무사히 넘어가는가 싶어 마음이 놓였다.' },
           { weight: 18, label: '발각', deltas: { happiness: -5, fame: -2, relationship: -2 }, result: '안무 감독에게 원작자와의 비교 영상을 들이밀리며 크게 혼났다.' }
         ]
       }
@@ -4094,7 +4094,7 @@ const STAGES = [
         id: 'deviant-underage-smoke-19',
         text: '성인인 척 몰래 담배를 배운다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '기침을 참으며 억지로 태연한 척했다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '기침을 참으며 억지로 태연한 척했다.' },
           { weight: 10, label: '발각', deltas: { health: -2, happiness: -3 }, result: '옷에 밴 냄새로 바로 들통났다.' }
         ]
       },
@@ -4102,7 +4102,7 @@ const STAGES = [
         id: 'deviant-illegal-movie-download-19',
         text: '불법으로 영화를 다운로드해 몰아본다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '밤새 화면 앞을 떠나지 못했다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '밤새 화면 앞을 떠나지 못했다.' },
           { weight: 10, label: '발각', deltas: { wealth: -2, happiness: -3 }, result: '경고장이 메일함에 날아들었다.' }
         ]
       },
@@ -4611,7 +4611,7 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['trainee'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 3, fame: 1 }, result: '아무도 눈치채지 못한 채, 원하는 자리를 얻었다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4, fame: 2 }, result: '아무도 눈치채지 못한 채, 원하는 자리를 얻었다.' },
           { weight: 18, label: '발각', deltas: { happiness: -6, relationship: -4 }, result: '뒷조사 끝에 진실이 드러나며 동료들 사이에서 완전히 고립됐다.' }
         ]
       }
@@ -4876,7 +4876,7 @@ const STAGES = [
         id: 'deviant-fake-parttime-hours-20',
         text: '알바 출근 기록을 살짝 부풀린다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 1, happiness: 2 }, result: '몇 푼 더 들어온 월급이 쏠쏠했다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 3 }, result: '몇 푼 더 들어온 월급이 쏠쏠했다.' },
           { weight: 18, label: '발각', deltas: { wealth: -3, happiness: -4, relationship: -2 }, result: 'CCTV 기록과 어긋난다는 사장님의 추궁이 이어졌다.' }
         ]
       },
@@ -4884,7 +4884,7 @@ const STAGES = [
         id: 'deviant-habitual-jaywalk-20',
         text: '바쁘다는 핑계로 무단횡단을 상습적으로 한다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 1 }, result: '몇 초 아꼈다는 뿌듯함이 있었다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '몇 초 아꼈다는 뿌듯함이 있었다.' },
           { weight: 10, label: '발각', deltas: { wealth: -1, happiness: -3 }, result: '단속 카메라에 그대로 찍히고 말았다.' }
         ]
       },
@@ -5523,7 +5523,7 @@ const STAGES = [
         text: '실제보다 많아 보이려고 시청자 수를 늘려주는 봇을 몰래 돌린다',
         requiresRoute: 'streamer',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { fame: 3 }, result: '숫자가 늘어난 방송이, 조금 더 그럴듯해 보였다.' },
+          { weight: 90, label: '안 걸림', deltas: { fame: 4 }, result: '숫자가 늘어난 방송이, 조금 더 그럴듯해 보였다.' },
           { weight: 10, label: '발각', deltas: { fame: -4, happiness: -2 }, result: '플랫폼 어뷰징 탐지에 걸려 계정 경고를 받았다.' }
         ]
       }
@@ -5550,7 +5550,7 @@ const STAGES = [
         requiresRoute: 'doctor',
         requiresOccupation: ['med-student'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '용돈벌이치곤 짭짤한 부수입이었다.' },
+          { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '용돈벌이치곤 짭짤한 부수입이었다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, relationship: -2 }, result: '출처가 드러나며 동기들 사이에서 눈총을 받았다.' }
         ]
       }
@@ -5804,7 +5804,7 @@ const STAGES = [
         id: 'deviant-inflate-resume-21',
         text: '이력서 경력을 살짝 부풀려 적는다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 3, wealth: 1 }, result: '서류 통과 소식에 안도의 한숨이 나왔다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4, wealth: 2 }, result: '서류 통과 소식에 안도의 한숨이 나왔다.' },
           { weight: 18, label: '발각', deltas: { happiness: -5, relationship: -3 }, result: '평판 조회 과정에서 거짓말이 들통났다.' }
         ]
       },
@@ -5812,7 +5812,7 @@ const STAGES = [
         id: 'deviant-drunk-noise-complaint-21',
         text: '새벽까지 술 마시고 소란을 피운다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '오랜만에 스트레스를 실컷 풀었다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '오랜만에 스트레스를 실컷 풀었다.' },
           { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -3 }, result: '이웃의 신고로 경찰이 출동했다.' }
         ]
       },
@@ -6388,7 +6388,7 @@ const STAGES = [
         requiresRoute: 'small-business',
         requiresOccupation: ['small-business-owner'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '세금 낼 걱정이 줄어드니, 마음이 한결 가벼웠다.' },
+          { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '세금 낼 걱정이 줄어드니, 마음이 한결 가벼웠다.' },
           { weight: 10, label: '발각', deltas: { wealth: -2, fame: -2 }, result: '세무서 현장 조사에서 누락된 매출이 그대로 드러났다.' }
         ]
       }
@@ -6413,7 +6413,7 @@ const STAGES = [
         text: '지인 이름으로 별도 계좌를 만들어 후원금 일부를 몰래 빼돌린다',
         requiresRoute: 'streamer',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '아무도 눈치채지 못한 채, 여윳돈이 조금씩 쌓였다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '아무도 눈치채지 못한 채, 여윳돈이 조금씩 쌓였다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, relationship: -3 }, result: '팬이 직접 계좌 내역을 캐물으며 신뢰가 무너졌다.' }
         ]
       }
@@ -6718,7 +6718,7 @@ const STAGES = [
         id: 'deviant-copy-club-report-22',
         text: '동아리 발표 자료를 선배 것 그대로 베낀다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '발표는 무사히 잘 넘어갔다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '발표는 무사히 잘 넘어갔다.' },
           { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -2 }, result: '선배가 자기 자료를 알아보고 말았다.' }
         ]
       },
@@ -6726,7 +6726,7 @@ const STAGES = [
         id: 'deviant-fake-disabled-parking-22',
         text: '장애인 주차구역에 잠깐이라며 차를 세운다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 1 }, result: '금방 뺄 거라 생각하며 자리를 떴다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '금방 뺄 거라 생각하며 자리를 떴다.' },
           { weight: 18, label: '발각', deltas: { wealth: -3, happiness: -4 }, result: '단속 요원이 이미 스티커를 붙이고 있었다.' }
         ]
       },
@@ -7317,7 +7317,7 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 5 }, result: '아무에게도 들키지 않은 완벽한 하루였다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 6 }, result: '아무에게도 들키지 않은 완벽한 하루였다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, fame: -2 }, result: '몰래 찍힌 뒷모습 사진이 결국 커뮤니티에 퍼지고 말았다.' }
         ]
       },
@@ -7327,7 +7327,7 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '아찔했지만, 무사히 집에 도착했다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '아찔했지만, 무사히 집에 도착했다.' },
           { weight: 18, label: '발각', deltas: { wealth: -6, fame: -8, happiness: -6 }, result: '음주 단속에 걸리며 뉴스 헤드라인을 장식했다.' }
         ]
       }
@@ -7338,7 +7338,7 @@ const STAGES = [
         requiresRoute: 'small-business',
         requiresOccupation: ['small-business-owner'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { fame: 2, happiness: 2 }, result: '별점이 오르는 걸 보며 흐뭇해했다.' },
+          { weight: 90, label: '안 걸림', deltas: { fame: 3, happiness: 3 }, result: '별점이 오르는 걸 보며 흐뭇해했다.' },
           { weight: 10, label: '발각', deltas: { fame: -4, happiness: -2 }, result: '같은 IP 리뷰라는 게 밝혀지며 "조작 논란"에 휩싸였다.' }
         ]
       }
@@ -7370,7 +7370,7 @@ const STAGES = [
         text: '실제로 받지 않은 협찬을 받은 것처럼 광고성 리뷰를 올린다',
         requiresRoute: 'streamer',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '가짜 협찬 티가 안 나서, 별 탈 없이 지나갔다.' },
+          { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '가짜 협찬 티가 안 나서, 별 탈 없이 지나갔다.' },
           { weight: 10, label: '발각', deltas: { fame: -4, happiness: -2 }, result: '해당 업체가 직접 부인하며 "뒷광고" 논란이 됐다.' }
         ]
       }
@@ -7397,7 +7397,7 @@ const STAGES = [
         requiresRoute: 'doctor',
         requiresOccupation: ['med-student'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { wealth: 2 }, result: '몇 부 팔았을 뿐인데, 생각보다 쏠쏠했다.' },
+          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '몇 부 팔았을 뿐인데, 생각보다 쏠쏠했다.' },
           { weight: 10, label: '발각', deltas: { happiness: -2, relationship: -2 }, result: '원저작자인 조교에게 걸려 한소리를 들었다.' }
         ]
       }
@@ -7663,7 +7663,7 @@ const STAGES = [
         id: 'deviant-speeding-nearmiss-23',
         text: '과속하다 걸릴 뻔한 걸 아슬아슬하게 피한다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '가슴을 쓸어내리며 속도를 줄였다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4 }, result: '가슴을 쓸어내리며 속도를 줄였다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, happiness: -4 }, result: '결국 과속 단속 카메라 플래시가 터졌다.' }
         ]
       },
@@ -7671,7 +7671,7 @@ const STAGES = [
         id: 'deviant-office-printer-personal-23',
         text: '회사 프린터로 개인 서류를 몰래 잔뜩 뽑는다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 1 }, result: '종이 뭉치를 가방에 슬쩍 넣었다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '종이 뭉치를 가방에 슬쩍 넣었다.' },
           { weight: 10, label: '발각', deltas: { relationship: -2, happiness: -2 }, result: '토너 교체 담당자에게 딱 걸렸다.' }
         ]
       },
@@ -8310,7 +8310,7 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2, wealth: -1 }, result: '생각보다 효과가 빨라, 안도의 한숨을 쉬었다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3, wealth: -1 }, result: '생각보다 효과가 빨라, 안도의 한숨을 쉬었다.' },
           { weight: 10, label: '발각', deltas: { health: -5, happiness: -2 }, result: '심장이 미친 듯이 뛰는 부작용에 응급실로 실려갔다.' }
         ]
       },
@@ -8320,7 +8320,7 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 4 }, result: '아무 일도 없었다는 듯, 평소처럼 무대에 올랐다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 5 }, result: '아무 일도 없었다는 듯, 평소처럼 무대에 올랐다.' },
           { weight: 18, label: '발각', deltas: { happiness: -6, fame: -6, relationship: -3 }, result: '사생팬이 찍은 사진이 순식간에 퍼지며 감당할 수 없는 화제가 됐다.' }
         ]
       }
@@ -8331,7 +8331,7 @@ const STAGES = [
         requiresRoute: 'small-business',
         requiresOccupation: ['small-business-owner'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '인건비를 아낀 만큼, 통장 잔고가 두둑해졌다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '인건비를 아낀 만큼, 통장 잔고가 두둑해졌다.' },
           { weight: 18, label: '발각', deltas: { wealth: -6, fame: -5, relationship: -3 }, result: '노동청 진정이 접수되며 체불 임금을 전액 물어줘야 했다.' }
         ]
       }
@@ -8356,7 +8356,7 @@ const STAGES = [
         text: '허락 없이 남의 영상·음악을 몰래 도용해 콘텐츠에 쓴다',
         requiresRoute: 'streamer',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '편하게 만든 만큼, 시간을 크게 아꼈다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '편하게 만든 만큼, 시간을 크게 아꼈다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6 }, result: '원저작자의 신고로 콘텐츠가 전부 내려가는 곤욕을 치렀다.' }
         ]
       },
@@ -8365,7 +8365,7 @@ const STAGES = [
         text: '일부러 자극적인 거짓 논란을 만들어 화제성을 키운다',
         requiresRoute: 'streamer',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { fame: 6 }, result: '조회수가 폭발적으로 늘며, 원했던 화제성을 얻었다.' },
+          { weight: 82, label: '안 걸림', deltas: { fame: 8 }, result: '조회수가 폭발적으로 늘며, 원했던 화제성을 얻었다.' },
           { weight: 18, label: '발각', deltas: { fame: -8, happiness: -5, relationship: -3 }, result: '조작이 들통나며 "어그로" 방송인이라는 낙인이 찍혔다.' }
         ]
       }
@@ -8672,7 +8672,7 @@ const STAGES = [
         id: 'deviant-fake-overtime-claim-24',
         text: '야근하지 않았는데 야근 수당을 신청한다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 2 }, result: '통장에 찍힌 추가 수당이 반가웠다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 3 }, result: '통장에 찍힌 추가 수당이 반가웠다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, relationship: -4, happiness: -4 }, result: '출입 기록과 신청서가 맞지 않는다는 지적을 받았다.' }
         ]
       },
@@ -8680,7 +8680,7 @@ const STAGES = [
         id: 'deviant-office-toilet-nap-24',
         text: '화장실 칸에서 몰래 낮잠을 잔다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '단잠 뒤 개운함이 밀려왔다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '단잠 뒤 개운함이 밀려왔다.' },
           { weight: 10, label: '발각', deltas: { happiness: -2, relationship: -1 }, result: '코 고는 소리가 문밖까지 새어나갔다.' }
         ]
       },
@@ -9397,7 +9397,7 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '속은 시원했지만, 아무도 알아채지 못했다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '속은 시원했지만, 아무도 알아채지 못했다.' },
           { weight: 10, label: '발각', deltas: { happiness: -4, fame: -3 }, result: '캡처가 삽시간에 퍼지며 "본인 등판" 논란이 됐다.' }
         ]
       },
@@ -9407,7 +9407,7 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '스트레스는 풀렸지만, 아무도 뭐라 하지 않았다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4 }, result: '스트레스는 풀렸지만, 아무도 뭐라 하지 않았다.' },
           { weight: 18, label: '발각', deltas: { fame: -10, happiness: -5, relationship: -4 }, result: '폭로 글이 올라오며 "갑질 논란"으로 포털을 뒤덮었다.' }
         ]
       }
@@ -9418,7 +9418,7 @@ const STAGES = [
         requiresRoute: 'small-business',
         requiresOccupation: ['small-business-owner'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '차익이 쏠쏠해, 계속 들여오기로 마음먹었다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '차익이 쏠쏠해, 계속 들여오기로 마음먹었다.' },
           { weight: 18, label: '발각', deltas: { wealth: -8, fame: -8, happiness: -4 }, result: '상표법 위반으로 단속에 걸리며 매장 이미지가 크게 실추됐다.' }
         ]
       },
@@ -9428,7 +9428,7 @@ const STAGES = [
         requiresRoute: 'small-business',
         requiresOccupation: ['small-business-owner'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '원가를 크게 줄이고도, 손님들은 눈치채지 못했다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '원가를 크게 줄이고도, 손님들은 눈치채지 못했다.' },
           { weight: 18, label: '발각', deltas: { wealth: -5, fame: -8, happiness: -4 }, result: '원산지 표시 위반이 적발되며 뉴스에까지 오르내렸다.' }
         ]
       }
@@ -9462,7 +9462,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '신고 안 한 수입이, 조용히 통장에 쌓여만 갔다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '신고 안 한 수입이, 조용히 통장에 쌓여만 갔다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '조세포탈 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       }
@@ -9489,7 +9489,7 @@ const STAGES = [
         requiresRoute: 'doctor',
         requiresOccupation: ['med-student'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '아슬아슬했지만, 무사히 시험장을 빠져나왔다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '아슬아슬했지만, 무사히 시험장을 빠져나왔다.' },
           { weight: 18, label: '발각', deltas: { happiness: -6, fame: -4, relationship: -3 }, result: '부정행위가 적발되며 응시 자격이 정지될 뻔했다.' }
         ]
       }
@@ -9791,7 +9791,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '아낀 세금만큼 통장이 두둑해졌다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '아낀 세금만큼 통장이 두둑해졌다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -9799,7 +9799,7 @@ const STAGES = [
         id: 'deviant-fake-online-review-25',
         text: '받지도 않은 서비스에 후기를 조작해 올린다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { wealth: 1, happiness: 1 }, result: '적립금이 통장 대신 포인트로 쌓였다.' },
+          { weight: 90, label: '안 걸림', deltas: { wealth: 2, happiness: 2 }, result: '적립금이 통장 대신 포인트로 쌓였다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, relationship: -2 }, result: '플랫폼 측에 조작 계정으로 신고당했다.' }
         ]
       },
@@ -10426,7 +10426,7 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3, fame: 1 }, result: '댓글 반응이 좋아, 뿌듯한 기분이 들었다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4, fame: 2 }, result: '댓글 반응이 좋아, 뿌듯한 기분이 들었다.' },
           { weight: 10, label: '발각', deltas: { happiness: -2, wealth: -3 }, result: '협찬사에서 항의가 들어와 소속사가 대신 물어줘야 했다.' }
         ]
       },
@@ -10436,7 +10436,7 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 2, fame: 2 }, result: '차트 1위 소식에 아무 걱정 없이 기뻐했다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3, fame: 3 }, result: '차트 1위 소식에 아무 걱정 없이 기뻐했다.' },
           { weight: 18, label: '발각', deltas: { fame: -9, happiness: -6, wealth: -3 }, result: '원곡 비교 영상이 퍼지며 표절 논란에 휩싸였다.' }
         ]
       }
@@ -10447,7 +10447,7 @@ const STAGES = [
         requiresRoute: 'small-business',
         requiresOccupation: ['small-business-owner'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { wealth: 2 }, result: '점검관은 별다른 문제를 발견하지 못했다.' },
+          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '점검관은 별다른 문제를 발견하지 못했다.' },
           { weight: 10, label: '발각', deltas: { fame: -4, happiness: -2 }, result: '불시 재점검에서 위생 상태가 그대로 드러나 영업정지 경고를 받았다.' }
         ]
       }
@@ -10472,7 +10472,7 @@ const STAGES = [
         text: '경쟁 스트리머의 개인정보를 몰래 캐내 커뮤니티에 흘린다',
         requiresRoute: 'streamer',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { fame: 3 }, result: '상대의 곤란한 처지를, 남몰래 지켜봤다.' },
+          { weight: 82, label: '안 걸림', deltas: { fame: 4 }, result: '상대의 곤란한 처지를, 남몰래 지켜봤다.' },
           { weight: 18, label: '발각', deltas: { fame: -9, happiness: -6, relationship: -4 }, result: '유포자로 지목되며 "신상 유출" 가해자라는 비난을 받았다.' }
         ]
       }
@@ -10501,7 +10501,7 @@ const STAGES = [
         requiresRoute: 'doctor',
         requiresOccupation: ['intern-resident'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 2, wealth: 1 }, result: '무사히 끝났다는 사실에, 가슴을 쓸어내렸다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3, wealth: 2 }, result: '무사히 끝났다는 사실에, 가슴을 쓸어내렸다.' },
           { weight: 18, label: '발각', deltas: { happiness: -5, fame: -3, relationship: -3 }, result: '지도전문의에게 발각되며 크게 질책받았다.' }
         ]
       }
@@ -10667,7 +10667,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '공시가 뜨자마자, 이미 불려 있던 잔고에 미소가 지어졌다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '공시가 뜨자마자, 이미 불려 있던 잔고에 미소가 지어졌다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '미공개정보 이용 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -10802,7 +10802,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 2 }, result: '영수증을 슬쩍 구겨 넣으며 안도했다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 3 }, result: '영수증을 슬쩍 구겨 넣으며 안도했다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -10810,7 +10810,7 @@ const STAGES = [
         id: 'deviant-ghosting-breakup-26',
         text: '마음이 식은 상대를 말없이 잠수 이별한다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '복잡한 대화를 피했다는 안도감이 컸다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '복잡한 대화를 피했다는 안도감이 컸다.' },
           { weight: 10, label: '발각', deltas: { relationship: -4, happiness: -2 }, result: '공통 지인들 사이에서 소문이 순식간에 퍼졌다.' }
         ]
       },
@@ -11297,7 +11297,7 @@ const STAGES = [
         text: '자금난을 이유로 직원 월급을 몇 달째 미룬다',
         requiresOccupation: ['startup-founder'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '당장의 급한 불은 껐다는 사실에, 죄책감은 잠시 미뤄뒀다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '당장의 급한 불은 껐다는 사실에, 죄책감은 잠시 미뤄뒀다.' },
           { weight: 18, label: '발각', deltas: { wealth: -6, fame: -5, relationship: -3 }, result: '직원의 신고로 노동청 조사를 받으며 체불 임금을 물어냈다.' }
         ]
       },
@@ -11503,7 +11503,7 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2, relationship: 2 }, result: '팬들의 감동한 반응에, 안도하며 웃었다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3, relationship: 3 }, result: '팬들의 감동한 반응에, 안도하며 웃었다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, relationship: -3 }, result: '문체가 이상하다는 팬들의 의심이 결국 사실로 드러났다.' }
         ]
       },
@@ -11513,7 +11513,7 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 4 }, result: '아슬아슬했지만, 이번에도 무사히 넘어갔다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 5 }, result: '아슬아슬했지만, 이번에도 무사히 넘어갔다.' },
           { weight: 18, label: '발각', deltas: { fame: -12, happiness: -10, relationship: -6 }, result: '상간 소송 소식이 터지며 커리어에 치명타를 입었다.' }
         ]
       }
@@ -11526,7 +11526,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '신고 안 한 돈이, 조용히 쌓여만 갔다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '신고 안 한 돈이, 조용히 쌓여만 갔다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '조세포탈 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       }
@@ -11558,7 +11558,7 @@ const STAGES = [
         text: '미성년 시청자를 겨냥한 자극적인 콘텐츠로 화제를 노린다',
         requiresRoute: 'streamer',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { fame: 4 }, result: '조회수는 늘었지만, 마음 한구석이 편치 않았다.' },
+          { weight: 82, label: '안 걸림', deltas: { fame: 5 }, result: '조회수는 늘었지만, 마음 한구석이 편치 않았다.' },
           { weight: 18, label: '발각', deltas: { fame: -10, happiness: -6, relationship: -3 }, result: '청소년보호법 위반 논란이 커지며 방송 정지 조치를 받았다.' }
         ]
       },
@@ -11567,7 +11567,7 @@ const STAGES = [
         text: '불법 도박 사이트를 몰래 홍보하며 뒷돈을 받는다',
         requiresRoute: 'streamer',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '뒷광고 수익이, 남몰래 통장에 꽂혔다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '뒷광고 수익이, 남몰래 통장에 꽂혔다.' },
           { weight: 18, label: '발각', deltas: { wealth: -6, fame: -9, happiness: -4 }, result: '불법 도박 알선 정황이 드러나며 채널이 통째로 정지됐다.' }
         ]
       }
@@ -11594,7 +11594,7 @@ const STAGES = [
         requiresRoute: 'doctor',
         requiresOccupation: ['intern-resident'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '아무 일도 없었다는 듯, 조용히 자리로 돌아왔다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '아무 일도 없었다는 듯, 조용히 자리로 돌아왔다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, relationship: -3 }, result: '호출에 응답이 없어 부재가 그대로 들통났다.' }
         ]
       }
@@ -11883,7 +11883,7 @@ const STAGES = [
         id: 'deviant-secret-side-job-27',
         text: '본업 몰래 겹치는 시간에 부업을 뛴다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { wealth: 2, happiness: 2 }, result: '두 배로 번 돈에 피곤함도 잊었다.' },
+          { weight: 90, label: '안 걸림', deltas: { wealth: 3, happiness: 3 }, result: '두 배로 번 돈에 피곤함도 잊었다.' },
           { weight: 10, label: '발각', deltas: { wealth: -2, relationship: -3, happiness: -3 }, result: '겸업 사실이 회사 귀에 들어가고 말았다.' }
         ]
       },
@@ -11891,7 +11891,7 @@ const STAGES = [
         id: 'deviant-fake-emergency-leave-27',
         text: '거짓 사유로 급하게 연차를 낸다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '눈치 안 보고 하루를 온전히 즐겼다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '눈치 안 보고 하루를 온전히 즐겼다.' },
           { weight: 10, label: '발각', deltas: { relationship: -2, happiness: -2 }, result: 'SNS에 올린 사진이 상사 눈에 띄고 말았다.' }
         ]
       },
@@ -12607,7 +12607,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '세금 걱정 없이, 수입이 고스란히 통장에 쌓였다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '세금 걱정 없이, 수입이 고스란히 통장에 쌓였다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '조세포탈 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -12617,7 +12617,7 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '남몰래 짭짤한 부수입이 생겼다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '남몰래 짭짤한 부수입이 생겼다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, relationship: -3 }, result: '전속 계약 위반이 드러나며 위약금 소송에 휘말렸다.' }
         ]
       }
@@ -12628,7 +12628,7 @@ const STAGES = [
         requiresRoute: 'small-business',
         requiresOccupation: ['small-business-owner'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { wealth: 2 }, result: '몇 푼 안 되는 돈이지만, 쏠쏠하게 챙겼다.' },
+          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '몇 푼 안 되는 돈이지만, 쏠쏠하게 챙겼다.' },
           { weight: 10, label: '발각', deltas: { fame: -3, relationship: -2 }, result: '억울함을 호소하는 후기 글이 퍼지며 평판에 금이 갔다.' }
         ]
       }
@@ -12655,7 +12655,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '아무도 의심하지 않는 눈치라, 안도했다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '아무도 의심하지 않는 눈치라, 안도했다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '기부금 횡령 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       }
@@ -12682,7 +12682,7 @@ const STAGES = [
         requiresRoute: 'doctor',
         requiresOccupation: ['intern-resident'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '들키지 않았다는 사실에, 일단 안도했다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '들키지 않았다는 사실에, 일단 안도했다.' },
           { weight: 18, label: '발각', deltas: { happiness: -6, fame: -5, relationship: -4 }, result: '기록 조작 정황이 감사에서 드러나며 큰 징계를 받았다.' }
         ]
       }
@@ -12957,7 +12957,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 3 }, result: '오랜만에 짜릿한 승부에 신이 났다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4, happiness: 4 }, result: '오랜만에 짜릿한 승부에 신이 났다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '상습도박 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -12965,7 +12965,7 @@ const STAGES = [
         id: 'deviant-steal-coworker-idea-28',
         text: '동료 아이디어를 자기 것처럼 발표한다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 3, wealth: 1 }, result: '박수갈채가 오롯이 내 것 같았다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4, wealth: 2 }, result: '박수갈채가 오롯이 내 것 같았다.' },
           { weight: 18, label: '발각', deltas: { relationship: -6, happiness: -4 }, result: '원래 주인이 회의 자리에서 사실을 밝혔다.' }
         ]
       },
@@ -13568,7 +13568,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 2, wealth: 2 }, result: '짜릿함과 함께, 이번에도 조용히 넘어갔다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3, wealth: 3 }, result: '짜릿함과 함께, 이번에도 조용히 넘어갔다.' },
           { weight: 18, label: '징역', deltas: { wealth: -12, fame: -15, happiness: -10, relationship: -5 }, result: '상습 도박 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -13578,7 +13578,7 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '화는 풀렸고, 이번엔 별일 없이 넘어갔다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4 }, result: '화는 풀렸고, 이번엔 별일 없이 넘어갔다.' },
           { weight: 18, label: '발각', deltas: { fame: -9, happiness: -5, relationship: -4 }, result: '현장 목격담이 퍼지며 "인성 논란"에 휩싸였다.' }
         ]
       }
@@ -13589,7 +13589,7 @@ const STAGES = [
         requiresRoute: 'small-business',
         requiresOccupation: ['small-business-owner'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '번거로운 보수 공사를 하지 않아도 돼, 마음이 놓였다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '번거로운 보수 공사를 하지 않아도 돼, 마음이 놓였다.' },
           { weight: 18, label: '발각', deltas: { wealth: -6, fame: -7, happiness: -4 }, result: '안전서류 조작 사실이 드러나며 영업정지 처분을 받았다.' }
         ]
       }
@@ -13621,7 +13621,7 @@ const STAGES = [
         text: '편집자의 작업물을 자기 실력인 것처럼 소개한다',
         requiresRoute: 'streamer',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { fame: 2 }, result: '실력 있어 보인다는 댓글에, 조용히 뿌듯해했다.' },
+          { weight: 90, label: '안 걸림', deltas: { fame: 3 }, result: '실력 있어 보인다는 댓글에, 조용히 뿌듯해했다.' },
           { weight: 10, label: '발각', deltas: { fame: -4, relationship: -3 }, result: '전 편집자의 폭로로 "노예 노동" 논란에 휩싸였다.' }
         ]
       },
@@ -13630,7 +13630,7 @@ const STAGES = [
         text: '개인 매니저에게 계약에 없는 잡무를 무급으로 시킨다',
         requiresRoute: 'streamer',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 2 }, result: '편했지만, 크게 신경 쓰지 않았다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 3 }, result: '편했지만, 크게 신경 쓰지 않았다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, relationship: -3 }, result: '매니저의 폭로 글이 퍼지며 "갑질 방송인" 논란이 됐다.' }
         ]
       }
@@ -13657,7 +13657,7 @@ const STAGES = [
         requiresRoute: 'doctor',
         requiresOccupation: ['intern-resident'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '조용한 거래가, 통장 잔고를 채워줬다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '조용한 거래가, 통장 잔고를 채워줬다.' },
           { weight: 18, label: '발각', deltas: { wealth: -5, fame: -8, happiness: -5 }, result: '리베이트 수수 정황이 적발되며 의사 사회에서 신뢰를 잃었다.' }
         ]
       }
@@ -13949,7 +13949,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '생각보다 많은 보험금이 입금됐다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '생각보다 많은 보험금이 입금됐다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '보험사기 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -13958,7 +13958,7 @@ const STAGES = [
         text: '회사에서 묘한 썸을 은근히 즐긴다',
         requiresOccupation: COMPANY_OCCUPATION_IDS,
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3, relationship: -1 }, result: '괜히 마음이 들뜨는 하루하루였다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4, relationship: -1 }, result: '괜히 마음이 들뜨는 하루하루였다.' },
           { weight: 10, label: '발각', deltas: { relationship: -4, happiness: -3 }, result: '탕비실에서의 대화를 동료들이 목격했다.' }
         ]
       },
@@ -14552,7 +14552,7 @@ const STAGES = [
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '별다른 의심 없이, 정산이 그대로 처리됐다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '별다른 의심 없이, 정산이 그대로 처리됐다.' },
           { weight: 18, label: '발각', deltas: { wealth: -5, fame: -4, relationship: -3 }, result: '영수증 대조 과정에서 들통나 정산 전액을 반환해야 했다.' }
         ]
       }
@@ -14563,7 +14563,7 @@ const STAGES = [
         requiresRoute: 'small-business',
         requiresOccupation: ['small-business-owner'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '납품 단가 뒤에 숨겨진 돈이, 조용히 들어왔다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '납품 단가 뒤에 숨겨진 돈이, 조용히 들어왔다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, relationship: -3 }, result: '업체의 폭로로 갑질·리베이트 의혹에 휩싸였다.' }
         ]
       },
@@ -14573,7 +14573,7 @@ const STAGES = [
         requiresRoute: 'small-business',
         requiresOccupation: ['small-business-owner'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '이자 수입이 짭짤하게 들어왔다.' },
+          { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '이자 수입이 짭짤하게 들어왔다.' },
           { weight: 10, label: '발각', deltas: { wealth: -2, relationship: -3 }, result: '뒷말이 돌기 시작하며 껄끄러운 사이가 생겼다.' }
         ]
       }
@@ -14598,7 +14598,7 @@ const STAGES = [
         text: '불량이 많은 걸 알면서도 자체 굿즈를 그대로 판매한다',
         requiresRoute: 'streamer',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '재고를 그대로 처분하며, 손실을 피했다.' },
+          { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '재고를 그대로 처분하며, 손실을 피했다.' },
           { weight: 10, label: '발각', deltas: { wealth: -3, fame: -4 }, result: '환불 요청이 쏟아지며 소비자원에 민원이 접수됐다.' }
         ]
       }
@@ -14608,7 +14608,7 @@ const STAGES = [
         text: '논란을 무마하려 진정성 없는 사과 영상을 미리 짜고 연기한다',
         requiresRoute: 'streamer',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '눈물 연기가 통했는지, 여론이 금세 잠잠해졌다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '눈물 연기가 통했는지, 여론이 금세 잠잠해졌다.' },
           { weight: 10, label: '발각', deltas: { fame: -5, happiness: -3 }, result: '대본이 유출되며 "가짜 사과" 논란이 두 배로 커졌다.' }
         ]
       }
@@ -14640,7 +14640,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '부탁을 들어준 대가로, 사례를 두둑이 받았다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '부탁을 들어준 대가로, 사례를 두둑이 받았다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '허위 진단서 발급에 의한 보험사기 방조 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -14807,7 +14807,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '작전이 먹혀들며, 판돈을 키운 만큼 수익도 커졌다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '작전이 먹혀들며, 판돈을 키운 만큼 수익도 커졌다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '시세조종 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -14984,7 +14984,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '별 탈 없이 정산이 끝났다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '별 탈 없이 정산이 끝났다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -15510,7 +15510,7 @@ const STAGES = [
         requiresRoute: 'youth-politics',
         requiresOccupation: ['local-council-candidate'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3, fame: 2 }, result: '홍보 효과는 확실했고, 아무도 눈치채지 못했다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4, fame: 3 }, result: '홍보 효과는 확실했고, 아무도 눈치채지 못했다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, fame: -4 }, result: '해당 인사가 직접 부인하는 성명을 내며 곤혹스러워졌다.' }
         ]
       },
@@ -15520,7 +15520,7 @@ const STAGES = [
         requiresRoute: 'youth-politics',
         requiresOccupation: ['local-council-candidate'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { fame: 2 }, result: '여론이 조금씩 흔들리는 걸 지켜보며 만족스러워했다.' },
+          { weight: 90, label: '안 걸림', deltas: { fame: 3 }, result: '여론이 조금씩 흔들리는 걸 지켜보며 만족스러워했다.' },
           { weight: 10, label: '발각', deltas: { happiness: -4, fame: -3, relationship: -2 }, result: 'IP 추적 끝에 유포자로 지목되며 역풍을 맞았다.' }
         ]
       }
@@ -15531,7 +15531,7 @@ const STAGES = [
         requiresRoute: 'small-business',
         requiresOccupation: ['small-business-owner'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '인건비를 아꼈다는 사실에, 별다른 죄책감은 없었다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '인건비를 아꼈다는 사실에, 별다른 죄책감은 없었다.' },
           { weight: 18, label: '발각', deltas: { wealth: -5, fame: -6, relationship: -4 }, result: '직원의 신고로 노동청 조사를 받으며 체불 임금을 물어냈다.' }
         ]
       }
@@ -15563,7 +15563,7 @@ const STAGES = [
         text: '해외 인기 방송 포맷을 그대로 베껴 새 콘텐츠인 척 내놓는다',
         requiresRoute: 'streamer',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { fame: 4 }, result: '반응이 좋았고, 아무도 원작을 알아채지 못했다.' },
+          { weight: 82, label: '안 걸림', deltas: { fame: 5 }, result: '반응이 좋았고, 아무도 원작을 알아채지 못했다.' },
           { weight: 18, label: '발각', deltas: { fame: -7, happiness: -4 }, result: '원작자가 직접 비교 영상을 올리며 표절 논란이 커졌다.' }
         ]
       },
@@ -15572,7 +15572,7 @@ const STAGES = [
         text: '협업 상대와 상의 없이 콜라보를 확정된 것처럼 미리 홍보한다',
         requiresRoute: 'streamer',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { fame: 3 }, result: '홍보 효과는 확실했고, 뒷수습도 무난했다.' },
+          { weight: 90, label: '안 걸림', deltas: { fame: 4 }, result: '홍보 효과는 확실했고, 뒷수습도 무난했다.' },
           { weight: 10, label: '발각', deltas: { fame: -4, relationship: -3 }, result: '상대측이 직접 부인하며 민망한 상황이 벌어졌다.' }
         ]
       }
@@ -15599,7 +15599,7 @@ const STAGES = [
         requiresRoute: 'doctor',
         requiresOccupation: ['doctor'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '부담 없는 자리라고, 스스로를 다독였다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '부담 없는 자리라고, 스스로를 다독였다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, fame: -3 }, result: '청탁금지법 위반 소지가 있다는 지적에 뜨끔했다.' }
         ]
       }
@@ -15911,7 +15911,7 @@ const STAGES = [
         id: 'deviant-secret-side-business-31',
         text: '회사 몰래 개인 사업을 병행한다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 2 }, result: '두 가지 일을 병행하며 통장이 두둑해졌다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4, happiness: 3 }, result: '두 가지 일을 병행하며 통장이 두둑해졌다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, relationship: -4, happiness: -4 }, result: '겸업 금지 조항 위반으로 인사팀에 불려갔다.' }
         ]
       },
@@ -15919,7 +15919,7 @@ const STAGES = [
         id: 'deviant-company-car-personal-31',
         text: '법인 차량으로 개인 용무를 몰래 본다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2, wealth: 1 }, result: '기름값 아낀 게 은근히 뿌듯했다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3, wealth: 2 }, result: '기름값 아낀 게 은근히 뿌듯했다.' },
           { weight: 10, label: '발각', deltas: { wealth: -3, relationship: -2 }, result: '운행 기록과 다른 동선이 그대로 남아 있었다.' }
         ]
       },
@@ -16427,7 +16427,7 @@ const STAGES = [
         requiresRoute: 'youth-politics',
         requiresOccupation: ['local-council-candidate'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { fame: 3 }, result: '남들보다 한발 앞서, 얼굴을 더 많이 알렸다.' },
+          { weight: 82, label: '안 걸림', deltas: { fame: 4 }, result: '남들보다 한발 앞서, 얼굴을 더 많이 알렸다.' },
           { weight: 18, label: '발각', deltas: { wealth: -3, fame: -6, happiness: -4 }, result: '선거관리위원회에 적발되며 경고 조치를 받았다.' }
         ]
       },
@@ -16439,7 +16439,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '남는 자금을 슬쩍 챙기며, 별 문제 없이 넘어갔다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '남는 자금을 슬쩍 챙기며, 별 문제 없이 넘어갔다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '정치자금법 위반 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       }
@@ -16452,7 +16452,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '생각보다 큰 돈이 들어오며 한숨 돌릴 수 있었다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 11 }, result: '생각보다 큰 돈이 들어오며 한숨 돌릴 수 있었다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '부정수급 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -16462,7 +16462,7 @@ const STAGES = [
         requiresRoute: 'small-business',
         requiresOccupation: ['small-business-owner'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 1 }, result: '조용히 넘어가는 듯해, 안도했다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 2 }, result: '조용히 넘어가는 듯해, 안도했다.' },
           { weight: 18, label: '발각', deltas: { wealth: -6, fame: -6, relationship: -3 }, result: '산재 은폐 사실이 드러나며 근로감독 조사를 받았다.' }
         ]
       }
@@ -16494,7 +16494,7 @@ const STAGES = [
         text: '소속사 정산 시스템의 허점을 이용해 정산금을 몰래 부풀려 받는다',
         requiresRoute: 'streamer',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '아무도 확인하지 않는 틈을 타, 조용히 챙겼다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '아무도 확인하지 않는 틈을 타, 조용히 챙겼다.' },
           { weight: 18, label: '발각', deltas: { wealth: -5, fame: -7, relationship: -4 }, result: '정산 내역 감사에서 부풀린 금액이 그대로 드러나 소속사와 큰 갈등을 겪었다.' }
         ]
       }
@@ -16521,7 +16521,7 @@ const STAGES = [
         requiresRoute: 'doctor',
         requiresOccupation: ['doctor'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '매출은 늘었고, 아무도 의문을 제기하지 않았다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '매출은 늘었고, 아무도 의문을 제기하지 않았다.' },
           { weight: 18, label: '발각', deltas: { wealth: -5, fame: -7, happiness: -4 }, result: '건강보험공단 실사에서 과잉진료 정황이 그대로 드러났다.' }
         ]
       }
@@ -16704,7 +16704,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 6, fame: 2 }, result: '재판 결과가 유리하게 뒤집히며, 의뢰인의 신뢰가 두터워졌다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8, fame: 3 }, result: '재판 결과가 유리하게 뒤집히며, 의뢰인의 신뢰가 두터워졌다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '전관예우 청탁 정황이 결국 드러나며 변호사법 위반으로 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -16834,7 +16834,7 @@ const STAGES = [
         id: 'deviant-fake-business-trip-32',
         text: '출장을 핑계로 몰래 여행을 다녀온다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 4, wealth: -1 }, result: '업무 없는 며칠이 꿀같이 달았다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 5, wealth: -1 }, result: '업무 없는 며칠이 꿀같이 달았다.' },
           { weight: 18, label: '발각', deltas: { wealth: -3, relationship: -4, happiness: -4 }, result: '올린 SNS 사진 위치가 출장지와 완전히 달랐다.' }
         ]
       },
@@ -17339,7 +17339,7 @@ const STAGES = [
         requiresRoute: 'youth-politics',
         requiresOccupation: ['local-council-member'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { relationship: 3 }, result: '아무도 눈치채지 못한 채, 인맥이 두터워졌다.' },
+          { weight: 90, label: '안 걸림', deltas: { relationship: 4 }, result: '아무도 눈치채지 못한 채, 인맥이 두터워졌다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, fame: -3 }, result: '특혜 채용 의혹이 제기되며 해명 자료를 내야 했다.' }
         ]
       }
@@ -17350,7 +17350,7 @@ const STAGES = [
         requiresRoute: 'small-business',
         requiresOccupation: ['small-business-owner'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '재료비를 아낀 만큼, 마진이 조금 늘었다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '재료비를 아낀 만큼, 마진이 조금 늘었다.' },
           { weight: 18, label: '발각', deltas: { wealth: -7, fame: -9, happiness: -4 }, result: '식중독 신고가 접수되며 위생 점검에서 그대로 적발됐다.' }
         ]
       }
@@ -17376,7 +17376,7 @@ const STAGES = [
         text: '해외 업체를 통해 가짜 구독자·팔로워를 대량으로 구매한다',
         requiresRoute: 'streamer',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { fame: 4 }, result: '숫자가 부쩍 늘어난 채널이, 훨씬 그럴듯해 보였다.' },
+          { weight: 90, label: '안 걸림', deltas: { fame: 5 }, result: '숫자가 부쩍 늘어난 채널이, 훨씬 그럴듯해 보였다.' },
           { weight: 10, label: '발각', deltas: { fame: -5, happiness: -2 }, result: '플랫폼 정책 위반으로 채널 인증이 박탈됐다.' }
         ]
       }
@@ -17403,7 +17403,7 @@ const STAGES = [
         requiresRoute: 'doctor',
         requiresOccupation: ['doctor'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { wealth: 2 }, result: '작은 물건 몇 개쯤이야, 대수롭지 않게 여겼다.' },
+          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '작은 물건 몇 개쯤이야, 대수롭지 않게 여겼다.' },
           { weight: 10, label: '발각', deltas: { happiness: -2, relationship: -2 }, result: '재고 조사에서 차이가 드러나며 민망해졌다.' }
         ]
       }
@@ -17583,7 +17583,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '별 탈 없이, 조용한 거래가 마무리됐다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '별 탈 없이, 조용한 거래가 마무리됐다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -10, happiness: -12, relationship: -6 }, result: '뇌물수수 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -17734,7 +17734,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '절세 효과에 잠시 흐뭇했다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '절세 효과에 잠시 흐뭇했다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -17743,7 +17743,7 @@ const STAGES = [
         text: '배우자 몰래 옛 인연과 은밀히 연락을 이어간다',
         requiresFamilyMember: ['spouse'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 3, relationship: -1 }, result: '오래된 설렘이 다시 살아나는 기분이었다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4, relationship: -1 }, result: '오래된 설렘이 다시 살아나는 기분이었다.' },
           { weight: 18, label: '발각', deltas: { relationship: -8, happiness: -6 }, result: '휴대폰 메시지를 배우자가 우연히 보고 말았다.' }
         ]
       },
@@ -18206,7 +18206,7 @@ const STAGES = [
         requiresRoute: 'youth-politics',
         requiresOccupation: ['local-council-member'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '별다른 확인 없이, 정산이 그대로 통과됐다.' },
+          { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '별다른 확인 없이, 정산이 그대로 통과됐다.' },
           { weight: 10, label: '발각', deltas: { wealth: -2, fame: -3 }, result: '감사에서 부적절한 지출 내역이 그대로 걸렸다.' }
         ]
       },
@@ -18216,7 +18216,7 @@ const STAGES = [
         requiresRoute: 'youth-politics',
         requiresOccupation: ['local-council-member'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '말끔하게 처리된 것 같아 마음이 놓였다.' },
+          { weight: 90, label: '안 걸림', deltas: { wealth: 5 }, result: '말끔하게 처리된 것 같아 마음이 놓였다.' },
           { weight: 10, label: '발각', deltas: { wealth: -3, fame: -4, relationship: -2 }, result: '입찰 서류에서 가족 명의가 드러나며 특혜 의혹이 불거졌다.' }
         ]
       }
@@ -18227,7 +18227,7 @@ const STAGES = [
         requiresRoute: 'small-business',
         requiresOccupation: ['small-business-owner'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '부가세 부담이 줄어든 만큼, 여유가 생겼다.' },
+          { weight: 90, label: '안 걸림', deltas: { wealth: 5 }, result: '부가세 부담이 줄어든 만큼, 여유가 생겼다.' },
           { weight: 10, label: '발각', deltas: { wealth: -3, fame: -3 }, result: '거래 흐름이 이상하다는 세무 조사에 걸려 진땀을 뺐다.' }
         ]
       },
@@ -18237,7 +18237,7 @@ const STAGES = [
         requiresRoute: 'small-business',
         requiresOccupation: ['small-business-owner'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '신고 금액이 줄어든 만큼, 부담도 가벼워졌다.' },
+          { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '신고 금액이 줄어든 만큼, 부담도 가벼워졌다.' },
           { weight: 10, label: '발각', deltas: { wealth: -3, fame: -2 }, result: '매입·매출 대사 과정에서 차이가 드러나 추징금을 물었다.' }
         ]
       }
@@ -18269,7 +18269,7 @@ const STAGES = [
         text: '은퇴를 앞두고 저작권이 불분명한 옛 영상들을 긁어모아 수익화한다',
         requiresRoute: 'streamer',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '마지막까지 알뜰하게, 수익을 챙겼다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '마지막까지 알뜰하게, 수익을 챙겼다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -5 }, result: '권리자들의 무더기 신고로 채널 수익화가 정지됐다.' }
         ]
       }
@@ -18279,7 +18279,7 @@ const STAGES = [
         text: '다른 스트리머의 콘텐츠 아이디어를 몰래 베껴 먼저 올린다',
         requiresRoute: 'streamer',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { fame: 3 }, result: '먼저 올린 덕에, 아이디어의 주인공처럼 보였다.' },
+          { weight: 90, label: '안 걸림', deltas: { fame: 4 }, result: '먼저 올린 덕에, 아이디어의 주인공처럼 보였다.' },
           { weight: 10, label: '발각', deltas: { fame: -4, relationship: -2 }, result: '원작자가 타임스탬프를 공개하며 "아이디어 도용" 지적을 받았다.' }
         ]
       }
@@ -18308,7 +18308,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '위험한 줄 알면서도, 손을 대고 말았다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '위험한 줄 알면서도, 손을 대고 말았다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '마약류 관리법 위반 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       }
@@ -18488,7 +18488,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '슬쩍 빼돌린 돈이 불어나는 걸 보며, 죄책감은 잠시 미뤄뒀다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '슬쩍 빼돌린 돈이 불어나는 걸 보며, 죄책감은 잠시 미뤄뒀다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '고객자금 유용 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -18631,7 +18631,7 @@ const STAGES = [
         id: 'deviant-borrow-disabled-permit-34',
         text: '장애인 주차증을 빌려 몰래 사용한다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 1 }, result: '편하게 주차하고 볼일을 봤다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '편하게 주차하고 볼일을 봤다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, happiness: -4 }, result: '명의자와 다른 얼굴이라는 걸 단속반이 알아챘다.' }
         ]
       },
@@ -19137,7 +19137,7 @@ const STAGES = [
         requiresRoute: 'youth-politics',
         requiresOccupation: ['local-council-member'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 4, happiness: 2 }, result: '별다른 죄책감 없이, 선물을 챙겼다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5, happiness: 3 }, result: '별다른 죄책감 없이, 선물을 챙겼다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -8, happiness: -5 }, result: '청탁금지법 위반 의혹이 제기되며 여론의 뭇매를 맞았다.' }
         ]
       }
@@ -19148,7 +19148,7 @@ const STAGES = [
         requiresRoute: 'small-business',
         requiresOccupation: ['small-business-owner'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { wealth: 2 }, result: '일손이 아쉬웠던 차라, 별생각 없이 넘어갔다.' },
+          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '일손이 아쉬웠던 차라, 별생각 없이 넘어갔다.' },
           { weight: 10, label: '발각', deltas: { wealth: -3, fame: -5 }, result: '근로기준법 위반이 적발되며 벌금과 함께 크게 곤욕을 치렀다.' }
         ]
       }
@@ -19175,7 +19175,7 @@ const STAGES = [
         requiresRoute: 'doctor',
         requiresOccupation: ['doctor'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { relationship: 3 }, result: '의리를 지켰다는 생각에, 마음이 편했다.' },
+          { weight: 90, label: '안 걸림', deltas: { relationship: 4 }, result: '의리를 지켰다는 생각에, 마음이 편했다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, fame: -3 }, result: '은폐 정황이 드러나며 함께 책임을 추궁당했다.' }
         ]
       },
@@ -19185,7 +19185,7 @@ const STAGES = [
         requiresRoute: 'doctor',
         requiresOccupation: ['doctor'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '청구가 그대로 승인되며, 조용히 넘어갔다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '청구가 그대로 승인되며, 조용히 넘어갔다.' },
           { weight: 18, label: '발각', deltas: { wealth: -6, fame: -6, happiness: -4 }, result: '건강보험심사평가원 조사에서 이중청구가 적발됐다.' }
         ]
       }
@@ -19471,7 +19471,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '푼돈이라 티도 안 날 거라 생각했다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '푼돈이라 티도 안 날 거라 생각했다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -19482,7 +19482,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '아낀 세금만큼 여유가 생겼다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '아낀 세금만큼 여유가 생겼다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -19967,7 +19967,7 @@ const STAGES = [
         requiresRoute: 'youth-politics',
         requiresOccupation: ['local-council-member'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '아무 일도 없었다는 듯, 회의록이 그대로 넘어갔다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '아무 일도 없었다는 듯, 회의록이 그대로 넘어갔다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, fame: -3 }, result: '대리 서명 흔적이 드러나며 신뢰에 금이 갔다.' }
         ]
       }
@@ -19978,7 +19978,7 @@ const STAGES = [
         requiresRoute: 'small-business',
         requiresOccupation: ['small-business-owner'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '정산 금액이 줄어든 만큼, 순이익이 늘었다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '정산 금액이 줄어든 만큼, 순이익이 늘었다.' },
           { weight: 18, label: '발각', deltas: { wealth: -6, fame: -6, relationship: -3 }, result: '본사 감사에서 매출 누락이 드러나며 가맹 계약 해지 경고를 받았다.' }
         ]
       },
@@ -19988,7 +19988,7 @@ const STAGES = [
         requiresRoute: 'small-business',
         requiresOccupation: ['small-business-owner'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '평소보다 손님이 몰리며 재고를 빠르게 털어냈다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '평소보다 손님이 몰리며 재고를 빠르게 털어냈다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, happiness: -3 }, result: '허위 광고 신고가 접수되며 소비자원의 조사를 받았다.' }
         ]
       }
@@ -20015,7 +20015,7 @@ const STAGES = [
         requiresRoute: 'doctor',
         requiresOccupation: ['doctor'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '들키지 않았다는 안도감이, 오래가진 못했다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '들키지 않았다는 안도감이, 오래가진 못했다.' },
           { weight: 18, label: '발각', deltas: { happiness: -6, fame: -7, relationship: -3 }, result: '유족의 문제 제기로 오진 은폐 정황이 드러났다.' }
         ]
       }
@@ -20187,7 +20187,7 @@ const STAGES = [
         text: '승소 가능성을 부풀려 과다한 성공보수를 요구한다',
         requiresRoute: 'lawyer',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '의뢰인은 몰랐겠지만, 통장 잔고는 확실히 두둑해졌다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '의뢰인은 몰랐겠지만, 통장 잔고는 확실히 두둑해졌다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, happiness: -4 }, result: '의뢰인의 진정으로 변호사협회 징계 절차를 밟게 됐다.' }
         ]
       },
@@ -20275,7 +20275,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '연말정산 환급액이 두둑해졌다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '연말정산 환급액이 두둑해졌다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -20731,7 +20731,7 @@ const STAGES = [
         requiresRoute: 'youth-politics',
         requiresOccupation: ['local-council-member'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { fame: 5 }, result: '유리한 지지율 발표에, 다음 선거가 한결 든든해졌다.' },
+          { weight: 82, label: '안 걸림', deltas: { fame: 6 }, result: '유리한 지지율 발표에, 다음 선거가 한결 든든해졌다.' },
           { weight: 18, label: '발각', deltas: { fame: -9, happiness: -6, relationship: -3 }, result: '조작 정황이 언론에 포착되며 여론조사 신뢰도 논란의 중심에 섰다.' }
         ]
       }
@@ -20758,7 +20758,7 @@ const STAGES = [
         requiresRoute: 'doctor',
         requiresOccupation: ['doctor'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { relationship: 3 }, result: '별일 아니라고 생각하며, 순서를 슬쩍 바꿔줬다.' },
+          { weight: 90, label: '안 걸림', deltas: { relationship: 4 }, result: '별일 아니라고 생각하며, 순서를 슬쩍 바꿔줬다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, relationship: -2 }, result: '대기하던 다른 환자의 항의로 곤란해졌다.' }
         ]
       },
@@ -20768,7 +20768,7 @@ const STAGES = [
         requiresRoute: 'doctor',
         requiresOccupation: ['doctor'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '수술은 무사히 끝났고, 아무도 눈치채지 못했다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '수술은 무사히 끝났고, 아무도 눈치채지 못했다.' },
           { weight: 18, label: '발각', deltas: { wealth: -6, fame: -12, happiness: -6, relationship: -4 }, result: '유령수술 정황이 폭로되며 의사 면허 자격 정지 위기에 몰렸다.' }
         ]
       }
@@ -21014,7 +21014,7 @@ const STAGES = [
         id: 'deviant-workplace-affair-hint-37',
         text: '직장 동료와 위험한 썸을 은근히 즐긴다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 3, relationship: -1 }, result: '업무 시간이 이상하게 설레기 시작했다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4, relationship: -1 }, result: '업무 시간이 이상하게 설레기 시작했다.' },
           { weight: 18, label: '발각', deltas: { relationship: -7, happiness: -5 }, result: '메신저 대화 캡처가 사내에 떠돌기 시작했다.' }
         ]
       },
@@ -21024,7 +21024,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 3, wealth: 1 }, result: '푹 쉰 며칠이 보약 같았다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4, wealth: 2 }, result: '푹 쉰 며칠이 보약 같았다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '문서위조 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -21504,7 +21504,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '큰 액수가 조용히 통장에 들어왔다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '큰 액수가 조용히 통장에 들어왔다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '뇌물수수 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       }
@@ -21531,7 +21531,7 @@ const STAGES = [
         requiresRoute: 'doctor',
         requiresOccupation: ['doctor'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 1, happiness: 1 }, result: '번거로운 상황을 피했다는 생각에, 마음이 놓였다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 2 }, result: '번거로운 상황을 피했다는 생각에, 마음이 놓였다.' },
           { weight: 18, label: '발각', deltas: { happiness: -6, fame: -8, relationship: -3 }, result: '응급실 뺑뺑이 논란의 당사자로 언론에 오르내렸다.' }
         ]
       }
@@ -21703,7 +21703,7 @@ const STAGES = [
         requiresRoute: 'lawyer',
         requiresOccupation: ['solo-lawyer'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3, health: 2 }, result: '들인 시간에 비해, 수임료는 고스란히 남았다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4, health: 3 }, result: '들인 시간에 비해, 수임료는 고스란히 남았다.' },
           { weight: 18, label: '발각', deltas: { wealth: -3, fame: -6, happiness: -4 }, result: '패소한 의뢰인의 항의와 함께 부실 변론 논란이 퍼졌다.' }
         ]
       },
@@ -21778,7 +21778,7 @@ const STAGES = [
         id: 'deviant-secret-loan-shark-38',
         text: '몰래 사채로 급한 돈을 돌려막는다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '급한 불은 우선 껐다는 안도감이 들었다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '급한 불은 우선 껐다는 안도감이 들었다.' },
           { weight: 18, label: '발각', deltas: { wealth: -9, happiness: -6 }, result: '눈덩이처럼 불어난 이자가 결국 발목을 잡았다.' }
         ]
       },
@@ -22228,7 +22228,7 @@ const STAGES = [
         requiresOccupation: ['local-council-member'],
         worldStateSignal: { key: 'politicianCorruption', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '별 탈 없이, 조용한 거래가 마무리됐다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '별 탈 없이, 조용한 거래가 마무리됐다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -7, happiness: -4 }, result: '특혜 인허가 정황이 드러나며 감사원 조사를 받았다.' }
         ]
       },
@@ -22247,7 +22247,7 @@ const STAGES = [
         requiresRoute: 'youth-politics',
         requiresOccupation: ['local-council-member'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '불안했던 마음이, 일단은 가라앉았다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '불안했던 마음이, 일단은 가라앉았다.' },
           { weight: 18, label: '발각', deltas: { fame: -8, happiness: -6, relationship: -4 }, result: '보좌관의 폭로가 결국 터지며 걷잡을 수 없이 커졌다.' }
         ]
       }
@@ -22274,7 +22274,7 @@ const STAGES = [
         requiresRoute: 'doctor',
         requiresOccupation: ['doctor'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '영수증 몇 장으로, 여행 경비를 충당했다.' },
+          { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '영수증 몇 장으로, 여행 경비를 충당했다.' },
           { weight: 10, label: '발각', deltas: { wealth: -2, happiness: -2 }, result: '병원 회계 감사에서 지출 내역이 걸렸다.' }
         ]
       },
@@ -22284,7 +22284,7 @@ const STAGES = [
         requiresRoute: 'doctor',
         requiresOccupation: ['doctor'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '남는 샘플이었을 뿐이라고, 스스로를 합리화했다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '남는 샘플이었을 뿐이라고, 스스로를 합리화했다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, happiness: -3 }, result: '약사법 위반 소지가 있다는 신고로 조사를 받았다.' }
         ]
       }
@@ -22506,7 +22506,7 @@ const STAGES = [
         id: 'deviant-secret-motorcycle-installment-39',
         text: '가족 몰래 할부로 오토바이를 지른다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '오랜만에 느끼는 해방감이 짜릿했다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 5 }, result: '오랜만에 느끼는 해방감이 짜릿했다.' },
           { weight: 10, label: '발각', deltas: { relationship: -4, happiness: -2 }, result: '집 앞에 세워둔 오토바이를 가족이 먼저 발견했다.' }
         ]
       },
@@ -22516,7 +22516,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '차액만큼 용돈이 두둑해졌다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '차액만큼 용돈이 두둑해졌다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -22924,7 +22924,7 @@ const STAGES = [
         requiresRoute: 'youth-politics',
         requiresOccupation: ['local-council-member'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '편했지만, 아무도 문제 삼지 않았다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4 }, result: '편했지만, 아무도 문제 삼지 않았다.' },
           { weight: 18, label: '발각', deltas: { fame: -9, happiness: -5, relationship: -4 }, result: '폭로 글이 퍼지며 "갑질 의원" 논란에 휩싸였다.' }
         ]
       }
@@ -23103,7 +23103,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 5, fame: 2 }, result: '재판 흐름이 원하는 대로 바뀌며, 승소 가능성이 확 높아졌다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6, fame: 3 }, result: '재판 흐름이 원하는 대로 바뀌며, 승소 가능성이 확 높아졌다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '위증교사 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -23112,7 +23112,7 @@ const STAGES = [
         text: '지인의 부탁으로 인허가 서류에 특혜성 편의를 봐준다',
         requiresRoute: 'civil-servant-route',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 4, relationship: 2 }, result: '작은 호의였을 뿐이라고, 스스로를 다독였다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5, relationship: 3 }, result: '작은 호의였을 뿐이라고, 스스로를 다독였다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, happiness: -4 }, result: '특혜 인허가 정황이 드러나며 감사원 조사를 받았다.' }
         ]
       },
@@ -23166,7 +23166,7 @@ const STAGES = [
         id: 'deviant-early-pension-withdrawal-40',
         text: '퇴직연금을 몰래 중도 인출해 쓴다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 2 }, result: '급한 목돈 걱정을 덜었다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4, happiness: 3 }, result: '급한 목돈 걱정을 덜었다.' },
           { weight: 18, label: '발각', deltas: { wealth: -6, happiness: -4 }, result: '중도 인출 사실을 뒤늦게 안 배우자와 크게 다퉜다.' }
         ]
       },
@@ -23626,7 +23626,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '아무도 알아채지 못한 채, 넉넉한 여윳돈이 생겼다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '아무도 알아채지 못한 채, 넉넉한 여윳돈이 생겼다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '예산 횡령 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       }
@@ -23857,7 +23857,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 3 }, result: '공짜 여행이라는 생각에 발걸음이 가벼웠다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4, happiness: 4 }, result: '공짜 여행이라는 생각에 발걸음이 가벼웠다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -23866,7 +23866,7 @@ const STAGES = [
         text: '부업 수입을 배우자에게 숨긴다',
         requiresFamilyMember: ['spouse'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { wealth: 2, happiness: 1 }, result: '비상금이 조용히 쌓여갔다.' },
+          { weight: 90, label: '안 걸림', deltas: { wealth: 3, happiness: 2 }, result: '비상금이 조용히 쌓여갔다.' },
           { weight: 10, label: '발각', deltas: { relationship: -5, happiness: -3 }, result: '통장 앱 알림 소리 하나에 모든 게 들통났다.' }
         ]
       },
@@ -24223,7 +24223,7 @@ const STAGES = [
         requiresRoute: 'youth-politics',
         requiresOccupation: ['local-council-member'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '부수입은 짭짤했고, 아무도 알지 못했다.' },
+          { weight: 90, label: '안 걸림', deltas: { wealth: 5 }, result: '부수입은 짭짤했고, 아무도 알지 못했다.' },
           { weight: 10, label: '발각', deltas: { wealth: -3, fame: -4 }, result: '겸직 사실이 알려지며 윤리위원회에 회부됐다.' }
         ]
       }
@@ -24396,7 +24396,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 6, fame: 1 }, result: '거래량 실적만큼은, 누구보다 화려해 보였다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8, fame: 2 }, result: '거래량 실적만큼은, 누구보다 화려해 보였다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '자전거래를 통한 시세조종 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -24406,7 +24406,7 @@ const STAGES = [
         requiresRoute: 'lawyer',
         requiresOccupation: ['associate-lawyer'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '양쪽 모두에게서 수임료를 챙겼다는 사실은, 아무도 눈치채지 못했다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '양쪽 모두에게서 수임료를 챙겼다는 사실은, 아무도 눈치채지 못했다.' },
           { weight: 18, label: '발각', deltas: { wealth: -5, fame: -7, happiness: -5 }, result: '이해상충 사실이 드러나며 변호사협회 징계와 함께 로펌에서도 신뢰를 잃었다.' }
         ]
       },
@@ -24461,7 +24461,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '번거로운 절차를 건너뛴 게 편했다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '번거로운 절차를 건너뛴 게 편했다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '안전서류 조작 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -24794,7 +24794,7 @@ const STAGES = [
         requiresRoute: 'youth-politics',
         requiresOccupation: ['local-council-member'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '약속대로, 뒷돈이 조용히 돌아왔다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '약속대로, 뒷돈이 조용히 돌아왔다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -7, happiness: -4 }, result: '페이백 정황이 포착되며 정치자금법 위반 논란이 일었다.' }
         ]
       },
@@ -24804,7 +24804,7 @@ const STAGES = [
         requiresRoute: 'youth-politics',
         requiresOccupation: ['local-council-member'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '몰래 챙긴 자금이 차곡차곡 쌓였다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '몰래 챙긴 자금이 차곡차곡 쌓였다.' },
           { weight: 18, label: '발각', deltas: { wealth: -5, fame: -8, happiness: -5 }, result: '회계 감사에서 비자금 정황이 포착돼 곤욕을 치렀다.' }
         ]
       }
@@ -25025,7 +25025,7 @@ const STAGES = [
         id: 'deviant-midlife-secret-splurge-43',
         text: '가족 몰래 목돈을 혼자만의 사치에 쓴다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '오랜만에 나 자신에게 아낌없이 썼다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 5 }, result: '오랜만에 나 자신에게 아낌없이 썼다.' },
           { weight: 10, label: '발각', deltas: { relationship: -5, happiness: -3 }, result: '카드 명세서를 먼저 뜯어본 배우자와 냉전이 시작됐다.' }
         ]
       },
@@ -25033,7 +25033,7 @@ const STAGES = [
         id: 'deviant-fake-medical-leave-vacation-43',
         text: '몸이 멀쩡한데 병가를 내고 여행을 간다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 4, wealth: -1 }, result: '아무도 모르게 훌쩍 떠난 여행이 달콤했다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 5, wealth: -1 }, result: '아무도 모르게 훌쩍 떠난 여행이 달콤했다.' },
           { weight: 18, label: '발각', deltas: { wealth: -3, relationship: -3, happiness: -4 }, result: '여행지 사진이 회사 단체방에 잘못 전송됐다.' }
         ]
       },
@@ -25407,7 +25407,7 @@ const STAGES = [
         requiresRoute: 'youth-politics',
         requiresOccupation: ['local-council-member'],
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { relationship: 3 }, result: '말없이 오간 호의가, 관계를 더 끈끈하게 만들었다.' },
+          { weight: 90, label: '안 걸림', deltas: { relationship: 4 }, result: '말없이 오간 호의가, 관계를 더 끈끈하게 만들었다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, fame: -4 }, result: '정보 유출 경로가 추적되며 곤란한 처지에 놓였다.' }
         ]
       }
@@ -25587,7 +25587,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 6, fame: 2 }, result: '재판 결과가 뒤바뀌며, 의뢰인은 환호했다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8, fame: 3 }, result: '재판 결과가 뒤바뀌며, 의뢰인은 환호했다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '증거 조작 방조 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -25652,7 +25652,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '당장의 자금 압박은 넘겼다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '당장의 자금 압박은 넘겼다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '하도급법 위반 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -26030,7 +26030,7 @@ const STAGES = [
         requiresRoute: 'youth-politics',
         requiresOccupation: ['local-council-member'],
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 4, fame: 2 }, result: '서로의 이해관계가 맞아떨어져, 조용히 넘어갔다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5, fame: 3 }, result: '서로의 이해관계가 맞아떨어져, 조용히 넘어갔다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -8, happiness: -5 }, result: '담합 정황이 폭로되며 정치적 입지가 크게 흔들렸다.' }
         ]
       }
@@ -26280,7 +26280,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '이번 분기 실적이 그럴듯하게 포장됐다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '이번 분기 실적이 그럴듯하게 포장됐다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '분식회계 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -26288,7 +26288,7 @@ const STAGES = [
         id: 'deviant-secret-second-phone-45',
         text: '가족 몰래 세컨폰으로 딴 세상을 만든다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 3, relationship: -1 }, result: '나만의 비밀 공간이 생긴 것 같았다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4, relationship: -1 }, result: '나만의 비밀 공간이 생긴 것 같았다.' },
           { weight: 18, label: '발각', deltas: { relationship: -8, happiness: -6 }, result: '충전기가 꽂힌 낯선 휴대폰을 가족이 발견했다.' }
         ]
       },
@@ -26906,7 +26906,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { fame: 3 }, result: '서류상 숫자는 그럴듯했고, 아무도 의심하지 않았다.' },
+          { weight: 82, label: '안 걸림', deltas: { fame: 4 }, result: '서류상 숫자는 그럴듯했고, 아무도 의심하지 않았다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '운용보고서 조작 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -26979,7 +26979,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '생각보다 순조롭게 보험금이 나왔다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '생각보다 순조롭게 보험금이 나왔다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '보험사기 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -27414,7 +27414,7 @@ const STAGES = [
         id: 'deviant-nepotism-hire-47',
         text: '실력보다 인맥으로 후배를 몰래 채용한다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2, relationship: 1 }, result: '든든한 내 사람이 하나 늘었다는 생각이 들었다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3, relationship: 2 }, result: '든든한 내 사람이 하나 늘었다는 생각이 들었다.' },
           { weight: 10, label: '발각', deltas: { relationship: -5, happiness: -3 }, result: '채용 비리 제보가 인사팀에 접수됐다.' }
         ]
       },
@@ -27424,7 +27424,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '아낀 세금이 쏠쏠하게 느껴졌다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '아낀 세금이 쏠쏠하게 느껴졌다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -27702,7 +27702,7 @@ const STAGES = [
         requiresOccupation: ['team-lead'],
         worldStateSignal: { key: 'teamLeadUnfairness', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3, fame: 1 }, result: '숫자로 나온 성과 앞에서, 방식에 대한 뒷말은 묻혔다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4, fame: 2 }, result: '숫자로 나온 성과 앞에서, 방식에 대한 뒷말은 묻혔다.' },
           { weight: 18, label: '발각', deltas: { happiness: -4, relationship: -5, fame: -3 }, result: '직원의 신고로 노동청 조사를 받으며 부서 전체가 뒤숭숭해졌다.' }
         ]
       },
@@ -27931,7 +27931,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { fame: 2 }, result: '예산 집행률 숫자만큼은, 보기 좋게 채워졌다.' },
+          { weight: 82, label: '안 걸림', deltas: { fame: 3 }, result: '예산 집행률 숫자만큼은, 보기 좋게 채워졌다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '예산 유용 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -27984,7 +27984,7 @@ const STAGES = [
         id: 'deviant-fake-remote-attendance-48',
         text: '재택근무인 척 실제론 딴짓만 한다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '느긋한 하루가 오랜만에 달콤했다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '느긋한 하루가 오랜만에 달콤했다.' },
           { weight: 10, label: '발각', deltas: { wealth: -2, relationship: -2, happiness: -3 }, result: '갑작스러운 화상회의 요청에 딱 걸리고 말았다.' }
         ]
       },
@@ -28432,7 +28432,7 @@ const STAGES = [
         id: 'deviant-midlife-dangerous-meeting-49',
         text: '선을 넘을 뻔한 위험한 만남을 은밀히 이어간다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 3, relationship: -1 }, result: '일상에서 느끼지 못했던 설렘이 있었다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4, relationship: -1 }, result: '일상에서 느끼지 못했던 설렘이 있었다.' },
           { weight: 18, label: '발각', deltas: { relationship: -10, happiness: -7 }, result: '지인의 목격담이 가족 귀에까지 들어갔다.' }
         ]
       },
@@ -28442,7 +28442,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '연말정산에서 짭짤한 환급을 받았다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '연말정산에서 짭짤한 환급을 받았다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -28887,7 +28887,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '두둑한 위로금을 손에 쥐었다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '두둑한 위로금을 손에 쥐었다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '사문서위조 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -29303,7 +29303,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 3 }, result: '오랜만에 손맛을 되찾은 듯했다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 4 }, result: '오랜만에 손맛을 되찾은 듯했다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '상습도박 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -29712,7 +29712,7 @@ const STAGES = [
         id: 'deviant-secret-slush-fund-52',
         text: '가족 몰래 비상금을 빼돌려 혼자만의 취미에 쓴다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2, relationship: -2 }, result: '들키지만 않으면 된다고, 스스로를 다독였다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3, relationship: -2 }, result: '들키지만 않으면 된다고, 스스로를 다독였다.' },
           { weight: 10, label: '발각', deltas: { relationship: -5, happiness: -3 }, result: '숨겨둔 통장을 배우자가 우연히 발견했다.' }
         ]
       },
@@ -29992,7 +29992,7 @@ const STAGES = [
         id: 'deviant-fake-charity-gala-attendance-53',
         text: '참석하지도 않은 자선 행사에 이름만 올린다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2, fame: 1 }, result: '명단에 이름 석 자가 오른 게 뿌듯했다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3, fame: 2 }, result: '명단에 이름 석 자가 오른 게 뿌듯했다.' },
           { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -3 }, result: '실제 참석자 명단과 대조되며 허위가 드러났다.' }
         ]
       },
@@ -30651,7 +30651,7 @@ const STAGES = [
         id: 'deviant-secret-retirement-fund-trip-55',
         text: '노후 자금 일부를 몰래 여행 경비로 빼돌린다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '평생 처음 가보는 곳에서 마음이 들떴다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '평생 처음 가보는 곳에서 마음이 들떴다.' },
           { weight: 10, label: '발각', deltas: { relationship: -4, happiness: -2 }, result: '여행 경비 출처를 캐묻는 자식들과 마주해야 했다.' }
         ]
       },
@@ -31191,7 +31191,7 @@ const STAGES = [
         id: 'deviant-hide-checkup-results-56',
         text: '건강검진 결과를 가족에게 속여 말한다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '괜한 걱정을 끼치지 않았다는 안도감이 들었다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '괜한 걱정을 끼치지 않았다는 안도감이 들었다.' },
           { weight: 10, label: '발각', deltas: { relationship: -4, happiness: -3 }, result: '병원에서 걸려온 전화를 가족이 먼저 받았다.' }
         ]
       },
@@ -31495,7 +31495,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '한 건에 짭짤한 수입이 들어왔다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '한 건에 짭짤한 수입이 들어왔다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '사기 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -31811,7 +31811,7 @@ const STAGES = [
         id: 'deviant-hide-assets-remarriage-58',
         text: '재혼을 준비하며 상대에게 자산을 숨긴다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 2, wealth: 1 }, result: '든든한 뒷주머니가 있다는 사실에 안심이 됐다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3, wealth: 2 }, result: '든든한 뒷주머니가 있다는 사실에 안심이 됐다.' },
           { weight: 18, label: '발각', deltas: { relationship: -7, happiness: -5 }, result: '혼인신고 준비 중 감춰둔 자산이 드러나고 말았다.' }
         ]
       },
@@ -32228,7 +32228,7 @@ const STAGES = [
         id: 'deviant-hospital-queue-jump-59',
         text: '병원에서 새치기로 순서를 앞당긴다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '기다리는 시간을 줄였다는 게 다행이었다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '기다리는 시간을 줄였다는 게 다행이었다.' },
           { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -2 }, result: '먼저 온 환자들의 따가운 눈총을 받았다.' }
         ]
       },
@@ -32577,7 +32577,7 @@ const STAGES = [
         id: 'deviant-priority-seat-abuse-60',
         text: '노약자석에 앉아 모르는 척한다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 1 }, result: '편하게 앉아 목적지까지 갔다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '편하게 앉아 목적지까지 갔다.' },
           { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -2 }, result: '더 연로한 승객의 눈총에 자리를 내줘야 했다.' }
         ]
       },
@@ -32947,7 +32947,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '세금 몇 푼을 아꼈다는 생각에 흡족했다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '세금 몇 푼을 아꼈다는 생각에 흡족했다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -32966,7 +32966,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '매달 나오는 연금이 조금 더 두둑했다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '매달 나오는 연금이 조금 더 두둑했다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '부정수급 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -33336,7 +33336,7 @@ const STAGES = [
         id: 'deviant-forbidden-drink-62',
         text: '의사 몰래 금지된 술 한잔을 즐긴다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '오랜만에 느끼는 짜릿한 해방감이었다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '오랜만에 느끼는 짜릿한 해방감이었다.' },
           { weight: 10, label: '발각', deltas: { health: -3, happiness: -2 }, result: '다음 날 검진에서 수치가 바로 튀어 올랐다.' }
         ]
       },
@@ -33673,7 +33673,7 @@ const STAGES = [
         id: 'deviant-inflate-volunteer-hours-63',
         text: '봉사활동 시간을 부풀려 기록한다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2, fame: 1 }, result: '표창장에 이름이 오른 게 뿌듯했다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3, fame: 2 }, result: '표창장에 이름이 오른 게 뿌듯했다.' },
           { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -2 }, result: '실제 출석부와 대조되며 거짓이 드러났다.' }
         ]
       },
@@ -33934,7 +33934,7 @@ const STAGES = [
         id: 'deviant-secret-loan-to-friend-64',
         text: '가족 몰래 친구에게 큰돈을 빌려준다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '오랜 우정을 지켰다는 생각에 흐뭇했다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '오랜 우정을 지켰다는 생각에 흐뭇했다.' },
           { weight: 10, label: '발각', deltas: { wealth: -4, relationship: -4 }, result: '돈을 빌려준 사실을 가족이 통장에서 발견했다.' }
         ]
       },
@@ -34199,7 +34199,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '연금이 깎이지 않아 다행이었다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '연금이 깎이지 않아 다행이었다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '부정수급 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -34516,7 +34516,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 2 }, result: '오랜만에 손이 풀리며 짭짤하게 땄다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 3 }, result: '오랜만에 손이 풀리며 짭짤하게 땄다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '상습도박 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -34756,7 +34756,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '용돈벌이가 쏠쏠했다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '용돈벌이가 쏠쏠했다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '약사법 위반 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -34946,7 +34946,7 @@ const STAGES = [
         id: 'deviant-market-queue-jump-68',
         text: '재래시장에서 슬쩍 새치기를 한다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 1 }, result: '기다림 없이 장을 보고 돌아섰다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '기다림 없이 장을 보고 돌아섰다.' },
           { weight: 10, label: '발각', deltas: { relationship: -2 }, result: '단골 상인이 순서를 지키라며 타박했다.' }
         ]
       },
@@ -35063,7 +35063,7 @@ const STAGES = [
         id: 'deviant-hide-savings-from-kids-69',
         text: '자식들 모르게 비상금을 숨겨둔다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '나만 아는 곳간이 하나 있다는 게 든든했다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '나만 아는 곳간이 하나 있다는 게 든든했다.' },
           { weight: 10, label: '발각', deltas: { relationship: -4, happiness: -2 }, result: '이사 준비 중 숨겨둔 돈뭉치가 발견됐다.' }
         ]
       },
@@ -35230,7 +35230,7 @@ const STAGES = [
         id: 'deviant-secret-smoke-defy-doctor-70',
         text: '의사가 금지한 담배를 몰래 다시 태운다',
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '오랜만의 한 모금이 유독 진하게 느껴졌다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 4 }, result: '오랜만의 한 모금이 유독 진하게 느껴졌다.' },
           { weight: 18, label: '발각', deltas: { health: -4, happiness: -3 }, result: '옷에 밴 냄새를 자식들이 바로 알아챘다.' }
         ]
       },
@@ -35451,7 +35451,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '생활비 부담이 한결 가벼워졌다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '생활비 부담이 한결 가벼워졌다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '부정수급 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -35713,7 +35713,7 @@ const STAGES = [
         id: 'deviant-welfare-card-lend-73',
         text: '복지 교통카드를 빌려줘 부정 승차를 돕는다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 1 }, result: '작은 도움을 줬다는 뿌듯함이 있었다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '작은 도움을 줬다는 뿌듯함이 있었다.' },
           { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -2 }, result: '단속 요원이 카드 명의자와 얼굴을 대조했다.' }
         ]
       },
@@ -35969,7 +35969,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 2 }, result: '오랜만에 짜릿한 승부욕이 되살아났다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4, happiness: 3 }, result: '오랜만에 짜릿한 승부욕이 되살아났다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '상습도박 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -36252,7 +36252,7 @@ const STAGES = [
         id: 'deviant-hide-illness-from-family-77',
         text: '몸이 안 좋은 걸 자식들에게 숨긴다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 1 }, result: '걱정 끼치지 않았다는 생각에 마음이 편했다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '걱정 끼치지 않았다는 생각에 마음이 편했다.' },
           { weight: 10, label: '발각', deltas: { relationship: -4, happiness: -3, health: -1 }, result: '숨기다 늦어진 진단에 가족 모두가 놀랐다.' }
         ]
       },
@@ -36514,7 +36514,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '급한 불을 끄고 나니 마음이 놓였다.' },
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '급한 불을 끄고 나니 마음이 놓였다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -36783,7 +36783,7 @@ const STAGES = [
         id: 'deviant-defy-diet-sweets-81',
         text: '의사가 말린 단 음식을 몰래 즐긴다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '입안 가득 퍼지는 단맛이 오랜만이었다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '입안 가득 퍼지는 단맛이 오랜만이었다.' },
           { weight: 10, label: '발각', deltas: { health: -3, happiness: -2 }, result: '혈당 수치가 바로 다음 날 튀어 올랐다.' }
         ]
       },
@@ -37127,7 +37127,7 @@ const STAGES = [
         id: 'deviant-skip-medication-84',
         text: '귀찮은 약을 몰래 안 먹고 버린다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '쓴 약을 안 먹으니 한결 편했다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '쓴 약을 안 먹으니 한결 편했다.' },
           { weight: 10, label: '발각', deltas: { health: -4, happiness: -2 }, result: '갑자기 나빠진 몸 상태에 병원 신세를 졌다.' }
         ]
       },
@@ -37647,7 +37647,7 @@ const STAGES = [
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '오랜 고민 끝에 마음의 짐을 하나 덜었다.' },
+          { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '오랜 고민 끝에 마음의 짐을 하나 덜었다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '사문서위조 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
@@ -38091,7 +38091,7 @@ const STAGES = [
         id: 'deviant-secret-nightcap-90',
         text: '요양보호사 몰래 술 한잔을 숨겨 마신다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '오랜만의 한 잔이 인생의 낙처럼 느껴졌다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '오랜만의 한 잔이 인생의 낙처럼 느껴졌다.' },
           { weight: 10, label: '발각', deltas: { health: -3, happiness: -2 }, result: '알코올 냄새를 요양보호사가 바로 알아챘다.' }
         ]
       },
@@ -38384,7 +38384,7 @@ const STAGES = [
         id: 'deviant-hide-fall-from-family-92',
         text: '넘어진 걸 자식들 걱정할까 봐 숨긴다',
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 1 }, result: '별일 아니라며 스스로를 다독였다.' },
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '별일 아니라며 스스로를 다독였다.' },
           { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -2, health: -1 }, result: '멍든 자국을 결국 자식들에게 들키고 말았다.' }
         ]
       },
