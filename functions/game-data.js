@@ -2518,6 +2518,18 @@ const STAGES = [
     intro: '고등학교라는 새로운 세계로 첫발을 내딛는 시기. 교복도, 얼굴도, 규칙도 전부 낯섭니다.',
     choices: [
       {
+        id: 'teacher-bribe-for-answer-key-16',
+        text: '선생님께 촌지를 드리고 족보를 받는다',
+        deltas: { wealth: -1, happiness: 2 },
+        result: '시험 전날 밤, 마음 한구석은 편했지만 다른 한구석은 계속 찜찜했다.',
+        dynamicAppearChance: { key: 'teacherCorruption', min: 0.25, max: 0.75 },
+        worldStateNote: {
+          key: 'teacherCorruption',
+          corruptText: ' 요즘 교사 사회가 워낙 청렴도가 낮다 보니, 이런 부탁도 별 거부감 없이 받아들여졌다.',
+          honestText: ' 평소라면 어림도 없었을 텐데, 그래도 이번엔 운 좋게 받아들여졌다.'
+        }
+      },
+      {
         id: 'deviant-motorbike-noheadgear-16',
         text: '헬멧 없이 친구 오토바이 뒷자리에 올라탄다',
         prizeTable: [
@@ -14776,6 +14788,22 @@ const STAGES = [
         deltas: { happiness: -5 },
         result: '전화벨이 울릴 때마다, 심장이 먼저 철렁 내려앉았다.',
         requiresOccupation: ['teacher']
+      },
+      {
+        id: 'teacher-accepts-bribe-32',
+        text: '학부모가 슬쩍 건넨 봉투를 못 이기는 척 받는다',
+        deltas: { wealth: 2, relationship: -1 },
+        result: '봉투의 무게만큼, 그 학생을 보는 눈길도 조금 달라졌다.',
+        requiresOccupation: ['teacher'],
+        worldStateSignal: { key: 'teacherCorruption', target: 1 }
+      },
+      {
+        id: 'teacher-refuses-bribe-32',
+        text: '학부모가 건넨 봉투를 정중히 돌려보낸다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '거절이 조금 어색했지만, 돌아서는 발걸음은 떳떳했다.',
+        requiresOccupation: ['teacher'],
+        worldStateSignal: { key: 'teacherCorruption', target: 0 }
       },
       {
         id: 'checkup-catchup-32',

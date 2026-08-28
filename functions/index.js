@@ -1026,6 +1026,19 @@ async function applyChoice(db, playRef, play, stage, choice) {
       resolvedResult = (resolvedResult || '') + suffix;
     }
   }
+  // worldStateNote(2026-08-28, 56장 A항 - 교사↔학생 등 dynamicAppearChance
+  // 계열 선택지용 결과문구) - appendPoliceCorruptionNote는 prizeTable의 "어느
+  // 갈래가 뽑혔는지"를 보는데, dynamicAppearChance가 붙은 결과 선택지(예:
+  // "선생님께 촌지를 드리고 족보를 받는다")는 prizeTable 없이 항상 성공하는
+  // 단일 결과라 그 방식이 안 맞는다. 대신 그 순간의 rate 자체가 0.5보다
+  // 높은지(부패 쪽)/낮은지(청렴 쪽)로 문구를 고른다. corruptText/honestText는
+  // 직업 쌍마다 배우 이름("교사"/"의사"/"정치인" 등)이 달라 선택지 쪽에서
+  // 직접 문구를 정해 넘긴다(엔진에 특정 직업명을 하드코딩하지 않기 위함).
+  if (choice.worldStateNote) {
+    const { key, corruptText, honestText } = choice.worldStateNote;
+    const rate = worldStateRateOf(worldStateRates, key);
+    resolvedResult = (resolvedResult || '') + (rate >= 0.5 ? corruptText : honestText);
+  }
   // prizeTable 갈래에 startsRoute가 실려 있는데(현재는 징역 갈래뿐)
   // maxDurationYears가 없으면 "3~5년, 매번 무작위"(사용자 확정)라는 뜻이라
   // 여기서 굴려서 logEntry에 저장해둔다 - buildRouteState가 재구성할 때마다
