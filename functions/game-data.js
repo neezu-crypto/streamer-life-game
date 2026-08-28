@@ -8613,6 +8613,12 @@ const STAGES = [
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
       {
+        id: 'stock-investment-25',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        mandatory: true
+      },
+      {
         id: 'trader-promoted-25',
         text: '실적을 인정받아 정식 트레이더로 승진한다',
         deltas: { wealth: 3, happiness: 3 },
@@ -12990,6 +12996,12 @@ const STAGES = [
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
       {
+        id: 'stock-investment-30',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        mandatory: true
+      },
+      {
         id: 'deviant-trader-market-manipulation-30',
         text: '지인들과 짜고 특정 종목 주가를 인위적으로 띄운다',
         requiresRoute: 'trader',
@@ -16743,6 +16755,12 @@ const STAGES = [
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
       {
+        id: 'stock-investment-35',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        mandatory: true
+      },
+      {
         id: 'trader-annual-bonus-review-35',
         text: '연말 실적 심사 결과를 초조하게 기다린다',
         requiresRoute: 'trader',
@@ -19713,6 +19731,12 @@ const STAGES = [
     intro: '인생의 절반 지점. 마흔이라는 숫자가 이유 없이 지난 시간을 돌아보게 만듭니다.',
     choices: [
       {
+        id: 'stock-investment-40',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        mandatory: true
+      },
+      {
         id: 'deviant-lawyer-witness-tampering-40',
         text: '증인에게 유리한 증언을 하도록 은밀히 회유한다',
         requiresRoute: 'lawyer',
@@ -22015,6 +22039,12 @@ const STAGES = [
     intro: '다 가진 것 같은데도 문득 공허해지는, 이른바 중년의 위기가 찾아오는 나이입니다.',
     choices: [
       {
+        id: 'stock-investment-45',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        mandatory: true
+      },
+      {
         id: 'patient-bribes-doctor-for-fake-diagnosis-45',
         text: '의사에게 청탁해 허위 진단서를 받는다',
         deltas: { wealth: 3, happiness: -1 },
@@ -23789,6 +23819,12 @@ const STAGES = [
     intro: '쉰이라는 숫자 앞에서, 지나온 시간의 무게를 새삼 느끼게 됩니다.',
     choices: [
       {
+        id: 'stock-investment-50',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        mandatory: true
+      },
+      {
         id: 'citizen-bribes-official-for-permit-50',
         text: '지역 정치인에게 청탁을 넣어 인허가를 앞당긴다',
         deltas: { wealth: -2, happiness: 2 },
@@ -24746,6 +24782,12 @@ const STAGES = [
     ageRange: '55세',
     intro: '정년이라는 단어가 더는 남 얘기가 아니게 되는 나이. 매일 출근하던 삶이 조용히 막을 내립니다.',
     choices: [
+      {
+        id: 'stock-investment-55',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        mandatory: true
+      },
       {
         id: 'citizen-reports-suspicious-person-55',
         text: '골목에서 수상한 사람을 목격하고 경찰에 신고한다',
@@ -25817,6 +25859,12 @@ const STAGES = [
     intro: '환갑. 예순 해를 지나온 삶을 가족과 함께 돌아보는 해입니다.',
     choices: [
       {
+        id: 'stock-investment-60',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        mandatory: true
+      },
+      {
         id: 'police-mandatory-retirement-60',
         text: '정년을 채우고 경찰 생활을 마무리한다',
         deltas: { happiness: 3, health: 1 },
@@ -26746,6 +26794,12 @@ const STAGES = [
     intro: '법정 노인 연령. 사회가 부르는 호칭이 바뀌는 걸 마주하게 됩니다.',
     choices: [
       {
+        id: 'stock-investment-65',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        mandatory: true
+      },
+      {
         id: 'cs2-reemployment-advisory-65',
         text: '공공기관 자문위원으로 위촉돼 재취업한다',
         deltas: { wealth: 3, fame: 2 },
@@ -27612,6 +27666,12 @@ const STAGES = [
     intro: '칠순. 황혼이라 불리는 시간의 첫걸음을 내딛습니다.',
     choices: [
       {
+        id: 'stock-investment-70',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        mandatory: true
+      },
+      {
         id: 'japan-trip-friends-reunion-70',
         text: '오랜 친구들과 함께 마지막이 될지도 모를 일본 여행을 떠난다',
         deltas: { happiness: 5, wealth: -1, relationship: 2 },
@@ -28323,6 +28383,12 @@ const STAGES = [
     intro: '남은 시간을 어떻게 채워갈지, 다시 한번 진지하게 그려보는 나이입니다.',
     choices: [
       {
+        id: 'stock-investment-75',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        mandatory: true
+      },
+      {
         id: 'sb2-handover-thoughts-75',
         text: '가게를 물려줄 사람을 조용히 고민한다',
         deltas: {"happiness":2,"relationship":1},
@@ -28975,6 +29041,12 @@ const STAGES = [
     ageRange: '80세',
     intro: '팔순. 여든 해를 살아낸 삶을 온 가족과 함께 기립니다.',
     choices: [
+      {
+        id: 'stock-investment-80',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        mandatory: true
+      },
 
       {
         id: 'yp2-honorary-award-80',
@@ -29569,6 +29641,12 @@ const STAGES = [
     ageRange: '85세',
     intro: '누군가의 손길이 일상 속에 자연스레 스며드는 시기입니다.',
     choices: [
+      {
+        id: 'stock-investment-85',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        mandatory: true
+      },
       {
         id: 'old-career-idol-1-85',
         text: '옛 팬이 보낸 편지를 발견하고 다시 읽어본다',
@@ -30323,6 +30401,12 @@ const STAGES = [
     ageRange: '90세',
     intro: '구순. 아흔 해를 살아낸 시간이, 온 가족의 축하 속에 다시 한번 빛납니다.',
     choices: [
+      {
+        id: 'stock-investment-90',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        mandatory: true
+      },
       {
         id: 'old-career-developer-1-90',
         text: '예전 짜둔 코드가 아직도 쓰이고 있다는 소식을 듣는다',
@@ -31126,6 +31210,12 @@ const STAGES = [
     intro: '아흔다섯 해를 살아냈다는 사실이, 스스로도 믿기지 않는 나이입니다.',
     choices: [
       {
+        id: 'stock-investment-95',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        mandatory: true
+      },
+      {
         id: 'old-career-athlete-2-95',
         text: '예전 활약이 담긴 경기 영상을 다시 찾아본다',
         deltas: {"happiness":3},
@@ -31917,6 +32007,12 @@ const STAGES = [
     ageRange: '100세',
     intro: '백세. 한 세기를 온전히 살아낸 삶이, 마침내 이 자리에 도착합니다.',
     choices: [
+      {
+        id: 'stock-investment-100',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        mandatory: true
+      },
       {
         id: 'old-career-artist-2-100',
         text: '오래전 작품에 대한 독자의 편지를 받는다',

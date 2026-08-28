@@ -67,12 +67,45 @@ function worldStateRateOf(worldStateRates, key) {
   return typeof rates[key] === 'number' ? rates[key] : WORLD_STATE_DEFAULT_RATE;
 }
 
+// 주식 가격 변동(2026-08-28, 56장 D항 - "봇 로직을 그냥 하지말고 매 턴 55%
+// 확률로 +1%/45% 확률로 -1%로 주가 변동되게 할까? 주식시장과 주가 연동은
+// 유지") - soop-stock-market의 트레이딩 봇 5가지 패턴을 이식하는 대신, 실제
+// stocks/{id} 노드에 직접 소폭 랜덤워크를 적용해 "같은 시장, 같은 가격"을
+// 그대로 유지한다. 동결(frozenAt)된 종목은 건드리지 않는다(soop-stock-market
+// 유저와 동일하게 해제될 때까지 가격이 멈춰 있어야 함). price/volume/candlestick/
+// sparkline 필드 구조는 soop-stock-market의 executeSimulatedTrade가 쓰는 것과
+// 동일하게 맞춰서 실제 앱 화면(차트·스파크라인)이 깨지지 않게 한다.
+async function nudgeStockPrice(db, stockId) {
+  const stockRef = db.ref('stocks/' + stockId);
+  const qty = 1 + Math.floor(Math.random() * 5);
+  const result = await stockRef.transaction((current) => {
+    if (!current || current.frozenAt) return current;
+    const up = Math.random() < 0.55;
+    const newPrice = Math.max(1, Math.round(current.price * (up ? 1.01 : 0.99)));
+    return Object.assign({}, current, { price: newPrice, volume: (current.volume || 0) + qty });
+  });
+  const committed = result && result.committed ? result.snapshot.val() : null;
+  if (!committed || committed.frozenAt) return null;
+  const newPrice = committed.price;
+
+  const ts = Math.floor(Date.now() / 60000) * 60;
+  await db.ref('candlesticks/' + stockId + '/' + ts).transaction((current) => {
+    if (!current) return { o: newPrice, h: newPrice, l: newPrice, c: newPrice, v: qty, t: ts };
+    return { o: current.o, h: Math.max(current.h, newPrice), l: Math.min(current.l, newPrice), c: newPrice, v: (current.v || 0) + qty, t: ts };
+  });
+  await db.ref('sparklines/' + stockId).transaction((current) => {
+    const buf = Array.isArray(current) ? current.slice() : [];
+    buf.push(newPrice);
+    if (buf.length > 20) buf.shift();
+    return buf;
+  });
+  return newPrice;
+}
+
 // investorCountPrizeWeight(2026-08-28, 56장 E항 - 트레이더 성과급 ↔ 인생게임
 // 내 누적 주식 매수 횟수 연동) - worldState EMA 트래커와는 별개로, D항(주식시장
-// 연동, 아직 미구현)의 매수 로직이 늘려갈 lifeGame/stockInvestorCount 단조
-// 증가 카운터를 구간별로 확률에 매핑한다. D항이 아직 없어 지금은 항상 0
-// (최저 구간)이지만, 나중에 D항이 배포되면 카운터가 자연스럽게 올라가면서
-// 그대로 반영된다 - 이 선택지 쪽은 손댈 필요가 없다.
+// 연동)의 매수 로직이 늘려갈 lifeGame/stockInvestorCount 단조 증가 카운터를
+// 구간별로 확률에 매핑한다.
 async function fetchStockInvestorCount(db) {
   const snap = await db.ref('lifeGame/stockInvestorCount').get();
   const val = snap.val();
@@ -1335,12 +1368,11 @@ async function applyChoice(db, playRef, play, stage, choice) {
   let assets = currentAssets.slice();
   const isNewAsset = !!(choice.addAsset && !assets.some((a) => a.id === choice.addAsset.id));
   if (isNewAsset) {
-    assets.push({
-      id: choice.addAsset.id,
-      label: choice.addAsset.label,
-      type: choice.addAsset.type,
-      sinceStageId: stage.id
-    });
+    // 2026-08-28(56장 D항, 주식 자산) - 원래는 {id,label,type}만 복사했는데,
+    // 주식 자산은 매수가(buyPrice)·매수 나이(buyAge)·캐싱된 현재가(currentPrice)
+    // 같은 추가 필드가 필요해서 choice.addAsset 전체를 그대로 펼쳐 담는다 -
+    // 기존 addAsset들은 어차피 id/label/type만 갖고 있어서 동작은 그대로다.
+    assets.push(Object.assign({}, choice.addAsset, { sinceStageId: stage.id }));
   }
   if (choice.removeAsset) {
     assets = assets.filter((a) => a.id !== choice.removeAsset);
@@ -1563,6 +1595,20 @@ async function applyChoice(db, playRef, play, stage, choice) {
   for (const assetId of Object.keys(RENTAL_INCOME_BY_ASSET_ID)) {
     if (assets.some((a) => a.id === assetId)) {
       cashHoldings += RENTAL_INCOME_BY_ASSET_ID[assetId];
+    }
+  }
+
+  // 주식 가격 갱신 + 턴 캐시(2026-08-28, 56장 D항) - 보유 중인 주식 자산마다
+  // 매 턴 실제 stocks/{id} 가격을 nudgeStockPrice로 살짝 흔들고, 그 결과를
+  // asset.currentPrice에 캐싱해둔다. 호버할 때마다 재조회하지 않고 "다음"
+  // 버튼을 눌러 턴이 넘어갈 때만 갱신하는 게 확정 설계 - 이 캐시값이 그 역할을
+  // 한다. 동결된 종목은 nudgeStockPrice가 null을 반환하므로 캐시를 그대로 둔다.
+  for (let i = 0; i < assets.length; i++) {
+    if (assets[i].type === 'stock') {
+      const newPrice = await nudgeStockPrice(db, assets[i].id);
+      if (newPrice !== null) {
+        assets[i] = Object.assign({}, assets[i], { currentPrice: newPrice });
+      }
     }
   }
 
@@ -1960,7 +2006,106 @@ const submitChoice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
     throw new HttpsError('invalid-argument', '지금 화면에 없는 선택지입니다.');
   }
 
-  return applyChoice(db, playRef, play, stage, choice);
+  // 주식 매수(2026-08-28, 56장 D항) - requiresStockPurchase가 붙은 선택지는
+  // game-data.js에 고정 deltas/addAsset이 없다(어떤 종목을 살지, 그 순간 가격이
+  // 얼마인지 몰라서 정적으로 못 박아둘 수 없음). 클라이언트가 종목 검색 UI에서
+  // 고른 stockId/stockName을 같이 실어 보내면, 여기서 그 순간의 실제
+  // stocks/{stockId}.price를 읽어 choice를 "이번만 유효한" 동적 deltas·addAsset로
+  // 덮어쓴 뒤 나머지는 기존 applyChoice 흐름을 그대로 탄다(재산 로직 재사용).
+  // 투자 원금은 나이·상황과 무관하게 고정 1억원(사용자 확정, 56장 D항 "현금
+  // 환전 비율" 참고) - cashUnitForAge로 나눠 wealth 델타로 환산한다.
+  let effectiveChoice = choice;
+  if (choice.requiresStockPurchase) {
+    const stockId = request.data && request.data.stockId;
+    const stockName = request.data && request.data.stockName;
+    if (!stockId || !stockName) throw new HttpsError('invalid-argument', '투자할 종목을 선택해주세요.');
+    const existingAssets = Array.isArray(play.assets) ? play.assets : [];
+    if (existingAssets.some((a) => a.id === stockId)) {
+      throw new HttpsError('failed-precondition', '이미 보유 중인 종목입니다.', { reason: 'already-held' });
+    }
+    const stockSnap = await db.ref('stocks/' + stockId).get();
+    const stockVal = stockSnap.val();
+    if (!stockVal || typeof stockVal.price !== 'number') {
+      throw new HttpsError('invalid-argument', '존재하지 않는 종목입니다.');
+    }
+    if (stockVal.frozenAt) {
+      throw new HttpsError('failed-precondition', '거래 정지(동결) 중인 종목은 매수할 수 없습니다.', { reason: 'stock-frozen' });
+    }
+    const INVESTMENT_PRINCIPAL_WON = 100000000;
+    const cost = Math.round(INVESTMENT_PRINCIPAL_WON / cashUnitForAge(play.stageIndex));
+    if ((play.cashHoldings || 0) < cost) {
+      throw new HttpsError('failed-precondition', '보유 현금이 부족해서 투자할 수 없습니다.', { reason: 'insufficient-cash' });
+    }
+    effectiveChoice = Object.assign({}, choice, {
+      deltas: { wealth: -cost },
+      addAsset: {
+        id: stockId,
+        label: stockName,
+        type: 'stock',
+        buyPrice: stockVal.price,
+        buyAge: play.stageIndex,
+        currentPrice: stockVal.price
+      }
+    });
+    // stockInvestorCount(56장 E항 - 트레이더 성과급 연동용 단조 증가 카운터) -
+    // 매수가 실제로 성사되는 시점(위 검증을 전부 통과한 뒤)에만 올린다.
+    await db.ref('lifeGame/stockInvestorCount').transaction((current) => (current || 0) + 1);
+  }
+
+  return applyChoice(db, playRef, play, stage, effectiveChoice);
+});
+
+// 주식 매도(2026-08-28, 56장 D항) - 재산 뱃지 클릭 → 판매 안내 → "판매" 버튼
+// 흐름 전용. submitChoice와 달리 턴을 넘기지 않는 독립 액션이라(선택지가 아니라
+// 보유 자산에 대한 조작) applyChoice를 거치지 않고 직접 stats/cashHoldings/
+// assets를 갱신한다. 절대 나이가 5의 배수일 때만 허용(사용자 확정), 동결
+// 종목은 매도도 불가.
+const sellStock = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const db = getDatabase();
+  const stockId = request.data && request.data.stockId;
+  if (!stockId) throw new HttpsError('invalid-argument', 'stockId가 필요합니다.');
+
+  const { playRef, play } = await loadActivePlay(db, uid);
+  if (play.stageIndex % 5 !== 0) {
+    throw new HttpsError('failed-precondition', '5의 배수 나이에만 주식을 매도할 수 있습니다.');
+  }
+  const assets = Array.isArray(play.assets) ? play.assets : [];
+  const asset = assets.find((a) => a.id === stockId && a.type === 'stock');
+  if (!asset) throw new HttpsError('invalid-argument', '보유하지 않은 종목입니다.');
+
+  const stockSnap = await db.ref('stocks/' + stockId).get();
+  const stockVal = stockSnap.val();
+  if (!stockVal || typeof stockVal.price !== 'number') {
+    throw new HttpsError('invalid-argument', '존재하지 않는 종목입니다.');
+  }
+  if (stockVal.frozenAt) {
+    throw new HttpsError('failed-precondition', '거래 정지(동결) 중인 종목은 매도할 수 없습니다.', { reason: 'stock-frozen' });
+  }
+
+  // 현금 환전 비율(56장 D항 확정) - 게임내_차익 = 1억원 × (매도가÷매수가 − 1).
+  // 이 차익을 다시 cashUnitForAge로 나눠 wealth 스탯 증가분(음수면 손실)으로
+  // 환산한다 - 매수 때 반대 방향으로 했던 환산과 완전히 대칭.
+  const INVESTMENT_PRINCIPAL_WON = 100000000;
+  const ratio = stockVal.price / asset.buyPrice;
+  const profitWon = Math.round(INVESTMENT_PRINCIPAL_WON * (ratio - 1));
+  const wealthDelta = Math.round(profitWon / cashUnitForAge(play.stageIndex));
+
+  const stats = Object.assign({}, play.stats);
+  stats.wealth = clampStat((stats.wealth || 0) + wealthDelta);
+  const cashHoldings = Math.max(0, (play.cashHoldings || 0) + wealthDelta * cashUnitForAge(play.stageIndex));
+  const nextAssets = assets.filter((a) => a.id !== stockId);
+
+  await playRef.update({ stats, cashHoldings, assets: nextAssets });
+
+  return {
+    stats,
+    cashHoldings,
+    assets: nextAssets,
+    profitWon,
+    sellPrice: stockVal.price,
+    buyPrice: asset.buyPrice
+  };
 });
 
 // 주사위 굴리기 - random:true인 구간(예: 유아기, "태어날 집안은 스스로 고를 수
@@ -2335,4 +2480,4 @@ const kickParticipant = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB
   return { ok: true, kickedUid: targetUid };
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession };
