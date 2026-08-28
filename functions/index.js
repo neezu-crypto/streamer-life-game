@@ -67,6 +67,25 @@ function worldStateRateOf(worldStateRates, key) {
   return typeof rates[key] === 'number' ? rates[key] : WORLD_STATE_DEFAULT_RATE;
 }
 
+// investorCountPrizeWeight(2026-08-28, 56장 E항 - 트레이더 성과급 ↔ 인생게임
+// 내 누적 주식 매수 횟수 연동) - worldState EMA 트래커와는 별개로, D항(주식시장
+// 연동, 아직 미구현)의 매수 로직이 늘려갈 lifeGame/stockInvestorCount 단조
+// 증가 카운터를 구간별로 확률에 매핑한다. D항이 아직 없어 지금은 항상 0
+// (최저 구간)이지만, 나중에 D항이 배포되면 카운터가 자연스럽게 올라가면서
+// 그대로 반영된다 - 이 선택지 쪽은 손댈 필요가 없다.
+async function fetchStockInvestorCount(db) {
+  const snap = await db.ref('lifeGame/stockInvestorCount').get();
+  const val = snap.val();
+  return typeof val === 'number' ? val : 0;
+}
+
+function investorCountTierProbability(tiers, count) {
+  for (const tier of tiers) {
+    if (count <= tier.max) return tier.prob;
+  }
+  return tiers[tiers.length - 1].prob;
+}
+
 // STAGES.id로 빠르게 찾기 위한 매핑 - choiceLog(stageId+choiceId만 담긴 압축 기록)를
 // 엔딩 화면의 "지금까지 선택한 선택지" 목록으로 풀어낼 때 매번 STAGES.find를
 // 반복하지 않기 위함.
@@ -1013,6 +1032,22 @@ async function applyChoice(db, playRef, play, stage, choice) {
       const remainingWeight = 100 - caughtWeight;
       effectivePrizeTable = choice.prizeTable.map((p) => {
         if (p.label === caughtLabel) return Object.assign({}, p, { weight: caughtWeight });
+        return Object.assign({}, p, { weight: remainingWeight * (p.weight / othersTotalWeight) });
+      });
+    }
+    // investorCountPrizeWeight(2026-08-28, 56장 E항 - 트레이더 성과급) -
+    // dynamicPrizeWeight와 같은 재분배 방식이지만, worldState rate 대신
+    // lifeGame/stockInvestorCount 구간별 확률(investorCountTierProbability)을
+    // successLabel 항목 weight로 쓴다.
+    if (choice.investorCountPrizeWeight) {
+      const { successLabel, tiers } = choice.investorCountPrizeWeight;
+      const investorCount = await fetchStockInvestorCount(db);
+      const successWeight = investorCountTierProbability(tiers, investorCount) * 100;
+      const others = choice.prizeTable.filter((p) => p.label !== successLabel);
+      const othersTotalWeight = others.reduce((sum, p) => sum + p.weight, 0) || 1;
+      const remainingWeight = 100 - successWeight;
+      effectivePrizeTable = choice.prizeTable.map((p) => {
+        if (p.label === successLabel) return Object.assign({}, p, { weight: successWeight });
         return Object.assign({}, p, { weight: remainingWeight * (p.weight / othersTotalWeight) });
       });
     }

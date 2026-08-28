@@ -4561,6 +4561,15 @@ const STAGES = [
     intro: '갓 어른이 된 티가 조금씩 빠지는 나이. 독립과 자유가 생각보다 훨씬 손이 많이 간다는 걸 알아갑니다.',
     choices: [
       {
+        id: 'trader-entry-20',
+        text: '증권사에 입사해 트레이더의 길에 뛰어든다',
+        deltas: { wealth: 2, happiness: 1 },
+        result: '첫 출근날 시황판 앞에 서자, 숫자들이 살아 움직이는 것처럼 보였다.',
+        setOccupation: { id: 'junior-trader', label: '💹 주니어 트레이더' },
+        startsRoute: { id: 'trader', label: '💹 주식 트레이더', maxDurationYears: 45 },
+        mandatory: true
+      },
+      {
         id: 'police-exam-20',
         text: '경찰공무원 시험에 응시한다',
         deltas: { wealth: 1, happiness: 2 },
@@ -6013,6 +6022,13 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        id: 'trader-volatility-stress-22',
+        text: '장중 변동성이 커지자 손이 떨릴 정도로 긴장한다',
+        deltas: { happiness: -3, health: -1 },
+        result: '숫자가 몇 초 만에 뒤바뀔 때마다, 심장도 같이 뛰었다.',
+        requiresRoute: 'trader'
+      },
       {
         id: 'police-first-patrol-22',
         text: '선임을 따라 첫 순찰을 나간다',
@@ -7637,6 +7653,13 @@ const STAGES = [
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
       {
+        id: 'trader-overnight-market-watch-24',
+        text: '새벽 미국 증시를 모니터링하느라 밤을 지새운다',
+        deltas: { health: -3, wealth: 1 },
+        result: '해가 뜨기도 전에 눈이 벌게졌지만, 놓칠 수 없는 흐름이었다.',
+        requiresRoute: 'trader'
+      },
+      {
         id: 'bar-exam-pass-24',
         text: '변호사시험에 최종 합격해 자격을 취득한다',
         deltas: { happiness: 4, fame: 1 },
@@ -8590,6 +8613,16 @@ const STAGES = [
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
       {
+        id: 'trader-promoted-25',
+        text: '실적을 인정받아 정식 트레이더로 승진한다',
+        deltas: { wealth: 3, happiness: 3 },
+        result: '수습 딱지를 뗀 첫날, 화면 속 숫자의 무게가 달라 보였다.',
+        requiresRoute: 'trader',
+        requiresOccupation: ['junior-trader'],
+        mandatory: true,
+        setOccupation: { id: 'trader', label: '💹 트레이더' }
+      },
+      {
         id: 'police-overlooks-bribe-25',
         text: '단속 대상에게 뇌물을 받고 슬쩍 눈감아준다',
         deltas: { wealth: 3, relationship: -1 },
@@ -9438,6 +9471,17 @@ const STAGES = [
     ageRange: '26세',
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
+      {
+        id: 'deviant-trader-insider-trading-26',
+        text: '아직 공개되지 않은 인수합병 정보로 미리 주식을 사들인다',
+        requiresRoute: 'trader',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '공시가 뜨자마자, 이미 불려 있던 잔고에 미소가 지어졌다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '미공개정보 이용 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'lawyer-joins-firm-26',
         text: '대형 로펌에 입사한다',
@@ -11294,6 +11338,13 @@ const STAGES = [
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
       {
+        id: 'trader-losing-season-pressure-28',
+        text: '몇 달째 이어지는 손실 시즌에 압박감이 커진다',
+        deltas: { happiness: -4, wealth: -2 },
+        result: '숫자가 붉게 물들 때마다, 팀 전체의 표정도 같이 굳었다.',
+        requiresRoute: 'trader'
+      },
+      {
         id: 'lawyer-case-intake-28',
         text: '첫 단독 사건을 수임해 맡는다',
         deltas: { wealth: 2, happiness: 2 },
@@ -12939,6 +12990,17 @@ const STAGES = [
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
       {
+        id: 'deviant-trader-market-manipulation-30',
+        text: '지인들과 짜고 특정 종목 주가를 인위적으로 띄운다',
+        requiresRoute: 'trader',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '작전이 먹혀들며, 판돈을 키운 만큼 수익도 커졌다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '시세조종 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'police-promoted-detective-30',
         text: '강력계 형사로 발탁된다',
         deltas: { wealth: 3, fame: 2, happiness: 2 },
@@ -14486,6 +14548,16 @@ const STAGES = [
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
       {
+        id: 'trader-promoted-fund-manager-32',
+        text: '펀드매니저로 발탁돼 자산운용팀을 맡는다',
+        deltas: { wealth: 5, fame: 3, happiness: 3 },
+        result: '누구나 오르는 자리는 아니었기에, 그 무게가 남달랐다.',
+        requiresRoute: 'trader',
+        requiresOccupation: ['trader'],
+        appearChance: 0.3,
+        setOccupation: { id: 'fund-manager', label: '💰 펀드매니저' }
+      },
+      {
         id: 'deviant-lawyer-influence-peddling-32',
         text: '전관 인맥을 동원해 담당 판사에게 은밀히 청탁을 넣는다',
         requiresRoute: 'lawyer',
@@ -15955,6 +16027,17 @@ const STAGES = [
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
       {
+        id: 'deviant-trader-client-fund-misuse-34',
+        text: '고객 위탁금 일부를 몰래 개인 계좌로 돌려 굴린다',
+        requiresRoute: 'trader',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '슬쩍 빼돌린 돈이 불어나는 걸 보며, 죄책감은 잠시 미뤄뒀다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '고객자금 유용 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'lw-body-not-what-it-was-34',
         text: '예전 같지 않은 체력에 세월을 실감한다',
         deltas: {"happiness":-2,"health":-1},
@@ -16660,6 +16743,24 @@ const STAGES = [
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
       {
+        id: 'trader-annual-bonus-review-35',
+        text: '연말 실적 심사 결과를 초조하게 기다린다',
+        requiresRoute: 'trader',
+        investorCountPrizeWeight: {
+          successLabel: '성과급 지급',
+          tiers: [
+            { max: 50, prob: 0.45 },
+            { max: 200, prob: 0.55 },
+            { max: 500, prob: 0.65 },
+            { max: Infinity, prob: 0.75 }
+          ]
+        },
+        prizeTable: [
+          { weight: 55, label: '성과급 지급', deltas: { wealth: 6, happiness: 4 }, result: '통장에 찍힌 숫자를 보고, 한 해의 고생이 씻겨 나가는 기분이었다.' },
+          { weight: 45, label: '동결', deltas: { happiness: -4 }, result: '기대했던 만큼, 그해 겨울은 유독 시렸다.' }
+        ]
+      },
+      {
         id: 'police-major-case-solved-35',
         text: '몇 달을 매달린 강력사건을 마침내 해결한다',
         deltas: { fame: 4, happiness: 4, health: -2 },
@@ -17318,6 +17419,14 @@ const STAGES = [
     ageRange: '36세',
     intro: '나를 키워준 사람들을 이제는 내가 돌봐야 할 시기가 다가옵니다.',
     choices: [
+      {
+        id: 'trader-client-relations-36',
+        text: '고액 자산가 고객의 까다로운 요구에 응대한다',
+        deltas: { happiness: -2, wealth: 2 },
+        result: '숫자 몇 개보다, 사람 하나 다루는 게 더 어려울 때가 있었다.',
+        requiresRoute: 'trader',
+        requiresOccupation: ['fund-manager']
+      },
       {
         id: 'deviant-lawyer-excessive-fee-36',
         text: '승소 가능성을 부풀려 과다한 성공보수를 요구한다',
@@ -18525,6 +18634,13 @@ const STAGES = [
     ageRange: '38세',
     intro: '몸이 예전 같지 않다는 걸, 무시할 수 없을 만큼 또렷하게 느끼게 됩니다.',
     choices: [
+      {
+        id: 'trader-colleague-rivalry-38',
+        text: '같은 팀 동료와 실적 경쟁이 날카로워진다',
+        deltas: { happiness: -3, relationship: -2, wealth: 1 },
+        result: '어제까지 웃으며 인사하던 사이가, 숫자 앞에서 서먹해졌다.',
+        requiresRoute: 'trader'
+      },
       {
         id: 'deviant-lawyer-neglected-defense-38',
         text: '수임료만 챙기고 사건 준비는 대충 때운다',
@@ -20568,6 +20684,17 @@ const STAGES = [
     intro: '몸이 보내는 신호를 더 이상 못 본 척할 수 없게 되는 나이입니다.',
     choices: [
       {
+        id: 'deviant-trader-wash-trading-42',
+        text: '수수료 실적을 부풀리려 관계사와 자전거래를 반복한다',
+        requiresRoute: 'trader',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6, fame: 1 }, result: '거래량 실적만큼은, 누구보다 화려해 보였다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '자전거래를 통한 시세조종 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'deviant-lawyer-conflict-of-interest-42',
         text: '이해가 상충하는 양측 사건을 몰래 동시에 수임한다',
         requiresRoute: 'lawyer',
@@ -21418,6 +21545,13 @@ const STAGES = [
     ageRange: '44세',
     intro: '가까운 사이일수록 소원해지기 쉬운 나이. 관계를 다시 들여다보게 됩니다.',
     choices: [
+      {
+        id: 'trader-burnout-44',
+        text: '몇 년째 이어진 새벽 근무에 결국 몸과 마음이 무너진다',
+        deltas: { health: -5, happiness: -5 },
+        result: '화면 앞에서 버텨온 시간이, 결국 몸 어딘가에 고스란히 쌓여 있었다.',
+        requiresRoute: 'trader'
+      },
       {
         id: 'deviant-lawyer-evidence-tampering-44',
         text: '불리한 증거를 은근슬쩍 조작하는 데 손을 보탠다',
@@ -22415,6 +22549,18 @@ const STAGES = [
     ageRange: '46세',
     intro: '늦지 않았다는 걸 스스로 증명하고 싶어지는 나이입니다.',
     choices: [
+      {
+        id: 'deviant-trader-falsified-performance-report-46',
+        text: '실적 부진을 감추려 운용 보고서 수치를 조작한다',
+        requiresRoute: 'trader',
+        requiresOccupation: ['fund-manager'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { fame: 3 }, result: '서류상 숫자는 그럴듯했고, 아무도 의심하지 않았다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '운용보고서 조작 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'cs-promoted-senior-official-46',
         text: '서기관 승진자 명단에 이름을 올린다',
