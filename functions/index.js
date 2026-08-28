@@ -591,7 +591,13 @@ function pickVisibleChoiceIds(choices, ctx) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    const remainingSlots = Math.max(0, 4 - mandatory.length);
+    // mandatory 선택지가 4개를 채우거나 넘으면(2026-08-28, 사용자 지시로 발견된
+    // 회귀 - 20세에 trader-entry-20/police-exam-20을 조건 없는 mandatory로
+    // 추가하면서 기존 small-business-startup/pursuing-artist-path와 합쳐
+    // 정확히 4개가 돼, 그 나이의 다른 모든 선택지가 영원히 노출 불가능해짐)
+    // 범용(optional) 선택지가 완전히 밀려나지 않도록 "유동적으로 +2개 더
+    // 출현"(사용자 확정)한다 - mandatory가 4 미만일 때는 기존과 완전히 동일.
+    const remainingSlots = mandatory.length >= 4 ? 2 : Math.max(0, 4 - mandatory.length);
     resultIds = mandatory.concat(shuffled.slice(0, remainingSlots)).map((c) => c.id);
   }
 

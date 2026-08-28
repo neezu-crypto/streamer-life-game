@@ -8619,6 +8619,34 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'stock-investment-civil-servant-route-25',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'civil-servant-route',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-police-25',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'police',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-lawyer-25',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'lawyer',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-trader-25',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'trader',
+        mandatory: true
+      },
+      {
         id: 'trader-promoted-25',
         text: '실적을 인정받아 정식 트레이더로 승진한다',
         deltas: { wealth: 3, happiness: 3 },
@@ -13002,6 +13030,34 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'stock-investment-civil-servant-route-30',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'civil-servant-route',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-police-30',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'police',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-lawyer-30',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'lawyer',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-trader-30',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'trader',
+        mandatory: true
+      },
+      {
         id: 'deviant-trader-market-manipulation-30',
         text: '지인들과 짜고 특정 종목 주가를 인위적으로 띄운다',
         requiresRoute: 'trader',
@@ -16761,6 +16817,34 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'stock-investment-civil-servant-route-35',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'civil-servant-route',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-police-35',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'police',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-lawyer-35',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'lawyer',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-trader-35',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'trader',
+        mandatory: true
+      },
+      {
         id: 'trader-annual-bonus-review-35',
         text: '연말 실적 심사 결과를 초조하게 기다린다',
         requiresRoute: 'trader',
@@ -19737,6 +19821,34 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'stock-investment-civil-servant-route-40',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'civil-servant-route',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-police-40',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'police',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-lawyer-40',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'lawyer',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-trader-40',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'trader',
+        mandatory: true
+      },
+      {
         id: 'deviant-lawyer-witness-tampering-40',
         text: '증인에게 유리한 증언을 하도록 은밀히 회유한다',
         requiresRoute: 'lawyer',
@@ -22045,6 +22157,34 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'stock-investment-civil-servant-route-45',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'civil-servant-route',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-police-45',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'police',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-lawyer-45',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'lawyer',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-trader-45',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'trader',
+        mandatory: true
+      },
+      {
         id: 'patient-bribes-doctor-for-fake-diagnosis-45',
         text: '의사에게 청탁해 허위 진단서를 받는다',
         deltas: { wealth: 3, happiness: -1 },
@@ -23825,6 +23965,34 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'stock-investment-civil-servant-route-50',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'civil-servant-route',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-police-50',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'police',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-lawyer-50',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'lawyer',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-trader-50',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'trader',
+        mandatory: true
+      },
+      {
         id: 'citizen-bribes-official-for-permit-50',
         text: '지역 정치인에게 청탁을 넣어 인허가를 앞당긴다',
         deltas: { wealth: -2, happiness: 2 },
@@ -24786,6 +24954,34 @@ const STAGES = [
         id: 'stock-investment-55',
         text: '주식에 투자한다',
         requiresStockPurchase: true,
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-civil-servant-route-55',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'civil-servant-route',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-police-55',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'police',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-lawyer-55',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'lawyer',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-trader-55',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'trader',
         mandatory: true
       },
       {
@@ -25865,6 +26061,34 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'stock-investment-civil-servant-route-60',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'civil-servant-route',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-police-60',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'police',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-lawyer-60',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'lawyer',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-trader-60',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'trader',
+        mandatory: true
+      },
+      {
         id: 'police-mandatory-retirement-60',
         text: '정년을 채우고 경찰 생활을 마무리한다',
         deltas: { happiness: 3, health: 1 },
@@ -26821,6 +27045,34 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'stock-investment-civil-servant-route-65',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'civil-servant-route',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-police-65',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'police',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-lawyer-65',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'lawyer',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-trader-65',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'trader',
+        mandatory: true
+      },
+      {
         id: 'cs2-reemployment-advisory-65',
         text: '공공기관 자문위원으로 위촉돼 재취업한다',
         deltas: { wealth: 3, fame: 2 },
@@ -27714,6 +27966,34 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'stock-investment-civil-servant-route-70',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'civil-servant-route',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-police-70',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'police',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-lawyer-70',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'lawyer',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-trader-70',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'trader',
+        mandatory: true
+      },
+      {
         id: 'japan-trip-friends-reunion-70',
         text: '오랜 친구들과 함께 마지막이 될지도 모를 일본 여행을 떠난다',
         deltas: { happiness: 5, wealth: -1, relationship: 2 },
@@ -28431,6 +28711,34 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'stock-investment-civil-servant-route-75',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'civil-servant-route',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-police-75',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'police',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-lawyer-75',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'lawyer',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-trader-75',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'trader',
+        mandatory: true
+      },
+      {
         id: 'sb2-handover-thoughts-75',
         text: '가게를 물려줄 사람을 조용히 고민한다',
         deltas: {"happiness":2,"relationship":1},
@@ -29089,6 +29397,34 @@ const STAGES = [
         requiresStockPurchase: true,
         mandatory: true
       },
+      {
+        id: 'stock-investment-civil-servant-route-80',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'civil-servant-route',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-police-80',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'police',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-lawyer-80',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'lawyer',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-trader-80',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'trader',
+        mandatory: true
+      },
 
       {
         id: 'yp2-honorary-award-80',
@@ -29687,6 +30023,34 @@ const STAGES = [
         id: 'stock-investment-85',
         text: '주식에 투자한다',
         requiresStockPurchase: true,
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-civil-servant-route-85',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'civil-servant-route',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-police-85',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'police',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-lawyer-85',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'lawyer',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-trader-85',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'trader',
         mandatory: true
       },
       {
@@ -30447,6 +30811,34 @@ const STAGES = [
         id: 'stock-investment-90',
         text: '주식에 투자한다',
         requiresStockPurchase: true,
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-civil-servant-route-90',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'civil-servant-route',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-police-90',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'police',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-lawyer-90',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'lawyer',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-trader-90',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'trader',
         mandatory: true
       },
       {
@@ -31258,6 +31650,34 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'stock-investment-civil-servant-route-95',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'civil-servant-route',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-police-95',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'police',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-lawyer-95',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'lawyer',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-trader-95',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'trader',
+        mandatory: true
+      },
+      {
         id: 'old-career-athlete-2-95',
         text: '예전 활약이 담긴 경기 영상을 다시 찾아본다',
         deltas: {"happiness":3},
@@ -32053,6 +32473,34 @@ const STAGES = [
         id: 'stock-investment-100',
         text: '주식에 투자한다',
         requiresStockPurchase: true,
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-civil-servant-route-100',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'civil-servant-route',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-police-100',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'police',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-lawyer-100',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'lawyer',
+        mandatory: true
+      },
+      {
+        id: 'stock-investment-trader-100',
+        text: '주식에 투자한다',
+        requiresStockPurchase: true,
+        requiresRoute: 'trader',
         mandatory: true
       },
       {
