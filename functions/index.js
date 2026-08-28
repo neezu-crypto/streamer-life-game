@@ -1034,6 +1034,13 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // 높은지(부패 쪽)/낮은지(청렴 쪽)로 문구를 고른다. corruptText/honestText는
   // 직업 쌍마다 배우 이름("교사"/"의사"/"정치인" 등)이 달라 선택지 쪽에서
   // 직접 문구를 정해 넘긴다(엔진에 특정 직업명을 하드코딩하지 않기 위함).
+  // 문구 표준(2026-08-28, 사용자 지시 - "일탈 결과 문구에 'oo 플레이어의
+  // 청렴도가..' 없는 직업 확인 후 추가해줘. 앞으로 추가할 작업에도
+  // 추가되게 해") - dynamicAppearChance가 붙는 모든 새 선택지는 반드시
+  // "[직업명] 플레이어의 청렴도가 낮아 [일이 성사됐다는 서술]."(corruptText,
+  // rate>=0.5) / "[직업명] 플레이어의 청렴도가 높은 편이었지만, 그래도
+  // [성사]됐다."(honestText, rate<0.5) 형태를 따른다 - 이후 경찰↔현행범↔시민
+  // 등 새 직업 쌍을 추가할 때도 이 문구 패턴을 그대로 재사용할 것.
   if (choice.worldStateNote) {
     const { key, corruptText, honestText } = choice.worldStateNote;
     const rate = worldStateRateOf(worldStateRates, key);

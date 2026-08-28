@@ -2525,8 +2525,8 @@ const STAGES = [
         dynamicAppearChance: { key: 'teacherCorruption', min: 0.25, max: 0.75 },
         worldStateNote: {
           key: 'teacherCorruption',
-          corruptText: ' 요즘 교사 사회가 워낙 청렴도가 낮다 보니, 이런 부탁도 별 거부감 없이 받아들여졌다.',
-          honestText: ' 평소라면 어림도 없었을 텐데, 그래도 이번엔 운 좋게 받아들여졌다.'
+          corruptText: ' 교사 플레이어의 청렴도가 낮아 촌지가 순순히 받아들여졌다.',
+          honestText: ' 교사 플레이어의 청렴도가 높은 편이었지만, 그래도 촌지가 받아들여졌다.'
         }
       },
       {
@@ -7610,8 +7610,8 @@ const STAGES = [
         dynamicAppearChance: { key: 'teamLeadUnfairness', min: 0.25, max: 0.75 },
         worldStateNote: {
           key: 'teamLeadUnfairness',
-          corruptText: ' 요즘 팀장급 사이에서 이런 부당 지시가 워낙 흔하다 보니, 신고할 일도 그만큼 잦았다.',
-          honestText: ' 흔한 일은 아니었지만, 이번엔 참지 않기로 했다.'
+          corruptText: ' 팀장 플레이어의 청렴도가 낮아 이런 부당 지시가 드물지 않게 벌어졌다.',
+          honestText: ' 팀장 플레이어의 청렴도가 높은 편이라 흔한 일은 아니었지만, 이번만큼은 참지 않았다.'
         }
       },
       {
@@ -21574,8 +21574,8 @@ const STAGES = [
         dynamicAppearChance: { key: 'doctorCorruption', min: 0.25, max: 0.75 },
         worldStateNote: {
           key: 'doctorCorruption',
-          corruptText: ' 요즘 의료계 청렴도가 워낙 낮다 보니, 이런 부탁도 어렵지 않게 통했다.',
-          honestText: ' 평소라면 어림도 없었을 텐데, 그래도 이번엔 운 좋게 받아들여졌다.'
+          corruptText: ' 의사 플레이어의 청렴도가 낮아 부탁이 순순히 받아들여졌다.',
+          honestText: ' 의사 플레이어의 청렴도가 높은 편이었지만, 그래도 부탁이 받아들여졌다.'
         }
       },
       {
@@ -23307,8 +23307,8 @@ const STAGES = [
         dynamicAppearChance: { key: 'politicianCorruption', min: 0.25, max: 0.75 },
         worldStateNote: {
           key: 'politicianCorruption',
-          corruptText: ' 요즘 정치권 청렴도가 워낙 낮다 보니, 이런 청탁도 어렵지 않게 통했다.',
-          honestText: ' 평소라면 어림도 없었을 텐데, 그래도 이번엔 운 좋게 받아들여졌다.'
+          corruptText: ' 정치인 플레이어의 청렴도가 낮아 청탁이 순순히 통했다.',
+          honestText: ' 정치인 플레이어의 청렴도가 높은 편이었지만, 그래도 청탁이 통했다.'
         }
       },
       {
