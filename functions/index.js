@@ -629,7 +629,18 @@ function pickVisibleChoiceIds(choices, ctx) {
   // 사실상 그대로 유지된다(guaranteeCure와 같은 급의 안전망).
   const cashHoldings = ctx.cashHoldings || 0;
   const costOf = (c) => Math.abs((c.deltas && c.deltas.wealth) || 0) * cashUnitForAge(currentAge);
-  const canAfford = (c) => !c.requiresSufficientCash || cashHoldings >= costOf(c);
+  // requiresStockPurchase 사각지대(2026-08-29, 라이브 검증 중 발견) - 이 안전망은
+  // requiresSufficientCash 비용만 알고 있었는데, 주식 매수 선택지(고정 1억원,
+  // submitChoice의 실제 검증식과 동일하게 계산)는 deltas.wealth가 없어 비용이
+  // 0으로 취급돼 "항상 감당 가능"으로 오판됐다. mandatory인 주식 매수 선택지가
+  // 이 사각지대 때문에 안전망을 무력화시켜, 나머지 3개가 전부 진짜로 감당
+  // 불가능해도 바꿔치기가 발동하지 않는 실제 소프트락이 재현됐다.
+  const STOCK_INVESTMENT_PRINCIPAL_WON = 100000000;
+  const stockCostOf = () => Math.round(STOCK_INVESTMENT_PRINCIPAL_WON / cashUnitForAge(currentAge));
+  const canAfford = (c) => {
+    if (c.requiresStockPurchase) return cashHoldings >= stockCostOf();
+    return !c.requiresSufficientCash || cashHoldings >= costOf(c);
+  };
   if (resultIds.length && resultIds.every((id) => {
     const c = routeChoicePool.find((x) => x.id === id);
     return c && !canAfford(c);
