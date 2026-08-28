@@ -3999,6 +3999,48 @@ const STAGES = [
     intro: '인생의 첫 갈림길. 대학과 방송, 혹은 곧장 돈이 되는 길 — 스무 살의 선택은 이후 모든 걸 조금씩 흔들어놓습니다.',
     choices: [
       {
+        id: 'law-fill2-19-1',
+        text: '판례 검색에만 하루를 다 쓴다',
+        deltas: { happiness: -1 },
+        result: '방대한 자료 속에서 헤매기 일쑤였다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-19-2',
+        text: '첫 법정 방청을 하며 긴장한다',
+        deltas: { happiness: 1 },
+        result: '선배 변호사의 노련함에 압도됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-19-3',
+        text: '의뢰인의 사연을 들으며 마음이 무거워진다',
+        deltas: { happiness: -1 },
+        result: '법으로 다 해결되지 않는 일도 많았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'cs-fill2-19-1',
+        text: '공문서 서식을 새로 익히느라 진땀을 뺀다',
+        deltas: { wealth: 1 },
+        result: '익숙해지기까지 실수가 잦았지만 배워가는 재미도 있었다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-19-2',
+        text: '첫 발령지 동네를 걸어서 익힌다',
+        deltas: { happiness: 1 },
+        result: '낯설던 골목이 조금씩 눈에 익어갔다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-19-3',
+        text: '상급자에게 서류 반려를 당한다',
+        deltas: { happiness: -1 },
+        result: '꼼꼼함이 부족했다는 걸 인정할 수밖에 없었다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'law-fill-19-1',
         text: '로스쿨 도서관에서 밤을 새운다',
         deltas: { happiness: -1, wealth: -1 },
@@ -4602,6 +4644,90 @@ const STAGES = [
     ageRange: '20세',
     intro: '갓 어른이 된 티가 조금씩 빠지는 나이. 독립과 자유가 생각보다 훨씬 손이 많이 간다는 걸 알아갑니다.',
     choices: [
+      {
+        id: 'trd-fill2-20-1',
+        text: '장이 열리기 전 새벽부터 리포트를 읽는다',
+        deltas: { wealth: 1, health: -1 },
+        result: '하루의 흐름을 놓치지 않으려 애썼다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-20-2',
+        text: '선배 트레이더의 매매 습관을 관찰한다',
+        deltas: { wealth: 1 },
+        result: '숫자 너머의 감각을 배우려 했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-20-3',
+        text: '작은 손실에도 심장이 철렁 내려앉는다',
+        deltas: { happiness: -1 },
+        result: '돈에 대한 감각이 무뎌지지 않으려 애썼다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-20-1',
+        text: '판례 검색에만 하루를 다 쓴다',
+        deltas: { happiness: -1 },
+        result: '방대한 자료 속에서 헤매기 일쑤였다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-20-2',
+        text: '첫 법정 방청을 하며 긴장한다',
+        deltas: { happiness: 1 },
+        result: '선배 변호사의 노련함에 압도됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-20-3',
+        text: '의뢰인의 사연을 들으며 마음이 무거워진다',
+        deltas: { happiness: -1 },
+        result: '법으로 다 해결되지 않는 일도 많았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-20-1',
+        text: '지구대 첫 야간 근무를 선다',
+        deltas: { happiness: -1, health: -1 },
+        result: '긴장과 두려움이 뒤섞인 밤이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-20-2',
+        text: '무전 교신 요령을 아직 익숙하게 못 한다',
+        deltas: { happiness: -1 },
+        result: '긴급한 상황에서 버벅거려 진땀이 났다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-20-3',
+        text: '선배 순경의 순찰 노하우를 배운다',
+        deltas: { wealth: 1 },
+        result: '책에는 없는 현장의 감각이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-20-1',
+        text: '공문서 서식을 새로 익히느라 진땀을 뺀다',
+        deltas: { wealth: 1 },
+        result: '익숙해지기까지 실수가 잦았지만 배워가는 재미도 있었다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-20-2',
+        text: '첫 발령지 동네를 걸어서 익힌다',
+        deltas: { happiness: 1 },
+        result: '낯설던 골목이 조금씩 눈에 익어갔다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-20-3',
+        text: '상급자에게 서류 반려를 당한다',
+        deltas: { happiness: -1 },
+        result: '꼼꼼함이 부족했다는 걸 인정할 수밖에 없었다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'trd-fill-20-1',
         text: '장이 열리기 전 새벽부터 리포트를 읽는다',
@@ -5437,6 +5563,90 @@ const STAGES = [
     intro: '방향을 조금씩 좁혀가는 나이. 막연했던 미래가 서서히 구체적인 모양을 갖추기 시작합니다.',
     choices: [
       {
+        id: 'trd-fill2-21-1',
+        text: '장이 열리기 전 새벽부터 리포트를 읽는다',
+        deltas: { wealth: 1, health: -1 },
+        result: '하루의 흐름을 놓치지 않으려 애썼다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-21-2',
+        text: '선배 트레이더의 매매 습관을 관찰한다',
+        deltas: { wealth: 1 },
+        result: '숫자 너머의 감각을 배우려 했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-21-3',
+        text: '작은 손실에도 심장이 철렁 내려앉는다',
+        deltas: { happiness: -1 },
+        result: '돈에 대한 감각이 무뎌지지 않으려 애썼다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-21-1',
+        text: '판례 검색에만 하루를 다 쓴다',
+        deltas: { happiness: -1 },
+        result: '방대한 자료 속에서 헤매기 일쑤였다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-21-2',
+        text: '첫 법정 방청을 하며 긴장한다',
+        deltas: { happiness: 1 },
+        result: '선배 변호사의 노련함에 압도됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-21-3',
+        text: '의뢰인의 사연을 들으며 마음이 무거워진다',
+        deltas: { happiness: -1 },
+        result: '법으로 다 해결되지 않는 일도 많았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-21-1',
+        text: '지구대 첫 야간 근무를 선다',
+        deltas: { happiness: -1, health: -1 },
+        result: '긴장과 두려움이 뒤섞인 밤이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-21-2',
+        text: '무전 교신 요령을 아직 익숙하게 못 한다',
+        deltas: { happiness: -1 },
+        result: '긴급한 상황에서 버벅거려 진땀이 났다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-21-3',
+        text: '선배 순경의 순찰 노하우를 배운다',
+        deltas: { wealth: 1 },
+        result: '책에는 없는 현장의 감각이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-21-1',
+        text: '공문서 서식을 새로 익히느라 진땀을 뺀다',
+        deltas: { wealth: 1 },
+        result: '익숙해지기까지 실수가 잦았지만 배워가는 재미도 있었다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-21-2',
+        text: '첫 발령지 동네를 걸어서 익힌다',
+        deltas: { happiness: 1 },
+        result: '낯설던 골목이 조금씩 눈에 익어갔다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-21-3',
+        text: '상급자에게 서류 반려를 당한다',
+        deltas: { happiness: -1 },
+        result: '꼼꼼함이 부족했다는 걸 인정할 수밖에 없었다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'trd-fill-21-1',
         text: '동기들과 시황을 놓고 열띤 토론을 벌인다',
         deltas: { relationship: 2 },
@@ -6232,6 +6442,118 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        id: 'trd-fill2-22-1',
+        text: '장이 열리기 전 새벽부터 리포트를 읽는다',
+        deltas: { wealth: 1, health: -1 },
+        result: '하루의 흐름을 놓치지 않으려 애썼다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-22-2',
+        text: '선배 트레이더의 매매 습관을 관찰한다',
+        deltas: { wealth: 1 },
+        result: '숫자 너머의 감각을 배우려 했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-22-3',
+        text: '작은 손실에도 심장이 철렁 내려앉는다',
+        deltas: { happiness: -1 },
+        result: '돈에 대한 감각이 무뎌지지 않으려 애썼다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-22-4',
+        text: '동기들과 시황을 놓고 열띤 토론을 벌인다',
+        deltas: { relationship: 2 },
+        result: '서로 다른 시각이 오히려 도움이 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-22-5',
+        text: '모의투자 대회에서 좋은 성적을 낸다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '실전에 대한 자신감이 조금 붙었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-22-1',
+        text: '판례 검색에만 하루를 다 쓴다',
+        deltas: { happiness: -1 },
+        result: '방대한 자료 속에서 헤매기 일쑤였다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-22-2',
+        text: '첫 법정 방청을 하며 긴장한다',
+        deltas: { happiness: 1 },
+        result: '선배 변호사의 노련함에 압도됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-22-3',
+        text: '의뢰인의 사연을 들으며 마음이 무거워진다',
+        deltas: { happiness: -1 },
+        result: '법으로 다 해결되지 않는 일도 많았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-22-1',
+        text: '지구대 첫 야간 근무를 선다',
+        deltas: { happiness: -1, health: -1 },
+        result: '긴장과 두려움이 뒤섞인 밤이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-22-2',
+        text: '무전 교신 요령을 아직 익숙하게 못 한다',
+        deltas: { happiness: -1 },
+        result: '긴급한 상황에서 버벅거려 진땀이 났다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-22-3',
+        text: '선배 순경의 순찰 노하우를 배운다',
+        deltas: { wealth: 1 },
+        result: '책에는 없는 현장의 감각이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-22-4',
+        text: '취객 신고 현장에서 진땀을 뺀다',
+        deltas: { happiness: -1 },
+        result: '예상치 못한 변수가 많은 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-22-5',
+        text: '동기들과 경찰 특공무술을 함께 연마한다',
+        deltas: { health: -1, relationship: 1 },
+        result: '몸은 힘들어도 뿌듯함이 컸다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-22-1',
+        text: '공문서 서식을 새로 익히느라 진땀을 뺀다',
+        deltas: { wealth: 1 },
+        result: '익숙해지기까지 실수가 잦았지만 배워가는 재미도 있었다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-22-2',
+        text: '첫 발령지 동네를 걸어서 익힌다',
+        deltas: { happiness: 1 },
+        result: '낯설던 골목이 조금씩 눈에 익어갔다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-22-3',
+        text: '상급자에게 서류 반려를 당한다',
+        deltas: { happiness: -1 },
+        result: '꼼꼼함이 부족했다는 걸 인정할 수밖에 없었다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'law-fill-22-1',
         text: '동기들과 스터디 그룹을 꾸린다',
@@ -7087,6 +7409,90 @@ const STAGES = [
     ageRange: '23세',
     intro: '스무 살대의 마지막 해. 자립이라는 단어가 더는 남 얘기가 아니게 됩니다.',
     choices: [
+      {
+        id: 'trd-fill2-23-1',
+        text: '장이 열리기 전 새벽부터 리포트를 읽는다',
+        deltas: { wealth: 1, health: -1 },
+        result: '하루의 흐름을 놓치지 않으려 애썼다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-23-2',
+        text: '선배 트레이더의 매매 습관을 관찰한다',
+        deltas: { wealth: 1 },
+        result: '숫자 너머의 감각을 배우려 했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-23-3',
+        text: '작은 손실에도 심장이 철렁 내려앉는다',
+        deltas: { happiness: -1 },
+        result: '돈에 대한 감각이 무뎌지지 않으려 애썼다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-23-1',
+        text: '판례 검색에만 하루를 다 쓴다',
+        deltas: { happiness: -1 },
+        result: '방대한 자료 속에서 헤매기 일쑤였다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-23-2',
+        text: '첫 법정 방청을 하며 긴장한다',
+        deltas: { happiness: 1 },
+        result: '선배 변호사의 노련함에 압도됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-23-3',
+        text: '의뢰인의 사연을 들으며 마음이 무거워진다',
+        deltas: { happiness: -1 },
+        result: '법으로 다 해결되지 않는 일도 많았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-23-1',
+        text: '지구대 첫 야간 근무를 선다',
+        deltas: { happiness: -1, health: -1 },
+        result: '긴장과 두려움이 뒤섞인 밤이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-23-2',
+        text: '무전 교신 요령을 아직 익숙하게 못 한다',
+        deltas: { happiness: -1 },
+        result: '긴급한 상황에서 버벅거려 진땀이 났다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-23-3',
+        text: '선배 순경의 순찰 노하우를 배운다',
+        deltas: { wealth: 1 },
+        result: '책에는 없는 현장의 감각이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-23-1',
+        text: '공문서 서식을 새로 익히느라 진땀을 뺀다',
+        deltas: { wealth: 1 },
+        result: '익숙해지기까지 실수가 잦았지만 배워가는 재미도 있었다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-23-2',
+        text: '첫 발령지 동네를 걸어서 익힌다',
+        deltas: { happiness: 1 },
+        result: '낯설던 골목이 조금씩 눈에 익어갔다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-23-3',
+        text: '상급자에게 서류 반려를 당한다',
+        deltas: { happiness: -1 },
+        result: '꼼꼼함이 부족했다는 걸 인정할 수밖에 없었다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'trd-fill-23-1',
         text: '장이 열리기 전 새벽부터 리포트를 읽는다',
@@ -7988,6 +8394,132 @@ const STAGES = [
     ageRange: '24세',
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
+      {
+        id: 'trd-fill2-24-1',
+        text: '장이 열리기 전 새벽부터 리포트를 읽는다',
+        deltas: { wealth: 1, health: -1 },
+        result: '하루의 흐름을 놓치지 않으려 애썼다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-24-2',
+        text: '선배 트레이더의 매매 습관을 관찰한다',
+        deltas: { wealth: 1 },
+        result: '숫자 너머의 감각을 배우려 했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-24-3',
+        text: '작은 손실에도 심장이 철렁 내려앉는다',
+        deltas: { happiness: -1 },
+        result: '돈에 대한 감각이 무뎌지지 않으려 애썼다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-24-4',
+        text: '동기들과 시황을 놓고 열띤 토론을 벌인다',
+        deltas: { relationship: 2 },
+        result: '서로 다른 시각이 오히려 도움이 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-24-5',
+        text: '모의투자 대회에서 좋은 성적을 낸다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '실전에 대한 자신감이 조금 붙었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-24-1',
+        text: '판례 검색에만 하루를 다 쓴다',
+        deltas: { happiness: -1 },
+        result: '방대한 자료 속에서 헤매기 일쑤였다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-24-2',
+        text: '첫 법정 방청을 하며 긴장한다',
+        deltas: { happiness: 1 },
+        result: '선배 변호사의 노련함에 압도됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-24-3',
+        text: '의뢰인의 사연을 들으며 마음이 무거워진다',
+        deltas: { happiness: -1 },
+        result: '법으로 다 해결되지 않는 일도 많았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-24-4',
+        text: '동기들과 밤새 판례 스터디를 한다',
+        deltas: { relationship: 2 },
+        result: '혼자였다면 버티기 힘들었을 시간이었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-24-5',
+        text: '서면 초안을 몇 번이고 다시 쓴다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '완벽을 향한 강박이 스스로를 힘들게 했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-24-1',
+        text: '지구대 첫 야간 근무를 선다',
+        deltas: { happiness: -1, health: -1 },
+        result: '긴장과 두려움이 뒤섞인 밤이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-24-2',
+        text: '무전 교신 요령을 아직 익숙하게 못 한다',
+        deltas: { happiness: -1 },
+        result: '긴급한 상황에서 버벅거려 진땀이 났다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-24-3',
+        text: '선배 순경의 순찰 노하우를 배운다',
+        deltas: { wealth: 1 },
+        result: '책에는 없는 현장의 감각이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-24-1',
+        text: '공문서 서식을 새로 익히느라 진땀을 뺀다',
+        deltas: { wealth: 1 },
+        result: '익숙해지기까지 실수가 잦았지만 배워가는 재미도 있었다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-24-2',
+        text: '첫 발령지 동네를 걸어서 익힌다',
+        deltas: { happiness: 1 },
+        result: '낯설던 골목이 조금씩 눈에 익어갔다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-24-3',
+        text: '상급자에게 서류 반려를 당한다',
+        deltas: { happiness: -1 },
+        result: '꼼꼼함이 부족했다는 걸 인정할 수밖에 없었다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-24-4',
+        text: '동기 모임에서 서로의 고충을 나눈다',
+        deltas: { relationship: 2 },
+        result: '다들 비슷하게 힘들어한다는 게 위안이 됐다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-24-5',
+        text: '첫 월급으로 부모님께 선물을 산다',
+        deltas: { happiness: 2, relationship: 1, wealth: -1 },
+        result: '작은 선물이지만 마음만은 크게 전해졌다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'pol-fill-24-1',
         text: '경범죄 신고를 처리하며 하루를 보낸다',
@@ -8970,6 +9502,97 @@ const STAGES = [
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
       {
+        id: 'trd-fill2-25-1',
+        text: '장이 열리기 전 새벽부터 리포트를 읽는다',
+        deltas: { wealth: 1, health: -1 },
+        result: '하루의 흐름을 놓치지 않으려 애썼다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-25-2',
+        text: '선배 트레이더의 매매 습관을 관찰한다',
+        deltas: { wealth: 1 },
+        result: '숫자 너머의 감각을 배우려 했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-25-3',
+        text: '작은 손실에도 심장이 철렁 내려앉는다',
+        deltas: { happiness: -1 },
+        result: '돈에 대한 감각이 무뎌지지 않으려 애썼다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-25-4',
+        text: '동기들과 시황을 놓고 열띤 토론을 벌인다',
+        deltas: { relationship: 2 },
+        result: '서로 다른 시각이 오히려 도움이 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-25-1',
+        text: '판례 검색에만 하루를 다 쓴다',
+        deltas: { happiness: -1 },
+        result: '방대한 자료 속에서 헤매기 일쑤였다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-25-2',
+        text: '첫 법정 방청을 하며 긴장한다',
+        deltas: { happiness: 1 },
+        result: '선배 변호사의 노련함에 압도됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-25-3',
+        text: '의뢰인의 사연을 들으며 마음이 무거워진다',
+        deltas: { happiness: -1 },
+        result: '법으로 다 해결되지 않는 일도 많았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-25-1',
+        text: '지구대 첫 야간 근무를 선다',
+        deltas: { happiness: -1, health: -1 },
+        result: '긴장과 두려움이 뒤섞인 밤이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-25-2',
+        text: '무전 교신 요령을 아직 익숙하게 못 한다',
+        deltas: { happiness: -1 },
+        result: '긴급한 상황에서 버벅거려 진땀이 났다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-25-3',
+        text: '선배 순경의 순찰 노하우를 배운다',
+        deltas: { wealth: 1 },
+        result: '책에는 없는 현장의 감각이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-25-1',
+        text: '공문서 서식을 새로 익히느라 진땀을 뺀다',
+        deltas: { wealth: 1 },
+        result: '익숙해지기까지 실수가 잦았지만 배워가는 재미도 있었다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-25-2',
+        text: '첫 발령지 동네를 걸어서 익힌다',
+        deltas: { happiness: 1 },
+        result: '낯설던 골목이 조금씩 눈에 익어갔다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-25-3',
+        text: '상급자에게 서류 반려를 당한다',
+        deltas: { happiness: -1 },
+        result: '꼼꼼함이 부족했다는 걸 인정할 수밖에 없었다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'stock-investment-25',
         text: '주식에 투자한다',
         requiresStockPurchase: true,
@@ -9890,6 +10513,111 @@ const STAGES = [
     ageRange: '26세',
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
+      {
+        id: 'trd-fill2-26-1',
+        text: '장이 열리기 전 새벽부터 리포트를 읽는다',
+        deltas: { wealth: 1, health: -1 },
+        result: '하루의 흐름을 놓치지 않으려 애썼다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-26-2',
+        text: '선배 트레이더의 매매 습관을 관찰한다',
+        deltas: { wealth: 1 },
+        result: '숫자 너머의 감각을 배우려 했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-26-3',
+        text: '작은 손실에도 심장이 철렁 내려앉는다',
+        deltas: { happiness: -1 },
+        result: '돈에 대한 감각이 무뎌지지 않으려 애썼다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-26-4',
+        text: '동기들과 시황을 놓고 열띤 토론을 벌인다',
+        deltas: { relationship: 2 },
+        result: '서로 다른 시각이 오히려 도움이 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-26-5',
+        text: '모의투자 대회에서 좋은 성적을 낸다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '실전에 대한 자신감이 조금 붙었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-26-1',
+        text: '판례 검색에만 하루를 다 쓴다',
+        deltas: { happiness: -1 },
+        result: '방대한 자료 속에서 헤매기 일쑤였다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-26-2',
+        text: '첫 법정 방청을 하며 긴장한다',
+        deltas: { happiness: 1 },
+        result: '선배 변호사의 노련함에 압도됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-26-3',
+        text: '의뢰인의 사연을 들으며 마음이 무거워진다',
+        deltas: { happiness: -1 },
+        result: '법으로 다 해결되지 않는 일도 많았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-26-4',
+        text: '동기들과 밤새 판례 스터디를 한다',
+        deltas: { relationship: 2 },
+        result: '혼자였다면 버티기 힘들었을 시간이었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-26-1',
+        text: '지구대 첫 야간 근무를 선다',
+        deltas: { happiness: -1, health: -1 },
+        result: '긴장과 두려움이 뒤섞인 밤이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-26-2',
+        text: '무전 교신 요령을 아직 익숙하게 못 한다',
+        deltas: { happiness: -1 },
+        result: '긴급한 상황에서 버벅거려 진땀이 났다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-26-3',
+        text: '선배 순경의 순찰 노하우를 배운다',
+        deltas: { wealth: 1 },
+        result: '책에는 없는 현장의 감각이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-26-1',
+        text: '공문서 서식을 새로 익히느라 진땀을 뺀다',
+        deltas: { wealth: 1 },
+        result: '익숙해지기까지 실수가 잦았지만 배워가는 재미도 있었다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-26-2',
+        text: '첫 발령지 동네를 걸어서 익힌다',
+        deltas: { happiness: 1 },
+        result: '낯설던 골목이 조금씩 눈에 익어갔다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-26-3',
+        text: '상급자에게 서류 반려를 당한다',
+        deltas: { happiness: -1 },
+        result: '꼼꼼함이 부족했다는 걸 인정할 수밖에 없었다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'pol-fill-26-1',
         text: '파출소 야간 근무에 적응해간다',
@@ -10878,6 +11606,90 @@ const STAGES = [
     ageRange: '27세',
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
+      {
+        id: 'trd-fill2-27-1',
+        text: '장이 열리기 전 새벽부터 리포트를 읽는다',
+        deltas: { wealth: 1, health: -1 },
+        result: '하루의 흐름을 놓치지 않으려 애썼다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-27-2',
+        text: '선배 트레이더의 매매 습관을 관찰한다',
+        deltas: { wealth: 1 },
+        result: '숫자 너머의 감각을 배우려 했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-27-3',
+        text: '작은 손실에도 심장이 철렁 내려앉는다',
+        deltas: { happiness: -1 },
+        result: '돈에 대한 감각이 무뎌지지 않으려 애썼다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-27-1',
+        text: '판례 검색에만 하루를 다 쓴다',
+        deltas: { happiness: -1 },
+        result: '방대한 자료 속에서 헤매기 일쑤였다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-27-2',
+        text: '첫 법정 방청을 하며 긴장한다',
+        deltas: { happiness: 1 },
+        result: '선배 변호사의 노련함에 압도됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-27-3',
+        text: '의뢰인의 사연을 들으며 마음이 무거워진다',
+        deltas: { happiness: -1 },
+        result: '법으로 다 해결되지 않는 일도 많았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-27-1',
+        text: '지구대 첫 야간 근무를 선다',
+        deltas: { happiness: -1, health: -1 },
+        result: '긴장과 두려움이 뒤섞인 밤이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-27-2',
+        text: '무전 교신 요령을 아직 익숙하게 못 한다',
+        deltas: { happiness: -1 },
+        result: '긴급한 상황에서 버벅거려 진땀이 났다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-27-3',
+        text: '선배 순경의 순찰 노하우를 배운다',
+        deltas: { wealth: 1 },
+        result: '책에는 없는 현장의 감각이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-27-1',
+        text: '공문서 서식을 새로 익히느라 진땀을 뺀다',
+        deltas: { wealth: 1 },
+        result: '익숙해지기까지 실수가 잦았지만 배워가는 재미도 있었다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-27-2',
+        text: '첫 발령지 동네를 걸어서 익힌다',
+        deltas: { happiness: 1 },
+        result: '낯설던 골목이 조금씩 눈에 익어갔다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-27-3',
+        text: '상급자에게 서류 반려를 당한다',
+        deltas: { happiness: -1 },
+        result: '꼼꼼함이 부족했다는 걸 인정할 수밖에 없었다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'trd-fill-27-1',
         text: '동기들과 시황을 놓고 열띤 토론을 벌인다',
@@ -11883,6 +12695,132 @@ const STAGES = [
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
       {
+        id: 'trd-fill2-28-1',
+        text: '변동성 큰 장에서 밤잠을 설친다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '포지션 하나로 밤새 마음이 오갔다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-28-2',
+        text: '후배 트레이더의 리스크 관리를 코치한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-28-3',
+        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
+        deltas: { happiness: 3, relationship: 1, wealth: 1 },
+        result: '함께 만든 성과라 더 뿌듯했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-28-4',
+        text: '연달아 손실이 나며 슬럼프에 빠진다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '감을 되찾을 때까지 인내가 필요했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-28-5',
+        text: '리서치 자료를 밤새 분석한다',
+        deltas: { wealth: 1, health: -1 },
+        result: '확신이 설 때까지 숫자를 놓지 않았다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-28-1',
+        text: '대형 로펌 스카우트 제안을 고민한다',
+        deltas: { happiness: 1 },
+        result: '안정과 도전 사이에서 갈등했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-28-2',
+        text: '의뢰인과의 신뢰가 무너지는 사건을 겪는다',
+        deltas: { happiness: -2 },
+        result: '이 일의 무게를 다시 느꼈다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-28-3',
+        text: '장시간 재판 준비로 가족과의 시간이 줄어든다',
+        deltas: { relationship: -1, wealth: 1 },
+        result: '미안한 마음이 컸지만 어쩔 수 없었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-28-4',
+        text: '승소 소식에 사무실 전체가 축하 분위기다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '함께 만든 성과라 더 값졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-28-5',
+        text: '패소한 사건의 의뢰인에게 사과한다',
+        deltas: { happiness: -2 },
+        result: '최선을 다했지만 결과는 냉정했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-28-1',
+        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        deltas: { happiness: -2 },
+        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-28-2',
+        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-28-3',
+        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        deltas: { happiness: -2 },
+        result: '제도의 한계를 자주 느꼈다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-28-1',
+        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        deltas: { happiness: -1 },
+        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-28-2',
+        text: '정책 설명회에서 주민들 앞에 선다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-28-3',
+        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '힘들었지만 서로 돕는 게 당연했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-28-4',
+        text: '장기근속 표창을 받는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '긴 세월이 헛되지 않았다는 증표 같았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-28-5',
+        text: '예산 편성 시즌에 며칠 밤을 새운다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '숫자와의 씨름이 매년 반복됐다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'pol-fill-28-1',
         text: '사건 브리핑을 준비하느라 밤을 새운다',
         deltas: { happiness: -2, wealth: 1 },
@@ -12731,6 +13669,90 @@ const STAGES = [
     ageRange: '29세',
     intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
     choices: [
+      {
+        id: 'trd-fill2-29-1',
+        text: '변동성 큰 장에서 밤잠을 설친다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '포지션 하나로 밤새 마음이 오갔다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-29-2',
+        text: '후배 트레이더의 리스크 관리를 코치한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-29-3',
+        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
+        deltas: { happiness: 3, relationship: 1, wealth: 1 },
+        result: '함께 만든 성과라 더 뿌듯했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-29-1',
+        text: '대형 로펌 스카우트 제안을 고민한다',
+        deltas: { happiness: 1 },
+        result: '안정과 도전 사이에서 갈등했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-29-2',
+        text: '의뢰인과의 신뢰가 무너지는 사건을 겪는다',
+        deltas: { happiness: -2 },
+        result: '이 일의 무게를 다시 느꼈다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-29-3',
+        text: '장시간 재판 준비로 가족과의 시간이 줄어든다',
+        deltas: { relationship: -1, wealth: 1 },
+        result: '미안한 마음이 컸지만 어쩔 수 없었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-29-1',
+        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        deltas: { happiness: -2 },
+        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-29-2',
+        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-29-3',
+        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        deltas: { happiness: -2 },
+        result: '제도의 한계를 자주 느꼈다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-29-1',
+        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        deltas: { happiness: -1 },
+        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-29-2',
+        text: '정책 설명회에서 주민들 앞에 선다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-29-3',
+        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '힘들었지만 서로 돕는 게 당연했다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'trd-fill-29-1',
         text: '변동성 큰 장에서 밤잠을 설친다',
@@ -13640,6 +14662,111 @@ const STAGES = [
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
       {
+        id: 'trd-fill2-30-1',
+        text: '변동성 큰 장에서 밤잠을 설친다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '포지션 하나로 밤새 마음이 오갔다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-30-2',
+        text: '후배 트레이더의 리스크 관리를 코치한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-30-3',
+        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
+        deltas: { happiness: 3, relationship: 1, wealth: 1 },
+        result: '함께 만든 성과라 더 뿌듯했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-30-4',
+        text: '연달아 손실이 나며 슬럼프에 빠진다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '감을 되찾을 때까지 인내가 필요했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-30-1',
+        text: '대형 로펌 스카우트 제안을 고민한다',
+        deltas: { happiness: 1 },
+        result: '안정과 도전 사이에서 갈등했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-30-2',
+        text: '의뢰인과의 신뢰가 무너지는 사건을 겪는다',
+        deltas: { happiness: -2 },
+        result: '이 일의 무게를 다시 느꼈다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-30-3',
+        text: '장시간 재판 준비로 가족과의 시간이 줄어든다',
+        deltas: { relationship: -1, wealth: 1 },
+        result: '미안한 마음이 컸지만 어쩔 수 없었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-30-4',
+        text: '승소 소식에 사무실 전체가 축하 분위기다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '함께 만든 성과라 더 값졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-30-1',
+        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        deltas: { happiness: -2 },
+        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-30-2',
+        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-30-3',
+        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        deltas: { happiness: -2 },
+        result: '제도의 한계를 자주 느꼈다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-30-1',
+        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        deltas: { happiness: -1 },
+        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-30-2',
+        text: '정책 설명회에서 주민들 앞에 선다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-30-3',
+        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '힘들었지만 서로 돕는 게 당연했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-30-4',
+        text: '장기근속 표창을 받는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '긴 세월이 헛되지 않았다는 증표 같았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'stock-investment-30',
         text: '주식에 투자한다',
         requiresStockPurchase: true,
@@ -14485,6 +15612,90 @@ const STAGES = [
     intro: '곁에 남을 사람과 앞으로의 삶을 어떻게 그릴지, 조금 더 구체적으로 고민하는 나이입니다.',
     choices: [
       {
+        id: 'trd-fill2-31-1',
+        text: '변동성 큰 장에서 밤잠을 설친다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '포지션 하나로 밤새 마음이 오갔다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-31-2',
+        text: '후배 트레이더의 리스크 관리를 코치한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-31-3',
+        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
+        deltas: { happiness: 3, relationship: 1, wealth: 1 },
+        result: '함께 만든 성과라 더 뿌듯했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-31-1',
+        text: '대형 로펌 스카우트 제안을 고민한다',
+        deltas: { happiness: 1 },
+        result: '안정과 도전 사이에서 갈등했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-31-2',
+        text: '의뢰인과의 신뢰가 무너지는 사건을 겪는다',
+        deltas: { happiness: -2 },
+        result: '이 일의 무게를 다시 느꼈다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-31-3',
+        text: '장시간 재판 준비로 가족과의 시간이 줄어든다',
+        deltas: { relationship: -1, wealth: 1 },
+        result: '미안한 마음이 컸지만 어쩔 수 없었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-31-1',
+        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        deltas: { happiness: -2 },
+        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-31-2',
+        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-31-3',
+        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        deltas: { happiness: -2 },
+        result: '제도의 한계를 자주 느꼈다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-31-1',
+        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        deltas: { happiness: -1 },
+        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-31-2',
+        text: '정책 설명회에서 주민들 앞에 선다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-31-3',
+        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '힘들었지만 서로 돕는 게 당연했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'trd-fill-31-1',
         text: '연달아 손실이 나며 슬럼프에 빠진다',
         deltas: { happiness: -2, wealth: -1 },
@@ -15323,6 +16534,111 @@ const STAGES = [
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
       {
+        id: 'trd-fill2-32-1',
+        text: '변동성 큰 장에서 밤잠을 설친다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '포지션 하나로 밤새 마음이 오갔다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-32-2',
+        text: '후배 트레이더의 리스크 관리를 코치한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-32-3',
+        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
+        deltas: { happiness: 3, relationship: 1, wealth: 1 },
+        result: '함께 만든 성과라 더 뿌듯했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-32-4',
+        text: '연달아 손실이 나며 슬럼프에 빠진다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '감을 되찾을 때까지 인내가 필요했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-32-1',
+        text: '대형 로펌 스카우트 제안을 고민한다',
+        deltas: { happiness: 1 },
+        result: '안정과 도전 사이에서 갈등했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-32-2',
+        text: '의뢰인과의 신뢰가 무너지는 사건을 겪는다',
+        deltas: { happiness: -2 },
+        result: '이 일의 무게를 다시 느꼈다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-32-3',
+        text: '장시간 재판 준비로 가족과의 시간이 줄어든다',
+        deltas: { relationship: -1, wealth: 1 },
+        result: '미안한 마음이 컸지만 어쩔 수 없었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-32-4',
+        text: '승소 소식에 사무실 전체가 축하 분위기다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '함께 만든 성과라 더 값졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-32-5',
+        text: '패소한 사건의 의뢰인에게 사과한다',
+        deltas: { happiness: -2 },
+        result: '최선을 다했지만 결과는 냉정했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-32-1',
+        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        deltas: { happiness: -2 },
+        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-32-2',
+        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-32-3',
+        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        deltas: { happiness: -2 },
+        result: '제도의 한계를 자주 느꼈다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-32-1',
+        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        deltas: { happiness: -1 },
+        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-32-2',
+        text: '정책 설명회에서 주민들 앞에 선다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-32-3',
+        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '힘들었지만 서로 돕는 게 당연했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'pol-fill-32-1',
         text: '동료 순직 소식에 마음이 무거워진다',
         deltas: { happiness: -3 },
@@ -16099,6 +17415,118 @@ const STAGES = [
     ageRange: '33세',
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
+      {
+        id: 'trd-fill2-33-1',
+        text: '변동성 큰 장에서 밤잠을 설친다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '포지션 하나로 밤새 마음이 오갔다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-33-2',
+        text: '후배 트레이더의 리스크 관리를 코치한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-33-3',
+        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
+        deltas: { happiness: 3, relationship: 1, wealth: 1 },
+        result: '함께 만든 성과라 더 뿌듯했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-33-1',
+        text: '대형 로펌 스카우트 제안을 고민한다',
+        deltas: { happiness: 1 },
+        result: '안정과 도전 사이에서 갈등했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-33-2',
+        text: '의뢰인과의 신뢰가 무너지는 사건을 겪는다',
+        deltas: { happiness: -2 },
+        result: '이 일의 무게를 다시 느꼈다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-33-3',
+        text: '장시간 재판 준비로 가족과의 시간이 줄어든다',
+        deltas: { relationship: -1, wealth: 1 },
+        result: '미안한 마음이 컸지만 어쩔 수 없었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-33-4',
+        text: '승소 소식에 사무실 전체가 축하 분위기다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '함께 만든 성과라 더 값졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-33-5',
+        text: '패소한 사건의 의뢰인에게 사과한다',
+        deltas: { happiness: -2 },
+        result: '최선을 다했지만 결과는 냉정했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-33-1',
+        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        deltas: { happiness: -2 },
+        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-33-2',
+        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-33-3',
+        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        deltas: { happiness: -2 },
+        result: '제도의 한계를 자주 느꼈다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-33-1',
+        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        deltas: { happiness: -1 },
+        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-33-2',
+        text: '정책 설명회에서 주민들 앞에 선다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-33-3',
+        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '힘들었지만 서로 돕는 게 당연했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-33-4',
+        text: '장기근속 표창을 받는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '긴 세월이 헛되지 않았다는 증표 같았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-33-5',
+        text: '예산 편성 시즌에 며칠 밤을 새운다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '숫자와의 씨름이 매년 반복됐다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'trd-fill-33-1',
         text: '변동성 큰 장에서 밤잠을 설친다',
@@ -16893,6 +18321,104 @@ const STAGES = [
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
       {
+        id: 'trd-fill2-34-1',
+        text: '변동성 큰 장에서 밤잠을 설친다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '포지션 하나로 밤새 마음이 오갔다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-34-2',
+        text: '후배 트레이더의 리스크 관리를 코치한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-34-3',
+        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
+        deltas: { happiness: 3, relationship: 1, wealth: 1 },
+        result: '함께 만든 성과라 더 뿌듯했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-34-4',
+        text: '연달아 손실이 나며 슬럼프에 빠진다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '감을 되찾을 때까지 인내가 필요했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-34-5',
+        text: '리서치 자료를 밤새 분석한다',
+        deltas: { wealth: 1, health: -1 },
+        result: '확신이 설 때까지 숫자를 놓지 않았다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-34-1',
+        text: '대형 로펌 스카우트 제안을 고민한다',
+        deltas: { happiness: 1 },
+        result: '안정과 도전 사이에서 갈등했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-34-2',
+        text: '의뢰인과의 신뢰가 무너지는 사건을 겪는다',
+        deltas: { happiness: -2 },
+        result: '이 일의 무게를 다시 느꼈다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-34-3',
+        text: '장시간 재판 준비로 가족과의 시간이 줄어든다',
+        deltas: { relationship: -1, wealth: 1 },
+        result: '미안한 마음이 컸지만 어쩔 수 없었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-34-1',
+        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        deltas: { happiness: -2 },
+        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-34-2',
+        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-34-3',
+        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        deltas: { happiness: -2 },
+        result: '제도의 한계를 자주 느꼈다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-34-1',
+        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        deltas: { happiness: -1 },
+        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-34-2',
+        text: '정책 설명회에서 주민들 앞에 선다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-34-3',
+        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '힘들었지만 서로 돕는 게 당연했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'law-fill-34-1',
         text: '대형 사건의 변론을 준비하며 밤을 새운다',
         deltas: { happiness: -2, wealth: 2 },
@@ -17672,6 +19198,111 @@ const STAGES = [
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
       {
+        id: 'trd-fill2-35-1',
+        text: '변동성 큰 장에서 밤잠을 설친다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '포지션 하나로 밤새 마음이 오갔다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-35-2',
+        text: '후배 트레이더의 리스크 관리를 코치한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-35-3',
+        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
+        deltas: { happiness: 3, relationship: 1, wealth: 1 },
+        result: '함께 만든 성과라 더 뿌듯했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-35-4',
+        text: '연달아 손실이 나며 슬럼프에 빠진다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '감을 되찾을 때까지 인내가 필요했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-35-1',
+        text: '대형 로펌 스카우트 제안을 고민한다',
+        deltas: { happiness: 1 },
+        result: '안정과 도전 사이에서 갈등했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-35-2',
+        text: '의뢰인과의 신뢰가 무너지는 사건을 겪는다',
+        deltas: { happiness: -2 },
+        result: '이 일의 무게를 다시 느꼈다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-35-3',
+        text: '장시간 재판 준비로 가족과의 시간이 줄어든다',
+        deltas: { relationship: -1, wealth: 1 },
+        result: '미안한 마음이 컸지만 어쩔 수 없었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-35-4',
+        text: '승소 소식에 사무실 전체가 축하 분위기다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '함께 만든 성과라 더 값졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-35-1',
+        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        deltas: { happiness: -2 },
+        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-35-2',
+        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-35-3',
+        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        deltas: { happiness: -2 },
+        result: '제도의 한계를 자주 느꼈다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-35-4',
+        text: '동료 경찰관의 부상 소식에 마음이 무거워진다',
+        deltas: { happiness: -2 },
+        result: '이 일의 위험을 새삼 실감했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-35-1',
+        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        deltas: { happiness: -1 },
+        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-35-2',
+        text: '정책 설명회에서 주민들 앞에 선다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-35-3',
+        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '힘들었지만 서로 돕는 게 당연했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'stock-investment-35',
         text: '주식에 투자한다',
         requiresStockPurchase: true,
@@ -18397,6 +20028,132 @@ const STAGES = [
     intro: '나를 키워준 사람들을 이제는 내가 돌봐야 할 시기가 다가옵니다.',
     choices: [
       {
+        id: 'trd-fill2-36-1',
+        text: '변동성 큰 장에서 밤잠을 설친다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '포지션 하나로 밤새 마음이 오갔다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-36-2',
+        text: '후배 트레이더의 리스크 관리를 코치한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-36-3',
+        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
+        deltas: { happiness: 3, relationship: 1, wealth: 1 },
+        result: '함께 만든 성과라 더 뿌듯했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-36-4',
+        text: '연달아 손실이 나며 슬럼프에 빠진다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '감을 되찾을 때까지 인내가 필요했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-36-5',
+        text: '리서치 자료를 밤새 분석한다',
+        deltas: { wealth: 1, health: -1 },
+        result: '확신이 설 때까지 숫자를 놓지 않았다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-36-1',
+        text: '대형 로펌 스카우트 제안을 고민한다',
+        deltas: { happiness: 1 },
+        result: '안정과 도전 사이에서 갈등했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-36-2',
+        text: '의뢰인과의 신뢰가 무너지는 사건을 겪는다',
+        deltas: { happiness: -2 },
+        result: '이 일의 무게를 다시 느꼈다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-36-3',
+        text: '장시간 재판 준비로 가족과의 시간이 줄어든다',
+        deltas: { relationship: -1, wealth: 1 },
+        result: '미안한 마음이 컸지만 어쩔 수 없었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-36-4',
+        text: '승소 소식에 사무실 전체가 축하 분위기다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '함께 만든 성과라 더 값졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-36-5',
+        text: '패소한 사건의 의뢰인에게 사과한다',
+        deltas: { happiness: -2 },
+        result: '최선을 다했지만 결과는 냉정했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-36-1',
+        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        deltas: { happiness: -2 },
+        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-36-2',
+        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-36-3',
+        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        deltas: { happiness: -2 },
+        result: '제도의 한계를 자주 느꼈다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-36-1',
+        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        deltas: { happiness: -1 },
+        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-36-2',
+        text: '정책 설명회에서 주민들 앞에 선다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-36-3',
+        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '힘들었지만 서로 돕는 게 당연했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-36-4',
+        text: '장기근속 표창을 받는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '긴 세월이 헛되지 않았다는 증표 같았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-36-5',
+        text: '예산 편성 시즌에 며칠 밤을 새운다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '숫자와의 씨름이 매년 반복됐다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'pol-fill-36-1',
         text: '사건 브리핑을 준비하느라 밤을 새운다',
         deltas: { happiness: -2, wealth: 1 },
@@ -19023,6 +20780,97 @@ const STAGES = [
     ageRange: '37세',
     intro: '잊고 지내던 나 자신을 다시 챙기기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'trd-fill2-37-1',
+        text: '변동성 큰 장에서 밤잠을 설친다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '포지션 하나로 밤새 마음이 오갔다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-37-2',
+        text: '후배 트레이더의 리스크 관리를 코치한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-37-3',
+        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
+        deltas: { happiness: 3, relationship: 1, wealth: 1 },
+        result: '함께 만든 성과라 더 뿌듯했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-37-1',
+        text: '대형 로펌 스카우트 제안을 고민한다',
+        deltas: { happiness: 1 },
+        result: '안정과 도전 사이에서 갈등했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-37-2',
+        text: '의뢰인과의 신뢰가 무너지는 사건을 겪는다',
+        deltas: { happiness: -2 },
+        result: '이 일의 무게를 다시 느꼈다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-37-3',
+        text: '장시간 재판 준비로 가족과의 시간이 줄어든다',
+        deltas: { relationship: -1, wealth: 1 },
+        result: '미안한 마음이 컸지만 어쩔 수 없었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-37-4',
+        text: '승소 소식에 사무실 전체가 축하 분위기다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '함께 만든 성과라 더 값졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-37-1',
+        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        deltas: { happiness: -2 },
+        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-37-2',
+        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-37-3',
+        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        deltas: { happiness: -2 },
+        result: '제도의 한계를 자주 느꼈다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-37-1',
+        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        deltas: { happiness: -1 },
+        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-37-2',
+        text: '정책 설명회에서 주민들 앞에 선다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-37-3',
+        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '힘들었지만 서로 돕는 게 당연했다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'trd-fill-37-1',
         text: '연달아 손실이 나며 슬럼프에 빠진다',
@@ -19696,6 +21544,132 @@ const STAGES = [
     intro: '몸이 예전 같지 않다는 걸, 무시할 수 없을 만큼 또렷하게 느끼게 됩니다.',
     choices: [
       {
+        id: 'trd-fill2-38-1',
+        text: '변동성 큰 장에서 밤잠을 설친다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '포지션 하나로 밤새 마음이 오갔다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-38-2',
+        text: '후배 트레이더의 리스크 관리를 코치한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-38-3',
+        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
+        deltas: { happiness: 3, relationship: 1, wealth: 1 },
+        result: '함께 만든 성과라 더 뿌듯했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-38-4',
+        text: '연달아 손실이 나며 슬럼프에 빠진다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '감을 되찾을 때까지 인내가 필요했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-38-5',
+        text: '리서치 자료를 밤새 분석한다',
+        deltas: { wealth: 1, health: -1 },
+        result: '확신이 설 때까지 숫자를 놓지 않았다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-38-1',
+        text: '대형 로펌 스카우트 제안을 고민한다',
+        deltas: { happiness: 1 },
+        result: '안정과 도전 사이에서 갈등했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-38-2',
+        text: '의뢰인과의 신뢰가 무너지는 사건을 겪는다',
+        deltas: { happiness: -2 },
+        result: '이 일의 무게를 다시 느꼈다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-38-3',
+        text: '장시간 재판 준비로 가족과의 시간이 줄어든다',
+        deltas: { relationship: -1, wealth: 1 },
+        result: '미안한 마음이 컸지만 어쩔 수 없었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-38-4',
+        text: '승소 소식에 사무실 전체가 축하 분위기다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '함께 만든 성과라 더 값졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-38-5',
+        text: '패소한 사건의 의뢰인에게 사과한다',
+        deltas: { happiness: -2 },
+        result: '최선을 다했지만 결과는 냉정했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-38-1',
+        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        deltas: { happiness: -2 },
+        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-38-2',
+        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-38-3',
+        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        deltas: { happiness: -2 },
+        result: '제도의 한계를 자주 느꼈다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-38-1',
+        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        deltas: { happiness: -1 },
+        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-38-2',
+        text: '정책 설명회에서 주민들 앞에 선다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-38-3',
+        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '힘들었지만 서로 돕는 게 당연했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-38-4',
+        text: '장기근속 표창을 받는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '긴 세월이 헛되지 않았다는 증표 같았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-38-5',
+        text: '예산 편성 시즌에 며칠 밤을 새운다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '숫자와의 씨름이 매년 반복됐다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'pol-fill-38-1',
         text: '사건 브리핑을 준비하느라 밤을 새운다',
         deltas: { happiness: -2, wealth: 1 },
@@ -20323,6 +22297,90 @@ const STAGES = [
     intro: '서른대의 마지막 해. 다가올 10년을 조용히 준비하게 됩니다.',
     choices: [
       {
+        id: 'trd-fill2-39-1',
+        text: '변동성 큰 장에서 밤잠을 설친다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '포지션 하나로 밤새 마음이 오갔다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-39-2',
+        text: '후배 트레이더의 리스크 관리를 코치한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-39-3',
+        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
+        deltas: { happiness: 3, relationship: 1, wealth: 1 },
+        result: '함께 만든 성과라 더 뿌듯했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-39-1',
+        text: '대형 로펌 스카우트 제안을 고민한다',
+        deltas: { happiness: 1 },
+        result: '안정과 도전 사이에서 갈등했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-39-2',
+        text: '의뢰인과의 신뢰가 무너지는 사건을 겪는다',
+        deltas: { happiness: -2 },
+        result: '이 일의 무게를 다시 느꼈다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-39-3',
+        text: '장시간 재판 준비로 가족과의 시간이 줄어든다',
+        deltas: { relationship: -1, wealth: 1 },
+        result: '미안한 마음이 컸지만 어쩔 수 없었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-39-1',
+        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        deltas: { happiness: -2 },
+        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-39-2',
+        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-39-3',
+        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        deltas: { happiness: -2 },
+        result: '제도의 한계를 자주 느꼈다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-39-1',
+        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        deltas: { happiness: -1 },
+        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-39-2',
+        text: '정책 설명회에서 주민들 앞에 선다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-39-3',
+        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '힘들었지만 서로 돕는 게 당연했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'trd-fill-39-1',
         text: '변동성 큰 장에서 밤잠을 설친다',
         deltas: { happiness: -2, wealth: 1 },
@@ -20878,6 +22936,104 @@ const STAGES = [
     ageRange: '40세',
     intro: '인생의 절반 지점. 마흔이라는 숫자가 이유 없이 지난 시간을 돌아보게 만듭니다.',
     choices: [
+      {
+        id: 'trd-fill2-40-1',
+        text: '변동성 큰 장에서 밤잠을 설친다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '포지션 하나로 밤새 마음이 오갔다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-40-2',
+        text: '후배 트레이더의 리스크 관리를 코치한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-40-3',
+        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
+        deltas: { happiness: 3, relationship: 1, wealth: 1 },
+        result: '함께 만든 성과라 더 뿌듯했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-40-1',
+        text: '대형 로펌 스카우트 제안을 고민한다',
+        deltas: { happiness: 1 },
+        result: '안정과 도전 사이에서 갈등했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-40-2',
+        text: '의뢰인과의 신뢰가 무너지는 사건을 겪는다',
+        deltas: { happiness: -2 },
+        result: '이 일의 무게를 다시 느꼈다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-40-3',
+        text: '장시간 재판 준비로 가족과의 시간이 줄어든다',
+        deltas: { relationship: -1, wealth: 1 },
+        result: '미안한 마음이 컸지만 어쩔 수 없었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-40-4',
+        text: '승소 소식에 사무실 전체가 축하 분위기다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '함께 만든 성과라 더 값졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-40-1',
+        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        deltas: { happiness: -2 },
+        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-40-2',
+        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-40-3',
+        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        deltas: { happiness: -2 },
+        result: '제도의 한계를 자주 느꼈다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-40-1',
+        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        deltas: { happiness: -1 },
+        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-40-2',
+        text: '정책 설명회에서 주민들 앞에 선다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-40-3',
+        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '힘들었지만 서로 돕는 게 당연했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-40-4',
+        text: '장기근속 표창을 받는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '긴 세월이 헛되지 않았다는 증표 같았다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'stock-investment-40',
         text: '주식에 투자한다',
@@ -21498,6 +23654,90 @@ const STAGES = [
     intro: '자녀 교육이든 커리어든, 뭔가를 본격적으로 다잡아야 할 것 같은 압박이 느껴지는 나이입니다.',
     choices: [
       {
+        id: 'trd-fill2-41-1',
+        text: '변동성 큰 장에서 밤잠을 설친다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '포지션 하나로 밤새 마음이 오갔다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-41-2',
+        text: '후배 트레이더의 리스크 관리를 코치한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-41-3',
+        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
+        deltas: { happiness: 3, relationship: 1, wealth: 1 },
+        result: '함께 만든 성과라 더 뿌듯했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-41-1',
+        text: '대형 로펌 스카우트 제안을 고민한다',
+        deltas: { happiness: 1 },
+        result: '안정과 도전 사이에서 갈등했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-41-2',
+        text: '의뢰인과의 신뢰가 무너지는 사건을 겪는다',
+        deltas: { happiness: -2 },
+        result: '이 일의 무게를 다시 느꼈다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-41-3',
+        text: '장시간 재판 준비로 가족과의 시간이 줄어든다',
+        deltas: { relationship: -1, wealth: 1 },
+        result: '미안한 마음이 컸지만 어쩔 수 없었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-41-1',
+        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        deltas: { happiness: -2 },
+        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-41-2',
+        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-41-3',
+        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        deltas: { happiness: -2 },
+        result: '제도의 한계를 자주 느꼈다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-41-1',
+        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        deltas: { happiness: -1 },
+        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-41-2',
+        text: '정책 설명회에서 주민들 앞에 선다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-41-3',
+        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '힘들었지만 서로 돕는 게 당연했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'trd-fill-41-1',
         text: '연달아 손실이 나며 슬럼프에 빠진다',
         deltas: { happiness: -2, wealth: -1 },
@@ -21996,6 +24236,118 @@ const STAGES = [
     intro: '몸이 보내는 신호를 더 이상 못 본 척할 수 없게 되는 나이입니다.',
     choices: [
       {
+        id: 'trd-fill2-42-1',
+        text: '변동성 큰 장에서 밤잠을 설친다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '포지션 하나로 밤새 마음이 오갔다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-42-2',
+        text: '후배 트레이더의 리스크 관리를 코치한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-42-3',
+        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
+        deltas: { happiness: 3, relationship: 1, wealth: 1 },
+        result: '함께 만든 성과라 더 뿌듯했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-42-4',
+        text: '연달아 손실이 나며 슬럼프에 빠진다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '감을 되찾을 때까지 인내가 필요했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-42-5',
+        text: '리서치 자료를 밤새 분석한다',
+        deltas: { wealth: 1, health: -1 },
+        result: '확신이 설 때까지 숫자를 놓지 않았다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-42-1',
+        text: '대형 로펌 스카우트 제안을 고민한다',
+        deltas: { happiness: 1 },
+        result: '안정과 도전 사이에서 갈등했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-42-2',
+        text: '의뢰인과의 신뢰가 무너지는 사건을 겪는다',
+        deltas: { happiness: -2 },
+        result: '이 일의 무게를 다시 느꼈다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-42-3',
+        text: '장시간 재판 준비로 가족과의 시간이 줄어든다',
+        deltas: { relationship: -1, wealth: 1 },
+        result: '미안한 마음이 컸지만 어쩔 수 없었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-42-4',
+        text: '승소 소식에 사무실 전체가 축하 분위기다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '함께 만든 성과라 더 값졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-42-5',
+        text: '패소한 사건의 의뢰인에게 사과한다',
+        deltas: { happiness: -2 },
+        result: '최선을 다했지만 결과는 냉정했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-42-1',
+        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        deltas: { happiness: -2 },
+        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-42-2',
+        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-42-3',
+        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        deltas: { happiness: -2 },
+        result: '제도의 한계를 자주 느꼈다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-42-1',
+        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        deltas: { happiness: -1 },
+        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-42-2',
+        text: '정책 설명회에서 주민들 앞에 선다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-42-3',
+        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '힘들었지만 서로 돕는 게 당연했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'pol-fill-42-1',
         text: '동료 순직 소식에 마음이 무거워진다',
         deltas: { happiness: -3 },
@@ -22464,6 +24816,90 @@ const STAGES = [
     ageRange: '43세',
     intro: '조직 안에서 자신의 자리를 다시 확인하게 되는 시기입니다.',
     choices: [
+      {
+        id: 'trd-fill2-43-1',
+        text: '변동성 큰 장에서 밤잠을 설친다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '포지션 하나로 밤새 마음이 오갔다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-43-2',
+        text: '후배 트레이더의 리스크 관리를 코치한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-43-3',
+        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
+        deltas: { happiness: 3, relationship: 1, wealth: 1 },
+        result: '함께 만든 성과라 더 뿌듯했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-43-1',
+        text: '대형 로펌 스카우트 제안을 고민한다',
+        deltas: { happiness: 1 },
+        result: '안정과 도전 사이에서 갈등했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-43-2',
+        text: '의뢰인과의 신뢰가 무너지는 사건을 겪는다',
+        deltas: { happiness: -2 },
+        result: '이 일의 무게를 다시 느꼈다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-43-3',
+        text: '장시간 재판 준비로 가족과의 시간이 줄어든다',
+        deltas: { relationship: -1, wealth: 1 },
+        result: '미안한 마음이 컸지만 어쩔 수 없었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-43-1',
+        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        deltas: { happiness: -2 },
+        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-43-2',
+        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-43-3',
+        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        deltas: { happiness: -2 },
+        result: '제도의 한계를 자주 느꼈다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-43-1',
+        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        deltas: { happiness: -1 },
+        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-43-2',
+        text: '정책 설명회에서 주민들 앞에 선다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-43-3',
+        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '힘들었지만 서로 돕는 게 당연했다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'trd-fill-43-1',
         text: '변동성 큰 장에서 밤잠을 설친다',
@@ -22984,6 +25420,118 @@ const STAGES = [
     intro: '가까운 사이일수록 소원해지기 쉬운 나이. 관계를 다시 들여다보게 됩니다.',
     choices: [
       {
+        id: 'trd-fill2-44-1',
+        text: '변동성 큰 장에서 밤잠을 설친다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '포지션 하나로 밤새 마음이 오갔다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-44-2',
+        text: '후배 트레이더의 리스크 관리를 코치한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-44-3',
+        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
+        deltas: { happiness: 3, relationship: 1, wealth: 1 },
+        result: '함께 만든 성과라 더 뿌듯했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-44-4',
+        text: '연달아 손실이 나며 슬럼프에 빠진다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '감을 되찾을 때까지 인내가 필요했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-44-5',
+        text: '리서치 자료를 밤새 분석한다',
+        deltas: { wealth: 1, health: -1 },
+        result: '확신이 설 때까지 숫자를 놓지 않았다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-44-1',
+        text: '대형 로펌 스카우트 제안을 고민한다',
+        deltas: { happiness: 1 },
+        result: '안정과 도전 사이에서 갈등했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-44-2',
+        text: '의뢰인과의 신뢰가 무너지는 사건을 겪는다',
+        deltas: { happiness: -2 },
+        result: '이 일의 무게를 다시 느꼈다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-44-3',
+        text: '장시간 재판 준비로 가족과의 시간이 줄어든다',
+        deltas: { relationship: -1, wealth: 1 },
+        result: '미안한 마음이 컸지만 어쩔 수 없었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-44-4',
+        text: '승소 소식에 사무실 전체가 축하 분위기다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '함께 만든 성과라 더 값졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-44-5',
+        text: '패소한 사건의 의뢰인에게 사과한다',
+        deltas: { happiness: -2 },
+        result: '최선을 다했지만 결과는 냉정했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-44-1',
+        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        deltas: { happiness: -2 },
+        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-44-2',
+        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-44-3',
+        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        deltas: { happiness: -2 },
+        result: '제도의 한계를 자주 느꼈다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-44-1',
+        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        deltas: { happiness: -1 },
+        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-44-2',
+        text: '정책 설명회에서 주민들 앞에 선다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-44-3',
+        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '힘들었지만 서로 돕는 게 당연했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'pol-fill-44-1',
         text: '동료 순직 소식에 마음이 무거워진다',
         deltas: { happiness: -3 },
@@ -23494,6 +26042,90 @@ const STAGES = [
     ageRange: '45세',
     intro: '다 가진 것 같은데도 문득 공허해지는, 이른바 중년의 위기가 찾아오는 나이입니다.',
     choices: [
+      {
+        id: 'trd-fill2-45-1',
+        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
+        deltas: { happiness: 1 },
+        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-45-2',
+        text: '오랜 경력을 살려 후배들의 멘토가 된다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-45-3',
+        text: '체력 저하로 새벽 매매가 버거워진다',
+        deltas: { health: -1 },
+        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-45-1',
+        text: '오랜 경력을 인정받아 자문 위촉을 받는다',
+        deltas: { wealth: 2, fame: 2 },
+        result: '젊은 시절보다 무게감 있는 역할이었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-45-2',
+        text: '후배 변호사들에게 실무 강의를 한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '가르치는 게 배우는 것만큼 어렵다는 걸 알았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-45-3',
+        text: '체력이 예전 같지 않다는 걸 느낀다',
+        deltas: { health: -1 },
+        result: '밤샘 서면 작업이 점점 버거워졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-45-1',
+        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-45-2',
+        text: '정년을 앞두고 마지막 순찰을 돈다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-45-3',
+        text: '특진 심사에서 좋은 결과를 얻는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-45-1',
+        text: '후배들의 고민 상담을 자주 맡는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-45-2',
+        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-45-3',
+        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'stock-investment-45',
         text: '주식에 투자한다',
@@ -24120,6 +26752,111 @@ const STAGES = [
     intro: '늦지 않았다는 걸 스스로 증명하고 싶어지는 나이입니다.',
     choices: [
       {
+        id: 'trd-fill2-46-1',
+        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
+        deltas: { happiness: 1 },
+        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-46-2',
+        text: '오랜 경력을 살려 후배들의 멘토가 된다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-46-3',
+        text: '체력 저하로 새벽 매매가 버거워진다',
+        deltas: { health: -1 },
+        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-46-4',
+        text: '긴 세월의 실적을 돌아보며 자부심을 느낀다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '숫자로 증명된 커리어였다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-46-5',
+        text: '자산 관리 방식을 안정적으로 바꾼다',
+        deltas: { wealth: 1 },
+        result: '이제는 공격적인 매매보다 안정이 우선이었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-46-1',
+        text: '오랜 경력을 인정받아 자문 위촉을 받는다',
+        deltas: { wealth: 2, fame: 2 },
+        result: '젊은 시절보다 무게감 있는 역할이었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-46-2',
+        text: '후배 변호사들에게 실무 강의를 한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '가르치는 게 배우는 것만큼 어렵다는 걸 알았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-46-3',
+        text: '체력이 예전 같지 않다는 걸 느낀다',
+        deltas: { health: -1 },
+        result: '밤샘 서면 작업이 점점 버거워졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-46-1',
+        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-46-2',
+        text: '정년을 앞두고 마지막 순찰을 돈다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-46-3',
+        text: '특진 심사에서 좋은 결과를 얻는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-46-1',
+        text: '후배들의 고민 상담을 자주 맡는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-46-2',
+        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-46-3',
+        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-46-4',
+        text: '건강검진에서 관리 소견을 받는다',
+        deltas: { health: -1 },
+        result: '책상 앞 세월이 몸에 티가 났다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'law-fill-46-1',
         text: '오랜 경력을 인정받아 자문 위촉을 받는다',
         deltas: { wealth: 2, fame: 2 },
@@ -24483,6 +27220,90 @@ const STAGES = [
     ageRange: '47세',
     intro: '나를 키워준 사람들의 노년을 마주하며, 삶과 죽음을 조금 더 가까이서 보게 됩니다.',
     choices: [
+      {
+        id: 'trd-fill2-47-1',
+        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
+        deltas: { happiness: 1 },
+        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-47-2',
+        text: '오랜 경력을 살려 후배들의 멘토가 된다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-47-3',
+        text: '체력 저하로 새벽 매매가 버거워진다',
+        deltas: { health: -1 },
+        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-47-1',
+        text: '오랜 경력을 인정받아 자문 위촉을 받는다',
+        deltas: { wealth: 2, fame: 2 },
+        result: '젊은 시절보다 무게감 있는 역할이었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-47-2',
+        text: '후배 변호사들에게 실무 강의를 한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '가르치는 게 배우는 것만큼 어렵다는 걸 알았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-47-3',
+        text: '체력이 예전 같지 않다는 걸 느낀다',
+        deltas: { health: -1 },
+        result: '밤샘 서면 작업이 점점 버거워졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-47-1',
+        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-47-2',
+        text: '정년을 앞두고 마지막 순찰을 돈다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-47-3',
+        text: '특진 심사에서 좋은 결과를 얻는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-47-1',
+        text: '후배들의 고민 상담을 자주 맡는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-47-2',
+        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-47-3',
+        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'trd-fill-47-1',
         text: '긴 세월의 실적을 돌아보며 자부심을 느낀다',
@@ -24943,6 +27764,104 @@ const STAGES = [
     intro: '커리어가 정점에 이르거나, 정체를 마주하거나 — 갈림이 뚜렷해지는 나이입니다.',
     choices: [
       {
+        id: 'trd-fill2-48-1',
+        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
+        deltas: { happiness: 1 },
+        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-48-2',
+        text: '오랜 경력을 살려 후배들의 멘토가 된다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-48-3',
+        text: '체력 저하로 새벽 매매가 버거워진다',
+        deltas: { health: -1 },
+        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-48-1',
+        text: '오랜 경력을 인정받아 자문 위촉을 받는다',
+        deltas: { wealth: 2, fame: 2 },
+        result: '젊은 시절보다 무게감 있는 역할이었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-48-2',
+        text: '후배 변호사들에게 실무 강의를 한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '가르치는 게 배우는 것만큼 어렵다는 걸 알았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-48-3',
+        text: '체력이 예전 같지 않다는 걸 느낀다',
+        deltas: { health: -1 },
+        result: '밤샘 서면 작업이 점점 버거워졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-48-1',
+        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-48-2',
+        text: '정년을 앞두고 마지막 순찰을 돈다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-48-3',
+        text: '특진 심사에서 좋은 결과를 얻는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-48-1',
+        text: '후배들의 고민 상담을 자주 맡는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-48-2',
+        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-48-3',
+        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-48-4',
+        text: '건강검진에서 관리 소견을 받는다',
+        deltas: { health: -1 },
+        result: '책상 앞 세월이 몸에 티가 났다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-48-5',
+        text: '퇴직연금 상담을 미리 받아본다',
+        deltas: { happiness: 1 },
+        result: '노후 준비가 생각보다 중요하다는 걸 느꼈다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'trd-fill-48-1',
         text: '젊은 트레이더들의 방식에 신선함을 느낀다',
         deltas: { happiness: 1 },
@@ -25305,6 +28224,90 @@ const STAGES = [
     intro: '몸이 새로운 국면으로 접어드는 걸 느끼기 시작하는 나이입니다.',
     choices: [
       {
+        id: 'trd-fill2-49-1',
+        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
+        deltas: { happiness: 1 },
+        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-49-2',
+        text: '오랜 경력을 살려 후배들의 멘토가 된다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-49-3',
+        text: '체력 저하로 새벽 매매가 버거워진다',
+        deltas: { health: -1 },
+        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-49-1',
+        text: '오랜 경력을 인정받아 자문 위촉을 받는다',
+        deltas: { wealth: 2, fame: 2 },
+        result: '젊은 시절보다 무게감 있는 역할이었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-49-2',
+        text: '후배 변호사들에게 실무 강의를 한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '가르치는 게 배우는 것만큼 어렵다는 걸 알았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-49-3',
+        text: '체력이 예전 같지 않다는 걸 느낀다',
+        deltas: { health: -1 },
+        result: '밤샘 서면 작업이 점점 버거워졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-49-1',
+        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-49-2',
+        text: '정년을 앞두고 마지막 순찰을 돈다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-49-3',
+        text: '특진 심사에서 좋은 결과를 얻는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-49-1',
+        text: '후배들의 고민 상담을 자주 맡는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-49-2',
+        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-49-3',
+        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'trd-fill-49-1',
         text: '긴 세월의 실적을 돌아보며 자부심을 느낀다',
         deltas: { happiness: 2, fame: 1 },
@@ -25638,6 +28641,90 @@ const STAGES = [
     ageRange: '50세',
     intro: '쉰이라는 숫자 앞에서, 지나온 시간의 무게를 새삼 느끼게 됩니다.',
     choices: [
+      {
+        id: 'trd-fill2-50-1',
+        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
+        deltas: { happiness: 1 },
+        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-50-2',
+        text: '오랜 경력을 살려 후배들의 멘토가 된다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-50-3',
+        text: '체력 저하로 새벽 매매가 버거워진다',
+        deltas: { health: -1 },
+        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-50-1',
+        text: '오랜 경력을 인정받아 자문 위촉을 받는다',
+        deltas: { wealth: 2, fame: 2 },
+        result: '젊은 시절보다 무게감 있는 역할이었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-50-2',
+        text: '후배 변호사들에게 실무 강의를 한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '가르치는 게 배우는 것만큼 어렵다는 걸 알았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-50-3',
+        text: '체력이 예전 같지 않다는 걸 느낀다',
+        deltas: { health: -1 },
+        result: '밤샘 서면 작업이 점점 버거워졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-50-1',
+        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-50-2',
+        text: '정년을 앞두고 마지막 순찰을 돈다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-50-3',
+        text: '특진 심사에서 좋은 결과를 얻는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-50-1',
+        text: '후배들의 고민 상담을 자주 맡는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-50-2',
+        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-50-3',
+        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'stock-investment-50',
         text: '주식에 투자한다',
@@ -26043,6 +29130,90 @@ const STAGES = [
     intro: '자녀가 떠난 자리, 그 빈자리를 어떻게 채우느냐가 이 시기의 숙제입니다.',
     choices: [
       {
+        id: 'trd-fill2-51-1',
+        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
+        deltas: { happiness: 1 },
+        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-51-2',
+        text: '오랜 경력을 살려 후배들의 멘토가 된다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-51-3',
+        text: '체력 저하로 새벽 매매가 버거워진다',
+        deltas: { health: -1 },
+        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-51-1',
+        text: '오랜 경력을 인정받아 자문 위촉을 받는다',
+        deltas: { wealth: 2, fame: 2 },
+        result: '젊은 시절보다 무게감 있는 역할이었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-51-2',
+        text: '후배 변호사들에게 실무 강의를 한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '가르치는 게 배우는 것만큼 어렵다는 걸 알았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-51-3',
+        text: '체력이 예전 같지 않다는 걸 느낀다',
+        deltas: { health: -1 },
+        result: '밤샘 서면 작업이 점점 버거워졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-51-1',
+        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-51-2',
+        text: '정년을 앞두고 마지막 순찰을 돈다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-51-3',
+        text: '특진 심사에서 좋은 결과를 얻는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-51-1',
+        text: '후배들의 고민 상담을 자주 맡는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-51-2',
+        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-51-3',
+        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'trd-fill-51-1',
         text: '젊은 트레이더들의 방식에 신선함을 느낀다',
         deltas: { happiness: 1 },
@@ -26347,6 +29518,90 @@ const STAGES = [
     intro: '은퇴라는 단어가 더는 먼 이야기가 아니게 되는 나이입니다.',
     choices: [
       {
+        id: 'trd-fill2-52-1',
+        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
+        deltas: { happiness: 1 },
+        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-52-2',
+        text: '오랜 경력을 살려 후배들의 멘토가 된다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-52-3',
+        text: '체력 저하로 새벽 매매가 버거워진다',
+        deltas: { health: -1 },
+        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-52-1',
+        text: '오랜 경력을 인정받아 자문 위촉을 받는다',
+        deltas: { wealth: 2, fame: 2 },
+        result: '젊은 시절보다 무게감 있는 역할이었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-52-2',
+        text: '후배 변호사들에게 실무 강의를 한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '가르치는 게 배우는 것만큼 어렵다는 걸 알았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-52-3',
+        text: '체력이 예전 같지 않다는 걸 느낀다',
+        deltas: { health: -1 },
+        result: '밤샘 서면 작업이 점점 버거워졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-52-1',
+        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-52-2',
+        text: '정년을 앞두고 마지막 순찰을 돈다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-52-3',
+        text: '특진 심사에서 좋은 결과를 얻는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-52-1',
+        text: '후배들의 고민 상담을 자주 맡는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-52-2',
+        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-52-3',
+        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'trd-fill-52-1',
         text: '긴 세월의 실적을 돌아보며 자부심을 느낀다',
         deltas: { happiness: 2, fame: 1 },
@@ -26565,6 +29820,90 @@ const STAGES = [
     ageRange: '53세',
     intro: '숫자로 남은 시간을 가늠하게 되는, 현실적인 재정비의 시기입니다.',
     choices: [
+      {
+        id: 'trd-fill2-53-1',
+        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
+        deltas: { happiness: 1 },
+        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-53-2',
+        text: '오랜 경력을 살려 후배들의 멘토가 된다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-53-3',
+        text: '체력 저하로 새벽 매매가 버거워진다',
+        deltas: { health: -1 },
+        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-53-1',
+        text: '오랜 경력을 인정받아 자문 위촉을 받는다',
+        deltas: { wealth: 2, fame: 2 },
+        result: '젊은 시절보다 무게감 있는 역할이었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-53-2',
+        text: '후배 변호사들에게 실무 강의를 한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '가르치는 게 배우는 것만큼 어렵다는 걸 알았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-53-3',
+        text: '체력이 예전 같지 않다는 걸 느낀다',
+        deltas: { health: -1 },
+        result: '밤샘 서면 작업이 점점 버거워졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-53-1',
+        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-53-2',
+        text: '정년을 앞두고 마지막 순찰을 돈다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-53-3',
+        text: '특진 심사에서 좋은 결과를 얻는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-53-1',
+        text: '후배들의 고민 상담을 자주 맡는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-53-2',
+        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-53-3',
+        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'trd-fill-53-1',
         text: '젊은 트레이더들의 방식에 신선함을 느낀다',
@@ -26801,6 +30140,90 @@ const STAGES = [
     intro: '중년의 마지막 해. 다가올 노년을 향해 조용히 마음을 다잡습니다.',
     choices: [
       {
+        id: 'trd-fill2-54-1',
+        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
+        deltas: { happiness: 1 },
+        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-54-2',
+        text: '오랜 경력을 살려 후배들의 멘토가 된다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-54-3',
+        text: '체력 저하로 새벽 매매가 버거워진다',
+        deltas: { health: -1 },
+        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-54-1',
+        text: '오랜 경력을 인정받아 자문 위촉을 받는다',
+        deltas: { wealth: 2, fame: 2 },
+        result: '젊은 시절보다 무게감 있는 역할이었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-54-2',
+        text: '후배 변호사들에게 실무 강의를 한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '가르치는 게 배우는 것만큼 어렵다는 걸 알았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-54-3',
+        text: '체력이 예전 같지 않다는 걸 느낀다',
+        deltas: { health: -1 },
+        result: '밤샘 서면 작업이 점점 버거워졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-54-1',
+        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-54-2',
+        text: '정년을 앞두고 마지막 순찰을 돈다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-54-3',
+        text: '특진 심사에서 좋은 결과를 얻는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-54-1',
+        text: '후배들의 고민 상담을 자주 맡는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-54-2',
+        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-54-3',
+        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'trd-fill-54-1',
         text: '긴 세월의 실적을 돌아보며 자부심을 느낀다',
         deltas: { happiness: 2, fame: 1 },
@@ -27022,6 +30445,90 @@ const STAGES = [
     ageRange: '55세',
     intro: '정년이라는 단어가 더는 남 얘기가 아니게 되는 나이. 매일 출근하던 삶이 조용히 막을 내립니다.',
     choices: [
+      {
+        id: 'trd-fill2-55-1',
+        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
+        deltas: { happiness: 1 },
+        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-55-2',
+        text: '오랜 경력을 살려 후배들의 멘토가 된다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-55-3',
+        text: '체력 저하로 새벽 매매가 버거워진다',
+        deltas: { health: -1 },
+        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-55-1',
+        text: '오랜 경력을 인정받아 자문 위촉을 받는다',
+        deltas: { wealth: 2, fame: 2 },
+        result: '젊은 시절보다 무게감 있는 역할이었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-55-2',
+        text: '후배 변호사들에게 실무 강의를 한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '가르치는 게 배우는 것만큼 어렵다는 걸 알았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-55-3',
+        text: '체력이 예전 같지 않다는 걸 느낀다',
+        deltas: { health: -1 },
+        result: '밤샘 서면 작업이 점점 버거워졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-55-1',
+        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-55-2',
+        text: '정년을 앞두고 마지막 순찰을 돈다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-55-3',
+        text: '특진 심사에서 좋은 결과를 얻는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-55-1',
+        text: '후배들의 고민 상담을 자주 맡는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-55-2',
+        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
+        deltas: { happiness: 1 },
+        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-55-3',
+        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'stock-investment-55',
         text: '주식에 투자한다',
@@ -27505,6 +31012,90 @@ const STAGES = [
     intro: '평생 "어디 소속"으로 나를 소개하던 습관이 사라지며, 나는 누구인가를 새삼 다시 묻게 됩니다.',
     choices: [
       {
+        id: 'trd-fill2-56-1',
+        text: '은퇴 후 개인 자산만 소소하게 운용한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '치열함은 덜었지만 감각은 여전했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-56-2',
+        text: '후배들이 가끔 투자 조언을 구하러 온다',
+        deltas: { relationship: 1, happiness: 2 },
+        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-56-3',
+        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-56-1',
+        text: '은퇴 후 가끔 법률 상담 봉사를 나간다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '돈보다 보람을 좇는 일이 됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-56-2',
+        text: '후배들이 명절마다 인사를 온다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '현역 시절의 인연이 여전히 이어지고 있었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-56-3',
+        text: '옛 사건 기록을 정리하며 회고록을 구상한다',
+        deltas: { happiness: 1 },
+        result: '치열했던 시절이 새삼 그리웠다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-56-1',
+        text: '퇴직 후 아파트 경비로 재취업한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-56-2',
+        text: '옛 동료들과 낚시 모임을 갖는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '제복을 벗어도 전우애는 그대로였다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-56-3',
+        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        deltas: { happiness: 1 },
+        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-56-1',
+        text: '퇴직 후 동사무소에 볼일이 있어 들른다',
+        deltas: { happiness: 1 },
+        result: '손님으로 앉아 있으니 기분이 묘했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-56-2',
+        text: '공무원연금으로 안정적인 생활을 이어간다',
+        deltas: { happiness: 1 },
+        result: '화려하진 않아도 걱정 없는 노후였다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-56-3',
+        text: '옛 부서 후배들과 명절 인사를 주고받는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '잊히지 않았다는 사실이 고마웠다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'trd-fill-56-1',
         text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
         deltas: { relationship: 2, happiness: 1 },
@@ -27722,6 +31313,90 @@ const STAGES = [
     ageRange: '57세',
     intro: '직장이라는 울타리 없이 새로운 사람들과 관계를 다시 엮어가야 하는 시기입니다.',
     choices: [
+      {
+        id: 'trd-fill2-57-1',
+        text: '은퇴 후 개인 자산만 소소하게 운용한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '치열함은 덜었지만 감각은 여전했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-57-2',
+        text: '후배들이 가끔 투자 조언을 구하러 온다',
+        deltas: { relationship: 1, happiness: 2 },
+        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-57-3',
+        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-57-1',
+        text: '은퇴 후 가끔 법률 상담 봉사를 나간다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '돈보다 보람을 좇는 일이 됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-57-2',
+        text: '후배들이 명절마다 인사를 온다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '현역 시절의 인연이 여전히 이어지고 있었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-57-3',
+        text: '옛 사건 기록을 정리하며 회고록을 구상한다',
+        deltas: { happiness: 1 },
+        result: '치열했던 시절이 새삼 그리웠다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-57-1',
+        text: '퇴직 후 아파트 경비로 재취업한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-57-2',
+        text: '옛 동료들과 낚시 모임을 갖는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '제복을 벗어도 전우애는 그대로였다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-57-3',
+        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        deltas: { happiness: 1 },
+        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-57-1',
+        text: '퇴직 후 동사무소에 볼일이 있어 들른다',
+        deltas: { happiness: 1 },
+        result: '손님으로 앉아 있으니 기분이 묘했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-57-2',
+        text: '공무원연금으로 안정적인 생활을 이어간다',
+        deltas: { happiness: 1 },
+        result: '화려하진 않아도 걱정 없는 노후였다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-57-3',
+        text: '옛 부서 후배들과 명절 인사를 주고받는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '잊히지 않았다는 사실이 고마웠다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'trd-fill-57-1',
         text: '후배들이 가끔 투자 조언을 구하러 온다',
@@ -27964,6 +31639,90 @@ const STAGES = [
     ageRange: '58세',
     intro: '자녀 세대가 이제 자기 가정을 꾸리며, 가족 안에서의 내 역할도 조금씩 달라집니다.',
     choices: [
+      {
+        id: 'trd-fill2-58-1',
+        text: '은퇴 후 개인 자산만 소소하게 운용한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '치열함은 덜었지만 감각은 여전했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-58-2',
+        text: '후배들이 가끔 투자 조언을 구하러 온다',
+        deltas: { relationship: 1, happiness: 2 },
+        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-58-3',
+        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-58-1',
+        text: '은퇴 후 가끔 법률 상담 봉사를 나간다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '돈보다 보람을 좇는 일이 됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-58-2',
+        text: '후배들이 명절마다 인사를 온다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '현역 시절의 인연이 여전히 이어지고 있었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-58-3',
+        text: '옛 사건 기록을 정리하며 회고록을 구상한다',
+        deltas: { happiness: 1 },
+        result: '치열했던 시절이 새삼 그리웠다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-58-1',
+        text: '퇴직 후 아파트 경비로 재취업한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-58-2',
+        text: '옛 동료들과 낚시 모임을 갖는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '제복을 벗어도 전우애는 그대로였다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-58-3',
+        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        deltas: { happiness: 1 },
+        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-58-1',
+        text: '퇴직 후 동사무소에 볼일이 있어 들른다',
+        deltas: { happiness: 1 },
+        result: '손님으로 앉아 있으니 기분이 묘했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-58-2',
+        text: '공무원연금으로 안정적인 생활을 이어간다',
+        deltas: { happiness: 1 },
+        result: '화려하진 않아도 걱정 없는 노후였다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-58-3',
+        text: '옛 부서 후배들과 명절 인사를 주고받는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '잊히지 않았다는 사실이 고마웠다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'trd-fill-58-1',
         text: '은퇴 후 개인 자산만 소소하게 운용한다',
@@ -28290,6 +32049,90 @@ const STAGES = [
     intro: '건강이 더 이상 당연한 게 아니라는 걸 받아들이고, 본격적으로 몸을 챙기기 시작하는 나이입니다.',
     choices: [
       {
+        id: 'trd-fill2-59-1',
+        text: '은퇴 후 개인 자산만 소소하게 운용한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '치열함은 덜었지만 감각은 여전했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-59-2',
+        text: '후배들이 가끔 투자 조언을 구하러 온다',
+        deltas: { relationship: 1, happiness: 2 },
+        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-59-3',
+        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-59-1',
+        text: '은퇴 후 가끔 법률 상담 봉사를 나간다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '돈보다 보람을 좇는 일이 됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-59-2',
+        text: '후배들이 명절마다 인사를 온다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '현역 시절의 인연이 여전히 이어지고 있었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-59-3',
+        text: '옛 사건 기록을 정리하며 회고록을 구상한다',
+        deltas: { happiness: 1 },
+        result: '치열했던 시절이 새삼 그리웠다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-59-1',
+        text: '퇴직 후 아파트 경비로 재취업한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-59-2',
+        text: '옛 동료들과 낚시 모임을 갖는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '제복을 벗어도 전우애는 그대로였다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-59-3',
+        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        deltas: { happiness: 1 },
+        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-59-1',
+        text: '퇴직 후 동사무소에 볼일이 있어 들른다',
+        deltas: { happiness: 1 },
+        result: '손님으로 앉아 있으니 기분이 묘했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-59-2',
+        text: '공무원연금으로 안정적인 생활을 이어간다',
+        deltas: { happiness: 1 },
+        result: '화려하진 않아도 걱정 없는 노후였다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-59-3',
+        text: '옛 부서 후배들과 명절 인사를 주고받는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '잊히지 않았다는 사실이 고마웠다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'trd-fill-59-1',
         text: '시황을 보는 습관은 은퇴 후에도 여전하다',
         deltas: { happiness: 1 },
@@ -28518,6 +32361,97 @@ const STAGES = [
     ageRange: '60세',
     intro: '환갑. 예순 해를 지나온 삶을 가족과 함께 돌아보는 해입니다.',
     choices: [
+      {
+        id: 'trd-fill2-60-1',
+        text: '은퇴 후 개인 자산만 소소하게 운용한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '치열함은 덜었지만 감각은 여전했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-60-2',
+        text: '후배들이 가끔 투자 조언을 구하러 온다',
+        deltas: { relationship: 1, happiness: 2 },
+        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-60-3',
+        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-60-1',
+        text: '은퇴 후 가끔 법률 상담 봉사를 나간다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '돈보다 보람을 좇는 일이 됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-60-2',
+        text: '후배들이 명절마다 인사를 온다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '현역 시절의 인연이 여전히 이어지고 있었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-60-3',
+        text: '옛 사건 기록을 정리하며 회고록을 구상한다',
+        deltas: { happiness: 1 },
+        result: '치열했던 시절이 새삼 그리웠다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-60-1',
+        text: '퇴직 후 아파트 경비로 재취업한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-60-2',
+        text: '옛 동료들과 낚시 모임을 갖는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '제복을 벗어도 전우애는 그대로였다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-60-3',
+        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        deltas: { happiness: 1 },
+        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-60-4',
+        text: '치안 관련 자문 요청을 가끔 받는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '은퇴해도 여전히 필요한 사람이라는 게 좋았다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-60-1',
+        text: '퇴직 후 동사무소에 볼일이 있어 들른다',
+        deltas: { happiness: 1 },
+        result: '손님으로 앉아 있으니 기분이 묘했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-60-2',
+        text: '공무원연금으로 안정적인 생활을 이어간다',
+        deltas: { happiness: 1 },
+        result: '화려하진 않아도 걱정 없는 노후였다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-60-3',
+        text: '옛 부서 후배들과 명절 인사를 주고받는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '잊히지 않았다는 사실이 고마웠다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'stock-investment-60',
         text: '주식에 투자한다',
@@ -28839,6 +32773,90 @@ const STAGES = [
     intro: '은퇴 이후의 삶이 서서히 새로운 리듬을 찾아가는 시기입니다.',
     choices: [
       {
+        id: 'trd-fill2-61-1',
+        text: '은퇴 후 개인 자산만 소소하게 운용한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '치열함은 덜었지만 감각은 여전했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-61-2',
+        text: '후배들이 가끔 투자 조언을 구하러 온다',
+        deltas: { relationship: 1, happiness: 2 },
+        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-61-3',
+        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-61-1',
+        text: '은퇴 후 가끔 법률 상담 봉사를 나간다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '돈보다 보람을 좇는 일이 됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-61-2',
+        text: '후배들이 명절마다 인사를 온다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '현역 시절의 인연이 여전히 이어지고 있었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-61-3',
+        text: '옛 사건 기록을 정리하며 회고록을 구상한다',
+        deltas: { happiness: 1 },
+        result: '치열했던 시절이 새삼 그리웠다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-61-1',
+        text: '퇴직 후 아파트 경비로 재취업한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-61-2',
+        text: '옛 동료들과 낚시 모임을 갖는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '제복을 벗어도 전우애는 그대로였다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-61-3',
+        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        deltas: { happiness: 1 },
+        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-61-1',
+        text: '퇴직 후 동사무소에 볼일이 있어 들른다',
+        deltas: { happiness: 1 },
+        result: '손님으로 앉아 있으니 기분이 묘했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-61-2',
+        text: '공무원연금으로 안정적인 생활을 이어간다',
+        deltas: { happiness: 1 },
+        result: '화려하진 않아도 걱정 없는 노후였다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-61-3',
+        text: '옛 부서 후배들과 명절 인사를 주고받는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '잊히지 않았다는 사실이 고마웠다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'trd-fill-61-1',
         text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
         deltas: { relationship: 2, happiness: 1 },
@@ -29095,6 +33113,90 @@ const STAGES = [
     ageRange: '62세',
     intro: '연금이라는 단어가 현실적인 숫자로 다가오기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'trd-fill2-62-1',
+        text: '은퇴 후 개인 자산만 소소하게 운용한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '치열함은 덜었지만 감각은 여전했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-62-2',
+        text: '후배들이 가끔 투자 조언을 구하러 온다',
+        deltas: { relationship: 1, happiness: 2 },
+        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-62-3',
+        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-62-1',
+        text: '은퇴 후 가끔 법률 상담 봉사를 나간다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '돈보다 보람을 좇는 일이 됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-62-2',
+        text: '후배들이 명절마다 인사를 온다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '현역 시절의 인연이 여전히 이어지고 있었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-62-3',
+        text: '옛 사건 기록을 정리하며 회고록을 구상한다',
+        deltas: { happiness: 1 },
+        result: '치열했던 시절이 새삼 그리웠다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-62-1',
+        text: '퇴직 후 아파트 경비로 재취업한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-62-2',
+        text: '옛 동료들과 낚시 모임을 갖는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '제복을 벗어도 전우애는 그대로였다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-62-3',
+        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        deltas: { happiness: 1 },
+        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-62-1',
+        text: '퇴직 후 동사무소에 볼일이 있어 들른다',
+        deltas: { happiness: 1 },
+        result: '손님으로 앉아 있으니 기분이 묘했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-62-2',
+        text: '공무원연금으로 안정적인 생활을 이어간다',
+        deltas: { happiness: 1 },
+        result: '화려하진 않아도 걱정 없는 노후였다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-62-3',
+        text: '옛 부서 후배들과 명절 인사를 주고받는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '잊히지 않았다는 사실이 고마웠다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'trd-fill-62-1',
         text: '후배들이 가끔 투자 조언을 구하러 온다',
@@ -29384,6 +33486,90 @@ const STAGES = [
     intro: '취미와 가족, 두 가지 모두에서 깊이가 더해지는 시기입니다.',
     choices: [
       {
+        id: 'trd-fill2-63-1',
+        text: '은퇴 후 개인 자산만 소소하게 운용한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '치열함은 덜었지만 감각은 여전했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-63-2',
+        text: '후배들이 가끔 투자 조언을 구하러 온다',
+        deltas: { relationship: 1, happiness: 2 },
+        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-63-3',
+        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-63-1',
+        text: '은퇴 후 가끔 법률 상담 봉사를 나간다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '돈보다 보람을 좇는 일이 됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-63-2',
+        text: '후배들이 명절마다 인사를 온다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '현역 시절의 인연이 여전히 이어지고 있었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-63-3',
+        text: '옛 사건 기록을 정리하며 회고록을 구상한다',
+        deltas: { happiness: 1 },
+        result: '치열했던 시절이 새삼 그리웠다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-63-1',
+        text: '퇴직 후 아파트 경비로 재취업한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-63-2',
+        text: '옛 동료들과 낚시 모임을 갖는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '제복을 벗어도 전우애는 그대로였다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-63-3',
+        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        deltas: { happiness: 1 },
+        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'cs-fill2-63-1',
+        text: '퇴직 후 동사무소에 볼일이 있어 들른다',
+        deltas: { happiness: 1 },
+        result: '손님으로 앉아 있으니 기분이 묘했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-63-2',
+        text: '공무원연금으로 안정적인 생활을 이어간다',
+        deltas: { happiness: 1 },
+        result: '화려하진 않아도 걱정 없는 노후였다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-fill2-63-3',
+        text: '옛 부서 후배들과 명절 인사를 주고받는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '잊히지 않았다는 사실이 고마웠다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'trd-fill-63-1',
         text: '은퇴 후 개인 자산만 소소하게 운용한다',
         deltas: { wealth: 1, happiness: 1 },
@@ -29619,6 +33805,69 @@ const STAGES = [
     intro: '몸의 변화를 있는 그대로 받아들이는 연습이 필요한 나이입니다.',
     choices: [
       {
+        id: 'trd-fill2-64-1',
+        text: '은퇴 후 개인 자산만 소소하게 운용한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '치열함은 덜었지만 감각은 여전했다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-64-2',
+        text: '후배들이 가끔 투자 조언을 구하러 온다',
+        deltas: { relationship: 1, happiness: 2 },
+        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trd-fill2-64-3',
+        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'law-fill2-64-1',
+        text: '은퇴 후 가끔 법률 상담 봉사를 나간다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '돈보다 보람을 좇는 일이 됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-64-2',
+        text: '후배들이 명절마다 인사를 온다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '현역 시절의 인연이 여전히 이어지고 있었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-64-3',
+        text: '옛 사건 기록을 정리하며 회고록을 구상한다',
+        deltas: { happiness: 1 },
+        result: '치열했던 시절이 새삼 그리웠다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'pol-fill2-64-1',
+        text: '퇴직 후 아파트 경비로 재취업한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-64-2',
+        text: '옛 동료들과 낚시 모임을 갖는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '제복을 벗어도 전우애는 그대로였다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'pol-fill2-64-3',
+        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        deltas: { happiness: 1 },
+        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        requiresRoute: 'police'
+      },
+      {
         id: 'trd-fill-64-1',
         text: '시황을 보는 습관은 은퇴 후에도 여전하다',
         deltas: { happiness: 1 },
@@ -29845,6 +34094,27 @@ const STAGES = [
     ageRange: '65세',
     intro: '법정 노인 연령. 사회가 부르는 호칭이 바뀌는 걸 마주하게 됩니다.',
     choices: [
+      {
+        id: 'law-fill2-65-1',
+        text: '은퇴 후 가끔 법률 상담 봉사를 나간다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '돈보다 보람을 좇는 일이 됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-65-2',
+        text: '후배들이 명절마다 인사를 온다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '현역 시절의 인연이 여전히 이어지고 있었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-65-3',
+        text: '옛 사건 기록을 정리하며 회고록을 구상한다',
+        deltas: { happiness: 1 },
+        result: '치열했던 시절이 새삼 그리웠다.',
+        requiresRoute: 'lawyer'
+      },
       {
         id: 'stock-investment-65',
         text: '주식에 투자한다',
@@ -30191,6 +34461,27 @@ const STAGES = [
     intro: '오랜 세월을 함께한 배우자와의 관계를 다시 들여다보게 되는 나이입니다.',
     choices: [
       {
+        id: 'law-fill2-66-1',
+        text: '은퇴 후 가끔 법률 상담 봉사를 나간다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '돈보다 보람을 좇는 일이 됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-66-2',
+        text: '후배들이 명절마다 인사를 온다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '현역 시절의 인연이 여전히 이어지고 있었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-66-3',
+        text: '옛 사건 기록을 정리하며 회고록을 구상한다',
+        deltas: { happiness: 1 },
+        result: '치열했던 시절이 새삼 그리웠다.',
+        requiresRoute: 'lawyer'
+      },
+      {
         id: 'law-fill-66-1',
         text: '은퇴 후 가끔 법률 상담 봉사를 나간다',
         deltas: { happiness: 2, fame: 1 },
@@ -30418,6 +34709,27 @@ const STAGES = [
     intro: '남겨질 것들에 대해 조금씩 마음의 준비를 시작하는 나이입니다.',
     choices: [
       {
+        id: 'law-fill2-67-1',
+        text: '은퇴 후 가끔 법률 상담 봉사를 나간다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '돈보다 보람을 좇는 일이 됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-67-2',
+        text: '후배들이 명절마다 인사를 온다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '현역 시절의 인연이 여전히 이어지고 있었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-67-3',
+        text: '옛 사건 기록을 정리하며 회고록을 구상한다',
+        deltas: { happiness: 1 },
+        result: '치열했던 시절이 새삼 그리웠다.',
+        requiresRoute: 'lawyer'
+      },
+      {
         id: 'law-fill-67-1',
         text: '법정 근처를 지나다 옛 생각에 잠긴다',
         deltas: { happiness: 1 },
@@ -30559,6 +34871,27 @@ const STAGES = [
     ageRange: '68세',
     intro: '가까운 이들의 부고를 마주하며, 남은 삶의 무게를 다시 느끼게 됩니다.',
     choices: [
+      {
+        id: 'law-fill2-68-1',
+        text: '은퇴 후 가끔 법률 상담 봉사를 나간다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '돈보다 보람을 좇는 일이 됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-68-2',
+        text: '후배들이 명절마다 인사를 온다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '현역 시절의 인연이 여전히 이어지고 있었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'law-fill2-68-3',
+        text: '옛 사건 기록을 정리하며 회고록을 구상한다',
+        deltas: { happiness: 1 },
+        result: '치열했던 시절이 새삼 그리웠다.',
+        requiresRoute: 'lawyer'
+      },
       {
         id: 'law-fill-68-1',
         text: '옛 사건 기록을 정리하며 회고록을 구상한다',
