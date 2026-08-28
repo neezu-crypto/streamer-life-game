@@ -35014,6 +35014,13 @@ const STAGES = [
         requiresEverOccupation: ['trader', 'fund-manager']
       },
       {
+        id: 'teacher2-guest-lecture-62',
+        text: '모교에 초청돼 후배 교사들 앞에서 특강을 한다',
+        deltas: { happiness: 3, fame: 2 },
+        result: '교단을 떠났어도, 가르치는 마음만은 여전히 남아 있었다.',
+        requiresEverOccupation: ['teacher', 'head-teacher', 'vice-principal', 'principal']
+      },
+      {
         id: 'lover-family-disapproval',
         text: '자녀들이 새 연인을 못마땅해해 마음이 복잡하다',
         deltas: { happiness: -3, relationship: -2 },
@@ -36770,6 +36777,13 @@ const STAGES = [
         deltas: { wealth: 2, fame: 3 },
         result: '화면 너머로도, 여전히 숫자를 읽는 눈은 살아 있었다.',
         requiresEverOccupation: ['trader', 'fund-manager']
+      },
+      {
+        id: 'teacher2-textbook-writing-68',
+        text: '평생의 노하우를 담아 교육 교재 집필에 참여한다',
+        deltas: { wealth: 2, fame: 3 },
+        result: '칠판 앞이 아니어도, 여전히 누군가를 가르치고 있는 셈이었다.',
+        requiresEverOccupation: ['teacher', 'head-teacher', 'vice-principal', 'principal']
       },
       {
         id: 'married-retirement-together',
