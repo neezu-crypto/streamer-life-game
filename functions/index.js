@@ -512,7 +512,7 @@ function pickVisibleChoiceIds(choices, ctx) {
     ? routeChoicePool.filter((c) => c.requiresRoute === activeRouteId)
     : choices.filter((c) => !c.requiresRoute && !(c.startsRoute && experiencedRouteIds.includes(c.startsRoute.id)));
 
-  const eligible = basePool.filter((c) => {
+  const passesEligibility = (c) => {
     if (c.requiresCondition && !conditionIds.includes(c.requiresCondition)) return false;
     if (c.requiresNoCondition && c.requiresNoCondition.some((id) => conditionIds.includes(id))) return false;
     if (c.requiresAnyCondition && !conditionIds.length) return false;
@@ -569,7 +569,23 @@ function pickVisibleChoiceIds(choices, ctx) {
       if (Math.random() >= chance) return false;
     }
     return true;
-  });
+  };
+  let eligible = basePool.filter(passesEligibility);
+  // 루트 콘텐츠 공백 나이(2026-08-29, 라이브 검증 중 발견 - 사용자 지시
+  // "라이브 검증 한번 더 돌려보자") - civil-servant-route/police/lawyer/trader
+  // 처럼 매 나이 STAGES[].choices 안에서 requiresRoute로 콘텐츠를 찾는 루트는
+  // (감옥/연애/현행범과 달리 전역 풀이 아니라) 특정 나이에 그 루트 전용
+  // 선택지가 하나도 없을 수 있다 - 이러면 eligible이 빈 배열이 되고, 그걸
+  // publicStage가 "아직 안 뽑힘"으로 오인해 locationId·activeRouteId 등
+  // 컨텍스트 없이 통째로 다시 계산하면서 장소 게이팅과 루트 배타성이 동시에
+  // 깨지는 게 실제로 재현됐다(장소가 'abroad'인데 requiresLocation:['domestic']
+  // 선택지가 노출되는 등). eligible이 비어 있을 때만, 같은 컨텍스트 그대로
+  // 일반 풀(루트 무관 콘텐츠)로 다시 걸러 최소 하나는 뜨게 한다 - 감옥/연애/
+  // 현행범(전역 풀이라 애초에 콘텐츠 공백이 나지 않게 설계됨)은 이 대상이 아니다.
+  if (activeRouteId && routeChoicePool === choices && eligible.length === 0) {
+    const fallbackPool = choices.filter((c) => !c.requiresRoute && !(c.startsRoute && experiencedRouteIds.includes(c.startsRoute.id)));
+    eligible = fallbackPool.filter(passesEligibility);
+  }
   let resultIds;
   if (eligible.length <= 4) {
     resultIds = eligible.map((c) => c.id);
@@ -804,7 +820,15 @@ function ensureGuaranteedCure(stageChoices, ids, healthConditions, guaranteeCure
 // introId가 주어지면(그 판의 저장 슬롯에 이미 뽑아둔 상황 설명 id) 그
 // 상황의 텍스트를 resolveIntroText로 찾아 쓴다 - pickIntroId() 참고.
 function publicStage(stage, visibleIds, introId, healthConditions) {
-  const ids = visibleIds && visibleIds.length ? visibleIds : pickVisibleChoiceIds(stage.choices, { introId });
+  // Array.isArray로 판단(2026-08-29, 라이브 검증 중 발견) - 예전엔 "!visibleIds
+  // || !visibleIds.length"였는데, pickVisibleChoiceIds가 정상적으로 계산했지만
+  // 결과가 빈 배열인 경우(활성 루트인데 그 나이에 루트 전용 콘텐츠가 하나도
+  // 없는 등)까지 "아직 안 뽑힘"으로 오인해서 locationId·activeRouteId 등 아무
+  // 컨텍스트도 없이 여기서 다시 계산해버렸다 - 그러면 장소 게이팅과 루트
+  // 배타성이 동시에 깨진다(실제 재현됨). pickVisibleChoiceIds 쪽에 루트 콘텐츠
+  // 공백 안전망을 넣어 이제 거의 발생하지 않지만, 방어적으로 여기도 "배열로
+  // 넘어왔으면(빈 배열이어도) 이미 계산된 것"으로 존중한다.
+  const ids = Array.isArray(visibleIds) ? visibleIds : pickVisibleChoiceIds(stage.choices, { introId });
   // ids 중 'treat:'로 시작하는 항목은 stage.choices(game-data.js 콘텐츠)에
   // 없는 합성 치료 선택지(ensureGuaranteedCure 참고)라, resolveSyntheticChoice로
   // 그 자리에서 다시 만들어 끼워 넣는다.
