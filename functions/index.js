@@ -34,6 +34,38 @@ initializeApp();
 const MAX_NAME_LEN = 40;
 const MAX_REPORT_REASON_LEN = 300;
 
+// 세계관 상태(World State) 트래커 엔진(2026-08-28, 56장 A항 설계 확정분 구현
+// 1단계 - 엔진만, 실제 트래커 콘텐츠는 다음 단계에서 game-data.js에 추가).
+// lifeGame/worldState/{key}/rate는 0~1 사이 값으로, 초기값 0.5(중립)에서
+// 오직 worldStateSignal이 붙은 선택지로만 움직인다. ALPHA는 "10번의 반대
+// 방향 신호로 극단값(0 또는 1)이 중립(0.5)까지 돌아온다"는 half-life=10
+// 공식(1 - 0.5^(1/10))으로 역산한 값 - 사용자가 준 "10명이 선택했을때
+// 75%->50%로 조정 가능한 민감도" 요구사항 그대로.
+const WORLD_STATE_HALF_LIFE = 10;
+const WORLD_STATE_ALPHA = 1 - Math.pow(0.5, 1 / WORLD_STATE_HALF_LIFE);
+const WORLD_STATE_DEFAULT_RATE = 0.5;
+
+// 이번 턴에 참조될 수 있는 worldState 키 전부를 한 번에 조회해 pickVisibleChoiceIds의
+// dynamicAppearChance/applyChoice의 dynamicPrizeWeight가 매번 개별 조회 없이
+// 쓸 수 있게 한다(56장 "매 턴마다 관련 트래커 값들을... 한 번의 멀티 경로
+// 조회로 캐싱" 설계 그대로). 트래커 개수가 적은 지금은 전체 노드를 통째로
+// 읽어도 부담이 없다 - 트래커가 많아지면 그때 필요한 키만 골라 읽는 방식으로
+// 바꾼다.
+async function fetchWorldStateRates(db) {
+  const snap = await db.ref('lifeGame/worldState').get();
+  const val = snap.val() || {};
+  const rates = {};
+  for (const key of Object.keys(val)) {
+    rates[key] = typeof val[key].rate === 'number' ? val[key].rate : WORLD_STATE_DEFAULT_RATE;
+  }
+  return rates;
+}
+
+function worldStateRateOf(worldStateRates, key) {
+  const rates = worldStateRates || {};
+  return typeof rates[key] === 'number' ? rates[key] : WORLD_STATE_DEFAULT_RATE;
+}
+
 // STAGES.id로 빠르게 찾기 위한 매핑 - choiceLog(stageId+choiceId만 담긴 압축 기록)를
 // 엔딩 화면의 "지금까지 선택한 선택지" 목록으로 풀어낼 때 매번 STAGES.find를
 // 반복하지 않기 위함.
@@ -369,6 +401,7 @@ function pickVisibleChoiceIds(choices, ctx) {
   // 동료·짝사랑도 다 통과), "연애 중" 전용 콘텐츠(데이트·다툼·프로포즈 고민 등)는
   // 지인 관계가 정확히 lover여야 한다. requiresAnyOccupation과 같은 결.
   const hasAnyLover = !!(ctx.acquaintances && ctx.acquaintances.some((a) => a.relation === 'lover'));
+  const worldStateRates = ctx.worldStateRates || {};
   const talentIds = ctx.talentIds || [];
   const hobbyIds = ctx.hobbyIds || [];
   const guaranteeCure = !!ctx.guaranteeCure;
@@ -438,14 +471,25 @@ function pickVisibleChoiceIds(choices, ctx) {
     // "노출되면 100% 진입"은 이 선택지 자체가 prizeTable 없이 곧장
     // startsRoute를 갖기 때문에 자동으로 만족된다.
     if (typeof c.appearChance === 'number' && Math.random() >= c.appearChance) return false;
+    // dynamicAppearChance(2026-08-28, 56장 A항 - 세계관 상태 연동 노출확률) -
+    // appearChance와 완전히 같은 "굴려서 실패하면 이번 턴 제외" 패턴이지만,
+    // 확률 자체가 고정값이 아니라 그 순간의 worldState rate로 계산된다:
+    // chance = min + (max-min)×rate. 통과하면 appearChance와 마찬가지로 아래에서
+    // mandatory 취급돼 반드시 노출된다.
+    if (c.dynamicAppearChance) {
+      const { key, min, max } = c.dynamicAppearChance;
+      const rate = worldStateRateOf(worldStateRates, key);
+      const chance = min + (max - min) * rate;
+      if (Math.random() >= chance) return false;
+    }
     return true;
   });
   let resultIds;
   if (eligible.length <= 4) {
     resultIds = eligible.map((c) => c.id);
   } else {
-    const mandatory = eligible.filter((c) => c.mandatory || typeof c.appearChance === 'number');
-    let optional = eligible.filter((c) => !c.mandatory && typeof c.appearChance !== 'number');
+    const mandatory = eligible.filter((c) => c.mandatory || typeof c.appearChance === 'number' || c.dynamicAppearChance);
+    let optional = eligible.filter((c) => !c.mandatory && typeof c.appearChance !== 'number' && !c.dynamicAppearChance);
 
     if (guaranteeCure && conditionIds.length) {
       const curative = optional.filter((c) => (c.removeCondition && conditionIds.includes(c.removeCondition)) || c.removeAllConditions);
@@ -916,6 +960,12 @@ async function applyChoice(db, playRef, play, stage, choice) {
     }
   }
 
+  // 세계관 상태(worldState) 조회(2026-08-28, 56장 A항 엔진 1단계) - 아래
+  // dynamicPrizeWeight 계산과, 이 함수 뒤쪽에서 다음 구간 노출 후보를 뽑을 때
+  // (pickVisibleChoiceIds의 dynamicAppearChance) 공통으로 쓰라고 여기서 한
+  // 번만 조회해둔다.
+  const worldStateRates = await fetchWorldStateRates(db);
+
   // prizeTable(가중치 배열)이 붙은 선택지(복권 당첨 확인 등)는 choice.deltas·
   // choice.result가 고정값이 아니라, 이 순간 서버에서 무작위로 뽑은 등수의
   // deltas·result로 완전히 대체된다 - resultOptions(문구만 랜덤)와 달리 결과의
@@ -931,10 +981,32 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // routeDurationOverride 굴리기, effectiveChoice 구성에 재사용.
   let pickedBranch = null;
   if (choice.prizeTable && choice.prizeTable.length) {
-    const totalWeight = choice.prizeTable.reduce((sum, p) => sum + p.weight, 0);
+    // dynamicPrizeWeight(2026-08-28, 56장 A항 - 41개 중범죄 발각확률·현행범
+    // 뇌물/도주 성공률 동적화) - prizeTable의 정적 weight 대신, caughtLabel과
+    // 일치하는 항목의 weight를 그 순간의 worldState rate로 재계산한다.
+    // invert:true면 rate가 오를수록 값이 줄고(발각확률: 부패할수록 안 걸림),
+    // invert 없으면 rate가 오를수록 값이 는다(뇌물·도주 성공률: 부패할수록
+    // 잘 먹힘). caughtLabel 항목이 아닌 나머지 항목들에는 남은 weight를
+    // 기존 비율 그대로 나눠준다(현재 설계는 전부 caughtLabel 아닌 항목이
+    // 딱 하나뿐이라 사실상 잔여 전부를 그 하나가 가져간다).
+    let effectivePrizeTable = choice.prizeTable;
+    if (choice.dynamicPrizeWeight) {
+      const { key, caughtLabel, min, max, invert } = choice.dynamicPrizeWeight;
+      const rate = worldStateRateOf(worldStateRates, key);
+      const value = invert ? (max - (max - min) * rate) : (min + (max - min) * rate);
+      const caughtWeight = value * 100;
+      const others = choice.prizeTable.filter((p) => p.label !== caughtLabel);
+      const othersTotalWeight = others.reduce((sum, p) => sum + p.weight, 0) || 1;
+      const remainingWeight = 100 - caughtWeight;
+      effectivePrizeTable = choice.prizeTable.map((p) => {
+        if (p.label === caughtLabel) return Object.assign({}, p, { weight: caughtWeight });
+        return Object.assign({}, p, { weight: remainingWeight * (p.weight / othersTotalWeight) });
+      });
+    }
+    const totalWeight = effectivePrizeTable.reduce((sum, p) => sum + p.weight, 0);
     let roll = Math.random() * totalWeight;
-    let picked = choice.prizeTable[choice.prizeTable.length - 1];
-    for (const p of choice.prizeTable) {
+    let picked = effectivePrizeTable[effectivePrizeTable.length - 1];
+    for (const p of effectivePrizeTable) {
       if (roll < p.weight) { picked = p; break; }
       roll -= p.weight;
     }
@@ -942,6 +1014,17 @@ async function applyChoice(db, playRef, play, stage, choice) {
     resolvedDeltas = picked.deltas;
     resolvedResult = picked.result;
     resolvedLabel = picked.label;
+    // appendPoliceCorruptionNote(2026-08-28, 56장 A항 - "경찰 플레이어의
+    // 청렴도가 높아/낮아 실패/성공했다" 결과문구) - dynamicPrizeWeight의
+    // caughtLabel과 이번에 뽑힌 라벨이 같으면 "실패" 쪽, 다르면 "성공" 쪽
+    // 문구를 그대로 이어붙인다. 43개(중범죄 41 + 현행범 뇌물·도주 2)에만
+    // 붙는 플래그라 나머지 159개 발각 선택지는 전혀 영향받지 않는다.
+    if (choice.appendPoliceCorruptionNote && choice.dynamicPrizeWeight) {
+      const suffix = picked.label === choice.dynamicPrizeWeight.caughtLabel
+        ? ' 경찰 플레이어의 청렴도가 높아 실패했다.'
+        : ' 경찰 플레이어의 청렴도가 낮아 성공했다.';
+      resolvedResult = (resolvedResult || '') + suffix;
+    }
   }
   // prizeTable 갈래에 startsRoute가 실려 있는데(현재는 징역 갈래뿐)
   // maxDurationYears가 없으면 "3~5년, 매번 무작위"(사용자 확정)라는 뜻이라
@@ -1459,7 +1542,8 @@ async function applyChoice(db, playRef, play, stage, choice) {
       routeCompletedIds: nextRouteCompletedIds,
       routeEndAges: nextRouteEndAges,
       currentAge: nextIndex,
-      cashHoldings
+      cashHoldings,
+      worldStateRates
     });
     if (!nextActiveRoute) {
       nextVisibleIds = ensureGuaranteedCure(STAGES[nextIndex].choices, nextVisibleIds, healthConditions, guaranteeCureNow);
@@ -1475,6 +1559,17 @@ async function applyChoice(db, playRef, play, stage, choice) {
     playRef.update(updates),
     db.ref('lifeGame/stats/choices/' + stage.id + '/' + choice.id).set(ServerValue.increment(1))
   ];
+  // worldStateSignal(2026-08-28, 56장 A항 - 세계관 상태 EMA 갱신) - 이 선택이
+  // 트래커를 움직이면(예: 촌지를 받는 교사 선택) 트랜잭션으로
+  // rate = rate×(1-α) + target×α를 적용한다. 동시에 여러 플레이어가 같은
+  // 트래커를 건드려도 트랜잭션이라 안전하다.
+  if (choice.worldStateSignal) {
+    const { key, target } = choice.worldStateSignal;
+    statWrites.push(db.ref('lifeGame/worldState/' + key).transaction((current) => {
+      const rate = current && typeof current.rate === 'number' ? current.rate : WORLD_STATE_DEFAULT_RATE;
+      return { rate: rate * (1 - WORLD_STATE_ALPHA) + target * WORLD_STATE_ALPHA, updatedAt: ServerValue.TIMESTAMP };
+    }));
+  }
   // 해금 도감 - 루트 칸(2026-08-22, 사용자 지시로 ①번 루트 완료 후 추가) - 이번
   // 선택 이전엔 활성 루트가 있었는데(priorRouteState), 이번 선택으로 그 루트가
   // 끝났거나(endsRoute를 골랐거나 maxDurationYears 만료로 nextActiveRoute가
@@ -1602,7 +1697,8 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   const db = getDatabase();
   const stats = freshStats();
   const currentIntroId = pickIntroId(STAGES[0]);
-  const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices, { introId: currentIntroId, locationId: DEFAULT_LOCATION.id });
+  const worldStateRates = await fetchWorldStateRates(db);
+  const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices, { introId: currentIntroId, locationId: DEFAULT_LOCATION.id, worldStateRates });
   const writes = [
     playRefFor(db, uid).set({
       streamerName,
@@ -1712,6 +1808,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
   let visibleChoiceIds = play.visibleChoiceIds;
   if (!visibleChoiceIds || !visibleChoiceIds.length) {
     const guaranteeCureNow = !activeRoute && (play.sickStreak || 0) > 0 && (play.sickStreak || 0) % 3 === 0;
+    const worldStateRates = await fetchWorldStateRates(db);
     visibleChoiceIds = pickVisibleChoiceIds(stage.choices, {
       conditionIds: healthConditions.map((c) => c.id),
       familyIds: familyMembers.map((f) => f.id),
@@ -1730,7 +1827,8 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       routeCompletedIds,
       routeEndAges,
       currentAge: play.stageIndex,
-      cashHoldings: play.cashHoldings || 0
+      cashHoldings: play.cashHoldings || 0,
+      worldStateRates
     });
     if (!activeRoute) {
       visibleChoiceIds = ensureGuaranteedCure(stage.choices, visibleChoiceIds, healthConditions, guaranteeCureNow);
