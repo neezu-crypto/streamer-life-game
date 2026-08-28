@@ -75,13 +75,17 @@ function worldStateRateOf(worldStateRates, key) {
 // 유저와 동일하게 해제될 때까지 가격이 멈춰 있어야 함). price/volume/candlestick/
 // sparkline 필드 구조는 soop-stock-market의 executeSimulatedTrade가 쓰는 것과
 // 동일하게 맞춰서 실제 앱 화면(차트·스파크라인)이 깨지지 않게 한다.
-async function nudgeStockPrice(db, stockId) {
+// ratio(2026-08-28, D-7 확장 - "일탈 행위를 하다가 발각되어 징역을 갈 경우
+// 보유중인 주식이 있다면 해당 주가 하락시키는건 어때?") - 평소 매 턴 나뭄은
+// 55%/45% 확률로 골라지지만, 스캔들성 하락(징역 확정 시)은 방향을 강제로
+// 지정해야 해서 ratio를 직접 받는 형태로 일반화했다. 나머지(가격 갱신·
+// candlesticks·sparklines 갱신, 동결 스킵)는 완전히 동일한 로직 재사용.
+async function applyStockPriceRatio(db, stockId, ratio) {
   const stockRef = db.ref('stocks/' + stockId);
   const qty = 1 + Math.floor(Math.random() * 5);
   const result = await stockRef.transaction((current) => {
     if (!current || current.frozenAt) return current;
-    const up = Math.random() < 0.55;
-    const newPrice = Math.max(1, Math.round(current.price * (up ? 1.01 : 0.99)));
+    const newPrice = Math.max(1, Math.round(current.price * ratio));
     return Object.assign({}, current, { price: newPrice, volume: (current.volume || 0) + qty });
   });
   const committed = result && result.committed ? result.snapshot.val() : null;
@@ -100,6 +104,23 @@ async function nudgeStockPrice(db, stockId) {
     return buf;
   });
   return newPrice;
+}
+
+// 주식 가격 변동(2026-08-28, 56장 D항 - "봇 로직을 그냥 하지말고 매 턴 55%
+// 확률로 +1%/45% 확률로 -1%로 주가 변동되게 할까? 주식시장과 주가 연동은
+// 유지") - soop-stock-market의 트레이딩 봇 5가지 패턴을 이식하는 대신, 실제
+// stocks/{id} 노드에 직접 소폭 랜덤워크를 적용해 "같은 시장, 같은 가격"을
+// 그대로 유지한다.
+async function nudgeStockPrice(db, stockId) {
+  const up = Math.random() < 0.55;
+  return applyStockPriceRatio(db, stockId, up ? 1.01 : 0.99);
+}
+
+// D-7(2026-08-28) - 보유 중이던 일탈 선택지가 발각돼 실제로 징역(prison
+// 루트)으로 확정되는 순간, 보유 중인 주식이 있다면 스캔들성 하락을 적용한다.
+// 평소 나뭄(±1%)보다 뚜렷하게 느껴지도록 -3% 고정(방향 강제, 확률 없음).
+async function applyScandalStockDrop(db, stockId) {
+  return applyStockPriceRatio(db, stockId, 0.97);
 }
 
 // investorCountPrizeWeight(2026-08-28, 56장 E항 - 트레이더 성과급 ↔ 인생게임
@@ -1380,6 +1401,27 @@ async function applyChoice(db, playRef, play, stage, choice) {
   }
   if (choice.removeAsset) {
     assets = assets.filter((a) => a.id !== choice.removeAsset);
+  }
+
+  // D-7 스캔들 하락(2026-08-28, 사용자 지시) - 이번 선택이 실제로 징역(prison
+  // 루트) 확정으로 이어졌으면(setOccupation.id==='inmate'), 보유 중인 주식
+  // 전부에 스캔들성 하락(-3%)을 적용하고 결과문구에 어느 종목이 떨어졌는지
+  // 이어붙인다. red-handed 파이프라인의 "매수 실패"/"도주 실패" 갈래처럼
+  // 실제 징역으로 확정되는 모든 경로에 공통 적용(선택지별로 따로 표시해둘
+  // 필요 없음 - pickedBranch.setOccupation만 보면 됨).
+  if (pickedBranch && pickedBranch.setOccupation && pickedBranch.setOccupation.id === 'inmate') {
+    const droppedLabels = [];
+    for (let i = 0; i < assets.length; i++) {
+      if (assets[i].type !== 'stock') continue;
+      const newPrice = await applyScandalStockDrop(db, assets[i].id);
+      if (newPrice !== null) {
+        assets[i] = Object.assign({}, assets[i], { currentPrice: newPrice });
+        droppedLabels.push(assets[i].label);
+      }
+    }
+    if (droppedLabels.length) {
+      resolvedResult = (resolvedResult || '') + ' 보유 중이던 ' + droppedLabels.join(', ') + ' 주가도 이 소식에 동반 하락했다.';
+    }
   }
 
   // 보험료 자동 납입·3년 연체 해지(2026-08-22, 18장 사용자 확정 - 4장 1년단위

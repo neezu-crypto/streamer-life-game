@@ -482,29 +482,38 @@ fetch('./streamer-names.json').then((res) => res.json()).then((data) => {
   allStocks = data;
 }).catch((e) => console.error('스트리머 이름 목록을 불러오지 못했습니다:', e));
 
-const searchInput = document.getElementById('searchInput');
-const searchResults = document.getElementById('searchResults');
-searchInput.addEventListener('input', () => {
-  const q = searchInput.value.trim();
-  searchResults.innerHTML = '';
-  if (!q) return;
-  const matches = allStocks.filter((s) => s.name.includes(q)).slice(0, 12);
-  if (!matches.length) {
-    searchResults.innerHTML = '<p class="empty-msg">일치하는 스트리머가 없어요. 이름을 직접 입력해도 괜찮아요.</p>';
-    return;
-  }
-  matches.forEach((s) => {
-    const row = document.createElement('div');
-    row.className = 'streamer-row';
-    row.innerHTML = '<span>' + escapeHtml(s.name) + '</span>';
-    row.addEventListener('click', () => selectStreamer(s.name, s.id));
-    searchResults.appendChild(row);
-  });
-});
-
 function escapeHtml(s) {
   return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
+
+// wireStreamerSearch(2026-08-28, 56장 D항 - "검색 input+결과 목록을
+// 매개변수화한 함수로 리팩터링해서 재사용" 확정 지시 반영) - 시작화면 검색과
+// 매수 모달 검색이 완전히 같은 로직(allStocks 필터 → streamer-row 렌더 →
+// 클릭 콜백)을 각자 복사해 쓰던 걸 하나로 합쳤다. onPick(name, id)만
+// 화면마다 다르게 넘기면 된다.
+function wireStreamerSearch(inputEl, resultsEl, emptyMsg, onPick) {
+  inputEl.addEventListener('input', () => {
+    const q = inputEl.value.trim();
+    resultsEl.innerHTML = '';
+    if (!q) return;
+    const matches = allStocks.filter((s) => s.name.includes(q)).slice(0, 12);
+    if (!matches.length) {
+      resultsEl.innerHTML = '<p class="empty-msg">' + emptyMsg + '</p>';
+      return;
+    }
+    matches.forEach((s) => {
+      const row = document.createElement('div');
+      row.className = 'streamer-row';
+      row.innerHTML = '<span>' + escapeHtml(s.name) + '</span>';
+      row.addEventListener('click', () => onPick(s.name, s.id));
+      resultsEl.appendChild(row);
+    });
+  });
+}
+
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+wireStreamerSearch(searchInput, searchResults, '일치하는 스트리머가 없어요. 이름을 직접 입력해도 괜찮아요.', selectStreamer);
 
 // ------------------------------------------------------------
 // 주식 매수 검색 모달(2026-08-28, 56장 D항) - 위 시작화면 검색과 같은
@@ -517,23 +526,7 @@ const buyStockSearchInput = document.getElementById('buyStockSearchInput');
 const buyStockSearchResults = document.getElementById('buyStockSearchResults');
 let pendingStockChoiceId = null;
 
-buyStockSearchInput.addEventListener('input', () => {
-  const q = buyStockSearchInput.value.trim();
-  buyStockSearchResults.innerHTML = '';
-  if (!q) return;
-  const matches = allStocks.filter((s) => s.name.includes(q)).slice(0, 12);
-  if (!matches.length) {
-    buyStockSearchResults.innerHTML = '<p class="empty-msg">일치하는 스트리머가 없어요.</p>';
-    return;
-  }
-  matches.forEach((s) => {
-    const row = document.createElement('div');
-    row.className = 'streamer-row';
-    row.innerHTML = '<span>' + escapeHtml(s.name) + '</span>';
-    row.addEventListener('click', () => selectStockToBuy(s.name, s.id));
-    buyStockSearchResults.appendChild(row);
-  });
-});
+wireStreamerSearch(buyStockSearchInput, buyStockSearchResults, '일치하는 스트리머가 없어요.', selectStockToBuy);
 
 function openBuyStockModal(choiceId) {
   pendingStockChoiceId = choiceId;

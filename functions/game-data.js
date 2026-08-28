@@ -26303,6 +26303,27 @@ const STAGES = [
         requiresEverOccupation: ['civil-servant', 'civil-servant-7th-grade', 'civil-servant-5th-grade', 'civil-servant-senior-official']
       },
       {
+        id: 'police2-academy-lecture-62',
+        text: '경찰학교에 특강 초청을 받아 후배들 앞에 선다',
+        deltas: { happiness: 3, fame: 2 },
+        result: '현장에서 몸으로 배운 것들이, 강의 노트 몇 장으로는 다 담기지 않았다.',
+        requiresEverOccupation: ['police-cadet', 'detective']
+      },
+      {
+        id: 'lawyer2-law-school-lecture-62',
+        text: '로스쿨에 특강을 나가 후배들에게 경험을 들려준다',
+        deltas: { happiness: 3, fame: 2 },
+        result: '질문 세례를 받으며, 자신이 걸어온 길을 새삼 되짚어봤다.',
+        requiresEverOccupation: ['associate-lawyer', 'solo-lawyer']
+      },
+      {
+        id: 'trader2-finance-academy-talk-62',
+        text: '금융 아카데미에 초청돼 투자 강연을 한다',
+        deltas: { happiness: 3, fame: 2 },
+        result: '숫자로만 말하던 세월을, 이번엔 말로 풀어내야 했다.',
+        requiresEverOccupation: ['trader', 'fund-manager']
+      },
+      {
         id: 'lover-family-disapproval',
         text: '자녀들이 새 연인을 못마땅해해 마음이 복잡하다',
         deltas: { happiness: -3, relationship: -2 },
@@ -27423,6 +27444,27 @@ const STAGES = [
     ageRange: '68세',
     intro: '가까운 이들의 부고를 마주하며, 남은 삶의 무게를 다시 느끼게 됩니다.',
     choices: [
+      {
+        id: 'police2-documentary-consulting-68',
+        text: '은퇴 형사로서 범죄 다큐멘터리 자문에 참여한다',
+        deltas: { wealth: 2, fame: 3 },
+        result: '화면 밖에서 지켜보는 사건도, 여전히 마음 한구석을 무겁게 했다.',
+        requiresEverOccupation: ['police-cadet', 'detective']
+      },
+      {
+        id: 'lawyer2-memoir-publication-68',
+        text: '법정에서 있었던 일들을 모아 회고록을 출간한다',
+        deltas: { wealth: 2, fame: 3 },
+        result: '이겼던 재판보다, 진 재판이 더 또렷하게 남아 있었다.',
+        requiresEverOccupation: ['associate-lawyer', 'solo-lawyer']
+      },
+      {
+        id: 'trader2-economy-panel-68',
+        text: '경제 방송 패널로 출연해 요즘 시황을 논한다',
+        deltas: { wealth: 2, fame: 3 },
+        result: '화면 너머로도, 여전히 숫자를 읽는 눈은 살아 있었다.',
+        requiresEverOccupation: ['trader', 'fund-manager']
+      },
       {
         id: 'married-retirement-together',
         text: '둘 다 은퇴한 뒤 하루를 어떻게 보낼지 새로 맞춰간다',
