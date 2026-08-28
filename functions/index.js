@@ -6,6 +6,7 @@ const {
   STAGES,
   PRISON_CHOICES,
   LOVER_ROUTE_CHOICES,
+  RED_HANDED_CHOICES,
   resolveEnding,
   buildCollapseEnding,
   buildBankruptcyEnding,
@@ -162,10 +163,18 @@ function resolveCurrentLocation(locationHistory) {
 // choiceId라, treat:/farewell:pet 같은 합성 선택지와 동일하게 stage.choices에서
 // 못 찾으면 이 배열에서 한 번 더 찾아야 한다(findChoiceById 참고) - choiceLog
 // replay(buildOccupationHistory 등)·publicStage·submitChoice 전부 이 경로를 탄다.
+// 버그 수정(2026-08-28, 56장 A항 5번째 조합 구현 중 발견) - LOVER_ROUTE_CHOICES가
+// 여기 빠져 있었다. romance 루트 진입 후 stage.choices에 없는(LOVER_ROUTE_CHOICES
+// 전용) 선택지를 고르면 submitChoice가 "유효하지 않은 선택지"로 거부하던 기존
+// 버그 - RED_HANDED_CHOICES(현행범, 이번에 신규 추가)도 같은 이유로 반드시
+// 여기 포함돼야 해서 겸사겸사 같이 고친다.
 function findChoiceById(stage, choiceId) {
   const real = stage && stage.choices.find((c) => c.id === choiceId);
   if (real) return real;
-  return PRISON_CHOICES.find((c) => c.id === choiceId) || null;
+  return PRISON_CHOICES.find((c) => c.id === choiceId)
+    || LOVER_ROUTE_CHOICES.find((c) => c.id === choiceId)
+    || RED_HANDED_CHOICES.find((c) => c.id === choiceId)
+    || null;
 }
 
 // prizeTable이 붙은 선택지(복권·일탈 발각 등)는 매번 랜덤으로 갈래가 정해지는데,
@@ -415,13 +424,17 @@ function pickVisibleChoiceIds(choices, ctx) {
   // 콘텐츠를 심어둘 수 없다 - activeRouteId가 'prison'이면 그 나이가 몇 살이든
   // PRISON_CHOICES(전역 풀)에서만 뽑는다. 연애(romance) 루트(2026-08-26)도
   // 같은 이유(18~60세 아무 때나 진입 가능)로 LOVER_ROUTE_CHOICES 전역 풀을
-  // 쓴다. 다른 루트는 기존과 완전히 동일하게 그 나이의 choices 배열 안에서만
-  // 찾는다.
+  // 쓴다. 현행범(red-handed, 2026-08-28, 56장 A항 5번째 조합)도 마찬가지 -
+  // 41개 중범죄 선택지 중 어느 걸 몇 살에 골라 발각되느냐가 전부 달라 나이를
+  // 고정할 수 없다. 다른 루트는 기존과 완전히 동일하게 그 나이의 choices
+  // 배열 안에서만 찾는다.
   const routeChoicePool = activeRouteId === 'prison'
     ? PRISON_CHOICES
     : activeRouteId === 'romance'
       ? LOVER_ROUTE_CHOICES
-      : choices;
+      : activeRouteId === 'red-handed'
+        ? RED_HANDED_CHOICES
+        : choices;
   const basePool = activeRouteId
     ? routeChoicePool.filter((c) => c.requiresRoute === activeRouteId)
     : choices.filter((c) => !c.requiresRoute && !(c.startsRoute && experiencedRouteIds.includes(c.startsRoute.id)));
@@ -1582,9 +1595,13 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // worldStateSignal(2026-08-28, 56장 A항 - 세계관 상태 EMA 갱신) - 이 선택이
   // 트래커를 움직이면(예: 촌지를 받는 교사 선택) 트랜잭션으로
   // rate = rate×(1-α) + target×α를 적용한다. 동시에 여러 플레이어가 같은
-  // 트래커를 건드려도 트랜잭션이라 안전하다.
-  if (choice.worldStateSignal) {
-    const { key, target } = choice.worldStateSignal;
+  // 트래커를 건드려도 트랜잭션이라 안전하다. prizeTable 갈래별로 다른 신호를
+  // 보내야 하는 경우(예: 현행범의 도주 성공/실패가 publicSafety를 반대
+  // 방향으로 움직임)를 위해 pickedBranch.worldStateSignal을 base
+  // choice.worldStateSignal보다 우선 적용한다.
+  const effectiveWorldStateSignal = (pickedBranch && pickedBranch.worldStateSignal) || choice.worldStateSignal;
+  if (effectiveWorldStateSignal) {
+    const { key, target } = effectiveWorldStateSignal;
     statWrites.push(db.ref('lifeGame/worldState/' + key).transaction((current) => {
       const rate = current && typeof current.rate === 'number' ? current.rate : WORLD_STATE_DEFAULT_RATE;
       return { rate: rate * (1 - WORLD_STATE_ALPHA) + target * WORLD_STATE_ALPHA, updatedAt: ServerValue.TIMESTAMP };

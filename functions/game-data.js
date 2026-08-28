@@ -141,7 +141,10 @@ const COMPANY_OCCUPATION_IDS = [
   // 공무원 루트 신설(2026-08-28)로 civil-servant가 승진하며 갈리는 직급별 id들 -
   // 승진해도 "회사(조직) 소속" 성격은 그대로라 이 배열에서 빠지면 안 된다(빠지면
   // 부서 이동·회식 등 회사원 계열 콘텐츠가 승진한 순간부터 안 뜨게 됨).
-  'civil-servant-7th-grade', 'civil-servant-5th-grade', 'civil-servant-senior-official'
+  'civil-servant-7th-grade', 'civil-servant-5th-grade', 'civil-servant-senior-official',
+  // 경찰 직업 신설(2026-08-28, 56장 A항 5번째 조합) - 같은 이유로 police-cadet/
+  // detective도 포함.
+  'police-cadet', 'detective'
 ];
 
 // LOTTERY_PRIZE_TABLE(2026-08-17, 사용자 지시) - 복권을 산 뒤(addAsset로
@@ -4558,6 +4561,15 @@ const STAGES = [
     intro: '갓 어른이 된 티가 조금씩 빠지는 나이. 독립과 자유가 생각보다 훨씬 손이 많이 간다는 걸 알아갑니다.',
     choices: [
       {
+        id: 'police-exam-20',
+        text: '경찰공무원 시험에 응시한다',
+        deltas: { wealth: 1, happiness: 2 },
+        result: '체력시험장을 나서던 날, 합격자 명단에서 이름 석 자를 확인했다.',
+        setOccupation: { id: 'police-cadet', label: '👮 경찰 교육생' },
+        startsRoute: { id: 'police', label: '👮 경찰', maxDurationYears: 45 },
+        mandatory: true
+      },
+      {
         id: 'lw-trigger-20',
         text: '물류센터 정직원으로서 본격적인 현장 생활을 시작한다',
         deltas: {"wealth":1,"health":-1},
@@ -6001,6 +6013,13 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        id: 'police-first-patrol-22',
+        text: '선임을 따라 첫 순찰을 나간다',
+        deltas: { happiness: 2, health: -1 },
+        result: '무전기 너머로 들려오는 지령 하나하나가, 아직은 낯설었다.',
+        requiresRoute: 'police'
+      },
       {
         id: 'lw-forklift-license-22',
         text: '지게차 운전 자격증을 취득한다',
@@ -8528,9 +8547,11 @@ const STAGES = [
         id: 'deviant-str-undeclared-ad-income-24',
         text: '광고·협찬 수입 상당 부분을 세금 신고에서 누락시킨다',
         requiresRoute: 'streamer',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '신고 안 한 수입이, 조용히 통장에 쌓여만 갔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '조세포탈 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       }
     ,
@@ -8568,6 +8589,22 @@ const STAGES = [
     ageRange: '25세',
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
+      {
+        id: 'police-overlooks-bribe-25',
+        text: '단속 대상에게 뇌물을 받고 슬쩍 눈감아준다',
+        deltas: { wealth: 3, relationship: -1 },
+        result: '봉투를 챙기고 돌아서는 뒷맛이, 생각보다 씁쓸했다.',
+        requiresRoute: 'police',
+        worldStateSignal: { key: 'policeCorruption', target: 1 }
+      },
+      {
+        id: 'police-enforces-by-the-book-25',
+        text: '봐달라는 부탁을 뿌리치고 원칙대로 처리한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '뒤끝이 개운했다. 원칙이란 게 별거 아니어도, 지킨다는 게 중요했다.',
+        requiresRoute: 'police',
+        worldStateSignal: { key: 'policeCorruption', target: 0 }
+      },
       {
         id: 'lw-safety-near-miss-25',
         text: '아찔한 안전사고를 가까스로 피한다',
@@ -8676,9 +8713,11 @@ const STAGES = [
       {
         id: 'deviant-underreport-side-income-25',
         text: '부업 소득을 세금 신고에서 슬쩍 뺀다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '아낀 세금만큼 통장이 두둑해졌다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -9527,9 +9566,11 @@ const STAGES = [
       {
         id: 'deviant-company-card-personal-26',
         text: '법인카드로 개인 물건을 슬쩍 결제한다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 2 }, result: '영수증을 슬쩍 구겨 넣으며 안도했다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -10249,9 +10290,11 @@ const STAGES = [
         text: '매출 상당 부분을 무자료 거래로 처리해 세금 신고에서 누락시킨다',
         requiresRoute: 'small-business',
         requiresOccupation: ['small-business-owner'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '신고 안 한 돈이, 조용히 쌓여만 갔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '조세포탈 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       }
     ,
@@ -11160,9 +11203,11 @@ const STAGES = [
         text: '해외 행사 수입을 신고하지 않고 몰래 챙긴다',
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '세금 걱정 없이, 수입이 고스란히 통장에 쌓였다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '조세포탈 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -11206,9 +11251,11 @@ const STAGES = [
         id: 'deviant-str-fake-charity-stream-27',
         text: '자선 방송인 척 모금하고 기부금 일부를 몰래 빼돌린다',
         requiresRoute: 'streamer',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '아무도 의심하지 않는 눈치라, 안도했다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '기부금 횡령 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '기부금 횡령 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       }
     ,
@@ -11352,9 +11399,11 @@ const STAGES = [
       {
         id: 'deviant-secret-gambling-friends-28',
         text: '친구들과 몰래 판돈을 걸고 게임을 한다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 3 }, result: '오랜만에 짜릿한 승부에 신이 났다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '상습도박 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '상습도박 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -11961,9 +12010,11 @@ const STAGES = [
         text: '동료들과 어울려 불법 온라인 도박 사이트에 상습적으로 접속한다',
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { happiness: 2, wealth: 2 }, result: '짜릿함과 함께, 이번에도 조용히 넘어갔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -12, fame: -15, happiness: -10, relationship: -5 }, result: '상습 도박 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -12, fame: -15, happiness: -10, relationship: -5 }, result: '상습 도박 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -12172,9 +12223,11 @@ const STAGES = [
         id: 'deviant-fake-injury-insurance-29',
         text: '가벼운 부상을 부풀려 보험금을 청구한다',
         requiresAsset: 'insurance',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '생각보다 많은 보험금이 입금됐다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '보험사기 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '보험사기 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -12861,9 +12914,11 @@ const STAGES = [
         requiresRoute: 'doctor',
         requiresOccupation: ['doctor'],
         worldStateSignal: { key: 'doctorCorruption', target: 1 },
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '부탁을 들어준 대가로, 사례를 두둑이 받았다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '허위 진단서 발급에 의한 보험사기 방조 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '허위 진단서 발급에 의한 보험사기 방조 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -12883,6 +12938,16 @@ const STAGES = [
     ageRange: '30세',
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
+      {
+        id: 'police-promoted-detective-30',
+        text: '강력계 형사로 발탁된다',
+        deltas: { wealth: 3, fame: 2, happiness: 2 },
+        result: '누구나 가는 자리는 아니었기에, 어깨가 한층 더 무거워졌다.',
+        requiresRoute: 'police',
+        requiresOccupation: ['police-cadet'],
+        appearChance: 0.3,
+        setOccupation: { id: 'detective', label: '👮 형사' }
+      },
       {
         id: 'lawyer-allnighter-brief-30',
         text: '재판 전날 밤을 새워 서면을 완성한다',
@@ -13036,9 +13101,11 @@ const STAGES = [
       {
         id: 'deviant-inflate-expense-report-30',
         text: '출장 비용 영수증을 부풀려 청구한다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '별 탈 없이 정산이 끝났다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -14321,9 +14388,11 @@ const STAGES = [
         text: '선거 자금 지출 내역을 허위로 부풀려 보고한다',
         requiresRoute: 'youth-politics',
         requiresOccupation: ['local-council-candidate'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '남는 자금을 슬쩍 챙기며, 별 문제 없이 넘어갔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '정치자금법 위반 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '정치자금법 위반 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       }
     ,
@@ -14332,9 +14401,11 @@ const STAGES = [
         text: '정부 소상공인 지원금을 허위 서류로 신청해 받는다',
         requiresRoute: 'small-business',
         requiresOccupation: ['small-business-owner'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '생각보다 큰 돈이 들어오며 한숨 돌릴 수 있었다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '부정수급 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '부정수급 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -14418,9 +14489,11 @@ const STAGES = [
         id: 'deviant-lawyer-influence-peddling-32',
         text: '전관 인맥을 동원해 담당 판사에게 은밀히 청탁을 넣는다',
         requiresRoute: 'lawyer',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 6, fame: 2 }, result: '재판 결과가 유리하게 뒤집히며, 의뢰인의 신뢰가 두터워졌다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '전관예우 청탁 정황이 결국 드러나며 변호사법 위반으로 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '전관예우 청탁 정황이 결국 드러나며 변호사법 위반으로 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -15141,9 +15214,11 @@ const STAGES = [
         id: 'deviant-cs-bribery-33',
         text: '민원 처리를 봐주는 대가로 뇌물을 받는다',
         requiresRoute: 'civil-servant-route',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '별 탈 없이, 조용한 거래가 마무리됐다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -10, happiness: -12, relationship: -6 }, result: '뇌물수수 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -10, happiness: -12, relationship: -6 }, result: '뇌물수수 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -15290,9 +15365,11 @@ const STAGES = [
       {
         id: 'deviant-fake-tax-invoice-33',
         text: '가짜 세금계산서로 지출을 부풀린다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '절세 효과에 잠시 흐뭇했다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -15862,9 +15939,11 @@ const STAGES = [
         text: '마약성 진통제 처방전을 불법으로 유용한다',
         requiresRoute: 'doctor',
         requiresOccupation: ['doctor'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '위험한 줄 알면서도, 손을 대고 말았다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '마약류 관리법 위반 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '마약류 관리법 위반 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       }
     ]
@@ -16581,6 +16660,13 @@ const STAGES = [
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
       {
+        id: 'police-major-case-solved-35',
+        text: '몇 달을 매달린 강력사건을 마침내 해결한다',
+        deltas: { fame: 4, happiness: 4, health: -2 },
+        result: '용의자를 검거하던 순간, 그동안의 밤샘이 전부 보상받는 기분이었다.',
+        requiresRoute: 'police'
+      },
+      {
         id: 'lawyer-loses-major-case-35',
         text: '확신했던 재판에서 예상외로 패소한다',
         deltas: { happiness: -5, fame: -2, relationship: -2 },
@@ -16673,18 +16759,22 @@ const STAGES = [
       {
         id: 'deviant-embezzle-petty-cash-35',
         text: '회삿돈 자투리를 슬쩍 개인 용도로 쓴다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '푼돈이라 티도 안 날 거라 생각했다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
         id: 'deviant-underreport-rental-income-35',
         text: '임대 소득을 세금 신고에서 축소해 신고한다',
         requiresAssetType: 'realestate',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '아낀 세금만큼 여유가 생겼다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -17318,9 +17408,11 @@ const STAGES = [
       {
         id: 'deviant-fake-charity-receipt-36',
         text: '기부하지 않은 금액을 기부금 영수증에 적는다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '연말정산 환급액이 두둑해졌다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -17911,9 +18003,11 @@ const STAGES = [
       {
         id: 'deviant-fake-doctor-note-37',
         text: '안 아픈데 진단서를 위조해 병가를 낸다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { happiness: 3, wealth: 1 }, result: '푹 쉰 며칠이 보약 같았다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '문서위조 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '문서위조 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -18389,9 +18483,11 @@ const STAGES = [
         text: '지역 공사 발주 대가로 업체로부터 뒷돈을 받는다',
         requiresRoute: 'youth-politics',
         requiresOccupation: ['local-council-member'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '큰 액수가 조용히 통장에 들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '뇌물수수 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '뇌물수수 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       }
     ,
@@ -19077,9 +19173,11 @@ const STAGES = [
       {
         id: 'deviant-inflate-golf-entertainment-39',
         text: '접대 골프 비용을 실제보다 부풀려 청구한다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '차액만큼 용돈이 두둑해졌다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -19502,9 +19600,11 @@ const STAGES = [
         id: 'deviant-lawyer-witness-tampering-40',
         text: '증인에게 유리한 증언을 하도록 은밀히 회유한다',
         requiresRoute: 'lawyer',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 5, fame: 2 }, result: '재판 흐름이 원하는 대로 바뀌며, 승소 가능성이 확 높아졌다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '위증교사 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '위증교사 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -20023,9 +20123,11 @@ const STAGES = [
         text: '지역구 예산 일부를 개인 계좌로 몰래 빼돌린다',
         requiresRoute: 'youth-politics',
         requiresOccupation: ['local-council-member'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '아무도 알아채지 못한 채, 넉넉한 여윳돈이 생겼다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '예산 횡령 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '예산 횡령 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       }
     ,
@@ -20084,9 +20186,11 @@ const STAGES = [
       {
         id: 'deviant-corpcard-family-trip-41',
         text: '회사 법인카드로 가족 여행 경비를 결제한다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 3 }, result: '공짜 여행이라는 생각에 발걸음이 가벼웠다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -20521,9 +20625,11 @@ const STAGES = [
       {
         id: 'deviant-fake-safety-inspection-42',
         text: '안전 점검 결과를 대충 통과시킨다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '번거로운 절차를 건너뛴 게 편했다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '안전서류 조작 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '안전서류 조작 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -21316,9 +21422,11 @@ const STAGES = [
         id: 'deviant-lawyer-evidence-tampering-44',
         text: '불리한 증거를 은근슬쩍 조작하는 데 손을 보탠다',
         requiresRoute: 'lawyer',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 6, fame: 2 }, result: '재판 결과가 뒤바뀌며, 의뢰인은 환호했다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '증거 조작 방조 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '증거 조작 방조 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -21379,9 +21487,11 @@ const STAGES = [
       {
         id: 'deviant-underpay-subcontractor-44',
         text: '하청 대금을 슬쩍 늦게, 적게 지급한다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '당장의 자금 압박은 넘겼다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '하도급법 위반 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '하도급법 위반 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -21831,9 +21941,11 @@ const STAGES = [
       {
         id: 'deviant-fudge-audit-numbers-45',
         text: '회사 장부 숫자를 살짝 눈속임한다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '이번 분기 실적이 그럴듯하게 포장됐다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '분식회계 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '분식회계 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -22362,9 +22474,11 @@ const STAGES = [
         id: 'deviant-fake-property-damage-claim-46',
         text: '멀쩡한 물건을 파손됐다며 보험금을 청구한다',
         requiresAsset: 'insurance',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '생각보다 순조롭게 보험금이 나왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '보험사기 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '보험사기 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -22637,9 +22751,11 @@ const STAGES = [
       {
         id: 'deviant-hide-savings-tax-47',
         text: '여윳돈 일부를 세금 안 내려고 몰래 숨겨둔다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '아낀 세금이 쏠쏠하게 느껴졌다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -22981,9 +23097,11 @@ const STAGES = [
         id: 'deviant-cs-budget-misuse-48',
         text: '남은 예산을 소진하려 불필요한 사업을 무리하게 밀어붙인다',
         requiresRoute: 'civil-servant-route',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { fame: 2 }, result: '예산 집행률 숫자만큼은, 보기 좋게 채워졌다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '예산 유용 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '예산 유용 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -23322,9 +23440,11 @@ const STAGES = [
       {
         id: 'deviant-fake-donation-tax-49',
         text: '안 한 기부를 한 것처럼 서류를 꾸민다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '연말정산에서 짭짤한 환급을 받았다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -23591,9 +23711,11 @@ const STAGES = [
       {
         id: 'deviant-fake-early-retirement-doc-50',
         text: '명예퇴직 조건을 맞추려 서류를 손본다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '두둑한 위로금을 손에 쥐었다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '사문서위조 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '사문서위조 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -23837,9 +23959,11 @@ const STAGES = [
       {
         id: 'deviant-old-gambling-habit-returns-51',
         text: '젊은 날의 도박 버릇이 몰래 되살아난다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 3 }, result: '오랜만에 손맛을 되찾은 듯했다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '상습도박 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '상습도박 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -24477,6 +24601,18 @@ const STAGES = [
     intro: '정년이라는 단어가 더는 남 얘기가 아니게 되는 나이. 매일 출근하던 삶이 조용히 막을 내립니다.',
     choices: [
       {
+        id: 'citizen-reports-suspicious-person-55',
+        text: '골목에서 수상한 사람을 목격하고 경찰에 신고한다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '괜한 일에 나선 건 아닐까 싶었지만, 신고하지 않는 것보단 나았다.',
+        dynamicAppearChance: { key: 'publicSafety', min: 0.25, max: 0.75 },
+        worldStateNote: {
+          key: 'publicSafety',
+          corruptText: ' 요즘 치안이 부쩍 불안하다는 소문이 많더니, 그 말이 실감 났다.',
+          honestText: ' 큰 사건 사고 없이 조용한 동네였지만, 그래도 방심할 순 없었다.'
+        }
+      },
+      {
         id: 'dev2-legacy-system-reunion-55',
         text: '오래전 직접 만든 시스템이 아직도 쓰이고 있다는 소식을 듣는다',
         deltas: {"happiness":4,"fame":1},
@@ -25001,9 +25137,11 @@ const STAGES = [
       {
         id: 'deviant-inflate-consulting-fee-57',
         text: '은퇴 후 컨설팅비를 실제보다 부풀려 청구한다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '한 건에 짭짤한 수입이 들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '사기 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '사기 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -25533,6 +25671,15 @@ const STAGES = [
     intro: '환갑. 예순 해를 지나온 삶을 가족과 함께 돌아보는 해입니다.',
     choices: [
       {
+        id: 'police-mandatory-retirement-60',
+        text: '정년을 채우고 경찰 생활을 마무리한다',
+        deltas: { happiness: 3, health: 1 },
+        result: '거리에서 보낸 세월이, 조용히 훈장 하나로 남았다.',
+        requiresRoute: 'police',
+        mandatory: true,
+        endsRoute: true
+      },
+      {
         id: 'cs-mandatory-retirement-60',
         text: '정년을 채우고 공무원 생활을 마무리한다',
         deltas: { happiness: 3, health: 1 },
@@ -25785,9 +25932,11 @@ const STAGES = [
         id: 'deviant-underreport-severance-tax-61',
         text: '퇴직금 세금 신고를 슬쩍 줄인다',
         requiresAsset: 'severance-payout',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '세금 몇 푼을 아꼈다는 생각에 흡족했다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '조세포탈 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -25802,9 +25951,11 @@ const STAGES = [
       {
         id: 'deviant-pension-income-underreport-61',
         text: '실제보다 소득을 낮춰 신고해 연금 혜택을 더 받는다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '매달 나오는 연금이 조금 더 두둑했다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '부정수급 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '부정수급 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -26481,9 +26632,11 @@ const STAGES = [
       {
         id: 'deviant-hide-sideincome-pension-65',
         text: '소일거리 수입을 연금공단에 숨긴다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 2 }, result: '연금이 깎이지 않아 다행이었다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '부정수급 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '부정수급 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -26754,9 +26907,11 @@ const STAGES = [
       {
         id: 'deviant-senior-center-gambling-66',
         text: '경로당 화투판에서 몰래 판돈을 키운다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 2 }, result: '오랜만에 손이 풀리며 짭짤하게 땄다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '상습도박 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '상습도박 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -26950,9 +27105,11 @@ const STAGES = [
       {
         id: 'deviant-prescription-resale-67',
         text: '필요 이상으로 약을 처방받아 되판다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '용돈벌이가 쏠쏠했다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '약사법 위반 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '약사법 위반 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -27546,9 +27703,11 @@ const STAGES = [
       {
         id: 'deviant-inflate-disability-benefit-71',
         text: '실제보다 부풀려 장애 등급 혜택을 신청한다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '생활비 부담이 한결 가벼워졌다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '부정수급 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '부정수급 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -28028,9 +28187,11 @@ const STAGES = [
       {
         id: 'deviant-senior-highstakes-gambling-75',
         text: '경로당 몰래 큰 판돈이 걸린 도박에 낀다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 2 }, result: '오랜만에 짜릿한 승부욕이 되살아났다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '상습도박 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '상습도박 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -28571,9 +28732,11 @@ const STAGES = [
       {
         id: 'deviant-senior-lottery-pool-skim-79',
         text: '경로당 로또 계모임 돈에 몰래 손을 댄다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3 }, result: '급한 불을 끄고 나니 마음이 놓였다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '횡령 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -29634,9 +29797,11 @@ const STAGES = [
       {
         id: 'deviant-secret-will-edit-87',
         text: '가족 몰래 유언장 내용을 슬쩍 바꾼다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '오랜 고민 끝에 마음의 짐을 하나 덜었다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '사문서위조 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+          { weight: 18, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -8 }, result: '사문서위조 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
 
@@ -32563,11 +32728,58 @@ const LOVER_ROUTE_CHOICES = [
   },
 ];
 
+// RED_HANDED_CHOICES(2026-08-28, 56장 A항 5번째 조합 - 경찰↔현행범↔시민) -
+// PRISON_CHOICES/LOVER_ROUTE_CHOICES와 같은 원리의 전역 풀. 41개 중범죄
+// 선택지의 "징역" 갈래가 이제 곧바로 감옥으로 보내지 않고 이 red-handed
+// 루트(1턴짜리, maxDurationYears:1)로 먼저 보낸다 - 발각된 나이가 언제일지
+// 알 수 없어 특정 나이의 choices 배열에 넣을 수 없다.
+const RED_HANDED_CHOICES = [
+  {
+    id: 'caught-bribe-attempt',
+    text: '다가온 경찰에게 넌지시 돈 봉투를 건넨다',
+    requiresRoute: 'red-handed',
+    dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '매수 실패', min: 0.25, max: 0.75, invert: false },
+    appendPoliceCorruptionNote: true,
+    prizeTable: [
+      { weight: 50, label: '매수 성공', deltas: { wealth: -5 }, result: '경찰의 눈빛이 흔들리는가 싶더니, 봉투를 챙겨 넣었다.', endsRoute: true },
+      { weight: 50, label: '매수 실패', deltas: { wealth: -15, happiness: -6 }, result: '오히려 뇌물공여 혐의까지 얹혀 상황이 더 나빠졌다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' }, worldStateSignal: { key: 'publicSafety', target: 0 } }
+    ]
+  },
+  {
+    id: 'caught-confess-cooperate',
+    text: '더 이상 발뺌하지 않고 순순히 자백한다',
+    requiresRoute: 'red-handed',
+    deltas: { relationship: 1, wealth: -3 },
+    result: '인정하고 나니, 오히려 마음은 한결 가벼웠다. 초범에 협조적이라는 정상참작으로 벌금형에 그쳤다.',
+    worldStateSignal: { key: 'publicSafety', target: 0 },
+    endsRoute: true
+  },
+  {
+    id: 'caught-flee-attempt',
+    text: '정신없이 그 자리를 벗어나려 한다',
+    requiresRoute: 'red-handed',
+    dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '도주 실패', min: 0.25, max: 0.75, invert: false },
+    appendPoliceCorruptionNote: true,
+    prizeTable: [
+      { weight: 50, label: '도주 성공', deltas: { happiness: -2 }, result: '정신없이 뛰어 일단 그 자리는 벗어났다. 지명수배자 신세가 됐다는 걸, 나중에야 실감했다.', endsRoute: true, worldStateSignal: { key: 'publicSafety', target: 1 } },
+      { weight: 50, label: '도주 실패', deltas: { wealth: -15, happiness: -8 }, result: '도망치다 붙잡히니, 공무집행방해 혐의까지 더해져 죄목만 하나 더 늘었다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' }, worldStateSignal: { key: 'publicSafety', target: 0 } }
+    ]
+  },
+  {
+    id: 'caught-lawyer-silence',
+    text: '변호사가 올 때까지 아무 말도 하지 않는다',
+    requiresRoute: 'red-handed',
+    deltas: { happiness: -2, wealth: -4 },
+    result: '침묵이 유리할지 불리할지, 확신은 서지 않았다. 증거 불충분으로 결국 불기소 처분을 받았다.',
+    endsRoute: true
+  }
+];
 
 module.exports = {
   STAGES,
   PRISON_CHOICES,
   LOVER_ROUTE_CHOICES,
+  RED_HANDED_CHOICES,
   ENDINGS,
   resolveEnding,
   buildCollapseEnding,
