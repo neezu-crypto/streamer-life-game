@@ -137,7 +137,11 @@
 const COMPANY_OCCUPATION_IDS = [
   'tech-worker', 'civil-servant', 'logistics-worker', 'teacher', 'healthcare-worker',
   'public-corp-employee', 'sales-rep', 'office-worker', 'job-changed', 'team-lead',
-  're-employed', 'career-changer'
+  're-employed', 'career-changer',
+  // 공무원 루트 신설(2026-08-28)로 civil-servant가 승진하며 갈리는 직급별 id들 -
+  // 승진해도 "회사(조직) 소속" 성격은 그대로라 이 배열에서 빠지면 안 된다(빠지면
+  // 부서 이동·회식 등 회사원 계열 콘텐츠가 승진한 순간부터 안 뜨게 됨).
+  'civil-servant-7th-grade', 'civil-servant-5th-grade', 'civil-servant-senior-official'
 ];
 
 // LOTTERY_PRIZE_TABLE(2026-08-17, 사용자 지시) - 복권을 산 뒤(addAsset로
@@ -4403,6 +4407,7 @@ const STAGES = [
         deltas: { wealth: 2, happiness: 3 },
         result: '합격자 명단에서 내 이름을 확인한 순간, 몇 년의 수험 생활이 스쳐 지나갔다.',
         setOccupation: { id: 'civil-servant', label: '🏛️ 공무원' },
+        startsRoute: { id: 'civil-servant-route', label: '🏛️ 공무원 루트', maxDurationYears: 45 },
         mandatory: true
       },
       {
@@ -7602,6 +7607,13 @@ const STAGES = [
     ageRange: '24세',
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
+      {
+        id: 'cs-department-assignment-24',
+        text: '세무·복지·인허가 중 한 부서로 첫 발령을 받는다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '어떤 부서든, 민원인 앞에 서는 무게는 비슷했다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'newcomer-unpaid-overtime-report-24',
         text: '팀장의 부당한 야근 지시를 참다못해 노동청에 신고한다',
@@ -11195,6 +11207,16 @@ const STAGES = [
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
       {
+        id: 'cs-promoted-7th-grade-28',
+        text: '7급 승진 시험에 최종 합격한다',
+        deltas: { wealth: 3, happiness: 3 },
+        result: '몇 년의 야근과 공부가, 직급 하나로 조용히 증명됐다.',
+        requiresRoute: 'civil-servant-route',
+        requiresOccupation: ['civil-servant'],
+        mandatory: true,
+        setOccupation: { id: 'civil-servant-7th-grade', label: '🏛️ 7급 공무원' }
+      },
+      {
         id: 'lw-special-cargo-cert-28',
         text: '특수화물을 다루는 자격을 취득한다',
         deltas: {"happiness":2,"wealth":2},
@@ -12814,6 +12836,13 @@ const STAGES = [
     ageRange: '30세',
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
+      {
+        id: 'cs-supervisor-conflict-30',
+        text: '방침을 두고 상급자와 정면으로 부딪힌다',
+        deltas: { happiness: -3, relationship: -2 },
+        result: '옳고 그름을 떠나, 조직에서 이기는 싸움은 아니었다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 'lw-mentors-rookies-30',
         text: '신입들이 믿고 의지하는 선임 역할을 맡는다',
@@ -14811,7 +14840,7 @@ const STAGES = [
         text: '쌓아온 연공서열이라는 계단을 한 칸 오른다',
         deltas: { wealth: 3, happiness: 2 },
         result: '화려하진 않아도, 꾸준함이 결국 계단 하나를 만들어줬다.',
-        requiresOccupation: ['civil-servant']
+        requiresOccupation: ['civil-servant', 'civil-servant-7th-grade', 'civil-servant-5th-grade', 'civil-servant-senior-official']
       },
       {
         id: 'teacher-parent-complaints',
@@ -15038,6 +15067,15 @@ const STAGES = [
     ageRange: '33세',
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
+      {
+        id: 'deviant-cs-bribery-33',
+        text: '민원 처리를 봐주는 대가로 뇌물을 받는다',
+        requiresRoute: 'civil-servant-route',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '별 탈 없이, 조용한 거래가 마무리됐다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -10, happiness: -12, relationship: -6 }, result: '뇌물수수 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+        ]
+      },
       {
         id: 'lw-logistics-management-cert-33',
         text: '물류관리사 자격증을 취득한다',
@@ -17114,6 +17152,16 @@ const STAGES = [
     intro: '나를 키워준 사람들을 이제는 내가 돌봐야 할 시기가 다가옵니다.',
     choices: [
       {
+        id: 'cs-promoted-5th-grade-36',
+        text: '5급 사무관 승진 시험에 최종 합격한다',
+        deltas: { wealth: 4, happiness: 4, fame: 1 },
+        result: '"사무관"이라는 세 글자가 명패에 새겨지던 날, 지난 세월이 스쳐 지나갔다.',
+        requiresRoute: 'civil-servant-route',
+        requiresOccupation: ['civil-servant-7th-grade'],
+        mandatory: true,
+        setOccupation: { id: 'civil-servant-5th-grade', label: '🏛️ 5급 사무관' }
+      },
+      {
         id: 're-informal-leader-role-36',
         text: '직함 없이도 팀의 중심 역할을 맡는다',
         deltas: {"happiness":2,"fame":2},
@@ -18118,7 +18166,7 @@ const STAGES = [
         text: '관행적인 업무 처리 방식에 답답함을 느낀다',
         deltas: { happiness: -3 },
         result: '이래야 하는 이유를 물어도, 돌아오는 답은 늘 "원래 그렇다"였다.',
-        requiresOccupation: ['civil-servant']
+        requiresOccupation: ['civil-servant', 'civil-servant-7th-grade', 'civil-servant-5th-grade', 'civil-servant-senior-official']
       },
       {
         id: 'teacher-homeroom-duties',
@@ -18279,6 +18327,13 @@ const STAGES = [
     ageRange: '38세',
     intro: '몸이 예전 같지 않다는 걸, 무시할 수 없을 만큼 또렷하게 느끼게 됩니다.',
     choices: [
+      {
+        id: 'cs-parliamentary-audit-crisis-38',
+        text: '국정감사 시즌, 자료 요청과 질의에 밤낮없이 매달린다',
+        deltas: { health: -4, happiness: -3, wealth: 1 },
+        result: '한 줄 답변을 위해, 며칠 밤을 자료 더미와 씨름했다.',
+        requiresRoute: 'civil-servant-route'
+      },
       {
         id: 're-decade-reflection-38',
         text: '입사 10년을 돌아본다',
@@ -19331,6 +19386,15 @@ const STAGES = [
     ageRange: '40세',
     intro: '인생의 절반 지점. 마흔이라는 숫자가 이유 없이 지난 시간을 돌아보게 만듭니다.',
     choices: [
+      {
+        id: 'deviant-cs-permit-favor-40',
+        text: '지인의 부탁으로 인허가 서류에 특혜성 편의를 봐준다',
+        requiresRoute: 'civil-servant-route',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4, relationship: 2 }, result: '작은 호의였을 뿐이라고, 스스로를 다독였다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, happiness: -4 }, result: '특혜 인허가 정황이 드러나며 감사원 조사를 받았다.' }
+        ]
+      },
       {
         id: 'yp-town-hall-meeting-40',
         text: '주민들과 직접 소통하는 타운홀 미팅을 정기적으로 연다',
@@ -20583,7 +20647,7 @@ const STAGES = [
         text: '칼퇴근과 안정적인 워라밸을 만끽한다',
         deltas: { happiness: 5, health: 2 },
         result: '퇴근길 하늘이 아직 밝다는 것만으로도, 하루가 여유로워졌다.',
-        requiresOccupation: ['civil-servant']
+        requiresOccupation: ['civil-servant', 'civil-servant-7th-grade', 'civil-servant-5th-grade', 'civil-servant-senior-official']
       },
       {
         id: 'teacher-late-night-prep',
@@ -22100,6 +22164,16 @@ const STAGES = [
     intro: '늦지 않았다는 걸 스스로 증명하고 싶어지는 나이입니다.',
     choices: [
       {
+        id: 'cs-promoted-senior-official-46',
+        text: '서기관 승진자 명단에 이름을 올린다',
+        deltas: { wealth: 5, fame: 3, happiness: 4 },
+        result: '누구나 오르는 자리는 아니었기에, 그 무게가 남달랐다.',
+        requiresRoute: 'civil-servant-route',
+        requiresOccupation: ['civil-servant-5th-grade'],
+        appearChance: 0.3,
+        setOccupation: { id: 'civil-servant-senior-official', label: '🏛️ 서기관' }
+      },
+      {
         id: 're-mgr-performance-pressure-46',
         text: '팀 실적에 대한 압박을 느낀다',
         deltas: {"happiness":-4,"wealth":1},
@@ -22633,7 +22707,7 @@ const STAGES = [
         text: '감사(監査) 대상이 되어 며칠간 초긴장 상태로 지낸다',
         deltas: { health: -3, happiness: -3 },
         result: '서류 한 장 한 장을 다시 들여다볼 때마다, 잠이 달아났다.',
-        requiresOccupation: ['civil-servant']
+        requiresOccupation: ['civil-servant', 'civil-servant-7th-grade', 'civil-servant-5th-grade', 'civil-servant-senior-official']
       },
       {
         id: 'teacher-department-head',
@@ -22763,6 +22837,15 @@ const STAGES = [
     ageRange: '48세',
     intro: '커리어가 정점에 이르거나, 정체를 마주하거나 — 갈림이 뚜렷해지는 나이입니다.',
     choices: [
+      {
+        id: 'deviant-cs-budget-misuse-48',
+        text: '남은 예산을 소진하려 불필요한 사업을 무리하게 밀어붙인다',
+        requiresRoute: 'civil-servant-route',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { fame: 2 }, result: '예산 집행률 숫자만큼은, 보기 좋게 채워졌다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '예산 유용 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+        ]
+      },
       {
         id: 're-mgr-caught-between-48',
         text: '위아래 사이에서 곤란한 입장에 놓인다',
@@ -25310,6 +25393,24 @@ const STAGES = [
     intro: '환갑. 예순 해를 지나온 삶을 가족과 함께 돌아보는 해입니다.',
     choices: [
       {
+        id: 'cs-mandatory-retirement-60',
+        text: '정년을 채우고 공무원 생활을 마무리한다',
+        deltas: { happiness: 3, health: 1 },
+        result: '정확히 채워낸 정년이, 그 자체로 하나의 훈장 같았다.',
+        requiresRoute: 'civil-servant-route',
+        mandatory: true,
+        endsRoute: true
+      },
+      {
+        id: 'cs-early-honorable-retirement-60',
+        text: '명예퇴직을 신청하고 조금 이르게 짐을 정리한다',
+        deltas: { wealth: 2, happiness: 1, health: 2 },
+        result: '남은 시간을 스스로 정하고 싶다는 마음이, 결국 더 컸다.',
+        requiresRoute: 'civil-servant-route',
+        mandatory: true,
+        endsRoute: true
+      },
+      {
         id: 'lw2-retirement-prep-60',
         text: '평생 몸으로 뛰어온 현장 생활의 마무리를 준비한다',
         deltas: {"happiness":2,"health":1},
@@ -25709,6 +25810,13 @@ const STAGES = [
     ageRange: '62세',
     intro: '연금이라는 단어가 현실적인 숫자로 다가오기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'cs2-pension-income-62',
+        text: '매달 나오는 공무원 연금으로 생활을 꾸린다',
+        deltas: { wealth: 3, happiness: 2 },
+        result: '꼬박꼬박 들어오는 연금이, 은퇴 후의 불안을 조금 덜어줬다.',
+        requiresEverOccupation: ['civil-servant', 'civil-servant-7th-grade', 'civil-servant-5th-grade', 'civil-servant-senior-official']
+      },
       {
         id: 'lover-family-disapproval',
         text: '자녀들이 새 연인을 못마땅해해 마음이 복잡하다',
@@ -26200,7 +26308,13 @@ const STAGES = [
     ageRange: '65세',
     intro: '법정 노인 연령. 사회가 부르는 호칭이 바뀌는 걸 마주하게 됩니다.',
     choices: [
-
+      {
+        id: 'cs2-reemployment-advisory-65',
+        text: '공공기관 자문위원으로 위촉돼 재취업한다',
+        deltas: { wealth: 3, fame: 2 },
+        result: '현역 때만큼은 아니어도, 여전히 쓸모 있는 사람이라는 게 기뻤다.',
+        requiresEverOccupation: ['civil-servant', 'civil-servant-7th-grade', 'civil-servant-5th-grade', 'civil-servant-senior-official']
+      },
       {
         id: 'yp2-memoir-writing-65',
         text: '평생의 정치 인생을 회고록으로 정리한다',
