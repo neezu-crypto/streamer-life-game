@@ -4538,6 +4538,16 @@ const STAGES = [
         mandatory: true,
         startsRoute: { id: 'doctor', label: '⚕️ 의사', maxDurationYears: 20 },
         setOccupation: { id: 'med-student', label: '🩺 의대생' }
+      },
+      {
+        id: 'law-school-decision-19',
+        text: '법대에 진학해 법조인의 길을 걷기로 결심한다',
+        deltas: { happiness: 3, wealth: -2 },
+        result: '두꺼운 법전을 처음 펼쳤을 때의 막막함이, 아직도 생생했다.',
+        requiresEverOccupation: ['top-of-class'],
+        mandatory: true,
+        startsRoute: { id: 'lawyer', label: '⚖️ 변호사', maxDurationYears: 50 },
+        setOccupation: { id: 'law-student', label: '📚 법학도' }
       }
     ]
   },
@@ -7608,6 +7618,16 @@ const STAGES = [
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
       {
+        id: 'bar-exam-pass-24',
+        text: '변호사시험에 최종 합격해 자격을 취득한다',
+        deltas: { happiness: 4, fame: 1 },
+        result: '합격자 명단에서 이름을 확인한 순간, 법전을 덮던 밤들이 스쳐 지나갔다.',
+        requiresRoute: 'lawyer',
+        requiresOccupation: ['law-student'],
+        mandatory: true,
+        setOccupation: { id: 'trainee-lawyer', label: '⚖️ 수습 변호사' }
+      },
+      {
         id: 'cs-department-assignment-24',
         text: '세무·복지·인허가 중 한 부서로 첫 발령을 받는다',
         deltas: { happiness: 1, wealth: 1 },
@@ -9379,6 +9399,26 @@ const STAGES = [
     ageRange: '26세',
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
+      {
+        id: 'lawyer-joins-firm-26',
+        text: '대형 로펌에 입사한다',
+        deltas: { wealth: 4, happiness: 1 },
+        result: '높은 연봉만큼, 첫날부터 살인적인 업무량이 밀려들었다.',
+        requiresRoute: 'lawyer',
+        requiresOccupation: ['trainee-lawyer'],
+        mandatory: true,
+        setOccupation: { id: 'associate-lawyer', label: '🏢 로펌 변호사' }
+      },
+      {
+        id: 'lawyer-opens-own-office-26',
+        text: '개인 법률사무소를 개업한다',
+        deltas: { wealth: -3, happiness: 3 },
+        result: '작은 간판 하나였지만, 온전히 내 이름을 건 시작이었다.',
+        requiresRoute: 'lawyer',
+        requiresOccupation: ['trainee-lawyer'],
+        mandatory: true,
+        setOccupation: { id: 'solo-lawyer', label: '⚖️ 개업 변호사' }
+      },
       {
         id: 'lw-cold-shift-26',
         text: '매서운 한파 속에서도 새벽 근무를 이어간다',
@@ -11207,6 +11247,13 @@ const STAGES = [
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
       {
+        id: 'lawyer-case-intake-28',
+        text: '첫 단독 사건을 수임해 맡는다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '작은 사건이었지만, 오롯이 내 책임이라는 게 새삼 무겁게 느껴졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
         id: 'cs-promoted-7th-grade-28',
         text: '7급 승진 시험에 최종 합격한다',
         deltas: { wealth: 3, happiness: 3 },
@@ -12837,6 +12884,13 @@ const STAGES = [
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
       {
+        id: 'lawyer-allnighter-brief-30',
+        text: '재판 전날 밤을 새워 서면을 완성한다',
+        deltas: { health: -3, happiness: -1 },
+        result: '마침표를 찍고 나서야, 창밖이 밝아온 걸 알아챘다.',
+        requiresRoute: 'lawyer'
+      },
+      {
         id: 'cs-supervisor-conflict-30',
         text: '방침을 두고 상급자와 정면으로 부딪힌다',
         deltas: { happiness: -3, relationship: -2 },
@@ -14361,6 +14415,15 @@ const STAGES = [
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
       {
+        id: 'deviant-lawyer-influence-peddling-32',
+        text: '전관 인맥을 동원해 담당 판사에게 은밀히 청탁을 넣는다',
+        requiresRoute: 'lawyer',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6, fame: 2 }, result: '재판 결과가 유리하게 뒤집히며, 의뢰인의 신뢰가 두터워졌다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '전관예우 청탁 정황이 결국 드러나며 변호사법 위반으로 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+        ]
+      },
+      {
         id: 'lw-joins-labor-union-32',
         text: '노동조합에 가입해 목소리를 보탠다',
         deltas: {"happiness":2,"relationship":1},
@@ -15067,6 +15130,13 @@ const STAGES = [
     ageRange: '33세',
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
+      {
+        id: 'lawyer-wins-major-case-33',
+        text: '오랜 시간 매달린 재판에서 극적으로 승소한다',
+        deltas: { fame: 4, happiness: 4, wealth: 2 },
+        result: '판결문을 받아드는 순간, 그동안의 밤샘이 전부 보상받는 기분이었다.',
+        requiresRoute: 'lawyer'
+      },
       {
         id: 'deviant-cs-bribery-33',
         text: '민원 처리를 봐주는 대가로 뇌물을 받는다',
@@ -16511,6 +16581,13 @@ const STAGES = [
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
       {
+        id: 'lawyer-loses-major-case-35',
+        text: '확신했던 재판에서 예상외로 패소한다',
+        deltas: { happiness: -5, fame: -2, relationship: -2 },
+        result: '의뢰인의 실망한 얼굴이, 오래도록 마음에 남았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
         id: 're-burnout-onset-35',
         text: '번아웃 증상을 느끼기 시작한다',
         deltas: {"happiness":-5},
@@ -17152,6 +17229,15 @@ const STAGES = [
     intro: '나를 키워준 사람들을 이제는 내가 돌봐야 할 시기가 다가옵니다.',
     choices: [
       {
+        id: 'deviant-lawyer-excessive-fee-36',
+        text: '승소 가능성을 부풀려 과다한 성공보수를 요구한다',
+        requiresRoute: 'lawyer',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '의뢰인은 몰랐겠지만, 통장 잔고는 확실히 두둑해졌다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, happiness: -4 }, result: '의뢰인의 진정으로 변호사협회 징계 절차를 밟게 됐다.' }
+        ]
+      },
+      {
         id: 'cs-promoted-5th-grade-36',
         text: '5급 사무관 승진 시험에 최종 합격한다',
         deltas: { wealth: 4, happiness: 4, fame: 1 },
@@ -17738,6 +17824,22 @@ const STAGES = [
     ageRange: '37세',
     intro: '잊고 지내던 나 자신을 다시 챙기기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'lawyer-partner-race-37',
+        text: '동료들과 파트너 승진 경쟁이 치열해진다',
+        deltas: { happiness: -3, wealth: 1, relationship: -2 },
+        result: '어제까지 함께 웃던 동료가, 오늘은 경쟁자로 보였다.',
+        requiresRoute: 'lawyer',
+        requiresOccupation: ['associate-lawyer']
+      },
+      {
+        id: 'lawyer-solo-cashflow-crisis-37',
+        text: '사무실 임대료와 직원 월급에 통장이 바닥을 보인다',
+        deltas: { happiness: -4, wealth: -3 },
+        result: '간판을 걸었던 그날의 설렘은, 이제 통장 잔고 앞에서 무색해졌다.',
+        requiresRoute: 'lawyer',
+        requiresOccupation: ['solo-lawyer']
+      },
       {
         id: 're-promotion-passed-over-37',
         text: '기대했던 승진에서 밀려난다',
@@ -18327,6 +18429,16 @@ const STAGES = [
     ageRange: '38세',
     intro: '몸이 예전 같지 않다는 걸, 무시할 수 없을 만큼 또렷하게 느끼게 됩니다.',
     choices: [
+      {
+        id: 'deviant-lawyer-neglected-defense-38',
+        text: '수임료만 챙기고 사건 준비는 대충 때운다',
+        requiresRoute: 'lawyer',
+        requiresOccupation: ['solo-lawyer'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 3, health: 2 }, result: '들인 시간에 비해, 수임료는 고스란히 남았다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -3, fame: -6, happiness: -4 }, result: '패소한 의뢰인의 항의와 함께 부실 변론 논란이 퍼졌다.' }
+        ]
+      },
       {
         id: 'cs-parliamentary-audit-crisis-38',
         text: '국정감사 시즌, 자료 요청과 질의에 밤낮없이 매달린다',
@@ -19387,6 +19499,15 @@ const STAGES = [
     intro: '인생의 절반 지점. 마흔이라는 숫자가 이유 없이 지난 시간을 돌아보게 만듭니다.',
     choices: [
       {
+        id: 'deviant-lawyer-witness-tampering-40',
+        text: '증인에게 유리한 증언을 하도록 은밀히 회유한다',
+        requiresRoute: 'lawyer',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5, fame: 2 }, result: '재판 흐름이 원하는 대로 바뀌며, 승소 가능성이 확 높아졌다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '위증교사 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+        ]
+      },
+      {
         id: 'deviant-cs-permit-favor-40',
         text: '지인의 부탁으로 인허가 서류에 특혜성 편의를 봐준다',
         requiresRoute: 'civil-servant-route',
@@ -20343,6 +20464,16 @@ const STAGES = [
     intro: '몸이 보내는 신호를 더 이상 못 본 척할 수 없게 되는 나이입니다.',
     choices: [
       {
+        id: 'deviant-lawyer-conflict-of-interest-42',
+        text: '이해가 상충하는 양측 사건을 몰래 동시에 수임한다',
+        requiresRoute: 'lawyer',
+        requiresOccupation: ['associate-lawyer'],
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '양쪽 모두에게서 수임료를 챙겼다는 사실은, 아무도 눈치채지 못했다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -5, fame: -7, happiness: -5 }, result: '이해상충 사실이 드러나며 변호사협회 징계와 함께 로펌에서도 신뢰를 잃었다.' }
+        ]
+      },
+      {
         id: 'yp-political-fatigue-42',
         text: '반복되는 정쟁에 깊은 회의감을 느낀다',
         deltas: {"happiness":-4},
@@ -21181,6 +21312,15 @@ const STAGES = [
     ageRange: '44세',
     intro: '가까운 사이일수록 소원해지기 쉬운 나이. 관계를 다시 들여다보게 됩니다.',
     choices: [
+      {
+        id: 'deviant-lawyer-evidence-tampering-44',
+        text: '불리한 증거를 은근슬쩍 조작하는 데 손을 보탠다',
+        requiresRoute: 'lawyer',
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6, fame: 2 }, result: '재판 결과가 뒤바뀌며, 의뢰인은 환호했다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '증거 조작 방조 혐의가 결국 드러나며 실형을 선고받았다.', setOccupation: { id: 'inmate', label: '🔒 수감자' }, startsRoute: { id: 'prison', label: '🔒 수감 생활' } }
+        ]
+      },
       {
         id: 're-trigger-44',
         text: '팀장으로서 조직을 이끄는 무게를 실감하기 시작한다',
