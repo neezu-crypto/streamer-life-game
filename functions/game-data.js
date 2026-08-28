@@ -8626,6 +8626,20 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'cs-after-work-dinner-25',
+        text: '동료와 함께 야근 후 회식 자리를 갖는다',
+        deltas: { relationship: 2, health: -1 },
+        result: '고단한 하루 끝의 술 한잔이, 묘하게 위로가 됐다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-grateful-citizen-25',
+        text: '민원인에게 뜻밖의 감사 인사를 받는다',
+        deltas: { happiness: 2 },
+        result: '작은 인사말 하나가, 그날의 피로를 잊게 해줬다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'stock-investment-police-25',
         text: '주식에 투자한다',
         requiresStockPurchase: true,
@@ -8638,6 +8652,20 @@ const STAGES = [
         requiresStockPurchase: true,
         requiresRoute: 'lawyer',
         mandatory: true
+      },
+      {
+        id: 'lawyer-late-night-delivery-food-25',
+        text: '야근 중 배달 음식으로 끼니를 때운다',
+        deltas: { health: -1, happiness: -1 },
+        result: '식은 음식만큼, 하루도 식어가는 기분이었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'lawyer-peer-network-25',
+        text: '동기 변호사들과 정보를 교환한다',
+        deltas: { relationship: 2 },
+        result: '같은 고민을 하는 사람들과의 대화가, 뜻밖의 위로가 됐다.',
+        requiresRoute: 'lawyer'
       },
       {
         id: 'stock-investment-trader-25',
@@ -16824,6 +16852,20 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'cs-department-workshop-35',
+        text: '부서 워크숍에서 팀워크를 다진다',
+        deltas: { relationship: 2 },
+        result: '어색했던 동료들과, 조금은 가까워진 기분이었다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-budget-season-grind-35',
+        text: '예산 편성 시즌, 서류와 씨름한다',
+        deltas: { health: -2, happiness: -1 },
+        result: '숫자 하나하나를 맞추다 보니, 하루가 통째로 사라졌다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'stock-investment-police-35',
         text: '주식에 투자한다',
         requiresStockPurchase: true,
@@ -19835,6 +19877,20 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'police-crime-scene-trauma-40',
+        text: '강력범죄 현장에서 트라우마를 겪는다',
+        deltas: { health: -3, happiness: -3 },
+        result: '눈을 감아도, 그 장면이 자꾸 떠올랐다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'police-community-forum-40',
+        text: '지역 주민들과 치안 간담회를 연다',
+        deltas: { relationship: 2 },
+        result: '딱딱한 자리였지만, 서로의 얼굴을 익히는 시간이었다.',
+        requiresRoute: 'police'
+      },
+      {
         id: 'stock-investment-lawyer-40',
         text: '주식에 투자한다',
         requiresStockPurchase: true,
@@ -19847,6 +19903,20 @@ const STAGES = [
         requiresStockPurchase: true,
         requiresRoute: 'trader',
         mandatory: true
+      },
+      {
+        id: 'trader-near-burnout-40',
+        text: '시장 변동성에 지쳐 번아웃 직전까지 간다',
+        deltas: { health: -3, happiness: -2 },
+        result: '화면을 끄고 나서도, 숫자들이 눈앞에 아른거렸다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trader-mentors-junior-40',
+        text: '후배 트레이더에게 노하우를 전수한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '내가 몸으로 배운 것들을, 말로 풀어내려니 새삼 어려웠다.',
+        requiresRoute: 'trader'
       },
       {
         id: 'deviant-lawyer-witness-tampering-40',
@@ -22164,11 +22234,39 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'cs-mentors-junior-45',
+        text: '후배 공무원의 멘토 역할을 맡는다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '내가 겪었던 시행착오를, 조금이라도 덜어주고 싶었다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-counts-years-left-45',
+        text: '정년까지 남은 시간을 헤아려본다',
+        deltas: { happiness: -1 },
+        result: '아직 멀었다고 생각했던 날이, 어느새 성큼 다가와 있었다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'stock-investment-police-45',
         text: '주식에 투자한다',
         requiresStockPurchase: true,
         requiresRoute: 'police',
         mandatory: true
+      },
+      {
+        id: 'police-trains-junior-45',
+        text: '후배 경찰을 교육하는 역할을 맡는다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '내가 겪었던 실수를, 후배는 겪지 않길 바랐다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'police-chronic-fatigue-45',
+        text: '장기 근무로 인한 만성 피로에 시달린다',
+        deltas: { health: -2 },
+        result: '몸이 예전 같지 않다는 걸, 하루하루 실감했다.',
+        requiresRoute: 'police'
       },
       {
         id: 'stock-investment-lawyer-45',
@@ -22178,11 +22276,39 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'lawyer-longtime-client-trust-45',
+        text: '오랜 단골 의뢰인과 신뢰를 쌓는다',
+        deltas: { relationship: 2, wealth: 1 },
+        result: '숫자로 환산 안 되는 신뢰가, 조용히 쌓여가고 있었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'lawyer-health-limits-45',
+        text: '체력의 한계를 느끼며 건강을 챙기기 시작한다',
+        deltas: { health: -1 },
+        result: '예전처럼 밤새는 일은, 더 이상 쉽지 않았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
         id: 'stock-investment-trader-45',
         text: '주식에 투자한다',
         requiresStockPurchase: true,
         requiresRoute: 'trader',
         mandatory: true
+      },
+      {
+        id: 'trader-longtime-client-trust-45',
+        text: '오랜 고객과의 신뢰가 두터워진다',
+        deltas: { relationship: 2, wealth: 1 },
+        result: '숫자만 오가던 관계에, 어느새 신뢰가 쌓여 있었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trader-considers-retirement-planning-45',
+        text: '은퇴 후 자산 관리를 고민하기 시작한다',
+        deltas: { happiness: -1 },
+        result: '남의 돈만 굴리다, 내 노후는 언제 챙기나 싶었다.',
+        requiresRoute: 'trader'
       },
       {
         id: 'patient-bribes-doctor-for-fake-diagnosis-45',
@@ -23972,11 +24098,39 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'cs-honor-leave-candidate-50',
+        text: '공로연수 대상자 명단에 이름이 오른다',
+        deltas: { happiness: 2 },
+        result: '긴 세월의 보상 같은 소식에, 웃음이 절로 났다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-new-boss-adjustment-50',
+        text: '새로 부임한 상급자와 손발을 맞춰간다',
+        deltas: { relationship: -1, happiness: -1 },
+        result: '오랜 방식이 익숙했던 만큼, 적응이 쉽지만은 않았다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'stock-investment-police-50',
         text: '주식에 투자한다',
         requiresStockPurchase: true,
         requiresRoute: 'police',
         mandatory: true
+      },
+      {
+        id: 'police-special-promotion-anxiety-50',
+        text: '특진 명단에 이름이 오를지 마음을 졸인다',
+        deltas: { happiness: -1 },
+        result: '발표를 기다리는 며칠이, 유독 길게 느껴졌다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'police-retired-colleagues-reunion-50',
+        text: '은퇴한 선배 경찰들과 오랜만에 모인다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '옛 이야기들이 오가는 자리가, 생각보다 따뜻했다.',
+        requiresRoute: 'police'
       },
       {
         id: 'stock-investment-lawyer-50',
@@ -23986,11 +24140,39 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'lawyer-trains-junior-50',
+        text: '후배 변호사를 트레이닝한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '내가 헤맸던 길을, 조금 더 쉽게 가르쳐주고 싶었다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'lawyer-long-case-closed-50',
+        text: '장기 소송 하나가 드디어 마무리된다',
+        deltas: { happiness: 3, wealth: 1 },
+        result: '몇 년을 끌던 사건이 끝나던 날, 마음이 한결 가벼워졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
         id: 'stock-investment-trader-50',
         text: '주식에 투자한다',
         requiresStockPurchase: true,
         requiresRoute: 'trader',
         mandatory: true
+      },
+      {
+        id: 'trader-conference-speaker-50',
+        text: '업계 컨퍼런스에서 발표를 맡는다',
+        deltas: { fame: 2 },
+        result: '무대 위에서 마이크를 잡으니, 손끝이 떨렸다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trader-long-position-pays-off-50',
+        text: '장기 투자 포지션이 크게 성공한다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '오래 버틴 만큼, 돌아온 보상도 컸다.',
+        requiresRoute: 'trader'
       },
       {
         id: 'citizen-bribes-official-for-permit-50',
@@ -24964,11 +25146,39 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'cs-handover-to-successor-55',
+        text: '은퇴를 앞두고 후임에게 업무를 인계한다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '내가 쌓아온 것들을, 이제는 넘겨줄 시간이었다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-farewell-workshop-55',
+        text: '동기들과 정년 전 마지막 워크숍을 떠난다',
+        deltas: { happiness: 3 },
+        result: '함께 걸어온 세월이, 그 하루에 고스란히 담겨 있었다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'stock-investment-police-55',
         text: '주식에 투자한다',
         requiresStockPurchase: true,
         requiresRoute: 'police',
         mandatory: true
+      },
+      {
+        id: 'police-last-major-case-55',
+        text: '정년을 앞두고 마지막 강력사건을 맡는다',
+        deltas: { health: -2, fame: 2 },
+        result: '마지막이라는 무게가, 그 어느 때보다 무겁게 다가왔다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'police-passes-down-know-how-55',
+        text: '후임에게 노하우를 전수한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '말로는 다 못 담을 것들을, 그래도 최대한 전하려 했다.',
+        requiresRoute: 'police'
       },
       {
         id: 'stock-investment-lawyer-55',
@@ -24978,11 +25188,39 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'lawyer-considers-retirement-55',
+        text: '은퇴를 고민하기 시작한다',
+        deltas: { happiness: -1 },
+        result: '평생 일만 해온 삶이, 문득 낯설게 느껴졌다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'lawyer-veteran-consulting-requests-55',
+        text: '오랜 경력을 인정받아 자문 요청이 늘어난다',
+        deltas: { fame: 2, wealth: 1 },
+        result: '이름 석 자만으로도, 신뢰를 얻는 나이가 됐다.',
+        requiresRoute: 'lawyer'
+      },
+      {
         id: 'stock-investment-trader-55',
         text: '주식에 투자한다',
         requiresStockPurchase: true,
         requiresRoute: 'trader',
         mandatory: true
+      },
+      {
+        id: 'trader-early-hours-tough-55',
+        text: '체력적 한계로 새벽 근무가 버거워진다',
+        deltas: { health: -2 },
+        result: '예전엔 아무렇지 않던 새벽이, 이제는 유독 힘들었다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trader-prepares-handover-55',
+        text: '후임에게 팀을 물려줄 준비를 한다',
+        deltas: { relationship: 1 },
+        result: '떠날 준비를 하는 마음이, 생각보다 담담했다.',
+        requiresRoute: 'trader'
       },
       {
         id: 'citizen-reports-suspicious-person-55',
@@ -26082,11 +26320,39 @@ const STAGES = [
         mandatory: true
       },
       {
+        id: 'lawyer-winds-down-caseload-60',
+        text: '정년이 다가오며 사건 수를 줄여간다',
+        deltas: { happiness: 1, health: 1 },
+        result: '조금씩 여유를 찾아가는 하루하루가, 나쁘지 않았다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'lawyer-hands-over-office-60',
+        text: '후배에게 사무실 운영을 조금씩 넘긴다',
+        deltas: { relationship: 1 },
+        result: '내 손으로 키운 곳을 넘기는 마음이, 복잡하면서도 홀가분했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
         id: 'stock-investment-trader-60',
         text: '주식에 투자한다',
         requiresStockPurchase: true,
         requiresRoute: 'trader',
         mandatory: true
+      },
+      {
+        id: 'trader-last-big-deal-60',
+        text: '은퇴를 앞두고 마지막 대형 거래를 성사시킨다',
+        deltas: { wealth: 2, fame: 2 },
+        result: '마지막이라는 이름이 붙으니, 손끝에 더 힘이 들어갔다.',
+        requiresRoute: 'trader'
+      },
+      {
+        id: 'trader-reminisces-glory-days-60',
+        text: '화려했던 트레이더 시절을 회상한다',
+        deltas: { happiness: 2 },
+        result: '치열했던 그 시절이, 이제는 그리운 추억이 되어 있었다.',
+        requiresRoute: 'trader'
       },
       {
         id: 'police-mandatory-retirement-60',
@@ -27064,6 +27330,20 @@ const STAGES = [
         requiresStockPurchase: true,
         requiresRoute: 'lawyer',
         mandatory: true
+      },
+      {
+        id: 'lawyer-elder-statesman-65',
+        text: '법조계 원로로 대우받는다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '후배들의 깍듯한 인사가, 지나온 세월을 실감하게 했다.',
+        requiresRoute: 'lawyer'
+      },
+      {
+        id: 'lawyer-seriously-considers-retirement-65',
+        text: '은퇴를 진지하게 고려한다',
+        deltas: { happiness: 1 },
+        result: '이제는 정말 내려놓을 때가 된 것 같았다.',
+        requiresRoute: 'lawyer'
       },
       {
         id: 'stock-investment-trader-65',
