@@ -7045,8 +7045,18 @@
             <code>car-purchase-opportunity-{'{나이}'}</code>를 19~85세 67개
             스테이지 전부에 심어둠(연애 루트 <code>lover-route-attempt-*</code>,
             사기꾼 <code>con-artist-entry-*</code>와 같은 "여러 나이 반복 배치"
-            패턴 재사용) — <code>appearChance:0.05</code>로 매년 무작위 등장,
+            패턴 재사용) — <code>appearChance:0.10</code>(2026-08-30, 사용자
+            지시로 0.05→0.10 상향)로 매년 무작위 등장,
             <code>requiresOccupation</code> 없음(모든 직업에서 노출).</li>
+            <li><b>신규 엔진 필드 <code>bonusSlot</code>(2026-08-30, 사용자
+            지시 — "기본선택지와 무관하게 +1 추가로 등장").</b> 보통
+            <code>appearChance</code>가 붙은 선택지는 통과해도 그 턴의 4개
+            슬롯 안에서 자리 하나를 차지해(다른 optional 하나가 밀려남),
+            "떴다"고 다른 선택지가 줄어드는 부작용이 있었다.
+            <code>bonusSlot:true</code>는 슬롯 배분(mandatory+optional 4개
+            할당) 계산에서 아예 제외했다가 마지막에 무조건 더하는 방식으로
+            바꿔, 통과하면 늘 "그 턴 원래 4개 + 차량구매 1개 = 5개"가
+            보장된다.</li>
             <li><b>신규 엔진 필드 <code>requiresNoAssetType</code>.</b> 기존
             <code>requiresNoAsset</code>(특정 자산 id 하나)의 타입 버전 - 이미
             어떤 종류든(중고차·소형차 등) vehicle 자산을 갖고 있으면 다시
@@ -7062,7 +7072,10 @@
         <p><b>검증.</b> 전용 시나리오 스크립트(5/5) — 19/45/80세 등 서로 다른
         나이대에서 실제로 등장하는 것, 이미 차량 자산을 갖고 있으면 100회
         재추첨해도 절대 안 뜨는 것, 실제 제출 시 자산이 정상 추가되는 것까지
-        확인. 회귀 스위트(18/18, 11/11) 재확인.</p>
+        확인. <code>bonusSlot</code> 전용 검증(5/5) — 400회 재추첨 중 등장률이
+        10%대와 부합하는 것, 등장할 땐 항상 5개(4+1)로 보이는 것, 등장 안 할
+        땐 정상 4개인 것, 5개를 절대 넘지 않는 것까지 확인. 회귀 스위트
+        (18/18, 11/11) + 300회 크래시 안전성 재확인.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>

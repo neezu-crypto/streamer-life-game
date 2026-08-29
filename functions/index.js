@@ -718,12 +718,20 @@ function pickVisibleChoiceIds(choices, ctx) {
     const fallbackPool = choices.filter((c) => !c.requiresRoute && !(c.startsRoute && experiencedRouteIds.includes(c.startsRoute.id)));
     eligible = fallbackPool.filter(passesEligibility);
   }
+  // bonusSlot(2026-08-30, 사용자 지시 - "차량구매는 기본 선택지와 무관하게
+  // +1 추가로 등장하게 해줘") - 보통의 mandatory(appearChance 포함) 선택지는
+  // 통과해도 4개 슬롯 안에서 자리를 하나 차지한다(다른 optional 하나가
+  // 밀려남). bonusSlot은 그 슬롯 배분에서 아예 빼놓았다가 마지막에 무조건
+  // 더해, "그 턴에 원래 뜰 4개는 그대로 두고 5번째로 얹힌다"를 보장한다.
+  const bonusEligible = eligible.filter((c) => c.bonusSlot);
+  const slotEligible = eligible.filter((c) => !c.bonusSlot);
+
   let resultIds;
-  if (eligible.length <= 4) {
-    resultIds = eligible.map((c) => c.id);
+  if (slotEligible.length <= 4) {
+    resultIds = slotEligible.map((c) => c.id);
   } else {
-    const mandatory = eligible.filter((c) => c.mandatory || typeof c.appearChance === 'number' || c.dynamicAppearChance);
-    let optional = eligible.filter((c) => !c.mandatory && typeof c.appearChance !== 'number' && !c.dynamicAppearChance);
+    const mandatory = slotEligible.filter((c) => c.mandatory || typeof c.appearChance === 'number' || c.dynamicAppearChance);
+    let optional = slotEligible.filter((c) => !c.mandatory && typeof c.appearChance !== 'number' && !c.dynamicAppearChance);
 
     if (guaranteeCure && conditionIds.length) {
       const curative = optional.filter((c) => (c.removeCondition && conditionIds.includes(c.removeCondition)) || c.removeAllConditions);
@@ -748,6 +756,7 @@ function pickVisibleChoiceIds(choices, ctx) {
     const remainingSlots = mandatory.length >= 4 ? 2 : Math.max(0, 4 - mandatory.length);
     resultIds = mandatory.concat(shuffled.slice(0, remainingSlots)).map((c) => c.id);
   }
+  resultIds = resultIds.concat(bonusEligible.map((c) => c.id));
 
   // requiresSufficientCash 안전망(2026-08-23) - "출현율은 그대로"라는 요청대로
   // requiresSufficientCash는 위 eligible 필터링에 전혀 관여하지 않는다. 그

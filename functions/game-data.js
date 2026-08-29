@@ -4009,7 +4009,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -4665,7 +4666,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -5603,7 +5605,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -6510,7 +6513,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -7550,7 +7554,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -8599,7 +8604,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -9784,7 +9790,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -10897,7 +10904,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -12092,7 +12100,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -13216,7 +13225,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -14270,7 +14280,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -15338,7 +15349,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -16380,7 +16392,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -17373,7 +17386,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -18314,7 +18328,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -19300,7 +19315,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -20255,7 +20271,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -21178,7 +21195,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -21999,7 +22017,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -22823,7 +22842,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -23655,7 +23675,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -24367,7 +24388,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -25173,7 +25195,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -25826,7 +25849,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -26477,7 +26501,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -27149,7 +27174,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -27850,7 +27876,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -28669,7 +28696,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -29216,7 +29244,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -29835,7 +29864,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -30372,7 +30402,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -30867,7 +30898,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -31453,7 +31485,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -31928,7 +31961,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -32313,7 +32347,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -32709,7 +32744,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -33099,7 +33135,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -33772,7 +33809,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -34156,7 +34194,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -34582,7 +34621,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -35066,7 +35106,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -35470,7 +35511,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -35977,7 +36019,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -36402,7 +36445,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -36880,7 +36924,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -37283,7 +37328,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -37648,7 +37694,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -38118,7 +38165,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -38406,7 +38454,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -38600,7 +38649,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -38833,7 +38883,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -38983,7 +39034,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -39291,7 +39343,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -39442,7 +39495,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -39632,7 +39686,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -39775,7 +39830,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -39930,7 +39986,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -40199,7 +40256,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -40359,7 +40417,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -40513,7 +40572,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -40695,7 +40755,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -40826,7 +40887,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -41049,7 +41111,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -41203,7 +41266,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -41372,7 +41436,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -41502,7 +41567,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
@@ -41646,7 +41712,8 @@ const STAGES = [
         result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
         requiresNoAssetType: 'vehicle',
         requiresSufficientCash: true,
-        appearChance: 0.05,
+        appearChance: 0.10,
+        bonusSlot: true,
         addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
       },
       {
