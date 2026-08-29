@@ -10325,7 +10325,8 @@ const STAGES = [
         text: '장사가 잘돼 매출이 눈에 띄게 는다',
         deltas: { wealth: 6, happiness: 3 },
         result: '문 닫을 때 세는 매출이, 요즘 들어 유독 든든했다.',
-        requiresOccupation: ['small-business-owner']
+        requiresOccupation: ['small-business-owner'],
+        dynamicAppearChance: { key: 'localEconomySentiment', min: 0.1, max: 0.5 }
       },
       {
         id: 'lottery-check-25',
@@ -10940,6 +10941,31 @@ const STAGES = [
         requiresRoute: 'regular-employee'
       },
       {
+        id: 're-supports-local-shops-26',
+        text: '퇴근길에 동네 가게들을 자주 이용한다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '주인아저씨가 얼굴을 알아보는 게, 은근히 정겨웠다.',
+        requiresRoute: 'regular-employee',
+        worldStateSignal: { key: 'localEconomySentiment', target: 1 }
+      },
+      {
+        id: 're-only-online-shopping-26',
+        text: '귀찮아서 웬만한 소비는 전부 온라인·대형마트로 해결한다',
+        deltas: { wealth: 1 },
+        result: '편리했지만, 동네 가게 앞을 무심히 지나치는 일이 잦아졌다.',
+        requiresRoute: 'regular-employee',
+        worldStateSignal: { key: 'localEconomySentiment', target: 0 }
+      },
+      {
+        id: 'deviant-re-dine-and-dash-26',
+        text: '동네 식당에서 계산 없이 슬쩍 빠져나온다',
+        requiresRoute: 'regular-employee',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 2 }, result: '싸구려 양심을 팔아넘긴 값치고는, 저녁값이 꽤 짭짤했다.', worldStateSignal: { key: 'localEconomySentiment', target: 0 } },
+          { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -3 }, result: '뒤쫓아 온 사장님께 붙잡혀, 몇 배로 물어줘야 했다.', worldStateSignal: { key: 'localEconomySentiment', target: 0 } }
+        ]
+      },
+      {
         id: 're-office-politics-observe-26',
         text: '사내에 보이지 않는 편이 있다는 걸 눈치챈다',
         deltas: {"happiness":-2},
@@ -10959,14 +10985,16 @@ const STAGES = [
         text: '비수기 매출 부진으로 자금난에 시달린다',
         deltas: {"happiness":-3,"wealth":-3},
         result: '월세 낼 날짜가, 유독 빨리 다가오는 것 같았다.',
-        requiresRoute: 'small-business'
+        requiresRoute: 'small-business',
+        dynamicAppearChance: { key: 'localEconomySentiment', min: 0.5, max: 0.1 }
       },
       {
         id: 'sb-record-sales-day-26',
         text: '역대 최고 매출을 찍으며 뿌듯한 하루를 보낸다',
         deltas: {"happiness":4,"wealth":3},
         result: '정산기를 두드리는 손이, 오랜만에 신났다.',
-        requiresRoute: 'small-business'
+        requiresRoute: 'small-business',
+        dynamicAppearChance: { key: 'localEconomySentiment', min: 0.1, max: 0.5 }
       },
       {
         id: 'sb-work-life-imbalance-26',
@@ -11567,7 +11595,8 @@ const STAGES = [
         text: '몇 주째 이어지는 매출 부진에 속이 탄다',
         deltas: { wealth: -3, happiness: -3 },
         result: '손님이 뜸한 가게 안에서, 시계 소리만 유난히 크게 들렸다.',
-        requiresOccupation: ['small-business-owner']
+        requiresOccupation: ['small-business-owner'],
+        dynamicAppearChance: { key: 'localEconomySentiment', min: 0.5, max: 0.1 }
       },
       {
         id: 'checkup-workplace-26',
@@ -15792,7 +15821,8 @@ const STAGES = [
         text: '입소문이라는 불씨가 서비스 전체로 옮겨붙는다',
         deltas: { fame: 5, wealth: 3 },
         result: '사용자 수 그래프가 꺾이지 않고 오르는 걸, 몇 번이고 새로고침했다.',
-        requiresOccupation: ['startup-founder']
+        requiresOccupation: ['startup-founder'],
+        dynamicAppearChance: { key: 'localEconomySentiment', min: 0.1, max: 0.5 }
       },
       {
         id: 'small-biz-rent-increase',
@@ -17174,7 +17204,8 @@ const STAGES = [
         text: '전반적인 경기 침체로 손님 발길이 뜸해진다',
         deltas: {"happiness":-3,"wealth":-3},
         result: '내 탓이 아닌 걸 알면서도, 마음은 무거웠다.',
-        requiresRoute: 'small-business'
+        requiresRoute: 'small-business',
+        dynamicAppearChance: { key: 'localEconomySentiment', min: 0.5, max: 0.1 }
       },
       {
         id: 'sb-cost-cutting-32',
@@ -22791,7 +22822,8 @@ const STAGES = [
         text: '사업 운영 방식을 전면 재정비한다',
         deltas: { wealth: 7 },
         result: '매달 들쭉날쭉하던 매출이, 처음으로 예측 가능한 숫자가 됐다.',
-        requiresOccupation: ['entrepreneur']
+        requiresOccupation: ['entrepreneur'],
+        dynamicAppearChance: { key: 'localEconomySentiment', min: 0.1, max: 0.5 }
       },
       {
         id: 'fame-conference-speaker-38',
