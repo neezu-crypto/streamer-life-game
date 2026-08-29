@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-import { getDatabase, ref, get, set, onValue, onDisconnect } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
+import { getDatabase, ref, get, set, onValue, onDisconnect, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
 import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-functions.js";
 import { getAuth, signInAnonymously, onAuthStateChanged, signInWithPopup, signInWithCustomToken, linkWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
@@ -73,6 +73,7 @@ const googleProvider = new GoogleAuthProvider();
 
 let currentUser = null;
 let resumeChecked = false;
+let presenceRecorded = false;
 // 관리자 여부(2026-08-24, 사용자 지시 - "관리자 uid로 다른 인생 갤러리에서
 // 로그 삭제 가능하게" UI 연결) - adminCenter/adminUids 자체는
 // database.rules.json에서 .read:false라 클라이언트가 직접 "내가 관리자인가"를
@@ -104,6 +105,14 @@ onAuthStateChanged(auth, (user) => {
   if (!resumeChecked) {
     resumeChecked = true;
     checkResume(user.uid);
+  }
+  // "현재 접속자"(57장, 2026-08-29) - 하트비트/onDisconnect 없이 접속(새로고침
+  // 포함) 시점에 딱 1회만 기록. 접속을 끊은 유저는 패널이 표시할 때 lastSeenAt
+  // 기준 60분 이내인 것만 세기 때문에, 여기서 별도로 지우거나 갱신할 필요가 없다.
+  if (!presenceRecorded) {
+    presenceRecorded = true;
+    set(ref(db, 'lifeGame/presence/' + user.uid), { lastSeenAt: serverTimestamp() })
+      .catch((e) => console.error('접속 기록 실패:', e));
   }
 });
 
@@ -663,6 +672,17 @@ function fadeIn(els) {
 const worldStatePanel = document.getElementById('worldStatePanel');
 const worldStateTab = document.getElementById('worldStateTab');
 const worldStateGrid = document.getElementById('worldStateGrid');
+const worldStatePresence = document.getElementById('worldStatePresence');
+
+const PRESENCE_STALE_MS = 60 * 60 * 1000;
+
+function renderWorldStatePresence(presence) {
+  const now = Date.now();
+  const entries = presence ? Object.values(presence) : [];
+  const activeCount = entries.filter((e) => e && typeof e.lastSeenAt === 'number' && (now - e.lastSeenAt) < PRESENCE_STALE_MS).length;
+  worldStatePresence.textContent = '👥 ' + activeCount + '명 접속 중';
+  worldStatePresence.classList.remove('hidden');
+}
 
 const WORLD_STATE_TRACKERS = [
   { key: 'teacherCorruption', name: '교사 청렴도', pairing: '교사 ↔ 학생' },
@@ -717,6 +737,12 @@ async function openWorldStatePanel() {
   } catch (e) {
     console.error('세계관 상태 조회 실패:', e);
     renderWorldStateGrid(null);
+  }
+  try {
+    const presenceSnap = await get(ref(db, 'lifeGame/presence'));
+    renderWorldStatePresence(presenceSnap.exists() ? presenceSnap.val() : null);
+  } catch (e) {
+    console.error('접속자 수 조회 실패:', e);
   }
 }
 
