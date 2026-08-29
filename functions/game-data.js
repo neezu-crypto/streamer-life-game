@@ -4800,7 +4800,8 @@ const STAGES = [
         text: '민원 응대 매뉴얼을 통째로 외운다',
         deltas: { wealth: 1 },
         result: '예상 밖의 민원에도 당황하지 않게 됐다.',
-        requiresRoute: 'civil-servant-route'
+        requiresRoute: 'civil-servant-route',
+        worldStateSignal: { key: 'civilServantService', target: 1 }
       },
       {
         id: 'cs-fill-20-2',
@@ -6634,7 +6635,8 @@ const STAGES = [
         text: '민원 응대 매뉴얼을 통째로 외운다',
         deltas: { wealth: 1 },
         result: '예상 밖의 민원에도 당황하지 않게 됐다.',
-        requiresRoute: 'civil-servant-route'
+        requiresRoute: 'civil-servant-route',
+        worldStateSignal: { key: 'civilServantService', target: 1 }
       },
       {
         id: 'cs-fill-22-2',
@@ -10890,7 +10892,8 @@ const STAGES = [
         text: '민원 응대 매뉴얼을 통째로 외운다',
         deltas: { wealth: 1 },
         result: '예상 밖의 민원에도 당황하지 않게 됐다.',
-        requiresRoute: 'civil-servant-route'
+        requiresRoute: 'civil-servant-route',
+        worldStateSignal: { key: 'civilServantService', target: 1 }
       },
       {
         id: 'cs-fill-26-2',
@@ -18163,10 +18166,19 @@ const STAGES = [
         requiresRoute: 'civil-servant-route',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'civilServantService', target: 0 },
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '별 탈 없이, 조용한 거래가 마무리됐다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -10, happiness: -12, relationship: -6 }, result: '뇌물수수 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
+      },
+      {
+        id: 'cs-refuses-bribery-33',
+        text: '민원 처리를 봐주는 대가로 들어온 뇌물을 단호히 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '거절이 조금 어색했지만, 돌아서는 발걸음은 떳떳했다.',
+        requiresRoute: 'civil-servant-route',
+        worldStateSignal: { key: 'civilServantService', target: 1 }
       },
       {
         id: 'lw-logistics-management-cert-33',
@@ -19988,6 +20000,17 @@ const STAGES = [
         text: '주식에 투자한다',
         requiresStockPurchase: true,
         mandatory: true
+      },
+      {
+        id: 'citizen-visits-government-office-35',
+        text: '서류를 떼러 동네 행정복지센터에 들른다',
+        deltas: { happiness: -1 },
+        result: '별것 아닌 서류 한 장인데도, 발걸음이 가볍지만은 않았다.',
+        worldStateNote: {
+          key: 'civilServantService',
+          corruptText: ' 다행히 담당자가 꼼꼼하게 챙겨줘서, 생각보다 금방 끝났다.',
+          honestText: ' 창구마다 안내가 제각각이라, 같은 서류를 몇 번이고 다시 떼야 했다.'
+        }
       },
       {
         id: 'stock-investment-civil-servant-route-35',
@@ -27361,6 +27384,22 @@ const STAGES = [
         deltas: { happiness: -1 },
         result: '아직 멀었다고 생각했던 날이, 어느새 성큼 다가와 있었다.',
         requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'cs-shrugs-off-complaint-45',
+        text: '까다로운 민원을 대충 얼버무리고 다음 창구로 넘긴다',
+        deltas: { happiness: 1, relationship: -1 },
+        result: '내 손을 떠났다는 사실에 마음은 편했지만, 뒷맛이 개운친 않았다.',
+        requiresRoute: 'civil-servant-route',
+        worldStateSignal: { key: 'civilServantService', target: 0 }
+      },
+      {
+        id: 'cs-follows-up-complaint-45',
+        text: '까다로운 민원을 끝까지 붙잡고 원인을 찾아 해결한다',
+        deltas: { happiness: -1, fame: 1 },
+        result: '시간은 배로 걸렸지만, 민원인의 표정이 그제서야 풀렸다.',
+        requiresRoute: 'civil-servant-route',
+        worldStateSignal: { key: 'civilServantService', target: 1 }
       },
       {
         id: 'stock-investment-police-45',

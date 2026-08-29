@@ -6757,10 +6757,23 @@
 
         <h3>A. 신규 트래커 5종</h3>
         <ul>
-            <li><b><code>civilServantService</code>(공무원 대민 서비스 지수).</b> 설정 —
-            공무원 루트의 민원 응대 관련 선택지 중 성실 처리(target 1) vs 대충/무성의 처리
-            (target 0). 영향 — 시민 쪽 "관공서 이용" 콘텐츠의 결과 문구·체감 대기시간에
-            반영. 공무원↔시민 페어링.</li>
+            <li><b><code>civilServantService</code>(공무원 대민 서비스 지수) — 구현 완료
+            (2026-08-29).</b> 설정 — 공무원 루트의 민원 응대 관련 선택지 중 성실 처리
+            (target 1) vs 대충/무성의 처리(target 0). 영향 — 시민 쪽 "관공서 이용" 콘텐츠의
+            결과 문구·체감 대기시간에 반영. 공무원↔시민 페어링.
+            <ul>
+                <li><b>구현 내역.</b> 기존 <code>deviant-cs-bribery-33</code>(뇌물 수수)에
+                target 0 리트로핏 + 신규 거절 선택지 <code>cs-refuses-bribery-33</code>
+                (target 1) 대응쌍 추가. 기존 <code>cs-fill-20-1</code>/
+                <code>cs-fill-22-1</code>/<code>cs-fill-26-1</code>(민원 응대 매뉴얼
+                암기) 3곳에 target 1 리트로핏. 45세에 신규 대응쌍
+                <code>cs-shrugs-off-complaint-45</code>(target 0)/
+                <code>cs-follows-up-complaint-45</code>(target 1) 추가. 시민 쪽 타겟
+                콘텐츠로 35세 <code>citizen-visits-government-office-35</code>
+                (직업 무관, <code>worldStateNote</code>로 결과 문구가 rate에 따라
+                갈림) 신규 추가.</li>
+            </ul>
+            </li>
             <li><b><code>traderIntegrity</code>(금융업계 신뢰도).</b> 설정 — 트레이더 루트의
             고객 응대 선택지 중 성실한 조언(target 1) vs 고객 기망·시세조종성 일탈(target 0).
             영향 — 일반 시민 쪽 "재테크 관심" 계열 콘텐츠의 노출 확률(dynamicAppearChance)에

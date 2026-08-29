@@ -693,6 +693,7 @@ const WORLD_STATE_TRACKERS = [
   { key: 'teamLeadUnfairness', name: '팀장 공정성', pairing: '팀장 ↔ 직장인' },
   { key: 'lawyerDefenseQuality', name: '변호사 변론 품질', pairing: '변호사 ↔ 현행범' },
   { key: 'localEconomySentiment', name: '골목상권 경기', pairing: '직장인 ↔ 자영업자' },
+  { key: 'civilServantService', name: '공무원 대민 서비스', pairing: '공무원 ↔ 시민' },
 ];
 
 function worldStateTierLabel(rate) {
