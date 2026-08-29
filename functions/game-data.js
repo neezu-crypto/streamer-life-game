@@ -9706,11 +9706,12 @@ const STAGES = [
         requiresRoute: 'trader'
       },
       {
-        id: 'law-fill2-25-1',
-        text: '판례 검색에만 하루를 다 쓴다',
-        deltas: { happiness: -1 },
-        result: '방대한 자료 속에서 헤매기 일쑤였다.',
-        requiresRoute: 'lawyer'
+        id: 'lawyer-defends-red-handed-rookie-25',
+        text: '국선변호로 현행범 피의자의 변호를 맡는다',
+        deltas: { wealth: 1, happiness: -1 },
+        result: '경험 부족을 감추려 애썼지만, 변론은 어딘가 허술했다.',
+        requiresRoute: 'lawyer',
+        worldStateSignal: { key: 'lawyerDefenseQuality', target: 0 }
       },
       {
         id: 'law-fill2-25-2',
@@ -19775,11 +19776,12 @@ const STAGES = [
         requiresRoute: 'trader'
       },
       {
-        id: 'law-fill2-35-1',
-        text: '대형 로펌 스카우트 제안을 고민한다',
-        deltas: { happiness: 1 },
-        result: '안정과 도전 사이에서 갈등했다.',
-        requiresRoute: 'lawyer'
+        id: 'lawyer-defends-red-handed-diligent-35',
+        text: '현행범 의뢰인의 사건을 파고들어 불기소를 이끌어낸다',
+        deltas: { wealth: 3, fame: 2 },
+        result: '작은 절차상 허점 하나를 놓치지 않은 결과였다.',
+        requiresRoute: 'lawyer',
+        worldStateSignal: { key: 'lawyerDefenseQuality', target: 1 }
       },
       {
         id: 'law-fill2-35-2',
@@ -26377,11 +26379,12 @@ const STAGES = [
         requiresRoute: 'trader'
       },
       {
-        id: 'law-fill2-44-1',
-        text: '대형 로펌 스카우트 제안을 고민한다',
-        deltas: { happiness: 1 },
-        result: '안정과 도전 사이에서 갈등했다.',
-        requiresRoute: 'lawyer'
+        id: 'lawyer-defends-red-handed-burnout-44',
+        text: '밀려드는 사건에 지쳐 현행범 의뢰인 변론을 형식적으로 처리한다',
+        deltas: { wealth: 2, happiness: -2 },
+        result: '해야 할 만큼은 했지만, 스스로도 성에 차지 않는 변론이었다.',
+        requiresRoute: 'lawyer',
+        worldStateSignal: { key: 'lawyerDefenseQuality', target: 0 }
       },
       {
         id: 'law-fill2-44-2',
@@ -31152,11 +31155,12 @@ const STAGES = [
         requiresRoute: 'trader'
       },
       {
-        id: 'law-fill2-53-1',
-        text: '오랜 경력을 인정받아 자문 위촉을 받는다',
-        deltas: { wealth: 2, fame: 2 },
-        result: '젊은 시절보다 무게감 있는 역할이었다.',
-        requiresRoute: 'lawyer'
+        id: 'lawyer-defends-red-handed-veteran-53',
+        text: '오랜 관록으로 현행범 사건도 노련하게 방어해낸다',
+        deltas: { wealth: 4, fame: 3 },
+        result: '수십 년 쌓인 감각이, 짧은 순간의 판단에서 빛을 발했다.',
+        requiresRoute: 'lawyer',
+        worldStateSignal: { key: 'lawyerDefenseQuality', target: 1 }
       },
       {
         id: 'law-fill2-53-2',
@@ -42618,9 +42622,15 @@ const RED_HANDED_CHOICES = [
     id: 'caught-lawyer-silence',
     text: '변호사가 올 때까지 아무 말도 하지 않는다',
     requiresRoute: 'red-handed',
-    deltas: { happiness: -2, wealth: -4 },
-    result: '침묵이 유리할지 불리할지, 확신은 서지 않았다. 증거 불충분으로 결국 불기소 처분을 받았다.',
-    endsRoute: true
+    // lawyerDefenseQuality(2026-08-29, 변호사↔현행범 상호작용 - 사용자 지시:
+    // "변호사도 현행범과 상호작용할 수 있게 하자") - 변호사 루트의 현행범 의뢰인
+    // 변호 선택지들이 이 트래커를 움직인다. rate가 높을수록(변호사 업계 전반의
+    // 방어 실력·의지가 좋을수록) 이 침묵 전략이 기소로 이어질 확률이 낮아진다.
+    dynamicPrizeWeight: { key: 'lawyerDefenseQuality', caughtLabel: '기소', min: 0.2, max: 0.6, invert: true },
+    prizeTable: [
+      { weight: 60, label: '불기소', deltas: {}, result: '침묵이 유리할지 불리할지, 확신은 서지 않았다. 증거 불충분으로 결국 불기소 처분을 받았다.', endsRoute: true },
+      { weight: 40, label: '기소', deltas: { wealth: -6, happiness: -2 }, result: '침묵도 통하지 않을 만큼, 이번엔 증거가 명확했다. 재판에 넘겨졌다.', endsRoute: true }
+    ]
   }
 ];
 
