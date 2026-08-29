@@ -2464,7 +2464,9 @@ const STAGES = [
         id: 'first-heartbreak-teen',
         text: '짧았던 첫 연애가 끝나 마음이 무너진다',
         deltas: { happiness: -3 },
-        result: '별일 아닌 척했지만, 한동안 그 이름을 지우지 못했다.'
+        result: '별일 아닌 척했지만, 한동안 그 이름을 지우지 못했다.',
+        requiresAnyLover: true,
+        removeAcquaintance: { relation: 'lover' }
       },
       {
         id: 'talent-scout-approach',
