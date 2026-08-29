@@ -6792,10 +6792,21 @@
                 (신뢰도 낮을수록 노출↑) 추가.</li>
             </ul>
             </li>
-            <li><b><code>devCodeQuality</code>(개발자 서비스 안정성).</b> 설정 — 개발자 루트의
-            선택지 중 꼼꼼한 테스트/리뷰(target 1) vs 마감에 쫓겨 날림 배포(target 0). 영향 —
-            창업가/자영업자 쪽 "서비스 장애" 콘텐츠, 일반 시민 쪽 "앱이 자꾸 먹통이다" 콘텐츠의
-            노출 확률에 반영. 개발자↔창업가·시민 페어링.</li>
+            <li><b><code>devCodeQuality</code>(개발자 서비스 안정성) — 구현 완료(2026-08-29).</b>
+            설정 — 개발자 루트의 선택지 중 꼼꼼한 테스트/리뷰(target 1) vs 마감에 쫓겨 날림
+            배포(target 0). 영향 — 창업가/자영업자 쪽 "서비스 장애" 콘텐츠, 일반 시민 쪽
+            "앱이 자꾸 먹통이다" 콘텐츠의 노출 확률에 반영. 개발자↔창업가·시민 페어링.
+            <ul>
+                <li><b>구현 내역.</b> 개발자 루트 기존 콘텐츠(43개)엔 이 결의 진짜 이분법
+                선택지가 없어 27세에 신규 대응쌍 <code>dev-rushes-deploy-skips-tests-27</code>
+                (target 0)/<code>dev-thorough-testing-under-pressure-27</code>(target 1)
+                추가. 타겟 콘텐츠도 신규 — 자영업자 쪽 22세
+                <code>sb-delivery-app-outage-22</code>, 시민 쪽 직업 무관 28세
+                <code>citizen-app-keeps-crashing-28</code>, 둘 다 rate가 낮을수록(품질 나쁨)
+                노출 확률이 올라가는 방향(<code>dynamicAppearChance</code> min/max 역전
+                — <code>localEconomySentiment</code>에 이미 있던 감소 방향 패턴 재사용).</li>
+            </ul>
+            </li>
             <li><b><code>entertainmentTrust</code>(연예계 여론·신뢰도).</b> 설정 — 연예계
             계열 루트(아이돌·배우 등)의 선택지 중 스캔들 은폐 시도(target 0) vs 솔직한 이미지
             관리(target 1). 영향 — 다른 연예계 종사자의 "섭외 기회" 콘텐츠 노출 확률에

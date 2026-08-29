@@ -6725,6 +6725,14 @@ const STAGES = [
         requiresRoute: 'small-business'
       },
       {
+        id: 'sb-delivery-app-outage-22',
+        text: '한창 바쁜 시간에 배달 앱 서버 장애로 주문이 뚝 끊긴다',
+        deltas: { happiness: -2, wealth: -2 },
+        result: '앱만 붙잡고 발만 동동 구르는 사이, 대목 시간이 그냥 지나가 버렸다.',
+        requiresRoute: 'small-business',
+        dynamicAppearChance: { key: 'devCodeQuality', min: 0.55, max: 0.15 }
+      },
+      {
         id: 'sb-delivery-fee-burden-22',
         text: '배달 앱 수수료 부담에 속이 쓰리다',
         deltas: {"happiness":-2,"wealth":-2},
@@ -12162,6 +12170,22 @@ const STAGES = [
         result: '야근이 훈장이 아니라는 걸, 이제야 깨달았다.',
         requiresRoute: 'developer'
       },
+      {
+        id: 'dev-rushes-deploy-skips-tests-27',
+        text: '마감에 쫓겨 테스트를 건너뛰고 그대로 배포한다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '일단 기한은 맞췄지만, 어딘가 터질 것 같은 불안이 가시지 않았다.',
+        requiresRoute: 'developer',
+        worldStateSignal: { key: 'devCodeQuality', target: 0 }
+      },
+      {
+        id: 'dev-thorough-testing-under-pressure-27',
+        text: '마감이 촉박해도 테스트 케이스를 끝까지 꼼꼼히 챙긴다',
+        deltas: { happiness: -2, health: -1 },
+        result: '밤은 늦어졌지만, 배포 버튼을 누르는 손은 떨리지 않았다.',
+        requiresRoute: 'developer',
+        worldStateSignal: { key: 'devCodeQuality', target: 1 }
+      },
 
       {
         id: 'lover-friends-awkward-meet',
@@ -13668,6 +13692,13 @@ const STAGES = [
         text: '일과 삶의 균형을 처음으로 진지하게 고민한다',
         deltas: { happiness: 3, health: 2 },
         result: '야근이 능력이 아니라는 걸 인정하기까지 오래 걸렸다.'
+      },
+      {
+        id: 'citizen-app-keeps-crashing-28',
+        text: '매일 쓰던 앱이 요즘 들어 툭하면 먹통이 된다',
+        deltas: { happiness: -1 },
+        result: '고작 앱 하나에 이렇게 하루 기분이 좌우될 일인가 싶으면서도, 짜증은 났다.',
+        dynamicAppearChance: { key: 'devCodeQuality', min: 0.55, max: 0.15 }
       },
       {
         id: 'being-called-senior',
