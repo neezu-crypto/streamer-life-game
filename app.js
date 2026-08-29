@@ -694,6 +694,7 @@ const WORLD_STATE_TRACKERS = [
   { key: 'lawyerDefenseQuality', name: '변호사 변론 품질', pairing: '변호사 ↔ 현행범' },
   { key: 'localEconomySentiment', name: '골목상권 경기', pairing: '직장인 ↔ 자영업자' },
   { key: 'civilServantService', name: '공무원 대민 서비스', pairing: '공무원 ↔ 시민' },
+  { key: 'traderIntegrity', name: '금융업계 신뢰도', pairing: '트레이더 ↔ 시민' },
 ];
 
 function worldStateTierLabel(rate) {

@@ -11498,7 +11498,15 @@ const STAGES = [
         id: 'first-investment-steps',
         text: '적금·투자를 시작하며 처음으로 재테크에 눈을 뜬다',
         deltas: { wealth: 5, happiness: 2 },
-        result: '통장이 불어나는 걸 보는 재미를 그제야 알았다.'
+        result: '통장이 불어나는 걸 보는 재미를 그제야 알았다.',
+        dynamicAppearChance: { key: 'traderIntegrity', min: 0.25, max: 0.75 }
+      },
+      {
+        id: 'skeptical-of-investing-26',
+        text: '투자는 다 사기 같다며 재테크에 거리를 둔다',
+        deltas: { happiness: 1 },
+        result: '남들 다 불린다는 통장 앞에서도, 마음만은 편했다.',
+        dynamicAppearChance: { key: 'traderIntegrity', min: 0.75, max: 0.25 }
       },
       {
         id: 'first-wedding-invitation',
@@ -19129,10 +19137,19 @@ const STAGES = [
         requiresRoute: 'trader',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'traderIntegrity', target: 0 },
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '슬쩍 빼돌린 돈이 불어나는 걸 보며, 죄책감은 잠시 미뤄뒀다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '고객자금 유용 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
+      },
+      {
+        id: 'trader-discloses-losses-honestly-34',
+        text: '손실 상황을 고객에게 있는 그대로 솔직하게 보고한다',
+        deltas: { happiness: -1, relationship: 2 },
+        result: '듣기 좋은 소리는 아니었지만, 신뢰는 그렇게 쌓이는 거라 믿었다.',
+        requiresRoute: 'trader',
+        worldStateSignal: { key: 'traderIntegrity', target: 1 }
       },
       {
         id: 'lw-body-not-what-it-was-34',
@@ -28202,10 +28219,20 @@ const STAGES = [
         requiresOccupation: ['fund-manager'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'traderIntegrity', target: 0 },
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { fame: 4 }, result: '서류상 숫자는 그럴듯했고, 아무도 의심하지 않았다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '운용보고서 조작 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
+      },
+      {
+        id: 'trader-reports-underperformance-honestly-46',
+        text: '실적 부진을 있는 그대로 보고서에 담아 제출한다',
+        deltas: { happiness: -1, fame: -1 },
+        result: '당장은 체면이 상했지만, 숫자를 속이지 않았다는 사실만은 떳떳했다.',
+        requiresRoute: 'trader',
+        requiresOccupation: ['fund-manager'],
+        worldStateSignal: { key: 'traderIntegrity', target: 1 }
       },
       {
         id: 'cs-promoted-senior-official-46',

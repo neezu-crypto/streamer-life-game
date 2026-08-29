@@ -6774,11 +6774,24 @@
                 갈림) 신규 추가.</li>
             </ul>
             </li>
-            <li><b><code>traderIntegrity</code>(금융업계 신뢰도).</b> 설정 — 트레이더 루트의
-            고객 응대 선택지 중 성실한 조언(target 1) vs 고객 기망·시세조종성 일탈(target 0).
-            영향 — 일반 시민 쪽 "재테크 관심" 계열 콘텐츠의 노출 확률(dynamicAppearChance)에
-            반영 — 신뢰도가 낮을수록 "투자는 다 사기 같다" 회의적 선택지가, 높을수록
-            "재테크를 시작해본다" 선택지가 더 잘 뜨는 방향.</li>
+            <li><b><code>traderIntegrity</code>(금융업계 신뢰도) — 구현 완료(2026-08-29).</b>
+            설정 — 트레이더 루트의 고객 응대 선택지 중 성실한 조언(target 1) vs 고객
+            기망·시세조종성 일탈(target 0). 영향 — 일반 시민 쪽 "재테크 관심" 계열
+            콘텐츠의 노출 확률(dynamicAppearChance)에 반영 — 신뢰도가 낮을수록
+            "투자는 다 사기 같다" 회의적 선택지가, 높을수록 "재테크를 시작해본다"
+            선택지가 더 잘 뜨는 방향.
+            <ul>
+                <li><b>구현 내역.</b> 기존 <code>deviant-trader-client-fund-misuse-34</code>
+                (고객 위탁금 유용)와 <code>deviant-trader-falsified-performance-report-46</code>
+                (실적 조작, fund-manager 전용)에 target 0 리트로핏 + 각각 신규 정직
+                대응쌍 <code>trader-discloses-losses-honestly-34</code>/
+                <code>trader-reports-underperformance-honestly-46</code>(target 1)
+                추가. 시민 쪽 기존 <code>first-investment-steps</code>(26세)에
+                <code>dynamicAppearChance</code> 리트로핏(신뢰도 높을수록 노출↑) +
+                신규 회의적 대응 선택지 <code>skeptical-of-investing-26</code>
+                (신뢰도 낮을수록 노출↑) 추가.</li>
+            </ul>
+            </li>
             <li><b><code>devCodeQuality</code>(개발자 서비스 안정성).</b> 설정 — 개발자 루트의
             선택지 중 꼼꼼한 테스트/리뷰(target 1) vs 마감에 쫓겨 날림 배포(target 0). 영향 —
             창업가/자영업자 쪽 "서비스 장애" 콘텐츠, 일반 시민 쪽 "앱이 자꾸 먹통이다" 콘텐츠의
