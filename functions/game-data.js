@@ -6779,6 +6779,7 @@ const STAGES = [
       {
         id: 'deviant-fake-disabled-parking-22',
         text: '장애인 주차구역에 잠깐이라며 차를 세운다',
+        requiresAssetType: 'vehicle',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '금방 뺄 거라 생각하며 자리를 떴다.' },
           { weight: 18, label: '발각', deltas: { wealth: -3, happiness: -4 }, result: '단속 요원이 이미 스티커를 붙이고 있었다.' }
@@ -13283,6 +13284,8 @@ const STAGES = [
       {
         id: 'deviant-secret-gambling-friends-28',
         text: '친구들과 몰래 판돈을 걸고 게임을 한다',
+        deltas: { wealth: -8 },
+        requiresSufficientCash: true,
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
@@ -13894,6 +13897,8 @@ const STAGES = [
         text: '동료들과 어울려 불법 온라인 도박 사이트에 상습적으로 접속한다',
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol'],
+        deltas: { wealth: -8 },
+        requiresSufficientCash: true,
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
@@ -17641,7 +17646,8 @@ const STAGES = [
         id: "wealth-drain-32-a",
         text: "투자 정보를 믿고 목돈을 넣었다가 마음을 졸인다",
         deltas: { wealth: -6 },
-        result: "확신했던 만큼, 흔들림도 컸다."
+        result: "확신했던 만큼, 흔들림도 컸다.",
+        requiresSufficientCash: true
       },
       {
         id: "unhappy-32",
@@ -19254,6 +19260,7 @@ const STAGES = [
       {
         id: 'deviant-borrow-disabled-permit-34',
         text: '장애인 주차증을 빌려 몰래 사용한다',
+        requiresAssetType: 'vehicle',
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { happiness: 2 }, result: '편하게 주차하고 볼일을 봤다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, happiness: -4 }, result: '명의자와 다른 얼굴이라는 걸 단속반이 알아챘다.' }
@@ -26329,7 +26336,8 @@ const STAGES = [
         id: "wealth-drain-43-b",
         text: "현지에서 뜻밖의 투자 제안에 목돈을 건다",
         deltas: { wealth: -6 },
-        result: "기회라는 말이, 판단을 흐리게 했다."
+        result: "기회라는 말이, 판단을 흐리게 했다.",
+        requiresSufficientCash: true
       },
       {
         id: "unhappy-43",
@@ -33465,7 +33473,8 @@ const STAGES = [
         id: "wealth-drain-57-b",
         text: "노후 대비라며 권유받은 상품에 목돈을 넣는다",
         deltas: { wealth: -6 },
-        result: "그럴듯한 설명에, 의심 없이 서명했다."
+        result: "그럴듯한 설명에, 의심 없이 서명했다.",
+        requiresSufficientCash: true
       },
       {
         id: "unhappy-57",
@@ -37063,6 +37072,8 @@ const STAGES = [
       {
         id: 'deviant-senior-center-gambling-66',
         text: '경로당 화투판에서 몰래 판돈을 키운다',
+        deltas: { wealth: -8 },
+        requiresSufficientCash: true,
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
@@ -38797,6 +38808,8 @@ const STAGES = [
       {
         id: 'deviant-senior-highstakes-gambling-75',
         text: '경로당 몰래 큰 판돈이 걸린 도박에 낀다',
+        deltas: { wealth: -15 },
+        requiresSufficientCash: true,
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
