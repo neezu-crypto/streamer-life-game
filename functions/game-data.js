@@ -487,7 +487,8 @@ const STAGES = [
         id: 'water-loving-toddler',
         text: '물놀이만 하면 시간 가는 줄 모른다',
         deltas: { happiness: 2, health: 1 },
-        result: '물만 봤다 하면, 온몸이 흠뻑 젖는 건 시간문제였다.'
+        result: '물만 봤다 하면, 온몸이 흠뻑 젖는 건 시간문제였다.',
+        addHobby: { id: 'swimming', label: '🏊 수영' }
       }
     ]
   },
@@ -979,7 +980,8 @@ const STAGES = [
         id: 'new-hobby-swimming',
         text: '수영을 배우기 시작하며 물과 친해진다',
         deltas: { health: 2 },
-        result: '처음엔 물이 무서웠는데, 어느새 물장구가 재미있어졌다.'
+        result: '처음엔 물이 무서웠는데, 어느새 물장구가 재미있어졌다.',
+        addHobby: { id: 'swimming', label: '🏊 수영' }
       }
     ]
   },
@@ -25177,7 +25179,8 @@ const STAGES = [
         id: 'car-replacement-decision-41',
         text: '오래된 차를 바꿀지 고민한다',
         deltas: { wealth: -2 },
-        result: '정든 차와 헤어질 생각에, 계약서에 선뜻 손이 안 갔다.'
+        result: '정든 차와 헤어질 생각에, 계약서에 선뜻 손이 안 갔다.',
+        requiresAssetType: 'vehicle'
       },
       {
         id: 'old-boss-reconnect-41',
@@ -30848,6 +30851,12 @@ const STAGES = [
       {
         id: 'deviant-old-gambling-habit-returns-51',
         text: '젊은 날의 도박 버릇이 몰래 되살아난다',
+        // requiresSufficientCash(2026-08-29, 사용자 지시)는 choice.deltas.wealth를
+        // 그대로 판돈으로 읽는다(prizeTable 갈래별 결과와는 별개 - resolvedDeltas는
+        // applyChoice에서 picked.deltas로 덮어써지므로 여기 deltas는 순수하게
+        // "판돈이 있어야 도박을 시작할 수 있다"는 현금 검증에만 쓰인다).
+        deltas: { wealth: -8 },
+        requiresSufficientCash: true,
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
@@ -38834,7 +38843,8 @@ const STAGES = [
         id: "wealth-drain-75-a",
         text: "이름값을 위해 마지막으로 큰돈을 들인 자리를 마련한다",
         deltas: { wealth: -3 },
-        result: "잊히기 싫은 마음이, 지출로 나타났다."
+        result: "잊히기 싫은 마음이, 지출로 나타났다.",
+        requiresSufficientCash: true
       },
       {
         id: "unhappy-75",
