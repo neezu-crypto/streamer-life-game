@@ -15266,6 +15266,15 @@ const STAGES = [
         result: '퇴근 후 작은 부업을 시작하며, 다른 가능성을 열어봤다.',
         requiresRoute: 'regular-employee'
       },
+      {
+        id: 'deviant-re-startup-trial-abuse-30',
+        text: '스타트업 서비스의 무료체험을 여러 계정으로 반복해서 악용한다',
+        requiresRoute: 'regular-employee',
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 2 }, result: '얼마 안 되는 구독료였지만, 안 낸다는 사실 자체가 묘하게 짜릿했다.', worldStateSignal: { key: 'localEconomySentiment', target: 0 } },
+          { weight: 10, label: '발각', deltas: { relationship: -2, happiness: -2 }, result: '이상 계정으로 걸려 전체 계정이 정지됐다.', worldStateSignal: { key: 'localEconomySentiment', target: 0 } }
+        ]
+      },
 
       {
         id: 'sb-decade-milestone-30',
