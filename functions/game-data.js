@@ -4003,6 +4003,16 @@ const STAGES = [
     intro: '인생의 첫 갈림길. 대학과 방송, 혹은 곧장 돈이 되는 길 — 스무 살의 선택은 이후 모든 걸 조금씩 흔들어놓습니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-19',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'law-fill2-19-1',
         text: '판례 검색에만 하루를 다 쓴다',
         deltas: { happiness: -1 },
@@ -4648,6 +4658,16 @@ const STAGES = [
     ageRange: '20세',
     intro: '갓 어른이 된 티가 조금씩 빠지는 나이. 독립과 자유가 생각보다 훨씬 손이 많이 간다는 걸 알아갑니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-20',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-entry-20',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
@@ -5577,6 +5597,16 @@ const STAGES = [
     intro: '방향을 조금씩 좁혀가는 나이. 막연했던 미래가 서서히 구체적인 모양을 갖추기 시작합니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-21',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con-artist-entry-21',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -6473,6 +6503,16 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-22',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-entry-22',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
@@ -7503,6 +7543,16 @@ const STAGES = [
     ageRange: '23세',
     intro: '스무 살대의 마지막 해. 자립이라는 단어가 더는 남 얘기가 아니게 됩니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-23',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-entry-23',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
@@ -8542,6 +8592,16 @@ const STAGES = [
     ageRange: '24세',
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-24',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-entry-24',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
@@ -9718,6 +9778,16 @@ const STAGES = [
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-25',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'deviant-con-investment-scam-25',
         text: '가짜 투자 리딩방을 열어 지인들의 돈을 끌어모은다',
         requiresOccupation: ['con-artist'],
@@ -10821,6 +10891,16 @@ const STAGES = [
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-26',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con-artist-entry-26',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -11673,14 +11753,6 @@ const STAGES = [
         addAsset: { id: 'bonus-cash', label: '💰 성과급 목돈', type: 'cash' }
       },
       {
-        id: 'first-used-car',
-        text: '중고차를 마련해 첫 차 주인이 된다',
-        deltas: { wealth: -4, happiness: 4 },
-        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
-        requiresSufficientCash: true,
-        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
-      },
-      {
         id: 'startup-founder-equity-fight',
         text: '동업자와 지분 문제로 크게 다툰다',
         deltas: { relationship: -6, happiness: -4 },
@@ -12013,6 +12085,16 @@ const STAGES = [
     ageRange: '27세',
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-27',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-entry-27',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
@@ -12988,14 +13070,6 @@ const STAGES = [
         result: '사람을 믿는 일에, 조금 더 신중해지기로 했다.'
       },
       {
-        id: 'car-purchase-decision-27',
-        text: '큰맘 먹고 첫 자동차를 구입한다',
-        deltas: { wealth: -3, happiness: 2 },
-        result: '할부금은 늘었지만, 운전대를 잡을 때마다 뿌듯함이 밀려왔다.',
-        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' },
-        requiresSufficientCash: true
-      },
-      {
         id: 'skill-certification-study-27',
         text: '이직을 준비하며 관련 자격증을 공부한다',
         deltas: { wealth: -1, fame: 1 },
@@ -13135,6 +13209,16 @@ const STAGES = [
     ageRange: '28세',
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-28',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-entry-28',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
@@ -14179,6 +14263,16 @@ const STAGES = [
     ageRange: '29세',
     intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-29',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-entry-29',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
@@ -15238,6 +15332,16 @@ const STAGES = [
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-30',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'deviant-con-voice-phishing-30',
         text: '노인을 대상으로 한 보이스피싱 조직에 가담한다',
         requiresOccupation: ['con-artist'],
@@ -16270,6 +16374,16 @@ const STAGES = [
     intro: '곁에 남을 사람과 앞으로의 삶을 어떻게 그릴지, 조금 더 구체적으로 고민하는 나이입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-31',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con-artist-entry-31',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -17253,6 +17367,16 @@ const STAGES = [
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-32',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con-artist-entry-32',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -18183,6 +18307,16 @@ const STAGES = [
     ageRange: '33세',
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-33',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-entry-33',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
@@ -19160,6 +19294,16 @@ const STAGES = [
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-34',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con-artist-entry-34',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -20105,6 +20249,16 @@ const STAGES = [
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-35',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'deviant-con-ponzi-scheme-35',
         text: '다단계 조직을 꾸려 지인들을 끌어들인다',
         requiresOccupation: ['con-artist'],
@@ -21018,6 +21172,16 @@ const STAGES = [
     intro: '나를 키워준 사람들을 이제는 내가 돌봐야 할 시기가 다가옵니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-36',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con-artist-entry-36',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -21828,6 +21992,16 @@ const STAGES = [
     ageRange: '37세',
     intro: '잊고 지내던 나 자신을 다시 챙기기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-37',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-entry-37',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
@@ -22642,6 +22816,16 @@ const STAGES = [
     ageRange: '38세',
     intro: '몸이 예전 같지 않다는 걸, 무시할 수 없을 만큼 또렷하게 느끼게 됩니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-38',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-entry-38',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
@@ -23465,6 +23649,16 @@ const STAGES = [
     intro: '서른대의 마지막 해. 다가올 10년을 조용히 준비하게 됩니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-39',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con-artist-entry-39',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -24166,6 +24360,16 @@ const STAGES = [
     ageRange: '40세',
     intro: '인생의 절반 지점. 마흔이라는 숫자가 이유 없이 지난 시간을 돌아보게 만듭니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-40',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'deviant-con-business-fraud-40',
         text: '허위 동업 계약을 내세워 투자금만 챙기고 잠적을 준비한다',
@@ -24963,6 +25167,16 @@ const STAGES = [
     intro: '자녀 교육이든 커리어든, 뭔가를 본격적으로 다잡아야 할 것 같은 압박이 느껴지는 나이입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-41',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con-artist-entry-41',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -25606,6 +25820,16 @@ const STAGES = [
     intro: '몸이 보내는 신호를 더 이상 못 본 척할 수 없게 되는 나이입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-42',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con-artist-entry-42',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -26246,6 +26470,16 @@ const STAGES = [
     ageRange: '43세',
     intro: '조직 안에서 자신의 자리를 다시 확인하게 되는 시기입니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-43',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-entry-43',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
@@ -26908,6 +27142,16 @@ const STAGES = [
     ageRange: '44세',
     intro: '가까운 사이일수록 소원해지기 쉬운 나이. 관계를 다시 들여다보게 됩니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-44',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-entry-44',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
@@ -27599,6 +27843,16 @@ const STAGES = [
     ageRange: '45세',
     intro: '다 가진 것 같은데도 문득 공허해지는, 이른바 중년의 위기가 찾아오는 나이입니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-45',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'deviant-con-loan-fraud-45',
         text: '지인에게 큰돈을 빌린 뒤 연락을 끊고 갚지 않는다',
@@ -28409,6 +28663,16 @@ const STAGES = [
     intro: '늦지 않았다는 걸 스스로 증명하고 싶어지는 나이입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-46',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con-artist-entry-46',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -28945,6 +29209,16 @@ const STAGES = [
     ageRange: '47세',
     intro: '나를 키워준 사람들의 노년을 마주하며, 삶과 죽음을 조금 더 가까이서 보게 됩니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-47',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-entry-47',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
@@ -29555,6 +29829,16 @@ const STAGES = [
     intro: '커리어가 정점에 이르거나, 정체를 마주하거나 — 갈림이 뚜렷해지는 나이입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-48',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con-artist-entry-48',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -30082,6 +30366,16 @@ const STAGES = [
     intro: '몸이 새로운 국면으로 접어드는 걸 느끼기 시작하는 나이입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-49',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con-artist-entry-49',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -30566,6 +30860,16 @@ const STAGES = [
     ageRange: '50세',
     intro: '쉰이라는 숫자 앞에서, 지나온 시간의 무게를 새삼 느끼게 됩니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-50',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-steady-grift-50',
         text: '적당히 눈치껏 잔챙이 사기를 치며 근근이 먹고산다',
@@ -31143,6 +31447,16 @@ const STAGES = [
     intro: '자녀가 떠난 자리, 그 빈자리를 어떻게 채우느냐가 이 시기의 숙제입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-51',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con-artist-entry-51',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -31608,6 +31922,16 @@ const STAGES = [
     intro: '은퇴라는 단어가 더는 먼 이야기가 아니게 되는 나이입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-52',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con-artist-entry-52',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -31982,6 +32306,16 @@ const STAGES = [
     ageRange: '53세',
     intro: '숫자로 남은 시간을 가늠하게 되는, 현실적인 재정비의 시기입니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-53',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-entry-53',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
@@ -32369,6 +32703,16 @@ const STAGES = [
     intro: '중년의 마지막 해. 다가올 노년을 향해 조용히 마음을 다잡습니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-54',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con-artist-entry-54',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -32748,6 +33092,16 @@ const STAGES = [
     ageRange: '55세',
     intro: '정년이라는 단어가 더는 남 얘기가 아니게 되는 나이. 매일 출근하던 삶이 조용히 막을 내립니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-55',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-reforms-55',
         text: '이제 손을 씻고 발을 빼기로 결심한다',
@@ -33412,6 +33766,16 @@ const STAGES = [
     intro: '평생 "어디 소속"으로 나를 소개하던 습관이 사라지며, 나는 누구인가를 새삼 다시 묻게 됩니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-56',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con-artist-entry-56',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -33785,6 +34149,16 @@ const STAGES = [
     ageRange: '57세',
     intro: '직장이라는 울타리 없이 새로운 사람들과 관계를 다시 엮어가야 하는 시기입니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-57',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-entry-57',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
@@ -34201,6 +34575,16 @@ const STAGES = [
     ageRange: '58세',
     intro: '자녀 세대가 이제 자기 가정을 꾸리며, 가족 안에서의 내 역할도 조금씩 달라집니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-58',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-entry-58',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
@@ -34676,6 +35060,16 @@ const STAGES = [
     intro: '건강이 더 이상 당연한 게 아니라는 걸 받아들이고, 본격적으로 몸을 챙기기 시작하는 나이입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-59',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con-artist-entry-59',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -35069,6 +35463,16 @@ const STAGES = [
     ageRange: '60세',
     intro: '환갑. 예순 해를 지나온 삶을 가족과 함께 돌아보는 해입니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-60',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-entry-60',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
@@ -35567,6 +35971,16 @@ const STAGES = [
     intro: '은퇴 이후의 삶이 서서히 새로운 리듬을 찾아가는 시기입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-61',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con-artist-entry-61',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -35981,6 +36395,16 @@ const STAGES = [
     ageRange: '62세',
     intro: '연금이라는 단어가 현실적인 숫자로 다가오기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-62',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-entry-62',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
@@ -36450,6 +36874,16 @@ const STAGES = [
     intro: '취미와 가족, 두 가지 모두에서 깊이가 더해지는 시기입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-63',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con-artist-entry-63',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -36843,6 +37277,16 @@ const STAGES = [
     intro: '몸의 변화를 있는 그대로 받아들이는 연습이 필요한 나이입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-64',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con-artist-entry-64',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -37197,6 +37641,16 @@ const STAGES = [
     ageRange: '65세',
     intro: '법정 노인 연령. 사회가 부르는 호칭이 바뀌는 걸 마주하게 됩니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-65',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con-artist-entry-65',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
@@ -37658,6 +38112,16 @@ const STAGES = [
     intro: '오랜 세월을 함께한 배우자와의 관계를 다시 들여다보게 되는 나이입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-66',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con4-fill-66',
         text: '해외 기업의 자문 요청을 받는다',
         deltas: { wealth: 3, fame: 2 },
@@ -37936,6 +38400,16 @@ const STAGES = [
     intro: '남겨질 것들에 대해 조금씩 마음의 준비를 시작하는 나이입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-67',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'sf4-fill-67',
         text: '오랜 공동창업자와 함께 은퇴를 논의한다',
         deltas: { happiness: 1 },
@@ -38119,6 +38593,16 @@ const STAGES = [
     ageRange: '68세',
     intro: '가까운 이들의 부고를 마주하며, 남은 삶의 무게를 다시 느끼게 됩니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-68',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con4-fill-68',
         text: '오랜 컨설팅 노하우를 데이터베이스로 정리한다',
@@ -38343,6 +38827,16 @@ const STAGES = [
     intro: '노년 준비의 마지막 해. 진짜 노년이 코앞으로 다가옵니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-69',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'ent4-fill-69',
         text: '회사가 지역 사회에 기부하며 이름을 알린다',
         deltas: { fame: 2, wealth: -1 },
@@ -38482,6 +38976,16 @@ const STAGES = [
     ageRange: '70세',
     intro: '칠순. 황혼이라 불리는 시간의 첫걸음을 내딛습니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-70',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'deviant-ent-tax-evasion-70',
         text: '해외 법인을 이용해 세금을 회피한다',
@@ -38781,6 +39285,16 @@ const STAGES = [
     intro: '거창한 일 없이도, 하루하루의 작은 순간들이 새삼 소중하게 다가오는 나이입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-71',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'vw4-fill-71',
         text: '재능기부 활동으로 지역 신문에 소개된다',
         deltas: { fame: 2, happiness: 2 },
@@ -38921,6 +39435,16 @@ const STAGES = [
     ageRange: '72세',
     intro: '자녀와 손주 세대가 저마다의 성취를 이뤄가는 걸 지켜보는 나이입니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-72',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'sf4-fill-72',
         text: '창업 인생을 정리하며 두 번째 도전을 준비한다',
@@ -39102,6 +39626,16 @@ const STAGES = [
     intro: '몸이 더는 예전 같지 않다는 걸, 이제는 확실히 받아들여야 하는 시기입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-73',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'vw4-fill-73',
         text: '오랜 봉사 동료와 다투고 화해한다',
         deltas: { relationship: 1, happiness: -1 },
@@ -39234,6 +39768,16 @@ const STAGES = [
     ageRange: '74세',
     intro: '다리에 힘이 있을 때, 라는 말이 부쩍 자주 나오는 나이입니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-74',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'vw4-fill-74',
         text: '새로운 봉사 분야에 도전하며 활력을 얻는다',
@@ -39379,6 +39923,16 @@ const STAGES = [
     ageRange: '75세',
     intro: '남은 시간을 어떻게 채워갈지, 다시 한번 진지하게 그려보는 나이입니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-75',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'deviant-con-kickback-75',
         text: '추천해준 업체로부터 뒷돈을 받는다',
@@ -39639,6 +40193,16 @@ const STAGES = [
     intro: '평생을 함께한 배우자의 건강이 흔들리는 걸 지켜보게 되는, 힘겨운 나이입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-76',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'con4-fill-76',
         text: '컨설팅 업계 원로로 인정받는다',
         deltas: { fame: 3, happiness: 1 },
@@ -39789,6 +40353,16 @@ const STAGES = [
     intro: '희수(喜壽). 예로부터 기쁘게 오래 산 것을 기리는 나이입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-77',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'vw4-fill-77',
         text: '봉사 활동 중 만난 이의 부고에 마음이 아프다',
         deltas: { happiness: -2, relationship: 1 },
@@ -39932,6 +40506,16 @@ const STAGES = [
     ageRange: '78세',
     intro: '기억이 예전만큼 또렷하지 않다는 걸, 스스로 느끼기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-78',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'sf4-fill-78',
         text: '스타트업 인생 회고전에 초청받는다',
@@ -40105,6 +40689,16 @@ const STAGES = [
     intro: '팔순을 코앞에 두고, 지나온 삶을 조용히 정리해보는 한 해입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-79',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'vw4-fill-79',
         text: '재능기부 경력을 인정받아 표창을 받는다',
         deltas: { fame: 2, happiness: 2 },
@@ -40225,6 +40819,16 @@ const STAGES = [
     ageRange: '80세',
     intro: '팔순. 여든 해를 살아낸 삶을 온 가족과 함께 기립니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-80',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'cp4-fill-80',
         text: '새 분야에서 맺은 인연이 가족처럼 가까워진다',
@@ -40439,6 +41043,16 @@ const STAGES = [
     intro: '매일 눈을 뜨는 것 자체가, 새삼 감사하게 느껴지는 나이입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-81',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'vw4-fill-81',
         text: '체력이 부쳐 활동 시간을 크게 줄인다',
         deltas: { health: -1 },
@@ -40582,6 +41196,16 @@ const STAGES = [
     ageRange: '82세',
     intro: '오랜 인연들의 안부가, 그 어느 때보다 소중하게 다가오는 나이입니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-82',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con4-fill-82',
         text: '건강 문제로 활동 반경을 크게 줄인다',
@@ -40742,6 +41366,16 @@ const STAGES = [
     intro: '혼자 해내던 일들에, 조금씩 다른 이의 손길이 필요해지는 시기입니다.',
     choices: [
       {
+        id: 'car-purchase-opportunity-83',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
+      {
         id: 'deviant-sf-customer-data-sale-83',
         text: '고객 개인정보를 몰래 제3자에게 판매한다',
         requiresOccupation: ['startup-founder'],
@@ -40861,6 +41495,16 @@ const STAGES = [
     ageRange: '84세',
     intro: '지나온 삶 전체를 조용히 되새기게 되는, 사색의 시간이 깊어지는 나이입니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-84',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'con4-fill-84',
         text: '평생의 지혜를 담은 마지막 강의를 준비한다',
@@ -40995,6 +41639,16 @@ const STAGES = [
     ageRange: '85세',
     intro: '누군가의 손길이 일상 속에 자연스레 스며드는 시기입니다.',
     choices: [
+      {
+        id: 'car-purchase-opportunity-85',
+        text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '낡았어도, 내 이름으로 된 첫 차라는 게 뿌듯했다.',
+        requiresNoAssetType: 'vehicle',
+        requiresSufficientCash: true,
+        appearChance: 0.05,
+        addAsset: { id: 'first-car', label: '🚗 중고차', type: 'vehicle' }
+      },
       {
         id: 'vw4-fill-85',
         text: '후배 봉사자들이 정기적으로 안부를 전해온다',

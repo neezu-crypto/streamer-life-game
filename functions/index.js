@@ -656,6 +656,7 @@ function pickVisibleChoiceIds(choices, ctx) {
     if (c.requiresAsset && !assetIds.includes(c.requiresAsset)) return false;
     if (c.requiresNoAsset && assetIds.includes(c.requiresNoAsset)) return false;
     if (c.requiresAssetType && !assetTypes.includes(c.requiresAssetType)) return false;
+    if (c.requiresNoAssetType && assetTypes.includes(c.requiresNoAssetType)) return false;
     if (c.requiresLocation && !c.requiresLocation.includes(locationId)) return false;
     if (c.requiresAnyAcquaintance && !hasAnyAcquaintance) return false;
     if (c.requiresAnyLover && !hasAnyLover) return false;
@@ -1170,6 +1171,13 @@ async function applyChoice(db, playRef, play, stage, choice) {
   }
   // requiresAssetType - pickVisibleChoiceIds와 완전히 같은 조건을 여기서도 검증한다.
   if (choice.requiresAssetType && !playAssetsForValidation.some((a) => a.type === choice.requiresAssetType)) {
+    throw new HttpsError('failed-precondition', '지금 재산 상태에서는 고를 수 없는 선택지입니다.');
+  }
+  // requiresNoAssetType(2026-08-30, 사용자 지시 - 차량구매를 나이·직업 무관
+  // 랜덤 이벤트로 전환) - requiresNoAsset의 타입 버전. "이미 어떤 종류든
+  // vehicle 자산을 갖고 있으면(중고차든 소형차든) 다시 첫 차 구매 선택지가
+  // 안 뜨게" 하기 위함.
+  if (choice.requiresNoAssetType && playAssetsForValidation.some((a) => a.type === choice.requiresNoAssetType)) {
     throw new HttpsError('failed-precondition', '지금 재산 상태에서는 고를 수 없는 선택지입니다.');
   }
   // requiresLocation(배열, 지금 있는 장소가 그 중 하나여야 후보) - requiresOccupation과

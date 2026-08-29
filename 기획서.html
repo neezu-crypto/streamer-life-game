@@ -7033,6 +7033,38 @@
         안전성 스트레스 테스트 재확인.</p>
     </section>
 
+    <section id="sec60">
+        <h2><span class="num">60</span>차량구매 - 나이·직업 무관 랜덤 이벤트로 전환
+        (2026-08-30, 사용자 지시 — 구현 완료)</h2>
+        <p><b>배경.</b> 기존 차량구매 선택지는 <code>first-used-car</code>(26세)·
+        <code>car-purchase-decision-27</code>(27세) 단 두 나이에만 고정 배치돼
+        있었다(101개 나이 구간 중 사실상 2개뿐). 사용자 지시로 "나이에 상관없이
+        어느 구간, 어느 직업에서도 랜덤으로 출현하는 이벤트"로 전환.</p>
+        <ul>
+            <li><b>기존 2개 제거 → 신규 반복 배치 선택지 1개로 통합.</b>
+            <code>car-purchase-opportunity-{'{나이}'}</code>를 19~85세 67개
+            스테이지 전부에 심어둠(연애 루트 <code>lover-route-attempt-*</code>,
+            사기꾼 <code>con-artist-entry-*</code>와 같은 "여러 나이 반복 배치"
+            패턴 재사용) — <code>appearChance:0.05</code>로 매년 무작위 등장,
+            <code>requiresOccupation</code> 없음(모든 직업에서 노출).</li>
+            <li><b>신규 엔진 필드 <code>requiresNoAssetType</code>.</b> 기존
+            <code>requiresNoAsset</code>(특정 자산 id 하나)의 타입 버전 - 이미
+            어떤 종류든(중고차·소형차 등) vehicle 자산을 갖고 있으면 다시
+            노출되지 않는다. <code>requiresAssetType</code>과 대칭되는
+            페어(둘 다 <code>pickVisibleChoiceIds</code>·<code>applyChoice</code>
+            양쪽에 반영).</li>
+            <li><b>제외 범위(현행 유지).</b> 해외정착 루트 전용
+            <code>usl-first-car-26</code>(루트 서사 전용이라 그대로 둠)와
+            60세 <code>downsizing-to-compact-car</code>(이미 차가 있는 사람이
+            소형차로 "교체"하는 별개 개념이라 그대로 둠)는 이번 전환 대상이
+            아니다.</li>
+        </ul>
+        <p><b>검증.</b> 전용 시나리오 스크립트(5/5) — 19/45/80세 등 서로 다른
+        나이대에서 실제로 등장하는 것, 이미 차량 자산을 갖고 있으면 100회
+        재추첨해도 절대 안 뜨는 것, 실제 제출 시 자산이 정상 추가되는 것까지
+        확인. 회귀 스위트(18/18, 11/11) 재확인.</p>
+    </section>
+
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
 </div>
 </body>
