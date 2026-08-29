@@ -656,6 +656,84 @@ function fadeIn(els) {
   });
 }
 
+// ------------------------------------------------------------
+// 세계관 상태 패널 (57장, 2026-08-29) - 평소엔 접힌 탭, 펼치면 lifeGame/worldState를
+// 1회 조회해 5단계 텍스트 등급으로 표시. 게임 상호작용(선택/주사위) 시 자동으로 닫힘.
+// ------------------------------------------------------------
+const worldStatePanel = document.getElementById('worldStatePanel');
+const worldStateTab = document.getElementById('worldStateTab');
+const worldStateGrid = document.getElementById('worldStateGrid');
+
+const WORLD_STATE_TRACKERS = [
+  { key: 'teacherCorruption', name: '교사 청렴도', pairing: '교사 ↔ 학생' },
+  { key: 'policeCorruption', name: '경찰 청렴도', pairing: '경찰 ↔ 현행범' },
+  { key: 'publicSafety', name: '치안', pairing: '경찰 ↔ 시민' },
+  { key: 'doctorCorruption', name: '의사 청렴도', pairing: '의사 ↔ 환자' },
+  { key: 'politicianCorruption', name: '정치인 청렴도', pairing: '정치인 ↔ 시민' },
+  { key: 'teamLeadUnfairness', name: '팀장 공정성', pairing: '팀장 ↔ 직장인' },
+  { key: 'lawyerDefenseQuality', name: '변호사 변론 품질', pairing: '변호사 ↔ 현행범' },
+  { key: 'localEconomySentiment', name: '골목상권 경기', pairing: '직장인 ↔ 자영업자' },
+];
+
+function worldStateTierLabel(rate) {
+  if (typeof rate !== 'number' || Number.isNaN(rate)) return '보통';
+  if (rate < 0.2) return '매우 낮음';
+  if (rate < 0.4) return '낮음';
+  if (rate < 0.6) return '보통';
+  if (rate < 0.8) return '높음';
+  return '매우 높음';
+}
+
+function renderWorldStateGrid(worldState) {
+  worldStateGrid.innerHTML = '';
+  const data = worldState || {};
+  let any = false;
+  WORLD_STATE_TRACKERS.forEach((tracker) => {
+    const entry = data[tracker.key];
+    if (!entry) return;
+    any = true;
+    const card = document.createElement('div');
+    card.className = 'ws-card';
+    card.innerHTML =
+      '<span class="ws-card-name">' + tracker.name + '</span>' +
+      '<span class="ws-card-pairing">' + tracker.pairing + '</span>' +
+      '<span class="ws-card-tier">' + worldStateTierLabel(entry.rate) + '</span>';
+    worldStateGrid.appendChild(card);
+  });
+  if (!any) {
+    const empty = document.createElement('div');
+    empty.className = 'ws-grid-empty';
+    empty.textContent = '아직 기록된 세계관 상태가 없어요.';
+    worldStateGrid.appendChild(empty);
+  }
+}
+
+async function openWorldStatePanel() {
+  worldStatePanel.classList.add('open');
+  worldStateTab.setAttribute('aria-expanded', 'true');
+  try {
+    const snap = await get(ref(db, 'lifeGame/worldState'));
+    renderWorldStateGrid(snap.exists() ? snap.val() : null);
+  } catch (e) {
+    console.error('세계관 상태 조회 실패:', e);
+    renderWorldStateGrid(null);
+  }
+}
+
+function closeWorldStatePanel() {
+  worldStatePanel.classList.remove('open');
+  worldStateTab.setAttribute('aria-expanded', 'false');
+}
+
+function isWorldStatePanelOpen() {
+  return worldStatePanel.classList.contains('open');
+}
+
+worldStateTab.addEventListener('click', () => {
+  if (isWorldStatePanelOpen()) closeWorldStatePanel();
+  else openWorldStatePanel();
+});
+
 let selectedStreamerId = null;
 const searchSection = document.getElementById('searchSection');
 const nameSection = document.getElementById('nameSection');
@@ -724,7 +802,7 @@ resumeBtn.addEventListener('click', async () => {
       lastKnownRouteId = res.data.currentRoute ? res.data.currentRoute.id : null;
       initRouteTheme(res.data.currentRoute);
       enterHostMode();
-      fadeIn([gameSection]);
+      fadeIn([gameSection, worldStatePanel]);
     }
   } catch (e) {
     console.error('이어하기 실패:', e);
@@ -1534,7 +1612,7 @@ startBtn.addEventListener('click', async () => {
     lastKnownRouteId = res.data.currentRoute ? res.data.currentRoute.id : null;
     initRouteTheme(res.data.currentRoute);
     enterHostMode();
-    fadeIn([gameSection]);
+    fadeIn([gameSection, worldStatePanel]);
   } catch (e) {
     console.error('인생 시작 실패:', e);
     alert('시작하지 못했어요: ' + (e.message || e));
@@ -1739,6 +1817,7 @@ function markSelectedChoice(selectedId) {
 }
 
 async function pickChoice(choiceId, extra) {
+  if (isWorldStatePanelOpen()) closeWorldStatePanel();
   disableChoiceList();
   try {
     const res = await submitChoiceFn(Object.assign({ choiceId }, extra));
@@ -1764,6 +1843,7 @@ async function pickChoice(choiceId, extra) {
 }
 
 async function rollDice() {
+  if (isWorldStatePanelOpen()) closeWorldStatePanel();
   disableChoiceList();
   diceOverlay.classList.remove('hidden');
   try {
@@ -2012,7 +2092,8 @@ async function showEnding(ending, stats, choiceHistory, familyMembers, occupatio
     triggerCrisisEffect();
     await new Promise((resolve) => setTimeout(resolve, REDUCE_MOTION ? 200 : 650));
   }
-  await fadeOut([mainHeader, gameSection]);
+  closeWorldStatePanel();
+  await fadeOut([mainHeader, gameSection, worldStatePanel]);
 
   endingTitle.textContent = ending.title;
   const sceneImageSrc = ENDING_SCENE_IMAGES[ending.id];
@@ -2725,7 +2806,7 @@ async function enterParticipantMode(hostUid, hostName) {
   mpParticipantBanner.classList.remove('hidden');
   mpParticipantHostLabel.textContent = '🙋 ' + hostName + '님의 게임에 참가중';
   await fadeOut([searchSection, nameSection, resumeSection, mainHeader]);
-  fadeIn([gameSection]);
+  fadeIn([gameSection, worldStatePanel]);
 
   if (mpParticipantUnsub) mpParticipantUnsub();
   mpParticipantUnsub = onValue(ref(db, 'lifeGame/multiplayerSessions/' + hostUid), (snap) => {
@@ -2910,7 +2991,8 @@ function leaveParticipantMode() {
   mpParticipantHostUid = null;
   document.body.classList.remove('mp-participant-mode');
   mpParticipantBanner.classList.add('hidden');
-  fadeOut([gameSection]).then(() => {
+  closeWorldStatePanel();
+  fadeOut([gameSection, worldStatePanel]).then(() => {
     fadeIn([searchSection, mainHeader]);
   });
 }

@@ -101,6 +101,21 @@
        방향과 그대로 맞아떨어져 별도 회전 없이 사용. -->
   <img id="logisticsRobot" class="logistics-robot hidden" aria-hidden="true" src="assets/sprites/logistics-robot.png" alt="">
 
+  <!-- 세계관 상태 패널(57장, 2026-08-29) - #gameSection의 형제 요소로 그 바로
+       앞에 둬서 PC(좌우 2단)/모바일(세로) 어느 배치에서도 항상 최상위에 온다.
+       평소엔 접힌 탭만 보이고, 펼치면 lifeGame/worldState를 1회 조회해 그린다. -->
+  <div id="worldStatePanel" class="world-state-panel hidden">
+    <button type="button" id="worldStateTab" class="world-state-tab" aria-expanded="false">
+      <span class="ws-tab-icon" aria-hidden="true">🌐</span>
+      <span class="ws-tab-label">세계관 상태</span>
+      <span id="worldStatePresence" class="ws-tab-presence hidden"></span>
+      <span class="ws-tab-caret" aria-hidden="true">▾</span>
+    </button>
+    <div id="worldStateBody" class="world-state-body">
+      <div id="worldStateGrid" class="world-state-grid"></div>
+    </div>
+  </div>
+
   <section id="gameSection" class="panel hidden">
     <!-- 멀티플레이(13장) - 참가자 모드일 땐 이 배너로 대체되고, 호스트 모드일 땐
          숨겨진 채로 아래 mpHostPanel(토글+참가자 목록+투표 수)만 쓰인다. -->
