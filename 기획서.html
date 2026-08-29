@@ -6747,7 +6747,7 @@
     </section>
 
     <section id="sec58">
-        <h2><span class="num">58</span>세계관 트래커 5종 추가 + 창업가/자영업자 공급량 연동 수입 (2026-08-29, 사용자 요청 — A항 5종 전부 구현 완료, B항은 설계만·미구현)</h2>
+        <h2><span class="num">58</span>세계관 트래커 5종 추가 + 창업가/자영업자 공급량 연동 수입 (2026-08-29/30, 사용자 요청 — A항 5종·B항 전부 구현 완료)</h2>
         <p><b>참고.</b> 지금까지 실제로 배포된 트래커는 <code>teacherCorruption</code>·
         <code>policeCorruption</code>·<code>publicSafety</code>·<code>doctorCorruption</code>·
         <code>politicianCorruption</code>·<code>teamLeadUnfairness</code>(원 56장 설계분) +
@@ -6857,7 +6857,22 @@
         콘텐츠 조사 후 정해짐.</p>
 
         <h3>B. 창업가/자영업자 — 공급량 연동 수입 계산 (2026-08-29, 사용자 지시, 2026-08-29
-        공식 확정)</h3>
+        공식 확정 — 2026-08-30 구현 완료)</h3>
+        <p><b>구현 현황(2026-08-30).</b> "이탈 시점 전수조사"라는 가장 손이 많이 가는
+        부분을, 개별 선택지를 하나하나 태깅하는 대신 <b>엔진 레벨에서 완전히
+        자동화</b>해 해결 — 이미 있는 <code>setOccupation</code>/<code>occupationHistory</code>
+        메커니즘을 그대로 활용해, 직업 id를 그룹(예: civil-servant 사다리 4개 전부 →
+        <code>civil-servant</code> 그룹)으로 매핑하는 테이블만 두고, <b>이전 그룹 ≠ 새
+        그룹일 때만</b> 증감시킨다 — 같은 그룹 안의 승진은 건드리지 않고, 다른 그룹으로
+        전직하거나 삶이 끝나는 시점(<code>completed</code>)에만 자동으로 이전 그룹 -1이
+        걸린다. 게임 데이터(선택지) 쪽은 전혀 건드리지 않고 <code>functions/index.js</code>
+        엔진 로직만으로 완결 — 다만 추적 대상 직업 그룹은 기존 세계관 트래커 8종에
+        이미 쓰인 10개 주요 직업 계열(공무원·트레이더·개발자·연예계·교사·경찰·변호사·
+        의사·정치인·일반 직장인)로 한정한 근사치이고, 컨설턴트·재능기부·은퇴자 등 소수
+        특수 직업은 추적 대상에서 제외됐다. <code>supplyRatioIncomeScale: true</code>
+        태그는 자영업자/창업가 계열의 양수 wealth 선택지 30개 전부에 적용 완료.
+        RTDB 검증(fake-db 기반 e2e)으로 게이지 증가(진입)·감소(엔딩 도달)·배율 적용
+        (공급 과잉 시 ×0.5로 정확히 스케일)까지 실제 코드로 확인.</p>
         <p>"경쟁자가 많아지면 개인의 수입이 줄어든다"는 공급-수요 원리를 반영. 처음엔
         <code>investorCountPrizeWeight</code>(트레이더 성과급, 전역 누적 카운터 기반)와
         같은 방식을 검토했으나, 사용자 지시로 공식을 아래처럼 확정 — 누적치가 아니라

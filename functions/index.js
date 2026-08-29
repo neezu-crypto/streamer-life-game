@@ -68,6 +68,57 @@ function worldStateRateOf(worldStateRates, key) {
   return typeof rates[key] === 'number' ? rates[key] : WORLD_STATE_DEFAULT_RATE;
 }
 
+// 자영업자/창업가 공급량 연동 수입(2026-08-30, 58장 B항 구현) - "지금 이
+// 순간 다른 직업 대비 자영업자/창업가가 상대적으로 얼마나 많은가"를 재려면
+// 누적 카운터가 아니라 진입/이탈 양쪽에서 증감하는 게이지가 필요하다.
+// 콘텐츠(개별 선택지) 쪽을 전수조사해 "이탈 선택지"를 일일이 태깅하는 대신,
+// 이미 존재하는 setOccupation/occupationHistory 메커니즘을 그대로 재사용해
+// 엔진 레벨에서 완전히 자동으로 감지한다 - 같은 그룹 안에서의 승진(예:
+// civil-servant → civil-servant-7th-grade)은 그룹이 안 바뀌므로 증감이 발생하지
+// 않고, 그룹이 실제로 바뀔 때만(다른 직업으로 전직/폐업, 또는 삶의 종료) 이전
+// 그룹 -1 · 새 그룹 +1이 걸린다. 여기 없는 직업(재능기부/컨설턴트/은퇴자 등
+// 소수 특수 직업)은 추적 대상에서 제외 - 정확한 전수조사보다 "기존 세계관
+// 트래커 8종에 이미 쓰인 주요 직업 계열"로 범위를 한정한 근사치(58장 B항
+// 설계 문서에 이미 "가장 손이 많이 가는 지점"으로 명시된 부분의 실용적 타협).
+const OCCUPATION_GAUGE_GROUPS = {
+  'small-business-owner': 'small-business', 'startup-founder': 'small-business',
+  'entrepreneur': 'small-business', 'teen-entrepreneur': 'small-business',
+  'civil-servant': 'civil-servant', 'civil-servant-7th-grade': 'civil-servant',
+  'civil-servant-5th-grade': 'civil-servant', 'civil-servant-senior-official': 'civil-servant',
+  'junior-trader': 'trader', 'trader': 'trader', 'fund-manager': 'trader',
+  'junior-developer': 'developer', 'senior-developer': 'developer',
+  'trainee': 'entertainment', 'idol': 'entertainment', 'rising-actor': 'entertainment',
+  'veteran-actor': 'entertainment', 'actor-newcomer': 'entertainment',
+  'teacher': 'teacher', 'head-teacher': 'teacher', 'vice-principal': 'teacher',
+  'principal': 'teacher', 'english-teacher': 'teacher',
+  'police-cadet': 'police', 'detective': 'police',
+  'law-student': 'lawyer', 'trainee-lawyer': 'lawyer', 'associate-lawyer': 'lawyer', 'solo-lawyer': 'lawyer',
+  'med-student': 'doctor', 'intern-resident': 'doctor', 'doctor': 'doctor',
+  'local-council-candidate': 'politician', 'local-council-member': 'politician',
+  'office-worker': 'regular-employee', 'sales-rep': 'regular-employee', 'team-lead': 'regular-employee',
+  'public-corp-employee': 'regular-employee', 'job-changed': 'regular-employee', 're-employed': 'regular-employee'
+};
+const OTHER_OCCUPATION_GAUGE_GROUPS = ['civil-servant', 'trader', 'developer', 'entertainment', 'teacher', 'police', 'lawyer', 'doctor', 'politician', 'regular-employee'];
+
+function occupationGaugeGroupOf(occupation) {
+  return occupation ? (OCCUPATION_GAUGE_GROUPS[occupation.id] || null) : null;
+}
+
+// ratio = 자영업자·창업가 게이지 / 다른 추적 직업들의 평균 게이지.
+// multiplier = clamp(1/ratio, 0.5, 2.0) - ratio가 1(다른 직업과 비슷한 규모)이면
+// 정확히 ×1, 자영업자·창업가가 상대적으로 많아질수록(공급 과잉) ×0.5까지
+// 낮아지고, 적어질수록(희소성) ×2까지 오른다.
+async function fetchSupplyRatioIncomeMultiplier(db) {
+  const snap = await db.ref('lifeGame/occupationGauge').get();
+  const gauges = snap.val() || {};
+  const selfEmployedGauge = gauges['small-business'] || 0;
+  const otherValues = OTHER_OCCUPATION_GAUGE_GROUPS.map((g) => gauges[g] || 0);
+  const avgOther = otherValues.reduce((sum, v) => sum + v, 0) / otherValues.length;
+  if (selfEmployedGauge <= 0 || avgOther <= 0) return 1;
+  const ratio = selfEmployedGauge / avgOther;
+  return Math.min(2.0, Math.max(0.5, 1 / ratio));
+}
+
 // 주식 가격 변동(2026-08-28, 56장 D항 - "봇 로직을 그냥 하지말고 매 턴 55%
 // 확률로 +1%/45% 확률로 -1%로 주가 변동되게 할까? 주식시장과 주가 연동은
 // 유지") - soop-stock-market의 트레이딩 봇 5가지 패턴을 이식하는 대신, 실제
@@ -1282,6 +1333,16 @@ async function applyChoice(db, playRef, play, stage, choice) {
     healthRecoverySuppressed = true;
   }
 
+  // supplyRatioIncomeScale(2026-08-30, 58장 B항) - 자영업자/창업가의 수입
+  // 선택지(양수 wealth만, 지출엔 적용 안 함)에 공급량 비율 배율을 곱한다.
+  // 지금 이 플레이어가 실제로 자영업자/창업가 그룹인지(priorOccupation 기준
+  // - 이 선택을 고른 시점의 직업)까지 확인해, 다른 직업의 우연히 같은 필드명을
+  // 쓰는 선택지에 잘못 적용되는 일이 없게 한다.
+  if (choice.supplyRatioIncomeScale && effectiveDeltas.wealth > 0 && occupationGaugeGroupOf(priorOccupation) === 'small-business') {
+    const supplyMultiplier = await fetchSupplyRatioIncomeMultiplier(db);
+    effectiveDeltas.wealth = Math.round(effectiveDeltas.wealth * supplyMultiplier);
+  }
+
   // 보험 가입 중 - 회복 가능한 질병·부상 완전 회피(2026-08-22, 18장 사용자
   // 확정) - 이 선택지가 addCondition을 붙였고 그 조건이 permanent(희귀질환·
   // 사고후유증·치매 3종만 true)가 아니고 wealth 델타가 음수이면, 진단·병원비를
@@ -1810,6 +1871,18 @@ async function applyChoice(db, playRef, play, stage, choice) {
       const rate = current && typeof current.rate === 'number' ? current.rate : WORLD_STATE_DEFAULT_RATE;
       return { rate: rate * (1 - WORLD_STATE_ALPHA) + target * WORLD_STATE_ALPHA, updatedAt: ServerValue.TIMESTAMP };
     }));
+  }
+  // occupationGauge 증감(2026-08-30, 58장 B항) - 그룹이 실제로 바뀔 때만(같은
+  // 그룹 안의 승진은 그룹이 그대로라 건드리지 않음) 이전 그룹 -1 · 새 그룹 +1.
+  // 삶이 끝나는 시점(completed)도 "이탈"로 본다 - 그 직업을 더 이상 유지하지
+  // 않게 되는 것이므로 currentOccupation 그룹을 -1 한다.
+  const priorGaugeGroup = occupationGaugeGroupOf(priorOccupation);
+  const newGaugeGroup = completed ? null : occupationGaugeGroupOf(currentOccupation);
+  if (newGaugeGroup && newGaugeGroup !== priorGaugeGroup) {
+    statWrites.push(db.ref('lifeGame/occupationGauge/' + newGaugeGroup).transaction((v) => (v || 0) + 1));
+  }
+  if (priorGaugeGroup && priorGaugeGroup !== newGaugeGroup) {
+    statWrites.push(db.ref('lifeGame/occupationGauge/' + priorGaugeGroup).transaction((v) => Math.max(0, (v || 0) - 1)));
   }
   // 해금 도감 - 루트 칸(2026-08-22, 사용자 지시로 ①번 루트 완료 후 추가) - 이번
   // 선택 이전엔 활성 루트가 있었는데(priorRouteState), 이번 선택으로 그 루트가

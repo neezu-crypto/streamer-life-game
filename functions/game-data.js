@@ -6719,6 +6719,7 @@ const STAGES = [
       },
       {
         id: 'sb-delivery-app-signup-22',
+        supplyRatioIncomeScale: true,
         text: '배달 앱에 입점해 매출 채널을 넓힌다',
         deltas: {"happiness":2,"wealth":2},
         result: '주문이 하나둘 늘어가는 걸 보며, 잘한 선택이란 확신이 들었다.',
@@ -7274,6 +7275,7 @@ const STAGES = [
       },
       {
         id: 'startup-founder-investment',
+        supplyRatioIncomeScale: true,
         text: '투자 유치에 나서 사업을 키워본다',
         deltas: { wealth: 8, fame: 3 },
         result: '통장에 찍힌 투자금을 보며, 이제 진짜 시작이라는 걸 실감했다.',
@@ -7722,6 +7724,7 @@ const STAGES = [
       },
       {
         id: 'sb-good-review-viral-23',
+        supplyRatioIncomeScale: true,
         text: 'SNS 리뷰가 입소문을 타며 손님이 몰려든다',
         deltas: {"happiness":4,"wealth":3,"fame":2},
         result: '갑자기 밀려든 줄에, 정신없이 즐거운 하루였다.',
@@ -8231,6 +8234,7 @@ const STAGES = [
       },
       {
         id: 'sf-investor-pitch-23',
+        supplyRatioIncomeScale: true,
         text: '엔젤 투자자 앞에서 첫 피칭을 한다',
         deltas: { wealth: 4, happiness: 3, health: -2 },
         result: '떨리는 목소리로 숫자를 읽어 내려가는데, 손끝까지 땀이 났다.',
@@ -8259,6 +8263,7 @@ const STAGES = [
       },
       {
         id: 'sf-viral-moment-23',
+        supplyRatioIncomeScale: true,
         text: '서비스가 SNS에서 예상 밖으로 화제가 된다',
         deltas: { fame: 6, wealth: 2 },
         result: '서버가 감당 못 할 정도의 트래픽이, 반가움보다 먼저 공포로 다가왔다.',
@@ -9949,6 +9954,7 @@ const STAGES = [
 
       {
         id: 'sb-franchise-offer-25',
+        supplyRatioIncomeScale: true,
         text: '프랜차이즈로 전환하자는 제안을 받는다',
         deltas: {"happiness":2,"wealth":1},
         result: '편해질 것 같으면서도, 내 것이 아니게 될까 걱정도 됐다.',
@@ -10368,6 +10374,7 @@ const STAGES = [
       },
       {
         id: 'small-biz-sales-booming',
+        supplyRatioIncomeScale: true,
         text: '장사가 잘돼 매출이 눈에 띄게 는다',
         deltas: { wealth: 6, happiness: 3 },
         result: '문 닫을 때 세는 매출이, 요즘 들어 유독 든든했다.',
@@ -11047,6 +11054,7 @@ const STAGES = [
       },
       {
         id: 'sb-record-sales-day-26',
+        supplyRatioIncomeScale: true,
         text: '역대 최고 매출을 찍으며 뿌듯한 하루를 보낸다',
         deltas: {"happiness":4,"wealth":3},
         result: '정산기를 두드리는 손이, 오랜만에 신났다.',
@@ -11650,6 +11658,7 @@ const STAGES = [
       },
       {
         id: 'sbo-franchise-offer-26',
+        supplyRatioIncomeScale: true,
         text: '작은 프랜차이즈 제안을 받고 고민에 빠진다',
         deltas: { wealth: 2, happiness: 1 },
         result: '혼자 하던 가게가 커질 수 있다는 상상만으로도, 잠이 안 왔다.',
@@ -11931,6 +11940,7 @@ const STAGES = [
     choices: [
       {
         id: 'sf2-fill-27',
+        supplyRatioIncomeScale: true,
         text: '첫 유료 고객이 결제하는 순간을 목격한다',
         deltas: { happiness: 4, wealth: 1 },
         result: '숫자 하나였지만 세상이 인정해준 것 같았다.',
@@ -12157,6 +12167,7 @@ const STAGES = [
       },
       {
         id: 'sb-loan-for-expansion-27',
+        supplyRatioIncomeScale: true,
         text: '확장을 위해 대출을 받기로 결정한다',
         deltas: {"happiness":1,"wealth":3},
         result: '빚이지만, 미래를 위한 투자라고 스스로를 다독였다.',
@@ -15958,6 +15969,7 @@ const STAGES = [
       },
       {
         id: 'startup-founder-word-of-mouth',
+        supplyRatioIncomeScale: true,
         text: '입소문이라는 불씨가 서비스 전체로 옮겨붙는다',
         deltas: { fame: 5, wealth: 3 },
         result: '사용자 수 그래프가 꺾이지 않고 오르는 걸, 몇 번이고 새로고침했다.',
@@ -16398,6 +16410,7 @@ const STAGES = [
 
       {
         id: 'sb-online-store-launch-31',
+        supplyRatioIncomeScale: true,
         text: '온라인 판매 채널을 새로 연다',
         deltas: {"happiness":2,"wealth":2},
         result: '가게 문턱을 넘지 않아도 되는 손님들이, 새롭게 늘었다.',
@@ -17372,6 +17385,7 @@ const STAGES = [
       },
       {
         id: 'sb-cost-cutting-32',
+        supplyRatioIncomeScale: true,
         text: '허리띠를 졸라매며 비용을 줄여나간다',
         deltas: {"happiness":-1,"wealth":2},
         result: '아끼고 또 아끼는 게, 버티는 유일한 방법이었다.',
@@ -18029,6 +18043,7 @@ const STAGES = [
     choices: [
       {
         id: 'sf2-fill-33',
+        supplyRatioIncomeScale: true,
         text: '시리즈 A 투자 유치에 성공한다',
         deltas: { wealth: 6, fame: 2 },
         result: '숫자 하나가 회사의 운명을 바꿔놓았다.',
@@ -18318,6 +18333,7 @@ const STAGES = [
       },
       {
         id: 'sb-new-generation-appeal-33',
+        supplyRatioIncomeScale: true,
         text: '젊은 손님층을 잡기 위해 SNS 마케팅을 시작한다',
         deltas: {"happiness":2,"wealth":1,"fame":1},
         result: '낯설었지만, 새로운 얼굴들이 하나둘 늘어갔다.',
@@ -22428,6 +22444,7 @@ const STAGES = [
     choices: [
       {
         id: 'sf2-fill-38',
+        supplyRatioIncomeScale: true,
         text: '창업 3년 만에 처음으로 흑자를 낸다',
         deltas: { wealth: 5, happiness: 3 },
         result: '숫자 하나가 그동안의 고생을 씻어줬다.',
@@ -23058,6 +23075,7 @@ const STAGES = [
       },
       {
         id: 'entrepreneur-stable-revenue',
+        supplyRatioIncomeScale: true,
         text: '사업 운영 방식을 전면 재정비한다',
         deltas: { wealth: 7 },
         result: '매달 들쭉날쭉하던 매출이, 처음으로 예측 가능한 숫자가 됐다.',
@@ -23858,6 +23876,7 @@ const STAGES = [
       },
       {
         id: 'ent-investor-funding-39',
+        supplyRatioIncomeScale: true,
         text: '추가 투자를 유치하며 회사 가치를 인정받는다',
         deltas: { wealth: 5, fame: 2 },
         result: '숫자로 매겨진 회사의 가치가, 낯설고도 뿌듯했다.',
@@ -23930,6 +23949,7 @@ const STAGES = [
     choices: [
       {
         id: 'ent2-fill-40',
+        supplyRatioIncomeScale: true,
         text: '사업 확장을 위해 대출 조건을 꼼꼼히 비교한다',
         deltas: { wealth: 1 },
         result: '작은 이자율 차이가 몇 년 뒤엔 크게 갈릴 걸 알았다.',
@@ -24257,6 +24277,7 @@ const STAGES = [
 },
       {
         "id": "te2-legacy-brand-40",
+        "supplyRatioIncomeScale": true,
         "text": "젊은 시절 세운 브랜드가 여전히 사랑받는다",
         "deltas": {
                 "wealth": 3,
@@ -25877,6 +25898,7 @@ const STAGES = [
       },
       {
         id: 'entrepreneur-first-hire',
+        supplyRatioIncomeScale: true,
         text: '직원을 처음 채용하며 책임감이 커진다',
         deltas: { happiness: -2, wealth: 2 },
         result: '나 하나만 책임지던 삶이, 이제 다른 이의 생계까지 걸린 일이 됐다.',
@@ -28618,6 +28640,7 @@ const STAGES = [
     choices: [
       {
         id: 'sf4-fill-47',
+        supplyRatioIncomeScale: true,
         text: '창업 5년 차, 처음으로 안정적인 궤도에 오른다',
         deltas: { wealth: 4, happiness: 2 },
         result: '롤러코스터 같던 시간이 조금씩 잦아들었다.',
@@ -29217,6 +29240,7 @@ const STAGES = [
     choices: [
       {
         id: 'ent4-fill-48',
+        supplyRatioIncomeScale: true,
         text: '오랜 라이벌 기업과 전략적 제휴를 맺는다',
         deltas: { wealth: 3, fame: 1 },
         result: '적이자 동료가 되는 게 사업의 묘미였다.',
@@ -30209,6 +30233,7 @@ const STAGES = [
     choices: [
       {
         id: 'sf3-fill-50',
+        supplyRatioIncomeScale: true,
         text: '첫 창업의 실패를 발판 삼아 재도전한다',
         deltas: { happiness: 2, wealth: 1 },
         result: '실패도 하나의 자산이라는 걸 몸으로 배웠다.',
@@ -30768,6 +30793,7 @@ const STAGES = [
     choices: [
       {
         id: 'ent4-fill-51',
+        supplyRatioIncomeScale: true,
         text: '회사 상장을 준비하며 분주한 나날을 보낸다',
         deltas: { wealth: 4, health: -2 },
         result: '숫자 하나하나에 회사의 미래가 걸려 있었다.',
@@ -31596,6 +31622,7 @@ const STAGES = [
       },
       {
         id: 'ent2-fill-53',
+        supplyRatioIncomeScale: true,
         text: '회사 매각 제안을 진지하게 검토한다',
         deltas: { wealth: 3, happiness: -2 },
         result: '평생 일군 것을 놓는다는 게 쉽지 않았다.',
@@ -32343,6 +32370,7 @@ const STAGES = [
       },
       {
         id: 'ent3-fill-55',
+        supplyRatioIncomeScale: true,
         text: '사업체 일부를 후배 경영진에게 넘긴다',
         deltas: { happiness: 1, wealth: 2 },
         result: '완전히 놓기엔 이르지만, 손을 덜 필요는 있었다.',
@@ -35501,6 +35529,7 @@ const STAGES = [
       },
       {
         id: 'ent3-fill-62',
+        supplyRatioIncomeScale: true,
         text: '경영 일선에서 물러나 고문 역할을 맡는다',
         deltas: { wealth: 1, happiness: 1 },
         result: '무게는 가벼워졌지만 아쉬움도 함께였다.',
@@ -36696,6 +36725,7 @@ const STAGES = [
       },
       {
         id: 'ent3-fill-65',
+        supplyRatioIncomeScale: true,
         text: '후계자에게 경영권을 완전히 넘긴다',
         deltas: { happiness: -1, wealth: 3 },
         result: '평생 일군 회사를 넘기는 손이 떨렸다.',
