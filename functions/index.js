@@ -616,6 +616,12 @@ function pickVisibleChoiceIds(choices, ctx) {
   const routeCompletedIds = ctx.routeCompletedIds || [];
   const routeEndAges = ctx.routeEndAges || {};
   const currentAge = ctx.currentAge;
+  // isFinalRouteYear(2026-08-30, 59장 - 탈옥 시도 콘텐츠 "복역 마지막 해만
+  // 빼고" 사용자 지시) - 지금 활성 루트가 이번이 마지막으로 노출되는 해인지
+  // (다음 나이엔 자동 만료). requiresNotFinalRouteYear가 붙은 선택지는 이
+  // 마지막 해엔 제외된다 - 어차피 곧 정상 출소하는데 탈옥을 시도할 이유가
+  // 없다는 서사적 이유.
+  const isFinalRouteYear = !!ctx.isFinalRouteYear;
 
   // 징역 루트(2026-08-23)는 진입 나이가 불특정해 그 나이 stage.choices 안에
   // 콘텐츠를 심어둘 수 없다 - activeRouteId가 'prison'이면 그 나이가 몇 살이든
@@ -660,6 +666,7 @@ function pickVisibleChoiceIds(choices, ctx) {
     if (c.requiresAnyTalent && !talentIds.length) return false;
     if (c.requiresHobby && !hobbyIds.includes(c.requiresHobby)) return false;
     if (c.requiresAnyHobby && !hobbyIds.length) return false;
+    if (c.requiresNotFinalRouteYear && isFinalRouteYear) return false;
     // requiresRouteCompletedWithin({routeId, maxYears}, 2026-08-22 - "연예계
     // 루트→배우 루트" 후속 루트) - 그 routeId가 "끝까지 다 마친" 적이 있고
     // (routeCompletedIds - 조기 포기는 해당 안 됨), 그 종료 나이로부터 1~
@@ -1703,6 +1710,23 @@ async function applyChoice(db, playRef, play, stage, choice) {
   }
 
   const choiceLog = Array.isArray(play.choiceLog) ? play.choiceLog.slice() : [];
+
+  // extendActiveRouteYears(2026-08-30, 59장 - 탈옥 실패 시 형기 연장) - 지금
+  // 활성 루트(징역)를 실제로 시작시켰던 과거 choiceLog 항목을 찾아 그
+  // routeDurationOverride에 가산한다. routeDurationOverride 자체는 "그
+  // 순간 한 번만 굴리고 고정"(맨 위 주석 참고)이라 새로 굴리지 않고 기존
+  // 값에 더하는 방식 - 재접속해도 늘어난 형기가 그대로 유지된다.
+  const extendActiveRouteYears = (pickedBranch && pickedBranch.extendActiveRouteYears) || choice.extendActiveRouteYears;
+  if (extendActiveRouteYears && priorRouteState.activeRoute) {
+    const targetStartIdx = priorRouteState.activeRoute.startStageIndex;
+    for (let i = choiceLog.length - 1; i >= 0; i--) {
+      if (STAGE_INDEX_BY_ID.get(choiceLog[i].stageId) === targetStartIdx && typeof choiceLog[i].routeDurationOverride === 'number') {
+        choiceLog[i] = Object.assign({}, choiceLog[i], { routeDurationOverride: choiceLog[i].routeDurationOverride + extendActiveRouteYears });
+        break;
+      }
+    }
+  }
+
   const logEntry = { stageId: stage.id, choiceId: choice.id, at: Date.now(), stats };
   // 합성 치료 선택지(id가 'treat:'로 시작)는 game-data.js에 없어 나중에
   // STAGES에서 다시 못 찾으므로, 그때 보여준 문구를 그대로 같이 저장해둔다
@@ -1935,6 +1959,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
       experiencedRouteIds,
       routeCompletedIds: nextRouteCompletedIds,
       routeEndAges: nextRouteEndAges,
+      isFinalRouteYear: !!(nextActiveRoute && (nextIndex - nextActiveRoute.startStageIndex) >= (nextActiveRoute.maxDurationYears - 1)),
       currentAge: nextIndex,
       cashHoldings,
       worldStateRates
@@ -2245,6 +2270,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       experiencedRouteIds,
       routeCompletedIds,
       routeEndAges,
+      isFinalRouteYear: !!(activeRoute && (play.stageIndex - activeRoute.startStageIndex) >= (activeRoute.maxDurationYears - 1)),
       currentAge: play.stageIndex,
       cashHoldings: play.cashHoldings || 0,
       worldStateRates

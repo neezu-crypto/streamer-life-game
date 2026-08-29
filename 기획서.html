@@ -7001,6 +7001,36 @@
         직접 주입한 시나리오 테스트로 14턴 내내 정확히 복역하다 출소하는 것,
         그리고 신규 장기수 콘텐츠(23개 중 13개)가 실제로 그 사이에 자연스럽게
         섞여 나오는 것까지 확인.</p>
+
+        <h3>D. 탈옥 시도 콘텐츠 (2026-08-30, 사용자 지시)</h3>
+        <p>"복역 첫 해부터 이벤트가 랜덤으로 출현하게 해줘. 징역 마지막 해만
+        빼고. 탈옥 성공률은 경찰 부패도에 따라 달라져"라는 지시로
+        <code>prison-escape-attempt</code> 1개 신규 추가(<code>PRISON_CHOICES</code>
+        80개로 확장).</p>
+        <ul>
+            <li><b>등장 시점 — 신규 엔진 필드 <code>requiresNotFinalRouteYear</code>.</b>
+            복역 첫 해부터 <code>appearChance:0.07</code>로 매년 무작위 등장하되,
+            형기의 마지막 해(다음 나이면 자동 만료)에는 아예 후보에서
+            제외된다. 활성 루트의 남은 기간을 이미 계산 중인
+            <code>nextActiveRoute.startStageIndex</code>/<code>maxDurationYears</code>를
+            <code>pickVisibleChoiceIds</code> ctx에 <code>isFinalRouteYear</code>로
+            새로 전달해 판정.</li>
+            <li><b>성공률 — <code>policeCorruption</code> 연동(사용자 확정).</b>
+            뇌물 계열 선택지(<code>deviant-cs-bribery-33</code> 등)와 같은 방향
+            (<code>invert:true</code>) — 경찰이 부패할수록 매수·묵인이 잘 먹혀
+            탈옥이 쉬워지고, 청렴할수록 실패 확률이 오른다.</li>
+            <li><b>실패 시 형기 연장 — 신규 엔진 필드 <code>extendActiveRouteYears</code>.</b>
+            탈옥 실패 시 형기가 3년 늘어난다. <code>routeDurationOverride</code>는
+            "그 순간 한 번만 굴리고 고정"이라(56장 참고) 새로 안 굴리고,
+            그 복역을 실제로 시작시켰던 과거 <code>choiceLog</code> 항목을
+            역추적해 기존 값에 그대로 가산하는 방식 — 재접속해도 늘어난
+            형기가 유지된다.</li>
+        </ul>
+        <p><b>검증.</b> 전용 시나리오 스크립트(6/6) — 복역 1년차부터 실제 노출,
+        형기 마지막 해엔 100회 재추첨해도 단 한 번도 안 뜨는 것, 경찰 부패도
+        0.0 vs 1.0에서 성공률이 실제로 갈리는 것, 실패 시 5년→8년으로 정확히
+        연장되는 것까지 확인. 회귀 스위트(18/18, 11/11) + 기존 300회 크래시
+        안전성 스트레스 테스트 재확인.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>

@@ -44639,6 +44639,27 @@ const PRISON_CHOICES = [
     result: "달력에 동그라미를 치는 손이, 오랜만에 떨렸다.",
     requiresRoute: "prison"
   },
+  // 탈옥 시도(2026-08-30, 59장 - 사용자 지시: "복역 첫 해부터 이벤트가
+  // 랜덤으로 출현하게 해줘. 징역 마지막 해만 빼고. 탈옥 성공률은 경찰
+  // 부패도에 따라 달라져.") - appearChance로 매 turn 등장 자체를 희소하게
+  // 하고(성공하든 실패하든 자주 시도할 상황은 아니므로), requiresNotFinalRouteYear로
+  // 형기 마지막 해에는 아예 후보에서 제외한다(어차피 곧 정상 출소하는데
+  // 탈옥할 이유가 없다는 서사). 성공률은 뇌물(deviant-cs-bribery-33 등)과
+  // 같은 방향 - 경찰이 부패할수록(policeCorruption rate↑) 매수·묵인이 잘
+  // 먹혀 탈옥이 쉬워진다(invert:true로 청렴할수록 실패 확률↑).
+  {
+    id: "prison-escape-attempt",
+    text: "경비가 허술한 틈을 타 탈옥을 시도한다",
+    requiresRoute: "prison",
+    requiresNotFinalRouteYear: true,
+    appearChance: 0.07,
+    dynamicPrizeWeight: { key: "policeCorruption", caughtLabel: "탈옥 실패", min: 0.15, max: 0.65, invert: true },
+    appendPoliceCorruptionNote: true,
+    prizeTable: [
+      { weight: 50, label: "탈옥 성공", deltas: { happiness: 6 }, result: "담장 너머로 몸을 던진 순간부터, 뒤는 돌아보지 않았다.", endsRoute: true, worldStateSignal: { key: "publicSafety", target: 1 } },
+      { weight: 50, label: "탈옥 실패", deltas: { happiness: -8, health: -5, relationship: -3 }, result: "몇 걸음 못 가 다시 붙잡혔다 - 도주 혐의가 더해져 형기만 고스란히 늘어난 셈이었다.", extendActiveRouteYears: 3, worldStateSignal: { key: "publicSafety", target: 0 } }
+    ]
+  },
 ];
 
 // LOVER_ROUTE_CHOICES(2026-08-26, 사용자 지시 - "연인이 있을때 연애 과정이
