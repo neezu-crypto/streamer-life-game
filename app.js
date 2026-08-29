@@ -698,6 +698,7 @@ const WORLD_STATE_TRACKERS = [
   { key: 'devCodeQuality', name: '개발자 서비스 안정성', pairing: '개발자 ↔ 자영업자·시민' },
   { key: 'entertainmentTrust', name: '연예계 여론·신뢰도', pairing: '연예계 ↔ 연예계' },
   { key: 'startupEcosystemHeat', name: '창업 생태계 열기', pairing: '창업가 ↔ 창업가' },
+  { key: 'scamPrevalence', name: '사기 성행도', pairing: '사기꾼 ↔ 지인' },
 ];
 
 function worldStateTierLabel(rate) {

@@ -141,6 +141,56 @@ async function releaseOccupationGaugeIfAbandoned(db, oldPlayData) {
   }
 }
 
+// 일탈 직업(2026-08-30, 사용자 지시 - "사기꾼 직업을 새로 추가" + 공통 규칙 3가지)
+// - 정상 직업이 이따금 일탈 선택지를 갖는 것과 구분되는, 그 자체가 범죄인
+// 직업 카테고리. 사기꾼이 첫 사례이고 앞으로 추가될 걸 대비해 배열로 둔다.
+const DEVIANT_OCCUPATION_IDS = ['con-artist'];
+// 일탈 직업 기본 수입 배율(사용자 확정 "1~1.2배") - 매번 선택 시점에 그 구간에서
+// 균등 랜덤으로 굴린다(고정값이 아니라 매번 조금씩 다르게).
+const DEVIANT_INCOME_MULTIPLIER_MIN = 1.0;
+const DEVIANT_INCOME_MULTIPLIER_MAX = 1.2;
+// 범죄횟수 누적 효과 계수(사용자 확정 "많을수록 발각확률 상승" · "징역이 더 길어짐") -
+// 정확한 수치는 지정받지 않아 기존 발각확률 구간(5~50%)·복역 기간(3~5년) 스케일에
+// 맞춰 완만하게 잡는다: 전과 1회당 발각확률 +3%p(최대 90%까지), 복역 3회당 +1년
+// (상한 없음 - 상습범을 계속 억제하는 게 의도이므로).
+const DEVIANT_CRIME_CATCH_STEP = 0.03;
+const DEVIANT_CRIME_CATCH_CAP = 0.9;
+const DEVIANT_CRIME_SENTENCE_YEARS_PER = 3;
+
+function isDeviantOccupationChoice(choice) {
+  return !!(choice.requiresOccupation && choice.requiresOccupation.some((id) => DEVIANT_OCCUPATION_IDS.includes(id)));
+}
+
+// 지금 이 플레이어가 실제로 일탈 직업인지(선택지 자체의 requiresOccupation
+// 게이팅과 무관하게, 순수 플레이어 상태 기준) - 발각확률·복역 기간
+// escalation에 쓴다. 현행범(red-handed) 루트 선택지(예: 도주 시도)는
+// requiresOccupation이 아예 없지만, 그 순간 직업은 여전히 con-artist
+// 그대로이므로(setOccupation은 실제로 수감될 때만 걸림) 이 방식이 맞다.
+function isDeviantOccupation(occupation) {
+  return !!(occupation && DEVIANT_OCCUPATION_IDS.includes(occupation.id));
+}
+
+// "범죄"로 세는 선택지 - 일탈 직업 소속이면서 발각 위험(dynamicPrizeWeight)이
+// 실제로 붙은 것만 카운트한다(같은 직업의 평범한 소득 선택지는 범죄가 아님).
+function isDeviantCrimeChoice(choice) {
+  return !!(choice.dynamicPrizeWeight && isDeviantOccupationChoice(choice));
+}
+
+// 이번 선택 이전까지 이 플레이어가 몇 번이나 일탈 직업 범죄를 시도했는지(적발
+// 여부 무관, "몇 번 저질렀는지"가 누적 압박 요인) choiceLog에서 다시 센다 -
+// 별도 카운터 필드를 새로 두지 않고 기존 buildOccupationHistory류와 같은
+// 방식으로 원본 로그에서 매번 재구성한다.
+function countPriorDeviantCrimes(choiceLog) {
+  if (!Array.isArray(choiceLog)) return 0;
+  let count = 0;
+  for (const entry of choiceLog) {
+    const stage = STAGE_BY_ID.get(entry.stageId);
+    const rawChoice = stage && findChoiceById(stage, entry.choiceId);
+    if (rawChoice && isDeviantCrimeChoice(rawChoice)) count++;
+  }
+  return count;
+}
+
 // 주식 가격 변동(2026-08-28, 56장 D항 - "봇 로직을 그냥 하지말고 매 턴 55%
 // 확률로 +1%/45% 확률로 -1%로 주가 변동되게 할까? 주식시장과 주가 연동은
 // 유지") - soop-stock-market의 트레이딩 봇 5가지 패턴을 이식하는 대신, 실제
@@ -1079,6 +1129,9 @@ async function applyChoice(db, playRef, play, stage, choice) {
   const priorOccupationHistory = buildOccupationHistory(Array.isArray(play.choiceLog) ? play.choiceLog : []);
   const priorOccupation = resolveEffectiveOccupation(priorOccupationHistory, priorRouteState.activeRoute);
   const priorOccupationId = priorOccupation ? priorOccupation.id : null;
+  // 일탈 직업 범죄횟수(2026-08-30) - 이번 선택 이전까지의 누적 전과, 발각확률·
+  // 복역 기간 escalation에 재사용.
+  const priorDeviantCrimeCount = countPriorDeviantCrimes(Array.isArray(play.choiceLog) ? play.choiceLog : []);
   if (choice.requiresOccupation && !choice.requiresOccupation.includes(priorOccupationId)) {
     throw new HttpsError('failed-precondition', '지금 직업 상태에서는 고를 수 없는 선택지입니다.');
   }
@@ -1233,7 +1286,13 @@ async function applyChoice(db, playRef, play, stage, choice) {
     if (choice.dynamicPrizeWeight) {
       const { key, caughtLabel, min, max, invert } = choice.dynamicPrizeWeight;
       const rate = worldStateRateOf(worldStateRates, key);
-      const value = invert ? (max - (max - min) * rate) : (min + (max - min) * rate);
+      let value = invert ? (max - (max - min) * rate) : (min + (max - min) * rate);
+      // 일탈 직업 범죄횟수 escalation(2026-08-30, 사용자 확정 - "사기를 많이
+      // 칠수록 발각확률 상승") - 전과 1회당 발각확률을 더해, 상습범일수록
+      // 계속 안전하게 넘어가기 어려워지게 한다.
+      if (isDeviantOccupation(priorOccupation)) {
+        value = Math.min(DEVIANT_CRIME_CATCH_CAP, value + priorDeviantCrimeCount * DEVIANT_CRIME_CATCH_STEP);
+      }
       const caughtWeight = value * 100;
       const others = choice.prizeTable.filter((p) => p.label !== caughtLabel);
       const othersTotalWeight = others.reduce((sum, p) => sum + p.weight, 0) || 1;
@@ -1313,8 +1372,13 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // 1 적게 나온다(시뮬레이션으로 확인 - maxDurationYears=3을 그대로 쓰면
   // 실제로는 2년치만 노출됨). "3~5년"이 실제 체감 복역 기간이 되도록 굴리는
   // 값 자체를 1씩 올려 저장한다.
+  // 일탈 직업 범죄횟수 escalation(2026-08-30, 사용자 확정 - "범죄횟수가 많을수록
+  // 징역을 받으면 더 오래 머물다 나옴") - 전과 누적 3회당 복역 기간 +1년.
+  const deviantSentenceBonus = isDeviantOccupation(priorOccupation)
+    ? Math.floor(priorDeviantCrimeCount / DEVIANT_CRIME_SENTENCE_YEARS_PER)
+    : 0;
   const routeDurationOverride = (pickedBranch && pickedBranch.startsRoute && !pickedBranch.startsRoute.maxDurationYears)
-    ? (4 + Math.floor(Math.random() * 3))
+    ? (4 + Math.floor(Math.random() * 3) + deviantSentenceBonus)
     : undefined;
 
   // blocksHealthRecovery가 붙은 조건(예: 희귀 난치병)을 이미 갖고 있으면,
@@ -1363,6 +1427,16 @@ async function applyChoice(db, playRef, play, stage, choice) {
   if (choice.supplyRatioIncomeScale && effectiveDeltas.wealth > 0 && occupationGaugeGroupOf(priorOccupation) === 'small-business') {
     const supplyMultiplier = await fetchSupplyRatioIncomeMultiplier(db);
     effectiveDeltas.wealth = Math.round(effectiveDeltas.wealth * supplyMultiplier);
+  }
+
+  // 일탈 직업 기본 수입 배율(2026-08-30, 사용자 확정 "일반직업보다 1~1.2배 높음") -
+  // 개별 선택지에 별도 태그를 붙일 필요 없이, 그 순간 직업이 일탈 직업이고 이번
+  // 선택의 wealth가 양수이면 자동으로 적용되는 엔진 차원 규칙(범죄 위험을 감수한
+  // 대가라는 설정). requiresStockPurchase 같은 구조적 선택지는 wealth가 투자
+  // 원금 차감이라 이 규칙 대상이 아니다(effectiveDeltas.wealth가 양수인 것만 대상).
+  if (isDeviantOccupationChoice(choice) && effectiveDeltas.wealth > 0) {
+    const deviantMultiplier = DEVIANT_INCOME_MULTIPLIER_MIN + Math.random() * (DEVIANT_INCOME_MULTIPLIER_MAX - DEVIANT_INCOME_MULTIPLIER_MIN);
+    effectiveDeltas.wealth = Math.round(effectiveDeltas.wealth * deviantMultiplier);
   }
 
   // 보험 가입 중 - 회복 가능한 질병·부상 완전 회피(2026-08-22, 18장 사용자

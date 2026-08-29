@@ -4649,6 +4649,15 @@ const STAGES = [
     intro: '갓 어른이 된 티가 조금씩 빠지는 나이. 독립과 자유가 생각보다 훨씬 손이 많이 간다는 걸 알아갑니다.',
     choices: [
       {
+        id: 'con-artist-entry-20',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'trd-fill2-20-1',
         text: '장이 열리기 전 새벽부터 리포트를 읽는다',
         deltas: { wealth: 1, health: -1 },
@@ -5568,6 +5577,15 @@ const STAGES = [
     intro: '방향을 조금씩 좁혀가는 나이. 막연했던 미래가 서서히 구체적인 모양을 갖추기 시작합니다.',
     choices: [
       {
+        id: 'con-artist-entry-21',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'sf2-fill-21',
         text: '창업 아이템을 정하지 못해 밤새 고민한다',
         deltas: { happiness: -1 },
@@ -6455,6 +6473,15 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        id: 'con-artist-entry-22',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'tch-fill-22-1',
         text: '첫 담임을 맡아 학급 운영에 서툴다',
@@ -7476,6 +7503,15 @@ const STAGES = [
     ageRange: '23세',
     intro: '스무 살대의 마지막 해. 자립이라는 단어가 더는 남 얘기가 아니게 됩니다.',
     choices: [
+      {
+        id: 'con-artist-entry-23',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'tch-fill-23-1',
         text: '첫 담임을 맡아 학급 운영에 서툴다',
@@ -8506,6 +8542,15 @@ const STAGES = [
     ageRange: '24세',
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
+      {
+        id: 'con-artist-entry-24',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'sf2-fill-24',
         text: '팀원들과 밤샘 개발 끝에 첫 버전을 출시한다',
@@ -9673,6 +9718,27 @@ const STAGES = [
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
       {
+        id: 'deviant-con-investment-scam-25',
+        text: '가짜 투자 리딩방을 열어 지인들의 돈을 끌어모은다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '입금 알림이 하나씩 쌓일 때마다, 죄책감보다 안도감이 먼저 들었다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -10, happiness: -10, relationship: -8 }, result: '피해자 신고가 잇따르며 결국 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'con-artist-entry-25',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'sf2-fill-25',
         text: '경쟁 서비스의 등장에 위기감을 느낀다',
         deltas: { happiness: -2 },
@@ -10754,6 +10820,15 @@ const STAGES = [
     ageRange: '26세',
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
+      {
+        id: 'con-artist-entry-26',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'tch-fill-26-1',
         text: '첫 담임을 맡아 학급 운영에 서툴다',
@@ -11939,6 +12014,15 @@ const STAGES = [
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
       {
+        id: 'con-artist-entry-27',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'sf2-fill-27',
         supplyRatioIncomeScale: true,
         text: '첫 유료 고객이 결제하는 순간을 목격한다',
@@ -13052,6 +13136,15 @@ const STAGES = [
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
       {
+        id: 'con-artist-entry-28',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'sf2-fill-28',
         text: '투자자 미팅에서 날카로운 질문 세례를 받는다',
         deltas: { happiness: -2 },
@@ -14086,6 +14179,15 @@ const STAGES = [
     ageRange: '29세',
     intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
     choices: [
+      {
+        id: 'con-artist-entry-29',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'sf2-fill-29',
         text: '서비스 오류로 밤새 긴급 대응을 한다',
@@ -15136,6 +15238,27 @@ const STAGES = [
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
       {
+        id: 'deviant-con-voice-phishing-30',
+        text: '노인을 대상으로 한 보이스피싱 조직에 가담한다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 80, label: '안 걸림', deltas: { wealth: 9 }, result: '수화기 너머 떨리던 목소리가, 자꾸만 밤에 떠올랐다.' },
+          { weight: 20, label: '징역', deltas: { wealth: -12, happiness: -12, relationship: -8 }, result: '통신사 추적 끝에 조직 전체가 검거됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'con-artist-entry-30',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'stock-investment-teacher-route-30',
         text: '주식에 투자한다',
         requiresStockPurchase: true,
@@ -15996,7 +16119,8 @@ const STAGES = [
         deltas: { happiness: -5, relationship: -4, wealth: -3 },
         result: '연락은 점점 뜸해지고, 돈 이야기만 꺼내면 말을 돌렸다. 결국 그 돈은 돌려받지 못했다.',
         requiresAnyAcquaintance: true,
-        removeAcquaintance: {}
+        removeAcquaintance: {},
+        dynamicAppearChance: { key: 'scamPrevalence', min: 0.15, max: 0.55 }
       }
     ,
       {
@@ -16145,6 +16269,15 @@ const STAGES = [
     ageRange: '31세',
     intro: '곁에 남을 사람과 앞으로의 삶을 어떻게 그릴지, 조금 더 구체적으로 고민하는 나이입니다.',
     choices: [
+      {
+        id: 'con-artist-entry-31',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'sf2-fill-31',
         text: '팀원 하나가 번아웃으로 퇴사한다',
@@ -17120,6 +17253,15 @@ const STAGES = [
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
       {
+        id: 'con-artist-entry-32',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'deviant-sf-fake-metrics-32',
         text: '투자자에게 보여줄 실적 자료를 부풀려 조작한다',
         requiresOccupation: ['startup-founder'],
@@ -18042,6 +18184,15 @@ const STAGES = [
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
       {
+        id: 'con-artist-entry-33',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'sf2-fill-33',
         supplyRatioIncomeScale: true,
         text: '시리즈 A 투자 유치에 성공한다',
@@ -18812,7 +18963,8 @@ const STAGES = [
         deltas: { happiness: -7, relationship: -5, wealth: -6 },
         result: '사무실 문은 잠겨 있었고, 전화는 신호조차 가지 않았다. 지인은 투자금만 챙긴 채 사라졌다.',
         requiresAnyAcquaintance: true,
-        removeAcquaintance: {}
+        removeAcquaintance: {},
+        dynamicAppearChance: { key: 'scamPrevalence', min: 0.15, max: 0.55 }
       }
     ,
       {
@@ -19007,6 +19159,15 @@ const STAGES = [
     ageRange: '34세',
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
+      {
+        id: 'con-artist-entry-34',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'sf4-fill-34',
         text: '두 번째 서비스로 피벗을 결심한다',
@@ -19944,6 +20105,27 @@ const STAGES = [
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
       {
+        id: 'deviant-con-ponzi-scheme-35',
+        text: '다단계 조직을 꾸려 지인들을 끌어들인다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 78, label: '안 걸림', deltas: { wealth: 12 }, result: '판이 커질수록 돈도 커졌지만, 발밑은 점점 허전해졌다.' },
+          { weight: 22, label: '징역', deltas: { wealth: -15, happiness: -12, relationship: -10 }, result: '피해자 모임이 결성되며 집단 고소로 이어졌다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'con-artist-entry-35',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'stock-investment-teacher-route-35',
         text: '주식에 투자한다',
         requiresStockPurchase: true,
@@ -20836,6 +21018,15 @@ const STAGES = [
     intro: '나를 키워준 사람들을 이제는 내가 돌봐야 할 시기가 다가옵니다.',
     choices: [
       {
+        id: 'con-artist-entry-36',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'sf2-fill-36',
         text: '핵심 기능 하나를 두고 팀 내 의견이 갈린다',
         deltas: { happiness: -1 },
@@ -21637,6 +21828,15 @@ const STAGES = [
     ageRange: '37세',
     intro: '잊고 지내던 나 자신을 다시 챙기기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'con-artist-entry-37',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'sf2-fill-37',
         text: '경쟁사에 인재를 뺏긴다',
@@ -22442,6 +22642,15 @@ const STAGES = [
     ageRange: '38세',
     intro: '몸이 예전 같지 않다는 걸, 무시할 수 없을 만큼 또렷하게 느끼게 됩니다.',
     choices: [
+      {
+        id: 'con-artist-entry-38',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'sf2-fill-38',
         supplyRatioIncomeScale: true,
@@ -23256,6 +23465,15 @@ const STAGES = [
     intro: '서른대의 마지막 해. 다가올 10년을 조용히 준비하게 됩니다.',
     choices: [
       {
+        id: 'con-artist-entry-39',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'deviant-sf-dilute-cofounder-39',
         text: '공동창업자 몰래 지분 구조를 자신에게 유리하게 바꾼다',
         requiresOccupation: ['startup-founder'],
@@ -23916,7 +24134,8 @@ const STAGES = [
         deltas: { happiness: -6, relationship: -4, wealth: -6 },
         result: '확인해보니, 애초에 존재하지 않는 회사였다.',
         requiresAnyAcquaintance: true,
-        removeAcquaintance: {}
+        removeAcquaintance: {},
+        dynamicAppearChance: { key: 'scamPrevalence', min: 0.15, max: 0.55 }
       }
     ,
       {
@@ -23947,6 +24166,27 @@ const STAGES = [
     ageRange: '40세',
     intro: '인생의 절반 지점. 마흔이라는 숫자가 이유 없이 지난 시간을 돌아보게 만듭니다.',
     choices: [
+      {
+        id: 'deviant-con-business-fraud-40',
+        text: '허위 동업 계약을 내세워 투자금만 챙기고 잠적을 준비한다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 80, label: '안 걸림', deltas: { wealth: 10 }, result: '사무실 문을 잠그며, 뒤도 돌아보지 않았다.' },
+          { weight: 20, label: '징역', deltas: { wealth: -13, happiness: -10, relationship: -9 }, result: '피해자가 남긴 계약서와 통화 기록이 결정적 증거가 됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'con-artist-entry-40',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'ent2-fill-40',
         supplyRatioIncomeScale: true,
@@ -24723,6 +24963,15 @@ const STAGES = [
     intro: '자녀 교육이든 커리어든, 뭔가를 본격적으로 다잡아야 할 것 같은 압박이 느껴지는 나이입니다.',
     choices: [
       {
+        id: 'con-artist-entry-41',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'ent2-fill-41',
         text: '동종업계 창업가 모임에 참석한다',
         deltas: { relationship: 2 },
@@ -25357,6 +25606,15 @@ const STAGES = [
     intro: '몸이 보내는 신호를 더 이상 못 본 척할 수 없게 되는 나이입니다.',
     choices: [
       {
+        id: 'con-artist-entry-42',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'sf4-fill-42',
         text: '해외 진출을 위해 현지 파트너를 찾는다',
         deltas: { wealth: -1, happiness: 1 },
@@ -25946,7 +26204,8 @@ const STAGES = [
         deltas: { happiness: -7, relationship: -5, wealth: -7 },
         result: '서명 한 번의 대가가, 이렇게 클 줄은 몰랐다. 지인은 잠적했고, 빚만 고스란히 남았다.',
         requiresAnyAcquaintance: true,
-        removeAcquaintance: {}
+        removeAcquaintance: {},
+        dynamicAppearChance: { key: 'scamPrevalence', min: 0.15, max: 0.55 }
       }
     ,
       {
@@ -25987,6 +26246,15 @@ const STAGES = [
     ageRange: '43세',
     intro: '조직 안에서 자신의 자리를 다시 확인하게 되는 시기입니다.',
     choices: [
+      {
+        id: 'con-artist-entry-43',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'ent2-fill-43',
         text: '해외 진출을 검토하며 시장 조사를 한다',
@@ -26640,6 +26908,15 @@ const STAGES = [
     ageRange: '44세',
     intro: '가까운 사이일수록 소원해지기 쉬운 나이. 관계를 다시 들여다보게 됩니다.',
     choices: [
+      {
+        id: 'con-artist-entry-44',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'deviant-ent-embezzlement-44',
         text: '회사 공금 일부를 개인 용도로 슬쩍 쓴다',
@@ -27322,6 +27599,27 @@ const STAGES = [
     ageRange: '45세',
     intro: '다 가진 것 같은데도 문득 공허해지는, 이른바 중년의 위기가 찾아오는 나이입니다.',
     choices: [
+      {
+        id: 'deviant-con-loan-fraud-45',
+        text: '지인에게 큰돈을 빌린 뒤 연락을 끊고 갚지 않는다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 84, label: '안 걸림', deltas: { wealth: 6 }, result: '전화번호를 바꾸고 나니, 마음도 한결 가벼워졌다.' },
+          { weight: 16, label: '징역', deltas: { wealth: -9, happiness: -9, relationship: -7 }, result: '사기죄로 고소당해 결국 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'con-artist-entry-45',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'ent4-fill-45',
         text: '2세에게 경영 수업을 시키기 시작한다',
@@ -28111,6 +28409,15 @@ const STAGES = [
     intro: '늦지 않았다는 걸 스스로 증명하고 싶어지는 나이입니다.',
     choices: [
       {
+        id: 'con-artist-entry-46',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'ent2-fill-46',
         text: '경쟁사에서 핵심 기술자를 스카우트해온다',
         deltas: { wealth: -2, fame: 2 },
@@ -28638,6 +28945,15 @@ const STAGES = [
     ageRange: '47세',
     intro: '나를 키워준 사람들의 노년을 마주하며, 삶과 죽음을 조금 더 가까이서 보게 됩니다.',
     choices: [
+      {
+        id: 'con-artist-entry-47',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'sf4-fill-47',
         supplyRatioIncomeScale: true,
@@ -29239,6 +29555,15 @@ const STAGES = [
     intro: '커리어가 정점에 이르거나, 정체를 마주하거나 — 갈림이 뚜렷해지는 나이입니다.',
     choices: [
       {
+        id: 'con-artist-entry-48',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'ent4-fill-48',
         supplyRatioIncomeScale: true,
         text: '오랜 라이벌 기업과 전략적 제휴를 맺는다',
@@ -29681,7 +30006,8 @@ const STAGES = [
         deltas: { happiness: -6, relationship: -5, wealth: -6 },
         result: '통장을 확인한 순간, 남은 숫자가 눈을 의심하게 만들었다. 지인이 자기 명의로 슬쩍 빼돌린 뒤였다.',
         requiresAnyAcquaintance: true,
-        removeAcquaintance: {}
+        removeAcquaintance: {},
+        dynamicAppearChance: { key: 'scamPrevalence', min: 0.15, max: 0.55 }
       }
     ,
       {
@@ -29755,6 +30081,15 @@ const STAGES = [
     ageRange: '49세',
     intro: '몸이 새로운 국면으로 접어드는 걸 느끼기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'con-artist-entry-49',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'deviant-ent-idea-theft-49',
         text: '직원의 아이디어를 가로채 자기 성과로 포장한다',
@@ -30231,6 +30566,22 @@ const STAGES = [
     ageRange: '50세',
     intro: '쉰이라는 숫자 앞에서, 지나온 시간의 무게를 새삼 느끼게 됩니다.',
     choices: [
+      {
+        id: 'con-artist-steady-grift-50',
+        text: '적당히 눈치껏 잔챙이 사기를 치며 근근이 먹고산다',
+        deltas: { wealth: 3, happiness: -1 },
+        result: '큰 욕심 안 부리는 게, 오래가는 비결이라면 비결이었다.',
+        requiresOccupation: ['con-artist']
+      },
+      {
+        id: 'con-artist-entry-50',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'sf3-fill-50',
         supplyRatioIncomeScale: true,
@@ -30792,6 +31143,15 @@ const STAGES = [
     intro: '자녀가 떠난 자리, 그 빈자리를 어떻게 채우느냐가 이 시기의 숙제입니다.',
     choices: [
       {
+        id: 'con-artist-entry-51',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'ent4-fill-51',
         supplyRatioIncomeScale: true,
         text: '회사 상장을 준비하며 분주한 나날을 보낸다',
@@ -31248,6 +31608,15 @@ const STAGES = [
     intro: '은퇴라는 단어가 더는 먼 이야기가 아니게 되는 나이입니다.',
     choices: [
       {
+        id: 'con-artist-entry-52',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'sf4-fill-52',
         text: '대기업의 인수 제안을 받고 고민에 빠진다',
         deltas: { happiness: -1 },
@@ -31613,6 +31982,15 @@ const STAGES = [
     ageRange: '53세',
     intro: '숫자로 남은 시간을 가늠하게 되는, 현실적인 재정비의 시기입니다.',
     choices: [
+      {
+        id: 'con-artist-entry-53',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'con2-fill-53',
         text: '후배 컨설턴트와 협업 프로젝트를 진행한다',
@@ -31991,6 +32369,15 @@ const STAGES = [
     intro: '중년의 마지막 해. 다가올 노년을 향해 조용히 마음을 다잡습니다.',
     choices: [
       {
+        id: 'con-artist-entry-54',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'deviant-con-fake-expertise-54',
         text: '검증 안 된 부실한 조언을 비싸게 팔아넘긴다',
         requiresOccupation: ['consultant'],
@@ -32361,6 +32748,25 @@ const STAGES = [
     ageRange: '55세',
     intro: '정년이라는 단어가 더는 남 얘기가 아니게 되는 나이. 매일 출근하던 삶이 조용히 막을 내립니다.',
     choices: [
+      {
+        id: 'con-artist-reforms-55',
+        text: '이제 손을 씻고 발을 빼기로 결심한다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '떳떳하게 잠들 수 있다는 게, 이렇게 홀가분한 일인 줄 몰랐다.',
+        requiresOccupation: ['con-artist'],
+        setOccupation: { id: 'job-changed', label: '🔄 전직' },
+        endsRoute: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
+        id: 'con-artist-entry-55',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'sf3-fill-55',
         text: '후배 창업가들에게 투자자로 참여한다',
@@ -33006,6 +33412,15 @@ const STAGES = [
     intro: '평생 "어디 소속"으로 나를 소개하던 습관이 사라지며, 나는 누구인가를 새삼 다시 묻게 됩니다.',
     choices: [
       {
+        id: 'con-artist-entry-56',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'ent4-fill-56',
         text: '경영대학원에서 초청 강연을 한다',
         deltas: { fame: 2, happiness: 2 },
@@ -33370,6 +33785,15 @@ const STAGES = [
     ageRange: '57세',
     intro: '직장이라는 울타리 없이 새로운 사람들과 관계를 다시 엮어가야 하는 시기입니다.',
     choices: [
+      {
+        id: 'con-artist-entry-57',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'deviant-cp-diploma-mill-57',
         text: '가짜 학위를 사서 새 이력서에 올린다',
@@ -33756,7 +34180,8 @@ const STAGES = [
         deltas: { happiness: -6, relationship: -5, wealth: -5 },
         result: '다달이 부은 돈이, 흔적도 없이 사라졌다. 지인이 곗돈을 들고 자취를 감춘 뒤였다.',
         requiresAnyAcquaintance: true,
-        removeAcquaintance: {}
+        removeAcquaintance: {},
+        dynamicAppearChance: { key: 'scamPrevalence', min: 0.15, max: 0.55 }
       }
     ,
       {
@@ -33776,6 +34201,15 @@ const STAGES = [
     ageRange: '58세',
     intro: '자녀 세대가 이제 자기 가정을 꾸리며, 가족 안에서의 내 역할도 조금씩 달라집니다.',
     choices: [
+      {
+        id: 'con-artist-entry-58',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'ent3-fill-58',
         text: '창업 초기 멤버들과 재회해 옛일을 추억한다',
@@ -34242,6 +34676,15 @@ const STAGES = [
     intro: '건강이 더 이상 당연한 게 아니라는 걸 받아들이고, 본격적으로 몸을 챙기기 시작하는 나이입니다.',
     choices: [
       {
+        id: 'con-artist-entry-59',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'deviant-cp-trade-secret-leak-59',
         text: '이전 직장의 기밀 정보를 새 회사에 팔아넘긴다',
         requiresOccupation: ['career-pivot'],
@@ -34626,6 +35069,15 @@ const STAGES = [
     ageRange: '60세',
     intro: '환갑. 예순 해를 지나온 삶을 가족과 함께 돌아보는 해입니다.',
     choices: [
+      {
+        id: 'con-artist-entry-60',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'ent4-fill-60',
         text: '오랜 직원의 정년퇴임식을 챙긴다',
@@ -35115,6 +35567,15 @@ const STAGES = [
     intro: '은퇴 이후의 삶이 서서히 새로운 리듬을 찾아가는 시기입니다.',
     choices: [
       {
+        id: 'con-artist-entry-61',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'deviant-vw-donation-skim-61',
         text: '재능기부 후원금 일부를 몰래 빼돌린다',
         requiresOccupation: ['volunteer-work'],
@@ -35520,6 +35981,15 @@ const STAGES = [
     ageRange: '62세',
     intro: '연금이라는 단어가 현실적인 숫자로 다가오기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'con-artist-entry-62',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'sf4-fill-62',
         text: '스타트업 생태계의 멘토로 활동을 시작한다',
@@ -35980,6 +36450,15 @@ const STAGES = [
     intro: '취미와 가족, 두 가지 모두에서 깊이가 더해지는 시기입니다.',
     choices: [
       {
+        id: 'con-artist-entry-63',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'ret4-fill-63',
         text: '은퇴 후 첫 겨울을 나며 외로움을 느낀다',
         deltas: { happiness: -2, wealth: -1 },
@@ -36364,6 +36843,15 @@ const STAGES = [
     intro: '몸의 변화를 있는 그대로 받아들이는 연습이 필요한 나이입니다.',
     choices: [
       {
+        id: 'con-artist-entry-64',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
+      {
         id: 'ent4-fill-64',
         text: '경영권 분쟁의 조짐에 촉각을 곤두세운다',
         deltas: { happiness: -2 },
@@ -36709,6 +37197,15 @@ const STAGES = [
     ageRange: '65세',
     intro: '법정 노인 연령. 사회가 부르는 호칭이 바뀌는 걸 마주하게 됩니다.',
     choices: [
+      {
+        id: 'con-artist-entry-65',
+        text: '손쉬운 한탕을 노려보기로 마음먹는다',
+        deltas: { happiness: 1 },
+        result: '정직하게 사는 것도 이제 지긋지긋했다.',
+        appearChance: 0.06,
+        setOccupation: { id: 'con-artist', label: '🃏 사기꾼' },
+        startsRoute: { id: 'con-artist', label: '🃏 사기꾼', maxDurationYears: 25 }
+      },
       {
         id: 'cp4-fill-65',
         text: '두 번째 커리어에서도 승진 기회를 얻는다',
@@ -38545,7 +39042,8 @@ const STAGES = [
         deltas: { happiness: -6, relationship: -4, wealth: -4 },
         result: '몇 번을 물어도, 돌아오는 대답은 늘 같았다.',
         requiresAnyAcquaintance: true,
-        removeAcquaintance: {}
+        removeAcquaintance: {},
+        dynamicAppearChance: { key: 'scamPrevalence', min: 0.15, max: 0.55 }
       }
     ,
       {
