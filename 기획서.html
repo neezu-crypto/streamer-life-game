@@ -6807,11 +6807,24 @@
                 — <code>localEconomySentiment</code>에 이미 있던 감소 방향 패턴 재사용).</li>
             </ul>
             </li>
-            <li><b><code>entertainmentTrust</code>(연예계 여론·신뢰도).</b> 설정 — 연예계
-            계열 루트(아이돌·배우 등)의 선택지 중 스캔들 은폐 시도(target 0) vs 솔직한 이미지
-            관리(target 1). 영향 — 다른 연예계 종사자의 "섭외 기회" 콘텐츠 노출 확률에
-            반영 — 여론이 나쁠수록 업계 전체가 위축되는 방향. 연예계↔연예계(동종 업계 내
-            상호 영향)라는 점이 기존 트래커들과 다른 새로운 페어링 형태.</li>
+            <li><b><code>entertainmentTrust</code>(연예계 여론·신뢰도) — 구현 완료
+            (2026-08-29).</b> 설정 — 연예계 계열 루트(아이돌·배우 등)의 선택지 중 스캔들
+            은폐 시도(target 0) vs 솔직한 이미지 관리(target 1). 영향 — 다른 연예계
+            종사자의 "섭외 기회" 콘텐츠 노출 확률에 반영 — 여론이 나쁠수록 업계 전체가
+            위축되는 방향. 연예계↔연예계(동종 업계 내 상호 영향)라는 점이 기존 트래커들과
+            다른 새로운 페어링 형태.
+            <ul>
+                <li><b>구현 내역.</b> 아이돌(idol) 쪽 기존
+                <code>deviant-idol-plagiarism-scandal-25</code>(표절)·
+                <code>deviant-idol-affair-scandal-26</code>(불륜 스캔들 리스크)에 target 0
+                리트로핏 + 각각 정직 대응쌍 <code>idol-rewrites-similar-chorus-25</code>/
+                <code>idol-ends-risky-relationship-26</code>(target 1) 신규 추가. 타겟
+                콘텐츠는 배우(actor) 루트 기존 <code>actor-newcomer-indie-film-cast-35</code>
+                (캐스팅 합격)에 <code>dynamicAppearChance</code> 리트로핏(여론 좋을수록
+                캐스팅 기회↑) — 아이돌 쪽 행동이 배우 쪽 기회에 영향을 주는 동종 업계
+                상호작용 구조 그대로 구현.</li>
+            </ul>
+            </li>
             <li><b><code>startupEcosystemHeat</code>(창업 생태계 열기).</b> 설정 — 창업가/
             초기 창업가의 선택지 중 성공적인 엑싯·투자유치(target 1) vs 잦은 폐업·투자
             실패(target 0). 영향 — 이후 세대 창업가의 투자 유치 콘텐츠(dynamicPrizeWeight

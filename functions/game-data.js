@@ -10649,10 +10649,20 @@ const STAGES = [
         text: '신곡 후렴구를 해외 무명 아티스트의 곡과 비슷하게 만든다',
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol'],
+        worldStateSignal: { key: 'entertainmentTrust', target: 0 },
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { happiness: 3, fame: 3 }, result: '차트 1위 소식에 아무 걱정 없이 기뻐했다.' },
           { weight: 18, label: '발각', deltas: { fame: -9, happiness: -6, wealth: -3 }, result: '원곡 비교 영상이 퍼지며 표절 논란에 휩싸였다.' }
         ]
+      },
+      {
+        id: 'idol-rewrites-similar-chorus-25',
+        text: '비슷하게 들리는 후렴구를 스스로 지적해 새로 써달라고 요청한다',
+        deltas: { happiness: -1, wealth: -1 },
+        result: '작업 기간은 늘어졌지만, 떳떳하게 낼 수 있는 곡이 됐다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        worldStateSignal: { key: 'entertainmentTrust', target: 1 }
       }
     ,
       {
@@ -11805,10 +11815,20 @@ const STAGES = [
         text: '유부남·유부녀인 걸 알면서도 위험한 만남을 이어간다',
         requiresRoute: 'entertainment-industry',
         requiresOccupation: ['idol'],
+        worldStateSignal: { key: 'entertainmentTrust', target: 0 },
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { happiness: 5 }, result: '아슬아슬했지만, 이번에도 무사히 넘어갔다.' },
           { weight: 18, label: '발각', deltas: { fame: -12, happiness: -10, relationship: -6 }, result: '상간 소송 소식이 터지며 커리어에 치명타를 입었다.' }
         ]
+      },
+      {
+        id: 'idol-ends-risky-relationship-26',
+        text: '들킬 위험이 큰 관계를 스스로 정리하고 이미지를 지킨다',
+        deltas: { happiness: -2 },
+        result: '아쉬움은 남았지만, 지켜야 할 게 더 많다는 걸 알고 있었다.',
+        requiresRoute: 'entertainment-industry',
+        requiresOccupation: ['idol'],
+        worldStateSignal: { key: 'entertainmentTrust', target: 1 }
       }
     ,
       {
@@ -20534,7 +20554,8 @@ const STAGES = [
                 "wealth": -1
         },
         "result": "출연료는 적었지만, 오랜만에 진짜 하고 싶던 연기를 했다.",
-        "requiresRoute": "actor"
+        "requiresRoute": "actor",
+        "dynamicAppearChance": { "key": "entertainmentTrust", "min": 0.15, "max": 0.55 }
 },
       {
         "id": "actor-career-reflection-35",
