@@ -119,6 +119,28 @@ async function fetchSupplyRatioIncomeMultiplier(db) {
   return Math.min(2.0, Math.max(0.5, 1 / ratio));
 }
 
+// occupationGauge 누수 방지(2026-08-30, 사용자 지적 - "엔딩을 보지 않고 새로
+// 시작하는 경우도 있는데 그것도 체크해야돼") - applyChoice의 증감은 그 판이
+// 정상적으로 진행되며 직업이 바뀌거나 엔딩(completed)에 도달할 때만 걸린다.
+// 하지만 "계정당 저장 슬롯 1개"라 startPlaythrough로 새로 시작하면 진행
+// 중이던 판이 엔딩 없이 그냥 덮어써지고(playRefFor 주석 참고), 관리자가
+// adminDeletePlaythrough로 지워도 마찬가지 - 두 경우 다 이미 늘려놓은
+// occupationGauge를 되돌릴 기회 없이 판 자체가 사라져 게이지가 실제보다
+// 계속 높게 남는 누수가 생긴다. 판을 지우기 직전에 항상 이 함수를 먼저
+// 호출해 "그 판이 끝나지 않은 채로 사라지는 시점"에도 이탈 처리(-1)를
+// 강제한다 - 이미 completed였던 판은 그 엔딩 시점에 이미 처리됐으므로
+// 건드리지 않는다.
+async function releaseOccupationGaugeIfAbandoned(db, oldPlayData) {
+  if (!oldPlayData || oldPlayData.completed) return;
+  const choiceLog = Array.isArray(oldPlayData.choiceLog) ? oldPlayData.choiceLog : [];
+  const { activeRoute } = buildRouteState(choiceLog, oldPlayData.stageIndex || 0);
+  const occupation = resolveEffectiveOccupation(buildOccupationHistory(choiceLog), activeRoute);
+  const group = occupationGaugeGroupOf(occupation);
+  if (group) {
+    await db.ref('lifeGame/occupationGauge/' + group).transaction((v) => Math.max(0, (v || 0) - 1));
+  }
+}
+
 // 주식 가격 변동(2026-08-28, 56장 D항 - "봇 로직을 그냥 하지말고 매 턴 55%
 // 확률로 +1%/45% 확률로 -1%로 주가 변동되게 할까? 주식시장과 주가 연동은
 // 유지") - soop-stock-market의 트레이딩 봇 5가지 패턴을 이식하는 대신, 실제
@@ -2013,6 +2035,11 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   const multiplayerEnabled = !!(request.data && request.data.multiplayerEnabled);
 
   const db = getDatabase();
+  // occupationGauge 누수 방지 - 계정당 저장 슬롯 1개라 새로 시작하면 진행
+  // 중이던(엔딩 없는) 판이 그냥 덮어써진다. 덮어쓰기 전에 그 판이 갖고 있던
+  // 직업 게이지를 먼저 이탈 처리한다.
+  const priorPlaySnap = await playRefFor(db, uid).get();
+  await releaseOccupationGaugeIfAbandoned(db, priorPlaySnap.val());
   const stats = freshStats();
   const currentIntroId = pickIntroId(STAGES[0]);
   const worldStateRates = await fetchWorldStateRates(db);
@@ -2436,6 +2463,9 @@ const adminDeletePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: 
   const snap = await targetRef.get();
   if (!snap.exists()) throw new HttpsError('not-found', '해당 유저의 인생 로그를 찾을 수 없습니다.');
 
+  // occupationGauge 누수 방지 - 관리자가 진행 중이던(엔딩 없는) 판을 지워도
+  // startPlaythrough와 같은 이유로 게이지를 먼저 이탈 처리해야 한다.
+  await releaseOccupationGaugeIfAbandoned(db, snap.val());
   await targetRef.remove();
   return { ok: true, deletedUid: targetUid };
 });
