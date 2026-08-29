@@ -1,4 +1,5 @@
 const { onCall, HttpsError } = require('firebase-functions/v2/https');
+const { onSchedule } = require('firebase-functions/v2/scheduler');
 const { initializeApp } = require('firebase-admin/app');
 const { getDatabase, ServerValue } = require('firebase-admin/database');
 const { STAT_KEYS, STAT_START, clampStat, requireAuth, isAdminUid } = require('./common');
@@ -2606,4 +2607,44 @@ const kickParticipant = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB
   return { ok: true, kickedUid: targetUid };
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession };
+// 세계관 상태 일별 스냅샷(57장 3단계, 2026-08-29) - 매일 00:05(KST)에 그 시점
+// lifeGame/worldState의 모든 트래커 rate를 lifeGame/worldStateHistory/{key}/{yyyy-mm-dd}
+// 에 기록하고, 10일보다 오래된 기록은 같은 실행에서 정리(삭제)한다. 접속 시점이
+// 아니라 순수 시간 기반이라야 "매일 정확히 한 번"이 보장된다(57장 A항 설계).
+const WORLD_STATE_HISTORY_RETENTION_DAYS = 10;
+
+function kstDateKey(date) {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit' }).format(date);
+}
+
+const snapshotWorldStateHistory = onSchedule({ schedule: '5 0 * * *', timeZone: 'Asia/Seoul', memory: '256MiB' }, async () => {
+  const db = getDatabase();
+  const worldStateSnap = await db.ref('lifeGame/worldState').get();
+  const worldState = worldStateSnap.exists() ? worldStateSnap.val() : {};
+  const todayKey = kstDateKey(new Date());
+
+  const snapshotWrites = {};
+  for (const [key, entry] of Object.entries(worldState)) {
+    if (!entry || typeof entry.rate !== 'number') continue;
+    snapshotWrites['lifeGame/worldStateHistory/' + key + '/' + todayKey] = entry.rate;
+  }
+  if (Object.keys(snapshotWrites).length) await db.ref().update(snapshotWrites);
+
+  const cutoff = Date.now() - WORLD_STATE_HISTORY_RETENTION_DAYS * 24 * 60 * 60 * 1000;
+  const historySnap = await db.ref('lifeGame/worldStateHistory').get();
+  if (historySnap.exists()) {
+    const pruneWrites = {};
+    const history = historySnap.val();
+    for (const [key, days] of Object.entries(history)) {
+      for (const dateKey of Object.keys(days || {})) {
+        const entryTime = new Date(dateKey + 'T00:00:00+09:00').getTime();
+        if (!Number.isNaN(entryTime) && entryTime < cutoff) {
+          pruneWrites['lifeGame/worldStateHistory/' + key + '/' + dateKey] = null;
+        }
+      }
+    }
+    if (Object.keys(pruneWrites).length) await db.ref().update(pruneWrites);
+  }
+});
+
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory };
