@@ -44472,6 +44472,173 @@ const PRISON_CHOICES = [
     result: "체념이 아니라, 스스로 골라낸 평온이었다.",
     requiresRoute: "prison"
   },
+  // 장기수 전용 콘텐츠(2026-08-30, 59장 - 일탈 직업 범죄횟수 escalation으로
+  // 복역 기간이 기존 3~5년을 훌쩍 넘길 수 있게 되면서, "사용자 지적: 징역이
+  // 5년보다 길어질 수 있으니 컨텐츠를 더 추가하는게 좋겠어"에 따라 추가.
+  // 짧은 형기엔 안 어울리는(수년 단위 누적이 전제인) 장기 수감 특유의 서사만
+  // 골라 담았다 - 신입 적응기(위 56개)와 겹치지 않게, "여러 해가 흐른 뒤"를
+  // 전제로 한 텍스트로 통일.
+  {
+    id: "prison-becomes-senior-inmate",
+    text: "어느새 방에서 가장 오래된 고참이 되어 있다",
+    deltas: {"happiness":1,"relationship":1},
+    result: "새로 들어온 이들이 먼저 눈치를 살피는 쪽이, 이젠 나였다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-mentors-several-newcomers",
+    text: "그동안 스쳐 간 신참들의 얼굴을 하나씩 떠올려본다",
+    deltas: {"happiness":2,"relationship":2},
+    result: "누군가에게 요령을 알려준 기억이, 생각보다 여러 번이었다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-cellmates-come-and-go",
+    text: "같은 방을 거쳐 간 사람들이 하나둘 출소하는 걸 지켜본다",
+    deltas: {"happiness":-3},
+    result: "축하하는 마음 한편으로, 남겨진다는 게 뭔지 뼈저리게 느꼈다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-vocational-mastery",
+    text: "수년째 이어온 기술 훈련이 어느새 전문가 수준에 이른다",
+    deltas: {"happiness":3,"wealth":1},
+    result: "손끝이 기억하는 게, 머리보다 먼저였다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-long-term-health-decline",
+    text: "오랜 수감 생활로 몸 여기저기가 눈에 띄게 상한다",
+    deltas: {"health":-4},
+    result: "짧게 지나갈 줄 알았던 시간이 아니었다는 걸, 몸이 먼저 알려줬다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-child-grown-up-in-letters",
+    text: "편지 속 아이가 어느새 훌쩍 자라 있다는 걸 실감한다",
+    deltas: {"happiness":-4,"relationship":-1},
+    result: "사진 속 낯선 키가, 흘러간 세월을 있는 그대로 보여줬다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-spouse-finally-moves-on",
+    text: "오랜 기다림 끝에 배우자가 새 삶을 찾았다는 소식을 듣는다",
+    deltas: {"happiness":-5,"relationship":-3},
+    result: "원망할 자격도 없다는 걸 알면서도, 마음은 무너져 내렸다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-outside-world-unrecognizable",
+    text: "뉴스에서 본 바깥세상이 낯설다 못해 딴 세상 같다",
+    deltas: {"happiness":-2},
+    result: "몇 년 사이 이렇게까지 달라질 줄은, 상상도 못 했다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-decade-milestone",
+    text: "복역 햇수를 세어보다 어느새 자릿수가 늘었다는 걸 깨닫는다",
+    deltas: {"happiness":-3},
+    result: "손가락으로 셀 수 있는 숫자가 아니게 된 지, 오래였다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-old-friends-completely-gone",
+    text: "한때 가까웠던 친구들과의 연락이 완전히 끊겼다는 걸 받아들인다",
+    deltas: {"happiness":-3,"relationship":-2},
+    result: "누구를 탓할 일도 아니었다 - 시간이 그렇게 만들었을 뿐이었다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-becomes-facility-fixture",
+    text: "직원들마저 스쳐 가는 동안 나만 그 자리에 그대로 있다",
+    deltas: {"happiness":-2},
+    result: "새로 온 교도관이 오히려 나에게 규칙을 묻는 날도 있었다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-writes-memoir-in-secret",
+    text: "긴 시간을 견딘 기록을 몰래 노트에 적어 내려간다",
+    deltas: {"happiness":3},
+    result: "누구에게 보여줄 것도 아니었지만, 적는 동안만은 숨통이 트였다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-parents-pass-away-while-inside",
+    text: "부모님이 세상을 떠나셨다는 소식을 뒤늦게 전해 듣는다",
+    deltas: {"happiness":-8,"relationship":-2},
+    result: "임종도, 장례도 지키지 못했다는 사실이 평생 갈 죄책감으로 남았다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-long-term-cellmate-friendship",
+    text: "몇 년을 함께 보낸 방 동료와 형제 같은 사이가 된다",
+    deltas: {"happiness":3,"relationship":3},
+    result: "피는 안 섞였어도, 이만큼 오래 서로를 겪은 사이도 드물었다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-considers-life-after-realistically",
+    text: "출소 후의 삶을 막연함이 아니라 구체적으로 그려보기 시작한다",
+    deltas: {"happiness":2},
+    result: "언제일지는 몰라도, 그날이 오긴 온다는 걸 믿기로 했다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-long-sentence-numbness",
+    text: "긴 형기 앞에서 한동안 아무 감정도 느껴지지 않는 날들이 이어진다",
+    deltas: {"happiness":-4},
+    result: "슬프지도, 화나지도 않는 게 오히려 더 무서웠다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-teaches-full-curriculum",
+    text: "검정고시반을 넘어 정식 강의를 도맡아 가르치는 처지가 된다",
+    deltas: {"happiness":3,"relationship":2},
+    result: "배우던 자리에서 가르치는 자리로, 어느새 옮겨와 있었다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-long-term-parole-rejection",
+    text: "몇 번째인지 셀 수도 없는 가석방 심사에서 또 떨어진다",
+    deltas: {"happiness":-5},
+    result: "기대를 접는 법을 배우는 것도, 이젠 익숙해졌다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-reconnects-with-estranged-family",
+    text: "오랜 세월 끊겼던 가족과 다시 연락이 닿는다",
+    deltas: {"happiness":5,"relationship":3},
+    result: "먼저 손 내밀어준 쪽이 가족이라는 게, 눈물이 날 만큼 고마웠다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-facility-transfer-after-years",
+    text: "오래 지내던 시설에서 다른 교도소로 이감된다",
+    deltas: {"happiness":-2},
+    result: "정든 곳을 떠난다는 게, 이런 곳에서도 서운할 일이었다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-gray-hair-in-mirror",
+    text: "거울 속 희끗해진 머리를 보며 흘러간 세월을 실감한다",
+    deltas: {"happiness":-3,"health":-1},
+    result: "여기 들어올 때의 얼굴은, 이제 기억 속에만 남아 있었다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-finds-purpose-in-routine",
+    text: "반복되는 하루하루 속에서 나름의 의미를 찾아낸다",
+    deltas: {"happiness":3},
+    result: "똑같은 하루도, 마음먹기에 따라 다르게 보낼 수 있었다.",
+    requiresRoute: "prison"
+  },
+  {
+    id: "prison-long-awaited-release-approaches",
+    text: "출소일이 손에 잡힐 만큼 가까워졌다는 걸 실감한다",
+    deltas: {"happiness":6},
+    result: "달력에 동그라미를 치는 손이, 오랜만에 떨렸다.",
+    requiresRoute: "prison"
+  },
 ];
 
 // LOVER_ROUTE_CHOICES(2026-08-26, 사용자 지시 - "연인이 있을때 연애 과정이
