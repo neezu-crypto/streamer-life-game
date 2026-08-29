@@ -18892,6 +18892,13 @@ const STAGES = [
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
       {
+        id: 'sf4-fill-34',
+        text: '두 번째 서비스로 피벗을 결심한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '실패를 인정하는 것도 용기가 필요했다.',
+        requiresOccupation: ['startup-founder']
+      },
+      {
         id: 'tch-fill-34-1',
         text: '학교폭력 사안을 조사하며 며칠을 보낸다',
         deltas: { happiness: -2 },
@@ -25205,6 +25212,13 @@ const STAGES = [
     intro: '몸이 보내는 신호를 더 이상 못 본 척할 수 없게 되는 나이입니다.',
     choices: [
       {
+        id: 'sf4-fill-42',
+        text: '해외 진출을 위해 현지 파트너를 찾는다',
+        deltas: { wealth: -1, happiness: 1 },
+        result: '언어와 문화의 벽이 생각보다 높았다.',
+        requiresOccupation: ['startup-founder']
+      },
+      {
         id: 'ent2-fill-42',
         text: '핵심 인재의 이직 제안에 마음을 졸인다',
         deltas: { happiness: -2 },
@@ -27162,6 +27176,13 @@ const STAGES = [
     intro: '다 가진 것 같은데도 문득 공허해지는, 이른바 중년의 위기가 찾아오는 나이입니다.',
     choices: [
       {
+        id: 'ent4-fill-45',
+        text: '2세에게 경영 수업을 시키기 시작한다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '물려줄 것이 재산만은 아니라고 생각했다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
         id: 'sf3-fill-45',
         text: '초기 창업 경험을 살려 두 번째 회사를 준비한다',
         deltas: { happiness: 1, wealth: -1 },
@@ -28445,6 +28466,13 @@ const STAGES = [
     intro: '나를 키워준 사람들의 노년을 마주하며, 삶과 죽음을 조금 더 가까이서 보게 됩니다.',
     choices: [
       {
+        id: 'sf4-fill-47',
+        text: '창업 5년 차, 처음으로 안정적인 궤도에 오른다',
+        deltas: { wealth: 4, happiness: 2 },
+        result: '롤러코스터 같던 시간이 조금씩 잦아들었다.',
+        requiresOccupation: ['startup-founder']
+      },
+      {
         id: 'cp2-fill-47',
         text: '전환할 분야를 놓고 오랫동안 고민한다',
         deltas: { happiness: -1 },
@@ -29036,6 +29064,13 @@ const STAGES = [
     ageRange: '48세',
     intro: '커리어가 정점에 이르거나, 정체를 마주하거나 — 갈림이 뚜렷해지는 나이입니다.',
     choices: [
+      {
+        id: 'ent4-fill-48',
+        text: '오랜 라이벌 기업과 전략적 제휴를 맺는다',
+        deltas: { wealth: 3, fame: 1 },
+        result: '적이자 동료가 되는 게 사업의 묘미였다.',
+        requiresOccupation: ['entrepreneur']
+      },
       {
         id: 'con2-fill-48',
         text: '첫 컨설팅 의뢰를 받고 긴장한다',
@@ -30580,6 +30615,13 @@ const STAGES = [
     intro: '자녀가 떠난 자리, 그 빈자리를 어떻게 채우느냐가 이 시기의 숙제입니다.',
     choices: [
       {
+        id: 'ent4-fill-51',
+        text: '회사 상장을 준비하며 분주한 나날을 보낸다',
+        deltas: { wealth: 4, health: -2 },
+        result: '숫자 하나하나에 회사의 미래가 걸려 있었다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
         id: 'deviant-cp-resume-fraud-51',
         text: '새 이력서에 경력을 부풀려 조작한다',
         requiresOccupation: ['career-pivot'],
@@ -31021,6 +31063,13 @@ const STAGES = [
     ageRange: '52세',
     intro: '은퇴라는 단어가 더는 먼 이야기가 아니게 되는 나이입니다.',
     choices: [
+      {
+        id: 'sf4-fill-52',
+        text: '대기업의 인수 제안을 받고 고민에 빠진다',
+        deltas: { happiness: -1 },
+        result: '평생 키운 것을 넘긴다는 게 쉽지 않았다.',
+        requiresOccupation: ['startup-founder']
+      },
       {
         id: 'cp2-fill-52',
         text: '이전 경력을 살려 새 분야에서 인정받는다',
@@ -32771,6 +32820,13 @@ const STAGES = [
     intro: '평생 "어디 소속"으로 나를 소개하던 습관이 사라지며, 나는 누구인가를 새삼 다시 묻게 됩니다.',
     choices: [
       {
+        id: 'ent4-fill-56',
+        text: '경영대학원에서 초청 강연을 한다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '경험이 이론이 되어 후배들에게 전해졌다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
         id: 'vw2-fill-56',
         text: '재능기부를 시작할지 오래 고민한다',
         deltas: { happiness: 1 },
@@ -33128,6 +33184,22 @@ const STAGES = [
     ageRange: '57세',
     intro: '직장이라는 울타리 없이 새로운 사람들과 관계를 다시 엮어가야 하는 시기입니다.',
     choices: [
+      {
+        id: 'deviant-cp-diploma-mill-57',
+        text: '가짜 학위를 사서 새 이력서에 올린다',
+        requiresOccupation: ['career-pivot'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 2 }, result: '몇 십만 원짜리 종이 한 장이 문을 열어줬다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -5, relationship: -3 }, result: '학위 진위 조회에서 가짜라는 게 드러났다.' }
+        ]
+      },
+      {
+        id: 'sf4-fill-57',
+        text: '인수 제안을 거절하고 독립 경영을 이어간다',
+        deltas: { happiness: 2, wealth: -2 },
+        result: '돈보다 자신의 손으로 키우고 싶었다.',
+        requiresOccupation: ['startup-founder']
+      },
       {
         id: 'vw2-fill-57',
         text: '첫 봉사 활동에서 서툴게 헤맨다',
@@ -34368,6 +34440,13 @@ const STAGES = [
     intro: '환갑. 예순 해를 지나온 삶을 가족과 함께 돌아보는 해입니다.',
     choices: [
       {
+        id: 'ent4-fill-60',
+        text: '오랜 직원의 정년퇴임식을 챙긴다',
+        deltas: { happiness: 1, relationship: 2 },
+        result: '함께 늙어온 사람에게 마지막 인사를 건넸다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
         id: 'sf3-fill-60',
         text: '창업 생태계 컨퍼런스에서 기조연설을 맡는다',
         deltas: { fame: 3, happiness: 2 },
@@ -35255,6 +35334,13 @@ const STAGES = [
     intro: '연금이라는 단어가 현실적인 숫자로 다가오기 시작하는 나이입니다.',
     choices: [
       {
+        id: 'sf4-fill-62',
+        text: '스타트업 생태계의 멘토로 활동을 시작한다',
+        deltas: { relationship: 2, fame: 1 },
+        result: '치열했던 경험이 후배들에게 자산이 됐다.',
+        requiresOccupation: ['startup-founder']
+      },
+      {
         id: 'ent3-fill-62',
         text: '경영 일선에서 물러나 고문 역할을 맡는다',
         deltas: { wealth: 1, happiness: 1 },
@@ -35706,6 +35792,13 @@ const STAGES = [
     intro: '취미와 가족, 두 가지 모두에서 깊이가 더해지는 시기입니다.',
     choices: [
       {
+        id: 'ret4-fill-63',
+        text: '은퇴 후 첫 겨울을 나며 외로움을 느낀다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '난방비 걱정과 함께 마음도 움츠러들었다.',
+        requiresOccupation: ['retired']
+      },
+      {
         id: 'deviant-con-badmouth-rival-63',
         text: '경쟁 컨설턴트를 근거 없이 비방해 고객을 뺏는다',
         requiresOccupation: ['consultant'],
@@ -36083,6 +36176,13 @@ const STAGES = [
     intro: '몸의 변화를 있는 그대로 받아들이는 연습이 필요한 나이입니다.',
     choices: [
       {
+        id: 'ent4-fill-64',
+        text: '경영권 분쟁의 조짐에 촉각을 곤두세운다',
+        deltas: { happiness: -2 },
+        result: '평화롭던 이사회에 긴장감이 감돌았다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
         id: 'cp3-fill-64',
         text: '두 번째 커리어에서도 안정기에 접어든다',
         deltas: { happiness: 2, wealth: 1 },
@@ -36421,6 +36521,13 @@ const STAGES = [
     ageRange: '65세',
     intro: '법정 노인 연령. 사회가 부르는 호칭이 바뀌는 걸 마주하게 됩니다.',
     choices: [
+      {
+        id: 'cp4-fill-65',
+        text: '두 번째 커리어에서도 승진 기회를 얻는다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '늦게 시작한 만큼 더 값지게 느껴졌다.',
+        requiresOccupation: ['career-pivot']
+      },
       {
         id: 'sf3-fill-65',
         text: '스타트업 인생을 정리하며 은퇴를 고민한다',
@@ -36865,6 +36972,27 @@ const STAGES = [
     intro: '오랜 세월을 함께한 배우자와의 관계를 다시 들여다보게 되는 나이입니다.',
     choices: [
       {
+        id: 'con4-fill-66',
+        text: '해외 기업의 자문 요청을 받는다',
+        deltas: { wealth: 3, fame: 2 },
+        result: '언어의 장벽보다 경험의 가치가 앞섰다.',
+        requiresOccupation: ['consultant']
+      },
+      {
+        id: 'cp4-fill-66',
+        text: '옛 동료가 새 분야에서의 삶을 부러워한다',
+        deltas: { happiness: 1 },
+        result: '남의 떡이 커 보이는 건 서로 마찬가지였다.',
+        requiresOccupation: ['career-pivot']
+      },
+      {
+        id: 'ret4-fill-66',
+        text: '동창회에 나가 다들 비슷하게 늙었다며 웃는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '세월 앞에 다들 평등하다는 게 위안이 됐다.',
+        requiresOccupation: ['retired']
+      },
+      {
         id: 'vw2-fill-66',
         text: '낮은 보수에도 그만두지 않는 이유를 되새긴다',
         deltas: { happiness: 2 },
@@ -37120,6 +37248,13 @@ const STAGES = [
     intro: '남겨질 것들에 대해 조금씩 마음의 준비를 시작하는 나이입니다.',
     choices: [
       {
+        id: 'sf4-fill-67',
+        text: '오랜 공동창업자와 함께 은퇴를 논의한다',
+        deltas: { happiness: 1 },
+        result: '함께 시작한 만큼 마무리도 함께이길 바랐다.',
+        requiresOccupation: ['startup-founder']
+      },
+      {
         id: 'con3-fill-67',
         text: '오랜 고객사와의 인연을 자문 계약으로 이어간다',
         deltas: { wealth: 2, relationship: 1 },
@@ -37296,6 +37431,20 @@ const STAGES = [
     ageRange: '68세',
     intro: '가까운 이들의 부고를 마주하며, 남은 삶의 무게를 다시 느끼게 됩니다.',
     choices: [
+      {
+        id: 'con4-fill-68',
+        text: '오랜 컨설팅 노하우를 데이터베이스로 정리한다',
+        deltas: { wealth: 1 },
+        result: '머릿속에만 있던 걸 처음으로 형태로 남겼다.',
+        requiresOccupation: ['consultant']
+      },
+      {
+        id: 'cp4-fill-68',
+        text: '새 분야에서도 매너리즘을 느낀다',
+        deltas: { happiness: -2 },
+        result: '어디를 가나 권태는 따라오는 법이었다.',
+        requiresOccupation: ['career-pivot']
+      },
       {
         id: 'ent3-fill-68',
         text: '은퇴 후에도 가끔 회사에 들러 조언을 건넨다',
@@ -37506,6 +37655,20 @@ const STAGES = [
     intro: '노년 준비의 마지막 해. 진짜 노년이 코앞으로 다가옵니다.',
     choices: [
       {
+        id: 'ent4-fill-69',
+        text: '회사가 지역 사회에 기부하며 이름을 알린다',
+        deltas: { fame: 2, wealth: -1 },
+        result: '숫자보다 마음이 앞선 결정이었다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ret4-fill-69',
+        text: '건강보조식품에 관심을 갖기 시작한다',
+        deltas: { health: 1, wealth: -1 },
+        result: '몸에 좋다는 건 이것저것 다 챙겨 먹었다.',
+        requiresOccupation: ['retired']
+      },
+      {
         id: 'deviant-vw-fake-hours-69',
         text: '봉사활동 실적을 부풀려 허위로 보고한다',
         requiresOccupation: ['volunteer-work'],
@@ -37631,6 +37794,15 @@ const STAGES = [
     ageRange: '70세',
     intro: '칠순. 황혼이라 불리는 시간의 첫걸음을 내딛습니다.',
     choices: [
+      {
+        id: 'deviant-ent-tax-evasion-70',
+        text: '해외 법인을 이용해 세금을 회피한다',
+        requiresOccupation: ['entrepreneur'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 5 }, result: '합법과 불법의 경계를 아슬아슬하게 넘나들었다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -10, happiness: -4 }, result: '국세청 세무조사에 걸려 추징금을 물게 됐다.' }
+        ]
+      },
       {
         id: 'sf3-fill-70',
         text: '엔젤 투자자로 후배 창업가들을 지원한다',
@@ -37921,6 +38093,27 @@ const STAGES = [
     intro: '거창한 일 없이도, 하루하루의 작은 순간들이 새삼 소중하게 다가오는 나이입니다.',
     choices: [
       {
+        id: 'vw4-fill-71',
+        text: '재능기부 활동으로 지역 신문에 소개된다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '작은 손길이 세상에 알려진다는 게 어색했다.',
+        requiresOccupation: ['volunteer-work']
+      },
+      {
+        id: 'con4-fill-71',
+        text: '후배 컨설턴트와의 세대 차이를 실감한다',
+        deltas: { happiness: -1 },
+        result: '방식은 달라도 본질은 같다고 믿었다.',
+        requiresOccupation: ['consultant']
+      },
+      {
+        id: 'cp4-fill-71',
+        text: '전환 이후의 삶을 주제로 강연 요청을 받는다',
+        deltas: { fame: 2, happiness: 1 },
+        result: '늦은 결단이 누군가에겐 용기가 됐다.',
+        requiresOccupation: ['career-pivot']
+      },
+      {
         id: 'married-caring-for-each-other',
         text: '나이 들어가는 배우자를 서로 챙기며 살아간다',
         deltas: { happiness: 2, relationship: 2, health: 1 },
@@ -38040,6 +38233,13 @@ const STAGES = [
     ageRange: '72세',
     intro: '자녀와 손주 세대가 저마다의 성취를 이뤄가는 걸 지켜보는 나이입니다.',
     choices: [
+      {
+        id: 'sf4-fill-72',
+        text: '창업 인생을 정리하며 두 번째 도전을 준비한다',
+        deltas: { wealth: -1, happiness: 2 },
+        result: '나이는 숫자일 뿐이라는 걸 스스로 증명하고 싶었다.',
+        requiresOccupation: ['startup-founder']
+      },
       {
         id: 'con3-fill-72',
         text: '후배 컨설턴트에게 인맥과 노하우를 물려준다',
@@ -38213,6 +38413,20 @@ const STAGES = [
     intro: '몸이 더는 예전 같지 않다는 걸, 이제는 확실히 받아들여야 하는 시기입니다.',
     choices: [
       {
+        id: 'vw4-fill-73',
+        text: '오랜 봉사 동료와 다투고 화해한다',
+        deltas: { relationship: 1, happiness: -1 },
+        result: '오래 알았기에 서운함도 컸지만 화해도 빨랐다.',
+        requiresOccupation: ['volunteer-work']
+      },
+      {
+        id: 'con4-fill-73',
+        text: '오랜 고객사의 위기 극복을 도우며 보람을 느낀다',
+        deltas: { happiness: 3, wealth: 2 },
+        result: '숫자 이상의 신뢰가 오간 순간이었다.',
+        requiresOccupation: ['consultant']
+      },
+      {
         id: 'deviant-ret-pension-fraud-73',
         text: '소득을 숨기고 국민연금 부정수급을 계속한다',
         requiresOccupation: ['retired'],
@@ -38331,6 +38545,27 @@ const STAGES = [
     ageRange: '74세',
     intro: '다리에 힘이 있을 때, 라는 말이 부쩍 자주 나오는 나이입니다.',
     choices: [
+      {
+        id: 'vw4-fill-74',
+        text: '새로운 봉사 분야에 도전하며 활력을 얻는다',
+        deltas: { happiness: 3 },
+        result: '나이는 숫자일 뿐이라는 말을 실감했다.',
+        requiresOccupation: ['volunteer-work']
+      },
+      {
+        id: 'cp4-fill-74',
+        text: '두 번째 커리어의 은퇴를 계획하기 시작한다',
+        deltas: { happiness: 1 },
+        result: '두 번의 마무리를 준비하는 셈이었다.',
+        requiresOccupation: ['career-pivot']
+      },
+      {
+        id: 'ent4-fill-74',
+        text: '창업 동지들과의 마지막 모임을 갖는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '하나둘 세상을 떠나는 소식에 마음이 시렸다.',
+        requiresOccupation: ['entrepreneur']
+      },
       {
         id: 'ret3-fill-74',
         text: '경로당에서 새로운 친구들을 사귄다',
@@ -38455,6 +38690,22 @@ const STAGES = [
     ageRange: '75세',
     intro: '남은 시간을 어떻게 채워갈지, 다시 한번 진지하게 그려보는 나이입니다.',
     choices: [
+      {
+        id: 'deviant-con-kickback-75',
+        text: '추천해준 업체로부터 뒷돈을 받는다',
+        requiresOccupation: ['consultant'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '객관적인 조언인 척했지만, 속으로는 계산이 있었다.' },
+          { weight: 10, label: '발각', deltas: { fame: -4, happiness: -3 }, result: '이해상충 문제가 불거지며 신뢰를 잃었다.' }
+        ]
+      },
+      {
+        id: 'ret4-fill-75',
+        text: '평생 살던 집을 줄여 이사한다',
+        deltas: { wealth: 2, happiness: -1 },
+        result: '짐을 줄이는 게 마음을 줄이는 것 같았다.',
+        requiresOccupation: ['retired']
+      },
       {
         id: 'sf3-fill-75',
         text: '창업 인생을 돌아보며 회고록 출간을 준비한다',
@@ -38696,6 +38947,13 @@ const STAGES = [
     intro: '평생을 함께한 배우자의 건강이 흔들리는 걸 지켜보게 되는, 힘겨운 나이입니다.',
     choices: [
       {
+        id: 'con4-fill-76',
+        text: '컨설팅 업계 원로로 인정받는다',
+        deltas: { fame: 3, happiness: 1 },
+        result: '오랜 세월이 쌓아온 무게였다.',
+        requiresOccupation: ['consultant']
+      },
+      {
         id: 'vw3-fill-76',
         text: '오랜 재능기부 활동을 서서히 줄여나간다',
         deltas: { happiness: 1, health: -1 },
@@ -38839,6 +39097,27 @@ const STAGES = [
     intro: '희수(喜壽). 예로부터 기쁘게 오래 산 것을 기리는 나이입니다.',
     choices: [
       {
+        id: 'vw4-fill-77',
+        text: '봉사 활동 중 만난 이의 부고에 마음이 아프다',
+        deltas: { happiness: -2, relationship: 1 },
+        result: '함께한 시간만큼 이별도 아팠다.',
+        requiresOccupation: ['volunteer-work']
+      },
+      {
+        id: 'cp4-fill-77',
+        text: '전환 전후의 인생을 비교하며 회고한다',
+        deltas: { happiness: 2 },
+        result: '어느 쪽도 틀리지 않았다는 결론에 이르렀다.',
+        requiresOccupation: ['career-pivot']
+      },
+      {
+        id: 'ret4-fill-77',
+        text: '오랜 취미 동호회의 회장을 맡는다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '뜻밖의 감투가 하루하루에 활력을 줬다.',
+        requiresOccupation: ['retired']
+      },
+      {
         id: 'con3-fill-77',
         text: '가끔 들어오는 소일거리 자문에 응한다',
         deltas: { wealth: 1, happiness: 1 },
@@ -38961,6 +39240,13 @@ const STAGES = [
     ageRange: '78세',
     intro: '기억이 예전만큼 또렷하지 않다는 걸, 스스로 느끼기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'sf4-fill-78',
+        text: '스타트업 인생 회고전에 초청받는다',
+        deltas: { fame: 3, happiness: 2 },
+        result: '치열했던 시절이 전시물이 되어 눈앞에 있었다.',
+        requiresOccupation: ['startup-founder']
+      },
       {
         id: 'vw3-fill-78',
         text: '함께한 봉사자들과의 우정이 더 깊어진다',
@@ -39127,6 +39413,20 @@ const STAGES = [
     intro: '팔순을 코앞에 두고, 지나온 삶을 조용히 정리해보는 한 해입니다.',
     choices: [
       {
+        id: 'vw4-fill-79',
+        text: '재능기부 경력을 인정받아 표창을 받는다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '기대하지 않았던 인정이라 더 뭉클했다.',
+        requiresOccupation: ['volunteer-work']
+      },
+      {
+        id: 'con4-fill-79',
+        text: '자문료보다 사람과의 인연을 우선하기 시작한다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '돈으로 살 수 없는 것들이 눈에 들어왔다.',
+        requiresOccupation: ['consultant']
+      },
+      {
         id: 'cp3-fill-79',
         text: '새 분야에서 맺은 인연들과 여전히 가깝게 지낸다',
         deltas: { relationship: 2 },
@@ -39233,6 +39533,20 @@ const STAGES = [
     ageRange: '80세',
     intro: '팔순. 여든 해를 살아낸 삶을 온 가족과 함께 기립니다.',
     choices: [
+      {
+        id: 'cp4-fill-80',
+        text: '새 분야에서 맺은 인연이 가족처럼 가까워진다',
+        deltas: { relationship: 2 },
+        result: '늦게 만났지만 오래 알아온 사이 같았다.',
+        requiresOccupation: ['career-pivot']
+      },
+      {
+        id: 'ent4-fill-80',
+        text: '평생 일군 사업체가 여전히 건재함을 확인한다',
+        deltas: { happiness: 2 },
+        result: '자신이 없어도 잘 돌아가는 게 뿌듯하면서도 씁쓸했다.',
+        requiresOccupation: ['entrepreneur']
+      },
       {
         id: 'vw3-fill-80',
         text: '도움을 준 이들에게서 뜻밖의 보답을 받는다',
@@ -39433,6 +39747,20 @@ const STAGES = [
     intro: '매일 눈을 뜨는 것 자체가, 새삼 감사하게 느껴지는 나이입니다.',
     choices: [
       {
+        id: 'vw4-fill-81',
+        text: '체력이 부쳐 활동 시간을 크게 줄인다',
+        deltas: { health: -1 },
+        result: '마음은 여전한데 몸이 따라주지 않았다.',
+        requiresOccupation: ['volunteer-work']
+      },
+      {
+        id: 'ret4-fill-81',
+        text: '치매 예방을 위해 매일 신문 낱말퀴즈를 푼다',
+        deltas: { health: 1 },
+        result: '작은 습관이 큰 안심으로 이어졌다.',
+        requiresOccupation: ['retired']
+      },
+      {
         id: 'deviant-defy-diet-sweets-81',
         text: '의사가 말린 단 음식을 몰래 즐긴다',
         prizeTable: [
@@ -39562,6 +39890,13 @@ const STAGES = [
     ageRange: '82세',
     intro: '오랜 인연들의 안부가, 그 어느 때보다 소중하게 다가오는 나이입니다.',
     choices: [
+      {
+        id: 'con4-fill-82',
+        text: '건강 문제로 활동 반경을 크게 줄인다',
+        deltas: { health: 1, wealth: -2 },
+        result: '욕심을 내려놓는 게 결국 지혜였다.',
+        requiresOccupation: ['consultant']
+      },
       {
         id: 'vw3-fill-82',
         text: '체력이 부쳐 활동을 완전히 정리한다',
@@ -39715,6 +40050,29 @@ const STAGES = [
     intro: '혼자 해내던 일들에, 조금씩 다른 이의 손길이 필요해지는 시기입니다.',
     choices: [
       {
+        id: 'deviant-sf-customer-data-sale-83',
+        text: '고객 개인정보를 몰래 제3자에게 판매한다',
+        requiresOccupation: ['startup-founder'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '데이터 몇 줄이 생각보다 큰돈이 됐다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -8, fame: -5 }, result: '유출 사실이 드러나며 집단 소송에 휘말렸다.' }
+        ]
+      },
+      {
+        id: 'vw4-fill-83',
+        text: '평생의 재능기부를 정리하는 인터뷰에 응한다',
+        deltas: { happiness: 2 },
+        result: '베푼 것보다 받은 것이 더 많았다고 말했다.',
+        requiresOccupation: ['volunteer-work']
+      },
+      {
+        id: 'cp4-fill-83',
+        text: '전환을 후회하냐는 질문에 담담히 답한다',
+        deltas: { happiness: 2 },
+        result: '후회보다 감사가 더 컸다.',
+        requiresOccupation: ['career-pivot']
+      },
+      {
         id: 'con3-fill-83',
         text: '오랜 컨설팅 인생의 성과를 돌아보며 뿌듯해한다',
         deltas: { happiness: 2 },
@@ -39811,6 +40169,13 @@ const STAGES = [
     ageRange: '84세',
     intro: '지나온 삶 전체를 조용히 되새기게 되는, 사색의 시간이 깊어지는 나이입니다.',
     choices: [
+      {
+        id: 'con4-fill-84',
+        text: '평생의 지혜를 담은 마지막 강의를 준비한다',
+        deltas: { happiness: 2 },
+        result: '한 마디 한 마디에 신중해졌다.',
+        requiresOccupation: ['consultant']
+      },
       {
         id: 'vw3-fill-84',
         text: '재능기부로 맺은 인연들이 여전히 찾아온다',
@@ -39938,6 +40303,13 @@ const STAGES = [
     ageRange: '85세',
     intro: '누군가의 손길이 일상 속에 자연스레 스며드는 시기입니다.',
     choices: [
+      {
+        id: 'vw4-fill-85',
+        text: '후배 봉사자들이 정기적으로 안부를 전해온다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '나눈 마음이 돌고 돌아 돌아왔다.',
+        requiresOccupation: ['volunteer-work']
+      },
       {
         id: 'deviant-ret-double-benefit-85',
         text: '복지 지원금을 이중으로 신청해 받는다',
@@ -40177,6 +40549,20 @@ const STAGES = [
     intro: '말보다 존재만으로도, 가족에게 무언가를 전할 수 있는 나이입니다.',
     choices: [
       {
+        id: 'con4-fill-86',
+        text: '컨설팅 인생의 성취를 기리는 자리에 초대된다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '화려하진 않았지만 꾸준했던 세월이었다.',
+        requiresOccupation: ['consultant']
+      },
+      {
+        id: 'cp4-fill-86',
+        text: '두 번째 커리어의 마지막 프로젝트를 마친다',
+        deltas: { happiness: 2, wealth: 1 },
+        result: '완주했다는 사실만으로 충분했다.',
+        requiresOccupation: ['career-pivot']
+      },
+      {
         id: 'vw3-fill-86',
         text: '평생의 재능기부 인생을 돌아보며 미소짓는다',
         deltas: { happiness: 3 },
@@ -40359,6 +40745,20 @@ const STAGES = [
     intro: '병원을 오가는 일이 조금씩 일상의 한 부분이 되어가는 시기입니다.',
     choices: [
       {
+        id: 'vw4-fill-87',
+        text: '재능기부로 맺은 인연의 결혼식에 초대받는다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '베푼 손길이 누군가의 인생에 스며 있었다.',
+        requiresOccupation: ['volunteer-work']
+      },
+      {
+        id: 'ret4-fill-87',
+        text: '몸이 약해져 자녀 집 근처로 거처를 옮긴다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '독립심을 내려놓는 게 쉽지 않았다.',
+        requiresOccupation: ['retired']
+      },
+      {
         id: 'con3-fill-87',
         text: '평생의 지식을 정리한 자료를 무료로 공개한다',
         deltas: { happiness: 3, fame: 1 },
@@ -40508,6 +40908,13 @@ const STAGES = [
     ageRange: '88세',
     intro: '미수(米壽). 쌀 미(米) 자에 여든여덟이라는 숫자가 담긴, 풍성한 나이입니다.',
     choices: [
+      {
+        id: 'ent4-fill-88',
+        text: '창업 인생을 기리는 작은 기념관 제안을 받는다',
+        deltas: { fame: 3, happiness: 2 },
+        result: '한 사람의 삶이 역사가 될 수도 있다는 걸 알았다.',
+        requiresOccupation: ['entrepreneur']
+      },
       {
         id: 'vw3-fill-88',
         text: '후배 봉사자들에게 노하우를 전한다',
@@ -40665,6 +41072,15 @@ const STAGES = [
     intro: '구순을 코앞에 두고, 마음을 가만히 가다듬는 한 해입니다.',
     choices: [
       {
+        id: 'deviant-ret-black-market-side-gig-89',
+        text: '연금 받으면서 몰래 현금 부업을 뛴다',
+        requiresOccupation: ['retired'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '신고 안 한 부수입이 짭짤하게 쌓였다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -4, relationship: -2 }, result: '이웃 신고로 부정수급 조사를 받게 됐다.' }
+        ]
+      },
+      {
         id: 'old-career-esports-1-89',
         text: '손주에게 옛날 즐겼던 게임을 가르쳐준다',
         deltas: {"happiness":4,"relationship":2},
@@ -40798,6 +41214,27 @@ const STAGES = [
     ageRange: '90세',
     intro: '구순. 아흔 해를 살아낸 시간이, 온 가족의 축하 속에 다시 한번 빛납니다.',
     choices: [
+      {
+        id: 'sf4-fill-90',
+        text: '평생의 창업 경험을 손주에게 들려준다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '실패도 자산이 된다는 말을 대물림했다.',
+        requiresOccupation: ['startup-founder']
+      },
+      {
+        id: 'con4-fill-90',
+        text: '후배들이 여전히 조언을 구하러 찾아온다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '은퇴해도 쓰임이 있다는 게 좋았다.',
+        requiresOccupation: ['consultant']
+      },
+      {
+        id: 'cp4-fill-90',
+        text: '두 번의 인생을 산 이야기를 손주에게 들려준다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '늦어도 괜찮다는 말을 대물림했다.',
+        requiresOccupation: ['career-pivot']
+      },
       {
         id: 'vw3-fill-90',
         text: '오랜 봉사 활동으로 받은 감사패를 정리한다',
@@ -41015,6 +41452,20 @@ const STAGES = [
     intro: '하루하루가 마치 선물처럼 느껴지는, 그런 나이입니다.',
     choices: [
       {
+        id: 'vw4-fill-91',
+        text: '평생 남을 도우며 산 삶을 조용히 되돌아본다',
+        deltas: { happiness: 3 },
+        result: '화려하진 않아도 후회 없는 인생이었다.',
+        requiresOccupation: ['volunteer-work']
+      },
+      {
+        id: 'ret4-fill-91',
+        text: '오랜 이웃과 매일 안부를 확인하며 지낸다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '서로가 서로의 안전망이 되어줬다.',
+        requiresOccupation: ['retired']
+      },
+      {
         id: 'old-career-politician-1-91',
         text: '예전 추진했던 정책이 여전히 동네에 남아있는 걸 발견한다',
         deltas: {"happiness":4,"fame":1},
@@ -41146,6 +41597,15 @@ const STAGES = [
     ageRange: '92세',
     intro: '침상에서 보내는 시간이 조금씩 늘어가는, 조용한 나날입니다.',
     choices: [
+      {
+        id: 'deviant-vw-fake-charity-92',
+        text: '가짜 봉사 단체를 내세워 후원금을 모은다',
+        requiresOccupation: ['volunteer-work'],
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '선의를 가장한 모금이 생각보다 잘 걷혔다.' },
+          { weight: 10, label: '발각', deltas: { happiness: -5, relationship: -4 }, result: '피해자 신고로 사기 혐의를 받게 됐다.' }
+        ]
+      },
       {
         id: 'vw3-fill-92',
         text: '평생 남을 도우며 산 삶에 만족감을 느낀다',
@@ -41676,6 +42136,13 @@ const STAGES = [
     ageRange: '95세',
     intro: '아흔다섯 해를 살아냈다는 사실이, 스스로도 믿기지 않는 나이입니다.',
     choices: [
+      {
+        id: 'ret4-fill-95',
+        text: '침대에서 보내는 시간이 늘었지만 마음은 평온하다',
+        deltas: { health: -1, happiness: 1 },
+        result: '몸은 느려졌어도 조급함은 사라졌다.',
+        requiresOccupation: ['retired']
+      },
       {
         id: 'stock-investment-teacher-route-95',
         text: '주식에 투자한다',
@@ -42344,6 +42811,13 @@ const STAGES = [
     ageRange: '99세',
     intro: '백수(白壽). 백(百)에서 한 획을 뺀 흰 백(白) 자로, 아흔아홉 해를 기립니다.',
     choices: [
+      {
+        id: 'ret4-fill-99',
+        text: '백수를 앞두고 가족들이 잔치를 준비한다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '이렇게 오래 살줄은 스스로도 몰랐다.',
+        requiresOccupation: ['retired']
+      },
       {
         id: 'old-career-politician-2-99',
         text: '후배 정치인의 선거 유세 소식에 옛 생각이 난다',
