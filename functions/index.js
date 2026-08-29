@@ -628,7 +628,14 @@ function pickVisibleChoiceIds(choices, ctx) {
   // 나머지 절대다수(99.6%+)의 턴은 전혀 손대지 않으므로 노출 확률 자체는
   // 사실상 그대로 유지된다(guaranteeCure와 같은 급의 안전망).
   const cashHoldings = ctx.cashHoldings || 0;
-  const costOf = (c) => Math.abs((c.deltas && c.deltas.wealth) || 0) * cashUnitForAge(currentAge);
+  // Math.abs가 아니라 음수일 때만 비용(2026-08-29, applyChoice와 동일 수정 -
+  // wealth:+5 같은 이득 선택지를 절댓값으로 비용 취급해 안전망까지 오작동하는
+  // 걸 막는다).
+  const walletCostOf = (c) => {
+    const raw = (c.deltas && c.deltas.wealth) || 0;
+    return raw < 0 ? -raw : 0;
+  };
+  const costOf = (c) => walletCostOf(c) * cashUnitForAge(currentAge);
   // requiresStockPurchase 사각지대(2026-08-29, 라이브 검증 중 발견) - 이 안전망은
   // requiresSufficientCash 비용만 알고 있었는데, 주식 매수 선택지(고정 1억원,
   // submitChoice의 실제 검증식과 동일하게 계산)는 deltas.wealth가 없어 비용이
@@ -637,9 +644,21 @@ function pickVisibleChoiceIds(choices, ctx) {
   // 불가능해도 바꿔치기가 발동하지 않는 실제 소프트락이 재현됐다.
   const STOCK_INVESTMENT_PRINCIPAL_WON = 100000000;
   const stockCostOf = () => Math.round(STOCK_INVESTMENT_PRINCIPAL_WON / cashUnitForAge(currentAge));
+  // 자산 스탯 -4 이상 자동 현금 검증(2026-08-29, 사용자 지시) - applyChoice의
+  // 동일 규칙(walletCost>=4면 requiresSufficientCash 없어도 자동 적용, mandatory는
+  // 예외)을 이 안전망에도 그대로 반영해야 "감당 가능하다고 판단해 바꿔치기 안 한
+  // 선택지가 실제 제출 시점엔 막히는" 불일치가 생기지 않는다.
+  // 순서 중요(2026-08-29, 라이브 검증 중 발견한 회귀) - requiresStockPurchase를
+  // mandatory 예외보다 먼저 검사해야 한다. 주식 매수 선택지는 항상 mandatory:true라
+  // "mandatory면 무조건 감당 가능"을 먼저 걸면 이미 있던 주식 매수 사각지대 방어
+  // (바로 위 주석)가 다시 무력화된다 - 실제로 이 순서 실수 때문에 60세 등에서
+  // "주식 매수(감당 불가)"가 안전망에 "항상 감당 가능"으로 잘못 카운트되며 나머지
+  // 3개가 전부 진짜 감당 불가인데도 바꿔치기가 발동하지 않는 소프트락이 재현됐다.
   const canAfford = (c) => {
     if (c.requiresStockPurchase) return cashHoldings >= stockCostOf();
-    return !c.requiresSufficientCash || cashHoldings >= costOf(c);
+    if (c.mandatory) return true;
+    const gated = c.requiresSufficientCash || walletCostOf(c) >= 4;
+    return !gated || cashHoldings >= costOf(c);
   };
   if (resultIds.length && resultIds.every((id) => {
     const c = routeChoicePool.find((x) => x.id === id);
@@ -1084,8 +1103,24 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // wealth delta만큼 cashHoldings에 반영되는 기존 로직(아래 참고)과 같은 환산을
   // 미리 써서, "이 선택을 고르면 나갈 현금"이 지금 보유 현금보다 큰지만 본다.
   // details.reason으로 클라이언트가 일반 오류 알림 대신 토스트를 띄우게 구분한다.
-  if (choice.requiresSufficientCash) {
-    const cost = Math.abs((choice.deltas && choice.deltas.wealth) || 0) * cashUnitForAge(play.stageIndex);
+  // 자산 스탯 -4 이상 자동 현금 검증(2026-08-29, 사용자 지시 - "자산 스탯 -3
+  // 까지는 현금만 깎고 선택가능 / -4부터는 현금이 충분하지 않으면 선택불가로
+  // 해줘") - requiresSufficientCash를 일일이 붙이지 않아도 wealth delta 절댓값이
+  // 4 이상이면 자동으로 이 검증이 걸린다. mandatory 선택지는 예외(반드시 고를
+  // 수 있어야 하는 선택지가 현금 부족으로 막히면 진행 자체가 끊길 수 있으므로,
+  // pickVisibleChoiceIds의 안전망과 같은 원칙). stage.random(주사위 굴리기, 0~3세
+  // 등 스스로 고를 수 없는 구간)도 예외 - 서버가 무작위로 뽑는 결과라 플레이어가
+  // "이 결과를 감당 못 하니 다른 결과를 고르겠다"는 선택 자체가 불가능하다.
+  // 이걸 빼먹으면 태어날 때부터(현금 0원) "가난하지만 화목한 가정"(wealth:-4)
+  // 같은 순수 랜덤 결과가 뽑힐 때마다 주사위 자체가 실패하는 심각한 회귀가 생긴다.
+  // Math.abs가 아니라 음수일 때만 비용으로 잡아야 한다(2026-08-29, 라이브 검증
+  // 중 발견) - wealth:+5처럼 "돈을 버는" 선택지까지 절댓값 5로 계산해 현금
+  // 부족으로 막아버리는 회귀가 실제로 재현됐다(45세 4개 선택지 중 2개가 이득
+  // 선택지였는데도 전부 막혀 진행 불가).
+  const rawWealth = (choice.deltas && choice.deltas.wealth) || 0;
+  const walletCost = rawWealth < 0 ? -rawWealth : 0;
+  if (!stage.random && !choice.mandatory && (choice.requiresSufficientCash || walletCost >= 4)) {
+    const cost = walletCost * cashUnitForAge(play.stageIndex);
     if ((play.cashHoldings || 0) < cost) {
       throw new HttpsError('failed-precondition', '보유 현금이 부족해서 고를 수 없는 선택지입니다.', { reason: 'insufficient-cash' });
     }
