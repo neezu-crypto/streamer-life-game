@@ -8509,6 +8509,16 @@ const STAGES = [
         requiresOccupation: ['startup-founder']
       },
       {
+        id: 'sf-seed-round-pitch-24',
+        text: '초기 투자자들 앞에서 시드 투자 피칭에 나선다',
+        requiresOccupation: ['startup-founder'],
+        dynamicPrizeWeight: { key: 'startupEcosystemHeat', caughtLabel: '투자 유치 성공', min: 0.2, max: 0.7 },
+        prizeTable: [
+          { weight: 60, label: '투자 유치 성공', deltas: { wealth: 5, fame: 1 }, result: '통장에 찍힌 숫자를 보고도, 한동안 실감이 나지 않았다.' },
+          { weight: 40, label: '투자 유치 실패', deltas: { happiness: -3 }, result: '요즘 같은 분위기에 투자받기가 이렇게 어려울 줄 몰랐다.' }
+        ]
+      },
+      {
         id: 'tch-fill-24-1',
         text: '첫 담임을 맡아 학급 운영에 서툴다',
         deltas: { happiness: -1, wealth: 1 },
@@ -14073,6 +14083,14 @@ const STAGES = [
         requiresOccupation: ['startup-founder']
       },
       {
+        id: 'sf-followup-funding-fails-29',
+        text: '후속 투자 라운드가 잇따라 무산되며 자금난에 몰린다',
+        deltas: { happiness: -4, wealth: -3 },
+        result: '통장 잔고가 줄어드는 속도가, 그 어떤 지표보다 선명하게 다가왔다.',
+        requiresOccupation: ['startup-founder'],
+        worldStateSignal: { key: 'startupEcosystemHeat', target: 0 }
+      },
+      {
         id: 'tch-fill-29-1',
         text: '첫 담임을 맡아 학급 운영에 서툴다',
         deltas: { happiness: -1, wealth: 1 },
@@ -18014,7 +18032,8 @@ const STAGES = [
         text: '시리즈 A 투자 유치에 성공한다',
         deltas: { wealth: 6, fame: 2 },
         result: '숫자 하나가 회사의 운명을 바꿔놓았다.',
-        requiresOccupation: ['startup-founder']
+        requiresOccupation: ['startup-founder'],
+        worldStateSignal: { key: 'startupEcosystemHeat', target: 1 }
       },
       {
         id: 'tch-fill-33-1',
@@ -22412,7 +22431,8 @@ const STAGES = [
         text: '창업 3년 만에 처음으로 흑자를 낸다',
         deltas: { wealth: 5, happiness: 3 },
         result: '숫자 하나가 그동안의 고생을 씻어줬다.',
-        requiresOccupation: ['startup-founder']
+        requiresOccupation: ['startup-founder'],
+        worldStateSignal: { key: 'startupEcosystemHeat', target: 1 }
       },
       {
         id: 'ent2-fill-38',
@@ -30192,7 +30212,8 @@ const STAGES = [
         text: '첫 창업의 실패를 발판 삼아 재도전한다',
         deltas: { happiness: 2, wealth: 1 },
         result: '실패도 하나의 자산이라는 걸 몸으로 배웠다.',
-        requiresOccupation: ['startup-founder']
+        requiresOccupation: ['startup-founder'],
+        worldStateSignal: { key: 'startupEcosystemHeat', target: 0 }
       },
       {
         id: 'con2-fill-50',

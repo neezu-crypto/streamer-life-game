@@ -6747,7 +6747,7 @@
     </section>
 
     <section id="sec58">
-        <h2><span class="num">58</span>세계관 트래커 5종 추가 + 창업가/자영업자 공급량 연동 수입 (2026-08-29, 사용자 요청 — 설계만, 미구현)</h2>
+        <h2><span class="num">58</span>세계관 트래커 5종 추가 + 창업가/자영업자 공급량 연동 수입 (2026-08-29, 사용자 요청 — A항 5종 전부 구현 완료, B항은 설계만·미구현)</h2>
         <p><b>참고.</b> 지금까지 실제로 배포된 트래커는 <code>teacherCorruption</code>·
         <code>policeCorruption</code>·<code>publicSafety</code>·<code>doctorCorruption</code>·
         <code>politicianCorruption</code>·<code>teamLeadUnfairness</code>(원 56장 설계분) +
@@ -6825,12 +6825,24 @@
                 상호작용 구조 그대로 구현.</li>
             </ul>
             </li>
-            <li><b><code>startupEcosystemHeat</code>(창업 생태계 열기).</b> 설정 — 창업가/
-            초기 창업가의 선택지 중 성공적인 엑싯·투자유치(target 1) vs 잦은 폐업·투자
-            실패(target 0). 영향 — 이후 세대 창업가의 투자 유치 콘텐츠(dynamicPrizeWeight
-            방식, 투자 성사 확률)에 반영. <code>localEconomySentiment</code>(소비 심리)와는
-            결이 달라 — 이쪽은 "투자자들이 스타트업에 얼마나 적극적인가"라는 벤처 생태계
-            분위기 전용.</li>
+            <li><b><code>startupEcosystemHeat</code>(창업 생태계 열기) — 구현 완료
+            (2026-08-29).</b> 설정 — 창업가/초기 창업가의 선택지 중 성공적인 엑싯·투자유치
+            (target 1) vs 잦은 폐업·투자 실패(target 0). 영향 — 이후 세대 창업가의 투자
+            유치 콘텐츠(dynamicPrizeWeight 방식, 투자 성사 확률)에 반영.
+            <code>localEconomySentiment</code>(소비 심리)와는 결이 달라 — 이쪽은
+            "투자자들이 스타트업에 얼마나 적극적인가"라는 벤처 생태계 분위기 전용.
+            <ul>
+                <li><b>구현 내역.</b> 기존 <code>sf2-fill-33</code>(시리즈 A 투자 유치
+                성공)·<code>sf2-fill-38</code>(첫 흑자)에 target 1, 기존
+                <code>sf3-fill-50</code>(첫 창업 실패 후 재도전)에 target 0 리트로핏.
+                신규 <code>sf-followup-funding-fails-29</code>(후속 투자 무산, target 0)
+                추가로 균형 보강. 타겟 콘텐츠는 신규
+                <code>sf-seed-round-pitch-24</code>(시드 투자 피칭) — 정적 weight가
+                아니라 <code>dynamicPrizeWeight</code>로 생태계 열기가 뜨거울수록 투자
+                성사 확률이 오르는 구조(기존 정책 부패↔체포 확률과 같은 메커니즘을
+                투자 성사 확률에 재사용한 첫 사례).</li>
+            </ul>
+            </li>
         </ul>
         <p><b>구현 시 선택지 소싱 원칙</b>(2026-08-29, 사용자 지시). 5종 전부, 새 선택지를
         무작정 먼저 쓰지 않는다 — <b>①</b> 먼저 해당 직업의 루트 콘텐츠 + 은퇴/이후 콘텐츠
