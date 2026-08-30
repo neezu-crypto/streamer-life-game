@@ -2108,7 +2108,8 @@ const STAGES = [
         id: 'new-crew-new-persona',
         text: '새로운 친구 무리에 합류하며 완전히 다른 캐릭터로 지내본다',
         deltas: { relationship: 4, happiness: 2, fame: 2 },
-        result: '전혀 다른 나로 살아보는 게 의외로 홀가분했다.'
+        result: '전혀 다른 나로 살아보는 게 의외로 홀가분했다.',
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구', count: 3 }
       },
       {
         id: 'teacher-clashes',
