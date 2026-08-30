@@ -4562,7 +4562,8 @@ const STAGES = [
         id: 'freshman-mt-culture-shock',
         text: '새내기 환영회 문화에 놀라며 적응해간다',
         deltas: { happiness: -1, relationship: 1 },
-        result: '어색한 게임과 낯선 분위기 속에서도, 얼굴은 하나씩 익어갔다.'
+        result: '어색한 게임과 낯선 분위기 속에서도, 얼굴은 하나씩 익어갔다.',
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
       },
       {
         id: 'first-hangover',
