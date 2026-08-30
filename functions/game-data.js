@@ -5791,23 +5791,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-21-1',
-        text: '지구대 첫 야간 근무를 선다',
+        text: '폭우 속 야간 순찰에 나선다',
         deltas: { happiness: -1, health: -1 },
-        result: '긴장과 두려움이 뒤섞인 밤이었다.',
+        result: '온몸이 흠뻑 젖었지만 멈출 수 없었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-21-2',
-        text: '무전 교신 요령을 아직 익숙하게 못 한다',
+        text: '무전 코드를 헷갈려 실수를 저지른다',
         deltas: { happiness: -1 },
-        result: '긴급한 상황에서 버벅거려 진땀이 났다.',
+        result: '선배의 지적에 얼굴이 화끈거렸다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-21-3',
-        text: '선배 순경의 순찰 노하우를 배운다',
+        text: '선배와 함께 관할 구역을 익힌다',
         deltas: { wealth: 1 },
-        result: '책에는 없는 현장의 감각이었다.',
+        result: '지도에 없는 지름길까지 알게 됐다.',
         requiresRoute: 'police'
       },
       {
@@ -6795,23 +6795,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-22-1',
-        text: '지구대 첫 야간 근무를 선다',
+        text: '밤샘 잠복근무로 몸이 축난다',
         deltas: { happiness: -1, health: -1 },
-        result: '긴장과 두려움이 뒤섞인 밤이었다.',
+        result: '카페인으로 겨우 버텼다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-22-2',
-        text: '무전 교신 요령을 아직 익숙하게 못 한다',
+        text: '상황실 보고 절차를 놓쳐 혼이 난다',
         deltas: { happiness: -1 },
-        result: '긴급한 상황에서 버벅거려 진땀이 났다.',
+        result: '매뉴얼을 다시 들여다봐야 했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-22-3',
-        text: '선배 순경의 순찰 노하우를 배운다',
+        text: '베테랑 형사의 탐문 기술을 어깨너머로 배운다',
         deltas: { wealth: 1 },
-        result: '책에는 없는 현장의 감각이었다.',
+        result: '질문 하나로 많은 걸 알아내는 게 신기했다.',
         requiresRoute: 'police'
       },
       {
@@ -7857,23 +7857,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-23-1',
-        text: '지구대 첫 야간 근무를 선다',
+        text: '연달아 이어진 야간 신고에 지친다',
         deltas: { happiness: -1, health: -1 },
-        result: '긴장과 두려움이 뒤섞인 밤이었다.',
+        result: '눈이 감기는 걸 억지로 참았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-23-2',
-        text: '무전 교신 요령을 아직 익숙하게 못 한다',
+        text: '순찰차 운전에 아직 서툴러 애먹는다',
         deltas: { happiness: -1 },
-        result: '긴급한 상황에서 버벅거려 진땀이 났다.',
+        result: '좁은 골목에서 진땀을 뺐다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-23-3',
-        text: '선배 순경의 순찰 노하우를 배운다',
+        text: '선배의 사건 처리 요령을 곁에서 지켜본다',
         deltas: { wealth: 1 },
-        result: '책에는 없는 현장의 감각이었다.',
+        result: '침착함이 인상 깊었다.',
         requiresRoute: 'police'
       },
       {
@@ -7941,23 +7941,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-23-1',
-        text: '파출소 야간 근무에 적응해간다',
+        text: '야간조 근무 리듬에 조금씩 익숙해진다',
         deltas: { happiness: -1, wealth: 1 },
-        result: '몸은 힘들어도 조금씩 요령이 붙었다.',
+        result: '낮과 밤이 바뀐 생활도 견딜 만해졌다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-23-2',
-        text: '선배 형사에게 현장 대응을 배운다',
+        text: '선배와 함께 사건 현장을 누비며 배운다',
         deltas: { happiness: 1 },
-        result: '매뉴얼로는 배울 수 없는 감각이었다.',
+        result: '실전에서만 얻을 수 있는 노하우였다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-23-3',
-        text: '동료들과 회식 후 순찰차로 복귀한다',
+        text: '팀 회식 자리에서 서로의 고충을 나눈다',
         deltas: { relationship: 2 },
-        result: '고된 하루의 끝에도 서로가 있어 버틸 만했다.',
+        result: '같은 일을 하는 사람들끼리만 통하는 게 있었다.',
         requiresRoute: 'police'
       },
       {
@@ -8994,9 +8994,9 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-24-1',
-        text: '지구대 첫 야간 근무를 선다',
+        text: '혹한 속 새벽 순찰을 돈다',
         deltas: { happiness: -1, health: -1 },
-        result: '긴장과 두려움이 뒤섞인 밤이었다.',
+        result: '손끝이 감각을 잃을 정도였다.',
         requiresRoute: 'police'
       },
       {
@@ -9008,16 +9008,16 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-24-2',
-        text: '무전 교신 요령을 아직 익숙하게 못 한다',
+        text: '현장 보고서 작성이 손에 익지 않는다',
         deltas: { happiness: -1 },
-        result: '긴급한 상황에서 버벅거려 진땀이 났다.',
+        result: '몇 번을 고쳐 써야 했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-24-3',
-        text: '선배 순경의 순찰 노하우를 배운다',
+        text: '고참 순경의 주민 응대 방식을 눈여겨본다',
         deltas: { wealth: 1 },
-        result: '책에는 없는 현장의 감각이었다.',
+        result: '말 한마디의 무게를 깨달았다.',
         requiresRoute: 'police'
       },
       {
@@ -9057,23 +9057,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-24-1',
-        text: '경범죄 신고를 처리하며 하루를 보낸다',
+        text: '소음 민원 신고를 여러 건 처리한다',
         deltas: { happiness: 1 },
-        result: '작은 사건들도 누군가에겐 큰일이었다.',
+        result: '사소해 보여도 성실히 응대했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-24-2',
-        text: '체력 검정을 준비하며 훈련한다',
+        text: '정기 체력 평가를 앞두고 훈련에 매진한다',
         deltas: { health: -1, wealth: 1 },
-        result: '숨이 턱까지 차올랐지만 통과해야 했다.',
+        result: '근육통이 하루도 가시지 않았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-24-3',
-        text: '민생치안 순찰을 돈다',
+        text: '상가 밀집 지역을 집중 순찰한다',
         deltas: { happiness: 1 },
-        result: '동네가 조용한 게 제일 좋은 하루였다.',
+        result: '별일 없이 지나가는 하루가 감사했다.',
         requiresRoute: 'police'
       },
       {
@@ -10199,23 +10199,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-25-1',
-        text: '지구대 첫 야간 근무를 선다',
+        text: '교대 인원 부족으로 연장 근무를 선다',
         deltas: { happiness: -1, health: -1 },
-        result: '긴장과 두려움이 뒤섞인 밤이었다.',
+        result: '몸이 천근만근이었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-25-2',
-        text: '무전 교신 요령을 아직 익숙하게 못 한다',
+        text: '신고 접수 매뉴얼을 자꾸 헷갈린다',
         deltas: { happiness: -1 },
-        result: '긴급한 상황에서 버벅거려 진땀이 났다.',
+        result: '선배가 옆에서 다시 짚어줬다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-25-3',
-        text: '선배 순경의 순찰 노하우를 배운다',
+        text: '선배에게 몸싸움 제압 기술을 배운다',
         deltas: { wealth: 1 },
-        result: '책에는 없는 현장의 감각이었다.',
+        result: '힘보다 요령이 중요하다는 걸 알았다.',
         requiresRoute: 'police'
       },
       {
@@ -11326,23 +11326,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-26-1',
-        text: '지구대 첫 야간 근무를 선다',
+        text: '축제 인파 관리로 밤새 근무한다',
         deltas: { happiness: -1, health: -1 },
-        result: '긴장과 두려움이 뒤섞인 밤이었다.',
+        result: '인파 속에서 정신을 바짝 차려야 했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-26-2',
-        text: '무전 교신 요령을 아직 익숙하게 못 한다',
+        text: '장비 점검을 깜빡해 지적을 받는다',
         deltas: { happiness: -1 },
-        result: '긴급한 상황에서 버벅거려 진땀이 났다.',
+        result: '사소한 실수가 부끄러웠다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-26-3',
-        text: '선배 순경의 순찰 노하우를 배운다',
+        text: '베테랑 동료의 서류 작성 노하우를 전수받는다',
         deltas: { wealth: 1 },
-        result: '책에는 없는 현장의 감각이었다.',
+        result: '시간을 아끼는 비결이었다.',
         requiresRoute: 'police'
       },
       {
@@ -11368,23 +11368,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-26-1',
-        text: '파출소 야간 근무에 적응해간다',
+        text: '반복되는 야간 근무에 나름의 요령이 생긴다',
         deltas: { happiness: -1, wealth: 1 },
-        result: '몸은 힘들어도 조금씩 요령이 붙었다.',
+        result: '짬짬이 쉬는 법도 터득했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-26-2',
-        text: '선배 형사에게 현장 대응을 배운다',
+        text: '베테랑 형사의 판단력을 곁에서 지켜본다',
         deltas: { happiness: 1 },
-        result: '매뉴얼로는 배울 수 없는 감각이었다.',
+        result: '순간의 결정이 남달랐다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-26-3',
-        text: '동료들과 회식 후 순찰차로 복귀한다',
+        text: '동료들과 야식을 나누며 하루를 마무리한다',
         deltas: { relationship: 2 },
-        result: '고된 하루의 끝에도 서로가 있어 버틸 만했다.',
+        result: '별거 아닌 대화에도 위로가 됐다.',
         requiresRoute: 'police'
       },
       {
@@ -12514,23 +12514,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-27-1',
-        text: '지구대 첫 야간 근무를 선다',
+        text: '강력 사건 발생으로 비상 근무에 투입된다',
         deltas: { happiness: -1, health: -1 },
-        result: '긴장과 두려움이 뒤섞인 밤이었다.',
+        result: '잠 한숨 못 잔 채 아침을 맞았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-27-2',
-        text: '무전 교신 요령을 아직 익숙하게 못 한다',
+        text: '낯선 관할 지리를 아직 다 못 외운다',
         deltas: { happiness: -1 },
-        result: '긴급한 상황에서 버벅거려 진땀이 났다.',
+        result: '내비게이션에 의지해야 했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-27-3',
-        text: '선배 순경의 순찰 노하우를 배운다',
+        text: '선배와 함께 야간 순찰 동선을 짜본다',
         deltas: { wealth: 1 },
-        result: '책에는 없는 현장의 감각이었다.',
+        result: '경험에서 나온 판단이 남달랐다.',
         requiresRoute: 'police'
       },
       {
@@ -12598,23 +12598,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-27-1',
-        text: '경범죄 신고를 처리하며 하루를 보낸다',
+        text: '주차 시비 신고를 중재하며 하루를 보낸다',
         deltas: { happiness: 1 },
-        result: '작은 사건들도 누군가에겐 큰일이었다.',
+        result: '감정 다툼을 가라앉히는 것도 일이었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-27-2',
-        text: '체력 검정을 준비하며 훈련한다',
+        text: '특공무술 승급 심사를 준비한다',
         deltas: { health: -1, wealth: 1 },
-        result: '숨이 턱까지 차올랐지만 통과해야 했다.',
+        result: '몸은 힘들어도 실력이 느는 게 느껴졌다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-27-3',
-        text: '민생치안 순찰을 돈다',
+        text: '주택가 순찰을 꼼꼼히 돈다',
         deltas: { happiness: 1 },
-        result: '동네가 조용한 게 제일 좋은 하루였다.',
+        result: '평온한 동네 풍경에 마음이 놓였다.',
         requiresRoute: 'police'
       },
       {
@@ -14822,9 +14822,9 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-29-1',
-        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        text: '실종 아동 수색에 밤새 매달린다',
         deltas: { happiness: -2 },
-        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        result: '무사히 찾을 때까지 잠이 오지 않았다.',
         requiresRoute: 'police'
       },
       {
@@ -14836,16 +14836,16 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-29-2',
-        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        text: '잠복 끝에 마약 판매책을 현행범으로 잡는다',
         deltas: { happiness: 3, fame: 1 },
-        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        result: '고생한 보람이 있었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-29-3',
-        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        text: '접근금지명령이 무시되는 현장을 마주한다',
         deltas: { happiness: -2 },
-        result: '제도의 한계를 자주 느꼈다.',
+        result: '서류 한 장으로는 부족했다.',
         requiresRoute: 'police'
       },
       {
@@ -15947,23 +15947,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-30-1',
-        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        text: '교통사고 현장에서 참혹한 광경을 목격한다',
         deltas: { happiness: -2 },
-        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        result: '지워지지 않는 장면이 됐다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-30-2',
-        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        text: '연쇄 사기범의 아지트를 급습해 검거한다',
         deltas: { happiness: 3, fame: 1 },
-        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        result: '팀 전체가 환호했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-30-3',
-        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        text: '아동 앞에서 벌어지는 폭력 현장에 출동한다',
         deltas: { happiness: -2 },
-        result: '제도의 한계를 자주 느꼈다.',
+        result: '아이의 눈빛이 오래 남았다.',
         requiresRoute: 'police'
       },
       {
@@ -17001,23 +17001,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-31-1',
-        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        text: '마약 유통 조직 검거 작전에 투입된다',
         deltas: { happiness: -2 },
-        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        result: '긴장감이 며칠간 가시지 않았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-31-2',
-        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        text: '오랜 추적 끝에 지명수배자를 붙잡는다',
         deltas: { happiness: 3, fame: 1 },
-        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        result: '몇 달의 잠복이 결실을 맺었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-31-3',
-        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        text: '신고했다가 취소하는 피해자를 여러 번 만난다',
         deltas: { happiness: -2 },
-        result: '제도의 한계를 자주 느꼈다.',
+        result: '안타까움이 쌓여갔다.',
         requiresRoute: 'police'
       },
       {
@@ -17085,23 +17085,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-31-1',
-        text: '사건 브리핑을 준비하느라 밤을 새운다',
+        text: '대형 사건 수사 회의 자료를 밤새 준비한다',
         deltas: { happiness: -2, wealth: 1 },
-        result: '완벽하게 준비했다고 생각했는데도 긴장됐다.',
+        result: '자료가 산더미처럼 쌓였다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-31-2',
-        text: '후배 경찰관의 훈련을 맡는다',
+        text: '신임 순경 현장 실습을 지도한다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같았다.',
+        result: '열의가 느껴져 보람 있었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-31-3',
-        text: '지역 주민과의 간담회에 참석한다',
+        text: '학교 폭력 예방 강연을 나간다',
         deltas: { happiness: -1, fame: 1 },
-        result: '치안 이상의 것을 기대하는 눈빛들이 부담스럽기도 했다.',
+        result: '아이들 앞에서도 긴장이 됐다.',
         requiresRoute: 'police'
       },
       {
@@ -18050,23 +18050,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-32-1',
-        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        text: '연쇄 절도 사건 피해자들의 절규를 듣는다',
         deltas: { happiness: -2 },
-        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        result: '무력감이 오래 남았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-32-2',
-        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        text: '위장 수사로 불법 도박장을 적발한다',
         deltas: { happiness: 3, fame: 1 },
-        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        result: '완벽한 작전이었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-32-3',
-        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        text: '데이트폭력 신고 현장에 반복해서 나간다',
         deltas: { happiness: -2 },
-        result: '제도의 한계를 자주 느꼈다.',
+        result: '헤어지기가 쉽지 않은 이유들이 있었다.',
         requiresRoute: 'police'
       },
       {
@@ -18092,23 +18092,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-32-1',
-        text: '동료 순직 소식에 마음이 무거워진다',
+        text: '순직 경찰관 유가족 위로 행사에 참석한다',
         deltas: { happiness: -3 },
-        result: '이 일의 무게를 다시 실감했다.',
+        result: '남은 가족의 슬픔이 고스란히 전해졌다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-32-2',
-        text: '표창장을 받는다',
+        text: '시민 안전 유공 표창을 받는다',
         deltas: { happiness: 2, fame: 2 },
-        result: '가족들이 더 기뻐하는 모습에 뿌듯했다.',
+        result: '시상식 자리가 낯설면서도 뿌듯했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-32-3',
-        text: '장기 미제 사건을 다시 들여다본다',
+        text: '새로운 단서로 미제 사건을 재수사한다',
         deltas: { happiness: -1 },
-        result: '포기하지 않는 게 이 일의 미덕이라고 믿었다.',
+        result: '실낱같은 희망이라도 놓치고 싶지 않았다.',
         requiresRoute: 'police'
       },
       {
@@ -19034,23 +19034,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-33-1',
-        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        text: '살인 사건 현장 감식을 지원한다',
         deltas: { happiness: -2 },
-        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        result: '익숙해지지 않는 광경이었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-33-2',
-        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        text: '잠복 끝에 뺑소니 운전자를 특정해낸다',
         deltas: { happiness: 3, fame: 1 },
-        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        result: '끈질긴 추적이 빛을 봤다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-33-3',
-        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        text: '노인학대 의심 신고를 조사한다',
         deltas: { happiness: -2 },
-        result: '제도의 한계를 자주 느꼈다.',
+        result: '눈에 잘 안 띄는 피해였다.',
         requiresRoute: 'police'
       },
       {
@@ -19111,23 +19111,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-33-1',
-        text: '사건 브리핑을 준비하느라 밤을 새운다',
+        text: '언론 브리핑 원고를 반복해서 다듬는다',
         deltas: { happiness: -2, wealth: 1 },
-        result: '완벽하게 준비했다고 생각했는데도 긴장됐다.',
+        result: '한 문장도 허투루 쓸 수 없었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-33-2',
-        text: '후배 경찰관의 훈련을 맡는다',
+        text: '후배와 짝을 이뤄 순찰을 돈다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같았다.',
+        result: '손발이 조금씩 맞아갔다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-33-3',
-        text: '지역 주민과의 간담회에 참석한다',
+        text: '상인회 치안 간담회에 참석한다',
         deltas: { happiness: -1, fame: 1 },
-        result: '치안 이상의 것을 기대하는 눈빛들이 부담스럽기도 했다.',
+        result: '저마다 다른 요구가 쏟아졌다.',
         requiresRoute: 'police'
       },
       {
@@ -20061,9 +20061,9 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-34-1',
-        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        text: '조직폭력배 간의 보복 다툼을 진압한다',
         deltas: { happiness: -2 },
-        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        result: '다치지 않은 게 다행이었다.',
         requiresRoute: 'police'
       },
       {
@@ -20084,16 +20084,16 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-34-2',
-        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        text: '조직폭력배 두목을 검거하는 데 성공한다',
         deltas: { happiness: 3, fame: 1 },
-        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        result: '언론에서도 크게 다뤘다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-34-3',
-        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        text: '가정폭력 가해자의 재범 현장에 다시 출동한다',
         deltas: { happiness: -2 },
-        result: '제도의 한계를 자주 느꼈다.',
+        result: '예전에 왔던 곳이었다.',
         requiresRoute: 'police'
       },
       {
@@ -20140,23 +20140,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-34-1',
-        text: '동료 순직 소식에 마음이 무거워진다',
+        text: '함께 근무했던 동료가 큰 부상을 입는다',
         deltas: { happiness: -3 },
-        result: '이 일의 무게를 다시 실감했다.',
+        result: '남 일 같지 않았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-34-2',
-        text: '표창장을 받는다',
+        text: '모범 경찰관으로 언론에 소개된다',
         deltas: { happiness: 2, fame: 2 },
-        result: '가족들이 더 기뻐하는 모습에 뿌듯했다.',
+        result: '갑작스런 주목이 어색했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-34-3',
-        text: '장기 미제 사건을 다시 들여다본다',
+        text: '유가족의 재수사 요청을 받아들인다',
         deltas: { happiness: -1 },
-        result: '포기하지 않는 게 이 일의 미덕이라고 믿었다.',
+        result: '세월이 흘러도 잊히지 않는 사건이었다.',
         requiresRoute: 'police'
       },
       {
@@ -21085,23 +21085,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-35-1',
-        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        text: '아동학대 신고 현장에서 참담함을 느낀다',
         deltas: { happiness: -2 },
-        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        result: '법이 닿지 않는 곳이 너무 많았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-35-2',
-        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        text: '몇 주간 미행 끝에 장물아비를 검거한다',
         deltas: { happiness: 3, fame: 1 },
-        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        result: '인내심의 승리였다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-35-3',
-        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        text: '스토킹 신고가 폭력으로 번진 현장을 수습한다',
         deltas: { happiness: -2 },
-        result: '제도의 한계를 자주 느꼈다.',
+        result: '조금만 더 빨랐다면 싶었다.',
         requiresRoute: 'police'
       },
       {
@@ -22045,23 +22045,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-36-1',
-        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        text: '자살 시도 현장에 출동해 구조를 돕는다',
         deltas: { happiness: -2 },
-        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        result: '그날 밤은 유독 잠들기 어려웠다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-36-2',
-        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        text: '보이스피싱 콜센터를 급습해 일망타진한다',
         deltas: { happiness: 3, fame: 1 },
-        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        result: '피해 확산을 막았다는 게 뿌듯했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-36-3',
-        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        text: '형제간 폭력 신고 현장을 중재한다',
         deltas: { happiness: -2 },
-        result: '제도의 한계를 자주 느꼈다.',
+        result: '가족이라 더 복잡했다.',
         requiresRoute: 'police'
       },
       {
@@ -22101,23 +22101,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-36-1',
-        text: '사건 브리핑을 준비하느라 밤을 새운다',
+        text: '상부 보고를 앞두고 자료를 재점검한다',
         deltas: { happiness: -2, wealth: 1 },
-        result: '완벽하게 준비했다고 생각했는데도 긴장됐다.',
+        result: '빠진 게 없는지 몇 번이고 확인했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-36-2',
-        text: '후배 경찰관의 훈련을 맡는다',
+        text: '신입 형사의 멘토를 자처한다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같았다.',
+        result: '질문 공세가 싫지 않았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-36-3',
-        text: '지역 주민과의 간담회에 참석한다',
+        text: '반상회에 초청받아 치안 상황을 설명한다',
         deltas: { happiness: -1, fame: 1 },
-        result: '치안 이상의 것을 기대하는 눈빛들이 부담스럽기도 했다.',
+        result: '질문이 끝없이 이어졌다.',
         requiresRoute: 'police'
       },
       {
@@ -22886,23 +22886,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-37-1',
-        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        text: '대형 화재 현장에서 인명 수색을 돕는다',
         deltas: { happiness: -2 },
-        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        result: '매캐한 냄새가 옷에 오래 남았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-37-2',
-        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        text: '연쇄 방화범을 잠복 끝에 붙잡는다',
         deltas: { happiness: 3, fame: 1 },
-        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        result: '더 큰 피해를 막았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-37-3',
-        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        text: '이웃 신고로 알게 된 은폐된 학대를 발견한다',
         deltas: { happiness: -2 },
-        result: '제도의 한계를 자주 느꼈다.',
+        result: '담장 안은 늘 조용해 보였다.',
         requiresRoute: 'police'
       },
       {
@@ -22949,23 +22949,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-37-1',
-        text: '동료 순직 소식에 마음이 무거워진다',
+        text: '순직 추모비 앞에서 묵념한다',
         deltas: { happiness: -3 },
-        result: '이 일의 무게를 다시 실감했다.',
+        result: '이름 하나하나가 무겁게 다가왔다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-37-2',
-        text: '표창장을 받는다',
+        text: '감사장과 함께 소정의 격려금을 받는다',
         deltas: { happiness: 2, fame: 2 },
-        result: '가족들이 더 기뻐하는 모습에 뿌듯했다.',
+        result: '뜻밖의 보상이 반가웠다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-37-3',
-        text: '장기 미제 사건을 다시 들여다본다',
+        text: 'DNA 재감정으로 오래된 사건의 실마리를 찾는다',
         deltas: { happiness: -1 },
-        result: '포기하지 않는 게 이 일의 미덕이라고 믿었다.',
+        result: '기술의 발전이 새 길을 열어줬다.',
         requiresRoute: 'police'
       },
       {
@@ -23783,9 +23783,9 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-38-1',
-        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        text: '성폭력 사건 피해자 진술을 청취한다',
         deltas: { happiness: -2 },
-        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        result: '위로의 말도 조심스러웠다.',
         requiresRoute: 'police'
       },
       {
@@ -23797,16 +23797,16 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-38-2',
-        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        text: '위조지폐 유통책을 함정수사로 검거한다',
         deltas: { happiness: 3, fame: 1 },
-        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        result: '완벽한 타이밍이었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-38-3',
-        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        text: '위기의 아이를 임시 보호소로 인계한다',
         deltas: { happiness: -2 },
-        result: '제도의 한계를 자주 느꼈다.',
+        result: '마음이 무거웠다.',
         requiresRoute: 'police'
       },
       {
@@ -23846,23 +23846,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-38-1',
-        text: '사건 브리핑을 준비하느라 밤을 새운다',
+        text: '합동수사본부 브리핑을 준비한다',
         deltas: { happiness: -2, wealth: 1 },
-        result: '완벽하게 준비했다고 생각했는데도 긴장됐다.',
+        result: '다른 기관과 맞추는 게 까다로웠다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-38-2',
-        text: '후배 경찰관의 훈련을 맡는다',
+        text: '후배의 첫 보고서를 함께 검토해준다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같았다.',
+        result: '조목조목 짚어주는 재미가 있었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-38-3',
-        text: '지역 주민과의 간담회에 참석한다',
+        text: '지역 언론 인터뷰 요청에 응한다',
         deltas: { happiness: -1, fame: 1 },
-        result: '치안 이상의 것을 기대하는 눈빛들이 부담스럽기도 했다.',
+        result: '말 한마디도 조심스러웠다.',
         requiresRoute: 'police'
       },
       {
@@ -24630,23 +24630,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-39-1',
-        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        text: '흉악범 추격전 끝에 부상을 입을 뻔한다',
         deltas: { happiness: -2 },
-        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        result: '심장이 아직도 벌렁거렸다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-39-2',
-        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        text: '몇 달을 쫓던 인신매매 조직을 검거한다',
         deltas: { happiness: 3, fame: 1 },
-        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        result: '피해자들을 구출했다는 게 가장 뿌듯했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-39-3',
-        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        text: '가정폭력 피해자 쉼터 연계를 돕는다',
         deltas: { happiness: -2 },
-        result: '제도의 한계를 자주 느꼈다.',
+        result: '갈 곳이 마땅치 않은 현실이 답답했다.',
         requiresRoute: 'police'
       },
       {
@@ -24714,23 +24714,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-39-1',
-        text: '동료 순직 소식에 마음이 무거워진다',
+        text: '동료의 갑작스런 사고 소식을 듣는다',
         deltas: { happiness: -3 },
-        result: '이 일의 무게를 다시 실감했다.',
+        result: '하루 종일 마음이 심란했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-39-2',
-        text: '표창장을 받는다',
+        text: '지역 사회 안전 기여상을 수상한다',
         deltas: { happiness: 2, fame: 2 },
-        result: '가족들이 더 기뻐하는 모습에 뿌듯했다.',
+        result: '묵묵히 해온 일이 인정받은 기분이었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-39-3',
-        text: '장기 미제 사건을 다시 들여다본다',
+        text: '미제 사건 전담팀에 합류한다',
         deltas: { happiness: -1 },
-        result: '포기하지 않는 게 이 일의 미덕이라고 믿었다.',
+        result: '책임감이 무겁게 다가왔다.',
         requiresRoute: 'police'
       },
       {
@@ -25391,23 +25391,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-40-1',
-        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        text: '실종자 수색 중 안타까운 결말을 마주한다',
         deltas: { happiness: -2 },
-        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        result: '가족들 얼굴이 눈에 밟혔다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-40-2',
-        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        text: '잠복 끝에 무기 밀매 현장을 덮친다',
         deltas: { happiness: 3, fame: 1 },
-        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        result: '큰 사고를 미연에 막았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-40-3',
-        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        text: '반복 신고 가정을 다시 찾아간다',
         deltas: { happiness: -2 },
-        result: '제도의 한계를 자주 느꼈다.',
+        result: '이번엔 다를 거란 확신이 없었다.',
         requiresRoute: 'police'
       },
       {
@@ -26208,23 +26208,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-41-1',
-        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        text: '보이스피싱 피해 노인의 사연을 듣는다',
         deltas: { happiness: -2 },
-        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        result: '평생 모은 돈이 하루아침에 사라졌다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-41-2',
-        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        text: '끈질긴 추적으로 온라인 사기 총책을 잡는다',
         deltas: { happiness: 3, fame: 1 },
-        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        result: '디지털 증거 확보가 관건이었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-41-3',
-        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        text: '폭력을 목격한 아이의 진술을 청취한다',
         deltas: { happiness: -2 },
-        result: '제도의 한계를 자주 느꼈다.',
+        result: '어른보다 담담한 말투가 마음 아팠다.',
         requiresRoute: 'police'
       },
       {
@@ -26292,23 +26292,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-41-1',
-        text: '사건 브리핑을 준비하느라 밤을 새운다',
+        text: '재판 증언 준비로 밤늦게까지 서류를 검토한다',
         deltas: { happiness: -2, wealth: 1 },
-        result: '완벽하게 준비했다고 생각했는데도 긴장됐다.',
+        result: '실수 하나가 결과를 바꿀 수 있었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-41-2',
-        text: '후배 경찰관의 훈련을 맡는다',
+        text: '신임들과 함께 체력 훈련에 참여한다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같았다.',
+        result: '오히려 자극이 됐다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-41-3',
-        text: '지역 주민과의 간담회에 참석한다',
+        text: '주민 청원 민원을 직접 응대한다',
         deltas: { happiness: -1, fame: 1 },
-        result: '치안 이상의 것을 기대하는 눈빛들이 부담스럽기도 했다.',
+        result: '해결하기 어려운 요구도 있었다.',
         requiresRoute: 'police'
       },
       {
@@ -26935,23 +26935,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-42-1',
-        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        text: '가정폭력 재신고 현장에서 무력감을 느낀다',
         deltas: { happiness: -2 },
-        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        result: '몇 번을 와도 나아지지 않았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-42-2',
-        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        text: '장기 미제였던 절도단을 검거해낸다',
         deltas: { happiness: 3, fame: 1 },
-        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        result: '몇 년 만의 쾌거였다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-42-3',
-        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        text: '경제적 학대까지 겹친 사건을 조사한다',
         deltas: { happiness: -2 },
-        result: '제도의 한계를 자주 느꼈다.',
+        result: '피해가 한 가지로 끝나지 않았다.',
         requiresRoute: 'police'
       },
       {
@@ -26977,23 +26977,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-42-1',
-        text: '동료 순직 소식에 마음이 무거워진다',
+        text: '순직 경찰관 예우 행사를 준비한다',
         deltas: { happiness: -3 },
-        result: '이 일의 무게를 다시 실감했다.',
+        result: '준비하는 내내 숙연해졌다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-42-2',
-        text: '표창장을 받는다',
+        text: '청장 표창을 받으며 동료들의 축하를 받는다',
         deltas: { happiness: 2, fame: 2 },
-        result: '가족들이 더 기뻐하는 모습에 뿌듯했다.',
+        result: '함께 이룬 성과라 더 값졌다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-42-3',
-        text: '장기 미제 사건을 다시 들여다본다',
+        text: '오래된 사건 파일을 다시 꺼내본다',
         deltas: { happiness: -1 },
-        result: '포기하지 않는 게 이 일의 미덕이라고 믿었다.',
+        result: '그때 놓친 게 없었는지 되짚었다.',
         requiresRoute: 'police'
       },
       {
@@ -27594,9 +27594,9 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-43-1',
-        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        text: '대규모 마약 밀매 조직 검거에 투입된다',
         deltas: { happiness: -2 },
-        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        result: '예상보다 훨씬 큰 조직이었다.',
         requiresRoute: 'police'
       },
       {
@@ -27608,16 +27608,16 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-43-2',
-        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        text: '잠복 수사 끝에 불법 사금융업자를 적발한다',
         deltas: { happiness: 3, fame: 1 },
-        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        result: '피해자들이 고마워했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-43-3',
-        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        text: '신고자 보호를 위해 신중하게 접근한다',
         deltas: { happiness: -2 },
-        result: '제도의 한계를 자주 느꼈다.',
+        result: '섣부른 개입이 더 위험할 때도 있었다.',
         requiresRoute: 'police'
       },
       {
@@ -27685,23 +27685,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-43-1',
-        text: '사건 브리핑을 준비하느라 밤을 새운다',
+        text: '감사 대비 서류를 밤새 정리한다',
         deltas: { happiness: -2, wealth: 1 },
-        result: '완벽하게 준비했다고 생각했는데도 긴장됐다.',
+        result: '사소한 것 하나까지 신경 써야 했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-43-2',
-        text: '후배 경찰관의 훈련을 맡는다',
+        text: '후배의 고민 상담을 들어준다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같았다.',
+        result: '예전의 고민과 비슷해 웃음이 났다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-43-3',
-        text: '지역 주민과의 간담회에 참석한다',
+        text: '아파트 단지 방범 설명회를 연다',
         deltas: { happiness: -1, fame: 1 },
-        result: '치안 이상의 것을 기대하는 눈빛들이 부담스럽기도 했다.',
+        result: '관심이 뜨거워 놀랐다.',
         requiresRoute: 'police'
       },
       {
@@ -28354,23 +28354,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-44-1',
-        text: '강력계 사건 현장에서 참혹함을 마주한다',
+        text: '미성년자 대상 강력범죄 수사를 맡는다',
         deltas: { happiness: -2 },
-        result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        result: '밤새 분노를 삭여야 했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-44-2',
-        text: '장기 잠복 수사 끝에 검거에 성공한다',
+        text: '몇 달간 쫓던 밀수 조직을 일망타진한다',
         deltas: { happiness: 3, fame: 1 },
-        result: '지친 몸도 잊을 만큼 짜릿했다.',
+        result: '팀의 노력이 결실을 맺었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-44-3',
-        text: '가정폭력 신고 현장에 여러 번 출동한다',
+        text: '오랜 가정폭력 끝에 이혼을 결심한 신고자를 만난다',
         deltas: { happiness: -2 },
-        result: '제도의 한계를 자주 느꼈다.',
+        result: '늦었지만 다행이라 생각했다.',
         requiresRoute: 'police'
       },
       {
@@ -28396,23 +28396,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-44-1',
-        text: '동료 순직 소식에 마음이 무거워진다',
+        text: '순직 유가족을 위한 모금에 동참한다',
         deltas: { happiness: -3 },
-        result: '이 일의 무게를 다시 실감했다.',
+        result: '작은 힘이라도 보태고 싶었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-44-2',
-        text: '표창장을 받는다',
+        text: '우수 사례로 선정돼 전국에 소개된다',
         deltas: { happiness: 2, fame: 2 },
-        result: '가족들이 더 기뻐하는 모습에 뿌듯했다.',
+        result: '부담스럽기도 뿌듯하기도 했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-44-3',
-        text: '장기 미제 사건을 다시 들여다본다',
+        text: '미제 사건 제보 전화를 받고 재수사에 나선다',
         deltas: { happiness: -1 },
-        result: '포기하지 않는 게 이 일의 미덕이라고 믿었다.',
+        result: '작은 제보 하나가 실마리가 됐다.',
         requiresRoute: 'police'
       },
       {
@@ -29918,23 +29918,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-46-1',
-        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        text: '순찰 요령을 후배들에게 하나씩 알려준다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        result: '배우는 눈빛이 예전 자신과 닮아 있었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-46-2',
-        text: '정년을 앞두고 마지막 순찰을 돈다',
+        text: '오랜 세월 다닌 순찰로를 되짚어본다',
         deltas: { happiness: 1 },
-        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        result: '구석구석이 낯익었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-46-3',
-        text: '특진 심사에서 좋은 결과를 얻는다',
+        text: '우수 경찰관 표창 후보에 선정된다',
         deltas: { happiness: 2, fame: 1 },
-        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        result: '동료들의 축하가 이어졌다.',
         requiresRoute: 'police'
       },
       {
@@ -30507,9 +30507,9 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-47-1',
-        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        text: '위기 대응 훈련에서 시범을 보인다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        result: '몸이 기억하는 감각이 아직 남아 있었다.',
         requiresRoute: 'police'
       },
       {
@@ -30521,16 +30521,16 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-47-2',
-        text: '정년을 앞두고 마지막 순찰을 돈다',
+        text: '정년까지 남은 날을 손꼽아본다',
         deltas: { happiness: 1 },
-        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        result: '시원섭섭한 마음이 교차했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-47-3',
-        text: '특진 심사에서 좋은 결과를 얻는다',
+        text: '승진 시험에서 높은 점수를 받는다',
         deltas: { happiness: 2, fame: 1 },
-        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        result: '밤새 공부한 보람이 있었다.',
         requiresRoute: 'police'
       },
       {
@@ -31169,23 +31169,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-48-1',
-        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        text: '신임 형사에게 수사 기법을 가르친다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        result: '질문이 많을수록 뿌듯했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-48-2',
-        text: '정년을 앞두고 마지막 순찰을 돈다',
+        text: '마지막 근무표를 확인하며 소회에 잠긴다',
         deltas: { happiness: 1 },
-        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        result: '벌써라는 말이 절로 나왔다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-48-3',
-        text: '특진 심사에서 좋은 결과를 얻는다',
+        text: '강력계 반장으로 승진한다',
         deltas: { happiness: 2, fame: 1 },
-        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        result: '책임감이 무거워도 뿌듯함이 컸다.',
         requiresRoute: 'police'
       },
       {
@@ -31267,23 +31267,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-48-1',
-        text: '젊은 경찰관들과의 세대 차이를 느낀다',
+        text: '신세대 후배들의 새로운 방식에 놀란다',
         deltas: { happiness: 1 },
-        result: '방식은 달라도 지키려는 마음은 같았다.',
+        result: '배울 점도 있다는 걸 인정하게 됐다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-48-2',
-        text: '퇴직을 앞둔 선배의 송별회에 참석한다',
+        text: '오랜 동료의 명예 퇴직식에 참석한다',
         deltas: { relationship: 1, happiness: 1 },
-        result: '언젠가 자신의 차례도 올 거란 생각이 들었다.',
+        result: '박수를 보내는 마음이 복잡했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-48-3',
-        text: '몸이 예전 같지 않다는 걸 느낀다',
+        text: '정기 체력검사에서 아쉬운 결과를 받는다',
         deltas: { health: -1 },
-        result: '현장 업무가 조금씩 버거워졌다.',
+        result: '세월은 못 속인다는 말을 실감했다.',
         requiresRoute: 'police'
       },
       {
@@ -31750,23 +31750,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-49-1',
-        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        text: '후배들과 함께 실전 시뮬레이션 훈련을 진행한다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        result: '실수해도 웃어넘길 여유가 생겼다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-49-2',
-        text: '정년을 앞두고 마지막 순찰을 돈다',
+        text: '퇴직 전 마지막 당직 근무를 선다',
         deltas: { happiness: 1 },
-        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        result: '유독 길게 느껴지는 밤이었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-49-3',
-        text: '특진 심사에서 좋은 결과를 얻는다',
+        text: '우수 공무원 포상을 받는다',
         deltas: { happiness: 2, fame: 1 },
-        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        result: '가족들이 더 자랑스러워했다.',
         requiresRoute: 'police'
       },
       {
@@ -31834,23 +31834,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-49-1',
-        text: '특진 심사 결과를 초조하게 기다린다',
+        text: '근속 평가 결과 발표를 기다린다',
         deltas: { happiness: 1 },
-        result: '오랜 세월의 노력이 평가받는 순간이었다.',
+        result: '초조함에 잠을 설쳤다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-49-2',
-        text: '후배들에게 그동안의 노하우를 정리해 넘긴다',
+        text: '업무 인수인계 자료를 꼼꼼히 작성한다',
         deltas: { happiness: 2, relationship: 1 },
-        result: '글로 남기니 자신의 경력이 새삼 길게 느껴졌다.',
+        result: '빠뜨리는 게 없도록 신경 썼다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-49-3',
-        text: '정년퇴직 준비 서류를 챙긴다',
+        text: '연금 수령 관련 상담을 받는다',
         deltas: { happiness: 1 },
-        result: '긴 제복 생활의 끝이 눈앞에 보였다.',
+        result: '새로운 삶의 준비가 시작됐다.',
         requiresRoute: 'police'
       },
       {
@@ -32314,23 +32314,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-50-1',
-        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        text: '신입 교육 강사로 특강을 맡는다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        result: '강단에 서니 색다른 긴장감이 들었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-50-2',
-        text: '정년을 앞두고 마지막 순찰을 돈다',
+        text: '정년퇴임식 준비로 분주한 하루를 보낸다',
         deltas: { happiness: 1 },
-        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        result: '실감이 잘 나지 않았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-50-3',
-        text: '특진 심사에서 좋은 결과를 얻는다',
+        text: '경찰서장 표창을 받는다',
         deltas: { happiness: 2, fame: 1 },
-        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        result: '상장을 받아든 손이 떨렸다.',
         requiresRoute: 'police'
       },
       {
@@ -32919,23 +32919,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-51-1',
-        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        text: '현장 대응 매뉴얼 개정 작업에 참여한다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        result: '경험이 기록으로 남는다는 게 뿌듯했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-51-2',
-        text: '정년을 앞두고 마지막 순찰을 돈다',
+        text: '오랜 파트너와 마지막 순찰을 함께 돈다',
         deltas: { happiness: 1 },
-        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        result: '말없이도 통하는 게 많았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-51-3',
-        text: '특진 심사에서 좋은 결과를 얻는다',
+        text: '관리자 승진 심사를 무사히 통과한다',
         deltas: { happiness: 2, fame: 1 },
-        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        result: '새로운 역할이 기대됐다.',
         requiresRoute: 'police'
       },
       {
@@ -33003,23 +33003,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-51-1',
-        text: '젊은 경찰관들과의 세대 차이를 느낀다',
+        text: '후배들과의 소통 방식 차이를 실감한다',
         deltas: { happiness: 1 },
-        result: '방식은 달라도 지키려는 마음은 같았다.',
+        result: '먼저 다가가는 법을 다시 배웠다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-51-2',
-        text: '퇴직을 앞둔 선배의 송별회에 참석한다',
+        text: '정년퇴임하는 선배에게 감사패를 전한다',
         deltas: { relationship: 1, happiness: 1 },
-        result: '언젠가 자신의 차례도 올 거란 생각이 들었다.',
+        result: '그 자리에 서고 싶다는 생각이 들었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-51-3',
-        text: '몸이 예전 같지 않다는 걸 느낀다',
+        text: '무릎 통증이 부쩍 심해진다',
         deltas: { health: -1 },
-        result: '현장 업무가 조금씩 버거워졌다.',
+        result: '오래 서 있는 게 힘들어졌다.',
         requiresRoute: 'police'
       },
       {
@@ -33443,9 +33443,9 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-52-1',
-        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        text: '후배의 첫 검거를 옆에서 지켜본다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        result: '떨리는 손이 예전 자신 같았다.',
         requiresRoute: 'police'
       },
       {
@@ -33457,16 +33457,16 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-52-2',
-        text: '정년을 앞두고 마지막 순찰을 돈다',
+        text: '근속 기념패를 받으며 지난날을 돌아본다',
         deltas: { happiness: 1 },
-        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        result: '짧지만은 않았던 세월이었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-52-3',
-        text: '특진 심사에서 좋은 결과를 얻는다',
+        text: '모범 공직자로 선정돼 인터뷰를 한다',
         deltas: { happiness: 2, fame: 1 },
-        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        result: '쑥스러웠지만 기분 좋은 하루였다.',
         requiresRoute: 'police'
       },
       {
@@ -33534,23 +33534,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-52-1',
-        text: '특진 심사 결과를 초조하게 기다린다',
+        text: '관리자 승진 대상자 명단 발표를 기다린다',
         deltas: { happiness: 1 },
-        result: '오랜 세월의 노력이 평가받는 순간이었다.',
+        result: '이름이 불리길 바라며 마음을 졸였다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-52-2',
-        text: '후배들에게 그동안의 노하우를 정리해 넘긴다',
+        text: '후임에게 관할 구역 특성을 상세히 알려준다',
         deltas: { happiness: 2, relationship: 1 },
-        result: '글로 남기니 자신의 경력이 새삼 길게 느껴졌다.',
+        result: '몇 년 치 경험이 몇 장의 메모에 담겼다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-52-3',
-        text: '정년퇴직 준비 서류를 챙긴다',
+        text: '퇴직 후 계획을 가족과 상의한다',
         deltas: { happiness: 1 },
-        result: '긴 제복 생활의 끝이 눈앞에 보였다.',
+        result: '막연했던 미래가 조금씩 그려졌다.',
         requiresRoute: 'police'
       },
       {
@@ -33866,23 +33866,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-53-1',
-        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        text: '신입들과 함께 순찰을 돌며 조언을 건넨다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        result: '사소한 것도 새삼 다시 짚어주게 됐다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-53-2',
-        text: '정년을 앞두고 마지막 순찰을 돈다',
+        text: '마지막으로 관할 구역 전체를 둘러본다',
         deltas: { happiness: 1 },
-        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        result: '하나하나가 새삼스러웠다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-53-3',
-        text: '특진 심사에서 좋은 결과를 얻는다',
+        text: '장기근속 포상 휴가를 받는다',
         deltas: { happiness: 2, fame: 1 },
-        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        result: '그동안의 노고를 인정받은 기분이었다.',
         requiresRoute: 'police'
       },
       {
@@ -33950,23 +33950,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-53-1',
-        text: '젊은 경찰관들과의 세대 차이를 느낀다',
+        text: '달라진 조직 문화에 적응해간다',
         deltas: { happiness: 1 },
-        result: '방식은 달라도 지키려는 마음은 같았다.',
+        result: '시대가 변했다는 걸 받아들이기로 했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-53-2',
-        text: '퇴직을 앞둔 선배의 송별회에 참석한다',
+        text: '은퇴하는 동기의 마지막 인사를 듣는다',
         deltas: { relationship: 1, happiness: 1 },
-        result: '언젠가 자신의 차례도 올 거란 생각이 들었다.',
+        result: '남 일 같지 않은 이야기였다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-53-3',
-        text: '몸이 예전 같지 않다는 걸 느낀다',
+        text: '예전만큼 순발력이 안 따라준다',
         deltas: { health: -1 },
-        result: '현장 업무가 조금씩 버거워졌다.',
+        result: '마음은 그대로인데 몸이 따라주지 않았다.',
         requiresRoute: 'police'
       },
       {
@@ -34312,23 +34312,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-54-1',
-        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        text: '무전 교신 훈련에서 후배를 지도한다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        result: '예전에 배웠던 걸 그대로 돌려주는 기분이었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-54-2',
-        text: '정년을 앞두고 마지막 순찰을 돈다',
+        text: '퇴임 인사를 준비하며 지난 시간을 정리한다',
         deltas: { happiness: 1 },
-        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        result: '할 말이 생각보다 많았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-54-3',
-        text: '특진 심사에서 좋은 결과를 얻는다',
+        text: '청장 표창 후보로 추천받는다',
         deltas: { happiness: 2, fame: 1 },
-        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        result: '뜻밖의 소식에 기뻤다.',
         requiresRoute: 'police'
       },
       {
@@ -34396,23 +34396,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-54-1',
-        text: '특진 심사 결과를 초조하게 기다린다',
+        text: '마지막 승진 기회를 앞두고 초조해한다',
         deltas: { happiness: 1 },
-        result: '오랜 세월의 노력이 평가받는 순간이었다.',
+        result: '이번이 아니면 없을 기회였다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-54-2',
-        text: '후배들에게 그동안의 노하우를 정리해 넘긴다',
+        text: '팀 운영 노하우를 후배 팀장에게 전수한다',
         deltas: { happiness: 2, relationship: 1 },
-        result: '글로 남기니 자신의 경력이 새삼 길게 느껴졌다.',
+        result: '믿고 맡길 수 있어 마음이 놓였다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-54-3',
-        text: '정년퇴직 준비 서류를 챙긴다',
+        text: '퇴직 전 건강검진을 미리 받아둔다',
         deltas: { happiness: 1 },
-        result: '긴 제복 생활의 끝이 눈앞에 보였다.',
+        result: '새 출발을 앞두고 몸부터 챙기기로 했다.',
         requiresRoute: 'police'
       },
       {
@@ -34749,23 +34749,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-55-1',
-        text: '젊은 경찰관들에게 현장 노하우를 전수한다',
+        text: '은퇴를 앞두고 후임에게 업무를 인계한다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        result: '넘겨주는 마음이 후련하고도 아쉬웠다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-55-2',
-        text: '정년을 앞두고 마지막 순찰을 돈다',
+        text: '정년퇴직 발령을 공식적으로 통보받는다',
         deltas: { happiness: 1 },
-        result: '긴 세월의 무게가 새삼 느껴졌다.',
+        result: '담담하려 했지만 마음이 일렁였다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-55-3',
-        text: '특진 심사에서 좋은 결과를 얻는다',
+        text: '경정 승진 심사에서 최종 합격한다',
         deltas: { happiness: 2, fame: 1 },
-        result: '오랜 노력이 결실을 맺은 순간이었다.',
+        result: '오랜 꿈 하나를 이룬 순간이었다.',
         requiresRoute: 'police'
       },
       {
@@ -35517,23 +35517,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-56-1',
-        text: '퇴직 후 아파트 경비로 재취업한다',
+        text: '경비 자격증을 새로 따서 취업한다',
         deltas: { wealth: 1, happiness: 1 },
-        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        result: '늦은 나이의 도전이 나쁘지 않았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-56-2',
-        text: '옛 동료들과 낚시 모임을 갖는다',
+        text: '은퇴한 동기들과 등산 모임을 만든다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '제복을 벗어도 전우애는 그대로였다.',
+        result: '함께 걸으니 옛 순찰 시절이 떠올랐다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-56-3',
-        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        text: '예전 순찰 구역을 오랜만에 걸어본다',
         deltas: { happiness: 1 },
-        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        result: '많은 게 바뀌었지만 골목은 그대로였다.',
         requiresRoute: 'police'
       },
       {
@@ -35876,23 +35876,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-57-1',
-        text: '퇴직 후 아파트 경비로 재취업한다',
+        text: '학교 앞 배움터 지킴이로 새 일을 시작한다',
         deltas: { wealth: 1, happiness: 1 },
-        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        result: '아이들 웃음소리가 활력이 됐다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-57-2',
-        text: '옛 동료들과 낚시 모임을 갖는다',
+        text: '정기적으로 만나는 전우회 모임에 나간다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '제복을 벗어도 전우애는 그대로였다.',
+        result: '세월이 지나도 반가운 얼굴들이었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-57-3',
-        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        text: '첫 근무지였던 지구대를 찾아가본다',
         deltas: { happiness: 1 },
-        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        result: '신참 시절 기억이 생생하게 떠올랐다.',
         requiresRoute: 'police'
       },
       {
@@ -35967,16 +35967,16 @@ const STAGES = [
       },
       {
         id: 'pol-fill-57-2',
-        text: '퇴직 후 아파트 경비로 재취업한다',
+        text: '관공서 안내 도우미로 재취업한다',
         deltas: { wealth: 1, happiness: 1 },
-        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        result: '낯선 업무였지만 적응해갔다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-57-3',
-        text: '옛 동료들과 낚시 모임을 갖는다',
+        text: '옛 파트너와 오랜만에 술 한잔을 나눈다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '제복을 벗어도 전우애는 그대로였다.',
+        result: '그때 그 시절 이야기로 밤을 지새웠다.',
         requiresRoute: 'police'
       },
       {
@@ -36310,23 +36310,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-58-1',
-        text: '퇴직 후 아파트 경비로 재취업한다',
+        text: '대형마트 보안요원으로 새출발한다',
         deltas: { wealth: 1, happiness: 1 },
-        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        result: '순찰하던 습관이 여기서도 도움이 됐다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-58-2',
-        text: '옛 동료들과 낚시 모임을 갖는다',
+        text: '은퇴 경찰 모임 골프 라운딩에 참여한다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '제복을 벗어도 전우애는 그대로였다.',
+        result: '새로운 취미를 함께 즐기는 재미가 있었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-58-3',
-        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        text: '은퇴 기념 순찰차 사진을 꺼내본다',
         deltas: { happiness: 1 },
-        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        result: '젊은 날의 자신이 낯설게 느껴졌다.',
         requiresRoute: 'police'
       },
       {
@@ -36394,23 +36394,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-58-1',
-        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        text: '경찰 박물관 관람을 신청해 다녀온다',
         deltas: { happiness: 1 },
-        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        result: '지나온 시간이 전시물처럼 펼쳐졌다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-58-2',
-        text: '치안 관련 자문 요청을 가끔 받는다',
+        text: '지역 방범 정책 자문위원으로 위촉된다',
         deltas: { happiness: 2, fame: 1 },
-        result: '은퇴해도 여전히 필요한 사람이라는 게 좋았다.',
+        result: '경험이 여전히 쓸모 있다는 게 뿌듯했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-58-3',
-        text: '퇴직 후 아파트 경비로 재취업한다',
+        text: '아파트 관리소 직원으로 자리를 옮긴다',
         deltas: { wealth: 1, happiness: 1 },
-        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        result: '주민들과 낯을 익혀갔다.',
         requiresRoute: 'police'
       },
       {
@@ -36852,23 +36852,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-59-1',
-        text: '퇴직 후 아파트 경비로 재취업한다',
+        text: '지역 방범대 자문위원을 맡는다',
         deltas: { wealth: 1, happiness: 1 },
-        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        result: '현장 감각을 살릴 수 있어 좋았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-59-2',
-        text: '옛 동료들과 낚시 모임을 갖는다',
+        text: '옛 팀원들과 매달 정기 모임을 갖는다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '제복을 벗어도 전우애는 그대로였다.',
+        result: '흩어져도 인연은 이어졌다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-59-3',
-        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        text: '오랜만에 정복을 꺼내 입어본다',
         deltas: { happiness: 1 },
-        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        result: '옷이 조금 헐렁해진 걸 느꼈다.',
         requiresRoute: 'police'
       },
       {
@@ -36936,23 +36936,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-59-1',
-        text: '옛 동료들과 낚시 모임을 갖는다',
+        text: '함께 근무했던 동료의 칠순 잔치에 간다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '제복을 벗어도 전우애는 그대로였다.',
+        result: '축하할 사람이 많아 다행이었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-59-2',
-        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        text: '후배가 보낸 근무 사진을 받아본다',
         deltas: { happiness: 1 },
-        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        result: '그 자리에 자신도 있었던 것 같았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-59-3',
-        text: '치안 관련 자문 요청을 가끔 받는다',
+        text: '방송사 범죄 프로그램 자문을 맡는다',
         deltas: { happiness: 2, fame: 1 },
-        result: '은퇴해도 여전히 필요한 사람이라는 게 좋았다.',
+        result: '낯선 카메라 앞이 어색하면서도 재밌었다.',
         requiresRoute: 'police'
       },
       {
@@ -37301,30 +37301,30 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-60-1',
-        text: '퇴직 후 아파트 경비로 재취업한다',
+        text: '경비업체 교육강사로 새 일을 시작한다',
         deltas: { wealth: 1, happiness: 1 },
-        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        result: '가르치는 재미를 새로 알았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-60-2',
-        text: '옛 동료들과 낚시 모임을 갖는다',
+        text: '전직 경찰 봉사단 활동에 함께한다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '제복을 벗어도 전우애는 그대로였다.',
+        result: '다시 뭉치니 힘이 났다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-60-3',
-        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        text: '예전 순찰 노트를 정리하다 옛 기억을 떠올린다',
         deltas: { happiness: 1 },
-        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        result: '빼곡한 메모마다 사연이 있었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-60-4',
-        text: '치안 관련 자문 요청을 가끔 받는다',
+        text: '신임 경찰 교육 프로그램에 특강을 나간다',
         deltas: { happiness: 2, fame: 1 },
-        result: '은퇴해도 여전히 필요한 사람이라는 게 좋았다.',
+        result: '오랜만에 강단에 서니 설렜다.',
         requiresRoute: 'police'
       },
       {
@@ -37820,23 +37820,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-61-1',
-        text: '퇴직 후 아파트 경비로 재취업한다',
+        text: '실버택배 일을 시작하며 소일거리를 찾는다',
         deltas: { wealth: 1, happiness: 1 },
-        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        result: '몸을 움직이니 오히려 개운했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-61-2',
-        text: '옛 동료들과 낚시 모임을 갖는다',
+        text: '옛 동료와 함께 캠핑을 떠난다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '제복을 벗어도 전우애는 그대로였다.',
+        result: '자연 속에서 마음이 편안해졌다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-61-3',
-        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        text: '첫 발령지 동네 상가를 둘러본다',
         deltas: { happiness: 1 },
-        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        result: '단골이던 가게들이 많이 바뀌어 있었다.',
         requiresRoute: 'police'
       },
       {
@@ -37904,23 +37904,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-61-1',
-        text: '퇴직 후 아파트 경비로 재취업한다',
+        text: '공영주차장 관리 일을 맡는다',
         deltas: { wealth: 1, happiness: 1 },
-        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        result: '단순한 업무가 오히려 편했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-61-2',
-        text: '옛 동료들과 낚시 모임을 갖는다',
+        text: '은퇴자 모임에서 새 취미 동아리를 만든다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '제복을 벗어도 전우애는 그대로였다.',
+        result: '다들 활기를 되찾은 모습이었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-61-3',
-        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        text: '경찰의 날 기념식에 참석한다',
         deltas: { happiness: 1 },
-        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        result: '후배들 사이에서 뿌듯함을 느꼈다.',
         requiresRoute: 'police'
       },
       {
@@ -38296,23 +38296,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-62-1',
-        text: '퇴직 후 아파트 경비로 재취업한다',
+        text: '지역 축제 안전요원으로 활동한다',
         deltas: { wealth: 1, happiness: 1 },
-        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        result: '오랜 경험이 여기서도 빛을 발했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-62-2',
-        text: '옛 동료들과 낚시 모임을 갖는다',
+        text: '옛 상관의 병문안을 동료들과 함께 간다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '제복을 벗어도 전우애는 그대로였다.',
+        result: '함께라서 덜 무거운 걸음이었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-62-3',
-        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        text: '오래된 순찰 수첩을 손주에게 보여준다',
         deltas: { happiness: 1 },
-        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        result: '옛날이야기하듯 들려주는 재미가 있었다.',
         requiresRoute: 'police'
       },
       {
@@ -38380,23 +38380,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-62-1',
-        text: '치안 관련 자문 요청을 가끔 받는다',
+        text: '지역 안전 정책 공청회에 초청받는다',
         deltas: { happiness: 2, fame: 1 },
-        result: '은퇴해도 여전히 필요한 사람이라는 게 좋았다.',
+        result: '현장 경험이 정책에 반영된다는 게 뿌듯했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-62-2',
-        text: '퇴직 후 아파트 경비로 재취업한다',
+        text: '건물 야간 경비 일을 새로 구한다',
         deltas: { wealth: 1, happiness: 1 },
-        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        result: '야간 근무는 여전히 익숙했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-62-3',
-        text: '옛 동료들과 낚시 모임을 갖는다',
+        text: '전우회 단체 여행에 참여한다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '제복을 벗어도 전우애는 그대로였다.',
+        result: '오랜만에 마음 편히 웃었다.',
         requiresRoute: 'police'
       },
       {
@@ -38783,23 +38783,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-63-1',
-        text: '퇴직 후 아파트 경비로 재취업한다',
+        text: '초등학교 교통지도 봉사에 나선다',
         deltas: { wealth: 1, happiness: 1 },
-        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        result: '아이들이 인사를 건네주는 게 좋았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-63-2',
-        text: '옛 동료들과 낚시 모임을 갖는다',
+        text: '옛 동료와 함께 텃밭을 가꾼다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '제복을 벗어도 전우애는 그대로였다.',
+        result: '소소한 수확에도 함께 기뻐했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-63-3',
-        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        text: '근무하던 지구대에서 감사패를 받는다',
         deltas: { happiness: 1 },
-        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        result: '뜻밖의 선물에 마음이 뭉클했다.',
         requiresRoute: 'police'
       },
       {
@@ -38867,23 +38867,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-63-1',
-        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        text: '예전 동료가 남긴 편지를 다시 읽어본다',
         deltas: { happiness: 1 },
-        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        result: '그때는 몰랐던 마음이 이제 보였다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-63-2',
-        text: '치안 관련 자문 요청을 가끔 받는다',
+        text: '경찰서 자문위원회 위원으로 활동한다',
         deltas: { happiness: 2, fame: 1 },
-        result: '은퇴해도 여전히 필요한 사람이라는 게 좋았다.',
+        result: '조언을 구하는 후배들이 반가웠다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-63-3',
-        text: '퇴직 후 아파트 경비로 재취업한다',
+        text: '시니어 인턴으로 관공서에 다시 출근한다',
         deltas: { wealth: 1, happiness: 1 },
-        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        result: '다시 출근한다는 것 자체가 새로웠다.',
         requiresRoute: 'police'
       },
       {
@@ -39208,23 +39208,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill2-64-1',
-        text: '퇴직 후 아파트 경비로 재취업한다',
+        text: '상가 방범 순찰 일을 맡는다',
         deltas: { wealth: 1, happiness: 1 },
-        result: '몸은 편해졌지만 가끔 현장이 그리웠다.',
+        result: '몸은 예전 같지 않아도 마음은 여전했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-64-2',
-        text: '옛 동료들과 낚시 모임을 갖는다',
+        text: '퇴직자 모임 송년회에서 회포를 푼다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '제복을 벗어도 전우애는 그대로였다.',
+        result: '한 해를 함께 마무리하는 기분이 좋았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-64-3',
-        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        text: '순직 경찰관 추모식에 참석한다',
         deltas: { happiness: 1 },
-        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        result: '함께했던 얼굴들이 떠올랐다.',
         requiresRoute: 'police'
       },
       {
@@ -39271,23 +39271,23 @@ const STAGES = [
       },
       {
         id: 'pol-fill-64-1',
-        text: '옛 동료들과 낚시 모임을 갖는다',
+        text: '옛 동료의 손주 돌잔치에 초대받는다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '제복을 벗어도 전우애는 그대로였다.',
+        result: '세월이 흘렀다는 게 새삼 느껴졌다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-64-2',
-        text: '동네 파출소 앞을 지나다 발걸음을 멈춘다',
+        text: '은퇴자 인터뷰 요청을 받아 옛 이야기를 들려준다',
         deltas: { happiness: 1 },
-        result: '평생을 바친 일터가 새삼 낯설고도 익숙했다.',
+        result: '누군가 들어준다는 게 고마웠다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill-64-3',
-        text: '치안 관련 자문 요청을 가끔 받는다',
+        text: '범죄예방 다큐멘터리 인터뷰에 응한다',
         deltas: { happiness: 2, fame: 1 },
-        result: '은퇴해도 여전히 필요한 사람이라는 게 좋았다.',
+        result: '지난 세월이 헛되지 않았다는 생각이 들었다.',
         requiresRoute: 'police'
       },
       {
