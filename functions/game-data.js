@@ -1018,7 +1018,8 @@ const STAGES = [
         id: 'playground-king',
         text: '운동장을 평정하는 골목대장으로 지낸다',
         deltas: { fame: 8, health: 4, relationship: -3 },
-        result: '따르는 애들도, 눈치 보는 애들도 많았던 시절.'
+        result: '따르는 애들도, 눈치 보는 애들도 많았던 시절.',
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구', count: 3 }
       },
       {
         id: 'solo-creative',
