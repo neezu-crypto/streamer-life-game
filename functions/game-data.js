@@ -24799,9 +24799,12 @@ const STAGES = [
       {
         id: 'deviant-secret-motorcycle-installment-39',
         text: '가족 몰래 할부로 오토바이를 지른다',
+        deltas: { wealth: -2 },
+        requiresSufficientCash: true,
+        addAsset: { id: 'secret-motorcycle', label: '🏍️ 오토바이(할부)', type: 'vehicle' },
         prizeTable: [
-          { weight: 90, label: '안 걸림', deltas: { happiness: 5 }, result: '오랜만에 느끼는 해방감이 짜릿했다.' },
-          { weight: 10, label: '발각', deltas: { relationship: -4, happiness: -2 }, result: '집 앞에 세워둔 오토바이를 가족이 먼저 발견했다.' }
+          { weight: 90, label: '안 걸림', deltas: { wealth: -2, happiness: 5 }, result: '오랜만에 느끼는 해방감이 짜릿했다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -2, relationship: -4, happiness: -2 }, result: '집 앞에 세워둔 오토바이를 가족이 먼저 발견했다.' }
         ]
       },
       {
