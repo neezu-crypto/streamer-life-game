@@ -2380,7 +2380,19 @@ function gatherBotCandidates(play, stage) {
     const choice = (String(id).startsWith('treat:') || id === 'farewell:pet')
       ? resolveSyntheticChoice(id, play.healthConditions || [], hasInsurance)
       : findChoiceById(stage, id);
-    if (choice && !choice.requiresStockPurchase) candidates.push(choice);
+    if (!choice || choice.requiresStockPurchase) return;
+    // 현금 부족 선택지 사전 배제(2026-08-30, 사용자 질문 - "봇이 한번에 선택
+    // 못하는 상황(현금 부족)이 생기면 어떻게 되냐" 계기) - applyChoice의
+    // requiresSufficientCash 검증(아래 walletCost 계산과 완전히 동일한 조건)과
+    // 안 맞춰두면, 봇이 감당 못 할 선택을 골라 applyChoice가 던지는 예외를
+    // runBotTurns가 catch만 하고 그 턴을 통째로 날리는 낭비가 생긴다.
+    if (!stage.random && !choice.mandatory) {
+      const rawWealth = (choice.deltas && choice.deltas.wealth) || 0;
+      const walletCost = rawWealth < 0 ? -rawWealth : 0;
+      const gated = choice.requiresSufficientCash || walletCost >= 4;
+      if (gated && (play.cashHoldings || 0) < walletCost * cashUnitForAge(play.stageIndex)) return;
+    }
+    candidates.push(choice);
   });
   return candidates;
 }
@@ -2402,7 +2414,13 @@ async function advanceBotTurn(db, botUid, personality) {
   }
   const candidates = gatherBotCandidates(play, stage);
   if (!candidates.length) return; // 이번 턴엔 마땅한 선택이 없으니 다음 턴에 다시 시도
-  await applyChoice(db, playRef, play, stage, pickBotChoice(candidates, personality), { isBot: true });
+  // stage.random 구간(예: 0~3세)은 실제 플레이어도 rollDice로 균등 무작위 결과만
+  // 받지 직접 고르지 못한다 - 봇도 이 구간에서는 성향 가중치를 쓰지 않고 같은
+  // 방식(균등 무작위)으로 맞춘다.
+  const choice = stage.random
+    ? candidates[Math.floor(Math.random() * candidates.length)]
+    : pickBotChoice(candidates, personality);
+  await applyChoice(db, playRef, play, stage, choice, { isBot: true });
 }
 
 // 봇 명단을 목표 수(botCount)에 맞춘다 - 모자라면 bot-001 형식의 새 id로 만들고,
