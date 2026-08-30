@@ -2426,6 +2426,20 @@ async function advanceBotTurn(db, botUid, personality) {
 // 봇 명단을 목표 수(botCount)에 맞춘다 - 모자라면 bot-001 형식의 새 id로 만들고,
 // 넘치면 뒤쪽(더 나중에 생성된) 봇부터 정리한다. 정리 시 releaseOccupationGaugeIfAbandoned로
 // 게이지 누수를 막고, vehicleOwners/presence 인덱스도 같이 지운다.
+// 봇 한 명을 완전히 정리한다(명단·인생·presence·vehicleOwners 인덱스, 직업
+// 게이지 이탈 처리까지) - reconcileBotRoster의 초과분 정리와 adminDeleteAllBots가
+// 공유하는 로직이라 따로 뺐다.
+async function removeBotCompletely(db, botUid) {
+  const playSnap = await playRefFor(db, botUid).get();
+  await releaseOccupationGaugeIfAbandoned(db, playSnap.val());
+  await Promise.all([
+    db.ref('lifeGame/bots/' + botUid).remove(),
+    playRefFor(db, botUid).remove(),
+    db.ref('lifeGame/presence/' + botUid).remove(),
+    db.ref('lifeGame/vehicleOwners/' + botUid).remove()
+  ]);
+}
+
 async function reconcileBotRoster(db, botCount, personalityWeights) {
   const botsSnap = await db.ref('lifeGame/bots').get();
   const bots = botsSnap.val() || {};
@@ -2447,16 +2461,7 @@ async function reconcileBotRoster(db, botCount, personalityWeights) {
     }
   } else if (uids.length > botCount) {
     const toRemove = uids.slice(botCount);
-    for (const botUid of toRemove) {
-      const playSnap = await playRefFor(db, botUid).get();
-      await releaseOccupationGaugeIfAbandoned(db, playSnap.val());
-      await Promise.all([
-        db.ref('lifeGame/bots/' + botUid).remove(),
-        playRefFor(db, botUid).remove(),
-        db.ref('lifeGame/presence/' + botUid).remove(),
-        db.ref('lifeGame/vehicleOwners/' + botUid).remove()
-      ]);
-    }
+    for (const botUid of toRemove) await removeBotCompletely(db, botUid);
   }
 }
 
@@ -3017,6 +3022,27 @@ const adminListBotDetails = onCall({ cors: true, timeoutSeconds: 30, memory: '25
   return { bots: details };
 });
 
+// 관리자 - 봇 전체 삭제(2026-08-30, 62장, 사용자 지시 - "봇을 전부 지우는
+// 버튼만 새로 만들어줘"). botConfig.botCount를 그대로 두면 다음 스케줄러
+// 순회(runBotTurns, 최대 1분 안)에서 reconcileBotRoster가 "모자란 만큼"으로
+// 오인해 곧바로 그 수만큼 새 봇을 다시 만들어버려 "지웠는데 바로 되살아난다"는
+// 혼란을 준다 - 그래서 삭제와 함께 botCount도 0으로 내려 재생성을 막는다
+// (enabled 값 자체는 안 건드린다 - 관리자가 다시 원하는 수를 넣고 저장하면
+// 그때부터 새로 시작됨).
+const adminDeleteAllBots = onCall({ cors: true, timeoutSeconds: 60, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  if (!(await isAdminUid(uid))) {
+    throw new HttpsError('permission-denied', '관리자만 사용할 수 있는 기능입니다.');
+  }
+  const db = getDatabase();
+  const botsSnap = await db.ref('lifeGame/bots').get();
+  const bots = botsSnap.val() || {};
+  const uids = Object.keys(bots);
+  for (const botUid of uids) await removeBotCompletely(db, botUid);
+  await db.ref('lifeGame/botConfig/botCount').set(0);
+  return { ok: true, deletedCount: uids.length };
+});
+
 // 관리자 - 갤러리에 공유된 항목 삭제(2026-08-24, 사용자 지시 - "관리자 uid로
 // 다른 인생 갤러리에서 로그 삭제 가능하게 수정해달라고 지시했었는데 어떻게
 // 삭제하는지 알려줘" → 실제로는 adminDeletePlaythrough가 playthroughs만
@@ -3297,4 +3323,4 @@ const snapshotWorldStateHistory = onSchedule({ schedule: '5 0 * * *', timeZone: 
   }
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots };
