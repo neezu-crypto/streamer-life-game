@@ -2956,6 +2956,67 @@ const adminDeletePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: 
   return { ok: true, deletedUid: targetUid };
 });
 
+// 관리자 - 봇 상세 현황 조회(2026-08-30, 62장, 사용자 지시 - "각 봇마다 모든
+// 스탯, 상세 현황을 알수있게 하고싶어") - admin-center의 봇 관리 카드가 이
+// 함수를 직접 부른다(같은 soop-stock-market 프로젝트를 공유하므로 어느
+// 저장소가 배포했든 이름만 알면 호출 가능 - adminDeletePlaythrough와 같은
+// 원칙). 직업·현재 장소·진행 중인 루트는 원시 필드로 저장돼 있지 않고
+// choiceLog를 되짚어야 구해지는 파생값이라(resumePlaythrough와 완전히 같은
+// 계산), 그 로직을 admin-center 쪽에 중복 구현하지 않고 이 함수 하나로
+// 노출한다.
+const adminListBotDetails = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  if (!(await isAdminUid(uid))) {
+    throw new HttpsError('permission-denied', '관리자만 사용할 수 있는 기능입니다.');
+  }
+  const db = getDatabase();
+  const [botsSnap, playsSnap] = await Promise.all([
+    db.ref('lifeGame/bots').get(),
+    db.ref('lifeGame/playthroughs').get()
+  ]);
+  const bots = botsSnap.val() || {};
+  const plays = playsSnap.val() || {};
+
+  const details = Object.keys(bots).sort().map((botUid) => {
+    const bot = bots[botUid] || {};
+    const base = { uid: botUid, personality: bot.personality || null, createdAt: bot.createdAt || null, lastTurnAt: bot.lastTurnAt || null };
+    const play = plays[botUid];
+    if (!play) return Object.assign(base, { alive: false });
+
+    const choiceLog = Array.isArray(play.choiceLog) ? play.choiceLog : [];
+    const locationHistory = buildLocationHistory(choiceLog);
+    const currentLocation = resolveCurrentLocation(locationHistory);
+    const { activeRoute } = buildRouteState(choiceLog, play.stageIndex);
+    const occupationHistory = buildOccupationHistory(choiceLog);
+    const currentOccupation = resolveEffectiveOccupation(occupationHistory, activeRoute);
+    const stage = STAGES[play.stageIndex];
+    const choiceHistory = buildChoiceHistory(choiceLog);
+    const lastLoggedChoice = choiceHistory.length ? choiceHistory[choiceHistory.length - 1] : null;
+
+    return Object.assign(base, {
+      alive: true,
+      streamerName: play.streamerName || null,
+      ageRange: stage ? stage.ageRange : (lastLoggedChoice ? lastLoggedChoice.ageRange : null),
+      completed: !!play.completed,
+      turnCount: choiceLog.length,
+      stats: play.stats || {},
+      cashHoldings: play.cashHoldings || 0,
+      currentOccupation: currentOccupation ? { id: currentOccupation.id, label: currentOccupation.label } : null,
+      currentLocation: currentLocation ? { id: currentLocation.id, label: currentLocation.label } : null,
+      currentRoute: activeRoute ? { id: activeRoute.id, label: activeRoute.label } : null,
+      healthConditions: Array.isArray(play.healthConditions) ? play.healthConditions : [],
+      familyMembers: Array.isArray(play.familyMembers) ? play.familyMembers : [],
+      acquaintances: Array.isArray(play.acquaintances) ? play.acquaintances : [],
+      assets: Array.isArray(play.assets) ? play.assets : [],
+      talents: Array.isArray(play.talents) ? play.talents : [],
+      hobbies: Array.isArray(play.hobbies) ? play.hobbies : [],
+      lastChoiceText: lastLoggedChoice ? lastLoggedChoice.choiceText : null
+    });
+  });
+
+  return { bots: details };
+});
+
 // 관리자 - 갤러리에 공유된 항목 삭제(2026-08-24, 사용자 지시 - "관리자 uid로
 // 다른 인생 갤러리에서 로그 삭제 가능하게 수정해달라고 지시했었는데 어떻게
 // 삭제하는지 알려줘" → 실제로는 adminDeletePlaythrough가 playthroughs만
@@ -3236,4 +3297,4 @@ const snapshotWorldStateHistory = onSchedule({ schedule: '5 0 * * *', timeZone: 
   }
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails };
