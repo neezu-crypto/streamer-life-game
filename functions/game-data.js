@@ -5657,6 +5657,32 @@ const STAGES = [
     intro: '방향을 조금씩 좁혀가는 나이. 막연했던 미래가 서서히 구체적인 모양을 갖추기 시작합니다.',
     choices: [
       {
+        id: "usa-move-workingholiday-21",
+        text: "워킹홀리데이 비자를 받아 미국으로 떠난다",
+        deltas: {"happiness":4,"wealth":-1},
+        result: "낯선 공항에 내리자마자, 완전히 다른 삶이 시작된 걸 실감했다.",
+        requiresLocation: ["domestic"],
+        requiresSufficientCash: true,
+        setLocation: {"id":"usa","label":"🇺🇸 미국"}
+      },
+      {
+        id: "usa-move-study-21",
+        text: "미국 대학으로 편입해 유학을 떠난다",
+        deltas: {"happiness":2,"wealth":-2},
+        result: "수업을 따라가는 것만으로도 하루가 벅찼다.",
+        requiresLocation: ["domestic"],
+        requiresSufficientCash: true,
+        setLocation: {"id":"usa","label":"🇺🇸 미국"}
+      },
+      {
+        id: "usa-move-family-21",
+        text: "먼저 이민 간 친척을 따라 미국으로 건너간다",
+        deltas: {"happiness":2,"relationship":1},
+        result: "낯선 동네였지만, 반겨주는 얼굴이 있어 덜 외로웠다.",
+        requiresLocation: ["domestic"],
+        setLocation: {"id":"usa","label":"🇺🇸 미국"}
+      },
+      {
         id: 'deviant-con-romance-scam-21',
         text: 'SNS에서 만난 상대에게 연애 감정을 미끼로 돈을 뜯어낸다',
         requiresOccupation: ['con-artist'],
@@ -6599,6 +6625,18 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        id: "tour-guide-entry-22",
+        text: "미국 현지 여행사에 가이드로 취직한다",
+        deltas: {"happiness":3,"wealth":1},
+        result: "낯선 손님들 앞에서도, 목소리가 떨리지 않으려 애썼다.",
+        requiresLocation: ["usa"],
+        requiresNoAssetType: "tour-guide-license",
+        appearChance: 0.08,
+        bonusSlot: true,
+        addAsset: {"id":"tour-guide-license","label":"🪪 여행 가이드 자격증","type":"tour-guide-license"},
+        setOccupation: {"id":"tour-guide","label":"🧳 여행 가이드"}
+      },
       {
         id: 'deviant-con-resale-scam-22',
         text: '중고거래 사이트에서 대금만 받고 물건은 보내지 않는다',
@@ -8760,6 +8798,13 @@ const STAGES = [
     ageRange: '24세',
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
+      {
+        id: "tour-guide-package-sale-24",
+        text: "단체 관광객에게 도시 투어 패키지를 판매한다",
+        deltas: {"wealth":3},
+        result: "예약이 꽉 찬 일정표를 보며, 뿌듯함을 느꼈다.",
+        requiresOccupation: ["tour-guide"]
+      },
       {
         id: 'deviant-con-fake-hiring-24',
         text: '가짜 채용 공고를 올려 지원자들에게 교육비를 받아 챙긴다',
@@ -12348,6 +12393,18 @@ const STAGES = [
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
       {
+        id: "tour-guide-entry-27",
+        text: "관광청 공인 가이드 자격 시험에 도전해 합격한다",
+        deltas: {"happiness":3,"wealth":1},
+        result: "합격 통지를 받는 순간, 새로운 길이 열린 기분이었다.",
+        requiresLocation: ["usa"],
+        requiresNoAssetType: "tour-guide-license",
+        appearChance: 0.08,
+        bonusSlot: true,
+        addAsset: {"id":"tour-guide-license","label":"🪪 여행 가이드 자격증","type":"tour-guide-license"},
+        setOccupation: {"id":"tour-guide","label":"🧳 여행 가이드"}
+      },
+      {
         id: 'deviant-con-lease-fraud-27',
         text: '집주인 행세를 하며 세입자의 전세 보증금을 가로챈다',
         requiresOccupation: ['con-artist'],
@@ -14598,6 +14655,13 @@ const STAGES = [
     intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
     choices: [
       {
+        id: "tour-guide-grand-canyon-29",
+        text: "그랜드캐니언 당일치기 투어를 진행한다",
+        deltas: {"wealth":3,"happiness":1},
+        result: "거대한 협곡 앞에서, 손님들의 감탄사가 끊이지 않았다.",
+        requiresOccupation: ["tour-guide"]
+      },
+      {
         id: 'deviant-con-charity-scam-29',
         text: '가짜 자선단체를 앞세워 선량한 사람들의 후원금을 모은다',
         requiresOccupation: ['con-artist'],
@@ -15708,6 +15772,14 @@ const STAGES = [
     ageRange: '30세',
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
+      {
+        id: "tour-guide-language-bonus-30",
+        text: "영어 실력을 살려 미국인 단체 관광객 전담 가이드를 맡는다",
+        deltas: {"wealth":5},
+        result: "매끄러운 통역 덕에, 손님들의 만족도가 유독 높았다.",
+        requiresOccupation: ["tour-guide"],
+        requiresTalent: "language"
+      },
       {
         id: 'insurance-opportunity-30',
         text: '만일을 대비해 보험에 가입한다',
@@ -17804,6 +17876,18 @@ const STAGES = [
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
       {
+        id: "tour-guide-entry-32",
+        text: "한인 여행사와 계약해 가이드 일을 시작한다",
+        deltas: {"happiness":3,"wealth":1},
+        result: "첫 단체 손님을 맞이하는 손에 땀이 뱄다.",
+        requiresLocation: ["usa"],
+        requiresNoAssetType: "tour-guide-license",
+        appearChance: 0.08,
+        bonusSlot: true,
+        addAsset: {"id":"tour-guide-license","label":"🪪 여행 가이드 자격증","type":"tour-guide-license"},
+        setOccupation: {"id":"tour-guide","label":"🧳 여행 가이드"}
+      },
+      {
         id: 'deviant-con-crypto-reading-room-2-32',
         text: '새로운 이름의 코인 리딩방을 열어 투자자를 다시 끌어모은다',
         requiresOccupation: ['con-artist'],
@@ -19803,6 +19887,13 @@ const STAGES = [
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
       {
+        id: "tour-guide-noshow-34",
+        text: "예약해둔 단체 손님이 갑자기 취소한다",
+        deltas: {"wealth":-2,"happiness":-1},
+        result: "비워둔 하루가, 고스란히 손해로 돌아왔다.",
+        requiresOccupation: ["tour-guide"]
+      },
+      {
         id: 'deviant-con-insurance-fraud-34',
         text: '교통사고를 자작극으로 꾸며 보험금을 타낸다',
         requiresOccupation: ['con-artist'],
@@ -20809,6 +20900,22 @@ const STAGES = [
     ageRange: '35세',
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
+      {
+        id: "tour-guide-accepts-kickback-35",
+        text: "제휴 기념품점에서 주는 뒷돈을 받고 그쪽으로만 손님을 안내한다",
+        deltas: {"wealth":3},
+        result: "봉투를 건네받을 때마다, 손님들 얼굴을 보기가 조금 불편해졌다.",
+        requiresOccupation: ["tour-guide"],
+        worldStateSignal: {"key":"tourGuideHonesty","target":1}
+      },
+      {
+        id: "tour-guide-refuses-kickback-35",
+        text: "뒷돈을 제안받지만 정중히 거절한다",
+        deltas: {"happiness":2,"relationship":1},
+        result: "당장은 손해였지만, 손님들 앞에서 떳떳할 수 있었다.",
+        requiresOccupation: ["tour-guide"],
+        worldStateSignal: {"key":"tourGuideHonesty","target":0}
+      },
       {
         id: 'insurance-opportunity-35',
         text: '만일을 대비해 보험에 가입한다',
@@ -22614,6 +22721,18 @@ const STAGES = [
     intro: '잊고 지내던 나 자신을 다시 챙기기 시작하는 나이입니다.',
     choices: [
       {
+        id: "tour-guide-entry-37",
+        text: "프리랜서 가이드로 독립해 활동을 시작한다",
+        deltas: {"happiness":3,"wealth":1},
+        result: "누구의 지시도 없이, 스스로 일정을 짜는 게 낯설고도 즐거웠다.",
+        requiresLocation: ["usa"],
+        requiresNoAssetType: "tour-guide-license",
+        appearChance: 0.08,
+        bonusSlot: true,
+        addAsset: {"id":"tour-guide-license","label":"🪪 여행 가이드 자격증","type":"tour-guide-license"},
+        setOccupation: {"id":"tour-guide","label":"🧳 여행 가이드"}
+      },
+      {
         id: 'deviant-con-inheritance-scam-37',
         text: '가짜 유산 상속 절차를 미끼로 수수료를 받아 챙긴다',
         requiresOccupation: ['con-artist'],
@@ -24348,6 +24467,13 @@ const STAGES = [
     ageRange: '39세',
     intro: '서른대의 마지막 해. 다가올 10년을 조용히 준비하게 됩니다.',
     choices: [
+      {
+        id: "tour-guide-vegas-39",
+        text: "라스베가스 야간 투어 패키지를 성사시킨다",
+        deltas: {"wealth":4},
+        result: "화려한 불빛 아래, 손님들의 만족도가 높았다.",
+        requiresOccupation: ["tour-guide"]
+      },
       {
         id: 'deviant-con-proxy-loan-scam-39',
         text: '다급한 청소년들에게 고금리로 대리입금을 해준다',
@@ -26616,6 +26742,18 @@ const STAGES = [
     intro: '몸이 보내는 신호를 더 이상 못 본 척할 수 없게 되는 나이입니다.',
     choices: [
       {
+        id: "tour-guide-entry-42",
+        text: "지역 관광 협회에 가이드로 등록한다",
+        deltas: {"happiness":3,"wealth":1},
+        result: "협회 명단에 이름이 오르자, 비로소 실감이 났다.",
+        requiresLocation: ["usa"],
+        requiresNoAssetType: "tour-guide-license",
+        appearChance: 0.08,
+        bonusSlot: true,
+        addAsset: {"id":"tour-guide-license","label":"🪪 여행 가이드 자격증","type":"tour-guide-license"},
+        setOccupation: {"id":"tour-guide","label":"🧳 여행 가이드"}
+      },
+      {
         id: 'deviant-con-smishing-42',
         text: '택배 사칭 문자를 대량으로 뿌려 개인정보와 돈을 가로챈다',
         requiresOccupation: ['con-artist'],
@@ -28018,6 +28156,13 @@ const STAGES = [
     intro: '가까운 사이일수록 소원해지기 쉬운 나이. 관계를 다시 들여다보게 됩니다.',
     choices: [
       {
+        id: "tour-guide-difficult-tourist-44",
+        text: "까다로운 진상 손님을 응대한다",
+        deltas: {"happiness":-2,"relationship":-1},
+        result: "끝없는 요구에도, 웃음을 잃지 않으려 애썼다.",
+        requiresOccupation: ["tour-guide"]
+      },
+      {
         id: 'deviant-con-fake-car-listing-44',
         text: '존재하지 않는 매물로 중고차 사이트에 허위 광고를 올린다',
         requiresOccupation: ['con-artist'],
@@ -28754,6 +28899,14 @@ const STAGES = [
     ageRange: '45세',
     intro: '다 가진 것 같은데도 문득 공허해지는, 이른바 중년의 위기가 찾아오는 나이입니다.',
     choices: [
+      {
+        id: "tour-guide-fake-history-45",
+        text: "지루해할까봐 유적지 설명에 없는 이야기를 지어낸다",
+        deltas: {"happiness":1},
+        result: "그럴싸한 이야기에 손님들은 즐거워했지만, 뒷맛이 개운친 않았다.",
+        requiresOccupation: ["tour-guide"],
+        worldStateSignal: {"key":"tourGuideHonesty","target":1}
+      },
       {
         id: 'insurance-opportunity-45',
         text: '만일을 대비해 보험에 가입한다',
@@ -30181,6 +30334,18 @@ const STAGES = [
     intro: '나를 키워준 사람들의 노년을 마주하며, 삶과 죽음을 조금 더 가까이서 보게 됩니다.',
     choices: [
       {
+        id: "tour-guide-entry-47",
+        text: "경력을 살려 프리미엄 투어 전문 가이드로 전향한다",
+        deltas: {"happiness":3,"wealth":1},
+        result: "까다로운 손님들 사이에서도, 자신만의 노하우가 쌓여갔다.",
+        requiresLocation: ["usa"],
+        requiresNoAssetType: "tour-guide-license",
+        appearChance: 0.08,
+        bonusSlot: true,
+        addAsset: {"id":"tour-guide-license","label":"🪪 여행 가이드 자격증","type":"tour-guide-license"},
+        setOccupation: {"id":"tour-guide","label":"🧳 여행 가이드"}
+      },
+      {
         id: 'deviant-con-counterfeit-luxury-47',
         text: '진품인 척 명품 짝퉁을 온라인으로 팔아 넘긴다',
         requiresOccupation: ['con-artist'],
@@ -31416,6 +31581,13 @@ const STAGES = [
     intro: '몸이 새로운 국면으로 접어드는 걸 느끼기 시작하는 나이입니다.',
     choices: [
       {
+        id: "tour-guide-national-park-49",
+        text: "국립공원 패키지 투어 예약을 대거 받는다",
+        deltas: {"wealth":4},
+        result: "성수기 특수를 톡톡히 누렸다.",
+        requiresOccupation: ["tour-guide"]
+      },
+      {
         id: 'deviant-con-job-referral-fee-scam-49',
         text: '고수익 알바를 미끼로 소개비만 받고 잠적한다',
         requiresOccupation: ['con-artist'],
@@ -31946,6 +32118,30 @@ const STAGES = [
     ageRange: '50세',
     intro: '쉰이라는 숫자 앞에서, 지나온 시간의 무게를 새삼 느끼게 됩니다.',
     choices: [
+      {
+        id: "tour-guide-language-bonus-50",
+        text: "다국어 능력을 인정받아 국제 컨퍼런스 참가자 전담 가이드로 지명된다",
+        deltas: {"wealth":5,"fame":1},
+        result: "여러 나라 말을 오가는 통역에, 다들 혀를 내둘렀다.",
+        requiresOccupation: ["tour-guide"],
+        requiresTalent: "language"
+      },
+      {
+        id: "tour-guide-currency-skim-50",
+        text: "환전을 대신 해주며 수수료를 몰래 얹는다",
+        deltas: {"wealth":2},
+        result: "손님들은 눈치채지 못했지만, 스스로도 찜찜함이 남았다.",
+        requiresOccupation: ["tour-guide"],
+        worldStateSignal: {"key":"tourGuideHonesty","target":1}
+      },
+      {
+        id: "tour-guide-honest-rates-50",
+        text: "정직한 환율로 정찰제 환전을 도와준다",
+        deltas: {"relationship":1,"happiness":1},
+        result: "손해 볼 것 없는 거래에, 손님들의 신뢰가 쌓였다.",
+        requiresOccupation: ["tour-guide"],
+        worldStateSignal: {"key":"tourGuideHonesty","target":0}
+      },
       {
         id: 'insurance-opportunity-50',
         text: '만일을 대비해 보험에 가입한다',
@@ -33068,6 +33264,18 @@ const STAGES = [
     intro: '은퇴라는 단어가 더는 먼 이야기가 아니게 되는 나이입니다.',
     choices: [
       {
+        id: "tour-guide-entry-52",
+        text: "지인 소개로 소규모 여행사 가이드 자리를 얻는다",
+        deltas: {"happiness":3,"wealth":1},
+        result: "소개해준 지인의 얼굴에 먹칠하지 않으려 더 열심히 했다.",
+        requiresLocation: ["usa"],
+        requiresNoAssetType: "tour-guide-license",
+        appearChance: 0.08,
+        bonusSlot: true,
+        addAsset: {"id":"tour-guide-license","label":"🪪 여행 가이드 자격증","type":"tour-guide-license"},
+        setOccupation: {"id":"tour-guide","label":"🧳 여행 가이드"}
+      },
+      {
         id: 'deviant-con-ticket-scalping-scam-52',
         text: '매진된 콘서트 표가 있다며 선입금만 받고 사라진다',
         requiresOccupation: ['con-artist'],
@@ -33927,6 +34135,13 @@ const STAGES = [
     ageRange: '54세',
     intro: '중년의 마지막 해. 다가올 노년을 향해 조용히 마음을 다잡습니다.',
     choices: [
+      {
+        id: "tour-guide-offseason-54",
+        text: "비수기라 한산해진 예약표를 마주한다",
+        deltas: {"wealth":-1,"happiness":-1},
+        result: "조용한 사무실에서, 다음 성수기를 기다렸다.",
+        requiresOccupation: ["tour-guide"]
+      },
       {
         id: 'deviant-con-fake-lodging-booking-54',
         text: '존재하지 않는 숙소로 예약 사이트에 허위 매물을 올린다',
@@ -35471,6 +35686,18 @@ const STAGES = [
     intro: '직장이라는 울타리 없이 새로운 사람들과 관계를 다시 엮어가야 하는 시기입니다.',
     choices: [
       {
+        id: "tour-guide-entry-57",
+        text: "은퇴를 미루고 파트타임 가이드 일을 시작한다",
+        deltas: {"happiness":3,"wealth":1},
+        result: "느긋해진 걸음으로, 새로운 손님들을 맞았다.",
+        requiresLocation: ["usa"],
+        requiresNoAssetType: "tour-guide-license",
+        appearChance: 0.08,
+        bonusSlot: true,
+        addAsset: {"id":"tour-guide-license","label":"🪪 여행 가이드 자격증","type":"tour-guide-license"},
+        setOccupation: {"id":"tour-guide","label":"🧳 여행 가이드"}
+      },
+      {
         id: 'con-artist-steady-grift-57',
         text: '단골 호구들을 관리하며 안정적으로 뜯어먹는다',
         deltas: { wealth: 3, happiness: -1 },
@@ -36443,6 +36670,13 @@ const STAGES = [
     intro: '건강이 더 이상 당연한 게 아니라는 걸 받아들이고, 본격적으로 몸을 챙기기 시작하는 나이입니다.',
     choices: [
       {
+        id: "tour-guide-review-59",
+        text: "손님들이 남긴 후기 관리를 신경 쓴다",
+        deltas: {"happiness":1,"fame":1},
+        result: "좋은 후기가 쌓일수록, 다음 예약도 늘었다.",
+        requiresOccupation: ["tour-guide"]
+      },
+      {
         id: 'con-artist-reforms-59',
         text: '이 바닥에서 완전히 손 뗄 때가 됐다고 느낀다',
         deltas: { happiness: 4, relationship: 3 },
@@ -36880,6 +37114,22 @@ const STAGES = [
     ageRange: '60세',
     intro: '환갑. 예순 해를 지나온 삶을 가족과 함께 돌아보는 해입니다.',
     choices: [
+      {
+        id: "usa-leave-return-60",
+        text: "미국 생활을 정리하고 한국으로 돌아온다",
+        deltas: {"happiness":2},
+        result: "오랜만에 밟은 고향 땅이, 낯설면서도 편안했다.",
+        requiresLocation: ["usa"],
+        setLocation: {"id":"domestic","label":"🇰🇷 국내"}
+      },
+      {
+        id: "usa-leave-elsewhere-60",
+        text: "미국을 떠나 새로운 나라로 넘어간다",
+        deltas: {"happiness":3},
+        result: "또 한 번, 낯선 곳에서 다시 시작할 용기를 냈다.",
+        requiresLocation: ["usa"],
+        setLocation: {"id":"abroad","label":"🌍 해외"}
+      },
       {
         id: 'insurance-opportunity-60',
         text: '만일을 대비해 보험에 가입한다',
@@ -37861,6 +38111,18 @@ const STAGES = [
     intro: '연금이라는 단어가 현실적인 숫자로 다가오기 시작하는 나이입니다.',
     choices: [
       {
+        id: "tour-guide-entry-62",
+        text: "느지막이 가이드 자격증을 새로 딴다",
+        deltas: {"happiness":3,"wealth":1},
+        result: "늦은 나이에 시작하는 공부가 쉽지만은 않았다.",
+        requiresLocation: ["usa"],
+        requiresNoAssetType: "tour-guide-license",
+        appearChance: 0.08,
+        bonusSlot: true,
+        addAsset: {"id":"tour-guide-license","label":"🪪 여행 가이드 자격증","type":"tour-guide-license"},
+        setOccupation: {"id":"tour-guide","label":"🧳 여행 가이드"}
+      },
+      {
         id: 'insurance-opportunity-62',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -38789,6 +39051,13 @@ const STAGES = [
     ageRange: '64세',
     intro: '몸의 변화를 있는 그대로 받아들이는 연습이 필요한 나이입니다.',
     choices: [
+      {
+        id: "tour-guide-repeat-customer-64",
+        text: "단골 손님의 두 번째 미국 여행을 다시 안내한다",
+        deltas: {"wealth":3,"relationship":1},
+        result: "오랜만에 다시 만난 얼굴이 반가웠다.",
+        requiresOccupation: ["tour-guide"]
+      },
       {
         id: 'insurance-opportunity-64',
         text: '만일을 대비해 보험에 가입한다',
@@ -39985,6 +40254,18 @@ const STAGES = [
     intro: '남겨질 것들에 대해 조금씩 마음의 준비를 시작하는 나이입니다.',
     choices: [
       {
+        id: "tour-guide-entry-67",
+        text: "소일거리 삼아 시니어 가이드로 활동을 시작한다",
+        deltas: {"happiness":3,"wealth":1},
+        result: "바쁘게 걷던 예전과 달리, 여유 있게 설명을 이어갔다.",
+        requiresLocation: ["usa"],
+        requiresNoAssetType: "tour-guide-license",
+        appearChance: 0.08,
+        bonusSlot: true,
+        addAsset: {"id":"tour-guide-license","label":"🪪 여행 가이드 자격증","type":"tour-guide-license"},
+        setOccupation: {"id":"tour-guide","label":"🧳 여행 가이드"}
+      },
+      {
         id: 'insurance-opportunity-67',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -40459,6 +40740,13 @@ const STAGES = [
     ageRange: '69세',
     intro: '노년 준비의 마지막 해. 진짜 노년이 코앞으로 다가옵니다.',
     choices: [
+      {
+        id: "tour-guide-training-junior-69",
+        text: "신입 가이드 교육을 맡는다",
+        deltas: {"wealth":2,"happiness":1},
+        result: "가르치는 입장이 되고 보니, 새삼 지난 세월이 느껴졌다.",
+        requiresOccupation: ["tour-guide"]
+      },
       {
         id: 'insurance-opportunity-69',
         text: '만일을 대비해 보험에 가입한다',

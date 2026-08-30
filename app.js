@@ -700,6 +700,7 @@ const WORLD_STATE_TRACKERS = [
   { key: 'entertainmentTrust', name: '연예계 여론·신뢰도', pairing: '연예계 ↔ 연예계' },
   { key: 'startupEcosystemHeat', name: '창업 생태계 열기', pairing: '창업가 ↔ 창업가' },
   { key: 'scamPrevalence', name: '사기 성행도', pairing: '사기꾼 ↔ 지인' },
+  { key: 'tourGuideHonesty', name: '여행 가이드 정직도', pairing: '여행가이드 ↔ 관광객' },
 ];
 
 function worldStateTierLabel(rate) {
