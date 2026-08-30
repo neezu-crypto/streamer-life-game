@@ -761,7 +761,8 @@ const STAGES = [
         id: 'sharing-toys-conflict',
         text: '좋아하는 장난감을 두고 친구와 다툰다',
         deltas: { relationship: -1 },
-        result: '손에서 놓지 않으려는 실랑이가, 눈물로 끝나고서야 잦아들었다.'
+        result: '손에서 놓지 않으려는 실랑이가, 눈물로 끝나고서야 잦아들었다.',
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
       },
       {
         id: 'teacher-favorite-kid',
