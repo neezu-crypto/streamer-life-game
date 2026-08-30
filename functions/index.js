@@ -1196,7 +1196,13 @@ function pickRandomStreamerName() {
 // submitChoice/rollDice 공통 로직 - 하나의 선택(choice)을 스탯에 반영하고, 다음
 // 구간으로 넘기거나(마지막 구간이면) 엔딩을 확정한다. 어느 경로로 골랐든(직접
 // 클릭 vs 주사위) 반영 방식은 동일해야 하므로 여기 한 곳에만 둔다.
-async function applyChoice(db, playRef, play, stage, choice) {
+async function applyChoice(db, playRef, play, stage, choice, opts) {
+  // isBot(2026-08-30, 62장 - 관리형 봇) - 봇의 선택도 세계관 트래커·직업
+  // 게이지·vehicleOwners 등 "공용 상태"는 실제 플레이어와 동일하게
+  // 건드려야 의미가 있지만, admin-center에 노출되는 총 시작/완료 수·
+  // 엔딩별/선택지별 인기 통계(lifeGame/stats/*)는 실제 유저 지표를
+  // 왜곡하면 안 되므로 그 부분만 건너뛴다.
+  const isBot = !!(opts && opts.isBot);
   // 이 선택이 요구하는 건강 조건(requiresCondition·requiresNoCondition)/가족
   // 구성원(requiresFamilyMember·requiresNoFamilyMember)이 실제로 지금 안 맞는데도 들어왔다면(정상 흐름이면
   // pickVisibleChoiceIds가 애초에 후보에서 뺐을 것) - 저장 슬롯이 오래돼 해당
@@ -2095,9 +2101,11 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // 원본 choiceLog(플레이어별)는 이미 위 updates.choiceLog에 남으니, 여기서는 관리
   // 화면이 매번 전체 플레이스루를 훑지 않아도 되게 사전 집계된 카운터만 따로 쌓는다.
   const statWrites = [
-    playRef.update(updates),
-    db.ref('lifeGame/stats/choices/' + stage.id + '/' + choice.id).set(ServerValue.increment(1))
+    playRef.update(updates)
   ];
+  if (!isBot) {
+    statWrites.push(db.ref('lifeGame/stats/choices/' + stage.id + '/' + choice.id).set(ServerValue.increment(1)));
+  }
   // worldStateSignal(2026-08-28, 56장 A항 - 세계관 상태 EMA 갱신) - 이 선택이
   // 트래커를 움직이면(예: 촌지를 받는 교사 선택) 트랜잭션으로
   // rate = rate×(1-α) + target×α를 적용한다. 동시에 여러 플레이어가 같은
@@ -2178,8 +2186,10 @@ async function applyChoice(db, playRef, play, stage, choice) {
     statWrites.push(recordCollectionEntryIfLoggedIn(db, playRef.key, 'occupations', currentOccupation.id));
   }
   if (completed) {
-    statWrites.push(db.ref('lifeGame/stats/endings/' + ending.id).set(ServerValue.increment(1)));
-    statWrites.push(db.ref('lifeGame/stats/totals/completed').set(ServerValue.increment(1)));
+    if (!isBot) {
+      statWrites.push(db.ref('lifeGame/stats/endings/' + ending.id).set(ServerValue.increment(1)));
+      statWrites.push(db.ref('lifeGame/stats/totals/completed').set(ServerValue.increment(1)));
+    }
     statWrites.push(recordCollectionEntryIfLoggedIn(db, playRef.key, 'endings', ending.id));
   }
   // 멀티플레이 - 엔딩 도달 시에만 여기서 즉시 정리(2026-08-24, 13장 설계 구현,
@@ -2253,6 +2263,225 @@ async function loadActivePlay(db, uid) {
   if (!stage) throw new HttpsError('failed-precondition', '잘못된 진행 상태입니다.');
   return { playRef, play, stage };
 }
+
+// 관리형 봇(2026-08-30, 62장, 사용자 지시 - "실제 사람처럼 작동하는 봇을
+// 추가하고싶은데 어떻게 설계하면돼?" → 봇 수/1턴당 초/성향 조절 요구 →
+// "그럼 봇 관리 전용 페이지를 열어놓으면 작동하게" 제안에 안정성 문제(페이지가
+// 닫히면 봇도 멈춤)를 짚어 서버 예약 함수(runBotTurns) + 설정/현황 전용
+// admin-center 페이지 조합으로 역제안 → "그렇게 하자" 확정) - 실행은 전부
+// 서버에서 스스로 돌고, admin-center는 lifeGame/botConfig를 읽고/쓰는 설정
+// 화면일 뿐이라 페이지를 열어둘 필요가 없다. "1턴당 초"를 분 단위보다 더
+// 정밀하게 지키려면 Cloud Scheduler(최소 간격 1분)만으로는 부족해서,
+// runBotTurns 안에 55초 예산의 내부 루프를 두고 그 예산 안에서 필요한 만큼
+// 여러 번 순회한다.
+const BOT_PERSONALITIES = ['wholesome', 'villain', 'explorer', 'gambler', 'romantic', 'workaholic'];
+const BOT_MAX_COUNT = 50;
+
+// 성향별 가중치 뽑기 - 관리자가 설정한 personalityWeights(없으면 균등 1)를 기준으로
+// 새로 만들어지는 봇 하나의 성향을 확률적으로 정한다.
+function pickWeightedPersonality(weights) {
+  const entries = BOT_PERSONALITIES.map((p) => [p, Math.max(0, (weights && Number(weights[p])) || 0) || 1]);
+  const total = entries.reduce((sum, [, w]) => sum + w, 0);
+  let r = Math.random() * total;
+  for (const [p, w] of entries) {
+    r -= w;
+    if (r <= 0) return p;
+  }
+  return entries[entries.length - 1][0];
+}
+
+// 선택지 하나가 어떤 성향에 얼마나 "끌리는지" 점수를 매긴다. 5800개 넘는 선택지에
+// 일일이 성향 태그를 붙이는 대신, id 패턴·필드 존재 여부 같은 이미 있는 구조적
+// 신호만으로 판단한다(선택지 콘텐츠를 늘릴 때 봇 로직을 따로 안 건드려도 되게).
+function scoreChoiceForPersonality(choice, personality) {
+  const id = String(choice.id || '');
+  const deltas = choice.deltas || {};
+  switch (personality) {
+    case 'wholesome':
+      if (/deviant|thief|con-artist|crime|caught|steal|prison|fence|bribe/.test(id)) return 0.2;
+      return 1 + Math.max(0, deltas.happiness || 0) * 0.15 + Math.max(0, deltas.relationship || 0) * 0.15;
+    case 'villain':
+      if (/deviant|thief|con-artist|crime|steal|fence|bribe|grift|scam/.test(id)) return 10;
+      if (isDeviantOccupationChoice(choice)) return 10;
+      return 1;
+    case 'explorer':
+      return choice.startsRoute ? 8 : 1;
+    case 'gambler':
+      if (/lottery/i.test(id) || choice.prizeTable) return 6;
+      return 1;
+    case 'romantic':
+      if (choice.addAcquaintance || /lover|marry|family|acquaintance/.test(id)) return 6;
+      return 1;
+    case 'workaholic':
+      return 1 + Math.max(0, deltas.wealth || 0) * 0.05;
+    default:
+      return 1;
+  }
+}
+
+// 성향 가중 70% + 완전 무작위 30% 혼합 - 매턴 똑같은 유형만 고르면 "사람 같지"
+// 않으니, 대부분은 성향대로 끌리되 가끔은 그 성향과 무관한 선택도 하게 한다.
+function pickBotChoice(candidates, personality) {
+  if (Math.random() < 0.3) return candidates[Math.floor(Math.random() * candidates.length)];
+  const scored = candidates.map((c) => ({ c, w: Math.max(0.01, scoreChoiceForPersonality(c, personality)) }));
+  const total = scored.reduce((sum, x) => sum + x.w, 0);
+  let r = Math.random() * total;
+  for (const { c, w } of scored) {
+    r -= w;
+    if (r <= 0) return c;
+  }
+  return scored[scored.length - 1].c;
+}
+
+// 봇 하나의 판을 새로 연다 - startPlaythrough(onCall)와 같은 초기 상태를 만들지만,
+// 봇은 로그인 세션이 없어 onCall(request.auth)을 못 태우므로 내부 헬퍼만 재사용해
+// 별도 함수로 둔다. 통계 왜곡 방지를 위해 lifeGame/stats/totals/started는 올리지 않는다.
+async function startBotPlaythrough(db, botUid) {
+  const priorPlaySnap = await playRefFor(db, botUid).get();
+  await releaseOccupationGaugeIfAbandoned(db, priorPlaySnap.val());
+  const stats = freshStats();
+  const currentIntroId = pickIntroId(STAGES[0]);
+  const worldStateRates = await fetchWorldStateRates(db);
+  const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices, { introId: currentIntroId, locationId: DEFAULT_LOCATION.id, worldStateRates });
+  await playRefFor(db, botUid).set({
+    streamerName: pickRandomStreamerName(),
+    streamerId: null,
+    stats,
+    stageIndex: 0,
+    visibleChoiceIds,
+    currentIntroId,
+    healthConditions: [],
+    familyMembers: [],
+    acquaintances: [],
+    assets: [],
+    cashHoldings: 0,
+    talents: [],
+    hobbies: [],
+    sickStreak: 0,
+    insuranceUnpaidYears: 0,
+    choiceLog: [],
+    completed: false,
+    multiplayerEnabled: false,
+    isBot: true,
+    startedAt: ServerValue.TIMESTAMP
+  });
+}
+
+// 이번 턴에 봇이 실제로 고를 수 있는 choice 객체들을 모은다. visibleChoiceIds에는
+// 합성 선택지(id 'treat:<condition>'/'farewell:pet')와 전역 풀(감옥·현행범·차량절도
+// 등) 소속 선택지가 섞여 있을 수 있어 submitChoice/rollDice와 같은 방식으로
+// 되짚어 찾는다. requiresStockPurchase 선택지는 실제 종목 검색 UI가 필요해
+// 봇의 선택 후보에서는 제외한다(그 결과 봇은 주식을 사지 않는다).
+function gatherBotCandidates(play, stage) {
+  const ids = Array.isArray(play.visibleChoiceIds) ? play.visibleChoiceIds : [];
+  const hasInsurance = (Array.isArray(play.assets) ? play.assets : []).some((a) => a.id === 'insurance');
+  const candidates = [];
+  ids.forEach((id) => {
+    const choice = (String(id).startsWith('treat:') || id === 'farewell:pet')
+      ? resolveSyntheticChoice(id, play.healthConditions || [], hasInsurance)
+      : findChoiceById(stage, id);
+    if (choice && !choice.requiresStockPurchase) candidates.push(choice);
+  });
+  return candidates;
+}
+
+// 봇 한 명을 한 턴 진행시킨다 - 판이 없거나 이미 끝났으면 바로 새 판을 열어(봇은
+// 죽고 나서도 계속 돌아야 하므로) 항상 "살아있는" 상태를 유지한다.
+async function advanceBotTurn(db, botUid, personality) {
+  const playRef = playRefFor(db, botUid);
+  const snap = await playRef.get();
+  const play = snap.val();
+  if (!play || play.completed) {
+    await startBotPlaythrough(db, botUid);
+    return;
+  }
+  const stage = STAGES[play.stageIndex];
+  if (!stage) {
+    await startBotPlaythrough(db, botUid);
+    return;
+  }
+  const candidates = gatherBotCandidates(play, stage);
+  if (!candidates.length) return; // 이번 턴엔 마땅한 선택이 없으니 다음 턴에 다시 시도
+  await applyChoice(db, playRef, play, stage, pickBotChoice(candidates, personality), { isBot: true });
+}
+
+// 봇 명단을 목표 수(botCount)에 맞춘다 - 모자라면 bot-001 형식의 새 id로 만들고,
+// 넘치면 뒤쪽(더 나중에 생성된) 봇부터 정리한다. 정리 시 releaseOccupationGaugeIfAbandoned로
+// 게이지 누수를 막고, vehicleOwners/presence 인덱스도 같이 지운다.
+async function reconcileBotRoster(db, botCount, personalityWeights) {
+  const botsSnap = await db.ref('lifeGame/bots').get();
+  const bots = botsSnap.val() || {};
+  const uids = Object.keys(bots).sort();
+  if (uids.length < botCount) {
+    let nextIndex = uids.reduce((max, uid) => {
+      const m = /^bot-(\d+)$/.exec(uid);
+      return m ? Math.max(max, parseInt(m[1], 10)) : max;
+    }, 0) + 1;
+    for (let i = uids.length; i < botCount; i++) {
+      const botUid = 'bot-' + String(nextIndex).padStart(3, '0');
+      nextIndex++;
+      await db.ref('lifeGame/bots/' + botUid).set({
+        personality: pickWeightedPersonality(personalityWeights),
+        createdAt: ServerValue.TIMESTAMP,
+        lastTurnAt: 0
+      });
+      await startBotPlaythrough(db, botUid);
+    }
+  } else if (uids.length > botCount) {
+    const toRemove = uids.slice(botCount);
+    for (const botUid of toRemove) {
+      const playSnap = await playRefFor(db, botUid).get();
+      await releaseOccupationGaugeIfAbandoned(db, playSnap.val());
+      await Promise.all([
+        db.ref('lifeGame/bots/' + botUid).remove(),
+        playRefFor(db, botUid).remove(),
+        db.ref('lifeGame/presence/' + botUid).remove(),
+        db.ref('lifeGame/vehicleOwners/' + botUid).remove()
+      ]);
+    }
+  }
+}
+
+const BOT_ROUND_BUDGET_MS = 55000;
+
+// 1분마다 트리거되지만(Cloud Scheduler 최소 간격), 내부에서 예산(55초)이 허락하는
+// 만큼 여러 번 순회해 secondsPerTurn을 분 단위보다 정밀하게 지킨다. 매 순회마다
+// botConfig를 다시 읽어, 관리자가 실행 도중 설정을 바꿔도(끄기 포함) 다음 순회부터
+// 곧바로 반영된다.
+const runBotTurns = onSchedule({ schedule: '* * * * *', timeZone: 'Asia/Seoul', timeoutSeconds: 540, memory: '256MiB' }, async () => {
+  const db = getDatabase();
+  const deadline = Date.now() + BOT_ROUND_BUDGET_MS;
+  for (;;) {
+    const configSnap = await db.ref('lifeGame/botConfig').get();
+    const config = configSnap.val() || {};
+    if (!config.enabled) return;
+    const botCount = Math.max(0, Math.min(BOT_MAX_COUNT, Math.round(Number(config.botCount) || 0)));
+    const secondsPerTurn = Math.max(5, Math.min(600, Math.round(Number(config.secondsPerTurn) || 30)));
+    await reconcileBotRoster(db, botCount, config.personalityWeights);
+
+    const botsSnap = await db.ref('lifeGame/bots').get();
+    const bots = botsSnap.val() || {};
+    const now = Date.now();
+    const dueUids = Object.keys(bots).filter((uid) => now - (bots[uid].lastTurnAt || 0) >= secondsPerTurn * 1000);
+    for (const botUid of dueUids) {
+      try {
+        await advanceBotTurn(db, botUid, bots[botUid].personality);
+        await Promise.all([
+          db.ref('lifeGame/bots/' + botUid + '/lastTurnAt').set(ServerValue.TIMESTAMP),
+          db.ref('lifeGame/presence/' + botUid).set({ lastSeenAt: ServerValue.TIMESTAMP })
+        ]);
+      } catch (e) {
+        console.error('봇 턴 진행 실패', botUid, e);
+      }
+    }
+
+    const remaining = deadline - Date.now();
+    if (remaining <= 1500) break;
+    const sleepMs = Math.min(secondsPerTurn * 1000, remaining - 500);
+    if (sleepMs <= 0) break;
+    await new Promise((resolve) => setTimeout(resolve, sleepMs));
+  }
+});
 
 // 04번 - 스트리머 이름을 검색해 주인공을 정하고 첫 생애 구간을 연다. 이미 그
 // 계정에 저장된 판이 있었다면(진행 중이든 완료했든) 여기서 덮어쓴다 - 계정당
@@ -2989,4 +3218,4 @@ const snapshotWorldStateHistory = onSchedule({ schedule: '5 0 * * *', timeZone: 
   }
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns };
