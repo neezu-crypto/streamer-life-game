@@ -985,6 +985,7 @@ function buildSyntheticTreatmentChoice(condition, hasInsurance) {
 // 쓰는 publicStage 호출부는 굳이 안 넘겨도 무방하다(기본값 false - 텍스트에는
 // 영향 없음).
 function resolveSyntheticChoice(id, healthConditions, hasInsurance) {
+  if (typeof id !== 'string') return null;
   if (id === 'farewell:pet') return buildSyntheticPetFarewellChoice();
   if (!id.startsWith('treat:')) return null;
   const conditionId = id.slice('treat:'.length);
@@ -1097,6 +1098,12 @@ function publicStage(stage, visibleIds, introId, healthConditions) {
   // 없는 합성 치료 선택지(ensureGuaranteedCure 참고)라, resolveSyntheticChoice로
   // 그 자리에서 다시 만들어 끼워 넣는다.
   const visibleChoices = ids
+    // 방어적 필터(2026-08-31, 라이브에서 "null" 텍스트 버튼 재현 - 원인이 되는
+    // 정확한 오염 경로는 못 찾았지만, id가 문자열이 아니면 findChoiceById도
+    // resolveSyntheticChoice도 실제 선택지를 못 찾고 조용히 null을 반환해야
+    // 하는데 그 결과물이 클라이언트에 "null"이라는 리터럴 문구로 노출되는 걸
+    // 막기 위해 애초에 문자열이 아닌 id는 여기서 걸러낸다).
+    .filter((id) => typeof id === 'string' && id)
     .map((id) => {
       const real = findChoiceById(stage, id);
       // requiresStockPurchase(2026-08-28, 56장 D항) - 클라이언트가 이 선택지는
@@ -1107,7 +1114,7 @@ function publicStage(stage, visibleIds, introId, healthConditions) {
       const synthetic = resolveSyntheticChoice(id, healthConditions);
       return synthetic ? { id: synthetic.id, text: synthetic.text } : null;
     })
-    .filter(Boolean);
+    .filter((c) => c && typeof c.text === 'string' && c.text);
   return {
     id: stage.id,
     name: stage.name,
