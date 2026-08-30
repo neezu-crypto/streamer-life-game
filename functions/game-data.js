@@ -29526,7 +29526,9 @@ const STAGES = [
         id: 'flirting-with-escape',
         text: '새로운 사람을 만나며 일탈을 꿈꾼다',
         deltas: { happiness: 2, relationship: -3 },
-        result: '설렘과 죄책감 사이에서, 마음이 복잡하게 흔들렸다.'
+        result: '설렘과 죄책감 사이에서, 마음이 복잡하게 흔들렸다.',
+        requiresAnyLover: true,
+        addAcquaintance: { relation: 'lover', label: '💕 연인' }
       },
       {
         id: 'reviving-old-dream',
