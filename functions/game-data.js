@@ -4003,6 +4003,29 @@ const STAGES = [
     intro: '인생의 첫 갈림길. 대학과 방송, 혹은 곧장 돈이 되는 길 — 스무 살의 선택은 이후 모든 걸 조금씩 흔들어놓습니다.',
     choices: [
       {
+        id: 'insurance-opportunity-19',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-19',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-19',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -4659,6 +4682,29 @@ const STAGES = [
     ageRange: '20세',
     intro: '갓 어른이 된 티가 조금씩 빠지는 나이. 독립과 자유가 생각보다 훨씬 손이 많이 간다는 걸 알아갑니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-20',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-20',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-20',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -5599,6 +5645,29 @@ const STAGES = [
     intro: '방향을 조금씩 좁혀가는 나이. 막연했던 미래가 서서히 구체적인 모양을 갖추기 시작합니다.',
     choices: [
       {
+        id: 'insurance-opportunity-21',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-21',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-21',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -6506,6 +6575,29 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-22',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-22',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-22',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -7547,6 +7639,29 @@ const STAGES = [
     ageRange: '23세',
     intro: '스무 살대의 마지막 해. 자립이라는 단어가 더는 남 얘기가 아니게 됩니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-23',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-23',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-23',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -8598,6 +8713,29 @@ const STAGES = [
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
       {
+        id: 'insurance-opportunity-24',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-24',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-24',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -8751,6 +8889,13 @@ const STAGES = [
         text: '지구대 첫 야간 근무를 선다',
         deltas: { happiness: -1, health: -1 },
         result: '긴장과 두려움이 뒤섞인 밤이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'police-vehicle-theft-patrol-24',
+        text: '잇따른 차량 절도 신고에 순찰을 대폭 강화한다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '골목골목을 다시 훑고 다니느라, 퇴근이 자꾸 늦어졌다.',
         requiresRoute: 'police'
       },
       {
@@ -9784,6 +9929,29 @@ const STAGES = [
     intro: '일이 조금씩 손에 익기 시작하는 해. 그만큼 다른 고민들도 하나둘 고개를 듭니다.',
     choices: [
       {
+        id: 'insurance-opportunity-25',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-25',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-25',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -10534,15 +10702,6 @@ const STAGES = [
         prizeTable: LOTTERY_PRIZE_TABLE
       },
       {
-        id: 'buys-insurance-25',
-        text: '만일을 대비해 보험에 가입한다',
-        deltas: { wealth: -2, happiness: 1 },
-        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
-        requiresNoAsset: 'insurance',
-        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' },
-        requiresSufficientCash: true
-      },
-      {
         id: 'adult-crush-confession',
         text: '오래 마음에 품고 있던 상대에게 고백한다',
         deltas: { happiness: 3, relationship: 3 },
@@ -10897,6 +11056,29 @@ const STAGES = [
     ageRange: '26세',
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-26',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-26',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-26',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -12094,6 +12276,29 @@ const STAGES = [
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-27',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-27',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-27',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -13219,6 +13424,29 @@ const STAGES = [
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
       {
+        id: 'insurance-opportunity-28',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-28',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-28',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -14274,6 +14502,29 @@ const STAGES = [
     intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
     choices: [
       {
+        id: 'insurance-opportunity-29',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-29',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-29',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -14397,6 +14648,13 @@ const STAGES = [
         text: '강력계 사건 현장에서 참혹함을 마주한다',
         deltas: { happiness: -2 },
         result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'police-catches-car-thief-29',
+        text: '끈질긴 추적 끝에 상습 차량 절도범을 검거한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '몇 주를 매달린 끝에, 수배 전단 속 얼굴에 마침내 수갑을 채웠다.',
         requiresRoute: 'police'
       },
       {
@@ -15342,6 +15600,29 @@ const STAGES = [
     ageRange: '30세',
     intro: '서른이라는 숫자 하나가, 이유 없이 인생을 다시 돌아보게 만듭니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-30',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-30',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-30',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -16386,6 +16667,29 @@ const STAGES = [
     intro: '곁에 남을 사람과 앞으로의 삶을 어떻게 그릴지, 조금 더 구체적으로 고민하는 나이입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-31',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-31',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-31',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -17380,6 +17684,29 @@ const STAGES = [
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
       {
+        id: 'insurance-opportunity-32',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-32',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-32',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -18321,6 +18648,29 @@ const STAGES = [
     ageRange: '33세',
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-33',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-33',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-33',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -19309,6 +19659,29 @@ const STAGES = [
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-34',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-34',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-34',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -19439,6 +19812,22 @@ const STAGES = [
         deltas: { happiness: -2 },
         result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
         requiresRoute: 'police'
+      },
+      {
+        id: 'police-fence-bribe-offer-34',
+        text: '장물아비에게서 뒷돈을 받고 눈감아줄지 고민한다',
+        deltas: { wealth: 4, relationship: -2 },
+        result: '봉투를 챙기며, 이번 한 번뿐이라고 스스로에게 되뇌었다.',
+        requiresRoute: 'police',
+        worldStateSignal: { key: 'policeCorruption', target: 1 }
+      },
+      {
+        id: 'police-refuses-fence-bribe-34',
+        text: '장물아비의 뒷돈 제안을 단호히 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '유혹이 없었다면 거짓말이었지만, 그래도 손은 뻗지 않았다.',
+        requiresRoute: 'police',
+        worldStateSignal: { key: 'policeCorruption', target: 0 }
       },
       {
         id: 'pol-fill2-34-2',
@@ -20264,6 +20653,29 @@ const STAGES = [
     ageRange: '35세',
     intro: '위아래를 모두 살펴야 하는 자리에 서게 되면서, 일이 곧 관계의 문제라는 걸 배웁니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-35',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-35',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-35',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -21189,6 +21601,29 @@ const STAGES = [
     intro: '나를 키워준 사람들을 이제는 내가 돌봐야 할 시기가 다가옵니다.',
     choices: [
       {
+        id: 'insurance-opportunity-36',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-36',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-36',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -22010,6 +22445,29 @@ const STAGES = [
     ageRange: '37세',
     intro: '잊고 지내던 나 자신을 다시 챙기기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-37',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-37',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-37',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -22836,6 +23294,29 @@ const STAGES = [
     intro: '몸이 예전 같지 않다는 걸, 무시할 수 없을 만큼 또렷하게 느끼게 됩니다.',
     choices: [
       {
+        id: 'insurance-opportunity-38',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-38',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-38',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -22988,6 +23469,13 @@ const STAGES = [
         text: '강력계 사건 현장에서 참혹함을 마주한다',
         deltas: { happiness: -2 },
         result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'police-phishing-ring-bust-38',
+        text: '보이스피싱 조직 검거 작전에 투입된다',
+        deltas: { happiness: -2, fame: 2 },
+        result: '몇 달을 추적한 조직을, 마침내 일망타진했다.',
         requiresRoute: 'police'
       },
       {
@@ -23668,6 +24156,29 @@ const STAGES = [
     ageRange: '39세',
     intro: '서른대의 마지막 해. 다가올 10년을 조용히 준비하게 됩니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-39',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-39',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-39',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -24381,6 +24892,29 @@ const STAGES = [
     ageRange: '40세',
     intro: '인생의 절반 지점. 마흔이라는 숫자가 이유 없이 지난 시간을 돌아보게 만듭니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-40',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-40',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-40',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -25189,6 +25723,29 @@ const STAGES = [
     intro: '자녀 교육이든 커리어든, 뭔가를 본격적으로 다잡아야 할 것 같은 압박이 느껴지는 나이입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-41',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-41',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-41',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -25843,6 +26400,29 @@ const STAGES = [
     intro: '몸이 보내는 신호를 더 이상 못 본 척할 수 없게 되는 나이입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-42',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-42',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-42',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -26495,6 +27075,29 @@ const STAGES = [
     intro: '조직 안에서 자신의 자리를 다시 확인하게 되는 시기입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-43',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-43',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-43',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -26610,6 +27213,13 @@ const STAGES = [
         text: '강력계 사건 현장에서 참혹함을 마주한다',
         deltas: { happiness: -2 },
         result: '무뎌지지 않으려 애쓰는 것도 일이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'police-fraud-report-surge-43',
+        text: '사기 피해 신고가 폭주해 정신없는 하루를 보낸다',
+        deltas: { happiness: -3 },
+        result: '접수대 앞 줄이 좀처럼 줄지 않았다.',
         requiresRoute: 'police'
       },
       {
@@ -27167,6 +27777,29 @@ const STAGES = [
     ageRange: '44세',
     intro: '가까운 사이일수록 소원해지기 쉬운 나이. 관계를 다시 들여다보게 됩니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-44',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-44',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-44',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -27869,6 +28502,29 @@ const STAGES = [
     ageRange: '45세',
     intro: '다 가진 것 같은데도 문득 공허해지는, 이른바 중년의 위기가 찾아오는 나이입니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-45',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-45',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-45',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -28690,6 +29346,29 @@ const STAGES = [
     intro: '늦지 않았다는 걸 스스로 증명하고 싶어지는 나이입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-46',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-46',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-46',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -29238,6 +29917,29 @@ const STAGES = [
     intro: '나를 키워준 사람들의 노년을 마주하며, 삶과 죽음을 조금 더 가까이서 보게 됩니다.',
     choices: [
       {
+        id: 'insurance-opportunity-47',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-47',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-47',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -29361,6 +30063,13 @@ const STAGES = [
         text: '젊은 경찰관들에게 현장 노하우를 전수한다',
         deltas: { relationship: 2, happiness: 1 },
         result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'police-cold-case-lingers-47',
+        text: '미제로 남은 차량 절도 사건이 계속 마음에 걸린다',
+        deltas: { happiness: -1 },
+        result: '서랍 속 파일을 꺼내 다시 들여다보는 밤이 늘었다.',
         requiresRoute: 'police'
       },
       {
@@ -29857,6 +30566,29 @@ const STAGES = [
     ageRange: '48세',
     intro: '커리어가 정점에 이르거나, 정체를 마주하거나 — 갈림이 뚜렷해지는 나이입니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-48',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-48',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-48',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -30396,6 +31128,29 @@ const STAGES = [
     intro: '몸이 새로운 국면으로 접어드는 걸 느끼기 시작하는 나이입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-49',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-49',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-49',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -30891,6 +31646,29 @@ const STAGES = [
     ageRange: '50세',
     intro: '쉰이라는 숫자 앞에서, 지나온 시간의 무게를 새삼 느끼게 됩니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-50',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-50',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-50',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -31479,6 +32257,29 @@ const STAGES = [
     intro: '자녀가 떠난 자리, 그 빈자리를 어떻게 채우느냐가 이 시기의 숙제입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-51',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-51',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-51',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -31955,6 +32756,29 @@ const STAGES = [
     intro: '은퇴라는 단어가 더는 먼 이야기가 아니게 되는 나이입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-52',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-52',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-52',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -32084,6 +32908,13 @@ const STAGES = [
         text: '젊은 경찰관들에게 현장 노하우를 전수한다',
         deltas: { relationship: 2, happiness: 1 },
         result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'police-hands-off-cold-case-52',
+        text: '은퇴를 앞두고 후배에게 미제 사건을 인계한다',
+        deltas: { relationship: 1, happiness: -1 },
+        result: '끝내 못 푼 매듭을, 다른 손에 넘기는 마음이 편치만은 않았다.',
         requiresRoute: 'police'
       },
       {
@@ -32340,6 +33171,29 @@ const STAGES = [
     ageRange: '53세',
     intro: '숫자로 남은 시간을 가늠하게 되는, 현실적인 재정비의 시기입니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-53',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-53',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-53',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -32738,6 +33592,29 @@ const STAGES = [
     intro: '중년의 마지막 해. 다가올 노년을 향해 조용히 마음을 다잡습니다.',
     choices: [
       {
+        id: 'insurance-opportunity-54',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-54',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-54',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -33128,6 +34005,29 @@ const STAGES = [
     ageRange: '55세',
     intro: '정년이라는 단어가 더는 남 얘기가 아니게 되는 나이. 매일 출근하던 삶이 조용히 막을 내립니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-55',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-55',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-55',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -33803,6 +34703,29 @@ const STAGES = [
     intro: '평생 "어디 소속"으로 나를 소개하던 습관이 사라지며, 나는 누구인가를 새삼 다시 묻게 됩니다.',
     choices: [
       {
+        id: 'insurance-opportunity-56',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-56',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-56',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -34187,6 +35110,29 @@ const STAGES = [
     ageRange: '57세',
     intro: '직장이라는 울타리 없이 새로운 사람들과 관계를 다시 엮어가야 하는 시기입니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-57',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-57',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-57',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -34614,6 +35560,29 @@ const STAGES = [
     ageRange: '58세',
     intro: '자녀 세대가 이제 자기 가정을 꾸리며, 가족 안에서의 내 역할도 조금씩 달라집니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-58',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-58',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-58',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -35100,6 +36069,29 @@ const STAGES = [
     intro: '건강이 더 이상 당연한 게 아니라는 걸 받아들이고, 본격적으로 몸을 챙기기 시작하는 나이입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-59',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-59',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-59',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -35504,6 +36496,29 @@ const STAGES = [
     ageRange: '60세',
     intro: '환갑. 예순 해를 지나온 삶을 가족과 함께 돌아보는 해입니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-60',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-60',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-60',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -36013,6 +37028,29 @@ const STAGES = [
     intro: '은퇴 이후의 삶이 서서히 새로운 리듬을 찾아가는 시기입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-61',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-61',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-61',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -36438,6 +37476,29 @@ const STAGES = [
     ageRange: '62세',
     intro: '연금이라는 단어가 현실적인 숫자로 다가오기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-62',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-62',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-62',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -36918,6 +37979,29 @@ const STAGES = [
     intro: '취미와 가족, 두 가지 모두에서 깊이가 더해지는 시기입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-63',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-63',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-63',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -37322,6 +38406,29 @@ const STAGES = [
     intro: '몸의 변화를 있는 그대로 받아들이는 연습이 필요한 나이입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-64',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-64',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-64',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -37687,6 +38794,29 @@ const STAGES = [
     ageRange: '65세',
     intro: '법정 노인 연령. 사회가 부르는 호칭이 바뀌는 걸 마주하게 됩니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-65',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-65',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-65',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -38159,6 +39289,29 @@ const STAGES = [
     intro: '오랜 세월을 함께한 배우자와의 관계를 다시 들여다보게 되는 나이입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-66',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-66',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-66',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -38448,6 +39601,29 @@ const STAGES = [
     intro: '남겨질 것들에 대해 조금씩 마음의 준비를 시작하는 나이입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-67',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-67',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-67',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -38642,6 +39818,29 @@ const STAGES = [
     ageRange: '68세',
     intro: '가까운 이들의 부고를 마주하며, 남은 삶의 무게를 다시 느끼게 됩니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-68',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-68',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-68',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -38877,6 +40076,29 @@ const STAGES = [
     intro: '노년 준비의 마지막 해. 진짜 노년이 코앞으로 다가옵니다.',
     choices: [
       {
+        id: 'insurance-opportunity-69',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-69',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-69',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -39027,6 +40249,29 @@ const STAGES = [
     ageRange: '70세',
     intro: '칠순. 황혼이라 불리는 시간의 첫걸음을 내딛습니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-70',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-70',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-70',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -39337,6 +40582,29 @@ const STAGES = [
     intro: '거창한 일 없이도, 하루하루의 작은 순간들이 새삼 소중하게 다가오는 나이입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-71',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-71',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-71',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -39488,6 +40756,29 @@ const STAGES = [
     ageRange: '72세',
     intro: '자녀와 손주 세대가 저마다의 성취를 이뤄가는 걸 지켜보는 나이입니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-72',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-72',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-72',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -39680,6 +40971,29 @@ const STAGES = [
     intro: '몸이 더는 예전 같지 않다는 걸, 이제는 확실히 받아들여야 하는 시기입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-73',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-73',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-73',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -39823,6 +41137,29 @@ const STAGES = [
     ageRange: '74세',
     intro: '다리에 힘이 있을 때, 라는 말이 부쩍 자주 나오는 나이입니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-74',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-74',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-74',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -39979,6 +41316,29 @@ const STAGES = [
     ageRange: '75세',
     intro: '남은 시간을 어떻게 채워갈지, 다시 한번 진지하게 그려보는 나이입니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-75',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-75',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-75',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -40250,6 +41610,29 @@ const STAGES = [
     intro: '평생을 함께한 배우자의 건강이 흔들리는 걸 지켜보게 되는, 힘겨운 나이입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-76',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-76',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-76',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -40411,6 +41794,29 @@ const STAGES = [
     intro: '희수(喜壽). 예로부터 기쁘게 오래 산 것을 기리는 나이입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-77',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-77',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-77',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -40565,6 +41971,29 @@ const STAGES = [
     ageRange: '78세',
     intro: '기억이 예전만큼 또렷하지 않다는 걸, 스스로 느끼기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-78',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-78',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-78',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -40749,6 +42178,29 @@ const STAGES = [
     intro: '팔순을 코앞에 두고, 지나온 삶을 조용히 정리해보는 한 해입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-79',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-79',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-79',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -40880,6 +42332,29 @@ const STAGES = [
     ageRange: '80세',
     intro: '팔순. 여든 해를 살아낸 삶을 온 가족과 함께 기립니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-80',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-80',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-80',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -41105,6 +42580,29 @@ const STAGES = [
     intro: '매일 눈을 뜨는 것 자체가, 새삼 감사하게 느껴지는 나이입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-81',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-81',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-81',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -41259,6 +42757,29 @@ const STAGES = [
     ageRange: '82세',
     intro: '오랜 인연들의 안부가, 그 어느 때보다 소중하게 다가오는 나이입니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-82',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-82',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-82',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -41430,6 +42951,29 @@ const STAGES = [
     intro: '혼자 해내던 일들에, 조금씩 다른 이의 손길이 필요해지는 시기입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-83',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-83',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'car-purchase-opportunity-83',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
         deltas: { wealth: -4, happiness: 3 },
@@ -41560,6 +43104,29 @@ const STAGES = [
     ageRange: '84세',
     intro: '지나온 삶 전체를 조용히 되새기게 되는, 사색의 시간이 깊어지는 나이입니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-84',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-84',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-84',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -41705,6 +43272,29 @@ const STAGES = [
     ageRange: '85세',
     intro: '누군가의 손길이 일상 속에 자연스레 스며드는 시기입니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-85',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-85',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'car-purchase-opportunity-85',
         text: '형편에 맞춰 중고차를 한 대 마련하기로 한다',
@@ -41962,6 +43552,29 @@ const STAGES = [
     intro: '말보다 존재만으로도, 가족에게 무언가를 전할 수 있는 나이입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-86',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-86',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'con4-fill-86',
         text: '컨설팅 인생의 성취를 기리는 자리에 초대된다',
         deltas: { fame: 2, happiness: 2 },
@@ -42158,6 +43771,29 @@ const STAGES = [
     intro: '병원을 오가는 일이 조금씩 일상의 한 부분이 되어가는 시기입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-87',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-87',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'vw4-fill-87',
         text: '재능기부로 맺은 인연의 결혼식에 초대받는다',
         deltas: { happiness: 3, relationship: 1 },
@@ -42322,6 +43958,29 @@ const STAGES = [
     intro: '미수(米壽). 쌀 미(米) 자에 여든여덟이라는 숫자가 담긴, 풍성한 나이입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-88',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-88',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'ent4-fill-88',
         text: '창업 인생을 기리는 작은 기념관 제안을 받는다',
         deltas: { fame: 3, happiness: 2 },
@@ -42485,6 +44144,29 @@ const STAGES = [
     intro: '구순을 코앞에 두고, 마음을 가만히 가다듬는 한 해입니다.',
     choices: [
       {
+        id: 'insurance-opportunity-89',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-89',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'deviant-ret-black-market-side-gig-89',
         text: '연금 받으면서 몰래 현금 부업을 뛴다',
         requiresOccupation: ['retired'],
@@ -42627,6 +44309,29 @@ const STAGES = [
     ageRange: '90세',
     intro: '구순. 아흔 해를 살아낸 시간이, 온 가족의 축하 속에 다시 한번 빛납니다.',
     choices: [
+      {
+        id: 'insurance-opportunity-90',
+        text: '만일을 대비해 보험에 가입한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '당장은 아까운 돈 같았지만, 마음 한구석이 조금은 놓였다.',
+        requiresNoAsset: 'insurance',
+        requiresSufficientCash: true,
+        appearChance: 0.10,
+        bonusSlot: true,
+        addAsset: { id: 'insurance', label: '🛡️ 보험', type: 'insurance' }
+      },
+      {
+        id: 'car-theft-attempt-90',
+        text: '남의 차를 훔치기로 마음먹는다',
+        requiresNoAssetType: 'vehicle',
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 60, label: '절도 성공', deltas: { happiness: 3 }, result: '심장이 튀어나올 것 같았지만, 결국 해냈다.', setOccupation: { id: 'vehicle-thief', label: '🚗 차량 절도범' }, startsRoute: { id: 'vehicle-thief', label: '🚗 차량 절도범', maxDurationYears: 30 }, addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+          { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '문을 여는 순간 경보음이 울렸다 - 도망도 못 가보고 그 자리에서 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'sf4-fill-90',
         text: '평생의 창업 경험을 손주에게 들려준다',
@@ -45649,11 +47354,61 @@ const RED_HANDED_CHOICES = [
   }
 ];
 
+// VEHICLE_THEFT_CHOICES(2026-08-30, 60장, 사용자 지시 - "차량 절도범이 된
+// 상태에서는 나이와 상관없이 차량관련 이벤트 가능") - PRISON/LOVER_ROUTE/
+// RED_HANDED와 같은 원리의 전역 풀. 진입(차량 절도 시도)은 나이가 불특정해
+// STAGES에 흩어 심었지만(car-theft-attempt-<나이>), 이미 vehicle-thief가 된
+// "이후"의 콘텐츠는 이 풀에서만 뽑는다 - 그래야 어느 나이에 진입했든 항상
+// 같은 콘텐츠(재범 절도·되팔기·손 씻기)를 만날 수 있다. 차를 되판 뒤에도
+// requiresNoAssetType:'vehicle' 조건이 다시 풀려 재범 선택지가 뜨므로,
+// 절도→되팔기→절도 순환이 자연스럽게 반복된다.
+const VEHICLE_THEFT_CHOICES = [
+  {
+    id: 'thief-steals-another-car',
+    text: '다시 한번 눈에 띄는 차를 훔친다',
+    requiresRoute: 'vehicle-thief',
+    requiresOccupation: ['vehicle-thief'],
+    requiresNoAssetType: 'vehicle',
+    dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.65, invert: true },
+    appendPoliceCorruptionNote: true,
+    prizeTable: [
+      { weight: 60, label: '절도 성공', deltas: { happiness: 2 }, result: '손에 익은 솜씨로, 이번에도 무사히 해냈다.', addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+      { weight: 40, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '이번엔 운이 따르지 않았다 - 신고를 받고 출동한 경찰에 바로 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+    ]
+  },
+  {
+    id: 'thief-resells-stolen-car',
+    text: '훔친 차를 장물아비에게 넘긴다',
+    requiresRoute: 'vehicle-thief',
+    requiresAsset: 'stolen-car',
+    removeAsset: 'stolen-car',
+    deltas: { wealth: 6, happiness: -1 },
+    result: '제값의 반의반도 안 됐지만, 갖고 있는 것보단 나았다.'
+  },
+  {
+    id: 'thief-lays-low',
+    text: '한동안 눈에 띄지 않게 조용히 지낸다',
+    requiresRoute: 'vehicle-thief',
+    deltas: { happiness: 1 },
+    result: '몸을 사리는 것도, 이 바닥에서 오래 버티는 요령이었다.'
+  },
+  {
+    id: 'thief-exits-life-of-crime',
+    text: '이제 손을 씻고 발을 빼기로 결심한다',
+    requiresRoute: 'vehicle-thief',
+    deltas: { happiness: 4, relationship: 3 },
+    result: '더 이상 남의 차 열쇠를 만지지 않아도 된다는 게, 이렇게 홀가분할 줄 몰랐다.',
+    setOccupation: { id: 'job-changed', label: '🔄 전직' },
+    endsRoute: true
+  }
+];
+
 module.exports = {
   STAGES,
   PRISON_CHOICES,
   LOVER_ROUTE_CHOICES,
   RED_HANDED_CHOICES,
+  VEHICLE_THEFT_CHOICES,
   ENDINGS,
   resolveEnding,
   buildCollapseEnding,

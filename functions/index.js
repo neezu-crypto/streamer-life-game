@@ -8,6 +8,7 @@ const {
   PRISON_CHOICES,
   LOVER_ROUTE_CHOICES,
   RED_HANDED_CHOICES,
+  VEHICLE_THEFT_CHOICES,
   resolveEnding,
   buildCollapseEnding,
   buildBankruptcyEnding,
@@ -144,7 +145,7 @@ async function releaseOccupationGaugeIfAbandoned(db, oldPlayData) {
 // 일탈 직업(2026-08-30, 사용자 지시 - "사기꾼 직업을 새로 추가" + 공통 규칙 3가지)
 // - 정상 직업이 이따금 일탈 선택지를 갖는 것과 구분되는, 그 자체가 범죄인
 // 직업 카테고리. 사기꾼이 첫 사례이고 앞으로 추가될 걸 대비해 배열로 둔다.
-const DEVIANT_OCCUPATION_IDS = ['con-artist'];
+const DEVIANT_OCCUPATION_IDS = ['con-artist', 'vehicle-thief'];
 // 일탈 직업 기본 수입 배율(사용자 확정 "1~1.2배") - 매번 선택 시점에 그 구간에서
 // 균등 랜덤으로 굴린다(고정값이 아니라 매번 조금씩 다르게).
 const DEVIANT_INCOME_MULTIPLIER_MIN = 1.0;
@@ -190,6 +191,83 @@ function countPriorDeviantCrimes(choiceLog) {
   }
   return count;
 }
+
+// 차량 절도 - 크로스플레이어 피해자 선정(2026-08-30, 60장) - lifeGame/vehicleOwners
+// 인덱스(applyChoice가 유지)에서 도둑 본인을 뺀 다른 유저 중 무작위로 1명을
+// 고른다. 후보가 아예 없으면(아무도 차를 안 갖고 있으면) 조용히 아무 일도
+// 일어나지 않는다 - 도둑 쪽 성공/실패와는 별개(도둑은 이미 자기 자산을 얻었고,
+// 이건 그와 별개인 "세계 어딘가의 실제 피해자" 연출).
+async function victimizeRandomVehicleOwner(db, thiefUid) {
+  const ownersSnap = await db.ref('lifeGame/vehicleOwners').get();
+  const owners = ownersSnap.val() || {};
+  const candidates = Object.keys(owners).filter((uid) => uid !== thiefUid);
+  if (!candidates.length) return;
+  const victimUid = candidates[Math.floor(Math.random() * candidates.length)];
+  const victimAssetsSnap = await db.ref('lifeGame/playthroughs/' + victimUid + '/assets').get();
+  const victimAssets = victimAssetsSnap.val();
+  if (!Array.isArray(victimAssets)) return;
+  const vehicleIdx = victimAssets.findIndex((a) => a.type === 'vehicle' && !a.stolen);
+  if (vehicleIdx === -1) return;
+  // 보험 가입자 자동 보호(2026-08-30, 사용자 지시 "피해자가 보험이 있으면
+  // 차를 다시 복구 가능"을 즉시 원상복구로 단순화 - 도난 자체가 성립하지
+  // 않고 그대로 유지된다. 신고→회수(policeCorruption 연동)는 보험이 없는
+  // 피해자 전용 구제 수단으로 남는다.
+  if (victimAssets.some((a) => a.type === 'insurance')) return;
+  const vehicle = victimAssets[vehicleIdx];
+  const stolenAsset = Object.assign({}, vehicle, {
+    stolen: true,
+    originalLabel: vehicle.label,
+    label: vehicle.label + '(절도 당함)',
+    lastReportedStageIndex: -1
+  });
+  const newAssets = victimAssets.slice();
+  newAssets[vehicleIdx] = stolenAsset;
+  await db.ref('lifeGame/playthroughs/' + victimUid + '/assets').set(newAssets);
+  await db.ref('lifeGame/vehicleOwners/' + victimUid).remove();
+}
+
+// 도난 차량 신고(2026-08-30, 60장, 사용자 지시 - "피해자는 '차(절도 당함)'
+// 자산을 클릭해 경찰에 신고 가능. 부패도에 따라 다시 되찾음.(매년 1회 신고
+// 가능)") - 회수 확률은 도둑 쪽 발각확률(policeCorruption invert:true, 부패할수록
+// 범죄가 잘 먹힘)과 정반대 방향 - 부패할수록 수사가 부실해 회수가 더
+// 어려워진다(청렴할수록 잘 찾아줌).
+const VEHICLE_REPORT_RECOVERY_MIN = 0.15;
+const VEHICLE_REPORT_RECOVERY_MAX = 0.65;
+
+const reportStolenVehicle = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const db = getDatabase();
+  const playRef = playRefFor(db, uid);
+  const snap = await playRef.get();
+  const play = snap.val();
+  if (!play) throw new HttpsError('not-found', '이어할 인생이 없습니다.');
+  const assets = Array.isArray(play.assets) ? play.assets : [];
+  const idx = assets.findIndex((a) => a.type === 'vehicle' && a.stolen);
+  if (idx === -1) throw new HttpsError('failed-precondition', '신고할 도난 차량이 없습니다.');
+  const asset = assets[idx];
+  const currentStageIndex = play.stageIndex || 0;
+  if (asset.lastReportedStageIndex === currentStageIndex) {
+    throw new HttpsError('failed-precondition', '올해는 이미 신고했습니다. 내년에 다시 시도해주세요.', { reason: 'already-reported-this-year' });
+  }
+  const worldStateRates = await fetchWorldStateRates(db);
+  const rate = worldStateRateOf(worldStateRates, 'policeCorruption');
+  const recoveryChance = VEHICLE_REPORT_RECOVERY_MAX - (VEHICLE_REPORT_RECOVERY_MAX - VEHICLE_REPORT_RECOVERY_MIN) * rate;
+  const recovered = Math.random() < recoveryChance;
+  const newAssets = assets.slice();
+  if (recovered) {
+    const restored = Object.assign({}, asset, { label: asset.originalLabel || asset.label });
+    delete restored.stolen;
+    delete restored.originalLabel;
+    delete restored.lastReportedStageIndex;
+    newAssets[idx] = restored;
+    await playRef.child('assets').set(newAssets);
+    await db.ref('lifeGame/vehicleOwners/' + uid).set(true);
+  } else {
+    newAssets[idx] = Object.assign({}, asset, { lastReportedStageIndex: currentStageIndex });
+    await playRef.child('assets').set(newAssets);
+  }
+  return { ok: true, recovered };
+});
 
 // 주식 가격 변동(2026-08-28, 56장 D항 - "봇 로직을 그냥 하지말고 매 턴 55%
 // 확률로 +1%/45% 확률로 -1%로 주가 변동되게 할까? 주식시장과 주가 연동은
@@ -371,6 +449,7 @@ function findChoiceById(stage, choiceId) {
   return PRISON_CHOICES.find((c) => c.id === choiceId)
     || LOVER_ROUTE_CHOICES.find((c) => c.id === choiceId)
     || RED_HANDED_CHOICES.find((c) => c.id === choiceId)
+    || VEHICLE_THEFT_CHOICES.find((c) => c.id === choiceId)
     || null;
 }
 
@@ -631,13 +710,22 @@ function pickVisibleChoiceIds(choices, ctx) {
   // 41개 중범죄 선택지 중 어느 걸 몇 살에 골라 발각되느냐가 전부 달라 나이를
   // 고정할 수 없다. 다른 루트는 기존과 완전히 동일하게 그 나이의 choices
   // 배열 안에서만 찾는다.
+  // vehicle-thief 루트(2026-08-30, 60장) - 진입(차량 절도 시도)은 19~90세
+  // 아무 때나 될 수 있어 다른 루트와 같은 이유로 진입 나이를 고정할 수
+  // 없지만, 그건 "루트가 아직 시작되기 전" 트리거라 아래 activeRouteId 분기와
+  // 무관하다(car-purchase-opportunity처럼 각 나이 choices에 흩어서 심음).
+  // 다만 일단 절도범이 된 "이후"의 콘텐츠(되팔기 등)는 "나이와 상관없이
+  // 가능"(사용자 지시)해야 하므로 prison/romance/red-handed와 같은 전역 풀
+  // 패턴을 그대로 재사용한다.
   const routeChoicePool = activeRouteId === 'prison'
     ? PRISON_CHOICES
     : activeRouteId === 'romance'
       ? LOVER_ROUTE_CHOICES
       : activeRouteId === 'red-handed'
         ? RED_HANDED_CHOICES
-        : choices;
+        : activeRouteId === 'vehicle-thief'
+          ? VEHICLE_THEFT_CHOICES
+          : choices;
   const basePool = activeRouteId
     ? routeChoicePool.filter((c) => c.requiresRoute === activeRouteId)
     : choices.filter((c) => !c.requiresRoute && !(c.startsRoute && experiencedRouteIds.includes(c.startsRoute.id)));
@@ -1647,19 +1735,34 @@ async function applyChoice(db, playRef, play, stage, choice) {
   // 재산 상세 - 건강/가족 상세와 완전히 같은 패턴. 선택지가 addAsset을 붙였으면
   // 현금/부동산/동산 중 하나가 새로 생기고(이미 있으면 중복 추가 안 함),
   // removeAsset을 붙였으면 그 재산이 처분돼서 빠진다.
+  // pickedBranch 우선(2026-08-30, 60장 구현 중 발견한 버그 - 차량 절도
+  // 선택지의 addAsset을 prizeTable 성공 갈래 안에 넣었는데, 이 필드가
+  // worldStateSignal/setOccupation과 달리 choice.addAsset만 보고 pickedBranch는
+  // 전혀 확인하지 않아 "발각되든 안 되든 훔친 차를 절대 못 얻는" 조용한
+  // 버그가 있었다 - 실제 시뮬레이션으로 res.assets가 항상 빈 배열인 걸
+  // 보고서야 잡아냈다. worldStateSignal과 같은 패턴으로 고침.
+  const effectiveAddAsset = (pickedBranch && pickedBranch.addAsset) || choice.addAsset;
+  const effectiveRemoveAsset = (pickedBranch && pickedBranch.removeAsset) || choice.removeAsset;
   const currentAssets = Array.isArray(play.assets) ? play.assets : [];
   let assets = currentAssets.slice();
-  const isNewAsset = !!(choice.addAsset && !assets.some((a) => a.id === choice.addAsset.id));
+  const isNewAsset = !!(effectiveAddAsset && !assets.some((a) => a.id === effectiveAddAsset.id));
   if (isNewAsset) {
     // 2026-08-28(56장 D항, 주식 자산) - 원래는 {id,label,type}만 복사했는데,
     // 주식 자산은 매수가(buyPrice)·매수 나이(buyAge)·캐싱된 현재가(currentPrice)
-    // 같은 추가 필드가 필요해서 choice.addAsset 전체를 그대로 펼쳐 담는다 -
-    // 기존 addAsset들은 어차피 id/label/type만 갖고 있어서 동작은 그대로다.
-    assets.push(Object.assign({}, choice.addAsset, { sinceStageId: stage.id }));
+    // 같은 추가 필드가 필요해서 addAsset 전체를 그대로 펼쳐 담는다 - 기존
+    // addAsset들은 어차피 id/label/type만 갖고 있어서 동작은 그대로다.
+    assets.push(Object.assign({}, effectiveAddAsset, { sinceStageId: stage.id }));
   }
-  if (choice.removeAsset) {
-    assets = assets.filter((a) => a.id !== choice.removeAsset);
+  if (effectiveRemoveAsset) {
+    assets = assets.filter((a) => a.id !== effectiveRemoveAsset);
   }
+
+  // vehicleOwners 인덱스 유지(2026-08-30, 60장 - 차량 절도 크로스플레이어
+  // 타겟 선정용) - "지금 도난 안 당한 vehicle 자산을 갖고 있는지"가 이번
+  // 선택으로 바뀔 때만 갱신한다(매 턴 무조건 쓰기하면 낭비).
+  const hadUnstolenVehicleBefore = currentAssets.some((a) => a.type === 'vehicle' && !a.stolen);
+  const hasUnstolenVehicleAfter = assets.some((a) => a.type === 'vehicle' && !a.stolen);
+  const vehicleOwnerIndexChanged = hadUnstolenVehicleBefore !== hasUnstolenVehicleAfter;
 
   // D-7 스캔들 하락(2026-08-28, 사용자 지시) - 이번 선택이 실제로 징역(prison
   // 루트) 확정으로 이어졌으면(setOccupation.id==='inmate'), 보유 중인 주식
@@ -2022,6 +2125,25 @@ async function applyChoice(db, playRef, play, stage, choice) {
   if (priorGaugeGroup && priorGaugeGroup !== newGaugeGroup) {
     statWrites.push(db.ref('lifeGame/occupationGauge/' + priorGaugeGroup).transaction((v) => Math.max(0, (v || 0) - 1)));
   }
+  // vehicleOwners 인덱스 갱신(2026-08-30, 60장) - 위에서 계산해둔
+  // vehicleOwnerIndexChanged가 true일 때만 쓴다.
+  if (vehicleOwnerIndexChanged) {
+    statWrites.push(hasUnstolenVehicleAfter
+      ? db.ref('lifeGame/vehicleOwners/' + playRef.key).set(true)
+      : db.ref('lifeGame/vehicleOwners/' + playRef.key).remove());
+  }
+  // 차량 절도 - 랜덤 피해자 선정(2026-08-30, 60장, 사용자 지시 - "차량을
+  // 절도하면 실제로 차량을 소유중이던 랜덤한 1명의 다른 플레이어의 차량이
+  // 절도범에 의해 절도됐다는 안내가 뜨고 자산도 '차(절도 당함)'으로
+  // 바뀌어"). pickedBranch에만 붙는 선언적 필드(victimizesRandomVehicleOwner)를
+  // 보고 도둑 본인과는 완전히 별개인 다른 플레이어의 실제 lifeGame/playthroughs
+  // 데이터를 직접 읽고 쓴다 - 세계관 상태(EMA)나 게이지(집계)와 달리 "특정
+  // 한 명"을 골라 그 사람의 저장 데이터를 바꾸는 유일한 크로스플레이어
+  // 상호작용이라 별도 함수(victimizeRandomVehicleOwner)로 분리해뒀다.
+  const effectiveVictimizesRandomVehicleOwner = !!(pickedBranch && pickedBranch.victimizesRandomVehicleOwner);
+  if (effectiveVictimizesRandomVehicleOwner) {
+    statWrites.push(victimizeRandomVehicleOwner(db, playRef.key));
+  }
   // 해금 도감 - 루트 칸(2026-08-22, 사용자 지시로 ①번 루트 완료 후 추가) - 이번
   // 선택 이전엔 활성 루트가 있었는데(priorRouteState), 이번 선택으로 그 루트가
   // 끝났거나(endsRoute를 골랐거나 maxDurationYears 만료로 nextActiveRoute가
@@ -2039,7 +2161,7 @@ async function applyChoice(db, playRef, play, stage, choice) {
     // 주식 자산(2026-08-28, 56장 D항)은 종목마다 id가 달라 ASSETS_META의
     // "고정 id 자산 전제"가 깨진다 - 종목별로 도감 칸을 만드는 대신 확정된
     // 대로 "📈 주식 투자" 단일 범주 칸(stock-investment) 하나로 몰아준다.
-    const collectionAssetId = choice.addAsset.type === 'stock' ? 'stock-investment' : choice.addAsset.id;
+    const collectionAssetId = effectiveAddAsset.type === 'stock' ? 'stock-investment' : effectiveAddAsset.id;
     statWrites.push(recordCollectionEntryIfLoggedIn(db, playRef.key, 'assets', collectionAssetId));
   }
   if (isNewTalent) {
@@ -2867,4 +2989,4 @@ const snapshotWorldStateHistory = onSchedule({ schedule: '5 0 * * *', timeZone: 
   }
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle };

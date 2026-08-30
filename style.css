@@ -300,6 +300,12 @@
   .asset-chip-delta { margin-left: 3px; font-weight: 700; }
   .asset-chip-delta.up { color: #4caf7d; }
   .asset-chip-delta.down { color: #e0654f; }
+  /* 도난 차량(2026-08-30, 60장) - 클릭해서 경찰에 신고 가능함을 색으로 구분. */
+  .asset-chip.stolen {
+    background: var(--coral-dim); border-color: color-mix(in srgb, var(--coral) 45%, transparent);
+    color: var(--coral);
+  }
+  .asset-chip.stolen.clickable:hover { background: color-mix(in srgb, var(--coral) 20%, var(--coral-dim)); }
 
   .score-chart-summary { font-size: 12.5px; color: var(--text-faint); margin: 0 0 8px; font-variant-numeric: tabular-nums; }
   .score-chart { display: block; width: 100%; height: 160px; }

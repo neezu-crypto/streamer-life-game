@@ -7078,6 +7078,75 @@
         (18/18, 11/11) + 300회 크래시 안전성 재확인.</p>
     </section>
 
+    <section id="sec61">
+        <h2><span class="num">61</span>차량 절도범(vehicle-thief) 직업 추가 + 크로스플레이어
+        절도 상호작용 (2026-08-30, 사용자 지시 — 구현 완료)</h2>
+        <p><b>배경.</b> 59장(사기꾼)에 이은 두 번째 "일탈 직업" — 차를 훔치면
+        자동으로 이 직업을 얻는다. 사기꾼과 달리, 이번엔 처음으로 <b>다른 플레이어의
+        실제 저장 데이터를 직접 읽고 쓰는 크로스플레이어 상호작용</b>이 들어갔다
+        (기존 세계관 트래커·게이지는 전부 "전체 집계"만 다뤘지, "특정 한 명"을
+        골라 그 사람 데이터를 바꾸는 건 이번이 처음).</p>
+        <ul>
+            <li><b>진입 — "성인 이후 언제든"(사용자 확정).</b> <code>car-theft-attempt-{'{나이}'}</code>를
+            19~90세 72개 스테이지 전부에 심음(사기꾼과 같은 반복 배치 패턴).
+            성공 시 <code>vehicle-thief</code> 직업 + <code>vehicle-thief</code>
+            루트(30년) 동시 시작, 자산 <code>stolen-car</code>("🚗 중고차(절도)")
+            획득. 발각 시 현행범→징역 파이프라인 그대로 재사용(policeCorruption
+            연동, 59장의 범죄횟수 escalation도 자동 적용 — DEVIANT_OCCUPATION_IDS에
+            추가만 하면 됨).</li>
+            <li><b>절도범이 된 이후 — 전역 풀(<code>VEHICLE_THEFT_CHOICES</code>).</b>
+            진입은 나이가 불특정해 흩어 심었지만, "나이와 상관없이 차량관련
+            이벤트 가능"(사용자 지시)하려면 PRISON/LOVER_ROUTE/RED_HANDED와
+            같은 전역 풀 구조가 필요했다 — <code>routeChoicePool</code> 삼항연산자에
+            <code>vehicle-thief</code> 분기를 추가. 재범 절도(되팔면 다시
+            <code>requiresNoAssetType</code> 조건이 풀려 절도→되팔기→절도 순환
+            가능)·되팔기·잠수·손 씻기 4종.</li>
+            <li><b>크로스플레이어 피해자 선정.</b> 신규 인덱스
+            <code>lifeGame/vehicleOwners/{'{uid}'}: true</code>를
+            <code>applyChoice</code>가 "지금 도난 안 당한 vehicle 자산 보유
+            여부"가 바뀔 때만 갱신. 절도 성공 시 이 인덱스에서 도둑 본인을 뺀
+            무작위 1명을 골라, 그 사람의 <code>lifeGame/playthroughs/{'{victimUid}'}/assets</code>를
+            직접 읽고 써서 차량 자산을 <code>stolen:true</code> + 라벨에
+            "(절도 당함)" 추가로 바꾼다(별도 함수 <code>victimizeRandomVehicleOwner</code>로
+            분리).</li>
+            <li><b>보험 자동 보호(사용자 지시 "보험이 있으면 다시 복구 가능"을
+            단순화).</b> 후보로 뽑힌 피해자가 보험 자산을 갖고 있으면 도난 자체가
+            성립하지 않고 그대로 유지 — 별도의 "복구" 액션 없이 즉시 보호.</li>
+            <li><b>도난 신고 — 신규 콜러블 <code>reportStolenVehicle</code>.</b>
+            클라이언트에서 "차(절도 당함)" 자산 칩을 클릭하면 확인창 후 호출.
+            <code>lastReportedStageIndex</code>를 자산에 저장해 연 1회 제한(같은
+            나이에 두 번째 신고 시도는 <code>already-reported-this-year</code>로
+            거부). 회수 확률은 <code>policeCorruption</code> 연동이지만 도둑
+            쪽 발각확률과 정반대 방향 — 부패할수록 수사가 부실해 회수가 더
+            어려워진다(청렴할수록 잘 찾아줌).</li>
+        </ul>
+        <p><b>구현 중 발견한 엔진 버그.</b> <code>addAsset</code>/<code>removeAsset</code>이
+        <code>worldStateSignal</code>·<code>setOccupation</code>·<code>startsRoute</code>와
+        달리 <code>pickedBranch</code>를 전혀 보지 않고 <code>choice.addAsset</code>
+        (선택지 최상위 필드)만 읽고 있었다 — prizeTable 성공 갈래 안에 넣은
+        <code>addAsset</code>이 조용히 무시돼 "발각되든 안 되든 훔친 차를 절대
+        못 얻는" 버그로 이어졌다. 실제 시뮬레이션에서 <code>res.assets</code>가
+        항상 빈 배열인 걸 보고서야 잡아냈고, <code>worldStateSignal</code>과
+        같은 <code>(pickedBranch && pickedBranch.addAsset) || choice.addAsset</code>
+        패턴으로 고쳐 두 필드 모두 어느 prizeTable 선택지에서도 정상 동작하게
+        됐다(기존엔 아무도 branch 레벨 addAsset을 쓴 적이 없어 잠재 버그로만
+        존재했었음).</p>
+        <p><b>부수 변경 — 보험 가입도 나이 무관 랜덤 이벤트로 전환(사용자 지시).</b>
+        기존 25세 고정 <code>buys-insurance-25</code> 1개를 제거하고, 차량구매와
+        똑같은 패턴(<code>insurance-opportunity-{'{나이}'}</code>, 19~90세 72개,
+        <code>appearChance:0.10</code> + <code>bonusSlot:true</code>)으로 전환.</p>
+        <p><b>부수 변경 — 경찰 콘텐츠 8개 추가(사용자 지시).</b> 볼륨 기준으로는
+        이미 상위권(278개, 변호사·교사·공무원·트레이더 다음)이라 순수 물량보다
+        신규 시스템(차량 절도·사기)과 엮이는 테마로 채움 — 절도 순찰 강화,
+        상습 절도범 검거, 장물아비 뒷돈 유혹 대응쌍(policeCorruption target
+        1/0), 보이스피싱 조직 검거, 사기 신고 폭주, 미제 사건 등. 286개로 확장.</p>
+        <p><b>검증.</b> 전용 시나리오 스크립트(12/12) — 성인 후 아무 나이(70세)에서
+        진입 가능, 성공 시 직업 획득, 크로스플레이어 피해자가 실제로 다른
+        저장 데이터에서 도난 상태로 바뀌는 것, 보험 가입자 자동 보호, 신고
+        성공/실패 반환값, 연 1회 제한, 되팔기로 자산 제거+현금 획득까지 확인.
+        회귀 스위트(18/18, 11/11) + 300회 크래시 안전성 재확인.</p>
+    </section>
+
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
 </div>
 </body>

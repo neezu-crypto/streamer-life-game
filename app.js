@@ -58,6 +58,7 @@ const startPlaythroughFn = httpsCallable(functions, 'startPlaythrough');
 const resumePlaythroughFn = httpsCallable(functions, 'resumePlaythrough');
 const submitChoiceFn = httpsCallable(functions, 'submitChoice');
 const sellStockFn = httpsCallable(functions, 'sellStock');
+const reportStolenVehicleFn = httpsCallable(functions, 'reportStolenVehicle');
 const rollDiceFn = httpsCallable(functions, 'rollDice');
 const shareToGalleryFn = httpsCallable(functions, 'shareToGallery');
 const linkGoogleAccountFn = httpsCallable(functions, 'linkGoogleAccount');
@@ -1319,12 +1320,42 @@ function renderAssetsInto(container, assets, currentAge) {
         chip.classList.add('clickable');
         chip.addEventListener('click', () => openSellStockModal(asset));
       }
+    } else if (asset.stolen) {
+      // 도난 차량 신고(2026-08-30, 60장, 사용자 지시 - "피해자는 '차(절도
+      // 당함)' 자산을 클릭해 경찰에 신고 가능") - 별도 모달 없이 확인창 +
+      // 즉시 호출로 처리. 성공/실패 모두 renderAssets를 다시 호출해
+      // 라벨(원상복구 또는 그대로)이 바로 반영되게 한다.
+      chip.classList.add('stolen', 'clickable');
+      chip.textContent = asset.label;
+      chip.dataset.tooltip = asset.label + ' — 클릭해서 경찰에 신고(연 1회, 회수 확률은 그 해 치안 상황에 따라 다름)';
+      chip.addEventListener('click', () => reportStolenVehicle());
     } else {
       chip.textContent = asset.label;
       chip.dataset.tooltip = asset.label + ' — ' + (ASSET_TYPE_LABELS[asset.type] || '재산') + ' 자산';
     }
     container.appendChild(chip);
   });
+}
+
+async function reportStolenVehicle() {
+  if (!confirm('도난당한 차량을 경찰에 신고할까요? (연 1회만 신고 가능)')) return;
+  try {
+    const res = await reportStolenVehicleFn();
+    if (res.data.recovered) {
+      showToast('🚓 차량을 되찾았어요!');
+    } else {
+      showToast('😞 아직 못 찾았어요 - 내년에 다시 신고할 수 있어요');
+    }
+    const snap = await get(ref(db, 'lifeGame/playthroughs/' + currentUser.uid + '/assets'));
+    renderAssets(snap.exists() ? snap.val() : [], lastKnownAgeRange);
+  } catch (e) {
+    console.error('도난 신고 실패:', e);
+    if (e.details && e.details.reason === 'already-reported-this-year') {
+      showToast('📅 올해는 이미 신고했어요');
+    } else {
+      alert('신고를 처리하지 못했어요: ' + (e.message || e));
+    }
+  }
 }
 let lastKnownAgeRange = null;
 function renderAssets(assets, ageRange) {
