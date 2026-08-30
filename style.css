@@ -126,6 +126,9 @@
     display: block; width: 100%; text-align: left; margin-top: 8px; padding: 13px 15px;
     line-height: 1.5; transition: opacity 0.3s ease;
   }
+  /* 현금 부족으로 고를 수 없는 주식 매수 선택지(2026-08-31) - 클릭은 막되
+     문구는 그대로 읽을 수 있게 흐리게만 처리. 이유는 호버 툴팁으로 안내. */
+  .choice-btn.unaffordable { opacity: 0.5; cursor: not-allowed; }
 
   /* 주사위 구간(예: 유아기) - 가능성만 미리 보여주고 고를 순 없는 카드 */
   .choice-preview {

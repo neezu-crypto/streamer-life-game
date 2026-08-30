@@ -573,7 +573,9 @@ function openSellStockModal(asset) {
   pendingSellAsset = asset;
   const price = typeof asset.currentPrice === 'number' ? asset.currentPrice : asset.buyPrice;
   const ratio = price / asset.buyPrice;
-  const estimatedProfitWon = Math.round(100000000 * (ratio - 1));
+  // 투자 원금 1억→1천만원 조정(2026-08-31) - functions/index.js의
+  // INVESTMENT_PRINCIPAL_WON과 반드시 같은 값 유지.
+  const estimatedProfitWon = Math.round(10000000 * (ratio - 1));
   sellStockTitle.textContent = '📈 ' + asset.label + ' 매도';
   sellStockInfo.textContent = '매수가 ' + asset.buyPrice.toLocaleString() + '원 → 현재가 ' + price.toLocaleString() + '원. '
     + '지금 판매하면 약 ' + estimatedProfitWon.toLocaleString() + '원의 ' + (estimatedProfitWon >= 0 ? '차익' : '손실') + '이 발생해요.';
@@ -948,6 +950,10 @@ function setupHoverTooltips(root) {
   });
 }
 setupHoverTooltips(document.getElementById('gameLeftPage'));
+// 주식 매수 선택지의 현금 부족 안내(2026-08-31)도 같은 호버 툴팁을 쓰는데
+// choiceList는 gameLeftPage 밖(gameRightPage)에 있어 위 등록만으로는 안 잡힌다
+// - 둘을 공통으로 포함하는 gameSection에 별도로 한 번 더 등록.
+setupHoverTooltips(document.getElementById('gameSection'));
 
 // ------------------------------------------------------------
 // 방송 콘텐츠 백로그 3번째 항목: 복권 1등·2등 대박 축하 이펙트
@@ -1277,8 +1283,30 @@ function formatCashHoldings(won) {
   const manwon = Math.round((won || 0) / 10000);
   return '💰 보유 현금 ' + manwon.toLocaleString('ko-KR') + '만원';
 }
+let lastKnownCashHoldings = 0;
 function renderCashHoldings(el, won) {
+  lastKnownCashHoldings = won || 0;
   el.textContent = formatCashHoldings(won);
+}
+
+// 주식 매수 선택 불가 처리(2026-08-31, 사용자 지시 - "주식 매수에 필요한 비용을
+// 1천만원으로 수정하고, 부족하면 선택이 안되게 해줘") - functions/index.js의
+// cashUnitForAge/INVESTMENT_PRINCIPAL_WON과 반드시 같은 값 유지. 서버도 최종
+// 검증은 하지만(요청 위변조 방어), 여기서는 애초에 못 고르게 막아 헛클릭을
+// 줄인다. 어느 종목을 고르든 비용은 나이에만 좌우돼 종목 선택 전에도
+// 계산 가능하다.
+const STOCK_INVESTMENT_PRINCIPAL_WON = 10000000;
+function cashUnitForAgeClient(age) {
+  if (age < 10) return 10000;
+  if (age < 20) return 30000;
+  if (age < 30) return 8250000;
+  if (age < 50) return 13500000;
+  if (age < 65) return 13000000;
+  return 5200000;
+}
+function stockInvestmentCostWon(age) {
+  const unit = cashUnitForAgeClient(age);
+  return Math.round(STOCK_INVESTMENT_PRINCIPAL_WON / unit) * unit;
 }
 
 // 재산 목록("현재 재산 상세") - 선택지가 addAsset/removeAsset을 붙이면 서버가
@@ -1643,8 +1671,20 @@ function renderStage(stage) {
     // requiresStockPurchase(2026-08-28, 56장 D항) - 곧바로 제출하지 않고
     // 종목 검색 모달을 먼저 띄운다. 모달에서 종목을 고른 뒤에야 실제
     // submitChoice가 나간다(openBuyStockModal 참고).
+    // 현금 부족 시 애초에 선택 불가(2026-08-31, 사용자 지시 - "부족하면 선택이
+    // 안되게 해줘") - 어느 종목을 고르든 비용은 나이에만 좌우돼 모달을 열기
+    // 전에도 계산 가능하다. 서버(submitChoice)도 최종 검증은 그대로 하니
+    // 이건 헛클릭 방지용 - 위변조된 요청이 와도 서버가 다시 막는다.
     if (choice.requiresStockPurchase) {
-      btn.addEventListener('click', () => openBuyStockModal(choice.id));
+      const age = parseInt(stage.ageRange, 10);
+      const cost = stockInvestmentCostWon(age);
+      if (lastKnownCashHoldings < cost) {
+        btn.disabled = true;
+        btn.classList.add('unaffordable');
+        btn.dataset.tooltip = '투자 원금 ' + Math.round(cost / 10000).toLocaleString('ko-KR') + '만원이 필요해요 (현재 ' + Math.round(lastKnownCashHoldings / 10000).toLocaleString('ko-KR') + '만원 보유)';
+      } else {
+        btn.addEventListener('click', () => openBuyStockModal(choice.id));
+      }
     } else {
       btn.addEventListener('click', () => pickChoice(choice.id));
     }

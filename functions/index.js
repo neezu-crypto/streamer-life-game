@@ -871,8 +871,13 @@ function pickVisibleChoiceIds(choices, ctx) {
   // 0으로 취급돼 "항상 감당 가능"으로 오판됐다. mandatory인 주식 매수 선택지가
   // 이 사각지대 때문에 안전망을 무력화시켜, 나머지 3개가 전부 진짜로 감당
   // 불가능해도 바꿔치기가 발동하지 않는 실제 소프트락이 재현됐다.
-  const STOCK_INVESTMENT_PRINCIPAL_WON = 100000000;
-  const stockCostOf = () => Math.round(STOCK_INVESTMENT_PRINCIPAL_WON / cashUnitForAge(currentAge));
+  const STOCK_INVESTMENT_PRINCIPAL_WON = 10000000;
+  // 단위 불일치 버그 수정(2026-08-31, 사용자 지시 - "지금은 현금이 1억 미만이어도
+  // 구매가 가능한 상태야") - stockCostOf()는 wealth 스탯 단위(예: 12)인데
+  // cashHoldings는 실제 원화 단위(예: 82,500,000)라 canAfford의
+  // "cashHoldings >= stockCostOf()"가 사실상 거의 항상 참이 되던 버그였다.
+  // 실제 차감액(=원화 기준 필요 현금)과 같은 단위로 비교해야 한다.
+  const stockCostOf = () => Math.round(STOCK_INVESTMENT_PRINCIPAL_WON / cashUnitForAge(currentAge)) * cashUnitForAge(currentAge);
   // 자산 스탯 -4 이상 자동 현금 검증(2026-08-29, 사용자 지시) - applyChoice의
   // 동일 규칙(walletCost>=4면 requiresSufficientCash 없어도 자동 적용, mandatory는
   // 예외)을 이 안전망에도 그대로 반영해야 "감당 가능하다고 판단해 바꿔치기 안 한
@@ -2749,9 +2754,15 @@ const submitChoice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
     if (stockVal.frozenAt) {
       throw new HttpsError('failed-precondition', '거래 정지(동결) 중인 종목은 매수할 수 없습니다.', { reason: 'stock-frozen' });
     }
-    const INVESTMENT_PRINCIPAL_WON = 100000000;
-    const cost = Math.round(INVESTMENT_PRINCIPAL_WON / cashUnitForAge(play.stageIndex));
-    if ((play.cashHoldings || 0) < cost) {
+    const INVESTMENT_PRINCIPAL_WON = 10000000;
+    const cashUnit = cashUnitForAge(play.stageIndex);
+    const cost = Math.round(INVESTMENT_PRINCIPAL_WON / cashUnit);
+    // 단위 불일치 버그 수정(2026-08-31, 사용자 지시 - "지금은 현금이 1억 미만이어도
+    // 구매가 가능한 상태야") - cashHoldings는 실제 원화(예: 82,500,000)인데 cost는
+    // wealth 스탯 단위(예: 12)라 "cashHoldings < cost"는 사실상 거의 항상 거짓이라
+    // 현금이 얼마가 됐든 통과되고 있었다. 실제 차감될 원화 금액(cost*cashUnit)과
+    // 비교해야 한다.
+    if ((play.cashHoldings || 0) < cost * cashUnit) {
       throw new HttpsError('failed-precondition', '보유 현금이 부족해서 투자할 수 없습니다.', { reason: 'insufficient-cash' });
     }
     effectiveChoice = Object.assign({}, choice, {
@@ -2801,10 +2812,12 @@ const sellStock = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, a
     throw new HttpsError('failed-precondition', '거래 정지(동결) 중인 종목은 매도할 수 없습니다.', { reason: 'stock-frozen' });
   }
 
-  // 현금 환전 비율(56장 D항 확정) - 게임내_차익 = 1억원 × (매도가÷매수가 − 1).
-  // 이 차익을 다시 cashUnitForAge로 나눠 wealth 스탯 증가분(음수면 손실)으로
-  // 환산한다 - 매수 때 반대 방향으로 했던 환산과 완전히 대칭.
-  const INVESTMENT_PRINCIPAL_WON = 100000000;
+  // 현금 환전 비율(56장 D항 확정, 2026-08-31 투자 원금 1억→1천만원 조정) -
+  // 게임내_차익 = 투자원금 × (매도가÷매수가 − 1). 이 차익을 다시
+  // cashUnitForAge로 나눠 wealth 스탯 증가분(음수면 손실)으로 환산한다 -
+  // 매수 때 반대 방향으로 했던 환산과 완전히 대칭(매수 쪽 상수와 반드시
+  // 같은 값 유지 - submitChoice의 INVESTMENT_PRINCIPAL_WON 참고).
+  const INVESTMENT_PRINCIPAL_WON = 10000000;
   const ratio = stockVal.price / asset.buyPrice;
   const profitWon = Math.round(INVESTMENT_PRINCIPAL_WON * (ratio - 1));
   const wealthDelta = Math.round(profitWon / cashUnitForAge(play.stageIndex));
