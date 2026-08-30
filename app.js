@@ -1344,11 +1344,16 @@ function renderAssetsInto(container, assets, currentAge) {
       const up = price >= asset.buyPrice;
       chip.classList.add('stock');
       chip.innerHTML = escapeHtml(asset.label) + ' <span class="asset-chip-delta ' + (up ? 'up' : 'down') + '">' + (up ? '▲' : '▼') + '</span>';
-      chip.dataset.tooltip = asset.label + ' — 매수가 ' + asset.buyPrice.toLocaleString() + '원 · 현재가 ' + price.toLocaleString() + '원';
+      let tooltip = asset.label + ' — 매수가 ' + asset.buyPrice.toLocaleString() + '원 · 현재가 ' + price.toLocaleString() + '원';
       if (typeof currentAge === 'number' && currentAge % 5 === 0) {
         chip.classList.add('clickable');
         chip.addEventListener('click', () => openSellStockModal(asset));
+        tooltip += ' (클릭해서 매도 가능)';
+      } else if (typeof currentAge === 'number') {
+        const nextSellableAge = currentAge - (currentAge % 5) + 5;
+        tooltip += ' · ' + nextSellableAge + '세부터 매도 가능(5세 단위)';
       }
+      chip.dataset.tooltip = tooltip;
     } else if (asset.stolen) {
       // 도난 차량 신고(2026-08-30, 60장, 사용자 지시 - "피해자는 '차(절도
       // 당함)' 자산을 클릭해 경찰에 신고 가능") - 별도 모달 없이 확인창 +
