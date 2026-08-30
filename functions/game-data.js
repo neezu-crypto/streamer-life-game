@@ -4689,6 +4689,7 @@ const STAGES = [
     choices: [
       {
         id: 'deviant-con-romance-scam-20',
+        bonusSlot: true,
         text: 'SNS에서 만난 상대에게 연애 감정을 미끼로 돈을 뜯어낸다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -5689,6 +5690,7 @@ const STAGES = [
       },
       {
         id: 'deviant-con-romance-scam-21',
+        bonusSlot: true,
         text: 'SNS에서 만난 상대에게 연애 감정을 미끼로 돈을 뜯어낸다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -6644,6 +6646,7 @@ const STAGES = [
       },
       {
         id: 'deviant-con-resale-scam-22',
+        bonusSlot: true,
         text: '중고거래 사이트에서 대금만 받고 물건은 보내지 않는다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -7720,6 +7723,7 @@ const STAGES = [
     choices: [
       {
         id: 'deviant-con-resale-scam-23',
+        bonusSlot: true,
         text: '중고거래 사이트에서 대금만 받고 물건은 보내지 않는다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -8812,6 +8816,7 @@ const STAGES = [
       },
       {
         id: 'deviant-con-fake-hiring-24',
+        bonusSlot: true,
         text: '가짜 채용 공고를 올려 지원자들에게 교육비를 받아 챙긴다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -10075,6 +10080,7 @@ const STAGES = [
       },
       {
         id: 'deviant-con-investment-scam-25',
+        bonusSlot: true,
         text: '가짜 투자 리딩방을 열어 지인들의 돈을 끌어모은다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -11169,6 +11175,7 @@ const STAGES = [
     choices: [
       {
         id: 'deviant-con-fake-hiring-26',
+        bonusSlot: true,
         text: '가짜 채용 공고를 올려 지원자들에게 교육비를 받아 챙긴다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -12412,6 +12419,7 @@ const STAGES = [
       },
       {
         id: 'deviant-con-lease-fraud-27',
+        bonusSlot: true,
         text: '집주인 행세를 하며 세입자의 전세 보증금을 가로챈다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -13574,6 +13582,7 @@ const STAGES = [
     choices: [
       {
         id: 'deviant-con-lease-fraud-28',
+        bonusSlot: true,
         text: '집주인 행세를 하며 세입자의 전세 보증금을 가로챈다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -14671,6 +14680,7 @@ const STAGES = [
       },
       {
         id: 'deviant-con-charity-scam-29',
+        bonusSlot: true,
         text: '가짜 자선단체를 앞세워 선량한 사람들의 후원금을 모은다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -15825,6 +15835,7 @@ const STAGES = [
       },
       {
         id: 'deviant-con-voice-phishing-30',
+        bonusSlot: true,
         text: '노인을 대상으로 한 보이스피싱 조직에 가담한다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -16857,6 +16868,7 @@ const STAGES = [
     choices: [
       {
         id: 'deviant-con-charity-scam-31',
+        bonusSlot: true,
         text: '가짜 자선단체를 앞세워 선량한 사람들의 후원금을 모은다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -17899,6 +17911,7 @@ const STAGES = [
       },
       {
         id: 'deviant-con-crypto-reading-room-2-32',
+        bonusSlot: true,
         text: '새로운 이름의 코인 리딩방을 열어 투자자를 다시 끌어모은다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -18876,6 +18889,7 @@ const STAGES = [
     choices: [
       {
         id: 'deviant-con-crypto-reading-room-2-33',
+        bonusSlot: true,
         text: '새로운 이름의 코인 리딩방을 열어 투자자를 다시 끌어모은다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -19905,6 +19919,7 @@ const STAGES = [
       },
       {
         id: 'deviant-con-insurance-fraud-34',
+        bonusSlot: true,
         text: '교통사고를 자작극으로 꾸며 보험금을 타낸다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -20962,6 +20977,7 @@ const STAGES = [
       },
       {
         id: 'deviant-con-ponzi-scheme-35',
+        bonusSlot: true,
         text: '다단계 조직을 꾸려 지인들을 끌어들인다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -21875,6 +21891,7 @@ const STAGES = [
     choices: [
       {
         id: 'deviant-con-insurance-fraud-36',
+        bonusSlot: true,
         text: '교통사고를 자작극으로 꾸며 보험금을 타낸다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -22744,6 +22761,7 @@ const STAGES = [
       },
       {
         id: 'deviant-con-inheritance-scam-37',
+        bonusSlot: true,
         text: '가짜 유산 상속 절차를 미끼로 수수료를 받아 챙긴다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -23604,6 +23622,7 @@ const STAGES = [
     choices: [
       {
         id: 'deviant-con-inheritance-scam-38',
+        bonusSlot: true,
         text: '가짜 유산 상속 절차를 미끼로 수수료를 받아 챙긴다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -24486,6 +24505,7 @@ const STAGES = [
       },
       {
         id: 'deviant-con-proxy-loan-scam-39',
+        bonusSlot: true,
         text: '다급한 청소년들에게 고금리로 대리입금을 해준다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -25271,6 +25291,7 @@ const STAGES = [
       },
       {
         id: 'deviant-con-business-fraud-40',
+        bonusSlot: true,
         text: '허위 동업 계약을 내세워 투자금만 챙기고 잠적을 준비한다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -26067,6 +26088,7 @@ const STAGES = [
     choices: [
       {
         id: 'deviant-con-proxy-loan-scam-41',
+        bonusSlot: true,
         text: '다급한 청소년들에게 고금리로 대리입금을 해준다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -26768,6 +26790,7 @@ const STAGES = [
       },
       {
         id: 'deviant-con-smishing-42',
+        bonusSlot: true,
         text: '택배 사칭 문자를 대량으로 뿌려 개인정보와 돈을 가로챈다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -27455,6 +27478,7 @@ const STAGES = [
     choices: [
       {
         id: 'deviant-con-smishing-43',
+        bonusSlot: true,
         text: '택배 사칭 문자를 대량으로 뿌려 개인정보와 돈을 가로챈다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -28177,6 +28201,7 @@ const STAGES = [
       },
       {
         id: 'deviant-con-fake-car-listing-44',
+        bonusSlot: true,
         text: '존재하지 않는 매물로 중고차 사이트에 허위 광고를 올린다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -28956,6 +28981,7 @@ const STAGES = [
       },
       {
         id: 'deviant-con-loan-fraud-45',
+        bonusSlot: true,
         text: '지인에게 큰돈을 빌린 뒤 연락을 끊고 갚지 않는다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -29767,6 +29793,7 @@ const STAGES = [
     choices: [
       {
         id: 'deviant-con-fake-car-listing-46',
+        bonusSlot: true,
         text: '존재하지 않는 매물로 중고차 사이트에 허위 광고를 올린다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -30362,6 +30389,7 @@ const STAGES = [
       },
       {
         id: 'deviant-con-counterfeit-luxury-47',
+        bonusSlot: true,
         text: '진품인 척 명품 짝퉁을 온라인으로 팔아 넘긴다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -31024,6 +31052,7 @@ const STAGES = [
     choices: [
       {
         id: 'deviant-con-counterfeit-luxury-48',
+        bonusSlot: true,
         text: '진품인 척 명품 짝퉁을 온라인으로 팔아 넘긴다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -31604,6 +31633,7 @@ const STAGES = [
       },
       {
         id: 'deviant-con-job-referral-fee-scam-49',
+        bonusSlot: true,
         text: '고수익 알바를 미끼로 소개비만 받고 잠적한다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -32193,6 +32223,7 @@ const STAGES = [
       },
       {
         id: 'con-artist-steady-grift-50',
+        bonusSlot: true,
         text: '적당히 눈치껏 잔챙이 사기를 치며 근근이 먹고산다',
         deltas: { wealth: 3, happiness: -1 },
         result: '큰 욕심 안 부리는 게, 오래가는 비결이라면 비결이었다.',
@@ -32769,6 +32800,7 @@ const STAGES = [
     choices: [
       {
         id: 'deviant-con-job-referral-fee-scam-51',
+        bonusSlot: true,
         text: '고수익 알바를 미끼로 소개비만 받고 잠적한다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -33292,6 +33324,7 @@ const STAGES = [
       },
       {
         id: 'deviant-con-ticket-scalping-scam-52',
+        bonusSlot: true,
         text: '매진된 콘서트 표가 있다며 선입금만 받고 사라진다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -33720,6 +33753,7 @@ const STAGES = [
     choices: [
       {
         id: 'deviant-con-ticket-scalping-scam-53',
+        bonusSlot: true,
         text: '매진된 콘서트 표가 있다며 선입금만 받고 사라진다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -34159,6 +34193,7 @@ const STAGES = [
       },
       {
         id: 'deviant-con-fake-lodging-booking-54',
+        bonusSlot: true,
         text: '존재하지 않는 숙소로 예약 사이트에 허위 매물을 올린다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -34619,6 +34654,7 @@ const STAGES = [
       },
       {
         id: 'con-artist-reforms-55',
+        bonusSlot: true,
         text: '이제 손을 씻고 발을 빼기로 결심한다',
         deltas: { happiness: 4, relationship: 3 },
         result: '떳떳하게 잠들 수 있다는 게, 이렇게 홀가분한 일인 줄 몰랐다.',
@@ -35282,6 +35318,7 @@ const STAGES = [
     choices: [
       {
         id: 'deviant-con-fake-lodging-booking-56',
+        bonusSlot: true,
         text: '존재하지 않는 숙소로 예약 사이트에 허위 매물을 올린다',
         requiresOccupation: ['con-artist'],
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
@@ -35714,6 +35751,7 @@ const STAGES = [
       },
       {
         id: 'con-artist-steady-grift-57',
+        bonusSlot: true,
         text: '단골 호구들을 관리하며 안정적으로 뜯어먹는다',
         deltas: { wealth: 3, happiness: -1 },
         result: '새 판을 벌이는 것보다, 이 편이 훨씬 안전했다.',
@@ -36171,6 +36209,7 @@ const STAGES = [
     choices: [
       {
         id: 'con-artist-steady-grift-58',
+        bonusSlot: true,
         text: '이번 달도 소소하게 등쳐먹으며 생활비를 번다',
         deltas: { wealth: 3, happiness: -1 },
         result: '큰 건은 아니어도, 들키지 않는 게 최고의 전략이었다.',
@@ -36693,6 +36732,7 @@ const STAGES = [
       },
       {
         id: 'con-artist-reforms-59',
+        bonusSlot: true,
         text: '이 바닥에서 완전히 손 뗄 때가 됐다고 느낀다',
         deltas: { happiness: 4, relationship: 3 },
         result: '누군가를 등쳐먹지 않고 사는 삶이, 이렇게 홀가분할 줄 몰랐다.',
