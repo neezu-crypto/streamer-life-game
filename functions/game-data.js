@@ -1898,7 +1898,8 @@ const STAGES = [
         id: 'online-friend-made',
         text: '온라인에서 만난 또래와 급속도로 친해진다',
         deltas: { relationship: 2 },
-        result: '얼굴도 모르는 사이인데, 누구보다 편하게 속마음을 털어놨다.'
+        result: '얼굴도 모르는 사이인데, 누구보다 편하게 속마음을 털어놨다.',
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
       },
       {
         id: 'social-phobia-onset-13',
@@ -12677,7 +12678,8 @@ const STAGES = [
         text: '입사 동기와 가까워진다',
         deltas: {"happiness":3},
         result: '같은 시기에 입사한 동기가, 든든한 버팀목이 되어주었다.',
-        requiresRoute: 'regular-employee'
+        requiresRoute: 'regular-employee',
+        addAcquaintance: { relation: 'colleague', label: '🧑‍💼 동료' }
       },
 
       {
@@ -13015,7 +13017,8 @@ const STAGES = [
                 "relationship": 3
         },
         "result": "핏줄은 아니어도, 어느새 마음을 나누는 사이가 됐다.",
-        "requiresRoute": "us-settled-life"
+        "requiresRoute": "us-settled-life",
+        "addAcquaintance": { "relation": "friend", "label": "🧑‍🤝‍🧑 친구", "count": 2 }
 },
       {
         "id": "se-national-injury-retirement-consider-27",
@@ -17185,7 +17188,8 @@ const STAGES = [
         text: '오래된 단골과 진짜 친구가 된다',
         deltas: {"happiness":3,"relationship":2},
         result: '장사로 시작된 인연이, 어느새 마음을 나누는 사이가 됐다.',
-        requiresRoute: 'small-business'
+        requiresRoute: 'small-business',
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
       },
 
       {
@@ -36744,7 +36748,8 @@ const STAGES = [
         text: '함께하는 봉사자들과 우정을 쌓는다',
         deltas: { relationship: 3, happiness: 2 },
         result: '비슷한 마음을 가진 사람들이라 금세 가까워졌다.',
-        requiresOccupation: ['volunteer-work']
+        requiresOccupation: ['volunteer-work'],
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구', count: 2 }
       },
       {
         id: 'con2-fill-59',
@@ -41870,7 +41875,8 @@ const STAGES = [
         text: '경로당에서 새로운 친구들을 사귄다',
         deltas: { relationship: 2, happiness: 2 },
         result: '나이 들어 사귄 친구도 꽤 진하다는 걸 알았다.',
-        requiresOccupation: ['retired']
+        requiresOccupation: ['retired'],
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구', count: 3 }
       },
       {
         id: "unhappy-74",
@@ -43044,7 +43050,8 @@ const STAGES = [
         text: '새 분야에서 맺은 인연이 가족처럼 가까워진다',
         deltas: { relationship: 2 },
         result: '늦게 만났지만 오래 알아온 사이 같았다.',
-        requiresOccupation: ['career-pivot']
+        requiresOccupation: ['career-pivot'],
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구' }
       },
       {
         id: 'ent4-fill-80',
