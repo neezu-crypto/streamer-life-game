@@ -4683,6 +4683,18 @@ const STAGES = [
     intro: '갓 어른이 된 티가 조금씩 빠지는 나이. 독립과 자유가 생각보다 훨씬 손이 많이 간다는 걸 알아갑니다.',
     choices: [
       {
+        id: 'deviant-con-romance-scam-20',
+        text: 'SNS에서 만난 상대에게 연애 감정을 미끼로 돈을 뜯어낸다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '다정한 메시지 하나에, 계좌로 돈이 착실히 흘러들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '뒤늦게 사기를 눈치챈 상대의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'insurance-opportunity-20',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -5645,6 +5657,18 @@ const STAGES = [
     intro: '방향을 조금씩 좁혀가는 나이. 막연했던 미래가 서서히 구체적인 모양을 갖추기 시작합니다.',
     choices: [
       {
+        id: 'deviant-con-romance-scam-21',
+        text: 'SNS에서 만난 상대에게 연애 감정을 미끼로 돈을 뜯어낸다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '다정한 메시지 하나에, 계좌로 돈이 착실히 흘러들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '뒤늦게 사기를 눈치챈 상대의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'insurance-opportunity-21',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -6575,6 +6599,18 @@ const STAGES = [
     ageRange: '22세',
     intro: '현실과 제대로 부딪히기 시작하는 나이. 이상과 실전 사이의 간극을 몸으로 배웁니다.',
     choices: [
+      {
+        id: 'deviant-con-resale-scam-22',
+        text: '중고거래 사이트에서 대금만 받고 물건은 보내지 않는다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '입금 확인 문자를 보자마자, 채팅방을 조용히 나가버렸다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '피해자들이 모은 증거로 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'insurance-opportunity-22',
         text: '만일을 대비해 보험에 가입한다',
@@ -7639,6 +7675,18 @@ const STAGES = [
     ageRange: '23세',
     intro: '스무 살대의 마지막 해. 자립이라는 단어가 더는 남 얘기가 아니게 됩니다.',
     choices: [
+      {
+        id: 'deviant-con-resale-scam-23',
+        text: '중고거래 사이트에서 대금만 받고 물건은 보내지 않는다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '입금 확인 문자를 보자마자, 채팅방을 조용히 나가버렸다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '피해자들이 모은 증거로 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'insurance-opportunity-23',
         text: '만일을 대비해 보험에 가입한다',
@@ -8712,6 +8760,18 @@ const STAGES = [
     ageRange: '24세',
     intro: '조직이든 방송판이든, 어엿한 한 사람 몫을 해내야 하는 첫 해. "신입"이라는 이름표가 아직은 낯섭니다.',
     choices: [
+      {
+        id: 'deviant-con-fake-hiring-24',
+        text: '가짜 채용 공고를 올려 지원자들에게 교육비를 받아 챙긴다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '면접이랍시고 늘어놓은 말들이, 생각보다 잘 먹혔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '수상함을 느낀 지원자의 신고로 조사가 시작됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'insurance-opportunity-24',
         text: '만일을 대비해 보험에 가입한다',
@@ -11057,6 +11117,18 @@ const STAGES = [
     intro: '독립과 재테크라는 현실적인 단어들이 성큼 다가오는 해입니다.',
     choices: [
       {
+        id: 'deviant-con-fake-hiring-26',
+        text: '가짜 채용 공고를 올려 지원자들에게 교육비를 받아 챙긴다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '면접이랍시고 늘어놓은 말들이, 생각보다 잘 먹혔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '수상함을 느낀 지원자의 신고로 조사가 시작됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'insurance-opportunity-26',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -12276,6 +12348,18 @@ const STAGES = [
     intro: '지금 가는 길이 맞는 길인지, 처음으로 진지하게 되묻게 되는 해입니다.',
     choices: [
       {
+        id: 'deviant-con-lease-fraud-27',
+        text: '집주인 행세를 하며 세입자의 전세 보증금을 가로챈다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 12 }, result: '계약서에 도장을 찍는 순간까지도, 상대는 의심하지 않았다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '등기부등본을 확인한 세입자에게 사기가 들통났다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'insurance-opportunity-27',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -13424,6 +13508,18 @@ const STAGES = [
     intro: '작은 성과와 함께 책임도 조금씩 무거워지는 해. 어느새 "선배"라는 말이 낯설지 않습니다.',
     choices: [
       {
+        id: 'deviant-con-lease-fraud-28',
+        text: '집주인 행세를 하며 세입자의 전세 보증금을 가로챈다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 12 }, result: '계약서에 도장을 찍는 순간까지도, 상대는 의심하지 않았다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '등기부등본을 확인한 세입자에게 사기가 들통났다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'insurance-opportunity-28',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -14501,6 +14597,18 @@ const STAGES = [
     ageRange: '29세',
     intro: '20대의 마지막 해. 지나온 시간을 한 번쯤 정리하게 됩니다.',
     choices: [
+      {
+        id: 'deviant-con-charity-scam-29',
+        text: '가짜 자선단체를 앞세워 선량한 사람들의 후원금을 모은다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '따뜻한 마음들이 모여, 엉뚱한 주머니로 흘러들어갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '기부금 사용 내역을 캐묻는 취재에 꼬리가 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'insurance-opportunity-29',
         text: '만일을 대비해 보험에 가입한다',
@@ -16667,6 +16775,18 @@ const STAGES = [
     intro: '곁에 남을 사람과 앞으로의 삶을 어떻게 그릴지, 조금 더 구체적으로 고민하는 나이입니다.',
     choices: [
       {
+        id: 'deviant-con-charity-scam-31',
+        text: '가짜 자선단체를 앞세워 선량한 사람들의 후원금을 모은다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '따뜻한 마음들이 모여, 엉뚱한 주머니로 흘러들어갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '기부금 사용 내역을 캐묻는 취재에 꼬리가 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'insurance-opportunity-31',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -17684,6 +17804,18 @@ const STAGES = [
     intro: '자산과 미래를 숫자로 계획하기 시작하는 시기. 통장 잔고가 곧 마음의 안정과 이어집니다.',
     choices: [
       {
+        id: 'deviant-con-crypto-reading-room-2-32',
+        text: '새로운 이름의 코인 리딩방을 열어 투자자를 다시 끌어모은다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '이번에도 화려한 차트 캡처 몇 장이면 충분했다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '먼저 당했던 피해자가 알아보고 신고했다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'insurance-opportunity-32',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -18648,6 +18780,18 @@ const STAGES = [
     ageRange: '33세',
     intro: '가족을 이루는 방식에 대해 스스로 답을 찾아가는 나이입니다.',
     choices: [
+      {
+        id: 'deviant-con-crypto-reading-room-2-33',
+        text: '새로운 이름의 코인 리딩방을 열어 투자자를 다시 끌어모은다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '이번에도 화려한 차트 캡처 몇 장이면 충분했다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '먼저 당했던 피해자가 알아보고 신고했다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'insurance-opportunity-33',
         text: '만일을 대비해 보험에 가입한다',
@@ -19658,6 +19802,18 @@ const STAGES = [
     ageRange: '34세',
     intro: '지금 걷는 길이 맞는지, 방향을 다시 점검하게 되는 시기입니다.',
     choices: [
+      {
+        id: 'deviant-con-insurance-fraud-34',
+        text: '교통사고를 자작극으로 꾸며 보험금을 타낸다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '가벼운 접촉사고치고는, 보험금이 꽤 짭짤했다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '블랙박스 영상 분석으로 자작극이 들통났다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'insurance-opportunity-34',
         text: '만일을 대비해 보험에 가입한다',
@@ -21601,6 +21757,18 @@ const STAGES = [
     intro: '나를 키워준 사람들을 이제는 내가 돌봐야 할 시기가 다가옵니다.',
     choices: [
       {
+        id: 'deviant-con-insurance-fraud-36',
+        text: '교통사고를 자작극으로 꾸며 보험금을 타낸다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '가벼운 접촉사고치고는, 보험금이 꽤 짭짤했다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '블랙박스 영상 분석으로 자작극이 들통났다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'insurance-opportunity-36',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -22445,6 +22613,18 @@ const STAGES = [
     ageRange: '37세',
     intro: '잊고 지내던 나 자신을 다시 챙기기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'deviant-con-inheritance-scam-37',
+        text: '가짜 유산 상속 절차를 미끼로 수수료를 받아 챙긴다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '해외에 있다는 먼 친척 이야기에, 다들 솔깃해했다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '국제 사기 수사망에 걸려 결국 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'insurance-opportunity-37',
         text: '만일을 대비해 보험에 가입한다',
@@ -23293,6 +23473,18 @@ const STAGES = [
     ageRange: '38세',
     intro: '몸이 예전 같지 않다는 걸, 무시할 수 없을 만큼 또렷하게 느끼게 됩니다.',
     choices: [
+      {
+        id: 'deviant-con-inheritance-scam-38',
+        text: '가짜 유산 상속 절차를 미끼로 수수료를 받아 챙긴다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '해외에 있다는 먼 친척 이야기에, 다들 솔깃해했다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '국제 사기 수사망에 걸려 결국 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'insurance-opportunity-38',
         text: '만일을 대비해 보험에 가입한다',
@@ -24156,6 +24348,18 @@ const STAGES = [
     ageRange: '39세',
     intro: '서른대의 마지막 해. 다가올 10년을 조용히 준비하게 됩니다.',
     choices: [
+      {
+        id: 'deviant-con-proxy-loan-scam-39',
+        text: '다급한 청소년들에게 고금리로 대리입금을 해준다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '급전이 필요한 이들에게, 이자는 늘 뒷전이었다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '피해 학생 부모의 신고로 수사선상에 올랐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'insurance-opportunity-39',
         text: '만일을 대비해 보험에 가입한다',
@@ -25723,6 +25927,18 @@ const STAGES = [
     intro: '자녀 교육이든 커리어든, 뭔가를 본격적으로 다잡아야 할 것 같은 압박이 느껴지는 나이입니다.',
     choices: [
       {
+        id: 'deviant-con-proxy-loan-scam-41',
+        text: '다급한 청소년들에게 고금리로 대리입금을 해준다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '급전이 필요한 이들에게, 이자는 늘 뒷전이었다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '피해 학생 부모의 신고로 수사선상에 올랐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'insurance-opportunity-41',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -26400,6 +26616,18 @@ const STAGES = [
     intro: '몸이 보내는 신호를 더 이상 못 본 척할 수 없게 되는 나이입니다.',
     choices: [
       {
+        id: 'deviant-con-smishing-42',
+        text: '택배 사칭 문자를 대량으로 뿌려 개인정보와 돈을 가로챈다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '그럴듯한 링크 하나에, 생각보다 많은 사람이 걸려들었다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '통신사 역추적 끝에 발신지가 특정됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'insurance-opportunity-42',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -27074,6 +27302,18 @@ const STAGES = [
     ageRange: '43세',
     intro: '조직 안에서 자신의 자리를 다시 확인하게 되는 시기입니다.',
     choices: [
+      {
+        id: 'deviant-con-smishing-43',
+        text: '택배 사칭 문자를 대량으로 뿌려 개인정보와 돈을 가로챈다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '그럴듯한 링크 하나에, 생각보다 많은 사람이 걸려들었다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '통신사 역추적 끝에 발신지가 특정됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'insurance-opportunity-43',
         text: '만일을 대비해 보험에 가입한다',
@@ -27777,6 +28017,18 @@ const STAGES = [
     ageRange: '44세',
     intro: '가까운 사이일수록 소원해지기 쉬운 나이. 관계를 다시 들여다보게 됩니다.',
     choices: [
+      {
+        id: 'deviant-con-fake-car-listing-44',
+        text: '존재하지 않는 매물로 중고차 사이트에 허위 광고를 올린다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '계약금만 받고 잠적하는 수법이, 이번에도 통했다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '피해자들이 모여 만든 단체 고소로 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'insurance-opportunity-44',
         text: '만일을 대비해 보험에 가입한다',
@@ -29346,6 +29598,18 @@ const STAGES = [
     intro: '늦지 않았다는 걸 스스로 증명하고 싶어지는 나이입니다.',
     choices: [
       {
+        id: 'deviant-con-fake-car-listing-46',
+        text: '존재하지 않는 매물로 중고차 사이트에 허위 광고를 올린다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '계약금만 받고 잠적하는 수법이, 이번에도 통했다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '피해자들이 모여 만든 단체 고소로 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'insurance-opportunity-46',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -29916,6 +30180,18 @@ const STAGES = [
     ageRange: '47세',
     intro: '나를 키워준 사람들의 노년을 마주하며, 삶과 죽음을 조금 더 가까이서 보게 됩니다.',
     choices: [
+      {
+        id: 'deviant-con-counterfeit-luxury-47',
+        text: '진품인 척 명품 짝퉁을 온라인으로 팔아 넘긴다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '감정서까지 그럴듯하게 위조하니, 다들 믿고 결제했다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '정품 감정을 의뢰한 구매자에게 덜미가 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'insurance-opportunity-47',
         text: '만일을 대비해 보험에 가입한다',
@@ -30567,6 +30843,18 @@ const STAGES = [
     intro: '커리어가 정점에 이르거나, 정체를 마주하거나 — 갈림이 뚜렷해지는 나이입니다.',
     choices: [
       {
+        id: 'deviant-con-counterfeit-luxury-48',
+        text: '진품인 척 명품 짝퉁을 온라인으로 팔아 넘긴다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '감정서까지 그럴듯하게 위조하니, 다들 믿고 결제했다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '정품 감정을 의뢰한 구매자에게 덜미가 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'insurance-opportunity-48',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -31127,6 +31415,18 @@ const STAGES = [
     ageRange: '49세',
     intro: '몸이 새로운 국면으로 접어드는 걸 느끼기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'deviant-con-job-referral-fee-scam-49',
+        text: '고수익 알바를 미끼로 소개비만 받고 잠적한다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '면접 보러 오라는 말 한마디에, 소개비부터 챙겼다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '피해자들이 올린 후기가 모여 신고로 이어졌다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'insurance-opportunity-49',
         text: '만일을 대비해 보험에 가입한다',
@@ -32257,6 +32557,18 @@ const STAGES = [
     intro: '자녀가 떠난 자리, 그 빈자리를 어떻게 채우느냐가 이 시기의 숙제입니다.',
     choices: [
       {
+        id: 'deviant-con-job-referral-fee-scam-51',
+        text: '고수익 알바를 미끼로 소개비만 받고 잠적한다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '면접 보러 오라는 말 한마디에, 소개비부터 챙겼다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '피해자들이 올린 후기가 모여 신고로 이어졌다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'insurance-opportunity-51',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -32756,6 +33068,18 @@ const STAGES = [
     intro: '은퇴라는 단어가 더는 먼 이야기가 아니게 되는 나이입니다.',
     choices: [
       {
+        id: 'deviant-con-ticket-scalping-scam-52',
+        text: '매진된 콘서트 표가 있다며 선입금만 받고 사라진다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '간절한 팬심을 이용하는 게, 생각보다 쉬웠다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '피해자 커뮤니티에 신상이 공유되며 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'insurance-opportunity-52',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -33171,6 +33495,18 @@ const STAGES = [
     ageRange: '53세',
     intro: '숫자로 남은 시간을 가늠하게 되는, 현실적인 재정비의 시기입니다.',
     choices: [
+      {
+        id: 'deviant-con-ticket-scalping-scam-53',
+        text: '매진된 콘서트 표가 있다며 선입금만 받고 사라진다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '간절한 팬심을 이용하는 게, 생각보다 쉬웠다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '피해자 커뮤니티에 신상이 공유되며 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'insurance-opportunity-53',
         text: '만일을 대비해 보험에 가입한다',
@@ -33591,6 +33927,18 @@ const STAGES = [
     ageRange: '54세',
     intro: '중년의 마지막 해. 다가올 노년을 향해 조용히 마음을 다잡습니다.',
     choices: [
+      {
+        id: 'deviant-con-fake-lodging-booking-54',
+        text: '존재하지 않는 숙소로 예약 사이트에 허위 매물을 올린다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '그럴듯한 사진 몇 장이면, 예약금은 알아서 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '현지에 도착한 피해자의 신고로 수사가 시작됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
       {
         id: 'insurance-opportunity-54',
         text: '만일을 대비해 보험에 가입한다',
@@ -34703,6 +35051,18 @@ const STAGES = [
     intro: '평생 "어디 소속"으로 나를 소개하던 습관이 사라지며, 나는 누구인가를 새삼 다시 묻게 됩니다.',
     choices: [
       {
+        id: 'deviant-con-fake-lodging-booking-56',
+        text: '존재하지 않는 숙소로 예약 사이트에 허위 매물을 올린다',
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '그럴듯한 사진 몇 장이면, 예약금은 알아서 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '현지에 도착한 피해자의 신고로 수사가 시작됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
         id: 'insurance-opportunity-56',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -35110,6 +35470,13 @@ const STAGES = [
     ageRange: '57세',
     intro: '직장이라는 울타리 없이 새로운 사람들과 관계를 다시 엮어가야 하는 시기입니다.',
     choices: [
+      {
+        id: 'con-artist-steady-grift-57',
+        text: '단골 호구들을 관리하며 안정적으로 뜯어먹는다',
+        deltas: { wealth: 3, happiness: -1 },
+        result: '새 판을 벌이는 것보다, 이 편이 훨씬 안전했다.',
+        requiresOccupation: ['con-artist']
+      },
       {
         id: 'insurance-opportunity-57',
         text: '만일을 대비해 보험에 가입한다',
@@ -35560,6 +35927,13 @@ const STAGES = [
     ageRange: '58세',
     intro: '자녀 세대가 이제 자기 가정을 꾸리며, 가족 안에서의 내 역할도 조금씩 달라집니다.',
     choices: [
+      {
+        id: 'con-artist-steady-grift-58',
+        text: '이번 달도 소소하게 등쳐먹으며 생활비를 번다',
+        deltas: { wealth: 3, happiness: -1 },
+        result: '큰 건은 아니어도, 들키지 않는 게 최고의 전략이었다.',
+        requiresOccupation: ['con-artist']
+      },
       {
         id: 'insurance-opportunity-58',
         text: '만일을 대비해 보험에 가입한다',
@@ -36068,6 +36442,16 @@ const STAGES = [
     ageRange: '59세',
     intro: '건강이 더 이상 당연한 게 아니라는 걸 받아들이고, 본격적으로 몸을 챙기기 시작하는 나이입니다.',
     choices: [
+      {
+        id: 'con-artist-reforms-59',
+        text: '이 바닥에서 완전히 손 뗄 때가 됐다고 느낀다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '누군가를 등쳐먹지 않고 사는 삶이, 이렇게 홀가분할 줄 몰랐다.',
+        requiresOccupation: ['con-artist'],
+        setOccupation: { id: 'job-changed', label: '🔄 전직' },
+        endsRoute: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
       {
         id: 'insurance-opportunity-59',
         text: '만일을 대비해 보험에 가입한다',
@@ -47400,6 +47784,122 @@ const VEHICLE_THEFT_CHOICES = [
     result: '더 이상 남의 차 열쇠를 만지지 않아도 된다는 게, 이렇게 홀가분할 줄 몰랐다.',
     setOccupation: { id: 'job-changed', label: '🔄 전직' },
     endsRoute: true
+  },
+  {
+    id: 'thief-sells-to-chop-shop',
+    text: '단골 정비소에 훔친 차를 통째로 넘겨 부품으로 해체시킨다',
+    requiresRoute: 'vehicle-thief',
+    requiresAsset: 'stolen-car',
+    removeAsset: 'stolen-car',
+    deltas: { wealth: 9, happiness: -2 },
+    result: '차 한 대가 부품 더미로 흩어지는 걸 보니, 마음이 편치만은 않았다.'
+  },
+  {
+    id: 'thief-joyride-temptation',
+    text: '팔지 않고 훔친 차로 며칠만 신나게 몰고 다닌다',
+    requiresRoute: 'vehicle-thief',
+    requiresAsset: 'stolen-car',
+    deltas: { happiness: 4, health: -1 },
+    result: '어차피 남의 것이라는 생각이, 오히려 더 대담하게 만들었다.'
+  },
+  {
+    id: 'thief-gang-rivalry',
+    text: '같은 구역을 노리는 다른 절도 조직과 신경전을 벌인다',
+    requiresRoute: 'vehicle-thief',
+    deltas: { happiness: -3, relationship: -1 },
+    result: '동네가 좁다는 걸, 이런 식으로 실감하게 될 줄은 몰랐다.'
+  },
+  {
+    id: 'thief-undercover-cop-scare',
+    text: '단골 손님인 줄 알았던 상대가 사복 경찰이었다는 걸 뒤늦게 눈치챈다',
+    requiresRoute: 'vehicle-thief',
+    deltas: { happiness: -5, health: -1 },
+    result: '식은땀이 흘렀다 - 하마터면 그 자리에서 잡힐 뻔했다.'
+  },
+  {
+    id: 'thief-gps-tracker-panic',
+    text: '훔친 차에서 위치추적기를 발견하고 서둘러 떼어낸다',
+    requiresRoute: 'vehicle-thief',
+    requiresAsset: 'stolen-car',
+    deltas: { happiness: -3 },
+    result: '조금만 늦었어도 위치가 그대로 넘어갈 뻔했다.'
+  },
+  {
+    id: 'thief-repaints-stolen-car',
+    text: '훔친 차의 번호판과 색을 바꿔 추적을 피한다',
+    requiresRoute: 'vehicle-thief',
+    requiresAsset: 'stolen-car',
+    deltas: { wealth: -2, happiness: 1 },
+    result: '돈이 좀 들었지만, 그만큼 마음은 놓였다.'
+  },
+  {
+    id: 'thief-insurance-fraud-angle',
+    text: '훔친 차를 일부러 사고 낸 뒤 보험금까지 노려본다',
+    requiresRoute: 'vehicle-thief',
+    requiresAsset: 'stolen-car',
+    removeAsset: 'stolen-car',
+    dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '보험사기 발각', min: 0.15, max: 0.55, invert: true },
+    appendPoliceCorruptionNote: true,
+    prizeTable: [
+      { weight: 70, label: '보험사기 성공', deltas: { wealth: 10, happiness: -2 }, result: '두 번 우려먹는 재미가, 생각보다 쏠쏠했다.' },
+      { weight: 30, label: '보험사기 발각', deltas: { wealth: -12, happiness: -9, relationship: -6 }, result: '보험사 조사에서 자작극 정황이 드러나 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+    ]
+  },
+  {
+    id: 'thief-family-suspects',
+    text: '가족이 갑자기 늘어난 씀씀이를 눈치채고 캐묻는다',
+    requiresRoute: 'vehicle-thief',
+    deltas: { happiness: -4, relationship: -3 },
+    result: '둘러댈 말을 찾느라, 식은땀이 다 났다.'
+  },
+  {
+    id: 'thief-lies-low-in-hideout',
+    text: '한동안 외곽의 허름한 은신처에서 숨죽이며 지낸다',
+    requiresRoute: 'vehicle-thief',
+    deltas: { happiness: -2, health: -1 },
+    result: '불편했지만, 잠잠해질 때까지는 이게 최선이었다.'
+  },
+  {
+    id: 'thief-mentors-rookie',
+    text: '이 바닥에 갓 발을 들인 후배에게 요령을 알려준다',
+    requiresRoute: 'vehicle-thief',
+    deltas: { relationship: 2, happiness: 1 },
+    result: '뿌듯함과 죄책감이 반반씩 섞인 묘한 감정이었다.'
+  },
+  {
+    id: 'thief-near-miss-with-victim',
+    text: '거리에서 우연히 예전 피해자와 마주쳐 심장이 철렁 내려앉는다',
+    requiresRoute: 'vehicle-thief',
+    deltas: { happiness: -4 },
+    result: '다행히 알아보지 못한 눈치였지만, 한참을 진정하지 못했다.'
+  },
+  {
+    id: 'thief-black-market-parts-deal',
+    text: '떼어낸 부품들을 암시장 커넥션에 넘겨 목돈을 챙긴다',
+    requiresRoute: 'vehicle-thief',
+    deltas: { wealth: 7, relationship: -1 },
+    result: '이쪽 세계도 나름의 신용이 중요하다는 걸, 그제야 알았다.'
+  },
+  {
+    id: 'thief-stakeout-paranoia',
+    text: '누군가 미행하는 것 같은 불안감에 며칠째 시달린다',
+    requiresRoute: 'vehicle-thief',
+    deltas: { happiness: -3, health: -1 },
+    result: '착각이었을지 몰라도, 한번 든 의심은 쉽게 가시지 않았다.'
+  },
+  {
+    id: 'thief-one-more-job-temptation',
+    text: '이제 그만하려던 참에, 마지막으로 한탕만 더 하자는 유혹에 흔들린다',
+    requiresRoute: 'vehicle-thief',
+    deltas: { happiness: -1 },
+    result: '"이번이 진짜 마지막"이라는 말을, 몇 번째 하는 건지 스스로도 잊었다.'
+  },
+  {
+    id: 'thief-donates-guilt-money',
+    text: '죄책감을 덜어보려 번 돈의 일부를 몰래 기부한다',
+    requiresRoute: 'vehicle-thief',
+    deltas: { wealth: -2, happiness: 2 },
+    result: '앞뒤가 안 맞는 짓이란 걸 알면서도, 조금은 마음이 가벼워졌다.'
   }
 ];
 
