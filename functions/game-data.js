@@ -9885,7 +9885,8 @@ const STAGES = [
         id: 'office-mentor-bonding-24',
         text: '직장 선배와 가까워지며 조언을 얻는다',
         deltas: { relationship: 1, happiness: 1 },
-        result: '먼저 겪어본 사람의 한마디가, 큰 힘이 됐다.'
+        result: '먼저 겪어본 사람의 한마디가, 큰 힘이 됐다.',
+        addAcquaintance: { relation: 'colleague', label: '💼 동료' }
       },
       {
         id: 'et-scout-offer-24',
@@ -14972,7 +14973,8 @@ const STAGES = [
         text: '손발이 척척 맞는 단짝 동료를 만난다',
         deltas: {"happiness":3,"relationship":2},
         result: '말 없이도 손발이 맞는 동료 하나가, 하루를 훨씬 가볍게 했다.',
-        requiresRoute: 'logistics'
+        requiresRoute: 'logistics',
+        addAcquaintance: { relation: 'colleague', label: '💼 동료' }
       },
 
       {
