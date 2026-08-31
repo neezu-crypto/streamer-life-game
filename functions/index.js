@@ -2041,7 +2041,14 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
   // 달리 재능 보유가 전제조건이다.
   const POLITICS_OCCUPATION_IDS = ['local-council-candidate', 'local-council-member'];
   if (currentOccupation && POLITICS_OCCUPATION_IDS.includes(currentOccupation.id) && talents.some((t) => t.id === 'speaking')) {
-    cashHoldings += Math.round(stats.fame * cashUnitForAge(nextIndex) / 50);
+    // 친구 수 연동 추가 배율(2026-08-31, 사용자 지시 - "정치계열은 친구수에
+    // 따라서도 추가소득 추가해줘.(1명당 기본값에 +5%씩)") - 넓은 의미의
+    // 지인이 아니라 relation이 정확히 'friend'인 경우만 센다(동료·짝사랑·
+    // 연인은 정치 후원 네트워크로 보기엔 결이 달라서 제외) - 발이 넓을수록
+    // 후원 조직이 커진다는 설정.
+    const friendCount = acquaintances.filter((a) => a.relation === 'friend').length;
+    const friendMultiplier = 1 + friendCount * 0.05;
+    cashHoldings += Math.round(stats.fame * cashUnitForAge(nextIndex) / 50 * friendMultiplier);
   }
 
   // 임대사업 소득(2026-08-23 상가 도입, 2026-08-26 오피스텔로 확대 - 사용자
