@@ -4710,6 +4710,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-romance-decline-20',
+        bonusSlot: true,
+        text: 'SNS에서 온 연애 감정 미끼를 알아채고 대화를 끊는다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '설레는 마음보다, 수상한 낌새가 먼저 눈에 띄었다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-20',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -4912,12 +4921,28 @@ const STAGES = [
         requiresRoute: 'police'
       },
       {
+        id: 'deviant-police-rookie-bribe-decline-20',
+        text: '뒷돈을 요구하려던 마음을 접고 원칙대로 처리한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '신참다운 결벽함이, 오히려 마음을 편하게 했다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
+        requiresRoute: 'police'
+      },
+      {
         id: 'cs-fill-20-1',
         text: '민원 응대 매뉴얼을 통째로 외운다',
         deltas: { wealth: 1 },
         result: '예상 밖의 민원에도 당황하지 않게 됐다.',
         requiresRoute: 'civil-servant-route',
         worldStateSignal: { key: 'civilServantService', target: 1 }
+      },
+      {
+        id: 'cs-neglects-manual-20',
+        text: '민원 응대 매뉴얼 공부를 뒷전으로 미룬다',
+        deltas: { happiness: 1 },
+        result: '당장은 편했지만, 나중에 꼭 후회할 걸 알고 있었다.',
+        requiresRoute: 'civil-servant-route',
+        worldStateSignal: { key: 'civilServantService', target: 0 }
       },
       {
         id: 'cs-fill-20-2',
@@ -5723,6 +5748,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-romance-decline-21',
+        bonusSlot: true,
+        text: '뻔한 수법이라는 걸 깨닫고 이번엔 손을 대지 않는다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '한 번 봤던 수법이라, 이번엔 넘어가지 않았다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-21',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -5929,6 +5963,14 @@ const STAGES = [
           { weight: 88, label: '안 걸림', deltas: {"wealth":3}, result: '묻지도 따지지도 않고, 봉투를 챙겼다.' },
           { weight: 12, label: '발각', deltas: {"wealth":-5,"happiness":-4,"relationship":-4}, result: '내사 소식에 상납 라인 전체가 흔들렸다.' }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-senior-cut-decline-21',
+        text: '선배가 건넨 상납금 몫을 정중히 돌려준다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '분위기가 어색해졌지만, 후회는 없었다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -6691,6 +6733,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-resale-decline-22',
+        bonusSlot: true,
+        text: '대금만 받고 물건을 안 보내려던 마음을 접는다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '보내주지 않으면 어떻게 될지, 상상만으로도 마음이 무거웠다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-22',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -6917,6 +6968,14 @@ const STAGES = [
         worldStateSignal: { key: 'civilServantService', target: 1 }
       },
       {
+        id: 'cs-neglects-manual-22',
+        text: '반복되는 민원에 지쳐 대충 응대하고 넘긴다',
+        deltas: { happiness: 1 },
+        result: '지친 티가 났는지, 민원인의 표정이 굳었다.',
+        requiresRoute: 'civil-servant-route',
+        worldStateSignal: { key: 'civilServantService', target: 0 }
+      },
+      {
         id: 'cs-fill-22-2',
         text: '야근 수당이 생각보다 짜다는 걸 깨닫는다',
         deltas: { happiness: -1, wealth: 1 },
@@ -6954,6 +7013,14 @@ const STAGES = [
           { weight: 90, label: '안 걸림', deltas: {"wealth":2,"happiness":1}, result: '별거 아니라는 생각으로, 손을 내밀었다.' },
           { weight: 10, label: '발각', deltas: {"wealth":-4,"happiness":-3}, result: '작은 봉투 하나가, 큰 곤욕으로 돌아왔다.' }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-small-gift-decline-22',
+        text: '단속 대상이 내민 작은 뇌물을 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '작은 것 하나부터 무너지면 안 된다고 생각했다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -7780,6 +7847,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-resale-decline-23',
+        bonusSlot: true,
+        text: '주문받은 물건을 그대로 정직하게 발송한다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '늦더라도, 약속한 물건은 약속대로 보냈다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-23',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -8021,6 +8097,14 @@ const STAGES = [
           { weight: 88, label: '안 걸림', deltas: {"happiness":2,"relationship":1}, result: '공짜라는 말에, 마음 편히 잔을 들었다.' },
           { weight: 12, label: '발각', deltas: {"happiness":-4,"relationship":-4,"fame":-3}, result: '접대 자리 사진이 인터넷에 돌았다.' }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-free-drinks-decline-23',
+        text: '업소의 무료 술접대 제안을 정중히 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '공짜라는 말이 오히려 더 부담스러웠다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -8885,6 +8969,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-fake-hiring-decline-24',
+        bonusSlot: true,
+        text: '가짜 채용 공고 아이디어를 접고 정직하게 돈을 번다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '쉬운 길이 보였지만, 그 길로는 가지 않기로 했다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-24',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -9150,6 +9243,14 @@ const STAGES = [
           { weight: 85, label: '안 걸림', deltas: { wealth: 3, happiness: 1 }, result: '아무도 정확한 액수를 몰랐다 - 그게 문제였다.' },
           { weight: 15, label: '발각', deltas: { wealth: -8, happiness: -6, relationship: -4 }, result: '증거물 대조 과정에서 빼돌린 액수가 고스란히 드러났다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-evidence-cash-skim-decline-24',
+        text: '압수한 현금을 한 푼도 빠짐없이 그대로 보고한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '숫자가 딱 맞아떨어지는 게, 스스로에게 떳떳했다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -10159,6 +10260,15 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '입금 알림이 하나씩 쌓일 때마다, 죄책감보다 안도감이 먼저 들었다.' },
           { weight: 18, label: '징역', deltas: { wealth: -10, happiness: -10, relationship: -8 }, result: '피해자 신고가 잇따르며 결국 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
+      },
+      {
+        id: 'deviant-con-investment-decline-25',
+        bonusSlot: true,
+        text: '가짜 투자 리딩방 개설을 그만두기로 한다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '지인들의 얼굴이 떠올라, 손이 멈췄다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
         id: 'con-artist-entry-25',
@@ -11256,6 +11366,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-fake-hiring-decline-26',
+        bonusSlot: true,
+        text: '교육비만 받고 잠적하려던 계획을 접는다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '간절한 지원자들의 얼굴에, 양심이 걸렸다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-26',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -11479,12 +11598,28 @@ const STAGES = [
         requiresRoute: 'police'
       },
       {
+        id: 'deviant-police-ticket-favor-fee-decline-26',
+        text: '지인의 벌금 취소 부탁과 사례금을 함께 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '가까운 사이일수록 더 원칙대로 해야 한다고 생각했다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
+        requiresRoute: 'police'
+      },
+      {
         id: 'cs-fill-26-1',
         text: '민원 응대 매뉴얼을 통째로 외운다',
         deltas: { wealth: 1 },
         result: '예상 밖의 민원에도 당황하지 않게 됐다.',
         requiresRoute: 'civil-servant-route',
         worldStateSignal: { key: 'civilServantService', target: 1 }
+      },
+      {
+        id: 'cs-neglects-manual-26',
+        text: '까다로운 민원을 동료에게 슬쩍 떠넘긴다',
+        deltas: { happiness: 1 },
+        result: '떠넘긴 순간은 편했지만, 뒷맛은 개운치 않았다.',
+        requiresRoute: 'civil-servant-route',
+        worldStateSignal: { key: 'civilServantService', target: 0 }
       },
       {
         id: 'cs-fill-26-2',
@@ -12512,6 +12647,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-lease-decline-27',
+        bonusSlot: true,
+        text: '집주인 행세로 보증금을 가로채려던 계획을 접는다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '평생 모은 돈이라는 세입자의 말이, 마음에 남았다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-27',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -12719,6 +12863,14 @@ const STAGES = [
           { weight: 88, label: '안 걸림', deltas: { relationship: 3, happiness: 1 }, result: '작은 부탁이었지만, 그만큼 고마움도 컸다.' },
           { weight: 12, label: '발각', deltas: { relationship: -5, happiness: -3, fame: -3 }, result: '전산 기록 감사에서 취소 이력이 그대로 남아 있었다.' }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-ticket-fix-decline-27',
+        text: '지인의 딱지 취소 부탁을 정중히 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '미안했지만, 규정은 규정이었다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -13687,6 +13839,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-lease-decline-28',
+        bonusSlot: true,
+        text: '전세 보증금에는 손대지 않기로 다짐한다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '남의 보금자리로 장난칠 수는 없었다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-28',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -13935,6 +14096,14 @@ const STAGES = [
           { weight: 80, label: '안 걸림', deltas: {"wealth":5,"happiness":1}, result: '정보 한 줄의 값이, 생각보다 컸다.' },
           { weight: 20, label: '발각', deltas: {"wealth":-8,"happiness":-7,"relationship":-5}, result: '정보가 새어나간 경로 끝에 자신이 있었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-tipoff-sale-decline-28',
+        text: '수사 정보를 팔라는 제안을 단칼에 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '정보의 무게를 아는 사람만이 할 수 있는 거절이었다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -14797,6 +14966,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-charity-decline-29',
+        bonusSlot: true,
+        text: '가짜 자선단체를 만들려던 생각을 그만둔다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '선의를 이용하는 건, 선을 넘는 일이었다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-29',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -15060,6 +15238,14 @@ const STAGES = [
           { weight: 85, label: '안 걸림', deltas: { relationship: 4, happiness: 1 }, result: '궁금해하던 지인의 얼굴이 한결 편해졌다.' },
           { weight: 15, label: '발각', deltas: { wealth: -2, relationship: -6, happiness: -5, fame: -4 }, result: '조회 로그가 감사팀에 그대로 잡혔다.' }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-record-lookup-decline-29',
+        text: '지인의 사건 기록 조회 부탁을 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '규정 밖의 호의는, 결국 문제가 된다는 걸 알고 있었다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -15964,6 +16150,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-voicephishing-decline-30',
+        bonusSlot: true,
+        text: '보이스피싱 조직의 가담 제안을 거절한다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '노인을 노린다는 말에, 바로 마음을 접었다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'con-artist-entry-30',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -16198,6 +16393,14 @@ const STAGES = [
           { weight: 85, label: '안 걸림', deltas: {"wealth":4}, result: '한마디 거들었을 뿐인데, 두둑한 사례가 돌아왔다.' },
           { weight: 15, label: '발각', deltas: {"wealth":-7,"relationship":-5,"fame":-4}, result: '청탁 정황이 인사 감사에서 드러났다.' }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-hiring-favor-decline-30',
+        text: '채용 청탁과 사례금을 모두 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '공정함이 흔들리는 순간, 신뢰도 함께 무너진다고 믿었다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -17009,6 +17212,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-charity-decline-31',
+        bonusSlot: true,
+        text: '이번엔 진짜 후원금을 걷어 제대로 전달한다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '모금함에 담긴 마음을, 그대로 전하고 싶었다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-31',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -17259,6 +17471,14 @@ const STAGES = [
           { weight: 80, label: '안 걸림', deltas: {"wealth":5}, result: '미리 귀띔해준 대가로, 봉투가 두둑했다.' },
           { weight: 20, label: '발각', deltas: {"wealth":-9,"happiness":-6,"relationship":-5}, result: '단속 때마다 허탕 치는 패턴이 결국 의심을 샀다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-vice-tipoff-decline-31',
+        text: '유흥업소에 단속 정보를 흘리라는 제안을 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '미리 알려주는 순간, 단속은 의미를 잃는다고 생각했다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -18064,6 +18284,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-crypto-decline-32',
+        bonusSlot: true,
+        text: '새 이름의 코인 리딩방 개설 계획을 접는다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '또 누군가를 속일 생각을 하니, 손이 떨어지지 않았다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-32',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -18279,6 +18508,14 @@ const STAGES = [
           { weight: 72, label: '안 걸림', deltas: {"wealth":10}, result: '수량을 맞춰놓았으니, 들킬 리 없다고 믿었다.' },
           { weight: 28, label: '발각', deltas: {"wealth":-18,"happiness":-14,"relationship":-8,"fame":-10}, result: '재고 대조 과정에서 빼돌린 양이 그대로 드러났다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-drug-resale-decline-32',
+        text: '압수한 마약을 규정대로 전량 폐기 처리한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '수량 하나까지 정확히 맞춰, 뒤탈을 남기지 않았다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -19054,6 +19291,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-crypto-decline-33',
+        bonusSlot: true,
+        text: '코인 리딩방 재개설을 포기하고 발을 뺀다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '한 번의 실수로 충분하다고 생각했다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-33',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -19311,6 +19557,14 @@ const STAGES = [
           { weight: 80, label: '안 걸림', deltas: { wealth: 6, happiness: 2 }, result: '기사가 터진 다음 날, 통장에도 조용히 입금이 됐다.' },
           { weight: 20, label: '발각', deltas: { wealth: -10, happiness: -8, relationship: -6 }, result: '기자와 주고받은 메시지가 감찰 조사에서 그대로 나왔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-info-sale-decline-33',
+        text: '언론의 정보 매입 제안을 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '기삿거리보다, 수사의 신뢰가 먼저였다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -20094,6 +20348,15 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '가벼운 접촉사고치고는, 보험금이 꽤 짭짤했다.' },
           { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '블랙박스 영상 분석으로 자작극이 들통났다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
+      },
+      {
+        id: 'deviant-con-insurance-decline-34',
+        bonusSlot: true,
+        text: '보험금을 노린 자작극 계획을 접는다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '작은 사고를 큰 거짓말로 키우고 싶지 않았다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
         id: 'insurance-opportunity-34',
@@ -21154,6 +21417,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-ponzi-decline-35',
+        bonusSlot: true,
+        text: '다단계 조직을 꾸리려던 계획을 접는다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '지인들을 끌어들일 생각에, 마음이 무거워졌다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'con-artist-entry-35',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -21411,6 +21683,14 @@ const STAGES = [
           { weight: 78, label: '안 걸림', deltas: {"wealth":3,"fame":1}, result: '진술이 원하는 방향으로 조금씩 다듬어졌다.' },
           { weight: 22, label: '발각', deltas: {"wealth":-9,"happiness":-8,"relationship":-6}, result: '증인의 뒤늦은 양심선언이 모든 걸 뒤집었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-witness-coach-decline-35',
+        text: '증인에게 뒷돈을 주고 진술을 바꾸려던 계획을 접는다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '진실을 돈으로 사는 건, 넘지 말아야 할 선이었다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -22080,6 +22360,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-insurance-decline-36',
+        bonusSlot: true,
+        text: '보험사기 유혹을 뿌리치고 정직하게 처리한다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '손해를 감수하더라도, 거짓말은 하지 않기로 했다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-36',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -22328,6 +22617,14 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: {"wealth":5}, result: '공무를 빙자한 사적 앙갚음이, 뒷돈까지 챙겨줬다.' },
           { weight: 18, label: '발각', deltas: {"wealth":-8,"relationship":-6,"happiness":-5}, result: '반복된 표적 단속이 감찰의 눈에 띄었다.' }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-personal-grudge-decline-36',
+        text: '사적 감정을 접고 공정하게 단속을 배분한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '개인적인 앙금을 공무에 섞을 순 없었다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -22962,6 +23259,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-inheritance-decline-37',
+        bonusSlot: true,
+        text: '가짜 유산 상속 절차 사기를 그만두기로 한다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '헛된 희망을 파는 일은, 더는 하고 싶지 않았다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-37',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -23189,6 +23495,14 @@ const STAGES = [
           { weight: 78, label: '안 걸림', deltas: { wealth: 2, fame: 2, happiness: 2 }, result: '빠른 종결 소식에 다들 실력을 칭찬했다 - 진실은 아무도 몰랐다.' },
           { weight: 22, label: '발각', deltas: { wealth: -10, happiness: -10, relationship: -8, fame: -10 }, result: '재수사 과정에서 조작된 정황이 낱낱이 드러났다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-evidence-tamper-decline-37',
+        text: '증거를 조작하지 않고 원칙대로 수사를 이어간다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '시간이 걸려도, 사실 그대로가 가장 중요했다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -23835,6 +24149,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-inheritance-decline-38',
+        bonusSlot: true,
+        text: '수수료만 챙기고 잠적하려던 계획을 접는다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '기대에 부푼 얼굴들을 보니, 발이 떨어지지 않았다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-38',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -24099,6 +24422,14 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: {"wealth":5}, result: '눈치를 준 것만으로, 알아서 봉투가 채워졌다.' },
           { weight: 18, label: '발각', deltas: {"relationship":-8,"happiness":-6,"fame":-5}, result: '더는 못 참겠다는 부하 직원의 투서가 감찰로 들어갔다.' }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-extort-junior-decline-38',
+        text: '부하 직원에게 상납을 요구하지 않는다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '내가 겪은 부조리를, 대물림하고 싶지 않았다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -24730,6 +25061,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-proxyloan-decline-39',
+        bonusSlot: true,
+        text: '청소년 대상 고금리 대리입금을 그만두기로 한다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '자기보다 어린 상대라는 게, 마음에 걸렸다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-39',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -24980,6 +25320,14 @@ const STAGES = [
           { weight: 80, label: '안 걸림', deltas: {"wealth":4,"fame":2}, result: '부풀린 숫자가, 특진 명단과 함께 돈까지 불려줬다.' },
           { weight: 20, label: '발각', deltas: {"wealth":-7,"happiness":-6,"fame":-6}, result: '재검토 과정에서 부풀린 실적이 낱낱이 드러났다.' }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-fake-merit-decline-39',
+        text: '실적을 부풀리지 않고 있는 그대로 보고한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '숫자를 꾸미느니, 한 해 늦는 특진을 택했다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -25528,6 +25876,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-business-decline-40',
+        bonusSlot: true,
+        text: '허위 동업 계약으로 투자금을 챙기려던 계획을 접는다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '함께하자던 사람들의 믿음을, 저버릴 수 없었다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'con-artist-entry-40',
         text: '손쉬운 한탕을 노려보기로 마음먹는다',
         deltas: { happiness: 1 },
@@ -25735,6 +26092,14 @@ const STAGES = [
           { weight: 75, label: '안 걸림', deltas: {"wealth":7}, result: '매달 정해진 날, 정해진 액수가 조용히 건너왔다.' },
           { weight: 25, label: '발각', deltas: {"wealth":-14,"happiness":-10,"relationship":-7}, result: '계좌 흐름을 추적한 감찰반에 유착 관계가 통째로 걸렸다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-vice-monthly-decline-40',
+        text: '유흥업소 사장의 정기 상납 제안을 끊어낸다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '매달 봉투를 거절하는 것도, 이제는 익숙해졌다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -26337,6 +26702,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-proxyloan-decline-41',
+        bonusSlot: true,
+        text: '대리입금 장사를 완전히 접기로 한다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '이자 놀음으로 어린 학생들을 옥죄고 싶지 않았다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-41',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -26587,6 +26961,14 @@ const STAGES = [
           { weight: 75, label: '안 걸림', deltas: { wealth: 8, happiness: 1 }, result: '매달 정해진 날, 정해진 액수가 조용히 건너왔다.' },
           { weight: 25, label: '발각', deltas: { wealth: -15, happiness: -12, relationship: -8, fame: -10 }, result: '계좌 추적 끝에 유착 관계가 통째로 드러났다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-gang-payoff-decline-41',
+        text: '폭력조직의 상납 제안을 단호히 뿌리친다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '조직과 얽히는 순간, 돌이킬 수 없다는 걸 알고 있었다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -27051,6 +27433,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-smishing-decline-42',
+        bonusSlot: true,
+        text: '택배 사칭 문자 발송 제안을 거절한다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '무작위로 누군가를 속인다는 게, 영 내키지 않았다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-42',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -27285,6 +27676,14 @@ const STAGES = [
           { weight: 85, label: '안 걸림', deltas: {"wealth":3}, result: '영수증 몇 장이, 조용히 액수를 부풀렸다.' },
           { weight: 15, label: '발각', deltas: {"wealth":-6,"happiness":-4}, result: '정기 회계 감사에서 리베이트 흔적이 드러났다.' }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-expense-rebate-decline-42',
+        text: '조사비 영수증을 있는 그대로 정직하게 처리한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '몇 푼 아끼자고, 신뢰를 깎아내리고 싶지 않았다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -27751,6 +28150,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-smishing-decline-43',
+        bonusSlot: true,
+        text: '스미싱 문자 대량 발송을 그만두기로 한다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '한 번으로 충분한 실수였다고 되뇌었다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-43',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -28006,6 +28414,14 @@ const STAGES = [
           { weight: 88, label: '안 걸림', deltas: {"wealth":2}, result: '작은 상품권 몇 장이, 관계를 부드럽게 만들었다.' },
           { weight: 12, label: '발각', deltas: {"wealth":-4,"happiness":-3,"relationship":-3}, result: '업체 장부에 남은 기록이 그대로 물증이 됐다.' }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-gift-card-decline-43',
+        text: '단속 대상 업체가 건넨 상품권을 정중히 돌려준다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '작은 호의가 쌓이면, 결국 눈을 감게 된다고 생각했다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -28486,6 +28902,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-fakecar-decline-44',
+        bonusSlot: true,
+        text: '존재하지 않는 매물 광고를 올리지 않기로 한다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '헛걸음할 사람들을 생각하니, 마음이 편치 않았다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-44',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -28730,6 +29155,14 @@ const STAGES = [
           { weight: 80, label: '안 걸림', deltas: {"wealth":5,"fame":1}, result: '기사가 나간 다음 날, 조용히 입금이 됐다.' },
           { weight: 20, label: '발각', deltas: {"wealth":-8,"happiness":-6,"relationship":-5}, result: '기자와 나눈 메시지 기록이 감찰 조사에서 나왔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-media-leak-fee-decline-44',
+        text: '정보를 흘리고 대가를 받으라는 제안을 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '기삿값보다 무거운 게, 수사관의 입이었다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -29231,6 +29664,14 @@ const STAGES = [
         worldStateSignal: {"key":"tourGuideHonesty","target":1}
       },
       {
+        id: 'tour-guide-accurate-history-45',
+        text: '지루하더라도 사실 그대로 유적지 역사를 설명한다',
+        deltas: { happiness: -1, fame: 1 },
+        result: '재미는 덜했을지 몰라도, 틀린 걸 알려주지는 않았다.',
+        requiresOccupation: ['tour-guide'],
+        worldStateSignal: { key: 'tourGuideHonesty', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-45',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -29276,6 +29717,15 @@ const STAGES = [
           { weight: 84, label: '안 걸림', deltas: { wealth: 6 }, result: '전화번호를 바꾸고 나니, 마음도 한결 가벼워졌다.' },
           { weight: 16, label: '징역', deltas: { wealth: -9, happiness: -9, relationship: -7 }, result: '사기죄로 고소당해 결국 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
+      },
+      {
+        id: 'deviant-con-loan-decline-45',
+        bonusSlot: true,
+        text: '빌린 돈을 갚지 않으려던 마음을 고쳐먹는다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '연락을 끊는 대신, 조금씩이라도 갚아나가기로 했다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
         id: 'con-artist-entry-45',
@@ -29507,6 +29957,14 @@ const STAGES = [
           { weight: 85, label: '안 걸림', deltas: { wealth: 3, happiness: 1 }, result: '몇 장의 영수증이 조용히 액수를 부풀렸다.' },
           { weight: 15, label: '발각', deltas: { wealth: -6, happiness: -4, relationship: -3 }, result: '정기 회계 감사에서 부풀린 내역이 걸렸다.' }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-expense-padding-decline-45',
+        text: '수사비 영수증을 부풀리지 않고 정확히 청구한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '작은 액수라도, 정직하게 남기고 싶었다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -30102,6 +30560,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-fakecar-decline-46',
+        bonusSlot: true,
+        text: '중고차 허위 매물 등록을 포기한다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '실제로 있지도 않은 차를 팔 수는 없었다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-46',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -30350,6 +30817,14 @@ const STAGES = [
           { weight: 78, label: '안 걸림', deltas: {"wealth":6}, result: '한마디 힘을 보탠 대가로, 큰돈이 오갔다.' },
           { weight: 22, label: '발각', deltas: {"wealth":-10,"happiness":-8,"relationship":-6}, result: '인사 비리 전수조사에서 청탁 정황이 드러났다.' }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-promotion-payoff-decline-46',
+        text: '승진 청탁과 금품 제안을 함께 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '실력으로 오르지 못한다면, 오르지 않는 편을 택했다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -30710,6 +31185,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-counterfeit-decline-47',
+        bonusSlot: true,
+        text: '명품 짝퉁을 진품으로 속여 팔려던 계획을 접는다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '속아서 좋아할 얼굴을 떠올리니, 마음이 편치 않았다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-47',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -30973,6 +31457,14 @@ const STAGES = [
           { weight: 75, label: '안 걸림', deltas: {"wealth":8}, result: '자료 몇 장의 값이, 상상보다 컸다.' },
           { weight: 25, label: '발각', deltas: {"wealth":-14,"happiness":-10,"relationship":-8,"fame":-8}, result: '유출 경로를 추적한 끝에 결국 덜미가 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-data-sale-decline-47',
+        text: '수사 자료를 경쟁 업체에 팔라는 제안을 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '자료 한 장의 무게를, 돈으로 재고 싶지 않았다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -31385,6 +31877,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-counterfeit-decline-48',
+        bonusSlot: true,
+        text: '짝퉁 판매 대신 있는 그대로 정직하게 판다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '가품은 가품이라고, 있는 그대로 알렸다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-48',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -31655,6 +32156,14 @@ const STAGES = [
           { weight: 78, label: '안 걸림', deltas: {"wealth":10}, result: '마지막이라는 말에, 그 어느 때보다 큰돈이 오갔다.' },
           { weight: 22, label: '발각', deltas: {"wealth":-14,"happiness":-10,"relationship":-8}, result: '은퇴를 코앞에 두고, 마지막 청탁의 흔적이 발목을 잡았다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-final-favor-decline-48',
+        text: '은퇴를 앞두고 들어온 마지막 청탁을 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '마지막까지 떳떳하고 싶었다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
@@ -31976,6 +32485,15 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '면접 보러 오라는 말 한마디에, 소개비부터 챙겼다.' },
           { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '피해자들이 올린 후기가 모여 신고로 이어졌다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
+      },
+      {
+        id: 'deviant-con-jobreferral-decline-49',
+        bonusSlot: true,
+        text: '소개비만 받고 잠적하려던 계획을 접는다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '고수익을 바라던 순수한 기대를, 이용하고 싶지 않았다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
         id: 'insurance-opportunity-49',
@@ -33145,6 +33663,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-jobreferral-decline-51',
+        bonusSlot: true,
+        text: '알바 소개 사기를 완전히 그만두기로 한다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '더는 누군가의 절박함을 이용하고 싶지 않았다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-51',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -33669,6 +34196,15 @@ const STAGES = [
         ]
       },
       {
+        id: 'deviant-con-ticketscam-decline-52',
+        bonusSlot: true,
+        text: '없는 콘서트 표로 선입금을 받으려던 계획을 접는다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '기대에 부푼 팬의 마음을, 짓밟고 싶지 않았다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
         id: 'insurance-opportunity-52',
         text: '만일을 대비해 보험에 가입한다',
         deltas: { wealth: -2, happiness: 1 },
@@ -34096,6 +34632,15 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '간절한 팬심을 이용하는 게, 생각보다 쉬웠다.' },
           { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '피해자 커뮤니티에 신상이 공유되며 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
+      },
+      {
+        id: 'deviant-con-ticketscam-decline-53',
+        bonusSlot: true,
+        text: '티켓 사기 계획을 완전히 접는다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '한 번의 유혹으로 충분했다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
         id: 'insurance-opportunity-53',
@@ -34536,6 +35081,15 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '그럴듯한 사진 몇 장이면, 예약금은 알아서 들어왔다.' },
           { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '현지에 도착한 피해자의 신고로 수사가 시작됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
+      },
+      {
+        id: 'deviant-con-lodging-decline-54',
+        bonusSlot: true,
+        text: '존재하지 않는 숙소 매물 등록을 포기한다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '여행 설렘을 짓밟는 일은 하고 싶지 않았다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
         id: 'insurance-opportunity-54',
@@ -35669,6 +36223,15 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '그럴듯한 사진 몇 장이면, 예약금은 알아서 들어왔다.' },
           { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -7 }, result: '현지에 도착한 피해자의 신고로 수사가 시작됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
+      },
+      {
+        id: 'deviant-con-lodging-decline-56',
+        bonusSlot: true,
+        text: '허위 숙소 매물 사기를 완전히 그만두기로 한다',
+        requiresOccupation: ['con-artist'],
+        deltas: { happiness: 2, relationship: 1 },
+        result: '한 번의 실수로 충분하다고 되뇌었다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
         id: 'insurance-opportunity-56',
@@ -36812,6 +37375,14 @@ const STAGES = [
           { weight: 80, label: '안 걸림', deltas: { wealth: 10, happiness: 1 }, result: '마지막이라는 말에, 큰돈이 오갔다.' },
           { weight: 20, label: '발각', deltas: { wealth: -12, happiness: -10, relationship: -8, fame: -8 }, result: '퇴직을 코앞에 두고, 오래된 청탁의 흔적이 발목을 잡았다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ],
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-coldcase-favor-decline-58',
+        text: '미제 사건 증거를 없애달라는 청탁을 끝내 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '은퇴를 코앞에 두고도, 원칙만은 지키고 싶었다.',
+        worldStateSignal: { key: 'policeCorruption', target: 0 },
         requiresRoute: 'police'
       },
       {
