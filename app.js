@@ -340,7 +340,8 @@ const TALENTS_META = [
   { id: 'acting', title: '🎭 연기', icon: '🎭' },
   { id: 'hidden-talent', title: '✨ 숨은 끼', icon: '✨' },
   { id: 'coding', title: '💻 코딩', icon: '💻' },
-  { id: 'language', title: '🌐 어학', icon: '🌐' }
+  { id: 'language', title: '🌐 어학', icon: '🌐' },
+  { id: 'electrical', title: '⚡ 전기', icon: '⚡' }
 ];
 const ASSETS_META = [
   { id: 'lottery-ticket', title: '🎟️ 복권', icon: '🎟️' },

@@ -1441,6 +1441,18 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
         if (priorTalents.some((t) => t.id === 'acting')) value -= 0.10;
         value = Math.max(0.05, value);
       }
+      // 차량 절도 재능 연동 발각확률 감소(2026-08-31, 사용자 지시 - "코딩과
+      // 전기 재능 둘 다 발각확률 감소") - 첫 절도 시도(car-theft-attempt-XX)는
+      // 아직 vehicle-thief 직업이 붙기 전이라 직업 기준으로는 못 거니,
+      // caughtLabel로 "절도 발각" 계열 선택지 전부(최초 시도 + 이후 재범)를
+      // 구분한다. 코딩은 전자식 잠금장치를 무력화하고, 전기는 배선을 다뤄
+      // 경보를 우회한다는 설정 - 둘 다 있으면 20%p 감소, 하한은 con-artist와
+      // 동일하게 5%.
+      if (choice.dynamicPrizeWeight.caughtLabel === '절도 발각') {
+        if (priorTalents.some((t) => t.id === 'coding')) value -= 0.10;
+        if (priorTalents.some((t) => t.id === 'electrical')) value -= 0.10;
+        value = Math.max(0.05, value);
+      }
       const caughtWeight = value * 100;
       const others = choice.prizeTable.filter((p) => p.label !== caughtLabel);
       const othersTotalWeight = others.reduce((sum, p) => sum + p.weight, 0) || 1;

@@ -1918,6 +1918,13 @@ const STAGES = [
         deltas: { happiness: -4, relationship: -3 },
         result: '손을 들려다가도, 매번 도로 내렸다.',
         addCondition: { id: 'social-phobia', label: '🙈 사회불안장애', mental: true }
+      },
+      {
+        id: 'electrical-tinkering-13',
+        text: '고장 난 전자기기를 혼자 뜯어보다 고쳐낸다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '선 몇 가닥을 다시 잇자, 죽어있던 기계가 다시 살아났다.',
+        addTalent: { id: 'electrical', label: '⚡ 전기' }
       }
     ]
   },
