@@ -25968,7 +25968,21 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { happiness: 4 }, result: '편했지만, 아무도 문제 삼지 않았다.' },
           { weight: 18, label: '발각', deltas: { fame: -9, happiness: -5, relationship: -4 }, result: '폭로 글이 퍼지며 "갑질 의원" 논란에 휩싸였다.' }
         ]
-      }
+      },
+      {
+        id: 'child-recital-attend-39',
+        text: '아이의 학예회 공연을 보러 간다',
+        deltas: {"happiness":3},
+        result: '서툰 몸짓 하나하나가 그날 최고의 무대였다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-homework-help-39',
+        text: '아이 숙제를 봐주다가 예상 밖의 진땀을 뺀다',
+        deltas: {"happiness":-1},
+        result: '초등학교 수학이 이렇게 어려웠나 싶었다.',
+        requiresFamilyMember: ['child']
+      },
     ]
   },
   {
@@ -28305,7 +28319,21 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '몰래 챙긴 자금이 차곡차곡 쌓였다.' },
           { weight: 18, label: '발각', deltas: { wealth: -5, fame: -8, happiness: -5 }, result: '회계 감사에서 비자금 정황이 포착돼 곤욕을 치렀다.' }
         ]
-      }
+      },
+      {
+        id: 'child-report-card-42',
+        text: '아이의 첫 성적표를 받아 든다',
+        deltas: {"happiness":2},
+        result: '숫자보다 그 옆의 담임 선생님 메모가 더 마음에 남았다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-friend-conflict-comfort-42',
+        text: '친구와 다퉜다는 아이를 다독여준다',
+        deltas: {"relationship":2},
+        result: '별일 아니라는 말보다, 그냥 들어주는 게 먼저였다.',
+        requiresFamilyMember: ['child']
+      },
     ]
   },
   {
@@ -30715,7 +30743,21 @@ const STAGES = [
         deltas: { wealth: 3, happiness: 3 },
         result: '까맣게 잊고 있던 클립이, 새로운 세대에게 발견됐다.',
         requiresOccupation: ['streamer']
-      }
+      },
+      {
+        id: 'child-puberty-distance-45',
+        text: '사춘기에 접어든 아이와 서먹해진다',
+        deltas: {"happiness":-2,"relationship":-1},
+        result: '방문 너머로 짧아진 대답이 유독 서운했다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-career-worry-listen-45',
+        text: '진로를 고민하는 아이의 이야기를 들어준다',
+        deltas: {"relationship":2},
+        result: '정답을 주기보다, 곁에 있어주는 쪽을 택했다.',
+        requiresFamilyMember: ['child']
+      },
     ]
   },
   {
@@ -31354,6 +31396,20 @@ const STAGES = [
         text: '오랜 친구에게 사업 자금을 다시 한번 빌려준다',
         deltas: { happiness: 3, wealth: 5 },
         result: '이번엔 정말 다를 거라던 말 그대로, 원금에 이자까지 얹어 돌아왔다.'
+      },
+      {
+        id: 'child-middle-school-prep-46',
+        text: '아이의 중학교 입학을 준비한다',
+        deltas: {"wealth":-1,"happiness":1},
+        result: '교복 치수를 재는 아이가 부쩍 커 보였다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-game-addiction-clash-46',
+        text: '게임에 빠진 아이와 실랑이를 벌인다',
+        deltas: {"happiness":-1},
+        result: '한 판만 더라는 말을 몇 번이나 들었는지 몰랐다.',
+        requiresFamilyMember: ['child']
       },
     ]
   },
@@ -33226,6 +33282,20 @@ const STAGES = [
         result: '지인의 사업이 잘 풀리며, 빌려준 돈에 수익금까지 얹어 돌아왔다.',
         requiresAnyAcquaintance: true
       },
+      {
+        id: 'child-exam-prep-support-49',
+        text: '수험생이 된 아이의 뒷바라지를 시작한다',
+        deltas: {"wealth":-2,"happiness":-1},
+        result: '도시락을 싸는 손이 예전보다 훨씬 정성스러워졌다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-path-disagreement-49',
+        text: '아이와 진로를 두고 의견 차이를 겪는다',
+        deltas: {"relationship":-1},
+        result: '걱정에서 나온 말인데도, 서로에게 상처만 남겼다.',
+        requiresFamilyMember: ['child']
+      },
     ]
   },
   {
@@ -34851,7 +34921,21 @@ const STAGES = [
         deltas: { wealth: 6, happiness: 3 },
         result: '간판을 내리던 날, 서운함보다 홀가분함이 더 컸다.',
         requiresOccupation: ['doctor']
-      }
+      },
+      {
+        id: 'child-exam-day-anxiety-52',
+        text: '수험생 아이의 시험날, 온 신경이 곤두선다',
+        deltas: {"health":-1,"happiness":-1},
+        result: '문제 하나에 인생이 걸린 것 같은 하루였다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-college-accept-joy-52',
+        text: '아이가 원하는 대학에 합격했다는 소식을 듣는다',
+        deltas: {"happiness":5},
+        result: '전화기 너머 아이 목소리보다 더 크게 웃었다.',
+        requiresFamilyMember: ['child']
+      },
     ]
   },
   {
@@ -35293,6 +35377,20 @@ const STAGES = [
         requiresAnyLover: true,
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
+      },
+      {
+        id: 'child-adult-distance-53',
+        text: '성인이 된 아이와 부쩍 대화가 줄었음을 느낀다',
+        deltas: {"happiness":-1},
+        result: '한 지붕 아래 살아도, 마음의 거리는 자꾸 벌어졌다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-military-farewell-53',
+        text: '군에 입대하는 아이를 배웅한다',
+        deltas: {"happiness":-2,"relationship":1},
+        result: '씩씩한 척했지만, 뒷모습이 사라질 때까지 눈을 떼지 못했다.',
+        requiresFamilyMember: ['child']
       },
     ]
   },
@@ -36442,7 +36540,21 @@ const STAGES = [
         deltas: { wealth: 2, happiness: 3 },
         result: '목소리만으로 전하는 이야기에도, 나름의 매력이 있었다.',
         requiresOccupation: ['idol']
-      }
+      },
+      {
+        id: 'child-tuition-savings-55',
+        text: '아이의 대학 등록금을 마련하느라 허리띠를 졸라맨다',
+        deltas: {"wealth":-3},
+        result: '아끼고 아낀 만큼, 아이의 앞날이 조금은 가벼워지길 바랐다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-moves-out-55',
+        text: '아이가 독립해 자취를 시작한다며 짐을 싼다',
+        deltas: {"happiness":-2},
+        result: '빈 방 하나가 이렇게 크게 느껴질 줄 몰랐다.',
+        requiresFamilyMember: ['child']
+      },
     ]
   },
   {
@@ -36872,6 +36984,20 @@ const STAGES = [
         requiresAnyLover: true,
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
+      },
+      {
+        id: 'child-empty-room-56',
+        text: '빈 방을 보며 허전함을 느낀다',
+        deltas: {"happiness":-2},
+        result: '문을 열 때마다 아이의 흔적만 남아 있었다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-first-job-56',
+        text: '아이가 취업했다는 소식에 기뻐한다',
+        deltas: {"happiness":4},
+        result: '드디어 제 몫을 시작했다는 생각에 눈시울이 뜨거워졌다.',
+        requiresFamilyMember: ['child']
       },
     ]
   },
@@ -37342,6 +37468,27 @@ const STAGES = [
         requiresAnyLover: true,
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
+      },
+      {
+        id: 'child-marriage-news-57',
+        text: '아이의 결혼 소식에 만감이 교차한다',
+        deltas: {"happiness":3,"relationship":2},
+        result: '기쁘면서도, 이제 정말 다 컸구나 싶어 마음이 복잡했다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-in-laws-meeting-57',
+        text: '예비 사돈댁과 상견례 자리를 갖는다',
+        deltas: {"happiness":1},
+        result: '어색한 자리였지만, 서로의 마음만은 분명했다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-wedding-prep-57',
+        text: '아이의 결혼 준비를 도우며 정신없는 나날을 보낸다',
+        deltas: {"wealth":-2,"health":-1},
+        result: '몸은 힘들어도, 이런 바쁨이라면 얼마든지 환영이었다.',
+        requiresFamilyMember: ['child']
       },
     ]
   },
@@ -38325,6 +38472,20 @@ const STAGES = [
         requiresAnyLover: true,
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
+      },
+      {
+        id: 'child-newlywed-home-support-59',
+        text: '아이의 신혼집 마련을 조금이나마 보탠다',
+        deltas: {"wealth":-4,"happiness":2},
+        result: '해줄 수 있는 만큼 해주고 싶은 마음뿐이었다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-awkward-holiday-59',
+        text: '아이 부부와 서먹한 명절을 보낸다',
+        deltas: {"happiness":-1},
+        result: '가족이 됐다는 실감이 아직은 낯설었다.',
+        requiresFamilyMember: ['child']
       },
     ]
   },
@@ -39322,6 +39483,20 @@ const STAGES = [
         deltas: { health: 1, wealth: -1 },
         result: '식탁 위 영양제 병이, 어느새 하나둘 늘어 있었다.'
       },
+      {
+        id: 'child-moving-nearby-61',
+        text: '아이가 사는 곳 근처로 이사를 고민한다',
+        deltas: {"happiness":1},
+        result: '가까이 있고 싶은 마음과 서로의 독립 사이에서 저울질했다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-surprise-call-61',
+        text: '아이에게 오랜만에 걸려온 안부 전화가 반갑다',
+        deltas: {"happiness":2},
+        result: '별일 아닌 통화인데도 하루 종일 기분이 좋았다.',
+        requiresFamilyMember: ['child']
+      },
     ]
   },
   {
@@ -40263,7 +40438,21 @@ const STAGES = [
         deltas: { wealth: 2, happiness: 2 },
         result: '평생 쌓은 코드가, 이제는 다음 세대의 교재가 됐다.',
         requiresOccupation: ['senior-developer']
-      }
+      },
+      {
+        id: 'child-business-fund-request-63',
+        text: '사업을 시작하겠다는 아이에게 자금을 보탤지 고민한다',
+        deltas: {"wealth":-3,"happiness":1},
+        result: '위험한 걸 알면서도, 응원하는 쪽을 택했다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-holiday-cooking-alone-63',
+        text: '바쁜 아이 대신 명절 음식을 손수 준비한다',
+        deltas: {"happiness":1,"health":-1},
+        result: '적적함보다 정성이 앞섰다.',
+        requiresFamilyMember: ['child']
+      },
     ]
   },
   {
@@ -40659,6 +40848,20 @@ const STAGES = [
         text: '규칙적인 아침 루틴에서 소소한 만족을 느낀다',
         deltas: { happiness: 1 },
         result: '특별할 것 없는 하루의 시작이, 오히려 든든했다.'
+      },
+      {
+        id: 'child-burden-worry-64',
+        text: '아이에게 짐이 되고 싶지 않다는 생각이 문득 든다',
+        deltas: {"happiness":-2},
+        result: '기대고 싶지만, 그러고 싶지 않은 마음이 동시에 들었다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-gift-trip-64',
+        text: '아이가 보내준 여행 상품권으로 여행을 떠난다',
+        deltas: {"happiness":3,"wealth":1},
+        result: '자식이 챙겨준 마음이 여행지 풍경보다 더 오래 남았다.',
+        requiresFamilyMember: ['child']
       },
     ]
   },
@@ -41153,7 +41356,21 @@ const STAGES = [
         deltas: { wealth: 3, fame: 1 },
         result: '진료는 줄었어도, 찾는 곳은 여전히 많았다.',
         requiresOccupation: ['doctor']
-      }
+      },
+      {
+        id: 'child-checkup-together-65',
+        text: '아이가 예약해준 건강검진을 함께 받으러 간다',
+        deltas: {"relationship":2},
+        result: '잔소리 같던 말이 다 걱정이었다는 걸 새삼 느꼈다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-old-photo-together-65',
+        text: '아이와 함께 옛날 사진을 정리하며 추억에 잠긴다',
+        deltas: {"happiness":3},
+        result: '작았던 아이가 사진 밖에서 나란히 웃고 있었다.',
+        requiresFamilyMember: ['child']
+      },
     ]
   },
   {
@@ -41952,7 +42169,28 @@ const STAGES = [
         deltas: { wealth: 2 },
         result: '칠판 대신 화면 너머로, 여전히 가르치는 삶을 이어갔다.',
         requiresOccupation: ['english-teacher']
-      }
+      },
+      {
+        id: 'child-divorce-news-68',
+        text: '아이의 이혼 소식에 마음이 무너진다',
+        deltas: {"happiness":-4,"relationship":-1},
+        result: '무슨 말을 해줘야 할지, 그저 손을 꼭 잡아줄 뿐이었다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-hospital-together-68',
+        text: '아이와 함께 병원 진료를 받으러 간다',
+        deltas: {"relationship":2},
+        result: '대기실에 나란히 앉아 있는 것만으로도 든든했다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-allowance-surprise-68',
+        text: '아이가 보내온 용돈이 뜻밖에 큰 힘이 된다',
+        deltas: {"wealth":2,"happiness":2},
+        result: '큰돈은 아니어도, 마음만은 넉넉했다.',
+        requiresFamilyMember: ['child']
+      },
     ]
   },
   {
@@ -42466,7 +42704,28 @@ const STAGES = [
         deltas: { wealth: 3, fame: 2 },
         result: '그 시절을 기억하는 이들에게, 여전히 반가운 얼굴이었다.',
         requiresOccupation: ['idol']
-      }
+      },
+      {
+        id: 'child-70th-birthday-70',
+        text: '아이 내외와 함께 고희연을 치른다',
+        deltas: {"happiness":5,"wealth":-2},
+        result: '한 상 가득 차려진 것보다, 둘러앉은 얼굴들이 더 좋았다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-old-stories-70',
+        text: '아이에게 옛이야기를 들려주며 시간을 보낸다',
+        deltas: {"happiness":2},
+        result: '몇 번을 해도 질리지 않는 이야기였다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-busy-holiday-70',
+        text: '아이가 바빠 명절에도 얼굴 보기 힘들다',
+        deltas: {"happiness":-2},
+        result: '전화 너머 목소리로 아쉬움을 달랬다.',
+        requiresFamilyMember: ['child']
+      },
     ]
   },
   {
@@ -42641,7 +42900,28 @@ const STAGES = [
         text: '안 쓰는 가전을 정리해 내놓는다',
         deltas: { wealth: 2 },
         result: '자리만 차지하던 것들이, 작게나마 돈이 됐다.'
-      }
+      },
+      {
+        id: 'child-checkup-results-together-71',
+        text: '아이가 챙겨준 건강검진 결과를 함께 듣는다',
+        deltas: {"relationship":2},
+        result: '결과를 듣는 내내, 아이의 손이 내 손을 꼭 쥐고 있었다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-inheritance-talk-71',
+        text: '아이와 유산 문제를 조심스레 이야기한다',
+        deltas: {"happiness":-1},
+        result: '피하고 싶었지만, 언젠가는 해야 할 이야기였다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-encourages-hobby-71',
+        text: '아이의 응원 덕분에 새로운 취미에 도전한다',
+        deltas: {"happiness":3},
+        result: '늦은 나이라는 말은 아이 앞에서만큼은 무의미했다.',
+        requiresFamilyMember: ['child']
+      },
     ]
   },
   {
@@ -43029,7 +43309,28 @@ const STAGES = [
         deltas: { happiness: 4, relationship: 3, wealth: 6 },
         result: '얼마 뒤, 지인은 고마움의 표시로 이자까지 얹어 돌려줬다.',
         requiresAnyAcquaintance: true
-      }
+      },
+      {
+        id: 'child-weekly-call-73',
+        text: '아이가 매주 안부 전화를 걸어온다',
+        deltas: {"happiness":2,"relationship":1},
+        result: '같은 질문이어도, 매번 반가웠다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-holiday-bow-73',
+        text: '아이 내외가 명절마다 큰절을 올린다',
+        deltas: {"happiness":3},
+        result: '고개 숙인 아이의 정수리를 보며 세월을 실감했다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-waves-off-worry-73',
+        text: '아이에게 아직은 괜찮다고 손사래를 친다',
+        deltas: {"happiness":1},
+        result: '걱정을 끼치고 싶지 않은 마음이 앞섰다.',
+        requiresFamilyMember: ['child']
+      },
     ]
   },
   {
@@ -43215,7 +43516,21 @@ const STAGES = [
         text: '동네 텃밭에서 기른 채소를 내다 판다',
         deltas: { wealth: 2, happiness: 2 },
         result: '땀 흘려 기른 것들이, 쏠쏠한 용돈이 되어 돌아왔다.'
-      }
+      },
+      {
+        id: 'child-silver-town-brochure-74',
+        text: '아이가 보내준 실버타운 자료를 살펴본다',
+        deltas: {"happiness":-1},
+        result: '아직은 마음의 준비가 되지 않은 것 같았다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-ancestral-grave-visit-74',
+        text: '아이와 함께 선산을 둘러본다',
+        deltas: {"relationship":1},
+        result: '말은 없어도, 나란히 걷는 것만으로 충분했다.',
+        requiresFamilyMember: ['child']
+      },
     ]
   },
   {
@@ -43693,6 +44008,20 @@ const STAGES = [
         deltas: { wealth: 1, happiness: 1 },
         result: '작은 짐 하나를, 이제야 내려놓은 기분이었다.'
       },
+      {
+        id: 'child-monthly-allowance-comfort-76',
+        text: '아이가 매달 보내주는 용돈으로 생활이 한결 여유롭다',
+        deltas: {"wealth":2},
+        result: '작은 액수라도, 마음만은 늘 크게 다가왔다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-hides-pain-worry-76',
+        text: '아이 걱정에 몸이 아파도 괜찮다고 둘러댄다',
+        deltas: {"happiness":-1},
+        result: '자식 앞에서는 아픈 것도 마음대로 되지 않았다.',
+        requiresFamilyMember: ['child']
+      },
     ]
   },
   {
@@ -44077,7 +44406,21 @@ const STAGES = [
         deltas: { wealth: 2, happiness: 3 },
         result: '수많은 환자들과의 기억이, 한 권의 책으로 남았다.',
         requiresOccupation: ['doctor']
-      }
+      },
+      {
+        id: 'child-old-album-together-78',
+        text: '아이와 함께 옛 앨범을 넘겨본다',
+        deltas: {"happiness":3,"relationship":2},
+        result: '빛바랜 사진 한 장에 온 가족이 다시 모였다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-mobility-help-78',
+        text: '거동이 불편해져 아이의 도움을 받는다',
+        deltas: {"happiness":-2,"health":1},
+        result: '미안함이 앞섰지만, 내민 손이 고마웠다.',
+        requiresFamilyMember: ['child']
+      },
     ]
   },
   {
@@ -44480,7 +44823,21 @@ const STAGES = [
         deltas: { wealth: 3, happiness: 3 },
         result: '낯선 목소리로 다시 태어난 노래가, 반갑고도 신기했다.',
         requiresOccupation: ['idol']
-      }
+      },
+      {
+        id: 'child-80th-birthday-80',
+        text: '팔순 잔치를 아이 내외가 정성껏 준비해준다',
+        deltas: {"happiness":5},
+        result: '차려진 상보다, 준비한 마음이 먼저 눈에 들어왔다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-burden-hesitation-80',
+        text: '아이에게 짐이 될까 조심스러워진다',
+        deltas: {"happiness":-1},
+        result: '괜찮다는 말을 몇 번이나 되풀이했다.',
+        requiresFamilyMember: ['child']
+      },
     ]
   },
   {
@@ -44658,6 +45015,20 @@ const STAGES = [
         text: '요양보호사의 도움을 받아들이기 시작한다',
         deltas: { health: 1, happiness: -1 },
         result: '낯선 손길이었지만, 곧 없어서는 안 될 존재가 됐다.'
+      },
+      {
+        id: 'child-daily-checkin-81',
+        text: '아이가 매일같이 안부를 확인한다',
+        deltas: {"relationship":2},
+        result: '귀찮을 법도 한데, 그 정성이 고마웠다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-will-organize-81',
+        text: '아이와 함께 유언장을 정리한다',
+        deltas: {"happiness":-1,"relationship":1},
+        result: '무거운 이야기였지만, 함께라서 견딜 만했다.',
+        requiresFamilyMember: ['child']
       },
     ]
   },
@@ -45179,6 +45550,20 @@ const STAGES = [
         text: '오랜 경험을 살려 후배들에게 유료로 조언을 해준다',
         deltas: { wealth: 2, happiness: 2, relationship: 1 },
         result: '살아온 시간이, 이제는 값이 매겨질 만큼 단단해져 있었다.'
+      },
+      {
+        id: 'child-hires-caregiver-84',
+        text: '아이가 간병인을 붙여준다',
+        deltas: {"health":2,"happiness":-1},
+        result: '독립심은 조금 상했지만, 몸은 한결 편해졌다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-childhood-photo-smile-84',
+        text: '아이의 어린 시절 사진을 보며 웃음짓는다',
+        deltas: {"happiness":3},
+        result: '작고 통통했던 손이 눈에 선했다.',
+        requiresFamilyMember: ['child']
       },
     ]
   },
@@ -46219,6 +46604,20 @@ const STAGES = [
         deltas: { happiness: 1 },
         result: '별일 없이 지나간 하루가, 그 자체로 고마웠다.'
       },
+      {
+        id: 'child-weekly-rotation-visit-89',
+        text: '아이 내외가 매주 돌아가며 찾아온다',
+        deltas: {"relationship":3},
+        result: '정해진 요일이 어느새 한 주의 낙이 됐다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-mixed-emotions-89',
+        text: '아이에게 미안함과 고마움이 뒤섞인 마음을 전한다',
+        deltas: {"happiness":2},
+        result: '말로 다 못한 마음이 눈빛으로 전해졌다.',
+        requiresFamilyMember: ['child']
+      },
     ]
   },
   {
@@ -46630,6 +47029,20 @@ const STAGES = [
         text: '직접 만든 공예품을 장터에 내놓는다',
         deltas: { wealth: 2, happiness: 2 },
         result: '손끝으로 빚어낸 것들이, 누군가의 손으로 건너갔다.'
+      },
+      {
+        id: 'child-stays-by-side-91',
+        text: '아이가 마지막까지 곁을 지키겠다고 약속한다',
+        deltas: {"happiness":3},
+        result: '그 한마디에 오래된 걱정 하나가 내려앉았다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-reflect-together-91',
+        text: '아이와 함께 지난 세월을 담담히 되짚는다',
+        deltas: {"happiness":2},
+        result: '후회보다 감사가 더 많이 남는 이야기였다.',
+        requiresFamilyMember: ['child']
       },
     ]
   },
@@ -47178,6 +47591,20 @@ const STAGES = [
         deltas: { wealth: 3, happiness: 1 },
         result: '오래 간직했던 것들이, 마지막으로 제값을 했다.'
       },
+      {
+        id: 'child-daily-hospital-visit-94',
+        text: '아이가 매일 병문안을 온다',
+        deltas: {"relationship":2,"happiness":1},
+        result: '문이 열릴 때마다, 그 얼굴을 보는 게 하루의 전부였다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-write-final-words-94',
+        text: '아이에게 남길 말을 조용히 적어본다',
+        deltas: {"happiness":1},
+        result: '몇 마디 안 되는 글에, 오랜 마음을 눌러 담았다.',
+        requiresFamilyMember: ['child']
+      },
     ]
   },
   {
@@ -47548,6 +47975,20 @@ const STAGES = [
         deltas: { wealth: 3, relationship: 1 },
         result: '까맣게 잊고 있던 돈이, 뜻밖의 순간에 돌아왔다.'
       },
+      {
+        id: 'child-hand-hold-gratitude-96',
+        text: '아이의 손을 꼭 잡고 고마움을 전한다',
+        deltas: {"happiness":3,"relationship":2},
+        result: '맞잡은 손의 온기가 그 어떤 말보다 컸다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-medicine-reminder-96',
+        text: '아이가 대신 챙겨주는 약 덕분에 안심이 된다',
+        deltas: {"health":1},
+        result: '깜빡하기 쉬운 것들을 아이가 대신 기억해줬다.',
+        requiresFamilyMember: ['child']
+      },
     ]
   },
   {
@@ -47699,6 +48140,20 @@ const STAGES = [
         removeAsset: 'time-loop-ticket',
         mandatory: true,
         addAsset: { id: 'time-loop-declined', label: '⏳ 흘려보낸 기회', type: 'movable' }
+      },
+      {
+        id: 'child-morning-call-97',
+        text: '아이가 매일 아침 안부를 묻는 전화를 걸어온다',
+        deltas: {"happiness":2},
+        result: '하루의 시작이 아이의 목소리로 열렸다.',
+        requiresFamilyMember: ['child']
+      },
+      {
+        id: 'child-last-outing-97',
+        text: '아이와 함께 마지막으로 나들이를 다녀온다',
+        deltas: {"happiness":4,"health":-1},
+        result: '몸은 고단해도, 그날 하루는 오래도록 마음에 남을 것 같았다.',
+        requiresFamilyMember: ['child']
       },
     ]
   },
