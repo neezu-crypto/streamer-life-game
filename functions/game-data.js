@@ -4990,7 +4990,7 @@ const STAGES = [
         result: '컨베이어 벨트 소리가, 이제 매일 듣는 배경음이 됐다.',
         requiresOccupation: ["logistics-worker"],
         mandatory: true,
-        startsRoute: {"id":"logistics","label":"🚚 물류직","maxDurationYears":15}
+        startsRoute: {"id":"logistics","label":"🚚 물류직","maxDurationYears":45}
       },
 
       {
