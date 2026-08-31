@@ -313,7 +313,15 @@ const ROUTES_META = [
   { id: 'english-teacher', title: '🌐 영어 강사', icon: '🌐' },
   { id: 'romance', title: '💕 연애', icon: '💕' },
   { id: 'streamer', title: '🎥 스트리머', icon: '🎥' },
-  { id: 'doctor', title: '⚕️ 의사', icon: '⚕️' }
+  { id: 'doctor', title: '⚕️ 의사', icon: '⚕️' },
+  { id: 'civil-servant-route', title: '🏛️ 공무원 루트', icon: '🏛️' },
+  { id: 'police', title: '👮 경찰', icon: '👮' },
+  { id: 'lawyer', title: '⚖️ 변호사', icon: '⚖️' },
+  { id: 'trader', title: '💹 주식 트레이더', icon: '💹' },
+  { id: 'teacher-route', title: '📚 교사 루트', icon: '📚' },
+  { id: 'con-artist', title: '🃏 사기꾼', icon: '🃏' },
+  { id: 'vehicle-thief', title: '🚗 차량 절도범', icon: '🚗' },
+  { id: 'red-handed', title: '🚨 현행범', icon: '🚨' }
 ];
 
 // 재능·재산 목록(17장/재산 상세) - functions/game-data.js의 addTalent/addAsset
@@ -356,7 +364,10 @@ const ASSETS_META = [
   { id: 'time-loop-declined', title: '⏳ 흘려보낸 기회', icon: '⏳' },
   // 주식 투자(2026-08-28, 56장 D항) - 종목마다 id가 달라 개별 도감 칸을 만들 수
   // 없어서, 어떤 종목이든 한 번이라도 사면 해금되는 단일 범주 칸.
-  { id: 'stock-investment', title: '📈 주식 투자', icon: '📈' }
+  { id: 'stock-investment', title: '📈 주식 투자', icon: '📈' },
+  { id: 'stolen-car', title: '🚗 중고차(절도)', icon: '🚗' },
+  { id: 'secret-motorcycle', title: '🏍️ 오토바이(할부)', icon: '🏍️' },
+  { id: 'tour-guide-license', title: '🪪 여행 가이드 자격증', icon: '🪪' }
 ];
 // 직업 목록(2026-08-23, 사용자 지시 - "나의 도감에 직업도 추가해줘") - 재능·
 // 재산과 완전히 같은 패턴. functions/game-data.js에서 setOccupation으로 쓰이는
@@ -408,7 +419,25 @@ const OCCUPATIONS_META = [
   { id: 'top-of-class', title: '📖 전교 1등', icon: '📖' },
   { id: 'med-student', title: '🩺 의대생', icon: '🩺' },
   { id: 'intern-resident', title: '🩺 전공의', icon: '🩺' },
-  { id: 'doctor', title: '⚕️ 의사', icon: '⚕️' }
+  { id: 'doctor', title: '⚕️ 의사', icon: '⚕️' },
+  { id: 'vehicle-thief', title: '🚗 차량 절도범', icon: '🚗' },
+  { id: 'law-student', title: '📚 법학도', icon: '📚' },
+  { id: 'con-artist', title: '🃏 사기꾼', icon: '🃏' },
+  { id: 'junior-trader', title: '💹 주니어 트레이더', icon: '💹' },
+  { id: 'trader', title: '💹 트레이더', icon: '💹' },
+  { id: 'fund-manager', title: '💰 펀드매니저', icon: '💰' },
+  { id: 'police-cadet', title: '👮 경찰 교육생', icon: '👮' },
+  { id: 'detective', title: '👮 형사', icon: '👮' },
+  { id: 'tour-guide', title: '🧳 여행 가이드', icon: '🧳' },
+  { id: 'trainee-lawyer', title: '⚖️ 수습 변호사', icon: '⚖️' },
+  { id: 'associate-lawyer', title: '🏢 로펌 변호사', icon: '🏢' },
+  { id: 'solo-lawyer', title: '⚖️ 개업 변호사', icon: '⚖️' },
+  { id: 'civil-servant-7th-grade', title: '🏛️ 7급 공무원', icon: '🏛️' },
+  { id: 'civil-servant-5th-grade', title: '🏛️ 5급 사무관', icon: '🏛️' },
+  { id: 'civil-servant-senior-official', title: '🏛️ 서기관', icon: '🏛️' },
+  { id: 'head-teacher', title: '📚 부장교사', icon: '📚' },
+  { id: 'vice-principal', title: '📚 교감', icon: '📚' },
+  { id: 'principal', title: '📚 교장', icon: '📚' }
 ];
 
 const collectionModal = document.getElementById('collectionModal');
