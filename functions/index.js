@@ -1093,7 +1093,19 @@ function ensureGuaranteedCure(stageChoices, ids, healthConditions, guaranteeCure
 // 튀어나오는 일이 없도록, "노출 = 실제로 뽑힐 수 있는 후보"가 항상 일치해야 함.
 // introId가 주어지면(그 판의 저장 슬롯에 이미 뽑아둔 상황 설명 id) 그
 // 상황의 텍스트를 resolveIntroText로 찾아 쓴다 - pickIntroId() 참고.
-function publicStage(stage, visibleIds, introId, healthConditions) {
+// isAdmin(2026-09-01, 관리자 전용 자동진행에 "선호 직업" 추가 - 사용자 지시)
+// - 일반 플레이어에게 이 함수가 내려주는 선택지는 스포일러 방지를 위해
+//   {id, text}뿐이라(requiresStockPurchase만 UI 분기용으로 예외), "이 선택지를
+//   고르면 어떤 진로/직업으로 이어지는지"를 클라이언트가 미리 알 방법이 없다.
+//   자동진행이 선호 직업을 향해 스스로 선택하려면 이 라우팅 정보가 필요한데,
+//   일반 유저에게 새어나가면 진짜 스포일러가 되므로 호출자가 관리자로
+//   확인됐을 때(isAdminUid, submitChoice/rollDice/startPlaythrough/
+//   resumePlaythrough에서만 계산해 넘김)만 startsRouteId/setsOccupationId를
+//   추가로 얹는다. 멀티플레이 공개 미러(setMultiplayerEnabled/
+//   advanceMultiplayerSession)는 호스트가 관리자여도 절대 이 인자를 넘기지
+//   않는다 - 그 노드는 누구나 읽을 수 있어(database.rules.json), 관리자
+//   본인이 아닌 참가자·구경꾼에게까지 스포일러가 노출되기 때문이다.
+function publicStage(stage, visibleIds, introId, healthConditions, isAdmin) {
   // Array.isArray로 판단(2026-08-29, 라이브 검증 중 발견) - 예전엔 "!visibleIds
   // || !visibleIds.length"였는데, pickVisibleChoiceIds가 정상적으로 계산했지만
   // 결과가 빈 배열인 경우(활성 루트인데 그 나이에 루트 전용 콘텐츠가 하나도
@@ -1115,11 +1127,20 @@ function publicStage(stage, visibleIds, introId, healthConditions) {
     .filter((id) => typeof id === 'string' && id)
     .map((id) => {
       const real = findChoiceById(stage, id);
-      // requiresStockPurchase(2026-08-28, 56장 D항) - 클라이언트가 이 선택지는
-      // 곧바로 제출하지 말고 종목 검색 모달을 먼저 띄워야 한다는 걸 알아야
-      // 하므로, 다른 requires*와 달리 이 플래그만 예외적으로 클라이언트에
-      // 그대로 전달한다(결과 스포일러가 아니라 UI 분기 정보라 안전함).
-      if (real) return real.requiresStockPurchase ? { id: real.id, text: real.text, requiresStockPurchase: true } : { id: real.id, text: real.text };
+      if (real) {
+        const out = { id: real.id, text: real.text };
+        // requiresStockPurchase(2026-08-28, 56장 D항) - 클라이언트가 이 선택지는
+        // 곧바로 제출하지 말고 종목 검색 모달을 먼저 띄워야 한다는 걸 알아야
+        // 하므로, 다른 requires*와 달리 이 플래그만 예외적으로 클라이언트에
+        // 그대로 전달한다(결과 스포일러가 아니라 UI 분기 정보라 안전함).
+        if (real.requiresStockPurchase) out.requiresStockPurchase = true;
+        // startsRouteId/setsOccupationId(2026-09-01) - isAdmin일 때만 추가.
+        if (isAdmin) {
+          if (real.startsRoute) out.startsRouteId = real.startsRoute.id;
+          if (real.setOccupation) out.setsOccupationId = real.setOccupation.id;
+        }
+        return out;
+      }
       const synthetic = resolveSyntheticChoice(id, healthConditions);
       return synthetic ? { id: synthetic.id, text: synthetic.text } : null;
     })
@@ -1224,6 +1245,7 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
   // 엔딩별/선택지별 인기 통계(lifeGame/stats/*)는 실제 유저 지표를
   // 왜곡하면 안 되므로 그 부분만 건너뛴다.
   const isBot = !!(opts && opts.isBot);
+  const isAdmin = !!(opts && opts.isAdmin);
   // 이 선택이 요구하는 건강 조건(requiresCondition·requiresNoCondition)/가족
   // 구성원(requiresFamilyMember·requiresNoFamilyMember)이 실제로 지금 안 맞는데도 들어왔다면(정상 흐름이면
   // pickVisibleChoiceIds가 애초에 후보에서 뺐을 것) - 저장 슬롯이 오래돼 해당
@@ -2293,7 +2315,7 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
     insuranceLapsed,
     completed,
     ending: ending ? { id: ending.id, title: ending.title, text: ending.text } : null,
-    nextStage: completed ? null : publicStage(STAGES[nextIndex], nextVisibleIds, nextIntroId, healthConditions),
+    nextStage: completed ? null : publicStage(STAGES[nextIndex], nextVisibleIds, nextIntroId, healthConditions, isAdmin),
     healthConditions,
     familyMembers,
     acquaintances,
@@ -2577,6 +2599,9 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   if (!streamerName || streamerName.length > MAX_NAME_LEN) {
     throw new HttpsError('invalid-argument', '주인공 이름을 1~' + MAX_NAME_LEN + '자로 입력해주세요.');
   }
+  // startPlaythrough는 세션당 한 번뿐이라(턴마다 부르는 submitChoice/rollDice와
+  // 달리) 플래그 없이 매번 조회해도 비용이 무시할 만하다.
+  const isAdmin = await isAdminUid(uid);
 
   // 멀티플레이 - 시작할 때 이미 켜둔 경우의 초기값(2026-08-24, 13장 설계 구현).
   // 게임 도중에 언제든 setMultiplayerEnabled로 따로 켜고 끌 수 있어, 이 값은
@@ -2641,7 +2666,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   }
   await Promise.all(writes);
 
-  return { stats, healthConditions: [], familyMembers: [], acquaintances: [], assets: [], cashHoldings: 0, talents: [], hobbies: [], currentOccupation: null, currentLocation: DEFAULT_LOCATION, currentRoute: null, stage: publicStage(STAGES[0], visibleChoiceIds, currentIntroId, []) };
+  return { stats, healthConditions: [], familyMembers: [], acquaintances: [], assets: [], cashHoldings: 0, talents: [], hobbies: [], currentOccupation: null, currentLocation: DEFAULT_LOCATION, currentRoute: null, stage: publicStage(STAGES[0], visibleChoiceIds, currentIntroId, [], isAdmin) };
 });
 
 // 창을 껐다가 다시 열었을 때 - 저장된 판이 있으면 지금 구간을 그대로 이어서
@@ -2650,6 +2675,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
 const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const db = getDatabase();
+  const isAdmin = await isAdminUid(uid);
   const snap = await playRefFor(db, uid).get();
   const play = snap.val();
   if (!play) throw new HttpsError('not-found', '이어할 인생이 없습니다.');
@@ -2748,7 +2774,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
     currentOccupation,
     currentLocation,
     currentRoute: activeRoute ? { id: activeRoute.id, label: activeRoute.label } : null,
-    stage: publicStage(stage, visibleChoiceIds, currentIntroId, healthConditions)
+    stage: publicStage(stage, visibleChoiceIds, currentIntroId, healthConditions, isAdmin)
   };
 });
 
@@ -2844,7 +2870,14 @@ const submitChoice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
     await db.ref('lifeGame/stockInvestorCount').transaction((current) => (current || 0) + 1);
   }
 
-  return applyChoice(db, playRef, play, stage, effectiveChoice);
+  // wantAdminHints(2026-09-01) - isAdminUid는 RTDB 읽기 1회가 드는데, 매 턴마다
+  // (모든 유저에 대해) 계산하면 실제로 이 정보를 쓰는 관리자 자동진행 1인을
+  // 위해 전체 유저의 매 턴에 조회 비용을 물리는 셈이다. 자동진행 화면에서만
+  // 이 플래그를 실어 보내므로(app.js의 pickChoice 호출부), 일반 플레이는
+  // 지금과 동일하게 이 조회 자체를 건너뛴다 - 플래그를 위조해 보내도
+  // isAdminUid가 서버에서 다시 검증하므로 권한 상승은 안 된다.
+  const isAdmin = (request.data && request.data.wantAdminHints) ? await isAdminUid(uid) : false;
+  return applyChoice(db, playRef, play, stage, effectiveChoice, { isAdmin });
 });
 
 // 주식 매도(2026-08-28, 56장 D항) - 재산 뱃지 클릭 → 판매 안내 → "판매" 버튼
@@ -2922,7 +2955,9 @@ const rollDice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, as
     : stage.choices;
   const choice = pool[Math.floor(Math.random() * pool.length)];
 
-  const outcome = await applyChoice(db, playRef, play, stage, choice);
+  // wantAdminHints - submitChoice와 동일한 이유로 플래그가 있을 때만 조회.
+  const isAdmin = (request.data && request.data.wantAdminHints) ? await isAdminUid(uid) : false;
+  const outcome = await applyChoice(db, playRef, play, stage, choice, { isAdmin });
   return Object.assign({ choiceId: choice.id, choiceText: choice.text }, outcome);
 });
 

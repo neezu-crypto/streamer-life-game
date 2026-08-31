@@ -160,6 +160,15 @@
           <input type="range" id="autoPlaySpeedSlider" min="5" max="60" step="1" value="15">
           <span id="autoPlaySpeedLabel">15초/턴</span>
         </div>
+        <div id="autoPlayRouteRow" class="admin-autoplay-route-row hidden">
+          <select id="autoPlayRouteSelect">
+            <option value="">🎲 무작위 (선호 없음)</option>
+          </select>
+        </div>
+        <label id="autoPlayRestartRow" class="mp-toggle-label admin-autoplay-restart-row hidden">
+          <input type="checkbox" id="autoPlayRestartCheckbox">
+          엔딩 도달 시 자동으로 새 인생 시작
+        </label>
       </div>
       <div class="stat-bars" id="statBars"></div>
       <div class="asset-panel">

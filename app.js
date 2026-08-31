@@ -901,6 +901,10 @@ const autoPlayToggle = document.getElementById('autoPlayToggle');
 const autoPlaySpeedRow = document.getElementById('autoPlaySpeedRow');
 const autoPlaySpeedSlider = document.getElementById('autoPlaySpeedSlider');
 const autoPlaySpeedLabel = document.getElementById('autoPlaySpeedLabel');
+const autoPlayRouteRow = document.getElementById('autoPlayRouteRow');
+const autoPlayRouteSelect = document.getElementById('autoPlayRouteSelect');
+const autoPlayRestartRow = document.getElementById('autoPlayRestartRow');
+const autoPlayRestartCheckbox = document.getElementById('autoPlayRestartCheckbox');
 const startBtn = document.getElementById('startBtn');
 const diceOverlay = document.getElementById('diceOverlay');
 const DICE_REVEAL_MS = 2000;
@@ -1154,7 +1158,24 @@ let autoPlaySpeedSec = 15;
 let autoPlayRunning = false;
 let autoPlayTimerHandle = null;
 let currentStageForAutoPlay = null;
+let autoPlayPreferredRouteId = '';
+let autoPlayRestartOnEnding = false;
 const autoPlayWaiters = { outcome: [], ending: [], stage: [] };
+
+// 선호 직업 목록(2026-09-01, 사용자 지시) - 도감에 이미 쓰고 있는 ROUTES_META를
+// 그대로 재사용한다(새 목록을 따로 관리하면 나중에 루트가 추가될 때마다
+// 둘 다 갱신해야 하는 번거로움이 생김). prison/red-handed/vehicle-thief/
+// romance는 "노려서 가는 진로"가 아니라 일탈의 결과·관계 상태라 선택지에서
+// 뺀다.
+const AUTO_PLAY_ROUTE_EXCLUDE_IDS = ['prison', 'red-handed', 'vehicle-thief', 'romance'];
+if (autoPlayRouteSelect) {
+  ROUTES_META.filter((r) => !AUTO_PLAY_ROUTE_EXCLUDE_IDS.includes(r.id)).forEach((r) => {
+    const opt = document.createElement('option');
+    opt.value = r.id;
+    opt.textContent = r.title;
+    autoPlayRouteSelect.appendChild(opt);
+  });
+}
 
 function autoPlayEmit(type) {
   const list = autoPlayWaiters[type];
@@ -1187,6 +1208,8 @@ function setAutoPlayEnabled(on) {
   autoPlayEnabled = on;
   if (autoPlayToggle) autoPlayToggle.checked = on;
   if (autoPlaySpeedRow) autoPlaySpeedRow.classList.toggle('hidden', !on);
+  if (autoPlayRouteRow) autoPlayRouteRow.classList.toggle('hidden', !on);
+  if (autoPlayRestartRow) autoPlayRestartRow.classList.toggle('hidden', !on);
   clearTimeout(autoPlayTimerHandle);
   if (on) scheduleAutoPlayTick(0);
 }
@@ -1196,18 +1219,71 @@ function scheduleAutoPlayTick(delayMs) {
   autoPlayTimerHandle = setTimeout(autoPlayTick, delayMs != null ? delayMs : autoPlaySpeedSec * 1000);
 }
 
-// requiresStockPurchase 선택지는 어떤 종목이든 살 수 있으니, 이미 로드돼
-// 있는 allStocks(streamer-names.json)에서 아무거나 하나 무작위로 고른다 -
-// 종목 검색 모달을 열 필요 없이 openBuyStockModal이 하는 일(선택지 id +
-// stockId/stockName)을 그대로 pickChoice에 넘기면 된다.
+// 선호 직업(2026-09-01) - startsRouteId/setsOccupationId는 wantAdminHints를
+// 실어 보낼 때만 서버가 얹어준다(functions/index.js의 publicStage 참고).
+// 우선순위: (1) 이미 선호 루트에 있는데 승진(직업 변경) 선택지가 보이면
+// 사다리를 놓치지 않게 최우선 선택 (2) 선호 루트로 진입하는 선택지가 보이면
+// 최우선 선택 (3) 이미 선호 루트에 있다면 다른 루트로 갈아타는 선택지는
+// 후보에서 제외 (4) 그 외엔 기존과 동일하게 균등 랜덤.
 function pickAutoPlayChoice(stage) {
   const affordable = stage.choices.filter((c) => {
     if (!c.requiresStockPurchase) return true;
     const age = parseInt(stage.ageRange, 10);
     return lastKnownCashHoldings >= stockInvestmentCostWon(age);
   });
-  const pool = affordable.length ? affordable : stage.choices;
+  let pool = affordable.length ? affordable : stage.choices;
+
+  if (autoPlayPreferredRouteId) {
+    const inPreferredRoute = lastKnownRouteId === autoPlayPreferredRouteId;
+    if (inPreferredRoute) {
+      const promo = pool.find((c) => c.setsOccupationId);
+      if (promo) return promo;
+    }
+    const entry = pool.find((c) => c.startsRouteId === autoPlayPreferredRouteId);
+    if (entry) return entry;
+    if (inPreferredRoute) {
+      const safe = pool.filter((c) => !c.startsRouteId || c.startsRouteId === autoPlayPreferredRouteId);
+      if (safe.length) pool = safe;
+    }
+  }
+
   return pool[Math.floor(Math.random() * pool.length)];
+}
+
+// 엔딩 도달 시 재시작(2026-09-01) - restartBtn(엔딩 화면의 "새 인생 시작하기")은
+// window.location.reload()라 자동진행 상태가 전부 날아간다. 대신 startBtn
+// 클릭 핸들러와 같은 절차(startPlaythroughFn → 화면 갱신 → renderStage)를
+// endingSection 기준으로 다시 밟아, 페이지를 새로고침하지 않고도 다음 생으로
+// 넘어간다. 이름은 매번 allStocks에서 무작위로 골라 다양한 인생을 본다.
+async function autoPlayStartFreshLife() {
+  const pick = allStocks.length ? allStocks[Math.floor(Math.random() * allStocks.length)] : null;
+  const streamerName = pick ? pick.name : '자동진행';
+  const streamerId = pick ? pick.id : null;
+  try {
+    const res = await startPlaythroughFn({ streamerName, streamerId, multiplayerEnabled: false });
+    await fadeOut([endingSection]);
+    renderStatBars(statBars, res.data.stats);
+    renderAssets(res.data.assets, res.data.stage && res.data.stage.ageRange);
+    renderCashHoldings(cashHoldingsEl, res.data.cashHoldings);
+    renderHealthConditions(res.data.healthConditions);
+    renderFamilyMembers(res.data.familyMembers);
+    renderAcquaintances(res.data.acquaintances);
+    renderCurrentOccupation(res.data.currentOccupation);
+    renderCurrentLocation(res.data.currentLocation);
+    renderTalents(res.data.talents);
+    renderHobbies(res.data.hobbies);
+    renderStage(res.data.stage);
+    initAchievementBaseline(res.data);
+    lastKnownRouteId = res.data.currentRoute ? res.data.currentRoute.id : null;
+    initRouteTheme(res.data.currentRoute);
+    enterHostMode();
+    await fadeIn([gameSection, worldStatePanel]);
+    return true;
+  } catch (e) {
+    console.error('자동진행 재시작 실패:', e);
+    showToast('⚠️ 자동진행 재시작에 실패했어요');
+    return false;
+  }
 }
 
 async function autoPlayTick() {
@@ -1221,15 +1297,16 @@ async function autoPlayTick() {
   autoPlayRunning = true;
   const outcomePromise = autoPlayWaitFor(['outcome', 'ending'], 20000);
   if (stage.random) {
-    rollDice();
+    rollDice({ wantAdminHints: true });
   } else {
     const choice = pickAutoPlayChoice(stage);
+    const extra = { wantAdminHints: true };
     if (choice.requiresStockPurchase && allStocks.length) {
       const stock = allStocks[Math.floor(Math.random() * allStocks.length)];
-      pickChoice(choice.id, { stockId: stock.id, stockName: stock.name });
-    } else {
-      pickChoice(choice.id);
+      extra.stockId = stock.id;
+      extra.stockName = stock.name;
     }
+    pickChoice(choice.id, extra);
   }
   const outcome = await outcomePromise;
   if (!autoPlayEnabled) { autoPlayRunning = false; return; }
@@ -1242,7 +1319,13 @@ async function autoPlayTick() {
   }
   if (outcome === 'ending') {
     autoPlayRunning = false;
-    setAutoPlayEnabled(false);
+    if (autoPlayRestartOnEnding) {
+      const ok = await autoPlayStartFreshLife();
+      if (!ok) { setAutoPlayEnabled(false); return; }
+      if (autoPlayEnabled) scheduleAutoPlayTick();
+    } else {
+      setAutoPlayEnabled(false);
+    }
     return;
   }
   // outcome === 'outcome' - applyOutcome이 끝나 pendingNextStage/nextBtn이
@@ -1262,6 +1345,16 @@ if (autoPlaySpeedSlider) {
   autoPlaySpeedSlider.addEventListener('input', () => {
     autoPlaySpeedSec = parseInt(autoPlaySpeedSlider.value, 10);
     autoPlaySpeedLabel.textContent = autoPlaySpeedSec + '초/턴';
+  });
+}
+if (autoPlayRouteSelect) {
+  autoPlayRouteSelect.addEventListener('change', () => {
+    autoPlayPreferredRouteId = autoPlayRouteSelect.value;
+  });
+}
+if (autoPlayRestartCheckbox) {
+  autoPlayRestartCheckbox.addEventListener('change', () => {
+    autoPlayRestartOnEnding = autoPlayRestartCheckbox.checked;
   });
 }
 
@@ -1842,7 +1935,10 @@ function renderStage(stage) {
     const rollBtn = document.createElement('button');
     rollBtn.className = 'dice-btn primary';
     rollBtn.textContent = '🎲 주사위 굴리기';
-    rollBtn.addEventListener('click', rollDice);
+    // rollDice(extra)로 바뀌었으니(2026-09-01, 자동진행 선호 직업용
+    // wantAdminHints 전달) click 이벤트 객체가 그대로 extra로 흘러들어가지
+    // 않게 인자 없이 명시적으로 호출한다.
+    rollBtn.addEventListener('click', () => rollDice());
     choiceList.appendChild(rollBtn);
     const hint = document.createElement('p');
     hint.className = 'dice-hint';
@@ -2136,7 +2232,7 @@ async function pickChoice(choiceId, extra) {
   }
 }
 
-async function rollDice() {
+async function rollDice(extra) {
   if (isWorldStatePanelOpen()) closeWorldStatePanel();
   disableChoiceList();
   diceOverlay.classList.remove('hidden');
@@ -2145,7 +2241,7 @@ async function rollDice() {
     // 최소 3초는 보여준 뒤에 결과를 공개한다 - 반대로 응답이 늦어지면 그만큼
     // 더 기다렸다가 공개(즉, 3초는 최소 보장 시간이지 고정 시간이 아님).
     const [res] = await Promise.all([
-      rollDiceFn(),
+      rollDiceFn(extra),
       new Promise((resolve) => setTimeout(resolve, DICE_REVEAL_MS))
     ]);
     diceOverlay.classList.add('hidden');
