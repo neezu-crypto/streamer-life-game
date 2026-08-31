@@ -4900,6 +4900,18 @@ const STAGES = [
         requiresRoute: 'police'
       },
       {
+        id: 'deviant-police-rookie-bribe-20',
+        text: '신참인데도 단속 대상에게 뒷돈을 요구한다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: {"wealth":2,"happiness":1}, result: '내민 손이 부끄러웠지만, 봉투는 받았다.' },
+          { weight: 10, label: '발각', deltas: {"wealth":-4,"happiness":-4,"relationship":-3}, result: '선배의 눈에 그 장면이 그대로 찍혔다.' }
+        ],
+        requiresRoute: 'police'
+      },
+      {
         id: 'cs-fill-20-1',
         text: '민원 응대 매뉴얼을 통째로 외운다',
         deltas: { wealth: 1 },
@@ -5905,6 +5917,18 @@ const STAGES = [
         text: '민생치안 순찰을 돈다',
         deltas: { happiness: 1 },
         result: '동네가 조용한 게 제일 좋은 하루였다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-senior-cut-21',
+        text: '선배가 나눠주는 상납금 몫을 그대로 받는다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.32, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 88, label: '안 걸림', deltas: {"wealth":3}, result: '묻지도 따지지도 않고, 봉투를 챙겼다.' },
+          { weight: 12, label: '발각', deltas: {"wealth":-5,"happiness":-4,"relationship":-4}, result: '내사 소식에 상납 라인 전체가 흔들렸다.' }
+        ],
         requiresRoute: 'police'
       },
       {
@@ -6918,6 +6942,18 @@ const STAGES = [
         text: '선임을 따라 첫 순찰을 나간다',
         deltas: { happiness: 2, health: -1 },
         result: '무전기 너머로 들려오는 지령 하나하나가, 아직은 낯설었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-small-gift-22',
+        text: '단속하다 말고 작은 뇌물을 슬쩍 받는다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.28, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: {"wealth":2,"happiness":1}, result: '별거 아니라는 생각으로, 손을 내밀었다.' },
+          { weight: 10, label: '발각', deltas: {"wealth":-4,"happiness":-3}, result: '작은 봉투 하나가, 큰 곤욕으로 돌아왔다.' }
+        ],
         requiresRoute: 'police'
       },
       {
@@ -7973,6 +8009,18 @@ const STAGES = [
         text: '팀 회식 자리에서 서로의 고충을 나눈다',
         deltas: { relationship: 2 },
         result: '같은 일을 하는 사람들끼리만 통하는 게 있었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-free-drinks-23',
+        text: '업소로부터 무료 술접대를 받는다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 88, label: '안 걸림', deltas: {"happiness":2,"relationship":1}, result: '공짜라는 말에, 마음 편히 잔을 들었다.' },
+          { weight: 12, label: '발각', deltas: {"happiness":-4,"relationship":-4,"fame":-3}, result: '접대 자리 사진이 인터넷에 돌았다.' }
+        ],
         requiresRoute: 'police'
       },
       {
@@ -11419,6 +11467,18 @@ const STAGES = [
         requiresRoute: 'police'
       },
       {
+        id: 'deviant-police-ticket-favor-fee-26',
+        text: '지인의 벌금을 취소해주고 사례금을 받는다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.35, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 85, label: '안 걸림', deltas: {"wealth":3}, result: '작은 부탁에, 작지 않은 사례가 따라왔다.' },
+          { weight: 15, label: '발각', deltas: {"wealth":-6,"relationship":-5,"happiness":-3}, result: '전산 감사에서 취소 이력과 함께 계좌 내역이 걸렸다.' }
+        ],
+        requiresRoute: 'police'
+      },
+      {
         id: 'cs-fill-26-1',
         text: '민원 응대 매뉴얼을 통째로 외운다',
         deltas: { wealth: 1 },
@@ -13866,6 +13926,18 @@ const STAGES = [
         requiresRoute: 'police'
       },
       {
+        id: 'deviant-police-tipoff-sale-28',
+        text: '수사 정보를 대가를 받고 흘린다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.42, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 80, label: '안 걸림', deltas: {"wealth":5,"happiness":1}, result: '정보 한 줄의 값이, 생각보다 컸다.' },
+          { weight: 20, label: '발각', deltas: {"wealth":-8,"happiness":-7,"relationship":-5}, result: '정보가 새어나간 경로 끝에 자신이 있었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ],
+        requiresRoute: 'police'
+      },
+      {
         id: 'trader-losing-season-pressure-28',
         text: '몇 달째 이어지는 손실 시즌에 압박감이 커진다',
         deltas: { happiness: -4, wealth: -2 },
@@ -16117,6 +16189,18 @@ const STAGES = [
         requiresRoute: 'police'
       },
       {
+        id: 'deviant-police-hiring-favor-30',
+        text: '채용 청탁을 들어주고 사례금을 받는다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.35, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 85, label: '안 걸림', deltas: {"wealth":4}, result: '한마디 거들었을 뿐인데, 두둑한 사례가 돌아왔다.' },
+          { weight: 15, label: '발각', deltas: {"wealth":-7,"relationship":-5,"fame":-4}, result: '청탁 정황이 인사 감사에서 드러났다.' }
+        ],
+        requiresRoute: 'police'
+      },
+      {
         id: 'lawyer-allnighter-brief-30',
         text: '재판 전날 밤을 새워 서면을 완성한다',
         deltas: { health: -3, happiness: -1 },
@@ -17166,6 +17250,18 @@ const STAGES = [
         requiresRoute: 'police'
       },
       {
+        id: 'deviant-police-vice-tipoff-31',
+        text: '유흥업소에 단속 정보를 미리 흘려준다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.42, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 80, label: '안 걸림', deltas: {"wealth":5}, result: '미리 귀띔해준 대가로, 봉투가 두둑했다.' },
+          { weight: 20, label: '발각', deltas: {"wealth":-9,"happiness":-6,"relationship":-5}, result: '단속 때마다 허탕 치는 패턴이 결국 의심을 샀다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ],
+        requiresRoute: 'police'
+      },
+      {
         id: 'cs-fill-31-1',
         text: '부서 이동 발령을 받는다',
         deltas: { happiness: -1, wealth: 1 },
@@ -18171,6 +18267,18 @@ const STAGES = [
         text: '새로운 단서로 미제 사건을 재수사한다',
         deltas: { happiness: -1 },
         result: '실낱같은 희망이라도 놓치고 싶지 않았다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-drug-resale-32',
+        text: '압수한 마약 일부를 빼돌려 되판다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 72, label: '안 걸림', deltas: {"wealth":10}, result: '수량을 맞춰놓았으니, 들킬 리 없다고 믿었다.' },
+          { weight: 28, label: '발각', deltas: {"wealth":-18,"happiness":-14,"relationship":-8,"fame":-10}, result: '재고 대조 과정에서 빼돌린 양이 그대로 드러났다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ],
         requiresRoute: 'police'
       },
       {
@@ -21294,6 +21402,18 @@ const STAGES = [
         requiresRoute: 'police'
       },
       {
+        id: 'deviant-police-witness-coach-35',
+        text: '증인에게 뒷돈을 주고 진술을 유리하게 바꾼다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.45, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 78, label: '안 걸림', deltas: {"wealth":3,"fame":1}, result: '진술이 원하는 방향으로 조금씩 다듬어졌다.' },
+          { weight: 22, label: '발각', deltas: {"wealth":-9,"happiness":-8,"relationship":-6}, result: '증인의 뒤늦은 양심선언이 모든 걸 뒤집었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ],
+        requiresRoute: 'police'
+      },
+      {
         id: 'lawyer-loses-major-case-35',
         text: '확신했던 재판에서 예상외로 패소한다',
         deltas: { happiness: -5, fame: -2, relationship: -2 },
@@ -22196,6 +22316,18 @@ const STAGES = [
         text: '반상회에 초청받아 치안 상황을 설명한다',
         deltas: { happiness: -1, fame: 1 },
         result: '질문이 끝없이 이어졌다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-personal-grudge-36',
+        text: '사적 원한으로 특정 업체만 집중 단속해 대가를 받는다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.38, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: {"wealth":5}, result: '공무를 빙자한 사적 앙갚음이, 뒷돈까지 챙겨줬다.' },
+          { weight: 18, label: '발각', deltas: {"wealth":-8,"relationship":-6,"happiness":-5}, result: '반복된 표적 단속이 감찰의 눈에 띄었다.' }
+        ],
         requiresRoute: 'police'
       },
       {
@@ -23958,6 +24090,18 @@ const STAGES = [
         requiresRoute: 'police'
       },
       {
+        id: 'deviant-police-extort-junior-38',
+        text: '부하 직원에게 상납을 강요한다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.38, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: {"wealth":5}, result: '눈치를 준 것만으로, 알아서 봉투가 채워졌다.' },
+          { weight: 18, label: '발각', deltas: {"relationship":-8,"happiness":-6,"fame":-5}, result: '더는 못 참겠다는 부하 직원의 투서가 감찰로 들어갔다.' }
+        ],
+        requiresRoute: 'police'
+      },
+      {
         id: 'trader-colleague-rivalry-38',
         text: '같은 팀 동료와 실적 경쟁이 날카로워진다',
         deltas: { happiness: -3, relationship: -2, wealth: 1 },
@@ -24827,6 +24971,18 @@ const STAGES = [
         requiresRoute: 'police'
       },
       {
+        id: 'deviant-police-fake-merit-39',
+        text: '실적을 부풀려 특진 청탁 대가를 받는다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.4, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 80, label: '안 걸림', deltas: {"wealth":4,"fame":2}, result: '부풀린 숫자가, 특진 명단과 함께 돈까지 불려줬다.' },
+          { weight: 20, label: '발각', deltas: {"wealth":-7,"happiness":-6,"fame":-6}, result: '재검토 과정에서 부풀린 실적이 낱낱이 드러났다.' }
+        ],
+        requiresRoute: 'police'
+      },
+      {
         id: 'cs-fill-39-1',
         text: '부서 이동 발령을 받는다',
         deltas: { happiness: -1, wealth: 1 },
@@ -25567,6 +25723,18 @@ const STAGES = [
         text: '지역 주민들과 치안 간담회를 연다',
         deltas: { relationship: 2 },
         result: '딱딱한 자리였지만, 서로의 얼굴을 익히는 시간이었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-vice-monthly-40',
+        text: '유흥업소 사장에게 정기 상납을 받는다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.48, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 75, label: '안 걸림', deltas: {"wealth":7}, result: '매달 정해진 날, 정해진 액수가 조용히 건너왔다.' },
+          { weight: 25, label: '발각', deltas: {"wealth":-14,"happiness":-10,"relationship":-7}, result: '계좌 흐름을 추적한 감찰반에 유착 관계가 통째로 걸렸다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ],
         requiresRoute: 'police'
       },
       {
@@ -27108,6 +27276,18 @@ const STAGES = [
         requiresRoute: 'police'
       },
       {
+        id: 'deviant-police-expense-rebate-42',
+        text: '조사비 영수증으로 뒷돈을 챙긴다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.32, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 85, label: '안 걸림', deltas: {"wealth":3}, result: '영수증 몇 장이, 조용히 액수를 부풀렸다.' },
+          { weight: 15, label: '발각', deltas: {"wealth":-6,"happiness":-4}, result: '정기 회계 감사에서 리베이트 흔적이 드러났다.' }
+        ],
+        requiresRoute: 'police'
+      },
+      {
         id: 'cs-fill-42-1',
         text: '부서 이동 발령을 받는다',
         deltas: { happiness: -1, wealth: 1 },
@@ -27814,6 +27994,18 @@ const STAGES = [
         text: '아파트 단지 방범 설명회를 연다',
         deltas: { happiness: -1, fame: 1 },
         result: '관심이 뜨거워 놀랐다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-gift-card-43',
+        text: '단속 대상 업체로부터 상품권을 받는다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 88, label: '안 걸림', deltas: {"wealth":2}, result: '작은 상품권 몇 장이, 관계를 부드럽게 만들었다.' },
+          { weight: 12, label: '발각', deltas: {"wealth":-4,"happiness":-3,"relationship":-3}, result: '업체 장부에 남은 기록이 그대로 물증이 됐다.' }
+        ],
         requiresRoute: 'police'
       },
       {
@@ -28526,6 +28718,18 @@ const STAGES = [
         text: '미제 사건 제보 전화를 받고 재수사에 나선다',
         deltas: { happiness: -1 },
         result: '작은 제보 하나가 실마리가 됐다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-media-leak-fee-44',
+        text: '언론에 정보를 흘리고 대가를 받는다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.42, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 80, label: '안 걸림', deltas: {"wealth":5,"fame":1}, result: '기사가 나간 다음 날, 조용히 입금이 됐다.' },
+          { weight: 20, label: '발각', deltas: {"wealth":-8,"happiness":-6,"relationship":-5}, result: '기자와 나눈 메시지 기록이 감찰 조사에서 나왔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ],
         requiresRoute: 'police'
       },
       {
@@ -30137,6 +30341,18 @@ const STAGES = [
         requiresRoute: 'police'
       },
       {
+        id: 'deviant-police-promotion-payoff-46',
+        text: '승진 청탁을 들어주고 금품을 받는다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.42, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 78, label: '안 걸림', deltas: {"wealth":6}, result: '한마디 힘을 보탠 대가로, 큰돈이 오갔다.' },
+          { weight: 22, label: '발각', deltas: {"wealth":-10,"happiness":-8,"relationship":-6}, result: '인사 비리 전수조사에서 청탁 정황이 드러났다.' }
+        ],
+        requiresRoute: 'police'
+      },
+      {
         id: 'deviant-trader-falsified-performance-report-46',
         text: '실적 부진을 감추려 운용 보고서 수치를 조작한다',
         requiresRoute: 'trader',
@@ -30745,6 +30961,18 @@ const STAGES = [
         text: '정년퇴직 준비 서류를 챙긴다',
         deltas: { happiness: 1 },
         result: '긴 제복 생활의 끝이 눈앞에 보였다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-data-sale-47',
+        text: '수사 자료를 경쟁 업체에 팔아넘긴다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.48, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 75, label: '안 걸림', deltas: {"wealth":8}, result: '자료 몇 장의 값이, 상상보다 컸다.' },
+          { weight: 25, label: '발각', deltas: {"wealth":-14,"happiness":-10,"relationship":-8,"fame":-8}, result: '유출 경로를 추적한 끝에 결국 덜미가 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ],
         requiresRoute: 'police'
       },
       {
@@ -31415,6 +31643,18 @@ const STAGES = [
         text: '정기 체력검사에서 아쉬운 결과를 받는다',
         deltas: { health: -1 },
         result: '세월은 못 속인다는 말을 실감했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-final-favor-48',
+        text: '은퇴 전 마지막으로 큰 청탁을 들어준다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.42, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 78, label: '안 걸림', deltas: {"wealth":10}, result: '마지막이라는 말에, 그 어느 때보다 큰돈이 오갔다.' },
+          { weight: 22, label: '발각', deltas: {"wealth":-14,"happiness":-10,"relationship":-8}, result: '은퇴를 코앞에 두고, 마지막 청탁의 흔적이 발목을 잡았다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ],
         requiresRoute: 'police'
       },
       {
