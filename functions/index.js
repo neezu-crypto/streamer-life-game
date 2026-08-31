@@ -1432,6 +1432,15 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
       if (isDeviantOccupation(priorOccupation)) {
         value = Math.min(DEVIANT_CRIME_CATCH_CAP, value + priorDeviantCrimeCount * DEVIANT_CRIME_CATCH_STEP);
       }
+      // 사기꾼 재능 연동 발각확률 감소(2026-08-31, 사용자 지시 - "사기꾼일때
+      // 수학, 연기 재능이 있으면 각 10%씩 추가로 발각확률 낮춰줘. 최소확률은
+      // 5%까지만") - 수학은 치밀한 계산으로 허점을 안 남기고, 연기는 그럴싸한
+      // 연기로 의심을 피한다는 설정. 두 재능 다 있으면 20%p 감소, 하한은 5%.
+      if (priorOccupationId === 'con-artist') {
+        if (priorTalents.some((t) => t.id === 'math')) value -= 0.10;
+        if (priorTalents.some((t) => t.id === 'acting')) value -= 0.10;
+        value = Math.max(0.05, value);
+      }
       const caughtWeight = value * 100;
       const others = choice.prizeTable.filter((p) => p.label !== caughtLabel);
       const othersTotalWeight = others.reduce((sum, p) => sum + p.weight, 0) || 1;
