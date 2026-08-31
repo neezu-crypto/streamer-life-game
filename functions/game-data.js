@@ -40734,6 +40734,89 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+    
+      {
+        id: 'lw-regional-hearing-decline-60',
+        text: '회의 중 작은 목소리를 놓치는 일이 잦아진다',
+        deltas: { health: -1 },
+        result: '나이는 못 속인다는 말을, 이제야 실감했다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-mandatory-health-leave-60',
+        text: '회사 권고로 며칠간 강제 휴식을 취한다',
+        deltas: { health: 2, happiness: 1 },
+        result: '억지로 쉬어보니, 그동안 얼마나 무리했는지 알 것 같았다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-legacy-project-launch-60',
+        text: '은퇴 전 마지막으로 대형 자동화 프로젝트를 발의한다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '마지막까지, 뭔가 남기고 싶은 마음이 컸다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-pension-calculation-60',
+        text: '국민연금과 퇴직연금 수령액을 정확히 계산해본다',
+        deltas: { wealth: 1 },
+        result: '막연했던 숫자가, 눈앞에 또렷해졌다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-final-stock-rebalance-60',
+        text: '은퇴를 앞두고 투자 포트폴리오를 안전 자산 위주로 재조정한다',
+        deltas: { wealth: 1 },
+        result: '이제는 불리기보다, 지키는 게 먼저였다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-grandchild-babysitting-60',
+        text: '손주를 돌보며 뜻밖의 행복을 느낀다',
+        deltas: { happiness: 3, relationship: 2 },
+        requiresFamilyMember: ['grandchild'],
+        result: '몸은 예전만 못해도, 마음만은 젊어지는 시간이었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-spouse-travel-plan-60',
+        text: '배우자와 함께 은퇴 후 여행 계획을 세운다',
+        deltas: { happiness: 2, relationship: 1 },
+        requiresFamilyMember: ['spouse'],
+        result: '지도를 펴놓고 마주 앉은 시간이, 오랜만에 설렜다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-retirement-fear-60',
+        text: '일 없는 삶이 막막하게 느껴진다',
+        deltas: { happiness: -2 },
+        result: '평생 일만 해온 사람에게, 멈춘다는 건 낯선 두려움이었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-hobby-search-60',
+        text: '은퇴 후를 위해 새로운 취미를 찾아 나선다',
+        deltas: { happiness: 1 },
+        result: '무엇을 좋아했는지조차, 오랜만에 다시 생각해봤다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-final-team-workshop-60',
+        text: '팀 전체를 대상으로 마지막 워크숍을 진행한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '가르치는 입장이었지만, 오히려 배우는 게 더 많은 자리였다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
     ]
   },
   {
@@ -41196,6 +41279,94 @@ const STAGES = [
         deltas: {"happiness":2},
         result: '별일 아닌 통화인데도 하루 종일 기분이 좋았다.',
         requiresFamilyMember: ['child']
+      },
+    
+      {
+        id: 'lw-regional-hip-surgery-61',
+        text: '오래된 관절 문제로 수술을 받는다',
+        deltas: { health: -2 },
+        result: '몸으로 버텨온 30년의 대가를, 이제야 치르는 것 같았다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-recovery-walk-61',
+        text: '수술 후 재활로 매일 조금씩 걷는 연습을 한다',
+        deltas: { health: 2 },
+        result: '한 걸음씩 나아지는 게, 생각보다 큰 위안이 됐다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-knowledge-transfer-doc-61',
+        text: '30년 노하우를 담은 인수인계 자료를 정리한다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '몸으로 배운 것들을, 글로 남기려니 새삼 많았다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-successor-officially-named-61',
+        text: '공식적으로 후임자가 지명된다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '내 손을 떠난다는 게, 서운하면서도 홀가분했다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-mortgage-payoff-61',
+        text: '남아있던 대출을 완전히 상환한다',
+        deltas: { wealth: -2, happiness: 3 },
+        result: '평생의 짐 하나를, 드디어 내려놓았다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-child-independence-61',
+        text: '마지막까지 곁에 있던 자녀가 독립해 나간다',
+        deltas: { happiness: -1, relationship: -1 },
+        requiresFamilyMember: ['child'],
+        result: '잘 컸다는 뿌듯함과, 허전함이 동시에 밀려왔다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-old-mentor-reunion-61',
+        text: '젊은 시절 자신을 이끌어준 첫 상사와 재회한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '그때 그 은혜를, 이제야 제대로 갚을 수 있을 것 같았다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'deviant-lw-regional-final-favor-61',
+        text: '퇴직 전 마지막으로 친한 업체에 유리한 계약을 몰아준다',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'logisticsIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 85, label: '안 걸림', deltas: { wealth: 6 }, result: '오랜 인연에 마지막 선물을 얹어준 셈이었다.' },
+          { weight: 15, label: '발각', deltas: { wealth: -6, relationship: -4, happiness: -4, fame: -2 }, result: '퇴임을 앞두고 불명예스러운 소문이 돌기 시작했다.' }
+        ]
+      },
+      {
+        id: 'deviant-lw-regional-final-favor-decline-61',
+        text: '마지막까지 공정한 절차로 계약을 진행한다',
+        deltas: { happiness: 2 },
+        result: '끝까지 떳떳하게 마무리하고 싶었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager'],
+        worldStateSignal: { key: 'logisticsIntegrity', target: 1 }
+      },
+      {
+        id: 'lw-regional-volunteer-interest-61',
+        text: '봉사활동에 관심을 갖기 시작한다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '받기만 하던 삶에서, 나눌 줄 아는 삶으로 넘어가고 싶었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
       },
     ]
   },
@@ -41710,7 +41881,89 @@ const STAGES = [
         deltas: { wealth: 3, happiness: 2 },
         result: '수많은 배역 뒤에 감춰뒀던 진짜 이야기를 꺼냈다.',
         requiresOccupation: ['rising-actor']
-      }
+      },
+    
+      {
+        id: 'lw-regional-vision-checkup-62',
+        text: '시력이 눈에 띄게 나빠져 돋보기 도수를 올린다',
+        deltas: { health: -1 },
+        result: '숫자와 서류를 보던 눈이, 이제 조금씩 지쳐가고 있었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-light-exercise-habit-62',
+        text: '무리하지 않는 선에서 가벼운 운동을 꾸준히 이어간다',
+        deltas: { health: 2, happiness: 1 },
+        result: '거창하지 않아도, 꾸준함이 몸을 지켜주고 있었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-final-major-deal-62',
+        text: '은퇴 전 마지막 대형 계약을 성사시킨다',
+        deltas: { wealth: 3, fame: 1 },
+        result: '유종의 미라는 말을, 이럴 때 쓰는 거였다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-legacy-system-named-after-62',
+        text: '직접 만든 시스템에 자신의 이름이 붙는 걸 지켜본다',
+        deltas: { happiness: 3, fame: 2 },
+        result: '박스를 나르던 손이, 이런 순간을 만들 줄은 몰랐다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-severance-lump-sum-62',
+        text: '명예퇴직 위로금 지급 조건을 검토한다',
+        deltas: { wealth: 2 },
+        result: '숫자를 보는 손이, 조금은 떨렸다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-sibling-reunion-62',
+        text: '오랜만에 형제자매와 모여 지난 이야기를 나눈다',
+        deltas: { happiness: 1, relationship: 1 },
+        requiresFamilyMember: ['sibling'],
+        result: '어릴 적 얘기로 시작했는데, 밤늦도록 이야기가 끊이지 않았다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-team-appreciation-letter-62',
+        text: '함께 일한 팀원들로부터 감사 편지를 받는다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '고맙다는 글씨들 앞에서, 괜히 눈시울이 붉어졌다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-part-time-plan-62',
+        text: '완전히 쉬기보다 파트타임 일을 알아본다',
+        deltas: { happiness: 1 },
+        result: '완전히 멈추는 것보단, 천천히 걷는 쪽을 택하고 싶었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-identity-beyond-work-62',
+        text: '일 말고 나는 누구인가를 진지하게 고민한다',
+        deltas: { happiness: -1 },
+        result: '직함을 떼고 나면 남는 게 뭘지, 낯선 질문이었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-advice-to-successor-62',
+        text: '후임자에게 진심 어린 조언을 건넨다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '내가 겪었던 시행착오만큼은, 덜 겪게 해주고 싶었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
     ]
   },
   {
@@ -42153,6 +42406,97 @@ const STAGES = [
         result: '적적함보다 정성이 앞섰다.',
         requiresFamilyMember: ['child']
       },
+    
+      {
+        id: 'lw-regional-energy-decline-63',
+        text: '예전만큼의 체력이 나오지 않는다는 걸 인정한다',
+        deltas: { health: -1, happiness: -1 },
+        result: '아쉬웠지만, 이제는 무리하지 않는 법도 배워야 했다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-last-site-visit-63',
+        text: '몸담았던 모든 센터를 마지막으로 순회한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '구석구석이, 눈을 감아도 그려질 만큼 익숙했다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-farewell-speech-prep-63',
+        text: '퇴임사를 몇 번이고 고쳐 쓴다',
+        deltas: { happiness: -1 },
+        result: '하고 싶은 말은 많은데, 다 담을 순 없을 것 같았다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-financial-advisor-consult-63',
+        text: '노후 자금 설계를 위해 전문가와 상담한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '혼자 끙끙대던 계산을, 전문가와 함께 정리하니 명확해졌다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-life-insurance-review-63',
+        text: '보유한 보험 상품들을 재점검하고 정리한다',
+        deltas: { wealth: -1 },
+        result: '필요 없는 것들을 정리하니, 마음도 한결 가벼워졌다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-empty-nest-adjustment-63',
+        text: '조용해진 집에 적응해간다',
+        deltas: { happiness: -1 },
+        result: '북적이던 집이, 어느새 낯설게 조용했다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-old-colleague-passes-away-63',
+        text: '함께 고생했던 옛 동료의 부고를 듣는다',
+        deltas: { happiness: -3, relationship: -1 },
+        result: '같은 시절을 함께한 사람이 하나둘 줄어드는 게, 유독 아팠다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-honest-exit-interview-63',
+        text: '퇴직 면담에서 회사의 문제점을 솔직하게 이야기한다',
+        deltas: { happiness: -1 },
+        result: '누군가는 해야 할 말이라고 생각했다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager'],
+        worldStateSignal: { key: 'logisticsIntegrity', target: 1 }
+      },
+      {
+        id: 'lw-regional-polite-exit-interview-63',
+        text: '퇴직 면담에서 좋은 말만 하고 넘어간다',
+        deltas: { happiness: 1 },
+        result: '괜히 긁어 부스럼 만들고 싶지 않았다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager'],
+        worldStateSignal: { key: 'logisticsIntegrity', target: 0 }
+      },
+      {
+        id: 'lw-regional-bucket-list-63',
+        text: '평생 미뤄뒀던 버킷리스트를 하나씩 적어본다',
+        deltas: { happiness: 2 },
+        result: '늦었다고 생각한 것들이, 어쩌면 지금이 딱 맞는 때였다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-junior-thanks-message-63',
+        text: '예전에 가르쳤던 신입이 이제 반장이 되어 인사를 전해온다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '내가 심은 씨앗이, 어느새 이렇게 자라 있었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
     ]
   },
   {
@@ -42562,6 +42906,80 @@ const STAGES = [
         deltas: {"happiness":3,"wealth":1},
         result: '자식이 챙겨준 마음이 여행지 풍경보다 더 오래 남았다.',
         requiresFamilyMember: ['child']
+      },
+    
+      {
+        id: 'lw-regional-final-health-checkup-64',
+        text: '정년을 앞두고 마지막 정기 건강검진을 받는다',
+        deltas: { health: 1, happiness: 1 },
+        result: '큰 탈 없이 여기까지 왔다는 게, 무엇보다 다행이었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-retirement-ceremony-64',
+        text: '성대한 은퇴식에서 지난 45년을 돌아본다',
+        deltas: { happiness: 4, fame: 2, relationship: 2 },
+        result: '박스를 나르던 스무 살과, 단상에 선 예순넷이 겹쳐 보였다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-final-paycheck-64',
+        text: '마지막 월급 명세서를 받아 든다',
+        deltas: { wealth: 3, happiness: 1 },
+        result: '숫자보다, 그 위에 적힌 이름 석 자가 더 눈에 들어왔다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-retirement-fund-payout-64',
+        text: '퇴직금이 통장에 입금된 걸 확인한다',
+        deltas: { wealth: 6 },
+        result: '45년의 무게가, 숫자 하나로 통장에 찍혔다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-family-gathers-for-retirement-64',
+        text: '가족 모두가 모여 은퇴를 축하해준다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '박수 소리 속에서, 지나온 시간이 헛되지 않았음을 느꼈다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-spouse-thanks-for-years-64',
+        text: '긴 세월을 함께한 배우자에게 진심으로 고마움을 전한다',
+        deltas: { happiness: 3, relationship: 2 },
+        requiresFamilyMember: ['spouse'],
+        result: '가장 가까운 사람에게, 가장 늦게 전하는 말이었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-last-day-emotion-64',
+        text: '마지막 출근길, 만감이 교차한다',
+        deltas: { happiness: 1 },
+        result: '늘 다니던 길인데, 오늘따라 유독 낯설게 느껴졌다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-new-chapter-excitement-64',
+        text: '새로운 인생 2막에 대한 기대감이 차오른다',
+        deltas: { happiness: 3 },
+        result: '끝이 아니라, 또 다른 시작이라고 믿기로 했다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-industry-legacy-recognized-64',
+        text: '업계에서 물류 인력 양성의 공로를 인정받는다',
+        deltas: { happiness: 2, fame: 2 },
+        result: '박스를 나르던 손이, 결국 사람을 키우는 손이 됐다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
       },
     ]
   },
