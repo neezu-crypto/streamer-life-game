@@ -2783,6 +2783,15 @@ const submitChoice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
     }
     effectiveChoice = Object.assign({}, choice, {
       deltas: { wealth: -cost },
+      // 결과 문구 누락 버그(2026-08-31, 사용자 지시로 발견 - "주식 구매시 null
+      // 결과문구가 떠") - game-data.js의 stock-investment-* 선택지 96개 전부
+      // result 필드가 없었다. choice.result는 어느 종목을 살지 미리 알 수
+      // 없어 game-data.js에 고정 문구를 못 박아둘 수 없었는데(그래서 아예
+      // 필드를 빠뜨린 채로 남아있었다), applyChoice가 undefined 그대로 반환→
+      // 클라이언트로 가는 응답에서 null로 직렬화되며 결과창에 문자 그대로
+      // "null"이 찍혔다. 실제 매수한 종목 이름을 넣어 여기서 동적으로
+      // 만든다.
+      result: stockName + ' 주식을 매수했다. 앞으로의 향방이 궁금해진다.',
       addAsset: {
         id: stockId,
         label: stockName,
