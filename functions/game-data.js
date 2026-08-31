@@ -4826,23 +4826,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-20-1',
-        text: '공문서 서식을 새로 익히느라 진땀을 뺀다',
+        text: '결재 라인을 헷갈려 서류를 잘못된 곳에 올린다',
         deltas: { wealth: 1 },
-        result: '익숙해지기까지 실수가 잦았지만 배워가는 재미도 있었다.',
+        result: '한참을 헤맨 뒤에야 제자리를 찾아갔다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-20-2',
-        text: '첫 발령지 동네를 걸어서 익힌다',
+        text: '관할 구역 지도를 펼쳐놓고 위치를 하나씩 익힌다',
         deltas: { happiness: 1 },
-        result: '낯설던 골목이 조금씩 눈에 익어갔다.',
+        result: '눈에 익지 않던 골목들이 조금씩 낯익어졌다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-20-3',
-        text: '상급자에게 서류 반려를 당한다',
+        text: '결재 도장을 받으러 갔다가 그대로 되돌아온다',
         deltas: { happiness: -1 },
-        result: '꼼꼼함이 부족했다는 걸 인정할 수밖에 없었다.',
+        result: '무엇이 문제인지도 모른 채 다시 자리로 돌아왔다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -5871,23 +5871,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-21-1',
-        text: '공문서 서식을 새로 익히느라 진땀을 뺀다',
+        text: '전산 시스템 사용법을 몰라 선배에게 몇 번이고 묻는다',
         deltas: { wealth: 1 },
-        result: '익숙해지기까지 실수가 잦았지만 배워가는 재미도 있었다.',
+        result: '같은 질문을 반복하는 게 민망했지만 어쩔 수 없었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-21-2',
-        text: '첫 발령지 동네를 걸어서 익힌다',
+        text: '동네 상권과 주요 시설을 파악해둔다',
         deltas: { happiness: 1 },
-        result: '낯설던 골목이 조금씩 눈에 익어갔다.',
+        result: '민원 응대에도 도움이 될 거라 생각했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-21-3',
-        text: '상급자에게 서류 반려를 당한다',
+        text: '오탈자 하나로 서류 전체를 다시 써야 했다',
         deltas: { happiness: -1 },
-        result: '꼼꼼함이 부족했다는 걸 인정할 수밖에 없었다.',
+        result: '글자 하나의 무게를 새삼 실감했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -5975,23 +5975,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill-21-1',
-        text: '선배 공무원에게 업무 요령을 배운다',
+        text: '옆자리 선배가 민원 응대 노하우를 슬쩍 알려준다',
         deltas: { happiness: 1, wealth: 1 },
-        result: '사소한 팁 하나가 하루 업무 시간을 크게 줄여줬다.',
+        result: '작은 팁 하나가 큰 도움이 됐다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-21-2',
-        text: '복지부동이라는 말의 무게를 실감한다',
+        text: '괜히 나섰다가 책임만 떠안을까 봐 몸을 사린다',
         deltas: { happiness: -1 },
-        result: '규정을 지키는 것과 도움이 되는 것 사이에서 자주 고민하게 됐다.',
+        result: '적극적인 게 늘 좋은 것만은 아니라는 걸 배웠다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-21-3',
-        text: '동기들과 구내식당에서 점심을 먹는다',
+        text: '동기 모임에서 서로의 부서 이야기를 나눈다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '비슷한 고민을 하는 사람들과의 대화가 위안이 됐다.',
+        result: '비슷한 고민을 나누는 것만으로도 위로가 됐다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -6939,23 +6939,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-22-1',
-        text: '공문서 서식을 새로 익히느라 진땀을 뺀다',
+        text: '공문 초안을 밤새 고쳐 쓴다',
         deltas: { wealth: 1 },
-        result: '익숙해지기까지 실수가 잦았지만 배워가는 재미도 있었다.',
+        result: '문장 하나에도 규정이 걸려 있다는 걸 절감했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-22-2',
-        text: '첫 발령지 동네를 걸어서 익힌다',
+        text: '출퇴근길 지름길을 찾아낸다',
         deltas: { happiness: 1 },
-        result: '낯설던 골목이 조금씩 눈에 익어갔다.',
+        result: '작은 발견 하나가 하루를 조금 가볍게 했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-22-3',
-        text: '상급자에게 서류 반려를 당한다',
+        text: '근거 조항을 잘못 인용해 지적을 받는다',
         deltas: { happiness: -1 },
-        result: '꼼꼼함이 부족했다는 걸 인정할 수밖에 없었다.',
+        result: '법령집을 다시 펼쳐 확인하고 또 확인했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -6981,9 +6981,9 @@ const STAGES = [
       },
       {
         id: 'cs-fill-22-1',
-        text: '민원 응대 매뉴얼을 통째로 외운다',
+        text: '반복되는 민원 유형을 정리해 나만의 대응법을 만든다',
         deltas: { wealth: 1 },
-        result: '예상 밖의 민원에도 당황하지 않게 됐다.',
+        result: '경험이 쌓이며 나름의 요령이 생겼다.',
         requiresRoute: 'civil-servant-route',
         worldStateSignal: { key: 'civilServantService', target: 1 }
       },
@@ -6997,16 +6997,16 @@ const STAGES = [
       },
       {
         id: 'cs-fill-22-2',
-        text: '야근 수당이 생각보다 짜다는 걸 깨닫는다',
+        text: '초과근무 수당 명세서를 보고 씁쓸해한다',
         deltas: { happiness: -1, wealth: 1 },
-        result: '안정적인 만큼 화려하진 않은 월급이었다.',
+        result: '들인 시간에 비해 너무 적은 액수였다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-22-3',
-        text: '공직자 윤리 교육을 이수한다',
+        text: '청렴 서약서에 서명하며 마음을 다잡는다',
         deltas: { happiness: 1 },
-        result: '지루했지만, 앞으로의 처신에 대한 기준이 생겼다.',
+        result: '작은 다짐 하나가 스스로를 돌아보게 했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -8025,23 +8025,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-23-1',
-        text: '공문서 서식을 새로 익히느라 진땀을 뺀다',
+        text: '행정 용어가 낯설어 사전을 뒤적인다',
         deltas: { wealth: 1 },
-        result: '익숙해지기까지 실수가 잦았지만 배워가는 재미도 있었다.',
+        result: '익숙해지기까지는 아직 시간이 더 필요했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-23-2',
-        text: '첫 발령지 동네를 걸어서 익힌다',
+        text: '관내 경로당 어르신들과 안면을 튼다',
         deltas: { happiness: 1 },
-        result: '낯설던 골목이 조금씩 눈에 익어갔다.',
+        result: '먼저 다가가 준 어르신들 덕에 마음이 놓였다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-23-3',
-        text: '상급자에게 서류 반려를 당한다',
+        text: '서식이 구버전이라며 반려당한다',
         deltas: { happiness: -1 },
-        result: '꼼꼼함이 부족했다는 걸 인정할 수밖에 없었다.',
+        result: '바뀐 걸 모르고 있었다는 사실이 부끄러웠다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -8129,23 +8129,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill-23-1',
-        text: '선배 공무원에게 업무 요령을 배운다',
+        text: '선배의 업무 수첩을 보고 요령을 훔쳐 배운다',
         deltas: { happiness: 1, wealth: 1 },
-        result: '사소한 팁 하나가 하루 업무 시간을 크게 줄여줬다.',
+        result: '메모 하나하나에 오랜 경험이 담겨 있었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-23-2',
-        text: '복지부동이라는 말의 무게를 실감한다',
+        text: '적극적으로 나섰다가 오히려 핀잔을 듣는다',
         deltas: { happiness: -1 },
-        result: '규정을 지키는 것과 도움이 되는 것 사이에서 자주 고민하게 됐다.',
+        result: '나서지 않는 편이 나을 때도 있다는 걸 실감했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-23-3',
-        text: '동기들과 구내식당에서 점심을 먹는다',
+        text: '동기들과 퇴근 후 국밥집에서 하루를 마무리한다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '비슷한 고민을 하는 사람들과의 대화가 위안이 됐다.',
+        result: '뜨끈한 국물 한 그릇에 피로가 조금 풀렸다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -9219,23 +9219,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-24-1',
-        text: '공문서 서식을 새로 익히느라 진땀을 뺀다',
+        text: '기안문 형식을 틀려 처음부터 다시 작성한다',
         deltas: { wealth: 1 },
-        result: '익숙해지기까지 실수가 잦았지만 배워가는 재미도 있었다.',
+        result: '형식 하나까지 깐깐한 이유를 이제는 알 것 같았다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-24-2',
-        text: '첫 발령지 동네를 걸어서 익힌다',
+        text: '근처 맛집을 하나둘 알아간다',
         deltas: { happiness: 1 },
-        result: '낯설던 골목이 조금씩 눈에 익어갔다.',
+        result: '점심시간이 하루 중 작은 낙이 됐다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-24-3',
-        text: '상급자에게 서류 반려를 당한다',
+        text: '첨부 서류가 빠졌다는 걸 뒤늦게 안다',
         deltas: { happiness: -1 },
-        result: '꼼꼼함이 부족했다는 걸 인정할 수밖에 없었다.',
+        result: '서둘렀던 것이 결국 발목을 잡았다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -10468,23 +10468,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-25-1',
-        text: '공문서 서식을 새로 익히느라 진땀을 뺀다',
+        text: '인장 관리 규정을 몰라 진땀을 뺀다',
         deltas: { wealth: 1 },
-        result: '익숙해지기까지 실수가 잦았지만 배워가는 재미도 있었다.',
+        result: '작은 도장 하나에도 절차가 있었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-25-2',
-        text: '첫 발령지 동네를 걸어서 익힌다',
+        text: '관할 지역 행사 일정을 꿰고 있게 된다',
         deltas: { happiness: 1 },
-        result: '낯설던 골목이 조금씩 눈에 익어갔다.',
+        result: '이제는 묻지 않아도 술술 나왔다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-25-3',
-        text: '상급자에게 서류 반려를 당한다',
+        text: '숫자 하나를 잘못 적어 처음부터 다시 계산한다',
         deltas: { happiness: -1 },
-        result: '꼼꼼함이 부족했다는 걸 인정할 수밖에 없었다.',
+        result: '꼼꼼함이 왜 그렇게 강조되는지 알 것 같았다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -11605,23 +11605,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-26-1',
-        text: '공문서 서식을 새로 익히느라 진땀을 뺀다',
+        text: '문서 보존 연한 규정을 외우느라 애먹는다',
         deltas: { wealth: 1 },
-        result: '익숙해지기까지 실수가 잦았지만 배워가는 재미도 있었다.',
+        result: '숫자만 봐도 머리가 지끈거렸다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-26-2',
-        text: '첫 발령지 동네를 걸어서 익힌다',
+        text: '동네 이장님들 얼굴과 이름을 외운다',
         deltas: { happiness: 1 },
-        result: '낯설던 골목이 조금씩 눈에 익어갔다.',
+        result: '얼굴을 익히고 나니 일이 한결 수월해졌다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-26-3',
-        text: '상급자에게 서류 반려를 당한다',
+        text: '결재 순서를 건너뛰어 다시 올려야 했다',
         deltas: { happiness: -1 },
-        result: '꼼꼼함이 부족했다는 걸 인정할 수밖에 없었다.',
+        result: '절차 하나까지도 순서가 있다는 걸 배웠다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -11667,9 +11667,9 @@ const STAGES = [
       },
       {
         id: 'cs-fill-26-1',
-        text: '민원 응대 매뉴얼을 통째로 외운다',
+        text: '까다로운 민원인 응대 사례집을 꼼꼼히 읽어둔다',
         deltas: { wealth: 1 },
-        result: '예상 밖의 민원에도 당황하지 않게 됐다.',
+        result: '미리 대비해두니 마음이 한결 든든했다.',
         requiresRoute: 'civil-servant-route',
         worldStateSignal: { key: 'civilServantService', target: 1 }
       },
@@ -11683,16 +11683,16 @@ const STAGES = [
       },
       {
         id: 'cs-fill-26-2',
-        text: '야근 수당이 생각보다 짜다는 걸 깨닫는다',
+        text: '야근이 잦은데도 수당은 제자리라는 걸 새삼 느낀다',
         deltas: { happiness: -1, wealth: 1 },
-        result: '안정적인 만큼 화려하진 않은 월급이었다.',
+        result: '몸은 늘 남아 있는데 통장은 그대로였다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-26-3',
-        text: '공직자 윤리 교육을 이수한다',
+        text: '부정청탁 방지법 교육을 듣는다',
         deltas: { happiness: 1 },
-        result: '지루했지만, 앞으로의 처신에 대한 기준이 생겼다.',
+        result: '알고 있던 내용도 다시 들으니 새삼 무겁게 다가왔다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -12831,23 +12831,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-27-1',
-        text: '공문서 서식을 새로 익히느라 진땀을 뺀다',
+        text: '정보공개 청구 서류 작성법을 새로 익힌다',
         deltas: { wealth: 1 },
-        result: '익숙해지기까지 실수가 잦았지만 배워가는 재미도 있었다.',
+        result: '까다로운 규정 속에서도 요령이 조금씩 붙었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-27-2',
-        text: '첫 발령지 동네를 걸어서 익힌다',
+        text: '익숙해진 관할구역이 이제는 내 구역처럼 느껴진다',
         deltas: { happiness: 1 },
-        result: '낯설던 골목이 조금씩 눈에 익어갔다.',
+        result: '처음의 낯섦은 어느새 다 사라지고 없었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-27-3',
-        text: '상급자에게 서류 반려를 당한다',
+        text: '예상 못한 질문에 말문이 막혀 서류를 들고 물러난다',
         deltas: { happiness: -1 },
-        result: '꼼꼼함이 부족했다는 걸 인정할 수밖에 없었다.',
+        result: '다음엔 더 철저히 준비하겠다고 다짐했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -12935,23 +12935,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill-27-1',
-        text: '선배 공무원에게 업무 요령을 배운다',
+        text: '베테랑 주무관에게 실전 팁을 전수받는다',
         deltas: { happiness: 1, wealth: 1 },
-        result: '사소한 팁 하나가 하루 업무 시간을 크게 줄여줬다.',
+        result: '책에는 없는 현장의 지혜였다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-27-2',
-        text: '복지부동이라는 말의 무게를 실감한다',
+        text: '규정만 따지는 조직 분위기에 답답함을 느낀다',
         deltas: { happiness: -1 },
-        result: '규정을 지키는 것과 도움이 되는 것 사이에서 자주 고민하게 됐다.',
+        result: '융통성 없는 절차가 가끔은 숨 막혔다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-27-3',
-        text: '동기들과 구내식당에서 점심을 먹는다',
+        text: '오랜만에 모인 동기들과 근황을 주고받는다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '비슷한 고민을 하는 사람들과의 대화가 위안이 됐다.',
+        result: '다들 자기 자리에서 열심히 살고 있었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -14120,14 +14120,14 @@ const STAGES = [
       {
         id: 'cs-fill2-28-2',
         text: '정책 설명회에서 주민들 앞에 선다',
-        deltas: { happiness: 1, fame: 1 },
+        deltas: { wealth: 1, happiness: 1, fame: 1 },
         result: '긴장했지만 준비한 만큼 잘 마쳤다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-28-3',
         text: '육아휴직 중인 동료의 업무를 대신 맡는다',
-        deltas: { happiness: -1, relationship: 1 },
+        deltas: { wealth: 2, happiness: -1, relationship: 1 },
         result: '힘들었지만 서로 돕는 게 당연했다.',
         requiresRoute: 'civil-servant-route'
       },
@@ -15226,23 +15226,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-29-1',
-        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        text: '예산 부서와 책임 소재를 두고 신경전을 벌인다',
         deltas: { happiness: -1 },
-        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        result: '서로 떠넘기는 사이 일만 늦어졌다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-29-2',
-        text: '정책 설명회에서 주민들 앞에 선다',
-        deltas: { happiness: 1, fame: 1 },
-        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        text: '주민 간담회에서 날카로운 질문 세례를 받는다',
+        deltas: { wealth: 1, happiness: 1, fame: 1 },
+        result: '진땀을 뺐지만 하나하나 성실히 답했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-29-3',
-        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
-        deltas: { happiness: -1, relationship: 1 },
-        result: '힘들었지만 서로 돕는 게 당연했다.',
+        text: '병가 낸 동료의 업무까지 떠맡아 눈코 뜰 새 없다',
+        deltas: { wealth: 2, happiness: -1, relationship: 1 },
+        result: '몸이 두 개라도 모자랄 지경이었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -16395,30 +16395,30 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-30-1',
-        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        text: '다른 과의 협조 요청에 우선순위가 밀려 곤란해진다',
         deltas: { happiness: -1 },
-        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        result: '양쪽 다 급하다는 말에 이러지도 저러지도 못했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-30-2',
-        text: '정책 설명회에서 주민들 앞에 선다',
-        deltas: { happiness: 1, fame: 1 },
-        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        text: '새 정책 설명회 발표를 맡아 며칠을 준비한다',
+        deltas: { wealth: 1, happiness: 1, fame: 1 },
+        result: '떨리는 목소리로 첫 문장을 시작했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-30-3',
-        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
-        deltas: { happiness: -1, relationship: 1 },
-        result: '힘들었지만 서로 돕는 게 당연했다.',
+        text: '결원이 생긴 옆 부서 업무를 임시로 지원한다',
+        deltas: { wealth: 2, happiness: -1, relationship: 1 },
+        result: '낯선 업무라 처음부터 다시 배워야 했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-30-4',
-        text: '장기근속 표창을 받는다',
+        text: '성실 근무 표창장을 받아 든다',
         deltas: { happiness: 2, fame: 1 },
-        result: '긴 세월이 헛되지 않았다는 증표 같았다.',
+        result: '거창하진 않아도 꾸준함을 인정받은 기분이었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -17479,23 +17479,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-31-1',
-        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        text: '부서 간 떠넘기기 속에서 애꿎게 업무만 떠맡는다',
         deltas: { happiness: -1 },
-        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        result: '억울했지만 결국 손에 쥔 건 나였다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-31-2',
-        text: '정책 설명회에서 주민들 앞에 선다',
-        deltas: { happiness: 1, fame: 1 },
-        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        text: '반대 여론이 거센 주민 설명회에 진땀을 뺀다',
+        deltas: { wealth: 1, happiness: 1, fame: 1 },
+        result: '고성이 오갔지만 끝까지 자리를 지켰다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-31-3',
-        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
-        deltas: { happiness: -1, relationship: 1 },
-        result: '힘들었지만 서로 돕는 게 당연했다.',
+        text: '동료의 장기 출장 중 대신 결재를 처리한다',
+        deltas: { wealth: 2, happiness: -1, relationship: 1 },
+        result: '책임이 무거워진 만큼 더 신중해졌다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -18578,23 +18578,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-32-1',
-        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        text: '타 부서 담당자와 연락이 닿지 않아 일정이 늦어진다',
         deltas: { happiness: -1 },
-        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        result: '메일함만 하염없이 새로고침했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-32-2',
-        text: '정책 설명회에서 주민들 앞에 선다',
-        deltas: { happiness: 1, fame: 1 },
-        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        text: '지역 신문 인터뷰 요청에 응한다',
+        deltas: { wealth: 1, happiness: 1, fame: 1 },
+        result: '신중하게 단어를 고르며 답변을 이어갔다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-32-3',
-        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
-        deltas: { happiness: -1, relationship: 1 },
-        result: '힘들었지만 서로 돕는 게 당연했다.',
+        text: '휴직한 동료 몫까지 두 사람 일을 혼자 해낸다',
+        deltas: { wealth: 2, happiness: -1, relationship: 1 },
+        result: '퇴근 시간이 점점 늦어졌다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -18640,23 +18640,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill-32-1',
-        text: '동료의 결혼식에 다녀온다',
+        text: '옆 부서 동료의 돌잔치에 다녀온다',
         deltas: { relationship: 2 },
-        result: '같은 조직에서 함께 늙어가는 사람들이라는 게 새삼스러웠다.',
+        result: '아이의 웃음소리에 마음이 따뜻해졌다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-32-2',
-        text: '연가를 몰아 써서 가족여행을 간다',
+        text: '모처럼 연차를 내고 부모님을 뵈러 간다',
         deltas: { happiness: 3, relationship: 1, wealth: -1 },
-        result: '공무원이라 가능한 여유였다.',
+        result: '오랜만의 걸음이었지만 마음만은 늘 그곳에 있었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-32-3',
-        text: '민원인의 억지 항의를 몇 시간째 듣는다',
+        text: '막무가내 민원인에게 멱살까지 잡힐 뻔한다',
         deltas: { happiness: -2 },
-        result: '감정노동이라는 말을 실감했다.',
+        result: '놀란 가슴을 진정시키는 데 한참이 걸렸다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -19592,37 +19592,37 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-33-1',
-        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        text: '협업 회의에서 서로 다른 입장 차만 확인한다',
         deltas: { happiness: -1 },
-        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        result: '결론 없는 회의가 한 시간을 넘겼다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-33-2',
-        text: '정책 설명회에서 주민들 앞에 선다',
-        deltas: { happiness: 1, fame: 1 },
-        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        text: '주민참여예산 설명회를 성공적으로 마친다',
+        deltas: { wealth: 1, happiness: 1, fame: 1 },
+        result: '박수까지는 아니어도 고개를 끄덕이는 이들이 많았다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-33-3',
-        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
-        deltas: { happiness: -1, relationship: 1 },
-        result: '힘들었지만 서로 돕는 게 당연했다.',
+        text: '인력 부족으로 여러 업무를 동시에 떠맡는다',
+        deltas: { wealth: 2, happiness: -1, relationship: 1 },
+        result: '이 일 저 일 오가느라 정신이 없었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-33-4',
-        text: '장기근속 표창을 받는다',
+        text: '모범 공무원으로 선정돼 표창을 받는다',
         deltas: { happiness: 2, fame: 1 },
-        result: '긴 세월이 헛되지 않았다는 증표 같았다.',
+        result: '동료들의 축하가 상장보다 더 값졌다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-33-5',
-        text: '예산 편성 시즌에 며칠 밤을 새운다',
+        text: '결산 보고서 마감에 쫓겨 주말을 반납한다',
         deltas: { happiness: -2, wealth: 1 },
-        result: '숫자와의 씨름이 매년 반복됐다.',
+        result: '달력의 빨간 날이 무의미해진 지 오래였다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -20665,23 +20665,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-34-1',
-        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        text: '공동 사업 추진 중 부서 간 의견 충돌이 생긴다',
         deltas: { happiness: -1 },
-        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        result: '같은 목표인데도 방향이 자꾸 엇갈렸다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-34-2',
-        text: '정책 설명회에서 주민들 앞에 선다',
-        deltas: { happiness: 1, fame: 1 },
-        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        text: '정책 브리핑 자료를 만들며 밤을 새운다',
+        deltas: { wealth: 1, happiness: 1, fame: 1 },
+        result: '숫자 하나까지 다시 확인하고 또 확인했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-34-3',
-        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
-        deltas: { happiness: -1, relationship: 1 },
-        result: '힘들었지만 서로 돕는 게 당연했다.',
+        text: '퇴사한 동료의 인수인계 없는 업무를 파악하느라 고생한다',
+        deltas: { wealth: 2, happiness: -1, relationship: 1 },
+        result: '남겨진 서류만으로 실마리를 찾아야 했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -20728,23 +20728,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill-34-1',
-        text: '부서 이동 발령을 받는다',
+        text: '희망하지 않던 부서로 갑작스레 발령이 난다',
         deltas: { happiness: -1, wealth: 1 },
-        result: '새로운 업무를 처음부터 다시 익혀야 했다.',
+        result: '마음의 준비도 없이 짐부터 챙겨야 했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-34-2',
-        text: '후배 공무원의 멘토를 맡는다',
+        text: '새로 온 신입에게 업무 노하우를 하나씩 알려준다',
         deltas: { relationship: 2, happiness: 2 },
-        result: '가르치면서 오히려 스스로 정리되는 게 많았다.',
+        result: '내가 배웠던 방식 그대로 물려주고 있었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-34-3',
-        text: '감사원 감사 대응으로 며칠을 새운다',
+        text: '예상치 못한 특별 감사 통보에 사무실이 뒤집힌다',
         deltas: { happiness: -2, wealth: 1 },
-        result: '별일 없이 끝났지만, 진이 다 빠졌다.',
+        result: '아무 잘못 없어도 심장이 철렁 내려앉았다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -21690,23 +21690,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-35-1',
-        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        text: '메일 하나로 시작된 오해가 부서 간 갈등으로 번진다',
         deltas: { happiness: -1 },
-        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        result: '말 한마디를 더 신중히 골랐어야 했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-35-2',
-        text: '정책 설명회에서 주민들 앞에 선다',
-        deltas: { happiness: 1, fame: 1 },
-        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        text: '온라인 설명회를 준비하느라 낯선 장비와 씨름한다',
+        deltas: { wealth: 1, happiness: 1, fame: 1 },
+        result: '화면 너머 얼굴 없는 청중이 더 긴장됐다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-35-3',
-        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
-        deltas: { happiness: -1, relationship: 1 },
-        result: '힘들었지만 서로 돕는 게 당연했다.',
+        text: '육아기 단축근무 동료를 대신해 야근이 잦아진다',
+        deltas: { wealth: 2, happiness: -1, relationship: 1 },
+        result: '이해는 하면서도 몸은 점점 지쳐갔다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -21743,7 +21743,7 @@ const STAGES = [
       {
         id: 'cs-budget-season-grind-35',
         text: '예산 편성 시즌, 서류와 씨름한다',
-        deltas: { health: -2, happiness: -1 },
+        deltas: { wealth: 2, health: -2, happiness: -1 },
         result: '숫자 하나하나를 맞추다 보니, 하루가 통째로 사라졌다.',
         requiresRoute: 'civil-servant-route'
       },
@@ -22673,37 +22673,37 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-36-1',
-        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        text: '다른 부서의 늑장 처리로 내 업무까지 지연된다',
         deltas: { happiness: -1 },
-        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        result: '내 손을 떠난 일인데 책임은 함께 물었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-36-2',
-        text: '정책 설명회에서 주민들 앞에 선다',
-        deltas: { happiness: 1, fame: 1 },
-        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        text: '예상 밖의 호응에 뿌듯함을 느낀다',
+        deltas: { wealth: 1, happiness: 1, fame: 1 },
+        result: '준비한 보람이 있었다는 생각이 들었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-36-3',
-        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
-        deltas: { happiness: -1, relationship: 1 },
-        result: '힘들었지만 서로 돕는 게 당연했다.',
+        text: '동료의 갑작스런 부재로 발표를 대신 맡는다',
+        deltas: { wealth: 2, happiness: -1, relationship: 1 },
+        result: '준비할 시간도 없이 단상에 섰다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-36-4',
-        text: '장기근속 표창을 받는다',
+        text: '우수 제안 채택으로 포상을 받는다',
         deltas: { happiness: 2, fame: 1 },
-        result: '긴 세월이 헛되지 않았다는 증표 같았다.',
+        result: '작은 아이디어가 이렇게 인정받을 줄 몰랐다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-36-5',
-        text: '예산 편성 시즌에 며칠 밤을 새운다',
+        text: '추경 예산안 작성으로 며칠째 야근이다',
         deltas: { happiness: -2, wealth: 1 },
-        result: '숫자와의 씨름이 매년 반복됐다.',
+        result: '눈이 빠질 것 같은 숫자들과 씨름했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -23564,23 +23564,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-37-1',
-        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        text: '부서 이기주의 속에서 중재 역할을 떠맡는다',
         deltas: { happiness: -1 },
-        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        result: '누구 편도 들 수 없는 자리가 버거웠다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-37-2',
-        text: '정책 설명회에서 주민들 앞에 선다',
-        deltas: { happiness: 1, fame: 1 },
-        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        text: '주민 대표단과 직접 협의 자리를 갖는다',
+        deltas: { wealth: 1, happiness: 1, fame: 1 },
+        result: '한 사람 한 사람의 의견을 놓치지 않으려 애썼다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-37-3',
-        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
-        deltas: { happiness: -1, relationship: 1 },
-        result: '힘들었지만 서로 돕는 게 당연했다.',
+        text: '휴가 간 팀장 대신 결재권을 임시로 위임받는다',
+        deltas: { wealth: 2, happiness: -1, relationship: 1 },
+        result: '평소보다 무거운 책임감이 어깨를 눌렀다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -23647,23 +23647,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill-37-1',
-        text: '동료의 결혼식에 다녀온다',
+        text: '함께 입사한 동기의 승진 축하 자리에 참석한다',
         deltas: { relationship: 2 },
-        result: '같은 조직에서 함께 늙어가는 사람들이라는 게 새삼스러웠다.',
+        result: '진심으로 축하하면서도 묘한 감정이 스쳤다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-37-2',
-        text: '연가를 몰아 써서 가족여행을 간다',
+        text: '여름휴가로 가족과 함께 바다를 찾는다',
         deltas: { happiness: 3, relationship: 1, wealth: -1 },
-        result: '공무원이라 가능한 여유였다.',
+        result: '파도 소리에 그간의 피로가 조금 씻겨나갔다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-37-3',
-        text: '민원인의 억지 항의를 몇 시간째 듣는다',
+        text: '같은 민원을 몇 번이고 반복해서 설명한다',
         deltas: { happiness: -2 },
-        result: '감정노동이라는 말을 실감했다.',
+        result: '목이 쉬도록 같은 말을 되풀이했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -24498,37 +24498,37 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-38-1',
-        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        text: '합동 점검을 나갔다가 타 부서와 관할을 두고 다툰다',
         deltas: { happiness: -1 },
-        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        result: '현장에서까지 영역 다툼이 이어졌다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-38-2',
-        text: '정책 설명회에서 주민들 앞에 선다',
-        deltas: { happiness: 1, fame: 1 },
-        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        text: '설명회 도중 돌발 질문에 당황하지 않고 답한다',
+        deltas: { wealth: 1, happiness: 1, fame: 1 },
+        result: '순발력이 어느새 이렇게 늘었나 스스로도 놀랐다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-38-3',
-        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
-        deltas: { happiness: -1, relationship: 1 },
-        result: '힘들었지만 서로 돕는 게 당연했다.',
+        text: '병가 중인 팀원 업무를 나눠 맡느라 다들 지쳐간다',
+        deltas: { wealth: 2, happiness: -1, relationship: 1 },
+        result: '서로 말은 안 해도 다들 한계에 가까웠다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-38-4',
-        text: '장기근속 표창을 받는다',
+        text: '청렴 실천 우수자로 뽑혀 표창을 받는다',
         deltas: { happiness: 2, fame: 1 },
-        result: '긴 세월이 헛되지 않았다는 증표 같았다.',
+        result: '당연한 걸 했을 뿐인데 상까지 받아 쑥스러웠다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-38-5',
-        text: '예산 편성 시즌에 며칠 밤을 새운다',
+        text: '감사 자료 취합에 정신없는 나날을 보낸다',
         deltas: { happiness: -2, wealth: 1 },
-        result: '숫자와의 씨름이 매년 반복됐다.',
+        result: '서류 더미 속에서 하루가 훌쩍 지나갔다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -25368,23 +25368,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-39-1',
-        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        text: '타 부서 실수의 뒤처리를 떠안게 된다',
         deltas: { happiness: -1 },
-        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        result: '내가 벌인 일도 아닌데 수습은 내 몫이었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-39-2',
-        text: '정책 설명회에서 주민들 앞에 선다',
-        deltas: { happiness: 1, fame: 1 },
-        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        text: '지역 방송 출연 제안을 받는다',
+        deltas: { wealth: 1, happiness: 1, fame: 1 },
+        result: '카메라 앞이 낯설었지만 침착하게 임했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-39-3',
-        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
-        deltas: { happiness: -1, relationship: 1 },
-        result: '힘들었지만 서로 돕는 게 당연했다.',
+        text: '결원 보충이 늦어져 업무 공백을 홀로 메운다',
+        deltas: { wealth: 2, happiness: -1, relationship: 1 },
+        result: '언제 끝날지 모르는 상황이 더 힘들었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -25472,23 +25472,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill-39-1',
-        text: '부서 이동 발령을 받는다',
+        text: '순환보직 원칙에 따라 새 부서로 옮긴다',
         deltas: { happiness: -1, wealth: 1 },
-        result: '새로운 업무를 처음부터 다시 익혀야 했다.',
+        result: '익숙함을 뒤로하고 다시 처음이 됐다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-39-2',
-        text: '후배 공무원의 멘토를 맡는다',
+        text: '신규 임용자 교육을 담당하게 된다',
         deltas: { relationship: 2, happiness: 2 },
-        result: '가르치면서 오히려 스스로 정리되는 게 많았다.',
+        result: '가르치며 스스로도 다시 배우는 기분이었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-39-3',
-        text: '감사원 감사 대응으로 며칠을 새운다',
+        text: '국정감사 자료 요청에 밤낮없이 매달린다',
         deltas: { happiness: -2, wealth: 1 },
-        result: '별일 없이 끝났지만, 진이 다 빠졌다.',
+        result: '자료 한 장 한 장이 살얼음판 같았다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -26162,30 +26162,30 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-40-1',
-        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        text: '협조 공문을 보냈지만 감감무소식이다',
         deltas: { happiness: -1 },
-        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        result: '기다림 끝에 결국 직접 찾아가야 했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-40-2',
-        text: '정책 설명회에서 주민들 앞에 선다',
-        deltas: { happiness: 1, fame: 1 },
-        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        text: '정책 설명 자료가 우수 사례로 소개된다',
+        deltas: { wealth: 1, happiness: 1, fame: 1 },
+        result: '공들인 자료가 인정받은 것 같아 뿌듯했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-40-3',
-        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
-        deltas: { happiness: -1, relationship: 1 },
-        result: '힘들었지만 서로 돕는 게 당연했다.',
+        text: '휴직자 복귀 전까지 업무 대행을 이어간다',
+        deltas: { wealth: 2, happiness: -1, relationship: 1 },
+        result: '남은 기간을 손꼽아 세게 됐다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-40-4',
-        text: '장기근속 표창을 받는다',
+        text: '행정 혁신 사례로 선정돼 기관장 표창을 받는다',
         deltas: { happiness: 2, fame: 1 },
-        result: '긴 세월이 헛되지 않았다는 증표 같았다.',
+        result: '바꿔보려 애썼던 시도가 결실을 맺었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -27018,23 +27018,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-41-1',
-        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        text: '부서 간 데이터가 맞지 않아 다시 대조 작업을 한다',
         deltas: { happiness: -1 },
-        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        result: '숫자 하나 맞추는 데 하루가 꼬박 걸렸다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-41-2',
-        text: '정책 설명회에서 주민들 앞에 선다',
-        deltas: { happiness: 1, fame: 1 },
-        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        text: '학부모 대상 설명회에서 뜻밖의 호평을 듣는다',
+        deltas: { wealth: 1, happiness: 1, fame: 1 },
+        result: '설명이 쉬웠다는 말 한마디가 큰 힘이 됐다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-41-3',
-        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
-        deltas: { happiness: -1, relationship: 1 },
-        result: '힘들었지만 서로 돕는 게 당연했다.',
+        text: '동료의 부재를 메우다 정작 내 업무는 밀린다',
+        deltas: { wealth: 2, happiness: -1, relationship: 1 },
+        result: '내 일은 늘 뒷전으로 밀려났다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -27122,23 +27122,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill-41-1',
-        text: '동료의 결혼식에 다녀온다',
+        text: '오래 알고 지낸 동료의 장례식장에 조문을 간다',
         deltas: { relationship: 2 },
-        result: '같은 조직에서 함께 늙어가는 사람들이라는 게 새삼스러웠다.',
+        result: '무거운 마음으로 자리를 지켰다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-41-2',
-        text: '연가를 몰아 써서 가족여행을 간다',
+        text: '리프레시 휴가를 내고 홀로 여행을 떠난다',
         deltas: { happiness: 3, relationship: 1, wealth: -1 },
-        result: '공무원이라 가능한 여유였다.',
+        result: '온전히 나만을 위한 시간이 오랜만이었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-41-3',
-        text: '민원인의 억지 항의를 몇 시간째 듣는다',
+        text: '악성 민원 전화에 하루 종일 시달린다',
         deltas: { happiness: -2 },
-        result: '감정노동이라는 말을 실감했다.',
+        result: '수화기를 내려놓고도 한참 멍했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -27775,23 +27775,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-42-1',
-        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        text: '공동 프로젝트에서 성과 배분을 두고 신경전을 벌인다',
         deltas: { happiness: -1 },
-        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        result: '함께 한 일인데 인정받는 몫은 달랐다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-42-2',
-        text: '정책 설명회에서 주민들 앞에 선다',
-        deltas: { happiness: 1, fame: 1 },
-        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        text: '청년층 대상 정책 홍보 자리를 새로 기획한다',
+        deltas: { wealth: 1, happiness: 1, fame: 1 },
+        result: '낯선 방식이었지만 반응이 나쁘지 않았다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-42-3',
-        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
-        deltas: { happiness: -1, relationship: 1 },
-        result: '힘들었지만 서로 돕는 게 당연했다.',
+        text: '인사 발령 공백기에 두 사람 몫을 해낸다',
+        deltas: { wealth: 2, happiness: -1, relationship: 1 },
+        result: '힘들었지만 그만큼 배우는 것도 많았다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -27837,23 +27837,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill-42-1',
-        text: '부서 이동 발령을 받는다',
+        text: '오랜 요청 끝에 원하던 부서로 이동한다',
         deltas: { happiness: -1, wealth: 1 },
-        result: '새로운 업무를 처음부터 다시 익혀야 했다.',
+        result: '드디어 바라던 자리에 앉게 됐다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-42-2',
-        text: '후배 공무원의 멘토를 맡는다',
+        text: '부서 막내의 업무 적응을 도와준다',
         deltas: { relationship: 2, happiness: 2 },
-        result: '가르치면서 오히려 스스로 정리되는 게 많았다.',
+        result: '서툴렀던 예전의 내가 겹쳐 보였다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-42-3',
-        text: '감사원 감사 대응으로 며칠을 새운다',
+        text: '회계 감사를 앞두고 서류를 다시 정리한다',
         deltas: { happiness: -2, wealth: 1 },
-        result: '별일 없이 끝났지만, 진이 다 빠졌다.',
+        result: '숫자 하나까지 어긋나지 않게 맞췄다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -28491,23 +28491,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-43-1',
-        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        text: '타 부서 팀장과의 마찰로 회의 분위기가 냉랭해진다',
         deltas: { happiness: -1 },
-        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        result: '말없이 오가는 눈치 싸움이 더 피곤했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-43-2',
-        text: '정책 설명회에서 주민들 앞에 선다',
-        deltas: { happiness: 1, fame: 1 },
-        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        text: '설명회 후 이어진 질의에 밤늦게까지 답한다',
+        deltas: { wealth: 1, happiness: 1, fame: 1 },
+        result: '퇴근은 늦었지만 보람은 남았다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-43-3',
-        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
-        deltas: { happiness: -1, relationship: 1 },
-        result: '힘들었지만 서로 돕는 게 당연했다.',
+        text: '육아휴직 동료의 복귀를 앞두고 인계 준비를 돕는다',
+        deltas: { wealth: 2, happiness: -1, relationship: 1 },
+        result: '돌아올 자리를 정리해주는 마음이 남달랐다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -28595,23 +28595,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill-43-1',
-        text: '동료의 결혼식에 다녀온다',
+        text: '정든 동료의 명예퇴직 송별회에 참석한다',
         deltas: { relationship: 2 },
-        result: '같은 조직에서 함께 늙어가는 사람들이라는 게 새삼스러웠다.',
+        result: '먼저 떠나는 뒷모습이 유독 크게 느껴졌다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-43-2',
-        text: '연가를 몰아 써서 가족여행을 간다',
+        text: '명절 연휴에 맞춰 며칠 더 쉬며 재충전한다',
         deltas: { happiness: 3, relationship: 1, wealth: -1 },
-        result: '공무원이라 가능한 여유였다.',
+        result: '길어진 휴식이 그 무엇보다 달콤했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-43-3',
-        text: '민원인의 억지 항의를 몇 시간째 듣는다',
+        text: '이치에 안 맞는 요구를 하는 민원인을 겨우 달랜다',
         deltas: { happiness: -2 },
-        result: '감정노동이라는 말을 실감했다.',
+        result: '설득이 아니라 버티기에 가까웠다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -29274,23 +29274,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-44-1',
-        text: '타 부서와의 협업 과정에서 갈등을 겪는다',
+        text: '여러 부서를 거치며 결재가 하염없이 늦어진다',
         deltas: { happiness: -1 },
-        result: '서로 다른 입장 차이를 조율하는 게 쉽지 않았다.',
+        result: '도장 하나 받는 데 일주일이 걸렸다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-44-2',
-        text: '정책 설명회에서 주민들 앞에 선다',
-        deltas: { happiness: 1, fame: 1 },
-        result: '긴장했지만 준비한 만큼 잘 마쳤다.',
+        text: '타 지자체에서 설명회 노하우를 배우러 찾아온다',
+        deltas: { wealth: 1, happiness: 1, fame: 1 },
+        result: '어느새 배우러 오는 입장이 아니라 알려주는 입장이 됐다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-44-3',
-        text: '육아휴직 중인 동료의 업무를 대신 맡는다',
-        deltas: { happiness: -1, relationship: 1 },
-        result: '힘들었지만 서로 돕는 게 당연했다.',
+        text: '만성적인 인력 부족 속에서도 어떻게든 버텨낸다',
+        deltas: { wealth: 2, happiness: -1, relationship: 1 },
+        result: '버티는 것도 실력이라는 말을 실감했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -29336,23 +29336,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill-44-1',
-        text: '부서 이동 발령을 받는다',
+        text: '구조조정으로 소속 부서가 통째로 바뀐다',
         deltas: { happiness: -1, wealth: 1 },
-        result: '새로운 업무를 처음부터 다시 익혀야 했다.',
+        result: '이름마저 낯선 부서에서 다시 시작해야 했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-44-2',
-        text: '후배 공무원의 멘토를 맡는다',
+        text: '실습 나온 대학생 인턴을 지도한다',
         deltas: { relationship: 2, happiness: 2 },
-        result: '가르치면서 오히려 스스로 정리되는 게 많았다.',
+        result: '풋풋한 열정이 오랜만에 신선하게 다가왔다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-44-3',
-        text: '감사원 감사 대응으로 며칠을 새운다',
+        text: '특정 감사 대상에 올라 자료 소명에 진땀을 뺀다',
         deltas: { happiness: -2, wealth: 1 },
-        result: '별일 없이 끝났지만, 진이 다 빠졌다.',
+        result: '억울함과 긴장 사이에서 진땀이 흘렀다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -30041,7 +30041,7 @@ const STAGES = [
       {
         id: 'cs-fill2-45-2',
         text: '공로연수를 앞두고 업무 인수인계를 준비한다',
-        deltas: { happiness: 1 },
+        deltas: { wealth: 1, happiness: 1 },
         result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
         requiresRoute: 'civil-servant-route'
       },
@@ -30090,7 +30090,7 @@ const STAGES = [
       {
         id: 'cs-follows-up-complaint-45',
         text: '까다로운 민원을 끝까지 붙잡고 원인을 찾아 해결한다',
-        deltas: { happiness: -1, fame: 1 },
+        deltas: { wealth: 1, happiness: -1, fame: 1 },
         result: '시간은 배로 걸렸지만, 민원인의 표정이 그제서야 풀렸다.',
         requiresRoute: 'civil-servant-route',
         worldStateSignal: { key: 'civilServantService', target: 1 }
@@ -30908,23 +30908,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-46-1',
-        text: '후배들의 고민 상담을 자주 맡는다',
+        text: '이직을 고민하는 후배의 이야기를 들어준다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        result: '섣부른 조언보다 그저 들어주는 게 먼저였다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-46-2',
-        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
-        deltas: { happiness: 1 },
-        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        text: '그동안 쌓아온 업무 노하우를 문서로 정리한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '몇 십 년의 경험이 몇 장의 문서로 압축됐다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-46-3',
-        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        text: '동기 모임에서 은퇴 후 계획을 나눈다',
         deltas: { relationship: 2, happiness: 2 },
-        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        result: '다들 저마다의 다음 장을 준비하고 있었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -31031,7 +31031,7 @@ const STAGES = [
       {
         id: 'cs-ordinary-desk-day-46',
         text: '오늘도 평범하게 서류를 처리한다',
-        deltas: { happiness: 1, fame: 1 },
+        deltas: { wealth: 1, happiness: 1, fame: 1 },
         result: '눈에 띄는 하루는 아니었지만, 이런 하루들이 쌓여 경력이 됐다.',
         requiresRoute: 'civil-servant-route'
       },
@@ -31554,23 +31554,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-47-1',
-        text: '후배들의 고민 상담을 자주 맡는다',
+        text: '결혼을 앞둔 후배에게 축하와 조언을 건넨다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        result: '설렘 가득한 후배의 얼굴에 덩달아 웃음이 났다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-47-2',
-        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
-        deltas: { happiness: 1 },
-        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        text: '후임자에게 넘길 인수인계서를 작성한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '빠뜨리는 게 없도록 몇 번이고 다시 읽었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-47-3',
-        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        text: '정년퇴직을 앞둔 동기의 근속 기념패를 함께 준비한다',
         deltas: { relationship: 2, happiness: 2 },
-        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        result: '오랜 세월을 담은 문구를 정성껏 골랐다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -32239,30 +32239,30 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-48-1',
-        text: '후배들의 고민 상담을 자주 맡는다',
+        text: '승진 시험을 준비하는 후배를 응원해준다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        result: '내가 겪었던 시간을 떠올리며 힘을 보탰다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-48-2',
-        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
-        deltas: { happiness: 1 },
-        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        text: '오랫동안 맡아온 업무를 하나씩 정리해나간다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '정리할수록 지나온 시간이 새삼 길게 느껴졌다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-48-3',
-        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        text: '오랜 동기들과 등산 모임을 만든다',
         deltas: { relationship: 2, happiness: 2 },
-        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        result: '함께 오른 산에서 지나온 세월도 함께 돌아봤다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-48-4',
-        text: '건강검진에서 관리 소견을 받는다',
+        text: '혈압 수치가 높다는 소견을 듣고 걱정이 앞선다',
         deltas: { health: -1 },
-        result: '책상 앞 세월이 몸에 티가 났다.',
+        result: '숫자 하나에 마음이 무거워졌다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -32859,23 +32859,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-49-1',
-        text: '후배들의 고민 상담을 자주 맡는다',
+        text: '번아웃을 호소하는 후배와 마주 앉는다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        result: '남 일 같지 않아 마음이 더 쓰였다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-49-2',
-        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
-        deltas: { happiness: 1 },
-        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        text: '담당해온 사업의 진행 상황을 꼼꼼히 기록해둔다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '남길 사람을 위해 최대한 자세히 적었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-49-3',
-        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        text: '동기들과 함께 귀촌을 알아본다',
         deltas: { relationship: 2, happiness: 2 },
-        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        result: '흙을 밟으며 사는 삶을 진지하게 그려봤다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -33424,23 +33424,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-50-1',
-        text: '후배들의 고민 상담을 자주 맡는다',
+        text: '육아와 일 사이에서 고민하는 후배를 다독인다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        result: '완벽하지 않아도 괜찮다고 말해주고 싶었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-50-2',
-        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
-        deltas: { happiness: 1 },
-        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        text: '거래처·유관기관 연락망을 정리해 넘겨준다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '오랜 인맥이 목록 몇 줄로 남았다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-50-3',
-        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        text: '동기 모임 총무를 맡아 여행 일정을 짠다',
         deltas: { relationship: 2, happiness: 2 },
-        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        result: '다들 좋아할 코스를 고르느라 며칠을 고민했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -34039,23 +34039,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-51-1',
-        text: '후배들의 고민 상담을 자주 맡는다',
+        text: '조직 생활에 지친 후배의 하소연을 들어준다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        result: '맞장구만 쳐줘도 후배의 표정이 한결 밝아졌다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-51-2',
-        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
-        deltas: { happiness: 1 },
-        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        text: '미완결 업무를 마무리 짓느라 분주하다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '끝을 보고 넘겨야 마음이 편할 것 같았다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-51-3',
-        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        text: '정년을 앞둔 동기와 술 한잔을 나눈다',
         deltas: { relationship: 2, happiness: 2 },
-        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        result: '말없이 잔을 부딪히는 것만으로 충분했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -34123,23 +34123,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill-51-1',
-        text: '퇴직 후 계획을 동료와 이야기한다',
+        text: '귀농을 고민하며 동료와 이야기를 나눈다',
         deltas: { relationship: 1, happiness: 1 },
-        result: '다들 비슷한 고민을 하고 있었다.',
+        result: '흙냄새 나는 삶을 진지하게 상상해봤다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-51-2',
-        text: '건강검진에서 관리하라는 소견을 받는다',
+        text: '당뇨 전 단계라는 진단에 식습관을 되돌아본다',
         deltas: { health: -1 },
-        result: '책상 앞 세월이 몸에 남아 있었다.',
+        result: '좋아하던 것들을 하나둘 내려놓기로 했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-51-3',
-        text: '연금 예상 수령액을 계산해본다',
+        text: '공무원연금공단에 상담을 신청한다',
         deltas: { happiness: 1 },
-        result: '생각보다 안정적인 숫자에 마음이 놓였다.',
+        result: '막연했던 숫자가 조금씩 구체적으로 다가왔다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -34580,23 +34580,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-52-1',
-        text: '후배들의 고민 상담을 자주 맡는다',
+        text: '진로를 고민하는 후배에게 경험을 나눠준다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        result: '정답은 없어도 참고는 될 거라 생각했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-52-2',
-        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
-        deltas: { happiness: 1 },
-        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        text: '후임에게 업무를 직접 설명하며 인계한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '말로 설명하다 보니 새삼 배웠던 것들이 떠올랐다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-52-3',
-        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        text: '동기들과 함께 자격증 공부를 시작한다',
         deltas: { relationship: 2, happiness: 2 },
-        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        result: '늦은 나이의 도전이 오히려 설렜다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -34664,23 +34664,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill-52-1',
-        text: '정년까지 몇 년 안 남았다는 걸 실감한다',
+        text: '달력의 남은 근무일수를 세어본다',
         deltas: { happiness: 1 },
-        result: '긴 세월이었다는 게 새삼스러웠다.',
+        result: '숫자가 줄어들수록 마음은 복잡해졌다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-52-2',
-        text: '신입 시절 자신을 떠올리며 웃는다',
+        text: '첫 발령지에서의 서툴렀던 기억이 떠오른다',
         deltas: { happiness: 2 },
-        result: '많이 달라졌지만 초심만은 남아있었다.',
+        result: '그때의 실수들이 지금은 그저 웃음이 났다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-52-3',
-        text: '공로연수 대상자 명단을 확인한다',
+        text: '명예퇴직 신청 여부를 진지하게 고민한다',
         deltas: { happiness: 1 },
-        result: '이제 슬슬 마무리를 생각할 때가 됐다.',
+        result: '조금 이르게 매듭짓는 것도 나쁘지 않아 보였다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -35026,23 +35026,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-53-1',
-        text: '후배들의 고민 상담을 자주 맡는다',
+        text: '상사와 갈등을 겪는 후배를 중재해준다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        result: '양쪽 입장을 다 아는 만큼 조심스러웠다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-53-2',
-        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
-        deltas: { happiness: 1 },
-        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        text: '오래된 서류함을 정리하며 지난 시간을 돌아본다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '먼지 쌓인 서류마다 사연이 하나씩 있었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-53-3',
-        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        text: '오랜 동기의 마지막 출근일을 함께 챙긴다',
         deltas: { relationship: 2, happiness: 2 },
-        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        result: '축하와 아쉬움이 뒤섞인 하루였다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -35110,23 +35110,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill-53-1',
-        text: '퇴직 후 계획을 동료와 이야기한다',
+        text: '제2의 인생 설계를 두고 동료와 머리를 맞댄다',
         deltas: { relationship: 1, happiness: 1 },
-        result: '다들 비슷한 고민을 하고 있었다.',
+        result: '막막함 속에서도 조금씩 그림이 그려졌다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-53-2',
-        text: '건강검진에서 관리하라는 소견을 받는다',
+        text: '허리 통증으로 정밀 검사를 권유받는다',
         deltas: { health: -1 },
-        result: '책상 앞 세월이 몸에 남아 있었다.',
+        result: '책상 앞 세월이 몸에 그대로 남아 있었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-53-3',
-        text: '연금 예상 수령액을 계산해본다',
+        text: '퇴직연금과 개인연금을 함께 따져본다',
         deltas: { happiness: 1 },
-        result: '생각보다 안정적인 숫자에 마음이 놓였다.',
+        result: '이것저것 더해보니 그럭저럭 안심이 됐다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -35482,23 +35482,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-54-1',
-        text: '후배들의 고민 상담을 자주 맡는다',
+        text: '퇴사를 고민하는 후배를 붙잡고 이야기를 나눈다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        result: '붙잡을지 응원할지, 쉬운 답이 없었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-54-2',
-        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
-        deltas: { happiness: 1 },
-        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        text: '인수인계 자료가 부족하다는 지적에 다시 보완한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '완벽하다고 생각했는데 빈틈이 있었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-54-3',
-        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        text: '동기 모임에서 각자의 은퇴 준비를 점검한다',
         deltas: { relationship: 2, happiness: 2 },
-        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        result: '서로의 계획을 들으며 내 것도 다시 정리했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -35566,23 +35566,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill-54-1',
-        text: '정년까지 몇 년 안 남았다는 걸 실감한다',
+        text: '마지막 인사평가를 받으며 만감이 교차한다',
         deltas: { happiness: 1 },
-        result: '긴 세월이었다는 게 새삼스러웠다.',
+        result: '이제 정말 얼마 남지 않았다는 걸 실감했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-54-2',
-        text: '신입 시절 자신을 떠올리며 웃는다',
+        text: '옛 사진첩 속 앳된 얼굴에 웃음이 난다',
         deltas: { happiness: 2 },
-        result: '많이 달라졌지만 초심만은 남아있었다.',
+        result: '세월이 참 많이 흘렀다는 게 실감났다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-54-3',
-        text: '공로연수 대상자 명단을 확인한다',
+        text: '공로연수 신청서를 작성해 제출한다',
         deltas: { happiness: 1 },
-        result: '이제 슬슬 마무리를 생각할 때가 됐다.',
+        result: '한 글자 한 글자에 지난 시간이 담겼다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -35928,23 +35928,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-55-1',
-        text: '후배들의 고민 상담을 자주 맡는다',
+        text: '오랜만에 찾아온 후배와 깊은 대화를 나눈다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 듯해 마음이 쓰였다.',
+        result: '시간이 흘러도 변치 않는 인연이 고마웠다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-55-2',
-        text: '공로연수를 앞두고 업무 인수인계를 준비한다',
-        deltas: { happiness: 1 },
-        result: '긴 세월의 노하우를 정리하려니 새삼스러웠다.',
+        text: '마지막까지 꼼꼼하게 업무를 마무리 짓는다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '끝맺음만큼은 흐트러지고 싶지 않았다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-55-3',
-        text: '정년을 앞둔 동기들과 여행을 계획한다',
+        text: '동기들과 정년 기념 단체 사진을 남긴다',
         deltas: { relationship: 2, happiness: 2 },
-        result: '함께 늙어간 세월이 새삼 뭉클했다.',
+        result: '나란히 선 얼굴마다 지나온 세월이 담겨 있었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -35963,7 +35963,7 @@ const STAGES = [
       {
         id: 'cs-handover-to-successor-55',
         text: '은퇴를 앞두고 후임에게 업무를 인계한다',
-        deltas: { happiness: 1, relationship: 1 },
+        deltas: { wealth: 1, happiness: 1, relationship: 1 },
         result: '내가 쌓아온 것들을, 이제는 넘겨줄 시간이었다.',
         requiresRoute: 'civil-servant-route'
       },
@@ -37066,23 +37066,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-57-1',
-        text: '퇴직 후 동사무소에 볼일이 있어 들른다',
+        text: '옛 직장 앞을 지나다 발걸음을 멈춘다',
         deltas: { happiness: 1 },
-        result: '손님으로 앉아 있으니 기분이 묘했다.',
+        result: '문득 걸음이 느려지며 옛 생각이 스쳤다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-57-2',
-        text: '공무원연금으로 안정적인 생활을 이어간다',
+        text: '매달 들어오는 연금으로 생활비를 충당한다',
         deltas: { happiness: 1 },
-        result: '화려하진 않아도 걱정 없는 노후였다.',
+        result: '큰 걱정 없이 한 달 한 달을 보냈다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-57-3',
-        text: '옛 부서 후배들과 명절 인사를 주고받는다',
+        text: '후배들이 마련한 자리에 초대받아 다녀온다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '잊히지 않았다는 사실이 고마웠다.',
+        result: '잊지 않고 불러준 마음이 고마웠다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -37157,16 +37157,16 @@ const STAGES = [
       },
       {
         id: 'cs-fill-57-2',
-        text: '공무원연금으로 소소하게 살아간다',
+        text: '연금으로 텃밭 가꾸기 취미 생활을 이어간다',
         deltas: { happiness: 1 },
-        result: '화려하진 않아도 걱정 없는 노후였다.',
+        result: '작은 텃밭이 하루의 낙이 됐다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-57-3',
-        text: '옛 부서 후배가 안부 인사를 전해온다',
+        text: '후배가 보낸 안부 문자에 반가움이 앞선다',
         deltas: { happiness: 2, relationship: 1 },
-        result: '잊히지 않았다는 사실이 뭉클했다.',
+        result: '짧은 문장 하나에 마음이 따뜻해졌다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -37501,23 +37501,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-58-1',
-        text: '퇴직 후 동사무소에 볼일이 있어 들른다',
+        text: '민원 서류를 떼러 예전 근무지를 찾는다',
         deltas: { happiness: 1 },
-        result: '손님으로 앉아 있으니 기분이 묘했다.',
+        result: '손님 입장이 되어 보니 기분이 묘했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-58-2',
-        text: '공무원연금으로 안정적인 생활을 이어간다',
+        text: '연금 덕분에 큰 걱정 없이 하루하루를 보낸다',
         deltas: { happiness: 1 },
-        result: '화려하진 않아도 걱정 없는 노후였다.',
+        result: '평범한 하루가 얼마나 소중한지 새삼 느꼈다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-58-3',
-        text: '옛 부서 후배들과 명절 인사를 주고받는다',
+        text: '명절마다 안부를 묻는 후배들이 고맙다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '잊히지 않았다는 사실이 고마웠다.',
+        result: '짧은 인사말에도 정성이 느껴졌다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -37605,23 +37605,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill-58-1',
-        text: '평생 다닌 직장 근처를 산책한다',
+        text: '익숙한 출근길을 오랜만에 다시 걸어본다',
         deltas: { happiness: 1 },
-        result: '그 건물을 보면 아직도 마음이 복잡했다.',
+        result: '같은 길인데도 느낌은 사뭇 달랐다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-58-2',
-        text: '퇴직 동료들 모임에 나간다',
+        text: '퇴직자 친목회 정기 모임에 참석한다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '다들 제2의 인생을 각자 방식으로 살고 있었다.',
+        result: '비슷한 처지의 얼굴들이 반가웠다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-58-3',
-        text: '공무원연금으로 소소하게 살아간다',
+        text: '연금 수령액에 맞춰 알뜰하게 살림을 꾸린다',
         deltas: { happiness: 1 },
-        result: '화려하진 않아도 걱정 없는 노후였다.',
+        result: '넉넉하진 않아도 부족함 없이 살아갔다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -38064,23 +38064,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-59-1',
-        text: '퇴직 후 동사무소에 볼일이 있어 들른다',
+        text: '후배가 일하는 모습을 창 너머로 지켜본다',
         deltas: { happiness: 1 },
-        result: '손님으로 앉아 있으니 기분이 묘했다.',
+        result: '그 자리에 있던 예전의 나를 떠올렸다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-59-2',
-        text: '공무원연금으로 안정적인 생활을 이어간다',
+        text: '물가가 올라도 연금이 있어 마음은 든든하다',
         deltas: { happiness: 1 },
-        result: '화려하진 않아도 걱정 없는 노후였다.',
+        result: '뉴스를 봐도 예전만큼 불안하지 않았다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-59-3',
-        text: '옛 부서 후배들과 명절 인사를 주고받는다',
+        text: '옛 부서 단체 채팅방에서 근황을 주고받는다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '잊히지 않았다는 사실이 고마웠다.',
+        result: '작은 화면 속에서도 정은 여전했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -38148,23 +38148,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill-59-1',
-        text: '옛 부서 후배가 안부 인사를 전해온다',
+        text: '명절이 아닌데도 안부를 물어온 후배가 고맙다',
         deltas: { happiness: 2, relationship: 1 },
-        result: '잊히지 않았다는 사실이 뭉클했다.',
+        result: '특별한 날이 아니어도 잊지 않아준 게 고마웠다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-59-2',
-        text: '평생 다닌 직장 근처를 산책한다',
+        text: '직장 근처 단골 카페에 들러 커피를 마신다',
         deltas: { happiness: 1 },
-        result: '그 건물을 보면 아직도 마음이 복잡했다.',
+        result: '늘 앉던 자리에 앉으니 옛 생각이 났다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-59-3',
-        text: '퇴직 동료들 모임에 나간다',
+        text: '오랜만에 모인 퇴직 동료들과 회포를 푼다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '다들 제2의 인생을 각자 방식으로 살고 있었다.',
+        result: '이야기꽃이 밤늦도록 이어졌다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -38520,23 +38520,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-60-1',
-        text: '퇴직 후 동사무소에 볼일이 있어 들른다',
+        text: '관공서 업무 처리 방식이 많이 바뀐 걸 느낀다',
         deltas: { happiness: 1 },
-        result: '손님으로 앉아 있으니 기분이 묘했다.',
+        result: '세월이 흐른 만큼 많은 게 달라져 있었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-60-2',
-        text: '공무원연금으로 안정적인 생활을 이어간다',
+        text: '연금 관리 앱으로 지출 계획을 짜본다',
         deltas: { happiness: 1 },
-        result: '화려하진 않아도 걱정 없는 노후였다.',
+        result: '작은 습관 하나가 노후를 조금 더 든든하게 했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-60-3',
-        text: '옛 부서 후배들과 명절 인사를 주고받는다',
+        text: '후배가 승진했다는 소식에 축하 인사를 건넨다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '잊히지 않았다는 사실이 고마웠다.',
+        result: '내 일처럼 기쁜 소식이었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -39032,23 +39032,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-61-1',
-        text: '퇴직 후 동사무소에 볼일이 있어 들른다',
+        text: '동사무소 직원의 친절한 안내에 옛 생각이 난다',
         deltas: { happiness: 1 },
-        result: '손님으로 앉아 있으니 기분이 묘했다.',
+        result: '그 친절함이 예전의 나와 겹쳐 보였다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-61-2',
-        text: '공무원연금으로 안정적인 생활을 이어간다',
+        text: '연금 수령일이면 통장을 확인하는 게 습관이 됐다',
         deltas: { happiness: 1 },
-        result: '화려하진 않아도 걱정 없는 노후였다.',
+        result: '숫자를 확인하는 것만으로도 마음이 놓였다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-61-3',
-        text: '옛 부서 후배들과 명절 인사를 주고받는다',
+        text: '명절 선물을 보내온 후배에게 고마움을 전한다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '잊히지 않았다는 사실이 고마웠다.',
+        result: '작은 선물에 담긴 마음이 크게 느껴졌다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -39116,23 +39116,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill-61-1',
-        text: '공무원연금으로 소소하게 살아간다',
+        text: '연금 외 소일거리로 용돈벌이를 한다',
         deltas: { happiness: 1 },
-        result: '화려하진 않아도 걱정 없는 노후였다.',
+        result: '작은 벌이라도 스스로 버는 재미가 있었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-61-2',
-        text: '옛 부서 후배가 안부 인사를 전해온다',
+        text: '후배의 결혼 소식을 전해 듣고 축하를 건넨다',
         deltas: { happiness: 2, relationship: 1 },
-        result: '잊히지 않았다는 사실이 뭉클했다.',
+        result: '진심을 담아 축하의 말을 전했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-61-3',
-        text: '평생 다닌 직장 근처를 산책한다',
+        text: '퇴근길마다 걷던 공원 벤치에 잠시 앉아본다',
         deltas: { happiness: 1 },
-        result: '그 건물을 보면 아직도 마음이 복잡했다.',
+        result: '벤치 하나에도 수많은 하루가 담겨 있었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -39508,23 +39508,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-62-1',
-        text: '퇴직 후 동사무소에 볼일이 있어 들른다',
+        text: '예전 자리에 앉은 낯선 얼굴을 보며 묘한 기분이 든다',
         deltas: { happiness: 1 },
-        result: '손님으로 앉아 있으니 기분이 묘했다.',
+        result: '내 자리였던 곳이 이제는 남의 자리였다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-62-2',
-        text: '공무원연금으로 안정적인 생활을 이어간다',
+        text: '안정적인 연금 덕에 여유로운 노후를 보낸다',
         deltas: { happiness: 1 },
-        result: '화려하진 않아도 걱정 없는 노후였다.',
+        result: '젊은 날의 성실함이 지금을 지탱해주고 있었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-62-3',
-        text: '옛 부서 후배들과 명절 인사를 주고받는다',
+        text: '옛 동료들 모임에서 후배들 소식을 듣는다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '잊히지 않았다는 사실이 고마웠다.',
+        result: '다들 각자의 자리에서 잘 지내고 있었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -39592,23 +39592,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill-62-1',
-        text: '퇴직 동료들 모임에 나간다',
+        text: '퇴직자 봉사 모임에 나가 소일거리를 찾는다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '다들 제2의 인생을 각자 방식으로 살고 있었다.',
+        result: '작은 보람이 하루를 채워줬다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-62-2',
-        text: '공무원연금으로 소소하게 살아간다',
+        text: '연금과 저축을 합쳐 노후 자금을 계획한다',
         deltas: { happiness: 1 },
-        result: '화려하진 않아도 걱정 없는 노후였다.',
+        result: '차근차근 세운 계획이 마음을 든든하게 했다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-62-3',
-        text: '옛 부서 후배가 안부 인사를 전해온다',
+        text: '오랜만에 걸려온 후배의 전화에 옛 생각이 난다',
         deltas: { happiness: 2, relationship: 1 },
-        result: '잊히지 않았다는 사실이 뭉클했다.',
+        result: '목소리만 들어도 그 시절이 떠올랐다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -39995,23 +39995,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill2-63-1',
-        text: '퇴직 후 동사무소에 볼일이 있어 들른다',
+        text: '볼일을 마치고 나오며 지난 시간을 떠올린다',
         deltas: { happiness: 1 },
-        result: '손님으로 앉아 있으니 기분이 묘했다.',
+        result: '문을 나서는 발걸음이 유독 무겁고도 가벼웠다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-63-2',
-        text: '공무원연금으로 안정적인 생활을 이어간다',
+        text: '연금이 있어 자식들에게 손 벌리지 않아도 된다',
         deltas: { happiness: 1 },
-        result: '화려하진 않아도 걱정 없는 노후였다.',
+        result: '그것만으로도 스스로가 대견하게 느껴졌다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill2-63-3',
-        text: '옛 부서 후배들과 명절 인사를 주고받는다',
+        text: '여전히 안부를 챙겨주는 후배들에게 뭉클해진다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '잊히지 않았다는 사실이 고마웠다.',
+        result: '시간이 지나도 변치 않는 마음이 고마웠다.',
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -40079,23 +40079,23 @@ const STAGES = [
       },
       {
         id: 'cs-fill-63-1',
-        text: '평생 다닌 직장 근처를 산책한다',
+        text: '정든 거리 곳곳에 남은 추억을 되짚어본다',
         deltas: { happiness: 1 },
-        result: '그 건물을 보면 아직도 마음이 복잡했다.',
+        result: '골목 하나하나가 지난 세월의 기록이었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-63-2',
-        text: '퇴직 동료들 모임에 나간다',
+        text: '퇴직 동료들과 함께 국내 여행을 다녀온다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '다들 제2의 인생을 각자 방식으로 살고 있었다.',
+        result: '느긋한 여행길에 오랜 우정이 더 깊어졌다.',
         requiresRoute: 'civil-servant-route'
       },
       {
         id: 'cs-fill-63-3',
-        text: '공무원연금으로 소소하게 살아간다',
+        text: '큰 부족함 없이 연금으로 하루하루를 보낸다',
         deltas: { happiness: 1 },
-        result: '화려하진 않아도 걱정 없는 노후였다.',
+        result: '소박하지만 평온한 나날이었다.',
         requiresRoute: 'civil-servant-route'
       },
       {
