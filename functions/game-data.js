@@ -5995,6 +5995,26 @@ const STAGES = [
         requiresRoute: 'civil-servant-route'
       },
       {
+        id: 'deviant-cs-expedite-fee-21',
+        text: '인허가를 빨리 처리해주는 대가로 급행료를 받는다',
+        requiresRoute: 'civil-servant-route',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'civilServantService', target: 0 },
+        prizeTable: [
+          { weight: 88, label: '안 걸림', deltas: {"wealth":2}, result: '줄 서는 시간을 돈으로 살 수 있다는 걸, 다들 알고 있었다.' },
+          { weight: 12, label: '발각', deltas: {"wealth":-4,"happiness":-3,"relationship":-3}, result: '민원인의 항의성 제보로 감사 대상에 올랐다.' }
+        ]
+      },
+      {
+        id: 'deviant-cs-expedite-fee-decline-21',
+        text: '급행료 제안을 거절하고 순서대로 처리한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '기다리는 사람에게도, 순서는 공평해야 했다.',
+        worldStateSignal: { key: 'civilServantService', target: 1 },
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'lw-night-shift-assign-21',
         text: '야간조로 배치돼 낮과 밤이 뒤바뀐 생활을 시작한다',
         deltas: {"wealth":2,"health":-2},
@@ -8129,6 +8149,26 @@ const STAGES = [
         requiresRoute: 'civil-servant-route'
       },
       {
+        id: 'deviant-cs-bid-leak-23',
+        text: '입찰 정보를 특정 업체에 미리 흘려준다',
+        requiresRoute: 'civil-servant-route',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.38, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'civilServantService', target: 0 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: {"wealth":4}, result: '미리 알려준 정보가, 두둑한 사례로 돌아왔다.' },
+          { weight: 18, label: '발각', deltas: {"wealth":-7,"happiness":-6,"relationship":-5}, result: '낙찰 패턴이 반복되며 담합 의혹이 감사에 걸렸다.' }
+        ]
+      },
+      {
+        id: 'deviant-cs-bid-leak-decline-23',
+        text: '입찰 정보를 흘리라는 제안을 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '공정한 경쟁이 흔들리는 순간, 신뢰도 함께 무너진다고 믿었다.',
+        worldStateSignal: { key: 'civilServantService', target: 1 },
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'lw-musculoskeletal-onset-23',
         text: '반복되는 중노동에 근골격계 통증이 시작된다',
         deltas: {"happiness":-2,"health":-2},
@@ -9275,6 +9315,26 @@ const STAGES = [
         text: '세무·복지·인허가 중 한 부서로 첫 발령을 받는다',
         deltas: { happiness: 1, wealth: 1 },
         result: '어떤 부서든, 민원인 앞에 서는 무게는 비슷했다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'deviant-cs-nepotism-hire-24',
+        text: '친인척을 부서 채용 심사에서 몰래 밀어준다',
+        requiresRoute: 'civil-servant-route',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.34, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'civilServantService', target: 0 },
+        prizeTable: [
+          { weight: 85, label: '안 걸림', deltas: {"relationship":3}, result: '가족의 웃는 얼굴을 보니, 죄책감은 잠시뿐이었다.' },
+          { weight: 15, label: '발각', deltas: {"wealth":-5,"happiness":-4,"fame":-4}, result: '채용 비리 전수조사에서 특혜 정황이 드러났다.' }
+        ]
+      },
+      {
+        id: 'deviant-cs-nepotism-hire-decline-24',
+        text: '친인척 채용 특혜를 거절하고 원칙대로 심사한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '가족이기에 더더욱, 특혜를 줄 수 없었다.',
+        worldStateSignal: { key: 'civilServantService', target: 1 },
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -12895,6 +12955,26 @@ const STAGES = [
         requiresRoute: 'civil-servant-route'
       },
       {
+        id: 'deviant-cs-fund-embezzle-27',
+        text: '부서 공금 일부를 개인적으로 유용한다',
+        requiresRoute: 'civil-servant-route',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.42, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'civilServantService', target: 0 },
+        prizeTable: [
+          { weight: 78, label: '안 걸림', deltas: {"wealth":6}, result: '작은 금액이라, 티도 안 날 거라 믿었다.' },
+          { weight: 22, label: '발각', deltas: {"wealth":-12,"happiness":-9,"relationship":-6}, result: '정기 회계 감사에서 공금 사용 내역이 걸렸다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-cs-fund-embezzle-decline-27',
+        text: '공금에는 손대지 않고 규정대로 집행한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '작은 금액이라도, 남의 돈은 남의 돈이었다.',
+        worldStateSignal: { key: 'civilServantService', target: 1 },
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'lw-headhunted-27',
         text: '다른 물류센터에서 스카우트 제안을 받는다',
         deltas: {"wealth":1,"happiness":1},
@@ -15270,6 +15350,26 @@ const STAGES = [
         requiresRoute: 'civil-servant-route'
       },
       {
+        id: 'deviant-cs-eval-rigging-29',
+        text: '대가를 받고 인사평가 점수를 조작해준다',
+        requiresRoute: 'civil-servant-route',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.4, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'civilServantService', target: 0 },
+        prizeTable: [
+          { weight: 80, label: '안 걸림', deltas: {"wealth":5}, result: '숫자 몇 개를 고쳐준 대가로, 봉투가 두둑했다.' },
+          { weight: 20, label: '발각', deltas: {"wealth":-8,"happiness":-6,"relationship":-5}, result: '평가 결과가 실적과 맞지 않는다는 이의제기로 감사가 시작됐다.' }
+        ]
+      },
+      {
+        id: 'deviant-cs-eval-rigging-decline-29',
+        text: '인사평가 조작 청탁을 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '점수 하나가 누군가의 앞날을 바꾼다는 걸 알고 있었다.',
+        worldStateSignal: { key: 'civilServantService', target: 1 },
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 'lw-team-friction-29',
         text: '쌓인 피로에 동료들과 사소한 갈등이 잦아진다',
         deltas: {"happiness":-3,"relationship":-2},
@@ -17500,6 +17600,26 @@ const STAGES = [
         text: '감사원 감사 대응으로 며칠을 새운다',
         deltas: { happiness: -2, wealth: 1 },
         result: '별일 없이 끝났지만, 진이 다 빠졌다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'deviant-cs-inspection-favor-31',
+        text: '상납을 받고 사업장 단속을 눈감아준다',
+        requiresRoute: 'civil-servant-route',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.36, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'civilServantService', target: 0 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: {"wealth":4}, result: '봉투 하나로, 이번 단속은 조용히 지나갔다.' },
+          { weight: 18, label: '발각', deltas: {"wealth":-7,"happiness":-5,"relationship":-4}, result: '반복된 무사통과가 결국 내부 제보로 드러났다.' }
+        ]
+      },
+      {
+        id: 'deviant-cs-inspection-favor-decline-31',
+        text: '상납 제안을 거절하고 단속을 원칙대로 진행한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '봉투 하나로 원칙을 접을 순 없었다.',
+        worldStateSignal: { key: 'civilServantService', target: 1 },
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -22655,6 +22775,26 @@ const STAGES = [
         setOccupation: { id: 'civil-servant-5th-grade', label: '🏛️ 5급 사무관' }
       },
       {
+        id: 'deviant-cs-document-forgery-36',
+        text: '민원인의 부탁으로 공문서를 몰래 위조해준다',
+        requiresRoute: 'civil-servant-route',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.45, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'civilServantService', target: 0 },
+        prizeTable: [
+          { weight: 75, label: '안 걸림', deltas: {"wealth":5}, result: '도장 하나가, 서류의 운명을 바꿔놓았다.' },
+          { weight: 25, label: '발각', deltas: {"wealth":-10,"happiness":-8,"relationship":-6,"fame":-6}, result: '위조된 공문서가 다른 기관에서 조회되며 덜미가 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-cs-document-forgery-decline-36',
+        text: '공문서 위조 부탁을 단호히 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '도장 하나의 무게를, 가볍게 여길 수 없었다.',
+        worldStateSignal: { key: 'civilServantService', target: 1 },
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 're-informal-leader-role-36',
         text: '직함 없이도 팀의 중심 역할을 맡는다',
         deltas: {"happiness":2,"fame":2},
@@ -26145,10 +26285,19 @@ const STAGES = [
         id: 'deviant-cs-permit-favor-40',
         text: '지인의 부탁으로 인허가 서류에 특혜성 편의를 봐준다',
         requiresRoute: 'civil-servant-route',
+        worldStateSignal: { key: 'civilServantService', target: 0 },
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 5, relationship: 3 }, result: '작은 호의였을 뿐이라고, 스스로를 다독였다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, happiness: -4 }, result: '특혜 인허가 정황이 드러나며 감사원 조사를 받았다.' }
         ]
+      },
+      {
+        id: 'deviant-cs-permit-favor-decline-40',
+        text: '지인의 인허가 특혜 부탁을 거절하고 원칙대로 처리한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '가까운 사이일수록, 더 원칙대로 해야 했다.',
+        worldStateSignal: { key: 'civilServantService', target: 1 },
+        requiresRoute: 'civil-servant-route'
       },
       {
         id: 'yp-town-hall-meeting-40',
@@ -27705,6 +27854,26 @@ const STAGES = [
         text: '감사원 감사 대응으로 며칠을 새운다',
         deltas: { happiness: -2, wealth: 1 },
         result: '별일 없이 끝났지만, 진이 다 빠졌다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'deviant-cs-budget-rebate-42',
+        text: '예산을 부풀려 집행하고 뒷돈을 챙긴다',
+        requiresRoute: 'civil-servant-route',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.4, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'civilServantService', target: 0 },
+        prizeTable: [
+          { weight: 78, label: '안 걸림', deltas: {"wealth":5}, result: '부풀린 숫자만큼, 주머니도 두둑해졌다.' },
+          { weight: 22, label: '발각', deltas: {"wealth":-9,"happiness":-7,"relationship":-5}, result: '예산 집행 내역 대조 과정에서 부풀린 정황이 드러났다.' }
+        ]
+      },
+      {
+        id: 'deviant-cs-budget-rebate-decline-42',
+        text: '예산을 부풀리지 않고 있는 그대로 집행한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '숫자 하나까지, 정직하게 맞추고 싶었다.',
+        worldStateSignal: { key: 'civilServantService', target: 1 },
         requiresRoute: 'civil-servant-route'
       },
       {
@@ -30867,6 +31036,26 @@ const STAGES = [
         requiresRoute: 'civil-servant-route'
       },
       {
+        id: 'deviant-cs-data-leak-46',
+        text: '민원인 개인정보를 몰래 빼돌려 판매한다',
+        requiresRoute: 'civil-servant-route',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.44, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'civilServantService', target: 0 },
+        prizeTable: [
+          { weight: 75, label: '안 걸림', deltas: {"wealth":6}, result: '개인정보 몇 건의 값이, 생각보다 컸다.' },
+          { weight: 25, label: '발각', deltas: {"wealth":-11,"happiness":-9,"relationship":-7,"fame":-6}, result: '유출 경로를 추적한 끝에 결국 꼬리가 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-cs-data-leak-decline-46',
+        text: '민원인 개인정보 유출 제안을 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '누군가의 정보를, 상품처럼 취급할 순 없었다.',
+        worldStateSignal: { key: 'civilServantService', target: 1 },
+        requiresRoute: 'civil-servant-route'
+      },
+      {
         id: 're-mgr-performance-pressure-46',
         text: '팀 실적에 대한 압박을 느낀다',
         deltas: {"happiness":-4,"wealth":1},
@@ -32170,12 +32359,21 @@ const STAGES = [
         id: 'deviant-cs-budget-misuse-48',
         text: '남은 예산을 소진하려 불필요한 사업을 무리하게 밀어붙인다',
         requiresRoute: 'civil-servant-route',
+        worldStateSignal: { key: 'civilServantService', target: 0 },
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { fame: 3 }, result: '예산 집행률 숫자만큼은, 보기 좋게 채워졌다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '예산 유용 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
+      },
+      {
+        id: 'deviant-cs-budget-misuse-decline-48',
+        text: '남은 예산을 무리하게 소진하지 않고 반납한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '억지로 쓰기보다, 다음을 위해 남겨두는 편을 택했다.',
+        worldStateSignal: { key: 'civilServantService', target: 1 },
+        requiresRoute: 'civil-servant-route'
       },
       {
         id: 're-mgr-caught-between-48',
@@ -34483,6 +34681,26 @@ const STAGES = [
         text: '공로연수 대상자 명단을 확인한다',
         deltas: { happiness: 1 },
         result: '이제 슬슬 마무리를 생각할 때가 됐다.',
+        requiresRoute: 'civil-servant-route'
+      },
+      {
+        id: 'deviant-cs-retirement-broker-52',
+        text: '퇴직을 앞두고 전관예우 알선 대가로 뒷돈을 약속받는다',
+        requiresRoute: 'civil-servant-route',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.4, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'civilServantService', target: 0 },
+        prizeTable: [
+          { weight: 78, label: '안 걸림', deltas: {"wealth":8}, result: '퇴직 후 자리까지 미리 약속받으며, 뒷돈도 함께 챙겼다.' },
+          { weight: 22, label: '발각', deltas: {"wealth":-12,"happiness":-9,"relationship":-6}, result: '전관예우 알선 정황이 감사에서 드러났다.' }
+        ]
+      },
+      {
+        id: 'deviant-cs-retirement-broker-decline-52',
+        text: '전관예우 알선 제안을 거절한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '퇴직 후 자리보다, 지금의 원칙이 더 중요했다.',
+        worldStateSignal: { key: 'civilServantService', target: 1 },
         requiresRoute: 'civil-servant-route'
       },
       {
