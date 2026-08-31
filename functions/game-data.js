@@ -18369,6 +18369,13 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '매출은 늘었고, 아무도 의문을 제기하지 않았다.' },
           { weight: 18, label: '발각', deltas: { wealth: -5, fame: -7, happiness: -4 }, result: '건강보험공단 실사에서 과잉진료 정황이 그대로 드러났다.' }
         ]
+      },
+      {
+        id: 'acquaintance-loan-repaid-with-interest-31',
+        text: '지인에게 돈을 빌려준다',
+        deltas: { happiness: 3, relationship: 2, wealth: 5 },
+        result: '몇 달 뒤, 지인은 이자까지 얹어 돈을 갚았다.',
+        requiresAnyAcquaintance: true
       }
     ]
   },
@@ -31340,6 +31347,12 @@ const STAGES = [
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
       },
+      {
+        id: 'friend-business-fund-returned-46',
+        text: '오랜 친구에게 사업 자금을 다시 한번 빌려준다',
+        deltas: { happiness: 3, wealth: 5 },
+        result: '이번엔 정말 다를 거라던 말 그대로, 원금에 이자까지 얹어 돌아왔다.'
+      },
     ]
   },
   {
@@ -33203,6 +33216,13 @@ const STAGES = [
         requiresAnyLover: true,
         appearChance: 0.2,
         startsRoute: { id: 'romance', label: '💕 연애', maxDurationYears: 5 }
+      },
+      {
+        id: 'acquaintance-business-fund-returned-49',
+        text: '지인에게 사업 자금을 빌려준다',
+        deltas: { happiness: 5, relationship: 4, wealth: 9 },
+        result: '지인의 사업이 잘 풀리며, 빌려준 돈에 수익금까지 얹어 돌아왔다.',
+        requiresAnyAcquaintance: true
       },
     ]
   },
@@ -42998,6 +43018,13 @@ const STAGES = [
         deltas: { wealth: 2, happiness: 2 },
         result: '정치를 떠난 지 오래됐지만, 사람들은 여전히 이야기를 궁금해했다.',
         requiresOccupation: ['local-council-member']
+      },
+      {
+        id: 'acquaintance-large-loan-repaid-73',
+        text: '믿고 지인에게 목돈을 빌려준다',
+        deltas: { happiness: 4, relationship: 3, wealth: 6 },
+        result: '얼마 뒤, 지인은 고마움의 표시로 이자까지 얹어 돌려줬다.',
+        requiresAnyAcquaintance: true
       }
     ]
   },
