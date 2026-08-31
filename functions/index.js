@@ -2034,6 +2034,16 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
     cashHoldings += Math.round(stats.fame * cashUnitForAge(nextIndex) / 50);
   }
 
+  // 청년 정치 루트 말솜씨 재능 연동 추가 소득(2026-08-31, 사용자 지시 - "정치계열
+  // 직업 있으면 말솜씨 있을때 추가수입 있으면 좋을텐데") - 예술가·창업가와 같은
+  // 인기 연동 공식을 재사용하되, 말솜씨(speaking) 재능이 있을 때만 적용된다 -
+  // 유세·연설 능력이 곧 후원금·강연료로 이어진다는 설정이라 다른 직업들과
+  // 달리 재능 보유가 전제조건이다.
+  const POLITICS_OCCUPATION_IDS = ['local-council-candidate', 'local-council-member'];
+  if (currentOccupation && POLITICS_OCCUPATION_IDS.includes(currentOccupation.id) && talents.some((t) => t.id === 'speaking')) {
+    cashHoldings += Math.round(stats.fame * cashUnitForAge(nextIndex) / 50);
+  }
+
   // 임대사업 소득(2026-08-23 상가 도입, 2026-08-26 오피스텔로 확대 - 사용자
   // 지시 "모든 임대사업이 해당 부동산을 팔때까지 매년 일정 수입이 들어오게
   // 해줘") - 예술가 루트의 인기 연동 소득과 같은 급의 매 턴 배경 효과. 인기처럼
