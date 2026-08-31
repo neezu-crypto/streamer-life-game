@@ -5000,7 +5000,7 @@ const STAGES = [
         result: '늦지 않았을까 걱정도 됐지만, 일단 부딪혀보기로 했다.',
         requiresTalent: 'coding',
         mandatory: true,
-        startsRoute: {"id":"developer","label":"💻 개발자","maxDurationYears":15},
+        startsRoute: {"id":"developer","label":"💻 개발자","maxDurationYears":30},
         setOccupation: {"id":"junior-developer","label":"💻 주니어 개발자"}
       },
       {
@@ -5706,7 +5706,15 @@ const STAGES = [
           { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '용돈벌이치곤 짭짤한 부수입이었다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, relationship: -2 }, result: '출처가 드러나며 동기들 사이에서 눈총을 받았다.' }
         ]
-      }
+      },
+    
+      {
+        id: 'dev-first-git-commit-20',
+        text: '처음으로 사내 코드베이스에 커밋을 올린다',
+        deltas: { happiness: 2 },
+        result: '리뷰어의 승인 코멘트 하나에, 며칠간 긴장이 풀렸다.',
+        requiresRoute: 'developer'
+      },
     ]
   },
   {
@@ -6725,7 +6733,22 @@ const STAGES = [
         result: '하얀 가운이 조금은 무겁게 느껴진 순간이었다.',
         requiresRoute: 'doctor',
         requiresOccupation: ['med-student']
-      }
+      },
+    
+      {
+        id: 'dev-debug-allnighter-21',
+        text: '밤새 원인 모를 버그를 추적한다',
+        deltas: { happiness: -2, health: -1 },
+        result: '새벽 5시, 마침내 로그 한 줄에서 범인을 찾아냈다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-colleague-lunch-friendship-21',
+        text: '매일 같이 점심을 먹는 입사 동기와 가까워진다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '같은 처지라는 것만으로도, 큰 위로가 됐다.',
+        requiresRoute: 'developer'
+      },
     ]
   },
   {
@@ -7851,7 +7874,22 @@ const STAGES = [
           { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '몇 부 팔았을 뿐인데, 생각보다 쏠쏠했다.' },
           { weight: 10, label: '발각', deltas: { happiness: -2, relationship: -2 }, result: '원저작자인 조교에게 걸려 한소리를 들었다.' }
         ]
-      }
+      },
+    
+      {
+        id: 'dev-first-code-review-received-22',
+        text: '선배에게 처음으로 냉정한 코드 리뷰를 받는다',
+        deltas: { happiness: -1 },
+        result: '빨간 코멘트가 가득했지만, 다음 코드는 확실히 나아졌다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-side-project-app-income-22',
+        text: '퇴근 후 만든 사이드 프로젝트 앱이 소소한 수익을 낸다',
+        deltas: { wealth: 2, happiness: 1 },
+        result: '큰돈은 아니었지만, 내 손으로 번 첫 부수입이었다.',
+        requiresRoute: 'developer'
+      },
     ]
   },
   {
@@ -8986,7 +9024,35 @@ const STAGES = [
         result: '적성과 현실 사이에서, 답은 쉽게 나오지 않았다.',
         requiresRoute: 'doctor',
         requiresOccupation: ['med-student']
-      }
+      },
+    
+      {
+        id: 'dev-hackathon-weekend-23',
+        text: '주말 내내 사내 해커톤에 매달린다',
+        deltas: { happiness: 2, health: -1 },
+        result: '완성도는 낮았지만, 팀 발표 때 박수를 받았다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'deviant-dev-crypto-mining-server-23',
+        text: '회사 서버 유휴 자원으로 몰래 코인을 채굴한다',
+        requiresRoute: 'developer',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'devCodeQuality', target: 0 },
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '전기세만 축내는 서버가, 은근한 부수입을 만들어줬다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -4, relationship: -3, happiness: -3 }, result: '모니터링 로그에 채굴 프로세스가 고스란히 남아 있었다.' }
+        ]
+      },
+      {
+        id: 'deviant-dev-crypto-mining-server-decline-23',
+        text: '유휴 서버 자원을 정식 절차대로 반납한다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '별거 아닌 선택 같았지만, 마음은 편했다.',
+        requiresRoute: 'developer',
+        worldStateSignal: { key: 'devCodeQuality', target: 1 }
+      },
     ]
   },
   {
@@ -10272,7 +10338,31 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '아슬아슬했지만, 무사히 시험장을 빠져나왔다.' },
           { weight: 18, label: '발각', deltas: { happiness: -6, fame: -4, relationship: -3 }, result: '부정행위가 적발되며 응시 자격이 정지될 뻔했다.' }
         ]
-      }
+      },
+    
+      {
+        id: 'dev-legacy-code-migration-24',
+        text: '아무도 손대기 싫어하는 레거시 코드를 떠맡는다',
+        deltas: { happiness: -2, wealth: 1 },
+        result: '주석 하나 없는 코드와 씨름하며, 며칠을 갈아 넣었다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-doc-writing-careful-24',
+        text: '헷갈릴 수 있는 부분까지 문서화를 꼼꼼히 남긴다',
+        deltas: { happiness: -1 },
+        result: '나중에 볼 사람(어쩌면 나 자신)을 위해, 귀찮음을 삼켰다.',
+        requiresRoute: 'developer',
+        worldStateSignal: { key: 'devCodeQuality', target: 1 }
+      },
+      {
+        id: 'dev-doc-writing-skip-24',
+        text: '문서화는 나중으로 미루고 코드만 먼저 밀어붙인다',
+        deltas: { happiness: 1 },
+        result: '당장은 진도가 빨랐지만, 언젠가 누군가는 고생할 게 뻔했다.',
+        requiresRoute: 'developer',
+        worldStateSignal: { key: 'devCodeQuality', target: 0 }
+      },
     ]
   },
   {
@@ -11410,7 +11500,22 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { happiness: 3, wealth: 2 }, result: '무사히 끝났다는 사실에, 가슴을 쓸어내렸다.' },
           { weight: 18, label: '발각', deltas: { happiness: -5, fame: -3, relationship: -3 }, result: '지도전문의에게 발각되며 크게 질책받았다.' }
         ]
-      }
+      },
+    
+      {
+        id: 'dev-tech-seminar-talk-25',
+        text: '사내 기술 세미나에서 발표를 맡는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '떨리는 목소리로 시작했지만, 끝날 땐 뿌듯함이 남았다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-freelance-weekend-project-25',
+        text: '주말에 외주 프로젝트를 하나 맡는다',
+        deltas: { wealth: 3, happiness: -1, health: -1 },
+        result: '빡빡한 일정이었지만, 통장에 찍힌 입금 문자가 위로가 됐다.',
+        requiresRoute: 'developer'
+      },
     ]
   },
   {
@@ -12679,7 +12784,22 @@ const STAGES = [
           { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '아무 일도 없었다는 듯, 조용히 자리로 돌아왔다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, relationship: -3 }, result: '호출에 응답이 없어 부재가 그대로 들통났다.' }
         ]
-      }
+      },
+    
+      {
+        id: 'dev-oncall-pager-26',
+        text: '새벽에 장애 알림을 받고 급히 접속한다',
+        deltas: { happiness: -3, health: -1 },
+        result: '졸린 눈을 비비며 롤백 버튼을 눌렀다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-startup-offer-temptation-26',
+        text: '지인이 창업한 스타트업에서 합류 제안을 받는다',
+        deltas: { happiness: 2 },
+        result: '안정이냐 도전이냐, 며칠을 고민만 하다 결국 지금 자리를 지켰다.',
+        requiresRoute: 'developer'
+      },
     ]
   },
   {
@@ -13903,7 +14023,15 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '들키지 않았다는 사실에, 일단 안도했다.' },
           { weight: 18, label: '발각', deltas: { happiness: -6, fame: -5, relationship: -4 }, result: '기록 조작 정황이 감사에서 드러나며 큰 징계를 받았다.' }
         ]
-      }
+      },
+    
+      {
+        id: 'dev-tech-blog-ad-revenue-27',
+        text: '꾸준히 써온 기술 블로그에 광고 수익이 붙는다',
+        deltas: { wealth: 1, fame: 1 },
+        result: '몇 줄 안 되는 정산 금액이었지만, 꾸준함이 증명된 기분이었다.',
+        requiresRoute: 'developer'
+      },
     ]
   },
   {
@@ -15023,7 +15151,29 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '조용한 거래가, 통장 잔고를 채워줬다.' },
           { weight: 18, label: '발각', deltas: { wealth: -5, fame: -8, happiness: -5 }, result: '리베이트 수수 정황이 적발되며 의사 사회에서 신뢰를 잃었다.' }
         ]
-      }
+      },
+    
+      {
+        id: 'dev-architecture-decision-28',
+        text: '팀의 기술 스택 전환 논의를 주도한다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '찬반이 갈렸지만, 결국 내 제안대로 방향이 잡혔다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-open-source-contribution-28',
+        text: '퇴근 후 오픈소스 프로젝트에 기여한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '머지된 풀 리퀘스트 알림에, 작은 성취감이 차올랐다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-junior-mentee-assigned-28',
+        text: '신입 개발자 한 명을 전담으로 맡게 된다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '질문 하나하나에 답해주다 보니, 내 지식도 다시 정리됐다.',
+        requiresRoute: 'developer'
+      },
     ]
   },
   {
@@ -16192,7 +16342,15 @@ const STAGES = [
         deltas: { happiness: 2, relationship: -1 },
         result: '서운해하는 얼굴을 뒤로하고도, 원칙을 접지는 않았다.',
         worldStateSignal: { key: 'doctorCorruption', target: 0 }
-      }
+      },
+    
+      {
+        id: 'dev-burnout-warning-sign-29',
+        text: '연이은 야근에 몸이 신호를 보낸다',
+        deltas: { health: -2, happiness: -1 },
+        result: '이러다 큰일 나겠다 싶어, 그제야 페이스를 늦췄다.',
+        requiresRoute: 'developer'
+      },
     ]
   },
   {
@@ -17296,7 +17454,42 @@ const STAGES = [
           { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '부담 없는 자리라고, 스스로를 다독였다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, fame: -3 }, result: '청탁금지법 위반 소지가 있다는 지적에 뜨끔했다.' }
         ]
-      }
+      },
+    
+      {
+        id: 'dev-coding-lecture-side-income-30',
+        text: '온라인 코딩 강의를 촬영해 올린다',
+        deltas: { wealth: 3, happiness: 1 },
+        result: '수강생들의 후기를 보며, 가르치는 재미도 쏠쏠하다는 걸 알았다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'deviant-dev-reuse-company-code-30',
+        text: '회사 코드 일부를 그대로 가져다 사이드 프로젝트에 쓴다',
+        requiresRoute: 'developer',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'devCodeQuality', target: 0 },
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 3, happiness: 2 }, result: '개발 시간을 크게 아꼈고, 아무도 눈치채지 못했다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -3, relationship: -3, happiness: -3 }, result: '코드 유사도 검사에 걸려, 진땀 나는 해명을 해야 했다.' }
+        ]
+      },
+      {
+        id: 'deviant-dev-reuse-company-code-decline-30',
+        text: '비슷한 기능을 처음부터 새로 짠다',
+        deltas: { happiness: -1, wealth: -1 },
+        result: '시간은 더 걸렸지만, 떳떳하게 내 코드라 부를 수 있었다.',
+        requiresRoute: 'developer',
+        worldStateSignal: { key: 'devCodeQuality', target: 1 }
+      },
+      {
+        id: 'dev-big-tech-recruiter-contact-30',
+        text: '대기업 헤드헌터에게서 연락이 온다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '당장 옮길 마음은 없었지만, 몸값이 궁금해지긴 했다.',
+        requiresRoute: 'developer'
+      },
     ]
   },
   {
@@ -19402,7 +19595,31 @@ const STAGES = [
           { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '작은 물건 몇 개쯤이야, 대수롭지 않게 여겼다.' },
           { weight: 10, label: '발각', deltas: { happiness: -2, relationship: -2 }, result: '재고 조사에서 차이가 드러나며 민망해졌다.' }
         ]
-      }
+      },
+    
+      {
+        id: 'dev-stock-option-vesting-32',
+        text: '입사 때 받은 스톡옵션이 베스팅된다',
+        deltas: { wealth: 4 },
+        result: '숫자로만 보던 옵션이, 드디어 현금처럼 느껴졌다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-tech-debt-paydown-32',
+        text: '새 기능 대신 쌓여있던 기술 부채를 갚는 데 시간을 쓴다',
+        deltas: { happiness: -1, wealth: -1 },
+        result: '눈에 띄는 성과는 아니었지만, 코드베이스가 한결 가벼워졌다.',
+        requiresRoute: 'developer',
+        worldStateSignal: { key: 'devCodeQuality', target: 1 }
+      },
+      {
+        id: 'dev-tech-debt-ignore-32',
+        text: '기술 부채는 미뤄두고 눈에 띄는 새 기능부터 만든다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '성과 보고서는 그럴듯했지만, 마음 한구석이 찜찜했다.',
+        requiresRoute: 'developer',
+        worldStateSignal: { key: 'devCodeQuality', target: 0 }
+      },
     ]
   },
   {
@@ -20454,7 +20671,22 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '위험한 줄 알면서도, 손을 대고 말았다.' },
           { weight: 18, label: '징역', deltas: { wealth: -15, fame: -15, happiness: -12, relationship: -6 }, result: '마약류 관리법 위반 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
-      }
+      },
+    
+      {
+        id: 'dev-tech-lead-project-33',
+        text: '중요 프로젝트의 테크 리드를 맡는다',
+        deltas: { happiness: 2, wealth: 1 },
+        result: '책임은 무거워졌지만, 신뢰받는다는 확신도 함께 왔다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'dev-team-dinner-bonding-33',
+        text: '프로젝트 마감 후 팀 회식에서 마음을 터놓는다',
+        deltas: { happiness: 2, relationship: 2, health: -1 },
+        result: '술기운을 빌려서야, 평소 못 하던 말들이 오갔다.',
+        requiresRoute: 'developer'
+      },
     ]
   },
   {
@@ -21478,7 +21710,35 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '청구가 그대로 승인되며, 조용히 넘어갔다.' },
           { weight: 18, label: '발각', deltas: { wealth: -6, fame: -6, happiness: -4 }, result: '건강보험심사평가원 조사에서 이중청구가 적발됐다.' }
         ]
-      }
+      },
+    
+      {
+        id: 'dev-tech-advisor-side-gig-34',
+        text: '스타트업의 기술 자문 역할을 부업으로 맡는다',
+        deltas: { wealth: 3, relationship: 1 },
+        result: '한 발 떨어져서 보니, 오히려 더 명확한 조언을 해줄 수 있었다.',
+        requiresRoute: 'developer'
+      },
+      {
+        id: 'deviant-dev-fake-remote-checkin-34',
+        text: '재택 근무일에 근태 체크만 해두고 자리를 비운다',
+        requiresRoute: 'developer',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'devCodeQuality', target: 0 },
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 4 }, result: '모니터 앞이 아니어도, 하루가 자유로웠다.' },
+          { weight: 10, label: '발각', deltas: { relationship: -2, happiness: -2, wealth: -1 }, result: '하필 그 시간에 잡힌 화상회의에 응답하지 못했다.' }
+        ]
+      },
+      {
+        id: 'deviant-dev-fake-remote-checkin-decline-34',
+        text: '자리를 비우고 싶은 유혹을 참고 그대로 업무에 집중한다',
+        deltas: { wealth: 1, relationship: 1 },
+        result: '티 안 나는 성실함도, 결국은 쌓인다고 믿었다.',
+        requiresRoute: 'developer',
+        worldStateSignal: { key: 'devCodeQuality', target: 1 }
+      },
     ]
   },
   {
@@ -22472,7 +22732,18 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '들키지 않았다는 안도감이, 오래가진 못했다.' },
           { weight: 18, label: '발각', deltas: { happiness: -6, fame: -7, relationship: -3 }, result: '유족의 문제 제기로 오진 은폐 정황이 드러났다.' }
         ]
-      }
+      },
+    
+      {
+        id: 'dev-team-lead-promotion-35',
+        text: '시니어 개발자로 8년, 팀리드 승진 심사를 통과한다',
+        deltas: { happiness: 3, wealth: 5, fame: 1 },
+        result: '코드보다 사람을 더 챙겨야 하는 자리라는 게, 그제야 실감 났다.',
+        requiresRoute: 'developer',
+        requiresOccupation: ['senior-developer'],
+        mandatory: true,
+        setOccupation: { id: 'team-lead-developer', label: '🧑‍💼 팀리드 개발자' }
+      },
     ]
   },
   {
@@ -23379,7 +23650,23 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '수술은 무사히 끝났고, 아무도 눈치채지 못했다.' },
           { weight: 18, label: '발각', deltas: { wealth: -6, fame: -12, happiness: -6, relationship: -4 }, result: '유령수술 정황이 폭로되며 의사 면허 자격 정지 위기에 몰렸다.' }
         ]
-      }
+      },
+    
+      {
+        id: 'dev-team-lead-1on1-36',
+        text: '팀원들과 격주로 1:1 면담을 시작한다',
+        deltas: { happiness: 1, relationship: 2 },
+        result: '코드로는 안 보이던 고민들이, 대화 속에서 하나씩 드러났다.',
+        requiresRoute: 'developer',
+        requiresOccupation: ['team-lead-developer']
+      },
+      {
+        id: 'dev-work-life-boundary-set-36',
+        text: '퇴근 후엔 업무 메신저 알림을 꺼두기로 한다',
+        deltas: { happiness: 3, health: 1 },
+        result: '별것 아닌 설정 하나가, 저녁 시간을 통째로 돌려줬다.',
+        requiresRoute: 'developer'
+      },
     ]
   },
   {
@@ -24282,7 +24569,16 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { wealth: 2, happiness: 2 }, result: '번거로운 상황을 피했다는 생각에, 마음이 놓였다.' },
           { weight: 18, label: '발각', deltas: { happiness: -6, fame: -8, relationship: -3 }, result: '응급실 뺑뺑이 논란의 당사자로 언론에 오르내렸다.' }
         ]
-      }
+      },
+    
+      {
+        id: 'dev-team-lead-hiring-interview-37',
+        text: '신규 채용 면접관으로 들어간다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '몇 마디 질문으로 사람을 가늠하는 게, 생각보다 어려운 일이었다.',
+        requiresRoute: 'developer',
+        requiresOccupation: ['team-lead-developer']
+      },
     ]
   },
   {
@@ -25187,7 +25483,28 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '남는 샘플이었을 뿐이라고, 스스로를 합리화했다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, happiness: -3 }, result: '약사법 위반 소지가 있다는 신고로 조사를 받았다.' }
         ]
-      }
+      },
+    
+      {
+        id: 'deviant-dev-source-leak-before-quit-38',
+        text: '이직을 앞두고 사내 소스코드 일부를 슬쩍 챙겨 나온다',
+        requiresRoute: 'developer',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'devCodeQuality', target: 0 },
+        prizeTable: [
+          { weight: 88, label: '안 걸림', deltas: { wealth: 4 }, result: '새 회사에서 요긴하게 참고할 자료가 생겼다.' },
+          { weight: 12, label: '발각', deltas: { wealth: -5, relationship: -4, happiness: -4 }, result: '전 직장에서 법적 조치를 검토한다는 연락이 왔다.' }
+        ]
+      },
+      {
+        id: 'deviant-dev-source-leak-before-quit-decline-38',
+        text: '개인 자료 없이 깨끗한 노트북으로 퇴사한다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '뒤끝 없이 떠나는 게, 결국 나를 위한 선택이었다.',
+        requiresRoute: 'developer',
+        worldStateSignal: { key: 'devCodeQuality', target: 1 }
+      },
     ]
   },
   {
@@ -25989,6 +26306,22 @@ const STAGES = [
         deltas: {"happiness":-1},
         result: '초등학교 수학이 이렇게 어려웠나 싶었다.',
         requiresFamilyMember: ['child']
+      },
+    
+      {
+        id: 'dev-team-lead-underperformer-39',
+        text: '성과가 부진한 팀원과 어려운 면담을 진행한다',
+        deltas: { happiness: -3, relationship: -1 },
+        result: '옳은 말도, 전하는 입장에서는 쉽지 않았다.',
+        requiresRoute: 'developer',
+        requiresOccupation: ['team-lead-developer']
+      },
+      {
+        id: 'dev-mentor-outside-company-39',
+        text: '회사 밖 커뮤니티에서 후배 개발자들을 멘토링한다',
+        deltas: { happiness: 2, relationship: 1, fame: 1 },
+        result: '대가 없는 조언인데도, 돌아오는 마음은 결코 가볍지 않았다.',
+        requiresRoute: 'developer'
       },
     ]
   },
@@ -26858,7 +27191,24 @@ const STAGES = [
         deltas: { wealth: 3, fame: 2 },
         result: '노래가 아닌 입담으로 사랑받는 것도, 나쁘지 않았다.',
         requiresOccupation: ['idol']
-      }
+      },
+    
+      {
+        id: 'dev-code-review-thorough-40',
+        text: '후배의 코드 리뷰를 한 줄 한 줄 꼼꼼히 살핀다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '시간은 오래 걸렸지만, 배포 후 사고는 확실히 줄었다.',
+        requiresRoute: 'developer',
+        worldStateSignal: { key: 'devCodeQuality', target: 1 }
+      },
+      {
+        id: 'dev-code-review-rubber-stamp-40',
+        text: '밀린 일이 많아 코드 리뷰를 대충 승인해버린다',
+        deltas: { happiness: 1 },
+        result: '검토 시간을 아꼈지만, 어딘가 불안한 구석이 남았다.',
+        requiresRoute: 'developer',
+        worldStateSignal: { key: 'devCodeQuality', target: 0 }
+      },
     ]
   },
   {
@@ -27577,7 +27927,16 @@ const STAGES = [
           { weight: 90, label: '안 걸림', deltas: { wealth: 5 }, result: '부수입은 짭짤했고, 아무도 알지 못했다.' },
           { weight: 10, label: '발각', deltas: { wealth: -3, fame: -4 }, result: '겸직 사실이 알려지며 윤리위원회에 회부됐다.' }
         ]
-      }
+      },
+    
+      {
+        id: 'dev-team-lead-headcount-fight-41',
+        text: '팀 충원을 위해 예산 회의에서 목소리를 높인다',
+        deltas: { happiness: -1, wealth: 2 },
+        result: '다른 팀장들 눈치가 보였지만, 결국 인원 하나를 얻어냈다.',
+        requiresRoute: 'developer',
+        requiresOccupation: ['team-lead-developer']
+      },
     ]
   },
   {
@@ -28341,6 +28700,23 @@ const STAGES = [
         result: '별일 아니라는 말보다, 그냥 들어주는 게 먼저였다.',
         requiresFamilyMember: ['child']
       },
+    
+      {
+        id: 'dev-team-lead-cross-team-politics-42',
+        text: '다른 팀과의 업무 떠넘기기 신경전에 휘말린다',
+        deltas: { happiness: -2 },
+        result: '코드보다 사람 사이의 선 긋기가 더 피곤할 때가 있었다.',
+        requiresRoute: 'developer',
+        requiresOccupation: ['team-lead-developer']
+      },
+      {
+        id: 'dev-spouse-work-conflict-42',
+        text: '잦은 야근 때문에 배우자와 갈등이 깊어진다',
+        deltas: { happiness: -3, relationship: -2 },
+        result: '미안한 마음뿐이었지만, 마감은 기다려주지 않았다.',
+        requiresRoute: 'developer',
+        requiresFamilyMember: ['spouse']
+      },
     ]
   },
   {
@@ -29085,7 +29461,28 @@ const STAGES = [
           { weight: 90, label: '안 걸림', deltas: { relationship: 4 }, result: '말없이 오간 호의가, 관계를 더 끈끈하게 만들었다.' },
           { weight: 10, label: '발각', deltas: { happiness: -3, fame: -4 }, result: '정보 유출 경로가 추적되며 곤란한 처지에 놓였다.' }
         ]
-      }
+      },
+    
+      {
+        id: 'deviant-dev-leak-tech-info-rival-43',
+        text: '경쟁사의 스카우트 제안에 넘어가 사내 기밀을 슬쩍 흘린다',
+        requiresRoute: 'developer',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'devCodeQuality', target: 0 },
+        prizeTable: [
+          { weight: 87, label: '안 걸림', deltas: { wealth: 5 }, result: '은밀한 커피 미팅 몇 번으로, 두둑한 대가를 챙겼다.' },
+          { weight: 13, label: '발각', deltas: { wealth: -6, relationship: -5, happiness: -4 }, result: '메일 로그 감사에서 접촉 기록이 통째로 드러났다.' }
+        ]
+      },
+      {
+        id: 'deviant-dev-leak-tech-info-rival-decline-43',
+        text: '스카우트 제안은 받되, 기밀은 선을 그어 지킨다',
+        deltas: { relationship: 2 },
+        result: '아쉬운 제안이었지만, 넘지 말아야 할 선은 분명했다.',
+        requiresRoute: 'developer',
+        worldStateSignal: { key: 'devCodeQuality', target: 1 }
+      },
     ]
   },
   {
@@ -29859,7 +30256,16 @@ const STAGES = [
           { weight: 82, label: '안 걸림', deltas: { wealth: 5, fame: 3 }, result: '서로의 이해관계가 맞아떨어져, 조용히 넘어갔다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -8, happiness: -5 }, result: '담합 정황이 폭로되며 정치적 입지가 크게 흔들렸다.' }
         ]
-      }
+      },
+    
+      {
+        id: 'dev-team-lead-mentee-promoted-44',
+        text: '직접 키운 팀원이 시니어로 승진하는 걸 지켜본다',
+        deltas: { happiness: 4, relationship: 1 },
+        result: '내 승진보다 오히려 더 뿌듯한 순간이었다.',
+        requiresRoute: 'developer',
+        requiresOccupation: ['team-lead-developer']
+      },
     ]
   },
   {
@@ -30765,6 +31171,15 @@ const STAGES = [
         result: '정답을 주기보다, 곁에 있어주는 쪽을 택했다.',
         requiresFamilyMember: ['child']
       },
+    
+      {
+        id: 'dev-team-lead-burnout-management-45',
+        text: '관리 업무와 실무 사이에서 방향을 잃고 지쳐간다',
+        deltas: { happiness: -3, health: -2 },
+        result: '팀을 이끄는 자리가, 생각보다 훨씬 소모적이라는 걸 알았다.',
+        requiresRoute: 'developer',
+        requiresOccupation: ['team-lead-developer']
+      },
     ]
   },
   {
@@ -31417,6 +31832,14 @@ const STAGES = [
         deltas: {"happiness":-1},
         result: '한 판만 더라는 말을 몇 번이나 들었는지 몰랐다.',
         requiresFamilyMember: ['child']
+      },
+    
+      {
+        id: 'dev-reflects-on-career-46',
+        text: '지금까지 걸어온 개발자로서의 길을 돌아본다',
+        deltas: { happiness: 2 },
+        result: '후회는 없었다 — 아니, 있었더라도 이젠 상관없었다.',
+        requiresRoute: 'developer'
       },
     ]
   },
