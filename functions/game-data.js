@@ -5851,7 +5851,7 @@ const STAGES = [
       {
         id: 'pol-fill2-21-1',
         text: '폭우 속 야간 순찰에 나선다',
-        deltas: { happiness: -1, health: -1 },
+        deltas: { wealth: 2, happiness: -1, health: -1 },
         result: '온몸이 흠뻑 젖었지만 멈출 수 없었다.',
         requiresRoute: 'police'
       },
@@ -5935,7 +5935,7 @@ const STAGES = [
       {
         id: 'pol-fill-21-1',
         text: '경범죄 신고를 처리하며 하루를 보낸다',
-        deltas: { happiness: 1 },
+        deltas: { wealth: 1, happiness: 1 },
         result: '작은 사건들도 누군가에겐 큰일이었다.',
         requiresRoute: 'police'
       },
@@ -6926,7 +6926,7 @@ const STAGES = [
       {
         id: 'pol-fill2-22-4',
         text: '취객 신고 현장에서 진땀을 뺀다',
-        deltas: { happiness: -1 },
+        deltas: { wealth: 1, happiness: -1 },
         result: '예상치 못한 변수가 많은 일이었다.',
         requiresRoute: 'police'
       },
@@ -7019,7 +7019,7 @@ const STAGES = [
       {
         id: 'police-first-patrol-22',
         text: '선임을 따라 첫 순찰을 나간다',
-        deltas: { happiness: 2, health: -1 },
+        deltas: { wealth: 1, happiness: 2, health: -1 },
         result: '무전기 너머로 들려오는 지령 하나하나가, 아직은 낯설었다.',
         requiresRoute: 'police'
       },
@@ -8005,7 +8005,7 @@ const STAGES = [
       {
         id: 'pol-fill2-23-1',
         text: '연달아 이어진 야간 신고에 지친다',
-        deltas: { happiness: -1, health: -1 },
+        deltas: { wealth: 2, happiness: -1, health: -1 },
         result: '눈이 감기는 걸 억지로 참았다.',
         requiresRoute: 'police'
       },
@@ -8096,7 +8096,7 @@ const STAGES = [
       {
         id: 'pol-fill-23-2',
         text: '선배와 함께 사건 현장을 누비며 배운다',
-        deltas: { happiness: 1 },
+        deltas: { wealth: 1, happiness: 1 },
         result: '실전에서만 얻을 수 있는 노하우였다.',
         requiresRoute: 'police'
       },
@@ -9192,7 +9192,7 @@ const STAGES = [
       {
         id: 'pol-fill2-24-1',
         text: '혹한 속 새벽 순찰을 돈다',
-        deltas: { happiness: -1, health: -1 },
+        deltas: { wealth: 2, happiness: -1, health: -1 },
         result: '손끝이 감각을 잃을 정도였다.',
         requiresRoute: 'police'
       },
@@ -9255,7 +9255,7 @@ const STAGES = [
       {
         id: 'pol-fill-24-1',
         text: '소음 민원 신고를 여러 건 처리한다',
-        deltas: { happiness: 1 },
+        deltas: { wealth: 1, happiness: 1 },
         result: '사소해 보여도 성실히 응대했다.',
         requiresRoute: 'police'
       },
@@ -10448,7 +10448,7 @@ const STAGES = [
       {
         id: 'pol-fill2-25-1',
         text: '교대 인원 부족으로 연장 근무를 선다',
-        deltas: { happiness: -1, health: -1 },
+        deltas: { wealth: 2, happiness: -1, health: -1 },
         result: '몸이 천근만근이었다.',
         requiresRoute: 'police'
       },
@@ -11585,7 +11585,7 @@ const STAGES = [
       {
         id: 'pol-fill2-26-1',
         text: '축제 인파 관리로 밤새 근무한다',
-        deltas: { happiness: -1, health: -1 },
+        deltas: { wealth: 2, happiness: -1, health: -1 },
         result: '인파 속에서 정신을 바짝 차려야 했다.',
         requiresRoute: 'police'
       },
@@ -12811,7 +12811,7 @@ const STAGES = [
       {
         id: 'pol-fill2-27-1',
         text: '강력 사건 발생으로 비상 근무에 투입된다',
-        deltas: { happiness: -1, health: -1 },
+        deltas: { wealth: 2, happiness: -1, health: -1 },
         result: '잠 한숨 못 잔 채 아침을 맞았다.',
         requiresRoute: 'police'
       },
@@ -12895,7 +12895,7 @@ const STAGES = [
       {
         id: 'pol-fill-27-1',
         text: '주차 시비 신고를 중재하며 하루를 보낸다',
-        deltas: { happiness: 1 },
+        deltas: { wealth: 1, happiness: 1 },
         result: '감정 다툼을 가라앉히는 것도 일이었다.',
         requiresRoute: 'police'
       },
@@ -12909,7 +12909,7 @@ const STAGES = [
       {
         id: 'pol-fill-27-3',
         text: '주택가 순찰을 꼼꼼히 돈다',
-        deltas: { happiness: 1 },
+        deltas: { wealth: 1, happiness: 1 },
         result: '평온한 동네 풍경에 마음이 놓였다.',
         requiresRoute: 'police'
       },
@@ -14162,7 +14162,7 @@ const STAGES = [
       {
         id: 'pol-fill-28-3',
         text: '지역 주민과의 간담회에 참석한다',
-        deltas: { happiness: -1, fame: 1 },
+        deltas: { wealth: 1, happiness: -1, fame: 1 },
         result: '치안 이상의 것을 기대하는 눈빛들이 부담스럽기도 했다.',
         requiresRoute: 'police'
       },
@@ -15199,7 +15199,7 @@ const STAGES = [
       {
         id: 'pol-fill2-29-1',
         text: '실종 아동 수색에 밤새 매달린다',
-        deltas: { happiness: -2 },
+        deltas: { wealth: 2, happiness: -2 },
         result: '무사히 찾을 때까지 잠이 오지 않았다.',
         requiresRoute: 'police'
       },
