@@ -151,6 +151,16 @@
         </label>
         <div id="mpParticipantList" class="mp-participant-list"></div>
       </div>
+      <div id="adminAutoPlayPanel" class="mp-host-panel hidden">
+        <label class="mp-toggle-label">
+          <input type="checkbox" id="autoPlayToggle">
+          🤖 자동진행 (관리자 전용)
+        </label>
+        <div id="autoPlaySpeedRow" class="admin-autoplay-speed-row hidden">
+          <input type="range" id="autoPlaySpeedSlider" min="5" max="60" step="1" value="15">
+          <span id="autoPlaySpeedLabel">15초/턴</span>
+        </div>
+      </div>
       <div class="stat-bars" id="statBars"></div>
       <div class="asset-panel">
         <p class="asset-panel-title">현재 재산 상세</p>

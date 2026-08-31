@@ -89,6 +89,7 @@ async function checkAdminStatus(uid) {
     await get(ref(db, 'lifeGame/galleryReports'));
     isAdminUser = true;
     if (latestGallerySnapVal !== null) renderGalleryList(latestGallerySnapVal);
+    renderAdminAutoPlayVisibility();
   } catch (e) {
     isAdminUser = false;
   }
@@ -895,6 +896,11 @@ const choiceList = document.getElementById('choiceList');
 const resultBox = document.getElementById('resultBox');
 const statBars = document.getElementById('statBars');
 const nextBtn = document.getElementById('nextBtn');
+const adminAutoPlayPanel = document.getElementById('adminAutoPlayPanel');
+const autoPlayToggle = document.getElementById('autoPlayToggle');
+const autoPlaySpeedRow = document.getElementById('autoPlaySpeedRow');
+const autoPlaySpeedSlider = document.getElementById('autoPlaySpeedSlider');
+const autoPlaySpeedLabel = document.getElementById('autoPlaySpeedLabel');
 const startBtn = document.getElementById('startBtn');
 const diceOverlay = document.getElementById('diceOverlay');
 const DICE_REVEAL_MS = 2000;
@@ -1126,6 +1132,138 @@ function triggerCrisisEffect() {
 }
 
 let pendingNextStage = null;
+
+// 관리자 전용 자동진행(2026-08-31, 사용자 지시 - "관리자 uid일때 자동진행
+// 토글 버튼이 보이고, 켜면 0~100세까지 자동으로 진행되는걸 지켜볼수 있게
+// 해줘. 진행속도 조절 가능하게 해줘. 속도는 최소 5초~최대 60초로 해줘.")
+//
+// 기존 봇 시스템(functions/index.js의 runBotTurns, 매분 도는 Cloud Scheduler)과
+// 달리 서버 사이드로 만들지 않았다 - 봇은 "관리자 탭이 꺼져 있어도 계속
+// 돌아야 한다"는 요구였지만, 이건 "관리자가 화면 앞에서 지켜본다"가 전제라
+// 신규 Cloud Function·RTDB 노드 없이 이미 있는 submitChoice/rollDice를
+// 일정 간격으로 자동 호출하는 것만으로 충분하다.
+//
+// pickChoice/rollDice는 실패 시 alert()로 사용자에게 알리고 조용히 멈추는
+// 구조(화면 앞의 사람이 다시 누르는 걸 전제)라, 자동진행 루프는 "다음 상태로
+// 넘어갔는지"를 별도로 감지해야 한다. renderStage/applyOutcome/showEnding
+// 세 곳에 한 줄씩 이벤트 훅을 심어(autoPlayEmit) 언제 다음 턴을 진행해도
+// 안전한지 이벤트 기반으로 판단한다 - FADE_MS 같은 타이밍 상수를 추측해서
+// setTimeout으로 흉내 내면 트랜지션 시간이 바뀔 때마다 같이 깨지기 쉽다.
+let autoPlayEnabled = false;
+let autoPlaySpeedSec = 15;
+let autoPlayRunning = false;
+let autoPlayTimerHandle = null;
+let currentStageForAutoPlay = null;
+const autoPlayWaiters = { outcome: [], ending: [], stage: [] };
+
+function autoPlayEmit(type) {
+  const list = autoPlayWaiters[type];
+  autoPlayWaiters[type] = [];
+  list.forEach((fn) => fn());
+}
+
+function autoPlayWaitFor(types, timeoutMs) {
+  return new Promise((resolve) => {
+    let done = false;
+    const finish = (result) => {
+      if (done) return;
+      done = true;
+      resolve(result);
+    };
+    types.forEach((t) => autoPlayWaiters[t].push(() => finish(t)));
+    setTimeout(() => finish('timeout'), timeoutMs);
+  });
+}
+
+function renderAdminAutoPlayVisibility() {
+  if (!adminAutoPlayPanel) return;
+  adminAutoPlayPanel.classList.toggle('hidden', !isAdminUser);
+  // 관리자가 아니게 되거나 판정이 늦게 뒤집힌 경우를 대비해, 패널이 숨겨지면
+  // 자동진행도 같이 끈다.
+  if (!isAdminUser && autoPlayEnabled) setAutoPlayEnabled(false);
+}
+
+function setAutoPlayEnabled(on) {
+  autoPlayEnabled = on;
+  if (autoPlayToggle) autoPlayToggle.checked = on;
+  if (autoPlaySpeedRow) autoPlaySpeedRow.classList.toggle('hidden', !on);
+  clearTimeout(autoPlayTimerHandle);
+  if (on) scheduleAutoPlayTick(0);
+}
+
+function scheduleAutoPlayTick(delayMs) {
+  clearTimeout(autoPlayTimerHandle);
+  autoPlayTimerHandle = setTimeout(autoPlayTick, delayMs != null ? delayMs : autoPlaySpeedSec * 1000);
+}
+
+// requiresStockPurchase 선택지는 어떤 종목이든 살 수 있으니, 이미 로드돼
+// 있는 allStocks(streamer-names.json)에서 아무거나 하나 무작위로 고른다 -
+// 종목 검색 모달을 열 필요 없이 openBuyStockModal이 하는 일(선택지 id +
+// stockId/stockName)을 그대로 pickChoice에 넘기면 된다.
+function pickAutoPlayChoice(stage) {
+  const affordable = stage.choices.filter((c) => {
+    if (!c.requiresStockPurchase) return true;
+    const age = parseInt(stage.ageRange, 10);
+    return lastKnownCashHoldings >= stockInvestmentCostWon(age);
+  });
+  const pool = affordable.length ? affordable : stage.choices;
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+async function autoPlayTick() {
+  if (!autoPlayEnabled || autoPlayRunning) return;
+  const stage = currentStageForAutoPlay;
+  if (!stage) {
+    // 아직 게임이 시작 전이거나 화면 전환 중 - 잠깐 뒤 다시 확인.
+    scheduleAutoPlayTick(1000);
+    return;
+  }
+  autoPlayRunning = true;
+  const outcomePromise = autoPlayWaitFor(['outcome', 'ending'], 20000);
+  if (stage.random) {
+    rollDice();
+  } else {
+    const choice = pickAutoPlayChoice(stage);
+    if (choice.requiresStockPurchase && allStocks.length) {
+      const stock = allStocks[Math.floor(Math.random() * allStocks.length)];
+      pickChoice(choice.id, { stockId: stock.id, stockName: stock.name });
+    } else {
+      pickChoice(choice.id);
+    }
+  }
+  const outcome = await outcomePromise;
+  if (!autoPlayEnabled) { autoPlayRunning = false; return; }
+
+  if (outcome === 'timeout') {
+    autoPlayRunning = false;
+    showToast('⏱ 자동진행 응답이 지연돼 중단했어요');
+    setAutoPlayEnabled(false);
+    return;
+  }
+  if (outcome === 'ending') {
+    autoPlayRunning = false;
+    setAutoPlayEnabled(false);
+    return;
+  }
+  // outcome === 'outcome' - applyOutcome이 끝나 pendingNextStage/nextBtn이
+  // 준비된 상태. 사람이 누르는 것과 똑같이 nextBtn을 클릭해서 넘어간다
+  // (멀티플레이 미러 갱신 등 그 클릭 핸들러의 다른 부수효과까지 그대로 탄다).
+  const stageReadyPromise = autoPlayWaitFor(['stage'], 10000);
+  nextBtn.click();
+  await stageReadyPromise;
+  autoPlayRunning = false;
+  if (autoPlayEnabled) scheduleAutoPlayTick();
+}
+
+if (autoPlayToggle) {
+  autoPlayToggle.addEventListener('change', () => setAutoPlayEnabled(autoPlayToggle.checked));
+}
+if (autoPlaySpeedSlider) {
+  autoPlaySpeedSlider.addEventListener('input', () => {
+    autoPlaySpeedSec = parseInt(autoPlaySpeedSlider.value, 10);
+    autoPlaySpeedLabel.textContent = autoPlaySpeedSec + '초/턴';
+  });
+}
 
 const STAT_LABELS = { wealth: '재산', fame: '인기', happiness: '행복', health: '건강', relationship: '관계' };
 const STAT_COLORS = { wealth: 'var(--gold)', fame: 'var(--coral)', happiness: 'var(--rose)', health: 'var(--sage)', relationship: 'var(--sky)' };
@@ -1681,6 +1819,8 @@ function applyAlzheimersFadeout() {
 }
 
 function renderStage(stage) {
+  currentStageForAutoPlay = stage;
+  autoPlayEmit('stage');
   stageName.textContent = stage.name;
   stageAge.textContent = stage.ageRange;
   storyText.textContent = stage.intro || '';
@@ -1951,6 +2091,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   } else {
     pendingNextStage = data.nextStage;
     nextBtn.classList.remove('hidden');
+    autoPlayEmit('outcome');
   }
 }
 
@@ -2241,6 +2382,8 @@ function renderChoiceHistoryInto(container, history) {
 // 안내 순서로 보여준다(각 section의 DOM 순서가 곧 화면에 보이는 순서). 게임
 // 화면에서 엔딩 화면으로 넘어가는 것도 다른 전환들과 같은 페이드로 통일한다.
 async function showEnding(ending, stats, choiceHistory, familyMembers, occupationHistory, assets, cashHoldings, acquaintances, healthConditions, locationHistory, talents, hobbies) {
+  currentStageForAutoPlay = null;
+  autoPlayEmit('ending');
   if (INSTANT_ENDING_IDS.includes(ending.id)) {
     triggerCrisisEffect();
     await new Promise((resolve) => setTimeout(resolve, REDUCE_MOTION ? 200 : 650));
@@ -2801,6 +2944,7 @@ async function enterHostMode() {
   document.body.classList.remove('mp-participant-mode');
   mpParticipantBanner.classList.add('hidden');
   mpHostPanel.classList.remove('hidden');
+  renderAdminAutoPlayVisibility();
   attachMultiplayerHostListeners();
   // 새로고침 후 이어하기(2026-08-24, 사용자 지시 - "호스트가 페이지를
   // 새로고침해서 게임을 이어할때 참가자 목록을 다시 갱신되게 해줘") - 위

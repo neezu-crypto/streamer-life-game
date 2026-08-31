@@ -446,6 +446,16 @@
     margin-bottom: 14px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px;
     background: var(--panel-2);
   }
+  /* 관리자 전용 자동진행(2026-08-31) - mp-host-panel과 같은 박스 스타일을
+     재사용해 새 톤을 만들지 않는다. 슬라이더는 이 저장소에 기존 컴포넌트가
+     없어 기본 브라우저 range 스타일에 여백만 맞췄다. */
+  .admin-autoplay-speed-row {
+    margin-top: 10px; display: flex; align-items: center; gap: 10px;
+  }
+  .admin-autoplay-speed-row input[type="range"] { flex: 1; }
+  .admin-autoplay-speed-row span {
+    font-size: 12px; color: var(--text-faint); min-width: 52px; text-align: right;
+  }
   /* 2026-08-25, 사용자 지시 - "참여자 목록이 많아지면 스크롤이 길어질수있어서
      일정 높이를 가진 스크롤박스 안에서 스크롤할수있게 해줘" → "5.5명 높이로
      해줘" - 참가자가 몇 명 안 될 땐 기존처럼 내용 높이만큼만 차지하다가,
