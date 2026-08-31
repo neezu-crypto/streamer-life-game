@@ -573,9 +573,9 @@ function openSellStockModal(asset) {
   pendingSellAsset = asset;
   const price = typeof asset.currentPrice === 'number' ? asset.currentPrice : asset.buyPrice;
   const ratio = price / asset.buyPrice;
-  // 투자 원금 1억→1천만원 조정(2026-08-31) - functions/index.js의
-  // INVESTMENT_PRINCIPAL_WON과 반드시 같은 값 유지.
-  const estimatedProfitWon = Math.round(10000000 * (ratio - 1));
+  // 매도 시 기본 원금 + 차익×5(2026-08-31, 사용자 지시) - functions/index.js
+  // sellStock의 INVESTMENT_PRINCIPAL_WON·5배 증폭과 반드시 같은 공식 유지.
+  const estimatedProfitWon = Math.round(10000000 * (ratio - 1)) * 5;
   sellStockTitle.textContent = '📈 ' + asset.label + ' 매도';
   sellStockInfo.textContent = '매수가 ' + asset.buyPrice.toLocaleString() + '원 → 현재가 ' + price.toLocaleString() + '원. '
     + '지금 판매하면 약 ' + estimatedProfitWon.toLocaleString() + '원의 ' + (estimatedProfitWon >= 0 ? '차익' : '손실') + '이 발생해요.';

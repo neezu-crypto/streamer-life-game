@@ -227,14 +227,22 @@ const STAGES = [
         text: '부모님 한 분과 유독 끈끈하게 지내는 집에서 태어난다',
         deltas: { relationship: 7, happiness: 4, wealth: -3 },
         result: '둘뿐이라 부족한 것도 있었지만, 그만큼 서로에게 전부였다.',
-        addFamilyMembers: [{ id: 'single-parent', label: '🧑 부모님' }]
+        addFamilyMembers: [{ id: 'single-parent', label: '🧑 부모님' }],
+        // 100년 버튼(2026-08-26)으로 가족을 그대로 간직한 채 0세로 돌아온
+        // 경우, 이전 생의 아버지·어머니가 이미 있는 상태에서 이 선택지를
+        // 다시 뽑으면 "한 분과만 사는 집"이라는 서사와 달리 부모님이 셋(아버지
+        // +어머니+부모님)이 되는 모순이 있었다(2026-08-31, 사용자 지시로 발견).
+        removeFamilyMembers: ['father', 'mother']
       },
       {
         id: 'foster-care',
         text: '여러 어른의 손을 거치며 자라는 보육 시설에서 태어난다',
         deltas: { relationship: -4, health: -2, happiness: -2, wealth: -2 },
         result: '어느 한 사람의 것도 아니었지만, 그래서 여러 사람이 조금씩 나를 키웠다. 그때 함께 자란 아이들과는 지금까지도 연락하고 지낸다.',
-        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구', count: 3 }
+        addAcquaintance: { relation: 'friend', label: '🧑‍🤝‍🧑 친구', count: 3 },
+        // single-parent-close와 같은 이유(100년 버튼으로 carried-over된 부모가
+        // 있으면 "보육 시설에서 자란다"는 서사와 모순되는 부모가 그대로 남음).
+        removeFamilyMembers: ['father', 'mother', 'single-parent']
       },
       {
         id: 'spotlight-family',
@@ -1278,7 +1286,8 @@ const STAGES = [
         id: 'competitive-athlete',
         text: '계주 대표로 뽑혀 매일 운동장을 뛴다',
         deltas: { health: 7, fame: 3, happiness: -2 },
-        result: '손바닥의 굳은살이 그때는 훈장처럼 자랑스러웠다.'
+        result: '손바닥의 굳은살이 그때는 훈장처럼 자랑스러웠다.',
+        addTalent: { id: 'sports', label: '🏃 운동' }
       },
       {
         id: 'early-puberty-mood',
@@ -9084,6 +9093,18 @@ const STAGES = [
         requiresRoute: 'police'
       },
       {
+        id: 'deviant-police-evidence-cash-skim-24',
+        text: '압수한 현금 일부를 슬쩍 빼돌린다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.35, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 85, label: '안 걸림', deltas: { wealth: 3, happiness: 1 }, result: '아무도 정확한 액수를 몰랐다 - 그게 문제였다.' },
+          { weight: 15, label: '발각', deltas: { wealth: -8, happiness: -6, relationship: -4 }, result: '증거물 대조 과정에서 빼돌린 액수가 고스란히 드러났다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ],
+        requiresRoute: 'police'
+      },
+      {
         id: 'trader-overnight-market-watch-24',
         text: '새벽 미국 증시를 모니터링하느라 밤을 지새운다',
         deltas: { health: -3, wealth: 1 },
@@ -12629,6 +12650,18 @@ const STAGES = [
         requiresRoute: 'police'
       },
       {
+        id: 'deviant-police-ticket-fix-27',
+        text: '지인의 딱지를 몰래 취소해준다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.25, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 88, label: '안 걸림', deltas: { relationship: 3, happiness: 1 }, result: '작은 부탁이었지만, 그만큼 고마움도 컸다.' },
+          { weight: 12, label: '발각', deltas: { relationship: -5, happiness: -3, fame: -3 }, result: '전산 기록 감사에서 취소 이력이 그대로 남아 있었다.' }
+        ],
+        requiresRoute: 'police'
+      },
+      {
         id: 'cs-fill-27-1',
         text: '선배 공무원에게 업무 요령을 배운다',
         deltas: { happiness: 1, wealth: 1 },
@@ -13765,7 +13798,7 @@ const STAGES = [
       {
         id: 'pol-fill2-28-2',
         text: '장기 잠복 수사 끝에 검거에 성공한다',
-        deltas: { happiness: 3, fame: 1 },
+        deltas: { wealth: 2, happiness: 3, fame: 1 },
         result: '지친 몸도 잊을 만큼 짜릿했다.',
         requiresRoute: 'police'
       },
@@ -14843,7 +14876,7 @@ const STAGES = [
       {
         id: 'police-catches-car-thief-29',
         text: '끈질긴 추적 끝에 상습 차량 절도범을 검거한다',
-        deltas: { happiness: 3, fame: 1 },
+        deltas: { wealth: 2, happiness: 3, fame: 1 },
         result: '몇 주를 매달린 끝에, 수배 전단 속 얼굴에 마침내 수갑을 채웠다.',
         requiresRoute: 'police'
       },
@@ -14934,7 +14967,7 @@ const STAGES = [
       {
         id: 'pol-fill-29-2',
         text: '표창장을 받는다',
-        deltas: { happiness: 2, fame: 2 },
+        deltas: { wealth: 2, happiness: 2, fame: 2 },
         result: '가족들이 더 기뻐하는 모습에 뿌듯했다.',
         requiresRoute: 'police'
       },
@@ -14943,6 +14976,18 @@ const STAGES = [
         text: '장기 미제 사건을 다시 들여다본다',
         deltas: { happiness: -1 },
         result: '포기하지 않는 게 이 일의 미덕이라고 믿었다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-record-lookup-29',
+        text: '지인의 사건 기록을 몰래 조회해준다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.30, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 85, label: '안 걸림', deltas: { relationship: 4, happiness: 1 }, result: '궁금해하던 지인의 얼굴이 한결 편해졌다.' },
+          { weight: 15, label: '발각', deltas: { wealth: -2, relationship: -6, happiness: -5, fame: -4 }, result: '조회 로그가 감사팀에 그대로 잡혔다.' }
+        ],
         requiresRoute: 'police'
       },
       {
@@ -15970,7 +16015,7 @@ const STAGES = [
       {
         id: 'pol-fill2-30-2',
         text: '연쇄 사기범의 아지트를 급습해 검거한다',
-        deltas: { happiness: 3, fame: 1 },
+        deltas: { wealth: 2, happiness: 3, fame: 1 },
         result: '팀 전체가 환호했다.',
         requiresRoute: 'police'
       },
@@ -17018,14 +17063,14 @@ const STAGES = [
       {
         id: 'pol-fill2-31-1',
         text: '마약 유통 조직 검거 작전에 투입된다',
-        deltas: { happiness: -2 },
+        deltas: { wealth: 1, happiness: -2 },
         result: '긴장감이 며칠간 가시지 않았다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-31-2',
         text: '오랜 추적 끝에 지명수배자를 붙잡는다',
-        deltas: { happiness: 3, fame: 1 },
+        deltas: { wealth: 2, happiness: 3, fame: 1 },
         result: '몇 달의 잠복이 결실을 맺었다.',
         requiresRoute: 'police'
       },
@@ -17116,7 +17161,7 @@ const STAGES = [
       {
         id: 'pol-fill-31-3',
         text: '학교 폭력 예방 강연을 나간다',
-        deltas: { happiness: -1, fame: 1 },
+        deltas: { wealth: 1, happiness: -1, fame: 1 },
         result: '아이들 앞에서도 긴장이 됐다.',
         requiresRoute: 'police'
       },
@@ -18075,7 +18120,7 @@ const STAGES = [
       {
         id: 'pol-fill2-32-2',
         text: '위장 수사로 불법 도박장을 적발한다',
-        deltas: { happiness: 3, fame: 1 },
+        deltas: { wealth: 2, happiness: 3, fame: 1 },
         result: '완벽한 작전이었다.',
         requiresRoute: 'police'
       },
@@ -18117,7 +18162,7 @@ const STAGES = [
       {
         id: 'pol-fill-32-2',
         text: '시민 안전 유공 표창을 받는다',
-        deltas: { happiness: 2, fame: 2 },
+        deltas: { wealth: 2, happiness: 2, fame: 2 },
         result: '시상식 자리가 낯설면서도 뿌듯했다.',
         requiresRoute: 'police'
       },
@@ -19149,6 +19194,18 @@ const STAGES = [
         requiresRoute: 'police'
       },
       {
+        id: 'deviant-police-info-sale-33',
+        text: '수사 정보를 언론에 몰래 팔아넘긴다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.10, max: 0.45, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 80, label: '안 걸림', deltas: { wealth: 6, happiness: 2 }, result: '기사가 터진 다음 날, 통장에도 조용히 입금이 됐다.' },
+          { weight: 20, label: '발각', deltas: { wealth: -10, happiness: -8, relationship: -6 }, result: '기자와 주고받은 메시지가 감찰 조사에서 그대로 나왔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ],
+        requiresRoute: 'police'
+      },
+      {
         id: 'lawyer-wins-major-case-33',
         text: '오랜 시간 매달린 재판에서 극적으로 승소한다',
         deltas: { fame: 4, happiness: 4, wealth: 2 },
@@ -20104,7 +20161,7 @@ const STAGES = [
       {
         id: 'pol-fill2-34-2',
         text: '조직폭력배 두목을 검거하는 데 성공한다',
-        deltas: { happiness: 3, fame: 1 },
+        deltas: { wealth: 3, happiness: 3, fame: 1 },
         result: '언론에서도 크게 다뤘다.',
         requiresRoute: 'police'
       },
@@ -21113,7 +21170,7 @@ const STAGES = [
       {
         id: 'pol-fill2-35-2',
         text: '몇 주간 미행 끝에 장물아비를 검거한다',
-        deltas: { happiness: 3, fame: 1 },
+        deltas: { wealth: 2, happiness: 3, fame: 1 },
         result: '인내심의 승리였다.',
         requiresRoute: 'police'
       },
@@ -22074,7 +22131,7 @@ const STAGES = [
       {
         id: 'pol-fill2-36-2',
         text: '보이스피싱 콜센터를 급습해 일망타진한다',
-        deltas: { happiness: 3, fame: 1 },
+        deltas: { wealth: 3, happiness: 3, fame: 1 },
         result: '피해 확산을 막았다는 게 뿌듯했다.',
         requiresRoute: 'police'
       },
@@ -22991,6 +23048,18 @@ const STAGES = [
         requiresRoute: 'police'
       },
       {
+        id: 'deviant-police-evidence-tamper-37',
+        text: '증거물을 조작해 사건을 조기 종결한다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.12, max: 0.45, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 78, label: '안 걸림', deltas: { wealth: 2, fame: 2, happiness: 2 }, result: '빠른 종결 소식에 다들 실력을 칭찬했다 - 진실은 아무도 몰랐다.' },
+          { weight: 22, label: '발각', deltas: { wealth: -10, happiness: -10, relationship: -8, fame: -10 }, result: '재수사 과정에서 조작된 정황이 낱낱이 드러났다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ],
+        requiresRoute: 'police'
+      },
+      {
         id: 'cs-fill-37-1',
         text: '동료의 결혼식에 다녀온다',
         deltas: { relationship: 2 },
@@ -23814,14 +23883,14 @@ const STAGES = [
       {
         id: 'police-phishing-ring-bust-38',
         text: '보이스피싱 조직 검거 작전에 투입된다',
-        deltas: { happiness: -2, fame: 2 },
+        deltas: { wealth: 1, happiness: -2, fame: 2 },
         result: '몇 달을 추적한 조직을, 마침내 일망타진했다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-38-2',
         text: '위조지폐 유통책을 함정수사로 검거한다',
-        deltas: { happiness: 3, fame: 1 },
+        deltas: { wealth: 2, happiness: 3, fame: 1 },
         result: '완벽한 타이밍이었다.',
         requiresRoute: 'police'
       },
@@ -24662,7 +24731,7 @@ const STAGES = [
       {
         id: 'pol-fill2-39-2',
         text: '몇 달을 쫓던 인신매매 조직을 검거한다',
-        deltas: { happiness: 3, fame: 1 },
+        deltas: { wealth: 3, happiness: 3, fame: 1 },
         result: '피해자들을 구출했다는 게 가장 뿌듯했다.',
         requiresRoute: 'police'
       },
@@ -26341,6 +26410,18 @@ const STAGES = [
         requiresRoute: 'police'
       },
       {
+        id: 'deviant-police-gang-payoff-41',
+        text: '폭력조직으로부터 정기 상납금을 받는다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.15, max: 0.50, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 75, label: '안 걸림', deltas: { wealth: 8, happiness: 1 }, result: '매달 정해진 날, 정해진 액수가 조용히 건너왔다.' },
+          { weight: 25, label: '발각', deltas: { wealth: -15, happiness: -12, relationship: -8, fame: -10 }, result: '계좌 추적 끝에 유착 관계가 통째로 드러났다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ],
+        requiresRoute: 'police'
+      },
+      {
         id: 'cs-fill-41-1',
         text: '동료의 결혼식에 다녀온다',
         deltas: { relationship: 2 },
@@ -26973,7 +27054,7 @@ const STAGES = [
       {
         id: 'pol-fill2-42-2',
         text: '장기 미제였던 절도단을 검거해낸다',
-        deltas: { happiness: 3, fame: 1 },
+        deltas: { wealth: 2, happiness: 3, fame: 1 },
         result: '몇 년 만의 쾌거였다.',
         requiresRoute: 'police'
       },
@@ -27015,7 +27096,7 @@ const STAGES = [
       {
         id: 'pol-fill-42-2',
         text: '청장 표창을 받으며 동료들의 축하를 받는다',
-        deltas: { happiness: 2, fame: 2 },
+        deltas: { wealth: 3, happiness: 2, fame: 2 },
         result: '함께 이룬 성과라 더 값졌다.',
         requiresRoute: 'police'
       },
@@ -27626,7 +27707,7 @@ const STAGES = [
       {
         id: 'pol-fill2-43-1',
         text: '대규모 마약 밀매 조직 검거에 투입된다',
-        deltas: { happiness: -2 },
+        deltas: { wealth: 1, happiness: -2 },
         result: '예상보다 훨씬 큰 조직이었다.',
         requiresRoute: 'police'
       },
@@ -27640,7 +27721,7 @@ const STAGES = [
       {
         id: 'pol-fill2-43-2',
         text: '잠복 수사 끝에 불법 사금융업자를 적발한다',
-        deltas: { happiness: 3, fame: 1 },
+        deltas: { wealth: 2, happiness: 3, fame: 1 },
         result: '피해자들이 고마워했다.',
         requiresRoute: 'police'
       },
@@ -28436,7 +28517,7 @@ const STAGES = [
       {
         id: 'pol-fill-44-2',
         text: '우수 사례로 선정돼 전국에 소개된다',
-        deltas: { happiness: 2, fame: 2 },
+        deltas: { wealth: 2, happiness: 2, fame: 2 },
         result: '부담스럽기도 뿌듯하기도 했다.',
         requiresRoute: 'police'
       },
@@ -29123,7 +29204,7 @@ const STAGES = [
       {
         id: 'pol-fill2-45-3',
         text: '특진 심사에서 좋은 결과를 얻는다',
-        deltas: { happiness: 2, fame: 1 },
+        deltas: { wealth: 3, happiness: 2, fame: 1 },
         result: '오랜 노력이 결실을 맺은 순간이었다.',
         requiresRoute: 'police'
       },
@@ -29210,6 +29291,18 @@ const STAGES = [
         text: '장기 근무로 인한 만성 피로에 시달린다',
         deltas: { health: -2 },
         result: '몸이 예전 같지 않다는 걸, 하루하루 실감했다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-expense-padding-45',
+        text: '수사비 영수증을 부풀려 청구한다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.30, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 85, label: '안 걸림', deltas: { wealth: 3, happiness: 1 }, result: '몇 장의 영수증이 조용히 액수를 부풀렸다.' },
+          { weight: 15, label: '발각', deltas: { wealth: -6, happiness: -4, relationship: -3 }, result: '정기 회계 감사에서 부풀린 내역이 걸렸다.' }
+        ],
         requiresRoute: 'police'
       },
       {
@@ -29969,7 +30062,7 @@ const STAGES = [
       {
         id: 'pol-fill2-46-3',
         text: '우수 경찰관 표창 후보에 선정된다',
-        deltas: { happiness: 2, fame: 1 },
+        deltas: { wealth: 2, happiness: 2, fame: 1 },
         result: '동료들의 축하가 이어졌다.',
         requiresRoute: 'police'
       },
@@ -31804,7 +31897,7 @@ const STAGES = [
       {
         id: 'pol-fill2-49-3',
         text: '우수 공무원 포상을 받는다',
-        deltas: { happiness: 2, fame: 1 },
+        deltas: { wealth: 2, happiness: 2, fame: 1 },
         result: '가족들이 더 자랑스러워했다.',
         requiresRoute: 'police'
       },
@@ -32369,7 +32462,7 @@ const STAGES = [
       {
         id: 'pol-fill2-50-3',
         text: '경찰서장 표창을 받는다',
-        deltas: { happiness: 2, fame: 1 },
+        deltas: { wealth: 2, happiness: 2, fame: 1 },
         result: '상장을 받아든 손이 떨렸다.',
         requiresRoute: 'police'
       },
@@ -33924,7 +34017,7 @@ const STAGES = [
       {
         id: 'pol-fill2-53-3',
         text: '장기근속 포상 휴가를 받는다',
-        deltas: { happiness: 2, fame: 1 },
+        deltas: { wealth: 1, happiness: 2, fame: 1 },
         result: '그동안의 노고를 인정받은 기분이었다.',
         requiresRoute: 'police'
       },
@@ -34455,7 +34548,7 @@ const STAGES = [
       {
         id: 'pol-fill-54-3',
         text: '퇴직 전 건강검진을 미리 받아둔다',
-        deltas: { happiness: 1 },
+        deltas: { wealth: 1, happiness: 1 },
         result: '새 출발을 앞두고 몸부터 챙기기로 했다.',
         requiresRoute: 'police'
       },
@@ -34804,6 +34897,14 @@ const STAGES = [
         text: '정년퇴직 발령을 공식적으로 통보받는다',
         deltas: { happiness: 1 },
         result: '담담하려 했지만 마음이 일렁였다.',
+        // 2026-08-31, 사용자 지시 - 이 선택 전까지는 직업이 계속 '형사'로
+        // 남아있어서(45년짜리 police 루트가 끝나는 65세 전까지는 회사원 계열
+        // 공용 은퇴 선택지들이 basePool에서 전부 밀려나 있고, 그 선택지들은
+        // 55세에만 존재해 65세 이후엔 아예 다시 못 만남 - 즉 형사는 은퇴자로
+        // 전환될 방법이 없었다). pol-fill2-56-1/pol-fill-56-1 같은 "경비" 재취업
+        // 콘텐츠는 requiresOccupation이 아니라 requiresRoute: 'police'로만
+        // 게이팅돼 있어 이 직업 전환과 무관하게 계속 그대로 노출된다.
+        setOccupation: { id: 'retired', label: '🌿 은퇴자' },
         requiresRoute: 'police'
       },
       {
@@ -36008,7 +36109,7 @@ const STAGES = [
       {
         id: 'pol-fill-57-1',
         text: '치안 관련 자문 요청을 가끔 받는다',
-        deltas: { happiness: 2, fame: 1 },
+        deltas: { wealth: 1, happiness: 2, fame: 1 },
         result: '은퇴해도 여전히 필요한 사람이라는 게 좋았다.',
         requiresRoute: 'police'
       },
@@ -36450,7 +36551,7 @@ const STAGES = [
       {
         id: 'pol-fill-58-2',
         text: '지역 방범 정책 자문위원으로 위촉된다',
-        deltas: { happiness: 2, fame: 1 },
+        deltas: { wealth: 2, happiness: 2, fame: 1 },
         result: '경험이 여전히 쓸모 있다는 게 뿌듯했다.',
         requiresRoute: 'police'
       },
@@ -36459,6 +36560,18 @@ const STAGES = [
         text: '아파트 관리소 직원으로 자리를 옮긴다',
         deltas: { wealth: 1, happiness: 1 },
         result: '주민들과 낯을 익혀갔다.',
+        requiresRoute: 'police'
+      },
+      {
+        id: 'deviant-police-coldcase-favor-58',
+        text: '은퇴를 앞두고 미제 사건 증거를 없애달라는 청탁을 들어준다',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.10, max: 0.40, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'policeCorruption', target: 1 },
+        prizeTable: [
+          { weight: 80, label: '안 걸림', deltas: { wealth: 10, happiness: 1 }, result: '마지막이라는 말에, 큰돈이 오갔다.' },
+          { weight: 20, label: '발각', deltas: { wealth: -12, happiness: -10, relationship: -8, fame: -8 }, result: '퇴직을 코앞에 두고, 오래된 청탁의 흔적이 발목을 잡았다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ],
         requiresRoute: 'police'
       },
       {
@@ -37000,7 +37113,7 @@ const STAGES = [
       {
         id: 'pol-fill-59-3',
         text: '방송사 범죄 프로그램 자문을 맡는다',
-        deltas: { happiness: 2, fame: 1 },
+        deltas: { wealth: 2, happiness: 2, fame: 1 },
         result: '낯선 카메라 앞이 어색하면서도 재밌었다.',
         requiresRoute: 'police'
       },
@@ -38924,7 +39037,7 @@ const STAGES = [
       {
         id: 'pol-fill-63-2',
         text: '경찰서 자문위원회 위원으로 활동한다',
-        deltas: { happiness: 2, fame: 1 },
+        deltas: { wealth: 2, happiness: 2, fame: 1 },
         result: '조언을 구하는 후배들이 반가웠다.',
         requiresRoute: 'police'
       },
@@ -42036,6 +42149,12 @@ const STAGES = [
         requiresFamilyMember: ['child'],
         requiresAnyCondition: true,
         removeAllConditions: true
+      },
+      {
+        id: 'twilight-garden-produce-sale-74',
+        text: '동네 텃밭에서 기른 채소를 내다 판다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '땀 흘려 기른 것들이, 쏠쏠한 용돈이 되어 돌아왔다.'
       }
     ]
   },
@@ -43994,6 +44113,12 @@ const STAGES = [
         deltas: { happiness: 1 },
         result: '두려움보다, 잔잔한 평온이 더 크게 자리했다.'
       },
+      {
+        id: 'twilight-paid-life-advice-84',
+        text: '오랜 경험을 살려 후배들에게 유료로 조언을 해준다',
+        deltas: { wealth: 2, happiness: 2, relationship: 1 },
+        result: '살아온 시간이, 이제는 값이 매겨질 만큼 단단해져 있었다.'
+      },
     ]
   },
   {
@@ -45437,6 +45562,12 @@ const STAGES = [
         requiresNoAsset: 'time-loop-declined',
         addAsset: { id: 'time-loop-ticket', label: '⏳ 100년의 기억', type: 'movable' }
       },
+      {
+        id: 'twilight-handmade-craft-sale-91',
+        text: '직접 만든 공예품을 장터에 내놓는다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '손끝으로 빚어낸 것들이, 누군가의 손으로 건너갔다.'
+      },
     ]
   },
   {
@@ -45976,6 +46107,12 @@ const STAGES = [
         mandatory: true,
         addAsset: { id: 'time-loop-declined', label: '⏳ 흘려보낸 기회', type: 'movable' }
       },
+      {
+        id: 'twilight-antique-sale-94',
+        text: '모아둔 골동품 중 일부를 값을 받고 넘긴다',
+        deltas: { wealth: 3, happiness: 1 },
+        result: '오래 간직했던 것들이, 마지막으로 제값을 했다.'
+      },
     ]
   },
   {
@@ -46175,6 +46312,12 @@ const STAGES = [
         mandatory: true,
         addAsset: { id: 'time-loop-declined', label: '⏳ 흘려보낸 기회', type: 'movable' }
       },
+      {
+        id: 'twilight-pension-lumpsum-95',
+        text: '오랫동안 부어온 연금이 두둑하게 들어온다',
+        deltas: { wealth: 3, happiness: 2 },
+        result: '젊은 날의 선택 하나가, 지금 이렇게 든든하게 돌아왔다.'
+      },
     ]
   },
   {
@@ -46333,6 +46476,12 @@ const STAGES = [
         removeAsset: 'time-loop-ticket',
         mandatory: true,
         addAsset: { id: 'time-loop-declined', label: '⏳ 흘려보낸 기회', type: 'movable' }
+      },
+      {
+        id: 'twilight-old-debt-repaid-96',
+        text: '예전에 빌려준 돈을 뒤늦게 돌려받는다',
+        deltas: { wealth: 3, relationship: 1 },
+        result: '까맣게 잊고 있던 돈이, 뜻밖의 순간에 돌아왔다.'
       },
     ]
   },
@@ -46651,6 +46800,12 @@ const STAGES = [
         mandatory: true,
         addAsset: { id: 'time-loop-declined', label: '⏳ 흘려보낸 기회', type: 'movable' }
       },
+      {
+        id: 'twilight-birthday-gift-money-98',
+        text: '생신 기념으로 들어온 축하금을 저축해둔다',
+        deltas: { wealth: 2, happiness: 2, relationship: 1 },
+        result: '봉투 몇 개가, 통장에 조용히 쌓였다.'
+      },
     ]
   },
   {
@@ -46837,6 +46992,12 @@ const STAGES = [
         mandatory: true,
         addAsset: { id: 'time-loop-declined', label: '⏳ 흘려보낸 기회', type: 'movable' }
       },
+      {
+        id: 'twilight-valuable-heirloom-sale-99',
+        text: '오래 모아온 물건 중 값나가는 걸 알아보고 처분한다',
+        deltas: { wealth: 3, happiness: 1 },
+        result: '평생 곁에 뒀던 물건 하나가, 마지막으로 힘이 되어줬다.'
+      },
     ]
   },
   {
@@ -47014,6 +47175,12 @@ const STAGES = [
         removeAsset: 'time-loop-ticket',
         mandatory: true,
         addAsset: { id: 'time-loop-declined', label: '⏳ 흘려보낸 기회', type: 'movable' }
+      },
+      {
+        id: 'twilight-centenarian-grant-100',
+        text: '백수(百壽) 기념으로 지자체에서 축하금이 나온다',
+        deltas: { wealth: 3, happiness: 3, fame: 1 },
+        result: '백 년을 살아낸 것만으로도, 축하받을 이유가 충분했다.'
       },
     ]
   }

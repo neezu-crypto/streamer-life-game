@@ -806,6 +806,15 @@ function pickVisibleChoiceIds(choices, ctx) {
     const fallbackPool = choices.filter((c) => !c.requiresRoute && !(c.startsRoute && experiencedRouteIds.includes(c.startsRoute.id)));
     eligible = fallbackPool.filter(passesEligibility);
   }
+  // 100년 버튼(2026-08-31, 사용자 지시 - "100년 버튼을 가지고 있을때는
+  // 선택지가 두개만 뜨게 해줘") - time-loop-ticket을 갖고 있으면 그 나이엔
+  // "돌아간다"/"돌아가지 않는다" 두 갈래(requiresAsset:'time-loop-ticket')만
+  // 뜨고, 다른 일반 선택지나 bonusSlot은 전부 밀려나야 한다 - 이 중대한
+  // 갈림길에서 다른 사건에 정신이 팔리는 게 부자연스럽다는 서사적 이유.
+  const timeLoopChoices = eligible.filter((c) => c.requiresAsset === 'time-loop-ticket');
+  if (timeLoopChoices.length) {
+    return timeLoopChoices.map((c) => c.id);
+  }
   // bonusSlot(2026-08-30, 사용자 지시 - "차량구매는 기본 선택지와 무관하게
   // +1 추가로 등장하게 해줘") - 보통의 mandatory(appearChance 포함) 선택지는
   // 통과해도 4개 슬롯 안에서 자리를 하나 차지한다(다른 optional 하나가
@@ -2819,15 +2828,17 @@ const sellStock = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, a
     throw new HttpsError('failed-precondition', '거래 정지(동결) 중인 종목은 매도할 수 없습니다.', { reason: 'stock-frozen' });
   }
 
-  // 현금 환전 비율(56장 D항 확정, 2026-08-31 투자 원금 1억→1천만원 조정) -
-  // 게임내_차익 = 투자원금 × (매도가÷매수가 − 1). 이 차익을 다시
-  // cashUnitForAge로 나눠 wealth 스탯 증가분(음수면 손실)으로 환산한다 -
-  // 매수 때 반대 방향으로 했던 환산과 완전히 대칭(매수 쪽 상수와 반드시
-  // 같은 값 유지 - submitChoice의 INVESTMENT_PRINCIPAL_WON 참고).
+  // 현금 환전(2026-08-31, 사용자 지시 - "보유했던 주식을 팔때 기본 1천만원+
+  // 차익*5만큼 소득이 발생하게 해줘") - 매도 대금은 항상 원금(1천만원)을
+  // 돌려주고, 그 위에 차익(손실이면 음수)을 5배로 증폭해 더한다. 매수 쪽
+  // 상수(submitChoice의 INVESTMENT_PRINCIPAL_WON)와 원금 값은 반드시 같아야
+  // 한다.
   const INVESTMENT_PRINCIPAL_WON = 10000000;
   const ratio = stockVal.price / asset.buyPrice;
-  const profitWon = Math.round(INVESTMENT_PRINCIPAL_WON * (ratio - 1));
-  const wealthDelta = Math.round(profitWon / cashUnitForAge(play.stageIndex));
+  const rawProfitWon = Math.round(INVESTMENT_PRINCIPAL_WON * (ratio - 1));
+  const profitWon = rawProfitWon * 5;
+  const payoutWon = INVESTMENT_PRINCIPAL_WON + profitWon;
+  const wealthDelta = Math.round(payoutWon / cashUnitForAge(play.stageIndex));
 
   const stats = Object.assign({}, play.stats);
   stats.wealth = clampStat((stats.wealth || 0) + wealthDelta);
