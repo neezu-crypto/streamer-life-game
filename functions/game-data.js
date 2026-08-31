@@ -22347,7 +22347,8 @@ const STAGES = [
         id: 'child-daycare-adjustment-35',
         text: '아이 어린이집 적응 문제로 마음을 졸인다',
         deltas: { happiness: -1 },
-        result: '울며 떨어지지 않으려는 손을 떼어놓는 게, 매번 쉽지 않았다.'
+        result: '울며 떨어지지 않으려는 손을 떼어놓는 게, 매번 쉽지 않았다.',
+        requiresFamilyMember: ['child']
       },
       {
         id: 'weekend-golf-lessons-35',
@@ -24211,7 +24212,8 @@ const STAGES = [
         id: 'child-elementary-entrance-37',
         text: '아이의 초등학교 입학을 준비한다',
         deltas: { wealth: -1, happiness: 2 },
-        result: '작은 책가방을 메고 나서는 뒷모습이, 새삼 크게 느껴졌다.'
+        result: '작은 책가방을 메고 나서는 뒷모습이, 새삼 크게 느껴졌다.',
+        requiresFamilyMember: ['child']
       },
       {
         id: 'old-college-friend-success-37',
@@ -40025,7 +40027,8 @@ const STAGES = [
         text: '연금이 있어 자식들에게 손 벌리지 않아도 된다',
         deltas: { happiness: 1 },
         result: '그것만으로도 스스로가 대견하게 느껴졌다.',
-        requiresRoute: 'civil-servant-route'
+        requiresRoute: 'civil-servant-route',
+        requiresFamilyMember: ['child']
       },
       {
         id: 'cs-fill2-63-3',
@@ -42025,6 +42028,7 @@ const STAGES = [
       {
         id: 'deviant-hide-savings-from-kids-69',
         text: '자식들 모르게 비상금을 숨겨둔다',
+        requiresFamilyMember: ['child'],
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '나만 아는 곳간이 하나 있다는 게 든든했다.' },
           { weight: 10, label: '발각', deltas: { relationship: -4, happiness: -2 }, result: '이사 준비 중 숨겨둔 돈뭉치가 발견됐다.' }
@@ -43762,6 +43766,7 @@ const STAGES = [
       {
         id: 'deviant-hide-illness-from-family-77',
         text: '몸이 안 좋은 걸 자식들에게 숨긴다',
+        requiresFamilyMember: ['child'],
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '걱정 끼치지 않았다는 생각에 마음이 편했다.' },
           { weight: 10, label: '발각', deltas: { relationship: -4, happiness: -3, health: -1 }, result: '숨기다 늦어진 진단에 가족 모두가 놀랐다.' }
@@ -45245,7 +45250,8 @@ const STAGES = [
         text: '전환의 세월을 돌아보며 자녀에게 조언을 건넨다',
         deltas: { relationship: 2, happiness: 1 },
         result: '늦어도 괜찮다는 말이 가장 하고 싶은 말이었다.',
-        requiresOccupation: ['career-pivot']
+        requiresOccupation: ['career-pivot'],
+        requiresFamilyMember: ['child']
       },
       {
         id: 'stock-investment-teacher-route-85',
@@ -45716,7 +45722,8 @@ const STAGES = [
         text: '몸이 약해져 자녀 집 근처로 거처를 옮긴다',
         deltas: { happiness: -1, relationship: 1 },
         result: '독립심을 내려놓는 게 쉽지 않았다.',
-        requiresOccupation: ['retired']
+        requiresOccupation: ['retired'],
+        requiresFamilyMember: ['child']
       },
       {
         id: 'con3-fill-87',
@@ -46653,7 +46660,8 @@ const STAGES = [
         text: '자녀들이 번갈아 안부를 물어온다',
         deltas: { relationship: 2, happiness: 2 },
         result: '혼자가 아니라는 사실이 큰 위로가 됐다.',
-        requiresOccupation: ['retired']
+        requiresOccupation: ['retired'],
+        requiresFamilyMember: ['child']
       },
       {
         id: 'old-career-artist-1-92',
@@ -46687,6 +46695,7 @@ const STAGES = [
       {
         id: 'deviant-hide-fall-from-family-92',
         text: '넘어진 걸 자식들 걱정할까 봐 숨긴다',
+        requiresFamilyMember: ['child'],
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '별일 아니라며 스스로를 다독였다.' },
           { weight: 10, label: '발각', deltas: { relationship: -3, happiness: -2, health: -1 }, result: '멍든 자국을 결국 자식들에게 들키고 말았다.' }
@@ -48709,7 +48718,8 @@ const PRISON_CHOICES = [
     text: "자녀가 훌쩍 자란 소식을 편지로 전해 듣는다",
     deltas: {"happiness":-2,"relationship":1},
     result: "사진 속 낯선 키가, 흘러간 시간을 실감하게 했다.",
-    requiresRoute: "prison"
+    requiresRoute: "prison",
+    requiresFamilyMember: ["child"]
   },
   {
     id: "prison-divorce-request",
