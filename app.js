@@ -1327,6 +1327,10 @@ const ASSET_TYPE_LABELS = {
 // 올리면 연소득 얼마짜리인지 알게 해줘") - functions/index.js의
 // RENTAL_INCOME_BY_ASSET_ID와 반드시 같은 값 유지.
 const RENTAL_INCOME_BY_ASSET_ID = { 'commercial-unit': 5000000, 'studio-unit': 3000000 };
+// 보험료 연간 지출(2026-08-31, 사용자 지시 - "보험 자산도 연간 얼마 지출인지
+// 표시되게 해줘") - functions/index.js의 INSURANCE_PREMIUM_WON과 반드시
+// 같은 값 유지.
+const INSURANCE_PREMIUM_WON = 2000000;
 // currentAge(2026-08-28, 56장 D항 - 주식 자산 전용)를 옵션으로 받는다 - 절대
 // 나이가 5의 배수일 때만 주식 뱃지를 클릭 가능하게(매도 모달 오픈) 만들어야
 // 해서, 이 함수가 "지금 몇 살인지"를 알아야 한다. 다른 자산 종류는 그대로
@@ -1370,6 +1374,9 @@ function renderAssetsInto(container, assets, currentAge) {
     } else if (RENTAL_INCOME_BY_ASSET_ID[asset.id] !== undefined) {
       chip.textContent = asset.label;
       chip.dataset.tooltip = asset.label + ' — 연 ' + RENTAL_INCOME_BY_ASSET_ID[asset.id].toLocaleString() + '원 임대 수익 (매년 자동 지급)';
+    } else if (asset.type === 'insurance') {
+      chip.textContent = asset.label;
+      chip.dataset.tooltip = asset.label + ' — 연 ' + INSURANCE_PREMIUM_WON.toLocaleString() + '원 보험료 자동 납입 (3년 연속 미납 시 계약 해지)';
     } else {
       chip.textContent = asset.label;
       chip.dataset.tooltip = asset.label + ' — ' + (ASSET_TYPE_LABELS[asset.type] || '재산') + ' 자산';
