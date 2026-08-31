@@ -6905,7 +6905,7 @@ const STAGES = [
       {
         id: 'pol-fill2-22-1',
         text: '밤샘 잠복근무로 몸이 축난다',
-        deltas: { happiness: -1, health: -1 },
+        deltas: { wealth: 2, happiness: -1, health: -1 },
         result: '카페인으로 겨우 버텼다.',
         requiresRoute: 'police'
       },
@@ -18572,7 +18572,7 @@ const STAGES = [
       {
         id: 'pol-fill2-32-3',
         text: '데이트폭력 신고 현장에 반복해서 나간다',
-        deltas: { happiness: -2 },
+        deltas: { wealth: 1, happiness: -2 },
         result: '헤어지기가 쉽지 않은 이유들이 있었다.',
         requiresRoute: 'police'
       },
@@ -19572,14 +19572,14 @@ const STAGES = [
       {
         id: 'pol-fill2-33-1',
         text: '살인 사건 현장 감식을 지원한다',
-        deltas: { happiness: -2 },
+        deltas: { wealth: 2, happiness: -2 },
         result: '익숙해지지 않는 광경이었다.',
         requiresRoute: 'police'
       },
       {
         id: 'pol-fill2-33-2',
         text: '잠복 끝에 뺑소니 운전자를 특정해낸다',
-        deltas: { happiness: 3, fame: 1 },
+        deltas: { wealth: 2, happiness: 3, fame: 1 },
         result: '끈질긴 추적이 빛을 봤다.',
         requiresRoute: 'police'
       },
@@ -20629,7 +20629,7 @@ const STAGES = [
       {
         id: 'pol-fill2-34-1',
         text: '조직폭력배 간의 보복 다툼을 진압한다',
-        deltas: { happiness: -2 },
+        deltas: { wealth: 2, happiness: -2 },
         result: '다치지 않은 게 다행이었다.',
         requiresRoute: 'police'
       },
@@ -20715,7 +20715,7 @@ const STAGES = [
       {
         id: 'pol-fill-34-2',
         text: '모범 경찰관으로 언론에 소개된다',
-        deltas: { happiness: 2, fame: 2 },
+        deltas: { wealth: 2, happiness: 2, fame: 2 },
         result: '갑작스런 주목이 어색했다.',
         requiresRoute: 'police'
       },
