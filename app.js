@@ -1155,6 +1155,10 @@ let pendingNextStage = null;
 // setTimeout으로 흉내 내면 트랜지션 시간이 바뀔 때마다 같이 깨지기 쉽다.
 let autoPlayEnabled = false;
 let autoPlaySpeedSec = 15;
+// 결과 문구를 읽을 최소 시간(2026-09-01, 사용자 지시) - 속도 슬라이더(다음
+// "턴"까지의 간격)와는 별개로, 선택 직후 뜨는 결과 문구를 다음으로 넘기기
+// 전에 최소 이만큼은 화면에 붙잡아둔다.
+const AUTO_PLAY_RESULT_READ_MS = 2000;
 let autoPlayRunning = false;
 let autoPlayTimerHandle = null;
 let currentStageForAutoPlay = null;
@@ -1328,9 +1332,15 @@ async function autoPlayTick() {
     }
     return;
   }
-  // outcome === 'outcome' - applyOutcome이 끝나 pendingNextStage/nextBtn이
-  // 준비된 상태. 사람이 누르는 것과 똑같이 nextBtn을 클릭해서 넘어간다
-  // (멀티플레이 미러 갱신 등 그 클릭 핸들러의 다른 부수효과까지 그대로 탄다).
+  // outcome === 'outcome' - applyOutcome이 끝나 결과 문구가 막 떠서 아직
+  // 아무도 안 읽은 상태. 곧바로 다음으로 넘기면 결과를 읽을 새도 없이
+  // 지나가 버리니(2026-09-01, 사용자 지시 - "결과문구가 나오고 바로
+  // 다음버튼을 눌러 스킵하는거같은데 2초정도 여유를 둬서 결과문구를
+  // 읽을수있게") 속도 슬라이더와 별개로 고정 2초를 기다린다.
+  await new Promise((resolve) => setTimeout(resolve, AUTO_PLAY_RESULT_READ_MS));
+  if (!autoPlayEnabled) { autoPlayRunning = false; return; }
+  // 사람이 누르는 것과 똑같이 nextBtn을 클릭해서 넘어간다(멀티플레이 미러
+  // 갱신 등 그 클릭 핸들러의 다른 부수효과까지 그대로 탄다).
   const stageReadyPromise = autoPlayWaitFor(['stage'], 10000);
   nextBtn.click();
   await stageReadyPromise;
