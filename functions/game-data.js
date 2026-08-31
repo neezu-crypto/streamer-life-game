@@ -15323,6 +15323,14 @@ const STAGES = [
         result: '몸으로만 하던 일에, 기술 하나가 더해졌다.',
         requiresRoute: 'logistics'
       },
+    
+      {
+        id: 'lw-worker-decade-since-hired-28',
+        text: '입사 10년 차, 초심을 떠올리며 잠시 회상에 잠긴다',
+        deltas: { happiness: 1 },
+        result: '열심히 몸으로 뛰던 그 시절이, 아직도 눈에 선했다.',
+        requiresRoute: 'logistics'
+      },
     ]
   },
   {
@@ -23055,6 +23063,31 @@ const STAGES = [
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-team-lead']
       },
+    
+      {
+        id: 'lw-team-lead-cctv-privacy-concern-35',
+        text: '현장 CCTV 확대 설치를 두고 팀원들의 불만을 조율한다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '안전과 사생활 사이에서, 균형점을 찾아야 했다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
+      },
+      {
+        id: 'lw-team-lead-uniform-redesign-35',
+        text: '낡은 근무복을 새 디자인으로 교체하자고 건의한다',
+        deltas: { happiness: 1 },
+        result: '작은 변화였지만, 팀원들의 사기가 조금 올라갔다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
+      },
+      {
+        id: 'lw-team-lead-first-vacation-approval-35',
+        text: '팀원의 장기 휴가 신청을 흔쾌히 승인한다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '쉴 때 확실히 쉬어야, 일도 오래간다고 믿었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
+      },
     ]
   },
   {
@@ -24010,6 +24043,15 @@ const STAGES = [
         requiresRoute: 'logistics',
         worldStateSignal: { key: 'logisticsIntegrity', target: 0 }
       },
+    
+      {
+        id: 'lw-team-lead-safety-award-36',
+        text: '팀 전체가 무재해 표창을 받는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '숫자로 증명된 안전이, 무엇보다 뿌듯했다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
+      },
     ]
   },
   {
@@ -24943,6 +24985,23 @@ const STAGES = [
         text: '주간조와 야간조 사이의 인수인계를 조율한다',
         deltas: { happiness: -1, relationship: 1 },
         result: '작은 소통 하나가, 다음 조의 하루를 좌우했다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
+      },
+    
+      {
+        id: 'lw-team-lead-warehouse-tour-guide-37',
+        text: '본사 임원들의 현장 시찰을 직접 안내한다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '익숙한 현장이, 오늘따라 낯설게 느껴졌다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
+      },
+      {
+        id: 'lw-team-lead-emergency-drill-lead-37',
+        text: '화재 대피 훈련을 팀 단위로 직접 주관한다',
+        deltas: { happiness: -1, health: 1 },
+        result: '별일 없기를 바라며, 그래도 철저히 준비했다.',
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-team-lead']
       },
@@ -25888,6 +25947,31 @@ const STAGES = [
         result: '섭섭함과 부러움이, 동시에 밀려왔다.',
         requiresRoute: 'logistics'
       },
+    
+      {
+        id: 'lw-team-lead-part-time-hire-decision-38',
+        text: '성수기 임시직 채용 여부를 직접 결정한다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '사람 하나 뽑는 일도, 생각보다 무거운 책임이었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
+      },
+      {
+        id: 'lw-team-lead-conflict-resolution-skill-38',
+        text: '갈등 조정 교육을 이수하며 관리 역량을 다진다',
+        deltas: { happiness: 1 },
+        result: '몸이 아니라 마음을 쓰는 법을, 뒤늦게 배우고 있었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
+      },
+      {
+        id: 'lw-team-lead-year-review-meeting-38',
+        text: '연말 팀 평가 회의를 준비하며 밤을 지새운다',
+        deltas: { happiness: -1, health: -1 },
+        result: '공정한 평가를 위해, 몇 번이고 자료를 다시 훑었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
+      },
     ]
   },
   {
@@ -26728,6 +26812,31 @@ const STAGES = [
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-team-lead'],
         worldStateSignal: { key: 'logisticsIntegrity', target: 1 }
+      },
+    
+      {
+        id: 'lw-team-lead-decade-in-role-39',
+        text: '반장으로 일한 지 벌써 10년이 됐다는 걸 문득 깨닫는다',
+        deltas: { happiness: 1 },
+        result: '시간이 이렇게 빨리 갈 줄은 몰랐다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
+      },
+      {
+        id: 'lw-team-lead-promotion-interview-prep-39',
+        text: '관리자 승진 심사를 앞두고 마음의 준비를 한다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '떨리는 마음을 다잡으며, 그동안의 실적을 정리했다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
+      },
+      {
+        id: 'lw-team-lead-farewell-shift-work-39',
+        text: '현장 교대 근무에서 완전히 손을 떼는 마지막 날을 맞는다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '몸으로 뛰던 시절과의 작별 인사였다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
       },
     ]
   },
@@ -30880,6 +30989,23 @@ const STAGES = [
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-center-manager']
       },
+    
+      {
+        id: 'lw-manager-warehouse-anniversary-44',
+        text: '센터 개소 10주년 기념행사를 주관한다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '함께해온 시간이, 하나의 축제가 됐다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-center-manager']
+      },
+      {
+        id: 'lw-manager-supplier-negotiation-win-44',
+        text: '까다로운 납품 단가 협상에서 유리한 조건을 이끌어낸다',
+        deltas: { wealth: 2 },
+        result: '숫자 하나 바꾸는 데도, 밀고 당기는 기 싸움이 필요했다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-center-manager']
+      },
     ]
   },
   {
@@ -31824,6 +31950,23 @@ const STAGES = [
         text: '오래된 허리 통증이 만성으로 굳어간다',
         deltas: { health: -2 },
         result: '젊을 때 무리했던 몸이, 이제야 청구서를 내밀었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-center-manager']
+      },
+    
+      {
+        id: 'lw-manager-employee-wellness-program-45',
+        text: '직원 복지 프로그램을 새로 도입한다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '돈보다 사람이 먼저라는 걸, 이번엔 제대로 보여주고 싶었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-center-manager']
+      },
+      {
+        id: 'lw-manager-difficult-layoff-decision-45',
+        text: '불가피한 인력 조정 명단을 직접 작성해야 한다',
+        deltas: { happiness: -3 },
+        result: '숫자 뒤에 있는 얼굴들이, 자꾸만 눈에 밟혔다.',
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-center-manager']
       },
@@ -40184,6 +40327,23 @@ const STAGES = [
         text: '은퇴 이후의 삶에 막연한 불안을 느낀다',
         deltas: { happiness: -2 },
         result: '평생 일만 해온 사람에게, 멈춘다는 건 낯선 두려움이었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+    
+      {
+        id: 'lw-regional-final-regional-conference-59',
+        text: '지역 대표로서 마지막 전국 컨퍼런스에 참석한다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '낯익은 얼굴들 사이에서, 이별의 인사를 미리 건넸다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-regional-manager']
+      },
+      {
+        id: 'lw-regional-passing-torch-ceremony-59',
+        text: '작은 사내 행사에서 다음 세대에게 상징적으로 바통을 넘긴다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '거창하지 않아도, 뜻깊은 순간이었다.',
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-regional-manager']
       },
