@@ -6749,6 +6749,14 @@ const STAGES = [
         result: '같은 처지라는 것만으로도, 큰 위로가 됐다.',
         requiresRoute: 'developer'
       },
+    
+      {
+        id: 'lw-sorting-line-speed-21',
+        text: '빠른 컨베이어 속도에 맞춰 정신없이 물건을 분류한다',
+        deltas: { happiness: -1, health: -1 },
+        result: '손이 눈보다 빨라야 살아남는 하루였다.',
+        requiresRoute: 'logistics'
+      },
     ]
   },
   {
@@ -7889,6 +7897,21 @@ const STAGES = [
         deltas: { wealth: 2, happiness: 1 },
         result: '큰돈은 아니었지만, 내 손으로 번 첫 부수입이었다.',
         requiresRoute: 'developer'
+      },
+    
+      {
+        id: 'lw-heavy-lifting-strain-22',
+        text: '무거운 박스를 반복해서 나르다 허리에 무리가 온다',
+        deltas: { health: -2 },
+        result: '파스 냄새가 가시질 않는 며칠이었다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-overtime-pay-22',
+        text: '휴일 특근을 자원해 초과근무수당을 챙긴다',
+        deltas: { wealth: 3, happiness: -1, health: -1 },
+        result: '쉬는 날을 내줬지만, 통장 잔고가 그만큼 채워졌다.',
+        requiresRoute: 'logistics'
       },
     ]
   },
@@ -9052,6 +9075,21 @@ const STAGES = [
         result: '별거 아닌 선택 같았지만, 마음은 편했다.',
         requiresRoute: 'developer',
         worldStateSignal: { key: 'devCodeQuality', target: 1 }
+      },
+    
+      {
+        id: 'lw-new-scanner-system-23',
+        text: '새로 도입된 바코드 스캐너 시스템에 적응한다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '처음엔 헤맸지만, 손에 익으니 훨씬 수월했다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-coworker-friendship-23',
+        text: '같은 조 동료와 끈끈한 우정을 쌓는다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '몸 쓰는 일도, 함께라면 조금은 덜 힘들었다.',
+        requiresRoute: 'logistics'
       },
     ]
   },
@@ -10363,6 +10401,41 @@ const STAGES = [
         requiresRoute: 'developer',
         worldStateSignal: { key: 'devCodeQuality', target: 0 }
       },
+    
+      {
+        id: 'lw-summer-heat-warehouse-24',
+        text: '에어컨도 없는 창고에서 한여름 폭염을 버틴다',
+        deltas: { health: -2, happiness: -1 },
+        result: '땀이 비 오듯 쏟아지는 하루하루였다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-referral-bonus-24',
+        text: '지인을 신입으로 추천해 소개 포상금을 받는다',
+        deltas: { wealth: 2 },
+        result: '별생각 없이 건넨 추천이, 뜻밖의 용돈이 됐다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'deviant-lw-pilfer-package-24',
+        text: '실수로 파손된 척하며 고가 물건을 몰래 빼돌린다',
+        requiresRoute: 'logistics',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'logisticsIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '파손 신고서 한 장으로, 감쪽같이 처리했다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -4, relationship: -3, happiness: -3 }, result: 'CCTV 영상에 손 놀림이 고스란히 찍혀 있었다.' }
+        ]
+      },
+      {
+        id: 'deviant-lw-pilfer-package-decline-24',
+        text: '파손 신고를 정직하게 그대로 접수한다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '별거 아닌 정직함이, 마음은 편하게 해줬다.',
+        requiresRoute: 'logistics',
+        worldStateSignal: { key: 'logisticsIntegrity', target: 1 }
+      },
     ]
   },
   {
@@ -11515,6 +11588,28 @@ const STAGES = [
         deltas: { wealth: 3, happiness: -1, health: -1 },
         result: '빡빡한 일정이었지만, 통장에 찍힌 입금 문자가 위로가 됐다.',
         requiresRoute: 'developer'
+      },
+    
+      {
+        id: 'lw-winter-nightshift-25',
+        text: '영하의 새벽, 야간 배송 물량을 처리한다',
+        deltas: { health: -1, wealth: 1 },
+        result: '입김이 하얗게 서리는 새벽, 손끝이 곱아왔다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-package-damage-incident-25',
+        text: '부주의로 고가 물품을 파손시킨다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '보고서를 쓰는 손이 떨렸다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-side-delivery-gig-25',
+        text: '퇴근 후 개인 배달 앱으로 부업을 뛴다',
+        deltas: { wealth: 2, health: -1 },
+        result: '몸은 두 배로 힘들었지만, 벌이도 두 배가 됐다.',
+        requiresRoute: 'logistics'
       },
     ]
   },
@@ -12800,6 +12895,21 @@ const STAGES = [
         result: '안정이냐 도전이냐, 며칠을 고민만 하다 결국 지금 자리를 지켰다.',
         requiresRoute: 'developer'
       },
+    
+      {
+        id: 'lw-automation-anxiety-26',
+        text: '자동 분류 로봇이 도입된다는 소식에 불안해진다',
+        deltas: { happiness: -2 },
+        result: '내 자리가 사라지는 건 아닐지, 괜히 마음이 무거워졌다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-union-meeting-26',
+        text: '처우 개선을 논의하는 노조 모임에 처음 참석한다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '혼자였다면 못 했을 이야기들이, 여럿이 모이니 나왔다.',
+        requiresRoute: 'logistics'
+      },
     ]
   },
   {
@@ -14032,6 +14142,37 @@ const STAGES = [
         result: '몇 줄 안 되는 정산 금액이었지만, 꾸준함이 증명된 기분이었다.',
         requiresRoute: 'developer'
       },
+    
+      {
+        id: 'lw-holiday-rush-27',
+        text: '명절 특수 물량으로 평소의 두 배를 처리한다',
+        deltas: { wealth: 2, health: -2 },
+        result: '몸은 녹초가 됐지만, 통장은 두둑해졌다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-performance-bonus-27',
+        text: '물량 처리 실적으로 분기 성과급을 받는다',
+        deltas: { wealth: 3 },
+        result: '숫자로 증명된 노력이, 봉투 두께로 돌아왔다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-report-near-miss-27',
+        text: '작은 사고가 날 뻔한 상황을 숨기지 않고 보고한다',
+        deltas: { happiness: -1 },
+        result: '괜히 트집 잡힐까 걱정했지만, 결국은 모두를 위한 일이었다.',
+        requiresRoute: 'logistics',
+        worldStateSignal: { key: 'logisticsIntegrity', target: 1 }
+      },
+      {
+        id: 'lw-hide-near-miss-27',
+        text: '작은 사고가 날 뻔한 상황을 그냥 넘어간다',
+        deltas: { happiness: 1 },
+        result: '별일 아니겠거니, 그냥 넘어가기로 했다.',
+        requiresRoute: 'logistics',
+        worldStateSignal: { key: 'logisticsIntegrity', target: 0 }
+      },
     ]
   },
   {
@@ -15173,6 +15314,14 @@ const STAGES = [
         deltas: { happiness: 1, relationship: 1 },
         result: '질문 하나하나에 답해주다 보니, 내 지식도 다시 정리됐다.',
         requiresRoute: 'developer'
+      },
+    
+      {
+        id: 'lw-forklift-license-28',
+        text: '지게차 운전 자격증을 취득한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '몸으로만 하던 일에, 기술 하나가 더해졌다.',
+        requiresRoute: 'logistics'
       },
     ]
   },
@@ -16351,6 +16500,28 @@ const STAGES = [
         result: '이러다 큰일 나겠다 싶어, 그제야 페이스를 늦췄다.',
         requiresRoute: 'developer'
       },
+    
+      {
+        id: 'lw-safety-drill-29',
+        text: '정기 안전교육을 지루하지만 성실히 이수한다',
+        deltas: { happiness: -1 },
+        result: '뻔한 얘기 같아도, 한 번씩은 다시 새겨들을 만했다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-license-allowance-29',
+        text: '지게차 자격증 수당이 매달 붙기 시작한다',
+        deltas: { wealth: 1 },
+        result: '작은 금액이었지만, 꾸준히 쌓이는 걸 보는 재미가 있었다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-generation-gap-friction-29',
+        text: '세대 차이 나는 어린 동료와 소통 방식에 부딪힌다',
+        deltas: { happiness: -1, relationship: -1 },
+        result: '같은 말인데도, 서로 다르게 알아듣는 게 많았다.',
+        requiresRoute: 'logistics'
+      },
     ]
   },
   {
@@ -17490,6 +17661,24 @@ const STAGES = [
         result: '당장 옮길 마음은 없었지만, 몸값이 궁금해지긴 했다.',
         requiresRoute: 'developer'
       },
+    
+      {
+        id: 'lw-route-optimization-idea-30',
+        text: '배송 동선을 개선하는 아이디어를 제안한다',
+        deltas: { happiness: 2, wealth: 1 },
+        result: '별거 아닌 제안이었는데, 의외로 반응이 좋았다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-team-lead-promotion-30',
+        text: '10년 차 베테랑으로 분류반장 승진 심사를 통과한다',
+        deltas: { happiness: 3, wealth: 4, fame: 1 },
+        result: '몸으로 뛰던 자리에서, 사람을 이끄는 자리로 넘어갔다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-worker'],
+        mandatory: true,
+        setOccupation: { id: 'logistics-team-lead', label: '👷 분류반장' }
+      },
     ]
   },
   {
@@ -18576,7 +18765,30 @@ const STAGES = [
         deltas: { happiness: 3, relationship: 2, wealth: 5 },
         result: '몇 달 뒤, 지인은 이자까지 얹어 돈을 갚았다.',
         requiresAnyAcquaintance: true
-      }
+      },
+    
+      {
+        id: 'lw-rainy-season-delivery-31',
+        text: '장마철 폭우 속에서도 배송을 강행한다',
+        deltas: { health: -1, wealth: 1 },
+        result: '비닐로 몇 겹을 감쌌지만, 신발은 이미 다 젖어 있었다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-stock-tips-side-income-31',
+        text: '동료들과 정보를 나누며 소소하게 주식에 투자한다',
+        deltas: { wealth: 2 },
+        result: '큰돈은 아니었지만, 월급 외의 재미가 하나 생겼다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-team-lead-shift-schedule-31',
+        text: '팀원들의 교대 근무표를 짜는 일을 맡는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '공평하게 짜려 해도, 누군가는 늘 불만이었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
+      },
     ]
   },
   {
@@ -19619,6 +19831,42 @@ const STAGES = [
         result: '성과 보고서는 그럴듯했지만, 마음 한구석이 찜찜했다.',
         requiresRoute: 'developer',
         worldStateSignal: { key: 'devCodeQuality', target: 0 }
+      },
+    
+      {
+        id: 'lw-inventory-count-32',
+        text: '연말 재고 실사에 며칠을 매달린다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '숫자 하나하나를 맞추느라, 눈이 빠질 뻔했다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-team-lead-new-hire-training-32',
+        text: '새로 들어온 신입들을 현장에서 직접 가르친다',
+        deltas: { happiness: 1, relationship: 2 },
+        result: '내가 배웠던 방식 그대로, 이제는 내가 가르치고 있었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
+      },
+      {
+        id: 'deviant-lw-skip-safety-check-32',
+        text: '시간에 쫓겨 안전 점검 절차를 슬쩍 건너뛴다',
+        requiresRoute: 'logistics',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'logisticsIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 2, happiness: 2 }, result: '절차를 건너뛴 만큼, 물량을 더 빨리 처리했다.' },
+          { weight: 10, label: '발각', deltas: { wealth: -3, health: -3, relationship: -2 }, result: '안전모도 없이 지나가다 감독관과 딱 마주쳤다.' }
+        ]
+      },
+      {
+        id: 'deviant-lw-skip-safety-check-decline-32',
+        text: '번거로워도 안전 점검 절차를 그대로 지킨다',
+        deltas: { happiness: -1, health: 1 },
+        result: '조금 늦더라도, 다치는 것보단 나았다.',
+        requiresRoute: 'logistics',
+        worldStateSignal: { key: 'logisticsIntegrity', target: 1 }
       },
     ]
   },
@@ -20687,6 +20935,29 @@ const STAGES = [
         result: '술기운을 빌려서야, 평소 못 하던 말들이 오갔다.',
         requiresRoute: 'developer'
       },
+    
+      {
+        id: 'lw-customer-complaint-handling-33',
+        text: '배송 지연에 항의하는 고객을 직접 응대한다',
+        deltas: { happiness: -2, relationship: -1 },
+        result: '죄송하다는 말을, 오늘만 몇 번째 하는지 몰랐다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-training-instructor-fee-33',
+        text: '신입 교육 강사로 나서 강의료를 받는다',
+        deltas: { wealth: 2, happiness: 1 },
+        result: '가르치는 게 낯설었지만, 부수입도 나쁘지 않았다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-team-lead-quota-pressure-33',
+        text: '본사에서 내려온 물량 목표에 부담을 느낀다',
+        deltas: { happiness: -2 },
+        result: '숫자는 매번 올라가는데, 사람 손은 그대로였다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
+      },
     ]
   },
   {
@@ -21739,6 +22010,29 @@ const STAGES = [
         requiresRoute: 'developer',
         worldStateSignal: { key: 'devCodeQuality', target: 1 }
       },
+    
+      {
+        id: 'lw-equipment-upgrade-34',
+        text: '노후 장비가 새 설비로 교체되는 걸 지켜본다',
+        deltas: { happiness: 1, health: 1 },
+        result: '손목이 예전만큼 아프지 않다는 게, 새삼 반가웠다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-night-shift-allowance-34',
+        text: '야간조를 자원해 야간수당을 챙긴다',
+        deltas: { wealth: 2, health: -2 },
+        result: '낮과 밤이 뒤바뀐 생활이었지만, 그만큼 남는 것도 있었다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-team-lead-injury-report-34',
+        text: '현장에서 다친 팀원의 산재 처리를 돕는다',
+        deltas: { happiness: -1, relationship: 2 },
+        result: '서류보다 먼저, 사람부터 챙겨야 한다고 생각했다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
+      },
     ]
   },
   {
@@ -22744,6 +23038,23 @@ const STAGES = [
         mandatory: true,
         setOccupation: { id: 'team-lead-developer', label: '🧑‍💼 팀리드 개발자' }
       },
+    
+      {
+        id: 'lw-team-lead-mediate-conflict-35',
+        text: '팀원 간의 다툼을 중재하느라 진땀을 뺀다',
+        deltas: { happiness: -2, relationship: 1 },
+        result: '양쪽 말을 다 들어주는 게, 몸 쓰는 일보다 더 지쳤다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
+      },
+      {
+        id: 'lw-team-lead-earns-trust-35',
+        text: '까다롭던 팀원이 조금씩 마음을 열기 시작한다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '시간이 결국 답이었다는 걸, 이제야 알았다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
+      },
     ]
   },
   {
@@ -23667,6 +23978,38 @@ const STAGES = [
         result: '별것 아닌 설정 하나가, 저녁 시간을 통째로 돌려줬다.',
         requiresRoute: 'developer'
       },
+    
+      {
+        id: 'lw-team-lead-allowance-36',
+        text: '반장 직책수당이 급여에 추가된다',
+        deltas: { wealth: 2 },
+        result: '직함이 붙으니, 월급명세서도 조금 달라져 있었다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-team-lead-process-improvement-36',
+        text: '팀 단위로 작업 프로세스 개선안을 만들어 본사에 제안한다',
+        deltas: { happiness: 2, wealth: 1 },
+        result: '현장의 목소리가, 이번엔 위에까지 닿은 것 같았다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
+      },
+      {
+        id: 'lw-accurate-labeling-36',
+        text: '번거로워도 파손 위험 표시를 꼼꼼히 붙인다',
+        deltas: { happiness: -1 },
+        result: '작은 스티커 하나가, 누군가의 물건을 지켜줄 수도 있었다.',
+        requiresRoute: 'logistics',
+        worldStateSignal: { key: 'logisticsIntegrity', target: 1 }
+      },
+      {
+        id: 'lw-skip-labeling-36',
+        text: '시간이 없어 파손 위험 표시를 대충 생략한다',
+        deltas: { happiness: 1 },
+        result: '티 안 날 거라 생각했지만, 마음 한구석이 찜찜했다.',
+        requiresRoute: 'logistics',
+        worldStateSignal: { key: 'logisticsIntegrity', target: 0 }
+      },
     ]
   },
   {
@@ -24578,6 +24921,30 @@ const STAGES = [
         result: '몇 마디 질문으로 사람을 가늠하는 게, 생각보다 어려운 일이었다.',
         requiresRoute: 'developer',
         requiresOccupation: ['team-lead-developer']
+      },
+    
+      {
+        id: 'lw-side-consulting-warehouse-37',
+        text: '소규모 업체에 물류 동선 컨설팅을 해주고 사례비를 받는다',
+        deltas: { wealth: 3, relationship: 1 },
+        result: '현장에서 구른 경험이, 남에게도 도움이 될 줄 몰랐다.',
+        requiresRoute: 'logistics'
+      },
+      {
+        id: 'lw-team-lead-praised-by-boss-37',
+        text: '상급자에게 팀 운영 능력을 인정받는다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '몸으로만 인정받던 시절은, 이제 지난 얘기가 됐다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
+      },
+      {
+        id: 'lw-cross-shift-coordination-37',
+        text: '주간조와 야간조 사이의 인수인계를 조율한다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '작은 소통 하나가, 다음 조의 하루를 좌우했다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
       },
     ]
   },
@@ -25505,6 +25872,22 @@ const STAGES = [
         requiresRoute: 'developer',
         worldStateSignal: { key: 'devCodeQuality', target: 1 }
       },
+    
+      {
+        id: 'lw-team-lead-burnout-38',
+        text: '사람 관리와 실무 사이에서 지쳐간다',
+        deltas: { happiness: -2, health: -1 },
+        result: '몸이 아니라 마음이 먼저 지치는 날들이 있었다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead']
+      },
+      {
+        id: 'lw-old-colleague-retires-38',
+        text: '오래 함께한 선배 동료의 은퇴를 배웅한다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '섭섭함과 부러움이, 동시에 밀려왔다.',
+        requiresRoute: 'logistics'
+      },
     ]
   },
   {
@@ -26322,6 +26705,29 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 1, fame: 1 },
         result: '대가 없는 조언인데도, 돌아오는 마음은 결코 가볍지 않았다.',
         requiresRoute: 'developer'
+      },
+    
+      {
+        id: 'deviant-lw-vendor-kickback-39',
+        text: '거래 업체 선정 대가로 뒷돈을 받는다',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'logisticsIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 88, label: '안 걸림', deltas: { wealth: 5 }, result: '납품업체 사장의 봉투를, 못 이기는 척 받았다.' },
+          { weight: 12, label: '발각', deltas: { wealth: -5, relationship: -4, happiness: -4 }, result: '내부 감사에서 거래 내역이 낱낱이 드러났다.' }
+        ]
+      },
+      {
+        id: 'deviant-lw-vendor-kickback-decline-39',
+        text: '업체의 접대성 제안을 단칼에 거절한다',
+        deltas: { relationship: 2 },
+        result: '거절 한 번이, 앞으로도 떳떳하게 일할 수 있게 해줬다.',
+        requiresRoute: 'logistics',
+        requiresOccupation: ['logistics-team-lead'],
+        worldStateSignal: { key: 'logisticsIntegrity', target: 1 }
       },
     ]
   },
