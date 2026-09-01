@@ -58000,7 +58000,7 @@ const VEHICLE_THEFT_CHOICES = [
     },
     {
       id: 'thief2-police-sting-operation',
-      text: '함정수사인 줄 모르고 미끼 차량에 손을 댄다',
+      text: '낯설게 방치된 차량 한 대에 손을 뻗는다',
       requiresRoute: 'vehicle-thief',
       dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.4, max: 0.85, invert: true },
       appendPoliceCorruptionNote: true,
