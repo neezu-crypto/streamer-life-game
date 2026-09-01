@@ -50759,6 +50759,13 @@ const STAGES = [
         result: '낯설었지만 나쁘지 않은 고요함이었다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
+    
+      {
+        id: 'twilight-pension-lumpsum-70',
+        text: '그동안 미뤄뒀던 퇴직연금을 일시금으로 받는다',
+        deltas: { wealth: 5 },
+        result: '늦었지만, 마땅히 받아야 할 몫이었다.'
+      },
     ]
   },
   {
@@ -51273,7 +51280,14 @@ const STAGES = [
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     
-          ]
+          
+      {
+        id: 'twilight-house-rental-income-72',
+        text: '집 한 켠을 세놓아 다달이 월세를 받기 시작한다',
+        deltas: { wealth: 4 },
+        result: '빈 방 하나가, 생각보다 쏠쏠한 보탬이 됐다.'
+      },
+    ]
   },
   {
     id: 'twilight-73',
@@ -52902,6 +52916,13 @@ const STAGES = [
         deltas: { wealth: 5, fame: 2 },
         result: '다들 손을 놓은 나이에도, 찾는 사람이 끊이지 않았다.'
       },
+    
+      {
+        id: 'twilight-fine-watch-sale-78',
+        text: '오래 아껴온 고급 시계를 처분한다',
+        deltas: { wealth: 4 },
+        result: '손목에서 내려놓기까지, 마음의 준비가 좀 필요했다.'
+      },
     ]
   },
   {
@@ -53430,6 +53451,13 @@ const STAGES = [
         result: '전장 대신, 이제는 가족들의 박수가 곁에 있었다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
+    
+      {
+        id: 'twilight-matured-savings-insurance-80',
+        text: '젊을 때 들어둔 저축성 보험이 만기돼 목돈을 받는다',
+        deltas: { wealth: 5 },
+        result: '수십 년 전의 나에게, 뒤늦게 고마움을 전했다.'
+      },
     ]
   },
   {
@@ -53918,6 +53946,13 @@ const STAGES = [
         deltas: { health: -2 },
         result: '평생 날카롭던 눈이, 이제는 쉬고 싶어했다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+    
+      {
+        id: 'twilight-distant-relative-inheritance-82',
+        text: '먼 친척에게서 뜻밖의 유산을 조금 물려받는다',
+        deltas: { wealth: 5, happiness: 1 },
+        result: '얼굴도 가물가물한 인연이었는데, 마지막까지 나를 기억해준 모양이었다.'
       },
     ]
   },
@@ -56036,6 +56071,13 @@ const STAGES = [
         deltas: { happiness: 2, fame: 1 },
         result: '몸은 느려져도, 판단력만은 여전히 살아있었다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+    
+      {
+        id: 'twilight-90th-birthday-guest-gifts-90',
+        text: '구순 잔치를 찾아온 손님들이 두둑한 축하금을 건넨다',
+        deltas: { wealth: 4, happiness: 2, relationship: 1 },
+        result: '이렇게 많은 사람이 아직도 나를 찾아준다는 게, 가장 큰 선물이었다.'
       },
     ]
   },
