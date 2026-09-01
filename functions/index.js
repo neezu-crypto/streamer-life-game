@@ -2155,8 +2155,17 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
       occupationId: currentOccupation ? currentOccupation.id : null,
       everOccupationIds: occupationHistory.map((o) => o.id),
       introId: nextIntroId,
-      assetIds: assets.map((a) => a.id),
-      assetTypes: assets.map((a) => a.type),
+      // stolen:true 자산(2026-09-01, 사용자 지시 - "차를 절도당한 상태일때는
+      // 판매 불가능하게 해줘") - 도난당한 차는 더 이상 실제로 소유·통제하는
+      // 물건이 아니므로 requiresAssetType/requiresAsset 판정에서 아예 없는
+      // 것처럼 취급한다. 이러면 판매·교체 선택지가 사라지는 것과 동시에
+      // requiresNoAssetType('vehicle') 게이팅의 car-purchase-opportunity도
+      // 다시 열려(도난당했으니 새 차를 살 수 있어야 정상) 부수적으로도
+      // 일관성이 맞는다. 도둑 본인의 'stolen-car' 자산은 이 stolen 플래그가
+      // 아예 안 붙으므로(별개 개념 - "내가 훔친 차" vs "내가 도둑맞은 차")
+      // 영향받지 않는다.
+      assetIds: assets.filter((a) => !a.stolen).map((a) => a.id),
+      assetTypes: assets.filter((a) => !a.stolen).map((a) => a.type),
       locationId: currentLocation.id,
       acquaintances,
       talentIds: talents.map((t) => t.id),
@@ -2735,8 +2744,17 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       occupationId: currentOccupation ? currentOccupation.id : null,
       everOccupationIds: occupationHistory.map((o) => o.id),
       introId: currentIntroId,
-      assetIds: assets.map((a) => a.id),
-      assetTypes: assets.map((a) => a.type),
+      // stolen:true 자산(2026-09-01, 사용자 지시 - "차를 절도당한 상태일때는
+      // 판매 불가능하게 해줘") - 도난당한 차는 더 이상 실제로 소유·통제하는
+      // 물건이 아니므로 requiresAssetType/requiresAsset 판정에서 아예 없는
+      // 것처럼 취급한다. 이러면 판매·교체 선택지가 사라지는 것과 동시에
+      // requiresNoAssetType('vehicle') 게이팅의 car-purchase-opportunity도
+      // 다시 열려(도난당했으니 새 차를 살 수 있어야 정상) 부수적으로도
+      // 일관성이 맞는다. 도둑 본인의 'stolen-car' 자산은 이 stolen 플래그가
+      // 아예 안 붙으므로(별개 개념 - "내가 훔친 차" vs "내가 도둑맞은 차")
+      // 영향받지 않는다.
+      assetIds: assets.filter((a) => !a.stolen).map((a) => a.id),
+      assetTypes: assets.filter((a) => !a.stolen).map((a) => a.type),
       locationId: currentLocation.id,
       acquaintances,
       talentIds: talents.map((t) => t.id),
