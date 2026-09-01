@@ -737,15 +737,25 @@ const WORLD_STATE_TRACKERS = [
   { key: 'startupEcosystemHeat', name: '창업 생태계 열기', pairing: '창업가 ↔ 창업가' },
   { key: 'scamPrevalence', name: '사기 성행도', pairing: '사기꾼 ↔ 지인' },
   { key: 'tourGuideHonesty', name: '여행 가이드 정직도', pairing: '여행가이드 ↔ 관광객' },
+  // 좀비 바이러스(62장, 2026-09-02) - 연구원이 최초로 유출하기 전까진
+  // lifeGame/worldState에 이 키 자체가 없어 아래 renderWorldStateGrid의
+  // "entry 없으면 카드 자체를 안 그림" 로직에 의해 패널에 자동으로 숨겨진다
+  // (원 요청 "좀비 바이러스가 처음으로 생기면 세계관 상태에 해당 스탯이
+  // 표시" 그대로 - 별도 조건 분기 없이 기존 구조로 자연히 충족됨).
+  // 5단계 라벨도 다른 트래커의 청렴도류 표현과 달리 확산 서사에 맞게
+  // 전용 문구로 오버라이드.
+  { key: 'zombieOutbreak', name: '좀비 바이러스 확산도', pairing: '연구원 · 군인 ↔ 시민',
+    tierLabels: ['안정', '경계', '확산', '위험', '대재앙'] },
 ];
 
-function worldStateTierLabel(rate) {
-  if (typeof rate !== 'number' || Number.isNaN(rate)) return '보통';
-  if (rate < 0.2) return '매우 낮음';
-  if (rate < 0.4) return '낮음';
-  if (rate < 0.6) return '보통';
-  if (rate < 0.8) return '높음';
-  return '매우 높음';
+function worldStateTierLabel(rate, tierLabels) {
+  const labels = tierLabels || ['매우 낮음', '낮음', '보통', '높음', '매우 높음'];
+  if (typeof rate !== 'number' || Number.isNaN(rate)) return labels[2];
+  if (rate < 0.2) return labels[0];
+  if (rate < 0.4) return labels[1];
+  if (rate < 0.6) return labels[2];
+  if (rate < 0.8) return labels[3];
+  return labels[4];
 }
 
 function renderWorldStateGrid(worldState) {
@@ -761,7 +771,7 @@ function renderWorldStateGrid(worldState) {
     card.innerHTML =
       '<span class="ws-card-name">' + tracker.name + '</span>' +
       '<span class="ws-card-pairing">' + tracker.pairing + '</span>' +
-      '<span class="ws-card-tier">' + worldStateTierLabel(entry.rate) + '</span>';
+      '<span class="ws-card-tier">' + worldStateTierLabel(entry.rate, tracker.tierLabels) + '</span>';
     worldStateGrid.appendChild(card);
   });
   if (!any) {
