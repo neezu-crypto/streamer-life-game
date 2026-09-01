@@ -12047,6 +12047,7 @@ const STAGES = [
         deltas: { happiness: 2, wealth: 1 },
         result: '의무복무가 아니라, 이제는 진짜 직업이 됐다.',
         requiresOccupation: ['private-soldier'],
+        mandatory: true,
         setOccupation: { id: 'nco-soldier', label: '🎖️ 부사관' }
       },
     ]
@@ -21182,6 +21183,7 @@ const STAGES = [
         deltas: { happiness: 2, wealth: 1, health: -1 },
         result: '혹독한 선발 과정을 버텨낸 끝에 얻은 자리였다.',
         requiresOccupation: ['nco-soldier'],
+        mandatory: true,
         setOccupation: { id: 'special-unit-soldier', label: '🎖️ 특수임무대' }
       },
     
@@ -30321,7 +30323,19 @@ const STAGES = [
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
     
-                ]
+                
+      {
+        id: 'deviant-sol-supply-embezzlement-40',
+        text: '군수품 일부를 몰래 빼돌려 되판다',
+        requiresOccupation: ['private-soldier', 'nco-soldier', 'special-unit-soldier'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.1, max: 0.4, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '재고 수량은 서류상으로만 맞춰뒀다.' },
+          { weight: 10, label: '발각', deltas: { fame: -5, relationship: -4, happiness: -3 }, result: '불시 재물조사에서 빼돌린 물량이 그대로 드러났다.' }
+        ]
+      },
+    ]
   },
   {
     id: 'midlife-41',
@@ -36126,6 +36140,18 @@ const STAGES = [
           { weight: 40, label: '공급 차질', deltas: { happiness: -2, wealth: -2 }, result: '수요를 따라가지 못하는 생산 속도에 애가 탔다.' }
         ]
       },
+    
+      {
+        id: 'deviant-sol-fake-leave-record-46',
+        text: '허위 외박·병가 기록을 만들어 개인 시간을 챙긴다',
+        requiresOccupation: ['private-soldier', 'nco-soldier', 'special-unit-soldier'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '아무도 눈치채지 못한 채 조용히 넘어갔다.' },
+          { weight: 10, label: '발각', deltas: { fame: -4, relationship: -3 }, result: '기록 대조 과정에서 앞뒤가 맞지 않는 부분이 걸렸다.' }
+        ]
+      },
     ]
   },
   {
@@ -38553,6 +38579,18 @@ const STAGES = [
         deltas: { happiness: 3, relationship: 1 },
         result: '가르치는 일의 보람이 이럴 때 가장 크게 다가왔다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'deviant-sol-abuse-subordinate-errand-49',
+        text: '부하 병사에게 사적인 심부름을 시키며 갑질한다',
+        requiresOccupation: ['private-soldier', 'nco-soldier', 'special-unit-soldier'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.08, max: 0.35, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { happiness: 2 }, result: '부하들은 불만을 속으로 삼켰다.' },
+          { weight: 10, label: '발각', deltas: { fame: -5, relationship: -5 }, result: '병사가 익명 신고를 넣으며 조사가 시작됐다.' }
+        ]
       },
     ]
   },
@@ -41868,6 +41906,18 @@ const STAGES = [
         deltas: { happiness: 2 },
         result: '실패와 발견 사이를 오간 세월이, 결국 자랑스러웠다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'deviant-sol-inflated-training-budget-54',
+        text: '훈련 물자 예산을 부풀려 청구하고 차액을 챙긴다',
+        requiresOccupation: ['private-soldier', 'nco-soldier', 'special-unit-soldier'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.1, max: 0.4, invert: true },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '영수증 몇 장이면 충분히 메워지는 액수였다.' },
+          { weight: 10, label: '발각', deltas: { fame: -5, relationship: -4, happiness: -3 }, result: '감사 과정에서 예산 집행 내역이 뒤늦게 들통났다.' }
+        ]
       },
     ]
   },
