@@ -33217,6 +33217,14 @@ const STAGES = [
         result: '더디더라도, 안전을 포기할 순 없었다.',
         requiresEverOccupation: ['postdoc-researcher']
       },
+    
+      {
+        id: 'consulting-with-experience-43',
+        text: '쌓아온 경력을 발판 삼아 컨설턴트로 새 출발한다',
+        deltas: { wealth: 5, fame: 3 },
+        result: '이 길로 다시 시작해도 될지, 반신반의하면서도 발을 뗐다.',
+        setOccupation: { id: 'consultant', label: '🎤 컨설턴트/강사' }
+      },
     ]
   },
   {
@@ -34260,7 +34268,15 @@ const STAGES = [
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     
-                ]
+                
+      {
+        id: 'consulting-with-experience-44',
+        text: '그동안의 노하우를 컨설팅·강연으로 풀어내기 시작한다',
+        deltas: { wealth: 5, fame: 3 },
+        result: '남 앞에서 내 경험을 말로 옮기는 게, 생각보다 쉽지 않았다.',
+        setOccupation: { id: 'consultant', label: '🎤 컨설턴트/강사' }
+      },
+    ]
   },
   {
     id: 'midlife-45',
@@ -37010,6 +37026,36 @@ const STAGES = [
         deltas: { happiness: -1, wealth: -1 },
         result: '더디더라도, 안전을 포기할 순 없었다.',
         requiresEverOccupation: ['postdoc-researcher']
+      },
+    
+      {
+        id: 'consulting-with-experience-47',
+        text: '현장 경험을 무기로 컨설턴트 활동을 시작한다',
+        deltas: { wealth: 5, fame: 3 },
+        result: '현장에서 구른 세월이, 말 한마디 한마디에 무게를 실어줬다.',
+        setOccupation: { id: 'consultant', label: '🎤 컨설턴트/강사' }
+      },
+    
+      {
+        id: 'con-corp-executive-lecture-47',
+        text: '대기업 임원진 대상 특강을 의뢰받는다',
+        requiresOccupation: ['consultant'],
+        deltas: { wealth: 6, happiness: 2 },
+        result: '높은 자리에 있는 사람들 앞에서도, 이제는 떨리지 않았다.'
+      },
+      {
+        id: 'con-board-seat-offer-47',
+        text: '여러 기업의 사외이사로 위촉된다',
+        requiresOccupation: ['consultant'],
+        deltas: { wealth: 7, fame: 2 },
+        result: '이름 석 자가 이력서 밖에서도 통한다는 걸 실감했다.'
+      },
+      {
+        id: 'con-online-course-hit-47',
+        text: '온라인 강의 플랫폼에 강좌를 출시해 예상 밖의 수강생이 몰린다',
+        requiresOccupation: ['consultant'],
+        deltas: { wealth: 6, happiness: 3 },
+        result: '화면 너머로 이렇게 많은 사람이 듣고 있을 줄은 몰랐다.'
       },
     ]
   },
@@ -41325,6 +41371,8 @@ const STAGES = [
         id: 'deviant-con-fake-expertise-54',
         text: '검증 안 된 부실한 조언을 비싸게 팔아넘긴다',
         requiresOccupation: ['consultant'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '그럴싸한 말솜씨로 자문료는 두둑이 챙겼다.' },
           { weight: 10, label: '발각', deltas: { fame: -4, happiness: -3 }, result: '조언대로 했다가 낭패를 본 고객이 항의해왔다.' }
@@ -47183,6 +47231,8 @@ const STAGES = [
         id: 'deviant-con-badmouth-rival-63',
         text: '경쟁 컨설턴트를 근거 없이 비방해 고객을 뺏는다',
         requiresOccupation: ['consultant'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { wealth: 3 }, result: '효과는 확실했지만 뒷맛이 씁쓸했다.' },
           { weight: 10, label: '발각', deltas: { fame: -5, relationship: -3 }, result: '거짓 소문의 출처가 드러나며 업계에서 신뢰를 잃었다.' }
@@ -50212,6 +50262,28 @@ const STAGES = [
         result: '치열했던 세월에 마침표를 찍는 자리였다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
+    
+      {
+        id: 'con-bestseller-royalty-69',
+        text: '그동안의 노하우를 담은 책이 베스트셀러에 오른다',
+        requiresOccupation: ['consultant'],
+        deltas: { wealth: 8, fame: 4 },
+        result: '평생 쓴 글이 이렇게 많은 사람에게 가닿을 줄은 몰랐다.'
+      },
+      {
+        id: 'con-overseas-advisory-fee-69',
+        text: '해외 기업의 초청으로 고액 자문료를 받는다',
+        requiresOccupation: ['consultant'],
+        deltas: { wealth: 7 },
+        result: '언어는 서툴렀지만, 경험만큼은 국경을 넘어 통했다.'
+      },
+      {
+        id: 'con-premium-waitlist-69',
+        text: '프리미엄 1:1 컨설팅 프로그램에 대기 명단이 길게 늘어선다',
+        requiresOccupation: ['consultant'],
+        deltas: { wealth: 6, happiness: 2 },
+        result: '기다려서라도 만나겠다는 사람들 앞에서, 어깨가 으쓱해졌다.'
+      },
     ]
   },
   {
@@ -51710,6 +51782,8 @@ const STAGES = [
         id: 'deviant-con-kickback-75',
         text: '추천해준 업체로부터 뒷돈을 받는다',
         requiresOccupation: ['consultant'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '객관적인 조언인 척했지만, 속으로는 계산이 있었다.' },
           { weight: 10, label: '발각', deltas: { fame: -4, happiness: -3 }, result: '이해상충 문제가 불거지며 신뢰를 잃었다.' }
@@ -52762,6 +52836,21 @@ const STAGES = [
         deltas: { fame: 3, happiness: 3 },
         result: '평생의 헌신이 이렇게 인정받는구나 싶었다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+    
+      {
+        id: 'con-longterm-contract-renewal-78',
+        text: '오랜 고객사와 장기 자문 계약을 갱신한다',
+        requiresOccupation: ['consultant'],
+        deltas: { wealth: 5, relationship: 1 },
+        result: '오래 함께한 사이라, 계약서보다 믿음이 먼저였다.'
+      },
+      {
+        id: 'con-still-in-demand-78',
+        text: '은퇴한 동료들 사이에서 여전히 몸값 높은 자문가로 남는다',
+        requiresOccupation: ['consultant'],
+        deltas: { wealth: 5, fame: 2 },
+        result: '다들 손을 놓은 나이에도, 찾는 사람이 끊이지 않았다.'
       },
     ]
   },
