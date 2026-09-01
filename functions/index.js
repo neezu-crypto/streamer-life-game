@@ -2211,6 +2211,25 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
       return { rate: rate * (1 - WORLD_STATE_ALPHA) + target * WORLD_STATE_ALPHA, updatedAt: ServerValue.TIMESTAMP };
     }));
   }
+  // worldStateSeed(2026-09-02, 62장 B항 - 좀비 바이러스 최초 발동) - "세계
+  // 최초로 이 트래커가 생기는 순간"엔 보통의 EMA로는(기본값 0.5에서 한 번
+  // 신호로는 0.503 정도로 거의 안 움직임) 극적으로 시작할 수 없다. 노드가
+  // 아직 RTDB에 없으면(current===null) rate를 seed 값으로 직접 세팅하고,
+  // 이미 누군가 먼저 발동시켰다면(노드가 이미 존재) 그냥 fallbackTarget으로
+  // 평범한 worldStateSignal과 똑같이 EMA만 적용한다 - 한 필드로 "최초 1회
+  // 세팅"과 "이후엔 평범한 신호"를 모두 처리(seed+signal을 같은 브랜치에
+  // 따로 두면 두 트랜잭션이 같은 경로에 경쟁 조건을 만들어 시작값이 seed보다
+  // 살짝 높아지는 문제가 있어 단일 필드로 통합).
+  const effectiveWorldStateSeed = (pickedBranch && pickedBranch.worldStateSeed) || choice.worldStateSeed;
+  if (effectiveWorldStateSeed) {
+    const { key, rate: seedRate, fallbackTarget } = effectiveWorldStateSeed;
+    statWrites.push(db.ref('lifeGame/worldState/' + key).transaction((current) => {
+      if (!current) return { rate: seedRate, updatedAt: ServerValue.TIMESTAMP };
+      const rate = typeof current.rate === 'number' ? current.rate : WORLD_STATE_DEFAULT_RATE;
+      const target = typeof fallbackTarget === 'number' ? fallbackTarget : 1;
+      return { rate: rate * (1 - WORLD_STATE_ALPHA) + target * WORLD_STATE_ALPHA, updatedAt: ServerValue.TIMESTAMP };
+    }));
+  }
   // occupationGauge 증감(2026-08-30, 58장 B항) - 그룹이 실제로 바뀔 때만(같은
   // 그룹 안의 승진은 그룹이 그대로라 건드리지 않음) 이전 그룹 -1 · 새 그룹 +1.
   // 삶이 끝나는 시점(completed)도 "이탈"로 본다 - 그 직업을 더 이상 유지하지
