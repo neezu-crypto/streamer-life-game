@@ -5675,6 +5675,7 @@ const STAGES = [
         id: 'deviant-str-fake-viewer-bots-20',
         text: '실제보다 많아 보이려고 시청자 수를 늘려주는 봇을 몰래 돌린다',
         requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 0 },
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { fame: 4 }, result: '숫자가 늘어난 방송이, 조금 더 그럴듯해 보였다.' },
           { weight: 10, label: '발각', deltas: { fame: -4, happiness: -2 }, result: '플랫폼 어뷰징 탐지에 걸려 계정 경고를 받았다.' }
@@ -5714,6 +5715,15 @@ const STAGES = [
         deltas: { happiness: 2 },
         result: '리뷰어의 승인 코멘트 하나에, 며칠간 긴장이 풀렸다.',
         requiresRoute: 'developer'
+      },
+    
+      {
+        id: 'deviant-str-fake-viewer-bots-decline-20',
+        text: '정직하게 있는 그대로의 시청자 수로 방송한다',
+        deltas: { happiness: 1 },
+        result: '숫자는 초라해도, 부끄러울 일은 없었다.',
+        requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
     ]
   },
@@ -6712,6 +6722,7 @@ const STAGES = [
         id: 'deviant-str-sponsor-money-diversion-21',
         text: '지인 이름으로 별도 계좌를 만들어 후원금 일부를 몰래 빼돌린다',
         requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 0 },
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '아무도 눈치채지 못한 채, 여윳돈이 조금씩 쌓였다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, relationship: -3 }, result: '팬이 직접 계좌 내역을 캐물으며 신뢰가 무너졌다.' }
@@ -6756,6 +6767,15 @@ const STAGES = [
         deltas: { happiness: -1, health: -1 },
         result: '손이 눈보다 빨라야 살아남는 하루였다.',
         requiresRoute: 'logistics'
+      },
+    
+      {
+        id: 'deviant-str-sponsor-money-diversion-decline-21',
+        text: '후원금은 한 푼도 손대지 않고 투명하게 공개한다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '떳떳한 정산 내역이, 오히려 신뢰를 더 두텁게 했다.',
+        requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
     ]
   },
@@ -7851,6 +7871,7 @@ const STAGES = [
         id: 'deviant-str-fake-sponsorship-claim-22',
         text: '실제로 받지 않은 협찬을 받은 것처럼 광고성 리뷰를 올린다',
         requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 0 },
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '가짜 협찬 티가 안 나서, 별 탈 없이 지나갔다.' },
           { weight: 10, label: '발각', deltas: { fame: -4, happiness: -2 }, result: '해당 업체가 직접 부인하며 "뒷광고" 논란이 됐다.' }
@@ -7912,6 +7933,15 @@ const STAGES = [
         deltas: { wealth: 3, happiness: -1, health: -1 },
         result: '쉬는 날을 내줬지만, 통장 잔고가 그만큼 채워졌다.',
         requiresRoute: 'logistics'
+      },
+    
+      {
+        id: 'deviant-str-fake-sponsorship-claim-decline-22',
+        text: '실제로 받은 협찬만 정직하게 소개한다',
+        deltas: { happiness: 1 },
+        result: '광고 수익은 줄어도, 마음은 편했다.',
+        requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
     ]
   },
@@ -9017,6 +9047,7 @@ const STAGES = [
         id: 'deviant-str-copyright-piracy-23',
         text: '허락 없이 남의 영상·음악을 몰래 도용해 콘텐츠에 쓴다',
         requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 0 },
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { happiness: 3 }, result: '편하게 만든 만큼, 시간을 크게 아꼈다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6 }, result: '원저작자의 신고로 콘텐츠가 전부 내려가는 곤욕을 치렀다.' }
@@ -9026,6 +9057,7 @@ const STAGES = [
         id: 'deviant-str-fake-controversy-farming-23',
         text: '일부러 자극적인 거짓 논란을 만들어 화제성을 키운다',
         requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 0 },
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { fame: 8 }, result: '조회수가 폭발적으로 늘며, 원했던 화제성을 얻었다.' },
           { weight: 18, label: '발각', deltas: { fame: -8, happiness: -5, relationship: -3 }, result: '조작이 들통나며 "어그로" 방송인이라는 낙인이 찍혔다.' }
@@ -9111,6 +9143,23 @@ const STAGES = [
         result: '유혹은 컸지만, 선을 넘고 싶지 않았다.',
         requiresOccupation: ['junior-trader', 'trader', 'fund-manager'],
         worldStateSignal: { key: 'traderIntegrity', target: 1 }
+      },
+    
+      {
+        id: 'deviant-str-copyright-piracy-decline-23',
+        text: '시간이 걸려도 저작권 문제 없는 소스만 사용한다',
+        deltas: { wealth: -1, happiness: 1 },
+        result: '느려도 내 것이라 부를 수 있는 콘텐츠였다.',
+        requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 1 }
+      },
+      {
+        id: 'deviant-str-fake-controversy-farming-decline-23',
+        text: '자극적인 논란 대신 꾸준한 콘텐츠로 승부한다',
+        deltas: { happiness: 1 },
+        result: '더디더라도, 억지로 만든 화제보다 나았다.',
+        requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
     ]
   },
@@ -10364,6 +10413,7 @@ const STAGES = [
         id: 'deviant-str-undeclared-ad-income-24',
         text: '광고·협찬 수입 상당 부분을 세금 신고에서 누락시킨다',
         requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 0 },
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
@@ -10477,6 +10527,15 @@ const STAGES = [
         result: '당장은 아쉬워해도, 공정함이 먼저였다.',
         requiresRoute: 'teacher-route',
         worldStateSignal: { key: 'teacherCorruption', target: 1 }
+      },
+    
+      {
+        id: 'deviant-str-undeclared-ad-income-decline-24',
+        text: '광고·협찬 수입을 빠짐없이 정직하게 신고한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '떳떳한 세금 신고서가, 마음의 짐을 덜어줬다.',
+        requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
     ]
   },
@@ -11582,6 +11641,7 @@ const STAGES = [
         id: 'deviant-str-doxxing-rival-25',
         text: '경쟁 스트리머의 개인정보를 몰래 캐내 커뮤니티에 흘린다',
         requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 0 },
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { fame: 4 }, result: '상대의 곤란한 처지를, 남몰래 지켜봤다.' },
           { weight: 18, label: '발각', deltas: { fame: -9, happiness: -6, relationship: -4 }, result: '유포자로 지목되며 "신상 유출" 가해자라는 비난을 받았다.' }
@@ -11652,6 +11712,15 @@ const STAGES = [
         deltas: { wealth: 2, health: -1 },
         result: '몸은 두 배로 힘들었지만, 벌이도 두 배가 됐다.',
         requiresRoute: 'logistics'
+      },
+    
+      {
+        id: 'deviant-str-doxxing-rival-decline-25',
+        text: '경쟁자의 신상을 캐는 대신 자기 방송에만 집중한다',
+        deltas: { happiness: 1 },
+        result: '남을 깎아내리기보다, 스스로를 갈고닦기로 했다.',
+        requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
     ]
   },
@@ -12881,6 +12950,7 @@ const STAGES = [
         id: 'deviant-str-underage-content-exploit-26',
         text: '미성년 시청자를 겨냥한 자극적인 콘텐츠로 화제를 노린다',
         requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 0 },
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { fame: 5 }, result: '조회수는 늘었지만, 마음 한구석이 편치 않았다.' },
           { weight: 18, label: '발각', deltas: { fame: -10, happiness: -6, relationship: -3 }, result: '청소년보호법 위반 논란이 커지며 방송 정지 조치를 받았다.' }
@@ -12890,6 +12960,7 @@ const STAGES = [
         id: 'deviant-str-gambling-stream-26',
         text: '불법 도박 사이트를 몰래 홍보하며 뒷돈을 받는다',
         requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 0 },
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '뒷광고 수익이, 남몰래 통장에 꽂혔다.' },
           { weight: 18, label: '발각', deltas: { wealth: -6, fame: -9, happiness: -4 }, result: '불법 도박 알선 정황이 드러나며 채널이 통째로 정지됐다.' }
@@ -12964,6 +13035,23 @@ const STAGES = [
           { weight: 80, label: '투자 성공', deltas: { wealth: 6, happiness: 2 }, result: '꾸준히 오르는 수익률에 안도했다.' },
           { weight: 20, label: '사기 피해', deltas: { wealth: -6, happiness: -5, relationship: -1 }, result: '수익은커녕, 원금까지 통째로 사라졌다.' }
         ]
+      },
+    
+      {
+        id: 'deviant-str-underage-content-exploit-decline-26',
+        text: '미성년 시청자를 고려해 자극적인 소재를 자제한다',
+        deltas: { fame: -1, happiness: 1 },
+        result: '조회수는 아쉬워도, 떳떳한 방송이 먼저였다.',
+        requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 1 }
+      },
+      {
+        id: 'deviant-str-gambling-stream-decline-26',
+        text: '불법 도박 홍보 제안을 단호히 거절한다',
+        deltas: { happiness: 1 },
+        result: '돈보다 지켜야 할 선이 있다고 생각했다.',
+        requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
     ]
   },
@@ -14155,6 +14243,7 @@ const STAGES = [
         id: 'deviant-str-fake-charity-stream-27',
         text: '자선 방송인 척 모금하고 기부금 일부를 몰래 빼돌린다',
         requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 0 },
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         prizeTable: [
@@ -14227,6 +14316,15 @@ const STAGES = [
         result: '별일 아니겠거니, 그냥 넘어가기로 했다.',
         requiresRoute: 'logistics',
         worldStateSignal: { key: 'logisticsIntegrity', target: 0 }
+      },
+    
+      {
+        id: 'deviant-str-fake-charity-stream-decline-27',
+        text: '모금액을 한 푼도 빠짐없이 투명하게 전달한다',
+        deltas: { wealth: -2, happiness: 2 },
+        result: '기부금만큼은, 절대 손대고 싶지 않았다.',
+        requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
     ]
   },
@@ -15307,6 +15405,7 @@ const STAGES = [
         id: 'deviant-str-editor-uncredited-28',
         text: '편집자의 작업물을 자기 실력인 것처럼 소개한다',
         requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 0 },
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { fame: 3 }, result: '실력 있어 보인다는 댓글에, 조용히 뿌듯해했다.' },
           { weight: 10, label: '발각', deltas: { fame: -4, relationship: -3 }, result: '전 편집자의 폭로로 "노예 노동" 논란에 휩싸였다.' }
@@ -15316,6 +15415,7 @@ const STAGES = [
         id: 'deviant-str-manager-unpaid-labor-28',
         text: '개인 매니저에게 계약에 없는 잡무를 무급으로 시킨다',
         requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 0 },
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 3, happiness: 3 }, result: '편했지만, 크게 신경 쓰지 않았다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -6, relationship: -3 }, result: '매니저의 폭로 글이 퍼지며 "갑질 방송인" 논란이 됐다.' }
@@ -15385,6 +15485,23 @@ const STAGES = [
         deltas: { happiness: 1 },
         result: '열심히 몸으로 뛰던 그 시절이, 아직도 눈에 선했다.',
         requiresRoute: 'logistics'
+      },
+    
+      {
+        id: 'deviant-str-editor-uncredited-decline-28',
+        text: '편집자의 공을 방송에서 제대로 소개한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '함께 만든 결과물이라는 걸, 숨기고 싶지 않았다.',
+        requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 1 }
+      },
+      {
+        id: 'deviant-str-manager-unpaid-labor-decline-28',
+        text: '매니저에게 정당한 업무 범위와 보수를 지킨다',
+        deltas: { wealth: -1, relationship: 2 },
+        result: '같이 일하는 사람을 함부로 대하고 싶지 않았다.',
+        requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
     ]
   },
@@ -16499,6 +16616,7 @@ const STAGES = [
         id: 'deviant-str-merch-defect-coverup-29',
         text: '불량이 많은 걸 알면서도 자체 굿즈를 그대로 판매한다',
         requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 0 },
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { wealth: 4 }, result: '재고를 그대로 처분하며, 손실을 피했다.' },
           { weight: 10, label: '발각', deltas: { wealth: -3, fame: -4 }, result: '환불 요청이 쏟아지며 소비자원에 민원이 접수됐다.' }
@@ -16509,6 +16627,7 @@ const STAGES = [
         id: 'deviant-str-fake-apology-pr-stunt-29',
         text: '논란을 무마하려 진정성 없는 사과 영상을 미리 짜고 연기한다',
         requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 0 },
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { happiness: 3 }, result: '눈물 연기가 통했는지, 여론이 금세 잠잠해졌다.' },
           { weight: 10, label: '발각', deltas: { fame: -5, happiness: -3 }, result: '대본이 유출되며 "가짜 사과" 논란이 두 배로 커졌다.' }
@@ -16640,6 +16759,23 @@ const STAGES = [
         deltas: { health: -1, happiness: 1 },
         result: '막연했던 아이디어가, 조금씩 숫자로 정리됐다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'deviant-str-merch-defect-coverup-decline-29',
+        text: '불량 재고는 손해를 감수하고 전량 폐기한다',
+        deltas: { wealth: -3, happiness: 1 },
+        result: '팬들에게 떳떳하지 못한 물건을 팔 수는 없었다.',
+        requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 1 }
+      },
+      {
+        id: 'deviant-str-fake-apology-pr-stunt-decline-29',
+        text: '연기 없이 있는 그대로 솔직하게 사과한다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '서툴러도 진심이 담긴 사과가 낫다고 믿었다.',
+        requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
     ]
   },
@@ -17704,6 +17840,7 @@ const STAGES = [
         id: 'deviant-str-plagiarized-content-format-30',
         text: '해외 인기 방송 포맷을 그대로 베껴 새 콘텐츠인 척 내놓는다',
         requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 0 },
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { fame: 5 }, result: '반응이 좋았고, 아무도 원작을 알아채지 못했다.' },
           { weight: 18, label: '발각', deltas: { fame: -7, happiness: -4 }, result: '원작자가 직접 비교 영상을 올리며 표절 논란이 커졌다.' }
@@ -17713,6 +17850,7 @@ const STAGES = [
         id: 'deviant-str-fake-collab-schedule-30',
         text: '협업 상대와 상의 없이 콜라보를 확정된 것처럼 미리 홍보한다',
         requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 0 },
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { fame: 4 }, result: '홍보 효과는 확실했고, 뒷수습도 무난했다.' },
           { weight: 10, label: '발각', deltas: { fame: -4, relationship: -3 }, result: '상대측이 직접 부인하며 민망한 상황이 벌어졌다.' }
@@ -17830,6 +17968,23 @@ const STAGES = [
         deltas: { health: -1, wealth: 1 },
         result: '책상 위 숫자와 현장은, 늘 조금씩 달랐다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'deviant-str-plagiarized-content-format-decline-30',
+        text: '해외 포맷 대신 자신만의 새 콘텐츠를 고민한다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '베끼는 것보다, 오래 걸려도 내 것을 만들고 싶었다.',
+        requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 1 }
+      },
+      {
+        id: 'deviant-str-fake-collab-schedule-decline-30',
+        text: '콜라보는 상대와 먼저 확실히 조율한 뒤에만 알린다',
+        deltas: { happiness: 1 },
+        result: '성급한 홍보보다, 신뢰를 지키는 쪽을 택했다.',
+        requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
     ]
   },
@@ -18879,6 +19034,7 @@ const STAGES = [
         id: 'deviant-str-agency-fund-embezzlement-31',
         text: '소속사 정산 시스템의 허점을 이용해 정산금을 몰래 부풀려 받는다',
         requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 0 },
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '아무도 확인하지 않는 틈을 타, 조용히 챙겼다.' },
           { weight: 18, label: '발각', deltas: { wealth: -5, fame: -7, relationship: -4 }, result: '정산 내역 감사에서 부풀린 금액이 그대로 드러나 소속사와 큰 갈등을 겪었다.' }
@@ -18962,6 +19118,15 @@ const STAGES = [
         deltas: { happiness: 2, wealth: -1 },
         result: '이제야 온전히 사업에만 집중할 수 있었다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'deviant-str-agency-fund-embezzlement-decline-31',
+        text: '정산 시스템 허점을 발견하고 오히려 소속사에 알린다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '눈감아도 될 일이었지만, 그러고 싶지 않았다.',
+        requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
     ]
   },
@@ -19950,6 +20115,7 @@ const STAGES = [
         id: 'deviant-str-fake-follower-purchase-32',
         text: '해외 업체를 통해 가짜 구독자·팔로워를 대량으로 구매한다',
         requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 0 },
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { fame: 5 }, result: '숫자가 부쩍 늘어난 채널이, 훨씬 그럴듯해 보였다.' },
           { weight: 10, label: '발각', deltas: { fame: -5, happiness: -2 }, result: '플랫폼 정책 위반으로 채널 인증이 박탈됐다.' }
@@ -20063,6 +20229,15 @@ const STAGES = [
         deltas: { wealth: 2, happiness: 2 },
         result: '작은 성공들이 쌓여야, 큰 걸음도 가능했다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'deviant-str-fake-follower-purchase-decline-32',
+        text: '가짜 구독자 대신 진짜 시청자를 늘리는 데 시간을 쏟는다',
+        deltas: { wealth: -1, happiness: 1 },
+        result: '느리지만, 진짜 숫자만이 의미 있다고 생각했다.',
+        requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
     ]
   },
@@ -21072,6 +21247,7 @@ const STAGES = [
         id: 'deviant-str-legacy-clip-monetize-fraud-33',
         text: '은퇴를 앞두고 저작권이 불분명한 옛 영상들을 긁어모아 수익화한다',
         requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 0 },
         prizeTable: [
           { weight: 82, label: '안 걸림', deltas: { wealth: 5 }, result: '마지막까지 알뜰하게, 수익을 챙겼다.' },
           { weight: 18, label: '발각', deltas: { wealth: -4, fame: -5 }, result: '권리자들의 무더기 신고로 채널 수익화가 정지됐다.' }
@@ -21082,6 +21258,7 @@ const STAGES = [
         id: 'deviant-str-borrowed-content-idea-33',
         text: '다른 스트리머의 콘텐츠 아이디어를 몰래 베껴 먼저 올린다',
         requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 0 },
         prizeTable: [
           { weight: 90, label: '안 걸림', deltas: { fame: 4 }, result: '먼저 올린 덕에, 아이디어의 주인공처럼 보였다.' },
           { weight: 10, label: '발각', deltas: { fame: -4, relationship: -2 }, result: '원작자가 타임스탬프를 공개하며 "아이디어 도용" 지적을 받았다.' }
@@ -21188,6 +21365,23 @@ const STAGES = [
         result: '당장은 초라해 보여도, 거짓 위에 세울 순 없었다.',
         requiresOccupation: ['entrepreneur'],
         worldStateSignal: { key: 'entrepreneurIntegrity', target: 1 }
+      },
+    
+      {
+        id: 'deviant-str-legacy-clip-monetize-fraud-decline-33',
+        text: '권리 관계가 불분명한 영상들은 수익화하지 않고 내려둔다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '마지막까지, 남의 것에 손대고 싶지 않았다.',
+        requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 1 }
+      },
+      {
+        id: 'deviant-str-borrowed-content-idea-decline-33',
+        text: '아이디어가 떠오를 때까지 스스로 고민하며 기다린다',
+        deltas: { happiness: -1 },
+        result: '빌려온 아이디어로 인기를 얻고 싶지 않았다.',
+        requiresRoute: 'streamer',
+        worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
     ]
   },
@@ -22320,6 +22514,14 @@ const STAGES = [
         result: '사업은 자라는데, 정작 나는 메말라가고 있었다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'str2-post-quiet-emptiness-34',
+        text: '방송을 접은 지 얼마 안 돼 알 수 없는 허전함을 느낀다',
+        deltas: { happiness: -2 },
+        result: '늘 켜져 있던 채팅창이 사라지니, 방이 유독 조용하게 느껴졌다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -23443,6 +23645,14 @@ const STAGES = [
         result: '규모는 작아도, 분위기만큼은 자부심을 느꼈다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'str2-post-old-crew-distance-35',
+        text: '방송 시절 함께했던 동료들과 자연스레 소원해졌음을 깨닫는다',
+        deltas: { happiness: -1, relationship: -1 },
+        result: '같은 목표가 사라지니, 이어주던 끈도 함께 느슨해졌다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -24462,6 +24672,14 @@ const STAGES = [
         deltas: { wealth: -3, happiness: -2 },
         result: '꼼꼼히 챙겼어야 할 것들이, 뒤늦게 발목을 잡았다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'str2-post-royalty-income-36',
+        text: '예전 영상들의 저작권 수익만으로 생활비 일부를 충당한다',
+        deltas: { wealth: 1 },
+        result: '더 이상 찍지 않는데도 통장에 돈이 들어오는 게 신기했다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -25491,6 +25709,14 @@ const STAGES = [
         deltas: { happiness: 3 },
         result: '살아남았다는 것 자체가, 이미 절반의 성공이었다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'str2-post-camera-shy-37',
+        text: '오랜만에 카메라 앞에 서니 낯설고 어색함을 느낀다',
+        deltas: { happiness: -1 },
+        result: '한때는 숨쉬듯 자연스러웠던 자리가, 이제는 남의 옷 같았다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -26551,6 +26777,14 @@ const STAGES = [
         requiresOccupation: ['trader', 'fund-manager'],
         worldStateSignal: { key: 'traderIntegrity', target: 1 }
       },
+    
+      {
+        id: 'str2-post-guest-cameo-38',
+        text: '후배 스트리머의 방송에 깜짝 게스트로 잠깐 출연한다',
+        deltas: { happiness: 2, wealth: 1, fame: 1 },
+        result: '잠깐이었지만, 그 열기가 여전히 반가웠다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -27457,6 +27691,14 @@ const STAGES = [
         result: '트렌드를 따를지, 색깔을 지킬지 매번 갈등이었다.',
         requiresRoute: 'artist',
         requiresOccupation: ['vtuber-avatar-artist']
+      },
+    
+      {
+        id: 'str2-post-copyright-claim-headache-39',
+        text: '옛 영상이 저작권 클레임에 걸려 처리하느라 골머리를 앓는다',
+        deltas: { wealth: -1, happiness: -1 },
+        result: '몇 년 전 영상 하나가 이렇게 발목을 잡을 줄 몰랐다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -28464,6 +28706,14 @@ const STAGES = [
         result: '버틸 수 있을지, 매일 밤 계산기를 두드렸다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'str2-post-new-job-adjust-40',
+        text: '새로운 일에 적응하느라 여전히 서툴다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '카메라 없는 삶에 몸이 아직 낯설어했다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -29325,6 +29575,14 @@ const STAGES = [
         deltas: { wealth: 3 },
         result: '달걀을 한 바구니에 담지 않는 법을, 그제야 배웠다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'str2-post-sells-old-gear-41',
+        text: '오랫동안 쓰던 방송 장비를 중고로 정리해 판다',
+        deltas: { wealth: 2, happiness: -1 },
+        result: '장비가 떠난 자리를 보며, 한 시절이 정말 끝났음을 실감했다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -30188,6 +30446,14 @@ const STAGES = [
         deltas: { happiness: -3, relationship: -1 },
         result: '성공의 대가를, 가장 가까운 사람이 치르고 있었다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'str2-post-fan-recognizes-42',
+        text: '길에서 옛 팬이 알아보고 반갑게 인사를 건넨다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '잊혀졌을 줄 알았는데, 누군가에겐 여전히 특별했다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -31058,6 +31324,14 @@ const STAGES = [
         deltas: { wealth: -3, happiness: -2 },
         result: '버티는 쪽이 이긴다는 걸, 몸으로 배우고 있었다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'str2-post-clip-becomes-meme-43',
+        text: '자신의 옛 클립이 밈으로 재조명되며 다시 화제가 된다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '몇 년 전 순간이 이렇게 다시 돌아올 줄은 몰랐다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -32012,6 +32286,14 @@ const STAGES = [
         deltas: { wealth: -2, happiness: 2 },
         result: '작은 사무실이, 이제는 제법 북적였다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'str2-post-account-cleanup-decision-44',
+        text: '오래된 채널 계정을 정리할지 말지 한참을 고민한다',
+        deltas: { happiness: -1 },
+        result: '지우기엔 아깝고, 두기엔 애매한 흔적이었다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -33708,6 +33990,14 @@ const STAGES = [
         result: '직접 팔지 않고도 돈이 들어오는 구조가 생겼다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'str2-post-algorithm-shift-views-46',
+        text: '플랫폼 알고리즘이 바뀌며 옛 영상 조회수가 요동친다',
+        deltas: { wealth: 1 },
+        result: '이제는 손댈 수도 없는 숫자가 저 혼자 오르내렸다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -34496,6 +34786,14 @@ const STAGES = [
         result: '부부이자 동업자라는 관계가, 생각보다 잘 맞았다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'str2-post-junior-consult-request-47',
+        text: '업계 후배들에게 채널 운영 관련 자문 요청을 받는다',
+        deltas: { relationship: 2, wealth: 1 },
+        result: '현역은 아니어도, 여전히 도움이 될 수 있어 뿌듯했다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -35189,6 +35487,14 @@ const STAGES = [
         result: '사업보다 사람 관리가, 때로는 더 어려웠다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'str2-post-old-rival-retires-48',
+        text: '같은 시대를 풍미했던 라이벌 스트리머의 은퇴 소식을 듣는다',
+        deltas: { happiness: -1 },
+        result: '한 시대가 정말로 저물고 있다는 게 실감났다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -35823,6 +36129,14 @@ const STAGES = [
         deltas: { wealth: -3, happiness: 1 },
         result: '사업과 별개로, 든든한 뒷배 하나를 마련해뒀다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'str2-post-platform-trend-alien-49',
+        text: '요즘 플랫폼 트렌드가 완전히 낯설게 느껴진다',
+        deltas: { happiness: -1 },
+        result: '내가 알던 방식은 이제 옛날 얘기가 되어 있었다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -36531,6 +36845,14 @@ const STAGES = [
         requiresOccupation: ['trader', 'fund-manager'],
         worldStateSignal: { key: 'traderIntegrity', target: 1 }
       },
+    
+      {
+        id: 'str2-post-royalty-savings-grow-50',
+        text: '꾸준한 저작권 수익으로 작은 자산이 조금씩 불어난다',
+        deltas: { wealth: 2, happiness: 1 },
+        result: '떠난 자리에서도 여전히 나를 먹여 살리는 게 신기했다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -37110,6 +37432,14 @@ const STAGES = [
         result: '이제는 시스템으로 굴러가는 조직이 되어가고 있었다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'str2-post-still-remembered-51',
+        text: '팬 커뮤니티에서 여전히 자신이 회자되고 있다는 걸 발견한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '잊혀지지 않았다는 사실 하나로, 마음이 뭉클해졌다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -37683,6 +38013,14 @@ const STAGES = [
         requiresOccupation: ['entrepreneur'],
         worldStateSignal: { key: 'entrepreneurIntegrity', target: 1 }
       },
+    
+      {
+        id: 'str2-post-retirement-interview-52',
+        text: '방송을 그만둔 이유를 묻는 인터뷰 요청을 받는다',
+        deltas: { fame: 1, happiness: 1 },
+        result: '오랜만에 그때 이야기를 솔직하게 꺼내놓았다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -38213,6 +38551,14 @@ const STAGES = [
         result: '고생한 대가가, 처음으로 손에 잡히는 숫자가 됐다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'str2-post-compilation-viral-53',
+        text: '누군가 만든 옛 콘텐츠 모음 영상이 다시 화제가 된다',
+        deltas: { fame: 2, wealth: 1 },
+        result: '남이 편집한 내 옛 모습을 보는 기분이 묘했다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -38719,6 +39065,14 @@ const STAGES = [
         deltas: { happiness: -4, relationship: -2 },
         result: '함께 시작한 사람이 없는 회사가, 낯설게 느껴졌다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'str2-post-new-career-settled-54',
+        text: '새 직업에서 이제는 제법 안정적으로 자리를 잡았다',
+        deltas: { happiness: 2, wealth: 1 },
+        result: '다른 삶도 나쁘지 않다는 걸, 이제야 받아들였다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -39489,6 +39843,14 @@ const STAGES = [
         result: '받았던 도움을, 이번엔 내가 건네는 입장이 됐다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'str2-post-sleep-disorder-legacy-55',
+        text: '오랜 야간 방송 생활의 후유증으로 수면 장애를 겪는다',
+        deltas: { health: -2 },
+        result: '몸에 새겨진 밤낮이 바뀐 습관은 쉽게 사라지지 않았다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -40003,6 +40365,14 @@ const STAGES = [
         deltas: { happiness: 3, relationship: 2 },
         result: '물려줄 사람이 생겼다는 게, 새로운 힘이 됐다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'str2-post-fan-meetup-invite-56',
+        text: '옛 팬들이 마련한 소규모 오프라인 모임에 초대받는다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '화면 너머로만 알던 얼굴들을 실제로 마주하니 감회가 새로웠다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -40558,6 +40928,14 @@ const STAGES = [
         deltas: { wealth: 4 },
         result: '버는 것 못지않게, 아끼는 것도 실력이었다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'str2-post-junior-scandal-advice-57',
+        text: '논란에 휘말린 후배 스트리머가 조심스레 조언을 구해온다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '겪어본 사람만이 해줄 수 있는 이야기가 있었다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -41726,6 +42104,14 @@ const STAGES = [
         result: '같은 무게를 짊어진 사람끼리는, 결국 통하는 게 있었다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'str2-post-royalty-declining-59',
+        text: '저작권 수익이 해가 갈수록 조금씩 줄어드는 걸 체감한다',
+        deltas: { wealth: -1 },
+        result: '영원할 것 같던 것도, 결국 시간 앞에선 마모돼갔다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -42392,6 +42778,14 @@ const STAGES = [
         result: '이름 석 자가, 그 자체로 자산이 됐다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'str2-post-onetime-comeback-stream-60',
+        text: '팬들의 성화에 못 이겨 딱 한 번 회고 방송을 열어본다',
+        deltas: { happiness: 3, wealth: 1, fame: 1 },
+        result: '오랜만의 채팅창 속도에, 옛 감각이 그대로 되살아났다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -42965,6 +43359,14 @@ const STAGES = [
         deltas: { happiness: -3, health: -1 },
         result: '사업보다 소중한 게 뭔지, 다시 깨닫는 계기였다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'str2-post-gear-museum-donation-61',
+        text: '오래된 방송 장비를 인터넷 문화 박물관에 기증해달라는 요청을 받는다',
+        deltas: { fame: 1, happiness: 2 },
+        result: '먼지 쌓인 마이크 하나가 이렇게 귀한 대접을 받을 줄 몰랐다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -43577,6 +43979,14 @@ const STAGES = [
         result: '내 것의 일부를 내주고, 그만큼의 여유를 얻었다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'str2-post-shrinking-contacts-62',
+        text: '방송 시절 인맥 중 여전히 연락하는 사람이 손에 꼽는다는 걸 깨닫는다',
+        deltas: { happiness: -1, relationship: -1 },
+        result: '화려했던 관계망도 결국 남는 건 몇 명 안 됐다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -44172,6 +44582,14 @@ const STAGES = [
         requiresOccupation: ['trader', 'fund-manager'],
         worldStateSignal: { key: 'traderIntegrity', target: 1 }
       },
+    
+      {
+        id: 'str2-post-new-gen-platform-alien-63',
+        text: '젊은 세대가 즐기는 새로운 플랫폼 문화가 낯설기만 하다',
+        deltas: { happiness: -1 },
+        result: '내가 개척자였던 곳에서, 이제는 완전한 이방인이 되어 있었다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -44670,6 +45088,14 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 1 },
         result: '내가 받았던 도움을, 결국 돌려준 셈이었다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'str2-post-checkup-old-habits-toll-64',
+        text: '건강검진에서 젊은 시절 무리한 생활의 흔적을 발견한다',
+        deltas: { health: -2 },
+        result: '그때는 몰랐던 대가를, 이제야 몸으로 치르고 있었다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -45202,6 +45628,14 @@ const STAGES = [
         result: '현역은 아니어도 여전히 쓸모가 있다는 게 반가웠다.',
         requiresOccupation: ['trader', 'fund-manager']
       },
+    
+      {
+        id: 'str2-post-oral-history-interview-65',
+        text: '인터넷 방송 초창기를 기록하는 구술사 인터뷰집에 참여한다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '숫자로만 남을 뻔한 세월이, 이야기로 기록되고 있었다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -45544,6 +45978,15 @@ const STAGES = [
         result: '숫자를 보는 눈이 여전히 필요한 곳들이 있었다.',
         requiresOccupation: ['trader', 'fund-manager']
       },
+    
+      {
+        id: 'str2-post-shows-grandchild-old-clips-66',
+        text: '손주에게 옛 방송 클립을 보여주며 그 시절 이야기를 들려준다',
+        requiresFamilyMember: ['grandchild'],
+        deltas: { happiness: 3, relationship: 2 },
+        result: '할머니(할아버지)가 저런 사람이었다니, 손주의 눈이 동그래졌다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -45803,6 +46246,14 @@ const STAGES = [
         deltas: { wealth: 1, happiness: 1 },
         result: '이제는 관리의 편함이 수익률보다 중요했다.',
         requiresOccupation: ['trader', 'fund-manager']
+      },
+    
+      {
+        id: 'str2-post-channel-handover-manager-67',
+        text: '채널 관리 권한을 완전히 매니저에게 넘긴다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '이제는 손 놓아도 괜찮은 것들이 하나씩 늘어갔다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -46111,6 +46562,14 @@ const STAGES = [
         result: '몸도 이제는 결산이 필요한 시기였다.',
         requiresOccupation: ['trader', 'fund-manager']
       },
+    
+      {
+        id: 'str2-post-quiet-anniversary-68',
+        text: '방송 은퇴 이후의 세월을 조용히 자축한다',
+        deltas: { happiness: 2 },
+        result: '떠들썩하진 않아도, 충분히 자랑스러운 시간들이었다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -46315,6 +46774,14 @@ const STAGES = [
         deltas: { happiness: 3, relationship: 2 },
         result: '치열했던 세월에 마침표를 찍는 자리였다.',
         requiresOccupation: ['trader', 'fund-manager']
+      },
+    
+      {
+        id: 'str2-post-stream-alert-habit-lingers-69',
+        text: '여전히 습관처럼 실시간 방송 알림을 확인한다',
+        deltas: { happiness: 1 },
+        result: '몸에 밴 습관은 세월이 지나도 쉽게 사라지지 않았다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -46692,6 +47159,14 @@ const STAGES = [
         result: '낯설었지만 나쁘지 않은 고요함이었다.',
         requiresOccupation: ['trader', 'fund-manager']
       },
+    
+      {
+        id: 'str2-post-documentary-invite-70',
+        text: '인터넷 방송 문화를 다루는 다큐멘터리 촬영에 초청받는다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '한 시대의 증인으로 카메라 앞에 다시 서게 됐다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -46910,6 +47385,14 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 2 },
         result: '떠난 자리에서도 여전히 기억되고 있다는 게 좋았다.',
         requiresOccupation: ['trader', 'fund-manager']
+      },
+    
+      {
+        id: 'str2-post-old-mic-keepsake-71',
+        text: '서랍 속 낡은 마이크를 발견하고 한참을 매만진다',
+        deltas: { happiness: 1 },
+        result: '작은 물건 하나에 젊은 날의 열기가 고스란히 담겨 있었다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -47353,6 +47836,14 @@ const STAGES = [
         result: '평생의 감각을 이렇게도 나눌 수 있었다.',
         requiresOccupation: ['trader', 'fund-manager']
       },
+    
+      {
+        id: 'str2-post-donates-archive-73',
+        text: '평생 모은 방송 아카이브를 인터넷 문화 연구소에 기증한다',
+        deltas: { wealth: -1, happiness: 2, fame: 1 },
+        result: '혼자 간직하기엔 아까운 기록들이, 이제 여러 사람의 것이 됐다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -47560,6 +48051,15 @@ const STAGES = [
         deltas: { happiness: 2, fame: 1 },
         result: '숫자로만 기억되기엔 아까운 이야기들이었다.',
         requiresOccupation: ['trader', 'fund-manager']
+      },
+    
+      {
+        id: 'str2-post-grandchild-follows-footsteps-74',
+        text: '손주가 자신처럼 콘텐츠 만드는 일에 관심을 보인다',
+        requiresFamilyMember: ['grandchild'],
+        deltas: { happiness: 3, relationship: 1 },
+        result: '핏줄은 못 속이는지, 닮은 구석이 신기하고도 반가웠다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -47862,6 +48362,14 @@ const STAGES = [
         result: '얼굴엔 세월이 앉았어도 눈빛만은 그대로였다.',
         requiresOccupation: ['trader', 'fund-manager']
       },
+    
+      {
+        id: 'str2-post-old-editor-visits-75',
+        text: '오랫동안 함께 일했던 편집자가 안부차 찾아온다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '숫자 뒤에서 묵묵히 도와줬던 사람을 뒤늦게 다시 떠올렸다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -48076,6 +48584,14 @@ const STAGES = [
         result: '예전 같으면 밤잠을 설쳤을 일이었다.',
         requiresOccupation: ['trader', 'fund-manager']
       },
+    
+      {
+        id: 'str2-post-slower-typing-76',
+        text: '팬들에게 답장을 남기려 해도 타자 속도가 부쩍 느려졌다',
+        deltas: { health: -1, happiness: 1 },
+        result: '느려진 손가락에도, 마음만은 여전히 빠르게 뛰었다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -48270,6 +48786,14 @@ const STAGES = [
         deltas: { wealth: -4, happiness: 3 },
         result: '받았던 기회를 이제는 돌려줄 차례였다.',
         requiresOccupation: ['trader', 'fund-manager']
+      },
+    
+      {
+        id: 'str2-post-scholarship-for-creators-77',
+        text: '신인 창작자를 위한 지원 기금을 조용히 마련한다',
+        deltas: { wealth: -3, happiness: 3 },
+        result: '누군가의 첫걸음을 조금이나마 가볍게 해주고 싶었다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -48499,6 +49023,14 @@ const STAGES = [
         result: '평생의 커리어가 이렇게 인정받는구나 싶었다.',
         requiresOccupation: ['trader', 'fund-manager']
       },
+    
+      {
+        id: 'str2-post-fansite-still-active-78',
+        text: '오래전 만들어진 팬사이트가 여전히 운영되고 있다는 걸 발견한다',
+        deltas: { happiness: 3 },
+        result: '누군가는 아직도 그 시절을 지켜주고 있었다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -48676,6 +49208,14 @@ const STAGES = [
         deltas: { health: 1, happiness: 1 },
         result: '천천히 가는 법을 이제야 배우고 있었다.',
         requiresOccupation: ['trader', 'fund-manager']
+      },
+    
+      {
+        id: 'str2-post-media-appearance-reduced-79',
+        text: '체력에 맞춰 인터뷰나 행사 참여를 크게 줄인다',
+        deltas: { health: 1, happiness: 1 },
+        result: '천천히 사는 법을 이제야 배우고 있었다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -48947,6 +49487,14 @@ const STAGES = [
         result: '평생 쌓아온 것 중 가장 값진 건 결국 사람이었다.',
         requiresOccupation: ['trader', 'fund-manager']
       },
+    
+      {
+        id: 'str2-post-eightieth-birthday-80',
+        text: '온 가족이 모여 팔순을 축하해준다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '화면 속 시청자들 대신, 이제는 가족들의 박수가 곁에 있었다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -49155,6 +49703,14 @@ const STAGES = [
         result: '물려준 것이 헛되지 않았다는 확인이었다.',
         requiresOccupation: ['trader', 'fund-manager']
       },
+    
+      {
+        id: 'str2-post-successor-channel-thrives-81',
+        text: '자신의 채널을 물려받은 후임이 여전히 잘 운영 중이라는 소식을 듣는다',
+        deltas: { happiness: 3 },
+        result: '내가 없어도 잘 굴러간다는 게, 서운함보다 뿌듯함으로 다가왔다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -49356,6 +49912,14 @@ const STAGES = [
         result: '평생 숫자를 보던 눈이 이제는 쉬고 싶어했다.',
         requiresOccupation: ['trader', 'fund-manager']
       },
+    
+      {
+        id: 'str2-post-eyesight-worsens-82',
+        text: '시력이 나빠져 화면 속 자막조차 흐릿해 보인다',
+        deltas: { health: -2 },
+        result: '평생 화면을 보던 눈이, 이제는 쉬고 싶어했다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -49532,6 +50096,14 @@ const STAGES = [
         deltas: { health: -1, wealth: -1 },
         result: '몸이 예전 같지 않다는 걸 매번 새롭게 실감했다.',
         requiresOccupation: ['trader', 'fund-manager']
+      },
+    
+      {
+        id: 'str2-post-hospital-visit-frequent-83',
+        text: '병원 나들이가 부쩍 잦아진다',
+        deltas: { health: -1, wealth: -1 },
+        result: '몸이 예전 같지 않다는 걸 매번 새롭게 실감했다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -49728,6 +50300,14 @@ const STAGES = [
         deltas: { happiness: 1 },
         result: '몸에 밴 습관은 세월도 어쩌지 못했다.',
         requiresOccupation: ['trader', 'fund-manager']
+      },
+    
+      {
+        id: 'str2-post-still-watches-streams-84',
+        text: '몸은 힘들어도 다른 이들의 방송만은 여전히 즐겨 본다',
+        deltas: { happiness: 2 },
+        result: '만들던 입장에서 보는 입장이 됐어도, 그 즐거움만은 그대로였다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -50034,6 +50614,15 @@ const STAGES = [
         result: '시장의 성공보다, 함께한 이 세월이 더 큰 자랑이었다.',
         requiresOccupation: ['trader', 'fund-manager']
       },
+    
+      {
+        id: 'str2-post-golden-anniversary-85',
+        text: '배우자와 함께 결혼 50주년을 맞는다',
+        requiresFamilyMember: ['spouse'],
+        deltas: { happiness: 4, relationship: 3 },
+        result: '방송의 성공보다, 함께한 이 세월이 더 큰 자랑이었다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -50261,6 +50850,14 @@ const STAGES = [
         result: '평생 굴려온 숫자를 이제는 물려줄 준비를 했다.',
         requiresOccupation: ['trader', 'fund-manager']
       },
+    
+      {
+        id: 'str2-post-archive-digitized-86',
+        text: '평생 남긴 방송 기록이 디지털 아카이브로 영구 보존된다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '흘러가버릴 줄 알았던 순간들이, 이렇게 남게 됐다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -50477,6 +51074,14 @@ const STAGES = [
         deltas: { fame: 2, happiness: 2 },
         result: '지나온 세월이 누군가에게는 교재가 되고 있었다.',
         requiresOccupation: ['trader', 'fund-manager']
+      },
+    
+      {
+        id: 'str2-post-young-creator-tribute-87',
+        text: '젊은 창작자가 자신을 롤모델로 꼽았다는 인터뷰를 접한다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '내가 걸어온 길이 누군가의 이정표가 되어 있었다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -50868,6 +51473,14 @@ const STAGES = [
         result: '내가 없어도 잘 돌아간다는 게, 서운함보다 뿌듯함으로 다가왔다.',
         requiresOccupation: ['trader', 'fund-manager']
       },
+    
+      {
+        id: 'str2-post-still-sharp-storyteller-89',
+        text: '몸은 쇠약해졌어도 이야기보따리는 여전히 재미있다',
+        deltas: { health: -1, happiness: 2 },
+        result: '말솜씨만큼은, 세월도 앗아가지 못한 재능이었다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -51157,6 +51770,14 @@ const STAGES = [
         requiresOccupation: ['trader', 'fund-manager'],
         worldStateSignal: { key: 'traderIntegrity', target: 1 }
       },
+    
+      {
+        id: 'str2-post-successor-struggles-shared-90',
+        text: '채널을 물려받은 후임이 겪는 어려움을 듣고 조용히 조언을 건넨다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '이제는 물러서서 지켜보는 법을 배워야 했다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -51345,6 +51966,14 @@ const STAGES = [
         deltas: { relationship: 2, happiness: 1 },
         result: '이제는 물러서서 지켜보는 법을 배워야 했다.',
         requiresOccupation: ['trader', 'fund-manager']
+      },
+    
+      {
+        id: 'str2-post-old-footage-found-91',
+        text: '오래된 하드디스크에서 잊고 있던 첫 방송 영상을 발견한다',
+        deltas: { happiness: 3 },
+        result: '서툴고 어설펐던 그 시작이, 지금 보니 눈부시게 반짝였다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -51569,6 +52198,14 @@ const STAGES = [
         result: '누렇게 바랜 종이 위에 젊은 날의 열정이 그대로 남아 있었다.',
         requiresOccupation: ['trader', 'fund-manager']
       },
+    
+      {
+        id: 'str2-post-museum-exhibit-92',
+        text: '초창기 사용했던 방송 장비가 인터넷 문화 박물관에 정식 전시된다',
+        deltas: { fame: 1, happiness: 2 },
+        result: '낡은 장비 하나가, 이렇게 귀한 대접을 받을 줄 몰랐다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -51754,6 +52391,14 @@ const STAGES = [
         result: '낡은 기계 하나가, 이렇게 귀한 대접을 받을 줄 몰랐다.',
         requiresOccupation: ['trader', 'fund-manager']
       },
+    
+      {
+        id: 'str2-post-frail-but-content-93',
+        text: '몸은 쇠약해졌지만 마음만은 평온하다',
+        deltas: { health: -2, happiness: 2 },
+        result: '부족한 것투성이인 몸으로도, 만족스러운 하루하루였다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -51938,6 +52583,14 @@ const STAGES = [
         deltas: { health: -2, happiness: 2 },
         result: '부족한 것투성이인 몸으로도, 만족스러운 하루하루였다.',
         requiresOccupation: ['trader', 'fund-manager']
+      },
+    
+      {
+        id: 'str2-post-fan-letter-arrives-94',
+        text: '수십 년 전 팬으로부터 손편지 한 통이 도착한다',
+        deltas: { happiness: 4, relationship: 1 },
+        result: '화면 너머의 인연이, 이렇게 오래갈 줄은 몰랐다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -52160,6 +52813,14 @@ const STAGES = [
         result: '물려준 것이 헛되지 않았다는 확인이 다시 한번 이어졌다.',
         requiresOccupation: ['trader', 'fund-manager']
       },
+    
+      {
+        id: 'str2-post-successor-visits-95',
+        text: '후임이 안부를 전하며 근황을 들려준다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '물려준 것이 헛되지 않았다는 확인이었다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -52348,6 +53009,15 @@ const STAGES = [
         result: '숫자로는 잴 수 없는 행복이 곁에 있었다.',
         requiresOccupation: ['trader', 'fund-manager']
       },
+    
+      {
+        id: 'str2-post-great-grandchild-96',
+        text: '증손주의 재롱을 보며 환하게 웃는다',
+        requiresFamilyMember: ['grandchild'],
+        deltas: { happiness: 4, relationship: 2 },
+        result: '조회수로는 잴 수 없는 행복이 곁에 있었다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -52530,6 +53200,14 @@ const STAGES = [
         result: '평생의 흔적이 이런 식으로도 남는구나 싶었다.',
         requiresOccupation: ['trader', 'fund-manager']
       },
+    
+      {
+        id: 'str2-post-legacy-award-97',
+        text: '1세대 인터넷 방송인으로서 공로상을 받는다',
+        deltas: { fame: 3, happiness: 3 },
+        result: '작은 방에서 시작한 방송이, 이런 곳까지 이어질 줄 몰랐다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -52708,6 +53386,14 @@ const STAGES = [
         deltas: { happiness: 1 },
         result: '평생의 습관은 몸이 다 기억하고 있었다.',
         requiresOccupation: ['trader', 'fund-manager']
+      },
+    
+      {
+        id: 'str2-post-still-checks-comments-98',
+        text: '병상에서도 습관처럼 옛 영상의 댓글을 훑어본다',
+        deltas: { happiness: 1 },
+        result: '평생의 습관은 몸이 다 기억하고 있었다.',
+        requiresOccupation: ['streamer']
       },
     ]
   },
@@ -52917,6 +53603,14 @@ const STAGES = [
         result: '평생 일군 것 중, 가장 값진 건 결국 사람이었다.',
         requiresOccupation: ['trader', 'fund-manager']
       },
+    
+      {
+        id: 'str2-post-family-gathers-99',
+        text: '온 가족이 모여 장수를 축하해준다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '평생 일군 것 중, 가장 값진 건 결국 사람이었다.',
+        requiresOccupation: ['streamer']
+      },
     ]
   },
   {
@@ -53116,6 +53810,14 @@ const STAGES = [
         deltas: { happiness: 3 },
         result: '맨손으로 시작해 여기까지 왔다는 게, 새삼 벅찼다.',
         requiresOccupation: ['trader', 'fund-manager']
+      },
+    
+      {
+        id: 'str2-post-final-reflection-100',
+        text: '스트리머로 살아온 평생을 마지막으로 조용히 돌아본다',
+        deltas: { happiness: 3 },
+        result: '아무도 안 보던 방송에서 시작해 여기까지 왔다는 게, 새삼 벅찼다.',
+        requiresOccupation: ['streamer']
       },
     ]
   }
