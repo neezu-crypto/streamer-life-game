@@ -59145,7 +59145,7 @@ const RED_HANDED_CHOICES = [
     id: 'caught-bribe-attempt',
     text: '다가온 경찰에게 넌지시 돈 봉투를 건넨다',
     requiresRoute: 'red-handed',
-    dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '매수 실패', min: 0.25, max: 0.75, invert: false },
+    dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '매수 실패', min: 0.25, max: 0.75, invert: true },
     appendPoliceCorruptionNote: true,
     prizeTable: [
       { weight: 50, label: '매수 성공', deltas: { wealth: -5 }, result: '경찰의 눈빛이 흔들리는가 싶더니, 봉투를 챙겨 넣었다.', endsRoute: true },
@@ -59165,7 +59165,7 @@ const RED_HANDED_CHOICES = [
     id: 'caught-flee-attempt',
     text: '정신없이 그 자리를 벗어나려 한다',
     requiresRoute: 'red-handed',
-    dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '도주 실패', min: 0.25, max: 0.75, invert: false },
+    dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '도주 실패', min: 0.25, max: 0.75, invert: true },
     appendPoliceCorruptionNote: true,
     prizeTable: [
       { weight: 50, label: '도주 성공', deltas: { happiness: -2 }, result: '정신없이 뛰어 일단 그 자리는 벗어났다. 지명수배자 신세가 됐다는 걸, 나중에야 실감했다.', endsRoute: true, worldStateSignal: { key: 'publicSafety', target: 1 } },

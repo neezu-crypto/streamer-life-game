@@ -721,12 +721,19 @@ function renderWorldStatePresence(presence) {
   worldStatePresence.classList.remove('hidden');
 }
 
+// 청렴도/치안 계열 트래커는 rate가 오를수록 실제로는 "부패가 심해짐"/
+// "범죄가 안 잡히고 넘어감"(나쁜 방향)을 뜻하는데, 이름은 '청렴도'·'치안'처럼
+// 긍정적인 지표라 기본 tierLabels(낮음→높음)를 그대로 쓰면 "청렴도: 매우 높음"이
+// "매우 부패함"을 가리키는 식으로 표시가 뒤집혀 보인다. 이 5개 트래커만
+// tierLabels를 반대로 줘서 rate가 오를수록(부패/범죄방치 심화) 화면엔 "매우
+// 낮음"으로 향하게 한다(2026-09-01, 사용자 지시).
+const CORRUPTION_STYLE_TIER_LABELS = ['매우 높음', '높음', '보통', '낮음', '매우 낮음'];
 const WORLD_STATE_TRACKERS = [
-  { key: 'teacherCorruption', name: '교사 청렴도', pairing: '교사 ↔ 학생' },
-  { key: 'policeCorruption', name: '경찰 청렴도', pairing: '경찰 ↔ 현행범' },
-  { key: 'publicSafety', name: '치안', pairing: '경찰 ↔ 시민' },
-  { key: 'doctorCorruption', name: '의사 청렴도', pairing: '의사 ↔ 환자' },
-  { key: 'politicianCorruption', name: '정치인 청렴도', pairing: '정치인 ↔ 시민' },
+  { key: 'teacherCorruption', name: '교사 청렴도', pairing: '교사 ↔ 학생', tierLabels: CORRUPTION_STYLE_TIER_LABELS },
+  { key: 'policeCorruption', name: '경찰 청렴도', pairing: '경찰 ↔ 현행범', tierLabels: CORRUPTION_STYLE_TIER_LABELS },
+  { key: 'publicSafety', name: '치안', pairing: '경찰 ↔ 시민', tierLabels: CORRUPTION_STYLE_TIER_LABELS },
+  { key: 'doctorCorruption', name: '의사 청렴도', pairing: '의사 ↔ 환자', tierLabels: CORRUPTION_STYLE_TIER_LABELS },
+  { key: 'politicianCorruption', name: '정치인 청렴도', pairing: '정치인 ↔ 시민', tierLabels: CORRUPTION_STYLE_TIER_LABELS },
   { key: 'teamLeadUnfairness', name: '팀장 공정성', pairing: '팀장 ↔ 직장인' },
   { key: 'lawyerDefenseQuality', name: '변호사 변론 품질', pairing: '변호사 ↔ 현행범' },
   { key: 'localEconomySentiment', name: '골목상권 경기', pairing: '직장인 ↔ 자영업자' },
