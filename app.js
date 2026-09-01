@@ -378,6 +378,9 @@ const ASSETS_META = [
 const OCCUPATIONS_META = [
   { id: 'actor-newcomer', title: '🎭 무명 배우', icon: '🎭' },
   { id: 'artist-writer', title: '🎨 예술가', icon: '🎨' },
+  { id: 'recognized-artist', title: '🖼️ 인정받는 작가', icon: '🖼️' },
+  { id: 'veteran-artist', title: '🖌️ 원로 작가', icon: '🖌️' },
+  { id: 'vtuber-avatar-artist', title: '💠 버추얼 아바타 작가', icon: '💠' },
   { id: 'career-changer', title: '✨ 진로 전환', icon: '✨' },
   { id: 'career-pivot', title: '🔄 커리어 전환자', icon: '🔄' },
   { id: 'civil-servant', title: '🏛️ 공무원', icon: '🏛️' },
