@@ -9161,6 +9161,28 @@ const STAGES = [
         requiresRoute: 'streamer',
         worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
+    
+      {
+        id: 'sr2-first-cold-call-fear-23',
+        text: '첫 콜드콜 전화를 걸기 전 손이 떨린다',
+        deltas: { happiness: -1 },
+        result: '수화기를 드는 것조차 큰 용기가 필요했다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-rejection-hangup-23',
+        text: '전화를 걸자마자 끊기는 일이 부지기수다',
+        deltas: { happiness: -1 },
+        result: '거절도 익숙해져야 하는 일이라는 걸 배웠다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-senior-role-model-23',
+        text: '실적 좋은 선배의 영업 방식을 유심히 관찰한다',
+        deltas: { wealth: 1 },
+        result: '말 한마디, 눈빛 하나까지 놓치지 않으려 했다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -10537,6 +10559,28 @@ const STAGES = [
         requiresRoute: 'streamer',
         worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
+    
+      {
+        id: 'sr2-first-solo-visit-24',
+        text: '처음으로 혼자 거래처를 방문한다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '떨리는 마음을 숨기며 명함을 건넸다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-product-knowledge-cram-24',
+        text: '밤늦게까지 제품 지식을 달달 외운다',
+        deltas: { wealth: 1, health: -1 },
+        result: '아는 만큼 자신감도 따라왔다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-first-small-deal-24',
+        text: '작지만 첫 단독 계약을 성사시킨다',
+        deltas: { happiness: 2, wealth: 1 },
+        result: '작은 계약서 한 장이 이렇게 뿌듯할 줄 몰랐다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -11721,6 +11765,35 @@ const STAGES = [
         result: '남을 깎아내리기보다, 스스로를 갈고닦기로 했다.',
         requiresRoute: 'streamer',
         worldStateSignal: { key: 'streamerIntegrity', target: 1 }
+      },
+    
+      {
+        id: 'sr2-quota-miss-panic-25',
+        text: '이번 달 목표에 한참 못 미쳐 초조해진다',
+        deltas: { happiness: -2 },
+        result: '숫자 앞에서 자신감이 쪼그라들었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-client-list-cold-25',
+        text: '배정받은 거래처 목록이 죄다 반응이 없다',
+        deltas: { happiness: -1 },
+        result: '누군가는 이미 다 훑고 간 자리였다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-team-lunch-networking-25',
+        text: '팀 점심 자리에서 선배들의 노하우를 귀동냥한다',
+        deltas: { relationship: 1, wealth: 1 },
+        result: '밥값보다 값진 정보들이 오갔다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-first-referral-25',
+        text: '만족한 고객이 다른 거래처를 소개해준다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '입소문이 이렇게 크다는 걸 실감했다.',
+        requiresOccupation: ['sales-rep']
       },
     ]
   },
@@ -13053,6 +13126,49 @@ const STAGES = [
         requiresRoute: 'streamer',
         worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
+    
+      {
+        id: 'sr2-competitor-poaches-client-26',
+        text: '경쟁사가 공들이던 거래처를 가로챈다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '다 잡은 물고기를 눈앞에서 놓친 기분이었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-late-night-proposal-26',
+        text: '마감에 쫓겨 밤새 제안서를 완성한다',
+        deltas: { health: -1, wealth: 1 },
+        result: '눈이 빨갛게 충혈된 채로 발표를 준비했다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-honest-feedback-client-26',
+        text: '고객의 따끔한 피드백을 겸허히 받아들인다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '듣기 싫어도 필요한 말이었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'deviant-sr-fake-sales-report-26',
+        text: '가짜 계약서를 만들어 실적을 부풀려 보고한다',
+        requiresOccupation: ['sales-rep'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.15, max: 0.55, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'salesIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 80, label: '안 걸림', deltas: { wealth: 3, happiness: 2 }, result: '숫자만 보면 흠잡을 데 없는 실적표였다.' },
+          { weight: 20, label: '발각', deltas: { wealth: -3, relationship: -3, happiness: -4 }, result: '거래처 확인 전화 한 통에 거짓이 그대로 드러났다.' }
+        ]
+      },
+    
+      {
+        id: 'deviant-sr-fake-sales-report-decline-26',
+        text: '있는 그대로의 실적만 정직하게 보고한다',
+        deltas: { happiness: -1 },
+        result: '숫자는 초라해도, 부끄러울 일은 없었다.',
+        requiresOccupation: ['sales-rep'],
+        worldStateSignal: { key: 'salesIntegrity', target: 1 }
+      },
     ]
   },
   {
@@ -14326,6 +14442,35 @@ const STAGES = [
         requiresRoute: 'streamer',
         worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
+    
+      {
+        id: 'sr2-regional-travel-grind-27',
+        text: '지방 출장이 잦아지며 체력이 바닥난다',
+        deltas: { health: -2, wealth: 1 },
+        result: '몸은 지쳐도 실적은 조금씩 쌓여갔다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-client-birthday-remembered-27',
+        text: '거래처 담당자의 생일을 살뜰히 챙긴다',
+        deltas: { relationship: 2, wealth: -1 },
+        result: '작은 정성이 관계를 더 단단하게 만들었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-lost-to-lower-bid-27',
+        text: '가격 경쟁에서 밀려 계약을 놓친다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '더 낮은 가격 앞에서는 뾰족한 수가 없었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-mentor-praise-27',
+        text: '팀장에게 처음으로 제대로 된 칭찬을 듣는다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '별거 아닌 말 한마디가 오래도록 힘이 됐다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -15502,6 +15647,28 @@ const STAGES = [
         result: '같이 일하는 사람을 함부로 대하고 싶지 않았다.',
         requiresRoute: 'streamer',
         worldStateSignal: { key: 'streamerIntegrity', target: 1 }
+      },
+    
+      {
+        id: 'sr2-crm-system-mastery-28',
+        text: '고객관리(CRM) 시스템을 능숙하게 다루기 시작한다',
+        deltas: { wealth: 1 },
+        result: '감으로만 하던 일에 체계가 잡혀갔다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-team-quota-shared-28',
+        text: '팀 전체 실적에 대한 부담을 함께 짊어진다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '내 몫만 채운다고 끝나는 일이 아니었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-client-complaint-resolved-28',
+        text: '까다로운 클레임을 끝까지 매달려 해결한다',
+        deltas: { happiness: 1, relationship: 2 },
+        result: '포기하지 않은 끈기가 결국 신뢰로 돌아왔다.',
+        requiresOccupation: ['sales-rep']
       },
     ]
   },
@@ -16777,6 +16944,35 @@ const STAGES = [
         requiresRoute: 'streamer',
         worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
+    
+      {
+        id: 'sr2-annual-review-anxiety-29',
+        text: '연말 인사평가를 앞두고 초조해진다',
+        deltas: { happiness: -1 },
+        result: '숫자 하나하나가 나를 대변하는 것 같았다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-new-product-launch-29',
+        text: '신제품 출시로 다시 처음부터 영업을 시작한다',
+        deltas: { wealth: -1, health: -1 },
+        result: '익숙해질 만하면 또 새로운 걸 배워야 했다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-loyal-client-upsell-29',
+        text: '오랜 거래처에 상위 상품을 제안해 성사시킨다',
+        deltas: { wealth: 3, happiness: 1 },
+        result: '믿음이 쌓인 자리에서는 설득도 수월했다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-junior-assigned-29',
+        text: '처음으로 신입 사원의 교육을 맡게 된다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '가르치는 입장이 되니 책임감이 달라졌다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -17986,6 +18182,28 @@ const STAGES = [
         requiresRoute: 'streamer',
         worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
+    
+      {
+        id: 'sr2-thirties-crossroads-30',
+        text: '서른을 맞아 이 일을 계속할지 고민한다',
+        deltas: { happiness: -1 },
+        result: '적성인지 그냥 익숙해진 건지 헷갈렸다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-biggest-deal-yet-30',
+        text: '지금까지 중 가장 큰 계약을 성사시킨다',
+        deltas: { wealth: 4, happiness: 3 },
+        result: '숫자를 보고도 한동안 믿기지 않았다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-burnout-warning-signs-30',
+        text: '몸이 보내는 번아웃의 신호를 애써 무시한다',
+        deltas: { health: -2 },
+        result: '쉬어야 한다는 걸 알면서도 멈출 수 없었다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -19128,6 +19346,35 @@ const STAGES = [
         requiresRoute: 'streamer',
         worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
+    
+      {
+        id: 'sr2-client-dinner-liver-damage-31',
+        text: '잦은 접대 자리로 간 수치가 나빠진다',
+        deltas: { health: -2, wealth: 1 },
+        result: '숫자로 확인된 몸의 경고를 무시할 수 없었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-team-rivalry-tension-31',
+        text: '같은 팀 동료와 실적을 두고 은근한 경쟁이 붙는다',
+        deltas: { happiness: -1, relationship: -1 },
+        result: '동료인데도 숫자 앞에서는 날이 섰다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-client-becomes-friend-31',
+        text: '오래 담당한 고객과 사적으로도 가까워진다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '일로 만난 사이가 어느새 사람 대 사람이 됐다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-market-downturn-hit-31',
+        text: '경기 침체로 업계 전체가 얼어붙는다',
+        deltas: { wealth: -2, happiness: -1 },
+        result: '내 실력과 무관한 파도가 덮쳐왔다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -20238,6 +20485,49 @@ const STAGES = [
         result: '느리지만, 진짜 숫자만이 의미 있다고 생각했다.',
         requiresRoute: 'streamer',
         worldStateSignal: { key: 'streamerIntegrity', target: 1 }
+      },
+    
+      {
+        id: 'sr2-mentor-becomes-rival-32',
+        text: '존경하던 선배가 다른 팀으로 옮기며 경쟁자가 된다',
+        deltas: { happiness: -1, relationship: -1 },
+        result: '한솥밥 먹던 사이가 이렇게 낯설어질 줄 몰랐다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-successful-negotiation-32',
+        text: '까다로운 협상을 유리하게 이끌어낸다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '밀고 당기는 기술이 조금씩 늘고 있었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-family-dinner-missed-32',
+        text: '중요한 미팅 때문에 가족 저녁 약속을 또 미룬다',
+        deltas: { relationship: -2, happiness: -1 },
+        result: '미안하다는 말이 점점 익숙해지고 있었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'deviant-sr-kickback-received-32',
+        text: '발주를 몰아주는 대가로 거래처로부터 뒷돈을 받는다',
+        requiresOccupation: ['sales-rep'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'salesIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '아무도 눈치채지 못한 채, 뒷돈이 조용히 쌓였다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -15, fame: -10, happiness: -12, relationship: -6 }, result: '배임수재 혐의가 결국 드러나며 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+    
+      {
+        id: 'deviant-sr-kickback-received-decline-32',
+        text: '뒷돈 제안을 단호히 거절하고 정식 절차만 따른다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '돈보다 지켜야 할 선이 있다고 생각했다.',
+        requiresOccupation: ['sales-rep'],
+        worldStateSignal: { key: 'salesIntegrity', target: 1 }
       },
     ]
   },
@@ -21383,6 +21673,35 @@ const STAGES = [
         requiresRoute: 'streamer',
         worldStateSignal: { key: 'streamerIntegrity', target: 1 }
       },
+    
+      {
+        id: 'sr2-client-portfolio-grows-33',
+        text: '담당 거래처 수가 감당하기 벅찰 만큼 늘어난다',
+        deltas: { wealth: 2, health: -1 },
+        result: '많아진 만큼, 하나하나에 쏟는 정성은 줄어들었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-competitor-product-superior-33',
+        text: '경쟁사 제품이 더 나아 설득이 막막해진다',
+        deltas: { happiness: -2 },
+        result: '제품력 앞에서는 화술도 한계가 있었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-junior-outperforms-33',
+        text: '가르쳤던 후배가 자신보다 좋은 실적을 낸다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '뿌듯함과 씁쓸함이 동시에 밀려왔다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-work-anniversary-33',
+        text: '입사 10년 차를 맞아 소소하게 자축한다',
+        deltas: { happiness: 2 },
+        result: '길다면 긴 세월을 이 일과 함께해왔다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -22522,6 +22841,28 @@ const STAGES = [
         result: '늘 켜져 있던 채팅창이 사라지니, 방이 유독 조용하게 느껴졌다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'sr2-team-lead-offer-hesitate-34',
+        text: '팀장 승진 제안을 받고도 선뜻 답하지 못한다',
+        deltas: { happiness: 1 },
+        result: '영업이 좋아서 시작한 일인데, 관리자가 맞을지 확신이 서지 않았다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-client-loyalty-test-34',
+        text: '경쟁사의 파격 조건에도 거래처가 곁을 지켜준다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '그동안 쌓은 신뢰가 숫자로 증명된 순간이었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-quarterly-slump-34',
+        text: '분기 내내 이렇다 할 계약을 못 따낸다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '왜 안 풀리는지 스스로도 알 수 없었다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -23653,6 +23994,28 @@ const STAGES = [
         result: '같은 목표가 사라지니, 이어주던 끈도 함께 느슨해졌다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'sr2-accepts-team-lead-35',
+        text: '고민 끝에 실무 팀장 역할까지 겸하기로 한다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '현장을 떠나는 게 아니라, 역할이 하나 더 늘어난 셈이었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-first-team-meeting-lead-35',
+        text: '팀장 역할로 처음 회의를 주재하며 진땀을 뺀다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '말하는 입장이 되니 모든 게 낯설었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-declines-promotion-35',
+        text: '현장이 좋아 팀장 제안을 정중히 거절한다',
+        deltas: { happiness: 2 },
+        result: '숫자와 씨름하는 지금이, 여전히 좋았다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -24680,6 +25043,35 @@ const STAGES = [
         deltas: { wealth: 1 },
         result: '더 이상 찍지 않는데도 통장에 돈이 들어오는 게 신기했다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'sr2-managing-underperformer-36',
+        text: '실적 부진한 팀원을 어떻게 이끌지 고민한다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '다그치는 것만이 답은 아니라는 걸 배워갔다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-big-client-loss-36',
+        text: '오래 거래하던 큰 고객이 갑자기 이탈한다',
+        deltas: { wealth: -3, happiness: -2 },
+        result: '이유도 제대로 듣지 못한 채 관계가 끝났다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-industry-award-nominated-36',
+        text: '업계 우수 영업인 후보로 이름이 오른다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '남들이 알아봐준다는 게 새삼 뿌듯했다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-work-life-balance-attempt-36',
+        text: '처음으로 주말 약속을 지키려 애써본다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '전화기를 잠깐 꺼둔 것만으로도 큰 결심이었다.',
+        requiresOccupation: ['sales-rep']
       },
     ]
   },
@@ -25717,6 +26109,49 @@ const STAGES = [
         deltas: { happiness: -1 },
         result: '한때는 숨쉬듯 자연스러웠던 자리가, 이제는 남의 옷 같았다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'sr2-client-gift-ethics-37',
+        text: '고객이 건넨 과한 선물을 정중히 돌려보낸다',
+        deltas: { happiness: 1 },
+        result: '작은 원칙 하나가, 오래 지켜온 신뢰를 지켜줬다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-team-target-achieved-37',
+        text: '팀 전체가 힘을 모아 분기 목표를 초과 달성한다',
+        deltas: { happiness: 3, relationship: 2, wealth: 2 },
+        result: '혼자였다면 어려웠을 숫자였다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-health-checkup-warning-37',
+        text: '건강검진에서 과로로 인한 이상 소견을 받는다',
+        deltas: { health: -2 },
+        result: '몸이 보내는 신호를 더는 미룰 수 없었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'deviant-sr-competitor-intel-theft-37',
+        text: '경쟁사에 있는 지인을 통해 기밀 정보를 몰래 빼낸다',
+        requiresOccupation: ['sales-rep'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.15, max: 0.55, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'salesIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 78, label: '안 걸림', deltas: { wealth: 5, fame: 1 }, result: '한발 앞선 정보로, 계약을 유리하게 이끌었다.' },
+          { weight: 22, label: '발각', deltas: { wealth: -3, relationship: -4, happiness: -4, fame: -2 }, result: '정보 유출 경로가 추적되며 업계에 소문이 파다하게 퍼졌다.' }
+        ]
+      },
+    
+      {
+        id: 'deviant-sr-competitor-intel-theft-decline-37',
+        text: '정당한 정보만으로 승부하기로 한다',
+        deltas: { happiness: -1, wealth: -1 },
+        result: '느려도, 떳떳하게 얻은 계약이고 싶었다.',
+        requiresOccupation: ['sales-rep'],
+        worldStateSignal: { key: 'salesIntegrity', target: 1 }
       },
     ]
   },
@@ -26785,6 +27220,35 @@ const STAGES = [
         result: '잠깐이었지만, 그 열기가 여전히 반가웠다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'sr2-new-market-pioneer-38',
+        text: '아무도 손대지 않은 새로운 시장을 개척한다',
+        deltas: { wealth: 3, happiness: 2 },
+        result: '맨땅에 헤딩하는 기분이었지만, 짜릿했다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-client-bankruptcy-shock-38',
+        text: '큰 거래처가 갑자기 부도를 맞으며 타격을 입는다',
+        deltas: { wealth: -3, happiness: -2 },
+        result: '받을 돈도, 쌓은 관계도 한순간에 흔들렸다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-junior-thanks-mentor-38',
+        text: '성장한 후배가 진심 어린 감사 인사를 전한다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '내가 받았던 것을 이제 돌려주고 있었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-sales-conference-speaker-38',
+        text: '사내 영업 컨퍼런스에서 발표를 맡는다',
+        deltas: { fame: 1, happiness: 1 },
+        result: '노하우를 나누는 게 생각보다 뿌듯했다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -27699,6 +28163,28 @@ const STAGES = [
         deltas: { wealth: -1, happiness: -1 },
         result: '몇 년 전 영상 하나가 이렇게 발목을 잡을 줄 몰랐다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'sr2-forties-approaching-worry-39',
+        text: '마흔을 앞두고 체력적 한계를 실감한다',
+        deltas: { health: -1, happiness: -1 },
+        result: '예전만큼 뛰어다니기가 버거워졌다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-client-referral-network-39',
+        text: '탄탄한 고객 네트워크가 스스로 일을 물어다 준다',
+        deltas: { wealth: 2 },
+        result: '발로 뛰던 시절의 결실이 이제야 돌아오고 있었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-new-hire-training-lead-39',
+        text: '신입 교육 프로그램 개발을 맡는다',
+        deltas: { relationship: 1, wealth: 1 },
+        result: '내 경험이 체계적인 자산이 되고 있었다.',
+        requiresOccupation: ['sales-rep']
       },
     ]
   },
@@ -28714,6 +29200,28 @@ const STAGES = [
         result: '카메라 없는 삶에 몸이 아직 낯설어했다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'sr2-veteran-status-40',
+        text: '어느새 팀에서 가장 오래된 영업사원이 됐다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '신입이었던 게 엊그제 같은데, 세월이 빨랐다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-client-generation-change-40',
+        text: '담당자가 바뀐 거래처와 관계를 처음부터 다시 쌓는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '사람이 바뀌면, 신뢰도 새로 쌓아야 했다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-digital-sales-shift-40',
+        text: '온라인·비대면 영업 방식에 적응하느라 애를 먹는다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '발로 뛰던 방식만이 전부가 아니게 됐다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -29583,6 +30091,35 @@ const STAGES = [
         deltas: { wealth: 2, happiness: -1 },
         result: '장비가 떠난 자리를 보며, 한 시절이 정말 끝났음을 실감했다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'sr2-mentor-retires-41',
+        text: '처음 영업을 가르쳐준 은사가 은퇴를 맞는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '한 시대가 저무는 걸 지켜보는 기분이었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-record-year-close-41',
+        text: '개인 최고 실적으로 한 해를 마감한다',
+        deltas: { wealth: 4, happiness: 3, fame: 1 },
+        result: '숫자로 증명된 한 해가 뿌듯했다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-client-lawsuit-threat-41',
+        text: '계약 분쟁으로 거래처와 법적 다툼 직전까지 간다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '웃으며 만나던 사이가 이렇게 될 줄 몰랐다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-team-culture-builder-41',
+        text: '팀 분위기를 다잡는 데 앞장선다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '숫자만큼이나 사람이 중요하다는 걸 알고 있었다.',
+        requiresOccupation: ['sales-rep']
       },
     ]
   },
@@ -30454,6 +30991,49 @@ const STAGES = [
         deltas: { happiness: 3, relationship: 1 },
         result: '잊혀졌을 줄 알았는데, 누군가에겐 여전히 특별했다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'sr2-industry-shift-anxiety-42',
+        text: '업계 판도가 바뀌며 위기감을 느낀다',
+        deltas: { happiness: -1 },
+        result: '잘하던 방식이 어느새 낡은 게 되어 있었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-loyal-client-retirement-42',
+        text: '오래 거래하던 고객 담당자가 은퇴 인사를 전한다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '숫자가 아니라 사람으로 남은 관계였다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-younger-colleague-tech-savvy-42',
+        text: '젊은 동료의 능숙한 디지털 활용에 자극받는다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '나이가 배움을 막는 이유가 될 수 없었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'deviant-sr-false-advertising-42',
+        text: '제품 성능을 부풀려 허위로 설명하고 판매한다',
+        requiresOccupation: ['sales-rep'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.15, max: 0.55, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'salesIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 80, label: '안 걸림', deltas: { wealth: 4 }, result: '그럴듯한 설명에, 고객은 별다른 의심을 하지 않았다.' },
+          { weight: 20, label: '발각', deltas: { wealth: -3, relationship: -4, happiness: -3 }, result: '성능 차이를 알아챈 고객이 강하게 항의하며 소문이 퍼졌다.' }
+        ]
+      },
+    
+      {
+        id: 'deviant-sr-false-advertising-decline-42',
+        text: '제품의 장단점을 있는 그대로 솔직하게 설명한다',
+        deltas: { wealth: -1, happiness: 1 },
+        result: '당장은 손해여도, 신뢰가 더 오래갔다.',
+        requiresOccupation: ['sales-rep'],
+        worldStateSignal: { key: 'salesIntegrity', target: 1 }
       },
     ]
   },
@@ -31332,6 +31912,35 @@ const STAGES = [
         deltas: { fame: 2, happiness: 2 },
         result: '몇 년 전 순간이 이렇게 다시 돌아올 줄은 몰랐다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'sr2-major-account-win-43',
+        text: '업계 최대어로 불리던 거래처를 마침내 따낸다',
+        deltas: { wealth: 5, happiness: 3, fame: 2 },
+        result: '수년간의 공들임이 마침내 결실을 맺었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-back-pain-chronic-43',
+        text: '오랜 외근으로 만성 허리 통증에 시달린다',
+        deltas: { health: -2 },
+        result: '몸이 축나는 걸 대가로 실적을 쌓아온 셈이었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-junior-team-lead-promoted-43',
+        text: '가르쳤던 후배가 팀장으로 승진했다는 소식을 듣는다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '내가 심은 씨앗이 자라는 걸 지켜보는 기분이었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-client-appreciation-event-43',
+        text: '고객 감사 행사를 성공적으로 마친다',
+        deltas: { relationship: 2, wealth: 1 },
+        result: '숫자 너머의 진심이 전해진 자리였다.',
+        requiresOccupation: ['sales-rep']
       },
     ]
   },
@@ -32294,6 +32903,28 @@ const STAGES = [
         deltas: { happiness: -1 },
         result: '지우기엔 아깝고, 두기엔 애매한 흔적이었다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'sr2-considers-career-change-44',
+        text: '다른 업종으로의 이직을 진지하게 고민한다',
+        deltas: { happiness: -1 },
+        result: '한 우물만 파는 게 맞는 건지 자꾸 되묻게 됐다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-stays-for-clients-44',
+        text: '쌓아온 고객 관계 때문에 결국 이직을 접는다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '숫자보다, 그 사람들과의 인연이 더 무거웠다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-negotiation-masterclass-44',
+        text: '후배들에게 협상 노하우를 전수하는 강의를 맡는다',
+        deltas: { fame: 1, relationship: 1 },
+        result: '말로 설명하려니, 스스로도 다시 배우는 기분이었다.',
+        requiresOccupation: ['sales-rep']
       },
     ]
   },
@@ -33280,6 +33911,28 @@ const STAGES = [
         requiresOccupation: ['entrepreneur'],
         worldStateSignal: { key: 'entrepreneurIntegrity', target: 1 }
       },
+    
+      {
+        id: 'sr2-fifties-approaching-45',
+        text: '곧 다가올 오십을 앞두고 만감이 교차한다',
+        deltas: { happiness: -1 },
+        result: '숫자와 씨름해온 세월이 이렇게 길어질 줄 몰랐다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-client-succession-handoff-45',
+        text: '오래 담당하던 큰 거래처를 후배에게 물려준다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '아쉬움보다, 잘 자란 후배에 대한 믿음이 컸다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-sales-strategy-consultant-45',
+        text: '사내 영업 전략 자문 역할을 겸하게 된다',
+        deltas: { wealth: 1, fame: 1 },
+        result: '현장 감각이 이제는 다른 방식으로도 쓰이고 있었다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -33997,6 +34650,35 @@ const STAGES = [
         deltas: { wealth: 1 },
         result: '이제는 손댈 수도 없는 숫자가 저 혼자 오르내렸다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'sr2-declining-energy-46',
+        text: '예전 같은 활력이 나오지 않음을 스스로 느낀다',
+        deltas: { health: -1, happiness: -1 },
+        result: '마음은 그대로인데, 몸이 자꾸 뒤처졌다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-loyal-client-decades-46',
+        text: '20년 가까이 거래해온 고객과의 인연을 되새긴다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '숫자로는 셀 수 없는 시간이 쌓여 있었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-new-tech-tool-adapt-46',
+        text: '새로운 영업 관리 툴 도입에 뒤늦게 적응한다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '배우는 속도가 예전 같지 않았지만, 포기하진 않았다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-department-restructure-46',
+        text: '부서 개편으로 낯선 팀에 배치된다',
+        deltas: { happiness: -1 },
+        result: '익숙했던 자리를 떠나는 게 생각보다 크게 다가왔다.',
+        requiresOccupation: ['sales-rep']
       },
     ]
   },
@@ -34794,6 +35476,49 @@ const STAGES = [
         result: '현역은 아니어도, 여전히 도움이 될 수 있어 뿌듯했다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'sr2-junior-surpasses-rank-47',
+        text: '후배가 자신보다 높은 직급으로 승진한다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '서운함보다, 진심 어린 축하가 앞섰다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-veteran-wisdom-shared-47',
+        text: '위기에 처한 후배 팀에 노하우를 나눠준다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '경험이 이럴 때 쓰이는구나 싶었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-comfortable-plateau-47',
+        text: '무리하지 않고도 안정적인 실적을 유지한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '치열함 대신, 여유로운 페이스를 찾았다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'deviant-sr-client-data-sold-47',
+        text: '고객 데이터베이스를 경쟁 업체에 몰래 팔아넘긴다',
+        requiresOccupation: ['sales-rep'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'salesIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 80, label: '안 걸림', deltas: { wealth: 9 }, result: '거액이 조용히 통장에 꽂혔다.' },
+          { weight: 20, label: '징역', deltas: { wealth: -15, fame: -12, happiness: -12, relationship: -6 }, result: '개인정보보호법 위반 혐의로 경찰에 붙잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+    
+      {
+        id: 'deviant-sr-client-data-sold-decline-47',
+        text: '고객 정보만큼은 절대 팔지 않는다는 원칙을 지킨다',
+        deltas: { happiness: 1 },
+        result: '돈으로도 바꿀 수 없는 신뢰가 있다고 믿었다.',
+        requiresOccupation: ['sales-rep'],
+        worldStateSignal: { key: 'salesIntegrity', target: 1 }
+      },
     ]
   },
   {
@@ -35495,6 +36220,35 @@ const STAGES = [
         result: '한 시대가 정말로 저물고 있다는 게 실감났다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'sr2-old-injury-flares-48',
+        text: '오래된 외근 후유증이 다시 도진다',
+        deltas: { health: -2 },
+        result: '몸이 젊은 날의 무리를 여전히 기억하고 있었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-client-thanks-decades-48',
+        text: '은퇴하는 오랜 고객이 진심 어린 감사 편지를 남긴다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '숫자가 아니라 사람으로 기억되고 있었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-mentoring-program-lead-48',
+        text: '사내 멘토링 프로그램의 책임자를 맡는다',
+        deltas: { relationship: 2, fame: 1 },
+        result: '이제는 가르치는 게 더 익숙한 역할이 됐다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-considers-early-retirement-48',
+        text: '조기 퇴직을 진지하게 고민해본다',
+        deltas: { happiness: -1 },
+        result: '아직 이르다 싶으면서도, 마음이 자꾸 흔들렸다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -36137,6 +36891,28 @@ const STAGES = [
         deltas: { happiness: -1 },
         result: '내가 알던 방식은 이제 옛날 얘기가 되어 있었다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'sr2-last-big-push-49',
+        text: '은퇴 전 마지막 큰 목표를 세우고 달려든다',
+        deltas: { wealth: 2, health: -1 },
+        result: '아직 보여줄 게 남았다는 걸 증명하고 싶었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-client-generational-trust-49',
+        text: '자녀 대까지 이어지는 거래처와의 인연을 확인한다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '한 세대를 넘어선 신뢰였다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-quiet-satisfaction-career-49',
+        text: '치열했던 커리어를 돌아보며 조용히 만족한다',
+        deltas: { happiness: 2 },
+        result: '후회 없이 뛰어온 세월이었다.',
+        requiresOccupation: ['sales-rep']
       },
     ]
   },
@@ -36853,6 +37629,28 @@ const STAGES = [
         result: '떠난 자리에서도 여전히 나를 먹여 살리는 게 신기했다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'sr2-fifty-milestone-50',
+        text: '쉰 살을 맞아 지나온 영업 인생을 되짚어본다',
+        deltas: { happiness: 1 },
+        result: '숫자로 채워진 세월이었지만, 사람으로 남았다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-retirement-countdown-begins-50',
+        text: '정년까지 남은 시간을 어렴풋이 세어보기 시작한다',
+        deltas: { happiness: -1 },
+        result: '끝이 보이기 시작하니, 하루하루가 새롭게 느껴졌다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-junior-team-thrives-50',
+        text: '자신이 키운 팀이 눈부신 성과를 낸다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '내가 없어도 잘 굴러가는 게, 뿌듯하면서도 묘했다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -37440,6 +38238,35 @@ const STAGES = [
         result: '잊혀지지 않았다는 사실 하나로, 마음이 뭉클해졌다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'sr2-slower-pace-accepted-51',
+        text: '예전만큼 빠르게 뛰지 못하는 자신을 받아들인다',
+        deltas: { health: 1, happiness: 1 },
+        result: '속도보다 꾸준함이 이제는 더 중요했다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-client-farewell-early-51',
+        text: '오랜 거래처 담당자와 아쉬운 작별 인사를 나눈다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '함께한 세월만큼, 헤어짐도 쉽지 않았다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-legacy-deal-closed-51',
+        text: '은퇴 전 마지막이라 생각한 대형 계약을 성사시킨다',
+        deltas: { wealth: 4, happiness: 3 },
+        result: '유종의 미를 거뒀다는 사실이 뿌듯했다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-younger-team-culture-shift-51',
+        text: '팀 문화가 젊은 세대 중심으로 빠르게 바뀌어간다',
+        deltas: { happiness: -1 },
+        result: '내가 알던 방식이 조금씩 옛것이 되어가고 있었다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -38021,6 +38848,49 @@ const STAGES = [
         result: '오랜만에 그때 이야기를 솔직하게 꺼내놓았다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'sr2-health-priority-shift-52',
+        text: '실적보다 건강을 우선하기로 마음먹는다',
+        deltas: { health: 2, wealth: -1 },
+        result: '더 이상 몸을 갈아 넣고 싶지 않았다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-reduced-travel-accepted-52',
+        text: '출장을 줄이고 사무실 업무 위주로 전환한다',
+        deltas: { health: 1, wealth: -1 },
+        result: '현장의 짜릿함은 줄었지만, 몸은 한결 편해졌다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-decades-of-relationships-52',
+        text: '평생 쌓아온 인맥의 무게를 새삼 실감한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '숫자보다 오래 남는 건 결국 사람이었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'deviant-sr-inflated-cost-commission-52',
+        text: '원가를 부풀려 청구하고 차액을 커미션으로 챙긴다',
+        requiresOccupation: ['sales-rep'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.15, max: 0.55, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'salesIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 78, label: '안 걸림', deltas: { wealth: 6 }, result: '아무도 세부 내역까지는 들여다보지 않았다.' },
+          { weight: 22, label: '발각', deltas: { wealth: -4, relationship: -4, happiness: -4, fame: -1 }, result: '정산 감사에서 부풀려진 원가가 그대로 드러났다.' }
+        ]
+      },
+    
+      {
+        id: 'deviant-sr-inflated-cost-commission-decline-52',
+        text: '정직한 원가로만 정산하며 떳떳함을 지킨다',
+        deltas: { wealth: -1, happiness: 1 },
+        result: '마지막까지, 숫자 앞에서 부끄럽고 싶지 않았다.',
+        requiresOccupation: ['sales-rep'],
+        worldStateSignal: { key: 'salesIntegrity', target: 1 }
+      },
     ]
   },
   {
@@ -38559,6 +39429,35 @@ const STAGES = [
         result: '남이 편집한 내 옛 모습을 보는 기분이 묘했다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'sr2-successor-training-53',
+        text: '자신의 자리를 물려받을 후임을 본격적으로 키운다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '떠날 준비를 이렇게 하는구나 싶었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-final-year-target-53',
+        text: '정년을 앞둔 마지막 목표치를 무난히 채운다',
+        deltas: { wealth: 2, happiness: 1 },
+        result: '끝까지 흐트러지지 않고 싶었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-old-client-visits-office-53',
+        text: '은퇴한 옛 고객이 반갑게 안부차 들른다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '숫자로 맺어진 인연이, 사람으로 남아 있었다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-reflects-on-changes-53',
+        text: '입사 때와 완전히 달라진 영업 방식을 돌아본다',
+        deltas: { happiness: 1 },
+        result: '그 모든 변화의 한가운데를 지나온 셈이었다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -39073,6 +39972,28 @@ const STAGES = [
         deltas: { happiness: 2, wealth: 1 },
         result: '다른 삶도 나쁘지 않다는 걸, 이제야 받아들였다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'sr2-retirement-plans-firming-54',
+        text: '정년 이후의 삶을 구체적으로 그려보기 시작한다',
+        deltas: { happiness: 1 },
+        result: '막연하던 은퇴가 조금씩 현실이 되어갔다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-team-farewell-planning-54',
+        text: '팀원들이 은밀히 송별회를 준비하고 있다는 걸 눈치챈다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '모르는 척, 그 마음이 고마웠다.',
+        requiresOccupation: ['sales-rep']
+      },
+      {
+        id: 'sr2-career-no-regrets-54',
+        text: '치열했던 영업 인생에 후회가 없다고 되뇐다',
+        deltas: { happiness: 2 },
+        result: '숫자와 사람 사이를 오간 세월이, 결국 자랑스러웠다.',
+        requiresOccupation: ['sales-rep']
       },
     ]
   },
@@ -40374,6 +41295,14 @@ const STAGES = [
         result: '화면 너머로만 알던 얼굴들을 실제로 마주하니 감회가 새로웠다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'sr2-tail-still-in-field-56',
+        text: '나이 들어서도 여전히 현장을 뛰는 스스로가 대견하다',
+        deltas: { happiness: 2 },
+        result: '정년을 넘기고도 손에서 일을 놓지 않은 스스로가 자랑스러웠다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -40936,6 +41865,14 @@ const STAGES = [
         deltas: { relationship: 2, happiness: 1 },
         result: '겪어본 사람만이 해줄 수 있는 이야기가 있었다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'sr2-tail-living-legend-57',
+        text: '후배들 사이에서 살아있는 전설 취급을 받는다',
+        deltas: { fame: 1, happiness: 1 },
+        result: '민망하면서도, 싫지 않은 호칭이었다.',
+        requiresOccupation: ['sales-rep']
       },
     ]
   },
@@ -41571,6 +42508,14 @@ const STAGES = [
         requiresOccupation: ['trader', 'fund-manager'],
         worldStateSignal: { key: 'traderIntegrity', target: 1 }
       },
+    
+      {
+        id: 'sr2-tail-limits-but-cant-stop-58',
+        text: '체력의 한계를 느끼면서도 손에서 일을 놓지 못한다',
+        deltas: { health: -1, happiness: 1 },
+        result: '몸은 힘들어도, 이 일을 사랑하는 마음만은 여전했다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -42111,6 +43056,14 @@ const STAGES = [
         deltas: { wealth: -1 },
         result: '영원할 것 같던 것도, 결국 시간 앞에선 마모돼갔다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'sr2-tail-new-methods-catchup-59',
+        text: '젊은 직원들의 새로운 영업 방식에 뒤처지지 않으려 애쓴다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '배우는 걸 멈추지 않는 한, 아직은 현역이었다.',
+        requiresOccupation: ['sales-rep']
       },
     ]
   },
@@ -42786,6 +43739,14 @@ const STAGES = [
         result: '오랜만의 채팅창 속도에, 옛 감각이 그대로 되살아났다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'sr2-tail-family-discussion-60',
+        text: '환갑을 맞아 계속 일하는 것에 대해 가족과 상의한다',
+        deltas: { relationship: 1 },
+        result: '더 일해도 좋다는 가족의 응원이 큰 힘이 됐다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -43367,6 +44328,14 @@ const STAGES = [
         deltas: { fame: 1, happiness: 2 },
         result: '먼지 쌓인 마이크 하나가 이렇게 귀한 대접을 받을 줄 몰랐다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'sr2-tail-old-clients-still-loyal-61',
+        text: '오랜 거래처들이 여전히 자신만을 찾는다',
+        deltas: { relationship: 2, wealth: 1 },
+        result: '세월이 흘러도, 그 신뢰만큼은 변하지 않았다.',
+        requiresOccupation: ['sales-rep']
       },
     ]
   },
@@ -43987,6 +44956,14 @@ const STAGES = [
         result: '화려했던 관계망도 결국 남는 건 몇 명 안 됐다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'sr2-tail-steady-without-strain-62',
+        text: '무리하지 않는 선에서 실적을 꾸준히 유지한다',
+        deltas: { wealth: 1 },
+        result: '치열함보다 꾸준함이 이제는 더 어울렸다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -44590,6 +45567,14 @@ const STAGES = [
         result: '내가 개척자였던 곳에서, 이제는 완전한 이방인이 되어 있었다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'sr2-tail-passes-on-knowhow-63',
+        text: '후배들에게 실전 노하우를 아낌없이 전수한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '평생 쌓은 것을, 이제 나눠줄 차례였다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -45096,6 +46081,14 @@ const STAGES = [
         deltas: { health: -2 },
         result: '그때는 몰랐던 대가를, 이제야 몸으로 치르고 있었다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'sr2-tail-retirement-considered-seriously-64',
+        text: '이제는 정말 은퇴를 진지하게 고민하기 시작한다',
+        deltas: { happiness: -1 },
+        result: '언제까지고 계속할 수는 없다는 걸 받아들이고 있었다.',
+        requiresOccupation: ['sales-rep']
       },
     ]
   },
@@ -45636,6 +46629,14 @@ const STAGES = [
         result: '숫자로만 남을 뻔한 세월이, 이야기로 기록되고 있었다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'sr2-tail-65-still-active-65',
+        text: '만 65세에도 현역으로 뛰고 있는 자신이 신기하다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '스스로도 예상 못 한 오랜 현역 생활이었다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -45987,6 +46988,14 @@ const STAGES = [
         result: '할머니(할아버지)가 저런 사람이었다니, 손주의 눈이 동그래졌다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'sr2-tail-colleagues-mostly-gone-66',
+        text: '오랜 세월 함께한 동료들 대부분이 이미 떠났음을 깨닫는다',
+        deltas: { happiness: -1 },
+        result: '남은 사람이 이렇게 적을 줄은 몰랐다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -46254,6 +47263,14 @@ const STAGES = [
         deltas: { happiness: 1, wealth: 1 },
         result: '이제는 손 놓아도 괜찮은 것들이 하나씩 늘어갔다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'sr2-tail-experience-over-stamina-67',
+        text: '체력보다 경험으로 버티는 하루하루다',
+        deltas: { health: -1, wealth: 1 },
+        result: '몸은 예전 같지 않아도, 감각만은 여전했다.',
+        requiresOccupation: ['sales-rep']
       },
     ]
   },
@@ -46570,6 +47587,14 @@ const STAGES = [
         result: '떠들썩하진 않아도, 충분히 자랑스러운 시간들이었다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'sr2-tail-possibly-last-big-deal-68',
+        text: '마지막이 될지 모를 큰 계약에 정성을 쏟는다',
+        deltas: { wealth: 2, health: -1 },
+        result: '어쩌면 마지막일지 모른다는 생각에, 더 신경을 썼다.',
+        requiresOccupation: ['sales-rep']
+      },
     ]
   },
   {
@@ -46782,6 +47807,14 @@ const STAGES = [
         deltas: { happiness: 1 },
         result: '몸에 밴 습관은 세월이 지나도 쉽게 사라지지 않았다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'sr2-tail-handover-begins-69',
+        text: '슬슬 은퇴를 준비하며 인수인계를 시작한다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '떠날 준비도 일의 마지막 부분이라 생각했다.',
+        requiresOccupation: ['sales-rep']
       },
     ]
   },
@@ -47166,6 +48199,15 @@ const STAGES = [
         deltas: { fame: 2, happiness: 2 },
         result: '한 시대의 증인으로 카메라 앞에 다시 서게 됐다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'sr2-tail-final-retirement-70',
+        text: '반백 년 가까운 영업 인생을 마침내 뒤로하고 은퇴한다',
+        deltas: { happiness: 3, wealth: 1 },
+        result: '맨몸으로 뛰어들었던 그 시절부터, 참 먼 길을 걸어왔다.',
+        requiresOccupation: ['sales-rep'],
+        setOccupation: { id: 'retired', label: '🌿 은퇴자' }
       },
     ]
   },
