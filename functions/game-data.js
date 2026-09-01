@@ -23363,6 +23363,16 @@ const STAGES = [
         result: '연구는 성장하는데, 정작 나는 메말라가고 있었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'res-vaccine-candidate-research-34',
+        text: '좀비화 바이러스 백신 후보물질 개발에 뛰어든다',
+        requiresOccupation: ["researcher","senior-researcher"],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.15, max: 0.7 },
+        deltas: { happiness: 1, health: -1 },
+        result: '책임감과 압박감이 동시에 밀려왔다.'
+      },
     ]
   },
   {
@@ -25633,6 +25643,18 @@ const STAGES = [
         result: '남을 평가하는 자리가, 스스로를 더 엄격하게 만들었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'res-vaccine-animal-trial-36',
+        text: '개발 중인 백신 후보물질의 동물실험을 진행한다',
+        requiresOccupation: ["researcher","senior-researcher"],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.15, max: 0.7 },
+        prizeTable: [
+          { weight: 55, label: '유의미한 효과', deltas: { happiness: 2, fame: 1 }, result: '기대했던 반응이 관찰됐다 - 다음 단계로 나아갈 근거가 생겼다.' },
+          { weight: 45, label: '효과 미미', deltas: { happiness: -2, wealth: -1 }, result: '설계를 처음부터 다시 손봐야 했다.' }
+        ]
+      },
     ]
   },
   {
@@ -27868,6 +27890,18 @@ const STAGES = [
         deltas: { happiness: -2, wealth: -2 },
         result: '진행 중이던 프로젝트를 어떻게든 줄여야 했다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'res-vaccine-clinical-trial-phase1-38',
+        text: '백신 후보물질의 1상 임상시험을 승인받아 시작한다',
+        requiresOccupation: ["researcher","senior-researcher"],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.2, max: 0.75 },
+        prizeTable: [
+          { weight: 60, label: '안전성 확인', deltas: { happiness: 2, fame: 1 }, worldStateSignal: { key: 'zombieOutbreak', target: 0 }, result: '심각한 부작용 없이 1상을 통과했다 - 조금씩 앞으로 나아가고 있었다.' },
+          { weight: 40, label: '부작용 발생', deltas: { happiness: -3, wealth: -1 }, result: '예상치 못한 부작용에 시험을 일시 중단할 수밖에 없었다.' }
+        ]
       },
     ]
   },
@@ -30844,6 +30878,18 @@ const STAGES = [
         result: '언제부터 연구자가 아니라 서류 담당자가 된 건지 씁쓸했다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'res-vaccine-clinical-trial-phase3-41',
+        text: '대규모 3상 임상시험 결과를 초조하게 기다린다',
+        requiresOccupation: ["researcher","senior-researcher"],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.25, max: 0.8 },
+        prizeTable: [
+          { weight: 55, label: '유효성 입증', deltas: { happiness: 5, fame: 3, wealth: 2 }, worldStateSignal: { key: 'zombieOutbreak', target: 0 }, result: '통계적으로 유의미한 예방 효과가 확인됐다 - 평생 이 순간을 기다려온 것 같았다.' },
+          { weight: 45, label: '유효성 부족', deltas: { happiness: -4, fame: -1 }, result: '효과가 기대에 못 미쳐, 다시 설계도로 돌아가야 했다.' }
+        ]
+      },
     ]
   },
   {
@@ -32724,6 +32770,27 @@ const STAGES = [
         deltas: { health: -2 },
         result: '몸이 보내는 신호를 더는 미룰 수 없었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'res-race-against-time-pressure-43',
+        text: '정부의 조기 승인 압박과 안전성 검증 사이에서 갈등한다',
+        requiresOccupation: ["researcher","senior-researcher"],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.2, max: 0.75 },
+        deltas: { happiness: -2, health: -1 },
+        result: '서두르라는 압박 속에서도, 검증을 건너뛰고 싶지는 않았다.'
+      },
+      {
+        id: 'res-treatment-repurposed-drug-43',
+        text: '기존 약물을 재창출해 치료제 후보로 시험한다',
+        requiresOccupation: ["researcher","senior-researcher"],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.2, max: 0.75 },
+        prizeTable: [
+          { weight: 50, label: '증상 완화 확인', deltas: { happiness: 3, fame: 1 }, worldStateSignal: { key: 'zombieOutbreak', target: 0 }, result: '완치는 아니어도, 진행을 늦출 수 있다는 게 확인됐다.' },
+          { weight: 50, label: '효과 없음', deltas: { happiness: -2 }, result: '기대와 달리, 뚜렷한 차도가 보이지 않았다.' }
+        ]
       },
     ]
   },
@@ -35580,6 +35647,18 @@ const STAGES = [
         result: '배우는 속도는 예전 같지 않아도, 포기하진 않았다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'res-mass-production-scaleup-46',
+        text: '백신 대량생산 체계 구축에 매달린다',
+        requiresOccupation: ["researcher","senior-researcher"],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.2, max: 0.75 },
+        prizeTable: [
+          { weight: 60, label: '생산 체계 안정화', deltas: { happiness: 3, wealth: 2 }, worldStateSignal: { key: 'zombieOutbreak', target: 0 }, result: '실험실을 벗어나 실제로 사람들에게 전달되기 시작했다.' },
+          { weight: 40, label: '공급 차질', deltas: { happiness: -2, wealth: -2 }, result: '수요를 따라가지 못하는 생산 속도에 애가 탔다.' }
+        ]
+      },
     ]
   },
   {
@@ -37208,6 +37287,25 @@ const STAGES = [
         deltas: { health: -2 },
         result: '몸이 축나는 걸 대가로 데이터를 쌓아온 셈이었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'res-who-collaboration-48',
+        text: '국제보건기구와 협력해 치료 프로토콜 표준화에 참여한다',
+        requiresOccupation: ["researcher","senior-researcher"],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.2, max: 0.75 },
+        deltas: { fame: 2, happiness: 1 },
+        result: '한 연구실의 성과가, 국경을 넘어 쓰이고 있었다.'
+      },
+      {
+        id: 'res-media-public-communication-48',
+        text: '불안해하는 대중 앞에서 연구 진행 상황을 직접 설명한다',
+        requiresOccupation: ["researcher","senior-researcher"],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.2, max: 0.75 },
+        deltas: { fame: 1, happiness: -1 },
+        result: '과학의 언어를 일상의 언어로 옮기는 게 생각보다 어려웠다.'
       },
     ]
   },
@@ -39983,6 +40081,18 @@ const STAGES = [
         deltas: { happiness: 4, fame: 2 },
         result: '그 오랜 세월을 버틴 보람이 있었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'res-next-gen-vaccine-booster-52',
+        text: '변이에 대응하는 차세대 부스터 백신을 개발한다',
+        requiresOccupation: ["researcher","senior-researcher"],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.15, max: 0.7 },
+        prizeTable: [
+          { weight: 60, label: '변이 대응 성공', deltas: { happiness: 3, fame: 2 }, worldStateSignal: { key: 'zombieOutbreak', target: 0 }, result: '바이러스가 변해도, 한발 앞서 대응할 수 있게 됐다.' },
+          { weight: 40, label: '대응 지연', deltas: { happiness: -2 }, result: '변이 속도를 따라잡기가 생각보다 벅찼다.' }
+        ]
       },
     ]
   },
@@ -43803,6 +43913,17 @@ const STAGES = [
         deltas: { happiness: 3, relationship: 2 },
         result: '어려운 걸 쉽게 풀어주는 재미가 쏠쏠했다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'res-near-eradication-milestone-58',
+        text: '수십 년의 연구 끝에 사실상 종식 단계에 이르렀다는 발표를 준비한다',
+        requiresOccupation: ["researcher","senior-researcher"],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.1, max: 0.5 },
+        deltas: { happiness: 5, fame: 3 },
+        worldStateSignal: { key: 'zombieOutbreak', target: 0 },
+        result: '평생을 바친 싸움이, 마침내 끝을 보이고 있었다.'
       },
     ]
   },
@@ -48099,6 +48220,14 @@ const STAGES = [
         result: '내가 받았던 것을 이제 돌려주고 있었다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-emeritus-consulting-65',
+        text: '기업으로부터 기술 자문 제안을 받는다',
+        deltas: { wealth: 2, happiness: 1 },
+        result: '현장을 떠나도, 여전히 쓸모가 있다는 게 반가웠다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -48481,6 +48610,14 @@ const STAGES = [
         result: '양보다 질을 택한 요즘이, 오히려 더 만족스러웠다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-lifetime-work-cited-66',
+        text: '평생의 연구가 후대 논문에 계속 인용되고 있음을 확인한다',
+        deltas: { fame: 1, happiness: 2 },
+        result: '내가 남긴 것이 여전히 살아 움직이고 있었다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -48779,6 +48916,14 @@ const STAGES = [
         deltas: { happiness: 2 },
         result: '수십 년이 지나도, 그 순간만은 변하지 않았다.',
         requiresOccupation: ['tour-guide']
+      },
+    
+      {
+        id: 'res-twi-science-museum-donation-67',
+        text: '평생 사용한 연구 장비를 과학관에 기증한다',
+        deltas: { wealth: -1, happiness: 2, fame: 1 },
+        result: '먼지 쌓인 도구 하나가, 이렇게 귀한 대접을 받을 줄 몰랐다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
     ]
   },
@@ -49126,6 +49271,14 @@ const STAGES = [
         result: '숫자로 맺어진 인연이, 사람으로 남아 있었다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-health-checkup-68',
+        text: '평생 미뤄온 종합 건강검진을 받는다',
+        deltas: { health: -1, happiness: 1 },
+        result: '실험실에서 보낸 세월의 무게가, 검진 결과에 고스란히 나타났다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -49369,6 +49522,14 @@ const STAGES = [
         deltas: { health: 1, happiness: 1 },
         result: '무리하지 않는 법을, 이제야 제대로 배웠다.',
         requiresOccupation: ['tour-guide']
+      },
+    
+      {
+        id: 'res-twi-retirement-party-69',
+        text: '완전한 은퇴를 앞두고 마지막 송별회를 갖는다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '치열했던 세월에 마침표를 찍는 자리였다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
     ]
   },
@@ -49779,6 +49940,14 @@ const STAGES = [
         result: '낯선 땅에서 시작한 일이, 참 먼 길을 걸어왔다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-morning-without-lab-70',
+        text: '평생 처음으로 실험실 일정 없는 아침을 맞는다',
+        deltas: { happiness: 2, health: 1 },
+        result: '낯설었지만 나쁘지 않은 고요함이었다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -50022,6 +50191,14 @@ const STAGES = [
         result: '낯설었지만 나쁘지 않은 고요함이었다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-former-student-visits-71',
+        text: '옛 제자가 안부 인사차 찾아온다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '떠난 자리에서도 여전히 기억되고 있다는 게 좋았다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -50259,6 +50436,14 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 2 },
         result: '떠난 자리에서도 여전히 기억되고 있다는 게 좋았다.',
         requiresOccupation: ['tour-guide']
+      },
+    
+      {
+        id: 'res-twi-scientific-news-calm-72',
+        text: '과학 뉴스를 접하고도 이제는 담담하다',
+        deltas: { happiness: 1 },
+        result: '현장이 아니라, 지켜보는 입장이 됐다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
     ]
   },
@@ -50506,6 +50691,15 @@ const STAGES = [
         result: '평생의 이야기들을 이렇게도 나눌 수 있었다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-grandchild-science-curiosity-73',
+        text: '손주에게 간단한 과학 실험을 함께 해준다',
+        requiresFamilyMember: ['grandchild'],
+        deltas: { happiness: 3, relationship: 1 },
+        result: '평생의 호기심을, 이렇게도 나눌 수 있었다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -50738,6 +50932,14 @@ const STAGES = [
         deltas: { happiness: 2, fame: 1 },
         result: '스쳐 간 손님들의 이야기가, 활자로 다시 태어났다.',
         requiresOccupation: ['tour-guide']
+      },
+    
+      {
+        id: 'res-twi-memoir-writing-74',
+        text: '연구자로 살아온 세월을 글로 남겨본다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '숫자로만 남을 뻔한 발견들이, 이야기로 기록되고 있었다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
     ]
   },
@@ -51064,6 +51266,14 @@ const STAGES = [
         result: '그 시절 고생담을 나누며, 다들 아이처럼 웃었다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-old-colleague-reunion-75',
+        text: '흩어졌던 동료 연구자들과 오랜만에 재회한다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '그 시절 고생담을 나누며, 다들 아이처럼 웃었다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -51302,6 +51512,14 @@ const STAGES = [
         result: '평생 걸어온 길은, 머릿속에 지도처럼 남아 있었다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-curiosity-still-sharp-76',
+        text: '몸은 느려져도 새로운 발견 소식엔 여전히 눈이 반짝인다',
+        deltas: { happiness: 2 },
+        result: '평생의 호기심은, 세월이 지나도 무뎌지지 않았다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -51520,6 +51738,14 @@ const STAGES = [
         deltas: { wealth: -4, happiness: 3 },
         result: '받았던 기회를 이제는 돌려줄 차례였다.',
         requiresOccupation: ['tour-guide']
+      },
+    
+      {
+        id: 'res-twi-scholarship-donation-77',
+        text: '후학 양성을 위한 장학금을 조용히 기부한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '받았던 기회를 이제는 돌려줄 차례였다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
     ]
   },
@@ -51773,6 +51999,14 @@ const STAGES = [
         result: '낯선 땅에서 시작한 길이, 이런 곳까지 이어질 줄 몰랐다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-academic-lifetime-award-78',
+        text: '학술원으로부터 평생 공로상을 수상한다',
+        deltas: { fame: 3, happiness: 3 },
+        result: '평생의 헌신이 이렇게 인정받는구나 싶었다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -51974,6 +52208,14 @@ const STAGES = [
         deltas: { health: 1, happiness: 1 },
         result: '천천히 가는 법을, 이제야 배우고 있었다.',
         requiresOccupation: ['tour-guide']
+      },
+    
+      {
+        id: 'res-twi-reduces-activity-79',
+        text: '체력에 맞춰 남은 자문 활동을 크게 줄인다',
+        deltas: { health: 1, happiness: 1 },
+        result: '천천히 가는 법을, 이제야 배우고 있었다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
     ]
   },
@@ -52269,6 +52511,14 @@ const STAGES = [
         result: '평생 안내하던 낯선 이들 대신, 이제는 가족들의 박수가 곁에 있었다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-eightieth-birthday-80',
+        text: '온 가족이 모여 팔순을 축하해준다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '평생 매달렸던 실험 대신, 이제는 가족들의 박수가 곁에 있었다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -52501,6 +52751,14 @@ const STAGES = [
         result: '내가 없어도 잘 돌아간다는 게, 서운함보다 뿌듯함으로 다가왔다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-lab-still-thrives-81',
+        text: '연구실 이름이 실린 최신 논문이 국제 학술지 표지를 장식했다는 소식을 듣는다',
+        deltas: { happiness: 3 },
+        result: '내가 없어도 잘 굴러간다는 게, 서운함보다 뿌듯함으로 다가왔다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -52726,6 +52984,14 @@ const STAGES = [
         result: '평생 즐기던 눈이, 이제는 쉬고 싶어했다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-eyesight-worsens-82',
+        text: '시력이 나빠져 좋아하던 논문 읽기가 힘들어진다',
+        deltas: { health: -2 },
+        result: '평생 글자를 파고들던 눈이, 이제는 쉬고 싶어했다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -52926,6 +53192,14 @@ const STAGES = [
         deltas: { health: -1, wealth: -1 },
         result: '몸이 예전 같지 않다는 걸 매번 새롭게 실감했다.',
         requiresOccupation: ['tour-guide']
+      },
+    
+      {
+        id: 'res-twi-hospital-visit-frequent-83',
+        text: '병원 나들이가 부쩍 잦아진다',
+        deltas: { health: -1, wealth: -1 },
+        result: '몸이 예전 같지 않다는 걸 매번 새롭게 실감했다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
     ]
   },
@@ -53146,6 +53420,14 @@ const STAGES = [
         deltas: { happiness: 2 },
         result: '화면 속 풍경을 보며, 그 시절의 설렘을 다시 느꼈다.',
         requiresOccupation: ['tour-guide']
+      },
+    
+      {
+        id: 'res-twi-still-watches-science-docs-84',
+        text: '몸은 힘들어도 과학 다큐멘터리만은 여전히 즐겨 본다',
+        deltas: { happiness: 2 },
+        result: '옛 동료의 얼굴이 화면에 비칠 때마다 반가웠다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
     ]
   },
@@ -53479,6 +53761,15 @@ const STAGES = [
         result: '평생의 여정보다, 함께한 이 세월이 더 큰 자랑이었다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-golden-anniversary-85',
+        text: '배우자와 함께 결혼 50주년을 맞는다',
+        requiresFamilyMember: ['spouse'],
+        deltas: { happiness: 4, relationship: 3 },
+        result: '평생의 연구보다, 함께한 이 세월이 더 큰 자랑이었다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -53730,6 +54021,14 @@ const STAGES = [
         result: '혼자 간직하기엔 아까운 기록들이, 이제 여러 사람의 것이 됐다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-research-archive-donated-86',
+        text: '평생 쌓아온 연구 자료를 국립 아카이브에 기증한다',
+        deltas: { wealth: -1, happiness: 2, fame: 1 },
+        result: '혼자 간직하기엔 아까운 기록들이, 이제 여러 사람의 것이 됐다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -53971,6 +54270,14 @@ const STAGES = [
         result: '지나온 세월이 누군가에게는 기록이 되고 있었다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-documentary-interview-87',
+        text: '과학사를 다루는 다큐멘터리 인터뷰 요청에 응한다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '지나온 세월이 누군가에게는 기록이 되고 있었다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -54180,6 +54487,14 @@ const STAGES = [
         deltas: { happiness: 2 },
         result: '후회 없는 삶이었다고, 스스로에게 말해주었다.',
         requiresOccupation: ['tour-guide']
+      },
+    
+      {
+        id: 'res-twi-quiet-satisfaction-88',
+        text: '치열했던 세월을 돌아보며 조용히 만족감을 느낀다',
+        deltas: { happiness: 2 },
+        result: '후회 없는 삶이었다고, 스스로에게 말해주었다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
     ]
   },
@@ -54400,6 +54715,14 @@ const STAGES = [
         deltas: { happiness: 4, relationship: 1 },
         result: '잊고 있던 인연이, 이렇게 다시 찾아올 줄 몰랐다.',
         requiresOccupation: ['tour-guide']
+      },
+    
+      {
+        id: 'res-twi-old-rival-reconciles-89',
+        text: '오랜 학계 라이벌과 뒤늦게 화해하며 지난날을 웃어넘긴다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '경쟁했던 시간도 결국 함께한 세월이었다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
     ]
   },
@@ -54714,6 +55037,14 @@ const STAGES = [
         result: '몸은 느려져도, 기억만은 여전히 선명했다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-still-sharp-mind-90',
+        text: '나이에도 불구하고 여전히 명료한 과학적 사고를 보여준다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '몸은 느려져도, 사고만은 여전히 날카로웠다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -54926,6 +55257,14 @@ const STAGES = [
         deltas: { relationship: 2, happiness: 1 },
         result: '이제는 물러서서 지켜보는 법을 배워야 했다.',
         requiresOccupation: ['tour-guide']
+      },
+    
+      {
+        id: 'res-twi-successor-struggles-shared-91',
+        text: '연구실을 물려받은 후계자가 겪는 어려움을 듣고 조용히 조언을 건넨다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '이제는 물러서서 지켜보는 법을 배워야 했다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
     ]
   },
@@ -55174,6 +55513,14 @@ const STAGES = [
         result: '작은 종이 한 장에 젊은 날의 열정이 고스란히 담겨 있었다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-old-lab-notebook-found-92',
+        text: '서랍 속 낡은 연구노트를 발견하고 한참을 매만진다',
+        deltas: { happiness: 2 },
+        result: '빛바랜 글씨 속에 젊은 날의 열정이 고스란히 담겨 있었다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -55383,6 +55730,14 @@ const STAGES = [
         result: '낡은 마이크와 지도 한 장이, 이렇게 귀한 대접을 받을 줄 몰랐다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-museum-exhibit-93',
+        text: '초창기 사용했던 실험 도구가 과학관에 정식 전시된다',
+        deltas: { fame: 1, happiness: 2 },
+        result: '낡은 도구 하나가, 이렇게 귀한 대접을 받을 줄 몰랐다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -55591,6 +55946,14 @@ const STAGES = [
         deltas: { health: -2, happiness: 2 },
         result: '부족한 것투성이인 몸으로도, 만족스러운 하루하루였다.',
         requiresOccupation: ['tour-guide']
+      },
+    
+      {
+        id: 'res-twi-frail-but-content-94',
+        text: '몸은 쇠약해졌지만 마음만은 평온하다',
+        deltas: { health: -2, happiness: 2 },
+        result: '부족한 것투성이인 몸으로도, 만족스러운 하루하루였다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
     ]
   },
@@ -55837,6 +56200,14 @@ const STAGES = [
         result: '물려준 것이 헛되지 않았다는 확인이었다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-successor-visits-95',
+        text: '후계자가 안부를 전하며 근황을 들려준다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '물려준 것이 헛되지 않았다는 확인이었다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -56052,6 +56423,15 @@ const STAGES = [
         result: '평생 안내하던 여정보다, 이런 행복이 더 크게 다가왔다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-great-grandchild-96',
+        text: '증손주의 재롱을 보며 환하게 웃는다',
+        requiresFamilyMember: ['grandchild'],
+        deltas: { happiness: 4, relationship: 2 },
+        result: '평생의 발견보다, 이런 행복이 더 크게 다가왔다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -56258,6 +56638,14 @@ const STAGES = [
         result: '평생의 흔적이 이런 식으로도 남는구나 싶었다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-legacy-fund-97',
+        text: '이름을 딴 후학 지원 기금이 만들어졌다는 소식을 듣는다',
+        deltas: { fame: 2, happiness: 3 },
+        result: '평생의 흔적이 이런 식으로도 남는구나 싶었다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -56460,6 +56848,14 @@ const STAGES = [
         deltas: { happiness: 1 },
         result: '평생의 여정은, 꿈속에서도 계속되고 있었다.',
         requiresOccupation: ['tour-guide']
+      },
+    
+      {
+        id: 'res-twi-still-curious-98',
+        text: '병상에서도 습관처럼 새로운 발견들을 궁금해한다',
+        deltas: { happiness: 1 },
+        result: '평생의 호기심은 몸이 다 기억하고 있었다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
     ]
   },
@@ -56693,6 +57089,14 @@ const STAGES = [
         result: '평생 일군 것 중, 가장 값진 건 결국 사람이었다.',
         requiresOccupation: ['tour-guide']
       },
+    
+      {
+        id: 'res-twi-family-gathers-99',
+        text: '온 가족이 모여 장수를 축하해준다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '평생 일군 것 중, 가장 값진 건 결국 사람이었다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
     ]
   },
   {
@@ -56916,6 +57320,14 @@ const STAGES = [
         deltas: { happiness: 3 },
         result: '낯선 땅에서 시작해 여기까지 왔다는 게, 새삼 벅찼다.',
         requiresOccupation: ['tour-guide']
+      },
+    
+      {
+        id: 'res-twi-final-reflection-100',
+        text: '연구자로 살아온 평생을 마지막으로 조용히 돌아본다',
+        deltas: { happiness: 3 },
+        result: '작은 실험실에서 시작해 여기까지 왔다는 게, 새삼 벅찼다.',
+        requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
     ]
   }
