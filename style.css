@@ -500,6 +500,30 @@
   }
   .mp-vote-btn.mp-my-vote { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold) inset; }
 
+  /* 모바일 체크박스 위치(2026-09-01, 사용자 지시 - "모바일에서 다른 참여자
+     허용, 자동진행 체크박스를 선택지 영역보다 위로 올려줘") - HTML은 그대로
+     두고(900px+ 데스크톱 그리드는 game-left-page를 그대로 왼쪽 페이지로
+     쓰므로 손대면 안 됨), 좁은 화면에서만 #gameSection을 flex column으로
+     바꿔 order로 재배치한다. game-left-page 자체는 display:contents로
+     박스를 없애 그 자식들(체크박스 2개 + 스탯/재산/건강/가족/직업 패널)이
+     #gameSection의 직속 flex item으로 승격되게 하고, 그중 체크박스 2개만
+     order를 앞으로 당겨 game-right-page(사건·선택지)보다 위로 올린다. */
+  @media (max-width: 899px) {
+    #gameSection { display: flex; flex-direction: column; }
+    #mpParticipantBanner { order: 0; }
+    .game-left-page { display: contents; }
+    #mpHostPanel { order: 1; }
+    #adminAutoPlayPanel { order: 2; }
+    .game-right-page { order: 3; }
+    .game-left-page .stat-bars,
+    .game-left-page .asset-panel,
+    .game-left-page .health-panel,
+    .game-left-page .family-panel,
+    .game-left-page .occupation-panel {
+      order: 4;
+    }
+  }
+
   /* ------------------------------------------------------------
      PC 화면(900px 이상)에서만 진행 화면(#gameSection)을 펼친 책처럼
      좌/우 두 페이지로 나눈다 - 왼쪽 페이지엔 스탯 바 + 재산/건강/가족/
