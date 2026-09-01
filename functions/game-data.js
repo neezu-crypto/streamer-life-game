@@ -4770,23 +4770,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-20-1',
-        text: '장이 열리기 전 새벽부터 리포트를 읽는다',
-        deltas: { wealth: 1, health: -1 },
-        result: '하루의 흐름을 놓치지 않으려 애썼다.',
+        text: '사수의 잔소리에 은근히 자존심이 상한다',
+        deltas: { happiness: -2 },
+        result: '틀린 말은 아니라서 더 화가 났다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-20-2',
-        text: '선배 트레이더의 매매 습관을 관찰한다',
-        deltas: { wealth: 1 },
-        result: '숫자 너머의 감각을 배우려 했다.',
+        text: '점심시간도 아껴가며 차트를 들여다본다',
+        deltas: { wealth: 1, health: -1 },
+        result: '밥보다 캔들 패턴이 더 급했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-20-3',
-        text: '작은 손실에도 심장이 철렁 내려앉는다',
-        deltas: { happiness: -1 },
-        result: '돈에 대한 감각이 무뎌지지 않으려 애썼다.',
+        text: '처음으로 목표 수익률을 달성한다',
+        deltas: { happiness: 3, wealth: 1 },
+        result: '아직 작은 숫자지만 짜릿함은 진짜였다.',
         requiresRoute: 'trader'
       },
       {
@@ -4854,23 +4854,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-20-1',
-        text: '장이 열리기 전 새벽부터 리포트를 읽는다',
-        deltas: { wealth: 1, health: -1 },
-        result: '하루의 흐름을 놓치지 않으려 애썼다.',
+        text: '호가창 읽는 법을 선배에게 배운다',
+        deltas: { wealth: 1 },
+        result: '숫자들이 조금씩 말을 걸어오기 시작했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-20-2',
-        text: '선배 트레이더의 매매 습관을 관찰한다',
-        deltas: { wealth: 1 },
-        result: '숫자 너머의 감각을 배우려 했다.',
+        text: '첫 매매 주문을 떨리는 손으로 넣는다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '버튼 하나 누르는 데 온 신경이 쏠렸다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-20-3',
-        text: '작은 손실에도 심장이 철렁 내려앉는다',
-        deltas: { happiness: -1 },
-        result: '돈에 대한 감각이 무뎌지지 않으려 애썼다.',
+        text: '틀린 매매 이유를 복기 노트에 적는다',
+        deltas: { wealth: 1, health: -1 },
+        result: '같은 실수를 반복하지 않으려 꾹꾹 눌러 썼다.',
         requiresRoute: 'trader'
       },
       {
@@ -5823,23 +5823,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-21-1',
-        text: '장이 열리기 전 새벽부터 리포트를 읽는다',
-        deltas: { wealth: 1, health: -1 },
-        result: '하루의 흐름을 놓치지 않으려 애썼다.',
+        text: '사무실 막내로 온갖 잡무를 도맡는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '궂은일도 결국 내 몫이라 생각하기로 했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-21-2',
-        text: '선배 트레이더의 매매 습관을 관찰한다',
-        deltas: { wealth: 1 },
-        result: '숫자 너머의 감각을 배우려 했다.',
+        text: '동기가 먼저 승진 소식을 전해 듣는다',
+        deltas: { happiness: -2 },
+        result: '축하한다는 말 뒤로 조바심이 따라붙었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-21-3',
-        text: '작은 손실에도 심장이 철렁 내려앉는다',
-        deltas: { happiness: -1 },
-        result: '돈에 대한 감각이 무뎌지지 않으려 애썼다.',
+        text: '처음으로 손절매 버튼을 스스로 누른다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '손실을 인정하는 것도 실력이라 배웠다.',
         requiresRoute: 'trader'
       },
       {
@@ -5907,23 +5907,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-21-1',
-        text: '동기들과 시황을 놓고 열띤 토론을 벌인다',
-        deltas: { relationship: 2 },
-        result: '서로 다른 시각이 오히려 도움이 됐다.',
+        text: '용어를 몰라 회의 중에 진땀을 뺀다',
+        deltas: { happiness: -2 },
+        result: '모르는 걸 티내지 않으려 애쓰는 게 더 힘들었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-21-2',
-        text: '모의투자 대회에서 좋은 성적을 낸다',
-        deltas: { happiness: 2, fame: 1 },
-        result: '실전에 대한 자신감이 조금 붙었다.',
+        text: '주말에도 경제 뉴스레터를 정독한다',
+        deltas: { wealth: 1, health: -1 },
+        result: '월요일 장이 두렵지 않으려면 어쩔 수 없었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-21-3',
-        text: '야근하며 다음 날 매매 전략을 짠다',
-        deltas: { wealth: 1, health: -1 },
-        result: '잠은 부족했지만 머리는 맑았다.',
+        text: '선배의 매매 로그를 몰래 필사하듯 옮겨 적는다',
+        deltas: { wealth: 1 },
+        result: '흉내라도 내다 보면 늘 거라 믿었다.',
         requiresRoute: 'trader'
       },
       {
@@ -6886,37 +6886,37 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-22-1',
-        text: '장이 열리기 전 새벽부터 리포트를 읽는다',
-        deltas: { wealth: 1, health: -1 },
-        result: '하루의 흐름을 놓치지 않으려 애썼다.',
+        text: '새벽 미국 증시 마감까지 지켜보다 잠든다',
+        deltas: { health: -1, wealth: 1 },
+        result: '눈이 감겨도 시세창은 계속 떠 있었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-22-2',
-        text: '선배 트레이더의 매매 습관을 관찰한다',
-        deltas: { wealth: 1 },
-        result: '숫자 너머의 감각을 배우려 했다.',
+        text: '자격증 시험 준비로 퇴근 후 학원에 다닌다',
+        deltas: { health: -1, wealth: 1 },
+        result: '한 줄이라도 더 알아야 마음이 놓였다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-22-3',
-        text: '작은 손실에도 심장이 철렁 내려앉는다',
-        deltas: { happiness: -1 },
-        result: '돈에 대한 감각이 무뎌지지 않으려 애썼다.',
+        text: '선배가 툭 던진 한마디에서 큰 힌트를 얻는다',
+        deltas: { wealth: 2, happiness: 1 },
+        result: '별거 아닌 말이 며칠을 곱씹게 만들었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-22-4',
-        text: '동기들과 시황을 놓고 열띤 토론을 벌인다',
-        deltas: { relationship: 2 },
-        result: '서로 다른 시각이 오히려 도움이 됐다.',
+        text: '체결 속도가 느려 좋은 타이밍을 놓친다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '0.1초 차이가 이렇게 클 줄 몰랐다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-22-5',
-        text: '모의투자 대회에서 좋은 성적을 낸다',
-        deltas: { happiness: 2, fame: 1 },
-        result: '실전에 대한 자신감이 조금 붙었다.',
+        text: '입사 동기들과 첫 회식에서 어색하게 어울린다',
+        deltas: { relationship: 2 },
+        result: '아직은 서로 눈치를 보는 사이였다.',
         requiresRoute: 'trader'
       },
       {
@@ -8030,23 +8030,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-23-1',
-        text: '장이 열리기 전 새벽부터 리포트를 읽는다',
-        deltas: { wealth: 1, health: -1 },
-        result: '하루의 흐름을 놓치지 않으려 애썼다.',
+        text: '모니터 여러 대 앞에서 눈이 뻑뻑해진다',
+        deltas: { health: -1, wealth: 1 },
+        result: '시력 걱정보다 놓치는 시세가 더 무서웠다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-23-2',
-        text: '선배 트레이더의 매매 습관을 관찰한다',
-        deltas: { wealth: 1 },
-        result: '숫자 너머의 감각을 배우려 했다.',
+        text: '선배 트레이더가 겪은 큰 손실 무용담을 듣는다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '남의 실패담이 제일 값진 교재였다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-23-3',
-        text: '작은 손실에도 심장이 철렁 내려앉는다',
-        deltas: { happiness: -1 },
-        result: '돈에 대한 감각이 무뎌지지 않으려 애썼다.',
+        text: '거래 규정집을 통째로 외우다시피 읽는다',
+        deltas: { wealth: 1, health: -1 },
+        result: '작은 실수 하나가 큰 사고로 이어진다고 배웠다.',
         requiresRoute: 'trader'
       },
       {
@@ -8114,23 +8114,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-23-1',
-        text: '장이 열리기 전 새벽부터 리포트를 읽는다',
-        deltas: { wealth: 1, health: -1 },
-        result: '하루의 흐름을 놓치지 않으려 애썼다.',
+        text: '처음 맡은 소액 계좌를 조심스레 운용한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '작은 돈이라도 남의 돈이라는 무게가 달랐다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-23-2',
-        text: '선배 트레이더의 매매 습관을 관찰한다',
-        deltas: { wealth: 1 },
-        result: '숫자 너머의 감각을 배우려 했다.',
+        text: '사내 스터디에서 예상 질문에 말문이 막힌다',
+        deltas: { happiness: -1 },
+        result: '안다고 생각했던 것도 설명하려니 어려웠다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-23-3',
-        text: '작은 손실에도 심장이 철렁 내려앉는다',
-        deltas: { happiness: -1 },
-        result: '돈에 대한 감각이 무뎌지지 않으려 애썼다.',
+        text: '이른 출근길, 아직 어두운 사무실 불을 혼자 켠다',
+        deltas: { health: -1 },
+        result: '이 시간의 고요함이 은근히 좋아졌다.',
         requiresRoute: 'trader'
       },
       {
@@ -9091,6 +9091,27 @@ const STAGES = [
         result: '몸 쓰는 일도, 함께라면 조금은 덜 힘들었다.',
         requiresRoute: 'logistics'
       },
+    
+      {
+        id: 'deviant-trader-early-tip-leak-23',
+        text: '선배가 흘린 미공개 정보를 몰래 개인 매매에 활용한다',
+        requiresOccupation: ['junior-trader', 'trader', 'fund-manager'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.15, max: 0.55, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'traderIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '작은 규모라 아무도 눈치채지 못한 듯했다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -5, relationship: -3, happiness: -4, fame: -1 }, result: '준법감시팀의 이상거래 탐지에 그대로 걸려들었다.' }
+        ]
+      },
+      {
+        id: 'deviant-trader-early-tip-leak-decline-23',
+        text: '들은 정보는 없던 일로 하고 손대지 않는다',
+        deltas: { happiness: -1 },
+        result: '유혹은 컸지만, 선을 넘고 싶지 않았다.',
+        requiresOccupation: ['junior-trader', 'trader', 'fund-manager'],
+        worldStateSignal: { key: 'traderIntegrity', target: 1 }
+      },
     ]
   },
   {
@@ -9232,37 +9253,37 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-24-1',
-        text: '장이 열리기 전 새벽부터 리포트를 읽는다',
-        deltas: { wealth: 1, health: -1 },
-        result: '하루의 흐름을 놓치지 않으려 애썼다.',
+        text: '첫 월급으로 부모님께 작은 선물을 산다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '아직 넉넉하진 않아도 마음만은 뿌듯했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-24-2',
-        text: '선배 트레이더의 매매 습관을 관찰한다',
-        deltas: { wealth: 1 },
-        result: '숫자 너머의 감각을 배우려 했다.',
+        text: '사무실 막내 자리에서 커피 심부름을 도맡는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '이 시기가 지나면 다 추억이 될 거라 여겼다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-24-3',
-        text: '작은 손실에도 심장이 철렁 내려앉는다',
-        deltas: { happiness: -1 },
-        result: '돈에 대한 감각이 무뎌지지 않으려 애썼다.',
+        text: '주가 급등 뉴스에 혼자 흥분해 소리를 지를 뻔한다',
+        deltas: { happiness: 2 },
+        result: '그 순간의 짜릿함은 말로 설명하기 어려웠다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-24-4',
-        text: '동기들과 시황을 놓고 열띤 토론을 벌인다',
-        deltas: { relationship: 2 },
-        result: '서로 다른 시각이 오히려 도움이 됐다.',
+        text: '모니터링하던 종목이 하한가로 직행하는 걸 지켜본다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '지켜만 봐도 심장이 쿵 내려앉았다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-24-5',
-        text: '모의투자 대회에서 좋은 성적을 낸다',
-        deltas: { happiness: 2, fame: 1 },
-        result: '실전에 대한 자신감이 조금 붙었다.',
+        text: '출퇴근길 이어폰으로 경제 팟캐스트를 듣는다',
+        deltas: { wealth: 1 },
+        result: '자투리 시간마저 시장에 내주고 있었다.',
         requiresRoute: 'trader'
       },
       {
@@ -10588,30 +10609,30 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-25-1',
-        text: '장이 열리기 전 새벽부터 리포트를 읽는다',
-        deltas: { wealth: 1, health: -1 },
-        result: '하루의 흐름을 놓치지 않으려 애썼다.',
+        text: '처음으로 후배가 들어와 어색하게 사수 역할을 맡는다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '가르치는 입장이 되니 새삼 어깨가 무거워졌다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-25-2',
-        text: '선배 트레이더의 매매 습관을 관찰한다',
-        deltas: { wealth: 1 },
-        result: '숫자 너머의 감각을 배우려 했다.',
+        text: '거래 시스템 오류로 정정 신청을 하느라 진땀을 뺀다',
+        deltas: { happiness: -2 },
+        result: '실수 하나가 이렇게 번거로울 줄 몰랐다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-25-3',
-        text: '작은 손실에도 심장이 철렁 내려앉는다',
-        deltas: { happiness: -1 },
-        result: '돈에 대한 감각이 무뎌지지 않으려 애썼다.',
+        text: '팀 회식에서 눈치껏 막내 역할을 해낸다',
+        deltas: { relationship: 2, health: -1 },
+        result: '체력은 축났어도 눈도장은 확실히 찍었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-25-4',
-        text: '동기들과 시황을 놓고 열띤 토론을 벌인다',
-        deltas: { relationship: 2 },
-        result: '서로 다른 시각이 오히려 도움이 됐다.',
+        text: '첫 보너스를 받고 뛸 듯이 기뻐한다',
+        deltas: { happiness: 3, wealth: 2 },
+        result: '숫자가 통장에 찍히니 그제야 실감이 났다.',
         requiresRoute: 'trader'
       },
       {
@@ -11749,37 +11770,37 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-26-1',
-        text: '장이 열리기 전 새벽부터 리포트를 읽는다',
-        deltas: { wealth: 1, health: -1 },
-        result: '하루의 흐름을 놓치지 않으려 애썼다.',
+        text: '사수가 자리를 비운 날 혼자 판단을 내려야 한다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '떨렸지만 스스로 해냈다는 게 뿌듯했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-26-2',
-        text: '선배 트레이더의 매매 습관을 관찰한다',
-        deltas: { wealth: 1 },
-        result: '숫자 너머의 감각을 배우려 했다.',
+        text: '오래 앉아있는 습관 때문에 허리 통증이 생긴다',
+        deltas: { health: -2 },
+        result: '몸이 먼저 신호를 보내고 있었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-26-3',
-        text: '작은 손실에도 심장이 철렁 내려앉는다',
-        deltas: { happiness: -1 },
-        result: '돈에 대한 감각이 무뎌지지 않으려 애썼다.',
+        text: '거래소 견학 프로그램에 참여해 견문을 넓힌다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '숫자 너머의 현장을 직접 보니 감회가 달랐다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-26-4',
-        text: '동기들과 시황을 놓고 열띤 토론을 벌인다',
-        deltas: { relationship: 2 },
-        result: '서로 다른 시각이 오히려 도움이 됐다.',
+        text: '동기와 서로의 매매 전략을 공유하며 배운다',
+        deltas: { relationship: 2, wealth: 1 },
+        result: '경쟁자이면서 동시에 든든한 동료였다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-26-5',
-        text: '모의투자 대회에서 좋은 성적을 낸다',
-        deltas: { happiness: 2, fame: 1 },
-        result: '실전에 대한 자신감이 조금 붙었다.',
+        text: '상사 앞에서 발표하다 목소리가 떨린다',
+        deltas: { happiness: -1 },
+        result: '준비한 만큼 나오지 않아 아쉬웠다.',
         requiresRoute: 'trader'
       },
       {
@@ -13039,23 +13060,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-27-1',
-        text: '장이 열리기 전 새벽부터 리포트를 읽는다',
-        deltas: { wealth: 1, health: -1 },
-        result: '하루의 흐름을 놓치지 않으려 애썼다.',
+        text: '선배들의 매매 화면을 어깨너머로 관찰한다',
+        deltas: { wealth: 1 },
+        result: '어깨너머 배움도 결코 헛되지 않았다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-27-2',
-        text: '선배 트레이더의 매매 습관을 관찰한다',
-        deltas: { wealth: 1 },
-        result: '숫자 너머의 감각을 배우려 했다.',
+        text: '입사 1년을 자축하며 스스로를 다독인다',
+        deltas: { happiness: 2 },
+        result: '버텨낸 시간이 곧 실력이 됐다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-27-3',
-        text: '작은 손실에도 심장이 철렁 내려앉는다',
-        deltas: { happiness: -1 },
-        result: '돈에 대한 감각이 무뎌지지 않으려 애썼다.',
+        text: '거래 마감 직전 막판 뒤집기에 성공한다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '끝까지 포기하지 않은 보람이 있었다.',
         requiresRoute: 'trader'
       },
       {
@@ -13123,23 +13144,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-27-1',
-        text: '동기들과 시황을 놓고 열띤 토론을 벌인다',
-        deltas: { relationship: 2 },
-        result: '서로 다른 시각이 오히려 도움이 됐다.',
+        text: '늦은 밤 야근 후 택시비를 아끼려 버스를 기다린다',
+        deltas: { wealth: 1, health: -1 },
+        result: '작은 돈이라도 아껴야 할 처지였다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-27-2',
-        text: '모의투자 대회에서 좋은 성적을 낸다',
-        deltas: { happiness: 2, fame: 1 },
-        result: '실전에 대한 자신감이 조금 붙었다.',
+        text: '처음으로 스스로 짠 전략이 시장에 통한다',
+        deltas: { happiness: 2, wealth: 2 },
+        result: '이론이 현실이 되는 순간이었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-27-3',
-        text: '야근하며 다음 날 매매 전략을 짠다',
-        deltas: { wealth: 1, health: -1 },
-        result: '잠은 부족했지만 머리는 맑았다.',
+        text: '거래 데스크의 살벌한 분위기에 아직 적응 중이다',
+        deltas: { happiness: -1 },
+        result: '숨소리마저 조심스러운 공간이었다.',
         requiresRoute: 'trader'
       },
       {
@@ -14331,37 +14352,37 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-28-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '새로 배정된 팀원의 첫 손실을 함께 복기한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '내 일처럼 함께 고민해주는 게 팀장의 몫이었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-28-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        text: '거래량 폭증한 날, 화면을 놓칠까 화장실도 참는다',
+        deltas: { wealth: 1, health: -1 },
+        result: '몇 분 사이에도 판이 뒤집힐 수 있었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-28-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '예상 밖 지표 발표에 포지션을 급히 재조정한다',
+        deltas: { wealth: 1, happiness: -1 },
+        result: '순간의 판단이 그날의 성패를 갈랐다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-28-4',
-        text: '연달아 손실이 나며 슬럼프에 빠진다',
-        deltas: { happiness: -2, wealth: -1 },
-        result: '감을 되찾을 때까지 인내가 필요했다.',
+        text: '후배의 무리한 매매를 말리며 언성이 높아진다',
+        deltas: { relationship: -1, happiness: -1 },
+        result: '걱정이 앞서다 보니 말투가 날카로워졌다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-28-5',
-        text: '리서치 자료를 밤새 분석한다',
-        deltas: { wealth: 1, health: -1 },
-        result: '확신이 설 때까지 숫자를 놓지 않았다.',
+        text: '분기 실적 발표를 앞두고 팀 전체가 예민해진다',
+        deltas: { happiness: -2 },
+        result: '숫자 하나에 모두의 신경이 곤두섰다.',
         requiresRoute: 'trader'
       },
       {
@@ -15504,23 +15525,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-29-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '새로운 알고리즘 매매 도구를 익히느라 애를 먹는다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '기술이 빠르게 바뀌는 걸 실감했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-29-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        text: '팀 내 의견 충돌로 회의가 길어진다',
+        deltas: { happiness: -2, relationship: -1 },
+        result: '같은 숫자를 보고도 해석은 저마다 달랐다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-29-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '상사에게 예상 밖의 칭찬을 듣는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '무심코 지나칠 뻔한 순간이 오래 남았다.',
         requiresRoute: 'trader'
       },
       {
@@ -15595,23 +15616,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-29-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '오랜만에 낸 대박 수익에 팀 전체가 들썩인다',
+        deltas: { happiness: 3, wealth: 2, relationship: 1 },
+        result: '함께 만든 성과라 기쁨도 배가 됐다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-29-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        text: '거래 상대방의 실수로 예상치 못한 이득을 본다',
+        deltas: { wealth: 2, happiness: 1 },
+        result: '운도 실력의 일부라며 웃어넘겼다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-29-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '시황 브리핑 자료를 준비하느라 밤을 꼬박 새운다',
+        deltas: { wealth: 1, health: -2 },
+        result: '설득력 있는 숫자를 만드는 데는 시간이 걸렸다.',
         requiresRoute: 'trader'
       },
       {
@@ -16752,30 +16773,30 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-30-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '갑작스러운 금리 발표에 사무실 전체가 술렁인다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '초 단위로 시황이 요동치고 있었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-30-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        text: '배우자와의 저녁 약속을 매매 마감 때문에 미룬다',
+        deltas: { relationship: -2, happiness: -1 },
+        result: '미안하다는 말이 점점 익숙해지고 있었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-30-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '아이 학예회를 화상으로만 지켜본다',
+        deltas: { relationship: -2, happiness: -1 },
+        result: '화면 속 작은 얼굴이 못내 아쉬웠다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-30-4',
-        text: '연달아 손실이 나며 슬럼프에 빠진다',
-        deltas: { happiness: -2, wealth: -1 },
-        result: '감을 되찾을 때까지 인내가 필요했다.',
+        text: '오랜만의 가족 여행 중에도 시세 알림을 확인한다',
+        deltas: { relationship: -1, wealth: 1 },
+        result: '완전히 손을 놓기가 쉽지 않았다.',
         requiresRoute: 'trader'
       },
       {
@@ -17936,23 +17957,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-31-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '타사 스카우트 제안을 받고 진지하게 고민한다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '지금 자리에 안주해도 되는지 다시 묻게 됐다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-31-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
+        text: '이직 대신 지금 팀에 남기로 결정한다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        result: '돈보다 신뢰를 더 무겁게 뒀다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-31-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '새로운 투자 상품을 스스로 설계해본다',
+        deltas: { wealth: 2, happiness: 1 },
+        result: '따라가기보다 직접 판을 짜보고 싶었다.',
         requiresRoute: 'trader'
       },
       {
@@ -18020,23 +18041,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-31-1',
-        text: '연달아 손실이 나며 슬럼프에 빠진다',
-        deltas: { happiness: -2, wealth: -1 },
-        result: '감을 되찾을 때까지 인내가 필요했다.',
+        text: '배우자가 일에 대한 서운함을 조심스레 꺼낸다',
+        deltas: { relationship: -2, happiness: -1 },
+        result: '변명보다 먼저 미안함이 앞섰다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-31-2',
-        text: '리서치 자료를 밤새 분석한다',
-        deltas: { wealth: 1, health: -1 },
-        result: '확신이 설 때까지 숫자를 놓지 않았다.',
+        text: '늦은 퇴근길, 아이가 이미 잠든 걸 확인한다',
+        deltas: { relationship: -1, happiness: -1 },
+        result: '오늘도 얼굴 한번 못 봤다는 게 마음에 걸렸다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-31-3',
-        text: '업계 세미나에서 발표를 맡는다',
-        deltas: { fame: 2, happiness: 1 },
-        result: '긴장했지만 좋은 반응을 얻었다.',
+        text: '자기계발 목적으로 야간 MBA 과정에 등록한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '지금보다 나은 시야가 필요하다고 느꼈다.',
         requiresRoute: 'trader'
       },
       {
@@ -19066,30 +19087,30 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-32-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '해외 지사 파견 기회를 놓고 가족과 상의한다',
+        deltas: { happiness: 1, relationship: -1 },
+        result: '기회와 안정 사이에서 저울질이 길어졌다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-32-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        text: '위험 관리 부서와 매매 한도를 두고 실랑이한다',
+        deltas: { happiness: -2 },
+        result: '수익과 안전, 늘 그 사이 어딘가였다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-32-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '건강검진에서 콜레스테롤 수치 경고를 받는다',
+        deltas: { health: -2 },
+        result: '앉아만 있는 삶의 대가가 서서히 드러났다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-32-4',
-        text: '연달아 손실이 나며 슬럼프에 빠진다',
-        deltas: { happiness: -2, wealth: -1 },
-        result: '감을 되찾을 때까지 인내가 필요했다.',
+        text: '수면 부족으로 낮 회의 중 깜빡 존다',
+        deltas: { health: -1, happiness: -1 },
+        result: '민망함보다 피로가 먼저 몰려왔다.',
         requiresRoute: 'trader'
       },
       {
@@ -20169,23 +20190,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-33-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '후배들과 함께한 리서치가 좋은 성과로 이어진다',
+        deltas: { wealth: 2, relationship: 2 },
+        result: '혼자보다 함께일 때 더 멀리 볼 수 있었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-33-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        text: '신입 트레이더 채용 면접관으로 참여한다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '예전의 나를 보는 것 같아 마음이 갔다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-33-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '팀원의 슬럼프를 지켜보며 어떻게 도울지 고민한다',
+        deltas: { relationship: 1, happiness: -1 },
+        result: '조언 한마디도 조심스러웠다.',
         requiresRoute: 'trader'
       },
       {
@@ -20281,23 +20302,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-33-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '오랜만에 헬스장에 등록하지만 며칠 만에 그만둔다',
+        deltas: { health: 1, happiness: -1 },
+        result: '의지는 넘쳤지만 시간이 늘 부족했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-33-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        text: '잦은 야근으로 소화불량을 달고 산다',
+        deltas: { health: -2 },
+        result: '위장약이 이제 필수품이 됐다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-33-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '정기 건강검진을 매매 마감 때문에 또 미룬다',
+        deltas: { health: -1 },
+        result: '몸은 늘 뒷전으로 밀려났다.',
         requiresRoute: 'trader'
       },
       {
@@ -21299,37 +21320,37 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-34-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '부서 간 실적 경쟁에서 묘한 긴장감을 느낀다',
+        deltas: { happiness: -1 },
+        result: '같은 회사 안에서도 승부는 승부였다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-34-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        text: '후배가 낸 아이디어를 상사 앞에서 대신 발표한다',
+        deltas: { relationship: 2, fame: 1 },
+        result: '공은 나누는 게 맞다고 생각했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-34-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '오랜 거래처와의 신뢰를 바탕으로 큰 건을 성사시킨다',
+        deltas: { wealth: 3, relationship: 1 },
+        result: '숫자보다 사람이 먼저라는 걸 다시 확인했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-34-4',
-        text: '연달아 손실이 나며 슬럼프에 빠진다',
-        deltas: { happiness: -2, wealth: -1 },
-        result: '감을 되찾을 때까지 인내가 필요했다.',
+        text: '경쟁사의 공격적인 영입 제안이 팀 전체에 흔들림을 준다',
+        deltas: { happiness: -2 },
+        result: '누가 남고 누가 떠날지 모두가 눈치를 봤다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-34-5',
-        text: '리서치 자료를 밤새 분석한다',
+        text: '해외 리서치 자료를 밤새 번역하듯 읽어낸다',
         deltas: { wealth: 1, health: -1 },
-        result: '확신이 설 때까지 숫자를 놓지 않았다.',
+        result: '시차만큼 정보 격차도 컸다.',
         requiresRoute: 'trader'
       },
       {
@@ -22439,30 +22460,30 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-35-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '갑작스러운 시스템 장애로 매매가 전면 중단된다',
+        deltas: { happiness: -2 },
+        result: '손 놓고 지켜보는 시간이 가장 고통스러웠다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-35-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        text: '업계 콘퍼런스에서 발표자로 나서 눈도장을 찍는다',
+        deltas: { fame: 2, happiness: 1 },
+        result: '이름이 조금씩 알려지고 있었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-35-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '경쟁 팀과의 성과 비교에 자존심이 상한다',
+        deltas: { happiness: -2 },
+        result: '숫자로 증명해야 하는 자리라 더 냉정했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-35-4',
-        text: '연달아 손실이 나며 슬럼프에 빠진다',
-        deltas: { happiness: -2, wealth: -1 },
-        result: '감을 되찾을 때까지 인내가 필요했다.',
+        text: '오랜만에 만난 대학 동창 앞에서 직업을 설명하기 애매해한다',
+        deltas: { happiness: -1 },
+        result: '설명할수록 오해만 쌓이는 기분이었다.',
         requiresRoute: 'trader'
       },
       {
@@ -23546,37 +23567,37 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-36-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '큰 손실 이후 스스로에 대한 확신이 흔들린다',
+        deltas: { happiness: -3 },
+        result: '숫자 하나하나가 자신감을 갉아먹었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-36-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        text: '오랜 방황 끝에 자신만의 매매 원칙을 다시 세운다',
+        deltas: { wealth: 1, happiness: 2 },
+        result: '흔들렸던 만큼 기준이 더 단단해졌다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-36-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '후배의 승진 소식에 진심으로 축하를 건넨다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '내 자리를 위협받는다는 생각보다 뿌듯함이 컸다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-36-4',
-        text: '연달아 손실이 나며 슬럼프에 빠진다',
+        text: '시장 급락에 팀 전체가 비상 대응 체제로 전환한다',
         deltas: { happiness: -2, wealth: -1 },
-        result: '감을 되찾을 때까지 인내가 필요했다.',
+        result: '평소와는 다른 긴박함이 사무실을 채웠다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-36-5',
-        text: '리서치 자료를 밤새 분석한다',
-        deltas: { wealth: 1, health: -1 },
-        result: '확신이 설 때까지 숫자를 놓지 않았다.',
+        text: '운용 규모가 커지며 어깨가 무거워짐을 느낀다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '책임의 무게가 수익과 함께 늘어갔다.',
         requiresRoute: 'trader'
       },
       {
@@ -24571,23 +24592,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-37-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '가족 행사에 참석 못 해 두고두고 미안해한다',
+        deltas: { relationship: -2 },
+        result: '일은 미룰 수 있어도 그날은 다시 오지 않았다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-37-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        text: '후배들 앞에서 실수를 솔직히 인정한다',
+        deltas: { relationship: 1, happiness: -1 },
+        result: '완벽한 척보다 정직한 게 더 존중받았다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-37-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '해외 출장길에서도 국내 장 마감까지 지켜본다',
+        deltas: { health: -1, wealth: 1 },
+        result: '시차는 시장 앞에서 아무 의미가 없었다.',
         requiresRoute: 'trader'
       },
       {
@@ -24662,23 +24683,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-37-1',
-        text: '연달아 손실이 나며 슬럼프에 빠진다',
-        deltas: { happiness: -2, wealth: -1 },
-        result: '감을 되찾을 때까지 인내가 필요했다.',
+        text: '새로운 자산군에 도전하며 처음부터 다시 공부한다',
+        deltas: { wealth: 1, health: -1 },
+        result: '익숙함을 버리는 게 오히려 두려웠다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-37-2',
-        text: '리서치 자료를 밤새 분석한다',
-        deltas: { wealth: 1, health: -1 },
-        result: '확신이 설 때까지 숫자를 놓지 않았다.',
+        text: '팀 워크숍에서 리더십에 대한 고민을 나눈다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '혼자 잘하는 것과는 다른 능력이 필요했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-37-3',
-        text: '업계 세미나에서 발표를 맡는다',
-        deltas: { fame: 2, happiness: 1 },
-        result: '긴장했지만 좋은 반응을 얻었다.',
+        text: '오랜 슬럼프 끝에 작은 성공 하나로 숨통이 트인다',
+        deltas: { happiness: 2, wealth: 1 },
+        result: '작은 불씨 하나가 큰 위안이 됐다.',
         requiresRoute: 'trader'
       },
       {
@@ -25604,37 +25625,37 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-38-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '치열한 경쟁 속에서도 동료애를 잃지 않으려 애쓴다',
+        deltas: { relationship: 2 },
+        result: '이기는 것보다 함께 가는 게 더 오래갈 거라 믿었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-38-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        text: '시장 조작 의혹 뉴스에 업계 전체가 술렁인다',
+        deltas: { happiness: -1 },
+        result: '남의 일 같지 않아 더 씁쓸했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-38-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '오랜만에 온전히 쉬는 주말을 보내려 애써본다',
+        deltas: { health: 1, happiness: 1 },
+        result: '완전히 끊지는 못해도 조금은 숨통이 트였다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-38-4',
-        text: '연달아 손실이 나며 슬럼프에 빠진다',
-        deltas: { happiness: -2, wealth: -1 },
-        result: '감을 되찾을 때까지 인내가 필요했다.',
+        text: '신입 시절의 초심을 떠올리며 마음을 다잡는다',
+        deltas: { happiness: 1 },
+        result: '처음의 그 절실함이 그리워질 때가 있었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-38-5',
-        text: '리서치 자료를 밤새 분석한다',
-        deltas: { wealth: 1, health: -1 },
-        result: '확신이 설 때까지 숫자를 놓지 않았다.',
+        text: '갑작스러운 팀 개편으로 새로운 상사를 맞는다',
+        deltas: { happiness: -1 },
+        result: '적응의 시간이 또다시 필요해졌다.',
         requiresRoute: 'trader'
       },
       {
@@ -26509,6 +26530,27 @@ const STAGES = [
         result: '사업이 하나에서 둘이 되는 순간이었다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'deviant-trader-mid-price-manipulation-38',
+        text: '다른 트레이더들과 짜고 특정 종목 시세를 조종한다',
+        requiresOccupation: ['trader', 'fund-manager'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.2, max: 0.6, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'traderIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 70, label: '안 걸림', deltas: { wealth: 7 }, result: '판이 짜인 대로, 수익은 예상대로 굴러들어왔다.' },
+          { weight: 30, label: '발각', deltas: { wealth: -8, relationship: -4, happiness: -5, fame: -2 }, result: '거래소 이상거래 심리에 걸려 조사가 시작됐다.' }
+        ]
+      },
+      {
+        id: 'deviant-trader-mid-price-manipulation-decline-38',
+        text: '판을 짜자는 제안을 단호히 거절한다',
+        deltas: { relationship: -1, happiness: 1 },
+        result: '불편한 사이가 될지언정, 그 판엔 끼고 싶지 않았다.',
+        requiresOccupation: ['trader', 'fund-manager'],
+        worldStateSignal: { key: 'traderIntegrity', target: 1 }
+      },
     ]
   },
   {
@@ -26642,23 +26684,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-39-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '자녀의 진로 상담을 제대로 챙기지 못해 마음이 무겁다',
+        deltas: { relationship: -2 },
+        result: '일이 우선이었던 시간들이 뒤늦게 아팠다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-39-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        text: '갑작스러운 시장 반등에 예상 밖의 수익을 낸다',
+        deltas: { wealth: 3, happiness: 2 },
+        result: '위기 뒤에 기회가 온다는 말을 실감했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-39-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '오랜 동료의 이직 소식에 사무실 분위기가 뒤숭숭하다',
+        deltas: { happiness: -1, relationship: -1 },
+        result: '익숙했던 얼굴 하나가 빠지는 게 크게 느껴졌다.',
         requiresRoute: 'trader'
       },
       {
@@ -26726,23 +26768,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-39-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '부서 실적 1위를 달성하며 자신감이 붙는다',
+        deltas: { happiness: 3, fame: 1, wealth: 1 },
+        result: '숫자로 증명된 결과는 무엇보다 확실했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-39-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        text: '거래 상대방과의 신경전 끝에 유리한 조건을 얻어낸다',
+        deltas: { wealth: 2, happiness: 1 },
+        result: '한 치도 물러서지 않은 협상이었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-39-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '후배의 퇴사 소식에 씁쓸함을 느낀다',
+        deltas: { happiness: -2, relationship: -1 },
+        result: '버텨내는 게 능사는 아니라는 걸 알면서도 아쉬웠다.',
         requiresRoute: 'trader'
       },
       {
@@ -27548,23 +27590,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-40-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '후배들에게 자신의 실패담을 솔직하게 들려준다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '성공담보다 실패담이 더 오래 남는다고 믿었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-40-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        text: '매매 규모가 커지며 책임 소재를 둘러싼 갈등이 생긴다',
+        deltas: { happiness: -2, relationship: -1 },
+        result: '성과가 클수록 잃을 것도 많아졌다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-40-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '오랜만에 온 가족이 모이는 자리에 겨우 참석한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '늦게라도 함께한 시간이 소중했다.',
         requiresRoute: 'trader'
       },
       {
@@ -28548,23 +28590,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-41-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '후배의 잘못된 판단을 바로잡아주며 진땀을 뺀다',
+        deltas: { relationship: 1, wealth: 1 },
+        result: '내 일보다 더 신경 쓰이는 순간이었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-41-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        text: '거래 상대방의 부도 소식에 자금 회수를 서두른다',
+        deltas: { wealth: -1, happiness: -2 },
+        result: '믿었던 만큼 배신감도 컸다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-41-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '새벽 시황을 확인하려 알람을 여러 개 맞춰둔다',
+        deltas: { health: -1, wealth: 1 },
+        result: '잠들어서도 시장이 신경 쓰였다.',
         requiresRoute: 'trader'
       },
       {
@@ -28632,23 +28674,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-41-1',
-        text: '연달아 손실이 나며 슬럼프에 빠진다',
-        deltas: { happiness: -2, wealth: -1 },
-        result: '감을 되찾을 때까지 인내가 필요했다.',
+        text: '거래 데스크에 새로 도입된 규제 지침을 숙지한다',
+        deltas: { wealth: 1, health: -1 },
+        result: '자유로운 매매의 폭이 조금씩 좁아지고 있었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-41-2',
-        text: '리서치 자료를 밤새 분석한다',
-        deltas: { wealth: 1, health: -1 },
-        result: '확신이 설 때까지 숫자를 놓지 않았다.',
+        text: '업계 선후배 모임에서 오랜만에 인맥을 다진다',
+        deltas: { relationship: 2, fame: 1 },
+        result: '숫자만큼이나 관계도 자산이었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-41-3',
-        text: '업계 세미나에서 발표를 맡는다',
-        deltas: { fame: 2, happiness: 1 },
-        result: '긴장했지만 좋은 반응을 얻었다.',
+        text: '한 해 목표치를 조기 달성하며 여유를 되찾는다',
+        deltas: { happiness: 2, wealth: 2 },
+        result: '남은 시간은 조금 느긋하게 보내도 될 것 같았다.',
         requiresRoute: 'trader'
       },
       {
@@ -29420,37 +29462,37 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-42-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '팀 회의에서 자신의 실수를 먼저 나서서 공유한다',
+        deltas: { relationship: 1, happiness: -1 },
+        result: '숨기는 것보다 드러내는 게 결국 더 나았다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-42-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        text: '가족과의 저녁 식사 자리에서도 자꾸 휴대폰을 확인한다',
+        deltas: { relationship: -1 },
+        result: '몸은 식탁에 있어도 마음은 시장에 가 있었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-42-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '해외 투자자와의 화상 미팅을 위해 새벽에 출근한다',
+        deltas: { wealth: 1, health: -1 },
+        result: '시차 때문에 하루가 더 길어졌다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-42-4',
-        text: '연달아 손실이 나며 슬럼프에 빠진다',
-        deltas: { happiness: -2, wealth: -1 },
-        result: '감을 되찾을 때까지 인내가 필요했다.',
+        text: '후배의 결혼식에서 오랜만에 편하게 웃는다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '일 얘기 없이 웃을 수 있는 자리가 반가웠다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-42-5',
-        text: '리서치 자료를 밤새 분석한다',
-        deltas: { wealth: 1, health: -1 },
-        result: '확신이 설 때까지 숫자를 놓지 않았다.',
+        text: '업계 잡지 인터뷰 요청을 받고 신중하게 답한다',
+        deltas: { fame: 2, happiness: 1 },
+        result: '말 한마디의 무게를 새삼 실감했다.',
         requiresRoute: 'trader'
       },
       {
@@ -30271,23 +30313,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-43-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '후배와 함께 낸 성과를 상사에게 당당히 보고한다',
+        deltas: { relationship: 1, fame: 1 },
+        result: '함께 일군 결과라 더 떳떳했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-43-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        text: '늦은 밤 퇴근길, 텅 빈 사무실에 홀로 남는다',
+        deltas: { health: -1, happiness: -1 },
+        result: '고요함 속에서 문득 지친 스스로를 마주했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-43-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '거래 실적 그래프를 보며 지난 세월을 되짚어본다',
+        deltas: { happiness: 1 },
+        result: '오르내림이 곧 나의 커리어 그 자체였다.',
         requiresRoute: 'trader'
       },
       {
@@ -30362,23 +30404,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-43-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '오랜 매매 습관을 데이터로 돌아보며 개선점을 찾는다',
+        deltas: { wealth: 1 },
+        result: '감이 아니라 숫자로 스스로를 점검했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-43-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        text: '시장 급변 속에서도 침착함을 잃지 않으려 애쓴다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '흔들리는 티를 내지 않는 것도 실력이었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-43-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '자녀의 첫 등교를 배웅하지 못해 마음이 아프다',
+        deltas: { relationship: -2, happiness: -1 },
+        result: '작은 순간들이 자꾸만 빠져나가고 있었다.',
         requiresRoute: 'trader'
       },
       {
@@ -31157,37 +31199,37 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-44-1',
-        text: '변동성 큰 장에서 밤잠을 설친다',
-        deltas: { happiness: -2, wealth: 1 },
-        result: '포지션 하나로 밤새 마음이 오갔다.',
+        text: '배우자에게 미안한 마음을 담아 여행을 계획한다',
+        deltas: { relationship: 2, wealth: -2 },
+        result: '말보다 행동으로 마음을 전하고 싶었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-44-2',
-        text: '후배 트레이더의 리스크 관리를 코치한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치다 보니 스스로도 다시 점검하게 됐다.',
+        text: '새로운 규제 도입으로 익숙했던 전략을 손봐야 한다',
+        deltas: { wealth: -1, happiness: -1 },
+        result: '판이 바뀌면 다시 배우는 수밖에 없었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-44-3',
-        text: '큰 수익을 낸 뒤 팀 회식을 갖는다',
-        deltas: { happiness: 3, relationship: 1, wealth: 1 },
-        result: '함께 만든 성과라 더 뿌듯했다.',
+        text: '오랜 부진을 딛고 다시 실적 상위권에 오른다',
+        deltas: { happiness: 3, wealth: 2, fame: 1 },
+        result: '포기하지 않은 시간이 결국 결과로 돌아왔다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-44-4',
-        text: '연달아 손실이 나며 슬럼프에 빠진다',
-        deltas: { happiness: -2, wealth: -1 },
-        result: '감을 되찾을 때까지 인내가 필요했다.',
+        text: '거래 상대 실수로 벌어진 유리한 체결을 두고 고민한다',
+        deltas: { wealth: 1, happiness: -1 },
+        result: '이득이지만 마냥 편하지만은 않았다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-44-5',
-        text: '리서치 자료를 밤새 분석한다',
-        deltas: { wealth: 1, health: -1 },
-        result: '확신이 설 때까지 숫자를 놓지 않았다.',
+        text: '후배 두 명 사이의 갈등을 조율하느라 진땀을 뺀다',
+        deltas: { relationship: 1, happiness: -1 },
+        result: '실력만큼이나 사람 관리도 어려운 일이었다.',
         requiresRoute: 'trader'
       },
       {
@@ -32125,23 +32167,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-45-1',
-        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
-        deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        text: '후배의 첫 대형 계약 체결을 옆에서 지켜본다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '내 일처럼 뿌듯한 순간이었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-45-2',
-        text: '오랜 경력을 살려 후배들의 멘토가 된다',
-        deltas: { relationship: 2, happiness: 2 },
-        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        text: '신입들이 쓰는 새로운 매매 용어에 낯설어한다',
+        deltas: { happiness: -1 },
+        result: '세대가 바뀌었다는 걸 말투에서부터 느꼈다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-45-3',
-        text: '체력 저하로 새벽 매매가 버거워진다',
-        deltas: { health: -1 },
-        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        text: '후배에게 인수인계할 자료를 꼼꼼히 정리한다',
+        deltas: { relationship: 1, wealth: 1 },
+        result: '내가 겪은 시행착오는 물려주고 싶지 않았다.',
         requiresRoute: 'trader'
       },
       {
@@ -33080,37 +33122,37 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-46-1',
-        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
-        deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        text: '알고리즘 매매 비중이 커지며 위기감을 느낀다',
+        deltas: { happiness: -2 },
+        result: '감으로 승부하던 시대가 저물고 있었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-46-2',
-        text: '오랜 경력을 살려 후배들의 멘토가 된다',
-        deltas: { relationship: 2, happiness: 2 },
-        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        text: '오랜 후배가 팀장으로 승진하는 걸 지켜본다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '내가 키운 사람이 자리를 잡는 게 뿌듯했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-46-3',
-        text: '체력 저하로 새벽 매매가 버거워진다',
-        deltas: { health: -1 },
-        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        text: '신입 트레이더들과의 회식에서 세대차를 실감한다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '같은 언어를 쓰는데도 어딘가 낯설었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-46-4',
-        text: '긴 세월의 실적을 돌아보며 자부심을 느낀다',
-        deltas: { happiness: 2, fame: 1 },
-        result: '숫자로 증명된 커리어였다.',
+        text: '젊은 트레이더의 대담한 베팅을 보며 옛 생각이 난다',
+        deltas: { happiness: 1 },
+        result: '저런 무모함도 한때는 내 것이었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-46-5',
-        text: '자산 관리 방식을 안정적으로 바꾼다',
-        deltas: { wealth: 1 },
-        result: '이제는 공격적인 매매보다 안정이 우선이었다.',
+        text: '오랜 노하우를 매뉴얼로 정리해 남긴다',
+        deltas: { wealth: 1, relationship: 1 },
+        result: '말로 다 전하지 못한 것들을 글로 남기고 싶었다.',
         requiresRoute: 'trader'
       },
       {
@@ -33810,23 +33852,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-47-1',
-        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
-        deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        text: '후배가 낸 신선한 아이디어에 진심으로 감탄한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '나이가 들어도 배울 건 계속 배워야 했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-47-2',
-        text: '오랜 경력을 살려 후배들의 멘토가 된다',
-        deltas: { relationship: 2, happiness: 2 },
-        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        text: '젊은 직원들 사이의 유행어를 못 알아들어 웃는다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '모르는 걸 인정하니 오히려 편해졌다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-47-3',
-        text: '체력 저하로 새벽 매매가 버거워진다',
-        deltas: { health: -1 },
-        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        text: '오랜 시간 함께한 팀원들과의 이별을 준비한다',
+        deltas: { relationship: -1, happiness: -1 },
+        result: '언젠가 올 줄 알았지만 막상 닥치니 서운했다.',
         requiresRoute: 'trader'
       },
       {
@@ -33901,23 +33943,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-47-1',
-        text: '긴 세월의 실적을 돌아보며 자부심을 느낀다',
-        deltas: { happiness: 2, fame: 1 },
-        result: '숫자로 증명된 커리어였다.',
+        text: '새로운 플랫폼 도입에 적응하느라 애를 먹는다',
+        deltas: { happiness: -1, health: -1 },
+        result: '배우는 속도가 예전 같지 않았다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-47-2',
-        text: '자산 관리 방식을 안정적으로 바꾼다',
-        deltas: { wealth: 1 },
-        result: '이제는 공격적인 매매보다 안정이 우선이었다.',
+        text: '후배들의 고민 상담을 도맡아 들어준다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '답을 주기보다 들어주는 게 먼저였다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-47-3',
-        text: '업계 후배들의 존경을 받는 자리에 오른다',
-        deltas: { fame: 2, happiness: 1 },
-        result: '오랜 시간 쌓아온 신뢰의 결과였다.',
+        text: '오랜 경력에도 여전히 새로운 걸 배우려 노력한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '멈추는 순간 뒤처진다는 걸 알고 있었다.',
         requiresRoute: 'trader'
       },
       {
@@ -34586,23 +34628,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-48-1',
-        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
-        deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        text: '체력 저하로 새벽 매매를 후배에게 넘긴다',
+        deltas: { health: 1, relationship: 1 },
+        result: '아쉬움보다 다음 세대에 대한 믿음이 컸다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-48-2',
-        text: '오랜 경력을 살려 후배들의 멘토가 된다',
-        deltas: { relationship: 2, happiness: 2 },
-        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        text: '오랜 야근의 흔적이 건강검진 결과에 고스란히 드러난다',
+        deltas: { health: -2 },
+        result: '숫자로 확인되니 더 이상 미룰 수 없었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-48-3',
-        text: '체력 저하로 새벽 매매가 버거워진다',
-        deltas: { health: -1 },
-        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        text: '혈압 관리를 위해 매일 아침 운동을 시작한다',
+        deltas: { health: 2, happiness: 1 },
+        result: '늦었지만 몸을 챙기기로 마음먹었다.',
         requiresRoute: 'trader'
       },
       {
@@ -34684,23 +34726,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-48-1',
-        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
-        deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        text: '후배에게 리더 자리를 조금씩 넘겨준다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '내려놓는 것도 배워야 할 기술이었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-48-2',
-        text: '오랜 경력을 살려 후배들의 멘토가 된다',
-        deltas: { relationship: 2, happiness: 2 },
-        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        text: '시력 저하로 작은 숫자를 보는 게 점점 힘들어진다',
+        deltas: { health: -2 },
+        result: '돋보기 없이는 호가창도 흐릿했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-48-3',
-        text: '체력 저하로 새벽 매매가 버거워진다',
-        deltas: { health: -1 },
-        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        text: '장시간 앉아있던 습관 탓에 허리 디스크 진단을 받는다',
+        deltas: { health: -2 },
+        result: '몸이 한계를 소리 내 알려주고 있었다.',
         requiresRoute: 'trader'
       },
       {
@@ -35287,23 +35329,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-49-1',
-        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
-        deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        text: '오랜 경력을 인정받아 사내 표창을 받는다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '숫자보다 이 순간이 더 값지게 느껴졌다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-49-2',
-        text: '오랜 경력을 살려 후배들의 멘토가 된다',
-        deltas: { relationship: 2, happiness: 2 },
-        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        text: '처음 입사했을 때의 초심을 떠올리며 미소 짓는다',
+        deltas: { happiness: 2 },
+        result: '그때의 절실함이 지금의 나를 만들었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-49-3',
-        text: '체력 저하로 새벽 매매가 버거워진다',
-        deltas: { health: -1 },
-        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        text: '후배들 앞에서 자신의 커리어를 담담히 회고한다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '자랑보다는 솔직한 이야기를 들려주고 싶었다.',
         requiresRoute: 'trader'
       },
       {
@@ -35371,23 +35413,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-49-1',
-        text: '긴 세월의 실적을 돌아보며 자부심을 느낀다',
-        deltas: { happiness: 2, fame: 1 },
-        result: '숫자로 증명된 커리어였다.',
+        text: '체력에 맞춰 근무 시간을 조금씩 줄여나간다',
+        deltas: { health: 1, happiness: 1 },
+        result: '속도를 늦춰도 괜찮다는 걸 받아들였다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-49-2',
-        text: '자산 관리 방식을 안정적으로 바꾼다',
-        deltas: { wealth: 1 },
-        result: '이제는 공격적인 매매보다 안정이 우선이었다.',
+        text: '젊을 때보다 회복이 느려진 걸 실감한다',
+        deltas: { health: -1 },
+        result: '하루 야근의 여파가 이틀은 갔다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-49-3',
-        text: '업계 후배들의 존경을 받는 자리에 오른다',
-        deltas: { fame: 2, happiness: 1 },
-        result: '오랜 시간 쌓아온 신뢰의 결과였다.',
+        text: '지난 실적 그래프를 보며 커리어 전체를 돌아본다',
+        deltas: { happiness: 2 },
+        result: '오르내림 하나하나가 다 이유가 있었다.',
         requiresRoute: 'trader'
       },
       {
@@ -35939,23 +35981,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-50-1',
-        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
-        deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        text: '수십 년간의 매매 기록을 정리하며 감회에 젖는다',
+        deltas: { happiness: 2 },
+        result: '숫자 뒤에 숨은 세월이 함께 보였다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-50-2',
-        text: '오랜 경력을 살려 후배들의 멘토가 된다',
-        deltas: { relationship: 2, happiness: 2 },
-        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        text: '오랜 세월 함께한 회사에 대한 애정을 새삼 느낀다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '떠날 날이 가까워질수록 더 애틋했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-50-3',
-        text: '체력 저하로 새벽 매매가 버거워진다',
-        deltas: { health: -1 },
-        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        text: '업계 후배들에게 존경받는 원로 대우를 받는다',
+        deltas: { fame: 2, happiness: 1 },
+        result: '어느새 내가 그런 자리에 서 있었다.',
         requiresRoute: 'trader'
       },
       {
@@ -36468,6 +36510,27 @@ const STAGES = [
         result: '인연이 이렇게 다시 이어질 줄은 몰랐다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'deviant-trader-senior-front-running-50',
+        text: '고객 대량 주문 정보를 미리 이용해 자기 계좌부터 매매한다',
+        requiresOccupation: ['trader', 'fund-manager'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.2, max: 0.6, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'traderIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 68, label: '안 걸림', deltas: { wealth: 6 }, result: '몇 초 먼저 움직인 것만으로 짭짤한 차익을 챙겼다.' },
+          { weight: 32, label: '발각', deltas: { wealth: -7, relationship: -5, happiness: -5, fame: -2 }, result: '체결 시각 대조 끝에 선행매매 정황이 드러났다.' }
+        ]
+      },
+      {
+        id: 'deviant-trader-senior-front-running-decline-50',
+        text: '고객 주문을 먼저 처리하고 자기 매매는 뒤로 미룬다',
+        deltas: { wealth: -1, happiness: 2 },
+        result: '순서를 지키는 게, 오래갈 수 있는 유일한 길이었다.',
+        requiresOccupation: ['trader', 'fund-manager'],
+        worldStateSignal: { key: 'traderIntegrity', target: 1 }
+      },
     ]
   },
   {
@@ -36605,23 +36668,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-51-1',
-        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
-        deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        text: '수익률보다 안정성을 우선하는 원칙을 세운다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '잃지 않는 게 곧 버는 것이라 믿게 됐다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-51-2',
-        text: '오랜 경력을 살려 후배들의 멘토가 된다',
-        deltas: { relationship: 2, happiness: 2 },
-        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        text: '오랜 경험을 살려 리스크 신호를 남들보다 먼저 감지한다',
+        deltas: { wealth: 2, fame: 1 },
+        result: '숫자 너머를 읽는 감각만은 여전했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-51-3',
-        text: '체력 저하로 새벽 매매가 버거워진다',
-        deltas: { health: -1 },
-        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        text: '은퇴를 앞두고 자산 포트폴리오를 재정비한다',
+        deltas: { wealth: 1 },
+        result: '남은 시간을 위한 준비가 필요했다.',
         requiresRoute: 'trader'
       },
       {
@@ -36689,23 +36752,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-51-1',
-        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
-        deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        text: '자산 배분을 공격적 전략에서 안정적 전략으로 바꾼다',
+        deltas: { wealth: 1 },
+        result: '이제는 지키는 것도 실력이라 여겼다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-51-2',
-        text: '오랜 경력을 살려 후배들의 멘토가 된다',
-        deltas: { relationship: 2, happiness: 2 },
-        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        text: '변동성 큰 종목 대신 우량주 위주로 포트폴리오를 재편한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '무리하지 않는 법을 이제야 터득했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-51-3',
-        text: '체력 저하로 새벽 매매가 버거워진다',
-        deltas: { health: -1 },
-        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        text: '공격적인 후배들의 매매 방식을 지켜보며 조언을 아낀다',
+        deltas: { relationship: 1 },
+        result: '내 방식만 옳다고 우기고 싶지 않았다.',
         requiresRoute: 'trader'
       },
       {
@@ -37197,23 +37260,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-52-1',
-        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
-        deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        text: '후배들의 성장을 지켜보며 조용히 뿌듯해한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '내가 남긴 것들이 잘 자라고 있었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-52-2',
-        text: '오랜 경력을 살려 후배들의 멘토가 된다',
-        deltas: { relationship: 2, happiness: 2 },
-        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        text: '새로운 세대의 트레이더들과 소통 방식을 고민한다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '가르치는 방식도 시대에 맞춰야 했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-52-3',
-        text: '체력 저하로 새벽 매매가 버거워진다',
-        deltas: { health: -1 },
-        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        text: '젊은 시절보다 신중해진 매매 습관을 스스로 느낀다',
+        deltas: { wealth: 1 },
+        result: '조급함이 사라진 자리에 여유가 들어섰다.',
         requiresRoute: 'trader'
       },
       {
@@ -37288,23 +37351,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-52-1',
-        text: '긴 세월의 실적을 돌아보며 자부심을 느낀다',
-        deltas: { happiness: 2, fame: 1 },
-        result: '숫자로 증명된 커리어였다.',
+        text: '업계 세미나에서 후배들에게 특강을 맡는다',
+        deltas: { fame: 2, relationship: 1 },
+        result: '내 경험이 누군가에게 도움이 되길 바랐다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-52-2',
-        text: '자산 관리 방식을 안정적으로 바꾼다',
-        deltas: { wealth: 1 },
-        result: '이제는 공격적인 매매보다 안정이 우선이었다.',
+        text: '오랜 거래처들과의 인연을 소중히 이어간다',
+        deltas: { relationship: 2 },
+        result: '숫자보다 사람이 오래 남는다는 걸 알았다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-52-3',
-        text: '업계 후배들의 존경을 받는 자리에 오른다',
-        deltas: { fame: 2, happiness: 1 },
-        result: '오랜 시간 쌓아온 신뢰의 결과였다.',
+        text: '업계 원로 모임에 초청받아 참석한다',
+        deltas: { fame: 1, happiness: 1 },
+        result: '어느새 이런 자리의 일원이 되어 있었다.',
         requiresRoute: 'trader'
       },
       {
@@ -37752,23 +37815,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-53-1',
-        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
-        deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        text: '자녀에게 자신의 직업을 자세히 설명해준다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '이제야 아이가 아빠(엄마)의 일을 이해하기 시작했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-53-2',
-        text: '오랜 경력을 살려 후배들의 멘토가 된다',
-        deltas: { relationship: 2, happiness: 2 },
-        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        text: '가족과 함께하는 시간을 예전보다 늘려간다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '뒤늦게라도 균형을 찾으려 애썼다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-53-3',
-        text: '체력 저하로 새벽 매매가 버거워진다',
-        deltas: { health: -1 },
-        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        text: '오랜 세월 미뤄왔던 취미를 다시 시작한다',
+        deltas: { happiness: 2, health: 1 },
+        result: '숫자만 보던 삶에 다른 색이 조금씩 스며들었다.',
         requiresRoute: 'trader'
       },
       {
@@ -37837,23 +37900,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-53-1',
-        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
-        deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        text: '오랜 라이벌과의 관계가 어느새 우정으로 바뀌어 있다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '경쟁했던 시간도 결국 함께한 세월이었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-53-2',
-        text: '오랜 경력을 살려 후배들의 멘토가 된다',
-        deltas: { relationship: 2, happiness: 2 },
-        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        text: '후배가 자신의 매매 스타일을 그대로 이어받은 걸 발견한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '내가 물려준 게 헛되지 않았음을 느꼈다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-53-3',
-        text: '체력 저하로 새벽 매매가 버거워진다',
-        deltas: { health: -1 },
-        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        text: '체력은 예전만 못해도 판단력만은 여전히 날카롭다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '경험은 나이를 먹지 않는다고 믿었다.',
         requiresRoute: 'trader'
       },
       {
@@ -38297,23 +38360,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-54-1',
-        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
-        deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        text: '젊은 트레이더의 실수를 너그럽게 감싸준다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 나를 보는 것 같아 화보다 이해가 앞섰다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-54-2',
-        text: '오랜 경력을 살려 후배들의 멘토가 된다',
-        deltas: { relationship: 2, happiness: 2 },
-        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        text: '오랜 커리어를 정리하는 회고록을 조금씩 써본다',
+        deltas: { happiness: 1 },
+        result: '지나온 길을 글로 남기고 싶어졌다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-54-3',
-        text: '체력 저하로 새벽 매매가 버거워진다',
-        deltas: { health: -1 },
-        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        text: '후배가 실수를 인정하는 모습에서 예전의 자신을 본다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '그 시절 나도 저렇게 서툴렀다는 걸 기억해냈다.',
         requiresRoute: 'trader'
       },
       {
@@ -38381,23 +38444,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-54-1',
-        text: '긴 세월의 실적을 돌아보며 자부심을 느낀다',
-        deltas: { happiness: 2, fame: 1 },
-        result: '숫자로 증명된 커리어였다.',
+        text: '후배들에게 워라밸의 중요성을 강조한다',
+        deltas: { relationship: 1 },
+        result: '내가 못 지킨 걸 후배들만은 지키길 바랐다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-54-2',
-        text: '자산 관리 방식을 안정적으로 바꾼다',
-        deltas: { wealth: 1 },
-        result: '이제는 공격적인 매매보다 안정이 우선이었다.',
+        text: '시장을 떠난 뒤의 삶을 조금씩 그려보기 시작한다',
+        deltas: { happiness: 1 },
+        result: '막연하던 은퇴가 조금씩 현실로 다가왔다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-54-3',
-        text: '업계 후배들의 존경을 받는 자리에 오른다',
-        deltas: { fame: 2, happiness: 1 },
-        result: '오랜 시간 쌓아온 신뢰의 결과였다.',
+        text: '오랜 동료의 은퇴 소식에 자신의 미래를 겹쳐본다',
+        deltas: { happiness: -1 },
+        result: '남 일 같지 않아 마음이 복잡해졌다.',
         requiresRoute: 'trader'
       },
       {
@@ -38799,23 +38862,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-55-1',
-        text: '젊은 트레이더들의 방식에 신선함을 느낀다',
-        deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 원칙은 통한다고 믿었다.',
+        text: '운용 규모를 점차 줄이며 은퇴를 준비한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '천천히 속도를 늦추는 법을 배우고 있었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-55-2',
-        text: '오랜 경력을 살려 후배들의 멘토가 된다',
-        deltas: { relationship: 2, happiness: 2 },
-        result: '숫자보다 마음가짐을 더 많이 가르쳤다.',
+        text: '후임에게 주요 거래처 인맥을 하나씩 넘겨준다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '내가 쌓은 신뢰가 잘 이어지길 바랐다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-55-3',
-        text: '체력 저하로 새벽 매매가 버거워진다',
-        deltas: { health: -1 },
-        result: '예전만큼의 순발력이 아니라는 걸 인정했다.',
+        text: '퇴직금과 개인 자산을 어떻게 굴릴지 꼼꼼히 계획한다',
+        deltas: { wealth: 2 },
+        result: '이제는 남을 위한 매매가 아니라 나를 위한 매매였다.',
         requiresRoute: 'trader'
       },
       {
@@ -39564,23 +39627,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-56-1',
-        text: '은퇴 후 개인 자산만 소소하게 운용한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '치열함은 덜었지만 감각은 여전했다.',
+        text: '은퇴 전 마지막 팀 회식 자리를 마련한다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '고마움을 어떻게든 전하고 싶었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-56-2',
-        text: '후배들이 가끔 투자 조언을 구하러 온다',
-        deltas: { relationship: 1, happiness: 2 },
-        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        text: '후임자에게 자리를 넘기며 덕담을 건넨다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '나보다 더 잘해내길 진심으로 바랐다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-56-3',
-        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        text: '평생 모은 투자 노하우를 담은 책을 출간한다',
+        deltas: { fame: 2, wealth: 1 },
+        result: '숫자로만 남기엔 아까운 이야기들이었다.',
         requiresRoute: 'trader'
       },
       {
@@ -39648,23 +39711,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-56-1',
-        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        text: '은퇴 후 거주할 곳을 배우자와 함께 알아본다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '새로운 삶의 터전을 함께 그려보는 시간이었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-56-2',
-        text: '시황을 보는 습관은 은퇴 후에도 여전하다',
-        deltas: { happiness: 1 },
-        result: '몸에 밴 습관은 쉽게 사라지지 않았다.',
+        text: '오랜 세월 함께한 사무실 자리를 정리한다',
+        deltas: { happiness: -1 },
+        result: '먼지 쌓인 물건들 속에 세월이 고스란히 담겨 있었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-56-3',
-        text: '은퇴 후 개인 자산만 소소하게 운용한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '치열함은 덜었지만 감각은 여전했다.',
+        text: '마지막 대형 거래를 성공적으로 마무리 짓는다',
+        deltas: { wealth: 3, happiness: 2 },
+        result: '유종의 미를 거뒀다는 사실이 뿌듯했다.',
         requiresRoute: 'trader'
       },
       {
@@ -40093,23 +40156,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-57-1',
-        text: '은퇴 후 개인 자산만 소소하게 운용한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '치열함은 덜었지만 감각은 여전했다.',
+        text: '옛 팀원들의 모임에 초대받아 근황을 나눈다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '그 시절 이야기만으로도 시간 가는 줄 몰랐다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-57-2',
-        text: '후배들이 가끔 투자 조언을 구하러 온다',
-        deltas: { relationship: 1, happiness: 2 },
-        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        text: '후배의 승진 소식을 전해 듣고 진심으로 기뻐한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '내가 떠난 자리가 잘 채워지고 있었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-57-3',
-        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        text: '은퇴 후에도 가끔 업계 소식에 귀를 기울인다',
+        deltas: { happiness: 1 },
+        result: '완전히 손을 떼기엔 정든 세계였다.',
         requiresRoute: 'trader'
       },
       {
@@ -40177,23 +40240,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-57-1',
-        text: '후배들이 가끔 투자 조언을 구하러 온다',
-        deltas: { relationship: 1, happiness: 2 },
-        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        text: '은퇴식에서 동료들의 축하 인사를 받는다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '박수 소리 속에서 지난 세월이 스쳐 지나갔다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-57-2',
-        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        text: '후배가 안부를 전하며 근황을 들려준다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '떠난 자리에서도 여전히 연결돼 있다는 게 좋았다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-57-3',
-        text: '시황을 보는 습관은 은퇴 후에도 여전하다',
-        deltas: { happiness: 1 },
-        result: '몸에 밴 습관은 쉽게 사라지지 않았다.',
+        text: '후배가 곤란한 상황에서 전화로 조언을 구해온다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '현역은 아니어도 여전히 도움이 될 수 있어 기뻤다.',
         requiresRoute: 'trader'
       },
       {
@@ -40613,23 +40676,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-58-1',
-        text: '은퇴 후 개인 자산만 소소하게 운용한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '치열함은 덜었지만 감각은 여전했다.',
+        text: '공격적인 매매 대신 배당주 위주로 포트폴리오를 짠다',
+        deltas: { wealth: 1 },
+        result: '더 이상 큰 위험을 감수할 이유가 없었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-58-2',
-        text: '후배들이 가끔 투자 조언을 구하러 온다',
-        deltas: { relationship: 1, happiness: 2 },
-        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        text: '소액이지만 꾸준히 수익을 내는 재미를 다시 찾는다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '규모는 작아도 감각은 여전히 살아있었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-58-3',
-        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        text: '개인 자산 손실에도 예전만큼 마음이 흔들리지 않는다',
+        deltas: { happiness: -1 },
+        result: '무뎌졌다기보다 여유가 생긴 거라 여겼다.',
         requiresRoute: 'trader'
       },
       {
@@ -40697,23 +40760,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-58-1',
-        text: '은퇴 후 개인 자산만 소소하게 운용한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '치열함은 덜었지만 감각은 여전했다.',
+        text: '옛 동료의 부고 소식에 깊은 상실감을 느낀다',
+        deltas: { happiness: -2, relationship: -1 },
+        result: '함께 버텨온 시간이 그만큼 무거웠다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-58-2',
-        text: '후배들이 가끔 투자 조언을 구하러 온다',
-        deltas: { relationship: 1, happiness: 2 },
-        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        text: '후배들이 마련한 조촐한 축하 자리에 참석한다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '큰 자리보다 이 소박함이 더 마음에 남았다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-58-3',
-        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        text: '자신의 개인 계좌만 소소하게 직접 운용해본다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '남의 돈 대신 이제는 내 돈, 내 속도였다.',
         requiresRoute: 'trader'
       },
       {
@@ -41109,6 +41172,27 @@ const STAGES = [
         requiresOccupation: ['entrepreneur'],
         worldStateSignal: { key: 'entrepreneurIntegrity', target: 1 }
       },
+    
+      {
+        id: 'deviant-trader-senior-wash-trading-58',
+        text: '실적을 부풀리기 위해 자전거래로 거래량을 조작한다',
+        requiresOccupation: ['trader', 'fund-manager'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.15, max: 0.55, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'traderIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 75, label: '안 걸림', deltas: { wealth: 5, fame: 1 }, result: '숫자만 보면 흠잡을 데 없는 한 해였다.' },
+          { weight: 25, label: '발각', deltas: { wealth: -6, relationship: -4, happiness: -5, fame: -2 }, result: '동일 계좌 간 반복 체결 패턴이 감사에서 포착됐다.' }
+        ]
+      },
+      {
+        id: 'deviant-trader-senior-wash-trading-decline-58',
+        text: '부풀리지 않은 있는 그대로의 실적을 보고한다',
+        deltas: { happiness: -1 },
+        result: '초라해 보여도, 거짓 위에 쌓을 수는 없었다.',
+        requiresOccupation: ['trader', 'fund-manager'],
+        worldStateSignal: { key: 'traderIntegrity', target: 1 }
+      },
     ]
   },
   {
@@ -41253,23 +41337,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-59-1',
-        text: '은퇴 후 개인 자산만 소소하게 운용한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '치열함은 덜었지만 감각은 여전했다.',
+        text: '시황을 확인하는 습관이 은퇴 후에도 몸에 배어 있다',
+        deltas: { happiness: 1 },
+        result: '수십 년의 루틴은 쉽게 사라지지 않았다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-59-2',
-        text: '후배들이 가끔 투자 조언을 구하러 온다',
-        deltas: { relationship: 1, happiness: 2 },
-        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        text: '아침마다 스마트폰으로 시세를 확인하며 하루를 시작한다',
+        deltas: { happiness: 1 },
+        result: '직업은 끝났어도 습관은 끝나지 않았다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-59-3',
-        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        text: '텔레비전 경제 뉴스에 저절로 눈길이 간다',
+        deltas: { happiness: 1 },
+        result: '몸에 밴 반응은 어쩔 수 없었다.',
         requiresRoute: 'trader'
       },
       {
@@ -41337,23 +41421,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-59-1',
-        text: '시황을 보는 습관은 은퇴 후에도 여전하다',
-        deltas: { happiness: 1 },
-        result: '몸에 밴 습관은 쉽게 사라지지 않았다.',
+        text: '손주에게 세뱃돈으로 줄 주식을 대신 골라준다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '평생 해온 일이 이렇게도 쓰일 줄 몰랐다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-59-2',
-        text: '은퇴 후 개인 자산만 소소하게 운용한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '치열함은 덜었지만 감각은 여전했다.',
+        text: '배우자와 함께 은퇴 자금 운용 계획을 다시 짠다',
+        deltas: { relationship: 1, wealth: 1 },
+        result: '이제는 둘이 함께 결정할 일이었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-59-3',
-        text: '후배들이 가끔 투자 조언을 구하러 온다',
-        deltas: { relationship: 1, happiness: 2 },
-        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        text: '가까운 지인들의 소소한 투자 상담을 도맡는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '거절하기엔 다들 너무나 간절한 표정이었다.',
         requiresRoute: 'trader'
       },
       {
@@ -41788,23 +41872,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-60-1',
-        text: '은퇴 후 개인 자산만 소소하게 운용한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '치열함은 덜었지만 감각은 여전했다.',
+        text: '옛 동료가 근황을 묻는 전화에 반가움을 감추지 못한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '목소리만 들어도 그 시절이 떠올랐다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-60-2',
-        text: '후배들이 가끔 투자 조언을 구하러 온다',
-        deltas: { relationship: 1, happiness: 2 },
-        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        text: '은퇴 기념으로 오랫동안 미뤘던 여행을 떠난다',
+        deltas: { happiness: 3, wealth: -2 },
+        result: '시장 시계가 아닌 내 시계로 사는 첫 여행이었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-60-3',
-        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        text: '평생 모은 자료들을 정리하며 후배에게 물려줄 것을 고른다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '남길 만한 것과 버릴 것을 가려내는 일도 쉽지 않았다.',
         requiresRoute: 'trader'
       },
       {
@@ -42426,23 +42510,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-61-1',
-        text: '은퇴 후 개인 자산만 소소하게 운용한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '치열함은 덜었지만 감각은 여전했다.',
+        text: '배우자와 함께 요리를 배우며 소소한 즐거움을 찾는다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '숫자 대신 레시피를 외우는 삶도 나쁘지 않았다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-61-2',
-        text: '후배들이 가끔 투자 조언을 구하러 온다',
-        deltas: { relationship: 1, happiness: 2 },
-        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        text: '텃밭을 가꾸며 시장과 무관한 하루를 보낸다',
+        deltas: { happiness: 2, health: 1 },
+        result: '자라는 걸 지켜보는 데는 다른 종류의 인내가 필요했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-61-3',
-        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        text: '젊은 시절 미뤄둔 악기 연주를 다시 배운다',
+        deltas: { happiness: 2 },
+        result: '늦었다고 생각했지만 시작하니 늦지 않았다.',
         requiresRoute: 'trader'
       },
       {
@@ -42510,23 +42594,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-61-1',
-        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        text: '오랜만에 여유롭게 아침 산책을 즐긴다',
+        deltas: { health: 1, happiness: 1 },
+        result: '숫자 대신 풍경을 보는 아침이 낯설고도 좋았다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-61-2',
-        text: '시황을 보는 습관은 은퇴 후에도 여전하다',
-        deltas: { happiness: 1 },
-        result: '몸에 밴 습관은 쉽게 사라지지 않았다.',
+        text: '손주와 함께 시간을 보내며 새로운 행복을 찾는다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '시장보다 더 예측 불가능한 즐거움이었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-61-3',
-        text: '은퇴 후 개인 자산만 소소하게 운용한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '치열함은 덜었지만 감각은 여전했다.',
+        text: '오랜 취미였던 낚시를 본격적으로 시작한다',
+        deltas: { happiness: 2, health: 1 },
+        result: '기다림의 미학을 이제야 여유롭게 즐길 수 있었다.',
         requiresRoute: 'trader'
       },
       {
@@ -43027,23 +43111,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-62-1',
-        text: '은퇴 후 개인 자산만 소소하게 운용한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '치열함은 덜었지만 감각은 여전했다.',
+        text: '후배 세대를 위한 장학금을 조용히 기부한다',
+        deltas: { wealth: -3, happiness: 2 },
+        result: '받았던 만큼 돌려주고 싶은 마음이었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-62-2',
-        text: '후배들이 가끔 투자 조언을 구하러 온다',
-        deltas: { relationship: 1, happiness: 2 },
-        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        text: '옛 사무실 근처를 지나며 옛 생각에 잠긴다',
+        deltas: { happiness: 1 },
+        result: '건물은 그대로인데 그 시절의 나는 이제 없었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-62-3',
-        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        text: '업계 동창회에서 후배들의 활약상을 전해 듣는다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '내가 없어도 잘 굴러간다는 게 뿌듯하면서도 묘했다.',
         requiresRoute: 'trader'
       },
       {
@@ -43111,23 +43195,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-62-1',
-        text: '후배들이 가끔 투자 조언을 구하러 온다',
-        deltas: { relationship: 1, happiness: 2 },
-        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        text: '동네 도서관에서 경제와 무관한 책들을 빌려 읽는다',
+        deltas: { happiness: 1 },
+        result: '숫자가 아닌 이야기에 빠져드는 게 오랜만이었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-62-2',
-        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
+        text: '오랜 지인들과 정기 모임을 만들어 꾸준히 만난다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        result: '이제야 사람에게 온전히 시간을 쓸 수 있었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-62-3',
-        text: '시황을 보는 습관은 은퇴 후에도 여전하다',
-        deltas: { happiness: 1 },
-        result: '몸에 밴 습관은 쉽게 사라지지 않았다.',
+        text: '자서전 형식으로 자신의 트레이더 인생을 정리한다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '숫자로만 남기엔 너무 많은 일들이 있었다.',
         requiresRoute: 'trader'
       },
       {
@@ -43611,23 +43695,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-63-1',
-        text: '은퇴 후 개인 자산만 소소하게 운용한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '치열함은 덜었지만 감각은 여전했다.',
+        text: '건강을 챙기며 남은 시간을 소중히 여기기로 다짐한다',
+        deltas: { health: 1, happiness: 1 },
+        result: '이제는 속도보다 방향이 더 중요했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-63-2',
-        text: '후배들이 가끔 투자 조언을 구하러 온다',
-        deltas: { relationship: 1, happiness: 2 },
-        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        text: '평생 함께한 배우자에게 뒤늦은 고마움을 전한다',
+        deltas: { relationship: 3, happiness: 2 },
+        result: '가장 가까운 사람에게 가장 늦게 마음을 전했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-63-3',
-        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        text: '시장의 소음에서 완전히 벗어난 조용한 일상을 즐긴다',
+        deltas: { happiness: 2, health: 1 },
+        result: '요란했던 세월 끝에 찾아온 고요함이 낯설게 반가웠다.',
         requiresRoute: 'trader'
       },
       {
@@ -43696,23 +43780,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-63-1',
-        text: '은퇴 후 개인 자산만 소소하게 운용한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '치열함은 덜었지만 감각은 여전했다.',
+        text: '가끔 찾아오는 불면의 밤, 옛 매매 순간들을 떠올린다',
+        deltas: { happiness: -1 },
+        result: '치열했던 기억들이 불쑥불쑥 되살아났다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-63-2',
-        text: '후배들이 가끔 투자 조언을 구하러 온다',
-        deltas: { relationship: 1, happiness: 2 },
-        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        text: '손주에게 경제 개념을 쉽게 설명해주며 뿌듯해한다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '어려운 걸 쉽게 풀어주는 재미가 쏠쏠했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-63-3',
-        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        text: '오랜만에 만난 후배가 몰라보게 성장한 모습에 놀란다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '떠난 자리를 채운 시간이 그새 훌쩍 흘러 있었다.',
         requiresRoute: 'trader'
       },
       {
@@ -44067,6 +44151,27 @@ const STAGES = [
         result: '세계 지도 위에, 내 사업의 점 하나가 더 찍혔다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'deviant-trader-senior-spoofing-algo-63',
+        text: '알고리즘으로 가짜 대량 주문을 냈다 취소하며 시세를 흔든다',
+        requiresOccupation: ['trader', 'fund-manager'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.25, max: 0.65, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'traderIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 65, label: '안 걸림', deltas: { wealth: 8 }, result: '남들이 흔들리는 시세 위에서 홀로 이득을 챙겼다.' },
+          { weight: 35, label: '발각', deltas: { wealth: -9, relationship: -5, happiness: -5, fame: -2 }, result: '취소율이 비정상적으로 높다는 게 감시망에 걸렸다.' }
+        ]
+      },
+      {
+        id: 'deviant-trader-senior-spoofing-algo-decline-63',
+        text: '알고리즘 매매 규정을 준수하는 선에서만 전략을 짠다',
+        deltas: { wealth: -1, happiness: 1 },
+        result: '빠른 길보다, 오래 살아남는 길을 택했다.',
+        requiresOccupation: ['trader', 'fund-manager'],
+        worldStateSignal: { key: 'traderIntegrity', target: 1 }
+      },
     ]
   },
   {
@@ -44183,23 +44288,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill2-64-1',
-        text: '은퇴 후 개인 자산만 소소하게 운용한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '치열함은 덜었지만 감각은 여전했다.',
+        text: '옛 동료들과 함께 은퇴 기념 사진을 찍는다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '웃는 얼굴들 속에 지나온 세월이 담겼다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-64-2',
-        text: '후배들이 가끔 투자 조언을 구하러 온다',
-        deltas: { relationship: 1, happiness: 2 },
-        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        text: '평생 써온 계산기와 수첩을 서랍 깊이 정리해 넣는다',
+        deltas: { happiness: 1 },
+        result: '손때 묻은 물건들을 쉽게 버리지 못했다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill2-64-3',
-        text: '옛 트레이딩 룸 동료들과 모임을 갖는다',
+        text: '새로운 이웃들과 시장 얘기 없이도 편하게 어울린다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '치열했던 그 시절 이야기로 밤이 깊었다.',
+        result: '직업 얘기 없이도 통하는 사이가 낯설고도 좋았다.',
         requiresRoute: 'trader'
       },
       {
@@ -44246,23 +44351,23 @@ const STAGES = [
       },
       {
         id: 'trd-fill-64-1',
-        text: '시황을 보는 습관은 은퇴 후에도 여전하다',
-        deltas: { happiness: 1 },
-        result: '몸에 밴 습관은 쉽게 사라지지 않았다.',
+        text: '평생의 커리어를 돌아보며 후회 없다고 되뇐다',
+        deltas: { happiness: 2 },
+        result: '치열했던 만큼 후회도 적었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-64-2',
-        text: '은퇴 후 개인 자산만 소소하게 운용한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '치열함은 덜었지만 감각은 여전했다.',
+        text: '오랜 세월 쌓아온 것들이 결국 사람이었음을 깨닫는다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '숫자보다 오래 남는 건 결국 인연이었다.',
         requiresRoute: 'trader'
       },
       {
         id: 'trd-fill-64-3',
-        text: '후배들이 가끔 투자 조언을 구하러 온다',
-        deltas: { relationship: 1, happiness: 2 },
-        result: '현역 때보다 마음 편하게 답해줄 수 있었다.',
+        text: '소소하지만 확실한 하루하루에 감사함을 느낀다',
+        deltas: { happiness: 2 },
+        result: '거창하지 않아도 충분히 좋은 삶이었다.',
         requiresRoute: 'trader'
       },
       {
@@ -45089,6 +45194,14 @@ const STAGES = [
         result: '이제는 일하지 않아도 굴러가는 돈이 생겼다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'trd-twi-consulting-offer-65',
+        text: '후배 회사로부터 고문 자문 제안을 받는다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '현역은 아니어도 여전히 쓸모가 있다는 게 반가웠다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -45423,6 +45536,14 @@ const STAGES = [
         result: '숫자보다 무거운, 마음이 오가는 대화였다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'trd-twi-board-seat-66',
+        text: '지인 회사의 사외이사 자리를 제안받는다',
+        deltas: { fame: 2, wealth: 1 },
+        result: '숫자를 보는 눈이 여전히 필요한 곳들이 있었다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -45674,6 +45795,14 @@ const STAGES = [
         deltas: { wealth: 3 },
         result: '경험 자체가, 값을 매길 수 있는 자산이었다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'trd-twi-portfolio-simplify-67',
+        text: '복잡했던 개인 포트폴리오를 단순하게 정리한다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '이제는 관리의 편함이 수익률보다 중요했다.',
+        requiresOccupation: ['trader', 'fund-manager']
       },
     ]
   },
@@ -45974,6 +46103,14 @@ const STAGES = [
         requiresOccupation: ['entrepreneur'],
         worldStateSignal: { key: 'entrepreneurIntegrity', target: 1 }
       },
+    
+      {
+        id: 'trd-twi-health-checkup-68',
+        text: '평생 미뤄온 종합 건강검진을 받는다',
+        deltas: { health: -1, happiness: 1 },
+        result: '몸도 이제는 결산이 필요한 시기였다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -46170,6 +46307,14 @@ const STAGES = [
         deltas: { happiness: -3 },
         result: '경쟁했던 세월도, 결국 하나의 인연이었다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'trd-twi-retirement-party-69',
+        text: '완전한 은퇴를 앞두고 마지막 송별회를 갖는다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '치열했던 세월에 마침표를 찍는 자리였다.',
+        requiresOccupation: ['trader', 'fund-manager']
       },
     ]
   },
@@ -46539,6 +46684,14 @@ const STAGES = [
         result: '평생 벌어온 것들을, 차근차근 정돈해나갔다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'trd-twi-morning-without-market-70',
+        text: '평생 처음으로 시황 확인 없이 아침을 맞는다',
+        deltas: { happiness: 2, health: 1 },
+        result: '낯설었지만 나쁘지 않은 고요함이었다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -46749,6 +46902,14 @@ const STAGES = [
         deltas: { fame: 2, happiness: 2 },
         result: '이름 석 자가, 이제 하나의 역사로 남게 됐다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'trd-twi-junior-visits-71',
+        text: '옛 후배가 안부 인사차 찾아온다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '떠난 자리에서도 여전히 기억되고 있다는 게 좋았다.',
+        requiresOccupation: ['trader', 'fund-manager']
       },
     ]
   },
@@ -46963,7 +47124,15 @@ const STAGES = [
         deltas: { wealth: 2, happiness: 4 },
         result: '화면 너머 얼굴들을 실제로 마주하니, 모든 게 새삼 뭉클했다.',
         requiresOccupation: ['streamer']
-      }
+      },
+    
+      {
+        id: 'trd-twi-market-crash-news-72',
+        text: '뉴스에서 대폭락 소식을 접하고도 담담하다',
+        deltas: { happiness: 1 },
+        result: '이제는 강 건너 불구경하듯 지켜볼 수 있었다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -47175,6 +47344,15 @@ const STAGES = [
         result: '오래된 이야기가, 새로운 귀를 만나 다시 살아났다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'trd-twi-grandchild-money-lesson-73',
+        text: '손주에게 용돈 관리하는 법을 가르쳐준다',
+        requiresFamilyMember: ['grandchild'],
+        deltas: { happiness: 3, relationship: 1 },
+        result: '평생의 감각을 이렇게도 나눌 수 있었다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -47374,6 +47552,14 @@ const STAGES = [
         deltas: {"relationship":1},
         result: '말은 없어도, 나란히 걷는 것만으로 충분했다.',
         requiresFamilyMember: ['child']
+      },
+    
+      {
+        id: 'trd-twi-memoir-writing-74',
+        text: '트레이더로 살아온 세월을 글로 남겨본다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '숫자로만 기억되기엔 아까운 이야기들이었다.',
+        requiresOccupation: ['trader', 'fund-manager']
       },
     ]
   },
@@ -47667,7 +47853,15 @@ const STAGES = [
         deltas: { wealth: 4, happiness: 4 },
         result: '오랜 팬들의 얼굴에서, 지나온 세월이 함께 보였다.',
         requiresOccupation: ['idol']
-      }
+      },
+    
+      {
+        id: 'trd-twi-old-colleague-reunion-75',
+        text: '흩어졌던 옛 트레이딩 룸 동료들과 재회한다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '얼굴엔 세월이 앉았어도 눈빛만은 그대로였다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -47874,6 +48068,14 @@ const STAGES = [
         result: '현장을 떠나도, 이름은 여전히 그 자리에 남았다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'trd-twi-small-account-loss-76',
+        text: '개인 계좌에서 작은 손실을 보지만 크게 개의치 않는다',
+        deltas: { wealth: -1, happiness: -1 },
+        result: '예전 같으면 밤잠을 설쳤을 일이었다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -48060,6 +48262,14 @@ const STAGES = [
         deltas: { wealth: -5, happiness: 3 },
         result: '받았던 기회를, 이제는 나눠줄 차례였다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'trd-twi-scholarship-donation-77',
+        text: '후배 양성을 위한 장학금을 조용히 기부한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '받았던 기회를 이제는 돌려줄 차례였다.',
+        requiresOccupation: ['trader', 'fund-manager']
       },
     ]
   },
@@ -48281,6 +48491,14 @@ const STAGES = [
         result: '미안함이 앞섰지만, 내민 손이 고마웠다.',
         requiresFamilyMember: ['child']
       },
+    
+      {
+        id: 'trd-twi-industry-lifetime-award-78',
+        text: '금융업계 공로상을 수상한다',
+        deltas: { fame: 3, happiness: 3 },
+        result: '평생의 커리어가 이렇게 인정받는구나 싶었다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -48450,6 +48668,14 @@ const STAGES = [
         deltas: { health: 1, happiness: 1 },
         result: '천천히 가는 법을, 이제야 배우고 있었다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'trd-twi-reduces-consulting-hours-79',
+        text: '체력에 맞춰 자문 활동 시간을 줄인다',
+        deltas: { health: 1, happiness: 1 },
+        result: '천천히 가는 법을 이제야 배우고 있었다.',
+        requiresOccupation: ['trader', 'fund-manager']
       },
     ]
   },
@@ -48713,6 +48939,14 @@ const STAGES = [
         result: '괜찮다는 말을 몇 번이나 되풀이했다.',
         requiresFamilyMember: ['child']
       },
+    
+      {
+        id: 'trd-twi-eightieth-birthday-80',
+        text: '온 가족이 모여 팔순을 축하해준다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '평생 쌓아온 것 중 가장 값진 건 결국 사람이었다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -48913,6 +49147,14 @@ const STAGES = [
         result: '그 시절 고생담을 나누며, 다들 아이처럼 웃었다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'trd-twi-successor-visits-81',
+        text: '자리를 물려받은 후임이 근황을 전하러 온다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '물려준 것이 헛되지 않았다는 확인이었다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -49105,7 +49347,15 @@ const STAGES = [
         deltas: { wealth: 2 },
         result: '후배 지도자들 앞에서, 평생의 노하우를 풀어놓았다.',
         requiresOccupation: ['soccer-manager']
-      }
+      },
+    
+      {
+        id: 'trd-twi-eyesight-worsens-82',
+        text: '시력이 나빠져 신문의 시세표조차 흐릿해 보인다',
+        deltas: { health: -2 },
+        result: '평생 숫자를 보던 눈이 이제는 쉬고 싶어했다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -49274,6 +49524,14 @@ const STAGES = [
         deltas: { health: -1, wealth: -1 },
         result: '몸이 예전 같지 않다는 걸, 매번 새롭게 실감했다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'trd-twi-hospital-visit-frequent-83',
+        text: '병원 나들이가 부쩍 잦아진다',
+        deltas: { health: -1, wealth: -1 },
+        result: '몸이 예전 같지 않다는 걸 매번 새롭게 실감했다.',
+        requiresOccupation: ['trader', 'fund-manager']
       },
     ]
   },
@@ -49462,6 +49720,14 @@ const STAGES = [
         deltas: {"happiness":3},
         result: '작고 통통했던 손이 눈에 선했다.',
         requiresFamilyMember: ['child']
+      },
+    
+      {
+        id: 'trd-twi-still-reads-financial-news-84',
+        text: '느려진 손으로도 경제 신문만은 꼬박꼬박 읽는다',
+        deltas: { happiness: 1 },
+        result: '몸에 밴 습관은 세월도 어쩌지 못했다.',
+        requiresOccupation: ['trader', 'fund-manager']
       },
     ]
   },
@@ -49759,6 +50025,15 @@ const STAGES = [
         result: '사업의 성공보다, 함께한 이 세월이 더 큰 자랑이었다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'trd-twi-golden-anniversary-85',
+        text: '배우자와 함께 결혼 50주년을 맞는다',
+        requiresFamilyMember: ['spouse'],
+        deltas: { happiness: 4, relationship: 3 },
+        result: '시장의 성공보다, 함께한 이 세월이 더 큰 자랑이었다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -49978,6 +50253,14 @@ const STAGES = [
         deltas: { health: -1 },
         result: '깜빡하는 일이 늘었지만, 애써 웃어넘기기로 했다.'
       },
+    
+      {
+        id: 'trd-twi-final-portfolio-review-86',
+        text: '남은 자산을 정리하며 상속 계획을 세운다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '평생 굴려온 숫자를 이제는 물려줄 준비를 했다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -50187,6 +50470,14 @@ const STAGES = [
         requiresOccupation: ['entrepreneur'],
         worldStateSignal: { key: 'entrepreneurIntegrity', target: 1 }
       },
+    
+      {
+        id: 'trd-twi-young-trader-interview-87',
+        text: '젊은 트레이더의 다큐멘터리 인터뷰 요청에 응한다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '지나온 세월이 누군가에게는 교재가 되고 있었다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -50372,7 +50663,15 @@ const STAGES = [
         deltas: { wealth: 2, fame: 3 },
         result: '초창기를 함께한 이들의 이름이, 방송 내내 오르내렸다.',
         requiresOccupation: ['streamer']
-      }
+      },
+    
+      {
+        id: 'trd-twi-quiet-satisfaction-88',
+        text: '치열했던 세월을 돌아보며 조용히 만족감을 느낀다',
+        deltas: { happiness: 2 },
+        result: '후회 없는 삶이었다고, 스스로에게 말해주었다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -50560,6 +50859,14 @@ const STAGES = [
         deltas: { happiness: 3 },
         result: '내가 없어도 잘 돌아간다는 게, 서운함보다 뿌듯함으로 다가왔다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'trd-twi-firm-still-thrives-89',
+        text: '자신이 몸담았던 회사가 여전히 승승장구한다는 소식을 듣는다',
+        deltas: { happiness: 3 },
+        result: '내가 없어도 잘 돌아간다는 게, 서운함보다 뿌듯함으로 다가왔다.',
+        requiresOccupation: ['trader', 'fund-manager']
       },
     ]
   },
@@ -50820,7 +51127,36 @@ const STAGES = [
         deltas: { wealth: 2, fame: 3 },
         result: '지나온 무대들이, 화면 속에서 다시 한번 빛났다.',
         requiresOccupation: ['idol']
-      }
+      },
+    
+      {
+        id: 'trd-twi-still-sharp-mind-90',
+        text: '나이에도 불구하고 여전히 명료한 시장 감각을 보여준다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '몸은 느려져도, 감각만은 여전히 살아있었다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
+    
+      {
+        id: 'deviant-trader-late-insider-tip-sharing-90',
+        text: '옛 인맥에게서 얻은 미공개 정보를 지인들에게 넌지시 흘린다',
+        requiresOccupation: ['trader', 'fund-manager'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.1, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'traderIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 80, label: '안 걸림', deltas: { fame: 1, relationship: 2 }, result: '고마워하는 지인들의 얼굴에 은근히 뿌듯해졌다.' },
+          { weight: 20, label: '발각', deltas: { relationship: -4, happiness: -5, fame: -3 }, result: '뒤늦게 시작된 조사에 평생 쌓은 명성이 흔들렸다.' }
+        ]
+      },
+      {
+        id: 'deviant-trader-late-insider-tip-sharing-decline-90',
+        text: '아는 것이 있어도 선을 지켜 입을 다문다',
+        deltas: { happiness: 1 },
+        result: '평생 지켜온 원칙을, 마지막까지 지키고 싶었다.',
+        requiresOccupation: ['trader', 'fund-manager'],
+        worldStateSignal: { key: 'traderIntegrity', target: 1 }
+      },
     ]
   },
   {
@@ -51001,6 +51337,14 @@ const STAGES = [
         deltas: { relationship: 2, happiness: 1 },
         result: '이제는 물러서서 지켜보는 법을 배워야 했다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'trd-twi-successor-struggles-shared-91',
+        text: '후계자가 겪는 어려움을 듣고 조용히 조언을 건넨다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '이제는 물러서서 지켜보는 법을 배워야 했다.',
+        requiresOccupation: ['trader', 'fund-manager']
       },
     ]
   },
@@ -51216,7 +51560,15 @@ const STAGES = [
         deltas: { wealth: 2, fame: 2 },
         result: '오랜 세월의 헌신이, 마지막 순간 조명받았다.',
         requiresOccupation: ['doctor']
-      }
+      },
+    
+      {
+        id: 'trd-twi-old-trading-log-found-92',
+        text: '오래된 매매 일지를 발견하고 추억에 잠긴다',
+        deltas: { happiness: 2 },
+        result: '누렇게 바랜 종이 위에 젊은 날의 열정이 그대로 남아 있었다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -51394,6 +51746,14 @@ const STAGES = [
         result: '낡은 간판 하나가, 이렇게 귀한 대접을 받을 줄 몰랐다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'trd-twi-museum-exhibit-93',
+        text: '초창기 사용했던 거래 장비가 금융박물관에 전시된다',
+        deltas: { fame: 1, happiness: 2 },
+        result: '낡은 기계 하나가, 이렇게 귀한 대접을 받을 줄 몰랐다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -51570,6 +51930,14 @@ const STAGES = [
         deltas: {"happiness":1},
         result: '몇 마디 안 되는 글에, 오랜 마음을 눌러 담았다.',
         requiresFamilyMember: ['child']
+      },
+    
+      {
+        id: 'trd-twi-frail-but-content-94',
+        text: '몸은 쇠약해졌지만 마음만은 평온하다',
+        deltas: { health: -2, happiness: 2 },
+        result: '부족한 것투성이인 몸으로도, 만족스러운 하루하루였다.',
+        requiresOccupation: ['trader', 'fund-manager']
       },
     ]
   },
@@ -51784,6 +52152,14 @@ const STAGES = [
         result: '물려준 것이 헛되지 않았다는 확인이었다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'trd-twi-successor-visits-95',
+        text: '후계자가 안부를 전하며 근황을 들려준다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '물려준 것이 헛되지 않았다는 확인이 다시 한번 이어졌다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -51963,6 +52339,15 @@ const STAGES = [
         result: '깜빡하기 쉬운 것들을 아이가 대신 기억해줬다.',
         requiresFamilyMember: ['child']
       },
+    
+      {
+        id: 'trd-twi-great-grandchild-96',
+        text: '증손주의 재롱을 보며 환하게 웃는다',
+        requiresFamilyMember: ['grandchild'],
+        deltas: { happiness: 4, relationship: 2 },
+        result: '숫자로는 잴 수 없는 행복이 곁에 있었다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -52137,6 +52522,14 @@ const STAGES = [
         result: '부족한 것투성이인 몸으로도, 만족스러운 하루하루였다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'trd-twi-legacy-fund-97',
+        text: '이름을 딴 후학 지원 기금이 만들어졌다는 소식을 듣는다',
+        deltas: { fame: 2, happiness: 3 },
+        result: '평생의 흔적이 이런 식으로도 남는구나 싶었다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -52307,6 +52700,14 @@ const STAGES = [
         text: '생신 기념으로 들어온 축하금을 저축해둔다',
         deltas: { wealth: 2, happiness: 2, relationship: 1 },
         result: '봉투 몇 개가, 통장에 조용히 쌓였다.'
+      },
+    
+      {
+        id: 'trd-twi-still-checks-ticker-98',
+        text: '병상에서도 습관처럼 시세 알림을 확인한다',
+        deltas: { happiness: 1 },
+        result: '평생의 습관은 몸이 다 기억하고 있었다.',
+        requiresOccupation: ['trader', 'fund-manager']
       },
     ]
   },
@@ -52508,6 +52909,14 @@ const STAGES = [
         result: '평생 일군 것 중, 가장 값진 건 결국 사람이었다.',
         requiresOccupation: ['entrepreneur']
       },
+    
+      {
+        id: 'trd-twi-family-gathers-99',
+        text: '온 가족이 모여 장수를 축하해준다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '평생 일군 것 중, 가장 값진 건 결국 사람이었다.',
+        requiresOccupation: ['trader', 'fund-manager']
+      },
     ]
   },
   {
@@ -52699,6 +53108,14 @@ const STAGES = [
         deltas: { happiness: 3 },
         result: '맨손으로 시작해 여기까지 왔다는 게, 새삼 벅찼다.',
         requiresOccupation: ['entrepreneur']
+      },
+    
+      {
+        id: 'trd-twi-final-reflection-100',
+        text: '트레이더로 살아온 평생을 마지막으로 조용히 돌아본다',
+        deltas: { happiness: 3 },
+        result: '맨손으로 시작해 여기까지 왔다는 게, 새삼 벅찼다.',
+        requiresOccupation: ['trader', 'fund-manager']
       },
     ]
   }
