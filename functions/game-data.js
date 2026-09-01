@@ -7988,44 +7988,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-23-1',
-        text: '첫 담임을 맡아 학급 운영에 서툴다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '실수투성이였지만 아이들은 생각보다 너그러웠다.',
+        text: '조회·종례 시간조차 낯설어 매번 허둥댄다',
+        deltas: { happiness: -1 },
+        result: '몇 주가 지나서야 조금씩 요령이 붙었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-23-2',
-        text: '수업 준비로 매일 밤늦게까지 자료를 만든다',
-        deltas: { health: -1, wealth: 1 },
-        result: '완벽한 수업은 없다는 걸 조금씩 인정하게 됐다.',
+        text: '판서 하나도 여러 번 연습한 뒤에야 교실에 들어간다',
+        deltas: { health: -1 },
+        result: '떨림은 여전했지만 조금씩 나아지고 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-23-3',
-        text: '학생이 처음으로 마음을 열고 고민을 털어놓는다',
+        text: '말수 없던 아이가 조용히 편지를 건넨다',
         deltas: { relationship: 2, happiness: 2 },
-        result: '선생이라는 자리의 무게를 실감했다.',
+        result: '짧은 편지 한 장이 하루를 다 채웠다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-23-4',
-        text: '동료 교사에게 수업 노하우를 배운다',
-        deltas: { wealth: 1 },
-        result: '혼자였다면 훨씬 오래 걸렸을 시행착오였다.',
+        text: '옆 반 선생님의 학급 운영 비법을 몰래 훔쳐본다',
+        deltas: { happiness: 1 },
+        result: '배울 게 많다는 걸 매일 깨달았다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-23-5',
-        text: '학부모 상담 주간에 진땀을 뺀다',
+        text: '첫 학부모 상담에서 무슨 말을 해야 할지 몰라 진땀이 난다',
         deltas: { happiness: -1 },
-        result: '다양한 기대와 요구 사이에서 균형을 잡으려 애썼다.',
+        result: '준비한 말은 다 잊고 진심으로만 이야기했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-23-6',
-        text: '체육대회 준비로 몸살이 난다',
+        text: '반 대항 줄다리기 훈련을 지도하다 목이 다 쉰다',
         deltas: { health: -1, happiness: 1 },
-        result: '고생한 만큼 아이들이 즐거워해 보람이 있었다.',
+        result: '목은 아팠지만 함성 소리는 달콤했다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -9190,44 +9190,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-24-1',
-        text: '첫 담임을 맡아 학급 운영에 서툴다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '실수투성이였지만 아이들은 생각보다 너그러웠다.',
+        text: '다투는 아이들을 어떻게 화해시켜야 할지 감이 안 잡힌다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '정답은 없었지만, 진심은 통하는 듯했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-24-2',
-        text: '수업 준비로 매일 밤늦게까지 자료를 만든다',
+        text: '남의 수업 지도안을 몰래 참고하며 밤을 새운다',
         deltas: { health: -1, wealth: 1 },
-        result: '완벽한 수업은 없다는 걸 조금씩 인정하게 됐다.',
+        result: '부끄러웠지만 그렇게라도 배워야 했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-24-3',
-        text: '학생이 처음으로 마음을 열고 고민을 털어놓는다',
-        deltas: { relationship: 2, happiness: 2 },
-        result: '선생이라는 자리의 무게를 실감했다.',
+        text: '겉돌던 학생이 처음으로 수업에 손을 든다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '작은 변화가 가장 크게 다가왔다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-24-4',
-        text: '동료 교사에게 수업 노하우를 배운다',
-        deltas: { wealth: 1 },
-        result: '혼자였다면 훨씬 오래 걸렸을 시행착오였다.',
+        text: '선배 교사와 함께 교재를 연구하며 시야를 넓힌다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '혼자 고민하던 문제들이 술술 풀렸다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-24-5',
-        text: '학부모 상담 주간에 진땀을 뺀다',
-        deltas: { happiness: -1 },
-        result: '다양한 기대와 요구 사이에서 균형을 잡으려 애썼다.',
+        text: '예민한 학부모의 항의 전화를 받고 마음이 무거워진다',
+        deltas: { happiness: -2 },
+        result: '오해가 풀리기까지 긴 통화가 필요했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-24-6',
-        text: '체육대회 준비로 몸살이 난다',
-        deltas: { health: -1, happiness: 1 },
-        result: '고생한 만큼 아이들이 즐거워해 보람이 있었다.',
+        text: '응원 구호를 짜느라 아이들과 밤늦도록 머리를 맞댄다',
+        deltas: { health: -1, relationship: 1 },
+        result: '다 함께 만든 구호라 더 힘차게 울려 퍼졌다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -10436,6 +10436,27 @@ const STAGES = [
         requiresRoute: 'logistics',
         worldStateSignal: { key: 'logisticsIntegrity', target: 1 }
       },
+    
+      {
+        id: 'deviant-teacher-exam-leak-tutoring-24',
+        text: '과외하는 학생에게 다음 시험 문제를 슬쩍 흘려준다',
+        requiresRoute: 'teacher-route',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'teacherCorruption', target: 0 },
+        prizeTable: [
+          { weight: 88, label: '안 걸림', deltas: { wealth: 5 }, result: '과외비에 두둑한 보너스가 얹어졌다.' },
+          { weight: 12, label: '발각', deltas: { wealth: -4, relationship: -4, happiness: -4, fame: -2 }, result: '다른 학생의 신고로 시험지 유출 사실이 드러났다.' }
+        ]
+      },
+      {
+        id: 'deviant-teacher-exam-leak-tutoring-decline-24',
+        text: '과외 학생이라도 시험 문제는 철저히 비밀로 지킨다',
+        deltas: { happiness: 1 },
+        result: '당장은 아쉬워해도, 공정함이 먼저였다.',
+        requiresRoute: 'teacher-route',
+        worldStateSignal: { key: 'teacherCorruption', target: 1 }
+      },
     ]
   },
   {
@@ -10525,44 +10546,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-25-1',
-        text: '첫 담임을 맡아 학급 운영에 서툴다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '실수투성이였지만 아이들은 생각보다 너그러웠다.',
+        text: '학급 규칙을 세우다 아이들의 반발에 부딪힌다',
+        deltas: { happiness: -1 },
+        result: '함께 정한 규칙이라야 지켜진다는 걸 배웠다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-25-2',
-        text: '수업 준비로 매일 밤늦게까지 자료를 만든다',
-        deltas: { health: -1, wealth: 1 },
-        result: '완벽한 수업은 없다는 걸 조금씩 인정하게 됐다.',
+        text: '수업 시연 평가를 앞두고 며칠을 긴장 속에 보낸다',
+        deltas: { happiness: -2 },
+        result: '잘하고 싶은 마음이 오히려 발목을 잡았다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-25-3',
-        text: '학생이 처음으로 마음을 열고 고민을 털어놓는다',
-        deltas: { relationship: 2, happiness: 2 },
-        result: '선생이라는 자리의 무게를 실감했다.',
+        text: '가정사로 힘들어하던 아이가 도움을 청해온다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '할 수 있는 만큼만이라도 곁에 있어주고 싶었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-25-4',
-        text: '동료 교사에게 수업 노하우를 배운다',
+        text: '동학년 회의에서 다른 반의 사례를 듣고 힌트를 얻는다',
         deltas: { wealth: 1 },
-        result: '혼자였다면 훨씬 오래 걸렸을 시행착오였다.',
+        result: '같은 고민을 하는 사람이 있다는 것만으로 위안이 됐다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-25-5',
-        text: '학부모 상담 주간에 진땀을 뺀다',
-        deltas: { happiness: -1 },
-        result: '다양한 기대와 요구 사이에서 균형을 잡으려 애썼다.',
+        text: '상담 시간이 훌쩍 넘도록 학부모의 고민을 들어드린다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '아이보다 부모가 더 지쳐 보였다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-25-6',
-        text: '체육대회 준비로 몸살이 난다',
-        deltas: { health: -1, happiness: 1 },
-        result: '고생한 만큼 아이들이 즐거워해 보람이 있었다.',
+        text: '갑자기 내린 비로 체육대회 일정을 급하게 바꾼다',
+        deltas: { happiness: -1 },
+        result: '예상 밖의 변수에도 어떻게든 방법을 찾아냈다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -11686,44 +11707,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-26-1',
-        text: '첫 담임을 맡아 학급 운영에 서툴다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '실수투성이였지만 아이들은 생각보다 너그러웠다.',
+        text: '청소 당번표 하나 짜는 데도 불만이 쏟아진다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '사소한 일에도 다들 진심이라는 게 새삼 느껴졌다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-26-2',
-        text: '수업 준비로 매일 밤늦게까지 자료를 만든다',
-        deltas: { health: -1, wealth: 1 },
-        result: '완벽한 수업은 없다는 걸 조금씩 인정하게 됐다.',
+        text: '프린트물 오탈자를 뒤늦게 발견하고 식은땀을 흘린다',
+        deltas: { happiness: -1 },
+        result: '완벽주의를 조금 내려놓기로 했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-26-3',
-        text: '학생이 처음으로 마음을 열고 고민을 털어놓는다',
-        deltas: { relationship: 2, happiness: 2 },
-        result: '선생이라는 자리의 무게를 실감했다.',
+        text: '전학 온 아이가 낯선 교실에서 처음으로 웃는다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '그 웃음 하나로 충분히 보람 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-26-4',
-        text: '동료 교사에게 수업 노하우를 배운다',
-        deltas: { wealth: 1 },
-        result: '혼자였다면 훨씬 오래 걸렸을 시행착오였다.',
+        text: '멘토 교사의 조언 덕분에 막막했던 문제를 해결한다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '좋은 스승을 곁에 둔 게 큰 행운이었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-26-5',
-        text: '학부모 상담 주간에 진땀을 뺀다',
+        text: '상반된 요구를 하는 두 학부모 사이에서 난감해한다',
         deltas: { happiness: -1 },
-        result: '다양한 기대와 요구 사이에서 균형을 잡으려 애썼다.',
+        result: '누구 편도 들 수 없어 중심을 잡으려 애썼다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-26-6',
-        text: '체육대회 준비로 몸살이 난다',
-        deltas: { health: -1, happiness: 1 },
-        result: '고생한 만큼 아이들이 즐거워해 보람이 있었다.',
+        text: '다친 아이를 업고 보건실까지 뛰어간다',
+        deltas: { health: -1, relationship: 1 },
+        result: '놀란 가슴이 진정되고 나서야 다리가 풀렸다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -14255,44 +14276,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-28-1',
-        text: '첫 담임을 맡아 학급 운영에 서툴다',
+        text: '알림장 문구 하나에도 몇 번씩 고쳐 쓴다',
         deltas: { happiness: -1, wealth: 1 },
-        result: '실수투성이였지만 아이들은 생각보다 너그러웠다.',
+        result: '완벽하지 않아도 진심은 전해졌다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-28-2',
-        text: '수업 준비로 매일 밤늦게까지 자료를 만든다',
-        deltas: { health: -1, wealth: 1 },
-        result: '완벽한 수업은 없다는 걸 조금씩 인정하게 됐다.',
+        text: '수업 진도를 맞추느라 매시간 시계를 힐끔거린다',
+        deltas: { wealth: 1 },
+        result: '시간 관리도 실력이라는 걸 절감했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-28-3',
-        text: '학생이 처음으로 마음을 열고 고민을 털어놓는다',
-        deltas: { relationship: 2, happiness: 2 },
-        result: '선생이라는 자리의 무게를 실감했다.',
+        text: '성적이 안 좋던 아이가 처음으로 스스로 질문을 던진다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '점수보다 값진 변화였다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-28-4',
-        text: '동료 교사에게 수업 노하우를 배운다',
+        text: '교내 수업 나눔에서 동료의 아이디어를 배워온다',
         deltas: { wealth: 1 },
-        result: '혼자였다면 훨씬 오래 걸렸을 시행착오였다.',
+        result: '남의 수업을 보는 것만으로도 많이 배웠다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-28-5',
-        text: '학부모 상담 주간에 진땀을 뺀다',
-        deltas: { happiness: -1 },
-        result: '다양한 기대와 요구 사이에서 균형을 잡으려 애썼다.',
+        text: '상담 내내 눈물을 보이는 학부모를 다독인다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '위로가 되어드렸는지는 알 수 없었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-28-6',
-        text: '체육대회 준비로 몸살이 난다',
-        deltas: { health: -1, happiness: 1 },
-        result: '고생한 만큼 아이들이 즐거워해 보람이 있었다.',
+        text: '계주에서 꼴찌하고도 웃는 아이들을 보며 마음이 놓인다',
+        deltas: { happiness: 1 },
+        result: '순위보다 중요한 게 뭔지 아이들이 먼저 알고 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -15428,44 +15449,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-29-1',
-        text: '첫 담임을 맡아 학급 운영에 서툴다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '실수투성이였지만 아이들은 생각보다 너그러웠다.',
+        text: '학급 문고 정리와 자리 배치까지 손이 많이 간다',
+        deltas: { wealth: 1 },
+        result: '사소해 보이는 일들이 학급의 분위기를 만들었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-29-2',
-        text: '수업 준비로 매일 밤늦게까지 자료를 만든다',
+        text: '새 학기 교재 연구에 방학 내내 매달린다',
         deltas: { health: -1, wealth: 1 },
-        result: '완벽한 수업은 없다는 걸 조금씩 인정하게 됐다.',
+        result: '준비한 만큼 자신감도 함께 쌓였다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-29-3',
-        text: '학생이 처음으로 마음을 열고 고민을 털어놓는다',
-        deltas: { relationship: 2, happiness: 2 },
-        result: '선생이라는 자리의 무게를 실감했다.',
+        text: '다투던 두 아이가 스스로 화해하고 알려온다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '가르치지 않아도 저절로 자라는 것들이 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-29-4',
-        text: '동료 교사에게 수업 노하우를 배운다',
-        deltas: { wealth: 1 },
-        result: '혼자였다면 훨씬 오래 걸렸을 시행착오였다.',
+        text: '선배 교사가 건넨 오래된 노트에서 뜻밖의 팁을 얻는다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '세월이 담긴 조언은 책보다 값졌다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-29-5',
-        text: '학부모 상담 주간에 진땀을 뺀다',
-        deltas: { happiness: -1 },
-        result: '다양한 기대와 요구 사이에서 균형을 잡으려 애썼다.',
+        text: '밤늦게 걸려온 학부모의 문자에 답장하느라 잠을 설친다',
+        deltas: { happiness: -1, health: -1 },
+        result: '경계를 두는 법도 배워야 했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-29-6',
-        text: '체육대회 준비로 몸살이 난다',
-        deltas: { health: -1, happiness: 1 },
-        result: '고생한 만큼 아이들이 즐거워해 보람이 있었다.',
+        text: '체육대회 뒤풀이로 반 전체가 떡볶이를 먹으러 간다',
+        deltas: { happiness: 1, wealth: -1 },
+        result: '함께 흘린 땀이 만든 특별한 하루였다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -16530,6 +16551,27 @@ const STAGES = [
         result: '같은 말인데도, 서로 다르게 알아듣는 게 많았다.',
         requiresRoute: 'logistics'
       },
+    
+      {
+        id: 'deviant-teacher-fake-volunteer-cert-29',
+        text: '학부모 부탁으로 하지도 않은 봉사활동 확인서를 허위로 발급해준다',
+        requiresRoute: 'teacher-route',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'teacherCorruption', target: 0 },
+        prizeTable: [
+          { weight: 87, label: '안 걸림', deltas: { wealth: 4 }, result: '감사한 마음이라며 학부모가 두둑한 답례를 보내왔다.' },
+          { weight: 13, label: '발각', deltas: { wealth: -4, relationship: -3, happiness: -4, fame: -2 }, result: '생기부 감사에서 허위 확인서가 그대로 드러났다.' }
+        ]
+      },
+      {
+        id: 'deviant-teacher-fake-volunteer-cert-decline-29',
+        text: '봉사활동 확인서 발급을 단호히 거절한다',
+        deltas: { relationship: -1, happiness: 1 },
+        result: '서운해할 걸 알면서도, 원칙은 원칙이었다.',
+        requiresRoute: 'teacher-route',
+        worldStateSignal: { key: 'teacherCorruption', target: 1 }
+      },
     ]
   },
   {
@@ -16620,44 +16662,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-30-1',
-        text: '첫 담임을 맡아 학급 운영에 서툴다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '실수투성이였지만 아이들은 생각보다 너그러웠다.',
+        text: '첫 학급 문집을 서투른 손길로 만들어본다',
+        deltas: { happiness: 1, wealth: -1 },
+        result: '완성된 문집을 보니 고생이 눈 녹듯 사라졌다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-30-2',
-        text: '수업 준비로 매일 밤늦게까지 자료를 만든다',
-        deltas: { health: -1, wealth: 1 },
-        result: '완벽한 수업은 없다는 걸 조금씩 인정하게 됐다.',
+        text: '동영상 수업 자료를 처음 만들어보느라 애를 먹는다',
+        deltas: { wealth: 1, happiness: -1 },
+        result: '낯선 도구였지만 아이들 반응은 뜨거웠다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-30-3',
-        text: '학생이 처음으로 마음을 열고 고민을 털어놓는다',
+        text: '졸업을 앞둔 아이가 뒤늦게 속마음을 털어놓는다',
         deltas: { relationship: 2, happiness: 2 },
-        result: '선생이라는 자리의 무게를 실감했다.',
+        result: '진작 알았더라면 더 잘해줬을 텐데 싶었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-30-4',
-        text: '동료 교사에게 수업 노하우를 배운다',
-        deltas: { wealth: 1 },
-        result: '혼자였다면 훨씬 오래 걸렸을 시행착오였다.',
+        text: '다른 학교 교사들과의 연수에서 새로운 시각을 얻는다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '우물 안 개구리였다는 걸 깨달았다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-30-5',
-        text: '학부모 상담 주간에 진땀을 뺀다',
-        deltas: { happiness: -1 },
-        result: '다양한 기대와 요구 사이에서 균형을 잡으려 애썼다.',
+        text: '상담 주간 마지막 날, 몸도 마음도 녹초가 된다',
+        deltas: { happiness: -1, health: -1 },
+        result: '한 주가 지나고 나서야 겨우 숨을 돌렸다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-30-6',
-        text: '체육대회 준비로 몸살이 난다',
-        deltas: { health: -1, happiness: 1 },
-        result: '고생한 만큼 아이들이 즐거워해 보람이 있었다.',
+        text: '체육대회 사진을 정리하며 한 학기를 돌아본다',
+        deltas: { happiness: 1 },
+        result: '사진 속 아이들 표정이 모든 걸 말해주고 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -18900,23 +18942,23 @@ const STAGES = [
       },
       {
         id: 'tch-fill-32-1',
-        text: '학교폭력 사안을 조사하며 며칠을 보낸다',
+        text: '가해 학생과 피해 학생 사이에서 진술이 엇갈려 애를 먹는다',
         deltas: { happiness: -2 },
-        result: '어느 쪽도 완전히 편할 수 없는 일이었다.',
+        result: '진실을 가리는 일이 이렇게 무거울 줄 몰랐다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-32-2',
-        text: '후배 교사의 멘토를 맡는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치는 법을 가르치는 게 더 어려웠다.',
+        text: '신규 교사의 첫 학부모 상담에 동석해 힘을 보탠다',
+        deltas: { relationship: 2 },
+        result: '예전의 자신이 겹쳐 보여 마음이 쓰였다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-32-3',
-        text: '입시 상담으로 학부모와 긴 면담을 갖는다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '아이의 미래를 함께 고민하는 자리였다.',
+        text: '성적보다 진로 고민이 깊은 학생을 함께 상담한다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '점수만으로는 답이 안 나오는 질문들이 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -19960,37 +20002,37 @@ const STAGES = [
       },
       {
         id: 'tch-fill-33-1',
-        text: '학교폭력 사안을 조사하며 며칠을 보낸다',
-        deltas: { happiness: -2 },
-        result: '어느 쪽도 완전히 편할 수 없는 일이었다.',
+        text: '학폭위 자료를 준비하느라 며칠 밤을 지새운다',
+        deltas: { happiness: -2, health: -1 },
+        result: '절차 하나하나가 아이의 인생과 맞닿아 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-33-2',
-        text: '후배 교사의 멘토를 맡는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치는 법을 가르치는 게 더 어려웠다.',
+        text: '수업 참관 후 후배에게 솔직한 피드백을 건넨다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '쓴소리도 애정이 있어야 할 수 있는 법이었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-33-3',
-        text: '입시 상담으로 학부모와 긴 면담을 갖는다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '아이의 미래를 함께 고민하는 자리였다.',
+        text: '특목고 진학을 둘러싼 학부모의 기대에 부담을 느낀다',
+        deltas: { happiness: -1 },
+        result: '아이의 속도와 부모의 속도가 다를 때가 많았다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-33-4',
-        text: '학생의 대학 합격 소식을 듣는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '함께 준비한 시간이 헛되지 않았다는 게 뿌듯했다.',
+        text: '재수까지 했던 제자의 합격 소식에 눈시울이 붉어진다',
+        deltas: { happiness: 3 },
+        result: '포기하지 않은 게 결국 답이었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-33-5',
-        text: '교육과정 개편으로 수업 자료를 전면 개정한다',
-        deltas: { wealth: 1, health: -1 },
-        result: '익숙했던 방식을 다시 배우는 기분이었다.',
+        text: '새 교과서에 맞춰 진도표를 처음부터 다시 짠다',
+        deltas: { health: -1 },
+        result: '손에 익을 때까지는 시행착오가 이어졌다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -21055,44 +21097,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-34-1',
-        text: '학교폭력 사안을 조사하며 며칠을 보낸다',
+        text: '화해했다던 두 학생이 다시 다퉜다는 연락을 받는다',
         deltas: { happiness: -2 },
-        result: '어느 쪽도 완전히 편할 수 없는 일이었다.',
+        result: '완전히 끝나는 갈등은 없다는 걸 배웠다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-34-2',
-        text: '후배 교사의 멘토를 맡는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치는 법을 가르치는 게 더 어려웠다.',
+        text: '후배가 학급 운영에 지쳐 보여 커피 한 잔을 건넨다',
+        deltas: { relationship: 2 },
+        result: '별말 안 해도 마음이 전해지는 순간이 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-34-3',
-        text: '입시 상담으로 학부모와 긴 면담을 갖는다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '아이의 미래를 함께 고민하는 자리였다.',
+        text: '진로 상담 중 학생의 숨은 재능을 발견한다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '성적표만 보고는 알 수 없던 모습이었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-34-4',
-        text: '학생의 대학 합격 소식을 듣는다',
+        text: '형편이 어려웠던 학생이 장학생으로 합격한다',
         deltas: { happiness: 3, fame: 1 },
-        result: '함께 준비한 시간이 헛되지 않았다는 게 뿌듯했다.',
+        result: '노력이 배신하지 않는다는 걸 함께 증명했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-34-5',
-        text: '교육과정 개편으로 수업 자료를 전면 개정한다',
-        deltas: { wealth: 1, health: -1 },
-        result: '익숙했던 방식을 다시 배우는 기분이었다.',
+        text: '디지털 교과서 도입 연수에 뒤늦게 적응한다',
+        deltas: { wealth: 1, happiness: -1 },
+        result: '세대가 다른 도구 앞에서 겸손해졌다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-34-6',
-        text: '악성 민원에 시달리며 스트레스가 쌓인다',
+        text: '근거 없는 소문이 학부모 커뮤니티에 퍼져 마음이 상한다',
         deltas: { happiness: -2 },
-        result: '가르치는 것 이상의 감정노동이었다.',
+        result: '해명할 기회조차 없다는 게 더 힘들었다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -22139,44 +22181,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-35-1',
-        text: '학교폭력 사안을 조사하며 며칠을 보낸다',
-        deltas: { happiness: -2 },
-        result: '어느 쪽도 완전히 편할 수 없는 일이었다.',
+        text: '온라인에서 벌어진 다툼까지 조사 범위가 넓어진다',
+        deltas: { happiness: -2, health: -1 },
+        result: '교실 밖의 일까지 책임져야 하는 시대였다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-35-2',
-        text: '후배 교사의 멘토를 맡는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치는 법을 가르치는 게 더 어려웠다.',
+        text: '신규 교사 연수의 강사로 나서달라는 요청을 받는다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '몇 년 새 훌쩍 자란 스스로를 실감했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-35-3',
-        text: '입시 상담으로 학부모와 긴 면담을 갖는다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '아이의 미래를 함께 고민하는 자리였다.',
+        text: '형편이 어려운 학생의 진학을 두고 함께 방법을 찾는다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '할 수 있는 선에서 최선을 다하고 싶었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-35-4',
-        text: '학생의 대학 합격 소식을 듣는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '함께 준비한 시간이 헛되지 않았다는 게 뿌듯했다.',
+        text: '목표보다 낮춰 지원했던 학생이 예상외로 좋은 결과를 받는다',
+        deltas: { happiness: 2 },
+        result: '겸손했던 아이라 더 기뻤다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-35-5',
-        text: '교육과정 개편으로 수업 자료를 전면 개정한다',
-        deltas: { wealth: 1, health: -1 },
-        result: '익숙했던 방식을 다시 배우는 기분이었다.',
+        text: '융합수업을 시도하다 예상보다 반응이 뜨겁다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '낯선 시도가 뜻밖의 성공을 거뒀다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-35-6',
-        text: '악성 민원에 시달리며 스트레스가 쌓인다',
+        text: '사소한 일로 시작된 민원이 걷잡을 수 없이 커진다',
         deltas: { happiness: -2 },
-        result: '가르치는 것 이상의 감정노동이었다.',
+        result: '작은 불씨가 어디까지 번질 수 있는지 실감했다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -23088,6 +23130,27 @@ const STAGES = [
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-team-lead']
       },
+    
+      {
+        id: 'deviant-teacher-embezzle-class-fund-35',
+        text: '학급운영비 영수증을 부풀려 차액을 챙긴다',
+        requiresRoute: 'teacher-route',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'teacherCorruption', target: 0 },
+        prizeTable: [
+          { weight: 88, label: '안 걸림', deltas: { wealth: 4 }, result: '몇 장의 영수증쯤은 아무도 눈치채지 못했다.' },
+          { weight: 12, label: '발각', deltas: { wealth: -5, relationship: -3, happiness: -4 }, result: '회계 감사에서 영수증 금액이 딱 들어맞지 않았다.' }
+        ]
+      },
+      {
+        id: 'deviant-teacher-embezzle-class-fund-decline-35',
+        text: '학급운영비를 영수증 그대로 투명하게 정산한다',
+        deltas: { happiness: 1 },
+        result: '몇 만원 차이였지만, 떳떳한 쪽을 택했다.',
+        requiresRoute: 'teacher-route',
+        worldStateSignal: { key: 'teacherCorruption', target: 1 }
+      },
     ]
   },
   {
@@ -23170,44 +23233,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-36-1',
-        text: '학교폭력 사안을 조사하며 며칠을 보낸다',
-        deltas: { happiness: -2 },
-        result: '어느 쪽도 완전히 편할 수 없는 일이었다.',
+        text: '목격자 학생들을 하나하나 면담하며 퍼즐을 맞춘다',
+        deltas: { happiness: -1 },
+        result: '조각난 이야기들이 서서히 하나로 모였다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-36-2',
-        text: '후배 교사의 멘토를 맡는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치는 법을 가르치는 게 더 어려웠다.',
+        text: '후배의 수업안을 함께 짜며 밤늦도록 의논한다',
+        deltas: { relationship: 1, health: -1 },
+        result: '내 수업처럼 진심을 다해 봐주고 싶었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-36-3',
-        text: '입시 상담으로 학부모와 긴 면담을 갖는다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '아이의 미래를 함께 고민하는 자리였다.',
+        text: '서로 다른 진로를 원하는 학생과 학부모 사이를 조율한다',
+        deltas: { happiness: -1 },
+        result: '누구의 편도 아닌, 아이 편에 서려 애썼다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-36-4',
-        text: '학생의 대학 합격 소식을 듣는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '함께 준비한 시간이 헛되지 않았다는 게 뿌듯했다.',
+        text: '꿈꾸던 학과에 합격한 제자가 가장 먼저 전화를 걸어온다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '나를 먼저 떠올려줬다는 게 고마웠다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-36-5',
-        text: '교육과정 개편으로 수업 자료를 전면 개정한다',
-        deltas: { wealth: 1, health: -1 },
-        result: '익숙했던 방식을 다시 배우는 기분이었다.',
+        text: '평가 방식이 바뀌며 채점 기준을 새로 정립한다',
+        deltas: { health: -1, wealth: 1 },
+        result: '공정함을 지키는 게 생각보다 까다로웠다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-36-6',
-        text: '악성 민원에 시달리며 스트레스가 쌓인다',
-        deltas: { happiness: -2 },
-        result: '가르치는 것 이상의 감정노동이었다.',
+        text: '밤낮없이 걸려오는 항의 전화에 신경이 곤두선다',
+        deltas: { happiness: -2, health: -1 },
+        result: '퇴근 후에도 마음이 편할 날이 없었다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -24146,37 +24209,37 @@ const STAGES = [
       },
       {
         id: 'tch-fill-37-1',
-        text: '학교폭력 사안을 조사하며 며칠을 보낸다',
+        text: '학부모 두 쪽 모두를 만족시킬 수 없어 마음이 무겁다',
         deltas: { happiness: -2 },
-        result: '어느 쪽도 완전히 편할 수 없는 일이었다.',
+        result: '공정함이 누군가에게는 부족하게 느껴질 수밖에 없었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-37-2',
-        text: '후배 교사의 멘토를 맡는다',
+        text: '힘들어하던 후배가 그만두지 않게 다독인다',
         deltas: { relationship: 2, happiness: 1 },
-        result: '가르치는 법을 가르치는 게 더 어려웠다.',
+        result: '붙잡아준 게 잘한 일인지는 시간이 알려줄 것 같았다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-37-3',
-        text: '입시 상담으로 학부모와 긴 면담을 갖는다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '아이의 미래를 함께 고민하는 자리였다.',
+        text: '입시 설명회 준비로 주말 내내 자료를 만든다',
+        deltas: { wealth: 1, health: -1 },
+        result: '학부모들의 진지한 눈빛에 책임감이 무거워졌다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-37-4',
-        text: '학생의 대학 합격 소식을 듣는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '함께 준비한 시간이 헛되지 않았다는 게 뿌듯했다.',
+        text: '여러 명이 한꺼번에 합격 소식을 전해와 정신이 없다',
+        deltas: { happiness: 2 },
+        result: '기쁜 전화를 받느라 하루가 짧았다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-37-5',
-        text: '교육과정 개편으로 수업 자료를 전면 개정한다',
-        deltas: { wealth: 1, health: -1 },
-        result: '익숙했던 방식을 다시 배우는 기분이었다.',
+        text: '자유학기제 프로그램을 처음으로 기획해본다',
+        deltas: { wealth: 1, happiness: 1 },
+        result: '정답이 없는 일이라 오히려 재미있었다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -25096,44 +25159,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-38-1',
-        text: '학교폭력 사안을 조사하며 며칠을 보낸다',
+        text: '사안 처리 도중 학생이 전학을 가겠다고 통보한다',
         deltas: { happiness: -2 },
-        result: '어느 쪽도 완전히 편할 수 없는 일이었다.',
+        result: '끝까지 함께하지 못한 게 두고두고 마음에 남았다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-38-2',
-        text: '후배 교사의 멘토를 맡는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치는 법을 가르치는 게 더 어려웠다.',
+        text: '후배 교사와 함께 학급 문제를 풀어가며 신뢰를 쌓는다',
+        deltas: { relationship: 2 },
+        result: '함께 고민한 시간이 관계를 단단하게 했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-38-3',
-        text: '입시 상담으로 학부모와 긴 면담을 갖는다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '아이의 미래를 함께 고민하는 자리였다.',
+        text: '원서 접수 마감 직전까지 학생과 함께 고민한다',
+        deltas: { happiness: -1, health: -1 },
+        result: '마지막까지 흔들리는 게 당연했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-38-4',
-        text: '학생의 대학 합격 소식을 듣는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '함께 준비한 시간이 헛되지 않았다는 게 뿌듯했다.',
+        text: '실기 시험까지 준비시킨 학생이 원하던 대학에 붙는다',
+        deltas: { happiness: 3, wealth: -1 },
+        result: '함께 흘린 땀이 결실을 맺었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-38-5',
-        text: '교육과정 개편으로 수업 자료를 전면 개정한다',
-        deltas: { wealth: 1, health: -1 },
-        result: '익숙했던 방식을 다시 배우는 기분이었다.',
+        text: '온라인 수업 병행 체제에 부랴부랴 적응한다',
+        deltas: { health: -1, wealth: 1 },
+        result: '화면 너머 아이들의 표정을 읽는 법을 새로 익혔다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-38-6',
-        text: '악성 민원에 시달리며 스트레스가 쌓인다',
+        text: '교권보호위원회에 도움을 요청할지 고민한다',
         deltas: { happiness: -2 },
-        result: '가르치는 것 이상의 감정노동이었다.',
+        result: '혼자 감당하기엔 너무 벅찬 무게였다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -26063,44 +26126,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-39-1',
-        text: '학교폭력 사안을 조사하며 며칠을 보낸다',
-        deltas: { happiness: -2 },
-        result: '어느 쪽도 완전히 편할 수 없는 일이었다.',
+        text: '재발 방지를 위한 학급 프로그램을 새로 기획한다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '예방이 사후 처리보다 훨씬 어렵다는 걸 알았다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-39-2',
-        text: '후배 교사의 멘토를 맡는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치는 법을 가르치는 게 더 어려웠다.',
+        text: '멘토링을 받던 후배가 어느새 스스로 자리를 잡는다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '뿌듯함이 몰려와 마음이 벅찼다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-39-3',
-        text: '입시 상담으로 학부모와 긴 면담을 갖는다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '아이의 미래를 함께 고민하는 자리였다.',
+        text: '불합격 소식을 전해야 하는 상담이 가장 힘들다',
+        deltas: { happiness: -2 },
+        result: '위로할 말을 찾는 게 늘 어려웠다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-39-4',
-        text: '학생의 대학 합격 소식을 듣는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '함께 준비한 시간이 헛되지 않았다는 게 뿌듯했다.',
+        text: '합격자 발표날, 초조하게 함께 새로고침을 누른다',
+        deltas: { happiness: 2, health: -1 },
+        result: '내 일처럼 심장이 두근거렸다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-39-5',
-        text: '교육과정 개편으로 수업 자료를 전면 개정한다',
-        deltas: { wealth: 1, health: -1 },
-        result: '익숙했던 방식을 다시 배우는 기분이었다.',
+        text: '개정 교육과정 설명회에서 학부모들의 질문 세례를 받는다',
+        deltas: { happiness: -1 },
+        result: '준비한 것보다 훨씬 많은 질문이 쏟아졌다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-39-6',
-        text: '악성 민원에 시달리며 스트레스가 쌓인다',
+        text: '민원 처리 결과에도 학부모가 납득하지 못한다',
         deltas: { happiness: -2 },
-        result: '가르치는 것 이상의 감정노동이었다.',
+        result: '최선을 다해도 모두를 만족시킬 순 없었다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -26928,44 +26991,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-40-1',
-        text: '학교폭력 사안을 조사하며 며칠을 보낸다',
+        text: '비슷한 사안이 또 터져 익숙해진 스스로가 씁쓸하다',
         deltas: { happiness: -2 },
-        result: '어느 쪽도 완전히 편할 수 없는 일이었다.',
+        result: '익숙함이 무뎌짐이 되지 않길 바랐다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-40-2',
-        text: '후배 교사의 멘토를 맡는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치는 법을 가르치는 게 더 어려웠다.',
+        text: '여러 신규 교사를 동시에 챙기느라 몸이 두 개였으면 싶다',
+        deltas: { health: -1, relationship: 1 },
+        result: '힘들었지만 보람이 그만큼 컸다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-40-3',
-        text: '입시 상담으로 학부모와 긴 면담을 갖는다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '아이의 미래를 함께 고민하는 자리였다.',
+        text: '여러 해 만에 만난 졸업생이 진로 조언을 구하러 온다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '여전히 기댈 수 있는 존재라는 게 뭉클했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-40-4',
-        text: '학생의 대학 합격 소식을 듣는다',
+        text: '예상 밖의 학생이 뜻밖의 명문대에 합격한다',
         deltas: { happiness: 3, fame: 1 },
-        result: '함께 준비한 시간이 헛되지 않았다는 게 뿌듯했다.',
+        result: '사람은 언제 어떻게 성장할지 모른다는 걸 배웠다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-40-5',
-        text: '교육과정 개편으로 수업 자료를 전면 개정한다',
-        deltas: { wealth: 1, health: -1 },
-        result: '익숙했던 방식을 다시 배우는 기분이었다.',
+        text: '오랜만에 맡은 학년의 교육과정이 완전히 달라져 당황한다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '다시 신규 교사가 된 기분이었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-40-6',
-        text: '악성 민원에 시달리며 스트레스가 쌓인다',
-        deltas: { happiness: -2 },
-        result: '가르치는 것 이상의 감정노동이었다.',
+        text: '동료 교사들도 비슷한 민원에 시달린다는 걸 알고 씁쓸해진다',
+        deltas: { happiness: -1 },
+        result: '나만 겪는 일이 아니라는 게 조금은 위안이 됐다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -27767,6 +27830,27 @@ const STAGES = [
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-center-manager']
       },
+    
+      {
+        id: 'deviant-teacher-doze-during-supervision-40',
+        text: '자율학습 감독 시간에 몰래 자리를 비우고 개인 볼일을 본다',
+        requiresRoute: 'teacher-route',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'teacherCorruption', target: 0 },
+        prizeTable: [
+          { weight: 89, label: '안 걸림', deltas: { happiness: 3 }, result: '잠깐의 일탈이 답답한 하루에 숨통을 틔워줬다.' },
+          { weight: 11, label: '발각', deltas: { happiness: -3, relationship: -2, wealth: -2 }, result: '하필 그 시간에 사고가 나 책임을 피할 수 없었다.' }
+        ]
+      },
+      {
+        id: 'deviant-teacher-doze-during-supervision-decline-40',
+        text: '자리를 비우고 싶은 유혹을 참고 끝까지 감독한다',
+        deltas: { happiness: -1 },
+        result: '지루했지만, 자리를 지키는 게 맞았다.',
+        requiresRoute: 'teacher-route',
+        worldStateSignal: { key: 'teacherCorruption', target: 1 }
+      },
     ]
   },
   {
@@ -27849,37 +27933,37 @@ const STAGES = [
       },
       {
         id: 'tch-fill-41-1',
-        text: '학교폭력 사안을 조사하며 며칠을 보낸다',
-        deltas: { happiness: -2 },
-        result: '어느 쪽도 완전히 편할 수 없는 일이었다.',
+        text: '학폭 전담기구 회의에서 밤늦도록 의견을 조율한다',
+        deltas: { happiness: -1, health: -1 },
+        result: '모두가 동의하는 결론은 좀처럼 나오지 않았다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-41-2',
-        text: '후배 교사의 멘토를 맡는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치는 법을 가르치는 게 더 어려웠다.',
+        text: '후배의 성장을 보며 자신의 초임 시절을 떠올린다',
+        deltas: { happiness: 1 },
+        result: '그때의 서툴렀던 자신에게도 다정해지고 싶어졌다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-41-3',
-        text: '입시 상담으로 학부모와 긴 면담을 갖는다',
+        text: '진로 상담실을 찾은 학생들의 줄이 끊이지 않는다',
         deltas: { happiness: -1, wealth: 1 },
-        result: '아이의 미래를 함께 고민하는 자리였다.',
+        result: '고민 상담사가 다 된 기분이었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-41-4',
-        text: '학생의 대학 합격 소식을 듣는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '함께 준비한 시간이 헛되지 않았다는 게 뿌듯했다.',
+        text: '오랜만에 마주한 졸업생이 합격 소식을 뒤늦게 전한다',
+        deltas: { happiness: 2 },
+        result: '늦게 들어도 기쁨은 여전했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-41-5',
-        text: '교육과정 개편으로 수업 자료를 전면 개정한다',
+        text: '새 평가 도구를 직접 만들어보며 시행착오를 겪는다',
         deltas: { wealth: 1, health: -1 },
-        result: '익숙했던 방식을 다시 배우는 기분이었다.',
+        result: '완벽하진 않아도 나아지고 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -28639,37 +28723,37 @@ const STAGES = [
       },
       {
         id: 'tch-fill-42-1',
-        text: '학교폭력 사안을 조사하며 며칠을 보낸다',
+        text: '사안 조사 중 예상 못 한 가정 문제까지 드러난다',
         deltas: { happiness: -2 },
-        result: '어느 쪽도 완전히 편할 수 없는 일이었다.',
+        result: '겉으로 보이는 게 전부가 아니었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-42-2',
-        text: '후배 교사의 멘토를 맡는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치는 법을 가르치는 게 더 어려웠다.',
+        text: '멘토링 우수 사례로 뽑혀 교내에서 소개된다',
+        deltas: { fame: 1, happiness: 1 },
+        result: '특별한 걸 한 건 아니었는데 쑥스러웠다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-42-3',
-        text: '입시 상담으로 학부모와 긴 면담을 갖는다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '아이의 미래를 함께 고민하는 자리였다.',
+        text: '학부모의 과도한 기대에 지친 학생을 다독인다',
+        deltas: { relationship: 1, happiness: -1 },
+        result: '부모의 사랑도 때론 무게가 될 수 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-42-4',
-        text: '학생의 대학 합격 소식을 듣는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '함께 준비한 시간이 헛되지 않았다는 게 뿌듯했다.',
+        text: '담임 반 전체의 대입 결과가 예년보다 좋게 나온다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '한 해의 고생이 숫자로 보답받는 기분이었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-42-5',
-        text: '교육과정 개편으로 수업 자료를 전면 개정한다',
-        deltas: { wealth: 1, health: -1 },
-        result: '익숙했던 방식을 다시 배우는 기분이었다.',
+        text: '교육과정 연구회에 참여해 다른 학교 사례를 배운다',
+        deltas: { wealth: 1 },
+        result: '우물 안에만 있었다는 걸 깨달았다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -29441,44 +29525,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-43-1',
-        text: '학교폭력 사안을 조사하며 며칠을 보낸다',
+        text: '두 학생 모두를 지켜야 한다는 책임감에 짓눌린다',
         deltas: { happiness: -2 },
-        result: '어느 쪽도 완전히 편할 수 없는 일이었다.',
+        result: '가해와 피해의 경계가 늘 선명한 건 아니었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-43-2',
-        text: '후배 교사의 멘토를 맡는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치는 법을 가르치는 게 더 어려웠다.',
+        text: '후배 교사가 힘든 학부모 민원을 상담해달라 부탁한다',
+        deltas: { relationship: 1, happiness: -1 },
+        result: '경험이 누군가에게 방패가 될 수 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-43-3',
-        text: '입시 상담으로 학부모와 긴 면담을 갖는다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '아이의 미래를 함께 고민하는 자리였다.',
+        text: '대안 진로를 고민하는 학생에게 새로운 길을 소개한다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '정해진 답이 없다는 걸 함께 배워갔다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-43-4',
-        text: '학생의 대학 합격 소식을 듣는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '함께 준비한 시간이 헛되지 않았다는 게 뿌듯했다.',
+        text: '힘들어하던 학생이 끝까지 포기하지 않고 합격한다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '가장 마음 졸였던 만큼 기쁨도 컸다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-43-5',
-        text: '교육과정 개편으로 수업 자료를 전면 개정한다',
-        deltas: { wealth: 1, health: -1 },
-        result: '익숙했던 방식을 다시 배우는 기분이었다.',
+        text: '새로 도입된 과목의 첫 수업을 맡아 부담을 느낀다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '처음이라는 부담은 매번 익숙해지지 않았다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-43-6',
-        text: '악성 민원에 시달리며 스트레스가 쌓인다',
+        text: '몇 년 전 민원의 여파가 뒤늦게 다시 불거진다',
         deltas: { happiness: -2 },
-        result: '가르치는 것 이상의 감정노동이었다.',
+        result: '완전히 지나간 일은 없다는 걸 배웠다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -30271,44 +30355,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-44-1',
-        text: '학교폭력 사안을 조사하며 며칠을 보낸다',
-        deltas: { happiness: -2 },
-        result: '어느 쪽도 완전히 편할 수 없는 일이었다.',
+        text: '오랜 시간 끌던 사안이 마침내 마무리된다',
+        deltas: { happiness: 1 },
+        result: '후련함보다 씁쓸함이 더 크게 남았다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-44-2',
-        text: '후배 교사의 멘토를 맡는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치는 법을 가르치는 게 더 어려웠다.',
+        text: '오랜 멘티가 독립해서 자신만의 학급 색깔을 찾아간다',
+        deltas: { happiness: 2 },
+        result: '손을 놓아줄 때를 아는 것도 멘토의 몫이었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-44-3',
-        text: '입시 상담으로 학부모와 긴 면담을 갖는다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '아이의 미래를 함께 고민하는 자리였다.',
+        text: '오랜 상담 끝에 학생이 스스로 결정을 내린다',
+        deltas: { happiness: 2 },
+        result: '결과보다 그 과정이 더 값졌다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-44-4',
-        text: '학생의 대학 합격 소식을 듣는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '함께 준비한 시간이 헛되지 않았다는 게 뿌듯했다.',
+        text: '특성화고 학생이 원하던 기업 대학에 합격한다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '정해진 길이 아니어도 빛나는 결과가 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-44-5',
-        text: '교육과정 개편으로 수업 자료를 전면 개정한다',
-        deltas: { wealth: 1, health: -1 },
-        result: '익숙했던 방식을 다시 배우는 기분이었다.',
+        text: '개편된 교육과정에 맞춰 만든 자료가 좋은 반응을 얻는다',
+        deltas: { happiness: 2, wealth: 1 },
+        result: '고생한 보람이 아이들 반응으로 돌아왔다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-44-6',
-        text: '악성 민원에 시달리며 스트레스가 쌓인다',
-        deltas: { happiness: -2 },
-        result: '가르치는 것 이상의 감정노동이었다.',
+        text: '민원 스트레스로 병가를 고민할 만큼 지친다',
+        deltas: { happiness: -2, health: -1 },
+        result: '버티는 것도 한계가 있다는 걸 절감했다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -31006,6 +31090,27 @@ const STAGES = [
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-center-manager']
       },
+    
+      {
+        id: 'deviant-teacher-favoritism-grading-44',
+        text: '학부모의 부탁을 받고 특정 학생의 수행평가 점수를 슬쩍 올려준다',
+        requiresRoute: 'teacher-route',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'teacherCorruption', target: 0 },
+        prizeTable: [
+          { weight: 86, label: '안 걸림', deltas: { wealth: 5 }, result: '답례로 받은 상품권이 꽤 쏠쏠했다.' },
+          { weight: 14, label: '발각', deltas: { wealth: -4, relationship: -5, happiness: -4, fame: -2 }, result: '다른 학부모의 이의제기로 평가 조작이 들통났다.' }
+        ]
+      },
+      {
+        id: 'deviant-teacher-favoritism-grading-decline-44',
+        text: '부탁을 거절하고 공정한 기준대로 채점한다',
+        deltas: { relationship: -1, happiness: 1 },
+        result: '섭섭해하는 학부모의 얼굴이 마음에 걸렸지만, 어쩔 수 없었다.',
+        requiresRoute: 'teacher-route',
+        worldStateSignal: { key: 'teacherCorruption', target: 1 }
+      },
     ]
   },
   {
@@ -31118,44 +31223,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-45-1',
-        text: '학교폭력 사안을 조사하며 며칠을 보낸다',
-        deltas: { happiness: -2 },
-        result: '어느 쪽도 완전히 편할 수 없는 일이었다.',
+        text: '후배 교사에게 사안 처리 노하우를 전수해준다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '겪어본 사람만 아는 무게를 나눠주고 싶었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-45-2',
-        text: '후배 교사의 멘토를 맡는다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '가르치는 법을 가르치는 게 더 어려웠다.',
+        text: '여러 해 동안 키운 후배들이 한자리에 모여 감사 인사를 전한다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '혼자 걸어온 길이 아니었다는 걸 새삼 느꼈다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-45-3',
-        text: '입시 상담으로 학부모와 긴 면담을 갖는다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '아이의 미래를 함께 고민하는 자리였다.',
+        text: '진학 성과로 학교 게시판에 이름이 오른다',
+        deltas: { fame: 1, happiness: 1 },
+        result: '낯간지러웠지만 싫지만은 않았다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-45-4',
-        text: '학생의 대학 합격 소식을 듣는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '함께 준비한 시간이 헛되지 않았다는 게 뿌듯했다.',
+        text: '합격 소식을 담은 손편지가 교무실로 도착한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '잊지 않고 전해준 마음이 더없이 고마웠다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-45-5',
-        text: '교육과정 개편으로 수업 자료를 전면 개정한다',
-        deltas: { wealth: 1, health: -1 },
-        result: '익숙했던 방식을 다시 배우는 기분이었다.',
+        text: '몇 차례의 개편을 겪으며 나름의 노하우가 쌓였음을 느낀다',
+        deltas: { happiness: 1 },
+        result: '변화에 적응하는 것도 실력이 됐다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-45-6',
-        text: '악성 민원에 시달리며 스트레스가 쌓인다',
-        deltas: { happiness: -2 },
-        result: '가르치는 것 이상의 감정노동이었다.',
+        text: '오랜 민원 끝에 학부모와 진심으로 화해한다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '시간이 지나야 풀리는 오해도 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -32781,37 +32886,37 @@ const STAGES = [
       },
       {
         id: 'tch-fill-47-1',
-        text: '후배 교사들에게 수업 노하우를 전수한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        text: '교내 수업 공개의 날, 시범 수업을 맡는다',
+        deltas: { fame: 1, happiness: 1 },
+        result: '오랜 경력이 자연스러운 수업으로 드러났다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-47-2',
-        text: '담임보다 행정 업무 비중이 커진다',
+        text: '각종 공문 처리에 하루의 대부분을 쓴다',
         deltas: { happiness: -1, wealth: 1 },
-        result: '교실에서 멀어지는 게 아쉬우면서도 자연스러웠다.',
+        result: '서류 속에서 아이들 얼굴이 그리워졌다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-47-3',
-        text: '체력이 예전 같지 않다는 걸 느낀다',
+        text: '목이 자주 쉬어 마이크 없이는 수업이 힘들어진다',
         deltas: { health: -1 },
-        result: '종일 서서 수업하는 게 조금씩 버거워졌다.',
+        result: '젊을 땐 몰랐던 것들을 하나씩 깨달아갔다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-47-4',
-        text: '제자의 결혼식 주례를 부탁받는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '이 일을 하는 이유를 다시 느꼈다.',
+        text: '예전 제자가 청첩장을 들고 교무실을 찾아온다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '어른이 된 얼굴에서 그 시절이 겹쳐 보였다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-47-5',
-        text: '교직 인생을 돌아보는 인터뷰 요청을 받는다',
-        deltas: { fame: 1, happiness: 1 },
-        result: '지나온 세월이 한 편의 이야기 같았다.',
+        text: '지역 신문에 모범 교사로 소개된다',
+        deltas: { fame: 2 },
+        result: '낯간지러웠지만 가족들은 무척 자랑스러워했다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -33521,44 +33626,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-48-1',
-        text: '후배 교사들에게 수업 노하우를 전수한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        text: '신규 교사 임용 면접의 평가위원으로 위촉된다',
+        deltas: { fame: 1, wealth: 1 },
+        result: '후배를 뽑는 자리에 서니 감회가 새로웠다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-48-2',
-        text: '담임보다 행정 업무 비중이 커진다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '교실에서 멀어지는 게 아쉬우면서도 자연스러웠다.',
+        text: '학교 예산 편성 업무를 새로 맡게 된다',
+        deltas: { wealth: 1, happiness: -1 },
+        result: '낯선 숫자와 씨름하는 나날이었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-48-3',
-        text: '체력이 예전 같지 않다는 걸 느낀다',
+        text: '계단을 오르내리는 것만으로도 숨이 찬다',
         deltas: { health: -1 },
-        result: '종일 서서 수업하는 게 조금씩 버거워졌다.',
+        result: '교무실이 저 멀리처럼 느껴지는 날이었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-48-4',
-        text: '제자의 결혼식 주례를 부탁받는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '이 일을 하는 이유를 다시 느꼈다.',
+        text: '제자의 결혼식에서 스승 자리에 앉는다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '뿌듯함과 세월의 무게가 동시에 밀려왔다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-48-5',
-        text: '교직 인생을 돌아보는 인터뷰 요청을 받는다',
+        text: '교육 관련 다큐멘터리 촬영 요청을 받는다',
         deltas: { fame: 1, happiness: 1 },
-        result: '지나온 세월이 한 편의 이야기 같았다.',
+        result: '카메라 앞이 어색했지만 뜻깊은 경험이었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-48-6',
-        text: '신규 교사들의 방식에 신선함을 느낀다',
-        deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 진심은 통한다고 믿었다.',
+        text: '디지털 도구를 능숙히 쓰는 후배를 보며 배울 점을 찾는다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '나이가 배움을 막는 이유가 될 순 없었다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -34086,6 +34191,29 @@ const STAGES = [
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-center-manager']
       },
+    
+      {
+        id: 'deviant-teacher-vendor-kickback-48',
+        text: '학교 급식·물품 납품업체 선정 대가로 뒷돈을 받는다',
+        requiresRoute: 'teacher-route',
+        requiresOccupation: ['vice-principal', 'principal'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'teacherCorruption', target: 0 },
+        prizeTable: [
+          { weight: 85, label: '안 걸림', deltas: { wealth: 6 }, result: '업체 사장이 건넨 봉투를 못 이기는 척 받았다.' },
+          { weight: 15, label: '발각', deltas: { wealth: -6, relationship: -4, happiness: -5, fame: -2 }, result: '교육청 감사에서 납품 비리가 낱낱이 드러났다.' }
+        ]
+      },
+      {
+        id: 'deviant-teacher-vendor-kickback-decline-48',
+        text: '납품업체의 접대성 제안을 단칼에 거절한다',
+        deltas: { relationship: 1 },
+        result: '거절 한 번이, 학교 전체의 신뢰를 지켰다.',
+        requiresRoute: 'teacher-route',
+        requiresOccupation: ['vice-principal', 'principal'],
+        worldStateSignal: { key: 'teacherCorruption', target: 1 }
+      },
     ]
   },
   {
@@ -34184,44 +34312,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-49-1',
-        text: '후배 교사들에게 수업 노하우를 전수한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        text: '여러 학교의 수업 컨설팅 요청이 들어온다',
+        deltas: { wealth: 1, fame: 1 },
+        result: '경력이 곧 자산이 된다는 걸 실감했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-49-2',
-        text: '담임보다 행정 업무 비중이 커진다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '교실에서 멀어지는 게 아쉬우면서도 자연스러웠다.',
+        text: '각종 위원회 회의에 참석하느라 수업 준비 시간이 줄어든다',
+        deltas: { happiness: -1 },
+        result: '우선순위를 정하는 게 점점 어려워졌다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-49-3',
-        text: '체력이 예전 같지 않다는 걸 느낀다',
+        text: '눈이 침침해져 채점할 때마다 안경을 고쳐 쓴다',
         deltas: { health: -1 },
-        result: '종일 서서 수업하는 게 조금씩 버거워졌다.',
+        result: '세월이 눈에도 흔적을 남기고 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-49-4',
-        text: '제자의 결혼식 주례를 부탁받는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '이 일을 하는 이유를 다시 느꼈다.',
+        text: '여러 제자가 한꺼번에 결혼 소식을 전해온다',
+        deltas: { happiness: 2 },
+        result: '다들 참 잘 자랐다는 생각이 들었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-49-5',
-        text: '교직 인생을 돌아보는 인터뷰 요청을 받는다',
-        deltas: { fame: 1, happiness: 1 },
-        result: '지나온 세월이 한 편의 이야기 같았다.',
+        text: '후배 교사 양성 프로그램의 인터뷰이로 초청된다',
+        deltas: { fame: 1 },
+        result: '그저 해온 일들이 누군가에겐 본보기가 됐다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-49-6',
-        text: '신규 교사들의 방식에 신선함을 느낀다',
+        text: '학생들과 스스럼없이 어울리는 젊은 교사가 부럽다',
         deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 진심은 통한다고 믿었다.',
+        result: '세대마다 각자의 강점이 있는 법이었다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -34821,44 +34949,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-50-1',
-        text: '후배 교사들에게 수업 노하우를 전수한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        text: '교원 연수의 강사로 초청받아 강단에 선다',
+        deltas: { fame: 2, wealth: 1 },
+        result: '배우던 자리에서 가르치는 자리로 넘어와 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-50-2',
-        text: '담임보다 행정 업무 비중이 커진다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '교실에서 멀어지는 게 아쉬우면서도 자연스러웠다.',
+        text: '학교 평가 자료를 준비하며 야근이 잦아진다',
+        deltas: { health: -1, wealth: 1 },
+        result: '보이지 않는 곳의 노력도 필요한 법이었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-50-3',
-        text: '체력이 예전 같지 않다는 걸 느낀다',
-        deltas: { health: -1 },
-        result: '종일 서서 수업하는 게 조금씩 버거워졌다.',
+        text: '무릎이 시큰거려 병원 진료를 예약한다',
+        deltas: { health: -1, wealth: -1 },
+        result: '몸이 보내는 신호를 무시할 수 없었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-50-4',
-        text: '제자의 결혼식 주례를 부탁받는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '이 일을 하는 이유를 다시 느꼈다.',
+        text: '주례사를 준비하며 그 제자와의 추억을 떠올린다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '짧은 말 속에 오랜 마음을 담고 싶었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-50-5',
-        text: '교직 인생을 돌아보는 인터뷰 요청을 받는다',
+        text: '교육청 소식지에 우수 사례로 실린다',
         deltas: { fame: 1, happiness: 1 },
-        result: '지나온 세월이 한 편의 이야기 같았다.',
+        result: '이름이 실린 지면을 몇 번이고 다시 읽었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-50-6',
-        text: '신규 교사들의 방식에 신선함을 느낀다',
-        deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 진심은 통한다고 믿었다.',
+        text: '새로운 수업 방식을 과감히 시도하는 후배에게 자극받는다',
+        deltas: { happiness: 1, wealth: -1 },
+        result: '오래된 방식만이 정답은 아니었다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -35476,30 +35604,30 @@ const STAGES = [
       },
       {
         id: 'tch-fill-51-1',
-        text: '후배 교사들에게 수업 노하우를 전수한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        text: '자신만의 교수법을 정리해 후배들과 나눈다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '오랜 경험이 하나의 체계로 정리되는 느낌이었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-51-2',
-        text: '담임보다 행정 업무 비중이 커진다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '교실에서 멀어지는 게 아쉬우면서도 자연스러웠다.',
+        text: '행정 업무 과중으로 수업 연구 시간이 부족해 아쉽다',
+        deltas: { happiness: -1 },
+        result: '정작 가장 중요한 걸 놓치는 기분이었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-51-3',
-        text: '체력이 예전 같지 않다는 걸 느낀다',
-        deltas: { health: -1 },
-        result: '종일 서서 수업하는 게 조금씩 버거워졌다.',
+        text: '방학 동안 체력 회복에 유독 신경을 쓴다',
+        deltas: { health: 1 },
+        result: '쉬는 것도 요령이 필요하다는 걸 배웠다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-51-4',
-        text: '제자의 결혼식 주례를 부탁받는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '이 일을 하는 이유를 다시 느꼈다.',
+        text: '제자의 결혼식에서 옛 반 친구들과 재회한다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '시간이 멈춘 듯한 반가운 자리였다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -36056,44 +36184,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-52-1',
-        text: '후배 교사들에게 수업 노하우를 전수한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        text: '힘들어하는 저경력 교사의 상담 요청이 잦아진다',
+        deltas: { relationship: 2 },
+        result: '들어주는 것만으로도 힘이 된다는 걸 알았다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-52-2',
-        text: '담임보다 행정 업무 비중이 커진다',
+        text: '학교 시설 관리 업무까지 떠맡아 정신없이 바쁘다',
         deltas: { happiness: -1, wealth: 1 },
-        result: '교실에서 멀어지는 게 아쉬우면서도 자연스러웠다.',
+        result: '교사의 일이 이렇게 넓을 줄은 몰랐다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-52-3',
-        text: '체력이 예전 같지 않다는 걸 느낀다',
-        deltas: { health: -1 },
-        result: '종일 서서 수업하는 게 조금씩 버거워졌다.',
+        text: '젊은 교사들과의 체력 차이를 실감하는 날이 많아진다',
+        deltas: { health: -1, happiness: -1 },
+        result: '경험으로 메울 수 없는 부분도 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-52-4',
-        text: '제자의 결혼식 주례를 부탁받는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '이 일을 하는 이유를 다시 느꼈다.',
+        text: '주례를 서준 제자 부부가 아이를 데리고 인사를 온다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '스승에서 이제는 가족처럼 느껴졌다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-52-5',
-        text: '교직 인생을 돌아보는 인터뷰 요청을 받는다',
-        deltas: { fame: 1, happiness: 1 },
-        result: '지나온 세월이 한 편의 이야기 같았다.',
+        text: '졸업생이 인터뷰어로 찾아와 옛 시절을 취재한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '제자가 어른이 되어 마주 앉은 자리였다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-52-6',
-        text: '신규 교사들의 방식에 신선함을 느낀다',
+        text: '후배 교사의 참신한 아이디어를 수업에 슬쩍 빌려온다',
         deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 진심은 통한다고 믿었다.',
+        result: '배우는 데는 선후배가 따로 없었다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -36577,44 +36705,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-53-1',
-        text: '후배 교사들에게 수업 노하우를 전수한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        text: '교사 모임에서 존경받는 선배로 불리기 시작한다',
+        deltas: { fame: 1, happiness: 1 },
+        result: '어느새 그런 위치가 됐다는 게 낯설었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-53-2',
-        text: '담임보다 행정 업무 비중이 커진다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '교실에서 멀어지는 게 아쉬우면서도 자연스러웠다.',
+        text: '각종 보고서 마감에 쫓기며 하루하루를 보낸다',
+        deltas: { health: -1 },
+        result: '숫자와 씨름하는 게 익숙해지긴 했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-53-3',
-        text: '체력이 예전 같지 않다는 걸 느낀다',
+        text: '건강검진에서 나이에 맞는 관리가 필요하다는 말을 듣는다',
         deltas: { health: -1 },
-        result: '종일 서서 수업하는 게 조금씩 버거워졌다.',
+        result: '이제는 몸을 아껴가며 일해야 했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-53-4',
-        text: '제자의 결혼식 주례를 부탁받는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '이 일을 하는 이유를 다시 느꼈다.',
+        text: '여러 번 주례를 서며 이제는 제법 능숙해진다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '뜻밖의 부업 아닌 부업이 생긴 셈이었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-53-5',
-        text: '교직 인생을 돌아보는 인터뷰 요청을 받는다',
-        deltas: { fame: 1, happiness: 1 },
-        result: '지나온 세월이 한 편의 이야기 같았다.',
+        text: '교직 인생 30년 특집 인터뷰 제안을 받는다',
+        deltas: { fame: 2 },
+        result: '서른 해가 순식간처럼 느껴졌다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-53-6',
-        text: '신규 교사들의 방식에 신선함을 느낀다',
+        text: 'SNS로 학부모와 소통하는 후배의 방식에 놀란다',
         deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 진심은 통한다고 믿었다.',
+        result: '시대가 참 많이 달라졌다는 걸 실감했다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -36986,6 +37114,29 @@ const STAGES = [
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-regional-manager']
       },
+    
+      {
+        id: 'deviant-teacher-hiring-bribe-53',
+        text: '기간제 교사 채용을 대가로 은밀히 금품을 받는다',
+        requiresRoute: 'teacher-route',
+        requiresOccupation: ['principal'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'teacherCorruption', target: 0 },
+        prizeTable: [
+          { weight: 84, label: '안 걸림', deltas: { wealth: 7 }, result: '채용 결과가 발표되자, 은밀한 감사 인사가 뒤따랐다.' },
+          { weight: 16, label: '발각', deltas: { wealth: -7, relationship: -5, happiness: -5, fame: -3 }, result: '탈락자의 진정으로 채용 비리 조사가 시작됐다.' }
+        ]
+      },
+      {
+        id: 'deviant-teacher-hiring-bribe-decline-53',
+        text: '채용 과정을 원칙대로 투명하게 진행한다',
+        deltas: { happiness: 1 },
+        result: '공정한 채용이야말로 교장으로서 지켜야 할 마지노선이었다.',
+        requiresRoute: 'teacher-route',
+        requiresOccupation: ['principal'],
+        worldStateSignal: { key: 'teacherCorruption', target: 1 }
+      },
     ]
   },
   {
@@ -37091,44 +37242,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-54-1',
-        text: '후배 교사들에게 수업 노하우를 전수한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        text: '자신이 키운 제자가 같은 학교의 동료 교사로 부임한다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '학생이 동료가 되는 특별한 순간이었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-54-2',
-        text: '담임보다 행정 업무 비중이 커진다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '교실에서 멀어지는 게 아쉬우면서도 자연스러웠다.',
+        text: '오랜 행정 경력 덕분에 후배들의 서류 작업을 도와준다',
+        deltas: { relationship: 1, wealth: 1 },
+        result: '쌓인 노하우가 이럴 때 빛을 발했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-54-3',
-        text: '체력이 예전 같지 않다는 걸 느낀다',
-        deltas: { health: -1 },
-        result: '종일 서서 수업하는 게 조금씩 버거워졌다.',
+        text: '틈틈이 스트레칭하는 습관을 들이기 시작한다',
+        deltas: { health: 1 },
+        result: '작은 습관이 하루를 조금 더 가볍게 했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-54-4',
-        text: '제자의 결혼식 주례를 부탁받는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '이 일을 하는 이유를 다시 느꼈다.',
+        text: '주례를 부탁하는 제자에게 고맙다는 인사를 먼저 건넨다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '나를 떠올려준 것만으로 이미 감사했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-54-5',
-        text: '교직 인생을 돌아보는 인터뷰 요청을 받는다',
-        deltas: { fame: 1, happiness: 1 },
-        result: '지나온 세월이 한 편의 이야기 같았다.',
+        text: '인터뷰 중 눈물이 핑 도는 옛 기억을 떠올린다',
+        deltas: { happiness: 1 },
+        result: '담담히 말하려 했지만 마음이 먼저 반응했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-54-6',
-        text: '신규 교사들의 방식에 신선함을 느낀다',
+        text: '젊은 교사들의 열정에 자신의 초심을 다시 떠올린다',
         deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 진심은 통한다고 믿었다.',
+        result: '잊고 있던 그 마음이 슬며시 되살아났다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -37571,44 +37722,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-55-1',
-        text: '후배 교사들에게 수업 노하우를 전수한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        text: '은퇴를 앞두고 그동안의 자료들을 후배들에게 물려준다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '아끼던 자료를 넘기는 손이 유독 무거웠다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-55-2',
-        text: '담임보다 행정 업무 비중이 커진다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '교실에서 멀어지는 게 아쉬우면서도 자연스러웠다.',
+        text: '퇴직을 앞두고 맡은 업무를 하나씩 정리해 인계한다',
+        deltas: { happiness: 1 },
+        result: '깔끔하게 마무리하고 싶은 마음이 컸다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-55-3',
-        text: '체력이 예전 같지 않다는 걸 느낀다',
-        deltas: { health: -1 },
-        result: '종일 서서 수업하는 게 조금씩 버거워졌다.',
+        text: '그래도 아이들 앞에 설 때만큼은 힘이 솟는다',
+        deltas: { happiness: 2, health: 1 },
+        result: '마음이 몸을 이끄는 순간들이 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-55-4',
-        text: '제자의 결혼식 주례를 부탁받는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '이 일을 하는 이유를 다시 느꼈다.',
+        text: '은퇴를 앞두고 마지막 주례를 서게 된다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '교직 인생의 마지막 선물 같은 자리였다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-55-5',
-        text: '교직 인생을 돌아보는 인터뷰 요청을 받는다',
-        deltas: { fame: 1, happiness: 1 },
-        result: '지나온 세월이 한 편의 이야기 같았다.',
+        text: '후배 교사들을 위한 조언을 인터뷰에 남긴다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '진심을 담아 한 마디 한 마디를 골랐다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-55-6',
-        text: '신규 교사들의 방식에 신선함을 느낀다',
-        deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 진심은 통한다고 믿었다.',
+        text: '후배와의 세대 차이를 인정하면서도 배울 점을 찾는다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '다름을 인정하는 순간 오히려 편해졌다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -38321,44 +38472,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-56-1',
-        text: '후배 교사들에게 수업 노하우를 전수한다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '예전의 자신을 보는 것 같아 뭉클했다.',
+        text: '마지막 제자들에게 유독 정성을 쏟는다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '매 순간이 마지막일 수 있다는 마음으로 가르쳤다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-56-2',
-        text: '담임보다 행정 업무 비중이 커진다',
-        deltas: { happiness: -1, wealth: 1 },
-        result: '교실에서 멀어지는 게 아쉬우면서도 자연스러웠다.',
+        text: '오랜 행정 업무 경험을 담은 인수인계서를 정성껏 작성한다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '다음 사람이 덜 헤매길 바라는 마음을 담았다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-56-3',
-        text: '체력이 예전 같지 않다는 걸 느낀다',
-        deltas: { health: -1 },
-        result: '종일 서서 수업하는 게 조금씩 버거워졌다.',
+        text: '정년까지 버틸 체력을 챙기려 규칙적인 생활을 다짐한다',
+        deltas: { health: 1, happiness: 1 },
+        result: '끝까지 건강하게 마무리하고 싶었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-56-4',
-        text: '제자의 결혼식 주례를 부탁받는다',
-        deltas: { happiness: 3, fame: 1 },
-        result: '이 일을 하는 이유를 다시 느꼈다.',
+        text: '결혼한 제자 부부가 정착 소식을 전해온다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '자리 잡은 모습을 보니 마음이 놓였다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-56-5',
-        text: '교직 인생을 돌아보는 인터뷰 요청을 받는다',
-        deltas: { fame: 1, happiness: 1 },
-        result: '지나온 세월이 한 편의 이야기 같았다.',
+        text: '정년을 앞두고 마지막 인터뷰를 진행한다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '담담하게, 그러나 벅차게 이야기를 마쳤다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-56-6',
-        text: '신규 교사들의 방식에 신선함을 느낀다',
+        text: '신규 교사와 나눈 대화에서 뜻밖의 통찰을 얻는다',
         deltas: { happiness: 1 },
-        result: '시대가 바뀌어도 진심은 통한다고 믿었다.',
+        result: '가르치는 사람도 늘 배우는 사람이어야 했다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -39332,44 +39483,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-58-1',
-        text: '퇴직 후 방과후학교 강사로 재취업한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '가르치는 일을 완전히 놓기는 아쉬웠다.',
+        text: '지역 도서관에서 독서 지도 봉사를 시작한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '대가 없는 가르침도 나름의 보람이 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-58-2',
-        text: '옛 제자들이 스승의 날마다 인사를 온다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '잊히지 않았다는 사실이 고마웠다.',
+        text: '제자가 자녀를 데리고 스승의 날 인사를 온다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '대를 이어 이어지는 인연이 신기했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-58-3',
-        text: '교원연금으로 안정적인 노후를 보낸다',
-        deltas: { happiness: 1 },
-        result: '화려하진 않아도 걱정 없는 삶이었다.',
+        text: '연금 수령액을 확인하며 노후 계획을 다시 점검한다',
+        deltas: { wealth: 1 },
+        result: '숫자로 확인하니 마음이 한결 놓였다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-58-4',
-        text: '손주에게 옛날 학생들 이야기를 들려준다',
+        text: '손주가 학교 숙제를 도와달라며 할아버지·할머니 선생님을 찾는다',
         deltas: { happiness: 2, relationship: 1 },
-        result: '아이의 초롱초롱한 눈빛이 좋았다.',
+        result: '여전히 쓸모 있는 사람이라는 게 기뻤다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-58-5',
-        text: '퇴직 교사 모임 회장을 맡는다',
-        deltas: { relationship: 2, fame: 1 },
-        result: '은퇴 후에도 할 일이 생겨 활기가 돌았다.',
+        text: '퇴직 교사 모임에서 후배들을 위한 장학 사업을 제안한다',
+        deltas: { relationship: 1, wealth: -1 },
+        result: '작은 힘이라도 보태고 싶었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-58-6',
-        text: '옛 동료의 부고에 조문을 다녀온다',
-        deltas: { happiness: -2, relationship: 1 },
-        result: '함께한 세월만큼 마음이 무거웠다.',
+        text: '함께 초임 시절을 보낸 동료의 부고 소식을 듣는다',
+        deltas: { happiness: -2 },
+        result: '그 시절 얘기를 더 나누지 못한 게 아쉬웠다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -39938,44 +40089,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-59-1',
-        text: '퇴직 후 방과후학교 강사로 재취업한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '가르치는 일을 완전히 놓기는 아쉬웠다.',
+        text: '온라인 강의 플랫폼에 은퇴 후 강좌를 개설한다',
+        deltas: { wealth: 2, happiness: 1 },
+        result: '새로운 방식으로도 아이들과 만날 수 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-59-2',
-        text: '옛 제자들이 스승의 날마다 인사를 온다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '잊히지 않았다는 사실이 고마웠다.',
+        text: '해외에 사는 제자가 스승의 날에 영상편지를 보내온다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '거리와 상관없이 마음은 늘 가까웠다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-59-3',
-        text: '교원연금으로 안정적인 노후를 보낸다',
+        text: '소박하지만 여유로운 씀씀이로 하루하루를 보낸다',
         deltas: { happiness: 1 },
-        result: '화려하진 않아도 걱정 없는 삶이었다.',
+        result: '큰돈은 아니어도 부족함은 없었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-59-4',
-        text: '손주에게 옛날 학생들 이야기를 들려준다',
-        deltas: { happiness: 2, relationship: 1 },
-        result: '아이의 초롱초롱한 눈빛이 좋았다.',
+        text: '손주의 재롱을 보며 옛 제자들의 어린 시절이 겹쳐 보인다',
+        deltas: { happiness: 2 },
+        result: '아이들은 다 비슷하게 사랑스러운 존재였다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-59-5',
-        text: '퇴직 교사 모임 회장을 맡는다',
-        deltas: { relationship: 2, fame: 1 },
-        result: '은퇴 후에도 할 일이 생겨 활기가 돌았다.',
+        text: '모임 회원들과 함께 봉사활동을 기획한다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '같은 뜻을 가진 사람들과의 시간이 즐거웠다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-59-6',
-        text: '옛 동료의 부고에 조문을 다녀온다',
-        deltas: { happiness: -2, relationship: 1 },
-        result: '함께한 세월만큼 마음이 무거웠다.',
+        text: '은사님의 부고에 옛 제자로서 조문을 간다',
+        deltas: { happiness: -3, relationship: 1 },
+        result: '나를 가르친 스승도 결국 세월 앞에 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -40451,44 +40602,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-60-1',
-        text: '퇴직 후 방과후학교 강사로 재취업한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '가르치는 일을 완전히 놓기는 아쉬웠다.',
+        text: '지역 아동센터에서 재능기부 수업을 맡는다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '몸은 떠났어도 마음은 여전히 교단에 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-60-2',
-        text: '옛 제자들이 스승의 날마다 인사를 온다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '잊히지 않았다는 사실이 고마웠다.',
+        text: '오래전 제자가 카네이션을 들고 불쑥 찾아온다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '세월이 흘러도 변치 않는 것들이 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-60-3',
-        text: '교원연금으로 안정적인 노후를 보낸다',
-        deltas: { happiness: 1 },
-        result: '화려하진 않아도 걱정 없는 삶이었다.',
+        text: '연금 덕분에 자녀에게 손 벌리지 않아도 되는 게 다행스럽다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '스스로 선 노후가 무엇보다 값졌다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-60-4',
-        text: '손주에게 옛날 학생들 이야기를 들려준다',
+        text: '손주에게 교단에 섰던 시절의 사진을 보여준다',
         deltas: { happiness: 2, relationship: 1 },
-        result: '아이의 초롱초롱한 눈빛이 좋았다.',
+        result: '낡은 사진 한 장에 담긴 세월이 새삼스러웠다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-60-5',
-        text: '퇴직 교사 모임 회장을 맡는다',
-        deltas: { relationship: 2, fame: 1 },
-        result: '은퇴 후에도 할 일이 생겨 활기가 돌았다.',
+        text: '오랜 인연의 퇴직 동료들과 정기 모임을 이어간다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '세월이 흘러도 변치 않는 우정이었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-60-6',
-        text: '옛 동료의 부고에 조문을 다녀온다',
+        text: '오랜 동료의 빈소에서 다른 퇴직 교사들과 마주친다',
         deltas: { happiness: -2, relationship: 1 },
-        result: '함께한 세월만큼 마음이 무거웠다.',
+        result: '슬픔 속에서도 서로를 챙기는 마음들이 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -40977,6 +41128,27 @@ const STAGES = [
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-regional-manager']
       },
+    
+      {
+        id: 'deviant-teacher-inflate-tutoring-referral-60',
+        text: '퇴직을 앞두고 특정 과외 업체에 학생들을 몰래 소개해주고 소개비를 챙긴다',
+        requiresRoute: 'teacher-route',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.05, max: 0.3, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'teacherCorruption', target: 0 },
+        prizeTable: [
+          { weight: 87, label: '안 걸림', deltas: { wealth: 5 }, result: '마지막이라는 생각에 유혹을 이기지 못했다.' },
+          { weight: 13, label: '발각', deltas: { wealth: -5, relationship: -4, happiness: -4, fame: -2 }, result: '퇴직을 코앞에 두고 불명예스러운 소문이 돌았다.' }
+        ]
+      },
+      {
+        id: 'deviant-teacher-inflate-tutoring-referral-decline-60',
+        text: '과외 업체의 제안을 마지막까지 거절한다',
+        deltas: { happiness: 2 },
+        result: '끝까지 떳떳하게 교단을 떠나고 싶었다.',
+        requiresRoute: 'teacher-route',
+        worldStateSignal: { key: 'teacherCorruption', target: 1 }
+      },
     ]
   },
   {
@@ -41053,44 +41225,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-61-1',
-        text: '퇴직 후 방과후학교 강사로 재취업한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '가르치는 일을 완전히 놓기는 아쉬웠다.',
+        text: '대입 컨설턴트로 활동을 이어가며 소소한 수입을 번다',
+        deltas: { wealth: 2 },
+        result: '은퇴 후에도 쓸모 있는 사람이라는 게 뿌듯했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-61-2',
-        text: '옛 제자들이 스승의 날마다 인사를 온다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '잊히지 않았다는 사실이 고마웠다.',
+        text: '제자들이 모아 보낸 손편지 뭉치에 하루 종일 웃는다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '한 글자 한 글자가 다 선물 같았다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-61-3',
-        text: '교원연금으로 안정적인 노후를 보낸다',
-        deltas: { happiness: 1 },
-        result: '화려하진 않아도 걱정 없는 삶이었다.',
+        text: '오랜 재직 기간이 연금액에 그대로 반영된 걸 확인한다',
+        deltas: { wealth: 1 },
+        result: '긴 세월이 결국 보답으로 돌아왔다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-61-4',
-        text: '손주에게 옛날 학생들 이야기를 들려준다',
-        deltas: { happiness: 2, relationship: 1 },
-        result: '아이의 초롱초롱한 눈빛이 좋았다.',
+        text: '손주가 커서 선생님이 되고 싶다는 말에 마음이 뭉클해진다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '대를 이을지도 모른다는 생각에 벅찼다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-61-5',
-        text: '퇴직 교사 모임 회장을 맡는다',
-        deltas: { relationship: 2, fame: 1 },
-        result: '은퇴 후에도 할 일이 생겨 활기가 돌았다.',
+        text: '모임 회장으로서 후배 교사들의 애로사항을 전달한다',
+        deltas: { relationship: 1, fame: 1 },
+        result: '은퇴했다고 관심까지 끊을 순 없었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-61-6',
-        text: '옛 동료의 부고에 조문을 다녀온다',
-        deltas: { happiness: -2, relationship: 1 },
-        result: '함께한 세월만큼 마음이 무거웠다.',
+        text: '함께 학교를 세웠던 동료의 부고에 만감이 교차한다',
+        deltas: { happiness: -2 },
+        result: '그 시절의 열정이 고스란히 떠올랐다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -41629,37 +41801,37 @@ const STAGES = [
       },
       {
         id: 'tch-fill-62-1',
-        text: '퇴직 후 방과후학교 강사로 재취업한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '가르치는 일을 완전히 놓기는 아쉬웠다.',
+        text: '다문화 가정 학생들의 학습 지원 봉사를 시작한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '필요한 곳에 힘을 보태는 게 기뻤다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-62-2',
-        text: '옛 제자들이 스승의 날마다 인사를 온다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '잊히지 않았다는 사실이 고마웠다.',
+        text: '스승의 날, 여러 제자가 동시에 연락해 정신없이 바쁘다',
+        deltas: { happiness: 2 },
+        result: '즐거운 바쁨이란 이런 걸까 싶었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-62-3',
-        text: '교원연금으로 안정적인 노후를 보낸다',
-        deltas: { happiness: 1 },
-        result: '화려하진 않아도 걱정 없는 삶이었다.',
+        text: '여유 자금으로 작은 취미 생활을 시작한다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '벌기만 하던 시절과는 다른 즐거움이었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-62-4',
-        text: '손주에게 옛날 학생들 이야기를 들려준다',
+        text: '손주와 함께 옛 교실 풍경을 그림으로 그려본다',
         deltas: { happiness: 2, relationship: 1 },
-        result: '아이의 초롱초롱한 눈빛이 좋았다.',
+        result: '서투른 그림 속에 그리운 시절이 담겼다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-62-5',
-        text: '퇴직 교사 모임 회장을 맡는다',
-        deltas: { relationship: 2, fame: 1 },
-        result: '은퇴 후에도 할 일이 생겨 활기가 돌았다.',
+        text: '퇴직 교사 모임의 소식지를 직접 편집하며 옛 실력을 발휘한다',
+        deltas: { happiness: 1, fame: 1 },
+        result: '글 솜씨는 여전히 녹슬지 않았다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -42200,44 +42372,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-63-1',
-        text: '퇴직 후 방과후학교 강사로 재취업한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '가르치는 일을 완전히 놓기는 아쉬웠다.',
+        text: '예전 학교의 대체 교사 요청을 흔쾌히 수락한다',
+        deltas: { wealth: 1, happiness: 2 },
+        result: '다시 교탁에 서니 옛 감각이 되살아났다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-63-2',
-        text: '옛 제자들이 스승의 날마다 인사를 온다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '잊히지 않았다는 사실이 고마웠다.',
+        text: '제자가 직접 만든 선물을 들고 찾아온다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '정성이 담긴 물건 하나가 마음을 가득 채웠다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-63-3',
-        text: '교원연금으로 안정적인 노후를 보낸다',
-        deltas: { happiness: 1 },
-        result: '화려하진 않아도 걱정 없는 삶이었다.',
+        text: '동료 퇴직 교사들과 연금 정보를 나누며 서로를 챙긴다',
+        deltas: { relationship: 1 },
+        result: '같은 길을 걸은 사람들끼리의 든든함이 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-63-4',
-        text: '손주에게 옛날 학생들 이야기를 들려준다',
-        deltas: { happiness: 2, relationship: 1 },
-        result: '아이의 초롱초롱한 눈빛이 좋았다.',
+        text: '손주에게 첫 제자 이야기를 들려주며 눈시울이 붉어진다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '오래된 기억도 여전히 생생했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-63-5',
-        text: '퇴직 교사 모임 회장을 맡는다',
-        deltas: { relationship: 2, fame: 1 },
-        result: '은퇴 후에도 할 일이 생겨 활기가 돌았다.',
+        text: '모임에서 마련한 여행에서 오랜 동료들과 추억을 쌓는다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '함께 나이 들어가는 사람들이 있다는 게 든든했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-63-6',
-        text: '옛 동료의 부고에 조문을 다녀온다',
+        text: '부고 소식에 옛 사진첩을 꺼내 오래도록 들여다본다',
         deltas: { happiness: -2, relationship: 1 },
-        result: '함께한 세월만큼 마음이 무거웠다.',
+        result: '사진 속에서만 젊은 우리가 남아 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -42731,44 +42903,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-64-1',
-        text: '퇴직 후 방과후학교 강사로 재취업한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '가르치는 일을 완전히 놓기는 아쉬웠다.',
+        text: '퇴직 교사 재능기부단에 이름을 올린다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '같은 마음을 가진 사람들과 함께라 더 든든했다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-64-2',
-        text: '옛 제자들이 스승의 날마다 인사를 온다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '잊히지 않았다는 사실이 고마웠다.',
+        text: '스승의 날마다 안부를 묻는 제자와의 인연에 감사한다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '오래가는 인연은 다 이유가 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-64-3',
-        text: '교원연금으로 안정적인 노후를 보낸다',
-        deltas: { happiness: 1 },
-        result: '화려하진 않아도 걱정 없는 삶이었다.',
+        text: '안정된 노후 덕분에 마음 편히 여행을 계획한다',
+        deltas: { happiness: 2 },
+        result: '평생 미뤄뒀던 계획을 이제야 실행에 옮겼다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-64-4',
-        text: '손주에게 옛날 학생들 이야기를 들려준다',
-        deltas: { happiness: 2, relationship: 1 },
-        result: '아이의 초롱초롱한 눈빛이 좋았다.',
+        text: '손주의 학예회에서 옛 제자들의 무대가 떠오른다',
+        deltas: { happiness: 2 },
+        result: '무대 위 아이들은 언제 봐도 빛났다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-64-5',
-        text: '퇴직 교사 모임 회장을 맡는다',
-        deltas: { relationship: 2, fame: 1 },
-        result: '은퇴 후에도 할 일이 생겨 활기가 돌았다.',
+        text: '후배 회장에게 자리를 물려주며 뿌듯함을 느낀다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '이어지는 것들이 주는 안도감이 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-64-6',
-        text: '옛 동료의 부고에 조문을 다녀온다',
+        text: '동료의 장례식에서 추도사를 부탁받는다',
         deltas: { happiness: -2, relationship: 1 },
-        result: '함께한 세월만큼 마음이 무거웠다.',
+        result: '무슨 말을 해도 부족하게 느껴졌다.',
         requiresRoute: 'teacher-route'
       },
       {
@@ -43237,44 +43409,44 @@ const STAGES = [
       },
       {
         id: 'tch-fill-65-1',
-        text: '퇴직 후 방과후학교 강사로 재취업한다',
-        deltas: { wealth: 1, happiness: 1 },
-        result: '가르치는 일을 완전히 놓기는 아쉬웠다.',
+        text: '손주 또래 아이들을 가르치며 여전히 활력을 느낀다',
+        deltas: { happiness: 2, health: 1 },
+        result: '나이는 숫자일 뿐이라는 말을 몸소 느꼈다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-65-2',
-        text: '옛 제자들이 스승의 날마다 인사를 온다',
-        deltas: { relationship: 2, happiness: 1 },
-        result: '잊히지 않았다는 사실이 고마웠다.',
+        text: '이제는 자녀까지 둔 제자들의 인사에 세월을 실감한다',
+        deltas: { happiness: 2 },
+        result: '함께 나이 들어가는 기분이 나쁘지 않았다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-65-3',
-        text: '교원연금으로 안정적인 노후를 보낸다',
+        text: '검소했던 지난날들이 지금의 여유를 만들었음을 느낀다',
         deltas: { happiness: 1 },
-        result: '화려하진 않아도 걱정 없는 삶이었다.',
+        result: '성실했던 세월이 헛되지 않았다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-65-4',
-        text: '손주에게 옛날 학생들 이야기를 들려준다',
+        text: '손주에게 "선생님은 참 좋은 직업이었다"고 말해준다',
         deltas: { happiness: 2, relationship: 1 },
-        result: '아이의 초롱초롱한 눈빛이 좋았다.',
+        result: '후회 없던 한평생이었다고, 진심으로 말할 수 있었다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-65-5',
-        text: '퇴직 교사 모임 회장을 맡는다',
-        deltas: { relationship: 2, fame: 1 },
-        result: '은퇴 후에도 할 일이 생겨 활기가 돌았다.',
+        text: '모임 활동으로 바쁜 은퇴 생활에 만족한다',
+        deltas: { happiness: 2 },
+        result: '멈추지 않고 계속 나아가는 삶이 좋았다.',
         requiresRoute: 'teacher-route'
       },
       {
         id: 'tch-fill-65-6',
-        text: '옛 동료의 부고에 조문을 다녀온다',
-        deltas: { happiness: -2, relationship: 1 },
-        result: '함께한 세월만큼 마음이 무거웠다.',
+        text: '하나둘 세상을 떠나는 옛 동료들 소식에 마음이 스산해진다',
+        deltas: { happiness: -2 },
+        result: '남은 사람으로서 더 잘 살아야겠다고 다짐했다.',
         requiresRoute: 'teacher-route'
       },
       {
