@@ -12931,6 +12931,19 @@ const STAGES = [
         result: '혼자였다면 못 했을 이야기들이, 여럿이 모이니 나왔다.',
         requiresRoute: 'logistics'
       },
+    
+      {
+        id: 'random-invest-friend-tip-26',
+        text: '지인이 소개해준 고수익 투자처에 돈을 넣어본다',
+        bonusSlot: true,
+        appearChance: 0.06,
+        dynamicPrizeWeight: { key: 'scamPrevalence', caughtLabel: '사기 피해', min: 0.10, max: 0.55 },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 80, label: '투자 성공', deltas: { wealth: 6, happiness: 2 }, result: '꾸준히 오르는 수익률에 안도했다.' },
+          { weight: 20, label: '사기 피해', deltas: { wealth: -6, happiness: -5, relationship: -1 }, result: '수익은커녕, 원금까지 통째로 사라졌다.' }
+        ]
+      },
     ]
   },
   {
@@ -16571,6 +16584,19 @@ const STAGES = [
         result: '서운해할 걸 알면서도, 원칙은 원칙이었다.',
         requiresRoute: 'teacher-route',
         worldStateSignal: { key: 'teacherCorruption', target: 1 }
+      },
+    
+      {
+        id: 'random-invest-online-leading-room-29',
+        text: 'SNS 투자 리딩방의 추천 종목에 거액을 몰아넣는다',
+        bonusSlot: true,
+        appearChance: 0.06,
+        dynamicPrizeWeight: { key: 'scamPrevalence', caughtLabel: '사기 피해', min: 0.15, max: 0.6 },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 75, label: '투자 성공', deltas: { wealth: 7, happiness: 2 }, result: '추천대로 흘러가는 차트를 보며 짜릿함을 느꼈다.' },
+          { weight: 25, label: '사기 피해', deltas: { wealth: -8, happiness: -5 }, result: '리딩방 운영자는 수수료만 챙기고 잠적했다.' }
+        ]
       },
     ]
   },
@@ -22083,6 +22109,19 @@ const STAGES = [
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-team-lead']
       },
+    
+      {
+        id: 'random-invest-real-estate-presale-34',
+        text: '미분양 아파트 분양권에 웃돈을 얹어 투자한다',
+        bonusSlot: true,
+        appearChance: 0.05,
+        dynamicPrizeWeight: { key: 'scamPrevalence', caughtLabel: '사기 피해', min: 0.10, max: 0.5 },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 78, label: '투자 성공', deltas: { wealth: 9, happiness: 2 }, result: '입주가 가까워질수록 웃돈은 더 붙었다.' },
+          { weight: 22, label: '사기 피해', deltas: { wealth: -9, happiness: -5 }, result: '시행사가 부도나며 계약금이 통째로 날아갔다.' }
+        ]
+      },
     ]
   },
   {
@@ -25067,6 +25106,19 @@ const STAGES = [
         result: '별일 없기를 바라며, 그래도 철저히 준비했다.',
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-team-lead']
+      },
+    
+      {
+        id: 'random-invest-crypto-coin-37',
+        text: '지인이 확신에 차서 권한 신생 코인에 여윳돈을 넣는다',
+        bonusSlot: true,
+        appearChance: 0.06,
+        dynamicPrizeWeight: { key: 'scamPrevalence', caughtLabel: '사기 피해', min: 0.15, max: 0.65 },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 65, label: '투자 성공', deltas: { wealth: 10, happiness: 3 }, result: '차트가 치솟는 걸 보며 믿기지 않았다.' },
+          { weight: 35, label: '사기 피해', deltas: { wealth: -10, happiness: -6 }, result: '하루아침에 거래소가 문을 닫고 자취를 감췄다.' }
+        ]
       },
     ]
   },
@@ -28622,6 +28674,19 @@ const STAGES = [
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-center-manager']
       },
+    
+      {
+        id: 'random-invest-high-interest-savings-41',
+        text: '시중 은행보다 몇 배 높은 금리를 준다는 사설 저축 상품에 가입한다',
+        bonusSlot: true,
+        appearChance: 0.05,
+        dynamicPrizeWeight: { key: 'scamPrevalence', caughtLabel: '사기 피해', min: 0.12, max: 0.55 },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 76, label: '투자 성공', deltas: { wealth: 6, happiness: 2 }, result: '약속된 이자가 꼬박꼬박 들어왔다.' },
+          { weight: 24, label: '사기 피해', deltas: { wealth: -7, happiness: -5, relationship: -1 }, result: '알고 보니 신규 가입자 돈으로 이자를 돌려막는 구조였다.' }
+        ]
+      },
     ]
   },
   {
@@ -31111,6 +31176,19 @@ const STAGES = [
         requiresRoute: 'teacher-route',
         worldStateSignal: { key: 'teacherCorruption', target: 1 }
       },
+    
+      {
+        id: 'random-invest-art-nft-group-buy-44',
+        text: '미술품·NFT 공동구매에 지인들과 함께 참여한다',
+        bonusSlot: true,
+        appearChance: 0.05,
+        dynamicPrizeWeight: { key: 'scamPrevalence', caughtLabel: '사기 피해', min: 0.15, max: 0.6 },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 70, label: '투자 성공', deltas: { wealth: 6, happiness: 3 }, result: '되팔린 작품가에 다 함께 기뻐했다.' },
+          { weight: 30, label: '사기 피해', deltas: { wealth: -6, happiness: -4, relationship: -2 }, result: '애초에 존재하지도 않는 작품이었다.' }
+        ]
+      },
     ]
   },
   {
@@ -33535,6 +33613,19 @@ const STAGES = [
         result: '완벽하진 않았지만, 조금씩 지켜나가고 있었다.',
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-center-manager']
+      },
+    
+      {
+        id: 'random-invest-franchise-pitch-47',
+        text: '대박 난다는 프랜차이즈 창업설명회에 혹해 계약금을 건넨다',
+        bonusSlot: true,
+        appearChance: 0.05,
+        dynamicPrizeWeight: { key: 'scamPrevalence', caughtLabel: '사기 피해', min: 0.12, max: 0.5 },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 74, label: '투자 성공', deltas: { wealth: 7, happiness: 2 }, result: '매장이 자리를 잡으며 안정적인 수익이 났다.' },
+          { weight: 26, label: '사기 피해', deltas: { wealth: -7, happiness: -5 }, result: '본사라던 곳은 애초에 등록조차 안 된 유령 회사였다.' }
+        ]
       },
     ]
   },
@@ -36614,6 +36705,19 @@ const STAGES = [
         result: '현장을 누비던 다리가, 이제는 신호를 보내고 있었다.',
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-regional-manager']
+      },
+    
+      {
+        id: 'random-invest-private-equity-pitch-52',
+        text: '소수만 참여한다는 비상장주식 투자 제안을 받는다',
+        bonusSlot: true,
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'scamPrevalence', caughtLabel: '사기 피해', min: 0.15, max: 0.6 },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 68, label: '투자 성공', deltas: { wealth: 9, happiness: 3 }, result: '몇 년 뒤 상장 소식에 투자금이 몇 배로 불었다.' },
+          { weight: 32, label: '사기 피해', deltas: { wealth: -9, happiness: -6 }, result: '상장은커녕, 회사 자체가 서류상으로만 존재했다.' }
+        ]
       },
     ]
   },
@@ -39987,6 +40091,19 @@ const STAGES = [
         requiresOccupation: ['logistics-regional-manager'],
         worldStateSignal: { key: 'logisticsIntegrity', target: 0 }
       },
+    
+      {
+        id: 'random-invest-overseas-property-58',
+        text: '해외 부동산 투자 설명회에 참석해 계약서에 서명한다',
+        bonusSlot: true,
+        appearChance: 0.04,
+        dynamicPrizeWeight: { key: 'scamPrevalence', caughtLabel: '사기 피해', min: 0.15, max: 0.55 },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 72, label: '투자 성공', deltas: { wealth: 8, happiness: 2 }, result: '몇 년 뒤 시세 차익까지 챙기며 뿌듯해했다.' },
+          { weight: 28, label: '사기 피해', deltas: { wealth: -8, happiness: -5 }, result: '현지에 가보니, 계약서 속 건물은 애초에 존재하지 않았다.' }
+        ]
+      },
     ]
   },
   {
@@ -42828,6 +42945,19 @@ const STAGES = [
         result: '내가 심은 씨앗이, 어느새 이렇게 자라 있었다.',
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-regional-manager']
+      },
+    
+      {
+        id: 'random-invest-retirement-fund-pitch-63',
+        text: '퇴직금을 노린 듯한 고수익 노후자금 상품에 결국 가입한다',
+        bonusSlot: true,
+        appearChance: 0.05,
+        dynamicPrizeWeight: { key: 'scamPrevalence', caughtLabel: '사기 피해', min: 0.15, max: 0.6 },
+        appendPoliceCorruptionNote: true,
+        prizeTable: [
+          { weight: 70, label: '투자 성공', deltas: { wealth: 8, happiness: 2 }, result: '안정적인 배당이 노후에 큰 보탬이 됐다.' },
+          { weight: 30, label: '사기 피해', deltas: { wealth: -9, happiness: -6, relationship: -1 }, result: '노후 자금을 노린 전형적인 수법에 당하고 말았다.' }
+        ]
       },
     ]
   },
