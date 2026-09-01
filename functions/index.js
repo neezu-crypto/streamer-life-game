@@ -9,6 +9,7 @@ const {
   LOVER_ROUTE_CHOICES,
   RED_HANDED_CHOICES,
   VEHICLE_THEFT_CHOICES,
+  ZOMBIE_EVENT_CHOICES,
   resolveEnding,
   buildCollapseEnding,
   buildBankruptcyEnding,
@@ -450,6 +451,7 @@ function findChoiceById(stage, choiceId) {
     || LOVER_ROUTE_CHOICES.find((c) => c.id === choiceId)
     || RED_HANDED_CHOICES.find((c) => c.id === choiceId)
     || VEHICLE_THEFT_CHOICES.find((c) => c.id === choiceId)
+    || ZOMBIE_EVENT_CHOICES.find((c) => c.id === choiceId)
     || null;
 }
 
@@ -726,9 +728,17 @@ function pickVisibleChoiceIds(choices, ctx) {
         : activeRouteId === 'vehicle-thief'
           ? VEHICLE_THEFT_CHOICES
           : choices;
+  // ZOMBIE_EVENT_CHOICES(62장 E항 재설계, 2026-09-02 - 사용자 지시 "전역 좀비
+  // 이벤트는 나이나 직업에 무관하게 좀비 밀도에 따라 등장하는게 더 자연스럽지
+  // 않아?") - PRISON_CHOICES 등과 달리 activeRouteId 게이팅이 전혀 없는 첫
+  // 전역 풀. 일반 생애 턴(activeRouteId가 없을 때)에만 정상 콘텐츠 위에 항상
+  // 얹는다 - 감옥/현행범/연애/차량절도처럼 이미 "그 루트 전용 풀로 완전히
+  // 대체"되는 몰입형 특수 루트 중에는(사용자가 정한 기존 설계 그대로) 끼어들지
+  // 않는다. requiresWorldStateActive + dynamicAppearChance가 이미 노출
+  // 여부·빈도를 그 순간의 zombieOutbreak rate로만 결정하므로 나이는 무관해진다.
   const basePool = activeRouteId
     ? routeChoicePool.filter((c) => c.requiresRoute === activeRouteId)
-    : choices.filter((c) => !c.requiresRoute && !(c.startsRoute && experiencedRouteIds.includes(c.startsRoute.id)));
+    : choices.filter((c) => !c.requiresRoute && !(c.startsRoute && experiencedRouteIds.includes(c.startsRoute.id))).concat(ZOMBIE_EVENT_CHOICES);
 
   const passesEligibility = (c) => {
     if (c.requiresCondition && !conditionIds.includes(c.requiresCondition)) return false;

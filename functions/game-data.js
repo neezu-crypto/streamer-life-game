@@ -2541,15 +2541,7 @@ const STAGES = [
         removeAcquaintance: {}
       },
     
-      {
-        id: 'zombie-global-foreign-news-15',
-        text: '해외에서 원인 모를 감염병이 발견됐다는 뉴스를 무심코 넘긴다',
-        requiresWorldStateActive: 'zombieOutbreak',
-        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.02, max: 0.15 },
-        deltas: { happiness: -1 },
-        result: '먼 나라 이야기라 여기며 채널을 돌렸다.'
-      },
-    ]
+          ]
   },
   {
     id: 'teen-16',
@@ -18697,15 +18689,7 @@ const STAGES = [
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     
-      {
-        id: 'zombie-global-online-rumor-30',
-        text: 'SNS에 떠도는 괴담 같은 감염 목격담을 접한다',
-        requiresWorldStateActive: 'zombieOutbreak',
-        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.02, max: 0.15 },
-        deltas: { happiness: -1 },
-        result: '과장된 괴담이겠거니 하면서도, 어쩐지 찜찜함이 남았다.'
-      },
-    ]
+          ]
   },
   {
     id: 'settling-31',
@@ -22383,23 +22367,7 @@ const STAGES = [
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     
-      {
-        id: 'zombie-global-domestic-first-case-33',
-        text: '국내 첫 의심 사례 발생 소식에 불안해진다',
-        requiresWorldStateActive: 'zombieOutbreak',
-        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.1, max: 0.4 },
-        deltas: { happiness: -2 },
-        result: '설마 하던 일이 정말 눈앞에 닥친 기분이었다.'
-      },
-      {
-        id: 'zombie-global-stockpiling-33',
-        text: '마트에서 생필품을 잔뜩 사재기해 쟁여둔다',
-        requiresWorldStateActive: 'zombieOutbreak',
-        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.1, max: 0.4 },
-        deltas: { wealth: -2, happiness: 1 },
-        result: '과한가 싶으면서도, 마음 한구석이 놓였다.'
-      },
-    ]
+                ]
   },
   {
     id: 'settling-34',
@@ -25935,23 +25903,7 @@ const STAGES = [
         ]
       },
     
-      {
-        id: 'zombie-global-neighborhood-sighting-36',
-        text: '동네에서 감염자로 추정되는 사람을 직접 목격한다',
-        requiresWorldStateActive: 'zombieOutbreak',
-        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.3, max: 0.7 },
-        deltas: { happiness: -3, health: -1 },
-        result: '뉴스로만 보던 일이, 이제는 바로 옆 골목 이야기였다.'
-      },
-      {
-        id: 'zombie-global-quarantine-guideline-36',
-        text: '정부의 방역 지침에 따라 외출을 최대한 자제한다',
-        requiresWorldStateActive: 'zombieOutbreak',
-        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.3, max: 0.7 },
-        deltas: { wealth: -1, happiness: -1, health: 1 },
-        result: '답답했지만, 지금은 몸을 사릴 때라고 스스로를 다독였다.'
-      },
-    ]
+                ]
   },
   {
     id: 'settling-37',
@@ -30288,25 +30240,7 @@ const STAGES = [
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
     
-      {
-        id: 'zombie-global-report-witnessed-40',
-        text: '수상한 감염 의심자를 발견하고 즉시 신고한다',
-        requiresWorldStateActive: 'zombieOutbreak',
-        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.1, max: 0.4 },
-        worldStateSignal: { key: 'zombieOutbreak', target: 0 },
-        deltas: { happiness: 1, relationship: 1 },
-        result: '내 작은 행동이 확산을 늦추는 데 보탬이 되길 바랐다.'
-      },
-      {
-        id: 'zombie-global-ignore-witnessed-40',
-        text: '수상한 걸 봤지만 괜히 엮이기 싫어 모른 척한다',
-        requiresWorldStateActive: 'zombieOutbreak',
-        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.1, max: 0.4 },
-        worldStateSignal: { key: 'zombieOutbreak', target: 1 },
-        deltas: { happiness: -1 },
-        result: '내 알 바 아니라고 되뇌었지만, 마음 한구석이 편치 않았다.'
-      },
-    ]
+                ]
   },
   {
     id: 'midlife-41',
@@ -34229,25 +34163,7 @@ const STAGES = [
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     
-      {
-        id: 'zombie-global-cooperate-checkpoint-44',
-        text: '검문소의 신원 확인 절차에 순순히 협조한다',
-        requiresWorldStateActive: 'zombieOutbreak',
-        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.3, max: 0.7 },
-        worldStateSignal: { key: 'zombieOutbreak', target: 0 },
-        deltas: { happiness: -1 },
-        result: '번거로워도, 다 같이 지키자고 만든 절차였다.'
-      },
-      {
-        id: 'zombie-global-evade-checkpoint-44',
-        text: '검문이 귀찮아 몰래 우회로로 빠져나간다',
-        requiresWorldStateActive: 'zombieOutbreak',
-        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.3, max: 0.7 },
-        worldStateSignal: { key: 'zombieOutbreak', target: 1 },
-        deltas: { happiness: 1, relationship: -1 },
-        result: '편했지만, 이게 맞는 건가 싶은 찝찝함이 남았다.'
-      },
-    ]
+                ]
   },
   {
     id: 'midlife-45',
@@ -36982,23 +36898,7 @@ const STAGES = [
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     
-      {
-        id: 'zombie-global-curfew-enforced-47',
-        text: '통행금지령이 내려져 해 지기 전 서둘러 귀가한다',
-        requiresWorldStateActive: 'zombieOutbreak',
-        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.5, max: 0.85 },
-        deltas: { happiness: -2, health: -1 },
-        result: '거리에 사람 그림자 하나 없는 밤이 낯설고 무서웠다.'
-      },
-      {
-        id: 'zombie-global-supply-shortage-47',
-        text: '생필품 품귀 현상으로 마트 진열대가 텅 비어 있다',
-        requiresWorldStateActive: 'zombieOutbreak',
-        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.5, max: 0.85 },
-        deltas: { wealth: -3, happiness: -2 },
-        result: '평범했던 일상의 소중함을 이제야 절실히 느꼈다.'
-      },
-    ]
+                ]
   },
   {
     id: 'midlife-48',
@@ -43187,24 +43087,7 @@ const STAGES = [
         result: '그 오랜 싸움이, 마침내 끝을 맺었다.'
       },
     
-      {
-        id: 'zombie-global-quarantine-zone-neighbor-56',
-        text: '이웃 동네가 격리구역으로 지정됐다는 소식을 듣는다',
-        requiresWorldStateActive: 'zombieOutbreak',
-        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.5, max: 0.85 },
-        deltas: { happiness: -3, relationship: -1 },
-        result: '경계선 하나로 갈라진 삶이 남 일 같지 않았다.'
-      },
-      {
-        id: 'zombie-global-shares-supplies-56',
-        text: '어려움을 겪는 이웃과 남은 물자를 나눈다',
-        requiresWorldStateActive: 'zombieOutbreak',
-        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.5, max: 0.85 },
-        worldStateSignal: { key: 'zombieOutbreak', target: 0 },
-        deltas: { wealth: -1, relationship: 2, happiness: 2 },
-        result: '이럴 때일수록, 서로 돕는 게 맞다고 믿었다.'
-      },
-    ]
+                ]
   },
   {
     id: 'oldprep-57',
@@ -45068,23 +44951,7 @@ const STAGES = [
         setOccupation: { id: 'tour-guide', label: '🧳 여행 가이드' }
       },
     
-      {
-        id: 'zombie-global-city-lockdown-59',
-        text: '거주 도시 전체가 전면 봉쇄됐다는 발표를 듣는다',
-        requiresWorldStateActive: 'zombieOutbreak',
-        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.7, max: 0.95 },
-        deltas: { happiness: -4, health: -1 },
-        result: '도시 전체가 하나의 커다란 격리구역이 되어버렸다.'
-      },
-      {
-        id: 'zombie-global-shelter-survival-59',
-        text: '대피소에서 낯선 사람들과 함께 하루하루를 버틴다',
-        requiresWorldStateActive: 'zombieOutbreak',
-        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.7, max: 0.95 },
-        deltas: { happiness: -2, relationship: 2, health: -1 },
-        result: '불편했지만, 함께 버티는 사람들이 있어 그나마 견딜 만했다.'
-      },
-    ]
+                ]
   },
   {
     id: 'oldprep-60',
@@ -47720,24 +47587,7 @@ const STAGES = [
         requiresOccupation: ['tour-guide']
       },
     
-      {
-        id: 'zombie-global-family-separated-63',
-        text: '봉쇄로 다른 지역의 가족과 연락이 끊겨 애를 태운다',
-        requiresWorldStateActive: 'zombieOutbreak',
-        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.7, max: 0.95 },
-        deltas: { happiness: -4, relationship: -1 },
-        result: '살아있다는 소식 한 줄이 이렇게 간절할 줄 몰랐다.'
-      },
-      {
-        id: 'zombie-global-volunteer-crisis-response-63',
-        text: '위기 대응 자원봉사에 나서 힘을 보탠다',
-        requiresWorldStateActive: 'zombieOutbreak',
-        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.7, max: 0.95 },
-        worldStateSignal: { key: 'zombieOutbreak', target: 0 },
-        deltas: { happiness: 2, relationship: 2, health: -1 },
-        result: '할 수 있는 일이 있다는 게, 무력감 속에서도 위안이 됐다.'
-      },
-    ]
+                ]
   },
   {
     id: 'oldprep-64',
@@ -51140,16 +50990,7 @@ const STAGES = [
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     
-      {
-        id: 'zombie-global-panic-hoarding-selfish-72',
-        text: '남들 몫까지 독차지하려 물자를 과도하게 쟁여둔다',
-        requiresWorldStateActive: 'zombieOutbreak',
-        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.7, max: 0.95 },
-        worldStateSignal: { key: 'zombieOutbreak', target: 1 },
-        deltas: { wealth: 2, relationship: -3, happiness: -1 },
-        result: '살아남았다는 안도감 뒤로, 씁쓸한 뒷맛이 남았다.'
-      },
-    ]
+          ]
   },
   {
     id: 'twilight-73',
@@ -52004,15 +51845,7 @@ const STAGES = [
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     
-      {
-        id: 'zombie-global-recovery-signs-75',
-        text: '봉쇄가 조금씩 풀리며 거리에 사람들이 돌아오는 걸 지켜본다',
-        requiresWorldStateActive: 'zombieOutbreak',
-        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.1, max: 0.6 },
-        deltas: { happiness: 3, health: 1 },
-        result: '완전히는 아니어도, 일상이 조금씩 돌아오고 있었다.'
-      },
-    ]
+          ]
   },
   {
     id: 'twilight-76',
@@ -60290,12 +60123,195 @@ const VEHICLE_THEFT_CHOICES = [
     },
 ];
 
+
+// 좀비 바이러스 전역 이벤트(62장 E항, 2026-09-02 재설계 - 사용자 지시 "전역 좀비
+// 이벤트는 나이나 직업에 무관하게 좀비 밀도에 따라 등장하는게 더 자연스럽지
+// 않아?") - 원래는 각 이벤트를 특정 나이 하나에만 심어뒀는데, 그러면 "그 나이에
+// 도달해야만" 해당 심각도 콘텐츠를 만날 수 있어 실제 좀비 밀도와 무관하게
+// 노출이 결정되는 문제가 있었다. STAGES의 각 stage.choices와는 완전히 별개인
+// 이 평평한 배열을 index.js가 매 턴 stage.choices에 concat해 함께 후보로
+// 던진다(PRISON_CHOICES 등 기존 전역 풀과 달리 activeRouteId 게이팅이 전혀
+// 없다 - 직업/루트 무관하게 항상 후보). 각 선택지의 requiresWorldStateActive +
+// dynamicAppearChance가 그 순간의 실제 zombieOutbreak rate로만 노출 여부·빈도를
+// 결정하므로, 나이는 이제 완전히 무관해졌다.
+const ZOMBIE_EVENT_CHOICES = [
+      {
+        id: 'zombie-global-foreign-news-15',
+        text: '해외에서 원인 모를 감염병이 발견됐다는 뉴스를 무심코 넘긴다',
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.02, max: 0.15 },
+        deltas: { happiness: -1 },
+        result: '먼 나라 이야기라 여기며 채널을 돌렸다.'
+      },
+      {
+        id: 'zombie-global-online-rumor-30',
+        text: 'SNS에 떠도는 괴담 같은 감염 목격담을 접한다',
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.02, max: 0.15 },
+        deltas: { happiness: -1 },
+        result: '과장된 괴담이겠거니 하면서도, 어쩐지 찜찜함이 남았다.'
+      },
+      {
+        id: 'zombie-global-domestic-first-case-33',
+        text: '국내 첫 의심 사례 발생 소식에 불안해진다',
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.1, max: 0.4 },
+        deltas: { happiness: -2 },
+        result: '설마 하던 일이 정말 눈앞에 닥친 기분이었다.'
+      },
+      {
+        id: 'zombie-global-stockpiling-33',
+        text: '마트에서 생필품을 잔뜩 사재기해 쟁여둔다',
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.1, max: 0.4 },
+        deltas: { wealth: -2, happiness: 1 },
+        result: '과한가 싶으면서도, 마음 한구석이 놓였다.'
+      },
+      {
+        id: 'zombie-global-report-witnessed-40',
+        text: '수상한 감염 의심자를 발견하고 즉시 신고한다',
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.1, max: 0.4 },
+        worldStateSignal: { key: 'zombieOutbreak', target: 0 },
+        deltas: { happiness: 1, relationship: 1 },
+        result: '내 작은 행동이 확산을 늦추는 데 보탬이 되길 바랐다.'
+      },
+      {
+        id: 'zombie-global-ignore-witnessed-40',
+        text: '수상한 걸 봤지만 괜히 엮이기 싫어 모른 척한다',
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.1, max: 0.4 },
+        worldStateSignal: { key: 'zombieOutbreak', target: 1 },
+        deltas: { happiness: -1 },
+        result: '내 알 바 아니라고 되뇌었지만, 마음 한구석이 편치 않았다.'
+      },
+      {
+        id: 'zombie-global-neighborhood-sighting-36',
+        text: '동네에서 감염자로 추정되는 사람을 직접 목격한다',
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.3, max: 0.7 },
+        deltas: { happiness: -3, health: -1 },
+        result: '뉴스로만 보던 일이, 이제는 바로 옆 골목 이야기였다.'
+      },
+      {
+        id: 'zombie-global-quarantine-guideline-36',
+        text: '정부의 방역 지침에 따라 외출을 최대한 자제한다',
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.3, max: 0.7 },
+        deltas: { wealth: -1, happiness: -1, health: 1 },
+        result: '답답했지만, 지금은 몸을 사릴 때라고 스스로를 다독였다.'
+      },
+      {
+        id: 'zombie-global-cooperate-checkpoint-44',
+        text: '검문소의 신원 확인 절차에 순순히 협조한다',
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.3, max: 0.7 },
+        worldStateSignal: { key: 'zombieOutbreak', target: 0 },
+        deltas: { happiness: -1 },
+        result: '번거로워도, 다 같이 지키자고 만든 절차였다.'
+      },
+      {
+        id: 'zombie-global-evade-checkpoint-44',
+        text: '검문이 귀찮아 몰래 우회로로 빠져나간다',
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.3, max: 0.7 },
+        worldStateSignal: { key: 'zombieOutbreak', target: 1 },
+        deltas: { happiness: 1, relationship: -1 },
+        result: '편했지만, 이게 맞는 건가 싶은 찝찝함이 남았다.'
+      },
+      {
+        id: 'zombie-global-curfew-enforced-47',
+        text: '통행금지령이 내려져 해 지기 전 서둘러 귀가한다',
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.5, max: 0.85 },
+        deltas: { happiness: -2, health: -1 },
+        result: '거리에 사람 그림자 하나 없는 밤이 낯설고 무서웠다.'
+      },
+      {
+        id: 'zombie-global-supply-shortage-47',
+        text: '생필품 품귀 현상으로 마트 진열대가 텅 비어 있다',
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.5, max: 0.85 },
+        deltas: { wealth: -3, happiness: -2 },
+        result: '평범했던 일상의 소중함을 이제야 절실히 느꼈다.'
+      },
+      {
+        id: 'zombie-global-quarantine-zone-neighbor-56',
+        text: '이웃 동네가 격리구역으로 지정됐다는 소식을 듣는다',
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.5, max: 0.85 },
+        deltas: { happiness: -3, relationship: -1 },
+        result: '경계선 하나로 갈라진 삶이 남 일 같지 않았다.'
+      },
+      {
+        id: 'zombie-global-shares-supplies-56',
+        text: '어려움을 겪는 이웃과 남은 물자를 나눈다',
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.5, max: 0.85 },
+        worldStateSignal: { key: 'zombieOutbreak', target: 0 },
+        deltas: { wealth: -1, relationship: 2, happiness: 2 },
+        result: '이럴 때일수록, 서로 돕는 게 맞다고 믿었다.'
+      },
+      {
+        id: 'zombie-global-city-lockdown-59',
+        text: '거주 도시 전체가 전면 봉쇄됐다는 발표를 듣는다',
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.7, max: 0.95 },
+        deltas: { happiness: -4, health: -1 },
+        result: '도시 전체가 하나의 커다란 격리구역이 되어버렸다.'
+      },
+      {
+        id: 'zombie-global-shelter-survival-59',
+        text: '대피소에서 낯선 사람들과 함께 하루하루를 버틴다',
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.7, max: 0.95 },
+        deltas: { happiness: -2, relationship: 2, health: -1 },
+        result: '불편했지만, 함께 버티는 사람들이 있어 그나마 견딜 만했다.'
+      },
+      {
+        id: 'zombie-global-family-separated-63',
+        text: '봉쇄로 다른 지역의 가족과 연락이 끊겨 애를 태운다',
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.7, max: 0.95 },
+        deltas: { happiness: -4, relationship: -1 },
+        result: '살아있다는 소식 한 줄이 이렇게 간절할 줄 몰랐다.'
+      },
+      {
+        id: 'zombie-global-volunteer-crisis-response-63',
+        text: '위기 대응 자원봉사에 나서 힘을 보탠다',
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.7, max: 0.95 },
+        worldStateSignal: { key: 'zombieOutbreak', target: 0 },
+        deltas: { happiness: 2, relationship: 2, health: -1 },
+        result: '할 수 있는 일이 있다는 게, 무력감 속에서도 위안이 됐다.'
+      },
+      {
+        id: 'zombie-global-panic-hoarding-selfish-72',
+        text: '남들 몫까지 독차지하려 물자를 과도하게 쟁여둔다',
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.7, max: 0.95 },
+        worldStateSignal: { key: 'zombieOutbreak', target: 1 },
+        deltas: { wealth: 2, relationship: -3, happiness: -1 },
+        result: '살아남았다는 안도감 뒤로, 씁쓸한 뒷맛이 남았다.'
+      },
+      {
+        id: 'zombie-global-recovery-signs-75',
+        text: '봉쇄가 조금씩 풀리며 거리에 사람들이 돌아오는 걸 지켜본다',
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.1, max: 0.6 },
+        deltas: { happiness: 3, health: 1 },
+        result: '완전히는 아니어도, 일상이 조금씩 돌아오고 있었다.'
+      }
+
+];
+
 module.exports = {
   STAGES,
   PRISON_CHOICES,
   LOVER_ROUTE_CHOICES,
   RED_HANDED_CHOICES,
   VEHICLE_THEFT_CHOICES,
+  ZOMBIE_EVENT_CHOICES,
   ENDINGS,
   resolveEnding,
   buildCollapseEnding,
