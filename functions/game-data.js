@@ -52384,7 +52384,793 @@ const VEHICLE_THEFT_CHOICES = [
     requiresRoute: 'vehicle-thief',
     deltas: { wealth: -2, happiness: 2 },
     result: '앞뒤가 안 맞는 짓이란 걸 알면서도, 조금은 마음이 가벼워졌다.'
-  }
+  },
+
+    {
+      id: 'thief2-targets-luxury-car',
+      text: '이번엔 고급 스포츠카를 노려본다',
+      requiresRoute: 'vehicle-thief',
+      requiresOccupation: ['vehicle-thief'],
+      requiresNoAssetType: 'vehicle',
+      dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.25, max: 0.75, invert: true },
+      appendPoliceCorruptionNote: true,
+      prizeTable: [
+        { weight: 50, label: '절도 성공', deltas: { happiness: 3, wealth: 3 }, result: '위험한 만큼 대가도 컸다.', addAsset: { id: 'stolen-car', label: '🚗 고급 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+        { weight: 50, label: '절도 발각', deltas: { happiness: -9, relationship: -5 }, result: '고급차일수록 보안이 삼엄하다는 걸 뒤늦게 깨달았다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+      ]
+    },
+    {
+      id: 'thief2-targets-open-parking-lot',
+      text: '경비가 허술한 노상 주차장을 노린다',
+      requiresRoute: 'vehicle-thief',
+      requiresOccupation: ['vehicle-thief'],
+      requiresNoAssetType: 'vehicle',
+      dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.1, max: 0.5, invert: true },
+      appendPoliceCorruptionNote: true,
+      prizeTable: [
+        { weight: 70, label: '절도 성공', deltas: { happiness: 2 }, result: '허술한 경비 덕에 손쉽게 해냈다.', addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+        { weight: 30, label: '절도 발각', deltas: { happiness: -7, relationship: -4 }, result: '하필 순찰차가 그 시간에 지나갔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+      ]
+    },
+    {
+      id: 'thief2-valet-parking-trick',
+      text: '발렛파킹 직원인 척 위장해 키를 넘겨받는다',
+      requiresRoute: 'vehicle-thief',
+      requiresOccupation: ['vehicle-thief'],
+      requiresNoAssetType: 'vehicle',
+      dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.2, max: 0.6, invert: true },
+      appendPoliceCorruptionNote: true,
+      prizeTable: [
+        { weight: 55, label: '절도 성공', deltas: { happiness: 3, wealth: 1 }, result: '대담한 수법이 의외로 잘 먹혔다.', addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+        { weight: 45, label: '절도 발각', deltas: { happiness: -8, relationship: -5 }, result: '진짜 발렛 직원과 마주치는 바람에 들통났다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+      ]
+    },
+    {
+      id: 'thief2-motorcycle-instead',
+      text: '차 대신 오토바이로 눈을 돌려본다',
+      requiresRoute: 'vehicle-thief',
+      requiresOccupation: ['vehicle-thief'],
+      requiresNoAssetType: 'vehicle',
+      dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.1, max: 0.45, invert: true },
+      appendPoliceCorruptionNote: true,
+      prizeTable: [
+        { weight: 75, label: '절도 성공', deltas: { happiness: 2 }, result: '몸집이 작은 만큼 다루기도 수월했다.', addAsset: { id: 'stolen-car', label: '🏍️ 중고 오토바이(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+        { weight: 25, label: '절도 발각', deltas: { happiness: -6, relationship: -3 }, result: '시동 소리에 주인이 바로 뛰쳐나왔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+      ]
+    },
+    {
+      id: 'thief2-apartment-complex-sweep',
+      text: '아파트 단지를 돌며 만만한 차를 물색한다',
+      requiresRoute: 'vehicle-thief',
+      requiresOccupation: ['vehicle-thief'],
+      requiresNoAssetType: 'vehicle',
+      dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.15, max: 0.55, invert: true },
+      appendPoliceCorruptionNote: true,
+      prizeTable: [
+        { weight: 65, label: '절도 성공', deltas: { happiness: 2 }, result: 'CCTV 사각지대를 정확히 노렸다.', addAsset: { id: 'stolen-car', label: '🚗 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+        { weight: 35, label: '절도 발각', deltas: { happiness: -7, relationship: -4 }, result: '경비원의 순찰 동선을 잘못 계산했다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+      ]
+    },
+    {
+      id: 'thief2-scouts-target-days',
+      text: '며칠에 걸쳐 노릴 차량의 동선을 미리 조사한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -1 },
+      result: '조급함이 화를 부른다는 걸, 경험으로 배웠다.'
+    },
+    {
+      id: 'thief2-buys-lockpick-tools',
+      text: '암시장에서 신형 무단복제 키를 구입한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { wealth: -3, happiness: 1 },
+      result: '장비가 좋아지니 일도 한결 수월해졌다.'
+    },
+    {
+      id: 'thief2-studies-car-alarm-systems',
+      text: '최신 차량 경보 시스템을 몰래 공부한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: 1 },
+      result: '이 바닥도 결국 기술 싸움이었다.'
+    },
+    {
+      id: 'thief2-scopes-out-cctv-blindspots',
+      text: '동네 CCTV 사각지대를 하나하나 파악해둔다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -1 },
+      result: '준비성이 곧 생존이었다.'
+    },
+    {
+      id: 'thief2-recruits-lookout',
+      text: '망을 봐줄 사람을 새로 구한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { relationship: 1, wealth: -1 },
+      result: '믿을 만한 사람을 구하는 게 생각보다 어려웠다.'
+    },
+    {
+      id: 'thief2-abandons-risky-target',
+      text: '너무 위험해 보이는 표적은 과감히 포기한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: 1 },
+      result: '무리하지 않는 것도 실력이었다.'
+    },
+    {
+      id: 'thief2-practices-hotwiring',
+      text: '낡은 폐차에서 배선 연결(핫와이어링)을 연습한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: 1 },
+      result: '손끝의 감각이 점점 늘어갔다.'
+    },
+    {
+      id: 'thief2-sells-overseas-buyer',
+      text: '해외 바이어에게 훔친 차를 직접 흥정해 판다',
+      requiresRoute: 'vehicle-thief',
+      requiresAsset: 'stolen-car',
+      removeAsset: 'stolen-car',
+      deltas: { wealth: 11, happiness: -1 },
+      result: '말이 잘 안 통해도, 숫자만큼은 확실히 통했다.'
+    },
+    {
+      id: 'thief2-sells-via-online-listing',
+      text: '위조 서류를 곁들여 중고차 사이트에 슬쩍 올려 판다',
+      requiresRoute: 'vehicle-thief',
+      requiresAsset: 'stolen-car',
+      removeAsset: 'stolen-car',
+      deltas: { wealth: 7, happiness: -1 },
+      result: '클릭 몇 번으로 손쉽게 거래가 성사됐다.'
+    },
+    {
+      id: 'thief2-trades-for-drugs-declined',
+      text: '마약과 맞바꾸자는 제안을 단호히 거절한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: 1 },
+      result: '선은 지켜야 한다는 마지막 자존심이었다.'
+    },
+    {
+      id: 'thief2-strips-for-parts-slowly',
+      text: '차를 통째로 넘기지 않고 부품을 하나씩 천천히 판다',
+      requiresRoute: 'vehicle-thief',
+      requiresAsset: 'stolen-car',
+      removeAsset: 'stolen-car',
+      deltas: { wealth: 8, happiness: -2, health: -1 },
+      result: '시간은 오래 걸렸지만 총액은 더 짭짤했다.'
+    },
+    {
+      id: 'thief2-swaps-with-another-thief',
+      text: '다른 절도범과 서로 훔친 차를 맞바꾼다',
+      requiresRoute: 'vehicle-thief',
+      requiresAsset: 'stolen-car',
+      deltas: { happiness: 1 },
+      result: '추적을 헷갈리게 하는 나름의 요령이었다.'
+    },
+    {
+      id: 'thief2-negotiates-better-price',
+      text: '장물아비와 실랑이 끝에 값을 더 받아낸다',
+      requiresRoute: 'vehicle-thief',
+      requiresAsset: 'stolen-car',
+      removeAsset: 'stolen-car',
+      deltas: { wealth: 8 },
+      result: '밀고 당기는 협상도 이제 제법 익숙해졌다.'
+    },
+    {
+      id: 'thief2-rushed-sale-low-price',
+      text: '급전이 필요해 헐값에 서둘러 넘긴다',
+      requiresRoute: 'vehicle-thief',
+      requiresAsset: 'stolen-car',
+      removeAsset: 'stolen-car',
+      deltas: { wealth: 3, happiness: -1 },
+      result: '아쉬웠지만 당장의 급한 불이 먼저였다.'
+    },
+    {
+      id: 'thief2-fake-export-paperwork',
+      text: '위조 수출 서류를 만들어 항구를 통해 빼돌린다',
+      requiresRoute: 'vehicle-thief',
+      requiresAsset: 'stolen-car',
+      removeAsset: 'stolen-car',
+      deltas: { wealth: 10, happiness: -2 },
+      result: '서류 한 장의 위력이 생각보다 컸다.'
+    },
+    {
+      id: 'thief2-parts-out-to-multiple-buyers',
+      text: '부품을 여러 구매자에게 나눠 팔아 흔적을 지운다',
+      requiresRoute: 'vehicle-thief',
+      requiresAsset: 'stolen-car',
+      removeAsset: 'stolen-car',
+      deltas: { wealth: 6, relationship: -1 },
+      result: '번거로웠지만 그만큼 안전했다.'
+    },
+    {
+      id: 'thief2-abandons-car-guilt',
+      text: '죄책감에 훔친 차를 그냥 버려두고 떠난다',
+      requiresRoute: 'vehicle-thief',
+      requiresAsset: 'stolen-car',
+      removeAsset: 'stolen-car',
+      deltas: { happiness: 2, wealth: -1 },
+      result: '손해를 감수하고서라도, 마음은 편해지고 싶었다.'
+    },
+    {
+      id: 'thief2-joins-crew',
+      text: '조직적으로 움직이는 절도 크루에 합류한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { relationship: 2, wealth: 1 },
+      result: '혼자보다 훨씬 수월했지만, 나눠야 할 몫도 늘었다.'
+    },
+    {
+      id: 'thief2-crew-leader-demands-cut',
+      text: '크루 리더가 몫을 더 요구하며 압박한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { wealth: -3, happiness: -2 },
+      result: '조직에 들어간 대가를 톡톡히 치르고 있었다.'
+    },
+    {
+      id: 'thief2-informant-offers-intel',
+      text: '정보상이 고급 차량 위치 정보를 제안해온다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { wealth: -2, happiness: 1 },
+      result: '공짜 정보는 없다는 걸 다시 한번 깨달았다.'
+    },
+    {
+      id: 'thief2-betrayed-by-partner',
+      text: '믿었던 동료가 몫을 가로채고 잠적한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -5, relationship: -3, wealth: -3 },
+      result: '이 바닥에서 믿을 사람은 결국 자신뿐이었다.'
+    },
+    {
+      id: 'thief2-rival-gang-turf-war',
+      text: '경쟁 조직과의 구역 다툼에 휘말린다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -4, health: -1 },
+      result: '물러설 수도 나설 수도 없는 상황이었다.'
+    },
+    {
+      id: 'thief2-mentor-takes-share',
+      text: '처음 이 길을 알려준 선배에게 사례를 챙겨준다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { wealth: -2, relationship: 1 },
+      result: '은혜는 갚아야 마음이 편했다.'
+    },
+    {
+      id: 'thief2-crew-disbands',
+      text: '손발이 맞던 크루가 뿔뿔이 흩어진다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -2, relationship: -1 },
+      result: '함께한 시간이 허무하게 끝나버렸다.'
+    },
+    {
+      id: 'thief2-recruits-desperate-youth',
+      text: '돈에 쪼들리는 어린 후배를 이 일에 끌어들인다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { wealth: 1, happiness: -2 },
+      result: '죄책감이 스멀스멀 올라왔지만 애써 외면했다.'
+    },
+    {
+      id: 'thief2-network-expands-other-city',
+      text: '다른 지역까지 장물 유통망을 넓힌다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { wealth: 5, happiness: -1 },
+      result: '활동 범위가 넓어질수록 위험도 함께 커졌다.'
+    },
+    {
+      id: 'thief2-informant-sells-out-crew',
+      text: '조직 내 정보상이 경찰에 밀고했다는 소문을 듣는다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -4 },
+      result: '누구를 믿어야 할지 점점 알 수 없어졌다.'
+    },
+    {
+      id: 'thief2-solo-after-crew-arrest',
+      text: '크루 전체가 검거되고 홀로 남는다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -3, relationship: -2 },
+      result: '혼자가 되고 나서야 그 무게가 실감 났다.'
+    },
+    {
+      id: 'thief2-changes-identity-documents',
+      text: '위조 신분증으로 신분을 세탁한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { wealth: -4, happiness: 1 },
+      result: '다른 이름으로 사는 삶이 낯설고도 씁쓸했다.'
+    },
+    {
+      id: 'thief2-moves-to-new-city',
+      text: '낯선 도시로 거처를 옮긴다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -2, relationship: -1 },
+      result: '익숙한 모든 것과의 작별이었다.'
+    },
+    {
+      id: 'thief2-lives-in-motel',
+      text: '싸구려 모텔을 전전하며 지낸다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -2, health: -1 },
+      result: '안정된 집이 이렇게 그리울 줄 몰랐다.'
+    },
+    {
+      id: 'thief2-avoids-old-friends',
+      text: '옛 친구들과의 연락을 하나둘 끊는다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -2, relationship: -2 },
+      result: '고립을 선택한 대가가 외로움이었다.'
+    },
+    {
+      id: 'thief2-fake-job-cover',
+      text: '위장 취업으로 그럴듯한 겉모습을 유지한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { wealth: -1, happiness: 1 },
+      result: '이중생활도 이제 제법 능숙해졌다.'
+    },
+    {
+      id: 'thief2-panic-over-police-car',
+      text: '골목에서 순찰차와 마주쳐 심장이 멎을 뻔한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -3, health: -1 },
+      result: '아무 일도 아니었지만, 며칠은 잠을 설쳤다.'
+    },
+    {
+      id: 'thief2-lays-low-months',
+      text: '몇 달간 아예 활동을 접고 숨죽인다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -1, wealth: -2 },
+      result: '버티는 것도 나름의 전략이었다.'
+    },
+    {
+      id: 'thief2-burner-phone-only',
+      text: '대포폰으로만 연락을 주고받기 시작한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { wealth: -1, happiness: -1 },
+      result: '불편했지만, 안전을 위해선 어쩔 수 없었다.'
+    },
+    {
+      id: 'thief2-relative-shelters-briefly',
+      text: '먼 친척집에 잠시 몸을 숨긴다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: 1, relationship: -1 },
+      result: '신세를 진다는 게 마음 편치만은 않았다.'
+    },
+    {
+      id: 'thief2-almost-recognized-public',
+      text: '길거리에서 아는 얼굴과 마주칠 뻔해 식겁한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -3 },
+      result: '다행히 모자를 눌러쓴 덕에 들키지 않았다.'
+    },
+    {
+      id: 'thief2-spouse-finds-out',
+      text: '배우자가 결국 진실을 알아채고 만다',
+      requiresRoute: 'vehicle-thief',
+      requiresFamilyMember: ['spouse'],
+      deltas: { happiness: -5, relationship: -4 },
+      result: '거짓말로 쌓아온 시간이 한순간에 무너졌다.'
+    },
+    {
+      id: 'thief2-child-asks-about-job',
+      text: '자녀가 부모 직업이 뭐냐고 순진하게 묻는다',
+      requiresRoute: 'vehicle-thief',
+      requiresFamilyMember: ['child'],
+      deltas: { happiness: -3 },
+      result: '차마 사실대로 말할 수 없었다.'
+    },
+    {
+      id: 'thief2-parents-disown-temporarily',
+      text: '부모님이 실망감에 한동안 연락을 끊는다',
+      requiresRoute: 'vehicle-thief',
+      requiresFamilyMember: ['father', 'mother'],
+      deltas: { happiness: -4, relationship: -2 },
+      result: '가장 아픈 건 부모님의 침묵이었다.'
+    },
+    {
+      id: 'thief2-sibling-covers-for-him',
+      text: '형제자매가 알면서도 모르는 척 덮어준다',
+      requiresRoute: 'vehicle-thief',
+      requiresFamilyMember: ['sibling'],
+      deltas: { relationship: 1, happiness: -1 },
+      result: '고마우면서도 미안한 마음이 동시에 들었다.'
+    },
+    {
+      id: 'thief2-family-dinner-awkward',
+      text: '오랜만의 가족 식사 자리가 유독 어색하다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -2 },
+      result: '숨기는 게 많아질수록 거리도 멀어졌다.'
+    },
+    {
+      id: 'thief2-spouse-leaves',
+      text: '결국 배우자가 짐을 싸 떠난다',
+      requiresRoute: 'vehicle-thief',
+      requiresFamilyMember: ['spouse'],
+      deltas: { happiness: -6, relationship: -5 },
+      result: '붙잡을 자격도 없다는 걸, 스스로도 알고 있었다.'
+    },
+    {
+      id: 'thief2-child-disappointed-face',
+      text: '자녀의 실망한 표정이 오래도록 마음에 남는다',
+      requiresRoute: 'vehicle-thief',
+      requiresFamilyMember: ['child'],
+      deltas: { happiness: -3, relationship: -1 },
+      result: '돈으로도 씻기지 않는 게 있었다.'
+    },
+    {
+      id: 'thief2-secretly-supports-family',
+      text: '몰래 부모님 생활비를 보태드린다',
+      requiresRoute: 'vehicle-thief',
+      requiresFamilyMember: ['father', 'mother'],
+      deltas: { wealth: -3, happiness: 2 },
+      result: '출처는 말할 수 없어도, 마음만은 진심이었다.'
+    },
+    {
+      id: 'thief2-lies-about-income-source',
+      text: '수입의 출처를 둘러대느라 거짓말이 늘어간다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -2, relationship: -1 },
+      result: '거짓말이 거짓말을 부르는 나날이었다.'
+    },
+    {
+      id: 'thief2-guilt-sleepless-night',
+      text: '죄책감에 뒤척이며 뜬눈으로 밤을 지새운다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -3, health: -1 },
+      result: '돈으로 채워지지 않는 공허함이 있었다.'
+    },
+    {
+      id: 'thief2-considers-turning-self-in',
+      text: '자수를 진지하게 고민해본다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -1 },
+      result: '결국 용기를 내지 못했다.'
+    },
+    {
+      id: 'thief2-victim-news-report',
+      text: '피해자 인터뷰가 나온 뉴스를 우연히 본다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -4 },
+      result: '화면 속 얼굴이 오래도록 눈에 밟혔다.'
+    },
+    {
+      id: 'thief2-donates-anonymously',
+      text: '익명으로 자선단체에 거액을 기부한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { wealth: -5, happiness: 2 },
+      result: '죄를 씻을 순 없어도, 조금은 나눠주고 싶었다.'
+    },
+    {
+      id: 'thief2-attends-church-secretly',
+      text: '몰래 예배당(성당)을 찾아 마음을 달랜다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: 2 },
+      result: '용서받을 자격이 있는지는 알 수 없었다.'
+    },
+    {
+      id: 'thief2-resolves-to-quit-soon',
+      text: '돈을 조금만 더 모으면 그만두겠다고 다짐한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: 1 },
+      result: '그 다짐을, 벌써 몇 번째 하는지 몰랐다.'
+    },
+    {
+      id: 'thief2-nightmare-about-getting-caught',
+      text: '붙잡히는 악몽에 식은땀을 흘리며 깬다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -2, health: -1 },
+      result: '꿈에서만큼은 늘 도망치지 못했다.'
+    },
+    {
+      id: 'thief2-old-friend-confronts',
+      text: '눈치챈 옛 친구가 진지하게 그만두라고 설득한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -1, relationship: 1 },
+      result: '듣기 싫었지만, 틀린 말은 아니었다.'
+    },
+    {
+      id: 'thief2-writes-apology-never-sends',
+      text: '보내지도 못할 사과 편지를 몰래 써본다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: 1 },
+      result: '부치지 못해도, 쓰는 것만으로 조금은 후련했다.'
+    },
+    {
+      id: 'thief2-relapses-after-almost-quitting',
+      text: '거의 그만두려던 참에, 결국 다시 유혹에 넘어간다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -2, wealth: 2 },
+      result: '의지만으로는 벗어나기 힘든 수렁이었다.'
+    },
+    {
+      id: 'thief2-police-sting-operation',
+      text: '함정수사인 줄 모르고 미끼 차량에 손을 댄다',
+      requiresRoute: 'vehicle-thief',
+      dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.4, max: 0.85, invert: true },
+      appendPoliceCorruptionNote: true,
+      prizeTable: [
+        { weight: 35, label: '절도 성공', deltas: { happiness: 1 }, result: '낌새가 이상했지만, 이번엔 운 좋게 빠져나갔다.' },
+        { weight: 65, label: '절도 발각', deltas: { happiness: -10, relationship: -6 }, result: '처음부터 다 짜인 함정이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+      ]
+    },
+    {
+      id: 'thief2-detective-visits-home',
+      text: '형사가 탐문 수사차 집까지 찾아온다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -4, health: -1 },
+      result: '현관 앞에서 마주친 순간, 심장이 내려앉았다.'
+    },
+    {
+      id: 'thief2-cctv-footage-leaked',
+      text: '자신이 찍힌 CCTV 영상이 인터넷에 퍼진다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -3, fame: -1 },
+      result: '얼굴이 알려질까 봐 며칠을 숨죽여 지냈다.'
+    },
+    {
+      id: 'thief2-anonymous-tip-scare',
+      text: '누군가 익명으로 제보했다는 소문에 며칠을 떤다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -3 },
+      result: '헛소문이었지만, 심장은 이미 반쯤 나가 있었다.'
+    },
+    {
+      id: 'thief2-license-plate-recognition-dodge',
+      text: '번호판 자동인식 카메라가 있는 길을 피해 돌아간다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -1, wealth: -1 },
+      result: '돌아가는 시간이 아까웠지만 안전이 먼저였다.'
+    },
+    {
+      id: 'thief2-accomplice-arrested-stays-silent',
+      text: '함께 일하던 동료가 붙잡혔지만 입을 열지 않았다는 소식을 듣는다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: 1, relationship: 1 },
+      result: '의리를 지켜준 게 눈물겹게 고마웠다.'
+    },
+    {
+      id: 'thief2-witness-almost-identifies',
+      text: '목격자가 몽타주를 보고 자신과 닮았다고 진술한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -4 },
+      result: '흔한 얼굴이라 다행이라는 생각이 처음으로 들었다.'
+    },
+    {
+      id: 'thief2-police-patrol-increases',
+      text: '활동하던 구역에 순찰이 부쩍 잦아진다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -2, wealth: -1 },
+      result: '당분간은 몸을 사려야 할 때였다.'
+    },
+    {
+      id: 'thief2-fingerprint-scare',
+      text: '현장에 지문을 남긴 것 같아 뒤늦게 초조해진다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -3 },
+      result: '장갑을 꼈는지조차 기억이 가물가물했다.'
+    },
+    {
+      id: 'thief2-court-summons-other-case',
+      text: '엉뚱한 사건으로 법원 출석 요구서를 받고 심장이 철렁한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -2 },
+      result: '별일 아니었지만, 며칠은 제정신이 아니었다.'
+    },
+    {
+      id: 'thief2-old-case-reopened',
+      text: '오래전 미제 사건이 재수사에 들어갔다는 소식을 듣는다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -3 },
+      result: '끝난 줄 알았던 일이 끝난 게 아니었다.'
+    },
+    {
+      id: 'thief2-rents-out-fake-plates-service',
+      text: '다른 절도범들에게 위조 번호판을 만들어 팔기 시작한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { wealth: 6, happiness: -1 },
+      result: '직접 훔치지 않아도 되는 새로운 돈줄이었다.'
+    },
+    {
+      id: 'thief2-teaches-lockpicking-for-fee',
+      text: '돈을 받고 후배들에게 절도 기술을 가르친다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { wealth: 4, relationship: 1 },
+      result: '떳떳하진 않아도, 짭짤한 부수입이었다.'
+    },
+    {
+      id: 'thief2-rental-car-scam',
+      text: '렌터카를 빌려 그대로 잠적하는 수법을 시도한다',
+      requiresRoute: 'vehicle-thief',
+      dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.2, max: 0.6, invert: true },
+      appendPoliceCorruptionNote: true,
+      prizeTable: [
+        { weight: 60, label: '절도 성공', deltas: { wealth: 8, happiness: -1 }, result: '서류 몇 장의 허점을 정확히 파고들었다.' },
+        { weight: 40, label: '절도 발각', deltas: { wealth: -6, happiness: -8, relationship: -4 }, result: '렌터카 업체의 추적 시스템을 얕봤다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+      ]
+    },
+    {
+      id: 'thief2-sells-car-alarm-bypass-device',
+      text: '직접 만든 경보 무력화 장치를 암시장에 판다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { wealth: 5, happiness: -1 },
+      result: '기술이 곧 돈이 되는 세계였다.'
+    },
+    {
+      id: 'thief2-invests-stolen-profits',
+      text: '장물로 번 돈 일부를 조심스럽게 투자한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { wealth: 3 },
+      result: '더러운 돈도 깨끗하게 굴리고 싶은 마음이었다.'
+    },
+    {
+      id: 'thief2-side-business-front',
+      text: '세탁업 삼아 작은 사업체를 명의만 걸어둔다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { wealth: -2, happiness: 1 },
+      result: '그럴듯한 간판 하나가 여러모로 쓸모 있었다.'
+    },
+    {
+      id: 'thief2-sells-tips-to-other-thieves',
+      text: '보안이 허술한 지역 정보를 다른 절도범에게 판다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { wealth: 3, relationship: -1 },
+      result: '정보 하나가 돈이 되는 걸 알고 나니 씁쓸했다.'
+    },
+    {
+      id: 'thief2-repo-man-side-gig',
+      text: '낮에는 정식 견인·회수업체 일을 부업으로 겸한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { wealth: 3, happiness: 1 },
+      result: '아이러니하게도, 비슷한 기술이 양쪽에 다 쓰였다.'
+    },
+    {
+      id: 'thief2-flips-stolen-parts-online',
+      text: '떼어낸 부품들을 중고 거래 앱으로 하나씩 처분한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { wealth: 4 },
+      result: '소소하지만 꾸준한 벌이가 됐다.'
+    },
+    {
+      id: 'thief2-loses-money-to-scammer',
+      text: '장물을 사겠다던 상대가 오히려 자신을 속이고 사라진다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { wealth: -5, happiness: -3 },
+      result: '믿을 곳 하나 없는 게, 이 바닥의 서러움이었다.'
+    },
+    {
+      id: 'thief2-priors-make-worries-grow',
+      text: '전과 기록 때문에 만약을 대비한 걱정이 늘어간다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -2 },
+      result: '돌아갈 곳이 점점 좁아지는 기분이었다.'
+    },
+    {
+      id: 'thief2-realizes-years-wasted',
+      text: '문득 이 생활에 흘려보낸 세월을 돌아본다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -2 },
+      result: '다른 삶을 살았다면 어땠을지, 자꾸만 생각났다.'
+    },
+    {
+      id: 'thief2-younger-self-would-be-ashamed',
+      text: '어릴 적 꿈꾸던 모습과 지금이 너무 다르다는 걸 깨닫는다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -3 },
+      result: '언제부터 이렇게 됐는지, 스스로도 알 수 없었다.'
+    },
+    {
+      id: 'thief2-age-makes-theft-harder',
+      text: '나이가 들수록 몸이 예전만큼 재빠르지 않다는 걸 느낀다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { health: -1, happiness: -1 },
+      result: '이 일도 결국 젊음의 영역이라는 걸 실감했다.'
+    },
+    {
+      id: 'thief2-younger-thieves-replace-him',
+      text: '더 어리고 대담한 후배들에게 밀려나는 기분이 든다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -2 },
+      result: '세대교체는 어느 바닥에나 있는 법이었다.'
+    },
+    {
+      id: 'thief2-reflects-on-first-theft',
+      text: '처음 차 문을 땄던 그날을 문득 떠올린다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -1 },
+      result: '그때로 돌아간다면, 다른 선택을 했을까 싶었다.'
+    },
+    {
+      id: 'thief2-calculates-total-earnings',
+      text: '지금까지 훔쳐서 번 돈을 조용히 계산해본다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -1 },
+      result: '숫자로 보니 결코 남는 장사가 아니었다는 걸 깨달았다.'
+    },
+    {
+      id: 'thief2-decides-this-is-last-year',
+      text: '올해를 마지막으로 완전히 손을 씻겠다고 마음먹는다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: 2 },
+      result: '이번만큼은 진심으로 다짐했다.'
+    },
+    {
+      id: 'thief2-steals-from-dealership-lot',
+      text: '한밤중 자동차 대리점 주차장을 통째로 노려본다',
+      requiresRoute: 'vehicle-thief',
+      requiresOccupation: ['vehicle-thief'],
+      requiresNoAssetType: 'vehicle',
+      dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.3, max: 0.7, invert: true },
+      appendPoliceCorruptionNote: true,
+      prizeTable: [
+        { weight: 45, label: '절도 성공', deltas: { wealth: 4, happiness: 2 }, result: '대담한 시도가 예상외로 잘 맞아떨어졌다.', addAsset: { id: 'stolen-car', label: '🚗 신차급 중고차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+        { weight: 55, label: '절도 발각', deltas: { happiness: -9, relationship: -5, wealth: -2 }, result: '대리점 보안 시스템은 생각보다 훨씬 촘촘했다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+      ]
+    },
+    {
+      id: 'thief2-carjacking-temptation-declined',
+      text: '운전자가 타고 있는 차를 노리자는 제안을 단호히 거절한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: 1 },
+      result: '사람을 위협하는 것만큼은 넘고 싶지 않은 선이었다.'
+    },
+    {
+      id: 'thief2-electric-car-challenge',
+      text: '보안이 까다로운 전기차 절도에 도전해본다',
+      requiresRoute: 'vehicle-thief',
+      requiresOccupation: ['vehicle-thief'],
+      requiresNoAssetType: 'vehicle',
+      dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '절도 발각', min: 0.3, max: 0.7, invert: true },
+      appendPoliceCorruptionNote: true,
+      prizeTable: [
+        { weight: 40, label: '절도 성공', deltas: { wealth: 5, happiness: 2 }, result: '까다로운 만큼, 성공했을 때 짜릿함도 컸다.', addAsset: { id: 'stolen-car', label: '🔋 중고 전기차(절도)', type: 'vehicle' }, victimizesRandomVehicleOwner: true },
+        { weight: 60, label: '절도 발각', deltas: { happiness: -9, relationship: -5 }, result: '최신 보안 시스템 앞에서는 오랜 경력도 소용없었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+      ]
+    },
+    {
+      id: 'thief2-classic-car-collector-interest',
+      text: '희귀한 클래식카 수집가들 사이에서 은밀히 판로를 뚫는다',
+      requiresRoute: 'vehicle-thief',
+      requiresAsset: 'stolen-car',
+      removeAsset: 'stolen-car',
+      deltas: { wealth: 9 },
+      result: '의외로 이쪽 세계에 진심인 사람들이 많았다.'
+    },
+    {
+      id: 'thief2-transports-across-border-declined',
+      text: '국경 너머로 차량을 밀반출하자는 제안을 거절한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: 1 },
+      result: '거기까지 손을 뻗는 건 스스로도 무서웠다.'
+    },
+    {
+      id: 'thief2-weather-ruins-plan',
+      text: '폭우로 계획했던 절도 시도를 접는다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -1 },
+      result: '날씨마저 이 일을 방해하는 것 같았다.'
+    },
+    {
+      id: 'thief2-uses-stolen-car-for-ride-share',
+      text: '훔친 차로 몰래 대리운전 아르바이트까지 뛴다',
+      requiresRoute: 'vehicle-thief',
+      requiresAsset: 'stolen-car',
+      deltas: { wealth: 3, happiness: -1 },
+      result: '들킬까 봐 조마조마했지만 벌이는 쏠쏠했다.'
+    },
+    {
+      id: 'thief2-car-breaks-down-mid-escape',
+      text: '도주 중 훔친 차가 갑자기 고장 나 식겁한다',
+      requiresRoute: 'vehicle-thief',
+      requiresAsset: 'stolen-car',
+      deltas: { happiness: -4, health: -1 },
+      result: '차라리 걸어서 도망치는 게 나을 뻔했다.'
+    },
+    {
+      id: 'thief2-anniversary-of-first-theft',
+      text: '이 길에 들어선 지 몇 년째 되는 날을 씁쓸하게 되새긴다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: -1 },
+      result: '기념할 만한 날은 분명 아니었다.'
+    },
+    {
+      id: 'thief2-considers-legit-mechanic-job',
+      text: '차량 지식을 살려 정비소에 취직할까 진지하게 고민한다',
+      requiresRoute: 'vehicle-thief',
+      deltas: { happiness: 1 },
+      result: '아는 것도 많은데, 정작 정당하게 써본 적은 없었다.'
+    },
 ];
 
 module.exports = {
