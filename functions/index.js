@@ -3473,4 +3473,46 @@ const snapshotWorldStateHistory = onSchedule({ schedule: '5 0 * * *', timeZone: 
   }
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots };
+// 좀비 바이러스 자연 확산(62장 F항, 2026-09-02) - 아무 플레이어 상호작용
+// 없이도 매일 자동으로 zombieOutbreak가 조금씩 퍼진다. SIR 전염병 모델의
+// "확산 속도 ∝ 이미 감염된 규모 × 접촉 가능한 인구 수"를 그대로 딴
+// 로지스틱 곡선: growth = 계수 × rate × (1-rate) × 활성접속자수.
+// - rate×(1-rate)는 0.5 부근에서 가장 빠르고 양극단(거의 0 또는 거의 1)에선
+//   느려진다 - 백신·치료로 rate를 0에 가깝게 눌러두면 자연 증가분도 같이
+//   사라져 완전 박멸이 실제로 성립한다(고정폭 증가는 기각 - 아무리 낮춰놔도
+//   매일 같은 압력이면 박멸이 불가능해짐).
+// - 활성접속자수는 세계관 패널이 쓰는 것과 같은 lifeGame/presence(60분
+//   이내 lastSeenAt 기준)를 그대로 재사용 - "실제로 감염이 일어나야
+//   늘어나는 거니까"(사용자 지시) 접속자가 0명인 날은 증가폭도 0이다.
+// - zombieOutbreak 노드가 아직 없으면(연구원이 아직 아무도 유출시키지
+//   않았으면) 이 함수는 완전히 아무 일도 안 한다.
+const ZOMBIE_OUTBREAK_KEY = 'zombieOutbreak';
+// 자연 확산 기본계수 - 미확정, 실사용 트래픽을 보며 조정 예정(62장 F항
+// 명시). 지금은 활성접속자 소수(1~3명) 기준으로 하루 1~2%p 안팎 늘어나는
+// 정도로 잡은 잠정값 - 너무 느리면 이 숫자만 올리면 된다(로직은 안 건드림).
+const ZOMBIE_NATURAL_SPREAD_COEFFICIENT = 0.1;
+const ZOMBIE_PRESENCE_STALE_MS = 60 * 60 * 1000;
+
+const spreadZombieOutbreakNaturally = onSchedule({ schedule: '0 0 * * *', timeZone: 'Asia/Seoul', memory: '256MiB' }, async () => {
+  const db = getDatabase();
+  const outbreakSnap = await db.ref('lifeGame/worldState/' + ZOMBIE_OUTBREAK_KEY).get();
+  if (!outbreakSnap.exists()) return;
+
+  const presenceSnap = await db.ref('lifeGame/presence').get();
+  const presence = presenceSnap.exists() ? presenceSnap.val() : {};
+  const now = Date.now();
+  const activeCount = Object.values(presence).filter(
+    (e) => e && typeof e.lastSeenAt === 'number' && (now - e.lastSeenAt) < ZOMBIE_PRESENCE_STALE_MS
+  ).length;
+  if (!activeCount) return;
+
+  await db.ref('lifeGame/worldState/' + ZOMBIE_OUTBREAK_KEY).transaction((current) => {
+    if (!current || typeof current.rate !== 'number') return current;
+    const rate = current.rate;
+    const growth = ZOMBIE_NATURAL_SPREAD_COEFFICIENT * rate * (1 - rate) * activeCount;
+    const nextRate = Math.min(1, Math.max(0, rate + growth));
+    return { rate: nextRate, updatedAt: ServerValue.TIMESTAMP };
+  });
+});
+
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally };
