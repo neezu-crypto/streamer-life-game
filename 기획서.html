@@ -7177,6 +7177,165 @@
         늘려 해결).</p>
     </section>
 
+    <section id="sec62">
+        <h2><span class="num">62</span>연구원(researcher) 직업 신설 + 좀비 바이러스 세계관 트래커
+        설계 (2026-09-02, 사용자 지시 — 설계만, 미구현)</h2>
+        <p><b>배경.</b> "세계관에서 큰 역할을 하게 될 직업을 설계할 거야. 연구원이라는 직업이고
+        이 직업을 통해 좀비 바이러스같은 세계관의 분위기를 바꿔주는 설정도 생기게 될 거야"(사용자
+        지시). 56장에서 만든 <code>worldState</code> EMA 엔진(트래커별 <code>rate</code> 하나,
+        <code>worldStateSignal</code>로 오르내리고 <code>dynamicAppearChance</code>/<code>dynamicPrizeWeight</code>로
+        소비)을 그대로 재사용하되, "좀비의 수"라는 표현에 맞게 몇 가지를 새로 얹는 설계다.
+        구현 전 방향만 확정한 단계 — 아직 코드 변경 없음.</p>
+
+        <h3>A. <code>zombieOutbreak</code> 트래커 — 방향 매핑</h3>
+        <p>기존 <code>policeCorruption</code> 등과 완전히 같은 0~1 EMA(half-life 10, 트래커 전체
+        공용 — 좀비만 따로 민감도를 분리하지 않기로 확정. "따로 분리하진 않아"(사용자 지시))를
+        그대로 쓴다. 신호 방향:</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>방향</th><th>발생원</th><th>구현 필드</th></tr>
+                <tr><td>↑ 악화</td><td>연구원의 실험 유출/은폐, 일반 플레이어의 "목격했지만
+                방치·무시" 선택, 군인 소탕 실패, 자연 확산(아래 D항)</td>
+                <td><code>worldStateSignal: {'{'}key:'zombieOutbreak', target:1{'}'}</code></td></tr>
+                <tr><td>↓ 호전</td><td>연구원의 백신/치료제 연구 성공, 군인 소탕작전 성공, 일반
+                플레이어의 "신고·협조" 선택</td>
+                <td><code>worldStateSignal: {'{'}key:'zombieOutbreak', target:0{'}'}</code></td></tr>
+            </table>
+        </div>
+        <p>표시 라벨은 기존 5단계 <code>worldStateTierLabel</code> 패턴을 재사용하되 좀비 전용
+        문구로: <b>안정(0~0.2) / 경계(0.2~0.4) / 확산(0.4~0.6) / 위험(0.6~0.8) / 대재앙(0.8~1.0)</b>.
+        가역성은 "백신, 치료법 개발, 군인 직업 추가 후 좀비 퇴치 이벤트, 좀비 방치 등 다양한
+        이벤트로 좀비의 수가 증가/감소함"(사용자 확정)으로, 한쪽으로만 치닫는 구조가 아니라
+        교사 부패도(56장)와 같은 양방향 구조다. 위험도는 "스탯 영향만 (안전)"(사용자 확정) —
+        좀비 이벤트로 캐릭터가 죽거나 엔딩으로 이어지는 일은 없다.</p>
+
+        <h3>B. <code>worldStateSeed</code> — 신규 엔진 필드 (최초 발동 시 극적 시작)</h3>
+        <p>기존 EMA는 "이미 오래 쌓인 균형점"을 전제로 설계돼 있어, 트래커가 아예 없던 상태에서
+        <code>worldStateSignal</code> 한 번만 쏘면 기본값 0.5에서 0.503 정도로 거의 안 움직인다.
+        "연구원이 최초로 좀비 바이러스를 만들고 유출했을 때는 좀비 빈도가 가장 낮은 상태로
+        시작"(사용자 지시)하려면 최초 1회 한정으로 <code>rate</code>를 직접 세팅하는 경로가
+        필요하다.</p>
+        <ul>
+            <li><b>필드.</b> <code>worldStateSeed: {'{'}key, rate{'}'}</code> — 연구원의 기원
+            선택지(아래 C항)의 prizeTable "유출 성공" 분기에 부착.</li>
+            <li><b>엔진 동작(구현 시 추가 필요).</b> <code>applyChoice</code>의 worldState 트랜잭션
+            안에서, 해당 키의 RTDB 노드가 <b>아직 존재하지 않을 때만</b> <code>rate</code>를
+            <code>worldStateSeed.rate</code>로 직접 세팅하고, 이미 존재하면(누군가 이미 유출시켰으면)
+            평소처럼 <code>worldStateSignal</code> EMA 갱신만 적용 — 즉 <code>worldStateSeed</code>는
+            "세계 최초 발동" 전용이고 재유출 시도는 그냥 평범한 target:1 신호로 취급된다.</li>
+            <li><b>시드값 = 0.05로 확정</b>(사용자 지시 — "가장 낮은 상태로 시작"). 0이 아니라
+            0.05인 이유는 0이 "아직 발생 안 함"과 화면상 구분이 안 되기 때문 — 안정 구간(0~0.2)
+            최하단에 명확히 위치시켜, "이제 막 시작됐지만 거의 감지 안 되는 수준"을 나타낸다.</li>
+        </ul>
+
+        <h3>C. 연구원(researcher) 직업 — 원인이자 해법</h3>
+        <p>루트형(의사·개발자와 같은 패턴), <code>top-of-class</code> 선행 필요,
+        <code>maxDurationYears</code> 45년 안팎. 승진 사다리: 대학원생 → 박사후연구원 →
+        정식 연구원 → 수석연구원.</p>
+        <ul>
+            <li><b>일반 연구 콘텐츠</b> — 논문·연구비·학회 등, 다른 직업과 같은 밀도(3~4/년 +
+            은퇴 후 1/년, 이번 세션 트레이더·경찰·영업직·투어가이드에 적용한 패턴 그대로).</li>
+            <li><b>기원 사건</b> — 중견 시기 어딘가에 발각형이 아닌 <code>worldStateSeed</code>형
+            선택 쌍. 텍스트에 "좀비 바이러스"를 직접 명시하기로 확정(사용자 지시 — "[위험한
+            실험을 강행한다] 대신 좀비 바이러스를 직접적으로 텍스트에 표시되게 해줘"):
+            <ul>
+                <li>위험 선택: <code>"좀비화 바이러스 배양 실험을 안전 수칙 무시하고
+                강행한다"</code> — prizeTable 성공(유출) 분기에 <code>worldStateSeed</code> +
+                <code>worldStateSignal target:1</code>, 실패(억제) 분기는 스탯만.</li>
+                <li>거절 선택: <code>"좀비화 바이러스 실험은 안전 프로토콜을 지켜가며
+                신중하게 진행한다"</code>.</li>
+            </ul>
+            바이러스 이름을 텍스트에 미리 밝혀도 스포일러가 아닌 이유(사용자에게 설명·확인
+            완료) — 61장 이후 고친 <code>thief2-police-sting-operation</code>(그 사건은
+            캐릭터도 모르는 반전인 "함정수사"라는 단어가 선택 전에 노출된 것이 문제)과 달리,
+            이번엔 캐릭터가 애초에 뭘 다루는지(좀비 바이러스)는 스스로 아는 게 당연하고, 감춰야
+            할 건 "유출되느냐 마느냐"라는 결과뿐이다 — 그 결과는 여전히 prizeTable로 감춰진다.</li>
+            <li><b>치료 아크</b> — <code>zombieOutbreak</code>가 이미 활성 상태일 때만
+            (<code>dynamicAppearChance</code>) 등장하는 "백신 후보물질을 개발한다"/"치료제
+            임상시험" 계열. 성공 시 <code>target:0</code>으로 강하게 낮춤(prizeTable 성공/실패
+            분기, 실패해도 스탯 손해만 — 인명피해 없음).</li>
+        </ul>
+
+        <h3>D. 군인(soldier) 직업 — 신규, 봉쇄의 축</h3>
+        <p>역시 신규 루트. 일반 병역 이벤트에 얹되(기존 군 입대 콘텐츠 존재 여부는 구현 착수 시
+        확인 필요), <b>좀비 대응 특수임무 분기는 <code>dynamicAppearChance</code>로
+        <code>zombieOutbreak</code>가 활성일 때만 노출</b>되도록 설계 — 좀비가 없는데 좀비
+        대응부대가 존재하는 건 서사적으로 어색하기 때문.</p>
+        <ul>
+            <li>승진 사다리: 신병 → 소대원 → 분대장 → 특수임무대(좀비 대응팀).</li>
+            <li>핵심 콘텐츠: 소탕작전(prizeTable, 성공 시 <code>target:0</code> 큰 폭 하락 +
+            훈장·명예, 실패 시 스탯 손실만 — 사망 없음 확정), 격리선 통제, 피난민 구조 등.</li>
+        </ul>
+
+        <h3>E. 전역 좀비 이벤트 — 직업 무관, 심각도 연동</h3>
+        <p><code>dynamicAppearChance: {'{'}key:'zombieOutbreak', min, max{'}'}</code>로 직업
+        상관없이 누구에게나 뜨는 콘텐츠. 구간별 톤·빈도:</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>구간</th><th>등장 빈도</th><th>콘텐츠 톤</th></tr>
+                <tr><td>안정(0~0.2)</td><td>매우 드묾</td><td>해외 토픽 뉴스 수준의 먼 이야기</td></tr>
+                <tr><td>경계(0.2~0.4)</td><td>가끔</td><td>국내 첫 감염 의심 보도, 사재기 시작</td></tr>
+                <tr><td>확산(0.4~0.6)</td><td>종종</td><td>동네 목격담, 방역 지침, 방치/신고 갈림길</td></tr>
+                <tr><td>위험(0.6~0.8)</td><td>자주</td><td>격리구역, 통금, 생필품 부족 — 스탯 영향 커짐</td></tr>
+                <tr><td>대재앙(0.8~1.0)</td><td>매우 자주</td><td>도시 봉쇄, 생존 관련 선택 — 사망은
+                없고 극한 스탯 변동만</td></tr>
+            </table>
+        </div>
+        <p>각 구간에 "방치"(악화)/"신고·협조"(호전) 갈림길을 최소 1쌍씩 넣어, 연구원·군인이
+        아닌 일반 플레이어도 흐름에 개입할 수 있게 한다.</p>
+
+        <h3>F. 자연 확산 — 상호작용 없이도 늘어나는 배경 증가분</h3>
+        <p>"여러 매체에서 좀비 바이러스가 퍼지면 아무 상호작용 안 해도 자연스럽게 좀비가
+        늘어나는데, 우리 게임에서도... 어떤가"(사용자 지시) → "접속자 수에 비례해 감염 속도가
+        늘게 하는 건 어때? 실제로 감염이 일어나야 좀비가 늘어나는 거니까"(사용자 확정)로 SIR
+        전염병 모델(감염 확산 속도 ∝ 이미 감염된 규모 × 접촉 가능한 인구 수)에 대응하는 형태로
+        확정.</p>
+        <div class="tbl-wrap">
+            <table>
+                <tr><th>구성 요소</th><th>설계</th></tr>
+                <tr><td>실행 방식</td><td>신규 스케줄 함수(Cloud Scheduler) — 57장의
+                <code>snapshotWorldStateHistory</code>(매일 자정 KST 크론)와 같은 인프라 재사용.
+                <code>zombieOutbreak</code> 노드가 존재할 때만 동작(발동 전엔 자연 확산도 없음).</td></tr>
+                <tr><td>증가 공식</td><td><code>자연 증가폭 = 기본계수 × 현재rate × (1-현재rate)
+                × 활성접속자수</code>. 앞부분(<code>rate×(1-rate)</code>)은 로지스틱 곡선 — 0.5
+                부근에서 가장 빠르고 양극단(거의 0 또는 거의 1)에선 느려진다. 백신·치료로 rate를
+                0에 가깝게 눌러두면 자연 증가분도 같이 사라져 완전 박멸이 실제로 성립한다(고정폭
+                증가안은 기각 — 아무리 낮춰놔도 매일 같은 압력이 가해지면 박멸이 불가능해짐).</td></tr>
+                <tr><td>활성접속자수</td><td>이미 있는 <code>lifeGame/presence</code>(세계관
+                패널에 표시 중인 그 접속자 수, 57장 온라인 카운트 로직 재사용 — 60분 이내
+                활동 기준)를 그대로 사용. 새 데이터 소스 불필요. 접속자 0명인 날은 증가폭도
+                0 — "실제로 감염이 일어나야 늘어난다"가 그대로 성립(전파될 사람이 없으므로).</td></tr>
+                <tr><td>기본계수</td><td><b>미확정 — 구현 후 실사용 트래픽을 보며 조정 예정.</b>
+                이 프로젝트의 실제 동시접속자 규모를 사전에 알 수 없어 지금은 값을 못 잡는다.
+                처음엔 보수적으로 잡고(참고 논의: half-life 10 기준, 순수 자연 증가만으로
+                시드값 0.05→대재앙 0.8까지 대략 3주 안팎이 되는 수준을 1차 목표로 언급했으나
+                확정 아님), 너무 느리면 계수만 올린다 — 로직 자체는 안 건드림.</td></tr>
+            </table>
+        </div>
+
+        <h3>G. 엔진·UI 변경 필요사항 (구현 시 체크리스트)</h3>
+        <ul>
+            <li><code>applyChoice</code>의 worldState 트랜잭션에 <code>worldStateSeed</code>
+            분기 추가(B항).</li>
+            <li>신규 스케줄 함수(자연 확산, F항) — <code>snapshotWorldStateHistory</code>와
+            같은 크론 인프라 재사용.</li>
+            <li><code>worldStatePanel</code>: <code>zombieOutbreak</code> 키가 RTDB에 아직
+            없으면 트래커를 숨기고, 최초 발동 후에만 노출("좀비 바이러스가 처음으로 생기면
+            세계관 상태에 해당 스탯이 표시"라는 원 요청 그대로).</li>
+            <li><code>WORLD_STATE_TRACKERS</code>에 좀비 전용 이름·페어링 문구 추가 + 5단계
+            커스텀 라벨(현재 전 트래커 공용 <code>worldStateTierLabel</code>을 트래커별
+            오버라이드 가능하게 소폭 확장 필요).</li>
+            <li><code>OCCUPATION_GAUGE_GROUPS</code>에 <code>researcher</code>,
+            <code>soldier</code> 추가 여부는 구현 시점에 재검토(수급 배율 적용할지 결정 안 됨).</li>
+        </ul>
+
+        <h3>H. 다음 단계</h3>
+        <p>설계는 여기까지 확정. 구현은 별도 요청 시 이 절을 기준으로 진행하며, 제안한 순서는
+        (1) 군 입대 관련 기존 콘텐츠 확인 → (2) <code>worldStateSeed</code> 엔진 추가 + 자연
+        확산 스케줄 함수 + 패널 조건부 표시 → (3) 연구원 직업 콘텐츠 → (4) 군인 직업 콘텐츠 →
+        (5) 전역 좀비 이벤트 콘텐츠 순.</p>
+    </section>
+
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
 </div>
 </body>
