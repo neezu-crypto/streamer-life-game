@@ -50052,6 +50052,13 @@ const STAGES = [
         result: '야전에서 보낸 세월의 무게가, 검진 결과에 고스란히 나타났다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
+    
+      {
+        id: 'twilight-painting-auction-windfall-68',
+        text: '젊을 때 사둔 그림 한 점이 경매에서 예상외의 값을 받는다',
+        deltas: { wealth: 5 },
+        result: '그저 벽 한 켠을 채우던 그림이, 이렇게 값이 나갈 줄 몰랐다.'
+      },
     ]
   },
   {
@@ -50333,6 +50340,13 @@ const STAGES = [
         requiresOccupation: ['consultant'],
         deltas: { wealth: 6, happiness: 2 },
         result: '기다려서라도 만나겠다는 사람들 앞에서, 어깨가 으쓱해졌다.'
+      },
+    
+      {
+        id: 'twilight-coop-dividend-payout-69',
+        text: '오래 가입해둔 조합의 배당금을 받는다',
+        deltas: { wealth: 3 },
+        result: '잊고 지내던 통장에, 어느새 이자가 꽤 붙어 있었다.'
       },
     ]
   },
@@ -51799,6 +51813,13 @@ const STAGES = [
         deltas: { happiness: 2, fame: 1 },
         result: '숫자로만 남을 뻔한 순간들이, 이야기로 기록되고 있었다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+    
+      {
+        id: 'twilight-handmade-craft-online-sale-74',
+        text: '손수 만든 공예품이 온라인에서 뜻밖에 잘 팔린다',
+        deltas: { wealth: 3, happiness: 1 },
+        result: '취미로 만든 것들이 누군가의 마음에 든다는 게 신기했다.'
       },
     ]
   },
@@ -54407,6 +54428,13 @@ const STAGES = [
         result: '옥에 티를 짚어내는 재미가 쏠쏠했다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
+    
+      {
+        id: 'twilight-old-manuscript-fee-settled-84',
+        text: '오래전 어딘가에 기고했던 글의 원고료가 뒤늦게 정산된다',
+        deltas: { wealth: 4 },
+        result: '까맣게 잊고 있던 글이, 뒤늦게 값을 쳐줬다.'
+      },
     ]
   },
   {
@@ -55023,6 +55051,13 @@ const STAGES = [
         deltas: { wealth: -1, happiness: 2, fame: 1 },
         result: '흩어질 뻔한 기록들이, 이제 후대의 자산이 됐다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+    
+      {
+        id: 'twilight-old-piggybank-opened-86',
+        text: '오래된 저금통을 열어보니 생각보다 쏠쏠하다',
+        deltas: { wealth: 2, happiness: 1 },
+        result: '동전 하나하나에, 잊고 있던 시절이 묻어 있었다.'
       },
     ]
   },
@@ -56308,6 +56343,13 @@ const STAGES = [
         result: '이제는 물러서서 지켜보는 법을 배워야 했다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
+    
+      {
+        id: 'twilight-mutual-aid-society-support-91',
+        text: '가입해둔 상조회에서 경조사비를 지원받는다',
+        deltas: { wealth: 3 },
+        result: '작은 돈이었지만 오래 부어온 보람이 있었다.'
+      },
     ]
   },
   {
@@ -57021,6 +57063,13 @@ const STAGES = [
         result: '부족한 것투성이인 몸으로도, 만족스러운 하루하루였다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
+    
+      {
+        id: 'twilight-old-loan-finally-repaid-94',
+        text: '예전에 빌려줬던 돈을 뒤늦게 돌려받는다',
+        deltas: { wealth: 4, relationship: 1 },
+        result: '받을 거라 기대도 안 했는데, 늦게라도 신의를 지켜준 게 고마웠다.'
+      },
     ]
   },
   {
@@ -57515,6 +57564,13 @@ const STAGES = [
         result: '지켜온 평화 속에서, 이런 행복을 누릴 수 있었다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
+    
+      {
+        id: 'twilight-antique-furniture-sale-96',
+        text: '오래 쓰던 골동품 가구를 처분한다',
+        deltas: { wealth: 3 },
+        result: '방 한 켠이 허전했지만, 그만큼 홀가분하기도 했다.'
+      },
     ]
   },
   {
@@ -57955,6 +58011,13 @@ const STAGES = [
         deltas: { happiness: 1 },
         result: '평생의 습관은 몸이 다 기억하고 있었다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+    
+      {
+        id: 'twilight-longevity-government-grant-98',
+        text: '국가에서 장수 축하금이 나온다',
+        deltas: { wealth: 4, happiness: 2 },
+        result: '오래 살았다는 것 자체가, 이렇게 인정받을 일이 될 줄 몰랐다.'
       },
     ]
   },
@@ -58443,6 +58506,13 @@ const STAGES = [
         deltas: { happiness: 3 },
         result: '거리를 지키던 젊은 날부터, 새삼 벅찬 세월이었다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+    
+      {
+        id: 'twilight-100th-birthday-celebration-gift-100',
+        text: '백수(白壽) 잔치 축하금이 두둑하게 들어온다',
+        deltas: { wealth: 5, happiness: 2, relationship: 1 },
+        result: '백 년을 살아낸 것에, 세상이 답을 해주는 것 같았다.'
       },
     ]
   }
