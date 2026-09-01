@@ -46637,6 +46637,14 @@ const STAGES = [
         result: '스스로도 예상 못 한 오랜 현역 생활이었다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'pol-twi-security-consult-offer-65',
+        text: '민간 보안업체로부터 자문 제안을 받는다',
+        deltas: { wealth: 2, happiness: 1 },
+        result: '현장을 떠나도, 여전히 쓸모가 있다는 게 반가웠다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -46996,6 +47004,14 @@ const STAGES = [
         result: '남은 사람이 이렇게 적을 줄은 몰랐다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'pol-twi-cold-case-consulted-66',
+        text: '오래된 미제사건에 자문 요청을 받는다',
+        deltas: { fame: 1, happiness: 2 },
+        result: '수십 년 전 사건도, 몸이 먼저 기억하고 있었다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -47271,6 +47287,14 @@ const STAGES = [
         deltas: { health: -1, wealth: 1 },
         result: '몸은 예전 같지 않아도, 감각만은 여전했다.',
         requiresOccupation: ['sales-rep']
+      },
+    
+      {
+        id: 'pol-twi-neighborhood-watch-lead-67',
+        text: '동네 자율방범대를 자처해 이끈다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '제복은 벗었어도, 동네를 지키는 마음은 그대로였다.',
+        requiresOccupation: ['police-cadet', 'detective']
       },
     ]
   },
@@ -47595,6 +47619,14 @@ const STAGES = [
         result: '어쩌면 마지막일지 모른다는 생각에, 더 신경을 썼다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'pol-twi-health-checkup-68',
+        text: '평생 미뤄온 종합 건강검진을 받는다',
+        deltas: { health: -1, happiness: 1 },
+        result: '거리에서 보낸 세월의 무게가, 검진 결과에 고스란히 나타났다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -47815,6 +47847,14 @@ const STAGES = [
         deltas: { relationship: 1, happiness: 1 },
         result: '떠날 준비도 일의 마지막 부분이라 생각했다.',
         requiresOccupation: ['sales-rep']
+      },
+    
+      {
+        id: 'pol-twi-retirement-party-69',
+        text: '완전한 은퇴를 앞두고 마지막 송별회를 갖는다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '치열했던 세월에 마침표를 찍는 자리였다.',
+        requiresOccupation: ['police-cadet', 'detective']
       },
     ]
   },
@@ -48209,6 +48249,14 @@ const STAGES = [
         requiresOccupation: ['sales-rep'],
         setOccupation: { id: 'retired', label: '🌿 은퇴자' }
       },
+    
+      {
+        id: 'pol-twi-morning-without-shift-70',
+        text: '평생 처음으로 근무표 없는 아침을 맞는다',
+        deltas: { happiness: 2, health: 1 },
+        result: '낯설었지만 나쁘지 않은 고요함이었다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -48436,6 +48484,14 @@ const STAGES = [
         result: '작은 물건 하나에 젊은 날의 열기가 고스란히 담겨 있었다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'pol-twi-junior-visits-71',
+        text: '옛 후배 경찰관이 안부 인사차 찾아온다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '떠난 자리에서도 여전히 기억되고 있다는 게 좋았다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -48657,6 +48713,14 @@ const STAGES = [
         deltas: { happiness: 1 },
         result: '이제는 강 건너 불구경하듯 지켜볼 수 있었다.',
         requiresOccupation: ['trader', 'fund-manager']
+      },
+    
+      {
+        id: 'pol-twi-crime-news-calm-72',
+        text: '뉴스에서 강력사건 소식을 접하고도 담담하다',
+        deltas: { happiness: 1 },
+        result: '이제는 현장이 아니라, 지켜보는 입장이 됐다.',
+        requiresOccupation: ['police-cadet', 'detective']
       },
     ]
   },
@@ -48886,6 +48950,15 @@ const STAGES = [
         result: '혼자 간직하기엔 아까운 기록들이, 이제 여러 사람의 것이 됐다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'pol-twi-grandchild-safety-lesson-73',
+        text: '손주에게 낯선 사람 조심하는 법을 가르쳐준다',
+        requiresFamilyMember: ['grandchild'],
+        deltas: { happiness: 3, relationship: 1 },
+        result: '평생의 감각을 이렇게도 나눌 수 있었다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -49102,6 +49175,14 @@ const STAGES = [
         deltas: { happiness: 3, relationship: 1 },
         result: '핏줄은 못 속이는지, 닮은 구석이 신기하고도 반가웠다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'pol-twi-memoir-writing-74',
+        text: '경찰로 살아온 세월을 글로 남겨본다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '숫자로만 남을 뻔한 사건들이, 이야기로 기록되고 있었다.',
+        requiresOccupation: ['police-cadet', 'detective']
       },
     ]
   },
@@ -49412,6 +49493,14 @@ const STAGES = [
         result: '숫자 뒤에서 묵묵히 도와줬던 사람을 뒤늦게 다시 떠올렸다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'pol-twi-old-partner-reunion-75',
+        text: '오랜 파트너였던 동료와 재회한다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '함께 뛰던 그 시절 이야기로 밤이 깊었다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -49634,6 +49723,14 @@ const STAGES = [
         result: '느려진 손가락에도, 마음만은 여전히 빠르게 뛰었다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'pol-twi-instinct-still-sharp-76',
+        text: '길에서 수상한 낌새를 여전히 귀신같이 알아챈다',
+        deltas: { happiness: 1 },
+        result: '몸에 밴 촉은, 세월이 지나도 무뎌지지 않았다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -49836,6 +49933,14 @@ const STAGES = [
         deltas: { wealth: -3, happiness: 3 },
         result: '누군가의 첫걸음을 조금이나마 가볍게 해주고 싶었다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'pol-twi-scholarship-donation-77',
+        text: '후배 양성을 위한 장학금을 조용히 기부한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '받았던 기회를 이제는 돌려줄 차례였다.',
+        requiresOccupation: ['police-cadet', 'detective']
       },
     ]
   },
@@ -50073,6 +50178,14 @@ const STAGES = [
         result: '누군가는 아직도 그 시절을 지켜주고 있었다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'pol-twi-public-safety-award-78',
+        text: '치안 유공자 표창을 받는다',
+        deltas: { fame: 3, happiness: 3 },
+        result: '평생의 헌신이 이렇게 인정받는구나 싶었다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -50258,6 +50371,14 @@ const STAGES = [
         deltas: { health: 1, happiness: 1 },
         result: '천천히 사는 법을 이제야 배우고 있었다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'pol-twi-reduces-consulting-hours-79',
+        text: '체력에 맞춰 자문 활동 시간을 줄인다',
+        deltas: { health: 1, happiness: 1 },
+        result: '천천히 가는 법을 이제야 배우고 있었다.',
+        requiresOccupation: ['police-cadet', 'detective']
       },
     ]
   },
@@ -50537,6 +50658,14 @@ const STAGES = [
         result: '화면 속 시청자들 대신, 이제는 가족들의 박수가 곁에 있었다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'pol-twi-eightieth-birthday-80',
+        text: '온 가족이 모여 팔순을 축하해준다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '거리에서 보낸 시간 대신, 이제는 가족들의 박수가 곁에 있었다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -50753,6 +50882,14 @@ const STAGES = [
         result: '내가 없어도 잘 굴러간다는 게, 서운함보다 뿌듯함으로 다가왔다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'pol-twi-station-still-thrives-81',
+        text: '자신이 몸담았던 파출소가 여전히 잘 돌아간다는 소식을 듣는다',
+        deltas: { happiness: 3 },
+        result: '내가 없어도 잘 굴러간다는 게, 서운함보다 뿌듯함으로 다가왔다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -50962,6 +51099,14 @@ const STAGES = [
         result: '평생 화면을 보던 눈이, 이제는 쉬고 싶어했다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'pol-twi-eyesight-worsens-82',
+        text: '시력이 나빠져 예전만큼 세세한 걸 보기 힘들어진다',
+        deltas: { health: -2 },
+        result: '평생 날카롭던 눈이, 이제는 쉬고 싶어했다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -51146,6 +51291,14 @@ const STAGES = [
         deltas: { health: -1, wealth: -1 },
         result: '몸이 예전 같지 않다는 걸 매번 새롭게 실감했다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'pol-twi-hospital-visit-frequent-83',
+        text: '병원 나들이가 부쩍 잦아진다',
+        deltas: { health: -1, wealth: -1 },
+        result: '몸이 예전 같지 않다는 걸 매번 새롭게 실감했다.',
+        requiresOccupation: ['police-cadet', 'detective']
       },
     ]
   },
@@ -51350,6 +51503,14 @@ const STAGES = [
         deltas: { happiness: 2 },
         result: '만들던 입장에서 보는 입장이 됐어도, 그 즐거움만은 그대로였다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'pol-twi-still-watches-crime-shows-84',
+        text: '몸은 힘들어도 형사 드라마만은 여전히 즐겨 본다',
+        deltas: { happiness: 2 },
+        result: '옥에 티를 짚어내는 재미가 쏠쏠했다.',
+        requiresOccupation: ['police-cadet', 'detective']
       },
     ]
   },
@@ -51665,6 +51826,15 @@ const STAGES = [
         result: '방송의 성공보다, 함께한 이 세월이 더 큰 자랑이었다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'pol-twi-golden-anniversary-85',
+        text: '배우자와 함께 결혼 50주년을 맞는다',
+        requiresFamilyMember: ['spouse'],
+        deltas: { happiness: 4, relationship: 3 },
+        result: '치안의 공로보다, 함께한 이 세월이 더 큰 자랑이었다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -51900,6 +52070,14 @@ const STAGES = [
         result: '흘러가버릴 줄 알았던 순간들이, 이렇게 남게 됐다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'pol-twi-case-archive-donated-86',
+        text: '평생 기록해온 사건 노트를 경찰박물관에 기증한다',
+        deltas: { wealth: -1, happiness: 2, fame: 1 },
+        result: '혼자 간직하기엔 아까운 기록들이, 이제 여러 사람의 것이 됐다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -52125,6 +52303,14 @@ const STAGES = [
         result: '내가 걸어온 길이 누군가의 이정표가 되어 있었다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'pol-twi-documentary-interview-87',
+        text: '치안 역사를 다루는 다큐멘터리 인터뷰 요청에 응한다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '지나온 세월이 누군가에게는 교재가 되고 있었다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -52318,6 +52504,14 @@ const STAGES = [
         deltas: { happiness: 2 },
         result: '후회 없는 삶이었다고, 스스로에게 말해주었다.',
         requiresOccupation: ['trader', 'fund-manager']
+      },
+    
+      {
+        id: 'pol-twi-quiet-satisfaction-88',
+        text: '치열했던 세월을 돌아보며 조용히 만족감을 느낀다',
+        deltas: { happiness: 2 },
+        result: '후회 없는 삶이었다고, 스스로에게 말해주었다.',
+        requiresOccupation: ['police-cadet', 'detective']
       },
     ]
   },
@@ -52522,6 +52716,14 @@ const STAGES = [
         deltas: { health: -1, happiness: 2 },
         result: '말솜씨만큼은, 세월도 앗아가지 못한 재능이었다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'pol-twi-saved-life-visits-89',
+        text: '오래전 구했던 시민이 뒤늦게 감사 인사를 전해온다',
+        deltas: { happiness: 4, relationship: 1 },
+        result: '잊고 있던 순간이, 이렇게 다시 찾아올 줄 몰랐다.',
+        requiresOccupation: ['police-cadet', 'detective']
       },
     ]
   },
@@ -52820,6 +53022,14 @@ const STAGES = [
         result: '이제는 물러서서 지켜보는 법을 배워야 했다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'pol-twi-still-sharp-mind-90',
+        text: '나이에도 불구하고 여전히 명료한 사건 감각을 보여준다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '몸은 느려져도, 감각만은 여전히 살아있었다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -53016,6 +53226,14 @@ const STAGES = [
         deltas: { happiness: 3 },
         result: '서툴고 어설펐던 그 시작이, 지금 보니 눈부시게 반짝였다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'pol-twi-successor-struggles-shared-91',
+        text: '후임이 겪는 어려움을 듣고 조용히 조언을 건넨다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '이제는 물러서서 지켜보는 법을 배워야 했다.',
+        requiresOccupation: ['police-cadet', 'detective']
       },
     ]
   },
@@ -53248,6 +53466,14 @@ const STAGES = [
         result: '낡은 장비 하나가, 이렇게 귀한 대접을 받을 줄 몰랐다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'pol-twi-old-badge-found-92',
+        text: '서랍 속 낡은 경찰 배지를 발견하고 한참을 매만진다',
+        deltas: { happiness: 2 },
+        result: '작은 금속 조각 하나에 젊은 날의 각오가 고스란히 담겨 있었다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -53441,6 +53667,14 @@ const STAGES = [
         result: '부족한 것투성이인 몸으로도, 만족스러운 하루하루였다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'pol-twi-museum-exhibit-93',
+        text: '초창기 사용했던 장비가 경찰박물관에 정식 전시된다',
+        deltas: { fame: 1, happiness: 2 },
+        result: '낡은 무전기 하나가, 이렇게 귀한 대접을 받을 줄 몰랐다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -53633,6 +53867,14 @@ const STAGES = [
         deltas: { happiness: 4, relationship: 1 },
         result: '화면 너머의 인연이, 이렇게 오래갈 줄은 몰랐다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'pol-twi-frail-but-content-94',
+        text: '몸은 쇠약해졌지만 마음만은 평온하다',
+        deltas: { health: -2, happiness: 2 },
+        result: '부족한 것투성이인 몸으로도, 만족스러운 하루하루였다.',
+        requiresOccupation: ['police-cadet', 'detective']
       },
     ]
   },
@@ -53863,6 +54105,14 @@ const STAGES = [
         result: '물려준 것이 헛되지 않았다는 확인이었다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'pol-twi-successor-visits-95',
+        text: '후임이 안부를 전하며 근황을 들려준다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '물려준 것이 헛되지 않았다는 확인이었다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -54060,6 +54310,15 @@ const STAGES = [
         result: '조회수로는 잴 수 없는 행복이 곁에 있었다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'pol-twi-great-grandchild-96',
+        text: '증손주의 재롱을 보며 환하게 웃는다',
+        requiresFamilyMember: ['grandchild'],
+        deltas: { happiness: 4, relationship: 2 },
+        result: '지켜온 평화 속에서, 이런 행복을 누릴 수 있었다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -54250,6 +54509,14 @@ const STAGES = [
         result: '작은 방에서 시작한 방송이, 이런 곳까지 이어질 줄 몰랐다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'pol-twi-legacy-fund-97',
+        text: '이름을 딴 후학 지원 기금이 만들어졌다는 소식을 듣는다',
+        deltas: { fame: 2, happiness: 3 },
+        result: '평생의 헌신이 이런 식으로도 남는구나 싶었다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -54436,6 +54703,14 @@ const STAGES = [
         deltas: { happiness: 1 },
         result: '평생의 습관은 몸이 다 기억하고 있었다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'pol-twi-still-checks-locks-98',
+        text: '병상에서도 습관처럼 문단속을 확인한다',
+        deltas: { happiness: 1 },
+        result: '평생의 습관은 몸이 다 기억하고 있었다.',
+        requiresOccupation: ['police-cadet', 'detective']
       },
     ]
   },
@@ -54653,6 +54928,14 @@ const STAGES = [
         result: '평생 일군 것 중, 가장 값진 건 결국 사람이었다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'pol-twi-family-gathers-99',
+        text: '온 가족이 모여 장수를 축하해준다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '평생 지켜온 것 중, 가장 값진 건 결국 사람이었다.',
+        requiresOccupation: ['police-cadet', 'detective']
+      },
     ]
   },
   {
@@ -54860,6 +55143,14 @@ const STAGES = [
         deltas: { happiness: 3 },
         result: '아무도 안 보던 방송에서 시작해 여기까지 왔다는 게, 새삼 벅찼다.',
         requiresOccupation: ['streamer']
+      },
+    
+      {
+        id: 'pol-twi-final-reflection-100',
+        text: '경찰로 살아온 평생을 마지막으로 조용히 돌아본다',
+        deltas: { happiness: 3 },
+        result: '거리를 지키던 젊은 날부터, 새삼 벅찬 세월이었다.',
+        requiresOccupation: ['police-cadet', 'detective']
       },
     ]
   }
