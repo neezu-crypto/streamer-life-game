@@ -14799,6 +14799,7 @@ const STAGES = [
         deltas: { happiness: 2, wealth: 1 },
         result: '학생 신분을 벗어났다는 사실이, 아직은 얼떨떨했다.',
         requiresOccupation: ['grad-researcher'],
+        mandatory: true,
         setOccupation: { id: 'postdoc-researcher', label: '🔬 박사후연구원' }
       },
     
@@ -16059,6 +16060,22 @@ const STAGES = [
         deltas: { relationship: 2, happiness: 1 },
         result: '예전의 나를 보는 것 같아 더 마음이 갔다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+    
+      {
+        id: 'zombie-virus-leak-attempt-28',
+        text: '좀비화 바이러스 배양 실험을 안전 수칙 무시하고 강행한다',
+        requiresEverOccupation: ['postdoc-researcher'],
+        deltas: { happiness: -5, relationship: -3, fame: -2 },
+        result: '봉인돼 있어야 할 것이 실험실 밖으로 새어 나갔다 - 되돌릴 수 없는 순간이었다.',
+        worldStateSeed: { key: 'zombieOutbreak', rate: 0.05, fallbackTarget: 1 }
+      },
+      {
+        id: 'zombie-virus-safety-protocol-28',
+        text: '좀비화 바이러스 실험은 안전 프로토콜을 지켜가며 신중하게 진행한다',
+        deltas: { happiness: -1, wealth: -1 },
+        result: '더디더라도, 안전을 포기할 순 없었다.',
+        requiresEverOccupation: ['postdoc-researcher']
       },
     ]
   },
@@ -19921,6 +19938,22 @@ const STAGES = [
         result: '몸에 새겨진 흔적은 쉽게 사라지지 않았다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
+    
+      {
+        id: 'zombie-virus-leak-attempt-31',
+        text: '좀비화 바이러스 배양 실험을 안전 수칙 무시하고 강행한다',
+        requiresEverOccupation: ['postdoc-researcher'],
+        deltas: { happiness: -5, relationship: -3, fame: -2 },
+        result: '봉인돼 있어야 할 것이 실험실 밖으로 새어 나갔다 - 되돌릴 수 없는 순간이었다.',
+        worldStateSeed: { key: 'zombieOutbreak', rate: 0.05, fallbackTarget: 1 }
+      },
+      {
+        id: 'zombie-virus-safety-protocol-31',
+        text: '좀비화 바이러스 실험은 안전 프로토콜을 지켜가며 신중하게 진행한다',
+        deltas: { happiness: -1, wealth: -1 },
+        result: '더디더라도, 안전을 포기할 순 없었다.',
+        requiresEverOccupation: ['postdoc-researcher']
+      },
     ]
   },
   {
@@ -21124,6 +21157,7 @@ const STAGES = [
         deltas: { happiness: 3, wealth: 2, fame: 1 },
         result: '이제야 온전히 내 이름을 건 연구를 할 수 있게 됐다.',
         requiresOccupation: ['postdoc-researcher'],
+        mandatory: true,
         setOccupation: { id: 'researcher', label: '🔬 연구원' }
       },
     
@@ -22354,18 +22388,17 @@ const STAGES = [
       {
         id: 'zombie-virus-leak-attempt-33',
         text: '좀비화 바이러스 배양 실험을 안전 수칙 무시하고 강행한다',
-        requiresOccupation: ['researcher', 'senior-researcher'],
-        prizeTable: [
-          { weight: 40, label: '통제 성공', deltas: { happiness: -2, wealth: 1 }, result: '위험한 순간이었지만, 격리 프로토콜이 아슬아슬하게 작동했다.' },
-          { weight: 60, label: '유출', deltas: { happiness: -5, relationship: -3, fame: -2 }, result: '봉인돼 있어야 할 것이 실험실 밖으로 새어 나갔다 - 되돌릴 수 없는 순간이었다.', worldStateSeed: { key: 'zombieOutbreak', rate: 0.05, fallbackTarget: 1 } }
-        ]
+        requiresEverOccupation: ['postdoc-researcher'],
+        deltas: { happiness: -5, relationship: -3, fame: -2 },
+        result: '봉인돼 있어야 할 것이 실험실 밖으로 새어 나갔다 - 되돌릴 수 없는 순간이었다.',
+        worldStateSeed: { key: 'zombieOutbreak', rate: 0.05, fallbackTarget: 1 }
       },
       {
         id: 'zombie-virus-safety-protocol-33',
         text: '좀비화 바이러스 실험은 안전 프로토콜을 지켜가며 신중하게 진행한다',
         deltas: { happiness: -1, wealth: -1 },
         result: '더디더라도, 안전을 포기할 순 없었다.',
-        requiresOccupation: ['researcher', 'senior-researcher']
+        requiresEverOccupation: ['postdoc-researcher']
       },
     
       {
@@ -24806,6 +24839,22 @@ const STAGES = [
         deltas: { happiness: 2, fame: 1 },
         result: '신참이었던 게 엊그제 같은데, 세월이 빨랐다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+    
+      {
+        id: 'zombie-virus-leak-attempt-35',
+        text: '좀비화 바이러스 배양 실험을 안전 수칙 무시하고 강행한다',
+        requiresEverOccupation: ['postdoc-researcher'],
+        deltas: { happiness: -5, relationship: -3, fame: -2 },
+        result: '봉인돼 있어야 할 것이 실험실 밖으로 새어 나갔다 - 되돌릴 수 없는 순간이었다.',
+        worldStateSeed: { key: 'zombieOutbreak', rate: 0.05, fallbackTarget: 1 }
+      },
+      {
+        id: 'zombie-virus-safety-protocol-35',
+        text: '좀비화 바이러스 실험은 안전 프로토콜을 지켜가며 신중하게 진행한다',
+        deltas: { happiness: -1, wealth: -1 },
+        result: '더디더라도, 안전을 포기할 순 없었다.',
+        requiresEverOccupation: ['postdoc-researcher']
       },
     ]
   },
@@ -29189,6 +29238,22 @@ const STAGES = [
         result: '고단했던 순간들 사이로, 자부심도 함께 남아 있었다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
+    
+      {
+        id: 'zombie-virus-leak-attempt-39',
+        text: '좀비화 바이러스 배양 실험을 안전 수칙 무시하고 강행한다',
+        requiresEverOccupation: ['postdoc-researcher'],
+        deltas: { happiness: -5, relationship: -3, fame: -2 },
+        result: '봉인돼 있어야 할 것이 실험실 밖으로 새어 나갔다 - 되돌릴 수 없는 순간이었다.',
+        worldStateSeed: { key: 'zombieOutbreak', rate: 0.05, fallbackTarget: 1 }
+      },
+      {
+        id: 'zombie-virus-safety-protocol-39',
+        text: '좀비화 바이러스 실험은 안전 프로토콜을 지켜가며 신중하게 진행한다',
+        deltas: { happiness: -1, wealth: -1 },
+        result: '더디더라도, 안전을 포기할 순 없었다.',
+        requiresEverOccupation: ['postdoc-researcher']
+      },
     ]
   },
   {
@@ -33136,6 +33201,22 @@ const STAGES = [
           { weight: 45, label: '작전 지연', deltas: { happiness: -2, health: -1 }, result: '생각보다 저항이 거세, 예정보다 오래 걸렸다.' }
         ]
       },
+    
+      {
+        id: 'zombie-virus-leak-attempt-43',
+        text: '좀비화 바이러스 배양 실험을 안전 수칙 무시하고 강행한다',
+        requiresEverOccupation: ['postdoc-researcher'],
+        deltas: { happiness: -5, relationship: -3, fame: -2 },
+        result: '봉인돼 있어야 할 것이 실험실 밖으로 새어 나갔다 - 되돌릴 수 없는 순간이었다.',
+        worldStateSeed: { key: 'zombieOutbreak', rate: 0.05, fallbackTarget: 1 }
+      },
+      {
+        id: 'zombie-virus-safety-protocol-43',
+        text: '좀비화 바이러스 실험은 안전 프로토콜을 지켜가며 신중하게 진행한다',
+        deltas: { happiness: -1, wealth: -1 },
+        result: '더디더라도, 안전을 포기할 순 없었다.',
+        requiresEverOccupation: ['postdoc-researcher']
+      },
     ]
   },
   {
@@ -36914,7 +36995,23 @@ const STAGES = [
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     
-                ]
+                
+      {
+        id: 'zombie-virus-leak-attempt-47',
+        text: '좀비화 바이러스 배양 실험을 안전 수칙 무시하고 강행한다',
+        requiresEverOccupation: ['postdoc-researcher'],
+        deltas: { happiness: -5, relationship: -3, fame: -2 },
+        result: '봉인돼 있어야 할 것이 실험실 밖으로 새어 나갔다 - 되돌릴 수 없는 순간이었다.',
+        worldStateSeed: { key: 'zombieOutbreak', rate: 0.05, fallbackTarget: 1 }
+      },
+      {
+        id: 'zombie-virus-safety-protocol-47',
+        text: '좀비화 바이러스 실험은 안전 프로토콜을 지켜가며 신중하게 진행한다',
+        deltas: { happiness: -1, wealth: -1 },
+        result: '더디더라도, 안전을 포기할 순 없었다.',
+        requiresEverOccupation: ['postdoc-researcher']
+      },
+    ]
   },
   {
     id: 'midlife-48',
@@ -39850,6 +39947,22 @@ const STAGES = [
         result: '조언을 구하러 오는 후배가 있다는 게 새삼 뿌듯했다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'zombie-virus-leak-attempt-51',
+        text: '좀비화 바이러스 배양 실험을 안전 수칙 무시하고 강행한다',
+        requiresEverOccupation: ['postdoc-researcher'],
+        deltas: { happiness: -5, relationship: -3, fame: -2 },
+        result: '봉인돼 있어야 할 것이 실험실 밖으로 새어 나갔다 - 되돌릴 수 없는 순간이었다.',
+        worldStateSeed: { key: 'zombieOutbreak', rate: 0.05, fallbackTarget: 1 }
+      },
+      {
+        id: 'zombie-virus-safety-protocol-51',
+        text: '좀비화 바이러스 실험은 안전 프로토콜을 지켜가며 신중하게 진행한다',
+        deltas: { happiness: -1, wealth: -1 },
+        result: '더디더라도, 안전을 포기할 순 없었다.',
+        requiresEverOccupation: ['postdoc-researcher']
+      },
     ]
   },
   {
@@ -42530,6 +42643,22 @@ const STAGES = [
         result: '내가 없어도 잘 굴러간다는 게, 서운함보다 뿌듯함으로 다가왔다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
+    
+      {
+        id: 'zombie-virus-leak-attempt-55',
+        text: '좀비화 바이러스 배양 실험을 안전 수칙 무시하고 강행한다',
+        requiresEverOccupation: ['postdoc-researcher'],
+        deltas: { happiness: -5, relationship: -3, fame: -2 },
+        result: '봉인돼 있어야 할 것이 실험실 밖으로 새어 나갔다 - 되돌릴 수 없는 순간이었다.',
+        worldStateSeed: { key: 'zombieOutbreak', rate: 0.05, fallbackTarget: 1 }
+      },
+      {
+        id: 'zombie-virus-safety-protocol-55',
+        text: '좀비화 바이러스 실험은 안전 프로토콜을 지켜가며 신중하게 진행한다',
+        deltas: { happiness: -1, wealth: -1 },
+        result: '더디더라도, 안전을 포기할 순 없었다.',
+        requiresEverOccupation: ['postdoc-researcher']
+      },
     ]
   },
   {
@@ -44967,7 +45096,23 @@ const STAGES = [
         setOccupation: { id: 'tour-guide', label: '🧳 여행 가이드' }
       },
     
-                ]
+                
+      {
+        id: 'zombie-virus-leak-attempt-59',
+        text: '좀비화 바이러스 배양 실험을 안전 수칙 무시하고 강행한다',
+        requiresEverOccupation: ['postdoc-researcher'],
+        deltas: { happiness: -5, relationship: -3, fame: -2 },
+        result: '봉인돼 있어야 할 것이 실험실 밖으로 새어 나갔다 - 되돌릴 수 없는 순간이었다.',
+        worldStateSeed: { key: 'zombieOutbreak', rate: 0.05, fallbackTarget: 1 }
+      },
+      {
+        id: 'zombie-virus-safety-protocol-59',
+        text: '좀비화 바이러스 실험은 안전 프로토콜을 지켜가며 신중하게 진행한다',
+        deltas: { happiness: -1, wealth: -1 },
+        result: '더디더라도, 안전을 포기할 순 없었다.',
+        requiresEverOccupation: ['postdoc-researcher']
+      },
+    ]
   },
   {
     id: 'oldprep-60',
