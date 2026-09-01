@@ -60139,6 +60139,7 @@ const ZOMBIE_EVENT_CHOICES = [
         id: 'zombie-global-foreign-news-15',
         text: '해외에서 원인 모를 감염병이 발견됐다는 뉴스를 무심코 넘긴다',
         requiresWorldStateActive: 'zombieOutbreak',
+        bonusSlot: true,
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.02, max: 0.15 },
         deltas: { happiness: -1 },
         result: '먼 나라 이야기라 여기며 채널을 돌렸다.'
@@ -60147,6 +60148,7 @@ const ZOMBIE_EVENT_CHOICES = [
         id: 'zombie-global-online-rumor-30',
         text: 'SNS에 떠도는 괴담 같은 감염 목격담을 접한다',
         requiresWorldStateActive: 'zombieOutbreak',
+        bonusSlot: true,
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.02, max: 0.15 },
         deltas: { happiness: -1 },
         result: '과장된 괴담이겠거니 하면서도, 어쩐지 찜찜함이 남았다.'
@@ -60155,6 +60157,7 @@ const ZOMBIE_EVENT_CHOICES = [
         id: 'zombie-global-domestic-first-case-33',
         text: '국내 첫 의심 사례 발생 소식에 불안해진다',
         requiresWorldStateActive: 'zombieOutbreak',
+        bonusSlot: true,
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.1, max: 0.4 },
         deltas: { happiness: -2 },
         result: '설마 하던 일이 정말 눈앞에 닥친 기분이었다.'
@@ -60163,6 +60166,7 @@ const ZOMBIE_EVENT_CHOICES = [
         id: 'zombie-global-stockpiling-33',
         text: '마트에서 생필품을 잔뜩 사재기해 쟁여둔다',
         requiresWorldStateActive: 'zombieOutbreak',
+        bonusSlot: true,
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.1, max: 0.4 },
         deltas: { wealth: -2, happiness: 1 },
         result: '과한가 싶으면서도, 마음 한구석이 놓였다.'
@@ -60171,6 +60175,7 @@ const ZOMBIE_EVENT_CHOICES = [
         id: 'zombie-global-report-witnessed-40',
         text: '수상한 감염 의심자를 발견하고 즉시 신고한다',
         requiresWorldStateActive: 'zombieOutbreak',
+        bonusSlot: true,
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.1, max: 0.4 },
         worldStateSignal: { key: 'zombieOutbreak', target: 0 },
         deltas: { happiness: 1, relationship: 1 },
@@ -60180,6 +60185,7 @@ const ZOMBIE_EVENT_CHOICES = [
         id: 'zombie-global-ignore-witnessed-40',
         text: '수상한 걸 봤지만 괜히 엮이기 싫어 모른 척한다',
         requiresWorldStateActive: 'zombieOutbreak',
+        bonusSlot: true,
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.1, max: 0.4 },
         worldStateSignal: { key: 'zombieOutbreak', target: 1 },
         deltas: { happiness: -1 },
@@ -60189,6 +60195,7 @@ const ZOMBIE_EVENT_CHOICES = [
         id: 'zombie-global-neighborhood-sighting-36',
         text: '동네에서 감염자로 추정되는 사람을 직접 목격한다',
         requiresWorldStateActive: 'zombieOutbreak',
+        bonusSlot: true,
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.3, max: 0.7 },
         deltas: { happiness: -3, health: -1 },
         result: '뉴스로만 보던 일이, 이제는 바로 옆 골목 이야기였다.'
@@ -60197,6 +60204,7 @@ const ZOMBIE_EVENT_CHOICES = [
         id: 'zombie-global-quarantine-guideline-36',
         text: '정부의 방역 지침에 따라 외출을 최대한 자제한다',
         requiresWorldStateActive: 'zombieOutbreak',
+        bonusSlot: true,
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.3, max: 0.7 },
         deltas: { wealth: -1, happiness: -1, health: 1 },
         result: '답답했지만, 지금은 몸을 사릴 때라고 스스로를 다독였다.'
@@ -60205,6 +60213,7 @@ const ZOMBIE_EVENT_CHOICES = [
         id: 'zombie-global-cooperate-checkpoint-44',
         text: '검문소의 신원 확인 절차에 순순히 협조한다',
         requiresWorldStateActive: 'zombieOutbreak',
+        bonusSlot: true,
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.3, max: 0.7 },
         worldStateSignal: { key: 'zombieOutbreak', target: 0 },
         deltas: { happiness: -1 },
@@ -60214,6 +60223,7 @@ const ZOMBIE_EVENT_CHOICES = [
         id: 'zombie-global-evade-checkpoint-44',
         text: '검문이 귀찮아 몰래 우회로로 빠져나간다',
         requiresWorldStateActive: 'zombieOutbreak',
+        bonusSlot: true,
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.3, max: 0.7 },
         worldStateSignal: { key: 'zombieOutbreak', target: 1 },
         deltas: { happiness: 1, relationship: -1 },
@@ -60223,6 +60233,7 @@ const ZOMBIE_EVENT_CHOICES = [
         id: 'zombie-global-curfew-enforced-47',
         text: '통행금지령이 내려져 해 지기 전 서둘러 귀가한다',
         requiresWorldStateActive: 'zombieOutbreak',
+        bonusSlot: true,
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.5, max: 0.85 },
         deltas: { happiness: -2, health: -1 },
         result: '거리에 사람 그림자 하나 없는 밤이 낯설고 무서웠다.'
@@ -60231,6 +60242,7 @@ const ZOMBIE_EVENT_CHOICES = [
         id: 'zombie-global-supply-shortage-47',
         text: '생필품 품귀 현상으로 마트 진열대가 텅 비어 있다',
         requiresWorldStateActive: 'zombieOutbreak',
+        bonusSlot: true,
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.5, max: 0.85 },
         deltas: { wealth: -3, happiness: -2 },
         result: '평범했던 일상의 소중함을 이제야 절실히 느꼈다.'
@@ -60239,6 +60251,7 @@ const ZOMBIE_EVENT_CHOICES = [
         id: 'zombie-global-quarantine-zone-neighbor-56',
         text: '이웃 동네가 격리구역으로 지정됐다는 소식을 듣는다',
         requiresWorldStateActive: 'zombieOutbreak',
+        bonusSlot: true,
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.5, max: 0.85 },
         deltas: { happiness: -3, relationship: -1 },
         result: '경계선 하나로 갈라진 삶이 남 일 같지 않았다.'
@@ -60247,6 +60260,7 @@ const ZOMBIE_EVENT_CHOICES = [
         id: 'zombie-global-shares-supplies-56',
         text: '어려움을 겪는 이웃과 남은 물자를 나눈다',
         requiresWorldStateActive: 'zombieOutbreak',
+        bonusSlot: true,
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.5, max: 0.85 },
         worldStateSignal: { key: 'zombieOutbreak', target: 0 },
         deltas: { wealth: -1, relationship: 2, happiness: 2 },
@@ -60256,6 +60270,7 @@ const ZOMBIE_EVENT_CHOICES = [
         id: 'zombie-global-city-lockdown-59',
         text: '거주 도시 전체가 전면 봉쇄됐다는 발표를 듣는다',
         requiresWorldStateActive: 'zombieOutbreak',
+        bonusSlot: true,
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.7, max: 0.95 },
         deltas: { happiness: -4, health: -1 },
         result: '도시 전체가 하나의 커다란 격리구역이 되어버렸다.'
@@ -60264,6 +60279,7 @@ const ZOMBIE_EVENT_CHOICES = [
         id: 'zombie-global-shelter-survival-59',
         text: '대피소에서 낯선 사람들과 함께 하루하루를 버틴다',
         requiresWorldStateActive: 'zombieOutbreak',
+        bonusSlot: true,
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.7, max: 0.95 },
         deltas: { happiness: -2, relationship: 2, health: -1 },
         result: '불편했지만, 함께 버티는 사람들이 있어 그나마 견딜 만했다.'
@@ -60272,6 +60288,7 @@ const ZOMBIE_EVENT_CHOICES = [
         id: 'zombie-global-family-separated-63',
         text: '봉쇄로 다른 지역의 가족과 연락이 끊겨 애를 태운다',
         requiresWorldStateActive: 'zombieOutbreak',
+        bonusSlot: true,
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.7, max: 0.95 },
         deltas: { happiness: -4, relationship: -1 },
         result: '살아있다는 소식 한 줄이 이렇게 간절할 줄 몰랐다.'
@@ -60280,6 +60297,7 @@ const ZOMBIE_EVENT_CHOICES = [
         id: 'zombie-global-volunteer-crisis-response-63',
         text: '위기 대응 자원봉사에 나서 힘을 보탠다',
         requiresWorldStateActive: 'zombieOutbreak',
+        bonusSlot: true,
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.7, max: 0.95 },
         worldStateSignal: { key: 'zombieOutbreak', target: 0 },
         deltas: { happiness: 2, relationship: 2, health: -1 },
@@ -60289,6 +60307,7 @@ const ZOMBIE_EVENT_CHOICES = [
         id: 'zombie-global-panic-hoarding-selfish-72',
         text: '남들 몫까지 독차지하려 물자를 과도하게 쟁여둔다',
         requiresWorldStateActive: 'zombieOutbreak',
+        bonusSlot: true,
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.7, max: 0.95 },
         worldStateSignal: { key: 'zombieOutbreak', target: 1 },
         deltas: { wealth: 2, relationship: -3, happiness: -1 },
@@ -60298,6 +60317,7 @@ const ZOMBIE_EVENT_CHOICES = [
         id: 'zombie-global-recovery-signs-75',
         text: '봉쇄가 조금씩 풀리며 거리에 사람들이 돌아오는 걸 지켜본다',
         requiresWorldStateActive: 'zombieOutbreak',
+        bonusSlot: true,
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.1, max: 0.6 },
         deltas: { happiness: 3, health: 1 },
         result: '완전히는 아니어도, 일상이 조금씩 돌아오고 있었다.'
