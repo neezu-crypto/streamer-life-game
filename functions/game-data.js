@@ -16598,6 +16598,28 @@ const STAGES = [
           { weight: 25, label: '사기 피해', deltas: { wealth: -8, happiness: -5 }, result: '리딩방 운영자는 수수료만 챙기고 잠적했다.' }
         ]
       },
+    
+      {
+        id: 'ent-early-cashflow-crisis-29',
+        text: '창업 초기 자금이 예상보다 빨리 바닥난다',
+        deltas: { wealth: -4, happiness: -2 },
+        result: '통장 잔고를 확인할 때마다 심장이 쪼그라들었다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-early-first-customer-29',
+        text: '첫 고객이 생겨 벅찬 감격을 느낀다',
+        deltas: { happiness: 3, wealth: 1 },
+        result: '돈보다 그 신뢰가 더 크게 다가왔다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-early-business-plan-29',
+        text: '밤새 사업계획서를 다듬는다',
+        deltas: { health: -1, happiness: 1 },
+        result: '막연했던 아이디어가, 조금씩 숫자로 정리됐다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -17766,6 +17788,28 @@ const STAGES = [
         mandatory: true,
         setOccupation: { id: 'recognized-artist', label: '🖼️ 인정받는 작가' }
       },
+    
+      {
+        id: 'ent-early-rejected-loan-30',
+        text: '은행 대출 심사에서 퇴짜를 맞는다',
+        deltas: { happiness: -3 },
+        result: '실적도 담보도 없는 창업가에겐, 문턱이 유독 높았다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-early-family-worry-30',
+        text: '가족들이 안정적인 직장을 관두지 말라며 걱정한다',
+        deltas: { happiness: -2, relationship: -1 },
+        result: '응원보다 걱정이 앞서는 게, 서운하면서도 이해가 됐다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-early-market-research-30',
+        text: '직접 발로 뛰며 시장 조사를 한다',
+        deltas: { health: -1, wealth: 1 },
+        result: '책상 위 숫자와 현장은, 늘 조금씩 달랐다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -18876,6 +18920,28 @@ const STAGES = [
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-team-lead']
       },
+    
+      {
+        id: 'ent-early-product-pivot-31',
+        text: '초기 아이템이 반응이 없어 방향을 완전히 튼다',
+        deltas: { happiness: -1, wealth: -2 },
+        result: '자존심은 상했지만, 버티는 것보다 바꾸는 게 나았다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-early-cofounder-found-31',
+        text: '뜻이 맞는 공동창업자를 만난다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '혼자가 아니라는 사실만으로도, 든든함이 배가 됐다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-early-side-income-31',
+        text: '생계를 위해 병행하던 아르바이트를 그만둔다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '이제야 온전히 사업에만 집중할 수 있었다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -19954,6 +20020,28 @@ const STAGES = [
         result: '조금 늦더라도, 다치는 것보단 나았다.',
         requiresRoute: 'logistics',
         worldStateSignal: { key: 'logisticsIntegrity', target: 1 }
+      },
+    
+      {
+        id: 'ent-early-first-employee-32',
+        text: '처음으로 직원 한 명을 채용한다',
+        deltas: { wealth: -2, happiness: 2 },
+        result: '월급 날짜가, 이제는 나 혼자만의 걱정이 아니었다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-early-competitor-copies-32',
+        text: '경쟁 업체가 비슷한 서비스를 내놓으며 위협을 느낀다',
+        deltas: { happiness: -2 },
+        result: '먼저 시작했다고 안심할 수 없는 판이었다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-early-small-win-32',
+        text: '작은 계약 하나를 따내고 스스로를 다독인다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '작은 성공들이 쌓여야, 큰 걸음도 가능했다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   },
@@ -21044,6 +21132,41 @@ const STAGES = [
         result: '숫자는 매번 올라가는데, 사람 손은 그대로였다.',
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-team-lead']
+      },
+    
+      {
+        id: 'ent-early-burnout-33',
+        text: '쉬는 날 없이 일하다 번아웃 직전까지 간다',
+        deltas: { health: -2, happiness: -2 },
+        result: '열정만으로 버티기엔, 몸이 먼저 지쳐갔다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-early-mentor-advice-33',
+        text: '먼저 창업한 선배에게 값진 조언을 듣는다',
+        deltas: { happiness: 2, wealth: 1 },
+        result: '돈 주고도 못 살 경험을, 공짜로 나눠 받았다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'deviant-ent-early-fake-revenue-numbers-33',
+        text: '투자 유치를 위해 매출 숫자를 부풀려 보여준다',
+        requiresOccupation: ['entrepreneur'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.1, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'entrepreneurIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 85, label: '안 걸림', deltas: { wealth: 5 }, result: '그럴듯한 숫자에, 투자자들은 별다른 의심을 하지 않았다.' },
+          { weight: 15, label: '발각', deltas: { wealth: -5, relationship: -4, happiness: -4, fame: -1 }, result: '실사 과정에서 부풀린 매출이 그대로 들통났다.' }
+        ]
+      },
+      {
+        id: 'deviant-ent-early-fake-revenue-numbers-decline-33',
+        text: '있는 그대로의 숫자만 정직하게 보여준다',
+        deltas: { happiness: -1 },
+        result: '당장은 초라해 보여도, 거짓 위에 세울 순 없었다.',
+        requiresOccupation: ['entrepreneur'],
+        worldStateSignal: { key: 'entrepreneurIntegrity', target: 1 }
       },
     ]
   },
@@ -22154,6 +22277,28 @@ const STAGES = [
         mandatory: true,
         setOccupation: { id: 'vtuber-avatar-artist', label: '💠 버추얼 아바타 작가' }
       },
+    
+      {
+        id: 'ent-early-investor-rejection-34',
+        text: '여러 투자자에게 퇴짜를 맞으며 자신감이 흔들린다',
+        deltas: { happiness: -3 },
+        result: '몇 번이고 같은 설명을 반복하는 게, 지치는 일이었다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-early-media-feature-34',
+        text: '지역 매체에 작게 소개되며 문의가 늘어난다',
+        deltas: { fame: 1, wealth: 2 },
+        result: '작은 기사 하나가, 생각보다 큰 파장을 일으켰다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-early-work-life-imbalance-34',
+        text: '일에 매몰돼 개인 시간이 완전히 사라진다',
+        deltas: { happiness: -2, relationship: -1 },
+        result: '사업은 자라는데, 정작 나는 메말라가고 있었다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -23255,6 +23400,28 @@ const STAGES = [
         requiresRoute: 'artist',
         requiresOccupation: ['vtuber-avatar-artist']
       },
+    
+      {
+        id: 'ent-early-breakeven-35',
+        text: '드디어 손익분기점을 넘긴다',
+        deltas: { wealth: 4, happiness: 3 },
+        result: '적자를 벗어났다는 사실 하나로, 잠이 다 달아났다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-early-supplier-issue-35',
+        text: '거래처의 갑작스러운 단가 인상에 골머리를 앓는다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '을의 입장이라는 게, 매번 뼈저리게 다가왔다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-early-team-culture-35',
+        text: '작지만 끈끈한 팀 문화를 만들어간다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '규모는 작아도, 분위기만큼은 자부심을 느꼈다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -24259,6 +24426,21 @@ const STAGES = [
         result: '바쁘다는 게, 이렇게 감사한 일일 줄 몰랐다.',
         requiresRoute: 'artist',
         requiresOccupation: ['vtuber-avatar-artist']
+      },
+    
+      {
+        id: 'ent-early-scaling-decision-36',
+        text: '지금 확장할지, 더 다질지 중대한 결정을 앞둔다',
+        deltas: { happiness: -1 },
+        result: '어느 쪽이든 되돌릴 수 없는 선택이었다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-early-legal-trouble-36',
+        text: '계약서 허점 때문에 작은 법적 분쟁에 휘말린다',
+        deltas: { wealth: -3, happiness: -2 },
+        result: '꼼꼼히 챙겼어야 할 것들이, 뒤늦게 발목을 잡았다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   },
@@ -25266,6 +25448,28 @@ const STAGES = [
         result: '어디까지가 협업이고 어디부터가 소진인지 헷갈렸다.',
         requiresRoute: 'artist',
         requiresOccupation: ['vtuber-avatar-artist']
+      },
+    
+      {
+        id: 'ent-early-second-round-funding-37',
+        text: '두 번째 투자 유치에 성공한다',
+        deltas: { wealth: 5, happiness: 2 },
+        result: '이번엔 정말 홀로서기가 가능할 것 같았다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-early-partner-conflict-37',
+        text: '동업자와 방향성을 두고 처음으로 크게 부딪힌다',
+        deltas: { happiness: -3, relationship: -2 },
+        result: '같은 곳을 보고 있다고 믿었는데, 아니었나 싶었다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-early-anniversary-37',
+        text: '창업 이후 첫 번째 위기를 넘긴 걸 자축한다',
+        deltas: { happiness: 3 },
+        result: '살아남았다는 것 자체가, 이미 절반의 성공이었다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   },
@@ -26296,6 +26500,14 @@ const STAGES = [
         requiresRoute: 'artist',
         requiresOccupation: ['vtuber-avatar-artist'],
         worldStateSignal: { key: 'artistIntegrity', target: 1 }
+      },
+    
+      {
+        id: 'ent-mid-second-location-38',
+        text: '두 번째 지점을 오픈한다',
+        deltas: { wealth: -3, happiness: 2 },
+        result: '사업이 하나에서 둘이 되는 순간이었다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   },
@@ -28195,6 +28407,21 @@ const STAGES = [
         requiresRoute: 'artist',
         requiresOccupation: ['vtuber-avatar-artist']
       },
+    
+      {
+        id: 'ent-mid-franchise-inquiry-40',
+        text: '가맹 문의가 들어와 프랜차이즈화를 검토한다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '내 브랜드가 남의 손에서도 자라날 수 있을까, 고민이 깊어졌다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-cashflow-crunch-40',
+        text: '갑작스러운 자금 경색으로 며칠 밤을 지새운다',
+        deltas: { happiness: -3, health: -1 },
+        result: '버틸 수 있을지, 매일 밤 계산기를 두드렸다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -29041,6 +29268,21 @@ const STAGES = [
         requiresRoute: 'artist',
         requiresOccupation: ['vtuber-avatar-artist'],
         worldStateSignal: { key: 'artistIntegrity', target: 1 }
+      },
+    
+      {
+        id: 'ent-mid-hires-manager-41',
+        text: '실무를 맡길 중간 관리자를 처음 채용한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '모든 걸 혼자 챙기던 시절과는, 다른 국면이었다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-second-revenue-stream-41',
+        text: '본업 외에 새로운 수익원을 개발한다',
+        deltas: { wealth: 3 },
+        result: '달걀을 한 바구니에 담지 않는 법을, 그제야 배웠다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   },
@@ -29896,6 +30138,15 @@ const STAGES = [
         requiresRoute: 'artist',
         requiresOccupation: ['vtuber-avatar-artist']
       },
+    
+      {
+        id: 'ent-mid-child-resents-absence-42',
+        text: '바쁜 부모 탓에 서운해하는 자녀와 마주한다',
+        requiresFamilyMember: ['child'],
+        deltas: { happiness: -3, relationship: -1 },
+        result: '성공의 대가를, 가장 가까운 사람이 치르고 있었다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -30750,6 +31001,21 @@ const STAGES = [
         result: '안주하는 순간, 뒤처진다는 걸 다시 새겼다.',
         requiresRoute: 'artist',
         requiresOccupation: ['vtuber-avatar-artist']
+      },
+    
+      {
+        id: 'ent-mid-national-expansion-43',
+        text: '전국 단위로 유통망을 확장한다',
+        deltas: { wealth: 5, health: -1 },
+        result: '작은 동네 사업이, 어느새 전국구가 됐다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-price-war-43',
+        text: '출혈 경쟁 끝에 가격 전쟁에 휘말린다',
+        deltas: { wealth: -3, happiness: -2 },
+        result: '버티는 쪽이 이긴다는 걸, 몸으로 배우고 있었다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   },
@@ -31696,6 +31962,14 @@ const STAGES = [
         requiresRoute: 'artist',
         requiresOccupation: ['vtuber-avatar-artist'],
         worldStateSignal: { key: 'artistIntegrity', target: 1 }
+      },
+    
+      {
+        id: 'ent-mid-team-expansion-44',
+        text: '직원 수가 두 자릿수를 넘어선다',
+        deltas: { wealth: -2, happiness: 2 },
+        result: '작은 사무실이, 이제는 제법 북적였다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   },
@@ -32661,6 +32935,27 @@ const STAGES = [
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-center-manager']
       },
+    
+      {
+        id: 'deviant-ent-mid-labor-law-violation-45',
+        text: '인건비를 아끼려 최저임금 미만으로 급여를 지급한다',
+        requiresOccupation: ['entrepreneur'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.1, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'entrepreneurIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 85, label: '안 걸림', deltas: { wealth: 5 }, result: '아낀 만큼 이익이 늘었지만, 마음은 편치 않았다.' },
+          { weight: 15, label: '발각', deltas: { wealth: -6, relationship: -4, happiness: -4, fame: -1 }, result: '직원의 신고로 노동청 조사를 받게 됐다.' }
+        ]
+      },
+      {
+        id: 'deviant-ent-mid-labor-law-violation-decline-45',
+        text: '번거로워도 법정 최저임금을 정확히 지급한다',
+        deltas: { wealth: -1, happiness: 1 },
+        result: '당연한 걸 지켰을 뿐인데, 마음은 떳떳했다.',
+        requiresOccupation: ['entrepreneur'],
+        worldStateSignal: { key: 'entrepreneurIntegrity', target: 1 }
+      },
     ]
   },
   {
@@ -33362,6 +33657,14 @@ const STAGES = [
         result: '작은 습관 하나가, 무거웠던 몸을 조금씩 가볍게 했다.',
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-center-manager']
+      },
+    
+      {
+        id: 'ent-mid-licensing-deal-46',
+        text: '기술·브랜드 라이선스 계약으로 수익을 낸다',
+        deltas: { wealth: 4 },
+        result: '직접 팔지 않고도 돈이 들어오는 구조가 생겼다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   },
@@ -34135,6 +34438,22 @@ const STAGES = [
           { weight: 26, label: '사기 피해', deltas: { wealth: -7, happiness: -5 }, result: '본사라던 곳은 애초에 등록조차 안 된 유령 회사였다.' }
         ]
       },
+    
+      {
+        id: 'ent-mid-product-line-diversify-47',
+        text: '신규 제품 라인을 추가로 론칭한다',
+        deltas: { wealth: 3, happiness: 1 },
+        result: '하나만 파던 시절은, 이제 지난 이야기였다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-spouse-becomes-partner-47',
+        text: '배우자가 사업에 정식으로 합류한다',
+        requiresFamilyMember: ['spouse'],
+        deltas: { relationship: 2, happiness: 2 },
+        result: '부부이자 동업자라는 관계가, 생각보다 잘 맞았다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -34813,6 +35132,21 @@ const STAGES = [
         requiresOccupation: ['vice-principal', 'principal'],
         worldStateSignal: { key: 'teacherCorruption', target: 1 }
       },
+    
+      {
+        id: 'ent-mid-supply-chain-disruption-48',
+        text: '공급망 문제로 생산에 차질이 생긴다',
+        deltas: { wealth: -2, happiness: -2 },
+        result: '내 손을 떠난 변수에도, 결과는 오롯이 내 몫이었다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-employee-conflict-mediation-48',
+        text: '직원들 사이의 갈등을 중재하느라 진땀을 뺀다',
+        deltas: { happiness: -2, relationship: 1 },
+        result: '사업보다 사람 관리가, 때로는 더 어려웠다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -35432,6 +35766,21 @@ const STAGES = [
         result: '혼자 참는 것만이 답은 아니라는 걸, 뒤늦게 알았다.',
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-center-manager']
+      },
+    
+      {
+        id: 'ent-mid-overseas-market-entry-49',
+        text: '해외 시장 진출을 조심스레 타진한다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '언어도 제도도 낯설었지만, 도전할 가치는 있었다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-real-estate-investment-49',
+        text: '번 돈으로 상가 부동산에 투자한다',
+        deltas: { wealth: -3, happiness: 1 },
+        result: '사업과 별개로, 든든한 뒷배 하나를 마련해뒀다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   },
@@ -36111,6 +36460,14 @@ const STAGES = [
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-regional-manager']
       },
+    
+      {
+        id: 'ent-mid-old-friend-becomes-client-50',
+        text: '오랜 친구가 큰 고객이 되어 다시 만난다',
+        deltas: { relationship: 2, wealth: 2 },
+        result: '인연이 이렇게 다시 이어질 줄은 몰랐다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -36675,6 +37032,21 @@ const STAGES = [
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-regional-manager']
       },
+    
+      {
+        id: 'ent-mid-key-employee-poached-51',
+        text: '핵심 인재를 경쟁사에 빼앗긴다',
+        deltas: { happiness: -3, relationship: -1 },
+        result: '믿었던 만큼, 배신감도 컸다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-hr-department-created-51',
+        text: '처음으로 인사 전담 부서를 만든다',
+        deltas: { wealth: -1, happiness: 1 },
+        result: '이제는 시스템으로 굴러가는 조직이 되어가고 있었다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -37227,6 +37599,27 @@ const STAGES = [
           { weight: 32, label: '사기 피해', deltas: { wealth: -9, happiness: -6 }, result: '상장은커녕, 회사 자체가 서류상으로만 존재했다.' }
         ]
       },
+    
+      {
+        id: 'deviant-ent-mid-fake-safety-inspection-52',
+        text: '안전 점검 서류를 조작해 비용을 아낀다',
+        requiresOccupation: ['entrepreneur'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.1, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'entrepreneurIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 84, label: '안 걸림', deltas: { wealth: 5 }, result: '서류만 그럴듯하면, 아무도 확인하러 오지 않았다.' },
+          { weight: 16, label: '발각', deltas: { wealth: -6, relationship: -3, happiness: -5, health: -1 }, result: '실제 사고가 나며 조작 사실까지 함께 드러났다.' }
+        ]
+      },
+      {
+        id: 'deviant-ent-mid-fake-safety-inspection-decline-52',
+        text: '비용이 들어도 안전 점검을 제대로 받는다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '사람의 안전과 맞바꿀 수 있는 건 없었다.',
+        requiresOccupation: ['entrepreneur'],
+        worldStateSignal: { key: 'entrepreneurIntegrity', target: 1 }
+      },
     ]
   },
   {
@@ -37749,6 +38142,14 @@ const STAGES = [
         requiresOccupation: ['principal'],
         worldStateSignal: { key: 'teacherCorruption', target: 1 }
       },
+    
+      {
+        id: 'ent-mid-dividend-payout-53',
+        text: '처음으로 배당금을 스스로에게 지급한다',
+        deltas: { wealth: 5, happiness: 2 },
+        result: '고생한 대가가, 처음으로 손에 잡히는 숫자가 됐다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -38233,6 +38634,28 @@ const STAGES = [
         result: '필드 위에서는, 직급이 크게 중요하지 않았다.',
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-regional-manager']
+      },
+    
+      {
+        id: 'ent-mid-second-hq-building-54',
+        text: '사옥을 새로 지어 이전한다',
+        deltas: { wealth: -6, happiness: 3, fame: 1 },
+        result: '번듯한 간판을 올리며, 지나온 시간이 스쳐 지나갔다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-lawsuit-threat-54',
+        text: '특허 분쟁으로 소송 위협을 받는다',
+        deltas: { wealth: -4, happiness: -2 },
+        result: '변호사 비용만으로도, 이미 진 것 같은 기분이었다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-cofounder-departure-54',
+        text: '오랜 공동창업자가 다른 길을 가겠다며 떠난다',
+        deltas: { happiness: -4, relationship: -2 },
+        result: '함께 시작한 사람이 없는 회사가, 낯설게 느껴졌다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   },
@@ -38988,6 +39411,21 @@ const STAGES = [
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-regional-manager']
       },
+    
+      {
+        id: 'ent-mid-loyal-employee-anniversary-55',
+        text: '10년 넘게 함께한 직원의 근속을 축하한다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '함께 걸어온 시간이, 새삼 뭉클하게 다가왔다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-angel-investing-55',
+        text: '다른 스타트업에 소액 투자자로 참여한다',
+        deltas: { wealth: -2, happiness: 1 },
+        result: '받았던 도움을, 이번엔 내가 건네는 입장이 됐다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -39486,6 +39924,22 @@ const STAGES = [
         result: '몸이 예전 같지 않다는 걸, 매일 조금씩 실감했다.',
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-regional-manager']
+      },
+    
+      {
+        id: 'ent-mid-acquisition-offer-received-56',
+        text: '경쟁사로부터 인수 제안을 받는다',
+        deltas: { happiness: 1 },
+        result: '팔지 지킬지, 쉽게 답할 수 없는 질문이었다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-child-joins-business-56',
+        text: '장성한 자녀가 사업에 관심을 보이기 시작한다',
+        requiresFamilyMember: ['child'],
+        deltas: { happiness: 3, relationship: 2 },
+        result: '물려줄 사람이 생겼다는 게, 새로운 힘이 됐다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   },
@@ -40019,6 +40473,28 @@ const STAGES = [
         result: '손끝으로 뭔가를 빚는 게, 오랜만에 느끼는 여유였다.',
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-regional-manager']
+      },
+    
+      {
+        id: 'ent-mid-economic-downturn-57',
+        text: '경기 침체로 매출이 크게 흔들린다',
+        deltas: { wealth: -4, happiness: -2 },
+        result: '내 잘못이 아닌 것에도, 책임은 내가 져야 했다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-layoff-decision-57',
+        text: '불가피하게 일부 인력을 감축해야 한다',
+        deltas: { happiness: -4, relationship: -2 },
+        result: '경영자의 결정 중, 가장 무거운 종류였다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-cost-cutting-success-57',
+        text: '비용 구조를 뜯어고쳐 수익성을 개선한다',
+        deltas: { wealth: 4 },
+        result: '버는 것 못지않게, 아끼는 것도 실력이었다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   },
@@ -40612,6 +41088,27 @@ const STAGES = [
           { weight: 28, label: '사기 피해', deltas: { wealth: -8, happiness: -5 }, result: '현지에 가보니, 계약서 속 건물은 애초에 존재하지 않았다.' }
         ]
       },
+    
+      {
+        id: 'deviant-ent-mid-price-fixing-collusion-58',
+        text: '경쟁사들과 은밀히 가격 담합을 시도한다',
+        requiresOccupation: ['entrepreneur'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.1, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'entrepreneurIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 83, label: '안 걸림', deltas: { wealth: 7 }, result: '다 함께 가격을 올리니, 손쉽게 마진이 늘었다.' },
+          { weight: 17, label: '발각', deltas: { wealth: -8, relationship: -4, happiness: -5, fame: -2 }, result: '공정거래위원회 조사에 담합 정황이 포착됐다.' }
+        ]
+      },
+      {
+        id: 'deviant-ent-mid-price-fixing-collusion-decline-58',
+        text: '담합 제안을 거절하고 정당하게 경쟁한다',
+        deltas: { happiness: 1 },
+        result: '불편한 경쟁이라도, 떳떳한 쪽을 택했다.',
+        requiresOccupation: ['entrepreneur'],
+        worldStateSignal: { key: 'entrepreneurIntegrity', target: 1 }
+      },
     ]
   },
   {
@@ -41122,6 +41619,28 @@ const STAGES = [
         result: '거창하지 않아도, 뜻깊은 순간이었다.',
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-regional-manager']
+      },
+    
+      {
+        id: 'ent-mid-diversify-into-new-industry-59',
+        text: '전혀 다른 업종으로 사업을 다각화한다',
+        deltas: { wealth: 3, happiness: -1 },
+        result: '낯선 영역이었지만, 쌓아온 감각이 아주 무용하진 않았다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-pr-crisis-59',
+        text: '제품 결함 논란으로 여론이 나빠진다',
+        deltas: { happiness: -3, fame: -2 },
+        result: '쌓아온 신뢰가, 하루아침에 흔들릴 수도 있었다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-industry-peer-friendship-59',
+        text: '경쟁 관계였던 동종업계 대표와 가까워진다',
+        deltas: { relationship: 2 },
+        result: '같은 무게를 짊어진 사람끼리는, 결국 통하는 게 있었다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   },
@@ -41774,6 +42293,21 @@ const STAGES = [
         requiresRoute: 'teacher-route',
         worldStateSignal: { key: 'teacherCorruption', target: 1 }
       },
+    
+      {
+        id: 'ent-mid-succession-planning-start-60',
+        text: '경영권 승계를 처음으로 고민하기 시작한다',
+        deltas: { happiness: -1 },
+        result: '영원할 것 같던 자리도, 결국은 물려줘야 했다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-brand-royalty-income-60',
+        text: '브랜드 사용료로 꾸준한 수익이 들어온다',
+        deltas: { wealth: 3 },
+        result: '이름 석 자가, 그 자체로 자산이 됐다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -42324,6 +42858,29 @@ const STAGES = [
         result: '받기만 하던 삶에서, 나눌 줄 아는 삶으로 넘어가고 싶었다.',
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-regional-manager']
+      },
+    
+      {
+        id: 'ent-mid-ipo-consideration-61',
+        text: '기업공개(상장)를 진지하게 검토한다',
+        deltas: { wealth: 2, fame: 2 },
+        result: '작은 가게로 시작한 곳이, 여기까지 올 줄은 몰랐다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-key-client-lost-61',
+        text: '가장 큰 거래처를 경쟁사에 뺏긴다',
+        deltas: { wealth: -3, happiness: -2 },
+        result: '매출의 절반을 차지하던 곳이었기에, 타격이 컸다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-spouse-health-concern-61',
+        text: '배우자의 건강 문제로 일과 병간호를 병행한다',
+        requiresFamilyMember: ['spouse'],
+        deltas: { happiness: -3, health: -1 },
+        result: '사업보다 소중한 게 뭔지, 다시 깨닫는 계기였다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   },
@@ -42921,6 +43478,21 @@ const STAGES = [
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-regional-manager']
       },
+    
+      {
+        id: 'ent-mid-professional-ceo-hired-62',
+        text: '전문 경영인을 영입해 실무를 맡긴다',
+        deltas: { wealth: -3, happiness: 1 },
+        result: '손을 놓는 게, 생각보다 쉽지 않았다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-partial-stake-sale-62',
+        text: '지분 일부를 매각해 현금을 확보한다',
+        deltas: { wealth: 6, happiness: -1 },
+        result: '내 것의 일부를 내주고, 그만큼의 여유를 얻었다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -43467,6 +44039,34 @@ const STAGES = [
           { weight: 30, label: '사기 피해', deltas: { wealth: -9, happiness: -6, relationship: -1 }, result: '노후 자금을 노린 전형적인 수법에 당하고 말았다.' }
         ]
       },
+    
+      {
+        id: 'deviant-ent-mid-environmental-violation-63',
+        text: '폐기물 처리 비용을 아끼려 규정을 어기고 몰래 버린다',
+        requiresOccupation: ['entrepreneur'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.1, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'entrepreneurIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 4 }, result: '비용은 아꼈지만, 마음 한구석이 찜찜했다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -6, relationship: -4, happiness: -5, fame: -2 }, result: '환경단체의 제보로 불법 투기가 적발됐다.' }
+        ]
+      },
+      {
+        id: 'deviant-ent-mid-environmental-violation-decline-63',
+        text: '정식 절차대로 폐기물을 처리한다',
+        deltas: { wealth: -1, happiness: 1 },
+        result: '당장은 손해여도, 떳떳하게 사업하고 싶었다.',
+        requiresOccupation: ['entrepreneur'],
+        worldStateSignal: { key: 'entrepreneurIntegrity', target: 1 }
+      },
+      {
+        id: 'ent-mid-global-branch-63',
+        text: '해외 지사를 정식으로 설립한다',
+        deltas: { wealth: 4, health: -1 },
+        result: '세계 지도 위에, 내 사업의 점 하나가 더 찍혔다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -43950,6 +44550,21 @@ const STAGES = [
         result: '박스를 나르던 손이, 결국 사람을 키우는 손이 됐다.',
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-regional-manager']
+      },
+    
+      {
+        id: 'ent-mid-tech-disruption-64',
+        text: '새로운 기술이 업계 판도를 통째로 바꾼다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '따라가지 못하면 도태된다는 걸, 절실히 느꼈다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-mentee-gratitude-64',
+        text: '직접 키운 후배 창업가로부터 감사 인사를 받는다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '내가 받았던 도움을, 결국 돌려준 셈이었다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   },
@@ -44459,6 +45074,21 @@ const STAGES = [
         result: '작았던 아이가 사진 밖에서 나란히 웃고 있었다.',
         requiresFamilyMember: ['child']
       },
+    
+      {
+        id: 'ent-mid-employee-retirement-party-65',
+        text: '함께한 초창기 멤버의 은퇴식을 치른다',
+        deltas: { happiness: 1, relationship: 2 },
+        result: '처음부터 함께였던 얼굴이, 이제 떠나려 하고 있었다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-passive-income-secured-65',
+        text: '안정적인 임대·배당 수입 구조를 완성한다',
+        deltas: { wealth: 3, happiness: 1 },
+        result: '이제는 일하지 않아도 굴러가는 돈이 생겼다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -44771,6 +45401,28 @@ const STAGES = [
         result: '직접 가르쳐주지 못해도, 응원만은 아낌없이 보냈다.',
         requiresFamilyMember: ['grandchild']
       },
+    
+      {
+        id: 'ent-mid-legacy-brand-status-66',
+        text: '브랜드가 업계의 오래된 강자로 자리 잡는다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '버텨온 세월 자체가, 하나의 신뢰가 됐다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-regulation-change-66',
+        text: '새로운 규제가 생겨 사업 방식을 바꿔야 한다',
+        deltas: { wealth: -2, happiness: -1 },
+        result: '바뀐 규칙에 적응하는 것도, 사업의 일부였다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-family-gathering-legacy-talk-66',
+        text: '가족 모임에서 사업의 미래를 진지하게 논의한다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '숫자보다 무거운, 마음이 오가는 대화였다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -45000,7 +45652,29 @@ const STAGES = [
         text: '이제는 무대 밖 사람이 된 것 같은 기분이 든다',
         deltas: { fame: -3, happiness: -3 },
         result: '서운함과 홀가분함이, 이상하게 동시에 밀려왔다.'
-      }
+      },
+    
+      {
+        id: 'ent-mid-new-hq-relocation-67',
+        text: '사업 규모에 맞춰 본사를 다시 이전한다',
+        deltas: { wealth: -3, happiness: 1 },
+        result: '몇 번째 이사인지, 이제는 헤아리기도 어려웠다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-board-of-directors-formed-67',
+        text: '정식으로 이사회를 구성한다',
+        deltas: { happiness: -1, fame: 1 },
+        result: '혼자 결정하던 시절은, 이제 완전히 지나갔다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-consulting-fee-income-67',
+        text: '경영 노하우를 나누는 자문료 수입이 생긴다',
+        deltas: { wealth: 3 },
+        result: '경험 자체가, 값을 매길 수 있는 자산이었다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -45279,6 +45953,27 @@ const STAGES = [
         result: '큰돈은 아니어도, 마음만은 넉넉했다.',
         requiresFamilyMember: ['child']
       },
+    
+      {
+        id: 'deviant-ent-mid-inheritance-tax-dodge-68',
+        text: '승계 과정에서 편법으로 세금을 줄이려 한다',
+        requiresOccupation: ['entrepreneur'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.1, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'entrepreneurIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '복잡한 절차 속에서, 아무도 눈치채지 못한 듯했다.' },
+          { weight: 18, label: '발각', deltas: { wealth: -9, relationship: -4, happiness: -5, fame: -2 }, result: '세무조사에서 편법 승계 정황이 그대로 드러났다.' }
+        ]
+      },
+      {
+        id: 'deviant-ent-mid-inheritance-tax-dodge-decline-68',
+        text: '다소 세금을 더 내더라도 절차대로 승계를 준비한다',
+        deltas: { happiness: 1 },
+        result: '평생 일군 것을, 떳떳하게 물려주고 싶었다.',
+        requiresOccupation: ['entrepreneur'],
+        worldStateSignal: { key: 'entrepreneurIntegrity', target: 1 }
+      },
     ]
   },
   {
@@ -45460,6 +46155,21 @@ const STAGES = [
         text: '돋보기를 끼고도 예전만큼 책이 잘 읽히지 않는다',
         deltas: { health: -1 },
         result: '한 페이지 넘기는 데도, 예전보다 시간이 더 걸렸다.'
+      },
+    
+      {
+        id: 'ent-mid-near-bankruptcy-69',
+        text: '부도 직전까지 몰렸다가 가까스로 버텨낸다',
+        deltas: { happiness: -4, health: -1 },
+        result: '살아남았다는 것만으로, 눈물이 날 지경이었다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-old-rival-passes-69',
+        text: '오랜 라이벌 기업가의 부고를 듣는다',
+        deltas: { happiness: -3 },
+        result: '경쟁했던 세월도, 결국 하나의 인연이었다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   },
@@ -45814,6 +46524,21 @@ const STAGES = [
         result: '전화 너머 목소리로 아쉬움을 달랬다.',
         requiresFamilyMember: ['child']
       },
+    
+      {
+        id: 'ent-mid-successor-named-70',
+        text: '정식으로 후계자를 지명한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '평생 일군 것을, 믿을 사람에게 넘길 준비를 했다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-mid-final-asset-restructuring-70',
+        text: '은퇴를 대비해 자산 구조를 정리한다',
+        deltas: { wealth: 2 },
+        result: '평생 벌어온 것들을, 차근차근 정돈해나갔다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -46009,6 +46734,21 @@ const STAGES = [
         deltas: {"happiness":3},
         result: '늦은 나이라는 말은 아이 앞에서만큼은 무의미했다.',
         requiresFamilyMember: ['child']
+      },
+    
+      {
+        id: 'ent-late-final-succession-71',
+        text: '마지막 경영권 승계 절차를 마무리 짓는다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '평생 쌓아온 것을, 이제 다음 사람에게 온전히 넘겼다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-late-business-hall-of-fame-71',
+        text: '지역 경제인 명예의 전당에 이름을 올린다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '이름 석 자가, 이제 하나의 역사로 남게 됐다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   },
@@ -46418,6 +47158,22 @@ const STAGES = [
         deltas: {"happiness":1},
         result: '걱정을 끼치고 싶지 않은 마음이 앞섰다.',
         requiresFamilyMember: ['child']
+      },
+    
+      {
+        id: 'ent-late-health-scare-73',
+        text: '건강 이상으로 정밀 검진을 받으며 마음을 졸인다',
+        deltas: { health: -2, happiness: -2 },
+        result: '평생 사업만 보고 달려온 몸이, 뒤늦게 신호를 보냈다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-late-grandchild-curious-business-73',
+        text: '손주가 할아버지(할머니)의 사업 이야기를 궁금해한다',
+        requiresFamilyMember: ['grandchild'],
+        deltas: { happiness: 3, relationship: 1 },
+        result: '오래된 이야기가, 새로운 귀를 만나 다시 살아났다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   },
@@ -47110,6 +47866,14 @@ const STAGES = [
         result: '자식 앞에서는 아픈 것도 마음대로 되지 않았다.',
         requiresFamilyMember: ['child']
       },
+    
+      {
+        id: 'ent-late-honorary-chairman-76',
+        text: '명예 회장으로 물러나 상징적인 자리만 지킨다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '현장을 떠나도, 이름은 여전히 그 자리에 남았다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -47288,7 +48052,15 @@ const STAGES = [
         removeAsset: 'lottery-ticket',
         mandatory: true,
         prizeTable: LOTTERY_PRIZE_TABLE
-      }
+      },
+    
+      {
+        id: 'ent-late-scholarship-fund-77',
+        text: '장학재단을 설립해 후배들을 지원한다',
+        deltas: { wealth: -5, happiness: 3 },
+        result: '받았던 기회를, 이제는 나눠줄 차례였다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -47663,7 +48435,22 @@ const STAGES = [
         text: '관련 기록마저 하나둘 사라지고 있다는 걸 안다',
         deltas: { fame: -4, happiness: -2 },
         result: '흔적이 옅어져 가는 걸 보면서도, 달리 할 수 있는 일이 없었다.'
-      }
+      },
+    
+      {
+        id: 'ent-late-biography-published-79',
+        text: '창업 인생을 담은 전기가 출간된다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '파란만장했던 세월이, 활자로 다시 태어났다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-late-reduces-work-hours-79',
+        text: '체력에 맞춰 남은 활동 시간을 크게 줄인다',
+        deltas: { health: 1, happiness: 1 },
+        result: '천천히 가는 법을, 이제야 배우고 있었다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -48118,6 +48905,14 @@ const STAGES = [
         result: '무거운 이야기였지만, 함께라서 견딜 만했다.',
         requiresFamilyMember: ['child']
       },
+    
+      {
+        id: 'ent-late-old-employee-reunion-81',
+        text: '초창기 함께했던 직원들과 오랜만에 모인다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '그 시절 고생담을 나누며, 다들 아이처럼 웃었다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -48464,7 +49259,22 @@ const STAGES = [
         deltas: { wealth: 2, relationship: 2 },
         result: '한 달 한 달, 자식들의 마음이 통장에 쌓였다.',
         requiresFamilyMember: ['child']
-      }
+      },
+    
+      {
+        id: 'ent-late-board-farewell-83',
+        text: '마지막으로 이사회에 참석해 작별을 고한다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '수십 년을 함께한 자리를 떠나는 발걸음이 무거웠다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-late-hospital-visit-frequent-83',
+        text: '병원 나들이가 부쩍 잦아진다',
+        deltas: { health: -1, wealth: -1 },
+        result: '몸이 예전 같지 않다는 걸, 매번 새롭게 실감했다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -48933,6 +49743,22 @@ const STAGES = [
         result: '더는 시험도 성적도 없이, 언어 그 자체가 좋아졌다.',
         requiresEverOccupation: ['english-teacher']
       },
+    
+      {
+        id: 'ent-late-industry-award-85',
+        text: '평생 공로를 인정받아 산업훈장을 받는다',
+        deltas: { fame: 3, happiness: 3 },
+        result: '작은 가게에서 시작한 길이, 이런 곳까지 이어질 줄 몰랐다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-late-spouse-golden-anniversary-85',
+        text: '배우자와 함께 결혼 50주년을 맞는다',
+        requiresFamilyMember: ['spouse'],
+        deltas: { happiness: 4, relationship: 3 },
+        result: '사업의 성공보다, 함께한 이 세월이 더 큰 자랑이었다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -49339,7 +50165,28 @@ const STAGES = [
         result: '청구서를 받아 들고서야, 뒤늦게 사정을 짐작할 수 있었다.',
         requiresAnyAcquaintance: true,
         removeAcquaintance: {}
-      }
+      },
+    
+      {
+        id: 'deviant-ent-late-fake-donation-tax-shelter-87',
+        text: '세금 회피를 위해 형식적인 기부만 하고 실제로는 자금을 빼돌린다',
+        requiresOccupation: ['entrepreneur'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.1, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'entrepreneurIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 83, label: '안 걸림', deltas: { wealth: 6 }, result: '서류상으로는 흠잡을 데 없어 보였다.' },
+          { weight: 17, label: '발각', deltas: { wealth: -7, relationship: -4, happiness: -5, fame: -2 }, result: '세무당국의 정밀 조사에서 위장 기부 정황이 드러났다.' }
+        ]
+      },
+      {
+        id: 'deviant-ent-late-fake-donation-tax-shelter-decline-87',
+        text: '진짜 필요한 곳에 제대로 기부한다',
+        deltas: { wealth: -3, happiness: 2 },
+        result: '마지막 순간까지, 떳떳한 쪽을 택하고 싶었다.',
+        requiresOccupation: ['entrepreneur'],
+        worldStateSignal: { key: 'entrepreneurIntegrity', target: 1 }
+      },
     ]
   },
   {
@@ -49705,6 +50552,14 @@ const STAGES = [
         deltas: {"happiness":2},
         result: '말로 다 못한 마음이 눈빛으로 전해졌다.',
         requiresFamilyMember: ['child']
+      },
+    
+      {
+        id: 'ent-late-company-still-thrives-89',
+        text: '떠난 지 오래인 회사가 여전히 잘 굴러간다는 소식을 듣는다',
+        deltas: { happiness: 3 },
+        result: '내가 없어도 잘 돌아간다는 게, 서운함보다 뿌듯함으로 다가왔다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   },
@@ -50132,6 +50987,21 @@ const STAGES = [
         result: '후회보다 감사가 더 많이 남는 이야기였다.',
         requiresFamilyMember: ['child']
       },
+    
+      {
+        id: 'ent-late-still-sharp-mind-91',
+        text: '나이에도 불구하고 여전히 명료한 사업 감각을 보여준다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '몸은 느려져도, 감각만은 여전히 살아있었다.',
+        requiresOccupation: ['entrepreneur']
+      },
+      {
+        id: 'ent-late-successor-struggles-shared-91',
+        text: '후계자가 겪는 어려움을 듣고 조용히 조언을 건넨다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '이제는 물러서서 지켜보는 법을 배워야 했다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -50516,6 +51386,14 @@ const STAGES = [
         mandatory: true,
         addAsset: { id: 'time-loop-declined', label: '⏳ 흘려보낸 기회', type: 'movable' }
       },
+    
+      {
+        id: 'ent-late-museum-exhibit-93',
+        text: '창업 초기 물건들이 지역 박물관에 전시된다',
+        deltas: { fame: 1, happiness: 2 },
+        result: '낡은 간판 하나가, 이렇게 귀한 대접을 받을 줄 몰랐다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -50898,6 +51776,14 @@ const STAGES = [
         deltas: { wealth: 3, happiness: 2 },
         result: '젊은 날의 선택 하나가, 지금 이렇게 든든하게 돌아왔다.'
       },
+    
+      {
+        id: 'ent-late-successor-visits-95',
+        text: '후계자가 안부를 전하며 근황을 들려준다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '물려준 것이 헛되지 않았다는 확인이었다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -51242,6 +52128,14 @@ const STAGES = [
         deltas: {"happiness":4,"health":-1},
         result: '몸은 고단해도, 그날 하루는 오래도록 마음에 남을 것 같았다.',
         requiresFamilyMember: ['child']
+      },
+    
+      {
+        id: 'ent-late-frail-but-content-97',
+        text: '몸은 쇠약해졌지만 마음만은 평온하다',
+        deltas: { health: -2, happiness: 2 },
+        result: '부족한 것투성이인 몸으로도, 만족스러운 하루하루였다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   },
@@ -51606,6 +52500,14 @@ const STAGES = [
         deltas: { wealth: 3, happiness: 1 },
         result: '평생 곁에 뒀던 물건 하나가, 마지막으로 힘이 되어줬다.'
       },
+    
+      {
+        id: 'ent-late-family-gathers-99',
+        text: '온 가족이 모여 장수를 축하해준다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '평생 일군 것 중, 가장 값진 건 결국 사람이었다.',
+        requiresOccupation: ['entrepreneur']
+      },
     ]
   },
   {
@@ -51789,6 +52691,14 @@ const STAGES = [
         text: '백수(百壽) 기념으로 지자체에서 축하금이 나온다',
         deltas: { wealth: 3, happiness: 3, fame: 1 },
         result: '백 년을 살아낸 것만으로도, 축하받을 이유가 충분했다.'
+      },
+    
+      {
+        id: 'ent-late-final-reflection-100',
+        text: '평생 일군 사업을 마지막으로 조용히 돌아본다',
+        deltas: { happiness: 3 },
+        result: '맨손으로 시작해 여기까지 왔다는 게, 새삼 벅찼다.',
+        requiresOccupation: ['entrepreneur']
       },
     ]
   }
