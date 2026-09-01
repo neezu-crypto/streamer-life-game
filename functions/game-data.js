@@ -6792,7 +6792,7 @@ const STAGES = [
         result: "낯선 손님들 앞에서도, 목소리가 떨리지 않으려 애썼다.",
         requiresLocation: ["usa"],
         requiresNoAssetType: "tour-guide-license",
-        appearChance: 0.08,
+        appearChance: 0.15,
         bonusSlot: true,
         addAsset: {"id":"tour-guide-license","label":"🪪 여행 가이드 자격증","type":"tour-guide-license"},
         setOccupation: {"id":"tour-guide","label":"🧳 여행 가이드"}
@@ -10581,6 +10581,41 @@ const STAGES = [
         result: '작은 계약서 한 장이 이렇게 뿌듯할 줄 몰랐다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tour-guide-entry-24',
+        text: '어학원에서 만난 인연으로 소규모 투어 보조를 맡는다',
+        deltas: { happiness: 3, wealth: 1 },
+        result: '작은 시작이었지만, 새로운 길이 열리는 느낌이었다.',
+        requiresLocation: ['usa'],
+        requiresNoAssetType: 'tour-guide-license',
+        appearChance: 0.15,
+        bonusSlot: true,
+        addAsset: { id: 'tour-guide-license', label: '🪪 여행 가이드 자격증', type: 'tour-guide-license' },
+        setOccupation: { id: 'tour-guide', label: '🧳 여행 가이드' }
+      },
+    
+      {
+        id: 'tg2-first-tour-jitters-24',
+        text: '첫 단독 투어를 앞두고 밤새 대본을 되뇐다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '떨리는 마음을 숨기려 몇 번이고 연습했다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-tip-first-received-24',
+        text: '손님에게 처음으로 팁을 받는다',
+        deltas: { happiness: 2, wealth: 1 },
+        result: '작은 감사의 표시가 이렇게 뿌듯할 줄 몰랐다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-english-slang-confusion-24',
+        text: '손님들의 영어 속어를 못 알아들어 진땀을 뺀다',
+        deltas: { happiness: -1 },
+        result: '교과서 영어와 실전은 완전히 달랐다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -11794,6 +11829,28 @@ const STAGES = [
         deltas: { wealth: 2, happiness: 2 },
         result: '입소문이 이렇게 크다는 걸 실감했다.',
         requiresOccupation: ['sales-rep']
+      },
+    
+      {
+        id: 'tg2-lost-tourist-found-25',
+        text: '길을 잃은 손님을 끝까지 찾아내 안심시킨다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '무사히 찾았다는 안도감이 무엇보다 컸다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-route-memorized-25',
+        text: '주요 관광 루트를 눈감고도 그릴 만큼 외운다',
+        deltas: { wealth: 1 },
+        result: '익숙해질수록 손님들 앞에서 여유가 생겼다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-weather-tour-cancel-25',
+        text: '갑작스러운 폭우로 야외 투어를 취소한다',
+        deltas: { happiness: -1, wealth: -1 },
+        result: '날씨 앞에서는 아무리 준비해도 소용없었다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -13169,6 +13226,21 @@ const STAGES = [
         requiresOccupation: ['sales-rep'],
         worldStateSignal: { key: 'salesIntegrity', target: 1 }
       },
+    
+      {
+        id: 'tg2-korean-tourist-comfort-26',
+        text: '한국인 단체 손님을 맞아 모처럼 편하게 안내한다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '모국어로 농담을 주고받는 게 오랜만에 즐거웠다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-driving-license-upgrade-26',
+        text: '대형 밴 운전면허를 새로 취득한다',
+        deltas: { wealth: -1, happiness: 1 },
+        result: '직접 운전까지 가능해지자 일감이 늘었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -13184,7 +13256,7 @@ const STAGES = [
         result: "합격 통지를 받는 순간, 새로운 길이 열린 기분이었다.",
         requiresLocation: ["usa"],
         requiresNoAssetType: "tour-guide-license",
-        appearChance: 0.08,
+        appearChance: 0.15,
         bonusSlot: true,
         addAsset: {"id":"tour-guide-license","label":"🪪 여행 가이드 자격증","type":"tour-guide-license"},
         setOccupation: {"id":"tour-guide","label":"🧳 여행 가이드"}
@@ -14471,6 +14543,28 @@ const STAGES = [
         result: '별거 아닌 말 한마디가 오래도록 힘이 됐다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tg2-tour-review-first-bad-27',
+        text: '온라인에 첫 악평 후기가 달려 속상해한다',
+        deltas: { happiness: -2 },
+        result: '누구를 만족시키긴 이렇게 어려운 일이었다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-celebrity-tour-guide-27',
+        text: '유명인의 비공개 투어를 맡아 진행한다',
+        deltas: { happiness: 2, wealth: 2, fame: 1 },
+        result: '긴장했지만, 특별한 경험이었다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-homesick-pang-27',
+        text: '명절을 홀로 타지에서 보내며 향수병을 느낀다',
+        deltas: { happiness: -2, relationship: -1 },
+        result: '멀리 있어도, 그리움은 어쩔 수 없었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -15669,6 +15763,21 @@ const STAGES = [
         deltas: { happiness: 1, relationship: 2 },
         result: '포기하지 않은 끈기가 결국 신뢰로 돌아왔다.',
         requiresOccupation: ['sales-rep']
+      },
+    
+      {
+        id: 'tg2-multiday-tour-exhaustion-28',
+        text: '일주일 넘는 장거리 투어를 끝내고 녹초가 된다',
+        deltas: { health: -2, wealth: 2 },
+        result: '몸은 지쳤어도, 통장 잔고는 든든해졌다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-tour-agency-bonus-28',
+        text: '높은 만족도 평가로 여행사에서 보너스를 받는다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '노력이 숫자로 인정받는 기분이었다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -16973,6 +17082,34 @@ const STAGES = [
         result: '가르치는 입장이 되니 책임감이 달라졌다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tour-guide-entry-29',
+        text: '한인 커뮤니티 게시판을 보고 가이드 아르바이트에 지원한다',
+        deltas: { happiness: 3, wealth: 1 },
+        result: '작게 시작한 일이 생각보다 잘 맞았다.',
+        requiresLocation: ['usa'],
+        requiresNoAssetType: 'tour-guide-license',
+        appearChance: 0.15,
+        bonusSlot: true,
+        addAsset: { id: 'tour-guide-license', label: '🪪 여행 가이드 자격증', type: 'tour-guide-license' },
+        setOccupation: { id: 'tour-guide', label: '🧳 여행 가이드' }
+      },
+    
+      {
+        id: 'tg2-second-language-learned-29',
+        text: '수요가 많은 제3외국어를 새로 배우기 시작한다',
+        deltas: { wealth: -1, happiness: 1 },
+        result: '언어 하나가 곧 새로운 손님층을 열어줄 거라 믿었다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-tourist-medical-emergency-29',
+        text: '투어 중 손님이 갑자기 쓰러져 응급 대처한다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '침착하게 대응한 스스로가 대견했다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -18204,6 +18341,28 @@ const STAGES = [
         result: '쉬어야 한다는 걸 알면서도 멈출 수 없었다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tg2-thirties-stability-30',
+        text: '서른을 맞아 이 일에서 안정감을 느끼기 시작한다',
+        deltas: { happiness: 2 },
+        result: '낯설던 일이 어느새 내 것이 되어 있었다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-peak-season-overload-30',
+        text: '성수기 예약이 몰려 몸이 열 개라도 부족하다',
+        deltas: { wealth: 3, health: -2 },
+        result: '수입은 늘었지만, 몸이 남아나질 않았다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-local-friend-made-30',
+        text: '현지에서 마음 맞는 친구를 사귄다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '타지 생활의 외로움이 조금은 덜해졌다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -19375,6 +19534,21 @@ const STAGES = [
         result: '내 실력과 무관한 파도가 덮쳐왔다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tg2-competitor-guide-rivalry-31',
+        text: '같은 지역을 도는 동료 가이드와 손님을 두고 신경전을 벌인다',
+        deltas: { happiness: -1, relationship: -1 },
+        result: '같은 일을 하는 사이인데도, 묘한 경쟁심이 생겼다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-signature-tour-created-31',
+        text: '자신만의 시그니처 투어 코스를 개발한다',
+        deltas: { wealth: 2, fame: 1 },
+        result: '남들과 다른 걸 보여줄 수 있다는 게 자랑스러웠다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -19390,7 +19564,7 @@ const STAGES = [
         result: "첫 단체 손님을 맞이하는 손에 땀이 뱄다.",
         requiresLocation: ["usa"],
         requiresNoAssetType: "tour-guide-license",
-        appearChance: 0.08,
+        appearChance: 0.15,
         bonusSlot: true,
         addAsset: {"id":"tour-guide-license","label":"🪪 여행 가이드 자격증","type":"tour-guide-license"},
         setOccupation: {"id":"tour-guide","label":"🧳 여행 가이드"}
@@ -20528,6 +20702,48 @@ const STAGES = [
         result: '돈보다 지켜야 할 선이 있다고 생각했다.',
         requiresOccupation: ['sales-rep'],
         worldStateSignal: { key: 'salesIntegrity', target: 1 }
+      },
+    
+      {
+        id: 'tg2-tourist-complaint-unfair-32',
+        text: '억지스러운 손님 컴플레인에 억울함을 느낀다',
+        deltas: { happiness: -2 },
+        result: '최선을 다했는데도, 모두를 만족시킬 순 없었다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-loyal-customer-referral-32',
+        text: '만족한 손님이 지인들에게 소개해준다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '입소문만큼 값진 광고는 없었다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-family-visa-worry-32',
+        text: '체류 신분 문제로 골머리를 앓는다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '타지에서 산다는 게 여러모로 쉽지 않았다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'deviant-tg-fake-license-claim-32',
+        text: '자격증 없이도 있는 척 손님을 받아 영업한다',
+        requiresOccupation: ['tour-guide'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.15, max: 0.55, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'tourGuideHonesty', target: 0 },
+        prizeTable: [
+          { weight: 80, label: '안 걸림', deltas: { wealth: 3 }, result: '아무도 자격증까지 확인하지는 않았다.' },
+          { weight: 20, label: '발각', deltas: { wealth: -3, relationship: -3, happiness: -3 }, result: '무자격 영업 신고가 들어가며 곤욕을 치렀다.' }
+        ]
+      },
+      {
+        id: 'deviant-tg-fake-license-claim-decline-32',
+        text: '정식으로 자격증을 딸 때까지 영업을 미룬다',
+        deltas: { wealth: -1, happiness: 1 },
+        result: '조급함보다, 정직한 시작이 더 중요했다.',
+        requiresOccupation: ['tour-guide'],
+        worldStateSignal: { key: 'tourGuideHonesty', target: 1 }
       },
     ]
   },
@@ -21702,6 +21918,21 @@ const STAGES = [
         result: '길다면 긴 세월을 이 일과 함께해왔다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tg2-off-road-adventure-tour-33',
+        text: '색다른 오프로드 어드벤처 투어를 새로 기획한다',
+        deltas: { wealth: 2, health: -1 },
+        result: '위험 부담은 있어도, 반응은 뜨거웠다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-tour-photo-memories-33',
+        text: '손님들과 찍은 사진들이 쌓여간다',
+        deltas: { happiness: 2 },
+        result: '스쳐 지나간 인연들이, 사진 속에 남아 있었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -22863,6 +23094,34 @@ const STAGES = [
         result: '왜 안 풀리는지 스스로도 알 수 없었다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tour-guide-entry-34',
+        text: '대형 여행사 정규직 가이드 채용에 합격한다',
+        deltas: { happiness: 3, wealth: 1 },
+        result: '안정적인 자리를 얻었다는 사실에 마음이 놓였다.',
+        requiresLocation: ['usa'],
+        requiresNoAssetType: 'tour-guide-license',
+        appearChance: 0.15,
+        bonusSlot: true,
+        addAsset: { id: 'tour-guide-license', label: '🪪 여행 가이드 자격증', type: 'tour-guide-license' },
+        setOccupation: { id: 'tour-guide', label: '🧳 여행 가이드' }
+      },
+    
+      {
+        id: 'tg2-independence-scary-34',
+        text: '프리랜서로 독립한 뒤 첫 비수기를 맞아 불안해진다',
+        deltas: { happiness: -2, wealth: -1 },
+        result: '안정된 월급이 새삼 그리워졌다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-social-media-following-34',
+        text: 'SNS에 투어 브이로그를 올리며 팔로워가 늘어난다',
+        deltas: { fame: 2, happiness: 1 },
+        result: '가이드 일이 콘텐츠가 될 줄은 몰랐다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -24016,6 +24275,21 @@ const STAGES = [
         result: '숫자와 씨름하는 지금이, 여전히 좋았다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tg2-tour-partner-found-35',
+        text: '뜻이 맞는 동업자와 함께 투어 브랜드를 만든다',
+        deltas: { relationship: 2, wealth: 1 },
+        result: '혼자가 아니라는 사실만으로도 든든했다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-difficult-language-barrier-35',
+        text: '전혀 다른 언어권 손님을 만나 몸짓으로 소통한다',
+        deltas: { happiness: 1 },
+        result: '말이 안 통해도, 마음은 통한다는 걸 배웠다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -25073,6 +25347,21 @@ const STAGES = [
         result: '전화기를 잠깐 꺼둔 것만으로도 큰 결심이었다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tg2-tour-scam-avoided-36',
+        text: '수상한 예약 사기를 미리 알아채고 피한다',
+        deltas: { happiness: 1, wealth: 1 },
+        result: '몇 년의 경험이 위험을 미리 알아채게 했다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-national-park-permit-hassle-36',
+        text: '국립공원 허가증 문제로 하루 종일 관공서를 오간다',
+        deltas: { happiness: -1, health: -1 },
+        result: '서류 하나에 이렇게 시간이 걸릴 줄 몰랐다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -25088,7 +25377,7 @@ const STAGES = [
         result: "누구의 지시도 없이, 스스로 일정을 짜는 게 낯설고도 즐거웠다.",
         requiresLocation: ["usa"],
         requiresNoAssetType: "tour-guide-license",
-        appearChance: 0.08,
+        appearChance: 0.15,
         bonusSlot: true,
         addAsset: {"id":"tour-guide-license","label":"🪪 여행 가이드 자격증","type":"tour-guide-license"},
         setOccupation: {"id":"tour-guide","label":"🧳 여행 가이드"}
@@ -26152,6 +26441,21 @@ const STAGES = [
         result: '느려도, 떳떳하게 얻은 계약이고 싶었다.',
         requiresOccupation: ['sales-rep'],
         worldStateSignal: { key: 'salesIntegrity', target: 1 }
+      },
+    
+      {
+        id: 'tg2-recurring-client-relationship-37',
+        text: '매년 미국을 찾는 단골 가족과 인연을 이어간다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '손님과 친구 사이 그 어딘가의 관계가 됐다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-independence-anniversary-37',
+        text: '독립한 지 1년, 스스로를 다독인다',
+        deltas: { happiness: 2 },
+        result: '불안했던 시작이 어느새 자리를 잡아가고 있었다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -27249,6 +27553,21 @@ const STAGES = [
         result: '노하우를 나누는 게 생각보다 뿌듯했다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tg2-tour-group-conflict-mediation-38',
+        text: '단체 손님들 사이의 다툼을 중재한다',
+        deltas: { happiness: -1, relationship: 1 },
+        result: '가이드 일은 길 안내만이 아니라는 걸 새삼 느꼈다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-food-tour-specialty-38',
+        text: '현지 맛집 투어를 전문 코스로 발전시킨다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '먹는 즐거움을 나누는 일이 생각보다 잘 맞았다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -28185,6 +28504,34 @@ const STAGES = [
         deltas: { relationship: 1, wealth: 1 },
         result: '내 경험이 체계적인 자산이 되고 있었다.',
         requiresOccupation: ['sales-rep']
+      },
+    
+      {
+        id: 'tour-guide-entry-39',
+        text: '전공을 살려 박물관·미술관 전문 가이드로 시작한다',
+        deltas: { happiness: 3, wealth: 1 },
+        result: '지식을 나누는 일이 이렇게 즐거울 줄 몰랐다.',
+        requiresLocation: ['usa'],
+        requiresNoAssetType: 'tour-guide-license',
+        appearChance: 0.15,
+        bonusSlot: true,
+        addAsset: { id: 'tour-guide-license', label: '🪪 여행 가이드 자격증', type: 'tour-guide-license' },
+        setOccupation: { id: 'tour-guide', label: '🧳 여행 가이드' }
+      },
+    
+      {
+        id: 'tg2-forty-approaching-reflection-39',
+        text: '마흔을 앞두고 이 일을 계속할지 되짚어본다',
+        deltas: { happiness: -1 },
+        result: '고단했던 순간들 사이로, 좋았던 기억이 더 많이 떠올랐다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-premium-service-upsell-39',
+        text: '프리미엄 맞춤 투어 서비스를 새로 선보인다',
+        deltas: { wealth: 3 },
+        result: '고급 서비스에는 그만한 값을 쳐주는 손님들이 있었다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -29222,6 +29569,21 @@ const STAGES = [
         result: '발로 뛰던 방식만이 전부가 아니게 됐다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tg2-veteran-guide-status-40',
+        text: '업계에서 베테랑 가이드로 인정받기 시작한다',
+        deltas: { fame: 2, happiness: 1 },
+        result: '경력이 쌓인 만큼, 신뢰도 함께 쌓여 있었다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-back-pain-driving-40',
+        text: '오랜 운전으로 허리 통증이 시작된다',
+        deltas: { health: -2 },
+        result: '즐거운 일에도, 몸이 축나는 건 어쩔 수 없었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -30121,6 +30483,21 @@ const STAGES = [
         result: '숫자만큼이나 사람이 중요하다는 걸 알고 있었다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tg2-junior-guide-hired-41',
+        text: '일이 늘어 처음으로 후배 가이드를 채용한다',
+        deltas: { wealth: -1, relationship: 1 },
+        result: '가르치는 입장이 되니 책임감이 새삼 무거웠다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-hidden-gem-discovered-41',
+        text: '관광객들이 모르는 숨은 명소를 발굴해낸다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '남들이 못 본 걸 보여줄 수 있다는 게 자부심이었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -30136,7 +30513,7 @@ const STAGES = [
         result: "협회 명단에 이름이 오르자, 비로소 실감이 났다.",
         requiresLocation: ["usa"],
         requiresNoAssetType: "tour-guide-license",
-        appearChance: 0.08,
+        appearChance: 0.15,
         bonusSlot: true,
         addAsset: {"id":"tour-guide-license","label":"🪪 여행 가이드 자격증","type":"tour-guide-license"},
         setOccupation: {"id":"tour-guide","label":"🧳 여행 가이드"}
@@ -31034,6 +31411,21 @@ const STAGES = [
         result: '당장은 손해여도, 신뢰가 더 오래갔다.',
         requiresOccupation: ['sales-rep'],
         worldStateSignal: { key: 'salesIntegrity', target: 1 }
+      },
+    
+      {
+        id: 'tg2-exchange-rate-fluctuation-42',
+        text: '환율이 요동치며 수입이 들쑥날쑥해진다',
+        deltas: { wealth: -1, happiness: -1 },
+        result: '내 실력과 무관한 숫자가, 통장을 흔들었다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-korean-media-feature-42',
+        text: '한인 방송에 여행 전문가로 소개된다',
+        deltas: { fame: 2, wealth: 1 },
+        result: '작은 인터뷰 하나가 생각보다 큰 반응을 일으켰다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -31941,6 +32333,21 @@ const STAGES = [
         deltas: { relationship: 2, wealth: 1 },
         result: '숫자 너머의 진심이 전해진 자리였다.',
         requiresOccupation: ['sales-rep']
+      },
+    
+      {
+        id: 'tg2-tour-cancellation-wave-43',
+        text: '예상치 못한 사건으로 예약이 줄줄이 취소된다',
+        deltas: { wealth: -2, happiness: -2 },
+        result: '통제할 수 없는 상황 앞에서는 버티는 수밖에 없었다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-loyal-team-built-43',
+        text: '오랜 시간 함께한 든든한 가이드 팀을 꾸린다',
+        deltas: { relationship: 2, wealth: 1 },
+        result: '혼자였다면 못 해냈을 규모의 일들을 함께 해냈다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -32925,6 +33332,34 @@ const STAGES = [
         deltas: { fame: 1, relationship: 1 },
         result: '말로 설명하려니, 스스로도 다시 배우는 기분이었다.',
         requiresOccupation: ['sales-rep']
+      },
+    
+      {
+        id: 'tour-guide-entry-44',
+        text: '지인의 추천으로 크루즈 동승 가이드 일을 시작한다',
+        deltas: { happiness: 3, wealth: 1 },
+        result: '바다 위에서의 새로운 일이 낯설고도 설렜다.',
+        requiresLocation: ['usa'],
+        requiresNoAssetType: 'tour-guide-license',
+        appearChance: 0.15,
+        bonusSlot: true,
+        addAsset: { id: 'tour-guide-license', label: '🪪 여행 가이드 자격증', type: 'tour-guide-license' },
+        setOccupation: { id: 'tour-guide', label: '🧳 여행 가이드' }
+      },
+    
+      {
+        id: 'tg2-tourist-thank-you-letter-44',
+        text: '오래전 안내했던 손님에게서 감사 편지를 받는다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '스쳐 간 인연이라 생각했는데, 오래 기억되고 있었다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-wildfire-tour-disruption-44',
+        text: '산불로 예정된 투어 코스가 통째로 막힌다',
+        deltas: { wealth: -1, happiness: -1 },
+        result: '자연 앞에서는 아무리 노련해도 손쓸 도리가 없었다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -33933,6 +34368,21 @@ const STAGES = [
         result: '현장 감각이 이제는 다른 방식으로도 쓰이고 있었다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tg2-tour-guide-award-45',
+        text: '지역 관광업계 우수 가이드상을 받는다',
+        deltas: { fame: 2, happiness: 3 },
+        result: '묵묵히 해온 일이 이렇게 인정받는구나 싶었다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-menopause-work-adjust-45',
+        text: '컨디션 변화에 맞춰 무리한 일정을 조금씩 줄인다',
+        deltas: { health: 1, wealth: -1 },
+        result: '몸의 신호에 귀 기울이는 법을 배워가고 있었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -34680,6 +35130,41 @@ const STAGES = [
         result: '익숙했던 자리를 떠나는 게 생각보다 크게 다가왔다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tg2-tour-app-technology-adapt-46',
+        text: '예약·안내용 앱 사용법을 뒤늦게 익힌다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '배우는 속도는 느려도, 포기하지 않았다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-korean-newcomer-help-46',
+        text: '갓 이민 온 동포 가족의 정착을 도와준다',
+        deltas: { relationship: 2, happiness: 2 },
+        result: '받았던 도움을, 이제는 나눠줄 차례였다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'deviant-tg-overcharges-tourists-46',
+        text: '외국인 손님인 걸 알고 요금을 몰래 부풀려 청구한다',
+        requiresOccupation: ['tour-guide'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.15, max: 0.55, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'tourGuideHonesty', target: 0 },
+        prizeTable: [
+          { weight: 78, label: '안 걸림', deltas: { wealth: 4 } , result: '환율 차이 핑계로, 큰 의심 없이 넘어갔다.' },
+          { weight: 22, label: '발각', deltas: { wealth: -3, relationship: -4, happiness: -3 }, result: '영수증을 비교한 손님에게 항의를 받고 후기에 그대로 남았다.' }
+        ]
+      },
+      {
+        id: 'deviant-tg-overcharges-tourists-decline-46',
+        text: '누구에게나 동일한 정찰 요금만 받는다',
+        deltas: { wealth: -1, happiness: 1 },
+        result: '떳떳한 요금표가, 오히려 오래가는 신뢰를 만들었다.',
+        requiresOccupation: ['tour-guide'],
+        worldStateSignal: { key: 'tourGuideHonesty', target: 1 }
+      },
     ]
   },
   {
@@ -34695,7 +35180,7 @@ const STAGES = [
         result: "까다로운 손님들 사이에서도, 자신만의 노하우가 쌓여갔다.",
         requiresLocation: ["usa"],
         requiresNoAssetType: "tour-guide-license",
-        appearChance: 0.08,
+        appearChance: 0.15,
         bonusSlot: true,
         addAsset: {"id":"tour-guide-license","label":"🪪 여행 가이드 자격증","type":"tour-guide-license"},
         setOccupation: {"id":"tour-guide","label":"🧳 여행 가이드"}
@@ -35519,6 +36004,21 @@ const STAGES = [
         requiresOccupation: ['sales-rep'],
         worldStateSignal: { key: 'salesIntegrity', target: 1 }
       },
+    
+      {
+        id: 'tg2-premium-conversion-success-47',
+        text: '프리미엄 전문 가이드로 완전히 전향해 자리를 잡는다',
+        deltas: { wealth: 2, happiness: 2 },
+        result: '까다로운 손님들 사이에서, 오히려 진가를 발휘했다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-old-injury-flareup-47',
+        text: '오래 걷던 후유증으로 무릎이 시큰거린다',
+        deltas: { health: -2 },
+        result: '몸이 젊은 날의 무리를 여전히 기억하고 있었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -36249,6 +36749,21 @@ const STAGES = [
         result: '아직 이르다 싶으면서도, 마음이 자꾸 흔들렸다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tg2-tour-legacy-building-48',
+        text: '자신만의 브랜드가 지역에서 확고히 자리잡는다',
+        deltas: { fame: 2, wealth: 2 },
+        result: '이름 석 자만으로도 손님이 찾아오는 단계가 됐다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-korean-tourist-decline-48',
+        text: '한국인 단체 관광객 수가 눈에 띄게 줄어든다',
+        deltas: { wealth: -1, happiness: -1 },
+        result: '시대의 흐름 앞에서는 손쓸 방법이 마땅찮았다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -36913,6 +37428,34 @@ const STAGES = [
         deltas: { happiness: 2 },
         result: '후회 없이 뛰어온 세월이었다.',
         requiresOccupation: ['sales-rep']
+      },
+    
+      {
+        id: 'tour-guide-entry-49',
+        text: '온라인 여행 플랫폼에 개인 가이드로 등록한다',
+        deltas: { happiness: 3, wealth: 1 },
+        result: '플랫폼 하나로 손님을 직접 모을 수 있다는 게 신기했다.',
+        requiresLocation: ['usa'],
+        requiresNoAssetType: 'tour-guide-license',
+        appearChance: 0.15,
+        bonusSlot: true,
+        addAsset: { id: 'tour-guide-license', label: '🪪 여행 가이드 자격증', type: 'tour-guide-license' },
+        setOccupation: { id: 'tour-guide', label: '🧳 여행 가이드' }
+      },
+    
+      {
+        id: 'tg2-new-tour-market-pivot-49',
+        text: '중국·인도 등 새로운 관광 시장으로 눈을 돌린다',
+        deltas: { wealth: 2, health: -1 },
+        result: '변화에 적응하는 게 곧 생존이었다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-tourist-marriage-proposal-witness-49',
+        text: '투어 중 벌어진 깜짝 프러포즈의 증인이 된다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '누군가의 인생 최고의 순간을 곁에서 지켜봤다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -37651,6 +38194,21 @@ const STAGES = [
         result: '내가 없어도 잘 굴러가는 게, 뿌듯하면서도 묘했다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tg2-fifty-milestone-tour-50',
+        text: '쉰 살을 맞아 지나온 가이드 인생을 되짚어본다',
+        deltas: { happiness: 1 },
+        result: '낯선 땅에서 시작한 일이, 어느새 인생의 절반을 채웠다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-tour-business-sold-partial-50',
+        text: '키워온 투어 사업 지분 일부를 정리한다',
+        deltas: { wealth: 3, happiness: 1 },
+        result: '조금씩 짐을 덜어내는 것도 필요한 일이었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -38267,6 +38825,21 @@ const STAGES = [
         result: '내가 알던 방식이 조금씩 옛것이 되어가고 있었다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tg2-tour-guide-mentor-role-51',
+        text: '지역 가이드 협회에서 신입 교육을 담당한다',
+        deltas: { relationship: 2, fame: 1 },
+        result: '가르치는 게 이제는 더 익숙한 역할이 됐다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-tour-cancellation-illness-51',
+        text: '몸살로 예약된 투어를 처음으로 취소한다',
+        deltas: { health: 1, wealth: -1 },
+        result: '무리하지 않는 법을 뒤늦게 배우고 있었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -38282,7 +38855,7 @@ const STAGES = [
         result: "소개해준 지인의 얼굴에 먹칠하지 않으려 더 열심히 했다.",
         requiresLocation: ["usa"],
         requiresNoAssetType: "tour-guide-license",
-        appearChance: 0.08,
+        appearChance: 0.15,
         bonusSlot: true,
         addAsset: {"id":"tour-guide-license","label":"🪪 여행 가이드 자격증","type":"tour-guide-license"},
         setOccupation: {"id":"tour-guide","label":"🧳 여행 가이드"}
@@ -38891,6 +39464,21 @@ const STAGES = [
         requiresOccupation: ['sales-rep'],
         worldStateSignal: { key: 'salesIntegrity', target: 1 }
       },
+    
+      {
+        id: 'tg2-decades-of-tourists-recall-52',
+        text: '수십 년간 안내한 손님들의 얼굴이 하나둘 떠오른다',
+        deltas: { happiness: 2 },
+        result: '숫자로는 셀 수 없는 인연들이 쌓여 있었다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-tour-vehicle-upgrade-52',
+        text: '낡은 투어 차량을 새 차로 교체한다',
+        deltas: { wealth: -3, happiness: 2 },
+        result: '큰돈이 나갔지만, 손님들의 안전이 우선이었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -39458,6 +40046,21 @@ const STAGES = [
         result: '그 모든 변화의 한가운데를 지나온 셈이었다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tg2-tour-industry-award-lifetime-53',
+        text: '지역 관광업계 공로상 후보로 오른다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '오랜 세월의 노고가 이렇게 조명받는구나 싶었다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-considers-slower-pace-53',
+        text: '이제는 조금 더 여유 있게 일하기로 마음먹는다',
+        deltas: { health: 1, wealth: -1 },
+        result: '속도를 늦춰도, 여전히 이 일이 좋았다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -39994,6 +40597,34 @@ const STAGES = [
         deltas: { happiness: 2 },
         result: '숫자와 사람 사이를 오간 세월이, 결국 자랑스러웠다.',
         requiresOccupation: ['sales-rep']
+      },
+    
+      {
+        id: 'tour-guide-entry-54',
+        text: '기존 일을 정리하고 늦깎이로 가이드 자격증을 취득한다',
+        deltas: { happiness: 3, wealth: 1 },
+        result: '늦었다 싶었지만, 시작하니 오히려 후련했다.',
+        requiresLocation: ['usa'],
+        requiresNoAssetType: 'tour-guide-license',
+        appearChance: 0.15,
+        bonusSlot: true,
+        addAsset: { id: 'tour-guide-license', label: '🪪 여행 가이드 자격증', type: 'tour-guide-license' },
+        setOccupation: { id: 'tour-guide', label: '🧳 여행 가이드' }
+      },
+    
+      {
+        id: 'tg2-succession-planning-begins-54',
+        text: '키워온 투어 사업을 물려줄 후계자를 고민한다',
+        deltas: { happiness: 1 },
+        result: '평생 일군 것을 누구에게 맡길지, 신중해질 수밖에 없었다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-tour-anniversary-30years-54',
+        text: '가이드 일을 시작한 지 어느덧 오랜 세월이 흘렀음을 깨닫는다',
+        deltas: { happiness: 2 },
+        result: '낯설던 타지가, 이제는 완전한 삶의 터전이 되어 있었다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -40772,6 +41403,21 @@ const STAGES = [
         result: '몸에 새겨진 밤낮이 바뀐 습관은 쉽게 사라지지 않았다.',
         requiresOccupation: ['streamer']
       },
+    
+      {
+        id: 'tg2-reduced-schedule-accepted-55',
+        text: '예약 건수를 스스로 줄이며 여유를 찾는다',
+        deltas: { health: 1, wealth: -1 },
+        result: '치열함 대신, 편안한 속도를 택했다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-tour-legacy-photo-book-55',
+        text: '수십 년간의 투어 사진을 모아 개인 화보집을 만든다',
+        deltas: { happiness: 3 },
+        result: '한 장 한 장이, 지나온 세월의 증거였다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -41303,6 +41949,21 @@ const STAGES = [
         result: '정년을 넘기고도 손에서 일을 놓지 않은 스스로가 자랑스러웠다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tg2-younger-guides-respect-56',
+        text: '젊은 가이드들에게서 존경 어린 대접을 받는다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '어느새 이 바닥의 어른이 되어 있었다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-korean-visit-longing-56',
+        text: '오랜만에 한국을 방문해 그리웠던 것들을 채운다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '타지에서의 삶도 좋았지만, 뿌리는 여전히 그곳이었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -41318,7 +41979,7 @@ const STAGES = [
         result: "느긋해진 걸음으로, 새로운 손님들을 맞았다.",
         requiresLocation: ["usa"],
         requiresNoAssetType: "tour-guide-license",
-        appearChance: 0.08,
+        appearChance: 0.15,
         bonusSlot: true,
         addAsset: {"id":"tour-guide-license","label":"🪪 여행 가이드 자격증","type":"tour-guide-license"},
         setOccupation: {"id":"tour-guide","label":"🧳 여행 가이드"}
@@ -41873,6 +42534,21 @@ const STAGES = [
         deltas: { fame: 1, happiness: 1 },
         result: '민망하면서도, 싫지 않은 호칭이었다.',
         requiresOccupation: ['sales-rep']
+      },
+    
+      {
+        id: 'tg2-part-time-freedom-57',
+        text: '파트타임으로 전환하며 시간의 자유를 되찾는다',
+        deltas: { happiness: 2, wealth: -2 },
+        result: '수입은 줄었어도, 삶의 여유가 그만큼 늘었다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-tourist-generation-shift-57',
+        text: '요즘 관광객들의 여행 방식이 확 달라졌음을 체감한다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '시대가 바뀌어도, 적응하는 수밖에 없었다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -42516,6 +43192,22 @@ const STAGES = [
         result: '몸은 힘들어도, 이 일을 사랑하는 마음만은 여전했다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tg2-favorite-route-nostalgia-58',
+        text: '가장 좋아하던 투어 코스를 오랜만에 다시 걷는다',
+        deltas: { happiness: 3 },
+        result: '몇 번을 걸어도, 이 길은 늘 새로웠다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-grandchild-visits-usa-58',
+        text: '손주가 미국에 놀러 와 함께 투어를 다닌다',
+        requiresFamilyMember: ['grandchild'],
+        deltas: { happiness: 4, relationship: 2 },
+        result: '평생 해온 일을, 이렇게 가족과 나눌 수 있었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -43064,6 +43756,19 @@ const STAGES = [
         deltas: { happiness: -1, wealth: 1 },
         result: '배우는 걸 멈추지 않는 한, 아직은 현역이었다.',
         requiresOccupation: ['sales-rep']
+      },
+    
+      {
+        id: 'tour-guide-entry-59',
+        text: '은퇴 후 소일거리로 가이드 일을 알아본다',
+        deltas: { happiness: 3, wealth: 1 },
+        result: '남은 시간을 여행자들과 함께 보내고 싶어졌다.',
+        requiresLocation: ['usa'],
+        requiresNoAssetType: 'tour-guide-license',
+        appearChance: 0.15,
+        bonusSlot: true,
+        addAsset: { id: 'tour-guide-license', label: '🪪 여행 가이드 자격증', type: 'tour-guide-license' },
+        setOccupation: { id: 'tour-guide', label: '🧳 여행 가이드' }
       },
     ]
   },
@@ -43747,6 +44452,41 @@ const STAGES = [
         result: '더 일해도 좋다는 가족의 응원이 큰 힘이 됐다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tg2-tour-knee-support-needed-60',
+        text: '무릎 보호대 없이는 하루를 버티기 힘들어진다',
+        deltas: { health: -2 },
+        result: '평생 걸어온 다리가, 이제는 도움을 필요로 했다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-tour-stories-collected-60',
+        text: '평생 겪은 신기한 손님 이야기들을 정리해본다',
+        deltas: { happiness: 2 },
+        result: '웃픈 사연 하나하나가, 다 이 일의 일부였다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'deviant-tg-shop-kickback-scheme-60',
+        text: '기념품점과 짜고 손님들에게 바가지 구매를 유도한다',
+        requiresOccupation: ['tour-guide'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '발각', min: 0.15, max: 0.55, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'tourGuideHonesty', target: 0 },
+        prizeTable: [
+          { weight: 78, label: '안 걸림', deltas: { wealth: 5 }, result: '손님들은 그저 좋은 추천이라 여겼다.' },
+          { weight: 22, label: '발각', deltas: { wealth: -4, relationship: -4, happiness: -3 }, result: '한 손님의 폭로로 오랜 신뢰가 한순간에 무너졌다.' }
+        ]
+      },
+      {
+        id: 'deviant-tg-shop-kickback-scheme-decline-60',
+        text: '기념품점 추천 없이 손님이 원하는 곳으로만 안내한다',
+        deltas: { wealth: -1, happiness: 1 },
+        result: '평생 지켜온 원칙을, 끝까지 지키고 싶었다.',
+        requiresOccupation: ['tour-guide'],
+        worldStateSignal: { key: 'tourGuideHonesty', target: 1 }
+      },
     ]
   },
   {
@@ -44337,6 +45077,21 @@ const STAGES = [
         result: '세월이 흘러도, 그 신뢰만큼은 변하지 않았다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tg2-loyal-agency-relationship-61',
+        text: '오랜 세월 함께한 여행사와의 신뢰를 되새긴다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '숫자로는 셀 수 없는 시간이 그 관계에 쌓여 있었다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-tour-guide-book-published-61',
+        text: '평생의 노하우를 담은 여행 안내서를 출간한다',
+        deltas: { wealth: 2, fame: 2 },
+        result: '수십 년의 경험이 한 권의 책으로 남았다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -44352,7 +45107,7 @@ const STAGES = [
         result: "늦은 나이에 시작하는 공부가 쉽지만은 않았다.",
         requiresLocation: ["usa"],
         requiresNoAssetType: "tour-guide-license",
-        appearChance: 0.08,
+        appearChance: 0.15,
         bonusSlot: true,
         addAsset: {"id":"tour-guide-license","label":"🪪 여행 가이드 자격증","type":"tour-guide-license"},
         setOccupation: {"id":"tour-guide","label":"🧳 여행 가이드"}
@@ -44963,6 +45718,21 @@ const STAGES = [
         deltas: { wealth: 1 },
         result: '치열함보다 꾸준함이 이제는 더 어울렸다.',
         requiresOccupation: ['sales-rep']
+      },
+    
+      {
+        id: 'tg2-license-renewed-late-62',
+        text: '늦은 나이에도 자격증을 갱신하며 현역을 이어간다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '아직은 그만두고 싶지 않다는 마음이 더 컸다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-tour-weather-body-toll-62',
+        text: '뜨거운 여름 투어가 예전보다 훨씬 버겁게 느껴진다',
+        deltas: { health: -1 },
+        result: '더위와 씨름하는 것도, 이제는 큰 도전이었다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -45575,6 +46345,21 @@ const STAGES = [
         result: '평생 쌓은 것을, 이제 나눠줄 차례였다.',
         requiresOccupation: ['sales-rep']
       },
+    
+      {
+        id: 'tg2-tourist-family-generations-63',
+        text: '옛 손님의 자녀 세대를 다시 안내하게 된다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '한 세대를 이어온 인연이라는 게 뭉클했다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-tour-income-supplement-pension-63',
+        text: '연금 외 소일거리 수입으로 가이드 일을 이어간다',
+        deltas: { wealth: 1 },
+        result: '큰돈은 아니어도, 스스로 버는 재미가 있었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -46089,6 +46874,19 @@ const STAGES = [
         deltas: { happiness: -1 },
         result: '언제까지고 계속할 수는 없다는 걸 받아들이고 있었다.',
         requiresOccupation: ['sales-rep']
+      },
+    
+      {
+        id: 'tour-guide-entry-64',
+        text: '평생 여행을 좋아했던 취미를 살려 가이드로 나선다',
+        deltas: { happiness: 3, wealth: 1 },
+        result: '좋아하던 일을 이제야 직업으로 삼게 됐다.',
+        requiresLocation: ['usa'],
+        requiresNoAssetType: 'tour-guide-license',
+        appearChance: 0.15,
+        bonusSlot: true,
+        addAsset: { id: 'tour-guide-license', label: '🪪 여행 가이드 자격증', type: 'tour-guide-license' },
+        setOccupation: { id: 'tour-guide', label: '🧳 여행 가이드' }
       },
     ]
   },
@@ -46645,6 +47443,21 @@ const STAGES = [
         result: '현장을 떠나도, 여전히 쓸모가 있다는 게 반가웠다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-tour-guide-hall-of-fame-65',
+        text: '지역 관광업계 명예의 전당에 이름을 올린다',
+        deltas: { fame: 3, happiness: 3 },
+        result: '이름 석 자가, 이제 하나의 역사로 남게 됐다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-junior-thanks-mentor-65',
+        text: '가르쳤던 후배 가이드가 진심 어린 감사 인사를 전한다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '내가 받았던 것을 이제 돌려주고 있었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -47012,6 +47825,21 @@ const STAGES = [
         result: '수십 년 전 사건도, 몸이 먼저 기억하고 있었다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-tour-route-handed-down-66',
+        text: '자신만의 시그니처 투어 코스를 후배에게 물려준다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '내가 만든 길을, 이제 다른 이가 걸을 차례였다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-tour-fewer-clients-content-66',
+        text: '손님 수는 줄었어도 하나하나에 정성을 다한다',
+        deltas: { happiness: 2 },
+        result: '양보다 질을 택한 요즘이, 오히려 더 만족스러웠다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -47027,7 +47855,7 @@ const STAGES = [
         result: "바쁘게 걷던 예전과 달리, 여유 있게 설명을 이어갔다.",
         requiresLocation: ["usa"],
         requiresNoAssetType: "tour-guide-license",
-        appearChance: 0.08,
+        appearChance: 0.15,
         bonusSlot: true,
         addAsset: {"id":"tour-guide-license","label":"🪪 여행 가이드 자격증","type":"tour-guide-license"},
         setOccupation: {"id":"tour-guide","label":"🧳 여행 가이드"}
@@ -47295,6 +48123,21 @@ const STAGES = [
         deltas: { relationship: 2, happiness: 1 },
         result: '제복은 벗었어도, 동네를 지키는 마음은 그대로였다.',
         requiresOccupation: ['police-cadet', 'detective']
+      },
+    
+      {
+        id: 'tg2-tour-guide-community-honor-67',
+        text: '지역 한인 사회에서 원로 대접을 받는다',
+        deltas: { fame: 1, happiness: 2 },
+        result: '어느새 이런 자리에 서 있는 스스로가 낯설고도 뿌듯했다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-tour-simple-joy-remains-67',
+        text: '손님이 감탄하는 표정을 볼 때마다 여전히 벅차다',
+        deltas: { happiness: 2 },
+        result: '수십 년이 지나도, 그 순간만은 변하지 않았다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -47627,6 +48470,21 @@ const STAGES = [
         result: '거리에서 보낸 세월의 무게가, 검진 결과에 고스란히 나타났다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-tour-farewell-tour-planned-68',
+        text: '은퇴를 앞두고 마지막 대형 투어를 계획한다',
+        deltas: { wealth: 2, health: -1 },
+        result: '유종의 미를 거두고 싶은 마음이 컸다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-tour-old-clients-farewell-visit-68',
+        text: '오랜 단골들이 작별 인사를 전하러 찾아온다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '숫자로 맺어진 인연이, 사람으로 남아 있었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -47855,6 +48713,21 @@ const STAGES = [
         deltas: { happiness: 3, relationship: 2 },
         result: '치열했던 세월에 마침표를 찍는 자리였다.',
         requiresOccupation: ['police-cadet', 'detective']
+      },
+    
+      {
+        id: 'tg2-tour-retirement-plans-firming-69',
+        text: '은퇴 이후의 삶을 구체적으로 그려보기 시작한다',
+        deltas: { happiness: 1 },
+        result: '막연하던 은퇴가 조금씩 현실이 되어갔다.',
+        requiresOccupation: ['tour-guide']
+      },
+      {
+        id: 'tg2-selective-bookings-late-69',
+        text: '체력에 맞춰 남은 예약을 신중히 골라 받는다',
+        deltas: { health: 1, happiness: 1 },
+        result: '무리하지 않는 법을, 이제야 제대로 배웠다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -48257,6 +49130,14 @@ const STAGES = [
         result: '낯설었지만 나쁘지 않은 고요함이었다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-twi-final-retirement-70',
+        text: '평생 이어온 가이드 일을 마침내 완전히 은퇴한다',
+        deltas: { happiness: 3, wealth: 1 },
+        result: '낯선 땅에서 시작한 일이, 참 먼 길을 걸어왔다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -48492,6 +49373,14 @@ const STAGES = [
         result: '떠난 자리에서도 여전히 기억되고 있다는 게 좋았다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-twi-morning-without-tours-71',
+        text: '평생 처음으로 예약 없는 아침을 맞는다',
+        deltas: { happiness: 2, health: 1 },
+        result: '낯설었지만 나쁘지 않은 고요함이었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -48721,6 +49610,14 @@ const STAGES = [
         deltas: { happiness: 1 },
         result: '이제는 현장이 아니라, 지켜보는 입장이 됐다.',
         requiresOccupation: ['police-cadet', 'detective']
+      },
+    
+      {
+        id: 'tg2-twi-junior-guide-visits-72',
+        text: '가르쳤던 후배 가이드가 안부차 찾아온다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '떠난 자리에서도 여전히 기억되고 있다는 게 좋았다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -48959,6 +49856,15 @@ const STAGES = [
         result: '평생의 감각을 이렇게도 나눌 수 있었다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-twi-grandchild-tour-memories-73',
+        text: '손주에게 평생 안내했던 명소들의 이야기를 들려준다',
+        requiresFamilyMember: ['grandchild'],
+        deltas: { happiness: 3, relationship: 1 },
+        result: '평생의 이야기들을 이렇게도 나눌 수 있었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -49183,6 +50089,14 @@ const STAGES = [
         deltas: { happiness: 2, fame: 1 },
         result: '숫자로만 남을 뻔한 사건들이, 이야기로 기록되고 있었다.',
         requiresOccupation: ['police-cadet', 'detective']
+      },
+    
+      {
+        id: 'tg2-twi-memoir-writing-74',
+        text: '가이드로 살아온 세월을 글로 남겨본다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '스쳐 간 손님들의 이야기가, 활자로 다시 태어났다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -49501,6 +50415,14 @@ const STAGES = [
         result: '함께 뛰던 그 시절 이야기로 밤이 깊었다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-twi-old-colleague-reunion-75',
+        text: '흩어졌던 동료 가이드들과 오랜만에 재회한다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '그 시절 고생담을 나누며, 다들 아이처럼 웃었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -49731,6 +50653,14 @@ const STAGES = [
         result: '몸에 밴 촉은, 세월이 지나도 무뎌지지 않았다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-twi-still-knows-every-route-76',
+        text: '몸은 느려졌어도 여전히 모든 길을 훤히 꿰고 있다',
+        deltas: { happiness: 2 },
+        result: '평생 걸어온 길은, 머릿속에 지도처럼 남아 있었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -49941,6 +50871,14 @@ const STAGES = [
         deltas: { wealth: -4, happiness: 3 },
         result: '받았던 기회를 이제는 돌려줄 차례였다.',
         requiresOccupation: ['police-cadet', 'detective']
+      },
+    
+      {
+        id: 'tg2-twi-scholarship-donation-77',
+        text: '후배 가이드 양성을 위한 장학금을 조용히 기부한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '받았던 기회를 이제는 돌려줄 차례였다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -50186,6 +51124,14 @@ const STAGES = [
         result: '평생의 헌신이 이렇게 인정받는구나 싶었다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-twi-tourism-lifetime-award-78',
+        text: '지역 관광업 평생 공로상을 수상한다',
+        deltas: { fame: 3, happiness: 3 },
+        result: '낯선 땅에서 시작한 길이, 이런 곳까지 이어질 줄 몰랐다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -50379,6 +51325,14 @@ const STAGES = [
         deltas: { health: 1, happiness: 1 },
         result: '천천히 가는 법을 이제야 배우고 있었다.',
         requiresOccupation: ['police-cadet', 'detective']
+      },
+    
+      {
+        id: 'tg2-twi-reduces-activity-79',
+        text: '체력에 맞춰 남은 활동 시간을 크게 줄인다',
+        deltas: { health: 1, happiness: 1 },
+        result: '천천히 가는 법을, 이제야 배우고 있었다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -50666,6 +51620,14 @@ const STAGES = [
         result: '거리에서 보낸 시간 대신, 이제는 가족들의 박수가 곁에 있었다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-twi-eightieth-birthday-80',
+        text: '온 가족이 모여 팔순을 축하해준다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '평생 안내하던 낯선 이들 대신, 이제는 가족들의 박수가 곁에 있었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -50890,6 +51852,14 @@ const STAGES = [
         result: '내가 없어도 잘 굴러간다는 게, 서운함보다 뿌듯함으로 다가왔다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-twi-tour-business-still-thrives-81',
+        text: '물려준 투어 사업이 여전히 잘 굴러간다는 소식을 듣는다',
+        deltas: { happiness: 3 },
+        result: '내가 없어도 잘 돌아간다는 게, 서운함보다 뿌듯함으로 다가왔다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -51107,6 +52077,14 @@ const STAGES = [
         result: '평생 날카롭던 눈이, 이제는 쉬고 싶어했다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-twi-eyesight-worsens-82',
+        text: '시력이 나빠져 좋아하던 풍경조차 흐릿해 보인다',
+        deltas: { health: -2 },
+        result: '평생 즐기던 눈이, 이제는 쉬고 싶어했다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -51299,6 +52277,14 @@ const STAGES = [
         deltas: { health: -1, wealth: -1 },
         result: '몸이 예전 같지 않다는 걸 매번 새롭게 실감했다.',
         requiresOccupation: ['police-cadet', 'detective']
+      },
+    
+      {
+        id: 'tg2-twi-hospital-visit-frequent-83',
+        text: '병원 나들이가 부쩍 잦아진다',
+        deltas: { health: -1, wealth: -1 },
+        result: '몸이 예전 같지 않다는 걸 매번 새롭게 실감했다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -51511,6 +52497,14 @@ const STAGES = [
         deltas: { happiness: 2 },
         result: '옥에 티를 짚어내는 재미가 쏠쏠했다.',
         requiresOccupation: ['police-cadet', 'detective']
+      },
+    
+      {
+        id: 'tg2-twi-still-watches-travel-shows-84',
+        text: '몸은 힘들어도 여행 프로그램만은 여전히 즐겨 본다',
+        deltas: { happiness: 2 },
+        result: '화면 속 풍경을 보며, 그 시절의 설렘을 다시 느꼈다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -51835,6 +52829,15 @@ const STAGES = [
         result: '치안의 공로보다, 함께한 이 세월이 더 큰 자랑이었다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-twi-golden-anniversary-85',
+        text: '배우자와 함께 결혼 50주년을 맞는다',
+        requiresFamilyMember: ['spouse'],
+        deltas: { happiness: 4, relationship: 3 },
+        result: '평생의 여정보다, 함께한 이 세월이 더 큰 자랑이었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -52078,6 +53081,14 @@ const STAGES = [
         result: '혼자 간직하기엔 아까운 기록들이, 이제 여러 사람의 것이 됐다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-twi-photo-archive-donated-86',
+        text: '평생 찍어온 투어 사진들을 지역 역사관에 기증한다',
+        deltas: { wealth: -1, happiness: 2, fame: 1 },
+        result: '혼자 간직하기엔 아까운 기록들이, 이제 여러 사람의 것이 됐다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -52311,6 +53322,14 @@ const STAGES = [
         result: '지나온 세월이 누군가에게는 교재가 되고 있었다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-twi-documentary-interview-87',
+        text: '이민 1세대 가이드로서 다큐멘터리 인터뷰에 응한다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '지나온 세월이 누군가에게는 기록이 되고 있었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -52512,6 +53531,14 @@ const STAGES = [
         deltas: { happiness: 2 },
         result: '후회 없는 삶이었다고, 스스로에게 말해주었다.',
         requiresOccupation: ['police-cadet', 'detective']
+      },
+    
+      {
+        id: 'tg2-twi-quiet-satisfaction-88',
+        text: '치열했던 세월을 돌아보며 조용히 만족감을 느낀다',
+        deltas: { happiness: 2 },
+        result: '후회 없는 삶이었다고, 스스로에게 말해주었다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -52724,6 +53751,14 @@ const STAGES = [
         deltas: { happiness: 4, relationship: 1 },
         result: '잊고 있던 순간이, 이렇게 다시 찾아올 줄 몰랐다.',
         requiresOccupation: ['police-cadet', 'detective']
+      },
+    
+      {
+        id: 'tg2-twi-old-client-visits-89',
+        text: '수십 년 전 안내했던 손님이 뒤늦게 찾아온다',
+        deltas: { happiness: 4, relationship: 1 },
+        result: '잊고 있던 인연이, 이렇게 다시 찾아올 줄 몰랐다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -53030,6 +54065,14 @@ const STAGES = [
         result: '몸은 느려져도, 감각만은 여전히 살아있었다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-twi-still-sharp-memory-90',
+        text: '나이에도 불구하고 여전히 명료하게 옛 투어를 기억한다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '몸은 느려져도, 기억만은 여전히 선명했다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -53234,6 +54277,14 @@ const STAGES = [
         deltas: { relationship: 2, happiness: 1 },
         result: '이제는 물러서서 지켜보는 법을 배워야 했다.',
         requiresOccupation: ['police-cadet', 'detective']
+      },
+    
+      {
+        id: 'tg2-twi-successor-struggles-shared-91',
+        text: '사업을 물려받은 후임이 겪는 어려움을 듣고 조용히 조언을 건넨다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '이제는 물러서서 지켜보는 법을 배워야 했다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -53474,6 +54525,14 @@ const STAGES = [
         result: '작은 금속 조각 하나에 젊은 날의 각오가 고스란히 담겨 있었다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-twi-old-map-found-92',
+        text: '서랍 속 낡은 손그림 지도를 발견하고 한참을 매만진다',
+        deltas: { happiness: 2 },
+        result: '작은 종이 한 장에 젊은 날의 열정이 고스란히 담겨 있었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -53675,6 +54734,14 @@ const STAGES = [
         result: '낡은 무전기 하나가, 이렇게 귀한 대접을 받을 줄 몰랐다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-twi-museum-exhibit-93',
+        text: '초창기 사용했던 안내 장비가 지역 역사관에 전시된다',
+        deltas: { fame: 1, happiness: 2 },
+        result: '낡은 마이크와 지도 한 장이, 이렇게 귀한 대접을 받을 줄 몰랐다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -53875,6 +54942,14 @@ const STAGES = [
         deltas: { health: -2, happiness: 2 },
         result: '부족한 것투성이인 몸으로도, 만족스러운 하루하루였다.',
         requiresOccupation: ['police-cadet', 'detective']
+      },
+    
+      {
+        id: 'tg2-twi-frail-but-content-94',
+        text: '몸은 쇠약해졌지만 마음만은 평온하다',
+        deltas: { health: -2, happiness: 2 },
+        result: '부족한 것투성이인 몸으로도, 만족스러운 하루하루였다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -54113,6 +55188,14 @@ const STAGES = [
         result: '물려준 것이 헛되지 않았다는 확인이었다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-twi-successor-visits-95',
+        text: '사업을 물려받은 후임이 안부를 전하며 근황을 들려준다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '물려준 것이 헛되지 않았다는 확인이었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -54319,6 +55402,15 @@ const STAGES = [
         result: '지켜온 평화 속에서, 이런 행복을 누릴 수 있었다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-twi-great-grandchild-96',
+        text: '증손주의 재롱을 보며 환하게 웃는다',
+        requiresFamilyMember: ['grandchild'],
+        deltas: { happiness: 4, relationship: 2 },
+        result: '평생 안내하던 여정보다, 이런 행복이 더 크게 다가왔다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -54517,6 +55609,14 @@ const STAGES = [
         result: '평생의 헌신이 이런 식으로도 남는구나 싶었다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-twi-legacy-scholarship-97',
+        text: '이름을 딴 관광 인재 지원 기금이 만들어졌다는 소식을 듣는다',
+        deltas: { fame: 2, happiness: 3 },
+        result: '평생의 흔적이 이런 식으로도 남는구나 싶었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -54711,6 +55811,14 @@ const STAGES = [
         deltas: { happiness: 1 },
         result: '평생의 습관은 몸이 다 기억하고 있었다.',
         requiresOccupation: ['police-cadet', 'detective']
+      },
+    
+      {
+        id: 'tg2-twi-still-dreams-of-roads-98',
+        text: '병상에서도 종종 예전 투어 길을 걷는 꿈을 꾼다',
+        deltas: { happiness: 1 },
+        result: '평생의 여정은, 꿈속에서도 계속되고 있었다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   },
@@ -54936,6 +56044,14 @@ const STAGES = [
         result: '평생 지켜온 것 중, 가장 값진 건 결국 사람이었다.',
         requiresOccupation: ['police-cadet', 'detective']
       },
+    
+      {
+        id: 'tg2-twi-family-gathers-99',
+        text: '온 가족이 모여 장수를 축하해준다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '평생 일군 것 중, 가장 값진 건 결국 사람이었다.',
+        requiresOccupation: ['tour-guide']
+      },
     ]
   },
   {
@@ -55151,6 +56267,14 @@ const STAGES = [
         deltas: { happiness: 3 },
         result: '거리를 지키던 젊은 날부터, 새삼 벅찬 세월이었다.',
         requiresOccupation: ['police-cadet', 'detective']
+      },
+    
+      {
+        id: 'tg2-twi-final-reflection-100',
+        text: '가이드로 살아온 평생을 마지막으로 조용히 돌아본다',
+        deltas: { happiness: 3 },
+        result: '낯선 땅에서 시작해 여기까지 왔다는 게, 새삼 벅찼다.',
+        requiresOccupation: ['tour-guide']
       },
     ]
   }
