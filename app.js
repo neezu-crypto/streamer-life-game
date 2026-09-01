@@ -1313,7 +1313,19 @@ async function autoPlayTick() {
       extra.stockId = stock.id;
       extra.stockName = stock.name;
     }
-    pickChoice(choice.id, extra);
+    const submitted = await pickChoice(choice.id, extra);
+    // 현금 부족 등으로 선택이 아예 거부된 경우(2026-09-02, 사용자 지시 -
+    // "현금부족 등 선택지 결정을 못한 경우가 발생하면 1초후 다시 랜덤선택")
+    // - pickChoice가 이미 토스트로 알렸고 outcomePromise는 이 시도에 대해선
+    // 영영 안 풀리니(응답이 없어 20초 타임아웃으로 자동진행이 아예 꺼지던
+    // 문제), 여기서 조기 리턴해 1초 뒤 새로 랜덤 선택을 다시 시도한다.
+    // outcomePromise는 그냥 버려둔다 - 아무도 기다리지 않으므로 나중에
+    // 타임아웃돼도 무해하다.
+    if (!submitted) {
+      autoPlayRunning = false;
+      if (autoPlayEnabled) scheduleAutoPlayTick(1000);
+      return;
+    }
   }
   const outcome = await outcomePromise;
   if (!autoPlayEnabled) { autoPlayRunning = false; return; }
@@ -2225,6 +2237,7 @@ async function pickChoice(choiceId, extra) {
   try {
     const res = await submitChoiceFn(Object.assign({ choiceId }, extra));
     applyOutcome(res.data, undefined, choiceId);
+    return true;
   } catch (e) {
     console.error('선택 제출 실패:', e);
     // requiresSufficientCash(2026-08-23, 사용자 지시 - "돈이 많이 필요한 재산은
@@ -2242,6 +2255,7 @@ async function pickChoice(choiceId, extra) {
       alert('선택을 처리하지 못했어요: ' + (e.message || e));
     }
     Array.from(choiceList.children).forEach((b) => { if (b.tagName === 'BUTTON') b.disabled = false; });
+    return false;
   }
 }
 
