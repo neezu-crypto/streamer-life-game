@@ -777,6 +777,16 @@ function pickVisibleChoiceIds(choices, ctx) {
     // "노출되면 100% 진입"은 이 선택지 자체가 prizeTable 없이 곧장
     // startsRoute를 갖기 때문에 자동으로 만족된다.
     if (typeof c.appearChance === 'number' && Math.random() >= c.appearChance) return false;
+    // requiresWorldStateActive(2026-09-02, 62장 - 좀비 바이러스 치료 아크/전역
+    // 이벤트) - dynamicAppearChance는 트래커가 RTDB에 아예 없어도
+    // worldStateRateOf가 기본값 0.5로 대신 채워버려 "아직 아무도 안 터뜨린
+    // 상태"인데도 중간 확률로 노출돼버리는 문제가 있다(예: 좀비 바이러스가
+    // 세계에 존재한 적도 없는데 "백신을 개발한다" 선택지가 뜸). worldStateRates는
+    // fetchWorldStateRates가 RTDB에 실제로 존재하는 키만 채워 넣은 객체라,
+    // 여기서 키 존재 여부만 확인해 "그 트래커가 최초로 발동된 적 있는지"를
+    // dynamicAppearChance와 별개로 검사한다 - 없으면 확률 계산까지 갈 것도 없이
+    // 이번 턴 완전히 제외.
+    if (c.requiresWorldStateActive && !(worldStateRates && Object.prototype.hasOwnProperty.call(worldStateRates, c.requiresWorldStateActive))) return false;
     // dynamicAppearChance(2026-08-28, 56장 A항 - 세계관 상태 연동 노출확률) -
     // appearChance와 완전히 같은 "굴려서 실패하면 이번 턴 제외" 패턴이지만,
     // 확률 자체가 고정값이 아니라 그 순간의 worldState rate로 계산된다:
