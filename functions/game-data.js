@@ -5465,7 +5465,7 @@ const STAGES = [
         deltas: { wealth: -4, happiness: 4 },
         result: '벌이는 불안정했지만, 처음으로 "내 일"을 한다는 느낌이 들었다.',
         setOccupation: { id: 'artist-writer', label: '🎨 예술가' },
-        startsRoute: { id: 'artist', label: '🎨 예술가', maxDurationYears: 15 },
+        startsRoute: { id: 'artist', label: '🎨 예술가', maxDurationYears: 25 },
         mandatory: true
       },
       {
@@ -17755,6 +17755,17 @@ const STAGES = [
         mandatory: true,
         setOccupation: { id: 'logistics-team-lead', label: '👷 분류반장' }
       },
+    
+      {
+        id: 'artist-recognized-promotion-30',
+        text: '10년의 무명 시절을 지나 평단과 대중 모두에게 인정받는 작가가 된다',
+        deltas: { happiness: 3, wealth: 3, fame: 2 },
+        result: '무명이라는 꼬리표를 이제야 뗄 수 있었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['artist-writer'],
+        mandatory: true,
+        setOccupation: { id: 'recognized-artist', label: '🖼️ 인정받는 작가' }
+      },
     ]
   },
   {
@@ -22122,6 +22133,27 @@ const STAGES = [
           { weight: 22, label: '사기 피해', deltas: { wealth: -9, happiness: -5 }, result: '시행사가 부도나며 계약금이 통째로 날아갔다.' }
         ]
       },
+    
+      {
+        id: 'artist-branch-veteran-34',
+        text: '앞으로도 자신만의 화풍을 지키며 순수 예술의 길을 걷기로 한다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '유행과 무관하게, 자신만의 목소리를 지키고 싶었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['recognized-artist'],
+        mandatory: true,
+        setOccupation: { id: 'veteran-artist', label: '🖌️ 원로 작가' }
+      },
+      {
+        id: 'artist-branch-vtuber-34',
+        text: '디지털 도구를 배워 버추얼 아바타 작가로 새롭게 도전한다',
+        deltas: { happiness: 2, wealth: 2 },
+        result: '낯선 세계였지만, 창작의 본질은 다르지 않다고 믿었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['recognized-artist'],
+        mandatory: true,
+        setOccupation: { id: 'vtuber-avatar-artist', label: '💠 버추얼 아바타 작가' }
+      },
     ]
   },
   {
@@ -23190,6 +23222,39 @@ const STAGES = [
         requiresRoute: 'teacher-route',
         worldStateSignal: { key: 'teacherCorruption', target: 1 }
       },
+    
+      {
+        id: 'veteran-artist-solo-exhibition-35',
+        text: '첫 단독 개인전을 연다',
+        deltas: { happiness: 3, wealth: 2, fame: 2 },
+        result: '텅 빈 화이트 큐브가, 내 세계로 가득 채워졌다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'veteran-artist-mentors-young-artist-35',
+        text: '재능 있는 젊은 작가를 눈여겨보고 조언을 건넨다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '내가 받았던 도움을, 이번엔 내가 건넬 차례였다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'vtuber-artist-first-debut-commission-35',
+        text: '신인 버튜버의 데뷔 아바타를 처음으로 의뢰받는다',
+        deltas: { wealth: 3, happiness: 2 },
+        result: '낯선 작업 방식이었지만, 완성된 캐릭터를 보니 뿌듯했다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
+      },
+      {
+        id: 'vtuber-artist-learns-new-engine-35',
+        text: '새로운 렌더링 엔진 사용법을 처음부터 익힌다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '낯선 툴 앞에서, 다시 신입이 된 기분이었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
+      },
     ]
   },
   {
@@ -24153,6 +24218,47 @@ const STAGES = [
         result: '숫자로 증명된 안전이, 무엇보다 뿌듯했다.',
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-team-lead']
+      },
+    
+      {
+        id: 'veteran-artist-gallery-representation-36',
+        text: '유명 갤러리와 전속 계약을 맺는다',
+        deltas: { wealth: 4, fame: 1 },
+        result: '이제는 발품 팔지 않아도 될 판로가 생겼다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'veteran-artist-signature-style-established-36',
+        text: '이제 누가 봐도 알아보는 자신만의 화풍이 자리 잡는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '오랜 방황 끝에, 비로소 나다운 것을 찾았다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'veteran-artist-family-doubts-fade-36',
+        text: '한때 반대하던 가족도 이제는 든든한 지지자가 된다',
+        deltas: { relationship: 3, happiness: 2 },
+        result: '오랜 시간이 지나서야, 서로의 마음이 닿았다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'vtuber-artist-live2d-rigging-36',
+        text: '라이브2D 리깅 작업에 밤낮없이 매달린다',
+        deltas: { health: -1, wealth: 2 },
+        result: '그림이 실제로 움직이는 순간, 손끝이 짜릿했다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
+      },
+      {
+        id: 'vtuber-artist-queue-fully-booked-36',
+        text: '커미션 대기열이 몇 달치나 밀려 마감된다',
+        deltas: { wealth: 4, happiness: 1 },
+        result: '바쁘다는 게, 이렇게 감사한 일일 줄 몰랐다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
       },
     ]
   },
@@ -25119,6 +25225,47 @@ const STAGES = [
           { weight: 65, label: '투자 성공', deltas: { wealth: 10, happiness: 3 }, result: '차트가 치솟는 걸 보며 믿기지 않았다.' },
           { weight: 35, label: '사기 피해', deltas: { wealth: -10, happiness: -6 }, result: '하루아침에 거래소가 문을 닫고 자취를 감췄다.' }
         ]
+      },
+    
+      {
+        id: 'veteran-artist-poor-reviews-37',
+        text: '혹평 일색인 평론을 마주하고 자존심에 상처를 입는다',
+        deltas: { happiness: -3 },
+        result: '인정받는다는 게, 늘 편한 일만은 아니었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'veteran-artist-teaches-workshop-37',
+        text: '대학·문화센터에서 창작 워크숍을 진행한다',
+        deltas: { wealth: 3, happiness: 1 },
+        result: '가르치는 일도, 창작 못지않은 보람이 있었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'veteran-artist-eyesight-decline-37',
+        text: '섬세한 작업이 예전만큼 편하지 않을 만큼 시력이 나빠진다',
+        deltas: { health: -1 },
+        result: '손끝의 감각으로 부족한 눈을 대신하는 법을 익혀갔다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'vtuber-artist-client-meeting-37',
+        text: '담당 스트리머와 캐릭터 컨셉 회의를 진행한다',
+        deltas: { relationship: 1, happiness: 1 },
+        result: '상상 속에만 있던 캐릭터가, 조금씩 형체를 갖춰갔다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
+      },
+      {
+        id: 'vtuber-artist-client-dispute-37',
+        text: '완성작에 대한 클라이언트의 무리한 수정 요구에 부딪힌다',
+        deltas: { happiness: -2, relationship: -1 },
+        result: '어디까지가 협업이고 어디부터가 소진인지 헷갈렸다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
       },
     ]
   },
@@ -26087,6 +26234,69 @@ const STAGES = [
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-team-lead']
       },
+    
+      {
+        id: 'veteran-artist-sold-out-show-38',
+        text: '전시작이 오프닝 당일 전부 팔려나간다',
+        deltas: { wealth: 6, happiness: 3, fame: 1 },
+        result: '몇 년의 무명 생활이 하루아침에 보상받는 기분이었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'veteran-artist-award-nomination-38',
+        text: '권위 있는 미술상 후보에 이름을 올린다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '결과와 상관없이, 이름이 불렸다는 것만으로 충분했다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'veteran-artist-rival-friendship-38',
+        text: '오랜 라이벌 작가와 뜻밖에 가까워진다',
+        deltas: { relationship: 2 },
+        result: '같은 길을 걷는 사람끼리는, 결국 통하는 게 있었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'vtuber-artist-emote-set-38',
+        text: '이모트·오버레이 세트를 통째로 제작하는 큰 프로젝트를 맡는다',
+        deltas: { wealth: 4, health: -1 },
+        result: '작은 그림 하나하나에도, 캐릭터의 개성을 담아야 했다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
+      },
+      {
+        id: 'vtuber-artist-famous-streamer-request-38',
+        text: '유명 스트리머의 지명 의뢰가 들어와 몸값이 뛴다',
+        deltas: { wealth: 6, fame: 1 },
+        result: '실력을 알아봐준다는 게, 무엇보다 큰 보상이었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
+      },
+      {
+        id: 'deviant-vtuber-artist-trace-design-38',
+        text: '다른 작가의 인기 디자인을 슬쩍 베껴 빠르게 납품한다',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '표절 발각', min: 0.1, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'artistIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 85, label: '안 걸림', deltas: { wealth: 5, health: 1 }, result: '마감은 지켰고, 아무도 눈치채지 못한 듯했다.' },
+          { weight: 15, label: '표절 발각', deltas: { wealth: -5, relationship: -4, happiness: -4, fame: -2 }, result: '원작자가 비교 이미지를 올리며 표절을 공개 저격했다.' }
+        ]
+      },
+      {
+        id: 'deviant-vtuber-artist-trace-design-decline-38',
+        text: '시간이 걸려도 처음부터 직접 디자인한다',
+        deltas: { happiness: -1, health: -1 },
+        result: '오래 걸렸지만, 온전히 내 것이라 부를 수 있었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist'],
+        worldStateSignal: { key: 'artistIntegrity', target: 1 }
+      },
     ]
   },
   {
@@ -26952,6 +27162,47 @@ const STAGES = [
         result: '몸으로 뛰던 시절과의 작별 인사였다.',
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-team-lead']
+      },
+    
+      {
+        id: 'veteran-artist-museum-acquisition-39',
+        text: '국립미술관이 작품 하나를 소장하겠다는 제안을 해온다',
+        deltas: { wealth: 5, fame: 3, happiness: 3 },
+        result: '이름 석 자가, 미술사의 한 귀퉁이에 남게 됐다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'veteran-artist-student-copies-style-39',
+        text: '제자가 자신의 화풍을 그대로 베낀 작품으로 데뷔한다',
+        deltas: { happiness: -3, relationship: -1 },
+        result: '복잡한 감정이었다 - 영향을 줬다는 뿌듯함과, 도둑맞은 듯한 씁쓸함 사이에서.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'veteran-artist-hand-tremor-39',
+        text: '손 떨림 증상으로 붓을 쥐기 힘든 날이 늘어난다',
+        deltas: { health: -2, happiness: -2 },
+        result: '평생을 함께한 손이, 처음으로 낯설게 느껴졌다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'vtuber-artist-model-update-39',
+        text: '기존 아바타의 리뉴얼(주년 업데이트) 작업을 의뢰받는다',
+        deltas: { wealth: 3, happiness: 1 },
+        result: '익숙한 캐릭터를 새롭게 다듬는 재미가 쏠쏠했다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
+      },
+      {
+        id: 'vtuber-artist-style-trend-shift-39',
+        text: '유행하는 화풍이 바뀌며 스타일 변화를 고민한다',
+        deltas: { happiness: -1 },
+        result: '트렌드를 따를지, 색깔을 지킬지 매번 갈등이었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
       },
     ]
   },
@@ -27903,6 +28154,47 @@ const STAGES = [
         requiresRoute: 'teacher-route',
         worldStateSignal: { key: 'teacherCorruption', target: 1 }
       },
+    
+      {
+        id: 'veteran-artist-overseas-exhibition-40',
+        text: '해외 아트페어에 초청받아 참가한다',
+        deltas: { wealth: 3, fame: 2, health: -1 },
+        result: '낯선 언어 사이에서도, 작품은 스스로 말을 걸었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'veteran-artist-plagiarism-accusation-40',
+        text: '무명 시절 영감을 준 작품과 유사하다는 표절 의혹이 제기된다',
+        deltas: { happiness: -4, fame: -2 },
+        result: '영향과 표절 사이의 경계가, 생각보다 모호했다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'vtuber-artist-3d-model-challenge-40',
+        text: '처음으로 3D 모델링에 도전해본다',
+        deltas: { happiness: 2, wealth: -1 },
+        result: '2D와는 또 다른 세계였지만, 배울수록 흥미로웠다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
+      },
+      {
+        id: 'vtuber-artist-brush-preset-sale-40',
+        text: '직접 만든 브러시·PSD 템플릿을 판매하기 시작한다',
+        deltas: { wealth: 3 },
+        result: '자는 동안에도 팔리는 수익이라니, 신세계였다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
+      },
+      {
+        id: 'vtuber-artist-fan-backlash-40',
+        text: '디자인 변경에 실망한 팬덤의 거센 반응을 마주한다',
+        deltas: { happiness: -3 },
+        result: '작업물 하나에, 이렇게 많은 마음이 걸려있는 줄 몰랐다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
+      },
     ]
   },
   {
@@ -28686,6 +28978,69 @@ const STAGES = [
           { weight: 76, label: '투자 성공', deltas: { wealth: 6, happiness: 2 }, result: '약속된 이자가 꼬박꼬박 들어왔다.' },
           { weight: 24, label: '사기 피해', deltas: { wealth: -7, happiness: -5, relationship: -1 }, result: '알고 보니 신규 가입자 돈으로 이자를 돌려막는 구조였다.' }
         ]
+      },
+    
+      {
+        id: 'veteran-artist-collective-founded-41',
+        text: '뜻이 맞는 작가들과 함께 작가 그룹을 결성한다',
+        deltas: { relationship: 2, wealth: 1 },
+        result: '혼자보다, 함께일 때 목소리가 더 크게 퍼졌다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'veteran-artist-studio-relocation-41',
+        text: '체력 부담으로 접근성 좋은 작업실로 옮긴다',
+        deltas: { wealth: -2, health: 1 },
+        result: '조금 불편해도, 몸을 아끼는 법을 배워야 할 때였다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'veteran-artist-old-friend-passes-41',
+        text: '함께 무명 시절을 버텨낸 동료 작가가 세상을 떠난다',
+        deltas: { happiness: -4, relationship: -1 },
+        result: '그 시절을 아는 사람이, 또 하나 줄었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'vtuber-artist-goods-collab-41',
+        text: '인기 캐릭터 디자인이 굿즈로 제작돼 수익을 나눈다',
+        deltas: { wealth: 4, happiness: 2 },
+        result: '화면 속 캐릭터가, 손에 잡히는 물건이 됐다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
+      },
+      {
+        id: 'vtuber-artist-streamer-friendship-41',
+        text: '오래 작업한 스트리머와 진짜 친구처럼 가까워진다',
+        deltas: { relationship: 3, happiness: 2 },
+        result: '업무로 시작한 관계가, 어느새 진심이 되어 있었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
+      },
+      {
+        id: 'deviant-vtuber-artist-leak-rigging-file-41',
+        text: '계약이 끝난 리깅 파일을 몰래 다른 곳에 재판매한다',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '표절 발각', min: 0.1, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'artistIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 84, label: '안 걸림', deltas: { wealth: 6 }, result: '같은 파일로 두 번 버는 게, 짭짤했다.' },
+          { weight: 16, label: '표절 발각', deltas: { wealth: -6, relationship: -5, happiness: -4 }, result: '원 클라이언트가 파일 유출 정황을 발견하고 계약을 파기했다.' }
+        ]
+      },
+      {
+        id: 'deviant-vtuber-artist-leak-rigging-file-decline-41',
+        text: '재판매 제안을 거절하고 파일을 완전히 폐기한다',
+        deltas: { happiness: 1 },
+        result: '신뢰를 돈과 바꾸고 싶지 않았다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist'],
+        worldStateSignal: { key: 'artistIntegrity', target: 1 }
       },
     ]
   },
@@ -29508,6 +29863,39 @@ const STAGES = [
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-center-manager']
       },
+    
+      {
+        id: 'veteran-artist-forgery-scandal-nearby-42',
+        text: '지인 작가의 위작 스캔들이 터져 업계 전체가 뒤숭숭하다',
+        deltas: { happiness: -2 },
+        result: '남 일 같지 않아, 괜히 마음이 무거워졌다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'veteran-artist-textbook-inclusion-42',
+        text: '작품이 미술 교과서에 실리게 된다',
+        deltas: { fame: 3, happiness: 3 },
+        result: '학생들이 내 그림을 펼쳐볼 거란 생각에, 묘하게 설렜다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'vtuber-artist-crunch-deadline-42',
+        text: '마감을 맞추려 며칠 밤을 꼬박 새운다',
+        deltas: { health: -2, wealth: 2 },
+        result: '몸은 축났지만, 완성된 파일을 넘기는 순간만은 개운했다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
+      },
+      {
+        id: 'vtuber-artist-ai-tool-debate-42',
+        text: 'AI 생성 도구 활용을 둘러싸고 동료들과 의견이 갈린다',
+        deltas: { happiness: -1, relationship: -1 },
+        result: '기술이 빨라질수록, 고민도 함께 늘어갔다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
+      },
     ]
   },
   {
@@ -30321,6 +30709,47 @@ const STAGES = [
         result: '평소엔 몰랐던 눈으로, 아이가 나를 바라보고 있었다.',
         requiresRoute: 'logistics',
         requiresOccupation: ['logistics-center-manager']
+      },
+    
+      {
+        id: 'veteran-artist-mentee-breakthrough-43',
+        text: '직접 키운 제자가 첫 개인전으로 크게 주목받는다',
+        deltas: { happiness: 4, relationship: 1 },
+        result: '내 성취보다 더 크게 벅찬 순간이었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'veteran-artist-market-value-surges-43',
+        text: '작품 시장가가 예상치 못하게 크게 뛴다',
+        deltas: { wealth: 8, happiness: 2 },
+        result: '숫자로 매겨진 가치가, 늘 실감 나는 건 아니었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'veteran-artist-continues-despite-pain-43',
+        text: '손목 통증에도 불구하고 작업을 멈추지 않는다',
+        deltas: { health: -1, happiness: 1 },
+        result: '아픈 걸 알면서도, 붓을 놓을 수는 없었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'vtuber-artist-tutorial-course-43',
+        text: '리깅 노하우를 담은 온라인 강의를 제작한다',
+        deltas: { wealth: 4, relationship: 1 },
+        result: '어렵게 익힌 기술을, 이제는 나눠줄 수 있었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
+      },
+      {
+        id: 'vtuber-artist-new-competitor-emerges-43',
+        text: '실력 좋은 신진 작가들이 빠르게 치고 올라온다',
+        deltas: { happiness: -2 },
+        result: '안주하는 순간, 뒤처진다는 걸 다시 새겼다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
       },
     ]
   },
@@ -31188,6 +31617,85 @@ const STAGES = [
           { weight: 70, label: '투자 성공', deltas: { wealth: 6, happiness: 3 }, result: '되팔린 작품가에 다 함께 기뻐했다.' },
           { weight: 30, label: '사기 피해', deltas: { wealth: -6, happiness: -4, relationship: -2 }, result: '애초에 존재하지도 않는 작품이었다.' }
         ]
+      },
+    
+      {
+        id: 'veteran-artist-retrospective-44',
+        text: '지난 작품들을 모은 회고전이 열린다',
+        deltas: { happiness: 4, fame: 2 },
+        result: '걸어온 길을 한눈에 되짚어보는 특별한 시간이었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'veteran-artist-writes-memoir-44',
+        text: '창작 인생을 담은 에세이집을 출간한다',
+        deltas: { wealth: 3, fame: 2 },
+        result: '그림으로 하지 못한 말들을, 글로 풀어냈다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'veteran-artist-legacy-donation-44',
+        text: '대표작 하나를 미술관에 기증하기로 결정한다',
+        deltas: { wealth: -3, happiness: 3, fame: 1 },
+        result: '소유보다 남기는 쪽을 택하고 싶었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'veteran-artist-family-attends-retrospective-44',
+        text: '가족들이 회고전에 찾아와 자랑스러워한다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '작품보다, 그들의 얼굴이 먼저 눈에 들어왔다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['veteran-artist']
+      },
+      {
+        id: 'vtuber-artist-agency-collab-44',
+        text: '버튜버 소속사와 정식으로 협업 계약을 맺는다',
+        deltas: { wealth: 5, fame: 1 },
+        result: '프리랜서 시절과는 다른 안정감이 생겼다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
+      },
+      {
+        id: 'vtuber-artist-price-negotiation-win-44',
+        text: '몸값을 올려 재계약에 성공한다',
+        deltas: { wealth: 5 },
+        result: '이제는 스스로의 가치를 당당히 말할 수 있었다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
+      },
+      {
+        id: 'vtuber-artist-community-shoutout-44',
+        text: '작업물이 커뮤니티에서 화제가 되며 이름이 알려진다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '뒤에서 그리던 사람이, 처음으로 스포트라이트를 받았다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist']
+      },
+      {
+        id: 'deviant-vtuber-artist-ghost-outsource-44',
+        text: '몰래 후배에게 작업을 대신 시키고 자기 이름으로 납품한다',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '표절 발각', min: 0.12, max: 0.55, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'artistIntegrity', target: 0 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 5, health: 2 }, result: '몸은 편했지만, 마음 한구석이 찜찜했다.' },
+          { weight: 18, label: '표절 발각', deltas: { wealth: -5, relationship: -5, happiness: -4, fame: -2 }, result: '화풍 차이를 눈치챈 클라이언트가 사실을 캐물었다.' }
+        ]
+      },
+      {
+        id: 'deviant-vtuber-artist-ghost-outsource-decline-44',
+        text: '힘들어도 끝까지 직접 작업을 마무리한다',
+        deltas: { health: -1, happiness: 1 },
+        result: '내 이름을 걸고 내는 결과물이라면, 직접 해야 맞았다.',
+        requiresRoute: 'artist',
+        requiresOccupation: ['vtuber-avatar-artist'],
+        worldStateSignal: { key: 'artistIntegrity', target: 1 }
       },
     ]
   },
