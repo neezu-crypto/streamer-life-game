@@ -2220,6 +2220,14 @@ const STAGES = [
         result: '자막 없이도 조금씩 들리기 시작한 대사가, 묘한 성취감을 줬다.',
         addTalent: { id: 'language', label: '🌐 어학' }
       },
+    
+      {
+        id: 'top-of-class-effort-14',
+        text: '일찌감치 학업에 매진하며 전교 1등을 목표로 삼는다',
+        deltas: { happiness: 3, health: -2 },
+        result: '남들보다 일찍 시작한 만큼, 성적표에 그 노력이 고스란히 드러났다.',
+        setOccupation: { id: 'top-of-class', label: '📖 전교 1등' }
+      },
     ]
   },
   {
@@ -2541,7 +2549,15 @@ const STAGES = [
         removeAcquaintance: {}
       },
     
-          ]
+          
+      {
+        id: 'top-of-class-effort-15',
+        text: '밤잠을 줄여가며 전교 1등 자리를 노린다',
+        deltas: { happiness: 3, health: -2 },
+        result: '쏟아지는 잠을 참아낸 끝에, 전교 1등이라는 이름표를 얻었다.',
+        setOccupation: { id: 'top-of-class', label: '📖 전교 1등' }
+      },
+    ]
   },
   {
     id: 'teen-16',
