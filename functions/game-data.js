@@ -5751,6 +5751,16 @@ const STAGES = [
         result: '읽을수록 모르는 게 늘어나는 이상한 기분이었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'career-soldier-enlistment-20',
+        text: '군에 입대해 직업군인의 길을 걷기로 결심한다',
+        deltas: { happiness: -1, health: -1 },
+        result: '낯선 각오와 함께, 완전히 다른 삶이 시작됐다.',
+        mandatory: true,
+        startsRoute: { id: 'soldier', label: '🎖️ 군인', maxDurationYears: 45 },
+        setOccupation: { id: 'private-soldier', label: '🎖️ 이병' }
+      },
     ]
   },
   {
@@ -6817,6 +6827,21 @@ const STAGES = [
         deltas: { health: -1, wealth: 1 },
         result: '아팠지만, 틀린 말은 하나도 없었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-basic-training-hell-21',
+        text: '혹독한 기초군사훈련을 버텨낸다',
+        deltas: { health: -2, happiness: -1 },
+        result: '몸이 부서질 것 같았지만, 끝까지 버텨냈다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-first-leave-21',
+        text: '입대 후 첫 휴가를 나와 가족을 만난다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '짧은 며칠이었지만, 그리웠던 얼굴들을 마주했다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -7998,6 +8023,21 @@ const STAGES = [
         deltas: { happiness: -2, wealth: -1 },
         result: '숫자 하나 차이로 밀렸다는 게 더 아쉬웠다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-live-fire-exercise-22',
+        text: '처음으로 실탄 사격 훈련에 참여한다',
+        deltas: { happiness: -1, health: -1 },
+        result: '총성 하나하나가, 이 일의 무게를 실감케 했다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-barracks-friendship-22',
+        text: '같은 내무반 전우와 끈끈한 우정을 쌓는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '힘든 훈련도 함께하니 견딜 만했다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -9253,6 +9293,21 @@ const STAGES = [
         deltas: { happiness: -1, wealth: -2 },
         result: '수리 기사를 기다리는 며칠이 유독 길게 느껴졌다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-strict-superior-clash-23',
+        text: '엄격한 상급자와 크게 부딪힌다',
+        deltas: { happiness: -2, relationship: -1 },
+        result: '억울했지만, 계급 앞에서는 참는 수밖에 없었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-night-watch-duty-23',
+        text: '홀로 야간 경계 근무를 선다',
+        deltas: { health: -1, happiness: -1 },
+        result: '고요한 어둠 속에서, 별의별 생각이 다 들었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -10702,6 +10757,21 @@ const STAGES = [
         result: '떨어지면 어쩌나 하는 생각이 머릿속을 떠나지 않았다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-nco-exam-prep-24',
+        text: '부사관 시험을 준비하며 늦은 밤까지 공부한다',
+        deltas: { health: -1, wealth: 1 },
+        result: '몸도 마음도 고됐지만, 미래를 위한 투자라 믿었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-comrade-injury-witnessed-24',
+        text: '훈련 중 다친 전우를 곁에서 지켜보며 무력감을 느낀다',
+        deltas: { happiness: -2 },
+        result: '아무리 대비해도, 위험은 늘 가까이 있었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -11952,6 +12022,15 @@ const STAGES = [
         deltas: { happiness: -3, health: -1 },
         result: '백업의 중요성을 이런 식으로 배우고 싶지 않았다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'nco-commission-25',
+        text: '부사관으로 임관해 장기복무를 결심한다',
+        deltas: { happiness: 2, wealth: 1 },
+        result: '의무복무가 아니라, 이제는 진짜 직업이 됐다.',
+        requiresOccupation: ['private-soldier'],
+        setOccupation: { id: 'nco-soldier', label: '🎖️ 부사관' }
       },
     ]
   },
@@ -13357,6 +13436,21 @@ const STAGES = [
         result: '커피로 버티는 날들이 이어졌다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-leadership-first-squad-26',
+        text: '처음으로 소대원 몇 명을 직접 지휘하게 된다',
+        deltas: { happiness: 1, relationship: 1 },
+        result: '명령하는 자리가 이렇게 무거울 줄 몰랐다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-family-separation-ache-26',
+        text: '오랜 파견 근무로 가족과 떨어져 지내는 게 사무친다',
+        deltas: { happiness: -2, relationship: -1 },
+        result: '나라를 지키는 대가로, 곁을 지키지 못하고 있었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -14690,6 +14784,21 @@ const STAGES = [
         requiresOccupation: ['grad-researcher'],
         setOccupation: { id: 'postdoc-researcher', label: '🔬 박사후연구원' }
       },
+    
+      {
+        id: 'sol-disaster-relief-deployed-27',
+        text: '자연재해 현장에 긴급 투입돼 구호 활동을 벌인다',
+        deltas: { happiness: 2, relationship: 1, health: -1 },
+        result: '무기 대신 삽을 들었지만, 보람은 결코 작지 않았다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-equipment-maintenance-grind-27',
+        text: '끝없는 장비 점검과 정비에 하루를 다 쏟는다',
+        deltas: { health: -1, wealth: 1 },
+        result: '화려하지 않아도, 누군가는 해야 할 일이었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -15918,6 +16027,21 @@ const STAGES = [
         deltas: { happiness: -2 },
         result: '실력만큼이나 운도 크게 작용하는 판이었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-promotion-ceremony-28',
+        text: '진급식에서 새 계급장을 다는 순간을 맞는다',
+        deltas: { happiness: 3, fame: 1 },
+        result: '어깨의 무게가 늘어난 만큼, 자부심도 커졌다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-recruit-mentoring-28',
+        text: '갓 들어온 신병을 다독이며 적응을 돕는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '예전의 나를 보는 것 같아 더 마음이 갔다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -17265,6 +17389,21 @@ const STAGES = [
         result: '리뷰어의 냉정한 지적이 며칠 동안 머리를 떠나지 않았다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-border-patrol-tension-29',
+        text: '긴장이 감도는 경계 근무 임무를 수행한다',
+        deltas: { happiness: -1, health: -1 },
+        result: '평온해 보이는 하루에도 늘 팽팽한 긴장이 흘렀다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-off-duty-hobby-29',
+        text: '비번인 날, 오랜만에 개인 취미를 즐긴다',
+        deltas: { happiness: 2, health: 1 },
+        result: '군복을 벗은 시간이 새삼 소중하게 느껴졌다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -18533,6 +18672,21 @@ const STAGES = [
         result: '이 순간을 위해 그 모든 실패가 있었구나 싶었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-thirties-career-crossroads-30',
+        text: '서른을 맞아 계속 복무할지 전역을 고민한다',
+        deltas: { happiness: -1 },
+        result: '안정과 도전 사이에서 마음이 계속 흔들렸다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-commendation-received-30',
+        text: '뛰어난 임무 수행으로 표창을 받는다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '묵묵히 해온 일들이 인정받는 순간이었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -19733,6 +19887,21 @@ const STAGES = [
         deltas: { happiness: 2, wealth: 1 },
         result: '실험실 밖으로 나가는 결과물이 생겼다는 게 새로웠다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-joint-exercise-abroad-31',
+        text: '해외 연합훈련에 파견돼 다른 나라 군인들과 교류한다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '다른 제복을 입은 사람들에게서도 배울 게 많았다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-old-injury-flareup-31',
+        text: '훈련 중 다쳤던 부위가 다시 욱신거린다',
+        deltas: { health: -2 },
+        result: '몸에 새겨진 흔적은 쉽게 사라지지 않았다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -20954,6 +21123,27 @@ const STAGES = [
         result: '몇 주 차이로 선두를 놓친 게 뼈아팠다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'special-unit-selection-32',
+        text: '특수임무대 선발 시험에 지원해 정예요원이 된다',
+        deltas: { happiness: 2, wealth: 1, health: -1 },
+        result: '혹독한 선발 과정을 버텨낸 끝에 얻은 자리였다.',
+        requiresOccupation: ['nco-soldier'],
+        setOccupation: { id: 'special-unit-soldier', label: '🎖️ 특수임무대' }
+      },
+    
+      {
+        id: 'sol-zombie-quarantine-line-32',
+        text: '확산 지역 봉쇄선을 구축하고 통제 임무에 투입된다',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.2, max: 0.8 },
+        prizeTable: [
+          { weight: 60, label: '봉쇄 성공', deltas: { happiness: 2, fame: 1 }, worldStateSignal: { key: 'zombieOutbreak', target: 0 }, result: '봉쇄선이 무너지지 않았다 - 확산을 여기서 막아냈다.' },
+          { weight: 40, label: '봉쇄 실패', deltas: { happiness: -3, health: -1 }, result: '통제선 일부가 뚫리며, 진땀 나는 밤이 이어졌다.' }
+        ]
+      },
     ]
   },
   {
@@ -22158,6 +22348,21 @@ const STAGES = [
         deltas: { happiness: -1, wealth: -1 },
         result: '더디더라도, 안전을 포기할 순 없었다.',
         requiresOccupation: ['researcher', 'senior-researcher']
+      },
+    
+      {
+        id: 'sol-special-unit-brutal-training-33',
+        text: '특수임무대 강도 높은 훈련을 묵묵히 견뎌낸다',
+        deltas: { health: -2, happiness: -1 },
+        result: '한계를 넘어선다는 게 어떤 건지 몸으로 배웠다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-team-trust-built-33',
+        text: '생사를 함께한 팀원들과 깊은 신뢰를 쌓는다',
+        deltas: { relationship: 3, happiness: 2 },
+        result: '이 사람들이라면 등을 맡길 수 있다는 확신이 생겼다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -23373,6 +23578,18 @@ const STAGES = [
         deltas: { happiness: 1, health: -1 },
         result: '책임감과 압박감이 동시에 밀려왔다.'
       },
+    
+      {
+        id: 'sol-zombie-refugee-rescue-34',
+        text: '고립된 피난민들을 구출하는 작전에 투입된다',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.2, max: 0.8 },
+        prizeTable: [
+          { weight: 65, label: '전원 구출', deltas: { happiness: 4, relationship: 1, fame: 1 }, worldStateSignal: { key: 'zombieOutbreak', target: 0 }, result: '무사히 데려온 사람들의 얼굴을 보니, 이 일의 의미를 다시 느꼈다.' },
+          { weight: 35, label: '일부만 구출', deltas: { happiness: -2 }, result: '모두를 구하지 못했다는 무게가 오래 남았다.' }
+        ]
+      },
     ]
   },
   {
@@ -24556,6 +24773,21 @@ const STAGES = [
         result: '가르치는 것도 결국 사람과 사람 사이의 일이었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-classified-mission-stress-35',
+        text: '자세히 말할 수 없는 임무의 압박감에 시달린다',
+        deltas: { happiness: -2, health: -1 },
+        result: '가족에게조차 털어놓을 수 없는 무게였다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-veteran-status-earned-35',
+        text: '어느새 부대에서 베테랑 대접을 받기 시작한다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '신참이었던 게 엊그제 같은데, 세월이 빨랐다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -25653,6 +25885,18 @@ const STAGES = [
         prizeTable: [
           { weight: 55, label: '유의미한 효과', deltas: { happiness: 2, fame: 1 }, result: '기대했던 반응이 관찰됐다 - 다음 단계로 나아갈 근거가 생겼다.' },
           { weight: 45, label: '효과 미미', deltas: { happiness: -2, wealth: -1 }, result: '설계를 처음부터 다시 손봐야 했다.' }
+        ]
+      },
+    
+      {
+        id: 'sol-zombie-supply-convoy-36',
+        text: '위험 지역으로 향하는 물자 호송 임무를 맡는다',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.2, max: 0.8 },
+        prizeTable: [
+          { weight: 70, label: '호송 성공', deltas: { happiness: 2, wealth: 1 }, result: '무사히 도착한 트럭들을 보며 안도의 한숨을 내쉬었다.' },
+          { weight: 30, label: '습격 당함', deltas: { happiness: -3, health: -2 }, result: '예상치 못한 습격에 물자 일부를 잃었다.' }
         ]
       },
     ]
@@ -26764,6 +27008,21 @@ const STAGES = [
         deltas: { fame: 3, happiness: 2 },
         result: '남들이 알아봐준다는 게 새삼 뿌듯했다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-recruit-casualty-grief-37',
+        text: '자신이 훈련시킨 후임의 순직 소식에 깊이 상심한다',
+        deltas: { happiness: -4, relationship: -1 },
+        result: '아무리 시간이 지나도 무뎌지지 않는 슬픔이었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-family-day-reunion-37',
+        text: '군 가족의 날 행사에 가족을 초청해 함께한다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '내가 지키는 게 무엇인지, 다시금 실감했다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -27903,6 +28162,18 @@ const STAGES = [
           { weight: 40, label: '부작용 발생', deltas: { happiness: -3, wealth: -1 }, result: '예상치 못한 부작용에 시험을 일시 중단할 수밖에 없었다.' }
         ]
       },
+    
+      {
+        id: 'sol-zombie-hotspot-cleanup-38',
+        text: '감염 밀집 구역 소탕작전에 특수임무대로 투입된다',
+        requiresOccupation: ['special-unit-soldier'],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.3, max: 0.85 },
+        prizeTable: [
+          { weight: 55, label: '소탕 성공', deltas: { happiness: 3, fame: 2 }, worldStateSignal: { key: 'zombieOutbreak', target: 0 }, result: '위험 지역 하나를 완전히 정리해냈다 - 팀 전체가 해낸 일이었다.' },
+          { weight: 45, label: '팀원 부상', deltas: { happiness: -4, health: -2 }, result: '작전은 마무리됐지만, 아군 부상자가 나왔다.' }
+        ]
+      },
     ]
   },
   {
@@ -28882,6 +29153,21 @@ const STAGES = [
         deltas: { happiness: -2, fame: -1 },
         result: '의심받는다는 것 자체가 이렇게 지치는 일인 줄 몰랐다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-command-position-offered-39',
+        text: '중대급 지휘관 자리를 제안받는다',
+        deltas: { happiness: 2, wealth: 2 },
+        result: '책임의 무게가 훨씬 커진다는 걸 알면서도 받아들였다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-forty-approaching-reflection-39',
+        text: '마흔을 앞두고 지나온 군 생활을 돌아본다',
+        deltas: { happiness: 1 },
+        result: '고단했던 순간들 사이로, 자부심도 함께 남아 있었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -30890,6 +31176,31 @@ const STAGES = [
           { weight: 45, label: '유효성 부족', deltas: { happiness: -4, fame: -1 }, result: '효과가 기대에 못 미쳐, 다시 설계도로 돌아가야 했다.' }
         ]
       },
+    
+      {
+        id: 'sol-younger-soldiers-respect-41',
+        text: '젊은 대원들에게서 존경 어린 대접을 받는다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '어느새 부대의 기둥 같은 존재가 되어 있었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-budget-cut-frustration-41',
+        text: '예산 삭감으로 노후 장비를 그대로 써야 한다',
+        deltas: { happiness: -2, health: -1 },
+        result: '현장의 어려움이 서류 위 숫자로는 잘 안 보이는 듯했다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+    
+      {
+        id: 'sol-zombie-lab-escort-41',
+        text: '연구팀의 현장 시료 채취를 호위하는 임무를 맡는다',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.2, max: 0.8 },
+        deltas: { happiness: 1, health: -1 },
+        result: '과학자들이 안전하게 일할 수 있도록, 몫을 다했다.'
+      },
     ]
   },
   {
@@ -32792,6 +33103,18 @@ const STAGES = [
           { weight: 50, label: '효과 없음', deltas: { happiness: -2 }, result: '기대와 달리, 뚜렷한 차도가 보이지 않았다.' }
         ]
       },
+    
+      {
+        id: 'sol-zombie-city-block-clearance-43',
+        text: '봉쇄된 도심 구역의 정밀 소탕을 지휘한다',
+        requiresOccupation: ['special-unit-soldier'],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.3, max: 0.85 },
+        prizeTable: [
+          { weight: 55, label: '구역 확보', deltas: { happiness: 3, fame: 2, wealth: 1 }, worldStateSignal: { key: 'zombieOutbreak', target: 0 }, result: '한 구역씩, 도시를 되찾아가고 있었다.' },
+          { weight: 45, label: '작전 지연', deltas: { happiness: -2, health: -1 }, result: '생각보다 저항이 거세, 예정보다 오래 걸렸다.' }
+        ]
+      },
     ]
   },
   {
@@ -33818,6 +34141,21 @@ const STAGES = [
         deltas: { health: -1, happiness: -1 },
         result: '떳떳했지만, 그래도 긴장은 어쩔 수 없었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-lifetime-service-award-44',
+        text: '장기근속 공로를 인정받아 표창을 받는다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '긴 세월의 헌신이 이렇게 조명받는구나 싶었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-chronic-back-pain-44',
+        text: '오랜 야전 생활로 만성 요통에 시달린다',
+        deltas: { health: -2 },
+        result: '몸이 축나는 걸 대가로 지켜온 세월이었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -34849,6 +35187,16 @@ const STAGES = [
         result: '연구실 문패에 붙는 직함 하나가, 지나온 세월을 증명해줬다.',
         requiresOccupation: ['researcher'],
         setOccupation: { id: 'senior-researcher', label: '🔬 수석연구원' }
+      },
+    
+      {
+        id: 'sol-zombie-vaccine-distribution-guard-45',
+        text: '백신 배포 현장의 치안 유지를 맡는다',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.15, max: 0.6 },
+        deltas: { happiness: 2, relationship: 1 },
+        result: '줄지어 선 사람들을 지키는 게, 이번엔 총이 아니라 질서였다.'
       },
     ]
   },
@@ -36528,6 +36876,21 @@ const STAGES = [
         result: '낯선 시각이 오히려 막힌 문제를 풀어줬다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-mentoring-next-generation-47',
+        text: '다음 세대 특수임무대원 양성에 힘을 쏟는다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '내가 배운 것을, 이제는 물려줄 차례였다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-considers-retirement-timing-47',
+        text: '전역 시기를 두고 구체적으로 고민하기 시작한다',
+        deltas: { happiness: -1 },
+        result: '군복을 벗은 이후의 삶이 막연하게 다가왔다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -37306,6 +37669,16 @@ const STAGES = [
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.2, max: 0.75 },
         deltas: { fame: 1, happiness: -1 },
         result: '과학의 언어를 일상의 언어로 옮기는 게 생각보다 어려웠다.'
+      },
+    
+      {
+        id: 'sol-zombie-medal-of-honor-48',
+        text: '위기 대응 공로로 훈장을 수여받는다',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.1, max: 0.5 },
+        deltas: { fame: 3, happiness: 3 },
+        result: '치열했던 싸움의 기록이, 가슴에 훈장으로 남았다.'
       },
     ]
   },
@@ -38782,6 +39155,32 @@ const STAGES = [
         result: '욕심을 조금 내려놓으니 오히려 숨통이 트였다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-fifty-milestone-50',
+        text: '쉰 살을 맞아 지나온 군 생활을 되짚어본다',
+        deltas: { happiness: 1 },
+        result: '치열했던 세월이었지만, 후회는 없었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-successor-training-50',
+        text: '자신의 자리를 물려받을 후임을 본격적으로 키운다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '떠날 준비도 임무의 일부라고 생각했다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+    
+      {
+        id: 'sol-zombie-decontamination-oversight-50',
+        text: '정리된 구역의 방역·복구 작업을 감독한다',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.1, max: 0.5 },
+        worldStateSignal: { key: 'zombieOutbreak', target: 0 },
+        deltas: { happiness: 2, wealth: 1 },
+        result: '싸우는 것만큼, 되살리는 것도 이 일의 일부였다.'
+      },
     ]
   },
   {
@@ -40093,6 +40492,21 @@ const STAGES = [
           { weight: 60, label: '변이 대응 성공', deltas: { happiness: 3, fame: 2 }, worldStateSignal: { key: 'zombieOutbreak', target: 0 }, result: '바이러스가 변해도, 한발 앞서 대응할 수 있게 됐다.' },
           { weight: 40, label: '대응 지연', deltas: { happiness: -2 }, result: '변이 속도를 따라잡기가 생각보다 벅찼다.' }
         ]
+      },
+    
+      {
+        id: 'sol-old-comrades-reunion-52',
+        text: '함께 복무했던 옛 전우들과 재회한다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '그 시절 고생담을 나누며, 다들 아이처럼 웃었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-medical-checkup-warning-52',
+        text: '건강검진에서 오랜 격무의 흔적을 발견한다',
+        deltas: { health: -2 },
+        result: '몸이 보내는 신호를 더는 미룰 수 없었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -42078,6 +42492,21 @@ const STAGES = [
         result: '아직 보여줄 게 남았다는 걸 증명하고 싶었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-reduced-field-duty-55',
+        text: '체력에 맞춰 현장 임무 대신 후방 보직으로 옮긴다',
+        deltas: { health: 1, happiness: -1 },
+        result: '아쉬웠지만, 몸의 한계를 인정할 때가 됐다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-legacy-unit-pride-55',
+        text: '자신이 키운 부대가 뛰어난 성과를 낸다는 소식을 듣는다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '내가 없어도 잘 굴러간다는 게, 서운함보다 뿌듯함으로 다가왔다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -42638,6 +43067,17 @@ const STAGES = [
         deltas: { happiness: 2 },
         result: '빛바랜 글씨 속에 젊은 날의 열정이 그대로 남아 있었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-zombie-crisis-officially-over-56',
+        text: '수년간의 위기가 공식적으로 종식됐다는 소식을 듣는다',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"],
+        requiresWorldStateActive: 'zombieOutbreak',
+        dynamicAppearChance: { key: 'zombieOutbreak', min: 0.05, max: 0.3 },
+        deltas: { happiness: 5, fame: 2 },
+        worldStateSignal: { key: 'zombieOutbreak', target: 0 },
+        result: '그 오랜 싸움이, 마침내 끝을 맺었다.'
       },
     ]
   },
@@ -43239,6 +43679,21 @@ const STAGES = [
         deltas: { happiness: -1 },
         result: '내가 개척했던 곳이, 어느새 낯선 땅이 되어 있었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-official-retirement-57',
+        text: '오랜 복무 끝에 전역식을 갖는다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '치열했던 군 생활에 마침표를 찍는 자리였다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-civilian-life-adjustment-57',
+        text: '전역 후 낯선 민간인의 삶에 적응해간다',
+        deltas: { happiness: -1, wealth: 1 },
+        result: '군복을 벗은 삶은, 생각보다 더 낯설었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -45218,6 +45673,21 @@ const STAGES = [
         deltas: { fame: 2, happiness: 2 },
         result: '떠나도 완전히 떠나는 게 아니라는 게 위안이 됐다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-veteran-association-60',
+        text: '재향군인회 활동에 참여하며 인연을 이어간다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '군복은 벗었어도, 그 시절의 동료애는 여전했다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+      {
+        id: 'sol-memoir-writing-60',
+        text: '군인으로 살아온 세월을 회고록으로 남기기 시작한다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '숫자로만 남기엔 아까운 이야기들이었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -48228,6 +48698,14 @@ const STAGES = [
         result: '현장을 떠나도, 여전히 쓸모가 있다는 게 반가웠다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-security-consult-offer-65',
+        text: '민간 보안업체로부터 자문 제안을 받는다',
+        deltas: { wealth: 2, happiness: 1 },
+        result: '군복을 벗어도, 여전히 쓸모가 있다는 게 반가웠다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -48618,6 +49096,14 @@ const STAGES = [
         result: '내가 남긴 것이 여전히 살아 움직이고 있었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-veterans-day-honored-66',
+        text: '현충일 행사에서 참전·복무 유공자로 예우받는다',
+        deltas: { fame: 1, happiness: 2 },
+        result: '잊히지 않고 기억된다는 게, 무엇보다 큰 위안이었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -48924,6 +49410,14 @@ const STAGES = [
         deltas: { wealth: -1, happiness: 2, fame: 1 },
         result: '먼지 쌓인 도구 하나가, 이렇게 귀한 대접을 받을 줄 몰랐다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-twi-museum-donation-67',
+        text: '평생 사용한 군장을 전쟁기념관에 기증한다',
+        deltas: { wealth: -1, happiness: 2, fame: 1 },
+        result: '낡은 군장 하나가, 이렇게 귀한 대접을 받을 줄 몰랐다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -49279,6 +49773,14 @@ const STAGES = [
         result: '실험실에서 보낸 세월의 무게가, 검진 결과에 고스란히 나타났다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-health-checkup-68',
+        text: '평생 미뤄온 종합 건강검진을 받는다',
+        deltas: { health: -1, happiness: 1 },
+        result: '야전에서 보낸 세월의 무게가, 검진 결과에 고스란히 나타났다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -49530,6 +50032,14 @@ const STAGES = [
         deltas: { happiness: 3, relationship: 2 },
         result: '치열했던 세월에 마침표를 찍는 자리였다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-twi-final-farewell-gathering-69',
+        text: '완전한 은퇴를 앞두고 마지막 전우 모임을 갖는다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '치열했던 세월에 마침표를 찍는 자리였다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -49948,6 +50458,14 @@ const STAGES = [
         result: '낯설었지만 나쁘지 않은 고요함이었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-morning-without-duty-70',
+        text: '평생 처음으로 근무표 없는 아침을 맞는다',
+        deltas: { happiness: 2, health: 1 },
+        result: '낯설었지만 나쁘지 않은 고요함이었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -50199,6 +50717,14 @@ const STAGES = [
         result: '떠난 자리에서도 여전히 기억되고 있다는 게 좋았다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-junior-visits-71',
+        text: '옛 후임이 안부 인사차 찾아온다',
+        deltas: { happiness: 2, relationship: 2 },
+        result: '떠난 자리에서도 여전히 기억되고 있다는 게 좋았다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -50444,6 +50970,14 @@ const STAGES = [
         deltas: { happiness: 1 },
         result: '현장이 아니라, 지켜보는 입장이 됐다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-twi-military-news-calm-72',
+        text: '뉴스에서 국방 관련 소식을 접하고도 담담하다',
+        deltas: { happiness: 1 },
+        result: '이제는 현장이 아니라, 지켜보는 입장이 됐다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -50700,6 +51234,15 @@ const STAGES = [
         result: '평생의 호기심을, 이렇게도 나눌 수 있었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-grandchild-discipline-lesson-73',
+        text: '손주에게 군인 정신과 규율을 재미있게 들려준다',
+        requiresFamilyMember: ['grandchild'],
+        deltas: { happiness: 3, relationship: 1 },
+        result: '평생의 경험을 이렇게도 나눌 수 있었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -50940,6 +51483,14 @@ const STAGES = [
         deltas: { happiness: 2, fame: 1 },
         result: '숫자로만 남을 뻔한 발견들이, 이야기로 기록되고 있었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-twi-memoir-writing-74',
+        text: '군인으로 살아온 세월을 회고록으로 정리한다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '숫자로만 남을 뻔한 순간들이, 이야기로 기록되고 있었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -51274,6 +51825,14 @@ const STAGES = [
         result: '그 시절 고생담을 나누며, 다들 아이처럼 웃었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-old-unit-reunion-75',
+        text: '흩어졌던 옛 소속 부대원들과 오랜만에 재회한다',
+        deltas: { happiness: 3, relationship: 2 },
+        result: '그 시절 고생담을 나누며, 다들 아이처럼 웃었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -51520,6 +52079,14 @@ const STAGES = [
         result: '평생의 호기심은, 세월이 지나도 무뎌지지 않았다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-instinct-still-sharp-76',
+        text: '몸은 느려져도 위험을 감지하는 감각만은 여전하다',
+        deltas: { happiness: 1 },
+        result: '몸에 밴 감각은, 세월이 지나도 무뎌지지 않았다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -51746,6 +52313,14 @@ const STAGES = [
         deltas: { wealth: -4, happiness: 3 },
         result: '받았던 기회를 이제는 돌려줄 차례였다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-twi-scholarship-donation-77',
+        text: '군인 자녀를 위한 장학금을 조용히 기부한다',
+        deltas: { wealth: -4, happiness: 3 },
+        result: '받았던 도움을 이제는 돌려줄 차례였다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -52007,6 +52582,14 @@ const STAGES = [
         result: '평생의 헌신이 이렇게 인정받는구나 싶었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-national-merit-award-78',
+        text: '국가유공자로 정식 예우를 받는다',
+        deltas: { fame: 3, happiness: 3 },
+        result: '평생의 헌신이 이렇게 인정받는구나 싶었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -52216,6 +52799,14 @@ const STAGES = [
         deltas: { health: 1, happiness: 1 },
         result: '천천히 가는 법을, 이제야 배우고 있었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-twi-reduces-consulting-hours-79',
+        text: '체력에 맞춰 자문 활동 시간을 줄인다',
+        deltas: { health: 1, happiness: 1 },
+        result: '천천히 가는 법을, 이제야 배우고 있었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -52519,6 +53110,14 @@ const STAGES = [
         result: '평생 매달렸던 실험 대신, 이제는 가족들의 박수가 곁에 있었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-eightieth-birthday-80',
+        text: '온 가족이 모여 팔순을 축하해준다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '전장 대신, 이제는 가족들의 박수가 곁에 있었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -52759,6 +53358,14 @@ const STAGES = [
         result: '내가 없어도 잘 굴러간다는 게, 서운함보다 뿌듯함으로 다가왔다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-old-unit-still-thrives-81',
+        text: '자신이 몸담았던 부대가 여전히 명성을 이어간다는 소식을 듣는다',
+        deltas: { happiness: 3 },
+        result: '내가 없어도 잘 돌아간다는 게, 서운함보다 뿌듯함으로 다가왔다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -52992,6 +53599,14 @@ const STAGES = [
         result: '평생 글자를 파고들던 눈이, 이제는 쉬고 싶어했다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-eyesight-worsens-82',
+        text: '시력이 나빠져 예전만큼 멀리 보기 힘들어진다',
+        deltas: { health: -2 },
+        result: '평생 날카롭던 눈이, 이제는 쉬고 싶어했다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -53200,6 +53815,14 @@ const STAGES = [
         deltas: { health: -1, wealth: -1 },
         result: '몸이 예전 같지 않다는 걸 매번 새롭게 실감했다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-twi-hospital-visit-frequent-83',
+        text: '병원 나들이가 부쩍 잦아진다',
+        deltas: { health: -1, wealth: -1 },
+        result: '몸이 예전 같지 않다는 걸 매번 새롭게 실감했다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -53428,6 +54051,14 @@ const STAGES = [
         deltas: { happiness: 2 },
         result: '옛 동료의 얼굴이 화면에 비칠 때마다 반가웠다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-twi-still-watches-war-films-84',
+        text: '몸은 힘들어도 전쟁 영화만은 여전히 즐겨 본다',
+        deltas: { happiness: 2 },
+        result: '옥에 티를 짚어내는 재미가 쏠쏠했다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -53770,6 +54401,15 @@ const STAGES = [
         result: '평생의 연구보다, 함께한 이 세월이 더 큰 자랑이었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-golden-anniversary-85',
+        text: '배우자와 함께 결혼 50주년을 맞는다',
+        requiresFamilyMember: ['spouse'],
+        deltas: { happiness: 4, relationship: 3 },
+        result: '전장의 공로보다, 함께한 이 세월이 더 큰 자랑이었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -54029,6 +54669,14 @@ const STAGES = [
         result: '혼자 간직하기엔 아까운 기록들이, 이제 여러 사람의 것이 됐다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-service-record-archived-86',
+        text: '평생의 복무 기록을 정리해 국가기록원에 기증한다',
+        deltas: { wealth: -1, happiness: 2, fame: 1 },
+        result: '흩어질 뻔한 기록들이, 이제 후대의 자산이 됐다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -54278,6 +54926,14 @@ const STAGES = [
         result: '지나온 세월이 누군가에게는 기록이 되고 있었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-documentary-interview-87',
+        text: '국방 역사를 다루는 다큐멘터리 인터뷰에 응한다',
+        deltas: { fame: 2, happiness: 2 },
+        result: '지나온 세월이 누군가에게는 기록이 되고 있었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -54495,6 +55151,14 @@ const STAGES = [
         deltas: { happiness: 2 },
         result: '후회 없는 삶이었다고, 스스로에게 말해주었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-twi-quiet-satisfaction-88',
+        text: '치열했던 세월을 돌아보며 조용히 만족감을 느낀다',
+        deltas: { happiness: 2 },
+        result: '후회 없는 삶이었다고, 스스로에게 말해주었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -54723,6 +55387,14 @@ const STAGES = [
         deltas: { happiness: 3, relationship: 2 },
         result: '경쟁했던 시간도 결국 함께한 세월이었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-twi-saved-civilian-visits-89',
+        text: '오래전 구했던 시민이 뒤늦게 감사 인사를 전해온다',
+        deltas: { happiness: 4, relationship: 1 },
+        result: '잊고 있던 순간이, 이렇게 다시 찾아올 줄 몰랐다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -55045,6 +55717,14 @@ const STAGES = [
         result: '몸은 느려져도, 사고만은 여전히 날카로웠다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-still-sharp-mind-90',
+        text: '나이에도 불구하고 여전히 명료한 판단력을 보여준다',
+        deltas: { happiness: 2, fame: 1 },
+        result: '몸은 느려져도, 판단력만은 여전히 살아있었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -55265,6 +55945,14 @@ const STAGES = [
         deltas: { relationship: 2, happiness: 1 },
         result: '이제는 물러서서 지켜보는 법을 배워야 했다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-twi-successor-struggles-shared-91',
+        text: '후임이 겪는 어려움을 듣고 조용히 조언을 건넨다',
+        deltas: { relationship: 2, happiness: 1 },
+        result: '이제는 물러서서 지켜보는 법을 배워야 했다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -55521,6 +56209,14 @@ const STAGES = [
         result: '빛바랜 글씨 속에 젊은 날의 열정이 고스란히 담겨 있었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-old-dog-tag-found-92',
+        text: '서랍 속 낡은 인식표를 발견하고 한참을 매만진다',
+        deltas: { happiness: 2 },
+        result: '작은 쇳조각 하나에 젊은 날의 각오가 고스란히 담겨 있었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -55738,6 +56434,14 @@ const STAGES = [
         result: '낡은 도구 하나가, 이렇게 귀한 대접을 받을 줄 몰랐다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-museum-exhibit-93',
+        text: '초창기 사용했던 장비가 전쟁기념관에 정식 전시된다',
+        deltas: { fame: 1, happiness: 2 },
+        result: '낡은 장비 하나가, 이렇게 귀한 대접을 받을 줄 몰랐다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -55954,6 +56658,14 @@ const STAGES = [
         deltas: { health: -2, happiness: 2 },
         result: '부족한 것투성이인 몸으로도, 만족스러운 하루하루였다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-twi-frail-but-content-94',
+        text: '몸은 쇠약해졌지만 마음만은 평온하다',
+        deltas: { health: -2, happiness: 2 },
+        result: '부족한 것투성이인 몸으로도, 만족스러운 하루하루였다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -56208,6 +56920,14 @@ const STAGES = [
         result: '물려준 것이 헛되지 않았다는 확인이었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-successor-visits-95',
+        text: '후임이 안부를 전하며 근황을 들려준다',
+        deltas: { happiness: 2, relationship: 1 },
+        result: '물려준 것이 헛되지 않았다는 확인이었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -56432,6 +57152,15 @@ const STAGES = [
         result: '평생의 발견보다, 이런 행복이 더 크게 다가왔다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-great-grandchild-96',
+        text: '증손주의 재롱을 보며 환하게 웃는다',
+        requiresFamilyMember: ['grandchild'],
+        deltas: { happiness: 4, relationship: 2 },
+        result: '지켜온 평화 속에서, 이런 행복을 누릴 수 있었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -56646,6 +57375,14 @@ const STAGES = [
         result: '평생의 흔적이 이런 식으로도 남는구나 싶었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-legacy-fund-97',
+        text: '이름을 딴 참전용사 지원 기금이 만들어졌다는 소식을 듣는다',
+        deltas: { fame: 2, happiness: 3 },
+        result: '평생의 헌신이 이런 식으로도 남는구나 싶었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -56856,6 +57593,14 @@ const STAGES = [
         deltas: { happiness: 1 },
         result: '평생의 호기심은 몸이 다 기억하고 있었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-twi-still-alert-98',
+        text: '병상에서도 습관처럼 주변을 살피는 경계 태세를 놓지 않는다',
+        deltas: { happiness: 1 },
+        result: '평생의 습관은 몸이 다 기억하고 있었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   },
@@ -57097,6 +57842,14 @@ const STAGES = [
         result: '평생 일군 것 중, 가장 값진 건 결국 사람이었다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'sol-twi-family-gathers-99',
+        text: '온 가족이 모여 장수를 축하해준다',
+        deltas: { happiness: 4, relationship: 2 },
+        result: '평생 지켜온 것 중, 가장 값진 건 결국 사람이었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
     ]
   },
   {
@@ -57328,6 +58081,14 @@ const STAGES = [
         deltas: { happiness: 3 },
         result: '작은 실험실에서 시작해 여기까지 왔다는 게, 새삼 벅찼다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'sol-twi-final-reflection-100',
+        text: '군인으로 살아온 평생을 마지막으로 조용히 돌아본다',
+        deltas: { happiness: 3 },
+        result: '거리를 지키던 젊은 날부터, 새삼 벅찬 세월이었다.',
+        requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     ]
   }
