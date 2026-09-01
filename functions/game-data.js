@@ -60321,9 +60321,220 @@ const ZOMBIE_EVENT_CHOICES = [
         dynamicAppearChance: { key: 'zombieOutbreak', min: 0.1, max: 0.6 },
         deltas: { happiness: 3, health: 1 },
         result: '완전히는 아니어도, 일상이 조금씩 돌아오고 있었다.'
-      }
+      },
 
-];
+
+      {
+        id: "zombie-direct-alley-corner",
+        text: "골목 모퉁이에서 갑자기 나타난 좀비와 마주친다",
+        requiresWorldStateActive: "zombieOutbreak",
+        dynamicAppearChance: { key: "zombieOutbreak", min: 0.2, max: 0.7 },
+        bonusSlot: true,
+        dynamicPrizeWeight: { key: "zombieOutbreak", caughtLabel: "중상", min: 0.05, max: 0.5, invert: false },
+        prizeTable: [
+          { weight: 55, label: "무사히", deltas: { happiness: -1 }, result: "가슴을 쓸어내리며 조용히 자리를 빠져나왔다." },
+          { weight: 30, label: "경상", deltas: { health: -3, happiness: -2 }, result: "몸을 스치듯 붙잡혔지만 뿌리치고 도망쳤다." },
+          { weight: 15, label: "중상", deltas: { health: -8, happiness: -4 }, addCondition: { id: "infection", label: "🦠 감염" }, result: "팔을 붙잡혀 몸싸움 끝에야 겨우 벗어났다." }
+        ],
+      },
+      {
+        id: "zombie-direct-chase-sprint",
+        text: "좀비 한 마리가 뒤쫓아오는 걸 알아채고 전력으로 질주한다",
+        requiresWorldStateActive: "zombieOutbreak",
+        dynamicAppearChance: { key: "zombieOutbreak", min: 0.2, max: 0.7 },
+        bonusSlot: true,
+        dynamicPrizeWeight: { key: "zombieOutbreak", caughtLabel: "중상", min: 0.05, max: 0.5, invert: false },
+        prizeTable: [
+          { weight: 60, label: "무사히", deltas: { happiness: -1 }, result: "숨이 턱까지 찼지만 결국 거리를 벌리는 데 성공했다." },
+          { weight: 25, label: "경상", deltas: { health: -3, happiness: -2 }, result: "넘어질 뻔하며 겨우 따돌렸다." },
+          { weight: 15, label: "중상", deltas: { health: -8, happiness: -4 }, addCondition: { id: "infection", label: "🦠 감염" }, result: "따라잡혀 한바탕 몸싸움을 치른 뒤에야 벗어났다." }
+        ],
+      },
+      {
+        id: "zombie-direct-outrun-crowd",
+        text: "좀비 무리를 따돌리기 위해 빠르게 달린다",
+        requiresWorldStateActive: "zombieOutbreak",
+        dynamicAppearChance: { key: "zombieOutbreak", min: 0.25, max: 0.75 },
+        bonusSlot: true,
+        dynamicPrizeWeight: { key: "zombieOutbreak", caughtLabel: "중상", min: 0.08, max: 0.55, invert: false },
+        prizeTable: [
+          { weight: 50, label: "무사히", deltas: { happiness: -1 }, result: "골목을 요리조리 돌아 무사히 따돌렸다." },
+          { weight: 30, label: "경상", deltas: { health: -3, happiness: -2 }, result: "발을 헛디뎌 다치면서도 간신히 벗어났다." },
+          { weight: 20, label: "중상", deltas: { health: -8, happiness: -4 }, addCondition: { id: "infection", label: "🦠 감염" }, result: "결국 뒤에서 붙잡혀 크게 다치고서야 떨어져 나갔다." }
+        ],
+      },
+      {
+        id: "zombie-direct-hide-approach",
+        text: "다가오는 좀비를 피해 재빨리 몸을 숨긴다",
+        requiresWorldStateActive: "zombieOutbreak",
+        dynamicAppearChance: { key: "zombieOutbreak", min: 0.2, max: 0.65 },
+        bonusSlot: true,
+        dynamicPrizeWeight: { key: "zombieOutbreak", caughtLabel: "중상", min: 0.05, max: 0.45, invert: false },
+        prizeTable: [
+          { weight: 65, label: "무사히", deltas: { happiness: -1 }, result: "숨죽인 채 지나가길 기다려 무사히 넘겼다." },
+          { weight: 22, label: "경상", deltas: { health: -3, happiness: -2 }, result: "숨은 자리가 좁아 부딪히며 몸을 긁혔다." },
+          { weight: 13, label: "중상", deltas: { health: -8, happiness: -4 }, addCondition: { id: "infection", label: "🦠 감염" }, result: "숨은 곳까지 쫓아와 몸싸움 끝에 겨우 빠져나왔다." }
+        ],
+      },
+      {
+        id: "zombie-direct-alley-fight",
+        text: "골목에서 마주친 좀비와 몸싸움을 벌인다",
+        requiresWorldStateActive: "zombieOutbreak",
+        dynamicAppearChance: { key: "zombieOutbreak", min: 0.3, max: 0.8 },
+        bonusSlot: true,
+        dynamicPrizeWeight: { key: "zombieOutbreak", caughtLabel: "중상", min: 0.1, max: 0.6, invert: false },
+        prizeTable: [
+          { weight: 40, label: "무사히", deltas: { happiness: -1 }, result: "생각보다 수월하게 밀쳐내고 자리를 떴다." },
+          { weight: 32, label: "경상", deltas: { health: -3, happiness: -2 }, result: "옷이 찢기고 상처가 남았지만 떼어냈다." },
+          { weight: 28, label: "중상", deltas: { health: -8, happiness: -4 }, addCondition: { id: "infection", label: "🦠 감염" }, result: "크게 물어뜯길 뻔한 걸 간신히 막아냈다." }
+        ],
+      },
+      {
+        id: "zombie-direct-grip-struggle",
+        text: "팔을 붙잡은 좀비의 손아귀에서 벗어나려 몸부림친다",
+        requiresWorldStateActive: "zombieOutbreak",
+        dynamicAppearChance: { key: "zombieOutbreak", min: 0.3, max: 0.8 },
+        bonusSlot: true,
+        dynamicPrizeWeight: { key: "zombieOutbreak", caughtLabel: "중상", min: 0.1, max: 0.6, invert: false },
+        prizeTable: [
+          { weight: 38, label: "무사히", deltas: { happiness: -1 }, result: "안간힘을 쓴 끝에 손아귀에서 벗어났다." },
+          { weight: 32, label: "경상", deltas: { health: -3, happiness: -2 }, result: "손톱에 긁힌 상처를 남긴 채 겨우 빠져나왔다." },
+          { weight: 30, label: "중상", deltas: { health: -8, happiness: -4 }, addCondition: { id: "infection", label: "🦠 감염" }, result: "이빨이 살갗에 닿을 뻔한 순간까지 갔다." }
+        ],
+      },
+      {
+        id: "zombie-direct-improvised-weapon",
+        text: "급하게 손에 잡히는 것을 무기 삼아 다가오는 좀비에 맞선다",
+        requiresWorldStateActive: "zombieOutbreak",
+        dynamicAppearChance: { key: "zombieOutbreak", min: 0.3, max: 0.8 },
+        bonusSlot: true,
+        dynamicPrizeWeight: { key: "zombieOutbreak", caughtLabel: "중상", min: 0.08, max: 0.55, invert: false },
+        prizeTable: [
+          { weight: 45, label: "무사히", deltas: { happiness: -1 }, result: "제대로 맞아떨어져 단번에 밀쳐냈다." },
+          { weight: 30, label: "경상", deltas: { health: -3, happiness: -2 }, result: "반격에 부딪혀 다치면서도 물러서게 했다." },
+          { weight: 25, label: "중상", deltas: { health: -8, happiness: -4 }, addCondition: { id: "infection", label: "🦠 감염" }, result: "무기가 부러지며 결국 몸으로 부딪혀야 했다." }
+        ],
+      },
+      {
+        id: "zombie-direct-door-defense",
+        text: "집 안으로 침입하려는 좀비를 막기 위해 문을 사수한다",
+        requiresWorldStateActive: "zombieOutbreak",
+        dynamicAppearChance: { key: "zombieOutbreak", min: 0.35, max: 0.85 },
+        bonusSlot: true,
+        dynamicPrizeWeight: { key: "zombieOutbreak", caughtLabel: "중상", min: 0.08, max: 0.55, invert: false },
+        prizeTable: [
+          { weight: 50, label: "무사히", deltas: { happiness: -1 }, result: "가까스로 문을 걸어 잠그는 데 성공했다." },
+          { weight: 30, label: "경상", deltas: { health: -3, happiness: -2 }, result: "문틈으로 팔이 들어와 실랑이 끝에 밀어냈다." },
+          { weight: 20, label: "중상", deltas: { health: -8, happiness: -4 }, addCondition: { id: "infection", label: "🦠 감염" }, result: "문이 부서지기 직전까지 몰리며 크게 다쳤다." }
+        ],
+      },
+      {
+        id: "zombie-direct-deadend-alley",
+        text: "막다른 골목에서 좀비와 마주쳐 진퇴양난에 빠진다",
+        requiresWorldStateActive: "zombieOutbreak",
+        dynamicAppearChance: { key: "zombieOutbreak", min: 0.35, max: 0.85 },
+        bonusSlot: true,
+        dynamicPrizeWeight: { key: "zombieOutbreak", caughtLabel: "중상", min: 0.12, max: 0.65, invert: false },
+        prizeTable: [
+          { weight: 35, label: "무사히", deltas: { happiness: -1 }, result: "벽을 타고 아슬아슬하게 옆으로 빠져나갔다." },
+          { weight: 33, label: "경상", deltas: { health: -3, happiness: -2 }, result: "몸싸움 끝에 상처를 입고서야 길을 텄다." },
+          { weight: 32, label: "중상", deltas: { health: -8, happiness: -4 }, addCondition: { id: "infection", label: "🦠 감염" }, result: "궁지에 몰려 크게 다친 뒤에야 겨우 도망쳤다." }
+        ],
+      },
+      {
+        id: "zombie-direct-rooftop-flee",
+        text: "좀비를 피해 건물 옥상으로 몸을 피한다",
+        requiresWorldStateActive: "zombieOutbreak",
+        dynamicAppearChance: { key: "zombieOutbreak", min: 0.3, max: 0.8 },
+        bonusSlot: true,
+        dynamicPrizeWeight: { key: "zombieOutbreak", caughtLabel: "중상", min: 0.06, max: 0.5, invert: false },
+        prizeTable: [
+          { weight: 55, label: "무사히", deltas: { happiness: -1 }, result: "옥상 문을 걸어 잠그고 한숨 돌렸다." },
+          { weight: 28, label: "경상", deltas: { health: -3, happiness: -2 }, result: "계단에서 넘어져 다리를 다쳤지만 올라갔다." },
+          { weight: 17, label: "중상", deltas: { health: -8, happiness: -4 }, addCondition: { id: "infection", label: "🦠 감염" }, result: "뒤쫓아온 좀비와 옥상 입구에서 한바탕 몸싸움을 벌였다." }
+        ],
+      },
+      {
+        id: "zombie-direct-save-neighbor",
+        text: "좀비에게 붙잡힌 이웃을 구하러 몸을 던진다",
+        requiresWorldStateActive: "zombieOutbreak",
+        dynamicAppearChance: { key: "zombieOutbreak", min: 0.35, max: 0.85 },
+        bonusSlot: true,
+        dynamicPrizeWeight: { key: "zombieOutbreak", caughtLabel: "중상", min: 0.15, max: 0.65, invert: false },
+        prizeTable: [
+          { weight: 30, label: "무사히", deltas: { happiness: -1 }, result: "둘 다 무사히 그 자리를 벗어났다." },
+          { weight: 35, label: "경상", deltas: { health: -3, happiness: -2 }, result: "이웃은 구했지만 자신도 상처를 입었다." },
+          { weight: 35, label: "중상", deltas: { health: -8, happiness: -4 }, addCondition: { id: "infection", label: "🦠 감염" }, result: "이웃을 구하려다 정작 자신이 크게 다쳤다." }
+        ],
+      },
+      {
+        id: "zombie-direct-startled-corpse",
+        text: "쓰러진 좀비인 줄 알고 다가갔다가 갑자기 움직이는 것에 기겁한다",
+        requiresWorldStateActive: "zombieOutbreak",
+        dynamicAppearChance: { key: "zombieOutbreak", min: 0.2, max: 0.7 },
+        bonusSlot: true,
+        dynamicPrizeWeight: { key: "zombieOutbreak", caughtLabel: "중상", min: 0.05, max: 0.5, invert: false },
+        prizeTable: [
+          { weight: 55, label: "무사히", deltas: { happiness: -1 }, result: "화들짝 놀라 뒤로 물러나며 무사히 피했다." },
+          { weight: 28, label: "경상", deltas: { health: -3, happiness: -2 }, result: "순간적으로 붙잡혀 상처를 입고 뿌리쳤다." },
+          { weight: 17, label: "중상", deltas: { health: -8, happiness: -4 }, addCondition: { id: "infection", label: "🦠 감염" }, result: "방심한 틈에 크게 물릴 뻔한 걸 간신히 막았다." }
+        ],
+      },
+      {
+        id: "zombie-direct-help-dilemma",
+        text: "위험에 처한 이웃을 도울지 자신부터 피할지 순간적으로 갈등한다",
+        requiresWorldStateActive: "zombieOutbreak",
+        dynamicAppearChance: { key: "zombieOutbreak", min: 0.3, max: 0.8 },
+        bonusSlot: true,
+        dynamicPrizeWeight: { key: "zombieOutbreak", caughtLabel: "중상", min: 0.1, max: 0.6, invert: false },
+        prizeTable: [
+          { weight: 45, label: "무사히", deltas: { happiness: -1 }, result: "망설임 끝에 함께 무사히 빠져나왔다." },
+          { weight: 30, label: "경상", deltas: { health: -3, happiness: -2 }, result: "돕기로 한 대가로 작은 상처를 입었다." },
+          { weight: 25, label: "중상", deltas: { health: -8, happiness: -4 }, addCondition: { id: "infection", label: "🦠 감염" }, result: "뛰어들었다가 예상보다 크게 다쳤다." }
+        ],
+      },
+      {
+        id: "zombie-direct-witness-attack",
+        text: "눈앞에서 누군가 좀비에게 습격당하는 장면을 목격한다",
+        requiresWorldStateActive: "zombieOutbreak",
+        dynamicAppearChance: { key: "zombieOutbreak", min: 0.2, max: 0.75 },
+        bonusSlot: true,
+        deltas: { happiness: -4 },
+        result: "눈앞에서 벌어진 일이 한동안 머릿속을 떠나지 않았다.",
+      },
+      {
+        id: "zombie-direct-hospital-checkup",
+        text: "혹시 모를 감염 여부를 확인하러 병원을 찾는다",
+        requiresWorldStateActive: "zombieOutbreak",
+        dynamicAppearChance: { key: "zombieOutbreak", min: 0.15, max: 0.6 },
+        bonusSlot: true,
+        dynamicPrizeWeight: { key: "zombieOutbreak", caughtLabel: "감염 확인", min: 0.03, max: 0.35, invert: false },
+        prizeTable: [
+          { weight: 90, label: "이상 없음", deltas: { happiness: 2, wealth: -1 }, result: "검사 결과가 깨끗하게 나와 마음을 놓았다." },
+          { weight: 10, label: "감염 확인", deltas: { happiness: -3, wealth: -1 }, addCondition: { id: "infection", label: "🦠 감염" }, result: "검사 결과, 우려했던 감염이 확인됐다." }
+        ],
+      },
+      {
+        id: "zombie-infection-treatment-clinic",
+        text: "감염 증상이 심해지기 전에 병원에서 치료받는다",
+        requiresCondition: "infection",
+        appearChance: 0.6,
+        bonusSlot: true,
+        deltas: { wealth: -2, happiness: 1 },
+        removeCondition: "infection",
+        result: "항생제 치료를 받고서야 몸이 조금씩 회복되는 걸 느꼈다.",
+      },
+      {
+        id: "zombie-infection-quarantine-recover",
+        text: "스스로 자가격리하며 감염 회복에 전념한다",
+        requiresCondition: "infection",
+        appearChance: 0.6,
+        bonusSlot: true,
+        deltas: { happiness: -1, relationship: -1 },
+        removeCondition: "infection",
+        result: "답답했지만, 몸을 추스르는 게 먼저였다.",
+      }
+    ];
 
 module.exports = {
   STAGES,

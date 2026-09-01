@@ -2143,6 +2143,20 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
     }
   }
 
+  // 감염(infection) 매 턴 배경 감소(2026-09-03, 62장 좀비 사태 후속 - 사용자
+  // 지시 "감염은 치료하지 않으면 지속적으로 건강 스탯이 떨어지는 상태이상") -
+  // 예술가 인기소득·상가 임대료와 같은 급의 "선택지와 무관하게 매 턴 적용"
+  // 배경 효과, 대상만 cashHoldings 대신 stats.health. 이 시점의 healthConditions는
+  // 이번 선택의 addCondition/removeCondition이 이미 반영된 상태라(위쪽에서
+  // 먼저 처리됨) - 이번 턴에 막 감염됐으면 그 즉시 첫 감소가 같이 들어가고,
+  // 이번 턴에 치료로 나았으면 이번 턴엔 감소가 없다. 기존 조건 개수 페널티
+  // (activeConditionCount만큼 차감)와 달리 이건 선택지의 deltas.health 유무와
+  // 완전히 무관하게 항상 적용된다.
+  const ZOMBIE_INFECTION_HEALTH_DRAIN = 3;
+  if (healthConditions.some((c) => c.id === 'infection')) {
+    stats.health = clampStat(stats.health - ZOMBIE_INFECTION_HEALTH_DRAIN);
+  }
+
   const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers, acquaintances, assets, cashHoldings, talents, hobbies, sickStreak, insuranceUnpaidYears };
 
   let ending = null;
