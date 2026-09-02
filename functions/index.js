@@ -519,16 +519,18 @@ function collectTriggerKeys(choice) {
     list.forEach((t) => keys.push('talent:' + t));
   }
   if (choice.requiresAnyTalent) keys.push('anyTalent');
-  if (choice.requiresHobby) keys.push('hobby:' + choice.requiresHobby);
-  if (choice.requiresAnyHobby) keys.push('anyHobby');
+  // requiresHobby/requiresAnyHobby(취미)와 requiresFamilyMember/
+  // requiresAllFamilyMemberGroups(가족)도 뺐다(2026-09-03, 사용자 지시 -
+  // "가족, 취미를 필수에서 빼줘" - 재검증 중 스트리머 실측 플레이가 70~100턴
+  // 걸린 원인 추적). "콘텐츠 추구형" 시뮬레이션(재능/취미/가족/루트 획득
+  // 선택지를 우선 고르는 필러)으로 실측 - 전부 보호 76.2턴 → 가족만 제거
+  // 45.4턴 → 가족+취미 제거 42.9턴. 목표(33턴)에 크게 못 미쳐 결국 재능만
+  // 남기고 나머지 전부 빼는 쪽으로 최종 결정했지만, 우선 가족·취미부터
+  // 단계적으로 적용.
   if (choice.requiresAsset) keys.push('asset:' + choice.requiresAsset);
   if (choice.requiresAssetType) keys.push('assetType:' + choice.requiresAssetType);
   if (choice.requiresCondition) keys.push('condition:' + choice.requiresCondition);
   if (choice.requiresAnyCondition) keys.push('anyCondition');
-  if (choice.requiresFamilyMember) choice.requiresFamilyMember.forEach((id) => keys.push('familyMember:' + id));
-  if (choice.requiresAllFamilyMemberGroups) {
-    choice.requiresAllFamilyMemberGroups.forEach((group) => group.forEach((id) => keys.push('familyMember:' + id)));
-  }
   // requiresOccupation/requiresAnyOccupation(현재 직업)은 일부러 대상에서
   // 뺐다(2026-09-02, 사용자 지시 - "덜 스킵되는 느낌이야" → 실측 결과
   // 3,430개로 압도적 1위, 2위 가족(963개)의 3.5배 - 직업이 있으면 그
@@ -565,13 +567,12 @@ function activeTriggerKeysFor(ctx) {
   const keys = [];
   (ctx.talentIds || []).forEach((t) => keys.push('talent:' + t));
   if ((ctx.talentIds || []).length) keys.push('anyTalent');
-  (ctx.hobbyIds || []).forEach((h) => keys.push('hobby:' + h));
-  if ((ctx.hobbyIds || []).length) keys.push('anyHobby');
+  // 취미(ctx.hobbyIds)와 가족(ctx.familyIds)도 더 이상 보호 대상이 아니다 -
+  // collectTriggerKeys의 주석 참고(2026-09-03, 사용자 지시).
   (ctx.assetIds || []).forEach((a) => keys.push('asset:' + a));
   (ctx.assetTypes || []).forEach((t) => keys.push('assetType:' + t));
   (ctx.conditionIds || []).forEach((c) => keys.push('condition:' + c));
   if ((ctx.conditionIds || []).length) keys.push('anyCondition');
-  (ctx.familyIds || []).forEach((f) => keys.push('familyMember:' + f));
   // 현재 직업(ctx.occupationId)은 더 이상 보호 대상이 아니다 - collectTriggerKeys의
   // 주석 참고(2026-09-02, 실측 3,430개로 스킵을 사실상 무력화).
   (ctx.everOccupationIds || []).forEach((o) => keys.push('everOccupation:' + o));
