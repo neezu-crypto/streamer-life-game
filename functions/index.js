@@ -529,12 +529,24 @@ function collectTriggerKeys(choice) {
   if (choice.requiresAllFamilyMemberGroups) {
     choice.requiresAllFamilyMemberGroups.forEach((group) => group.forEach((id) => keys.push('familyMember:' + id)));
   }
-  if (choice.requiresOccupation) choice.requiresOccupation.forEach((id) => { if (id) keys.push('occupation:' + id); });
-  if (choice.requiresAnyOccupation) keys.push('anyOccupation');
+  // requiresOccupation/requiresAnyOccupation(현재 직업)은 일부러 대상에서
+  // 뺐다(2026-09-02, 사용자 지시 - "덜 스킵되는 느낌이야" → 실측 결과
+  // 3,430개로 압도적 1위, 2위 가족(963개)의 3.5배 - 직업이 있으면 그
+  // 직업 전용 콘텐츠가 거의 매 나이마다 있어서 스킵을 사실상 무력화시켰음).
+  // 직업 콘텐츠는 재능처럼 "한 번 놓치면 평생 못 쓰는 희소한 기회"가 아니라
+  // "이번 해에 못 봐도 내년에 또 뜨는" 성격이라 빼도 원래 취지(희소한 기회
+  // 보호)가 크게 훼손되지 않는다. requiresEverOccupation(은퇴 후 회상용,
+  // 232개로 상대적으로 희소하고 진짜 1회성에 가까움)은 그대로 보호 대상.
   if (choice.requiresEverOccupation) choice.requiresEverOccupation.forEach((id) => keys.push('everOccupation:' + id));
   if (choice.requiresAnyAcquaintance) keys.push('anyAcquaintance');
   if (choice.requiresAnyLover) keys.push('anyLover');
-  if (choice.requiresLocation) choice.requiresLocation.forEach((id) => keys.push('location:' + id));
+  // 'domestic'(기본 장소, DEFAULT_LOCATION)은 제외한다(2026-09-02, 사용자
+  // 지시로 occupation 제거 후 재검증 중 발견 - 해외로 나간 적 없는 절대다수
+  // 플레이어는 태어날 때부터 게임 끝까지 이 값을 계속 갖고 있어서, occupation과
+  // 똑같이 스킵을 사실상 무력화시킨다). usa/abroad처럼 실제로 희소한(플레이어
+  // 일부만 해당하는) 장소는 여전히 보호 대상 - 진짜 "얻었는데 못 쓰는" 콘텐츠는
+  // 그쪽이다.
+  if (choice.requiresLocation) choice.requiresLocation.forEach((id) => { if (id !== 'domestic') keys.push('location:' + id); });
   return keys;
 }
 const TRIGGER_AGE_INDEX = new Map();
@@ -560,11 +572,13 @@ function activeTriggerKeysFor(ctx) {
   (ctx.conditionIds || []).forEach((c) => keys.push('condition:' + c));
   if ((ctx.conditionIds || []).length) keys.push('anyCondition');
   (ctx.familyIds || []).forEach((f) => keys.push('familyMember:' + f));
-  if (ctx.occupationId) { keys.push('occupation:' + ctx.occupationId); keys.push('anyOccupation'); }
+  // 현재 직업(ctx.occupationId)은 더 이상 보호 대상이 아니다 - collectTriggerKeys의
+  // 주석 참고(2026-09-02, 실측 3,430개로 스킵을 사실상 무력화).
   (ctx.everOccupationIds || []).forEach((o) => keys.push('everOccupation:' + o));
   if (ctx.hasAnyAcquaintance) keys.push('anyAcquaintance');
   if (ctx.hasAnyLover) keys.push('anyLover');
-  if (ctx.locationId) keys.push('location:' + ctx.locationId);
+  // 'domestic'은 제외 - collectTriggerKeys의 주석 참고.
+  if (ctx.locationId && ctx.locationId !== 'domestic') keys.push('location:' + ctx.locationId);
   return keys;
 }
 
