@@ -23727,6 +23727,7 @@ const STAGES = [
         bonusSlot: true,
         text: '다단계 조직을 꾸려 지인들을 끌어들인다',
         requiresOccupation: ['con-artist'],
+        perAcquaintanceWealth: 1,
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.50, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
@@ -51170,6 +51171,7 @@ const STAGES = [
         id: 'twilight-community-fund-payout-71',
         text: '오래 부어온 계 모임의 물줄기가 마침내 내게로 돌아온다',
         deltas: { wealth: 5 },
+        perAcquaintanceWealth: 1,
         result: '오랜 기다림 끝에, 드디어 차례가 돌아왔다.'
       },
       {
@@ -55589,6 +55591,7 @@ const STAGES = [
         id: 'twilight-community-support-fund-87',
         text: '다니던 모임에서 작은 위로금을 전해온다',
         deltas: { wealth: 2, relationship: 1 },
+        perAcquaintanceWealth: 1,
         result: '큰돈은 아니었지만, 잊지 않았다는 게 고마웠다.'
       },
       {
@@ -56732,6 +56735,7 @@ const STAGES = [
         id: 'twilight-mutual-aid-society-support-91',
         text: '가입해둔 상조회에서 경조사비를 지원받는다',
         deltas: { wealth: 3 },
+        perAcquaintanceWealth: 1,
         result: '작은 돈이었지만 오래 부어온 보람이 있었다.'
       },
     
