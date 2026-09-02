@@ -52713,6 +52713,7 @@ const STAGES = [
         id: 'twilight-huisu-envelope-77',
         text: '희수(喜壽) 잔치에 손님들이 저마다 축하를 보태 온다',
         deltas: { wealth: 3, relationship: 2, happiness: 2 },
+        perAcquaintanceWealth: 1,
         result: '봉투마다 담긴 마음이, 숫자보다 크게 느껴졌다.'
       },
       {

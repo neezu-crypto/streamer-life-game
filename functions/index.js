@@ -1631,6 +1631,15 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
     effectiveDeltas.wealth = Math.round(effectiveDeltas.wealth * supplyMultiplier);
   }
 
+  // perAcquaintanceWealth(2026-09-02, 사용자 지시 - "희수 잔치 선택지, 지인의
+  // 수에 비례해서 추가소득이 발생하게 해줘") - 손님이 많을수록 축의금도
+  // 많아진다는 설정. 이번 턴 시작 시점의 지인 수(priorAcquaintances, 이번
+  // 선택으로 지인이 늘거나 줄기 전 기준)만큼 wealth에 가산한다. 지인이
+  // 0명이어도 기존 deltas.wealth는 그대로 유지된다(추가 보너스만 없음).
+  if (choice.perAcquaintanceWealth) {
+    effectiveDeltas.wealth = (effectiveDeltas.wealth || 0) + choice.perAcquaintanceWealth * priorAcquaintances.length;
+  }
+
   // 일탈 직업 기본 수입 배율(2026-08-30, 사용자 확정 "일반직업보다 1~1.2배 높음") -
   // 개별 선택지에 별도 태그를 붙일 필요 없이, 그 순간 직업이 일탈 직업이고 이번
   // 선택의 wealth가 양수이면 자동으로 적용되는 엔진 차원 규칙(범죄 위험을 감수한
