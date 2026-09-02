@@ -59,6 +59,7 @@ const resumePlaythroughFn = httpsCallable(functions, 'resumePlaythrough');
 const submitChoiceFn = httpsCallable(functions, 'submitChoice');
 const sellStockFn = httpsCallable(functions, 'sellStock');
 const craftDiyItemFn = httpsCallable(functions, 'craftDiyItem');
+const sellDiyItemFn = httpsCallable(functions, 'sellDiyItem');
 const reportStolenVehicleFn = httpsCallable(functions, 'reportStolenVehicle');
 const rollDiceFn = httpsCallable(functions, 'rollDice');
 const shareToGalleryFn = httpsCallable(functions, 'shareToGallery');
@@ -702,6 +703,49 @@ async function openCraftDiyModal(choiceId) {
 
 document.getElementById('closeCraftDiyBtn').addEventListener('click', () => {
   craftDiyModal.classList.add('hidden');
+});
+
+// ------------------------------------------------------------
+// DIY 완성품 판매 모달(63장 C항 4단계, 2026-09-02) - sellStockModal과 완전히
+// 같은 구조. 주식과 달리 5의 배수 나이 제한 없이 언제든 클릭 가능(renderAssetsInto
+// 참고) - 고정가 완성품이라 "적절한 매도 시점" 개념이 없어서.
+// ------------------------------------------------------------
+const sellDiyModal = document.getElementById('sellDiyModal');
+const sellDiyTitle = document.getElementById('sellDiyTitle');
+const sellDiyInfo = document.getElementById('sellDiyInfo');
+let pendingSellDiyAsset = null;
+
+function openSellDiyModal(asset) {
+  pendingSellDiyAsset = asset;
+  sellDiyTitle.textContent = asset.label + ' 판매';
+  sellDiyInfo.textContent = '이 완성품을 판매하면 소소한 부수입이 생겨요.';
+  sellDiyModal.classList.remove('hidden');
+}
+
+document.getElementById('closeSellDiyBtn').addEventListener('click', () => {
+  sellDiyModal.classList.add('hidden');
+  pendingSellDiyAsset = null;
+});
+
+document.getElementById('confirmSellDiyBtn').addEventListener('click', async () => {
+  if (!pendingSellDiyAsset) return;
+  const assetId = pendingSellDiyAsset.id;
+  const confirmBtn = document.getElementById('confirmSellDiyBtn');
+  confirmBtn.disabled = true;
+  try {
+    const res = await sellDiyItemFn({ assetId });
+    sellDiyModal.classList.add('hidden');
+    pendingSellDiyAsset = null;
+    renderStatBars(statBars, res.data.stats);
+    renderAssets(res.data.assets, lastKnownAgeRange);
+    renderCashHoldings(cashHoldingsEl, res.data.cashHoldings);
+    showToast('💰 ' + res.data.soldLabel + ' 판매 완료!');
+  } catch (e) {
+    console.error('판매 실패:', e);
+    alert('판매를 처리하지 못했어요: ' + (e.message || e));
+  } finally {
+    confirmBtn.disabled = false;
+  }
 });
 
 // ------------------------------------------------------------
@@ -1682,7 +1726,9 @@ const ASSET_TYPE_LABELS = {
   cash: '💵 현금성',
   insurance: '🛡️ 보험',
   vehicle: '🚗 차량',
-  stock: '📈 주식'
+  stock: '📈 주식',
+  'hardware-tool': '🔨 연장',
+  'diy-craft': '🪵 손수 만든 물건'
 };
 // 임대사업 연소득(2026-08-31, 사용자 지시 - "오피스텔 자산 위에 마우스
 // 올리면 연소득 얼마짜리인지 알게 해줘") - functions/index.js의
@@ -1738,6 +1784,14 @@ function renderAssetsInto(container, assets, currentAge) {
     } else if (asset.type === 'insurance') {
       chip.textContent = asset.label;
       chip.dataset.tooltip = asset.label + ' — 연 ' + INSURANCE_PREMIUM_WON.toLocaleString() + '원 보험료 자동 납입 (3년 연속 미납 시 계약 해지)';
+    } else if (asset.type === 'diy-craft') {
+      // DIY 완성품(63장 C항 4단계, 2026-09-02) - 주식과 달리 5의 배수 나이
+      // 제한 없이 언제든 클릭해서 판매 가능(가격 변동이 없는 고정가 물건이라
+      // "적절한 매도 시점" 개념 자체가 없음).
+      chip.classList.add('clickable');
+      chip.textContent = asset.label;
+      chip.dataset.tooltip = asset.label + ' — 클릭해서 판매 가능';
+      chip.addEventListener('click', () => openSellDiyModal(asset));
     } else {
       chip.textContent = asset.label;
       chip.dataset.tooltip = asset.label + ' — ' + (ASSET_TYPE_LABELS[asset.type] || '재산') + ' 자산';

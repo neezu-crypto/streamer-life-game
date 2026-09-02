@@ -3093,6 +3093,32 @@ const craftDiyItem = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
   return { stats, assets: nextAssets, crafted: craftedAsset, result: product.craftResult };
 });
 
+// DIY 완성품 판매(63장 C항 4단계, 2026-09-02) - sellStock과 완전히 같은 구조
+// (submitChoice/applyChoice를 거치지 않는 독립 액션, stageIndex 미변경).
+// 주식과 달리 5의 배수 나이 제한이 없다 - 가격 변동이 없는 고정가 완성품이라
+// "적절한 매도 시점"이라는 개념 자체가 없기 때문.
+const sellDiyItem = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const db = getDatabase();
+  const assetId = request.data && request.data.assetId;
+  if (!assetId) throw new HttpsError('invalid-argument', 'assetId가 필요합니다.');
+
+  const { playRef, play } = await loadActivePlay(db, uid);
+  const assets = Array.isArray(play.assets) ? play.assets : [];
+  const asset = assets.find((a) => a.id === assetId && a.type === 'diy-craft');
+  if (!asset) throw new HttpsError('invalid-argument', '보유하지 않은 제작품입니다.');
+
+  const wealthDelta = asset.sellWealthDelta || 0;
+  const stats = Object.assign({}, play.stats);
+  stats.wealth = clampStat((stats.wealth || 0) + wealthDelta);
+  const cashHoldings = Math.max(0, (play.cashHoldings || 0) + wealthDelta * cashUnitForAge(play.stageIndex));
+  const nextAssets = assets.filter((a) => a.id !== assetId);
+
+  await playRef.update({ stats, cashHoldings, assets: nextAssets });
+
+  return { stats, cashHoldings, assets: nextAssets, soldLabel: asset.label };
+});
+
 // 주사위 굴리기 - random:true인 구간(예: 유아기, "태어날 집안은 스스로 고를 수
 // 없다") 전용. 클라이언트는 choiceId를 보내지 않고, 서버가 stage.choices 중
 // 하나를 균등 확률로 직접 뽑는다 - 어떤 결과가 나왔는지는 응답의 choiceId/result로
@@ -3634,4 +3660,4 @@ const spreadZombieOutbreakNaturally = onSchedule({ schedule: '0 0 * * *', timeZo
   });
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, craftDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally };
