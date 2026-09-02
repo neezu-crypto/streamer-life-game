@@ -61435,6 +61435,76 @@ const STOCK_DIVIDEND_CHOICES = [
   }
 ];
 
+// HARDWARE_STORE_CHOICES(63장, 2026-09-02 - 사용자 지시 "직업 상관없이 시민들이
+// 장비를 구매하고 좀비를 퇴치할 수 있는 경로") - STOCK_DIVIDEND_CHOICES와 같은
+// 전역 풀 패턴(활성 커리어 루트 중에도 얹힘, 감옥/현행범/연애/차량절도 4대
+// 몰입형 특수 루트만 제외). 구매·평소 사용 이벤트는 좀비와 완전히 무관한 텍스트로
+// 통일(63장 A항 확정 - "평소에 사용하기 위해 차곡차곡 구매하다가 좀비 사태가
+// 발생했을 때 덤으로 사용하는 느낌"). v1은 망치 하나만 - 다른 도구는 이 배열에
+// 계속 추가하는 방식으로 확장.
+const HARDWARE_STORE_CHOICES = [
+  {
+    id: 'hardware-buy-hammer',
+    text: '가게 진열대가 삐걱거려 망치를 하나 장만한다',
+    requiresNoAsset: 'hammer',
+    appearChance: 0.1,
+    bonusSlot: true,
+    deltas: { wealth: -1, happiness: 1 },
+    addAsset: { id: 'hammer', label: '🔨 망치', type: 'hardware-tool' },
+    result: '별거 아닌 물건이지만, 손에 쥐니 마음이 든든했다.'
+  },
+  {
+    id: 'hardware-hammer-fix-doorknob',
+    text: '헐거워진 문고리를 망치로 고쳐본다',
+    requiresAsset: 'hammer',
+    appearChance: 0.15,
+    bonusSlot: true,
+    deltas: { happiness: 1 },
+    result: '작은 수리 하나 끝냈을 뿐인데 뿌듯했다.'
+  },
+  {
+    id: 'hardware-hammer-assemble-shelf',
+    text: '손수 선반을 조립해 완성한다',
+    requiresAsset: 'hammer',
+    appearChance: 0.15,
+    bonusSlot: true,
+    deltas: { happiness: 2, wealth: 1 },
+    result: '조립비를 아꼈다는 생각에 더 뿌듯했다.'
+  },
+  {
+    id: 'hardware-hammer-hit-finger',
+    text: '못질을 하다 손가락을 찧는다',
+    requiresAsset: 'hammer',
+    appearChance: 0.15,
+    bonusSlot: true,
+    deltas: { happiness: -1, health: -1 },
+    result: '엄지손톱이 시퍼렇게 물들었다.'
+  },
+  {
+    id: 'hardware-hammer-lend-neighbor',
+    text: '이웃에게 망치를 빌려준다',
+    requiresAsset: 'hammer',
+    appearChance: 0.15,
+    bonusSlot: true,
+    deltas: { relationship: 1 },
+    result: '별거 아닌 걸로도 사이가 조금 가까워졌다.'
+  },
+  {
+    id: 'hardware-hammer-zombie-defense',
+    text: '챙겨뒀던 망치를 무기 삼아 좀비에 맞선다',
+    requiresAsset: 'hammer',
+    requiresWorldStateActive: 'zombieOutbreak',
+    dynamicAppearChance: { key: 'zombieOutbreak', min: 0.2, max: 0.7 },
+    bonusSlot: true,
+    dynamicPrizeWeight: { key: 'zombieOutbreak', caughtLabel: '중상', min: 0.03, max: 0.3, invert: false },
+    prizeTable: [
+      { weight: 65, label: '무사히', deltas: { happiness: 1 }, worldStateSignal: { key: 'zombieOutbreak', target: 0 }, result: '준비한 게 있으니 확실히 든든했다 - 침착하게 물리쳤다.' },
+      { weight: 25, label: '경상', deltas: { health: -2, happiness: -1 }, result: '몇 대 얻어맞았지만 망치 덕에 크게 다치진 않았다.' },
+      { weight: 10, label: '중상', deltas: { health: -6, happiness: -3 }, addCondition: { id: 'infection', label: '🦠 감염' }, result: '무기가 있어도 수적으로 밀리니 별수 없었다.' }
+    ]
+  }
+];
+
 module.exports = {
   STAGES,
   PRISON_CHOICES,
@@ -61443,6 +61513,7 @@ module.exports = {
   VEHICLE_THEFT_CHOICES,
   ZOMBIE_EVENT_CHOICES,
   STOCK_DIVIDEND_CHOICES,
+  HARDWARE_STORE_CHOICES,
   ENDINGS,
   resolveEnding,
   buildCollapseEnding,

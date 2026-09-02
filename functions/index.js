@@ -11,6 +11,7 @@ const {
   VEHICLE_THEFT_CHOICES,
   ZOMBIE_EVENT_CHOICES,
   STOCK_DIVIDEND_CHOICES,
+  HARDWARE_STORE_CHOICES,
   resolveEnding,
   buildCollapseEnding,
   buildBankruptcyEnding,
@@ -454,6 +455,7 @@ function findChoiceById(stage, choiceId) {
     || VEHICLE_THEFT_CHOICES.find((c) => c.id === choiceId)
     || ZOMBIE_EVENT_CHOICES.find((c) => c.id === choiceId)
     || STOCK_DIVIDEND_CHOICES.find((c) => c.id === choiceId)
+    || HARDWARE_STORE_CHOICES.find((c) => c.id === choiceId)
     || null;
 }
 
@@ -748,7 +750,7 @@ function pickVisibleChoiceIds(choices, ctx) {
   // 이미 전용 풀로 완전히 대체되는 몰입형 특수 루트는 좀비 이벤트와 동일하게
   // 제외한다.
   const isExclusivePoolRoute = routeChoicePool !== choices;
-  const basePool = isExclusivePoolRoute ? basePoolBeforeStockDividend : basePoolBeforeStockDividend.concat(STOCK_DIVIDEND_CHOICES);
+  const basePool = isExclusivePoolRoute ? basePoolBeforeStockDividend : basePoolBeforeStockDividend.concat(STOCK_DIVIDEND_CHOICES).concat(HARDWARE_STORE_CHOICES);
 
   const passesEligibility = (c) => {
     if (c.requiresCondition && !conditionIds.includes(c.requiresCondition)) return false;
