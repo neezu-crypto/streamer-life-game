@@ -61575,6 +61575,7 @@ const PRANK_CHOICES = [
     id: 'prank-set-trap-wallet',
     text: '공원 벤치에 일부러 지갑을 흘려놓는다',
     requiresNoAsset: 'active-trap',
+    requiresAgeAtLeast: 7,
     appearChance: 0.05,
     bonusSlot: true,
     deltas: { happiness: 1 },
@@ -61587,6 +61588,7 @@ const PRANK_CHOICES = [
     id: 'prank-set-trap-lottery',
     text: '복권처럼 보이게 만든 종이를 인도에 떨어뜨려 놓는다',
     requiresNoAsset: 'active-trap',
+    requiresAgeAtLeast: 7,
     appearChance: 0.05,
     bonusSlot: true,
     deltas: { happiness: 1 },
@@ -61599,6 +61601,7 @@ const PRANK_CHOICES = [
     id: 'prank-set-trap-box',
     text: '편의점 앞에 "주인 없음" 팻말과 함께 상자를 놓아둔다',
     requiresNoAsset: 'active-trap',
+    requiresAgeAtLeast: 7,
     appearChance: 0.05,
     bonusSlot: true,
     deltas: { happiness: 1 },
@@ -61611,6 +61614,7 @@ const PRANK_CHOICES = [
     id: 'prank-set-trap-sns',
     text: 'SNS에 가짜 경품 이벤트 글을 올려놓는다',
     requiresNoAsset: 'active-trap',
+    requiresAgeAtLeast: 7,
     appearChance: 0.05,
     bonusSlot: true,
     deltas: { happiness: 1 },
@@ -61623,6 +61627,7 @@ const PRANK_CHOICES = [
     id: 'prank-set-trap-flyer',
     text: '동네 게시판에 수상한 전단지를 붙여놓는다',
     requiresNoAsset: 'active-trap',
+    requiresAgeAtLeast: 7,
     appearChance: 0.05,
     bonusSlot: true,
     deltas: { happiness: 1 },
@@ -61639,6 +61644,7 @@ const PRANK_CHOICES = [
     id: 'prank-fish-cash',
     text: '바닥에 떨어진 1천만원을 줍는다',
     requiresWorldStateActive: 'prankTrapDensity',
+    requiresAgeAtLeast: 7,
     dynamicAppearChance: { key: 'prankTrapDensity', min: 0.01, max: 0.06 },
     bonusSlot: true,
     prizeTable: [
@@ -61651,6 +61657,7 @@ const PRANK_CHOICES = [
     id: 'prank-fish-randombox',
     text: '벤치에 놓여있는 랜덤박스를 열어본다',
     requiresWorldStateActive: 'prankTrapDensity',
+    requiresAgeAtLeast: 7,
     dynamicAppearChance: { key: 'prankTrapDensity', min: 0.01, max: 0.06 },
     bonusSlot: true,
     prizeTable: [
@@ -61663,6 +61670,7 @@ const PRANK_CHOICES = [
     id: 'prank-fish-lottery',
     text: '누군가 흘리고 간 복권을 주워 확인해본다',
     requiresWorldStateActive: 'prankTrapDensity',
+    requiresAgeAtLeast: 7,
     dynamicAppearChance: { key: 'prankTrapDensity', min: 0.01, max: 0.06 },
     bonusSlot: true,
     prizeTable: [
@@ -61675,6 +61683,7 @@ const PRANK_CHOICES = [
     id: 'prank-fish-freebox',
     text: '편의점 앞 무료 나눔 상자를 뒤져본다',
     requiresWorldStateActive: 'prankTrapDensity',
+    requiresAgeAtLeast: 7,
     dynamicAppearChance: { key: 'prankTrapDensity', min: 0.01, max: 0.06 },
     bonusSlot: true,
     prizeTable: [
@@ -61687,6 +61696,7 @@ const PRANK_CHOICES = [
     id: 'prank-fish-sns-event',
     text: 'SNS에서 본 무료 경품 이벤트에 응모한다',
     requiresWorldStateActive: 'prankTrapDensity',
+    requiresAgeAtLeast: 7,
     dynamicAppearChance: { key: 'prankTrapDensity', min: 0.01, max: 0.06 },
     bonusSlot: true,
     prizeTable: [
@@ -61699,6 +61709,7 @@ const PRANK_CHOICES = [
     id: 'prank-fish-alba-flyer',
     text: '게시판에 붙은 "고수익 알바" 전단지 번호로 연락해본다',
     requiresWorldStateActive: 'prankTrapDensity',
+    requiresAgeAtLeast: 7,
     dynamicAppearChance: { key: 'prankTrapDensity', min: 0.01, max: 0.06 },
     bonusSlot: true,
     prizeTable: [
@@ -61711,6 +61722,7 @@ const PRANK_CHOICES = [
     id: 'prank-fish-gift-card',
     text: '길에서 주운 상품권을 써본다',
     requiresWorldStateActive: 'prankTrapDensity',
+    requiresAgeAtLeast: 7,
     dynamicAppearChance: { key: 'prankTrapDensity', min: 0.01, max: 0.06 },
     bonusSlot: true,
     prizeTable: [
@@ -61723,6 +61735,7 @@ const PRANK_CHOICES = [
     id: 'prank-fish-business-card',
     text: '낯선 사람이 건넨 명함을 보고 연락해본다',
     requiresWorldStateActive: 'prankTrapDensity',
+    requiresAgeAtLeast: 7,
     dynamicAppearChance: { key: 'prankTrapDensity', min: 0.01, max: 0.06 },
     bonusSlot: true,
     prizeTable: [
@@ -61735,6 +61748,7 @@ const PRANK_CHOICES = [
     id: 'prank-fish-mail-notice',
     text: '우편함에 꽂힌 당첨 안내문을 확인해본다',
     requiresWorldStateActive: 'prankTrapDensity',
+    requiresAgeAtLeast: 7,
     dynamicAppearChance: { key: 'prankTrapDensity', min: 0.01, max: 0.06 },
     bonusSlot: true,
     prizeTable: [
@@ -61747,6 +61761,7 @@ const PRANK_CHOICES = [
     id: 'prank-fish-umbrella',
     text: '누가 놓고 간 듯한 우산을 챙긴다',
     requiresWorldStateActive: 'prankTrapDensity',
+    requiresAgeAtLeast: 7,
     dynamicAppearChance: { key: 'prankTrapDensity', min: 0.01, max: 0.06 },
     bonusSlot: true,
     prizeTable: [
