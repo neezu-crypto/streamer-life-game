@@ -7718,6 +7718,27 @@
         team-lead/startup-founder)만 다시 예외로 등록. fakedb 검증: doctor 보유 상태로
         26세→스킵 시 29세를 넘긴 사례 0/300(보호 확인), healthcare-worker(미등록 직업) 보유
         상태로 24세→스킵 시 27세를 넘긴 사례 123/300(정상적으로 보호 없음 확인).</p>
+
+        <h3>H. 보호 중인 카테고리에서 흔한 값 추가 제외 (2026-09-03)</h3>
+        <p>"보호 중인 이벤트에서 흔해서 미보호해도 괜찮을 후보"를 실측(콘텐츠 추구형 필러,
+        2000회). 단, 복권/보험/타임루프 티켓처럼 "샀다가 바로 확인하고 사라지는" 자산은
+        게임 종료 시점 스냅샷으로는 정확한 보유율이 안 잡혀(다시 사기 전까지의 빈 구간이
+        섞임) 지속 보유되는 것 위주로 신뢰할 수 있는 숫자를 얻었다.</p>
+        <table>
+            <tr><th>항목</th><th>보유율</th><th>게이팅 선택지 수</th><th>결정</th></tr>
+            <tr><td>차량(assetType:vehicle)</td><td>21.00%</td><td>5개</td><td>제외</td></tr>
+            <tr><td>지인 있음(anyAcquaintance)</td><td>21.80%</td><td>38개</td><td>제외</td></tr>
+            <tr><td>복권(asset:lottery-ticket)</td><td>13.30%(스냅샷, 실제 누적은 더 높음)</td><td>20개</td><td>제외(순환형이라 한 번 놓쳐도 곧 다음 기회)</td></tr>
+            <tr><td>타임루프 티켓(asset:time-loop-ticket)</td><td>-</td><td>18개</td><td>제외(91~99세 구간 자체가 이미 수학적으로 보장돼 중복)</td></tr>
+            <tr><td>부동산(assetType:realestate)</td><td>0.05%</td><td>10개</td><td>유지</td></tr>
+            <tr><td>연인 있음(anyLover)</td><td>1.45%</td><td>65개</td><td>유지</td></tr>
+        </table>
+        <p><code>collectTriggerKeys</code>에 <code>EXCLUDED_ASSET_IDS</code>(lottery-ticket,
+        time-loop-ticket)·<code>EXCLUDED_ASSET_TYPES</code>(vehicle) 제외 목록을 추가하고,
+        <code>requiresAnyAcquaintance</code> 처리 자체를 제거(requiresAnyLover는 유지). fakedb
+        검증: vehicle/anyAcquaintance/lottery-ticket 전부 착지 분포가 고르게 분산(미보호
+        확인), realestate(28세 시작→31세 콘텐츠 근처 169/300 쏠림)·anyLover(15세 시작→17세
+        247/300 쏠림)는 여전히 보호됨을 확인.</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>

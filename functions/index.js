@@ -540,8 +540,17 @@ function collectTriggerKeys(choice) {
   // 45.4턴 → 가족+취미 제거 42.9턴. 목표(33턴)에 크게 못 미쳐 결국 재능만
   // 남기고 나머지 전부 빼는 쪽으로 최종 결정했지만, 우선 가족·취미부터
   // 단계적으로 적용.
-  if (choice.requiresAsset) keys.push('asset:' + choice.requiresAsset);
-  if (choice.requiresAssetType) keys.push('assetType:' + choice.requiresAssetType);
+  // asset/assetType/anyAcquaintance 일부 제외(2026-09-03, 사용자 지시 -
+  // "흔해서 미보호해도 괜찮을 후보 선정" → 실측: lottery-ticket(주기적으로
+  // 사고-확인-소멸을 반복해 한 번 놓쳐도 곧 다음 기회가 옴), time-loop-ticket
+  // (91~99세 구간 자체가 이미 수학적으로 보장돼 있어 중복 보호였음),
+  // assetType:vehicle(21.00% 보유 - 흔한 편, 놓쳐도 무방), anyAcquaintance
+  // (21.80% 보유 - 흔한 편)는 뺀다. assetType:realestate(0.05%)·
+  // anyLover(1.45%)는 진짜 희소해 그대로 유지.
+  const EXCLUDED_ASSET_IDS = new Set(['lottery-ticket', 'time-loop-ticket']);
+  const EXCLUDED_ASSET_TYPES = new Set(['vehicle']);
+  if (choice.requiresAsset && !EXCLUDED_ASSET_IDS.has(choice.requiresAsset)) keys.push('asset:' + choice.requiresAsset);
+  if (choice.requiresAssetType && !EXCLUDED_ASSET_TYPES.has(choice.requiresAssetType)) keys.push('assetType:' + choice.requiresAssetType);
   if (choice.requiresCondition) keys.push('condition:' + choice.requiresCondition);
   if (choice.requiresAnyCondition) keys.push('anyCondition');
   // requiresOccupation/requiresAnyOccupation(현재 직업)은 일부러 대상에서
@@ -557,7 +566,8 @@ function collectTriggerKeys(choice) {
     choice.requiresOccupation.forEach((id) => { if (NARROW_PROTECTED_OCCUPATIONS.has(id)) keys.push('occupation:' + id); });
   }
   if (choice.requiresEverOccupation) choice.requiresEverOccupation.forEach((id) => keys.push('everOccupation:' + id));
-  if (choice.requiresAnyAcquaintance) keys.push('anyAcquaintance');
+  // requiresAnyAcquaintance(2026-09-03 제외, 21.80% 보유 - 흔한 편). requiresAnyLover
+  // (1.45%, 진짜 희소)는 그대로 유지.
   if (choice.requiresAnyLover) keys.push('anyLover');
   // 'domestic'(기본 장소, DEFAULT_LOCATION)은 제외한다(2026-09-02, 사용자
   // 지시로 occupation 제거 후 재검증 중 발견 - 해외로 나간 적 없는 절대다수
@@ -594,7 +604,7 @@ function activeTriggerKeysFor(ctx) {
   // collectTriggerKeys의 주석 참고(2026-09-02 대량 제외, 2026-09-03 4개 예외 복원).
   if (ctx.occupationId && NARROW_PROTECTED_OCCUPATIONS.has(ctx.occupationId)) keys.push('occupation:' + ctx.occupationId);
   (ctx.everOccupationIds || []).forEach((o) => keys.push('everOccupation:' + o));
-  if (ctx.hasAnyAcquaintance) keys.push('anyAcquaintance');
+  // ctx.hasAnyAcquaintance는 더 이상 보호 대상이 아니다 - collectTriggerKeys의 주석 참고.
   if (ctx.hasAnyLover) keys.push('anyLover');
   // 'domestic'은 제외 - collectTriggerKeys의 주석 참고.
   if (ctx.locationId && ctx.locationId !== 'domestic') keys.push('location:' + ctx.locationId);
