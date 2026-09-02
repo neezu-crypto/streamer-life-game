@@ -500,6 +500,74 @@ function resolveEffectiveOccupation(occupationHistory, activeRoute) {
 // (buildRouteState)에 필요.
 const STAGE_INDEX_BY_ID = new Map(STAGES.map((s, i) => [s.id, i]));
 
+// TRIGGER_AGE_INDEX(65장, 2026-09-02 - 사용자 지시 "턴당 1년단위에서 턴당 1~5년
+// 사이 스킵 진행으로 변경할건데... 재능이나 트리거를 얻었을때는 그 재능을
+// 사용하는 나이는 반드시 거치게 해줘") - "이미 보유 중인 재능·취미·자산·건강
+// 상태·가족·직업·장소·지인을 요구하는 선택지가 있는 나이는 스킵으로 건너뛰지
+// 않는다"를 위한 역인덱스. 서버 시작 시 STAGES를 한 번만 훑어 "트리거 키 →
+// 그 트리거가 쓰이는 나이 오름차순 목록"을 만들어둔다(매 턴 재계산 안 함).
+// requiresNoAsset처럼 "안 갖고 있어야" 통과하는 부정 조건이나
+// requiresWorldStateActive처럼 전역 세계관 상태에 매인 조건, mandatory·
+// appearChance 단독은 "이미 보유한 트리거의 후속 콘텐츠"가 아니므로 대상이
+// 아니다. PRISON_CHOICES 등 특정 나이에 고정되지 않는 전역 풀도(어차피 "이
+// 나이를 반드시 거쳐야" 같은 개념이 성립하지 않음) 대상이 아니다 -
+// STAGES[i].choices만 훑는다.
+function collectTriggerKeys(choice) {
+  const keys = [];
+  if (choice.requiresTalent) {
+    const list = Array.isArray(choice.requiresTalent) ? choice.requiresTalent : [choice.requiresTalent];
+    list.forEach((t) => keys.push('talent:' + t));
+  }
+  if (choice.requiresAnyTalent) keys.push('anyTalent');
+  if (choice.requiresHobby) keys.push('hobby:' + choice.requiresHobby);
+  if (choice.requiresAnyHobby) keys.push('anyHobby');
+  if (choice.requiresAsset) keys.push('asset:' + choice.requiresAsset);
+  if (choice.requiresAssetType) keys.push('assetType:' + choice.requiresAssetType);
+  if (choice.requiresCondition) keys.push('condition:' + choice.requiresCondition);
+  if (choice.requiresAnyCondition) keys.push('anyCondition');
+  if (choice.requiresFamilyMember) choice.requiresFamilyMember.forEach((id) => keys.push('familyMember:' + id));
+  if (choice.requiresAllFamilyMemberGroups) {
+    choice.requiresAllFamilyMemberGroups.forEach((group) => group.forEach((id) => keys.push('familyMember:' + id)));
+  }
+  if (choice.requiresOccupation) choice.requiresOccupation.forEach((id) => { if (id) keys.push('occupation:' + id); });
+  if (choice.requiresAnyOccupation) keys.push('anyOccupation');
+  if (choice.requiresEverOccupation) choice.requiresEverOccupation.forEach((id) => keys.push('everOccupation:' + id));
+  if (choice.requiresAnyAcquaintance) keys.push('anyAcquaintance');
+  if (choice.requiresAnyLover) keys.push('anyLover');
+  if (choice.requiresLocation) choice.requiresLocation.forEach((id) => keys.push('location:' + id));
+  return keys;
+}
+const TRIGGER_AGE_INDEX = new Map();
+STAGES.forEach((stage, age) => {
+  (stage.choices || []).forEach((choice) => {
+    collectTriggerKeys(choice).forEach((key) => {
+      if (!TRIGGER_AGE_INDEX.has(key)) TRIGGER_AGE_INDEX.set(key, []);
+      const arr = TRIGGER_AGE_INDEX.get(key);
+      if (arr[arr.length - 1] !== age) arr.push(age); // STAGES는 나이 오름차순이라 마지막 값과만 비교해도 중복 제거됨
+    });
+  });
+});
+
+// 지금 플레이어가 보유 중인 상태로부터 "보호해야 할 트리거 키" 목록을 만든다.
+function activeTriggerKeysFor(ctx) {
+  const keys = [];
+  (ctx.talentIds || []).forEach((t) => keys.push('talent:' + t));
+  if ((ctx.talentIds || []).length) keys.push('anyTalent');
+  (ctx.hobbyIds || []).forEach((h) => keys.push('hobby:' + h));
+  if ((ctx.hobbyIds || []).length) keys.push('anyHobby');
+  (ctx.assetIds || []).forEach((a) => keys.push('asset:' + a));
+  (ctx.assetTypes || []).forEach((t) => keys.push('assetType:' + t));
+  (ctx.conditionIds || []).forEach((c) => keys.push('condition:' + c));
+  if ((ctx.conditionIds || []).length) keys.push('anyCondition');
+  (ctx.familyIds || []).forEach((f) => keys.push('familyMember:' + f));
+  if (ctx.occupationId) { keys.push('occupation:' + ctx.occupationId); keys.push('anyOccupation'); }
+  (ctx.everOccupationIds || []).forEach((o) => keys.push('everOccupation:' + o));
+  if (ctx.hasAnyAcquaintance) keys.push('anyAcquaintance');
+  if (ctx.hasAnyLover) keys.push('anyLover');
+  if (ctx.locationId) keys.push('location:' + ctx.locationId);
+  return keys;
+}
+
 // 트리거 루트(14장, 2026-08-22 구현 - 사용자 설계) - 직업·장소와 완전히 같은
 // 원칙으로 저장 슬롯에 전용 필드를 두지 않고 choiceLog에서 매번 다시 계산한다.
 // choiceLog를 시간순으로 훑어 가장 최근 startsRoute 이후, 그 루트를 끝내는
@@ -955,22 +1023,36 @@ function pickVisibleChoiceIds(choices, ctx) {
   return resultIds;
 }
 
-// 나이 스킵을 없애고 1년 단위 진행으로 되돌린다(2026-08-22, 4장 - 사용자
-// 확정). 예전엔 5~99세 구간에서 선택 한 번에 1~5세를 무작위로 건너뛰어
-// (평균 선택 횟수 약 38회) 101개 나이를 다 방문하지 않았는데, 되돌리기 전
-// 2만 회 시뮬레이션으로 확인한 결과 즉사 엔딩 비율이 0.02%→1.44%(72배)로
-// 오르고 평균 최종 행복이 80.6→96.0으로 치우치는 걸 확인했다 - 선택지를
-// 더 많이 겪을수록 긍정 delta가 더 많이 설계된 기존 콘텐츠의 편향이
-// 누적되기 때문. 이 편향을 상쇄하기 위해 나이당 불행한 사건 1개씩(총
-// 101개, game-data.js의 unhappy-0~unhappy-100)을 추가해뒀다 - 되돌린 뒤
-// 시뮬레이션 기준 평균 최종 행복 95.8→78.0, 즉사 비율은 4.19%로 완만하게만
-// 상승. 예전엔 MANDATORY_WAYPOINTS(100세 외에 반드시 방문하는 나이, 54세
-// 부모님 사별)로 건너뛰는 폭을 잘라내는 메커니즘이 있었지만, 이제 모든
-// 나이를 어차피 다 지나가므로 그 배열·계산은 더 이상 필요 없어 제거했다 -
-// 54세 사별 선택지 자체는 여전히 mandatory: true(pickVisibleChoiceIds가
-// 4개 무작위 추첨에서 절대 밀어내지 않음)로 보장된다.
-function pickNextStageIndex(currentIndex) {
-  return currentIndex + 1;
+// 나이 스킵 재도입(65장, 2026-09-02 - 사용자 지시 "턴당 1년단위에서 턴당
+// 1~5년 사이 스킵 진행으로 변경할거야"). 이 게임은 예전에(2026-08-22, 4장)
+// 정확히 같은 방식(선택 1번에 1~5세 무작위 스킵)을 썼다가 즉사 엔딩 비율이
+// 0.02%→1.44%(72배)로 폭증하고 평균 최종 행복이 80.6→96.0으로 치우치는
+// 문제로 1년 단위로 되돌린 이력이 있다(당시 이 편향을 상쇄하려 나이당
+// 불행한 사건 1개씩 총 101개, unhappy-0~100을 추가). 이번 재도입에서는
+// unhappy-0~100을 스킵 보호 대상에 넣지 않기로 사용자가 명시적으로
+// 확정했다("보호 안 함") - 재도입 후 실제 밸런스(즉사율·행복 분포)는
+// 별도로 재시뮬레이션해 확인한다.
+// 재능·취미·자산·건강상태·가족·직업·장소·지인처럼 "이미 보유 중인 무언가가
+// 특정 나이에만 전용 콘텐츠를 갖는" 경우, 그 나이를 건너뛰면 다시 만날
+// 기회가 없어지는 문제가 있어(예: acting 재능은 11/31/32/33세에 얻지만
+// 실제로 쓰이는 나이는 15/92/100세뿐) TRIGGER_AGE_INDEX로 보호한다 -
+// "가장 가까운 다음 필수 나이까지만 스킵"(사용자 확정).
+function pickNextStageIndex(currentIndex, ctx) {
+  const rawSkip = 1 + Math.floor(Math.random() * 5);
+  const naiveNext = currentIndex + rawSkip;
+  const activeKeys = activeTriggerKeysFor(ctx || {});
+  let earliestProtected = null;
+  for (const key of activeKeys) {
+    const ages = TRIGGER_AGE_INDEX.get(key);
+    if (!ages) continue;
+    for (const age of ages) {
+      if (age <= currentIndex) continue;
+      if (age >= naiveNext) break; // ages는 오름차순 - 이 키에서 더 볼 필요 없음
+      if (earliestProtected === null || age < earliestProtected) earliestProtected = age;
+      break; // 이 키의 가장 가까운 필수 나이는 찾았으니 다음 키로
+    }
+  }
+  return earliestProtected !== null ? earliestProtected : naiveNext;
 }
 
 // 단어 끝 글자에 받침이 있는지에 따라 을/를을 고른다(2026-08-22, 합성 치료
@@ -2053,7 +2135,26 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
   const instantEnding = INSTANT_ENDING_BUILDERS.find((e) => stats[e.stat] <= 0);
   const collapsed = !!instantEnding;
 
-  const nextIndex = choice.resetToInfancy ? 0 : pickNextStageIndex(play.stageIndex);
+  // 스킵 보호용 ctx(65장) - 이 시점에 이미 이번 선택의 효과까지 반영된
+  // talents/hobbies/assets/healthConditions/familyMembers/acquaintances/
+  // currentLocation을 그대로 쓴다. 직업만 예외 - currentOccupation은
+  // nextActiveRoute(바로 아래에서 nextIndex를 인자로 계산)에 의존해 순환
+  // 참조가 생기므로, 이번 선택 이전 상태인 priorOccupationId/
+  // priorEverOccupationIds를 쓴다(직업 관련 콘텐츠는 대개 여러 나이에
+  // 걸쳐 있어 한 턴 정도 늦게 반영돼도 실질적 차이가 없음).
+  const nextIndex = choice.resetToInfancy ? 0 : pickNextStageIndex(play.stageIndex, {
+    talentIds: talents.map((t) => t.id),
+    hobbyIds: hobbies.map((h) => h.id),
+    assetIds: assets.map((a) => a.id),
+    assetTypes: assets.map((a) => a.type).filter(Boolean),
+    conditionIds: healthConditions.map((c) => c.id),
+    familyIds: familyMembers.map((f) => f.id),
+    occupationId: priorOccupationId,
+    everOccupationIds: priorEverOccupationIds,
+    hasAnyAcquaintance: !!acquaintances.length,
+    hasAnyLover: acquaintances.some((a) => a.relation === 'lover'),
+    locationId: currentLocation.id
+  });
   const completed = collapsed || nextIndex >= STAGES.length;
   // sickStreak(2026-08-22, guaranteeCure 참고) - 건강 조건이 하나라도 있는
   // 채로 몇 턴째인지 세는 카운터. 조건이 없어지면(전부 나으면) 0으로
