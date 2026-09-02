@@ -61443,10 +61443,28 @@ const STOCK_DIVIDEND_CHOICES = [
 // 발생했을 때 덤으로 사용하는 느낌"). v1은 망치 하나만 - 다른 도구는 이 배열에
 // 계속 추가하는 방식으로 확장.
 const HARDWARE_STORE_CHOICES = [
+  // 13세 미만 전용(2026-09-02, 사용자 지시 - "13세 이전까지는 망치를 직접
+  // 구매하는 표현이 아닌 원래 집에 있던 망치로 부모님의 일을 도와주고
+  // 용돈을 받는 방식으로") - 구매가 아니라 "이미 집에 있던 도구를 쓰며
+  // 거들고 용돈을 받는" 프레이밍이라 wealth 델타 부호가 반대(+)다. 결과
+  // 자산(hammer)은 구매 버전과 완전히 동일해 이후 콘텐츠(평소 사용 이벤트·
+  // 좀비 대응·제작 계기)는 어느 경로로 얻었든 그대로 이어진다.
+  {
+    id: 'hardware-hammer-help-parents',
+    text: '집에 있던 망치로 아버지 일을 거들어드리고 용돈을 받는다',
+    requiresNoAsset: 'hammer',
+    requiresAgeBelow: 13,
+    appearChance: 0.1,
+    bonusSlot: true,
+    deltas: { wealth: 1, happiness: 1 },
+    addAsset: { id: 'hammer', label: '🔨 망치', type: 'hardware-tool' },
+    result: '작은 손으로도 제법 야무지게 거들었다며 용돈을 받았다.'
+  },
   {
     id: 'hardware-buy-hammer',
     text: '가게 진열대가 삐걱거려 망치를 하나 장만한다',
     requiresNoAsset: 'hammer',
+    requiresAgeAtLeast: 13,
     appearChance: 0.1,
     bonusSlot: true,
     deltas: { wealth: -1, happiness: 1 },

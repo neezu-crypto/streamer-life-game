@@ -771,6 +771,13 @@ function pickVisibleChoiceIds(choices, ctx) {
     if (c.requiresLocation && !c.requiresLocation.includes(locationId)) return false;
     if (c.requiresAnyAcquaintance && !hasAnyAcquaintance) return false;
     if (c.requiresAnyLover && !hasAnyLover) return false;
+    // requiresAgeBelow/requiresAgeAtLeast(63장, 2026-09-02, 사용자 지시 -
+    // "13세 이전까지는 망치를 직접 구매하는 표현이 아닌 원래 집에 있던
+    // 망치로 부모님의 일을 도와주고 용돈을 받는 방식으로") - 같은
+    // requiresNoAsset:'hammer' 게이팅을 나이대별로 다른 문구·방향(용돈 받기
+    // vs 직접 구매)의 두 선택지로 쪼갤 때 쓰는 범용 나이 게이트.
+    if (typeof c.requiresAgeBelow === 'number' && !(typeof currentAge === 'number' && currentAge < c.requiresAgeBelow)) return false;
+    if (typeof c.requiresAgeAtLeast === 'number' && !(typeof currentAge === 'number' && currentAge >= c.requiresAgeAtLeast)) return false;
     if (c.requiresTalent) {
       const requiredTalents = Array.isArray(c.requiresTalent) ? c.requiresTalent : [c.requiresTalent];
       if (!requiredTalents.some((t) => talentIds.includes(t))) return false;
@@ -1383,6 +1390,14 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
   // requiresAnyLover - pickVisibleChoiceIds와 완전히 같은 조건을 여기서도 검증한다.
   if (choice.requiresAnyLover && !priorAcquaintances.some((a) => a.relation === 'lover')) {
     throw new HttpsError('failed-precondition', '지금 연인이 없어서 고를 수 없는 선택지입니다.');
+  }
+  // requiresAgeBelow/requiresAgeAtLeast - pickVisibleChoiceIds와 완전히 같은
+  // 조건을 여기서도 검증한다.
+  if (typeof choice.requiresAgeBelow === 'number' && !(play.stageIndex < choice.requiresAgeBelow)) {
+    throw new HttpsError('failed-precondition', '지금 나이에서는 고를 수 없는 선택지입니다.');
+  }
+  if (typeof choice.requiresAgeAtLeast === 'number' && !(play.stageIndex >= choice.requiresAgeAtLeast)) {
+    throw new HttpsError('failed-precondition', '지금 나이에서는 고를 수 없는 선택지입니다.');
   }
   // requiresTalent/requiresAnyTalent, requiresHobby/requiresAnyHobby - requiresAsset·
   // requiresAnyAcquaintance와 완전히 같은 패턴을 재능·취미 상세에 적용했다.
