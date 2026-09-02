@@ -12,6 +12,7 @@ const {
   ZOMBIE_EVENT_CHOICES,
   STOCK_DIVIDEND_CHOICES,
   HARDWARE_STORE_CHOICES,
+  DIY_CRAFT_PRODUCTS,
   resolveEnding,
   buildCollapseEnding,
   buildBankruptcyEnding,
@@ -1166,6 +1167,14 @@ function publicStage(stage, visibleIds, introId, healthConditions, isAdmin) {
         // 하므로, 다른 requires*와 달리 이 플래그만 예외적으로 클라이언트에
         // 그대로 전달한다(결과 스포일러가 아니라 UI 분기 정보라 안전함).
         if (real.requiresStockPurchase) out.requiresStockPurchase = true;
+        // opensCraftModal(63장 C항 3단계, 2026-09-02) - requiresStockPurchase와
+        // 같은 이유(결과 스포일러가 아니라 "제출 전에 모달부터 열어야 한다"는
+        // 순수 UI 분기 정보)로 예외적으로 클라이언트에 그대로 전달한다. 이
+        // 플래그가 빠지면 클라이언트가 이 선택지를 평범한 pickChoice로
+        // 제출해버려 opensCraftModal 조기반환 응답(stats 없음)을
+        // applyOutcome이 그대로 렌더링하려다 죽는다(실제 라이브 검증 중
+        // 발견된 회귀).
+        if (real.opensCraftModal) out.opensCraftModal = true;
         // startsRouteId/setsOccupationId(2026-09-01) - isAdmin일 때만 추가.
         if (isAdmin) {
           if (real.startsRoute) out.startsRouteId = real.startsRoute.id;
@@ -2909,6 +2918,15 @@ const submitChoice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
   if (play.visibleChoiceIds && play.visibleChoiceIds.length && !play.visibleChoiceIds.includes(choiceId)) {
     throw new HttpsError('invalid-argument', '지금 화면에 없는 선택지입니다.');
   }
+  // opensCraftModal(63장 C항 3단계, 2026-09-02) - DIY 제작 계기 선택지는
+  // applyChoice(나이 진행)를 절대 타면 안 된다(핵심 설계 결정 - "제작하는 동안은
+  // 나이가 흐르지 않게"). 여기서 조기 반환해 stageIndex/choiceLog/
+  // visibleChoiceIds를 전혀 건드리지 않고, 클라이언트에게 제작 모달을 열라는
+  // 신호와 완성품 카탈로그만 내려준다. 실제 제작은 별도 함수 craftDiyItem이
+  // 처리한다.
+  if (choice.opensCraftModal) {
+    return { opensCraftModal: true, craftProducts: DIY_CRAFT_PRODUCTS };
+  }
 
   // 주식 매수(2026-08-28, 56장 D항) - requiresStockPurchase가 붙은 선택지는
   // game-data.js에 고정 deltas/addAsset이 없다(어떤 종목을 살지, 그 순간 가격이
@@ -3036,6 +3054,43 @@ const sellStock = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, a
     sellPrice: stockVal.price,
     buyPrice: asset.buyPrice
   };
+});
+
+// DIY 제작(63장 C항 3단계, 2026-09-02) - hardware-craft-trigger 선택지가
+// submitChoice에서 opensCraftModal로 조기 반환된 뒤, 클라이언트가 띄운 제작
+// 모달에서 완성품 하나를 고르면 이 함수가 호출된다. sellStock과 같은 이유로
+// submitChoice/applyChoice를 거치지 않는 독립 액션 - play.stageIndex를
+// 전혀 건드리지 않아 "제작하는 동안 나이가 멈춰 있다"는 설계가 그대로
+// 지켜진다. 완성품 인스턴스마다 별도 id를 부여해(같은 제품을 여러 개 만들어도
+// 자산 목록에서 서로 구분되게) diy-craft 타입 자산으로 추가한다.
+const craftDiyItem = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const db = getDatabase();
+  const productId = request.data && request.data.productId;
+  if (!productId) throw new HttpsError('invalid-argument', 'productId가 필요합니다.');
+  const product = DIY_CRAFT_PRODUCTS.find((p) => p.id === productId);
+  if (!product) throw new HttpsError('invalid-argument', '존재하지 않는 제작품입니다.');
+
+  const { playRef, play } = await loadActivePlay(db, uid);
+  const assets = Array.isArray(play.assets) ? play.assets : [];
+  if (!assets.some((a) => a.type === 'hardware-tool')) {
+    throw new HttpsError('failed-precondition', '제작에 필요한 연장이 없습니다.');
+  }
+
+  const stats = Object.assign({}, play.stats);
+  stats.happiness = clampStat((stats.happiness || 0) + (product.craftHappinessDelta || 0));
+  const craftedAsset = {
+    id: 'diy-' + productId + '-' + Date.now() + '-' + Math.floor(Math.random() * 1e6),
+    label: product.label,
+    type: 'diy-craft',
+    productId: product.id,
+    sellWealthDelta: product.sellWealthDelta
+  };
+  const nextAssets = assets.concat([craftedAsset]);
+
+  await playRef.update({ stats, assets: nextAssets });
+
+  return { stats, assets: nextAssets, crafted: craftedAsset, result: product.craftResult };
 });
 
 // 주사위 굴리기 - random:true인 구간(예: 유아기, "태어날 집안은 스스로 고를 수
@@ -3579,4 +3634,4 @@ const spreadZombieOutbreakNaturally = onSchedule({ schedule: '0 0 * * *', timeZo
   });
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, craftDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally };

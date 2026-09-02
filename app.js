@@ -58,6 +58,7 @@ const startPlaythroughFn = httpsCallable(functions, 'startPlaythrough');
 const resumePlaythroughFn = httpsCallable(functions, 'resumePlaythrough');
 const submitChoiceFn = httpsCallable(functions, 'submitChoice');
 const sellStockFn = httpsCallable(functions, 'sellStock');
+const craftDiyItemFn = httpsCallable(functions, 'craftDiyItem');
 const reportStolenVehicleFn = httpsCallable(functions, 'reportStolenVehicle');
 const rollDiceFn = httpsCallable(functions, 'rollDice');
 const shareToGalleryFn = httpsCallable(functions, 'shareToGallery');
@@ -644,6 +645,63 @@ document.getElementById('confirmSellStockBtn').addEventListener('click', async (
   } finally {
     confirmBtn.disabled = false;
   }
+});
+
+// ------------------------------------------------------------
+// DIY 제작 모달(63장 C항 3단계, 2026-09-02) - hardware-craft-trigger 선택지를
+// 고르면 submitChoice가 나이를 넘기지 않고 곧장 opensCraftModal:true +
+// craftProducts를 돌려준다(index.js 참고). 여기서 그 응답으로 모달을 채우고,
+// 완성품을 고를 때마다 craftDiyItem을 별도 호출한다 - 이 호출도 나이를 넘기지
+// 않으므로 모달을 여러 번 오가며 여러 개를 만들 수 있고, 닫은 뒤엔 여전히
+// 같은 #choiceList의 선택지 중 하나를 골라야 실제로 나이가 넘어간다.
+// ------------------------------------------------------------
+const craftDiyModal = document.getElementById('craftDiyModal');
+const craftDiyProductList = document.getElementById('craftDiyProductList');
+const craftDiyResult = document.getElementById('craftDiyResult');
+
+function renderCraftDiyProducts(products) {
+  craftDiyProductList.innerHTML = '';
+  (products || []).forEach((product) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    btn.textContent = product.label;
+    btn.addEventListener('click', async () => {
+      btn.disabled = true;
+      try {
+        const res = await craftDiyItemFn({ productId: product.id });
+        renderStatBars(statBars, res.data.stats);
+        renderAssets(res.data.assets, lastKnownAgeRange);
+        craftDiyResult.textContent = res.data.result;
+        craftDiyResult.classList.remove('hidden');
+        showToast('🔨 ' + res.data.crafted.label + ' 완성!');
+      } catch (e) {
+        console.error('제작 실패:', e);
+        alert('제작을 처리하지 못했어요: ' + (e.message || e));
+      } finally {
+        btn.disabled = false;
+      }
+    });
+    craftDiyProductList.appendChild(btn);
+  });
+}
+
+async function openCraftDiyModal(choiceId) {
+  craftDiyResult.classList.add('hidden');
+  craftDiyResult.textContent = '';
+  craftDiyProductList.innerHTML = '<p class="pitch">불러오는 중...</p>';
+  craftDiyModal.classList.remove('hidden');
+  try {
+    const res = await submitChoiceFn({ choiceId });
+    renderCraftDiyProducts(res.data.craftProducts);
+  } catch (e) {
+    console.error('제작 모달 열기 실패:', e);
+    craftDiyModal.classList.add('hidden');
+    alert('제작 메뉴를 불러오지 못했어요: ' + (e.message || e));
+  }
+}
+
+document.getElementById('closeCraftDiyBtn').addEventListener('click', () => {
+  craftDiyModal.classList.add('hidden');
 });
 
 // ------------------------------------------------------------
@@ -2012,6 +2070,12 @@ function renderStage(stage) {
       } else {
         btn.addEventListener('click', () => openBuyStockModal(choice.id));
       }
+    } else if (choice.opensCraftModal) {
+      // opensCraftModal(63장 C항 3단계) - 곧바로 submitChoice로 나이를 넘기지
+      // 않고, 제작 모달부터 연다(openCraftDiyModal 참고). 이 선택지는 나이
+      // 진행 없이 여러 번 다시 골라도 무방하므로 pickChoice와 달리
+      // disableChoiceList를 부르지 않는다.
+      btn.addEventListener('click', () => openCraftDiyModal(choice.id));
     } else {
       btn.addEventListener('click', () => pickChoice(choice.id));
     }

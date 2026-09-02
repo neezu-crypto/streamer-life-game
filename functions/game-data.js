@@ -61502,6 +61502,42 @@ const HARDWARE_STORE_CHOICES = [
       { weight: 25, label: '경상', deltas: { health: -2, happiness: -1 }, result: '몇 대 얻어맞았지만 망치 덕에 크게 다치진 않았다.' },
       { weight: 10, label: '중상', deltas: { health: -6, happiness: -3 }, addCondition: { id: 'infection', label: '🦠 감염' }, result: '무기가 있어도 수적으로 밀리니 별수 없었다.' }
     ]
+  },
+  // DIY 제작 계기 선택지(63장 C항 3단계, 2026-09-02) - hardware-tool 타입
+  // 자산을 하나라도 보유 중이면(망치뿐인 v1에선 사실상 requiresAsset:'hammer'와
+  // 동치지만, 도구가 늘어날 확장을 대비해 requiresAssetType으로 게이팅)
+  // 등장하는 계기 선택지. 골라도 submitChoice의 일반 나이 진행을 타지 않고
+  // (index.js의 opensCraftModal 조기 반환 분기) 클라이언트가 제작 모달을 열게만
+  // 한다 - 그래서 여기엔 deltas/result가 없다(적용될 일이 없음).
+  {
+    id: 'hardware-craft-trigger',
+    text: '문득 갖고 있는 연장으로 뭔가 만들어보고 싶어진다',
+    requiresAssetType: 'hardware-tool',
+    appearChance: 0.1,
+    bonusSlot: true,
+    opensCraftModal: true
+  }
+];
+
+// DIY_CRAFT_PRODUCTS(63장 B항, 2026-09-02) - craftDiyItem 전용 완성품 카탈로그.
+// v1은 도마(빠르고 간단·낮은 판매가)·원목 의자(중간 난이도·중간 판매가) 2종만
+// (사용자 확정 "일단 이대로 기획에 추가"). 판매가는 새 원화 시스템을 만들지
+// 않고 기존 wealth 스탯 델타 관례(cashUnitForAge로 환산되는 기존 전역 경제)를
+// 그대로 재사용 - sellWealthDelta는 sellDiyItem이 판매 시 wealth에 더할 값.
+const DIY_CRAFT_PRODUCTS = [
+  {
+    id: 'diy-cutting-board',
+    label: '🪵 도마',
+    craftHappinessDelta: 1,
+    sellWealthDelta: 1,
+    craftResult: '결 좋은 나무판을 다듬어 뚝딱 도마 하나를 완성했다.'
+  },
+  {
+    id: 'diy-wooden-chair',
+    label: '🪑 원목 의자',
+    craftHappinessDelta: 2,
+    sellWealthDelta: 3,
+    craftResult: '다리 하나하나를 정성껏 깎고 다듬어 튼튼한 원목 의자를 완성했다.'
   }
 ];
 
@@ -61514,6 +61550,7 @@ module.exports = {
   ZOMBIE_EVENT_CHOICES,
   STOCK_DIVIDEND_CHOICES,
   HARDWARE_STORE_CHOICES,
+  DIY_CRAFT_PRODUCTS,
   ENDINGS,
   resolveEnding,
   buildCollapseEnding,
