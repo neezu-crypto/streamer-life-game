@@ -18723,7 +18723,17 @@ const STAGES = [
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
     
-          ]
+          
+      {
+        id: 'lawyer-high-stakes-case-win-30',
+        text: '고액 손해배상 소송에서 승소한다',
+        requiresRoute: 'lawyer',
+        requiresOccupation: ['associate-lawyer', 'trainee-lawyer'],
+        mandatory: true,
+        deltas: { wealth: 6, fame: 1 },
+        result: '판결문을 받아 든 순간, 그간의 밤샘이 스쳐 지나갔다.'
+      },
+    ]
   },
   {
     id: 'settling-31',
@@ -23644,6 +23654,16 @@ const STAGES = [
           { weight: 35, label: '일부만 구출', deltas: { happiness: -2 }, result: '모두를 구하지 못했다는 무게가 오래 남았다.' }
         ]
       },
+    
+      {
+        id: 'lawyer-corporate-retainer-contract-34',
+        text: '여러 기업과 고문 계약을 잇달아 맺는다',
+        requiresRoute: 'lawyer',
+        requiresOccupation: ['associate-lawyer'],
+        mandatory: true,
+        deltas: { wealth: 6 },
+        result: '매달 들어오는 고문료가, 안정감을 더해줬다.'
+      },
     ]
   },
   {
@@ -24858,6 +24878,16 @@ const STAGES = [
         result: '더디더라도, 안전을 포기할 순 없었다.',
         requiresEverOccupation: ['postdoc-researcher']
       },
+    
+      {
+        id: 'doctor-switch-lucrative-specialty-35',
+        text: '수요가 많은 인기 진료과목으로 전환한다',
+        requiresRoute: 'doctor',
+        requiresOccupation: ['doctor', 'private-practice-doctor'],
+        mandatory: true,
+        deltas: { wealth: 7 },
+        result: '진료실 앞 대기줄이, 선택이 틀리지 않았음을 말해줬다.'
+      },
     ]
   },
   {
@@ -25970,7 +26000,16 @@ const STAGES = [
         ]
       },
     
-                ]
+                
+      {
+        id: 'researcher-patent-royalty-income-36',
+        text: '연구 성과로 특허를 출원해 로열티 수입을 얻는다',
+        requiresOccupation: ['researcher', 'senior-researcher'],
+        mandatory: true,
+        deltas: { wealth: 11 },
+        result: '실험실에서의 밤샘이, 예상치 못한 곳에서 돌아왔다.'
+      },
+    ]
   },
   {
     id: 'settling-37',
@@ -28245,6 +28284,26 @@ const STAGES = [
           { weight: 45, label: '팀원 부상', deltas: { happiness: -4, health: -2 }, result: '작전은 마무리됐지만, 아군 부상자가 나왔다.' }
         ]
       },
+    
+      {
+        id: 'lawyer-promoted-partner-38',
+        text: '대형 로펌의 파트너 변호사로 승진한다',
+        deltas: { wealth: 9, happiness: 2, fame: 2 },
+        result: '이름이 로펌 간판에 오르는 날이 오리라곤, 신입 때는 상상 못 했다.',
+        requiresRoute: 'lawyer',
+        requiresOccupation: ['associate-lawyer'],
+        mandatory: true,
+        setOccupation: { id: 'partner-lawyer', label: '⚖️ 파트너 변호사' }
+      },
+      {
+        id: 'lawyer-mega-ma-advisory-38',
+        text: '대기업 인수합병 자문 계약을 수주한다',
+        requiresRoute: 'lawyer',
+        requiresOccupation: ['associate-lawyer', 'partner-lawyer', 'solo-lawyer'],
+        mandatory: true,
+        deltas: { wealth: 7 },
+        result: '계약서 한 장의 무게가, 이번엔 유독 묵직했다.'
+      },
     ]
   },
   {
@@ -30335,6 +30394,24 @@ const STAGES = [
           { weight: 10, label: '발각', deltas: { fame: -5, relationship: -4, happiness: -3 }, result: '불시 재물조사에서 빼돌린 물량이 그대로 드러났다.' }
         ]
       },
+    
+      {
+        id: 'doctor-opens-private-practice-40',
+        text: '자신의 이름을 건 개인 병원을 개원한다',
+        deltas: { wealth: 8, happiness: 3, fame: 1 },
+        result: '간판에 걸린 내 이름 석 자가, 새삼 무겁고도 뿌듯했다.',
+        requiresOccupation: ['doctor'],
+        mandatory: true,
+        setOccupation: { id: 'private-practice-doctor', label: '🏥 개원의' }
+      },
+      {
+        id: 'researcher-industry-partnership-funding-40',
+        text: '기업과의 산학협력 계약을 체결해 연구비를 지원받는다',
+        requiresOccupation: ['researcher', 'senior-researcher'],
+        mandatory: true,
+        deltas: { wealth: 9 },
+        result: '연구실 예산 걱정이, 오랜만에 한시름 놓였다.'
+      },
     ]
   },
   {
@@ -32244,6 +32321,16 @@ const STAGES = [
         deltas: { happiness: -1 },
         result: '유혹은 있었지만, 있는 그대로 내놓기로 했다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'lawyer-firm-equity-dividend-42',
+        text: '로펌 지분에서 나오는 배당금을 받는다',
+        requiresRoute: 'lawyer',
+        requiresOccupation: ['partner-lawyer'],
+        mandatory: true,
+        deltas: { wealth: 7 },
+        result: '이름을 걸고 일한 세월이, 숫자로도 돌아왔다.'
       },
     ]
   },
@@ -34290,6 +34377,15 @@ const STAGES = [
         result: '남 앞에서 내 경험을 말로 옮기는 게, 생각보다 쉽지 않았다.',
         setOccupation: { id: 'consultant', label: '🎤 컨설턴트/강사' }
       },
+    
+      {
+        id: 'doctor-vip-patient-influx-44',
+        text: '입소문을 타며 VIP 예약 환자들이 몰린다',
+        requiresOccupation: ['private-practice-doctor'],
+        mandatory: true,
+        deltas: { wealth: 6, fame: 1 },
+        result: '예약이 몇 달치씩 밀려 있다는 게, 실감이 안 났다.'
+      },
     ]
   },
   {
@@ -35319,6 +35415,7 @@ const STAGES = [
         deltas: { happiness: 3, wealth: 2, fame: 2 },
         result: '연구실 문패에 붙는 직함 하나가, 지나온 세월을 증명해줬다.',
         requiresOccupation: ['researcher'],
+        mandatory: true,
         setOccupation: { id: 'senior-researcher', label: '🔬 수석연구원' }
       },
     
@@ -39385,6 +39482,32 @@ const STAGES = [
         deltas: { happiness: 2, wealth: 1 },
         result: '싸우는 것만큼, 되살리는 것도 이 일의 일부였다.'
       },
+    
+      {
+        id: 'doctor-medical-conference-consulting-fee-50',
+        text: '의학 학회에서 인정받아 자문료 수입이 늘어난다',
+        requiresOccupation: ['doctor', 'private-practice-doctor'],
+        mandatory: true,
+        deltas: { wealth: 5, fame: 1 },
+        result: '진료실 밖에서도 이름이 오르내린다는 게 새삼스러웠다.'
+      },
+      {
+        id: 'lawyer-international-arbitration-case-50',
+        text: '국제 중재 사건을 맡아 고액 수임료를 받는다',
+        requiresRoute: 'lawyer',
+        requiresOccupation: ['partner-lawyer', 'solo-lawyer'],
+        mandatory: true,
+        deltas: { wealth: 6 },
+        result: '언어의 장벽보다, 법리의 무게가 더 크게 느껴진 사건이었다.'
+      },
+      {
+        id: 'researcher-international-award-prize-money-50',
+        text: '국제 학술상을 수상하며 거액의 상금을 받는다',
+        requiresOccupation: ['senior-researcher', 'distinguished-researcher'],
+        mandatory: true,
+        deltas: { wealth: 13, fame: 3, happiness: 2 },
+        result: '무대 위 조명보다, 그 상금의 무게가 더 실감 났다.'
+      },
     ]
   },
   {
@@ -42757,6 +42880,16 @@ const STAGES = [
         result: '더디더라도, 안전을 포기할 순 없었다.',
         requiresEverOccupation: ['postdoc-researcher']
       },
+    
+      {
+        id: 'researcher-distinguished-professor-55',
+        text: '학계 공로를 인정받아 석좌교수로 추대된다',
+        deltas: { wealth: 10, happiness: 3, fame: 3 },
+        result: '평생의 연구가, 이런 식으로 인정받을 줄은 몰랐다.',
+        requiresOccupation: ['senior-researcher'],
+        mandatory: true,
+        setOccupation: { id: 'distinguished-researcher', label: '🔬 석좌교수' }
+      },
     ]
   },
   {
@@ -45957,6 +46090,23 @@ const STAGES = [
         result: '숫자로만 남기엔 아까운 이야기들이었다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
       },
+    
+      {
+        id: 'doctor-medical-device-endorsement-60',
+        text: '의료기기 업체의 자문 계약을 맡는다',
+        requiresOccupation: ['doctor', 'private-practice-doctor'],
+        mandatory: true,
+        deltas: { wealth: 5 },
+        result: '평생 손에 익은 감각이, 이렇게도 값이 매겨졌다.'
+      },
+      {
+        id: 'researcher-textbook-royalty-steady-income-60',
+        text: '저술한 전공서적이 스테디셀러가 되어 인세 수입이 꾸준하다',
+        requiresOccupation: ['senior-researcher', 'distinguished-researcher'],
+        mandatory: true,
+        deltas: { wealth: 8 },
+        result: '오래전에 써둔 책이, 여전히 조용히 값을 하고 있었다.'
+      },
     ]
   },
   {
@@ -48976,6 +49126,15 @@ const STAGES = [
         deltas: { wealth: 2, happiness: 1 },
         result: '군복을 벗어도, 여전히 쓸모가 있다는 게 반가웠다.',
         requiresOccupation: ["private-soldier","nco-soldier","special-unit-soldier"]
+      },
+    
+      {
+        id: 'researcher-global-conference-keynote-fee-65',
+        text: '국제 학회 기조연설을 맡아 강연료를 받는다',
+        requiresOccupation: ['senior-researcher', 'distinguished-researcher'],
+        mandatory: true,
+        deltas: { wealth: 8, fame: 2 },
+        result: '평생 쌓아온 이야기를, 이제는 무대에서 풀어놓았다.'
       },
     ]
   },
