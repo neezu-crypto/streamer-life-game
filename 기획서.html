@@ -7479,6 +7479,98 @@
         </ul>
     </section>
 
+    <section id="sec64">
+        <h2><span class="num">64</span>플레이어 간 장난(낚시) 이벤트 설계 (2026-09-02, 사용자 지시 —
+        구현 완료)</h2>
+        <p><b>배경.</b> "다른 플레이어에게 직접적으로 장난을 칠 수 있는 이벤트를 추가하고
+        싶다"(사용자 지시)는 요청에서 출발. 처음엔 닉네임을 입력해 특정 플레이어를 지목하는
+        방식이 제안됐으나, 논의 끝에 <b>특정 대상 지목이 아닌 전역 확률 방식</b>으로 확정됐다 —
+        닉네임 검색·중복 문제·알림함 신설 같은 무거운 인프라 없이도(닉네임 고유성 문제, 신규
+        알림 시스템 필요 등) 원하는 "장난" 재미를 살릴 수 있는 방향.</p>
+
+        <h3>A. 핵심 메커니즘 — 전역 트래커 2개</h3>
+        <p>62장 좀비 세계관·56장 경찰 부패도와 완전히 같은 <code>worldState</code> EMA 트래커
+        패턴을 그대로 재사용한다(신규 엔진 필드 불필요, <code>worldStateSignal</code>만 사용).</p>
+        <ul>
+            <li><code>prankTrapDensity</code> — "세상에 함정이 얼마나 깔려있는가". 누군가 함정을
+            놓을 때마다 상승 → 이 수치가 높을수록 <b>다른 모든 플레이어</b>에게 낚시 이벤트가 더
+            자주 등장(<code>dynamicAppearChance</code>).</li>
+            <li><code>prankLootPool</code> — "실제로 뜯어낸 돈이 얼마나 쌓였는가". 낚시 이벤트에서
+            누군가 실제로 현금을 잃을 때(경미한 민망함 갈래는 해당 없음, 진짜 현금 손실 갈래만)
+            상승 → 이 수치가 높을수록 <b>함정을 놓은 적 있는 플레이어</b>에게 "회수하러 가기"
+            이벤트가 더 자주 등장, 회수에 성공하면 다시 하락.</li>
+        </ul>
+        <p>실제 계좌 간 송금은 없다 — "낚인 사람이 잃는 돈"과 "함정 설치자가 회수하는 돈"은
+        완전히 별개의(각자 자기 자신의 <code>submitChoice</code> 안에서만 처리되는) wealth
+        델타이고, 둘을 잇는 건 오직 <code>prankLootPool</code> 수치 하나뿐이다. 특정 함정과
+        특정 피해자를 실제로 매칭하지도 않는다 — 통계적 연출.</p>
+
+        <h3>B. 패턴 읽기 방지 — 나이 무관 + 텍스트 다양화</h3>
+        <p>"낚시 이벤트가 매번 똑같은 문구로 반복되면 금방 패턴이 읽힌다"(사용자 지시)는 우려로,
+        함정 놓기·낚시 이벤트 둘 다 여러 개의 서로 다른 문구 변형으로 구성했다. 또한 "함정
+        놓기는 나이 무관하게 랜덤하게 등장"(사용자 지시)하도록 나이 제한을 전부 뺐다 — 처음
+        제안됐던 "20세부터 출현"은 폐기되고, 함정 놓기·낚시 이벤트·회수 전부
+        <code>STOCK_DIVIDEND_CHOICES</code>와 같은 나이·직업 무관 전역 풀로 구현됐다.</p>
+
+        <h3>C. 함정 놓기(5종) — 평생 1회, 어느 걸 골라도 결과는 동일</h3>
+        <p>전부 <code>requiresNoAsset:'active-trap'</code>을 공유해 그중 하나를 고르면 나머지
+        넷은 다시 뜨지 않는다. 골라도 <code>addAsset</code>으로 <code>active-trap</code>(숨은
+        표식 자산, type: <code>prank-trap</code>)을 얻고, <code>worldStateSignal</code>로
+        <code>prankTrapDensity</code>를 올리고, 신규 필드 <code>recordsPrankSetterName</code>로
+        본인의 <code>streamerName</code>을 <code>lifeGame/recentPrankSetters</code>(최근 20명
+        캡, 56장 D항 <code>sparklines</code>와 같은 트랜잭션 push+shift 패턴) 명단에 남긴다.</p>
+        <ol>
+            <li>공원 벤치에 일부러 지갑을 흘려놓는다</li>
+            <li>복권처럼 보이게 만든 종이를 인도에 떨어뜨려 놓는다</li>
+            <li>편의점 앞에 "주인 없음" 팻말과 함께 상자를 놓아둔다</li>
+            <li>SNS에 가짜 경품 이벤트 글을 올려놓는다</li>
+            <li>동네 게시판에 수상한 전단지를 붙여놓는다</li>
+        </ol>
+
+        <h3>D. 낚시 이벤트(10종) — 각자 독립 확률표</h3>
+        <p>전부 <code>requiresWorldStateActive:'prankTrapDensity'</code> +
+        <code>dynamicAppearChance</code>(밀도에 비례)로 게이팅. 각 선택지마다 3단계 확률표 —
+        대부분(60%)은 진짜였고, 일부(25%)는 민망하게 허탕, 나머지(15%)는 진짜 함정. 다만
+        10종 전부가 "낚이면 무조건 현금 손실"은 아니다 — 8종은 낚이면 현금 손실(신규 필드
+        <code>injectsPrankSetterName</code>으로 결과 문구에 최근 함정 설치자 명단에서 무작위로
+        뽑은 이름을 <code>pickBatchimJosa</code>로 이/가 조사까지 맞춰 삽입, 동시에
+        <code>prankLootPool</code> 상승), 2종(랜덤박스·우산)은 낚여도 순수 민망함/장난
+        수준(현금 손실도 <code>prankLootPool</code> 반영도 없음)으로 남겨 "위험한 선택지=항상
+        돈을 잃는다"는 학습조차 못 하게 했다.</p>
+        <ol>
+            <li>바닥에 떨어진 1천만원을 줍는다 (현금 손실형)</li>
+            <li>벤치에 놓여있는 랜덤박스를 열어본다 (민망함형)</li>
+            <li>누군가 흘리고 간 복권을 주워 확인해본다 (현금 손실형)</li>
+            <li>편의점 앞 무료 나눔 상자를 뒤져본다 (현금 손실형)</li>
+            <li>SNS에서 본 무료 경품 이벤트에 응모한다 (현금 손실형)</li>
+            <li>게시판에 붙은 "고수익 알바" 전단지 번호로 연락해본다 (현금 손실형)</li>
+            <li>길에서 주운 상품권을 써본다 (현금 손실형)</li>
+            <li>낯선 사람이 건넨 명함을 보고 연락해본다 (현금 손실형)</li>
+            <li>우편함에 꽂힌 당첨 안내문을 확인해본다 (현금 손실형)</li>
+            <li>누가 놓고 간 듯한 우산을 챙긴다 (민망함형)</li>
+        </ol>
+
+        <h3>E. 회수하러 가기(3종) — 함정 놓은 사람 전용</h3>
+        <p>전부 <code>requiresAsset:'active-trap'</code> + <code>requiresWorldStateActive:
+        'prankLootPool'</code> + <code>dynamicAppearChance</code>(누적 피해액에 비례). 고르면
+        고정 wealth 획득 + <code>worldStateSignal</code>로 <code>prankLootPool</code>을 다시
+        낮춘다(좀비 방어 성공 시 심각도가 내려가는 것과 같은 원리 - 무한 누적 방지).</p>
+        <ol>
+            <li>몰래 파둔 함정을 다시 찾아가본다</li>
+            <li>놓아둔 미끼가 얼마나 걸렸는지 확인하러 간다</li>
+            <li>슬쩍 흘려놓은 물건이 잘 있는지 살펴본다</li>
+        </ol>
+
+        <h3>F. 신규 엔진 필드 (구현 완료)</h3>
+        <ul>
+            <li><code>recordsPrankSetterName</code>(불리언) — 선택 시 본인 이름을
+            <code>lifeGame/recentPrankSetters</code> 명단에 push(20개 캡, 트랜잭션).</li>
+            <li><code>injectsPrankSetterName</code>(불리언, prizeTable 갈래 전용) — 결과 문구의
+            <code>{prankSetterName}</code> 자리에 명단에서 무작위로 뽑은 이름+조사를 삽입.
+            명단이 비어있으면 "누군가"로 대체.</li>
+        </ul>
+    </section>
+
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
 </div>
 </body>

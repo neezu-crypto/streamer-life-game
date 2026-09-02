@@ -13,6 +13,7 @@ const {
   STOCK_DIVIDEND_CHOICES,
   HARDWARE_STORE_CHOICES,
   DIY_CRAFT_PRODUCTS,
+  PRANK_CHOICES,
   resolveEnding,
   buildCollapseEnding,
   buildBankruptcyEnding,
@@ -457,6 +458,7 @@ function findChoiceById(stage, choiceId) {
     || ZOMBIE_EVENT_CHOICES.find((c) => c.id === choiceId)
     || STOCK_DIVIDEND_CHOICES.find((c) => c.id === choiceId)
     || HARDWARE_STORE_CHOICES.find((c) => c.id === choiceId)
+    || PRANK_CHOICES.find((c) => c.id === choiceId)
     || null;
 }
 
@@ -751,7 +753,7 @@ function pickVisibleChoiceIds(choices, ctx) {
   // 이미 전용 풀로 완전히 대체되는 몰입형 특수 루트는 좀비 이벤트와 동일하게
   // 제외한다.
   const isExclusivePoolRoute = routeChoicePool !== choices;
-  const basePool = isExclusivePoolRoute ? basePoolBeforeStockDividend : basePoolBeforeStockDividend.concat(STOCK_DIVIDEND_CHOICES).concat(HARDWARE_STORE_CHOICES);
+  const basePool = isExclusivePoolRoute ? basePoolBeforeStockDividend : basePoolBeforeStockDividend.concat(STOCK_DIVIDEND_CHOICES).concat(HARDWARE_STORE_CHOICES).concat(PRANK_CHOICES);
 
   const passesEligibility = (c) => {
     if (c.requiresCondition && !conditionIds.includes(c.requiresCondition)) return false;
@@ -1929,6 +1931,20 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
     }
   }
 
+  // injectsPrankSetterName(64장, 2026-09-02 - 플레이어 간 장난 이벤트) - 낚시
+  // 이벤트의 "진짜 낚임" 갈래 결과 문구에 박힌 {prankSetterName} 자리를
+  // lifeGame/recentPrankSetters(최근 함정 설치자 명단)에서 무작위로 뽑은
+  // 이름+조사로 채운다. 특정 함정과 이 피해자를 실제로 매칭하는 게 아니라
+  // 통계적 연출(사용자 확정) - 명단이 비어있으면 "누군가"로 대체한다.
+  if (pickedBranch && pickedBranch.injectsPrankSetterName) {
+    const settersSnap = await db.ref('lifeGame/recentPrankSetters').get();
+    const setters = settersSnap.val();
+    const setterName = Array.isArray(setters) && setters.length
+      ? setters[Math.floor(Math.random() * setters.length)]
+      : '누군가';
+    resolvedResult = (resolvedResult || '').replace('{prankSetterName}', setterName + pickBatchimJosa(setterName, '이', '가'));
+  }
+
   // 보험료 자동 납입·3년 연체 해지(2026-08-22, 18장 사용자 확정 - 4장 1년단위
   // 진행 전환으로 선행 조건 충족돼 구현). 선택지가 아니라 매 턴(=매년) 자동으로
   // 적용되는 배경 효과라 건강 조건 페널티와 같은 급이다. hasInsurance는 이번
@@ -2316,6 +2332,18 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
       const rate = typeof current.rate === 'number' ? current.rate : WORLD_STATE_DEFAULT_RATE;
       const target = typeof fallbackTarget === 'number' ? fallbackTarget : 1;
       return { rate: rate * (1 - WORLD_STATE_ALPHA) + target * WORLD_STATE_ALPHA, updatedAt: ServerValue.TIMESTAMP };
+    }));
+  }
+  // recordsPrankSetterName(64장, 2026-09-02 - 플레이어 간 장난 이벤트) - 함정
+  // 놓기 선택지 전용. 56장 D항 sparklines와 같은 트랜잭션 push+shift 캡 패턴
+  // (최근 20명)으로 본인 streamerName을 남긴다 - 나중에 다른 플레이어가
+  // 낚였을 때 결과 문구에 무작위로 인용된다(injectsPrankSetterName 참고).
+  if (choice.recordsPrankSetterName) {
+    statWrites.push(db.ref('lifeGame/recentPrankSetters').transaction((current) => {
+      const buf = Array.isArray(current) ? current.slice() : [];
+      buf.push(play.streamerName || '누군가');
+      if (buf.length > 20) buf.shift();
+      return buf;
     }));
   }
   // occupationGauge 증감(2026-08-30, 58장 B항) - 그룹이 실제로 바뀔 때만(같은

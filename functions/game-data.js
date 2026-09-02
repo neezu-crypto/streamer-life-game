@@ -61559,6 +61559,239 @@ const DIY_CRAFT_PRODUCTS = [
   }
 ];
 
+// PRANK_CHOICES(64장, 2026-09-02 - 사용자 지시 "다른 플레이어에게 직접적으로
+// 장난을 칠수있는 이벤트를 추가하고싶은데") - STOCK_DIVIDEND_CHOICES와 같은
+// 나이·직업 무관 전역 풀 패턴. 특정 플레이어를 닉네임으로 지목하지 않고
+// (사용자 확정) prankTrapDensity/prankLootPool 두 worldState 트래커로만
+// 간접적으로 연결된다 - 실제 계좌 간 송금 없음, 특정 함정과 특정 피해자
+// 매칭도 없음(통계적 연출). "낚시 이벤트가 반복되면 패턴이 읽힌다"(사용자
+// 지시)는 우려로 함정 놓기 5종·낚시 10종으로 문구를 다양화했다.
+const PRANK_CHOICES = [
+  // A. 함정 놓기(5종) - requiresNoAsset:'active-trap' 공유라 평생 1회만
+  // 성립(어느 걸 고르든 결과 동일). recordsPrankSetterName은 index.js
+  // applyChoice에서 처리하는 신규 필드 - 본인 streamerName을
+  // lifeGame/recentPrankSetters 명단에 남긴다.
+  {
+    id: 'prank-set-trap-wallet',
+    text: '공원 벤치에 일부러 지갑을 흘려놓는다',
+    requiresNoAsset: 'active-trap',
+    appearChance: 0.05,
+    bonusSlot: true,
+    deltas: { happiness: 1 },
+    addAsset: { id: 'active-trap', label: '🪤 몰래 놓은 함정', type: 'prank-trap' },
+    worldStateSignal: { key: 'prankTrapDensity', target: 1 },
+    recordsPrankSetterName: true,
+    result: '누군가 걸려들길 기다리며 슬쩍 웃음이 났다.'
+  },
+  {
+    id: 'prank-set-trap-lottery',
+    text: '복권처럼 보이게 만든 종이를 인도에 떨어뜨려 놓는다',
+    requiresNoAsset: 'active-trap',
+    appearChance: 0.05,
+    bonusSlot: true,
+    deltas: { happiness: 1 },
+    addAsset: { id: 'active-trap', label: '🪤 몰래 놓은 함정', type: 'prank-trap' },
+    worldStateSignal: { key: 'prankTrapDensity', target: 1 },
+    recordsPrankSetterName: true,
+    result: '그럴듯하게 만들었으니 누군가는 속아 넘어갈 것이다.'
+  },
+  {
+    id: 'prank-set-trap-box',
+    text: '편의점 앞에 "주인 없음" 팻말과 함께 상자를 놓아둔다',
+    requiresNoAsset: 'active-trap',
+    appearChance: 0.05,
+    bonusSlot: true,
+    deltas: { happiness: 1 },
+    addAsset: { id: 'active-trap', label: '🪤 몰래 놓은 함정', type: 'prank-trap' },
+    worldStateSignal: { key: 'prankTrapDensity', target: 1 },
+    recordsPrankSetterName: true,
+    result: '호기심에 열어볼 사람을 상상하니 벌써 재밌었다.'
+  },
+  {
+    id: 'prank-set-trap-sns',
+    text: 'SNS에 가짜 경품 이벤트 글을 올려놓는다',
+    requiresNoAsset: 'active-trap',
+    appearChance: 0.05,
+    bonusSlot: true,
+    deltas: { happiness: 1 },
+    addAsset: { id: 'active-trap', label: '🪤 몰래 놓은 함정', type: 'prank-trap' },
+    worldStateSignal: { key: 'prankTrapDensity', target: 1 },
+    recordsPrankSetterName: true,
+    result: '그럴싸한 문구까지 붙였으니 누군가는 낚일 것이다.'
+  },
+  {
+    id: 'prank-set-trap-flyer',
+    text: '동네 게시판에 수상한 전단지를 붙여놓는다',
+    requiresNoAsset: 'active-trap',
+    appearChance: 0.05,
+    bonusSlot: true,
+    deltas: { happiness: 1 },
+    addAsset: { id: 'active-trap', label: '🪤 몰래 놓은 함정', type: 'prank-trap' },
+    worldStateSignal: { key: 'prankTrapDensity', target: 1 },
+    recordsPrankSetterName: true,
+    result: '지나가다 눈길을 줄 사람을 떠올리며 흐뭇해했다.'
+  },
+  // B. 낚시 이벤트(10종) - prankTrapDensity에 비례해 등장. 8종은 낚이면
+  // 현금 손실(injectsPrankSetterName + prankLootPool 상승), 2종(랜덤박스·
+  // 우산)은 낚여도 순수 민망함으로 끝나(현금 손실도 prankLootPool 반영도
+  // 없음) "위험 선택지=항상 돈을 잃는다"는 패턴 학습조차 막는다.
+  {
+    id: 'prank-fish-cash',
+    text: '바닥에 떨어진 1천만원을 줍는다',
+    requiresWorldStateActive: 'prankTrapDensity',
+    dynamicAppearChance: { key: 'prankTrapDensity', min: 0.01, max: 0.06 },
+    bonusSlot: true,
+    prizeTable: [
+      { weight: 60, label: '진짜 돈', deltas: { wealth: 1 }, result: '운 좋게 진짜 돈을 주웠다.' },
+      { weight: 25, label: '가짜 돈', deltas: { happiness: -1 }, result: '가짜 지폐였다 - 허탈하게 웃고 말았다.' },
+      { weight: 15, label: '함정', deltas: { wealth: -2 }, injectsPrankSetterName: true, worldStateSignal: { key: 'prankLootPool', target: 1 }, result: '집으려는 순간 실이 당겨지며 지갑이 확 사라졌다 - {prankSetterName} 놓아둔 함정에 제대로 낚였다.' }
+    ]
+  },
+  {
+    id: 'prank-fish-randombox',
+    text: '벤치에 놓여있는 랜덤박스를 열어본다',
+    requiresWorldStateActive: 'prankTrapDensity',
+    dynamicAppearChance: { key: 'prankTrapDensity', min: 0.01, max: 0.06 },
+    bonusSlot: true,
+    prizeTable: [
+      { weight: 60, label: '쓸만한 물건', deltas: { wealth: 1 }, result: '안에는 쓸만한 물건이 들어있었다.' },
+      { weight: 25, label: '텅 빔', deltas: { happiness: -1 }, result: '텅 비어있었다 - 김만 샜다.' },
+      { weight: 15, label: '깜짝 장난', deltas: { happiness: -2 }, injectsPrankSetterName: true, result: '열자마자 안에서 용수철 뱀이 튀어나와 기겁했다 - {prankSetterName} 파놓은 장난이었다.' }
+    ]
+  },
+  {
+    id: 'prank-fish-lottery',
+    text: '누군가 흘리고 간 복권을 주워 확인해본다',
+    requiresWorldStateActive: 'prankTrapDensity',
+    dynamicAppearChance: { key: 'prankTrapDensity', min: 0.01, max: 0.06 },
+    bonusSlot: true,
+    prizeTable: [
+      { weight: 60, label: '진짜 당첨', deltas: { wealth: 1 }, result: '진짜 당첨 복권이었다!' },
+      { weight: 25, label: '지난 회차', deltas: { happiness: -1 }, result: '이미 지난 회차 복권이었다.' },
+      { weight: 15, label: '피싱', deltas: { wealth: -2 }, injectsPrankSetterName: true, worldStateSignal: { key: 'prankLootPool', target: 1 }, result: '번호를 확인하려 앱을 켜자마자 이상한 결제가 진행됐다 - {prankSetterName} 놓은 피싱 미끼였다.' }
+    ]
+  },
+  {
+    id: 'prank-fish-freebox',
+    text: '편의점 앞 무료 나눔 상자를 뒤져본다',
+    requiresWorldStateActive: 'prankTrapDensity',
+    dynamicAppearChance: { key: 'prankTrapDensity', min: 0.01, max: 0.06 },
+    bonusSlot: true,
+    prizeTable: [
+      { weight: 60, label: '쓸만한 물건', deltas: { wealth: 1 }, result: '쓸만한 물건을 하나 건졌다.' },
+      { weight: 25, label: '전부 쓰레기', deltas: { happiness: -1 }, result: '전부 쓰레기뿐이었다.' },
+      { weight: 15, label: '함정', deltas: { wealth: -2 }, injectsPrankSetterName: true, worldStateSignal: { key: 'prankLootPool', target: 1 }, result: '상자 밑바닥에 손을 넣다 지갑을 슬쩍 놓쳤다 - {prankSetterName} 파놓은 못된 함정이었다.' }
+    ]
+  },
+  {
+    id: 'prank-fish-sns-event',
+    text: 'SNS에서 본 무료 경품 이벤트에 응모한다',
+    requiresWorldStateActive: 'prankTrapDensity',
+    dynamicAppearChance: { key: 'prankTrapDensity', min: 0.01, max: 0.06 },
+    bonusSlot: true,
+    prizeTable: [
+      { weight: 60, label: '진짜 당첨', deltas: { wealth: 1 }, result: '진짜 당첨돼서 상품을 받았다!' },
+      { weight: 25, label: '발표 없음', deltas: { happiness: -1 }, result: '응모자만 많고 당첨자 발표가 없는 이벤트였다.' },
+      { weight: 15, label: '가짜 이벤트', deltas: { wealth: -2 }, injectsPrankSetterName: true, worldStateSignal: { key: 'prankLootPool', target: 1 }, result: '개인정보를 입력하자마자 이상한 결제 알림이 왔다 - {prankSetterName} 올려둔 가짜 이벤트였다.' }
+    ]
+  },
+  {
+    id: 'prank-fish-alba-flyer',
+    text: '게시판에 붙은 "고수익 알바" 전단지 번호로 연락해본다',
+    requiresWorldStateActive: 'prankTrapDensity',
+    dynamicAppearChance: { key: 'prankTrapDensity', min: 0.01, max: 0.06 },
+    bonusSlot: true,
+    prizeTable: [
+      { weight: 60, label: '정상 알바', deltas: { wealth: 1 }, result: '의외로 정상적인 단기 알바였다.' },
+      { weight: 25, label: '연락 두절', deltas: { happiness: -1 }, result: '전화를 안 받아서 그냥 포기했다.' },
+      { weight: 15, label: '보이스피싱', deltas: { wealth: -2 }, injectsPrankSetterName: true, worldStateSignal: { key: 'prankLootPool', target: 1 }, result: '입금부터 하라는 말에 홀려 돈을 보내고 말았다 - {prankSetterName} 붙여둔 미끼 전단지였다.' }
+    ]
+  },
+  {
+    id: 'prank-fish-gift-card',
+    text: '길에서 주운 상품권을 써본다',
+    requiresWorldStateActive: 'prankTrapDensity',
+    dynamicAppearChance: { key: 'prankTrapDensity', min: 0.01, max: 0.06 },
+    bonusSlot: true,
+    prizeTable: [
+      { weight: 60, label: '진짜 상품권', deltas: { wealth: 1 }, result: '정상적으로 사용 가능한 진짜 상품권이었다.' },
+      { weight: 25, label: '이미 사용됨', deltas: { happiness: -1 }, result: '이미 사용된 상품권이었다.' },
+      { weight: 15, label: '가짜 QR', deltas: { wealth: -2 }, injectsPrankSetterName: true, worldStateSignal: { key: 'prankLootPool', target: 1 }, result: '결제하려는 순간 QR코드가 이상한 사이트로 연결됐다 - {prankSetterName} 만들어둔 가짜 상품권이었다.' }
+    ]
+  },
+  {
+    id: 'prank-fish-business-card',
+    text: '낯선 사람이 건넨 명함을 보고 연락해본다',
+    requiresWorldStateActive: 'prankTrapDensity',
+    dynamicAppearChance: { key: 'prankTrapDensity', min: 0.01, max: 0.06 },
+    bonusSlot: true,
+    prizeTable: [
+      { weight: 60, label: '괜찮은 제안', deltas: { wealth: 1 }, result: '괜찮은 사업 제안이었다.' },
+      { weight: 25, label: '흐지부지', deltas: { happiness: -1 }, result: '전화를 안 받아 흐지부지됐다.' },
+      { weight: 15, label: '투자 사기', deltas: { wealth: -2 }, injectsPrankSetterName: true, worldStateSignal: { key: 'prankLootPool', target: 1 }, result: '투자를 권유받아 돈을 보냈다가 연락이 끊겼다 - {prankSetterName} 뿌려둔 명함이었다.' }
+    ]
+  },
+  {
+    id: 'prank-fish-mail-notice',
+    text: '우편함에 꽂힌 당첨 안내문을 확인해본다',
+    requiresWorldStateActive: 'prankTrapDensity',
+    dynamicAppearChance: { key: 'prankTrapDensity', min: 0.01, max: 0.06 },
+    bonusSlot: true,
+    prizeTable: [
+      { weight: 60, label: '진짜 당첨', deltas: { wealth: 1 }, result: '진짜 당첨 안내문이었다.' },
+      { weight: 25, label: '스팸 우편', deltas: { happiness: -1 }, result: '스팸 우편이었다.' },
+      { weight: 15, label: '수수료 사기', deltas: { wealth: -2 }, injectsPrankSetterName: true, worldStateSignal: { key: 'prankLootPool', target: 1 }, result: '수수료를 먼저 내라는 말에 속아 돈을 보냈다 - {prankSetterName} 꽂아둔 가짜 안내문이었다.' }
+    ]
+  },
+  {
+    id: 'prank-fish-umbrella',
+    text: '누가 놓고 간 듯한 우산을 챙긴다',
+    requiresWorldStateActive: 'prankTrapDensity',
+    dynamicAppearChance: { key: 'prankTrapDensity', min: 0.01, max: 0.06 },
+    bonusSlot: true,
+    prizeTable: [
+      { weight: 60, label: '멀쩡한 우산', deltas: { happiness: 1 }, result: '멀쩡한 새 우산이었다.' },
+      { weight: 25, label: '망가진 우산', deltas: { happiness: -1 }, result: '망가진 우산이라 그냥 버렸다.' },
+      { weight: 15, label: '물풍선', deltas: { happiness: -2 }, injectsPrankSetterName: true, result: '펼치자마자 안에서 물풍선이 터졌다 - {prankSetterName} 손봐둔 우산이었다.' }
+    ]
+  },
+  // C. 회수하러 가기(3종) - 함정 놓은 사람만 대상(requiresAsset:'active-trap').
+  // prankLootPool에 비례해 등장, 성공하면 다시 낮춰(무한 누적 방지).
+  {
+    id: 'prank-collect-wallet',
+    text: '몰래 파둔 함정을 다시 찾아가본다',
+    requiresAsset: 'active-trap',
+    requiresWorldStateActive: 'prankLootPool',
+    dynamicAppearChance: { key: 'prankLootPool', min: 0.05, max: 0.3 },
+    bonusSlot: true,
+    deltas: { wealth: 2, happiness: 1 },
+    worldStateSignal: { key: 'prankLootPool', target: 0 },
+    result: '생각보다 짭짤하게 챙겼다.'
+  },
+  {
+    id: 'prank-collect-bait',
+    text: '놓아둔 미끼가 얼마나 걸렸는지 확인하러 간다',
+    requiresAsset: 'active-trap',
+    requiresWorldStateActive: 'prankLootPool',
+    dynamicAppearChance: { key: 'prankLootPool', min: 0.05, max: 0.3 },
+    bonusSlot: true,
+    deltas: { wealth: 2, happiness: 1 },
+    worldStateSignal: { key: 'prankLootPool', target: 0 },
+    result: '제법 여러 명이 걸려들었는지 쏠쏠했다.'
+  },
+  {
+    id: 'prank-collect-check',
+    text: '슬쩍 흘려놓은 물건이 잘 있는지 살펴본다',
+    requiresAsset: 'active-trap',
+    requiresWorldStateActive: 'prankLootPool',
+    dynamicAppearChance: { key: 'prankLootPool', min: 0.05, max: 0.3 },
+    bonusSlot: true,
+    deltas: { wealth: 2, happiness: 1 },
+    worldStateSignal: { key: 'prankLootPool', target: 0 },
+    result: '누군가 대신 챙겨간 흔적과 함께 돈이 남아있었다.'
+  }
+];
+
 module.exports = {
   STAGES,
   PRISON_CHOICES,
@@ -61569,6 +61802,7 @@ module.exports = {
   STOCK_DIVIDEND_CHOICES,
   HARDWARE_STORE_CHOICES,
   DIY_CRAFT_PRODUCTS,
+  PRANK_CHOICES,
   ENDINGS,
   resolveEnding,
   buildCollapseEnding,
