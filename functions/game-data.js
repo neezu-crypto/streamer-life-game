@@ -46107,6 +46107,20 @@ const STAGES = [
         deltas: { wealth: 8 },
         result: '오래전에 써둔 책이, 여전히 조용히 값을 하고 있었다.'
       },
+    
+      {
+        id: 'deviant-con-trade-fraud-60',
+        text: '수출입 대금을 가로채는 대형 무역 사기를 벌인다',
+        bonusSlot: true,
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 62, label: '안 걸림', deltas: { wealth: 22 }, result: '서류 몇 장으로 오간 액수치고는, 상상을 뛰어넘었다.' },
+          { weight: 38, label: '징역', deltas: { wealth: -20, happiness: -14, relationship: -9 }, result: '해외 거래처 실사 과정에서 서류 위조가 드러났다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
     ]
   },
   {
@@ -47369,6 +47383,20 @@ const STAGES = [
         result: '내가 없어도 잘 굴러간다는 게, 서운함보다 뿌듯함으로 다가왔다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
       },
+    
+      {
+        id: 'deviant-con-crypto-rugpull-62',
+        text: '가상자산 프로젝트를 띄웠다가 통째로 먹튀한다',
+        bonusSlot: true,
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 58, label: '안 걸림', deltas: { wealth: 25 }, result: '백서에 그럴싸한 그림만 그려놨을 뿐이었는데, 돈이 쏟아져 들어왔다.' },
+          { weight: 42, label: '징역', deltas: { wealth: -22, happiness: -16, relationship: -12 }, result: '피해 투자자들이 지갑 추적으로 신원을 특정해냈다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
     ]
   },
   {
@@ -48540,6 +48568,20 @@ const STAGES = [
         deltas: { happiness: 1 },
         result: '몸에 밴 호기심은 세월이 지나도 사라지지 않았다.',
         requiresOccupation: ["grad-researcher","postdoc-researcher","researcher","senior-researcher"]
+      },
+    
+      {
+        id: 'deviant-con-subsidy-fraud-64',
+        text: '정부 지원금을 대규모로 부정 수급한다',
+        bonusSlot: true,
+        requiresOccupation: ['con-artist'],
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 65, label: '안 걸림', deltas: { wealth: 20 }, result: '서류 심사가 이렇게 허술할 줄은 몰랐다.' },
+          { weight: 35, label: '징역', deltas: { wealth: -18, happiness: -12, relationship: -8 }, result: '정기 감사에서 부정 수급 정황이 포착됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
       },
     ]
   },
