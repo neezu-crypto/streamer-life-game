@@ -512,6 +512,19 @@ const STAGE_INDEX_BY_ID = new Map(STAGES.map((s, i) => [s.id, i]));
 // 아니다. PRISON_CHOICES 등 특정 나이에 고정되지 않는 전역 풀도(어차피 "이
 // 나이를 반드시 거쳐야" 같은 개념이 성립하지 않음) 대상이 아니다 -
 // STAGES[i].choices만 훑는다.
+// NARROW_PROTECTED_OCCUPATIONS(2026-09-03, 사용자 지시 - "타 플레이어/세계에
+// 영향을 주는 이벤트를 필수로 거는 대신 게임당 1회만 보장" → 반복형(도난차량·
+// 장난 등 나이 무관 상시 이벤트, 경찰·사기꾼처럼 수십 번 기회가 있는 넓은
+// 직업)은 자연히 노출률이 높아 제외하고, "그 직업 경력을 통틀어 세계관
+// 이벤트가 딱 1개 나이에만 존재하는" 진짜 좁은 후보만 실측으로 추려낸 목록.
+// requiresOccupation(현재 직업) 전체는 2026-09-02에 이미 제외했지만
+// (3,430개로 스킵 무력화), 이 4개만 다시 예외로 되살린다 - 반복 기회가
+// 전혀 없어 한 번 스킵으로 지나가면 그 직업 평생 다시 볼 기회가 없다.
+// - doctor: 29세 deviant-doc-fake-insurance-diagnosis-29(허위 진단서 보험사기)
+// - local-council-member(청년정치 루트): 38세 deviant-yp-permit-favor-38(인허가 청탁)
+// - team-lead: 47세 deviant-tl-forced-unpaid-overtime-47(부당 야근 강요)
+// - startup-founder: 29/50세 sf-followup-funding-fails-29/sf3-fill-50
+const NARROW_PROTECTED_OCCUPATIONS = new Set(['doctor', 'local-council-member', 'team-lead', 'startup-founder']);
 function collectTriggerKeys(choice) {
   const keys = [];
   if (choice.requiresTalent) {
@@ -537,8 +550,12 @@ function collectTriggerKeys(choice) {
   // 직업 전용 콘텐츠가 거의 매 나이마다 있어서 스킵을 사실상 무력화시켰음).
   // 직업 콘텐츠는 재능처럼 "한 번 놓치면 평생 못 쓰는 희소한 기회"가 아니라
   // "이번 해에 못 봐도 내년에 또 뜨는" 성격이라 빼도 원래 취지(희소한 기회
-  // 보호)가 크게 훼손되지 않는다. requiresEverOccupation(은퇴 후 회상용,
+  // 보호)가 크게 훼손되지 않는다. 단 NARROW_PROTECTED_OCCUPATIONS 4개만
+  // 예외(2026-09-03) - 위 주석 참고. requiresEverOccupation(은퇴 후 회상용,
   // 232개로 상대적으로 희소하고 진짜 1회성에 가까움)은 그대로 보호 대상.
+  if (choice.requiresOccupation) {
+    choice.requiresOccupation.forEach((id) => { if (NARROW_PROTECTED_OCCUPATIONS.has(id)) keys.push('occupation:' + id); });
+  }
   if (choice.requiresEverOccupation) choice.requiresEverOccupation.forEach((id) => keys.push('everOccupation:' + id));
   if (choice.requiresAnyAcquaintance) keys.push('anyAcquaintance');
   if (choice.requiresAnyLover) keys.push('anyLover');
@@ -573,8 +590,9 @@ function activeTriggerKeysFor(ctx) {
   (ctx.assetTypes || []).forEach((t) => keys.push('assetType:' + t));
   (ctx.conditionIds || []).forEach((c) => keys.push('condition:' + c));
   if ((ctx.conditionIds || []).length) keys.push('anyCondition');
-  // 현재 직업(ctx.occupationId)은 더 이상 보호 대상이 아니다 - collectTriggerKeys의
-  // 주석 참고(2026-09-02, 실측 3,430개로 스킵을 사실상 무력화).
+  // 현재 직업(ctx.occupationId)은 NARROW_PROTECTED_OCCUPATIONS 4개만 예외 -
+  // collectTriggerKeys의 주석 참고(2026-09-02 대량 제외, 2026-09-03 4개 예외 복원).
+  if (ctx.occupationId && NARROW_PROTECTED_OCCUPATIONS.has(ctx.occupationId)) keys.push('occupation:' + ctx.occupationId);
   (ctx.everOccupationIds || []).forEach((o) => keys.push('everOccupation:' + o));
   if (ctx.hasAnyAcquaintance) keys.push('anyAcquaintance');
   if (ctx.hasAnyLover) keys.push('anyLover');

@@ -7685,6 +7685,39 @@
         지인/연인·해외 장소는 아직 보호 대상으로 유지. fakedb 검증: 가족 보호 해제(20세 착지
         분포 21~25에 고르게 71/65/60/47/57), 취미 보호 해제(85세를 넘어간 비율 130/300=43.3%,
         기존 0%에서 정상 전환), 재능 보호는 그대로 유지(15세를 넘긴 사례 0건) 전부 확인.</p>
+
+        <h3>G. "타 플레이어/세계관 영향 이벤트" 보호 검토 → 직업 4종만 예외 복원
+        (2026-09-03)</h3>
+        <p>사용자 제안 - "다른 플레이어나 세계관에 영향을 주는 이벤트를 필수로 남기는 게
+        좋을 것 같다"를 실측으로 검토. <code>worldStateSignal</code>/
+        <code>victimizesRandomVehicleOwner</code>/<code>recordsPrankSetterName</code>이 붙은
+        선택지를 전부 세보니 <b>451개, 서로 다른 72/101개 나이</b>에 걸쳐 있어 이 기준 그대로
+        보호하면 사실상 거의 모든 나이를 다시 강제로 거치게 돼 오늘 줄이려던 것과 정반대가
+        됨을 확인. "다른 플레이어 데이터에 직접 영향"으로 좁혀도 마찬가지(도난차량·장난
+        이벤트가 나이 무관하게 19~90세 전 구간에 반복 배치돼 있어 역시 72개 나이) - 두
+        기준 모두 기각.</p>
+        <p>대안으로 사용자 제안 - "1회만 보장". 반복형(도난차량·장난 등, appearChance가
+        낮아도 수십 번 기회가 있어 누적 노출률이 이미 95%+)은 제외하고, <b>선택지 id를
+        나이 접미사 없이 "패밀리"로 묶어 그 패밀리가 존재하는 나이 폭</b>을 실측 - 대부분의
+        직업(경찰 30개 나이·사기꾼 40개 나이·트레이더 67년 폭 등)은 기회가 많아 자연히
+        노출되지만, 딱 4개 직업만 <b>경력을 통틀어 세계관 이벤트가 단 1개 나이에만 존재</b>:</p>
+        <table>
+            <tr><th>직업</th><th>나이</th><th>이벤트</th></tr>
+            <tr><td>의사(doctor)</td><td>29세</td><td>deviant-doc-fake-insurance-diagnosis-29(허위 진단서 보험사기)</td></tr>
+            <tr><td>지방의원(local-council-member, 청년정치 루트)</td><td>38세</td><td>deviant-yp-permit-favor-38(인허가 청탁)</td></tr>
+            <tr><td>팀장(team-lead)</td><td>47세</td><td>deviant-tl-forced-unpaid-overtime-47(부당 야근 강요)</td></tr>
+            <tr><td>창업가(startup-founder)</td><td>29세/50세</td><td>sf-followup-funding-fails-29, sf3-fill-50</td></tr>
+        </table>
+        <p>참고로 좀비 바이러스 유출(사태의 시작점, <code>zombie-virus-leak-attempt-*</code>
+        10개)은 이미 <code>requiresEverOccupation:['postdoc-researcher']</code>로 게이팅돼
+        있어 F항에서 유지한 과거 직업 보호에 자동으로 포함됨 - 별도 조치 불필요. 군인 쪽
+        좀비 대응(<code>sol-zombie-*</code>)은 <code>requiresOccupation</code>(현재
+        직업)이지만 32~56세 6개 나이에 걸쳐 있어 반복형으로 분류, 제외 유지.</p>
+        <p><code>NARROW_PROTECTED_OCCUPATIONS</code>(신규, index.js) - 2026-09-02에 대량
+        제외한 <code>requiresOccupation</code> 중 이 4개(doctor/local-council-member/
+        team-lead/startup-founder)만 다시 예외로 등록. fakedb 검증: doctor 보유 상태로
+        26세→스킵 시 29세를 넘긴 사례 0/300(보호 확인), healthcare-worker(미등록 직업) 보유
+        상태로 24세→스킵 시 27세를 넘긴 사례 123/300(정상적으로 보호 없음 확인).</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
