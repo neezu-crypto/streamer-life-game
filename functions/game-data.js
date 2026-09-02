@@ -61108,6 +61108,25 @@ const ZOMBIE_EVENT_CHOICES = [
       }
     ];
 
+// STOCK_DIVIDEND_CHOICES(2026-09-02, 사용자 지시 - "나이 상관없이 주식
+// 보유중이라면 매 턴 10% 확률로 등장하게 해줘") - ZOMBIE_EVENT_CHOICES와
+// 같은 전역 풀 패턴이지만, 감옥/현행범/연애/차량절도 4대 몰입형 특수 루트만
+// 빼고 "활성 커리어 루트 중에도" 항상 얹힌다(좀비 이벤트는 루트가 아예
+// 없을 때만 얹히는 것과 다른 점 - 주식 보유는 직업과 무관하니까). 나이별로
+// 흩어 심을 필요 없이 이 배열 하나로 전체 생애 커버.
+const STOCK_DIVIDEND_CHOICES = [
+  {
+    id: 'stock-dividend-payout',
+    text: '보유한 주식에서 배당금이 들어온다',
+    requiresAssetType: 'stock',
+    appearChance: 0.1,
+    bonusSlot: true,
+    perStockWealth: 1,
+    deltas: { happiness: 1 },
+    result: '가만히 있어도 통장에 꽂히는 돈이, 꽤 쏠쏠했다.'
+  }
+];
+
 module.exports = {
   STAGES,
   PRISON_CHOICES,
@@ -61115,6 +61134,7 @@ module.exports = {
   RED_HANDED_CHOICES,
   VEHICLE_THEFT_CHOICES,
   ZOMBIE_EVENT_CHOICES,
+  STOCK_DIVIDEND_CHOICES,
   ENDINGS,
   resolveEnding,
   buildCollapseEnding,

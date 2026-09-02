@@ -10,6 +10,7 @@ const {
   RED_HANDED_CHOICES,
   VEHICLE_THEFT_CHOICES,
   ZOMBIE_EVENT_CHOICES,
+  STOCK_DIVIDEND_CHOICES,
   resolveEnding,
   buildCollapseEnding,
   buildBankruptcyEnding,
@@ -452,6 +453,7 @@ function findChoiceById(stage, choiceId) {
     || RED_HANDED_CHOICES.find((c) => c.id === choiceId)
     || VEHICLE_THEFT_CHOICES.find((c) => c.id === choiceId)
     || ZOMBIE_EVENT_CHOICES.find((c) => c.id === choiceId)
+    || STOCK_DIVIDEND_CHOICES.find((c) => c.id === choiceId)
     || null;
 }
 
@@ -736,9 +738,17 @@ function pickVisibleChoiceIds(choices, ctx) {
   // 대체"되는 몰입형 특수 루트 중에는(사용자가 정한 기존 설계 그대로) 끼어들지
   // 않는다. requiresWorldStateActive + dynamicAppearChance가 이미 노출
   // 여부·빈도를 그 순간의 zombieOutbreak rate로만 결정하므로 나이는 무관해진다.
-  const basePool = activeRouteId
+  const basePoolBeforeStockDividend = activeRouteId
     ? routeChoicePool.filter((c) => c.requiresRoute === activeRouteId)
     : choices.filter((c) => !c.requiresRoute && !(c.startsRoute && experiencedRouteIds.includes(c.startsRoute.id))).concat(ZOMBIE_EVENT_CHOICES);
+  // STOCK_DIVIDEND_CHOICES(2026-09-02, 62장 - 사용자 지시 "나이 상관없이
+  // 주식 보유중이라면 매 턴 10% 확률로 등장하게") - ZOMBIE_EVENT_CHOICES와
+  // 달리 activeRouteId가 있어도(정상 커리어 루트 진행 중이어도) 얹는다 -
+  // 주식 보유는 직업과 무관하기 때문. 다만 감옥/현행범/연애/차량절도처럼
+  // 이미 전용 풀로 완전히 대체되는 몰입형 특수 루트는 좀비 이벤트와 동일하게
+  // 제외한다.
+  const isExclusivePoolRoute = routeChoicePool !== choices;
+  const basePool = isExclusivePoolRoute ? basePoolBeforeStockDividend : basePoolBeforeStockDividend.concat(STOCK_DIVIDEND_CHOICES);
 
   const passesEligibility = (c) => {
     if (c.requiresCondition && !conditionIds.includes(c.requiresCondition)) return false;
@@ -1638,6 +1648,15 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
   // 0명이어도 기존 deltas.wealth는 그대로 유지된다(추가 보너스만 없음).
   if (choice.perAcquaintanceWealth) {
     effectiveDeltas.wealth = (effectiveDeltas.wealth || 0) + choice.perAcquaintanceWealth * priorAcquaintances.length;
+  }
+
+  // perStockWealth(2026-09-02, 62장 - 사용자 지시 "주식배당 소득 이벤트,
+  // 주식 수에 비례해 추가소득 발생하게") - perAcquaintanceWealth와 동일
+  // 패턴. 이번 턴 시작 시점의 보유 주식 개수(type==='stock')만큼 wealth에
+  // 가산한다.
+  if (choice.perStockWealth) {
+    const priorStockCount = playAssetsForValidation.filter((a) => a.type === 'stock').length;
+    effectiveDeltas.wealth = (effectiveDeltas.wealth || 0) + choice.perStockWealth * priorStockCount;
   }
 
   // 일탈 직업 기본 수입 배율(2026-08-30, 사용자 확정 "일반직업보다 1~1.2배 높음") -
