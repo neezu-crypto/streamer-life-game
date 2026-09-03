@@ -2441,24 +2441,38 @@ function fadeToStage(stage) {
 // 선택지가 참여자에게도 무조건 나타나야 한다" → "실시간성보다 반드시 같은
 // 선택지를 선택 가능하도록 보장하는 게 가장 중요하다"). advanceMultiplayerSession은
 // 인자 없이 "지금 저장된 최신 상태"를 그대로 다시 읽어 쓰는 순수 갱신이라(같은
-// 결과를 여러 번 써도 안전) 성공할 때까지 짧은 간격으로 계속 재시도한다 - 속도를
-// 늦추더라도 "몇 초 안에 대체로 맞다"가 아니라 "결국 반드시 맞다"를 우선한다.
-// 멀티플레이가 꺼지면(mpHostLatestSession이 null이 됨) 더 재시도할 이유가
-// 없으므로 그 시점에 멈춘다.
+// 결과를 여러 번 써도 안전) 성공할 때까지 짧은 간격으로 계속 재시도한다.
+//
+// 중요: submitChoice는 선택 제출 즉시(호스트가 아직 결과 문구를 읽는 중이고
+// "다음"을 안 눌렀어도) playthroughs의 stageIndex를 이미 다음 나이로 옮겨둔다
+// (functions/index.js) - 호스트 화면은 "다음"을 눌러야만 그 다음 나이를
+// 보여주는 별도의 로컬 페이드 애니메이션일 뿐, 서버 데이터는 그보다 먼저
+// 앞서가 있다. 그래서 "미러 재동기화를 언제 시도할지"와 "지금 재동기화가
+// 정당한지"를 분리해야 한다 - mpMirrorSyncPending이 true일 때만(=실제로
+// nextBtn을 눌러서 정당하게 다음 나이를 공개해도 되는 시점에만) 실제로
+// advanceMultiplayerSession을 부른다. 세션이 켜져 있다는 사실 자체는 동기화를
+// 시작할 이유가 되지 않는다 - 그랬다가 호스트가 "다음"을 누르기도 전에 주기
+// 타이머가 먼저 다음 나이를 참가자에게 공개해버리는 사고가 실제로 있었다
+// (2026-08-24에 이미 한 번 고쳐졌던 문제가 이 안전망 때문에 재발함).
 let mpMirrorSyncing = false;
-function syncMultiplayerMirrorUntilSuccess() {
-  if (mpMirrorSyncing || !mpHostLatestSession) return;
+let mpMirrorSyncPending = false;
+function attemptMultiplayerMirrorSync() {
+  if (mpMirrorSyncing || !mpMirrorSyncPending || !mpHostLatestSession) return;
   mpMirrorSyncing = true;
-  const attempt = () => {
-    if (!mpHostLatestSession) { mpMirrorSyncing = false; return; }
-    advanceMultiplayerSessionFn().then(() => {
-      mpMirrorSyncing = false;
-    }).catch((e) => {
-      console.error('멀티플레이 미러 갱신 실패 - 1.5초 뒤 재시도:', e);
-      setTimeout(attempt, 1500);
-    });
-  };
-  attempt();
+  advanceMultiplayerSessionFn().then(() => {
+    mpMirrorSyncing = false;
+    mpMirrorSyncPending = false;
+  }).catch((e) => {
+    console.error('멀티플레이 미러 갱신 실패 - 1.5초 뒤 재시도:', e);
+    mpMirrorSyncing = false;
+    setTimeout(attemptMultiplayerMirrorSync, 1500);
+  });
+}
+// nextBtn(또는 그에 준하는, "지금 다음 나이를 공개해도 된다"고 확정된 시점)에서만
+// 호출해야 한다 - 이게 "정당한 갱신 사유"를 만드는 유일한 진입점.
+function requestMultiplayerMirrorSync() {
+  mpMirrorSyncPending = true;
+  attemptMultiplayerMirrorSync();
 }
 
 nextBtn.addEventListener('click', () => {
@@ -2471,7 +2485,7 @@ nextBtn.addEventListener('click', () => {
   // 참가자도 다음 이벤트를 같이 보는거야?" → "고쳐줘") - 공개 미러는
   // 선택 제출 시점이 아니라 호스트가 실제로 "다음"을 눌러 넘어가는 이
   // 순간에만 갱신된다(functions/index.js의 advanceMultiplayerSession).
-  syncMultiplayerMirrorUntilSuccess();
+  requestMultiplayerMirrorSync();
 });
 
 // ------------------------------------------------------------
@@ -3130,15 +3144,14 @@ function attachMultiplayerHostListeners() {
   });
 }
 
-// 참가자 공개 미러 주기 자동 갱신(2026-09-04, 실사고 대응 - "호스트와 참가자의
-// 선택지가 다르게 나온다" 신고 → "실시간성보다 반드시 같은 선택지를 선택
-// 가능하도록 보장하는 게 가장 중요하다"). 미러 갱신은 기본적으로 nextBtn 클릭
-// 시 syncMultiplayerMirrorUntilSuccess()가 성공할 때까지 재시도하지만, 그
-// 재시도 루프 자체가 어떤 이유로든 끊기는 경우(예: 페이지가 그 사이 새로고침돼
-// 재시도 타이머가 날아감, 이어하기 시 선택지 재추첨처럼 nextBtn을 거치지 않는
-// 경로 등)에 대한 이중 안전망 - 2초마다 같은 동기화 루프를 다시 깨운다(이미
-// 진행 중이면 mpMirrorSyncing 플래그로 중복 호출 안 함).
-setInterval(syncMultiplayerMirrorUntilSuccess, 2000);
+// 정당하게 요청된(mpMirrorSyncPending=true) 미러 갱신이 어떤 이유로 재시도
+// 체인이 끊긴 채 방치되지 않도록 2초마다 한 번씩 다시 깨워보는 이중 안전망
+// (2026-09-04). attemptMultiplayerMirrorSync는 mpMirrorSyncPending이 이미
+// true일 때만 실제로 동작하므로 - 즉 nextBtn을 눌러 "다음 나이를 공개해도
+// 된다"는 정당한 요청이 실제로 있었을 때만 - 세션이 켜져 있다는 사실만으로
+// 이 타이머가 먼저 나서서 미공개 상태(선택은 했지만 "다음"은 안 누른 상태)를
+// 참가자에게 먼저 흘려버리는 일은 없다.
+setInterval(attemptMultiplayerMirrorSync, 2000);
 
 function renderHostMultiplayerPanel() {
   if (mpParticipantMode) return; // 참가자 모드에서는 이 패널 자체를 안 씀
