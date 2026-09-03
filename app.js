@@ -2447,9 +2447,14 @@ nextBtn.addEventListener('click', () => {
   // 참가자도 다음 이벤트를 같이 보는거야?" → "고쳐줘") - 공개 미러는
   // 선택 제출 시점이 아니라 호스트가 실제로 "다음"을 눌러 넘어가는 이
   // 순간에만 갱신된다(functions/index.js의 advanceMultiplayerSession).
-  // 실패해도 다음 턴에 다시 시도되므로(매번 호출) 조용히 무시한다.
+  // 한 번 실패하면 바로 1회 재시도(2026-09-04 추가 - 원래는 "다음 턴에 다시
+  // 시도되니 괜찮다"고 조용히 무시했는데, 실제로 그 한 번의 실패가 참가자
+  // 화면에 그대로 노출되는 사고가 있었다). 재시도까지 실패해도 아래 주기
+  // 자동 갱신(attachMultiplayerHostListeners 근처)이 몇 초 안에 다시 맞춘다.
   if (mpHostLatestSession) {
-    advanceMultiplayerSessionFn().catch((e) => console.error('멀티플레이 미러 갱신 실패:', e));
+    advanceMultiplayerSessionFn().catch(() =>
+      advanceMultiplayerSessionFn().catch((e) => console.error('멀티플레이 미러 갱신 실패(재시도까지):', e))
+    );
   }
 });
 
@@ -3108,6 +3113,21 @@ function attachMultiplayerHostListeners() {
     renderHostMultiplayerPanel();
   });
 }
+
+// 참가자 공개 미러 주기 자동 갱신(2026-09-04, 실사고 대응 - "호스트와 참가자의
+// 선택지가 다르게 나온다" 신고). 미러는 원래 "다음" 버튼을 누를 때 딱 한 번만
+// 갱신되는데(nextBtn 클릭 핸들러), 그 호출이 실패하면 다음 턴까지 조용히
+// 방치돼 참가자가 예전 선택지 목록(특히 저확률 bonusSlot 보너스 선택지 유무)을
+// 계속 보게 되는 문제가 실제로 발생했다. 여기서 몇 초마다 한 번씩 같은
+// advanceMultiplayerSession을 다시 불러 미러를 최신 상태로 덮어써서, 놓친
+// 갱신이 있어도 몇 초 안에 스스로 맞춰지게 한다(advanceMultiplayerSession은
+// 현재 저장된 상태를 그대로 다시 쓰는 순수 갱신이라 반복 호출해도 부작용이
+// 없다 - functions/index.js 참고).
+setInterval(() => {
+  if (mpHostLatestSession) {
+    advanceMultiplayerSessionFn().catch((e) => console.error('멀티플레이 미러 주기 갱신 실패:', e));
+  }
+}, 4000);
 
 function renderHostMultiplayerPanel() {
   if (mpParticipantMode) return; // 참가자 모드에서는 이 패널 자체를 안 씀
