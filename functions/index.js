@@ -576,6 +576,14 @@ function collectTriggerKeys(choice) {
   // 일부만 해당하는) 장소는 여전히 보호 대상 - 진짜 "얻었는데 못 쓰는" 콘텐츠는
   // 그쪽이다.
   if (choice.requiresLocation) choice.requiresLocation.forEach((id) => { if (id !== 'domestic') keys.push('location:' + id); });
+  // routeOccupation(2026-09-03, 사용자 지시 - "직업을 획득하는 나이는 보호대상으로
+  // 하는건 어떤지 시뮬레이션 해줘") - requiresRoute 선택지 자체는 루트 진행 내내
+  // 거의 매 나이 뜨기 때문에(예: 변호사 루트는 19~68세까지 전부) 전부 보호하면
+  // occupation 대량 제외 때와 같은 문제가 재현된다. 그중 실제로 setOccupation이
+  // 붙은(승진·임명 순간) 나이만 좁게 골라 보호 - 시뮬레이션 결과 놓침률이
+  // 42.9~75.0%(루트 시작해도 대부분 직업 타이틀을 못 받음) → 보호 후 0~36.8%로
+  // 크게 개선되면서 평균 턴은 39.6→40.5(+2.3%)로 거의 그대로였다.
+  if (choice.requiresRoute && choice.setOccupation) keys.push('routeOccupation:' + choice.requiresRoute);
   return keys;
 }
 const TRIGGER_AGE_INDEX = new Map();
@@ -608,6 +616,8 @@ function activeTriggerKeysFor(ctx) {
   if (ctx.hasAnyLover) keys.push('anyLover');
   // 'domestic'은 제외 - collectTriggerKeys의 주석 참고.
   if (ctx.locationId && ctx.locationId !== 'domestic') keys.push('location:' + ctx.locationId);
+  // routeOccupation - collectTriggerKeys의 주석 참고(2026-09-03).
+  if (ctx.activeRouteId) keys.push('routeOccupation:' + ctx.activeRouteId);
   return keys;
 }
 
@@ -2196,7 +2206,11 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
     everOccupationIds: priorEverOccupationIds,
     hasAnyAcquaintance: !!acquaintances.length,
     hasAnyLover: acquaintances.some((a) => a.relation === 'lover'),
-    locationId: currentLocation.id
+    locationId: currentLocation.id,
+    // activeRouteId도 occupationId와 같은 이유로 이번 선택 이전 상태
+    // (priorRouteState)를 쓴다 - 순환 참조 회피, 루트 콘텐츠도 여러 나이에
+    // 걸쳐 있어 한 턴 늦게 반영돼도 실질적 차이 없음.
+    activeRouteId: priorRouteState.activeRoute ? priorRouteState.activeRoute.id : null
   });
   const completed = collapsed || nextIndex >= STAGES.length;
   // sickStreak(2026-08-22, guaranteeCure 참고) - 건강 조건이 하나라도 있는

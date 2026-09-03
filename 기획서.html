@@ -7739,6 +7739,45 @@
         검증: vehicle/anyAcquaintance/lottery-ticket 전부 착지 분포가 고르게 분산(미보호
         확인), realestate(28세 시작→31세 콘텐츠 근처 169/300 쏠림)·anyLover(15세 시작→17세
         247/300 쏠림)는 여전히 보호됨을 확인.</p>
+
+        <h3>I. 직업 획득(승진·임명) 나이 보호 추가 (2026-09-03)</h3>
+        <p>사용자 제안 - "직업을 획득하는 나이는 보호대상으로 하는건 어떤지 시뮬레이션 해줘".
+        <code>requiresRoute</code> 선택지 자체는 활성 루트 기간 내내(변호사 루트는 19~68세
+        전체) 거의 매 나이 뜨기 때문에 그대로 보호하면 2026-09-02에 뺐던 occupation 대량
+        보호와 같은 문제가 재현된다. 그중 실제로 <code>setOccupation</code>이 붙은(승진·임명이
+        확정되는) 나이만 좁게 골라 새 트리거 키 <code>routeOccupation:&lt;routeId&gt;</code>로
+        등록 - "이 루트를 시작했으면 언젠가 받아야 할 직업 타이틀"만 보호 대상.</p>
+        <p>콘텐츠 추구형 필러(setOccupation 선택지도 우선 선택하도록 확장, 1500회)로 "루트는
+        시작했는데 그 루트의 직업 타이틀을 한 번도 못 받은 비율"을 보호 전/후 비교:</p>
+        <table>
+            <tr><th>루트</th><th>보호 전 놓침률</th><th>보호 후 놓침률</th></tr>
+            <tr><td>의사(doctor)</td><td>55.6%</td><td>3.6%</td></tr>
+            <tr><td>변호사(lawyer)</td><td>59.3%</td><td>2.9%</td></tr>
+            <tr><td>공무원(civil-servant-route)</td><td>71.7%</td><td>8.7%</td></tr>
+            <tr><td>교사(teacher-route)</td><td>75.0%</td><td>36.8%</td></tr>
+            <tr><td>개발자(developer)</td><td>70.0%</td><td>0.0%</td></tr>
+            <tr><td>배우(actor)</td><td>54.7%</td><td>15.0%</td></tr>
+            <tr><td>물류(logistics)</td><td>42.9%</td><td>0.0%</td></tr>
+            <tr><td>학생회장(student-leadership)</td><td>58.5%</td><td>21.2%</td></tr>
+            <tr><td>스포츠엘리트(sports-elite)</td><td>52.3%</td><td>21.5%</td></tr>
+            <tr><td>트레이더(trader)</td><td>61.7%</td><td>5.7%</td></tr>
+            <tr><td>경찰(police)</td><td>63.0%</td><td>34.3%</td></tr>
+        </table>
+        <p>보호 전 기준으로도 대부분의 루트가 42.9~75.0% 확률로 직업 타이틀을 못 받고 게임이
+        끝나는(진로 콘텐츠 상당 부분이 스킵에 밀려 낭비되는) 상태였음을 새로 확인. 평균 턴
+        영향은 39.6→40.5(+2.3%)로 미미해 이전 occupation 전체 보호와 달리 스킵 목적을
+        훼손하지 않는다. 실제 배포본(index.js) 1200회 재검증에서도 doctor 0.0%·lawyer
+        4.5%·civil-servant-route 6.1%·developer 0.0%·trader 14.0%·police 26.2%·
+        teacher-route 36.5%로 시뮬레이션과 일치.</p>
+        <p>남은 잔여 놓침(교사 36.8%·경찰 34.3%·아티스트 등)은 승진 단계가 여러 번 연속인
+        루트(교사→교감→교장 등)에서, 나이는 보호되지만 그 나이의 선택지 4개 노출 슬롯
+        추첨에서 승진 선택지 자체가 빠질 수 있어서로 추정(91~99세 타임루프 버튼과 같은
+        유형의 문제) - <code>mandatory: true</code> 추가는 후속 검토 과제로 남김, 이번엔
+        나이 보호만 적용.</p>
+        <p><code>collectTriggerKeys</code>에 <code>requiresRoute &amp;&amp; setOccupation</code>
+        조합 키 추가, <code>activeTriggerKeysFor</code>에 <code>ctx.activeRouteId</code> 처리
+        추가, 호출부에 <code>activeRouteId: priorRouteState.activeRoute?.id</code> 전달
+        (occupationId와 동일하게 순환 참조 회피를 위해 이번 선택 이전 상태 사용).</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>
