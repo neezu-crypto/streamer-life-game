@@ -542,12 +542,17 @@ function collectTriggerKeys(choice) {
   // 단계적으로 적용.
   // asset/assetType/anyAcquaintance 일부 제외(2026-09-03, 사용자 지시 -
   // "흔해서 미보호해도 괜찮을 후보 선정" → 실측: lottery-ticket(주기적으로
-  // 사고-확인-소멸을 반복해 한 번 놓쳐도 곧 다음 기회가 옴), time-loop-ticket
-  // (91~99세 구간 자체가 이미 수학적으로 보장돼 있어 중복 보호였음),
+  // 사고-확인-소멸을 반복해 한 번 놓쳐도 곧 다음 기회가 옴),
   // assetType:vehicle(21.00% 보유 - 흔한 편, 놓쳐도 무방), anyAcquaintance
   // (21.80% 보유 - 흔한 편)는 뺀다. assetType:realestate(0.05%)·
   // anyLover(1.45%)는 진짜 희소해 그대로 유지.
-  const EXCLUDED_ASSET_IDS = new Set(['lottery-ticket', 'time-loop-ticket']);
+  // time-loop-ticket은 2026-09-03에 같은 이유로 뺐다가 2026-09-04에 재포함 -
+  // "91~99세 구간 자체가 보장돼 있다"는 논리는 버튼을 처음 만나는 진입 시점에만
+  // 해당했다. 버튼을 눌러 티켓을 얻은 바로 그 턴부터는 되돌아가기/포기 선택지가
+  // 딱 그 다음 한 나이에만 있어서(예: 98세에 획득 → 99세에만 존재), 보호가
+  // 없으면 스킵이 그 한 나이를 건너뛰어 100세 결말 이후까지 가버릴 수 있다 -
+  // 실제로 98세에 버튼을 누른 뒤 스킵으로 100세를 넘겨 엔딩이 나온 사례 확인.
+  const EXCLUDED_ASSET_IDS = new Set(['lottery-ticket']);
   const EXCLUDED_ASSET_TYPES = new Set(['vehicle']);
   if (choice.requiresAsset && !EXCLUDED_ASSET_IDS.has(choice.requiresAsset)) keys.push('asset:' + choice.requiresAsset);
   if (choice.requiresAssetType && !EXCLUDED_ASSET_TYPES.has(choice.requiresAssetType)) keys.push('assetType:' + choice.requiresAssetType);
