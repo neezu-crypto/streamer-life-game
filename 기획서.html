@@ -7778,6 +7778,51 @@
         조합 키 추가, <code>activeTriggerKeysFor</code>에 <code>ctx.activeRouteId</code> 처리
         추가, 호출부에 <code>activeRouteId: priorRouteState.activeRoute?.id</code> 전달
         (occupationId와 동일하게 순환 참조 회피를 위해 이번 선택 이전 상태 사용).</p>
+
+        <h3>J. 좀비 바이러스 진입 난이도 조사 → requiresRoute 없는 승진(occupationPromotion)
+        보호 추가 (2026-09-03)</h3>
+        <p>사용자 질문 - "좀비 바이러스 진입 난이도 알려줘"를 계기로
+        <code>zombie-virus-leak-attempt-28/31/33/35/39</code>(<code>requiresEverOccupation:
+        ['postdoc-researcher']</code>)에 도달하는 전체 퍼널을 실측(목표 지향형 필러,
+        1500회). 4단계: 전교 1등(14~16세, 게이팅 없음) → 대학원 진학(20세,
+        <code>requiresEverOccupation:['top-of-class']</code>, 이미 보호 중) → 박사후연구원
+        승진(27세, <code>requiresOccupation:['grad-researcher']</code>) → 좀비 선택지
+        (28~39세, 이미 보호 중).</p>
+        <table>
+            <tr><th>단계</th><th>보호 전 누적</th><th>보호 전 조건부</th><th>보호 후 누적</th><th>보호 후 조건부</th></tr>
+            <tr><td>1. 전교 1등 획득</td><td>18.7%</td><td>-</td><td>22.7%</td><td>-</td></tr>
+            <tr><td>2. 대학원 진학(20세)</td><td>15.4%</td><td>82.2%</td><td>18.6%</td><td>81.8%</td></tr>
+            <tr><td>3. 박사후연구원 승진(27세)</td><td>1.5%</td><td>10.0%</td><td>4.9%</td><td>26.5%</td></tr>
+            <tr><td>4. 좀비 선택지 등장+선택</td><td>0.3%</td><td>21.7%</td><td>1.4%</td><td>28.4%</td></tr>
+        </table>
+        <p>3단계(27세 승진)가 압도적 병목이었다 - <code>postdoc-position-27</code>은
+        <code>requiresOccupation:['grad-researcher']</code>로만 게이팅되고
+        <code>requiresRoute</code>가 없는데, 알고 보니 <b>연구원(researcher) 루트 자체가
+        <code>requiresRoute</code> 게이팅 콘텐츠를 단 하나도 갖고 있지 않아</b>(searcher
+        전용 콘텐츠는 전부 <code>requiresOccupation</code>만 사용) H항의
+        <code>routeOccupation</code> 보호가 전혀 적용되지 않았고, <code>NARROW_PROTECTED_
+        OCCUPATIONS</code> 4개 예외에도 <code>grad-researcher</code>가 없어 완전히
+        무방비 상태였다 - 20세에 대학원생이 돼도 27세를 스킵으로 건너뛰면 승진이
+        영구히 불가능해지는 구조.</p>
+        <p>사용자 지시 - "전교 1등을 획득하면 자동으로 거칠 수 있게 해줘"(승진 체인
+        전체가 자동으로 통과되게 해달라는 취지). <code>requiresOccupation</code>을
+        통째로 다시 보호하면 2026-09-02에 뺐던 문제(3,430개, 압도적 1위)가 재현되므로,
+        <code>routeOccupation</code>과 똑같은 논리로 <b>setOccupation이 같이 붙은
+        (=한 단계 승진/임명시키는) 경우만</b> 새 키 <code>occupationPromotion:
+        &lt;occupationId&gt;</code>로 좁혀 예외 처리 - <code>NARROW_PROTECTED_
+        OCCUPATIONS</code> 여부와 무관하게 현재 직업이면 항상 활성화(승진 선택지
+        자체가 이미 58개로 좁혀져 있어 안전).</p>
+        <p>보호 후 재검증: 박사후연구원 승진 조건부 성공률 10.0%→26.5%(2.65배),
+        좀비 콘텐츠 최종 도달률 0.3%→1.4%(4.7배)로 개선. 평균 턴은 40.5→41.2(+1.7%)로
+        H항과 비슷한 수준의 미미한 영향. 남은 잔여 손실(1단계 여전히 낮은 22.7%,
+        2·3단계 조건부 성공률이 100%에 못 미치는 부분)은 전교 1등 획득 나이(14~16세)
+        자체가 아직 보호 대상이 아니고(사전 보유물이 없는 "획득 시도" 나이는 현재
+        트리거 방식으로 보호 불가) 게임이 도중에 끝나는(스탯 붕괴) 경우도 섞여 있어
+        후속 검토 과제로 남김.</p>
+        <p><code>collectTriggerKeys</code>에 <code>requiresOccupation &amp;&amp;
+        setOccupation</code> 조합 키 추가, <code>activeTriggerKeysFor</code>에
+        <code>ctx.occupationId</code> 기반 <code>occupationPromotion</code> 처리 추가
+        (기존 occupationId ctx 필드 재사용, 호출부 변경 없음).</p>
     </section>
 
     <footer>스트리머 인생게임 · 기획서 v1.0 · index.html/functions 코드 기준 작성 (v0.1 스켈레톤 — 생애 3구간, 대표 엔딩 6종, devbar/관리센터 통계 연동 반영)</footer>

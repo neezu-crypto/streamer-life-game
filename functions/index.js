@@ -584,6 +584,18 @@ function collectTriggerKeys(choice) {
   // 42.9~75.0%(루트 시작해도 대부분 직업 타이틀을 못 받음) → 보호 후 0~36.8%로
   // 크게 개선되면서 평균 턴은 39.6→40.5(+2.3%)로 거의 그대로였다.
   if (choice.requiresRoute && choice.setOccupation) keys.push('routeOccupation:' + choice.requiresRoute);
+  // occupationPromotion(2026-09-03, 사용자 지시 - "전교 1등을 획득하면 자동으로
+  // 거칠 수 있게 해줘" - 좀비 바이러스 진입 난이도 실측 중 발견한 병목 수정).
+  // 연구원 루트는 requiresRoute 게이팅 콘텐츠가 아예 0개라 routeOccupation으로
+  // 못 잡았다 - postdoc-position-27(requiresOccupation:['grad-researcher']만
+  // 있고 requiresRoute는 없음)이 대표 사례. requiresOccupation을 통째로 다시
+  // 보호하면 2026-09-02에 뺐던 문제(3,430개, 압도적 1위)가 재현되므로,
+  // routeOccupation과 같은 논리로 setOccupation이 같이 붙은(=한 단계
+  // 승진/임명시키는) 경우만 예외로 좁힌다. 실측: postdoc 승진 조건부 성공률
+  // 10.0%(23/231) - 이 병목이 좀비 콘텐츠 전체 도달률(0.3%)의 핵심 원인이었다.
+  if (choice.requiresOccupation && choice.setOccupation) {
+    choice.requiresOccupation.forEach((id) => keys.push('occupationPromotion:' + id));
+  }
   return keys;
 }
 const TRIGGER_AGE_INDEX = new Map();
@@ -611,6 +623,10 @@ function activeTriggerKeysFor(ctx) {
   // 현재 직업(ctx.occupationId)은 NARROW_PROTECTED_OCCUPATIONS 4개만 예외 -
   // collectTriggerKeys의 주석 참고(2026-09-02 대량 제외, 2026-09-03 4개 예외 복원).
   if (ctx.occupationId && NARROW_PROTECTED_OCCUPATIONS.has(ctx.occupationId)) keys.push('occupation:' + ctx.occupationId);
+  // occupationPromotion - collectTriggerKeys의 주석 참고(2026-09-03). 현재
+  // 직업이 곧 다음 승진의 전제조건이 될 수 있으니 NARROW_PROTECTED_OCCUPATIONS
+  // 여부와 무관하게 항상 활성화(승진 선택지 자체가 이미 좁혀져 있어 안전).
+  if (ctx.occupationId) keys.push('occupationPromotion:' + ctx.occupationId);
   (ctx.everOccupationIds || []).forEach((o) => keys.push('everOccupation:' + o));
   // ctx.hasAnyAcquaintance는 더 이상 보호 대상이 아니다 - collectTriggerKeys의 주석 참고.
   if (ctx.hasAnyLover) keys.push('anyLover');
