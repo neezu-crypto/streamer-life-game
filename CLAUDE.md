@@ -16,14 +16,14 @@
   처럼 codebase를 지정한다(`--only functions`로 전체 배포하면 다른 프로젝트 함수까지
   삭제 대상으로 잡힐 수 있음 — 이 생태계 다른 CLAUDE.md들과 동일한 경고).
 
-## database.rules.json — 4개 레포 동기화 필수 (2026-08-14, 사용자 명시 요청)
+## database.rules.json — 6개 레포 동기화 필수 (2026-08-14, 사용자 명시 요청; 2026-09-04 갱신)
 
-- **이 파일은 StreamBet-Market, soop-stock-market, interior-3d-viewer, streamer-life-game
-  4개 레포가 전부 바이트 단위로 동일한 사본을 갖고 있어야 한다.** 넷 다 결국 같은
-  RTDB(`soop-stock-market-default-rtdb`)에 배포되는 하나의 규칙 파일이기 때문 — 그중
-  아무 레포에서나 규칙을 재배포하면 그 레포의 로컬 파일 내용으로 실제 서버 규칙이
-  통째로 덮어써진다.
-- **이 파일을 수정할 때마다(어느 레포에서 작업하든) 반드시 나머지 3개 레포의
+- **이 파일은 StreamBet-Market, soop-stock-market, interior-3d-viewer, streamer-life-game,
+  rocket-game, streamer-gallery 6개 레포가 전부 바이트 단위로 동일한 사본을 갖고 있어야
+  한다.** 전부 결국 같은 RTDB(`soop-stock-market-default-rtdb`)에 배포되는 하나의 규칙
+  파일이기 때문 — 그중 아무 레포에서나 규칙을 재배포하면 그 레포의 로컬 파일 내용으로
+  실제 서버 규칙이 통째로 덮어써진다.
+- **이 파일을 수정할 때마다(어느 레포에서 작업하든) 반드시 나머지 5개 레포의
   `database.rules.json`에도 동일한 변경을 그대로 복사해서 커밋한다.** 하나만 고치고
   넘어가면, 나중에 다른 레포에서 무심코 규칙을 재배포했을 때 방금 추가한 변경이
   조용히 사라진다(실제로 2026-08-14에 이 문제로 배포가 한 번 막혔던 적 있음).
