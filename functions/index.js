@@ -2910,6 +2910,24 @@ const runBotTurns = onSchedule({ schedule: '* * * * *', timeZone: 'Asia/Seoul', 
   }
 });
 
+// 정지 계정 확인(2026-09-05 추가) — 자매 저장소들의 assertNotBanned와 동일한
+// bannedAccounts/{uid} 구조(all 또는 games.lifeGame)를 본다. 이 저장소는 그동안
+// banLifeGameAccount 같은 "정지시키는" 수단 자체가 없어서 만들 이유가 없었을 뿐 -
+// 이번에 그 함수를 추가하면서 실제로 걸러지도록 주요 플레이 진입점(시작/선택/
+// 주사위)에도 같이 건다. 어드민 판정과 달리 실패해도 굳이 세분화된 안내 문구를
+// 만들 필요 없어 401 계열 하나로 통일한다.
+async function assertNotBanned(db, uid) {
+  const snap = await db.ref('bannedAccounts/' + uid).get();
+  if (!snap.exists()) return;
+  const ban = snap.val();
+  if (ban.all) {
+    throw new HttpsError('permission-denied', '정지된 계정입니다' + (ban.allReason ? ' (사유: ' + ban.allReason + ')' : '') + '.');
+  }
+  if (ban.games && ban.games.lifeGame) {
+    throw new HttpsError('permission-denied', '정지된 계정입니다' + (ban.games.lifeGame.reason ? ' (사유: ' + ban.games.lifeGame.reason + ')' : '') + '.');
+  }
+}
+
 // 04번 - 스트리머 이름을 검색해 주인공을 정하고 첫 생애 구간을 연다. 이미 그
 // 계정에 저장된 판이 있었다면(진행 중이든 완료했든) 여기서 덮어쓴다 - 계정당
 // 저장 슬롯 1개라, 클라이언트가 "이어하기" 대신 "새로 시작하기"를 선택했을
@@ -2917,6 +2935,7 @@ const runBotTurns = onSchedule({ schedule: '* * * * *', timeZone: 'Asia/Seoul', 
 // streamerId는 선택값(검색 결과의 stocks 키) - 없어도(직접 입력한 이름) 진행 가능.
 const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
+  await assertNotBanned(getDatabase(), uid);
   const streamerName = (request.data && request.data.streamerName || '').toString().trim();
   const streamerId = request.data && request.data.streamerId ? String(request.data.streamerId) : null;
   if (!streamerName || streamerName.length > MAX_NAME_LEN) {
@@ -3117,6 +3136,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
 const submitChoice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const db = getDatabase();
+  await assertNotBanned(db, uid);
   const choiceId = request.data && request.data.choiceId;
   if (!choiceId) throw new HttpsError('invalid-argument', 'choiceId가 필요합니다.');
 
@@ -3348,6 +3368,7 @@ const sellDiyItem = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' },
 const rollDice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const db = getDatabase();
+  await assertNotBanned(db, uid);
   const { playRef, play, stage } = await loadActivePlay(db, uid);
   if (!stage.random) {
     throw new HttpsError('failed-precondition', '이 구간은 주사위가 아니라 직접 골라야 합니다.');
@@ -3476,6 +3497,45 @@ const adminDeletePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: 
   await releaseOccupationGaugeIfAbandoned(db, snap.val());
   await targetRef.remove();
   return { ok: true, deletedUid: targetUid };
+});
+
+// 게임별 정지 관리(2026-09-05 추가, 신규 게임 온보딩 체크리스트) — StreamBet-Market의
+// banAccount/unbanAccount와 동일 패턴이지만 이름은 다르게 짓는다. Cloud Functions
+// 리소스 이름은 codebase로 네임스페이스되지 않아(2026-09-04 whoAmI 충돌 사고로 확인)
+// banAccount/unbanAccount는 이미 StreamBet-Market이 선점 중이라 그대로 쓰면 그 함수를
+// 덮어쓴다. bannedAccounts/{uid}/games/lifeGame에 쓰고, assertNotBanned에 해당하는
+// 이 저장소의 정지 확인 로직이 이미 이 경로를 읽는다. 이 저장소엔 별도 감사 로그
+// 시스템이 없어(다른 자매 저장소와 달리 auditLog 노드 자체가 없음) logAudit 호출은
+// 생략한다 - 있는 기능만 최소로 추가.
+const banLifeGameAccount = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const adminUid = requireAuth(request);
+  if (!(await isAdminUid(adminUid))) {
+    throw new HttpsError('permission-denied', '관리자만 사용할 수 있는 기능입니다.');
+  }
+  const { uid, reason } = request.data || {};
+  if (!uid) throw new HttpsError('invalid-argument', '대상 uid를 입력해 주세요.');
+  if (!reason || !reason.trim()) throw new HttpsError('invalid-argument', '정지 사유를 입력해 주세요.');
+
+  const adminName = (request.auth.token && (request.auth.token.name || request.auth.token.email)) || adminUid;
+  await getDatabase().ref('bannedAccounts/' + uid + '/games/lifeGame').set({
+    reason: reason.trim(),
+    bannedAt: Date.now(),
+    bannedBy: adminUid,
+    bannedByName: adminName,
+  });
+  return { ok: true, status: 'banned' };
+});
+
+const unbanLifeGameAccount = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const adminUid = requireAuth(request);
+  if (!(await isAdminUid(adminUid))) {
+    throw new HttpsError('permission-denied', '관리자만 사용할 수 있는 기능입니다.');
+  }
+  const { uid } = request.data || {};
+  if (!uid) throw new HttpsError('invalid-argument', '대상 uid를 입력해 주세요.');
+
+  await getDatabase().ref('bannedAccounts/' + uid + '/games/lifeGame').remove();
+  return { ok: true, status: 'unbanned' };
 });
 
 // 관리자 - 봇 상세 현황 조회(2026-08-30, 62장, 사용자 지시 - "각 봇마다 모든
@@ -3882,4 +3942,4 @@ const spreadZombieOutbreakNaturally = onSchedule({ schedule: '0 0 * * *', timeZo
   });
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount };

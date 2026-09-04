@@ -117,6 +117,13 @@ onAuthStateChanged(auth, (user) => {
     presenceRecorded = true;
     set(ref(db, 'lifeGame/presence/' + user.uid), { lastSeenAt: serverTimestamp() })
       .catch((e) => console.error('접속 기록 실패:', e));
+    // admin-center 접속자 분석(10번, 2026-09-05 추가) - 위 lifeGame/presence는
+    // 세계관 패널·봇 시스템이 쓰는 별개 용도라 건드리지 않고, admin-center가
+    // 기대하는 표준 경로(presence/{appId}/{uid}, 필드명 lastSeen)에도 병행 기록만
+    // 추가한다. 이쪽도 admin-center의 60분 유예 규칙과 맞춰 새로고침/재접속 시점
+    // 1회 기록으로 충분하다(별도 갱신 루프 불필요).
+    set(ref(db, 'presence/lifeGame/' + user.uid), { lastSeen: Date.now() })
+      .catch((e) => console.error('접속자 분석 기록 실패:', e));
   }
 });
 
