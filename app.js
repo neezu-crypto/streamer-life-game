@@ -131,12 +131,33 @@ onAuthStateChanged(auth, (user) => {
 // 부가 기능이라 게임 플레이 자체를 막으면 안 되므로 존재 여부만 확인하고 넘어간다.
 if (typeof Kakao !== 'undefined') Kakao.init('ed4f01d6903ca41d5dc0ab32b6ae143c');
 
-// 구글 팝업 인증 직후처럼 "활성 탭이 아니다"로 오판되기 쉬운 순간엔 네이티브
-// confirm()이 브라우저에 따라 조용히 억제될 수 있다(soop-stock-market이 이미
-// 겪은 문제 - 그쪽은 커스텀 확인 모달로 우회해뒀다). 여기서는 그 정도로 자주
-// 겪는 경로가 아니라(구글 계정이 이미 다른 uid에 연동된 극히 드문 경우에만
-// 탐) 일단 네이티브 confirm을 쓰고, 실제로 문제 제보가 오면 그때 커스텀
-// 모달로 교체한다.
+// 구글 팝업이 닫힌 직후엔 COOP 정책 때문에 브라우저가 이 탭을 잠깐 "활성 탭이
+// 아니다"로 오판하고, 그 상태에서 네이티브 confirm()을 부르면 크롬이 다이얼로그
+// 자체를 띄우지도 않고 조용히 억제해버린다. soop-stock-market이 2026-07-10(커밋
+// e6db09d)에 이미 겪고 고친 문제이자, streamer-gallery·rocket-game에서도 실제
+// 재현된 문제(2026-09-04, "실제 제보가 오면 그때 교체한다"던 이 파일의 이전 계획
+// 그대로 지금 교체함) — 검증된 해법대로 네이티브 confirm() 대신 이 문제 자체의
+// 대상이 아닌 일반 HTML 커스텀 모달로 완전히 대체한다.
+function confirmModal(message) {
+  return new Promise((resolve) => {
+    const modal = document.getElementById('appConfirmModal');
+    const msgEl = document.getElementById('appConfirmMessage');
+    const yesBtn = document.getElementById('appConfirmYesBtn');
+    const noBtn = document.getElementById('appConfirmNoBtn');
+    if (!modal || !msgEl || !yesBtn || !noBtn) { resolve(false); return; }
+    msgEl.textContent = message;
+    modal.classList.remove('hidden');
+    const cleanup = (result) => {
+      modal.classList.add('hidden');
+      yesBtn.onclick = null;
+      noBtn.onclick = null;
+      resolve(result);
+    };
+    yesBtn.onclick = () => cleanup(true);
+    noBtn.onclick = () => cleanup(false);
+  });
+}
+
 async function completeAccountSwitch(customToken) {
   await signInWithCustomToken(auth, customToken);
   alert('✅ 이제 이 기기에서도 같은 계정을 이어서 쓸 수 있어요.');
@@ -155,7 +176,7 @@ window.loginWithGoogle = async function () {
   } catch (e) {
     console.error('구글 로그인 실패:', e);
     if (e && e.code === 'auth/credential-already-in-use') {
-      if (!confirm('🔗 이미 보호된 계정을 발견했어요!\n이 기기에서도 같은 계정으로 이어서 진행할까요?\n(이 기기에서 지금까지 쌓은 진행도는 함께 옮겨지지 않아요)')) return;
+      if (!(await confirmModal('🔗 이미 보호된 계정을 발견했어요!\n이 기기에서도 같은 계정으로 이어서 진행할까요?\n(이 기기에서 지금까지 쌓은 진행도는 함께 옮겨지지 않아요)'))) return;
       try {
         await signInWithPopup(auth, googleProvider);
         await linkGoogleAccountFn();
@@ -185,7 +206,7 @@ window.loginWithKakao = function () {
       try {
         const result = await linkKakaoAccountFn({ kakaoAccessToken: authObj.access_token });
         if (result.data.action === 'switch') {
-          if (!confirm('🔗 이미 보호된 계정을 발견했어요!\n이 기기에서도 같은 계정으로 이어서 진행할까요?\n(이 기기에서 지금까지 쌓은 진행도는 함께 옮겨지지 않아요)')) return;
+          if (!(await confirmModal('🔗 이미 보호된 계정을 발견했어요!\n이 기기에서도 같은 계정으로 이어서 진행할까요?\n(이 기기에서 지금까지 쌓은 진행도는 함께 옮겨지지 않아요)'))) return;
           await completeAccountSwitch(result.data.customToken);
         } else if (result.data.action === 'linked') {
           alert('✅ 카카오 연동 완료! 이제 이 계정의 도감·진행도가 안전하게 보호돼요.');

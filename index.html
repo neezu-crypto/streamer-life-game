@@ -334,6 +334,20 @@
   </div>
 </div>
 
+<!-- 범용 확인 모달(window.confirm 대체) — 팝업 로그인 직후처럼 브라우저가 "활성 탭이
+     아니다"로 오판하는 순간에 네이티브 confirm()을 부르면 크롬이 다이얼로그를 아예
+     띄우지도 않고 조용히 억제해버리는 문제가 있어(soop-stock-market·streamer-gallery·
+     rocket-game에서 실제로 겪고 고친 문제), 그 대상이 아닌 이 커스텀 모달을 대신 쓴다. -->
+<div id="appConfirmModal" class="modal-overlay hidden">
+  <div class="modal-box" style="max-width:380px;text-align:center;">
+    <p id="appConfirmMessage" class="pitch" style="white-space:pre-line;margin:0 0 20px;"></p>
+    <div style="display:flex;gap:8px;">
+      <button class="text-link" id="appConfirmNoBtn" type="button" style="flex:1;border:1px solid var(--line);border-radius:6px;padding:10px;">취소</button>
+      <button class="primary" id="appConfirmYesBtn" type="button" style="flex:1;">확인</button>
+    </div>
+  </div>
+</div>
+
 <!-- 멀티플레이 참가 - 닉네임 입력(13장, 2026-08-24 구현) -->
 <div id="joinMultiplayerModal" class="modal-overlay hidden">
   <div class="modal-box">
