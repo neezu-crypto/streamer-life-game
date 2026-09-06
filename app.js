@@ -66,6 +66,7 @@ const shareToGalleryFn = httpsCallable(functions, 'shareToGallery');
 const linkGoogleAccountFn = httpsCallable(functions, 'linkGoogleAccount');
 const linkKakaoAccountFn = httpsCallable(functions, 'linkKakaoAccount');
 const adminDeleteGalleryEntryFn = httpsCallable(functions, 'adminDeleteGalleryEntry');
+const logLifeGameVisitFn = httpsCallable(functions, 'logLifeGameVisit');
 // requestStreamerVerification은 이 레포에 없는 함수다 - 같은 Firebase 프로젝트
 // (soop-stock-market)에 이미 배포돼 있는 걸 codebase 구분 없이 이름으로 그대로
 // 호출한다(16장 참고, StreamBet-Market·admin-center CLAUDE.md와 동일 원칙 -
@@ -77,6 +78,7 @@ const googleProvider = new GoogleAuthProvider();
 let currentUser = null;
 let resumeChecked = false;
 let presenceRecorded = false;
+let visitLogChecked = false;
 // 관리자 여부(2026-08-24, 사용자 지시 - "관리자 uid로 다른 인생 갤러리에서
 // 로그 삭제 가능하게" UI 연결) - adminCenter/adminUids 자체는
 // database.rules.json에서 .read:false라 클라이언트가 직접 "내가 관리자인가"를
@@ -124,6 +126,15 @@ onAuthStateChanged(auth, (user) => {
     // 1회 기록으로 충분하다(별도 갱신 루프 불필요).
     set(ref(db, 'presence/lifeGame/' + user.uid), { lastSeen: Date.now() })
       .catch((e) => console.error('접속자 분석 기록 실패:', e));
+  }
+  // 인증 스트리머 접속 시 관리자 디스코드 알림(2026-09-06 추가, StreamBet-Market/
+  // soop-stock-market과 동일 패턴) - 하루 한 번 제한 등 실제 발송 여부는 서버
+  // (logLifeGameVisit)가 판단하므로 여기선 세션당 1회만 호출하면 된다.
+  if (!visitLogChecked) {
+    visitLogChecked = true;
+    get(ref(db, 'users/' + user.uid + '/streamerVerified')).then((snap) => {
+      if (snap.val() === true) logLifeGameVisitFn().catch((e) => console.error('접속 로그 실패:', e));
+    }).catch((e) => console.error('인증 스트리머 여부 확인 실패:', e));
   }
 });
 

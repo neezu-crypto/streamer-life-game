@@ -3942,4 +3942,48 @@ const spreadZombieOutbreakNaturally = onSchedule({ schedule: '0 0 * * *', timeZo
   });
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount };
+function todayKeyKST() {
+  const kst = new Date(Date.now() + 9 * 3600 * 1000);
+  return kst.toISOString().split('T')[0];
+}
+
+// 인증 스트리머가 인생게임에 접속하면 관리자 디스코드로 알림이 가게 한다
+// (2026-09-06 추가, StreamBet-Market의 logBettingMarketVisit/soop-stock-market의
+// logStockMarketVisit과 동일 패턴). 실제 발송은 admin-center의 RTDB 트리거가
+// 담당하고, 이 함수는 두 앱과 공유하는 verifiedStreamerVisits 큐에 항목 하나만
+// 쌓는다. 인증 여부는 이 저장소가 이미 다른 곳(refreshCollectionView)에서 쓰던
+// users/{uid}/streamerVerified 공유 필드 그대로 확인 - 새 스키마 도입 안 함.
+// market 값은 admin-center PRESENCE_APPS와 동일한 'lifeGame'을 그대로 재사용.
+const logLifeGameVisit = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const db = getDatabase();
+
+  const verifiedSnap = await db.ref('users/' + uid + '/streamerVerified').get();
+  if (verifiedSnap.val() !== true) return { ok: true, logged: false };
+
+  const dateKey = todayKeyKST();
+  const dedupRef = db.ref('verifiedStreamerVisitDedup/lifeGame/' + uid + '/' + dateKey);
+  let alreadyLogged = false;
+  await dedupRef.transaction((cur) => {
+    if (cur) {
+      alreadyLogged = true;
+      return; // abort, 값 유지
+    }
+    return true;
+  });
+  if (alreadyLogged) return { ok: true, logged: false };
+
+  const vSnap = await db.ref('streamerVerifications').orderByChild('uid').equalTo(uid).limitToFirst(1).get();
+  const vEntry = vSnap.exists() ? Object.values(vSnap.val())[0] : null;
+
+  await db.ref('verifiedStreamerVisits').push({
+    uid,
+    nickname: (vEntry && vEntry.nickname) || '',
+    soopId: (vEntry && vEntry.soopId) || '',
+    market: 'lifeGame',
+    visitedAt: ServerValue.TIMESTAMP,
+  });
+  return { ok: true, logged: true };
+});
+
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount, logLifeGameVisit };
