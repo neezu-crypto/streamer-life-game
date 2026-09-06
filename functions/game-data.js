@@ -61530,6 +61530,139 @@ const HARDWARE_STORE_CHOICES = [
       { weight: 10, label: '중상', deltas: { health: -6, happiness: -3 }, addCondition: { id: 'infection', label: '🦠 감염' }, result: '무기가 있어도 수적으로 밀리니 별수 없었다.' }
     ]
   },
+  // 도구 2종 추가(63장 C항 5단계 확장, 2026-09-06) - 망치와 완전히 같은 패턴
+  // (구매 2갈래 + 평소사용 2종 + 빌려주기 + 좀비대응)을 그대로 복제, 자산
+  // id·아이콘·텍스트만 바꿈. 좀비대응 무사/중상 확률은 도구별로 차등(도끼는
+  // 망치보다 강한 무기 컨셉으로 살짝 높게, 장도리는 가벼운 도구라 살짝 낮게) -
+  // requiresAssetType:'hardware-tool'인 hardware-craft-trigger가 이미 도구
+  // 종류 무관하게 게이팅돼 있어 이 두 도구를 얻는 순간부터 제작 계기도 그대로
+  // 뜬다(신규 코드 불필요).
+  {
+    id: 'hardware-axe-help-parents',
+    text: '집에 있던 도끼로 장작 패는 아버지 일을 거들어드리고 용돈을 받는다',
+    requiresNoAsset: 'axe',
+    requiresAgeBelow: 13,
+    appearChance: 0.1,
+    bonusSlot: true,
+    deltas: { wealth: 1, happiness: 1 },
+    addAsset: { id: 'axe', label: '🪓 도끼', type: 'hardware-tool' },
+    result: '작은 손으로 장작을 나르며 거들었다며 용돈을 받았다.'
+  },
+  {
+    id: 'hardware-buy-axe',
+    text: '마당의 나무를 손질하려 도끼를 하나 장만한다',
+    requiresNoAsset: 'axe',
+    requiresAgeAtLeast: 13,
+    appearChance: 0.1,
+    bonusSlot: true,
+    deltas: { wealth: -2, happiness: 1 },
+    addAsset: { id: 'axe', label: '🪓 도끼', type: 'hardware-tool' },
+    result: '묵직한 손맛이 제법 든든했다.'
+  },
+  {
+    id: 'hardware-axe-split-firewood',
+    text: '장작을 패서 땔감을 마련한다',
+    requiresAsset: 'axe',
+    appearChance: 0.15,
+    bonusSlot: true,
+    deltas: { happiness: 2 },
+    result: '단정하게 쌓인 장작더미를 보니 뿌듯했다.'
+  },
+  {
+    id: 'hardware-axe-miss-swing',
+    text: '도끼질을 하다 헛손질로 놀란 가슴을 쓸어내린다',
+    requiresAsset: 'axe',
+    appearChance: 0.15,
+    bonusSlot: true,
+    deltas: { happiness: -1, health: -1 },
+    result: '다행히 크게 다치진 않았지만 식은땀이 났다.'
+  },
+  {
+    id: 'hardware-axe-lend-neighbor',
+    text: '이웃에게 도끼를 빌려준다',
+    requiresAsset: 'axe',
+    appearChance: 0.15,
+    bonusSlot: true,
+    deltas: { relationship: 1 },
+    result: '별거 아닌 걸로도 사이가 조금 가까워졌다.'
+  },
+  {
+    id: 'hardware-axe-zombie-defense',
+    text: '챙겨뒀던 도끼를 무기 삼아 좀비에 맞선다',
+    requiresAsset: 'axe',
+    requiresWorldStateActive: 'zombieOutbreak',
+    dynamicAppearChance: { key: 'zombieOutbreak', min: 0.2, max: 0.7 },
+    bonusSlot: true,
+    dynamicPrizeWeight: { key: 'zombieOutbreak', caughtLabel: '중상', min: 0.02, max: 0.25, invert: false },
+    prizeTable: [
+      { weight: 70, label: '무사히', deltas: { happiness: 1 }, worldStateSignal: { key: 'zombieOutbreak', target: 0 }, result: '도끼의 묵직한 힘 덕에 한 번에 확실하게 물리쳤다.' },
+      { weight: 22, label: '경상', deltas: { health: -2, happiness: -1 }, result: '몇 대 스쳤지만 도끼 덕에 크게 밀리진 않았다.' },
+      { weight: 8, label: '중상', deltas: { health: -6, happiness: -3 }, addCondition: { id: 'infection', label: '🦠 감염' }, result: '무기가 있어도 수적으로 밀리니 별수 없었다.' }
+    ]
+  },
+  {
+    id: 'hardware-claw-help-parents',
+    text: '집에 있던 장도리로 어머니의 못 정리를 거들어드리고 용돈을 받는다',
+    requiresNoAsset: 'claw-hammer',
+    requiresAgeBelow: 13,
+    appearChance: 0.1,
+    bonusSlot: true,
+    deltas: { wealth: 1, happiness: 1 },
+    addAsset: { id: 'claw-hammer', label: '🔧 장도리', type: 'hardware-tool' },
+    result: '꼼꼼하게 못을 정리했다며 용돈을 받았다.'
+  },
+  {
+    id: 'hardware-buy-claw',
+    text: '낡은 못을 빼내려 장도리를 하나 장만한다',
+    requiresNoAsset: 'claw-hammer',
+    requiresAgeAtLeast: 13,
+    appearChance: 0.1,
+    bonusSlot: true,
+    deltas: { wealth: -1, happiness: 1 },
+    addAsset: { id: 'claw-hammer', label: '🔧 장도리', type: 'hardware-tool' },
+    result: '별거 아닌 물건이지만 쓸모가 많았다.'
+  },
+  {
+    id: 'hardware-claw-pull-nail',
+    text: '박혀 있던 못을 깔끔하게 빼낸다',
+    requiresAsset: 'claw-hammer',
+    appearChance: 0.15,
+    bonusSlot: true,
+    deltas: { happiness: 1 },
+    result: '작은 일 하나 끝냈을 뿐인데 개운했다.'
+  },
+  {
+    id: 'hardware-claw-slip',
+    text: '못을 빼다 손이 미끄러져 긁힌다',
+    requiresAsset: 'claw-hammer',
+    appearChance: 0.15,
+    bonusSlot: true,
+    deltas: { happiness: -1, health: -1 },
+    result: '손등에 붉은 자국이 남았다.'
+  },
+  {
+    id: 'hardware-claw-lend-neighbor',
+    text: '이웃에게 장도리를 빌려준다',
+    requiresAsset: 'claw-hammer',
+    appearChance: 0.15,
+    bonusSlot: true,
+    deltas: { relationship: 1 },
+    result: '별거 아닌 걸로도 사이가 조금 가까워졌다.'
+  },
+  {
+    id: 'hardware-claw-zombie-defense',
+    text: '챙겨뒀던 장도리를 무기 삼아 좀비에 맞선다',
+    requiresAsset: 'claw-hammer',
+    requiresWorldStateActive: 'zombieOutbreak',
+    dynamicAppearChance: { key: 'zombieOutbreak', min: 0.2, max: 0.7 },
+    bonusSlot: true,
+    dynamicPrizeWeight: { key: 'zombieOutbreak', caughtLabel: '중상', min: 0.05, max: 0.35, invert: false },
+    prizeTable: [
+      { weight: 55, label: '무사히', deltas: { happiness: 1 }, worldStateSignal: { key: 'zombieOutbreak', target: 0 }, result: '가벼운 도구지만 없는 것보단 나았다 - 겨우 물리쳤다.' },
+      { weight: 30, label: '경상', deltas: { health: -2, happiness: -1 }, result: '몇 대 얻어맞았지만 그럭저럭 버텼다.' },
+      { weight: 15, label: '중상', deltas: { health: -6, happiness: -3 }, addCondition: { id: 'infection', label: '🦠 감염' }, result: '가벼운 도구로는 역부족이었다.' }
+    ]
+  },
   // DIY 제작 계기 선택지(63장 C항 3단계, 2026-09-02) - hardware-tool 타입
   // 자산을 하나라도 보유 중이면(망치뿐인 v1에선 사실상 requiresAsset:'hammer'와
   // 동치지만, 도구가 늘어날 확장을 대비해 requiresAssetType으로 게이팅)
@@ -61565,6 +61698,23 @@ const DIY_CRAFT_PRODUCTS = [
     craftHappinessDelta: 2,
     sellWealthDelta: 3,
     craftResult: '다리 하나하나를 정성껏 깎고 다듬어 튼튼한 원목 의자를 완성했다.'
+  },
+  // 완성품 2종 추가(63장 C항 5단계 확장, 2026-09-06) - 기존 카탈로그에 항목만
+  // 추가하면 끝(craftDiyItem/sellDiyItem/클라이언트 제작 모달 전부 이 배열을
+  // 그대로 읽어 렌더링하는 구조라 별도 코드 변경 불필요).
+  {
+    id: 'diy-bookshelf',
+    label: '📚 책장',
+    craftHappinessDelta: 2,
+    sellWealthDelta: 4,
+    craftResult: '여러 칸으로 나눠 튼튼하게 짠 책장을 완성했다.'
+  },
+  {
+    id: 'diy-frame',
+    label: '🖼️ 액자',
+    craftHappinessDelta: 1,
+    sellWealthDelta: 2,
+    craftResult: '테두리를 매끄럽게 다듬어 아담한 액자 하나를 완성했다.'
   }
 ];
 
