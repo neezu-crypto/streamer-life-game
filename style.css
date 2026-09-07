@@ -939,14 +939,17 @@
   #gameSection.route-theme-soccer-manager .stat-bar-fill {
     box-shadow: 0 0 6px 0 rgba(242, 240, 232, 0.5);
   }
-  /* 스테이지 이름 아래 분필로 밑줄을 긋는 듯한 애니메이션 */
+  /* 스테이지 이름 아래 분필로 밑줄을 긋는 듯한 애니메이션 - teacher-route도
+     "칠판에 분필로 긋는다"는 연출이 그대로 들어맞아 같이 묶었다(2026-09-07). */
   #gameSection.route-theme-sports-elite .stage-name,
-  #gameSection.route-theme-soccer-manager .stage-name {
+  #gameSection.route-theme-soccer-manager .stage-name,
+  #gameSection.route-theme-teacher-route .stage-name {
     position: relative;
     display: inline-block;
   }
   #gameSection.route-theme-sports-elite .stage-name::after,
-  #gameSection.route-theme-soccer-manager .stage-name::after {
+  #gameSection.route-theme-soccer-manager .stage-name::after,
+  #gameSection.route-theme-teacher-route .stage-name::after {
     content: '';
     position: absolute;
     left: 0;
@@ -963,7 +966,8 @@
   }
   @media (prefers-reduced-motion: reduce) {
     #gameSection.route-theme-sports-elite .stage-name::after,
-    #gameSection.route-theme-soccer-manager .stage-name::after {
+    #gameSection.route-theme-soccer-manager .stage-name::after,
+    #gameSection.route-theme-teacher-route .stage-name::after {
       animation: none;
     }
   }
@@ -1403,6 +1407,200 @@
       animation: none;
     }
   }
+
+  /* civil-servant-route(공무원 루트) 전용(2026-09-07) - 관공서 서식 톤.
+     다른 테마들과 달리 애니메이션을 아예 넣지 않았다 - "반듯하고 정적인"
+     관료제 특유의 느낌을 의도한 선택. 대신 실제 관공서 문서에 찍히는
+     빨간 관인(도장)을 본뜬 원형 스탬프를 패널 모서리에 고정 장식으로 뒀다. */
+  body.route-bg-civil-servant-route {
+    --bg: #1b2128;
+    background-color: var(--bg);
+    background-image: url('assets/scenes/civil-servant.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  #gameSection.route-theme-civil-servant-route {
+    --panel: #242b33; --panel-2: #2b323b;
+    --text: #eef1f4; --text-dim: #a3acb6; --text-faint: #707a86;
+    --gold: #c9a24a; --gold-dim: rgba(201, 162, 74, 0.14);
+    --line: #3a434e;
+    --sage: #8fd4a0; --sage-dim: rgba(143, 212, 160, 0.14);
+    --coral: #ffab8a; --coral-dim: rgba(255, 171, 138, 0.14);
+    --sky: #9fc4f5; --sky-dim: rgba(159, 196, 245, 0.16);
+    color: var(--text);
+    background-color: #242b33;
+    background-image:
+      repeating-linear-gradient(180deg, rgba(201,162,74,0.06) 0px, rgba(201,162,74,0.06) 1px, transparent 1px, transparent 26px);
+    position: relative;
+  }
+  #gameSection.route-theme-civil-servant-route::before {
+    content: '';
+    position: absolute;
+    top: 14px; right: 18px;
+    width: 54px; height: 54px;
+    border: 3px solid rgba(196, 64, 58, 0.4);
+    border-radius: 50%;
+    transform: rotate(-14deg);
+    pointer-events: none;
+    z-index: 4;
+  }
+  #gameSection.route-theme-civil-servant-route button { border-radius: 2px; }
+  #gameSection.route-theme-civil-servant-route .choice-btn { border-left: 3px solid var(--gold); }
+  #gameSection.route-theme-civil-servant-route .stat-bar-fill { box-shadow: 0 0 4px 0 rgba(201, 162, 74, 0.5); }
+
+  /* police(경찰) 전용(2026-09-07) - 짙은 네이비 위에 순찰차 사이렌을 본뜬
+     블루/레드 점멸 바를 패널 맨 위에 고정. steps(2)로 두 색이 뚝뚝 끊어져
+     바뀌게 해서 부드러운 페이드가 아니라 실제 경광등처럼 즉각 전환되게 했다. */
+  body.route-bg-police {
+    --bg: #0d141c;
+    background-color: var(--bg);
+    background-image: url('assets/scenes/police.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  #gameSection.route-theme-police {
+    --panel: #161f2b; --panel-2: #1c2735;
+    --text: #eef2f7; --text-dim: #9fadc0; --text-faint: #66748a;
+    --gold: #3ea1ff; --gold-dim: rgba(62, 161, 255, 0.16);
+    --line: #2c3a4d;
+    --sage: #8fd4a0; --sage-dim: rgba(143, 212, 160, 0.14);
+    --coral: #ffab8a; --coral-dim: rgba(255, 171, 138, 0.14);
+    --sky: #9fc4f5; --sky-dim: rgba(159, 196, 245, 0.16);
+    color: var(--text);
+    background-color: #161f2b;
+    position: relative;
+  }
+  #gameSection.route-theme-police::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, #3ea1ff 50%, #ff4d4d 50%);
+    background-size: 200% 100%;
+    animation: route-police-siren 1s steps(2) infinite;
+    pointer-events: none;
+    z-index: 5;
+  }
+  @keyframes route-police-siren {
+    0% { background-position: 0% 0; }
+    50% { background-position: 100% 0; }
+    100% { background-position: 0% 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #gameSection.route-theme-police::before { animation: none; }
+  }
+  #gameSection.route-theme-police button { border-radius: 2px; }
+  #gameSection.route-theme-police .choice-btn { border-left: 3px solid var(--gold); }
+  #gameSection.route-theme-police .stat-bar-fill { box-shadow: 0 0 6px 0 rgba(62, 161, 255, 0.5); }
+
+  /* lawyer(변호사) 전용(2026-09-07) - 마호가니 서재 톤 + 브라스 골드. 구간
+     이름 위에 법률 서식 레터헤드 같은 이중선을 긋고, 세리프체로 격식을
+     더했다. */
+  body.route-bg-lawyer {
+    --bg: #241a14;
+    background-color: var(--bg);
+    background-image: url('assets/scenes/lawyer.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  #gameSection.route-theme-lawyer {
+    --panel: #2e2118; --panel-2: #372819;
+    --text: #f2e9d8; --text-dim: #b5a68f; --text-faint: #7d7160;
+    --gold: #c9a227; --gold-dim: rgba(201, 162, 39, 0.14);
+    --line: #4a3a28;
+    --sage: #8fd4a0; --sage-dim: rgba(143, 212, 160, 0.14);
+    --coral: #ffab8a; --coral-dim: rgba(255, 171, 138, 0.14);
+    --sky: #9fc4f5; --sky-dim: rgba(159, 196, 245, 0.16);
+    color: var(--text);
+    background-color: #2e2118;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(201,162,39,0.05) 0px, rgba(201,162,39,0.05) 1px, transparent 1px, transparent 34px);
+  }
+  #gameSection.route-theme-lawyer .stage-head {
+    border-bottom: 3px double var(--gold);
+    padding-bottom: 8px;
+  }
+  #gameSection.route-theme-lawyer .stage-name,
+  #gameSection.route-theme-lawyer .stage-age {
+    font-family: 'Nanum Myeongjo', Georgia, 'Times New Roman', serif;
+  }
+  #gameSection.route-theme-lawyer button { border-radius: 2px; }
+  #gameSection.route-theme-lawyer .choice-btn { border-left: 3px solid var(--gold); }
+  #gameSection.route-theme-lawyer .stat-bar-fill { box-shadow: 0 0 4px 0 rgba(201, 162, 39, 0.5); }
+
+  /* trader(트레이더) 전용(2026-09-07) - 블룸버그 단말기 톤. developer의
+     세로 스크롤 그리드와 달리 시황판 티커처럼 가로로 흐르는 초록 점선
+     패턴을 썼다 - 같은 "터미널" 계열이라도 방향을 바꿔 다른 느낌을 냈다. */
+  @keyframes route-trader-ticker { from { background-position: 0 0; } to { background-position: -160px 0; } }
+  body.route-bg-trader {
+    --bg: #0a0f0a;
+    background-color: var(--bg);
+    background-image: url('assets/scenes/trader.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  #gameSection.route-theme-trader {
+    --panel: #111813; --panel-2: #161f18;
+    --text: #dff5e4; --text-dim: #8fae95; --text-faint: #5c7862;
+    --gold: #2ecc71; --gold-dim: rgba(46, 204, 113, 0.16);
+    --line: #233b29;
+    --sage: #8fd4a0; --sage-dim: rgba(143, 212, 160, 0.14);
+    --coral: #ffab8a; --coral-dim: rgba(255, 171, 138, 0.14);
+    --sky: #9fc4f5; --sky-dim: rgba(159, 196, 245, 0.16);
+    color: var(--text);
+    background-color: #111813;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(46,204,113,0.07) 0px, rgba(46,204,113,0.07) 2px, transparent 2px, transparent 18px);
+    animation: route-trader-ticker 9s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #gameSection.route-theme-trader { animation: none; }
+  }
+  #gameSection.route-theme-trader .stage-age {
+    font-family: 'SF Mono', 'Fira Code', Consolas, 'Courier New', monospace;
+  }
+  #gameSection.route-theme-trader button { border-radius: 2px; }
+  #gameSection.route-theme-trader .choice-btn { border-left: 3px solid var(--gold); }
+  #gameSection.route-theme-trader .stat-bar-fill { box-shadow: 0 0 6px 0 var(--gold); }
+
+  /* teacher-route(교사 루트) 전용(2026-09-07) - 칠판 그린 + 분필 크림색.
+     구간 이름 밑줄 애니메이션은 sports-elite/soccer-manager와 같은
+     route-tactics-chalk-draw를 재사용 - "분필로 선을 긋는다"는 연출이
+     둘 다한테 그대로 들어맞아 키프레임을 새로 안 만들었다. */
+  body.route-bg-teacher-route {
+    --bg: #16281f;
+    background-color: var(--bg);
+    background-image: url('assets/scenes/teacher.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  #gameSection.route-theme-teacher-route {
+    --panel: #1f3a2c; --panel-2: #254433;
+    --text: #f5f0e6; --text-dim: #b9c4ba; --text-faint: #7c8c81;
+    --gold: #f5f0e6; --gold-dim: rgba(245, 240, 230, 0.14);
+    --line: #375243;
+    --sage: #8fd4a0; --sage-dim: rgba(143, 212, 160, 0.14);
+    --coral: #ffab8a; --coral-dim: rgba(255, 171, 138, 0.14);
+    --sky: #9fc4f5; --sky-dim: rgba(159, 196, 245, 0.16);
+    color: var(--text);
+    background-color: #1f3a2c;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(245,240,230,0.035) 0%, transparent 2%),
+      radial-gradient(circle at 70% 60%, rgba(245,240,230,0.03) 0%, transparent 1.6%),
+      radial-gradient(circle at 45% 85%, rgba(245,240,230,0.035) 0%, transparent 2%);
+  }
+  #gameSection.route-theme-teacher-route button { border-radius: 2px; }
+  #gameSection.route-theme-teacher-route .choice-btn { border-left: 3px solid var(--gold); }
+  #gameSection.route-theme-teacher-route .stat-bar-fill { box-shadow: 0 0 4px 0 rgba(245, 240, 230, 0.5); }
 
   /* 세계관 상태 패널(57장, 2026-08-29) - 평소엔 탭만, 펼치면 트래커 그리드.
      max-height 트랜지션으로 펼침/접힘 + 상호작용 시 자동 닫힘 애니메이션을 겸함. */
