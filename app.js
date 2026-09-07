@@ -79,6 +79,11 @@ let currentUser = null;
 let resumeChecked = false;
 let presenceRecorded = false;
 let visitLogChecked = false;
+// 광고 노출 제한(2026-09-07, 사용자 지시 - "이 광고는 스트리머 로그인유저이거나
+// 호스트일때만 나오는 광고로 제한해줘") - 참가자 모드로 남의 게임에 잠깐
+// 들어온 유저에게까지 상품 광고가 보이는 걸 막기 위함. 인증 스트리머 여부는
+// 기존에 디스코드 알림용으로 이미 한 번 읽던 값을 그대로 재사용(중복 조회 방지).
+let isStreamerVerifiedUser = false;
 // 관리자 여부(2026-08-24, 사용자 지시 - "관리자 uid로 다른 인생 갤러리에서
 // 로그 삭제 가능하게" UI 연결) - adminCenter/adminUids 자체는
 // database.rules.json에서 .read:false라 클라이언트가 직접 "내가 관리자인가"를
@@ -133,7 +138,9 @@ onAuthStateChanged(auth, (user) => {
   if (!visitLogChecked) {
     visitLogChecked = true;
     get(ref(db, 'users/' + user.uid + '/streamerVerified')).then((snap) => {
-      if (snap.val() === true) logLifeGameVisitFn().catch((e) => console.error('접속 로그 실패:', e));
+      isStreamerVerifiedUser = snap.val() === true;
+      applyAdCampaignVisibility();
+      if (isStreamerVerifiedUser) logLifeGameVisitFn().catch((e) => console.error('접속 로그 실패:', e));
     }).catch((e) => console.error('인증 스트리머 여부 확인 실패:', e));
   }
 });
@@ -2531,6 +2538,7 @@ nextBtn.addEventListener('click', () => {
 // 4) 엔딩 + 갤러리 공유
 // ------------------------------------------------------------
 const endingSection = document.getElementById('endingSection');
+const adSlotEnding = document.getElementById('adSlotEnding');
 const endingTitle = document.getElementById('endingTitle');
 const endingSceneImage = document.getElementById('endingSceneImage');
 // 엔딩 삽화(11장, 2026-08-24 착수) - 아직 16종 중 일부만 그려져 있다.
@@ -2752,6 +2760,7 @@ async function showEnding(ending, stats, choiceHistory, familyMembers, occupatio
   renderHobbiesInto(endingHobbiesEl, hobbies);
   renderChoiceHistoryInto(choiceHistoryList, choiceHistory);
   shareBtn.disabled = false;
+  applyAdCampaignVisibility();
 
   fadeIn([endingSection, choiceHistorySection, gallerySection, restartSection]);
   // fadeIn이 hidden 클래스를 떼고 강제 리플로우까지 끝낸 뒤라, 이 시점엔
@@ -3148,6 +3157,36 @@ let mpParticipantLatestVotes = {};
 let mpParticipantCurrentStage = null;
 let mpPendingJoinHostUid = null;
 let mpPendingJoinHostName = '';
+
+// 광고 캠페인 선택(2026-09-07, 사용자 지시 - "광고 1은 호스트/스트리머
+// 전용, 광고 2는 전체공개, 랜덤 노출하되 1게임당 한 종류") - 게임(호스트로
+// 시작/이어하기, 또는 참가자로 누군가의 게임에 참가) 시작 시점에 한 번만
+// 뽑아 그 판 내내 같은 캠페인(A/B)을 세 자리(엔딩화면/참가모달/모바일배너)
+// 모두에 동일하게 적용한다. 광고 A(보리보리)는 호스트이거나 인증
+// 스트리머일 때만 후보에 들어가고, 광고 B(YES24)는 누구에게나 후보다 -
+// 그래서 조건을 못 만족하면 자동으로 B만 남아 항상 뭔가는 노출된다.
+// 참가 모달은 참가자 전환 직전(mpParticipantMode가 아직 안 바뀐 시점)에
+// 뽑아야 해서 이 함수의 eligibleForA를 호출부에서 직접 넘겨받는다.
+const adAnchorBanner = document.getElementById('adAnchorBanner');
+function isHostAdEligible() { return !mpParticipantMode || isStreamerVerifiedUser; }
+let selectedAdCampaign = null;
+function rollAdCampaign(eligibleForA) {
+  const pool = eligibleForA ? ['A', 'B'] : ['B'];
+  selectedAdCampaign = pool[Math.floor(Math.random() * pool.length)];
+}
+function applyAdCampaignVisibility() {
+  if (!selectedAdCampaign) rollAdCampaign(isHostAdEligible());
+  [
+    ['adCampaignA_ending', 'adCampaignB_ending'],
+    ['adCampaignA_join', 'adCampaignB_join'],
+    ['adCampaignA_anchor', 'adCampaignB_anchor'],
+  ].forEach(([aId, bId]) => {
+    const a = document.getElementById(aId);
+    const b = document.getElementById(bId);
+    if (a) a.classList.toggle('hidden', selectedAdCampaign !== 'A');
+    if (b) b.classList.toggle('hidden', selectedAdCampaign !== 'B');
+  });
+}
 let mpMyLastVoteChoiceId = null;
 let mpMyLastVoteStageId = null;
 
@@ -3282,6 +3321,8 @@ multiplayerToggleGame.addEventListener('change', async () => {
 
 async function enterHostMode() {
   mpParticipantMode = false;
+  rollAdCampaign(true);
+  applyAdCampaignVisibility();
   document.body.classList.remove('mp-participant-mode');
   mpParticipantBanner.classList.add('hidden');
   mpHostPanel.classList.remove('hidden');
@@ -3411,7 +3452,12 @@ joinMultiplayerSubmitBtn.addEventListener('click', async () => {
   try {
     const res = await joinMultiplayerSessionFn({ hostUid: mpPendingJoinHostUid, nickname });
     joinMultiplayerModal.classList.add('hidden');
+    // 참가자로 전환되는 시점이라 이 시점의 mpParticipantMode는 아직 갱신 전(호스트값
+    // 그대로)이라 isHostAdEligible()을 못 쓴다 - 참가자는 구조상 호스트일 수 없으니
+    // 인증 스트리머 여부만으로 직접 후보를 구성한다.
+    rollAdCampaign(isStreamerVerifiedUser);
     if (res.data.showAd) {
+      applyAdCampaignVisibility();
       joinAdModal.classList.remove('hidden');
     } else {
       await enterParticipantMode(mpPendingJoinHostUid, mpPendingJoinHostName);
@@ -3436,6 +3482,7 @@ closeJoinAdBtn.addEventListener('click', async () => {
 // ------------------------------------------------------------
 async function enterParticipantMode(hostUid, hostName) {
   mpParticipantMode = true;
+  applyAdCampaignVisibility();
   mpParticipantHostUid = hostUid;
   mpMyLastVoteChoiceId = null;
   mpMyLastVoteStageId = null;
@@ -3626,6 +3673,7 @@ function leaveParticipantMode() {
   mpParticipantLatestVotes = {};
   mpParticipantCurrentStage = null;
   mpParticipantMode = false;
+  applyAdCampaignVisibility();
   mpParticipantHostUid = null;
   document.body.classList.remove('mp-participant-mode');
   mpParticipantBanner.classList.add('hidden');
@@ -3642,3 +3690,31 @@ mpLeaveBtn.addEventListener('click', leaveParticipantMode);
 onAuthStateChanged(auth, (user) => {
   if (user) attachMultiplayerHostListeners();
 });
+
+// 엔딩화면 광고 슬라이드(2026-09-07) - 상품 썸네일 3장을 슬라이드 전환하며
+// 자동으로 순환. #endingSection이 평소엔 hidden이라 화면에 안 보여도 트랙
+// 자체는 계속 도는 게 더 단순해서(가려진 요소의 transform은 비용이 거의
+// 없다) 굳이 가시성 감지는 안 붙였다.
+(function () {
+  var track = document.getElementById('adEndingCarouselTrack');
+  var dotsWrap = document.getElementById('adEndingCarouselDots');
+  if (!track || !dotsWrap) return;
+  var slideCount = track.children.length;
+  if (slideCount < 2) return;
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  for (var i = 0; i < slideCount; i++) {
+    var dot = document.createElement('span');
+    if (i === 0) dot.classList.add('active');
+    dotsWrap.appendChild(dot);
+  }
+  var dots = dotsWrap.children;
+  var current = 0;
+  function goTo(index) {
+    current = index;
+    track.style.transform = 'translateX(-' + (100 / slideCount) * index + '%)';
+    for (var i = 0; i < dots.length; i++) dots[i].classList.toggle('active', i === index);
+  }
+  setInterval(function () {
+    goTo((current + 1) % slideCount);
+  }, reduceMotion ? 4000 : 3000);
+})();
