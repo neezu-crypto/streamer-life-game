@@ -3158,33 +3158,35 @@ let mpParticipantCurrentStage = null;
 let mpPendingJoinHostUid = null;
 let mpPendingJoinHostName = '';
 
-// 광고 캠페인 선택(2026-09-07, 사용자 지시 - "광고 1은 호스트/스트리머
-// 전용, 광고 2는 전체공개, 랜덤 노출하되 1게임당 한 종류") - 게임(호스트로
-// 시작/이어하기, 또는 참가자로 누군가의 게임에 참가) 시작 시점에 한 번만
-// 뽑아 그 판 내내 같은 캠페인(A/B)을 세 자리(엔딩화면/참가모달/모바일배너)
-// 모두에 동일하게 적용한다. 광고 A(보리보리)는 호스트이거나 인증
-// 스트리머일 때만 후보에 들어가고, 광고 B(YES24)는 누구에게나 후보다 -
-// 그래서 조건을 못 만족하면 자동으로 B만 남아 항상 뭔가는 노출된다.
+// 광고 캠페인 선택(2026-09-07, 사용자 지시 - "광고는 호스트/스트리머
+// 전용, 전체공개, 랜덤 노출하되 1게임당 한 종류, 선정된 광고의 이미지는
+// 노출기준에 맞춰 노출") - 게임(호스트로 시작/이어하기, 또는 참가자로
+// 누군가의 게임에 참가) 시작 시점에 한 번만 뽑아 그 판 내내 같은
+// 캠페인을 세 자리(엔딩화면/참가모달/모바일배너) 모두에 동일하게 적용한다.
+// 광고 A(보리보리)는 호스트이거나 인증 스트리머일 때만 후보에 들어가고,
+// 광고 B(YES24)·C(교복몰/의상대여)는 누구에게나 후보다 - 조건을 못
+// 만족하면 자동으로 B/C만 후보로 남아 항상 뭔가는 노출된다. 광고 C는
+// 하나의 캠페인이지만 내부에 두 상품 이미지가 있고 노출 기준이 갈린다 -
+// 호스트/스트리머면 교복몰(C1), 아니면 의상대여(C2) 이미지를 보여준다
+// (같은 구매 링크를 쓰므로 어느 쪽이 뜨든 캠페인 자체는 C 하나로 취급).
 // 참가 모달은 참가자 전환 직전(mpParticipantMode가 아직 안 바뀐 시점)에
 // 뽑아야 해서 이 함수의 eligibleForA를 호출부에서 직접 넘겨받는다.
 const adAnchorBanner = document.getElementById('adAnchorBanner');
 function isHostAdEligible() { return !mpParticipantMode || isStreamerVerifiedUser; }
 let selectedAdCampaign = null;
 function rollAdCampaign(eligibleForA) {
-  const pool = eligibleForA ? ['A', 'B'] : ['B'];
+  const pool = eligibleForA ? ['A', 'B', 'C'] : ['B', 'C'];
   selectedAdCampaign = pool[Math.floor(Math.random() * pool.length)];
 }
-function applyAdCampaignVisibility() {
-  if (!selectedAdCampaign) rollAdCampaign(isHostAdEligible());
-  [
-    ['adCampaignA_ending', 'adCampaignB_ending'],
-    ['adCampaignA_join', 'adCampaignB_join'],
-    ['adCampaignA_anchor', 'adCampaignB_anchor'],
-  ].forEach(([aId, bId]) => {
-    const a = document.getElementById(aId);
-    const b = document.getElementById(bId);
-    if (a) a.classList.toggle('hidden', selectedAdCampaign !== 'A');
-    if (b) b.classList.toggle('hidden', selectedAdCampaign !== 'B');
+function applyAdCampaignVisibility(eligibleForA) {
+  if (typeof eligibleForA !== 'boolean') eligibleForA = isHostAdEligible();
+  if (!selectedAdCampaign) rollAdCampaign(eligibleForA);
+  const showId = selectedAdCampaign === 'C' ? (eligibleForA ? 'C1' : 'C2') : selectedAdCampaign;
+  ['ending', 'join', 'anchor'].forEach((slot) => {
+    ['A', 'B', 'C1', 'C2'].forEach((variant) => {
+      const el = document.getElementById('adCampaign' + variant + '_' + slot);
+      if (el) el.classList.toggle('hidden', variant !== showId);
+    });
   });
 }
 let mpMyLastVoteChoiceId = null;
@@ -3322,7 +3324,7 @@ multiplayerToggleGame.addEventListener('change', async () => {
 async function enterHostMode() {
   mpParticipantMode = false;
   rollAdCampaign(true);
-  applyAdCampaignVisibility();
+  applyAdCampaignVisibility(true);
   document.body.classList.remove('mp-participant-mode');
   mpParticipantBanner.classList.add('hidden');
   mpHostPanel.classList.remove('hidden');
@@ -3457,7 +3459,7 @@ joinMultiplayerSubmitBtn.addEventListener('click', async () => {
     // 인증 스트리머 여부만으로 직접 후보를 구성한다.
     rollAdCampaign(isStreamerVerifiedUser);
     if (res.data.showAd) {
-      applyAdCampaignVisibility();
+      applyAdCampaignVisibility(isStreamerVerifiedUser);
       joinAdModal.classList.remove('hidden');
     } else {
       await enterParticipantMode(mpPendingJoinHostUid, mpPendingJoinHostName);
