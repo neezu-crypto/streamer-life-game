@@ -1652,22 +1652,47 @@ function renderScoreChart(canvas, summaryEl, choiceHistory) {
   const maxAge = points[points.length - 1].age;
   const ageSpan = Math.max(1, maxAge - minAge);
   const xFor = (age) => padL + ((age - minAge) / ageSpan) * plotW;
-  const yFor = (score) => padT + (1 - score / 100) * plotH;
 
-  // 가로 기준선(0/25/50/75/100점)
+  // Y축 자동 확대(2026-09-08, 사용자 지시 "인생그래프의 변동폭도 크게
+  // 그려줘") - compositeScore가 5개 스탯 평균이라 개별 스탯보다도 변동폭이
+  // 더 눌린다(각자 따로 출렁여도 평균 내면 서로 상쇄). 실제 값은 하나도
+  // 안 건드리고, 고정 0~100 축 대신 "이 판에서 실제로 나온 최고~최저 점수"
+  // 구간만 세로로 꽉 채워서 그린다 - 같은 데이터라도 축소된 범위에 맞춰
+  // 그리면 진짜로 출렁인 굴곡이 훨씬 커 보인다(수치 왜곡 없이 순수 시각화
+  // 확대). 거의 안 움직인 판(범위가 아주 좁음)은 5점 미만 스케일로 확대하면
+  // 그냥 노이즈처럼 지그재그로 보이므로 최소 폭 10점을 보장한다.
+  let rawMin = points[0].score, rawMax = points[0].score;
+  points.forEach((p) => {
+    if (p.score < rawMin) rawMin = p.score;
+    if (p.score > rawMax) rawMax = p.score;
+  });
+  const MIN_SPAN = 10;
+  let span = Math.max(rawMax - rawMin, MIN_SPAN);
+  let axisMin = (rawMin + rawMax) / 2 - span / 2;
+  let axisMax = (rawMin + rawMax) / 2 + span / 2;
+  // 여유 없이 딱 붙여 그리면 최고/최저 점 위쪽·아래쪽이 축 끝에 잘려 보이므로
+  // 위아래 10%씩 숨쉴 틈을 더한 뒤 0~100 경계 밖으로는 못 나가게 자른다.
+  const breathing = span * 0.1;
+  axisMin = Math.max(0, axisMin - breathing);
+  axisMax = Math.min(100, axisMax + breathing);
+  const axisSpan = Math.max(1, axisMax - axisMin);
+  const yFor = (score) => padT + (1 - (score - axisMin) / axisSpan) * plotH;
+
+  // 가로 기준선 - 고정 5구간 대신 이번 축 범위(axisMin~axisMax)를 5등분해서 표시
   ctx.strokeStyle = line;
   ctx.lineWidth = 1;
   ctx.fillStyle = textFaint;
   ctx.font = '10.5px -apple-system, sans-serif';
   ctx.textBaseline = 'middle';
-  [0, 25, 50, 75, 100].forEach((v) => {
+  for (let i = 0; i <= 4; i++) {
+    const v = axisMin + (axisSpan * i) / 4;
     const y = yFor(v);
     ctx.beginPath();
     ctx.moveTo(padL, y);
     ctx.lineTo(padL + plotW, y);
     ctx.stroke();
-    ctx.fillText(String(v), 2, y);
-  });
+    ctx.fillText(String(Math.round(v)), 2, y);
+  }
 
   // 나이 축 라벨(시작/끝 나이만 - 좁은 패널에 촘촘히 다 넣으면 안 읽힘)
   ctx.textBaseline = 'alphabetic';
