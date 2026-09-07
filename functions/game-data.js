@@ -59079,6 +59079,27 @@ const ENDINGS = [
   }
 ];
 
+// 엔딩 매칭 전용 증폭(2026-09-08, 사용자 리포트 "스탯 변동폭이 매턴 너무
+// 작아서 안정형 엔딩만 두번 나왔어") - 실측해보니 원인은 "델타가 작다"보다
+// stable(55,45,65,70,60) 아키타입이 중립 시작값(50×5)에서 거리 27.8인데
+// 나머지 5종은 52.7~58.1로 거의 2배 멀어서, 극단으로 확실히 안 쏠린 무난한
+// 판은 전부 stable 쪽으로 기하학적으로 유리했던 것(무작위 델타 샘플 8만턴
+// 시뮬레이션: stable이 생존자 중 52.7%를 독식).
+//
+// 고친 방식은 "델타 자체를 키우기"가 아니라 "최종 스탯을 아키타입에 매칭할
+// 때만" 중립값 50에서 벌어진 정도를 ENDING_MATCH_SPREAD배 증폭하는 것 -
+// 게임 진행 중 실제 스탯(붕괴 엔딩 판정·엔딩 화면에 보여줄 값)은 그대로
+// 두고 이 함수 안의 지역 사본에만 적용한다. 만약 델타 자체를 엔진 레벨에서
+// 다 키웠다면 음수 델타도 같이 커져서 붕괴(파산/절망/고독 등 스탯 0 즉시
+// 종료) 발생률이 4.7%→37.7%(2배 스케일 기준)까지 튀는 부작용이 시뮬레이션에서
+// 확인됐다 - 그래서 붕괴 판정과는 완전히 무관한, 순수 "생존 후 어느
+// 아키타입에 가장 가까운가" 매칭 단계에만 격리해서 적용했다.
+// ENDING_MATCH_SPREAD=2 실측(생존자 기준): all-in-success 31%/all-in-failure
+// 16%/burnout 14%/stable 16%/relationship-first 18%/recluse 5% - stable
+// 독식(52.7%)이 다른 아키타입들과 비슷한 비중으로 고르게 재배분됐다.
+const ENDING_MATCH_SPREAD = 2;
+const ENDING_MATCH_CENTER = 50; // common.js STAT_START와 반드시 같은 값 유지
+
 // familyMembers/healthConditions를 넘기면, requiresAllFamilyMemberGroups·
 // requiresNoFamilyMember·requiresCondition이 붙은 엔딩(가족/건강 상세
 // 기반 4종)은 그 조건을 만족할 때만 후보에 오른다 - 조건이 없는 기존 6종은
@@ -59096,12 +59117,19 @@ function resolveEnding(stats, familyMembers, healthConditions) {
     return true;
   });
 
+  // 매칭 전용 사본 - 원본 stats(엔딩 화면 표시·다른 계산용)는 건드리지 않는다.
+  const matchStats = {};
+  for (const key of Object.keys(stats)) {
+    const raw = stats[key] || 0;
+    matchStats[key] = Math.max(0, Math.min(100, ENDING_MATCH_CENTER + (raw - ENDING_MATCH_CENTER) * ENDING_MATCH_SPREAD));
+  }
+
   let best = eligible[0];
   let bestDist = Infinity;
   for (const ending of eligible) {
     let dist = 0;
     for (const key of Object.keys(ending.archetype)) {
-      const diff = (stats[key] || 0) - ending.archetype[key];
+      const diff = (matchStats[key] || 0) - ending.archetype[key];
       dist += diff * diff;
     }
     if (dist < bestDist) {
