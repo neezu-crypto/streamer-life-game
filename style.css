@@ -432,7 +432,7 @@
      실제 내부 폭에 맞춰 꽉 채우고, 데스크톱 엔딩화면처럼 영역 자체가 넓은
      곳만 아래에서 따로 최대폭을 제한한다. */
   .ad-creative {
-    display: block; width: 100%; margin: 0 auto 10px;
+    display: block; width: 100%; height: auto; margin: 0 auto 10px;
     border-radius: 8px;
   }
   #adSlotEnding .ad-creative { max-width: 280px; }

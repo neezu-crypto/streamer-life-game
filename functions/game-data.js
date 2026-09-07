@@ -61484,7 +61484,7 @@ const HARDWARE_STORE_CHOICES = [
     id: 'hardware-hammer-fix-doorknob',
     text: '헐거워진 문고리를 망치로 고쳐본다',
     requiresAsset: 'hammer',
-    appearChance: 0.15,
+    appearChance: 0.012,
     bonusSlot: true,
     deltas: { happiness: 1 },
     result: '작은 수리 하나 끝냈을 뿐인데 뿌듯했다.'
@@ -61493,7 +61493,7 @@ const HARDWARE_STORE_CHOICES = [
     id: 'hardware-hammer-assemble-shelf',
     text: '손수 선반을 조립해 완성한다',
     requiresAsset: 'hammer',
-    appearChance: 0.15,
+    appearChance: 0.012,
     bonusSlot: true,
     deltas: { happiness: 2, wealth: 1 },
     result: '조립비를 아꼈다는 생각에 더 뿌듯했다.'
@@ -61502,7 +61502,7 @@ const HARDWARE_STORE_CHOICES = [
     id: 'hardware-hammer-hit-finger',
     text: '못질을 하다 손가락을 찧는다',
     requiresAsset: 'hammer',
-    appearChance: 0.15,
+    appearChance: 0.012,
     bonusSlot: true,
     deltas: { happiness: -1, health: -1 },
     result: '엄지손톱이 시퍼렇게 물들었다.'
@@ -61511,7 +61511,7 @@ const HARDWARE_STORE_CHOICES = [
     id: 'hardware-hammer-lend-neighbor',
     text: '이웃에게 망치를 빌려준다',
     requiresAsset: 'hammer',
-    appearChance: 0.15,
+    appearChance: 0.012,
     bonusSlot: true,
     deltas: { relationship: 1 },
     result: '별거 아닌 걸로도 사이가 조금 가까워졌다.'
@@ -61537,6 +61537,18 @@ const HARDWARE_STORE_CHOICES = [
   // requiresAssetType:'hardware-tool'인 hardware-craft-trigger가 이미 도구
   // 종류 무관하게 게이팅돼 있어 이 두 도구를 얻는 순간부터 제작 계기도 그대로
   // 뜬다(신규 코드 불필요).
+  //
+  // 평소사용 이벤트 appearChance 조정(2026-09-08, 사용자 리포트 "도구 관련
+  // 이벤트가 너무 자주 등장") - bonusSlot은 슬롯 배분과 무관하게 각자 독립
+  // 확률로 무조건 얹히는 구조라, 도구가 1종→3종으로 늘면서 도구 하나당
+  // appearChance는 그대로(0.15) 둔 채 "가진 도구마다" 세트가 통째로 복제돼
+  // 실제 등장 빈도가 3배로 뛰었다(시뮬레이션: 도구 3종 보유 상태 기준 턴당
+  // 노출률 47%→76%). 1차로 도구 1종 시절 체감(턴당 47%)으로 되돌리려 0.06
+  // 까지 낮췄었으나, 사용자가 이어서 "1턴당 10%로" 명시 지정해 0.012로 재조정
+  // (10개 사용이벤트 독립 확률 기준 시뮬레이션 실측 턴당 10.1%, 게임당 평균
+  // 노출 8.5회 - craft-trigger·도구 획득 선택지는 이 조정 대상이 아니라 기존
+  // 그대로 0.1 유지). 도구가 더 늘어나면 이 상수도 같은 방식(원하는 턴당 %를
+  // 목표로 이분탐색 시뮬레이션)으로 재조정할 것.
   {
     id: 'hardware-axe-help-parents',
     text: '집에 있던 도끼로 장작 패는 아버지 일을 거들어드리고 용돈을 받는다',
@@ -61563,7 +61575,7 @@ const HARDWARE_STORE_CHOICES = [
     id: 'hardware-axe-split-firewood',
     text: '장작을 패서 땔감을 마련한다',
     requiresAsset: 'axe',
-    appearChance: 0.15,
+    appearChance: 0.012,
     bonusSlot: true,
     deltas: { happiness: 2 },
     result: '단정하게 쌓인 장작더미를 보니 뿌듯했다.'
@@ -61572,7 +61584,7 @@ const HARDWARE_STORE_CHOICES = [
     id: 'hardware-axe-miss-swing',
     text: '도끼질을 하다 헛손질로 놀란 가슴을 쓸어내린다',
     requiresAsset: 'axe',
-    appearChance: 0.15,
+    appearChance: 0.012,
     bonusSlot: true,
     deltas: { happiness: -1, health: -1 },
     result: '다행히 크게 다치진 않았지만 식은땀이 났다.'
@@ -61581,7 +61593,7 @@ const HARDWARE_STORE_CHOICES = [
     id: 'hardware-axe-lend-neighbor',
     text: '이웃에게 도끼를 빌려준다',
     requiresAsset: 'axe',
-    appearChance: 0.15,
+    appearChance: 0.012,
     bonusSlot: true,
     deltas: { relationship: 1 },
     result: '별거 아닌 걸로도 사이가 조금 가까워졌다.'
@@ -61626,7 +61638,7 @@ const HARDWARE_STORE_CHOICES = [
     id: 'hardware-claw-pull-nail',
     text: '박혀 있던 못을 깔끔하게 빼낸다',
     requiresAsset: 'claw-hammer',
-    appearChance: 0.15,
+    appearChance: 0.012,
     bonusSlot: true,
     deltas: { happiness: 1 },
     result: '작은 일 하나 끝냈을 뿐인데 개운했다.'
@@ -61635,7 +61647,7 @@ const HARDWARE_STORE_CHOICES = [
     id: 'hardware-claw-slip',
     text: '못을 빼다 손이 미끄러져 긁힌다',
     requiresAsset: 'claw-hammer',
-    appearChance: 0.15,
+    appearChance: 0.012,
     bonusSlot: true,
     deltas: { happiness: -1, health: -1 },
     result: '손등에 붉은 자국이 남았다.'
@@ -61644,7 +61656,7 @@ const HARDWARE_STORE_CHOICES = [
     id: 'hardware-claw-lend-neighbor',
     text: '이웃에게 장도리를 빌려준다',
     requiresAsset: 'claw-hammer',
-    appearChance: 0.15,
+    appearChance: 0.012,
     bonusSlot: true,
     deltas: { relationship: 1 },
     result: '별거 아닌 걸로도 사이가 조금 가까워졌다.'
