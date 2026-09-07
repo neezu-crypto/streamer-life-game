@@ -2619,6 +2619,18 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
   }
   await Promise.all(statWrites);
 
+  // 엔딩 자동 갤러리 등록(2026-09-08) - 위 updates가 이미 반영된 뒤라 다시
+  // 읽어야 completed/endedAt/multiplayerEnabled가 전부 최신이다. 봇은 대상이
+  // 아니므로(관리형 봇이 실제 유저 갤러리를 오염시키면 안 됨) isBot이면
+  // 아예 시도하지 않는다. 결과(galleryEntryId)는 아래 return에 실어 클라이언트에
+  // 알려준다 - 안 그러면 이미 자동 등록됐는데도 "갤러리에 공유하기" 버튼을
+  // 누를 수 있는 상태로 남아 already-exists 에러로 혼란을 준다.
+  let autoSharedGalleryId = null;
+  if (completed && !isBot) {
+    const freshPlaySnap = await playRef.get();
+    autoSharedGalleryId = await autoShareToGalleryIfEligible(db, uid, freshPlaySnap.val());
+  }
+
   // resultOptions가 붙은 선택지(예: 부모님과의 사별 - 이유를 고정하지 않고
   // 매번 랜덤으로)는 그 중 하나를 여기서 골라 보여준다. 어떤 문구가
   // 뽑혔는지는 따로 저장하지 않는다 - 다른 선택 결과 텍스트와 마찬가지로
@@ -2651,7 +2663,8 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
     currentRoute: completed ? null : (nextActiveRoute ? { id: nextActiveRoute.id, label: nextActiveRoute.label } : null),
     choiceHistory: completed ? buildChoiceHistory(choiceLog) : null,
     occupationHistory: completed ? occupationHistory : null,
-    locationHistory: completed ? locationHistory : null
+    locationHistory: completed ? locationHistory : null,
+    galleryEntryId: autoSharedGalleryId
   };
 }
 
@@ -3037,7 +3050,8 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
       hobbies: Array.isArray(play.hobbies) ? play.hobbies : [],
       choiceHistory: buildChoiceHistory(play.choiceLog),
       occupationHistory: buildOccupationHistory(play.choiceLog),
-      locationHistory: buildLocationHistory(play.choiceLog)
+      locationHistory: buildLocationHistory(play.choiceLog),
+      galleryEntryId: play.galleryEntryId || null
     };
   }
   const stage = STAGES[play.stageIndex];
@@ -3386,17 +3400,13 @@ const rollDice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, as
   return Object.assign({ choiceId: choice.id, choiceText: choice.text }, outcome);
 });
 
-// 완료한 인생을 공개 갤러리에 공유 - 실제 스트리머 이름이 걸린 채 공개되므로
-// (기획안 09장 B) 같은 플레이는 한 번만 공유되게 막는다.
-const shareToGallery = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
-  const uid = requireAuth(request);
-  const db = getDatabase();
-  const playRef = playRefFor(db, uid);
-  const snap = await playRef.get();
-  const play = snap.val();
-  if (!play) throw new HttpsError('not-found', '진행 중인 인생을 찾을 수 없습니다.');
-  if (!play.completed) throw new HttpsError('failed-precondition', '아직 끝나지 않은 인생은 공유할 수 없습니다.');
-  if (play.galleryEntryId) throw new HttpsError('already-exists', '이미 갤러리에 공유한 인생입니다.');
+// 완료한 인생을 공개 갤러리에 공유하는 실제 쓰기 로직 - 수동 공유(shareToGallery)와
+// 자동 공유(2026-09-08, autoShareToGalleryIfEligible) 둘 다 이 함수 하나를
+// 공유한다. 호출부가 이미 play.completed·galleryEntryId 존재 여부를 확인했다고
+// 가정(각자 사정에 맞는 에러 처리가 다르므로 이 함수 안에서는 재확인만 하고
+// 조용히 null을 반환 - 자동 공유 쪽은 실패해도 게임 진행을 막으면 안 됨).
+async function performGalleryShare(db, uid, play) {
+  if (!play || !play.completed || play.galleryEntryId) return null;
 
   const galleryRef = db.ref('lifeGame/gallery').push();
   // 리더보드(방송 콘텐츠 백로그 7번째 항목, 2026-08-17)용으로 cashHoldings·
@@ -3441,11 +3451,65 @@ const shareToGallery = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB'
     }),
     db.ref('lifeGame/galleryChoiceLogs/' + galleryRef.key).set(buildChoiceHistory(play.choiceLog)),
     db.ref('lifeGame/galleryDetails/' + galleryRef.key).set(galleryDetails),
-    playRef.update({ galleryEntryId: galleryRef.key }),
+    playRefFor(db, uid).update({ galleryEntryId: galleryRef.key }),
     db.ref('lifeGame/stats/totals/shared').set(ServerValue.increment(1))
   ]);
 
   return { galleryId: galleryRef.key };
+}
+
+// 엔딩 자동 갤러리 등록(2026-09-08, 사용자 지시) - 아래 중 하나만 맞아도:
+// (A) 인증 스트리머. 또는 아래 넷을 전부 만족해야: (B1) 인증 스트리머는
+// 아니지만 이 판을 멀티플레이 방(호스트)으로 열었음, (B2) 구글/카카오로
+// 로그인한 "일반 로그인 유저"가 아님(=비로그인 상태, uid만 있는 익명),
+// (B3) 관리자가 아님, (B4) 이 판을 20분 이상 플레이함(startedAt~endedAt
+// 경과 시간 - 실제 "집중해서 플레이한 시간"이 아니라 생성~완료 사이 벽시계
+// 경과라는 한계는 있음, 더 정밀한 활성시간 트래킹이 없어 현재 구조에서
+// 쓸 수 있는 유일한 근사치). 봇 플레이는 두 조건 어느 쪽에도 해당하지
+// 않아야 정상이지만(스트리머 인증도, 로그인도 안 하므로) 방어적으로
+// 호출부에서 아예 isBot이면 이 함수를 부르지 않는다.
+const AUTO_SHARE_MIN_PLAY_MS = 20 * 60 * 1000;
+async function autoShareToGalleryIfEligible(db, uid, play) {
+  if (!play || !play.completed || play.galleryEntryId) return null;
+  const userSnap = await db.ref('users/' + uid).get();
+  const user = userSnap.val() || {};
+  const isStreamerVerified = user.streamerVerified === true;
+
+  let eligible = isStreamerVerified;
+  if (!eligible) {
+    const isGeneralLoginUser = !!(user.googleLinked || user.kakaoLinked);
+    const isAdmin = await isAdminUid(uid);
+    const startedAt = typeof play.startedAt === 'number' ? play.startedAt : null;
+    const endedAt = typeof play.endedAt === 'number' ? play.endedAt : Date.now();
+    const playedLongEnough = !!(startedAt && (endedAt - startedAt) >= AUTO_SHARE_MIN_PLAY_MS);
+    eligible = !!play.multiplayerEnabled && !isGeneralLoginUser && !isAdmin && playedLongEnough;
+  }
+  if (!eligible) return null;
+
+  try {
+    const result = await performGalleryShare(db, uid, play);
+    return result ? result.galleryId : null;
+  } catch (e) {
+    // 자동 등록 실패가 엔딩 진행 자체를 막으면 안 된다 - 조용히 로그만 남김.
+    console.error('엔딩 자동 갤러리 등록 실패:', e);
+    return null;
+  }
+}
+
+// 완료한 인생을 공개 갤러리에 공유 - 실제 스트리머 이름이 걸린 채 공개되므로
+// (기획안 09장 B) 같은 플레이는 한 번만 공유되게 막는다.
+const shareToGallery = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const db = getDatabase();
+  const playRef = playRefFor(db, uid);
+  const snap = await playRef.get();
+  const play = snap.val();
+  if (!play) throw new HttpsError('not-found', '진행 중인 인생을 찾을 수 없습니다.');
+  if (!play.completed) throw new HttpsError('failed-precondition', '아직 끝나지 않은 인생은 공유할 수 없습니다.');
+  if (play.galleryEntryId) throw new HttpsError('already-exists', '이미 갤러리에 공유한 인생입니다.');
+
+  const result = await performGalleryShare(db, uid, play);
+  return result;
 });
 
 // 갤러리 항목 신고 - StreamBet-Market의 nicknameReports와 동일 패턴(제출은 로그인만

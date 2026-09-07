@@ -1017,7 +1017,7 @@ resumeBtn.addEventListener('click', async () => {
     const res = await resumePlaythroughFn();
     await fadeOut([resumeSection]);
     if (res.data.completed) {
-      showEnding(res.data.ending, res.data.stats, res.data.choiceHistory, res.data.familyMembers, res.data.occupationHistory, res.data.assets, res.data.cashHoldings, res.data.acquaintances, res.data.healthConditions, res.data.locationHistory, res.data.talents, res.data.hobbies);
+      showEnding(res.data.ending, res.data.stats, res.data.choiceHistory, res.data.familyMembers, res.data.occupationHistory, res.data.assets, res.data.cashHoldings, res.data.acquaintances, res.data.healthConditions, res.data.locationHistory, res.data.talents, res.data.hobbies, res.data.galleryEntryId);
     } else {
       await fadeOut([mainHeader]);
       renderStatBars(statBars, res.data.stats);
@@ -2414,7 +2414,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   showToast('💾 자동저장 되었습니다');
   if (data.completed) {
     pendingNextStage = null;
-    showEnding(data.ending, data.stats, data.choiceHistory, data.familyMembers, data.occupationHistory, data.assets, data.cashHoldings, data.acquaintances, data.healthConditions, data.locationHistory, data.talents, data.hobbies);
+    showEnding(data.ending, data.stats, data.choiceHistory, data.familyMembers, data.occupationHistory, data.assets, data.cashHoldings, data.acquaintances, data.healthConditions, data.locationHistory, data.talents, data.hobbies, data.galleryEntryId);
   } else {
     pendingNextStage = data.nextStage;
     nextBtn.classList.remove('hidden');
@@ -2746,7 +2746,7 @@ function renderChoiceHistoryInto(container, history) {
 // 엔딩 문구 표시 → 지금까지 선택한 선택지들 표시 → 다른 유저 인생 → 재시작
 // 안내 순서로 보여준다(각 section의 DOM 순서가 곧 화면에 보이는 순서). 게임
 // 화면에서 엔딩 화면으로 넘어가는 것도 다른 전환들과 같은 페이드로 통일한다.
-async function showEnding(ending, stats, choiceHistory, familyMembers, occupationHistory, assets, cashHoldings, acquaintances, healthConditions, locationHistory, talents, hobbies) {
+async function showEnding(ending, stats, choiceHistory, familyMembers, occupationHistory, assets, cashHoldings, acquaintances, healthConditions, locationHistory, talents, hobbies, galleryEntryId) {
   currentStageForAutoPlay = null;
   autoPlayEmit('ending');
   if (INSTANT_ENDING_IDS.includes(ending.id)) {
@@ -2784,7 +2784,16 @@ async function showEnding(ending, stats, choiceHistory, familyMembers, occupatio
   renderTalentsInto(endingTalentsEl, talents);
   renderHobbiesInto(endingHobbiesEl, hobbies);
   renderChoiceHistoryInto(choiceHistoryList, choiceHistory);
-  shareBtn.disabled = false;
+  // 자동 갤러리 등록(2026-09-08) - 서버가 조건에 맞아 이미 등록했으면
+  // galleryEntryId가 채워져 온다. 그럴 땐 수동 공유 버튼을 눌러도
+  // already-exists 에러만 뜨니, 애초에 "이미 공유됨" 상태로 보여준다.
+  if (galleryEntryId) {
+    shareBtn.disabled = true;
+    shareBtn.textContent = '갤러리에 자동으로 등록됐어요!';
+  } else {
+    shareBtn.disabled = false;
+    shareBtn.textContent = '갤러리에 공유하기';
+  }
   applyAdCampaignVisibility();
 
   fadeIn([endingSection, choiceHistorySection, gallerySection, restartSection]);
