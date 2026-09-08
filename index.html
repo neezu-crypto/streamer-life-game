@@ -76,6 +76,38 @@
       <p class="pitch" style="margin:0 0 10px; font-weight:600;">🙋 진행중인 다른 유저의 게임에 참여하기</p>
       <div id="multiplayerSessionList"><p class="empty-msg">불러오는 중...</p></div>
     </div>
+
+    <!-- 게임 후기(2026-09-08, 사용자 지시 - "검색란 밑 새로운 영역을 후기
+         작성영역으로 쓰고싶다"). 계정당 1개(lifeGame/reviews/{uid}), 완료
+         이력(도감에 엔딩 하나라도 있어야)이 있어야 작성 가능 - 서버가 최종
+         검증하지만 폼 자체도 미리 잠가서 헛수고를 막는다. -->
+    <div id="reviewSection" style="margin-top:20px;">
+      <p class="pitch" style="margin:0 0 10px; font-weight:600;">📝 게임 후기</p>
+      <p id="reviewSummary" class="empty-msg">불러오는 중...</p>
+      <div id="reviewList"></div>
+
+      <div id="reviewFormWrap" class="hidden" style="margin-top:14px;">
+        <div id="reviewStars" class="review-stars" aria-label="별점 선택">
+          <button type="button" class="review-star" data-value="1">★</button>
+          <button type="button" class="review-star" data-value="2">★</button>
+          <button type="button" class="review-star" data-value="3">★</button>
+          <button type="button" class="review-star" data-value="4">★</button>
+          <button type="button" class="review-star" data-value="5">★</button>
+        </div>
+        <textarea id="reviewTextInput" maxlength="300" placeholder="게임 후기를 남겨주세요 (최대 300자)"></textarea>
+        <label class="mp-toggle-label" id="reviewPromoteLabel">
+          <input type="checkbox" id="reviewPromoteCheckbox">
+          내 방송국 홍보하기 (닉네임·SOOP 아이디를 입력하면 후기에 프로필이 표시되고, 스트리머 인증도 자동으로 신청돼요)
+        </label>
+        <div id="reviewPromoteFields" class="hidden review-promote-fields">
+          <input type="text" id="reviewPromoteNickname" placeholder="닉네임" maxlength="20">
+          <input type="text" id="reviewPromoteSoopId" placeholder="SOOP 아이디 (영문 소문자/숫자)" autocomplete="off">
+        </div>
+        <button class="primary" id="submitReviewBtn" style="margin-top:10px;">후기 남기기</button>
+        <p id="reviewFormHint" class="empty-msg" style="margin-top:6px;"></p>
+      </div>
+      <p id="reviewLockedHint" class="empty-msg hidden">게임을 한 번 완료하면 후기를 남길 수 있어요.</p>
+    </div>
   </section>
 
   <section id="nameSection" class="panel hidden">

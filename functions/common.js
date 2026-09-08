@@ -1,6 +1,21 @@
 const { HttpsError } = require('firebase-functions/v2/https');
 const { getDatabase } = require('firebase-admin/database');
 
+// 매크로 방지용 쿨다운 - streamer-gallery의 assertCooldown과 동일한 패턴
+// (레포마다 각자 복붙하는 게 이 생태계 관례, 공유 모듈 없음). 클라이언트는
+// 이 노드를 읽거나 쓸 방법이 없으므로(Admin SDK 전용) database.rules.json에
+// 별도 규칙을 추가할 필요가 없다 - 명시 안 된 경로는 기본 거부.
+async function assertCooldown(uid, actionKey, cooldownMs) {
+  const ref = getDatabase().ref('lifeGame/reviewActionCooldowns/' + uid + '/' + actionKey);
+  const lastAt = (await ref.get()).val() || 0;
+  const now = Date.now();
+  if (now - lastAt < cooldownMs) {
+    const waitSec = Math.ceil((cooldownMs - (now - lastAt)) / 1000);
+    throw new HttpsError('resource-exhausted', `너무 빠르게 반복하고 있어요. ${waitSec}초 후에 다시 시도해 주세요.`);
+  }
+  await ref.set(now);
+}
+
 // 다섯 스탯 - 기획안(life-game-plan.html) 03장 참고. 순서 고정 - 클라이언트도 이 순서로 그린다.
 const STAT_KEYS = ['wealth', 'fame', 'happiness', 'health', 'relationship'];
 const STAT_MIN = 0;
@@ -33,5 +48,6 @@ module.exports = {
   STAT_START,
   clampStat,
   requireAuth,
-  isAdminUid
+  isAdminUid,
+  assertCooldown
 };

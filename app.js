@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-import { getDatabase, ref, get, set, onValue, onDisconnect, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
+import { getDatabase, ref, get, set, onValue, onDisconnect, serverTimestamp, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
 import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-functions.js";
 import { getAuth, signInAnonymously, onAuthStateChanged, signInWithPopup, signInWithCustomToken, linkWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
@@ -73,6 +73,10 @@ const logLifeGameVisitFn = httpsCallable(functions, 'logLifeGameVisit');
 // "다른 앱 소스에 없다고 삭제하면 안 되는 함수" 목록에 있는 것과 반대로, 여기선
 // 우리가 그 목록에 있는 함수를 갖다 쓰는 입장).
 const requestStreamerVerificationFn = httpsCallable(functions, 'requestStreamerVerification');
+const submitLifeGameReviewFn = httpsCallable(functions, 'submitLifeGameReview');
+const deleteLifeGameReviewFn = httpsCallable(functions, 'deleteLifeGameReview');
+const reportLifeGameReviewFn = httpsCallable(functions, 'reportLifeGameReview');
+const adminDeleteLifeGameReviewFn = httpsCallable(functions, 'adminDeleteLifeGameReview');
 const googleProvider = new GoogleAuthProvider();
 
 let currentUser = null;
@@ -3468,6 +3472,225 @@ onValue(ref(db, 'lifeGame/multiplayerSessions'), (snap) => {
 // 확정되는 시점에도 한 번 다시 그려서 "내 게임이 잠깐 내 목록에 뜨는" 경합을
 // 없앤다.
 onAuthStateChanged(auth, (user) => { if (user) renderMultiplayerSessionList(); });
+
+// ------------------------------------------------------------
+// 게임 후기(2026-09-08, 사용자 지시 - "검색란 밑 새로운 영역을 후기
+// 작성영역으로 쓰고싶다"). 계정당 1개(서버가 uid를 키로 강제), 완료 이력이
+// 있어야 작성 가능 - 서버가 최종 검증하지만 여기선 폼을 미리 잠가서 헛수고를
+// 막는다. 인증 스트리머는 프로필이 서버에서 자동으로 첨부되므로 "내 방송국
+// 홍보하기" 체크박스는 애초에 필요 없어 숨긴다. 미인증 유저가 체크하고 적은
+// 닉네임/SOOP 아이디는 자기 신고식 도용을 막기 위해 저장 시점에 "인증됨"으로
+// 박제하지 않고, 카드를 그릴 때마다 streamerVerifications를 다시 조회해서
+// 실제 승인 여부를 살아있게 확인한다(승인 전엔 "인증 대기중"으로만 표시).
+// ------------------------------------------------------------
+const reviewSummaryEl = document.getElementById('reviewSummary');
+const reviewListEl = document.getElementById('reviewList');
+const reviewFormWrapEl = document.getElementById('reviewFormWrap');
+const reviewLockedHintEl = document.getElementById('reviewLockedHint');
+const reviewStarsEl = document.getElementById('reviewStars');
+const reviewTextInputEl = document.getElementById('reviewTextInput');
+const reviewPromoteLabelEl = document.getElementById('reviewPromoteLabel');
+const reviewPromoteCheckboxEl = document.getElementById('reviewPromoteCheckbox');
+const reviewPromoteFieldsEl = document.getElementById('reviewPromoteFields');
+const reviewPromoteNicknameEl = document.getElementById('reviewPromoteNickname');
+const reviewPromoteSoopIdEl = document.getElementById('reviewPromoteSoopId');
+const submitReviewBtnEl = document.getElementById('submitReviewBtn');
+const reviewFormHintEl = document.getElementById('reviewFormHint');
+
+let reviewSelectedRating = 0;
+let latestReviewsVal = {};
+let reviewEligibilityChecked = false;
+
+function setReviewStars(value) {
+  reviewSelectedRating = value;
+  reviewStarsEl.querySelectorAll('.review-star').forEach((btn) => {
+    btn.classList.toggle('active', Number(btn.dataset.value) <= value);
+  });
+}
+reviewStarsEl.querySelectorAll('.review-star').forEach((btn) => {
+  btn.addEventListener('click', () => setReviewStars(Number(btn.dataset.value)));
+});
+reviewPromoteCheckboxEl.addEventListener('change', () => {
+  reviewPromoteFieldsEl.classList.toggle('hidden', !reviewPromoteCheckboxEl.checked);
+});
+
+function prefillReviewForm() {
+  const uid = currentUser.uid;
+  reviewPromoteLabelEl.classList.toggle('hidden', isStreamerVerifiedUser);
+  reviewPromoteFieldsEl.classList.toggle('hidden', !reviewPromoteCheckboxEl.checked || isStreamerVerifiedUser);
+  const existing = latestReviewsVal[uid];
+  if (existing) {
+    setReviewStars(existing.rating || 0);
+    reviewTextInputEl.value = existing.text || '';
+    submitReviewBtnEl.textContent = '수정하기';
+    if (!isStreamerVerifiedUser && existing.nickname && existing.soopId) {
+      reviewPromoteCheckboxEl.checked = true;
+      reviewPromoteFieldsEl.classList.remove('hidden');
+      reviewPromoteNicknameEl.value = existing.nickname;
+      reviewPromoteSoopIdEl.value = existing.soopId;
+    }
+  }
+}
+
+async function setupReviewForm() {
+  if (!currentUser || reviewEligibilityChecked) return;
+  const uid = currentUser.uid;
+  let eligible = false;
+  try {
+    const endingsSnap = await get(ref(db, 'lifeGame/collection/' + uid + '/endings'));
+    eligible = endingsSnap.exists();
+  } catch (e) {
+    console.error('후기 작성 자격 확인 실패:', e);
+    return;
+  }
+  reviewEligibilityChecked = true;
+  if (!eligible) {
+    reviewFormWrapEl.classList.add('hidden');
+    reviewLockedHintEl.classList.remove('hidden');
+    return;
+  }
+  reviewLockedHintEl.classList.add('hidden');
+  reviewFormWrapEl.classList.remove('hidden');
+  prefillReviewForm();
+}
+
+submitReviewBtnEl.addEventListener('click', async () => {
+  if (reviewSelectedRating < 1) return showToast('별점을 선택해주세요.');
+  const text = reviewTextInputEl.value.trim();
+  if (!text) return showToast('후기 내용을 입력해주세요.');
+
+  const payload = { rating: reviewSelectedRating, text };
+  const promote = reviewPromoteCheckboxEl.checked && !isStreamerVerifiedUser;
+  if (promote) {
+    const nickname = reviewPromoteNicknameEl.value.trim();
+    const soopId = reviewPromoteSoopIdEl.value.trim().toLowerCase();
+    if (!nickname) return showToast('닉네임을 입력해주세요.');
+    if (!/^[a-z0-9]{2,20}$/.test(soopId)) return showToast('SOOP 아이디는 영문 소문자/숫자 2~20자로 입력해주세요.');
+    payload.promoteBroadcast = true;
+    payload.nickname = nickname;
+    payload.soopId = soopId;
+  }
+
+  submitReviewBtnEl.disabled = true;
+  try {
+    const result = await submitLifeGameReviewFn(payload);
+    showToast('후기가 등록됐어요. 감사합니다!');
+    submitReviewBtnEl.textContent = '수정하기';
+    reviewFormHintEl.textContent = '';
+    if (result.data && result.data.promoteRequested) {
+      requestStreamerVerificationFn({ nickname: payload.nickname, soopId: payload.soopId, source: 'life-game' })
+        .then(() => { reviewFormHintEl.textContent = '스트리머 인증 신청도 함께 접수됐어요.'; })
+        .catch((e) => console.error('자동 스트리머 인증 신청 실패:', e));
+    }
+  } catch (e) {
+    console.error('후기 등록 실패:', e);
+    showToast('후기 등록에 실패했어요: ' + (e.message || e));
+  } finally {
+    submitReviewBtnEl.disabled = false;
+  }
+});
+
+async function reviewProfileBadgeHtml(uid, nickname) {
+  try {
+    const q = query(ref(db, 'streamerVerifications'), orderByChild('uid'), equalTo(uid));
+    const snap = await get(q);
+    if (snap.exists()) {
+      let verified = null;
+      snap.forEach((child) => { verified = child.val(); });
+      const station = 'https://www.sooplive.com/station/' + encodeURIComponent(verified.soopId || '');
+      return '<a class="review-profile-badge verified" href="' + station + '" target="_blank" rel="noopener noreferrer">✅ ' + escapeHtml(verified.nickname || nickname) + '</a>';
+    }
+  } catch (e) {
+    console.error('프로필 인증 상태 확인 실패:', e);
+  }
+  return '<span class="review-profile-badge pending">⏳ ' + escapeHtml(nickname) + ' (인증 대기중)</span>';
+}
+
+async function renderReviewList(val) {
+  latestReviewsVal = val;
+  const entries = Object.keys(val).map((uid) => Object.assign({ uid }, val[uid]));
+  if (!entries.length) {
+    reviewSummaryEl.textContent = '아직 등록된 후기가 없어요. 첫 번째 후기를 남겨보세요!';
+    reviewListEl.innerHTML = '';
+  } else {
+    const avg = entries.reduce((sum, e) => sum + (e.rating || 0), 0) / entries.length;
+    reviewSummaryEl.textContent = '★ ' + avg.toFixed(1) + ' · ' + entries.length + '개의 후기';
+    entries.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+    const myUid = currentUser ? currentUser.uid : null;
+    const cards = await Promise.all(entries.slice(0, 30).map(async (e) => {
+      const stars = '★'.repeat(e.rating || 0) + '☆'.repeat(5 - (e.rating || 0));
+      const badge = e.soopId ? await reviewProfileBadgeHtml(e.uid, e.nickname) : '';
+      const isMine = e.uid === myUid;
+      let actions = isMine
+        ? '<button type="button" class="review-delete-own-btn" data-uid="' + e.uid + '">삭제</button>'
+        : '<button type="button" class="review-report-btn" data-uid="' + e.uid + '">신고</button>';
+      if (isAdminUser && !isMine) {
+        actions += '<button type="button" class="review-admin-delete-btn" data-uid="' + e.uid + '">관리자 삭제</button>';
+      }
+      return '<div class="review-card">' +
+        '<div class="review-card-head"><span class="review-stars-readonly">' + stars + '</span>' +
+        '<span class="review-row-actions">' + actions + '</span></div>' +
+        '<p class="review-text">' + escapeHtml(e.text || '') + '</p>' +
+        badge +
+        '</div>';
+    }));
+    reviewListEl.innerHTML = cards.join('');
+
+    reviewListEl.querySelectorAll('.review-delete-own-btn').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        btn.disabled = true;
+        try {
+          await deleteLifeGameReviewFn();
+          showToast('후기를 삭제했어요.');
+          reviewTextInputEl.value = '';
+          setReviewStars(0);
+          reviewPromoteCheckboxEl.checked = false;
+          reviewPromoteFieldsEl.classList.add('hidden');
+          submitReviewBtnEl.textContent = '후기 남기기';
+        } catch (e) {
+          console.error('후기 삭제 실패:', e);
+          showToast('삭제에 실패했어요: ' + (e.message || e));
+          btn.disabled = false;
+        }
+      });
+    });
+    reviewListEl.querySelectorAll('.review-report-btn').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        btn.disabled = true;
+        try {
+          await reportLifeGameReviewFn({ reviewUid: btn.dataset.uid });
+          showToast('신고가 접수됐어요.');
+        } catch (e) {
+          console.error('후기 신고 실패:', e);
+          showToast('신고에 실패했어요: ' + (e.message || e));
+          btn.disabled = false;
+        }
+      });
+    });
+    reviewListEl.querySelectorAll('.review-admin-delete-btn').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        if (!confirm('이 후기를 삭제할까요? 되돌릴 수 없습니다.')) return;
+        btn.disabled = true;
+        try {
+          await adminDeleteLifeGameReviewFn({ uid: btn.dataset.uid });
+        } catch (e) {
+          console.error('관리자 후기 삭제 실패:', e);
+          alert('삭제에 실패했어요: ' + (e.message || e));
+          btn.disabled = false;
+        }
+      });
+    });
+  }
+  setupReviewForm();
+}
+
+onValue(ref(db, 'lifeGame/reviews'), (snap) => {
+  renderReviewList(snap.val() || {});
+}, (err) => {
+  console.error('후기 목록 읽기 실패:', err);
+  reviewSummaryEl.textContent = '후기를 불러올 수 없습니다.';
+});
+onAuthStateChanged(auth, (user) => { if (user) setupReviewForm(); });
 
 function openJoinMultiplayerModal(hostUid, hostName) {
   mpPendingJoinHostUid = hostUid;

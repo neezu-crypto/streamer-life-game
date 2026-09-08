@@ -2,7 +2,7 @@ const { onCall, HttpsError } = require('firebase-functions/v2/https');
 const { onSchedule } = require('firebase-functions/v2/scheduler');
 const { initializeApp } = require('firebase-admin/app');
 const { getDatabase, ServerValue } = require('firebase-admin/database');
-const { STAT_KEYS, STAT_START, clampStat, requireAuth, isAdminUid } = require('./common');
+const { STAT_KEYS, STAT_START, clampStat, requireAuth, isAdminUid, assertCooldown } = require('./common');
 const {
   STAGES,
   PRISON_CHOICES,
@@ -41,6 +41,21 @@ initializeApp();
 
 const MAX_NAME_LEN = 40;
 const MAX_REPORT_REASON_LEN = 300;
+
+// 게임 후기(리뷰) - XSS 방지용 금지문자·링크차단 정규식은 streamer-gallery
+// constants.js와 동일한 걸 그대로 재사용(이 생태계에서 실제로 존재하는
+// 유일한 텍스트 스팸 방지 수단 - 진짜 욕설/비속어 필터는 이 생태계 어디에도
+// 선례가 없어 이번에 새로 만들지 않는다). 닉네임 20자 제한은 새로 정하는
+// 값이 아니라 requestStreamerVerification이 이미 쓰는
+// STREAMER_VERIFICATION_NICKNAME_MAX_LENGTH(soop-stock-market/functions/
+// common.js)와 반드시 맞춰야 한다 - 다른 레포의 인게임 닉네임 12자 제한과
+// 헷갈리면 안 됨.
+const REVIEW_TEXT_MAX_LEN = 300;
+const REVIEW_NICKNAME_MAX_LEN = 20;
+const REVIEW_FORBIDDEN_RE = /[<>\x00-\x1F\x7F]/;
+const REVIEW_LINK_RE = /(https?:\/\/|www\.|\.(com|net|org|co\.kr|kr|io|me|ly|gg|tv|xyz|shop|app)\b)/i;
+const SOOP_ID_RE = /^[a-z0-9]{2,20}$/;
+const REVIEW_EDIT_COOLDOWN_MS = 10 * 1000;
 
 // 세계관 상태(World State) 트래커 엔진(2026-08-28, 56장 A항 설계 확정분 구현
 // 1단계 - 엔진만, 실제 트래커 콘텐츠는 다음 단계에서 game-data.js에 추가).
@@ -3725,6 +3740,141 @@ const adminDeleteGalleryEntry = onCall({ cors: true, timeoutSeconds: 30, memory:
 });
 
 // ------------------------------------------------------------
+// 게임 후기(리뷰) - 검색 화면 최상단에 노출되는 게임 전체에 대한 후기.
+// 계정당 1개(lifeGame/reviews/{uid} 자체가 키라서 구조적으로 스팸 계정을
+// 새로 만들지 않는 한 여러 개를 못 쓴다), 재작성=수정. 완료 이력이 있어야만
+// 작성 가능하다는 요건은 lifeGame/collection/{uid}/endings에 자식이 하나라도
+// 있는지로 판정한다 - playthroughs는 계정당 1슬롯이라 새 판을 시작하면
+// completed가 다시 false로 덮어써지므로 "완료한 적 있음"을 영속적으로
+// 판정하기엔 맞지 않고, collection/endings는 여러 판에 걸쳐 누적되는
+// 영속 기록이라 이 목적에 정확히 맞다.
+//
+// 인증 스트리머 프로필 첨부: streamerVerifications는 uid로 인덱싱된 공개
+// 노드라(다른 프로젝트들과 동일 스키마) 여기서 조회해 nickname/soopId를
+// 서버가 직접 채운다 - 클라이언트가 보낸 값은 신뢰하지 않는다.
+// 미인증 유저가 "내 방송국 홍보하기"를 체크한 경우엔 자기 신고식으로 아무
+// soopId나 적어놓고 인증된 것처럼 보이게 할 수 있으므로, 여기선 그 값을
+// 그대로 리뷰에 저장만 하고 "인증됨" 표시는 하지 않는다 - 클라이언트가
+// 화면에 그릴 때 streamerVerifications를 다시 조회해서 실제로 승인됐는지
+// 매번 살아있게 확인한다(승인 전엔 "인증 대기중"으로만 보이게).
+// ------------------------------------------------------------
+async function findStreamerProfileByUid(db, uid) {
+  const snap = await db.ref('streamerVerifications')
+    .orderByChild('uid').equalTo(uid).limitToFirst(1).get();
+  if (!snap.exists()) return null;
+  let profile = null;
+  snap.forEach((child) => { profile = child.val(); });
+  return profile;
+}
+
+const submitLifeGameReview = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const db = getDatabase();
+  await assertNotBanned(db, uid);
+
+  const endingsSnap = await db.ref('lifeGame/collection/' + uid + '/endings').get();
+  if (!endingsSnap.exists()) {
+    throw new HttpsError('failed-precondition', '게임을 한 번 완료해야 후기를 남길 수 있어요.');
+  }
+
+  await assertCooldown(uid, 'reviewEdit', REVIEW_EDIT_COOLDOWN_MS);
+
+  const data = request.data || {};
+  const rating = Math.round(Number(data.rating));
+  if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
+    throw new HttpsError('invalid-argument', '별점은 1~5 사이의 정수여야 합니다.');
+  }
+  const text = (data.text || '').toString().trim().slice(0, REVIEW_TEXT_MAX_LEN);
+  if (!text) throw new HttpsError('invalid-argument', '후기 내용을 입력해주세요.');
+  if (REVIEW_FORBIDDEN_RE.test(text) || REVIEW_LINK_RE.test(text)) {
+    throw new HttpsError('invalid-argument', '후기에 사용할 수 없는 문자나 링크가 포함돼 있어요.');
+  }
+
+  const userSnap = await db.ref('users/' + uid + '/streamerVerified').get();
+  const isVerified = userSnap.val() === true;
+
+  let nickname = null;
+  let soopId = null;
+  let promoteRequested = false;
+
+  if (isVerified) {
+    // 인증 스트리머는 서버가 직접 조회한 값만 쓴다 - 클라이언트 입력 무시.
+    const profile = await findStreamerProfileByUid(db, uid);
+    if (profile) {
+      nickname = profile.nickname || null;
+      soopId = profile.soopId || null;
+    }
+  } else if (data.promoteBroadcast) {
+    const rawNickname = (data.nickname || '').toString().trim().slice(0, REVIEW_NICKNAME_MAX_LEN);
+    const rawSoopId = (data.soopId || '').toString().trim().toLowerCase();
+    if (!rawNickname || REVIEW_FORBIDDEN_RE.test(rawNickname)) {
+      throw new HttpsError('invalid-argument', '닉네임을 올바르게 입력해주세요.');
+    }
+    if (!SOOP_ID_RE.test(rawSoopId)) {
+      throw new HttpsError('invalid-argument', 'SOOP 아이디는 영문 소문자/숫자 2~20자로 입력해주세요.');
+    }
+    nickname = rawNickname;
+    soopId = rawSoopId;
+    promoteRequested = true;
+  }
+
+  const reviewRef = db.ref('lifeGame/reviews/' + uid);
+  const existingSnap = await reviewRef.get();
+  const createdAt = existingSnap.exists() && existingSnap.val().createdAt
+    ? existingSnap.val().createdAt
+    : ServerValue.TIMESTAMP;
+
+  await reviewRef.set({
+    rating,
+    text,
+    nickname,
+    soopId,
+    createdAt,
+    updatedAt: ServerValue.TIMESTAMP
+  });
+
+  return { ok: true, promoteRequested, nickname, soopId };
+});
+
+const deleteLifeGameReview = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  await getDatabase().ref('lifeGame/reviews/' + uid).remove();
+  return { ok: true };
+});
+
+const reportLifeGameReview = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const reviewUid = request.data && request.data.reviewUid;
+  const reason = (request.data && request.data.reason || '').toString().trim().slice(0, MAX_REPORT_REASON_LEN);
+  if (!reviewUid) throw new HttpsError('invalid-argument', 'reviewUid가 필요합니다.');
+
+  const db = getDatabase();
+  const reviewSnap = await db.ref('lifeGame/reviews/' + reviewUid).get();
+  if (!reviewSnap.exists()) throw new HttpsError('not-found', '후기를 찾을 수 없습니다.');
+
+  await db.ref('lifeGame/reviewReports').push({
+    reviewUid,
+    reason,
+    reporterUid: uid,
+    reportedAt: ServerValue.TIMESTAMP
+  });
+
+  return { ok: true };
+});
+
+const adminDeleteLifeGameReview = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  if (!(await isAdminUid(uid))) {
+    throw new HttpsError('permission-denied', '관리자만 사용할 수 있는 기능입니다.');
+  }
+  const targetUid = request.data && request.data.uid;
+  if (!targetUid) throw new HttpsError('invalid-argument', 'uid가 필요합니다.');
+
+  await getDatabase().ref('lifeGame/reviews/' + targetUid).remove();
+  return { ok: true, deletedUid: targetUid };
+});
+
+// ------------------------------------------------------------
 // 멀티플레이 시청자 참여(13장, 2026-08-24 구현 착수) - 설계는 기획서 13장 참고.
 // 호스트 단독 결정권(투표는 표시용) 원칙이라, playthroughs는 그대로 두고
 // multiplayerSessions/multiplayerVotes/multiplayerAdShown 세 개의 새 공개
@@ -4050,4 +4200,4 @@ const logLifeGameVisit = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   return { ok: true, logged: true };
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount, logLifeGameVisit };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount, logLifeGameVisit, submitLifeGameReview, deleteLifeGameReview, reportLifeGameReview, adminDeleteLifeGameReview };
