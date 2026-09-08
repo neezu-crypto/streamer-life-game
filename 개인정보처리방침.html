@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>개인정보처리방침 · 스트리머 인생게임</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #14110c; --panel: #1e1a13; --panel-2: #241f16;
+    --text: #ece3d0; --text-dim: #9a8f78; --text-faint: #6e6552;
+    --gold: #d4a24c; --gold-dim: rgba(212, 162, 76, 0.16);
+    --coral: #cd7256; --coral-dim: rgba(205, 114, 86, 0.14);
+    --line: #362f23;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #e7dfca; --panel: #f6f1e2; --panel-2: #efe7d2;
+      --text: #241f16; --text-dim: #6b6250; --text-faint: #918770;
+      --gold: #9c6f22; --gold-dim: rgba(156,111,34,0.12);
+      --coral: #954226; --coral-dim: rgba(149,66,38,0.12);
+      --line: #d9cca5;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    font-size: 14.5px; line-height: 1.7;
+  }
+  h1, h2 { font-family: 'Bricolage Grotesque', sans-serif; }
+  a { color: var(--gold); }
+
+  .top {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--bg); border-bottom: 1px solid var(--line);
+    padding: 14px 20px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .top a { color: var(--text-dim); font-size: 13px; text-decoration: none; }
+  .top a:hover { color: var(--gold); }
+
+  .hero { padding: 40px 20px 20px; text-align: center; }
+  .eyebrow { color: var(--gold); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; margin: 0 0 8px; }
+  .hero h1 { font-size: 26px; font-weight: 800; margin: 0 0 8px; }
+  .hero p { color: var(--text-dim); font-size: 13.5px; margin: 0; }
+
+  .layout {
+    max-width: 920px; margin: 0 auto; padding: 20px 20px 80px;
+    display: grid; grid-template-columns: 180px 1fr; gap: 32px;
+  }
+  .toc { position: sticky; top: 60px; align-self: start; }
+  .toc a {
+    display: block; padding: 5px 0; font-size: 12.5px; color: var(--text-faint); text-decoration: none;
+  }
+  .toc a:hover { color: var(--gold); }
+
+  .sec { margin-bottom: 34px; }
+  .sec-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .sec-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px; border-radius: 50%; background: var(--gold-dim); color: var(--gold);
+    font-size: 11px; font-weight: 800; flex: none;
+  }
+  .sec h2 { font-size: 16px; font-weight: 700; margin: 0; }
+  .sec p, .sec li { color: var(--text-dim); }
+  .sec ul { margin: 8px 0; padding-left: 20px; }
+  .sec li { margin-bottom: 4px; }
+
+  .callout {
+    background: var(--gold-dim); border: 1px solid var(--gold); border-radius: 10px;
+    padding: 12px 14px; margin-top: 10px; font-size: 13px; color: var(--text);
+  }
+  .callout.coral { background: var(--coral-dim); border-color: var(--coral); }
+
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
+  th, td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { background: var(--panel-2); color: var(--text); font-weight: 700; }
+  td { color: var(--text-dim); }
+
+  footer { text-align: center; color: var(--text-faint); font-size: 12px; padding: 20px; }
+
+  @media (max-width: 720px) {
+    .layout { grid-template-columns: 1fr; }
+    .toc { position: static; display: flex; flex-wrap: wrap; gap: 4px 12px; margin-bottom: 20px; order: -1; }
+    .toc a { padding: 2px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a href="index.html">← 게임으로 돌아가기</a>
+  <span style="color:var(--text-faint); font-size:12px;">스트리머 인생게임</span>
+</div>
+
+<div class="hero">
+  <p class="eyebrow">Privacy Policy</p>
+  <h1>개인정보처리방침</h1>
+  <p>시행일: 2026-09-09</p>
+</div>
+
+<div class="layout">
+  <nav class="toc">
+    <a href="#sec-01">01. 총칙</a>
+    <a href="#sec-02">02. 수집하는 정보</a>
+    <a href="#sec-03">03. 이용 목적</a>
+    <a href="#sec-04">04. 보유·이용 기간</a>
+    <a href="#sec-05">05. 제3자 제공·위탁</a>
+    <a href="#sec-06">06. 이용자의 권리</a>
+    <a href="#sec-07">07. 파기 절차</a>
+    <a href="#sec-08">08. 안전성 확보 조치</a>
+    <a href="#sec-09">09. 기기에 저장되는 정보</a>
+    <a href="#sec-10">10. 아동의 개인정보</a>
+    <a href="#sec-11">11. 방침의 변경</a>
+    <a href="#sec-12">12. 문의</a>
+  </nav>
+
+  <div class="content">
+    <section class="sec" id="sec-01">
+      <div class="sec-head"><span class="sec-num">01</span><h2>총칙</h2></div>
+      <p>오목지면시그(이하 "운영자")는 "스트리머 인생게임"(이하 "서비스") 이용자의 개인정보를 중요하게 생각하며, 관련 법령을 준수합니다. 본 방침은 서비스가 어떤 정보를 어떻게 수집·이용·보관하는지 안내합니다.</p>
+    </section>
+
+    <section class="sec" id="sec-02">
+      <div class="sec-head"><span class="sec-num">02</span><h2>수집하는 정보</h2></div>
+      <table>
+        <tr><th>구분</th><th>수집 항목</th></tr>
+        <tr>
+          <td>구글·카카오 로그인 연동</td>
+          <td>내부 계정 식별값(uid)만 저장 — 이메일·이름·프로필 사진 등은 저장하지 않습니다.</td>
+        </tr>
+        <tr>
+          <td>직접 입력</td>
+          <td>주인공(캐릭터) 이름, 게임 후기(별점·텍스트), 스트리머 인증/방송 홍보 신청 시 입력한 닉네임·SOOP 아이디</td>
+        </tr>
+        <tr>
+          <td>자동 생성</td>
+          <td>게임 진행 기록(가상의 선택 이력·스탯), 도감(엔딩 달성) 진행도, 접속 기록, 서비스 이용 제한(정지) 이력</td>
+        </tr>
+      </table>
+      <p style="margin-top:10px;">별도의 회원가입 절차 없이 서비스 접속 시 자동 발급되는 익명 계정을 통해 대부분의 정보가 수집되며, 그 외 이용자가 직접 입력하거나 서비스 이용 과정에서 자동으로 생성됩니다.</p>
+    </section>
+
+    <section class="sec" id="sec-03">
+      <div class="sec-head"><span class="sec-num">03</span><h2>이용 목적</h2></div>
+      <ul>
+        <li>게임 진행 상태 저장 및 이어하기 제공</li>
+        <li>계정 보호(기기 변경 시에도 동일 계정으로 이어하기)</li>
+        <li>갤러리 공유, 후기 게시 등 커뮤니티 기능 제공</li>
+        <li>부정 이용 방지 및 이용 제한 조치</li>
+        <li>스트리머 인증 심사</li>
+      </ul>
+    </section>
+
+    <section class="sec" id="sec-04">
+      <div class="sec-head"><span class="sec-num">04</span><h2>보유·이용 기간</h2></div>
+      <p>원칙적으로 계정 연동 해제 등 이용자의 삭제 요청 또는 이용 목적 달성 시까지 보관하며, 관련 법령에서 별도로 정한 보관 기간이 있는 경우 그 기간 동안 보관합니다.</p>
+    </section>
+
+    <section class="sec" id="sec-05">
+      <div class="sec-head"><span class="sec-num">05</span><h2>제3자 제공·위탁</h2></div>
+      <ul>
+        <li><strong>구글, 카카오</strong> — 계정 연동 로그인 처리</li>
+        <li><strong>Firebase / Google Cloud</strong> — 데이터 저장 및 서비스 운영 인프라</li>
+        <li><strong>애드픽(제휴 광고)</strong> — 서비스 일부 화면에 제휴 광고 배너가 노출됩니다. 광고를 클릭해 외부 사이트로 이동하면 그 사이트에서 별도로 쿠키 등 정보가 수집될 수 있으며, 이는 운영자가 직접 통제하지 않습니다.</li>
+      </ul>
+    </section>
+
+    <section class="sec" id="sec-06">
+      <div class="sec-head"><span class="sec-num">06</span><h2>이용자의 권리</h2></div>
+      <ul>
+        <li>이용자는 본인이 작성한 후기를 언제든 직접 삭제할 수 있습니다.</li>
+        <li>그 외 본인과 관련해 저장된 정보(공유한 갤러리 게시물 등)의 열람·삭제를 원하는 경우 관리자에게 문의해 주시면 신속히 처리합니다.</li>
+      </ul>
+    </section>
+
+    <section class="sec" id="sec-07">
+      <div class="sec-head"><span class="sec-num">07</span><h2>파기 절차</h2></div>
+      <p>보유 기간이 지나거나 이용 목적이 달성된 개인정보는 지체 없이 파기합니다.</p>
+    </section>
+
+    <section class="sec" id="sec-08">
+      <div class="sec-head"><span class="sec-num">08</span><h2>안전성 확보 조치</h2></div>
+      <p>Firebase 보안 규칙을 통해 각 이용자는 본인의 데이터만 열람할 수 있도록 접근을 제한하며, 민감한 처리는 서버(Cloud Functions)에서만 수행합니다.</p>
+    </section>
+
+    <section class="sec" id="sec-09">
+      <div class="sec-head"><span class="sec-num">09</span><h2>기기에 저장되는 정보</h2></div>
+      <ul>
+        <li>서비스는 별도의 추적용 쿠키를 사용하지 않습니다.</li>
+        <li>로그인 상태 유지를 위해 브라우저에 표준적인 세션 정보가 저장될 수 있습니다.</li>
+        <li>애드픽 제휴 광고를 통해 이동한 외부 사이트에서는 그 사이트 자체의 쿠키가 발생할 수 있습니다.</li>
+      </ul>
+    </section>
+
+    <section class="sec" id="sec-10">
+      <div class="sec-head"><span class="sec-num">10</span><h2>아동의 개인정보</h2></div>
+      <p>만 14세 미만 아동은 법정대리인의 동의 없이 개인 식별 정보를 직접 입력하지 않도록 주의해 주시기 바랍니다. 관련 문제를 발견하신 경우 관리자에게 문의해 주시면 즉시 조치하겠습니다.</p>
+    </section>
+
+    <section class="sec" id="sec-11">
+      <div class="sec-head"><span class="sec-num">11</span><h2>방침의 변경</h2></div>
+      <p>본 방침은 관련 법령 및 서비스 정책 변경에 따라 개정될 수 있으며, 개정 시 서비스 내 공지를 통해 안내합니다.</p>
+    </section>
+
+    <section class="sec" id="sec-12">
+      <div class="sec-head"><span class="sec-num">12</span><h2>문의</h2></div>
+      <p>개인정보 관련 문의사항은 서비스 내 관리자에게 문의해 주시기 바랍니다.</p>
+    </section>
+  </div>
+</div>
+
+<footer>스트리머 인생게임 · BY 오목지면시그</footer>
+
+</body>
+</html>

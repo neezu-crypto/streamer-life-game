@@ -406,6 +406,9 @@
   .choice-history-item .chi-text { color: var(--text); }
 
   footer { color: var(--text-faint); font-size: 12px; text-align: center; margin-top: 40px; }
+  footer a { color: var(--text-faint); text-decoration: underline; }
+  footer a:hover { color: var(--gold); }
+  footer .footer-sep { margin: 0 4px; }
 
   /* 15장 Google 광고 1단계에서 자리표시자로 만들어둔 위치에, AdSense 승인
      전까지는 애드픽 캠페인 배너를 먼저 채운다(2026-09-07 - 광고메이트는

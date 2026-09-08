@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이용약관 · 스트리머 인생게임</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #14110c; --panel: #1e1a13; --panel-2: #241f16;
+    --text: #ece3d0; --text-dim: #9a8f78; --text-faint: #6e6552;
+    --gold: #d4a24c; --gold-dim: rgba(212, 162, 76, 0.16);
+    --coral: #cd7256; --coral-dim: rgba(205, 114, 86, 0.14);
+    --line: #362f23;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #e7dfca; --panel: #f6f1e2; --panel-2: #efe7d2;
+      --text: #241f16; --text-dim: #6b6250; --text-faint: #918770;
+      --gold: #9c6f22; --gold-dim: rgba(156,111,34,0.12);
+      --coral: #954226; --coral-dim: rgba(149,66,38,0.12);
+      --line: #d9cca5;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    font-size: 14.5px; line-height: 1.7;
+  }
+  h1, h2 { font-family: 'Bricolage Grotesque', sans-serif; }
+  a { color: var(--gold); }
+
+  .top {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--bg); border-bottom: 1px solid var(--line);
+    padding: 14px 20px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .top a { color: var(--text-dim); font-size: 13px; text-decoration: none; }
+  .top a:hover { color: var(--gold); }
+
+  .hero { padding: 40px 20px 20px; text-align: center; }
+  .eyebrow { color: var(--gold); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; margin: 0 0 8px; }
+  .hero h1 { font-size: 26px; font-weight: 800; margin: 0 0 8px; }
+  .hero p { color: var(--text-dim); font-size: 13.5px; margin: 0; }
+
+  .layout {
+    max-width: 920px; margin: 0 auto; padding: 20px 20px 80px;
+    display: grid; grid-template-columns: 180px 1fr; gap: 32px;
+  }
+  .toc { position: sticky; top: 60px; align-self: start; }
+  .toc a {
+    display: block; padding: 5px 0; font-size: 12.5px; color: var(--text-faint); text-decoration: none;
+  }
+  .toc a:hover { color: var(--gold); }
+
+  .sec { margin-bottom: 34px; }
+  .sec-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .sec-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px; border-radius: 50%; background: var(--gold-dim); color: var(--gold);
+    font-size: 11px; font-weight: 800; flex: none;
+  }
+  .sec h2 { font-size: 16px; font-weight: 700; margin: 0; }
+  .sec p, .sec li { color: var(--text-dim); }
+  .sec ul { margin: 8px 0; padding-left: 20px; }
+  .sec li { margin-bottom: 4px; }
+
+  .callout {
+    background: var(--gold-dim); border: 1px solid var(--gold); border-radius: 10px;
+    padding: 12px 14px; margin-top: 10px; font-size: 13px; color: var(--text);
+  }
+  .callout.coral { background: var(--coral-dim); border-color: var(--coral); }
+
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
+  th, td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { background: var(--panel-2); color: var(--text); font-weight: 700; }
+  td { color: var(--text-dim); }
+
+  footer { text-align: center; color: var(--text-faint); font-size: 12px; padding: 20px; }
+
+  @media (max-width: 720px) {
+    .layout { grid-template-columns: 1fr; }
+    .toc { position: static; display: flex; flex-wrap: wrap; gap: 4px 12px; margin-bottom: 20px; order: -1; }
+    .toc a { padding: 2px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a href="index.html">← 게임으로 돌아가기</a>
+  <span style="color:var(--text-faint); font-size:12px;">스트리머 인생게임</span>
+</div>
+
+<div class="hero">
+  <p class="eyebrow">Terms of Service</p>
+  <h1>이용약관</h1>
+  <p>시행일: 2026-09-09</p>
+</div>
+
+<div class="layout">
+  <nav class="toc">
+    <a href="#sec-01">01. 총칙</a>
+    <a href="#sec-02">02. 서비스 내용</a>
+    <a href="#sec-03">03. 이용 계정</a>
+    <a href="#sec-04">04. 이용자 콘텐츠</a>
+    <a href="#sec-05">05. 금지 행위</a>
+    <a href="#sec-06">06. 신고 및 제재</a>
+    <a href="#sec-07">07. 서비스 변경·중단</a>
+    <a href="#sec-08">08. 면책조항</a>
+    <a href="#sec-09">09. 약관의 개정</a>
+    <a href="#sec-10">10. 문의</a>
+  </nav>
+
+  <div class="content">
+    <section class="sec" id="sec-01">
+      <div class="sec-head"><span class="sec-num">01</span><h2>총칙</h2></div>
+      <p>이 약관은 오목지면시그(이하 "운영자")가 제공하는 "스트리머 인생게임"(이하 "서비스")의 이용조건 및 절차, 운영자와 이용자의 권리·의무·책임사항을 규정합니다. 서비스를 이용함으로써 이용자는 본 약관에 동의한 것으로 간주됩니다.</p>
+    </section>
+
+    <section class="sec" id="sec-02">
+      <div class="sec-head"><span class="sec-num">02</span><h2>서비스 내용</h2></div>
+      <p>좋아하는 스트리머의 이름으로 가상의 주인공을 만들고, 선택지를 골라가며 무작위 인생 시뮬레이션을 진행하는 게임입니다. 완료한 인생은 공개 갤러리에 공유할 수 있고, 다른 이용자가 진행 중인 게임에 참여(멀티플레이)할 수 있으며, 게임을 1회 이상 완료한 이용자는 후기(별점·텍스트)를 남길 수 있습니다.</p>
+      <div class="callout coral">
+        서비스에서 생성되는 모든 사건·선택지·엔딩·통계는 <strong>100% 창작된 가상의 콘텐츠</strong>이며, 실제 스트리머 본인의 실제 인생·행적·발언과는 전혀 무관합니다.
+      </div>
+    </section>
+
+    <section class="sec" id="sec-03">
+      <div class="sec-head"><span class="sec-num">03</span><h2>이용 계정</h2></div>
+      <ul>
+        <li>별도 회원가입 없이 접속 시 임시(익명) 계정이 자동 발급되며, 이 상태로도 게임 진행·완료·후기 작성 등 대부분 기능을 이용할 수 있습니다.</li>
+        <li>구글 또는 카카오 계정을 연동하면 기기를 바꾸거나 브라우저 데이터가 삭제되어도 동일 계정으로 진행 상황을 이어갈 수 있습니다(계정 보호 목적).</li>
+        <li>연동 시에도 이메일·이름·프로필 사진 등은 저장하지 않으며, 계정 식별을 위한 내부 값만 보관합니다.</li>
+        <li>구글·카카오 연동 대신, 실제 방송 활동 중인 스트리머는 스트리머 인증을 신청해 계정을 보호할 수도 있습니다.</li>
+      </ul>
+    </section>
+
+    <section class="sec" id="sec-04">
+      <div class="sec-head"><span class="sec-num">04</span><h2>이용자 콘텐츠</h2></div>
+      <p>서비스 내에서 이용자가 직접 만들거나 입력하는 콘텐츠는 다음과 같습니다.</p>
+      <ul>
+        <li>공개 갤러리에 공유한 인생 기록(주인공 이름, 엔딩, 스탯, 선택 이력 등)</li>
+        <li>게임 후기(별점 및 텍스트)</li>
+        <li>스트리머 인증/방송 홍보 신청 시 직접 입력한 닉네임·SOOP 아이디</li>
+      </ul>
+      <p>이용자가 작성한 콘텐츠에 대한 권리와 책임은 작성자 본인에게 있으며, 운영자는 서비스 운영·홍보 목적의 범위 내에서 이를 노출·활용할 수 있습니다.</p>
+    </section>
+
+    <section class="sec" id="sec-05">
+      <div class="sec-head"><span class="sec-num">05</span><h2>금지 행위</h2></div>
+      <ul>
+        <li>타인을 사칭하거나, 다른 스트리머의 닉네임·SOOP 아이디를 무단으로 도용해 제출하는 행위</li>
+        <li>욕설, 명예훼손, 혐오·차별 표현이 포함된 후기·갤러리 콘텐츠 작성</li>
+        <li>광고·스팸성 링크를 포함한 콘텐츠 작성</li>
+        <li>매크로·자동화 도구를 이용한 반복 요청(후기 반복 제출 등)</li>
+        <li>서비스의 정상적인 운영을 방해하는 모든 행위</li>
+      </ul>
+      <div class="callout">
+        스트리머 인증은 관리자가 실제 방송 여부를 확인한 뒤에만 승인됩니다. 승인 전까지 제출한 정보는 "인증 대기중"으로만 표시되며, 인증 배지는 부여되지 않습니다.
+      </div>
+    </section>
+
+    <section class="sec" id="sec-06">
+      <div class="sec-head"><span class="sec-num">06</span><h2>신고 및 제재</h2></div>
+      <p>부적절한 갤러리 게시물·후기는 신고할 수 있으며, 신고된 콘텐츠는 관리자가 검토 후 삭제 등 조치를 취할 수 있습니다. 본 약관을 위반한 이용자는 사전 통지 없이 서비스 이용이 제한(정지)될 수 있습니다.</p>
+    </section>
+
+    <section class="sec" id="sec-07">
+      <div class="sec-head"><span class="sec-num">07</span><h2>서비스 변경·중단</h2></div>
+      <p>운영자는 운영상·기술상 필요에 따라 서비스의 전부 또는 일부를 변경하거나 중단할 수 있으며, 이 경우 서비스 내 공지 등을 통해 안내합니다.</p>
+    </section>
+
+    <section class="sec" id="sec-08">
+      <div class="sec-head"><span class="sec-num">08</span><h2>면책조항</h2></div>
+      <ul>
+        <li>서비스는 순수 창작 엔터테인먼트 콘텐츠이며, 게임 내 등장하는 인물명·사건·결과는 실제 인물의 실제 행적·인격과 무관합니다.</li>
+        <li>본인의 이름이 게임 콘텐츠에 등장하는 것을 원하지 않는 스트리머는 관리자에게 문의해 제외를 요청할 수 있습니다.</li>
+        <li>운영자는 무료로 제공되는 서비스의 특성상 관련 법령에 특별한 규정이 없는 한 서비스 이용과 관련하여 발생한 손해에 대해 책임을 지지 않습니다.</li>
+      </ul>
+    </section>
+
+    <section class="sec" id="sec-09">
+      <div class="sec-head"><span class="sec-num">09</span><h2>약관의 개정</h2></div>
+      <p>이 약관은 관련 법령 및 서비스 정책에 따라 개정될 수 있으며, 개정 시 서비스 내 공지를 통해 안내합니다.</p>
+    </section>
+
+    <section class="sec" id="sec-10">
+      <div class="sec-head"><span class="sec-num">10</span><h2>문의</h2></div>
+      <p>서비스 이용 중 문의사항은 서비스 내 관리자에게 문의해 주시기 바랍니다.</p>
+    </section>
+  </div>
+</div>
+
+<footer>스트리머 인생게임 · BY 오목지면시그</footer>
+
+</body>
+</html>
