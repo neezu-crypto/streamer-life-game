@@ -3501,10 +3501,16 @@ let reviewSelectedRating = 0;
 let latestReviewsVal = {};
 let reviewEligibilityChecked = false;
 
+// 라이트 테마에서 --text-faint(꺼진 별)와 --gold(켜진 별)이 둘 다 비슷한 갈색
+// 계열이라 색만으로는 구분이 잘 안 된다는 실제 피드백(2026-09-08) - 목록의
+// 읽기전용 별점 표시(★/☆ 문자 자체를 바꾸는 방식)와 똑같이, 색뿐 아니라
+// 모양(채움/테두리)도 함께 바꿔서 테마와 무관하게 항상 구분되게 한다.
 function setReviewStars(value) {
   reviewSelectedRating = value;
   reviewStarsEl.querySelectorAll('.review-star').forEach((btn) => {
-    btn.classList.toggle('active', Number(btn.dataset.value) <= value);
+    const on = Number(btn.dataset.value) <= value;
+    btn.classList.toggle('active', on);
+    btn.textContent = on ? '★' : '☆';
   });
 }
 reviewStarsEl.querySelectorAll('.review-star').forEach((btn) => {
