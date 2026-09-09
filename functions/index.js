@@ -3799,8 +3799,12 @@ const submitLifeGameReview = onCall({ cors: true, timeoutSeconds: 30, memory: '2
   const isAdmin = await isAdminUid(uid);
 
   if (!isAdmin) {
-    const endingsSnap = await db.ref('lifeGame/collection/' + uid + '/endings').get();
-    if (!endingsSnap.exists()) {
+    // lifeGame/collection은 계정 보호(구글/카카오/스트리머 인증) 유저만
+    // 기록되므로(recordCollectionEntryIfLoggedIn), 익명 유저는 방금 자기
+    // 게임을 끝냈어도 이 조건에 영원히 걸렸다 - 현재 저장 슬롯의 ending
+    // 필드로 바꿔 익명 유저도 즉시 작성 가능하게 한다(2026-09-09).
+    const endingSnap = await db.ref('lifeGame/playthroughs/' + uid + '/ending').get();
+    if (!endingSnap.exists()) {
       throw new HttpsError('failed-precondition', '게임을 한 번 완료해야 후기를 남길 수 있어요.');
     }
     await assertCooldown(uid, 'reviewEdit', REVIEW_EDIT_COOLDOWN_MS);

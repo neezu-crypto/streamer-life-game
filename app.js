@@ -2909,7 +2909,7 @@ async function showEnding(ending, stats, choiceHistory, familyMembers, occupatio
   // (아직 한 번도 완료 전)에 캐시해둔 "자격 없음" 판정이 남아있으면 첫 완주
   // 직후에도 폼이 안 뜨는 문제가 생긴다 - 매번 강제로 다시 확인한다.
   reviewEligibilityChecked = false;
-  setupReviewForm();
+  setupReviewForm(true);
 
   fadeIn([endingSection, choiceHistorySection, gallerySection, restartSection]);
   // fadeIn이 hidden 클래스를 떼고 강제 리플로우까지 끝낸 뒤라, 이 시점엔
@@ -3705,17 +3705,22 @@ function prefillReviewForm() {
   }
 }
 
-async function setupReviewForm() {
+async function setupReviewForm(knownEligible) {
   if (!currentUser || reviewEligibilityChecked) return;
   const uid = currentUser.uid;
   // 관리자 대리 작성(2026-09-09) - 관리자는 본인 완료 기록과 무관하게 항상
   // 후기 폼을 쓸 수 있어야 한다(서버 submitLifeGameReview도 동일하게 관리자만
-  // 이 조건을 건너뜀).
-  let eligible = isAdminUser;
+  // 이 조건을 건너뜀). knownEligible(2026-09-09 추가) - showEnding()은 방금
+  // 이 엔딩을 실제로 받은 시점에서 호출하므로 서버 재확인 없이 즉시 자격을
+  // 확정할 수 있다 - "엔딩에 도달하자마자" 지연 없이 폼이 뜨게 하기 위함.
+  let eligible = isAdminUser || !!knownEligible;
   if (!eligible) {
     try {
-      const endingsSnap = await get(ref(db, 'lifeGame/collection/' + uid + '/endings'));
-      eligible = endingsSnap.exists();
+      // lifeGame/collection(계정 보호 유저만 기록됨) 대신 현재 저장 슬롯의
+      // ending 필드를 본다 - 익명 유저도 방금 자기 게임을 끝냈으면 바로
+      // 반영되도록(2026-09-09, 사용자 리포트로 발견한 익명 유저 배제 문제).
+      const endingSnap = await get(ref(db, 'lifeGame/playthroughs/' + uid + '/ending'));
+      eligible = endingSnap.exists();
     } catch (e) {
       console.error('후기 작성 자격 확인 실패:', e);
       return;
