@@ -982,17 +982,20 @@ worldStateTab.addEventListener('click', () => {
 
 let selectedStreamerId = null;
 const searchSection = document.getElementById('searchSection');
+// 검색 카드에서 분리된 독립 영역(2026-09-09) - searchSection과 항상 표시/숨김을
+// 같이 한다(아래 fadeIn/fadeOut 호출부 전부에 짝지어 추가).
+const reviewSection = document.getElementById('reviewSection');
 const nameSection = document.getElementById('nameSection');
 const nameInput = document.getElementById('nameInput');
 function selectStreamer(name, id) {
   selectedStreamerId = id || null;
   nameInput.value = name;
-  fadeOut([searchSection]).then(() => fadeIn([nameSection]));
+  fadeOut([searchSection, reviewSection]).then(() => fadeIn([nameSection]));
 }
 
 document.getElementById('backToSearchBtn').addEventListener('click', async () => {
   await fadeOut([nameSection]);
-  fadeIn([searchSection]);
+  fadeIn([searchSection, reviewSection]);
   searchInput.focus();
 });
 
@@ -1019,7 +1022,7 @@ async function checkResume(uid) {
   } catch (e) {
     console.error('저장된 진행 확인 실패:', e);
   }
-  fadeIn([searchSection]);
+  fadeIn([searchSection, reviewSection]);
 }
 
 resumeBtn.addEventListener('click', async () => {
@@ -1059,7 +1062,7 @@ resumeBtn.addEventListener('click', async () => {
 
 document.getElementById('restartFreshBtn').addEventListener('click', async () => {
   await fadeOut([resumeSection]);
-  fadeIn([searchSection]);
+  fadeIn([searchSection, reviewSection]);
 });
 
 // ------------------------------------------------------------
@@ -2227,7 +2230,7 @@ startBtn.addEventListener('click', async () => {
   try {
     const multiplayerEnabled = !!multiplayerToggleStart.checked;
     const res = await startPlaythroughFn({ streamerName, streamerId: selectedStreamerId, multiplayerEnabled });
-    await fadeOut([searchSection, nameSection, mainHeader]);
+    await fadeOut([searchSection, reviewSection, nameSection, mainHeader]);
     renderStatBars(statBars, res.data.stats);
     renderAssets(res.data.assets, res.data.stage && res.data.stage.ageRange);
     renderCashHoldings(cashHoldingsEl, res.data.cashHoldings);
@@ -3830,7 +3833,7 @@ async function enterParticipantMode(hostUid, hostName) {
   mpHostPanel.classList.add('hidden');
   mpParticipantBanner.classList.remove('hidden');
   mpParticipantHostLabel.textContent = '🙋 ' + hostName + '님의 게임에 참가중';
-  await fadeOut([searchSection, nameSection, resumeSection, mainHeader]);
+  await fadeOut([searchSection, reviewSection, nameSection, resumeSection, mainHeader]);
   fadeIn([gameSection, worldStatePanel]);
 
   if (mpParticipantUnsub) mpParticipantUnsub();
@@ -4018,7 +4021,7 @@ function leaveParticipantMode() {
   mpParticipantBanner.classList.add('hidden');
   closeWorldStatePanel();
   fadeOut([gameSection, worldStatePanel]).then(() => {
-    fadeIn([searchSection, mainHeader]);
+    fadeIn([searchSection, reviewSection, mainHeader]);
   });
 }
 mpLeaveBtn.addEventListener('click', leaveParticipantMode);
