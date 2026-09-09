@@ -433,6 +433,10 @@
     border-radius: 8px; padding: 10px; font-size: 13px; font-weight: 700; cursor: pointer;
   }
   .sponsor-cta:hover { background: var(--gold-dim); }
+  /* 검색화면 자리는 나의 도감과 게임 카드 사이의 독립 영역이라(2026-09-09,
+     사용자 지시) .panel 내부 여백(16px 0 4px)이 아니라 .panel 형제 간
+     간격(20px)에 맞춘다. */
+  #sponsorBanner_search { margin: 0 0 20px; }
 
   .sponsor-anchor-banner {
     display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;

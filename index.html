@@ -57,6 +57,15 @@
     <button id="openCollectionBtn" class="text-link" type="button">📖 나의 도감</button>
   </header>
 
+  <div class="sponsor-banner" id="sponsorBanner_search">
+    <p class="sponsor-label">📢 오늘의 후원 스트리머</p>
+    <a class="sponsor-active hidden" id="sponsorActive_search" href="#" target="_blank" rel="noopener">
+      <img class="sponsor-avatar" id="sponsorAvatar_search" src="" alt="">
+      <span class="sponsor-name" id="sponsorName_search"></span>
+    </a>
+    <button class="sponsor-cta" id="sponsorCta_search" type="button">내 방송국 홍보하기</button>
+  </div>
+
   <section id="resumeSection" class="panel hidden">
     <h2>이어서 살아볼까요?</h2>
     <p id="resumeInfo" class="pitch" style="margin:0 0 14px;"></p>
@@ -68,14 +77,6 @@
 
   <section id="searchSection" class="panel hidden">
     <h2>1. 스트리머 검색</h2>
-    <div class="sponsor-banner" id="sponsorBanner_search">
-      <p class="sponsor-label">📢 오늘의 후원 스트리머</p>
-      <a class="sponsor-active hidden" id="sponsorActive_search" href="#" target="_blank" rel="noopener">
-        <img class="sponsor-avatar" id="sponsorAvatar_search" src="" alt="">
-        <span class="sponsor-name" id="sponsorName_search"></span>
-      </a>
-      <button class="sponsor-cta" id="sponsorCta_search" type="button">내 방송국 홍보하기</button>
-    </div>
     <input type="text" id="searchInput" placeholder="스트리머 이름을 검색해보세요" autocomplete="off">
     <div id="searchResults"></div>
     <!-- 멀티플레이(13장, 2026-08-24 구현) - 진행중인 게임 목록. multiplayerSessions
