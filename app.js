@@ -108,13 +108,6 @@ async function checkAdminStatus(uid) {
     openAdminPanelBtn.classList.remove('hidden');
     if (latestGallerySnapVal !== null) renderAdminGalleryList(latestGallerySnapVal);
     if (Object.keys(latestReviewsVal).length) renderAdminReviewList(latestReviewsVal);
-    // 관리자 판정이 setupReviewForm()의 완료 기록 확인보다 늦게 끝날 수
-    // 있어(둘 다 비동기, 순서 보장 없음), 이미 "완료 기록 없음"으로 한 번
-    // 잠겼더라도 관리자로 확인되면 다시 열어준다.
-    if (reviewEligibilityChecked) {
-      reviewEligibilityChecked = false;
-      setupReviewForm();
-    }
   } catch (e) {
     isAdminUser = false;
   }
@@ -2904,12 +2897,9 @@ async function showEnding(ending, stats, choiceHistory, familyMembers, occupatio
     shareBtn.textContent = '갤러리에 공유하기';
   }
 
-  // 게임 후기 작성 폼이 엔딩화면으로 옮겨왔다(2026-09-09, 사용자 지시). 이
-  // 엔딩이 방금 서버에서 collection에 기록된 뒤 도착한 응답이라, 세션 초반
-  // (아직 한 번도 완료 전)에 캐시해둔 "자격 없음" 판정이 남아있으면 첫 완주
-  // 직후에도 폼이 안 뜨는 문제가 생긴다 - 매번 강제로 다시 확인한다.
-  reviewEligibilityChecked = false;
-  setupReviewForm(true);
+  // 게임 후기 작성 폼이 엔딩화면 안에 있다(2026-09-09) - 엔딩을 달성했다는
+  // 조건 자체가 이 화면에 있다는 사실로 이미 보장되므로 별도 확인 없이 연다.
+  setupReviewForm();
 
   fadeIn([endingSection, choiceHistorySection, gallerySection, restartSection]);
   // fadeIn이 hidden 클래스를 떼고 강제 리플로우까지 끝낸 뒤라, 이 시점엔
@@ -3653,7 +3643,6 @@ onAuthStateChanged(auth, (user) => { if (user) renderMultiplayerSessionList(); }
 const reviewSummaryEl = document.getElementById('reviewSummary');
 const reviewListEl = document.getElementById('reviewList');
 const reviewFormWrapEl = document.getElementById('reviewFormWrap');
-const reviewLockedHintEl = document.getElementById('reviewLockedHint');
 const reviewStarsEl = document.getElementById('reviewStars');
 const reviewTextInputEl = document.getElementById('reviewTextInput');
 const reviewPromoteLabelEl = document.getElementById('reviewPromoteLabel');
@@ -3666,7 +3655,6 @@ const reviewFormHintEl = document.getElementById('reviewFormHint');
 
 let reviewSelectedRating = 0;
 let latestReviewsVal = {};
-let reviewEligibilityChecked = false;
 
 // 라이트 테마에서 --text-faint(꺼진 별)와 --gold(켜진 별)이 둘 다 비슷한 갈색
 // 계열이라 색만으로는 구분이 잘 안 된다는 실제 피드백(2026-09-08) - 목록의
@@ -3705,34 +3693,11 @@ function prefillReviewForm() {
   }
 }
 
-async function setupReviewForm(knownEligible) {
-  if (!currentUser || reviewEligibilityChecked) return;
-  const uid = currentUser.uid;
-  // 관리자 대리 작성(2026-09-09) - 관리자는 본인 완료 기록과 무관하게 항상
-  // 후기 폼을 쓸 수 있어야 한다(서버 submitLifeGameReview도 동일하게 관리자만
-  // 이 조건을 건너뜀). knownEligible(2026-09-09 추가) - showEnding()은 방금
-  // 이 엔딩을 실제로 받은 시점에서 호출하므로 서버 재확인 없이 즉시 자격을
-  // 확정할 수 있다 - "엔딩에 도달하자마자" 지연 없이 폼이 뜨게 하기 위함.
-  let eligible = isAdminUser || !!knownEligible;
-  if (!eligible) {
-    try {
-      // lifeGame/collection(계정 보호 유저만 기록됨) 대신 현재 저장 슬롯의
-      // ending 필드를 본다 - 익명 유저도 방금 자기 게임을 끝냈으면 바로
-      // 반영되도록(2026-09-09, 사용자 리포트로 발견한 익명 유저 배제 문제).
-      const endingSnap = await get(ref(db, 'lifeGame/playthroughs/' + uid + '/ending'));
-      eligible = endingSnap.exists();
-    } catch (e) {
-      console.error('후기 작성 자격 확인 실패:', e);
-      return;
-    }
-  }
-  reviewEligibilityChecked = true;
-  if (!eligible) {
-    reviewFormWrapEl.classList.add('hidden');
-    reviewLockedHintEl.classList.remove('hidden');
-    return;
-  }
-  reviewLockedHintEl.classList.add('hidden');
+// 후기 작성은 이제 엔딩화면 안에서만 노출되는 폼이라(2026-09-09), "엔딩을
+// 달성했는가"는 그 화면에 있다는 사실 자체로 이미 보장된다 - 별도 자격
+// 조건을 두지 않고 항상 채워서 보여준다.
+function setupReviewForm() {
+  if (!currentUser) return;
   reviewFormWrapEl.classList.remove('hidden');
   prefillReviewForm();
 }
@@ -3879,7 +3844,6 @@ async function renderReviewList(val) {
       });
     });
   }
-  setupReviewForm();
 }
 
 onValue(ref(db, 'lifeGame/reviews'), (snap) => {
@@ -3890,7 +3854,6 @@ onValue(ref(db, 'lifeGame/reviews'), (snap) => {
   console.error('후기 목록 읽기 실패:', err);
   reviewSummaryEl.textContent = '후기를 불러올 수 없습니다.';
 });
-onAuthStateChanged(auth, (user) => { if (user) setupReviewForm(); });
 
 function openJoinMultiplayerModal(hostUid, hostName) {
   mpPendingJoinHostUid = hostUid;

@@ -3792,21 +3792,16 @@ const submitLifeGameReview = onCall({ cors: true, timeoutSeconds: 30, memory: '2
   const db = getDatabase();
   await assertNotBanned(db, uid);
 
-  // 관리자 대리 작성(2026-09-09) - 익명 세션이 끊겨 완료 기록을 잃은
-  // 스트리머를 대신해 관리자가 후기를 남길 때는 "한 번 완료해야" 조건과
-  // 매크로 방지 쿨다운을 적용하지 않는다. 관리자 계정 하나로 여러 스트리머의
-  // 후기를 남겨야 하므로 아래에서 저장 방식도 일반 유저와 다르게 처리한다.
+  // 관리자 대리 작성(2026-09-09) - 관리자가 다른 스트리머를 대신해 후기를
+  // 남길 때는 매크로 방지 쿨다운을 적용하지 않는다(여러 스트리머의 후기를
+  // 연달아 남겨야 함). 관리자 계정 하나로 여러 건을 써야 하므로 아래에서
+  // 저장 방식도 일반 유저와 다르게 처리한다.
   const isAdmin = await isAdminUid(uid);
 
+  // 후기 작성 폼이 엔딩화면에만 있어(2026-09-09) 이 화면에 도달했다는
+  // 사실 자체가 이미 엔딩 달성을 의미하므로, 별도 완료 이력 조건은 두지
+  // 않는다. 매크로 방지 쿨다운은 관리자 대리 작성일 땐 그대로 건너뛴다.
   if (!isAdmin) {
-    // lifeGame/collection은 계정 보호(구글/카카오/스트리머 인증) 유저만
-    // 기록되므로(recordCollectionEntryIfLoggedIn), 익명 유저는 방금 자기
-    // 게임을 끝냈어도 이 조건에 영원히 걸렸다 - 현재 저장 슬롯의 ending
-    // 필드로 바꿔 익명 유저도 즉시 작성 가능하게 한다(2026-09-09).
-    const endingSnap = await db.ref('lifeGame/playthroughs/' + uid + '/ending').get();
-    if (!endingSnap.exists()) {
-      throw new HttpsError('failed-precondition', '게임을 한 번 완료해야 후기를 남길 수 있어요.');
-    }
     await assertCooldown(uid, 'reviewEdit', REVIEW_EDIT_COOLDOWN_MS);
   }
 

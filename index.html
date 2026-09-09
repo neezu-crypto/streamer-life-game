@@ -287,12 +287,9 @@
       <button class="sponsor-cta" id="sponsorCta_ending" type="button">내 방송국 홍보하기</button>
     </div>
 
-    <!-- 게임 후기 작성 폼(2026-09-09, 검색화면에서 엔딩화면으로 이동 - 사용자
-         지시 "게임 후기 작성은 게임 엔딩에서"). 계정당 1개(lifeGame/reviews/
-         {uid}), 완료 이력(도감에 엔딩 하나라도 있어야)이 있어야 작성 가능 -
-         서버가 최종 검증하지만 폼 자체도 미리 잠가서 헛수고를 막는다. 방금
-         이 엔딩이 collection에 기록된 직후라 자격은 매번 새로 확인한다
-         (app.js의 showEnding). -->
+    <!-- 게임 후기 작성 폼(2026-09-09, 검색화면에서 엔딩화면으로 이동). 이
+         화면에 있다는 사실 자체가 "엔딩 달성"을 의미하므로 별도 자격 조건
+         없이 항상 열려있다 - 계정당 1개(lifeGame/reviews/{uid}). -->
     <div class="asset-panel">
       <p class="asset-panel-title">📝 이 게임 어땠나요? 후기를 남겨주세요</p>
       <div id="reviewFormWrap" class="hidden" style="margin-top:8px;">
@@ -315,7 +312,6 @@
         <button class="primary" id="submitReviewBtn" style="margin-top:10px;">후기 남기기</button>
         <p id="reviewFormHint" class="empty-msg" style="margin-top:6px;"></p>
       </div>
-      <p id="reviewLockedHint" class="empty-msg hidden">게임을 한 번 완료하면 후기를 남길 수 있어요.</p>
     </div>
   </section>
 
