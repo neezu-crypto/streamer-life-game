@@ -1061,7 +1061,18 @@ function pickVisibleChoiceIds(choices, ctx) {
     const remainingSlots = mandatory.length >= 4 ? 2 : Math.max(0, 4 - mandatory.length);
     resultIds = mandatory.concat(shuffled.slice(0, remainingSlots)).map((c) => c.id);
   }
-  resultIds = resultIds.concat(bonusEligible.map((c) => c.id));
+  // 도구(hardware-*) 관련 bonusSlot 선택지는 여러 도구를 동시에 보유해도
+  // 한 나이에 최대 1개만 노출한다(2026-09-09, 사용자 지시 - "도구를 여러개
+  // 가지고 있어도 한 나이 안에서 하나의 도구 이벤트만 나오게 해줘"). 망치/
+  // 도끼/장도리 각각의 평소사용·빌려주기·좀비대응 이벤트와 제작 계기가 전부
+  // 독립 확률의 bonusSlot이라(HARDWARE_STORE_CHOICES), 도구를 여러 종류
+  // 보유하면 같은 턴에 여러 개가 동시에 걸릴 수 있었다.
+  const hardwareBonus = bonusEligible.filter((c) => c.id.startsWith('hardware-'));
+  const otherBonus = bonusEligible.filter((c) => !c.id.startsWith('hardware-'));
+  const dedupedBonus = otherBonus.concat(
+    hardwareBonus.length ? [hardwareBonus[Math.floor(Math.random() * hardwareBonus.length)]] : []
+  );
+  resultIds = resultIds.concat(dedupedBonus.map((c) => c.id));
 
   // requiresSufficientCash 안전망(2026-08-23) - "출현율은 그대로"라는 요청대로
   // requiresSufficientCash는 위 eligible 필터링에 전혀 관여하지 않는다. 그
