@@ -104,6 +104,13 @@ async function checkAdminStatus(uid) {
     isAdminUser = true;
     if (latestGallerySnapVal !== null) renderGalleryList(latestGallerySnapVal);
     renderAdminAutoPlayVisibility();
+    // 관리자 판정이 setupReviewForm()의 완료 기록 확인보다 늦게 끝날 수
+    // 있어(둘 다 비동기, 순서 보장 없음), 이미 "완료 기록 없음"으로 한 번
+    // 잠겼더라도 관리자로 확인되면 다시 열어준다.
+    if (reviewEligibilityChecked) {
+      reviewEligibilityChecked = false;
+      setupReviewForm();
+    }
   } catch (e) {
     isAdminUser = false;
   }
@@ -3595,13 +3602,18 @@ function prefillReviewForm() {
 async function setupReviewForm() {
   if (!currentUser || reviewEligibilityChecked) return;
   const uid = currentUser.uid;
-  let eligible = false;
-  try {
-    const endingsSnap = await get(ref(db, 'lifeGame/collection/' + uid + '/endings'));
-    eligible = endingsSnap.exists();
-  } catch (e) {
-    console.error('후기 작성 자격 확인 실패:', e);
-    return;
+  // 관리자 대리 작성(2026-09-09) - 관리자는 본인 완료 기록과 무관하게 항상
+  // 후기 폼을 쓸 수 있어야 한다(서버 submitLifeGameReview도 동일하게 관리자만
+  // 이 조건을 건너뜀).
+  let eligible = isAdminUser;
+  if (!eligible) {
+    try {
+      const endingsSnap = await get(ref(db, 'lifeGame/collection/' + uid + '/endings'));
+      eligible = endingsSnap.exists();
+    } catch (e) {
+      console.error('후기 작성 자격 확인 실패:', e);
+      return;
+    }
   }
   reviewEligibilityChecked = true;
   if (!eligible) {
@@ -3635,8 +3647,19 @@ submitReviewBtnEl.addEventListener('click', async () => {
   try {
     const result = await submitLifeGameReviewFn(payload);
     showToast('후기가 등록됐어요. 감사합니다!');
-    submitReviewBtnEl.textContent = '수정하기';
     reviewFormHintEl.textContent = '';
+    if (isAdminUser) {
+      // 관리자는 매번 새 후기를 남기는 것이므로(같은 후기를 "수정"하는 게
+      // 아님) 폼을 비워 바로 다음 스트리머 후기를 이어서 쓸 수 있게 한다.
+      setReviewStars(0);
+      reviewTextInputEl.value = '';
+      reviewPromoteCheckboxEl.checked = false;
+      reviewPromoteFieldsEl.classList.add('hidden');
+      reviewPromoteNicknameEl.value = '';
+      reviewPromoteSoopIdEl.value = '';
+    } else {
+      submitReviewBtnEl.textContent = '수정하기';
+    }
     if (result.data && result.data.promoteRequested) {
       requestStreamerVerificationFn({ nickname: payload.nickname, soopId: payload.soopId, source: 'life-game' })
         .then(() => { reviewFormHintEl.textContent = '스트리머 인증 신청도 함께 접수됐어요.'; })

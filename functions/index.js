@@ -3781,12 +3781,19 @@ const submitLifeGameReview = onCall({ cors: true, timeoutSeconds: 30, memory: '2
   const db = getDatabase();
   await assertNotBanned(db, uid);
 
-  const endingsSnap = await db.ref('lifeGame/collection/' + uid + '/endings').get();
-  if (!endingsSnap.exists()) {
-    throw new HttpsError('failed-precondition', '게임을 한 번 완료해야 후기를 남길 수 있어요.');
-  }
+  // 관리자 대리 작성(2026-09-09) - 익명 세션이 끊겨 완료 기록을 잃은
+  // 스트리머를 대신해 관리자가 후기를 남길 때는 "한 번 완료해야" 조건과
+  // 매크로 방지 쿨다운을 적용하지 않는다. 관리자 계정 하나로 여러 스트리머의
+  // 후기를 남겨야 하므로 아래에서 저장 방식도 일반 유저와 다르게 처리한다.
+  const isAdmin = await isAdminUid(uid);
 
-  await assertCooldown(uid, 'reviewEdit', REVIEW_EDIT_COOLDOWN_MS);
+  if (!isAdmin) {
+    const endingsSnap = await db.ref('lifeGame/collection/' + uid + '/endings').get();
+    if (!endingsSnap.exists()) {
+      throw new HttpsError('failed-precondition', '게임을 한 번 완료해야 후기를 남길 수 있어요.');
+    }
+    await assertCooldown(uid, 'reviewEdit', REVIEW_EDIT_COOLDOWN_MS);
+  }
 
   const data = request.data || {};
   const rating = Math.round(Number(data.rating));
@@ -3824,12 +3831,18 @@ const submitLifeGameReview = onCall({ cors: true, timeoutSeconds: 30, memory: '2
     }
     nickname = rawNickname;
     soopId = rawSoopId;
-    promoteRequested = true;
+    // 관리자 대리 작성은 실제 그 스트리머 본인의 신청이 아니므로 자동
+    // 스트리머 인증 신청을 걸지 않는다(promoteRequested=false면 클라이언트가
+    // requestStreamerVerification을 호출하지 않음) - 안 그러면 대리 작성할
+    // 때마다 근거 없는 인증 신청 로그가 계속 쌓인다.
+    promoteRequested = !isAdmin;
   }
 
-  const reviewRef = db.ref('lifeGame/reviews/' + uid);
-  const existingSnap = await reviewRef.get();
-  const createdAt = existingSnap.exists() && existingSnap.val().createdAt
+  // 관리자는 본인 uid 슬롯에 덮어쓰지 않고 매번 새 후기를 추가한다(여러
+  // 스트리머의 후기를 관리자 계정 하나로 대신 남길 수 있어야 하므로).
+  const reviewRef = isAdmin ? db.ref('lifeGame/reviews').push() : db.ref('lifeGame/reviews/' + uid);
+  const existingSnap = isAdmin ? null : await reviewRef.get();
+  const createdAt = (existingSnap && existingSnap.exists() && existingSnap.val().createdAt)
     ? existingSnap.val().createdAt
     : ServerValue.TIMESTAMP;
 
