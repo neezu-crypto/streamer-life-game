@@ -3207,18 +3207,22 @@ function renderSponsorBanners() {
   SPONSOR_SLOTS.forEach((slot) => {
     const activeEl = document.getElementById('sponsorActive_' + slot);
     const ctaEl = document.getElementById('sponsorCta_' + slot);
+    const labelEl = document.getElementById('sponsorLabel_' + slot);
     if (!activeEl || !ctaEl) return;
     if (active) {
-      activeEl.href = latestSponsor.stationLink || '#';
+      const link = document.getElementById('sponsorAvatarLink_' + slot);
       const img = document.getElementById('sponsorAvatar_' + slot);
       const name = document.getElementById('sponsorName_' + slot);
+      if (link) link.href = latestSponsor.stationLink || '#';
       if (img) img.src = latestSponsor.previewImg || '';
       if (name) name.textContent = latestSponsor.nickname || '';
       activeEl.classList.remove('hidden');
       ctaEl.classList.add('hidden');
+      if (labelEl) labelEl.classList.add('hidden');
     } else {
       activeEl.classList.add('hidden');
       ctaEl.classList.remove('hidden');
+      if (labelEl) labelEl.classList.remove('hidden');
     }
   });
 }

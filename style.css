@@ -419,15 +419,17 @@
     text-align: center; background: var(--panel-2);
   }
   .sponsor-label { margin: 0 0 8px; font-size: 12px; font-weight: 700; color: var(--text-faint); letter-spacing: 0.03em; }
-  .sponsor-active {
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    text-decoration: none; color: var(--text);
-  }
+  /* 노출 순서(2026-09-09, 사용자 지시): [프로필 이미지] - 닉네임 - "오늘의
+     후원 스트리머" 한 줄. 클릭 가능한 링크는 프로필 이미지 하나뿐이라
+     .sponsor-active 자체는 더 이상 <a>가 아니라 <div>다. */
+  .sponsor-active { display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .sponsor-avatar-link { display: inline-flex; flex-shrink: 0; }
   .sponsor-avatar {
     width: 40px; height: 40px; border-radius: 50%; object-fit: cover;
     background: var(--panel); flex-shrink: 0;
   }
-  .sponsor-name { font-size: 15px; font-weight: 700; }
+  .sponsor-name { font-size: 15px; font-weight: 700; color: var(--text); }
+  .sponsor-tag { font-size: 12px; font-weight: 700; color: var(--text-faint); }
   .sponsor-cta {
     width: 100%; background: transparent; border: 1px dashed var(--gold); color: var(--gold);
     border-radius: 8px; padding: 10px; font-size: 13px; font-weight: 700; cursor: pointer;
