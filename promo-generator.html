@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>홍보글 생성기 · 스트리머 인생게임</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #14110c; --panel: #1e1a13; --panel-2: #241f16;
+    --text: #ece3d0; --text-dim: #9a8f78; --text-faint: #6e6552;
+    --gold: #d4a24c; --gold-dim: rgba(212, 162, 76, 0.16);
+    --line: #362f23;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #e7dfca; --panel: #f6f1e2; --panel-2: #efe7d2;
+      --text: #241f16; --text-dim: #6b6250; --text-faint: #918770;
+      --gold: #9c6f22; --gold-dim: rgba(156,111,34,0.12);
+      --line: #d9cca5;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    font-size: 14.5px; line-height: 1.7;
+  }
+  h1, h2 { font-family: 'Bricolage Grotesque', sans-serif; }
+
+  .top {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--bg); border-bottom: 1px solid var(--line);
+    padding: 14px 20px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .top a { color: var(--text-dim); font-size: 13px; text-decoration: none; }
+  .top a:hover { color: var(--gold); }
+
+  .hero { padding: 36px 20px 16px; text-align: center; }
+  .eyebrow { color: var(--gold); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; margin: 0 0 8px; }
+  .hero h1 { font-size: 24px; font-weight: 800; margin: 0 0 8px; }
+  .hero p { color: var(--text-dim); font-size: 13.5px; margin: 0; }
+
+  .layout { max-width: 720px; margin: 0 auto; padding: 20px 20px 80px; }
+
+  .input-card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 18px; margin-bottom: 24px;
+  }
+  .input-card label { display: block; font-size: 12.5px; color: var(--text-dim); margin-bottom: 8px; font-weight: 700; }
+  .input-card input {
+    width: 100%; background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px;
+    padding: 12px 14px; font-size: 16px; color: var(--text); outline: none;
+  }
+  .input-card input:focus { border-color: var(--gold); }
+
+  .out-card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 16px 18px; margin-bottom: 18px;
+  }
+  .out-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .out-head h2 { font-size: 14px; font-weight: 700; margin: 0; }
+  .copy-btn {
+    background: var(--gold-dim); border: 1px solid var(--gold); color: var(--gold);
+    font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 8px; cursor: pointer;
+  }
+  .copy-btn:hover { opacity: 0.85; }
+  .copy-btn.copied { background: var(--gold); color: var(--bg); }
+
+  .out-box {
+    background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px;
+    padding: 12px 14px; white-space: pre-wrap; word-break: break-word;
+    font-size: 13px; color: var(--text); max-height: 320px; overflow-y: auto;
+  }
+  .out-box.code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; line-height: 1.6; }
+
+  footer { text-align: center; color: var(--text-faint); font-size: 12px; padding: 20px; }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a href="index.html">← 게임으로 돌아가기</a>
+  <span style="color:var(--text-faint); font-size:12px;">스트리머 인생게임 · 관리용</span>
+</div>
+
+<div class="hero">
+  <p class="eyebrow">Promo Generator</p>
+  <h1>홍보글 생성기</h1>
+  <p>스트리머 이름만 입력하면 제목·본문·HTML 코드를 바로 만들어줍니다.</p>
+</div>
+
+<div class="layout">
+  <div class="input-card">
+    <label for="streamer-name">스트리머 이름</label>
+    <input type="text" id="streamer-name" placeholder="예: 냥애웅" autocomplete="off">
+  </div>
+
+  <div class="out-card">
+    <div class="out-head">
+      <h2>제목</h2>
+      <button class="copy-btn" data-target="out-title">복사</button>
+    </div>
+    <div class="out-box" id="out-title"></div>
+  </div>
+
+  <div class="out-card">
+    <div class="out-head">
+      <h2>본문 (일반 텍스트)</h2>
+      <button class="copy-btn" data-target="out-body">복사</button>
+    </div>
+    <div class="out-box" id="out-body"></div>
+  </div>
+
+  <div class="out-card">
+    <div class="out-head">
+      <h2>HTML 코드 (SOOP 게시판용)</h2>
+      <button class="copy-btn" data-target="out-html">복사</button>
+    </div>
+    <div class="out-box code" id="out-html"></div>
+  </div>
+</div>
+
+<footer>스트리머 인생게임 · BY 오목지면시그</footer>
+
+<script>
+  const GAME_URL = 'https://neezu-crypto.github.io/streamer-life-game/';
+  const CREATOR_STATION_URL = 'https://www.sooplive.com/station/skftodwocks2';
+  const IMG_URLS = [
+    'https://stimg.sooplive.com/NORMAL_BBS/6/27867916/10281788670319832.png',
+    'https://stimg.sooplive.com/NORMAL_BBS/6/27867916/18281788670319843.png',
+  ];
+
+  const nameInput = document.getElementById('streamer-name');
+  const outTitle  = document.getElementById('out-title');
+  const outBody   = document.getElementById('out-body');
+  const outHtml   = document.getElementById('out-html');
+
+  function buildTitle(name) {
+    return `${name}의 운명은? [스트리머 인생게임]`;
+  }
+
+  function buildBody(name) {
+    return `${name}의 인생을 미리 점쳐보는 인생게임 출시!
+
+평범한 직장생활부터 차량 절도범까지 다양한 직업을 체험해보세요
+
+과연 ${name}의 인생은 어떻게 마무리될까요?
+
+[게임 정보]
+
+1. 무료
+
+2. 한국어 지원
+
+3. 플레이 타임 약 30분
+
+(다회차 플레이 가능)
+
+${GAME_URL}
+
+제작: 오목지면시그`;
+  }
+
+  function buildHtml(name) {
+    const figures = IMG_URLS.map((src) =>
+      `<figure data-paragraph-type="IMAGE_BLOCK" style="width: 1016px; margin-left: auto; margin-right: auto; position: relative; margin-bottom: 0; display: block; min-width: 1px; max-width: 100%; height: auto"><img src="${src}" alt="" style="width: 100%; height: auto; transition: opacity 0.3s" /></figure>`
+    ).join('\n');
+    const p = (text) => `<p data-paragraph-type="TEXT_BLOCK" style="text-align: center"><span style="font-size: 18px">${text}</span></p>`;
+    const empty = `<p data-paragraph-type="TEXT_BLOCK" style="text-align: center"></p>`;
+    return [
+      figures,
+      p(`${name}의 인생을 미리 점쳐보는 인생게임 출시!`),
+      p('평범한 직장생활부터 차량 절도범까지 다양한 직업을 체험해보세요'),
+      p(`과연 ${name}의 인생은 어떻게 마무리될까요?`),
+      empty,
+      p('[게임 정보]'),
+      p('1. 무료'),
+      p('2. 한국어 지원'),
+      p('3. 플레이 타임 약 30분'),
+      p('(다회차 플레이 가능)'),
+      empty,
+      `<p data-paragraph-type="TEXT_BLOCK" style="text-align: center"><span style="font-size: 18px"><a href="${GAME_URL}" class="editorTextLink">${GAME_URL}</a></span></p>`,
+      empty,
+      `<p data-paragraph-type="TEXT_BLOCK" style="text-align: center"><span style="font-size: 18px">제작: </span><span style="color: rgb(74, 144, 226); font-size: 18px"><a href="${CREATOR_STATION_URL}">오목지면시그</a></span></p>`,
+    ].join('\n');
+  }
+
+  function render() {
+    const name = nameInput.value.trim() || '스트리머명';
+    outTitle.textContent = buildTitle(name);
+    outBody.textContent  = buildBody(name);
+    outHtml.textContent  = buildHtml(name);
+  }
+
+  nameInput.addEventListener('input', render);
+  render();
+
+  document.querySelectorAll('.copy-btn').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const target = document.getElementById(btn.dataset.target);
+      const text = target.textContent;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (err) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      }
+      const original = btn.textContent;
+      btn.textContent = '복사됨!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1200);
+    });
+  });
+</script>
+
+</body>
+</html>
