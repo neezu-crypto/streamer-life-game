@@ -575,7 +575,7 @@
     color: var(--text-dim); text-decoration: none;
   }
   .review-profile-badge.verified { color: var(--gold); border-color: var(--gold); }
-  .review-profile-badge.pending { color: var(--text-faint); cursor: default; }
+  .review-profile-badge.pending { color: var(--text-faint); cursor: pointer; }
   .review-row-actions { display: flex; gap: 6px; }
   .review-row-actions button {
     padding: 3px 8px; font-size: 11.5px; border-radius: 6px;

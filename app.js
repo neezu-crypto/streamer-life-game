@@ -3673,7 +3673,7 @@ submitReviewBtnEl.addEventListener('click', async () => {
   }
 });
 
-async function reviewProfileBadgeHtml(uid, nickname) {
+async function reviewProfileBadgeHtml(uid, nickname, soopId) {
   try {
     const q = query(ref(db, 'streamerVerifications'), orderByChild('uid'), equalTo(uid));
     const snap = await get(q);
@@ -3686,7 +3686,11 @@ async function reviewProfileBadgeHtml(uid, nickname) {
   } catch (e) {
     console.error('프로필 인증 상태 확인 실패:', e);
   }
-  return '<span class="review-profile-badge pending">⏳ ' + escapeHtml(nickname) + ' (인증 대기중)</span>';
+  // 인증 대기중이어도 신청 시 입력한 soopId로 방송국 링크는 바로 열 수 있게
+  // 한다(2026-09-09, 사용자 지시) - 인증 배지(✅ 여부)만 실제 승인 여부를
+  // 따라가고, 링크 자체는 인증 상태와 무관하게 항상 동작.
+  const pendingStation = 'https://www.sooplive.com/station/' + encodeURIComponent(soopId || '');
+  return '<a class="review-profile-badge pending" href="' + pendingStation + '" target="_blank" rel="noopener noreferrer">⏳ ' + escapeHtml(nickname) + ' (인증 대기중)</a>';
 }
 
 async function renderReviewList(val) {
@@ -3702,7 +3706,7 @@ async function renderReviewList(val) {
     const myUid = currentUser ? currentUser.uid : null;
     const cards = await Promise.all(entries.slice(0, 30).map(async (e) => {
       const stars = '★'.repeat(e.rating || 0) + '☆'.repeat(5 - (e.rating || 0));
-      const badge = e.soopId ? await reviewProfileBadgeHtml(e.uid, e.nickname) : '';
+      const badge = e.soopId ? await reviewProfileBadgeHtml(e.uid, e.nickname, e.soopId) : '';
       const isMine = e.uid === myUid;
       let actions = isMine
         ? '<button type="button" class="review-delete-own-btn" data-uid="' + e.uid + '">삭제</button>'
