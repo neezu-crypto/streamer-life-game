@@ -410,82 +410,39 @@
   footer a:hover { color: var(--gold); }
   footer .footer-sep { margin: 0 4px; }
 
-  /* 15장 Google 광고 1단계에서 자리표시자로 만들어둔 위치에, AdSense 승인
-     전까지는 애드픽 캠페인 배너를 먼저 채운다(2026-09-07 - 광고메이트는
-     배너 홍보가 금지라 쇼핑메이트(CPS)로 전환, 상품 배너 이미지 자체가
-     링크). AdSense 승인 나면 #adSlotEnding/#adAnchorBanner 내부만
-     <ins class="adsbygoogle">로 교체하면 된다. */
-  .ad-slot {
-    margin: 16px 0 4px; padding: 16px; border: 1px solid var(--line); border-radius: 10px;
+  /* 후원 스트리머 배너(2026-09-09) - 검색화면 상단·엔딩화면·멀티플레이 참가·
+     모바일 하단배너 네 자리에 동일하게 쓰이는 공용 컴포넌트. 기존 애드픽
+     제휴 배너 3자리(엔딩/참가/앵커)를 대체한다 - 후원 중(.sponsor-active만
+     보임)이거나 비어있음(.sponsor-cta만 보임) 두 상태를 앱.js가 토글한다. */
+  .sponsor-banner {
+    margin: 16px 0 4px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 10px;
     text-align: center; background: var(--panel-2);
   }
-  .ad-slot-label { margin: 0; font-size: 12px; color: var(--text-faint); letter-spacing: 0.03em; }
+  .sponsor-label { margin: 0 0 8px; font-size: 12px; font-weight: 700; color: var(--text-faint); letter-spacing: 0.03em; }
+  .sponsor-active {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    text-decoration: none; color: var(--text);
+  }
+  .sponsor-avatar {
+    width: 40px; height: 40px; border-radius: 50%; object-fit: cover;
+    background: var(--panel); flex-shrink: 0;
+  }
+  .sponsor-name { font-size: 15px; font-weight: 700; }
+  .sponsor-cta {
+    width: 100%; background: transparent; border: 1px dashed var(--gold); color: var(--gold);
+    border-radius: 8px; padding: 10px; font-size: 13px; font-weight: 700; cursor: pointer;
+  }
+  .sponsor-cta:hover { background: var(--gold-dim); }
 
-  /* 애드픽 운영정책 6장 "공정거래위원회 정책 준수사항" + FAQ 세부 규정 -
-     '광고' 표기 필수, 본문 폰트 크기와 같거나 크게, "제공받습니다"처럼 단정적인
-     문구로, 콘텐츠 최상단에 노출. 13px는 이 게임 다른 곳의 일반 UI 텍스트와
-     같은 크기(작은 잔글씨가 아님) - font-weight도 700으로 본문보다 오히려 강조. */
-  .ad-disclosure {
-    margin: 0 0 8px; font-size: 13px; font-weight: 700; color: var(--gold);
-    text-align: center;
-  }
-
-  /* 캠페인 배너 이미지(2026-09-07, 쇼핑메이트 전환 이후) - 이미지 자체가
-     <a> 링크라 별도 CTA 버튼이 없다. 너비는 각 광고 영역(.ad-slot, 모달)의
-     실제 내부 폭에 맞춰 꽉 채우고, 데스크톱 엔딩화면처럼 영역 자체가 넓은
-     곳만 아래에서 따로 최대폭을 제한한다. */
-  .ad-creative {
-    display: block; width: 100%; height: auto; margin: 0 auto 10px;
-    border-radius: 8px;
-  }
-  #adSlotEnding .ad-creative { max-width: 280px; }
-
-  /* 엔딩화면 광고 슬라이드(2026-09-07) - 상품 썸네일 3장을 가로로 슬라이드
-     전환하며 보여준다. .ad-carousel-track을 300%(3장) 너비로 두고
-     translateX만 JS(app.js)에서 갱신 - 트랙 자체는 순수 CSS로 구조만 잡는다. */
-  .ad-carousel-link { display: block; }
-  .ad-carousel {
-    max-width: 280px; margin: 0 auto 10px; border-radius: 8px;
-    overflow: hidden; position: relative; aspect-ratio: 1 / 1;
-  }
-  .ad-carousel-track {
-    display: flex; width: 300%; height: 100%;
-    transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1);
-  }
-  .ad-carousel-slide { width: 33.3333%; height: 100%; object-fit: cover; flex-shrink: 0; }
-  .ad-carousel-dots {
-    position: absolute; left: 0; right: 0; bottom: 8px;
-    display: flex; justify-content: center; gap: 6px;
-  }
-  .ad-carousel-dots span {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: rgba(255,255,255,0.55); box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
-    transition: background 0.25s ease, transform 0.25s ease;
-  }
-  .ad-carousel-dots span.active { background: #fff; transform: scale(1.25); }
-  @media (prefers-reduced-motion: reduce) {
-    .ad-carousel-track { transition: none; }
-  }
-
-  .ad-anchor-banner {
+  .sponsor-anchor-banner {
     display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
     padding: 8px 14px 10px; background: var(--panel); border-top: 1px solid var(--line); text-align: center;
   }
-  /* 공간이 좁다고 여기서만 글자를 줄이면 "본문과 같거나 크게" 기준을 못
-     지키게 된다 - 크기는 그대로 두고 여백만 줄인다. */
-  .ad-anchor-banner .ad-disclosure { margin-bottom: 4px; }
-  /* 모바일 하단 고정 배너는 캠페인 배너 이미지 자체가 링크 - 원본 비율
-     그대로 두면 배너가 너무 높아져 선택지 버튼을 가리므로, 고정 높이 +
-     object-fit:cover로 위아래(또는 좌우)를 잘라 폭에 맞춘 얇은 띠로 노출. */
-  .ad-anchor-banner .ad-creative {
-    height: 72px; object-fit: cover; object-position: center; margin: 0 0 6px;
-  }
   @media (max-width: 640px) {
     /* 앵커 배너 높이만큼 본문 하단 여백을 늘려, 선택지 버튼(#gameSection 하단)이
-       배너에 가려지지 않게 한다 - 문구 한 줄(~22px) + 이미지 72px + 배너
-       상하 패딩(18px) + 여유값을 더한 150px. */
-    .ad-anchor-banner { display: block; }
-    .wrap { padding-bottom: 150px; }
+       배너에 가려지지 않게 한다. */
+    .sponsor-anchor-banner { display: block; }
+    .wrap { padding-bottom: 130px; }
   }
 
   /* 멀티플레이(13장, 2026-08-24 구현) */

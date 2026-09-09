@@ -57,6 +57,15 @@ const REVIEW_LINK_RE = /(https?:\/\/|www\.|\.(com|net|org|co\.kr|kr|io|me|ly|gg|
 const SOOP_ID_RE = /^[a-z0-9]{2,20}$/;
 const REVIEW_EDIT_COOLDOWN_MS = 10 * 1000;
 
+// 후원 스트리머 배너(2026-09-09) - soop-stock-market의 배너 신청과 동일한
+// "후원창(별풍선 결제) → 신청 접수 → 관리자 승인" 원칙. 승인되면 검색화면
+// 상단·엔딩화면·멀티플레이 참가·모바일 하단배너 네 자리 모두에 동시 노출되는
+// 단일 슬롯이라("오늘의 후원 스트리머"), 기존 애드픽 제휴 배너 3자리를
+// 대체한다.
+const MAX_SPONSOR_DAYS = 7;
+const SPONSOR_BALLOON_PRICE_PER_DAY = 10;
+const SPONSOR_REQUEST_COOLDOWN_MS = 60 * 1000;
+
 // 세계관 상태(World State) 트래커 엔진(2026-08-28, 56장 A항 설계 확정분 구현
 // 1단계 - 엔진만, 실제 트래커 콘텐츠는 다음 단계에서 game-data.js에 추가).
 // lifeGame/worldState/{key}/rate는 0~1 사이 값으로, 초기값 0.5(중립)에서
@@ -3874,6 +3883,51 @@ const adminDeleteLifeGameReview = onCall({ cors: true, timeoutSeconds: 30, memor
   return { ok: true, deletedUid: targetUid };
 });
 
+// 후원 스트리머 배너 신청 접수. 실제 후원은 후원창(별풍선 결제)으로 별도로
+// 이뤄지고, 여기서는 신청만 접수한다 - 적용(lifeGame/currentSponsor 갱신)은
+// 관리자가 후원 내역을 확인한 뒤 admin-center에서 승인해야만 이뤄진다.
+const submitLifeGameSponsorRequest = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const db = getDatabase();
+  await assertNotBanned(db, uid);
+  await assertCooldown(uid, 'sponsorRequest', SPONSOR_REQUEST_COOLDOWN_MS);
+
+  const data = request.data || {};
+  const nickname = (data.nickname || '').toString().trim().slice(0, REVIEW_NICKNAME_MAX_LEN);
+  const soopId = (data.soopId || '').toString().trim().toLowerCase();
+  const days = Math.round(Number(data.days));
+
+  if (!nickname || REVIEW_FORBIDDEN_RE.test(nickname)) {
+    throw new HttpsError('invalid-argument', '닉네임을 올바르게 입력해주세요.');
+  }
+  if (!SOOP_ID_RE.test(soopId)) {
+    throw new HttpsError('invalid-argument', 'SOOP 아이디는 영문 소문자/숫자 2~20자로 입력해주세요.');
+  }
+  if (!Number.isInteger(days) || days < 1 || days > MAX_SPONSOR_DAYS) {
+    throw new HttpsError('invalid-argument', `노출 기간은 1~${MAX_SPONSOR_DAYS}일 사이로 입력해주세요.`);
+  }
+
+  const prefix = soopId.slice(0, 2);
+  const previewImg = 'https://stimg.sooplive.com/LOGO/' + prefix + '/' + soopId + '/' + soopId + '.jpg';
+  const stationLink = 'https://www.sooplive.com/station/' + soopId;
+  const starBalloons = days * SPONSOR_BALLOON_PRICE_PER_DAY;
+
+  const ref = db.ref('lifeGame/sponsorRequests').push();
+  await ref.set({
+    nickname,
+    soopId,
+    previewImg,
+    stationLink,
+    days,
+    starBalloons,
+    status: 'pending',
+    requestedAt: ServerValue.TIMESTAMP,
+    requesterUid: uid
+  });
+
+  return { ok: true, id: ref.key, starBalloons };
+});
+
 // ------------------------------------------------------------
 // 멀티플레이 시청자 참여(13장, 2026-08-24 구현 착수) - 설계는 기획서 13장 참고.
 // 호스트 단독 결정권(투표는 표시용) 원칙이라, playthroughs는 그대로 두고
@@ -4200,4 +4254,4 @@ const logLifeGameVisit = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   return { ok: true, logged: true };
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount, logLifeGameVisit, submitLifeGameReview, deleteLifeGameReview, reportLifeGameReview, adminDeleteLifeGameReview };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount, logLifeGameVisit, submitLifeGameReview, deleteLifeGameReview, reportLifeGameReview, adminDeleteLifeGameReview, submitLifeGameSponsorRequest };

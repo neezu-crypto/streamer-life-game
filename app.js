@@ -77,6 +77,7 @@ const submitLifeGameReviewFn = httpsCallable(functions, 'submitLifeGameReview');
 const deleteLifeGameReviewFn = httpsCallable(functions, 'deleteLifeGameReview');
 const reportLifeGameReviewFn = httpsCallable(functions, 'reportLifeGameReview');
 const adminDeleteLifeGameReviewFn = httpsCallable(functions, 'adminDeleteLifeGameReview');
+const submitLifeGameSponsorRequestFn = httpsCallable(functions, 'submitLifeGameSponsorRequest');
 const googleProvider = new GoogleAuthProvider();
 
 let currentUser = null;
@@ -143,7 +144,6 @@ onAuthStateChanged(auth, (user) => {
     visitLogChecked = true;
     get(ref(db, 'users/' + user.uid + '/streamerVerified')).then((snap) => {
       isStreamerVerifiedUser = snap.val() === true;
-      applyAdCampaignVisibility();
       if (isStreamerVerifiedUser) logLifeGameVisitFn().catch((e) => console.error('접속 로그 실패:', e));
     }).catch((e) => console.error('인증 스트리머 여부 확인 실패:', e));
   }
@@ -2798,7 +2798,6 @@ async function showEnding(ending, stats, choiceHistory, familyMembers, occupatio
     shareBtn.disabled = false;
     shareBtn.textContent = '갤러리에 공유하기';
   }
-  applyAdCampaignVisibility();
 
   fadeIn([endingSection, choiceHistorySection, gallerySection, restartSection]);
   // fadeIn이 hidden 클래스를 떼고 강제 리플로우까지 끝낸 뒤라, 이 시점엔
@@ -3196,37 +3195,90 @@ let mpParticipantCurrentStage = null;
 let mpPendingJoinHostUid = null;
 let mpPendingJoinHostName = '';
 
-// 광고 캠페인 선택(2026-09-07, 사용자 지시 - "광고는 호스트/스트리머
-// 전용, 전체공개, 랜덤 노출하되 1게임당 한 종류, 선정된 광고의 이미지는
-// 노출기준에 맞춰 노출") - 게임(호스트로 시작/이어하기, 또는 참가자로
-// 누군가의 게임에 참가) 시작 시점에 한 번만 뽑아 그 판 내내 같은
-// 캠페인을 세 자리(엔딩화면/참가모달/모바일배너) 모두에 동일하게 적용한다.
-// 광고 A(보리보리)는 호스트이거나 인증 스트리머일 때만 후보에 들어가고,
-// 광고 B(YES24)·C(교복몰/의상대여)는 누구에게나 후보다 - 조건을 못
-// 만족하면 자동으로 B/C만 후보로 남아 항상 뭔가는 노출된다. 광고 C는
-// 하나의 캠페인이지만 내부에 두 상품 이미지가 있고 노출 기준이 갈린다 -
-// 호스트/스트리머면 교복몰(C1), 아니면 의상대여(C2) 이미지를 보여준다
-// (같은 구매 링크를 쓰므로 어느 쪽이 뜨든 캠페인 자체는 C 하나로 취급).
-// 참가 모달은 참가자 전환 직전(mpParticipantMode가 아직 안 바뀐 시점)에
-// 뽑아야 해서 이 함수의 eligibleForA를 호출부에서 직접 넘겨받는다.
-const adAnchorBanner = document.getElementById('adAnchorBanner');
-function isHostAdEligible() { return !mpParticipantMode || isStreamerVerifiedUser; }
-let selectedAdCampaign = null;
-function rollAdCampaign(eligibleForA) {
-  const pool = eligibleForA ? ['A', 'B', 'C'] : ['B', 'C'];
-  selectedAdCampaign = pool[Math.floor(Math.random() * pool.length)];
-}
-function applyAdCampaignVisibility(eligibleForA) {
-  if (typeof eligibleForA !== 'boolean') eligibleForA = isHostAdEligible();
-  if (!selectedAdCampaign) rollAdCampaign(eligibleForA);
-  const showId = selectedAdCampaign === 'C' ? (eligibleForA ? 'C1' : 'C2') : selectedAdCampaign;
-  ['ending', 'join', 'anchor'].forEach((slot) => {
-    ['A', 'B', 'C1', 'C2'].forEach((variant) => {
-      const el = document.getElementById('adCampaign' + variant + '_' + slot);
-      if (el) el.classList.toggle('hidden', variant !== showId);
-    });
+// 후원 스트리머 배너(2026-09-09) - 검색화면 상단·엔딩화면·멀티플레이 참가·
+// 모바일 하단배너 네 자리 모두 lifeGame/currentSponsor 하나를 그대로 반영한다
+// (기존 애드픽 제휴 배너 A/B/C 로테이션을 대체). 후원 중이 아니면(만료
+// 포함) 각 자리에 "내 방송국 홍보하기" CTA만 보여준다 - 로그인 여부와
+// 무관하게 항상 구독한다(currentSponsor는 공개 읽기 노드).
+const SPONSOR_SLOTS = ['search', 'ending', 'join', 'anchor'];
+let latestSponsor = null;
+function renderSponsorBanners() {
+  const active = !!(latestSponsor && latestSponsor.endAt > Date.now());
+  SPONSOR_SLOTS.forEach((slot) => {
+    const activeEl = document.getElementById('sponsorActive_' + slot);
+    const ctaEl = document.getElementById('sponsorCta_' + slot);
+    if (!activeEl || !ctaEl) return;
+    if (active) {
+      activeEl.href = latestSponsor.stationLink || '#';
+      const img = document.getElementById('sponsorAvatar_' + slot);
+      const name = document.getElementById('sponsorName_' + slot);
+      if (img) img.src = latestSponsor.previewImg || '';
+      if (name) name.textContent = latestSponsor.nickname || '';
+      activeEl.classList.remove('hidden');
+      ctaEl.classList.add('hidden');
+    } else {
+      activeEl.classList.add('hidden');
+      ctaEl.classList.remove('hidden');
+    }
   });
 }
+onValue(ref(db, 'lifeGame/currentSponsor'), (snap) => {
+  latestSponsor = snap.val();
+  renderSponsorBanners();
+});
+SPONSOR_SLOTS.forEach((slot) => {
+  const ctaEl = document.getElementById('sponsorCta_' + slot);
+  if (ctaEl) ctaEl.addEventListener('click', () => window.openSponsorModal());
+});
+
+const SPONSOR_BALLOON_PRICE_PER_DAY = 10;
+const SPONSOR_DONATION_URL = 'https://st.sooplive.com/app/gift_starballoon.php?szBjId=skftodwocks2&szWork=BJ_STATION&sys_type=web&location=station';
+const sponsorModal = document.getElementById('sponsorModal');
+const sponsorNicknameInput = document.getElementById('sponsorNicknameInput');
+const sponsorSoopIdInput = document.getElementById('sponsorSoopIdInput');
+const sponsorDaysInput = document.getElementById('sponsorDaysInput');
+const sponsorCostPreview = document.getElementById('sponsorCostPreview');
+const submitSponsorBtn = document.getElementById('submitSponsorBtn');
+
+function updateSponsorCostPreview() {
+  const days = parseInt(sponsorDaysInput.value, 10);
+  const cost = Number.isInteger(days) && days > 0 ? days * SPONSOR_BALLOON_PRICE_PER_DAY : 0;
+  sponsorCostPreview.textContent = cost.toLocaleString() + '개';
+}
+sponsorDaysInput.addEventListener('input', updateSponsorCostPreview);
+
+window.openSponsorModal = function () {
+  updateSponsorCostPreview();
+  sponsorModal.classList.remove('hidden');
+};
+window.closeSponsorModal = function () { sponsorModal.classList.add('hidden'); };
+document.getElementById('closeSponsorBtn').addEventListener('click', window.closeSponsorModal);
+
+submitSponsorBtn.addEventListener('click', async () => {
+  const nickname = sponsorNicknameInput.value.trim();
+  const soopId = sponsorSoopIdInput.value.trim().toLowerCase();
+  const days = parseInt(sponsorDaysInput.value, 10);
+  if (!nickname) { alert('닉네임을 입력해주세요.'); return; }
+  if (!/^[a-z0-9]{2,20}$/.test(soopId)) { alert('SOOP 아이디는 영문 소문자/숫자 2~20자로 입력해주세요.'); return; }
+  if (!Number.isInteger(days) || days < 1 || days > 7) { alert('노출 기간은 1~7일 사이로 입력해주세요.'); return; }
+
+  submitSponsorBtn.disabled = true;
+  try {
+    const result = await submitLifeGameSponsorRequestFn({ nickname, soopId, days });
+    alert('✅ 신청이 접수됐습니다! 후원창에서 별풍선 ' + result.data.starBalloons.toLocaleString() + '개를 후원해주세요.\n관리자가 확인 후 게재합니다.');
+    window.open(SPONSOR_DONATION_URL, '_blank');
+    sponsorNicknameInput.value = '';
+    sponsorSoopIdInput.value = '';
+    sponsorDaysInput.value = '7';
+    updateSponsorCostPreview();
+    window.closeSponsorModal();
+  } catch (e) {
+    alert((e && e.message) || '신청 중 오류가 발생했어요.');
+  } finally {
+    submitSponsorBtn.disabled = false;
+  }
+});
+
 let mpMyLastVoteChoiceId = null;
 let mpMyLastVoteStageId = null;
 
@@ -3361,8 +3413,6 @@ multiplayerToggleGame.addEventListener('change', async () => {
 
 async function enterHostMode() {
   mpParticipantMode = false;
-  rollAdCampaign(true);
-  applyAdCampaignVisibility(true);
   document.body.classList.remove('mp-participant-mode');
   mpParticipantBanner.classList.add('hidden');
   mpHostPanel.classList.remove('hidden');
@@ -3717,12 +3767,7 @@ joinMultiplayerSubmitBtn.addEventListener('click', async () => {
   try {
     const res = await joinMultiplayerSessionFn({ hostUid: mpPendingJoinHostUid, nickname });
     joinMultiplayerModal.classList.add('hidden');
-    // 참가자로 전환되는 시점이라 이 시점의 mpParticipantMode는 아직 갱신 전(호스트값
-    // 그대로)이라 isHostAdEligible()을 못 쓴다 - 참가자는 구조상 호스트일 수 없으니
-    // 인증 스트리머 여부만으로 직접 후보를 구성한다.
-    rollAdCampaign(isStreamerVerifiedUser);
     if (res.data.showAd) {
-      applyAdCampaignVisibility(isStreamerVerifiedUser);
       joinAdModal.classList.remove('hidden');
     } else {
       await enterParticipantMode(mpPendingJoinHostUid, mpPendingJoinHostName);
@@ -3747,7 +3792,6 @@ closeJoinAdBtn.addEventListener('click', async () => {
 // ------------------------------------------------------------
 async function enterParticipantMode(hostUid, hostName) {
   mpParticipantMode = true;
-  applyAdCampaignVisibility();
   mpParticipantHostUid = hostUid;
   mpMyLastVoteChoiceId = null;
   mpMyLastVoteStageId = null;
@@ -3938,7 +3982,6 @@ function leaveParticipantMode() {
   mpParticipantLatestVotes = {};
   mpParticipantCurrentStage = null;
   mpParticipantMode = false;
-  applyAdCampaignVisibility();
   mpParticipantHostUid = null;
   document.body.classList.remove('mp-participant-mode');
   mpParticipantBanner.classList.add('hidden');
@@ -3955,31 +3998,3 @@ mpLeaveBtn.addEventListener('click', leaveParticipantMode);
 onAuthStateChanged(auth, (user) => {
   if (user) attachMultiplayerHostListeners();
 });
-
-// 엔딩화면 광고 슬라이드(2026-09-07) - 상품 썸네일 3장을 슬라이드 전환하며
-// 자동으로 순환. #endingSection이 평소엔 hidden이라 화면에 안 보여도 트랙
-// 자체는 계속 도는 게 더 단순해서(가려진 요소의 transform은 비용이 거의
-// 없다) 굳이 가시성 감지는 안 붙였다.
-(function () {
-  var track = document.getElementById('adEndingCarouselTrack');
-  var dotsWrap = document.getElementById('adEndingCarouselDots');
-  if (!track || !dotsWrap) return;
-  var slideCount = track.children.length;
-  if (slideCount < 2) return;
-  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  for (var i = 0; i < slideCount; i++) {
-    var dot = document.createElement('span');
-    if (i === 0) dot.classList.add('active');
-    dotsWrap.appendChild(dot);
-  }
-  var dots = dotsWrap.children;
-  var current = 0;
-  function goTo(index) {
-    current = index;
-    track.style.transform = 'translateX(-' + (100 / slideCount) * index + '%)';
-    for (var i = 0; i < dots.length; i++) dots[i].classList.toggle('active', i === index);
-  }
-  setInterval(function () {
-    goTo((current + 1) % slideCount);
-  }, reduceMotion ? 4000 : 3000);
-})();
