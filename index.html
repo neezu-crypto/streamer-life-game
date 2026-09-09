@@ -55,6 +55,7 @@
     <h1>스트리머 인생게임</h1>
     <p class="pitch">좋아하는 스트리머의 이름으로 주인공을 만들고, 다양한 인생을 선택해보세요!</p>
     <button id="openCollectionBtn" class="text-link" type="button">📖 나의 도감</button>
+    <button id="openAdminPanelBtn" class="text-link hidden" type="button">🛠️ 관리자</button>
   </header>
 
   <div class="sponsor-banner" id="sponsorBanner_search">
@@ -411,6 +412,38 @@
     <p style="text-align:right;font-size:13px;color:var(--text-faint);margin:0 0 14px;">필요 별풍선: <b id="sponsorCostPreview" style="color:var(--gold);">70개</b></p>
     <button class="primary" id="submitSponsorBtn" type="button" style="width:100%;">신청하기</button>
     <button class="text-link" id="closeSponsorBtn" type="button">닫기</button>
+  </div>
+</div>
+
+<!-- 관리자 패널(2026-09-09) - 인생게임 자체 백엔드에 이미 있던(또는 리뷰/갤러리
+     카드에 흩어져 있던) 관리 기능을 한곳에 모은 탭. 봇 설정·후원 승인·계정
+     정지·통계처럼 통합 관리센터에서만 다루는 기능은 여기 포함하지 않는다
+     (사용자 확정 - "인생게임 자체 기능만 모아서 정리"). -->
+<div id="adminPanelModal" class="modal-overlay hidden">
+  <div class="modal-box" style="max-width:560px;">
+    <h2>🛠️ 관리자 패널</h2>
+
+    <div class="admin-panel-section">
+      <p class="admin-panel-section-title">📝 게임 후기 관리</p>
+      <div id="adminReviewList"><p class="empty-msg">불러오는 중...</p></div>
+    </div>
+
+    <div class="admin-panel-section">
+      <p class="admin-panel-section-title">🖼️ 갤러리 관리</p>
+      <div id="adminGalleryList"><p class="empty-msg">불러오는 중...</p></div>
+    </div>
+
+    <div class="admin-panel-section">
+      <p class="admin-panel-section-title">🗑️ 플레이스루(저장 슬롯) 삭제</p>
+      <p class="pitch" style="margin:0 0 8px;">문제가 있는 유저의 진행 슬롯을 uid로 직접 삭제해요.</p>
+      <div style="display:flex; gap:8px;">
+        <input type="text" id="adminPlaythroughUidInput" placeholder="대상 유저 uid" autocomplete="off" style="flex:1; min-width:0;">
+        <button id="adminDeletePlaythroughBtn" type="button" style="flex-shrink:0; white-space:nowrap;">삭제</button>
+      </div>
+      <p id="adminPlaythroughResult" class="empty-msg" style="margin-top:6px;"></p>
+    </div>
+
+    <button class="text-link" id="closeAdminPanelBtn" type="button">닫기</button>
   </div>
 </div>
 

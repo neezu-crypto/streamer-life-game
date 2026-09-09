@@ -78,6 +78,7 @@ const deleteLifeGameReviewFn = httpsCallable(functions, 'deleteLifeGameReview');
 const reportLifeGameReviewFn = httpsCallable(functions, 'reportLifeGameReview');
 const adminDeleteLifeGameReviewFn = httpsCallable(functions, 'adminDeleteLifeGameReview');
 const submitLifeGameSponsorRequestFn = httpsCallable(functions, 'submitLifeGameSponsorRequest');
+const adminDeletePlaythroughFn = httpsCallable(functions, 'adminDeletePlaythrough');
 const googleProvider = new GoogleAuthProvider();
 
 let currentUser = null;
@@ -104,6 +105,9 @@ async function checkAdminStatus(uid) {
     isAdminUser = true;
     if (latestGallerySnapVal !== null) renderGalleryList(latestGallerySnapVal);
     renderAdminAutoPlayVisibility();
+    openAdminPanelBtn.classList.remove('hidden');
+    if (latestGallerySnapVal !== null) renderAdminGalleryList(latestGallerySnapVal);
+    if (Object.keys(latestReviewsVal).length) renderAdminReviewList(latestReviewsVal);
     // 관리자 판정이 setupReviewForm()의 완료 기록 확인보다 늦게 끝날 수
     // 있어(둘 다 비동기, 순서 보장 없음), 이미 "완료 기록 없음"으로 한 번
     // 잠겼더라도 관리자로 확인되면 다시 열어준다.
@@ -567,6 +571,97 @@ document.getElementById('collectionLoginKakaoBtn').addEventListener('click', () 
 document.getElementById('collectionLoginStreamerBtn').addEventListener('click', () => {
   collectionModal.classList.add('hidden');
   window.openStreamerVerifyModal();
+});
+
+// 관리자 패널(2026-09-09) - 이 게임 자체 백엔드에 이미 있던 관리 기능(후기/
+// 갤러리 삭제, 저장 슬롯 삭제)을 한곳에 모은 탭. isAdminUser가 true일 때만
+// 헤더 버튼이 보이고(checkAdminStatus에서 토글), 목록은 기존 후기/갤러리
+// onValue 구독의 최신 값을 그대로 재사용한다(새 구독 불필요).
+const openAdminPanelBtn = document.getElementById('openAdminPanelBtn');
+const adminPanelModal = document.getElementById('adminPanelModal');
+const adminReviewListEl = document.getElementById('adminReviewList');
+const adminGalleryListEl = document.getElementById('adminGalleryList');
+const adminPlaythroughUidInput = document.getElementById('adminPlaythroughUidInput');
+const adminPlaythroughResultEl = document.getElementById('adminPlaythroughResult');
+
+openAdminPanelBtn.addEventListener('click', () => {
+  adminPanelModal.classList.remove('hidden');
+});
+document.getElementById('closeAdminPanelBtn').addEventListener('click', () => {
+  adminPanelModal.classList.add('hidden');
+});
+
+function renderAdminReviewList(val) {
+  const entries = Object.keys(val).map((uid) => Object.assign({ uid }, val[uid]));
+  if (!entries.length) {
+    adminReviewListEl.innerHTML = '<p class="empty-msg">등록된 후기가 없어요.</p>';
+    return;
+  }
+  entries.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+  adminReviewListEl.innerHTML = '<div class="admin-panel-list">' + entries.map((e) =>
+    '<div class="admin-panel-row"><span class="admin-panel-row-text">' +
+    '★' + (e.rating || 0) + ' · ' + escapeHtml(e.nickname || '(익명)') + ' · ' + escapeHtml(e.text || '') +
+    '</span><button type="button" class="admin-review-row-delete-btn" data-uid="' + e.uid + '">삭제</button></div>'
+  ).join('') + '</div>';
+  adminReviewListEl.querySelectorAll('.admin-review-row-delete-btn').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      if (!confirm('이 후기를 삭제할까요? 되돌릴 수 없습니다.')) return;
+      btn.disabled = true;
+      try {
+        await adminDeleteLifeGameReviewFn({ uid: btn.dataset.uid });
+      } catch (e) {
+        console.error('관리자 후기 삭제 실패:', e);
+        alert('삭제에 실패했어요: ' + (e.message || e));
+        btn.disabled = false;
+      }
+    });
+  });
+}
+
+function renderAdminGalleryList(val) {
+  const entries = Object.keys(val)
+    .map((id) => Object.assign({ id }, val[id]))
+    .sort((a, b) => (b.sharedAt || 0) - (a.sharedAt || 0));
+  if (!entries.length) {
+    adminGalleryListEl.innerHTML = '<p class="empty-msg">공유된 인생이 없어요.</p>';
+    return;
+  }
+  adminGalleryListEl.innerHTML = '<div class="admin-panel-list">' + entries.map((e) =>
+    '<div class="admin-panel-row"><span class="admin-panel-row-text">' +
+    escapeHtml(e.streamerName || '이름 없음') + ' · ' + escapeHtml((e.ending && e.ending.title) || '') +
+    '</span><button type="button" class="admin-gallery-row-delete-btn" data-id="' + e.id + '">삭제</button></div>'
+  ).join('') + '</div>';
+  adminGalleryListEl.querySelectorAll('.admin-gallery-row-delete-btn').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      if (!confirm('이 갤러리 항목을 삭제할까요? 되돌릴 수 없습니다.')) return;
+      btn.disabled = true;
+      try {
+        await adminDeleteGalleryEntryFn({ entryId: btn.dataset.id });
+      } catch (e) {
+        console.error('관리자 갤러리 삭제 실패:', e);
+        alert('삭제에 실패했어요: ' + (e.message || e));
+        btn.disabled = false;
+      }
+    });
+  });
+}
+
+document.getElementById('adminDeletePlaythroughBtn').addEventListener('click', async () => {
+  const targetUid = adminPlaythroughUidInput.value.trim();
+  if (!targetUid) return alert('삭제할 유저의 uid를 입력해주세요.');
+  if (!confirm('uid "' + targetUid + '"의 저장 슬롯을 삭제할까요? 되돌릴 수 없습니다.')) return;
+  const btn = document.getElementById('adminDeletePlaythroughBtn');
+  btn.disabled = true;
+  try {
+    await adminDeletePlaythroughFn({ targetUid });
+    adminPlaythroughResultEl.textContent = '✅ 삭제했어요: ' + targetUid;
+    adminPlaythroughUidInput.value = '';
+  } catch (e) {
+    console.error('관리자 플레이스루 삭제 실패:', e);
+    adminPlaythroughResultEl.textContent = '❌ 삭제 실패: ' + (e.message || e);
+  } finally {
+    btn.disabled = false;
+  }
 });
 
 // ------------------------------------------------------------
@@ -3083,6 +3178,7 @@ onValue(ref(db, 'lifeGame/gallery'), (snap) => {
   const val = snap.val() || {};
   latestGallerySnapVal = val;
   renderGalleryList(val);
+  if (isAdminUser) renderAdminGalleryList(val);
 }, (err) => {
   console.error('갤러리 읽기 실패:', err);
   galleryList.innerHTML = '<p class="empty-msg">갤러리를 불러올 수 없습니다.</p>';
@@ -3775,7 +3871,9 @@ async function renderReviewList(val) {
 }
 
 onValue(ref(db, 'lifeGame/reviews'), (snap) => {
-  renderReviewList(snap.val() || {});
+  const val = snap.val() || {};
+  renderReviewList(val);
+  if (isAdminUser) renderAdminReviewList(val);
 }, (err) => {
   console.error('후기 목록 읽기 실패:', err);
   reviewSummaryEl.textContent = '후기를 불러올 수 없습니다.';
