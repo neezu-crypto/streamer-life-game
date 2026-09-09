@@ -2904,6 +2904,13 @@ async function showEnding(ending, stats, choiceHistory, familyMembers, occupatio
     shareBtn.textContent = '갤러리에 공유하기';
   }
 
+  // 게임 후기 작성 폼이 엔딩화면으로 옮겨왔다(2026-09-09, 사용자 지시). 이
+  // 엔딩이 방금 서버에서 collection에 기록된 뒤 도착한 응답이라, 세션 초반
+  // (아직 한 번도 완료 전)에 캐시해둔 "자격 없음" 판정이 남아있으면 첫 완주
+  // 직후에도 폼이 안 뜨는 문제가 생긴다 - 매번 강제로 다시 확인한다.
+  reviewEligibilityChecked = false;
+  setupReviewForm();
+
   fadeIn([endingSection, choiceHistorySection, gallerySection, restartSection]);
   // fadeIn이 hidden 클래스를 떼고 강제 리플로우까지 끝낸 뒤라, 이 시점엔
   // scoreChartEl.clientWidth가 이미 실제 레이아웃 폭을 갖고 있다(숨겨진 채로
