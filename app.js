@@ -658,20 +658,39 @@ document.getElementById('adminDeletePlaythroughBtn').addEventListener('click', a
 });
 
 // ------------------------------------------------------------
-// 1) 스트리머 검색 - {id,name} 목록을 정적 파일(streamer-names.json)에서 받아
-// 클라이언트에서 부분일치 필터(soop-stock-market 자체 검색창과 동일한 패턴 -
-// 인덱스가 없어서 이 방식이 맞다). stocks 노드를 직접 읽던 걸 정적 파일로
-// 바꾼 이유(2026-08-18) - stocks는 가격·거래량 등 이 검색엔 안 쓰는 필드까지
-// 포함해 매번 훨씬 큰 용량을 받게 되고, 접속자마다 각자 다운로드하는 구조라
-// 앞으로 시청자도 같은 페이지에 동시 접속하는 멀티플레이가 되면 그 인원수만큼
-// RTDB 다운로드 비용이 곱해진다. streamer-names.json은 이름 검색에 필요한
-// 최소 데이터만 담아 정적 호스팅(CDN 캐시)으로 서빙하고, scripts/update-
-// streamer-names.js를 수동 실행할 때만 최신화한다(스케줄러 없음 - 사용자 지시).
+// 1) 스트리머 검색 - {id,name} 목록을 정적 파일(streamer-names.json, 수동 스크립트로만
+// 갱신)에서 받던 걸 RTDB 파생 노드(streamerNames)로 전환(2026-09) - 새 종목이
+// stocks에 등록돼도 사람이 스크립트를 안 돌리면 검색에 며칠씩 안 나타나는 문제가
+// 반복돼서, /stocks 변경을 감시하는 Cloud Function 트리거(soop-stock-market의
+// syncStreamerNameOnStockChange)가 이름만 뽑은 가벼운 파생 노드를 자동으로 최신화하게
+// 바꿨다. stocks 노드를 직접 구독하지 않는 이유는 그대로 유효 - 가격·거래량이 거래마다
+// 계속 바뀌는 무거운 노드라 이 검색엔 안 쓰는 필드까지 실시간으로 받게 된다.
+// streamerNamesMeta/updatedAt(작은 값 하나)만 먼저 확인해서 localStorage 캐시와
+// 같으면 재다운로드 없이 캐시를 그대로 쓰고, 다를 때만 streamerNames 전체를 다시
+// 받는다 - onValue(실시간 구독)는 쓰지 않는다(거래마다 재전송되는 문제 재발 방지).
 // ------------------------------------------------------------
 let allStocks = [];
-fetch('./streamer-names.json').then((res) => res.json()).then((data) => {
-  allStocks = data;
-}).catch((e) => console.error('스트리머 이름 목록을 불러오지 못했습니다:', e));
+const STREAMER_NAMES_CACHE_KEY = 'slgStreamerNamesCache';
+async function loadStreamerNames() {
+  try {
+    const metaSnap = await get(ref(db, 'streamerNamesMeta/updatedAt'));
+    const remoteUpdatedAt = metaSnap.val();
+    let cached = null;
+    try { cached = JSON.parse(localStorage.getItem(STREAMER_NAMES_CACHE_KEY) || 'null'); } catch (e) {}
+    if (cached && cached.updatedAt === remoteUpdatedAt && Array.isArray(cached.names)) {
+      allStocks = cached.names;
+      return;
+    }
+    const namesSnap = await get(ref(db, 'streamerNames'));
+    const data = namesSnap.val() || {};
+    const names = Object.keys(data).map((id) => ({ id, name: data[id] }));
+    allStocks = names;
+    try { localStorage.setItem(STREAMER_NAMES_CACHE_KEY, JSON.stringify({ updatedAt: remoteUpdatedAt, names })); } catch (e) {}
+  } catch (e) {
+    console.error('스트리머 이름 목록을 불러오지 못했습니다:', e);
+  }
+}
+loadStreamerNames();
 
 function escapeHtml(s) {
   return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -708,7 +727,7 @@ wireStreamerSearch(searchInput, searchResults, '일치하는 스트리머가 없
 
 // ------------------------------------------------------------
 // 주식 매수 검색 모달(2026-08-28, 56장 D항) - 위 시작화면 검색과 같은
-// allStocks/streamer-names.json 데이터를 재사용하되, 결과 클릭 시
+// allStocks(streamerNames RTDB 파생 노드) 데이터를 재사용하되, 결과 클릭 시
 // selectStreamer가 아니라 pendingStockChoiceId를 채워 submitChoice로
 // 이어지는 별도 콜백(selectStockToBuy)으로 분기한다.
 // ------------------------------------------------------------
