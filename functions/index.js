@@ -1461,17 +1461,28 @@ function cashUnitForAge(age) {
   return 5200000;
 }
 
-// 지인 상세용 이름 목록 - stocks 노드를 매번(또는 캐시 만료마다) RTDB에서 직접
-// 읽던 걸 정적 파일 require로 바꿨다(2026-08-18, 사용자 지시 - 앞으로 시청자도
-// 같은 판에 동시 접속하는 멀티플레이가 되면 요청량이 크게 늘 텐데, RTDB를 매번
-// 읽는 구조로는 그만큼 다운로드 비용이 곱해지기 때문). scripts/update-streamer-
-// names.js를 수동 실행하면 이 파일과 클라이언트가 쓰는 루트의 동명 파일이 함께
-// 갱신된다 - 스케줄러 없음, 필요할 때만 사용자가 직접 실행. require는 콜드
-// 스타트 시 한 번만 파일을 읽고 이후엔 메모리에 상주하므로 이제 TTL 캐시나
-// db 인자, async 처리가 전부 필요 없다.
-const STREAMER_NAMES = require('./streamer-names.json').map((s) => s.name).filter(Boolean);
-
-function pickRandomStreamerName() {
+// 지인 상세용 이름 목록 - 정적 파일 require(2026-08-18 결정, RTDB 매 호출 비용
+// 회피 목적)를 RTDB 파생 노드(streamerNames, soop-stock-market의
+// syncStreamerNameOnStockChange 트리거가 자동 최신화)로 전환(2026-09). 콜드
+// 스타트 후 최초 호출 때 딱 1번만 RTDB에서 읽어 메모리에 캐싱하고 이후엔 그대로
+// 재사용하므로, require()가 갖던 "매 호출마다 비용이 곱해지지 않는다"는 성질을
+// 그대로 유지한다 - 정적 파일처럼 수동 갱신 스크립트를 돌려줘야 하는 부담만
+// 없앤 것. 동시에 여러 요청이 콜드 스타트 직후 몰려도 RTDB를 중복으로 여러 번
+// 읽지 않도록 로딩 중인 Promise 자체를 재사용한다(streamerNamesLoadPromise).
+let STREAMER_NAMES = [];
+let streamerNamesLoadPromise = null;
+async function ensureStreamerNamesLoaded(db) {
+  if (STREAMER_NAMES.length) return;
+  if (!streamerNamesLoadPromise) {
+    streamerNamesLoadPromise = db.ref('streamerNames').get().then((snap) => {
+      const data = snap.val() || {};
+      STREAMER_NAMES = Object.values(data).filter(Boolean);
+    });
+  }
+  await streamerNamesLoadPromise;
+}
+async function pickRandomStreamerName(db) {
+  await ensureStreamerNamesLoaded(db);
   if (!STREAMER_NAMES.length) return '이름 모를 이';
   return STREAMER_NAMES[Math.floor(Math.random() * STREAMER_NAMES.length)];
 }
@@ -2038,11 +2049,11 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
   if (choice.addAcquaintance) {
     const addCount = choice.addAcquaintance.count || 1;
     const usedNames = new Set(acquaintances.map((a) => a.name));
-    const pickFallbackName = () => {
-      let name = pickRandomStreamerName();
+    const pickFallbackName = async () => {
+      let name = await pickRandomStreamerName(db);
       let retries = 0;
       while (usedNames.has(name) && retries < 10) {
-        name = pickRandomStreamerName();
+        name = await pickRandomStreamerName(db);
         retries++;
       }
       return name;
@@ -2057,7 +2068,7 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
         voterIdx++;
         if (!usedNames.has(candidate)) acquaintanceName = candidate;
       }
-      if (!acquaintanceName) acquaintanceName = pickFallbackName();
+      if (!acquaintanceName) acquaintanceName = await pickFallbackName();
       usedNames.add(acquaintanceName);
       acquaintances.push({
         id: acquaintanceId,
@@ -2796,7 +2807,7 @@ async function startBotPlaythrough(db, botUid) {
   const worldStateRates = await fetchWorldStateRates(db);
   const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices, { introId: currentIntroId, locationId: DEFAULT_LOCATION.id, worldStateRates });
   await playRefFor(db, botUid).set({
-    streamerName: pickRandomStreamerName(),
+    streamerName: await pickRandomStreamerName(db),
     streamerId: null,
     stats,
     stageIndex: 0,
@@ -4126,23 +4137,31 @@ const kickParticipant = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB
       ...(Array.isArray(hostPlay.acquaintances) ? hostPlay.acquaintances.map((a) => a.name) : []),
       ...(Array.isArray(hostPlay.familyMembers) ? hostPlay.familyMembers.filter((f) => f.name).map((f) => f.name) : [])
     ]);
-    const renamePick = () => {
-      let name = pickRandomStreamerName();
+    const renamePick = async () => {
+      let name = await pickRandomStreamerName(db);
       let retries = 0;
-      while (usedNames.has(name) && retries < 10) { name = pickRandomStreamerName(); retries++; }
+      while (usedNames.has(name) && retries < 10) { name = await pickRandomStreamerName(db); retries++; }
       usedNames.add(name);
       return name;
     };
+    // .map()을 Promise.all(async map)로 바꾸면 각 콜백이 동시에(interleaved)
+    // 실행되면서 여러 콜백이 usedNames.add()가 반영되기 전에 서로의 pick을 못
+    // 보고 중복 이름을 배정할 수 있다(usedNames는 renamePick 안에서 await 이후에
+    // 갱신되므로) - 기존 동기 .map()과 정확히 같은 "한 번에 하나씩" 순서를
+    // 보장하려고 일부러 순차 for...of로 바꿨다. 두 목록(지인/가족)이 같은
+    // usedNames를 공유하므로 순서(지인 먼저, 그다음 가족)도 원래 코드와 동일하게 유지.
     let acqChanged = false;
-    const acquaintances = (Array.isArray(hostPlay.acquaintances) ? hostPlay.acquaintances : []).map((a) => {
-      if (a.name === targetNickname) { acqChanged = true; return Object.assign({}, a, { name: renamePick() }); }
-      return a;
-    });
+    const acquaintances = [];
+    for (const a of (Array.isArray(hostPlay.acquaintances) ? hostPlay.acquaintances : [])) {
+      if (a.name === targetNickname) { acqChanged = true; acquaintances.push(Object.assign({}, a, { name: await renamePick() })); }
+      else { acquaintances.push(a); }
+    }
     let famChanged = false;
-    const familyMembers = (Array.isArray(hostPlay.familyMembers) ? hostPlay.familyMembers : []).map((f) => {
-      if (f.name === targetNickname) { famChanged = true; return Object.assign({}, f, { name: renamePick() }); }
-      return f;
-    });
+    const familyMembers = [];
+    for (const f of (Array.isArray(hostPlay.familyMembers) ? hostPlay.familyMembers : [])) {
+      if (f.name === targetNickname) { famChanged = true; familyMembers.push(Object.assign({}, f, { name: await renamePick() })); }
+      else { familyMembers.push(f); }
+    }
     if (acqChanged) tasks.push(hostPlayRef.child('acquaintances').set(acquaintances));
     if (famChanged) tasks.push(hostPlayRef.child('familyMembers').set(familyMembers));
   }
