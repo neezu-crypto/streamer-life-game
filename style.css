@@ -553,6 +553,13 @@
     font-family: inherit; resize: vertical; min-height: 72px;
   }
   textarea:focus { border-color: var(--gold); }
+  /* 후기 작성 카드(2026-09-11) - .sponsor-banner와 같은 개별 카드 문법(테두리+
+     배경)을 재사용해, 그냥 흘러가는 .asset-panel 구획들과 구분되는 액션
+     카드로 보이게 한다. */
+  .review-write-panel {
+    margin: 16px 0 14px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 10px;
+    background: var(--panel-2);
+  }
   .review-stars { display: flex; gap: 4px; margin-bottom: 10px; }
   .review-star {
     padding: 4px 8px; font-size: 22px; line-height: 1; color: var(--text-faint);
