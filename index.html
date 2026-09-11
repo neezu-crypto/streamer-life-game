@@ -287,13 +287,23 @@
       <button class="sponsor-cta" id="sponsorCta_ending" type="button">내 방송국 홍보하기</button>
     </div>
 
-    <!-- 게임 후기 작성 폼(2026-09-09, 검색화면에서 엔딩화면으로 이동). 이
-         화면에 있다는 사실 자체가 "엔딩 달성"을 의미하므로 별도 자격 조건
-         없이 항상 열려있다 - 계정당 1개(lifeGame/reviews/{uid}).
-         2026-09-11: 다른 스탯 표시용 .asset-panel(테두리/배경 없이 그냥
-         흘러가는 구획)과 섞여 있으면 "작성해야 하는 액션"이라는 느낌이
-         묻히므로, .sponsor-banner와 같은 개별 카드 스타일(.review-write-panel)로
-         분리 - 위치는 그대로(다시 태어나기 섹션보다 앞) 유지. -->
+  </section>
+
+  <section id="choiceHistorySection" class="panel hidden">
+    <h2>지금까지 선택한 선택지</h2>
+    <div id="choiceHistoryList" class="choice-history-list"></div>
+  </section>
+
+  <!-- 게임 후기 작성 폼(2026-09-09, 검색화면에서 엔딩화면으로 이동). 이
+       화면에 있다는 사실 자체가 "엔딩 달성"을 의미하므로 별도 자격 조건
+       없이 항상 열려있다 - 계정당 1개(lifeGame/reviews/{uid}).
+       2026-09-11: 다른 스탯 표시용 .asset-panel(테두리/배경 없이 그냥
+       흘러가는 구획)과 섞여 있으면 "작성해야 하는 액션"이라는 느낌이
+       묻히므로 .sponsor-banner와 같은 개별 카드 스타일(.review-write-panel)로
+       분리했고, 이후 "지금까지 선택한 선택지" 아래 순서로 이동(사용자 지시,
+       엔딩 통계 구획들이 아니라 독립 섹션으로 endingSection 밖에 위치) -
+       다시 태어나기(#restartSection) 섹션보다는 여전히 앞. -->
+  <section id="reviewWriteSection" class="panel hidden">
     <div class="review-write-panel">
       <p class="asset-panel-title">📝 이 게임 어땠나요? 후기를 남겨주세요</p>
       <div id="reviewFormWrap" class="hidden" style="margin-top:8px;">
@@ -317,11 +327,6 @@
         <p id="reviewFormHint" class="empty-msg" style="margin-top:6px;"></p>
       </div>
     </div>
-  </section>
-
-  <section id="choiceHistorySection" class="panel hidden">
-    <h2>지금까지 선택한 선택지</h2>
-    <div id="choiceHistoryList" class="choice-history-list"></div>
   </section>
 
   <section id="gallerySection" class="panel hidden">

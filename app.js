@@ -2840,6 +2840,7 @@ const endingTalentsEl = document.getElementById('endingTalents');
 const endingHobbiesEl = document.getElementById('endingHobbies');
 const choiceHistorySection = document.getElementById('choiceHistorySection');
 const choiceHistoryList = document.getElementById('choiceHistoryList');
+const reviewWriteSection = document.getElementById('reviewWriteSection');
 const gallerySection = document.getElementById('gallerySection');
 const restartSection = document.getElementById('restartSection');
 const shareBtn = document.getElementById('shareBtn');
@@ -2920,7 +2921,7 @@ async function showEnding(ending, stats, choiceHistory, familyMembers, occupatio
   // 조건 자체가 이 화면에 있다는 사실로 이미 보장되므로 별도 확인 없이 연다.
   setupReviewForm();
 
-  fadeIn([endingSection, choiceHistorySection, gallerySection, restartSection]);
+  fadeIn([endingSection, choiceHistorySection, reviewWriteSection, gallerySection, restartSection]);
   // fadeIn이 hidden 클래스를 떼고 강제 리플로우까지 끝낸 뒤라, 이 시점엔
   // scoreChartEl.clientWidth가 이미 실제 레이아웃 폭을 갖고 있다(숨겨진 채로
   // 그리면 폭 0으로 그려져 버림).
