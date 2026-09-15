@@ -206,10 +206,13 @@ function isDeviantOccupation(occupation) {
   return !!(occupation && DEVIANT_OCCUPATION_IDS.includes(occupation.id));
 }
 
-// "범죄"로 세는 선택지 - 일탈 직업 소속이면서 발각 위험(dynamicPrizeWeight)이
-// 실제로 붙은 것만 카운트한다(같은 직업의 평범한 소득 선택지는 범죄가 아님).
+// "범죄"로 세는 선택지 - 일탈 직업 소속이면서 발각 위험(prizeTable)이 실제로 붙은
+// 것만 카운트한다(같은 직업의 평범한 소득 선택지는 범죄가 아님). dynamicPrizeWeight
+// 유무가 아니라 prizeTable 유무로 본다(2026-09-15, 함정 선택지 추가 후속) - 함정은
+// 세계관 부패도에 연동하지 않는 고정 확률(prizeTable만, dynamicPrizeWeight 없음)이라
+// 예전 기준으론 범죄로 안 잡혀 전과 누적(발각확률 escalation)에서 빠질 뻔했다.
 function isDeviantCrimeChoice(choice) {
-  return !!(choice.dynamicPrizeWeight && isDeviantOccupationChoice(choice));
+  return !!(choice.prizeTable && isDeviantOccupationChoice(choice));
 }
 
 // 이번 선택 이전까지 이 플레이어가 몇 번이나 일탈 직업 범죄를 시도했는지(적발

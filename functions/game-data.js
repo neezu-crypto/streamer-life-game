@@ -8109,6 +8109,22 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 1 },
         result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
+        id: 'deviant-con-sting-22',
+        text: '낯선 사람이 유난히 후한 조건으로 사기를 같이 치자고 접근한다 — 낌새가 이상하지만 혹한다',
+        requiresRoute: 'con-artist',
+        prizeTable: [
+          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-sting-decline-22',
+        text: '너무 후한 조건이 수상해 낯선 제안을 거절한다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        requiresRoute: 'con-artist'
       }
     ]
   },
@@ -14961,6 +14977,16 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 1 },
         result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
+        id: 'con-artist-reforms-27',
+        text: '아직 늦지 않았다며 이 길에서 완전히 발을 뺀다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '젊은 나이에 그만두길 잘했다는 확신이 들었다.',
+        requiresRoute: 'con-artist',
+        setOccupation: { id: 'job-changed', label: '🔄 전직' },
+        endsRoute: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
   },
@@ -16239,6 +16265,22 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 1 },
         result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
+        id: 'deviant-con-sting-28',
+        text: '온라인에서 만난 ‘큰손’이 거액을 맡기겠다며 접근한다 — 함정 냄새가 나지만 응한다',
+        requiresRoute: 'con-artist',
+        prizeTable: [
+          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-sting-decline-28',
+        text: '너무 순순한 ‘큰손’의 제안에서 함정 냄새를 맡고 거절한다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        requiresRoute: 'con-artist'
       }
     ]
   },
@@ -23932,6 +23974,22 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 1 },
         result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
+        id: 'deviant-con-sting-34',
+        text: '경찰 신분증을 요구하지 않는 이상한 ‘의뢰인’이 큰 건을 제안한다 — 찜찜하지만 받아들인다',
+        requiresRoute: 'con-artist',
+        prizeTable: [
+          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-sting-decline-34',
+        text: '신분을 캐묻지 않는 ‘의뢰인’의 제안이 수상해 발을 뺀다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        requiresRoute: 'con-artist'
       }
     ]
   },
@@ -27457,6 +27515,16 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 1 },
         result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
+        id: 'con-artist-reforms-37',
+        text: '이대로는 언젠가 큰코다칠 거란 예감에 손을 씻는다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '불안한 하루하루 대신, 평범한 안정을 택했다.',
+        requiresRoute: 'con-artist',
+        setOccupation: { id: 'job-changed', label: '🔄 전직' },
+        endsRoute: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
   },
@@ -30791,6 +30859,22 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 1 },
         result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
+        id: 'deviant-con-sting-40',
+        text: '미행하듯 따라붙던 낯선 사람이 동업을 제안한다 — 뒤가 켕기지만 응한다',
+        requiresRoute: 'con-artist',
+        prizeTable: [
+          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-sting-decline-40',
+        text: '자꾸 따라붙던 낯선 사람의 동업 제안을 거절한다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        requiresRoute: 'con-artist'
       }
     ]
   },
@@ -36738,6 +36822,22 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 1 },
         result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
+        id: 'deviant-con-sting-46',
+        text: '지나치게 순진해 보이는 표적이 제 발로 걸어온다 — 너무 쉬워 보여 불안하지만 손을 댄다',
+        requiresRoute: 'con-artist',
+        prizeTable: [
+          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-sting-decline-46',
+        text: '너무 쉬워 보이는 표적이 오히려 수상해 손을 대지 않는다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        requiresRoute: 'con-artist'
       }
     ]
   },
@@ -37686,6 +37786,16 @@ const STAGES = [
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
         result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
+        id: 'con-artist-reforms-47',
+        text: '지금이라도 발을 빼는 게 맞다고 마음을 굳힌다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '늦었지만, 그래도 지금이 가장 빠른 때였다.',
+        requiresRoute: 'con-artist',
+        setOccupation: { id: 'job-changed', label: '🔄 전직' },
+        endsRoute: true,
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -41456,6 +41566,22 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 1 },
         result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
+        id: 'deviant-con-sting-52',
+        text: '익명 제보자가 뒷돈을 주겠다며 큰 정보를 흘린다 — 함정 같지만 받아들인다',
+        requiresRoute: 'con-artist',
+        prizeTable: [
+          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-sting-decline-52',
+        text: '익명 제보자의 수상한 제안에서 함정 냄새를 맡고 거절한다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        requiresRoute: 'con-artist'
       }
     ]
   },
@@ -45500,6 +45626,22 @@ const STAGES = [
         requiresRoute: 'con-artist',
         deltas: { happiness: -2 },
         result: '별일 없이, 하루가 그렇게 지나갔다.'
+      },
+      {
+        id: 'deviant-con-sting-58',
+        text: 'SNS 메시지로 거액을 맡기겠다는 낯선 이가 접근한다 — 뭔가 이상하지만 응한다',
+        requiresRoute: 'con-artist',
+        prizeTable: [
+          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-sting-decline-58',
+        text: '지나치게 적극적인 낯선 이의 제안을 의심해 거절한다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        requiresRoute: 'con-artist'
       }
     ]
   },
@@ -49503,6 +49645,22 @@ const STAGES = [
         requiresRoute: 'con-artist',
         deltas: { happiness: -1 },
         result: '별일 없이, 하루가 그렇게 지나갔다.'
+      },
+      {
+        id: 'deviant-con-sting-64',
+        text: '은퇴자를 노린다며 접근한 ‘동업자’가 유난히 협조적이다 — 수상하지만 손을 잡는다',
+        requiresRoute: 'con-artist',
+        prizeTable: [
+          { weight: 15, label: '안 걸림', deltas: { wealth: 16 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -20, happiness: -18, relationship: -10 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-sting-decline-64',
+        text: '유난히 협조적인 ‘동업자’가 수상해 손을 잡지 않는다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        requiresRoute: 'con-artist'
       }
     ]
   },
@@ -52158,6 +52316,22 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 1 },
         result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
+        id: 'deviant-con-sting-70',
+        text: '오랜만에 나타난 옛 지인이 큰 건을 물어왔다며 접근한다 — 뭔가 다르지만 응한다',
+        requiresRoute: 'con-artist',
+        prizeTable: [
+          { weight: 15, label: '안 걸림', deltas: { wealth: 16 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -20, happiness: -18, relationship: -10 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-sting-decline-70',
+        text: '달라진 옛 지인의 태도가 수상해 제안을 거절한다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        requiresRoute: 'con-artist'
       }
     ]
   },
@@ -53784,6 +53958,16 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 1 },
         result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
+        id: 'con-artist-reforms-75',
+        text: '이 나이까지 이러고 살 순 없다며 완전히 손을 뗀다',
+        deltas: { happiness: 4, relationship: 3 },
+        result: '남은 삶만큼은 떳떳하게 살고 싶었다.',
+        requiresRoute: 'con-artist',
+        setOccupation: { id: 'job-changed', label: '🔄 전직' },
+        endsRoute: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
   },
@@ -54086,6 +54270,22 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 1 },
         result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
+        id: 'deviant-con-sting-76',
+        text: '거동이 불편한 노인 행세를 하는 낯선 이가 유독 경계심이 없다 — 이상하리만치 쉬워 손을 댄다',
+        requiresRoute: 'con-artist',
+        prizeTable: [
+          { weight: 15, label: '안 걸림', deltas: { wealth: 16 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -20, happiness: -18, relationship: -10 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-sting-decline-76',
+        text: '경계심이 전혀 없는 낯선 이의 모습이 수상해 손을 대지 않는다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        requiresRoute: 'con-artist'
       }
     ]
   },
@@ -55931,6 +56131,22 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 1 },
         result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
+        id: 'deviant-con-sting-82',
+        text: '낯선 방문객이 평생 모은 돈을 맡기겠다며 스스로 찾아온다 — 너무 순조로워 불안하지만 응한다',
+        requiresRoute: 'con-artist',
+        prizeTable: [
+          { weight: 15, label: '안 걸림', deltas: { wealth: 16 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -20, happiness: -18, relationship: -10 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-sting-decline-82',
+        text: '제 발로 찾아온 방문객의 순조로움이 수상해 거절한다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        requiresRoute: 'con-artist'
       }
     ]
   },
@@ -57787,6 +58003,22 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 1 },
         result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
+        id: 'deviant-con-sting-88',
+        text: '마지막이라 생각하고 손댄 제안이 유독 허술해 보인다 — 허술함이 수상하지만 욕심에 응한다',
+        requiresRoute: 'con-artist',
+        prizeTable: [
+          { weight: 15, label: '안 걸림', deltas: { wealth: 16 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -20, happiness: -18, relationship: -10 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-sting-decline-88',
+        text: '너무 허술해 보이는 제안에서 함정 냄새를 맡고 손을 대지 않는다',
+        deltas: { happiness: 3, relationship: 1 },
+        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        requiresRoute: 'con-artist'
       }
     ]
   },
