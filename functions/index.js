@@ -188,7 +188,13 @@ const DEVIANT_CRIME_CATCH_CAP = 0.9;
 const DEVIANT_CRIME_SENTENCE_YEARS_PER = 3;
 
 function isDeviantOccupationChoice(choice) {
-  return !!(choice.requiresOccupation && choice.requiresOccupation.some((id) => DEVIANT_OCCUPATION_IDS.includes(id)));
+  if (choice.requiresOccupation && choice.requiresOccupation.some((id) => DEVIANT_OCCUPATION_IDS.includes(id))) return true;
+  // requiresRoute도 함께 본다(2026-09-15, 사기꾼 "선택지 1개만 뜨는" 버그 수정 후속) -
+  // 사기꾼 본편 콘텐츠 78개를 requiresOccupation에서 requiresRoute로 옮기면서
+  // 이 함수가 requiresOccupation만 보면 사기꾼 범죄(38개) 카운트가 통째로 빠진다.
+  // 같은 이유로 차량절도 루트의 requiresRoute 콘텐츠 120개 중 실제 범죄(11개)도
+  // 지금까지 이 함수에 안 잡히고 있었다 - 여기서 같이 고친다.
+  return !!(choice.requiresRoute && DEVIANT_OCCUPATION_IDS.includes(choice.requiresRoute));
 }
 
 // 지금 이 플레이어가 실제로 일탈 직업인지(선택지 자체의 requiresOccupation
