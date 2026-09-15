@@ -5784,8 +5784,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -9, happiness: -11, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '문자 한 통에 낚인 사람들에게서 수수료가 꾸준히 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -9, happiness: -11, relationship: -9 }, result: '당첨 사실을 확인하려던 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -6884,8 +6884,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -10, happiness: -9, relationship: -7 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '위조한 보증서 한 장으로 수리비가 손쉽게 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -10, happiness: -9, relationship: -7 }, result: '제조사에 진위를 확인한 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -6893,7 +6893,7 @@ const STAGES = [
         text: '가전 보증서 위조를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '잠깐의 유혹보다 뒤탈 없는 쪽이 나았다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -8098,8 +8098,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '측은한 표정 하나로 모금함이 금세 두둑해졌다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -8 }, result: '모금 단체를 직접 찾아간 시민의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -8107,7 +8107,7 @@ const STAGES = [
         text: '가짜 모금함을 들고 다니려던 계획을 접는다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 돈에는 항상 대가가 따른다는 걸 되새겼다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -8115,8 +8115,8 @@ const STAGES = [
         text: '낯선 사람이 유난히 후한 조건으로 사기를 같이 치자고 접근한다 — 낌새가 이상하지만 혹한다',
         requiresRoute: 'con-artist',
         prizeTable: [
-          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
-          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '의심을 무릅쓰고 응했지만, 이번엔 진짜였다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: '함정은 진짜였다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -9402,8 +9402,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -12, happiness: -11, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '가짜 요금함에 현금이 조용히 쌓여갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -12, happiness: -11, relationship: -9 }, result: '관리소에 문의한 운전자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -9411,7 +9411,7 @@ const STAGES = [
         text: '가짜 주차 요금함 설치를 포기한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '당장의 이익보다 발 뻗고 잘 수 있는 쪽을 택했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -10883,8 +10883,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -9, relationship: -7 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '해지 안 되는 구독료가 매달 꼬박꼬박 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -9, relationship: -7 }, result: '소비자원에 민원을 넣은 가입자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -10892,7 +10892,7 @@ const STAGES = [
         text: '가짜 구독 서비스 개설을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '손대지 않길 잘했다는 확신이 들었다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -12162,8 +12162,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -9, happiness: -10, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '멀쩡한 부품까지 고쳤다는 말에 바가지 수리비가 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -9, happiness: -10, relationship: -8 }, result: '다른 업체에 재점검을 맡긴 손님의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -12171,7 +12171,7 @@ const STAGES = [
         text: '바가지 수리비 청구를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '찜찜한 낌새를 무시하지 않은 스스로가 대견했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -13599,8 +13599,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -10, happiness: -11, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '몰래 재임대한 방값이 고스란히 주머니로 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -10, happiness: -11, relationship: -9 }, result: '진짜 집주인과 마주친 세입자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -13608,7 +13608,7 @@ const STAGES = [
         text: '몰래 재임대해 보증금을 챙기려던 계획을 접는다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '욕심을 누른 대가로 마음은 한결 가벼웠다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -14966,8 +14966,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -9, relationship: -7 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '꿈에 부푼 지원자들에게서 레슨비가 꾸준히 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -9, relationship: -7 }, result: '소속사에 직접 문의한 지원자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -14975,7 +14975,7 @@ const STAGES = [
         text: '가짜 오디션 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 길 대신 떳떳한 길을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -16254,8 +16254,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -12, happiness: -10, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '위조 입장권이 의심 없이 팔려나갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -12, happiness: -10, relationship: -8 }, result: '입구에서 위조 사실이 들통난 구매자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -16263,7 +16263,7 @@ const STAGES = [
         text: '위조 입장권 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '유혹을 뿌리치고 나니 오히려 속이 시원했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -16271,15 +16271,15 @@ const STAGES = [
         text: '온라인에서 만난 ‘큰손’이 거액을 맡기겠다며 접근한다 — 함정 냄새가 나지만 응한다',
         requiresRoute: 'con-artist',
         prizeTable: [
-          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
-          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '찜찜함을 무릅쓰고 응했지만, 정말 거액이 들어왔다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: '‘큰손’의 정체는 위장 수사 중이던 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
         id: 'deviant-con-sting-decline-28',
         text: '너무 순순한 ‘큰손’의 제안에서 함정 냄새를 맡고 거절한다',
         deltas: { happiness: 3, relationship: 1 },
-        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        result: '함정 냄새를 맡고 발을 빼길 잘했다는 확신이 들었다.',
         requiresRoute: 'con-artist'
       }
     ]
@@ -17649,8 +17649,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -11, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '사진 몇 장에 혹한 사람들에게서 예약금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -11, relationship: -9 }, result: '직접 만나자고 찾아온 신청자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -17658,7 +17658,7 @@ const STAGES = [
         text: '가짜 분양 글로 예약금을 받으려던 계획을 접는다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '괜한 위험을 감수하지 않기로 했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -18961,8 +18961,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -9, happiness: -9, relationship: -7 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '마감에 쫓기는 학생들에게서 대필비가 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -9, happiness: -9, relationship: -7 }, result: '연락이 끊긴 걸 수상히 여긴 의뢰인의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -18970,7 +18970,7 @@ const STAGES = [
         text: '과제 대필비만 받고 잠적하려던 계획을 접는다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '이번만큼은 양심이 이겼다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -20211,8 +20211,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -10, happiness: -10, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '장학금을 꿈꾸는 학생들에게서 신청비가 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -10, happiness: -10, relationship: -8 }, result: '재단 실체를 확인한 지원자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -20220,7 +20220,7 @@ const STAGES = [
         text: '가짜 장학재단 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '손해 볼 게 없다는 확신이 들자 마음이 놓였다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -21472,8 +21472,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -11, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '티 안 나게 쓴 후기 대가가 착실히 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -11, relationship: -9 }, result: '플랫폼 단속에 걸린 업체 측의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -21481,7 +21481,7 @@ const STAGES = [
         text: '허위 후기 대필 의뢰를 거절한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '찝찝한 기분을 남기지 않기로 했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -22709,8 +22709,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -12, happiness: -9, relationship: -7 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '이사 날짜에 쫓기는 사람들에게서 계약금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -12, happiness: -9, relationship: -7 }, result: '당일 나타나지 않자 신고한 고객으로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -22718,7 +22718,7 @@ const STAGES = [
         text: '가짜 이사업체 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '수상한 낌새를 놓치지 않은 게 다행이었다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -23963,8 +23963,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -10, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '성적에 급한 학부모들에게서 수강료가 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -10, relationship: -8 }, result: '직접 만나자고 요구한 학부모의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -23972,7 +23972,7 @@ const STAGES = [
         text: '가짜 과외 선생 행세를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 돈 대신 마음의 평화를 택했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -23980,15 +23980,15 @@ const STAGES = [
         text: '경찰 신분증을 요구하지 않는 이상한 ‘의뢰인’이 큰 건을 제안한다 — 찜찜하지만 받아들인다',
         requiresRoute: 'con-artist',
         prizeTable: [
-          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
-          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '신원을 안 캐물은 게 오히려 다행이었다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: '‘의뢰인’은 잠복 중이던 형사였다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
         id: 'deviant-con-sting-decline-34',
         text: '신분을 캐묻지 않는 ‘의뢰인’의 제안이 수상해 발을 뺀다',
         deltas: { happiness: 3, relationship: 1 },
-        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        result: '찜찜함을 무시하지 않은 덕에 무사할 수 있었다.',
         requiresRoute: 'con-artist'
       }
     ]
@@ -25222,8 +25222,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -9, happiness: -11, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '예식 준비에 정신없는 예비부부에게서 계약금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -9, happiness: -11, relationship: -9 }, result: '예식장에 직접 확인한 신랑측의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -26361,8 +26361,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -10, happiness: -9, relationship: -7 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '정품인 줄 안 사람들에게 가짜 화장품이 잘 팔렸다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -10, happiness: -9, relationship: -7 }, result: '피부 트러블을 겪은 구매자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -26370,7 +26370,7 @@ const STAGES = [
         text: '가짜 화장품 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '잠깐의 유혹보다 뒤탈 없는 쪽이 나았다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -27504,8 +27504,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '싼값에 혹한 사람들에게서 평생회원권 대금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -8 }, result: '문 닫은 헬스장을 찾아간 회원들의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -27513,7 +27513,7 @@ const STAGES = [
         text: '먹튀할 헬스장 회원권 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 돈에는 항상 대가가 따른다는 걸 되새겼다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -28704,8 +28704,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -12, happiness: -11, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '팬심에 혹한 사람들에게 짝퉁 굿즈가 잘 팔렸다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -12, happiness: -11, relationship: -9 }, result: '정품 매장에 문의한 구매자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -28713,7 +28713,7 @@ const STAGES = [
         text: '짝퉁 굿즈 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '당장의 이익보다 발 뻗고 잘 수 있는 쪽을 택했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -29733,8 +29733,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -9, relationship: -7 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '그럴듯한 시제품 사진에 후원금이 모여들었다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -9, relationship: -7 }, result: '배송이 끝없이 미뤄지자 신고한 후원자로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -29742,7 +29742,7 @@ const STAGES = [
         text: '가짜 크라우드펀딩 개설을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '손대지 않길 잘했다는 확신이 들었다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -30848,8 +30848,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -9, happiness: -10, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '점검원 완장 하나로 노인들에게서 돈을 뜯어냈다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -9, happiness: -10, relationship: -8 }, result: '진짜 점검원과 마주친 이웃의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -30857,7 +30857,7 @@ const STAGES = [
         text: '가스 점검원 사칭 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '찜찜한 낌새를 무시하지 않은 스스로가 대견했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -30865,15 +30865,15 @@ const STAGES = [
         text: '미행하듯 따라붙던 낯선 사람이 동업을 제안한다 — 뒤가 켕기지만 응한다',
         requiresRoute: 'con-artist',
         prizeTable: [
-          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
-          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '뒤가 켕겼지만 별일 없이 거래가 끝났다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: '줄곧 미행하던 건 수사관이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
         id: 'deviant-con-sting-decline-40',
         text: '자꾸 따라붙던 낯선 사람의 동업 제안을 거절한다',
         deltas: { happiness: 3, relationship: 1 },
-        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        result: '너무 좋은 제안은 늘 의심부터 하기로 했다.',
         requiresRoute: 'con-artist'
       }
     ]
@@ -31848,8 +31848,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -10, happiness: -11, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '면허가 급한 사람들에게서 수강료가 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -10, happiness: -11, relationship: -9 }, result: '학원에 직접 확인한 수강생의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -31857,7 +31857,7 @@ const STAGES = [
         text: '가짜 운전면허 대행 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '욕심을 누른 대가로 마음은 한결 가벼웠다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -32822,8 +32822,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -9, relationship: -7 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '장밋빛 백서 한 장에 투자금이 몰려들었다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -9, relationship: -7 }, result: '로드맵이 실종되자 신고한 투자자로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -32831,7 +32831,7 @@ const STAGES = [
         text: '가짜 NFT 프로젝트 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 길 대신 떳떳한 길을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -33834,8 +33834,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -12, happiness: -10, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '스펙이 급한 취준생들에게서 첨삭비가 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -12, happiness: -10, relationship: -8 }, result: '대기업 인사팀에 직접 확인한 지원자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -33843,7 +33843,7 @@ const STAGES = [
         text: '가짜 인턴십 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '유혹을 뿌리치고 나니 오히려 속이 시원했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -34912,8 +34912,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -11, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '정품 포장지 하나로 가짜 전자기기가 잘 팔렸다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -11, relationship: -9 }, result: '고장 난 제품을 뜯어본 구매자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -34921,7 +34921,7 @@ const STAGES = [
         text: '가짜 전자기기 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '괜한 위험을 감수하지 않기로 했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -35972,8 +35972,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -9, happiness: -9, relationship: -7 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '가짜 명함 하나로 중개 수수료가 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -9, happiness: -9, relationship: -7 }, result: '등록번호를 조회한 손님의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -35981,7 +35981,7 @@ const STAGES = [
         text: '가짜 공인중개사 행세를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '이번만큼은 양심이 이겼다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -36811,8 +36811,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -10, happiness: -10, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '빚에 쫓기는 사람들에게서 상담 수수료가 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -10, happiness: -10, relationship: -8 }, result: '금융감독원에 문의한 상담자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -36820,7 +36820,7 @@ const STAGES = [
         text: '가짜 채무 통합 상담 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '손해 볼 게 없다는 확신이 들자 마음이 놓였다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -36828,15 +36828,15 @@ const STAGES = [
         text: '지나치게 순진해 보이는 표적이 제 발로 걸어온다 — 너무 쉬워 보여 불안하지만 손을 댄다',
         requiresRoute: 'con-artist',
         prizeTable: [
-          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
-          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '의심을 접고 손을 대자 순순히 돈이 들어왔다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: '너무 쉬운 표적은 미끼 수사였다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
         id: 'deviant-con-sting-decline-46',
         text: '너무 쉬워 보이는 표적이 오히려 수상해 손을 대지 않는다',
         deltas: { happiness: 3, relationship: 1 },
-        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        result: '촉이 시키는 대로 움직인 게 다행이었다.',
         requiresRoute: 'con-artist'
       }
     ]
@@ -37776,8 +37776,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -11, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '유명 작가 이름 하나로 강습비가 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -11, relationship: -9 }, result: '실제 작가에게 직접 연락한 수강생의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -37785,7 +37785,7 @@ const STAGES = [
         text: '가짜 미술 강습 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '찝찝한 기분을 남기지 않기로 했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -38593,8 +38593,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -12, happiness: -9, relationship: -7 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '급하게 여권이 필요한 사람들에게서 수수료가 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -12, happiness: -9, relationship: -7 }, result: '영사관에 직접 문의한 신청자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -38602,7 +38602,7 @@ const STAGES = [
         text: '가짜 여권 대행 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '수상한 낌새를 놓치지 않은 게 다행이었다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -39331,8 +39331,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -10, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '지인들에게 떠넘긴 재고값이 손에 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -10, relationship: -8 }, result: '환불을 요구하다 등 돌린 지인의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -39340,7 +39340,7 @@ const STAGES = [
         text: '화장품 다단계 영업을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 돈 대신 마음의 평화를 택했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -40169,8 +40169,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -9, happiness: -11, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '해외 취업을 꿈꾸는 사람들에게서 수수료가 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -9, happiness: -11, relationship: -9 }, result: '대사관에 직접 확인한 신청자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -40856,8 +40856,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -10, happiness: -9, relationship: -7 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '지푸라기라도 잡고 싶은 사람들에게 가짜 건기식이 잘 팔렸다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -10, happiness: -9, relationship: -7 }, result: '식약처에 성분을 문의한 구매자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -40865,7 +40865,7 @@ const STAGES = [
         text: '가짜 건강기능식품 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '잠깐의 유혹보다 뒤탈 없는 쪽이 나았다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -41555,8 +41555,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '세금 환급을 기대한 사람들에게서 수수료가 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -10, relationship: -8 }, result: '국세청에 직접 확인한 의뢰인의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -41564,7 +41564,7 @@ const STAGES = [
         text: '가짜 세무사 행세를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 돈에는 항상 대가가 따른다는 걸 되새겼다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -41572,8 +41572,8 @@ const STAGES = [
         text: '익명 제보자가 뒷돈을 주겠다며 큰 정보를 흘린다 — 함정 같지만 받아들인다',
         requiresRoute: 'con-artist',
         prizeTable: [
-          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
-          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '함정치고는 순순히 정보값이 들어왔다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: '제보자는 함정수사를 위해 심어둔 정보원이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -42186,8 +42186,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -12, happiness: -11, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '한정판이라는 말에 가품 피규어가 잘 팔렸다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -12, happiness: -11, relationship: -9 }, result: '정품 인증을 요구한 구매자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -42195,7 +42195,7 @@ const STAGES = [
         text: '가품 피규어 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '당장의 이익보다 발 뻗고 잘 수 있는 쪽을 택했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -42798,8 +42798,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -9, relationship: -7 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '유학을 꿈꾸는 사람들에게서 등록금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -9, relationship: -7 }, result: '개강일에 학원을 찾아간 수강생의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -42807,7 +42807,7 @@ const STAGES = [
         text: '가짜 어학원 등록금 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '손대지 않길 잘했다는 확신이 들었다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -43665,8 +43665,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -9, happiness: -10, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '한정판에 혹한 사람들에게 가품 운동화가 잘 팔렸다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -9, happiness: -10, relationship: -8 }, result: '정품 감정을 맡긴 구매자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -43674,7 +43674,7 @@ const STAGES = [
         text: '가품 운동화 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '찜찜한 낌새를 무시하지 않은 스스로가 대견했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -44262,8 +44262,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -10, happiness: -11, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '인생샷을 꿈꾸는 사람들에게서 예약금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -10, happiness: -11, relationship: -9 }, result: '촬영 당일 연락 두절에 신고한 예약자로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -44271,7 +44271,7 @@ const STAGES = [
         text: '가짜 스냅사진 촬영 예약금 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '욕심을 누른 대가로 마음은 한결 가벼웠다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -44897,8 +44897,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -9, relationship: -7 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '시험이 두려운 사람들에게서 대리 응시비가 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -9, relationship: -7 }, result: '신분 대조에서 들통난 응시자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -44906,7 +44906,7 @@ const STAGES = [
         text: '운전면허 대리 응시 알선을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 길 대신 떳떳한 길을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -45608,8 +45608,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -12, happiness: -10, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '정품 향과 비슷하다는 말에 짝퉁 향수가 잘 팔렸다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -12, happiness: -10, relationship: -8 }, result: '향이 다르다는 걸 눈치챈 구매자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -45617,7 +45617,7 @@ const STAGES = [
         text: '짝퉁 향수 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '유혹을 뿌리치고 나니 오히려 속이 시원했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -45632,15 +45632,15 @@ const STAGES = [
         text: 'SNS 메시지로 거액을 맡기겠다는 낯선 이가 접근한다 — 뭔가 이상하지만 응한다',
         requiresRoute: 'con-artist',
         prizeTable: [
-          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
-          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 15, label: '안 걸림', deltas: { wealth: 8 }, result: '의심을 누르고 응하자 돈이 순조롭게 들어왔다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -8 }, result: 'SNS 너머의 상대는 사이버수사대였다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
         id: 'deviant-con-sting-decline-58',
         text: '지나치게 적극적인 낯선 이의 제안을 의심해 거절한다',
         deltas: { happiness: 3, relationship: 1 },
-        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        result: '함정 냄새를 맡고 발을 빼길 잘했다는 확신이 들었다.',
         requiresRoute: 'con-artist'
       }
     ]
@@ -46229,8 +46229,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -11, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '가맹점들에게서 부풀린 원자재 차익이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -11, relationship: -9 }, result: '다른 업체와 단가를 비교한 점주의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -46238,7 +46238,7 @@ const STAGES = [
         text: '가맹점 납품 단가 속임수를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '괜한 위험을 감수하지 않기로 했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -47033,8 +47033,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -12, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '서류상으로만 존재하는 회사로 대형 계약금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -12, relationship: -8 }, result: '실사를 나온 감사관의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -47042,7 +47042,7 @@ const STAGES = [
         text: '페이퍼컴퍼니를 이용한 입찰 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '이번만큼은 양심이 이겼다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -47665,8 +47665,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 25 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -13, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 25 }, result: '정교한 위작 한 점이 거액에 팔려나갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -13, relationship: -9 }, result: '정밀 감정을 의뢰한 수집가의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -47674,7 +47674,7 @@ const STAGES = [
         text: '위작 유통을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '손해 볼 게 없다는 확신이 들자 마음이 놓였다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -47685,8 +47685,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 25 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -13, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 25 }, result: '노후를 걱정하는 사람들에게서 거액의 투자금이 모여들었다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -13, relationship: -9 }, result: '금융당국에 신고한 투자자들로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -47694,7 +47694,7 @@ const STAGES = [
         text: '가짜 사모펀드 개설을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '찝찝한 기분을 남기지 않기로 했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -48376,8 +48376,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 26 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -14, relationship: -10 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 26 }, result: '같은 부지를 여러 명에게 팔아 이중으로 대금을 챙겼다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -14, relationship: -10 }, result: '등기부를 확인한 매수인의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -48385,7 +48385,7 @@ const STAGES = [
         text: '재개발 부지 이중 매매 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '수상한 낌새를 놓치지 않은 게 다행이었다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -49031,8 +49031,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 20 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -15, relationship: -11 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 20 }, result: '유명인사 이름 하나로 갈라 티켓이 불티나게 팔렸다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -15, relationship: -11 }, result: '실제 행사장이 없다는 걸 확인한 참가자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -49040,7 +49040,7 @@ const STAGES = [
         text: '가짜 자선 갈라 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 돈 대신 마음의 평화를 택했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -49051,8 +49051,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 20 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -15, relationship: -11 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 20 }, result: '위조 감정서 한 장으로 가짜 골동품이 경매에서 팔려나갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -15, relationship: -11 }, result: '재감정을 의뢰한 낙찰자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -49627,8 +49627,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 21 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -16, relationship: -12 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 21 }, result: '세금 회피를 원하는 사람들에게서 거액이 역외로 흘러들어갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -16, relationship: -12 }, result: '국세청 조사망에 걸린 투자자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -49636,7 +49636,7 @@ const STAGES = [
         text: '가짜 역외 펀드 개설을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '잠깐의 유혹보다 뒤탈 없는 쪽이 나았다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -49651,15 +49651,15 @@ const STAGES = [
         text: '은퇴자를 노린다며 접근한 ‘동업자’가 유난히 협조적이다 — 수상하지만 손을 잡는다',
         requiresRoute: 'con-artist',
         prizeTable: [
-          { weight: 15, label: '안 걸림', deltas: { wealth: 16 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
-          { weight: 85, label: '징역', deltas: { wealth: -20, happiness: -18, relationship: -10 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 15, label: '안 걸림', deltas: { wealth: 16 }, result: '협조적인 태도가 진짜였는지, 별일 없이 넘어갔다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -20, happiness: -18, relationship: -10 }, result: '유난히 협조적이던 ‘동업자’는 잠입 수사관이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
         id: 'deviant-con-sting-decline-64',
         text: '유난히 협조적인 ‘동업자’가 수상해 손을 잡지 않는다',
         deltas: { happiness: 3, relationship: 1 },
-        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        result: '찜찜함을 무시하지 않은 덕에 무사할 수 있었다.',
         requiresRoute: 'con-artist'
       }
     ]
@@ -50265,8 +50265,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 22 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -12, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 22 }, result: '인기 브랜드 이름 하나로 가맹비가 쏟아져 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -12, relationship: -8 }, result: '본사에 직접 확인한 예비 점주의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -50274,7 +50274,7 @@ const STAGES = [
         text: '가짜 프랜차이즈 가맹 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 돈에는 항상 대가가 따른다는 걸 되새겼다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -50285,8 +50285,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 22 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -12, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 22 }, result: '승인 서류 위조 한 장으로 무허가 의료기기가 병원에 팔려나갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -12, relationship: -8 }, result: '식약처 단속에 걸린 납품처의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -50294,7 +50294,7 @@ const STAGES = [
         text: '무허가 의료기기 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '당장의 이익보다 발 뻗고 잘 수 있는 쪽을 택했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -50703,8 +50703,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 23 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -13, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 23 }, result: '위조한 유언장 한 장으로 유산이 고스란히 넘어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -13, relationship: -9 }, result: '필적 감정을 의뢰한 유족의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -50712,7 +50712,7 @@ const STAGES = [
         text: '유언장 위조 계획을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '손대지 않길 잘했다는 확신이 들었다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -50723,8 +50723,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 23 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -13, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 23 }, result: '위조한 납품 실적으로 대형 관공서 계약을 따냈다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -13, relationship: -9 }, result: '실사 감사에 나선 감사원의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -50732,7 +50732,7 @@ const STAGES = [
         text: '납품 실적 위조를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '찜찜한 낌새를 무시하지 않은 스스로가 대견했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -51058,8 +51058,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -14, relationship: -10 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '지푸라기라도 잡고 싶은 사람들에게서 거액의 시술비가 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -14, relationship: -10 }, result: '부작용을 겪은 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -51067,7 +51067,7 @@ const STAGES = [
         text: '가짜 치유 시술 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '욕심을 누른 대가로 마음은 한결 가벼웠다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -51078,8 +51078,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -14, relationship: -10 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '유명인의 이름을 빌려 받은 선인세가 두둑했다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -14, relationship: -10 }, result: '본인 확인을 요구한 출판사의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -51087,7 +51087,7 @@ const STAGES = [
         text: '가짜 자서전 대필 계약을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 길 대신 떳떳한 길을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -51468,8 +51468,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 25 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -15, relationship: -11 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 25 }, result: '고수익을 꿈꾸는 사람들에게서 참가비가 쏟아져 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -15, relationship: -11 }, result: '약속한 수익이 실현되지 않자 신고한 참가자로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -51477,7 +51477,7 @@ const STAGES = [
         text: '가짜 투자 세미나 개최를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '유혹을 뿌리치고 나니 오히려 속이 시원했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -51488,8 +51488,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 25 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -15, relationship: -11 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 25 }, result: '믿음을 산 덕에 경로당 곗돈이 손에 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -15, relationship: -11 }, result: '곗돈이 사라진 걸 눈치챈 회원의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -51497,7 +51497,7 @@ const STAGES = [
         text: '경로당 계모임 곗돈을 들고 튀려던 계획을 접는다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '괜한 위험을 감수하지 않기로 했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -51805,8 +51805,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 26 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -16, relationship: -12 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 26 }, result: '근사한 사진 몇 장에 요트 회원권 대금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -16, relationship: -12 }, result: '실제 요트를 확인하려던 회원의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -51814,7 +51814,7 @@ const STAGES = [
         text: '가짜 요트 회원권 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '이번만큼은 양심이 이겼다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -51825,8 +51825,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 26 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -16, relationship: -12 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 26 }, result: '노후를 대비하려는 사람들에게서 선불 회비가 쌓여갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -16, relationship: -12 }, result: '정작 필요할 때 연락 두절이 되자 신고한 가입자로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -51834,7 +51834,7 @@ const STAGES = [
         text: '가짜 상조회사 운영을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '손해 볼 게 없다는 확신이 들자 마음이 놓였다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -52285,8 +52285,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 20 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -12, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 20 }, result: '그럴듯한 기술 설명 한 장에 라이선스 대금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -12, relationship: -8 }, result: '특허청에 직접 조회한 계약자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -52294,7 +52294,7 @@ const STAGES = [
         text: '가짜 특허 라이선스 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '찝찝한 기분을 남기지 않기로 했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -52305,8 +52305,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 20 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -12, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 20 }, result: '희소성을 앞세운 말솜씨에 컬렉터들의 돈이 모여들었다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -12, relationship: -8 }, result: '실제 와인 창고를 확인하려던 투자자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -52314,7 +52314,7 @@ const STAGES = [
         text: '가짜 와인 투자 상품 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '수상한 낌새를 놓치지 않은 게 다행이었다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -52322,15 +52322,15 @@ const STAGES = [
         text: '오랜만에 나타난 옛 지인이 큰 건을 물어왔다며 접근한다 — 뭔가 다르지만 응한다',
         requiresRoute: 'con-artist',
         prizeTable: [
-          { weight: 15, label: '안 걸림', deltas: { wealth: 16 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
-          { weight: 85, label: '징역', deltas: { wealth: -20, happiness: -18, relationship: -10 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 15, label: '안 걸림', deltas: { wealth: 16 }, result: '달라진 태도에도 별일 없이 거래가 끝났다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -20, happiness: -18, relationship: -10 }, result: '옛 지인은 어느새 정보원으로 포섭돼 있었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
         id: 'deviant-con-sting-decline-70',
         text: '달라진 옛 지인의 태도가 수상해 제안을 거절한다',
         deltas: { happiness: 3, relationship: 1 },
-        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        result: '너무 좋은 제안은 늘 의심부터 하기로 했다.',
         requiresRoute: 'con-artist'
       }
     ]
@@ -52609,8 +52609,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 21 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -13, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 21 }, result: '해외 명의라는 말 한마디에 거액의 수속비가 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -13, relationship: -9 }, result: '현지 병원에 직접 확인한 환자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -52618,7 +52618,7 @@ const STAGES = [
         text: '가짜 해외 의료관광 알선을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 돈 대신 마음의 평화를 택했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -52629,8 +52629,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 21 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -13, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 21 }, result: '위조 인증서 한 장으로 가품 시계가 정품 값에 팔렸다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -13, relationship: -9 }, result: '제조사에 정품 조회를 요청한 구매자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -52919,8 +52919,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 22 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -14, relationship: -10 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 22 }, result: '비상장 프리미엄이라는 말에 투자금이 몰려들었다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -14, relationship: -10 }, result: '실제 지분을 확인하려던 투자자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -52928,7 +52928,7 @@ const STAGES = [
         text: '가짜 비상장 지분 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '잠깐의 유혹보다 뒤탈 없는 쪽이 나았다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -52939,8 +52939,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 22 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -14, relationship: -10 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 22 }, result: '재취업이 급한 은퇴자들에게서 고액 수강료가 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -14, relationship: -10 }, result: '채용 실적이 없다는 걸 눈치챈 수강생의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -52948,7 +52948,7 @@ const STAGES = [
         text: '가짜 은퇴자 재취업 컨설팅을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 돈에는 항상 대가가 따른다는 걸 되새겼다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -53231,8 +53231,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 23 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -15, relationship: -11 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 23 }, result: '위조한 족보 한 장으로 상속권 매매 대금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -15, relationship: -11 }, result: '본가에 직접 확인한 상대측의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -53240,7 +53240,7 @@ const STAGES = [
         text: '족보 위조 상속 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '당장의 이익보다 발 뻗고 잘 수 있는 쪽을 택했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -53251,8 +53251,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 23 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -15, relationship: -11 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 23 }, result: '정교하게 위조한 초판본이 거액에 팔려나갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -15, relationship: -11 }, result: '필적과 지질을 대조한 감정가의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -53260,7 +53260,7 @@ const STAGES = [
         text: '고서 위조 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '손대지 않길 잘했다는 확신이 들었다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -53528,43 +53528,43 @@ const STAGES = [
         result: '한 시절이 저무는 것 같아 마음이 무거웠다.'
       },
       {
-        id: 'deviant-con-corporate-shell-fraud-74',
-        text: '페이퍼컴퍼니를 세워 정부 입찰 계약을 통째로 가로챈다',
+        id: 'deviant-con-luxury-car-leasing-fraud-74',
+        text: '존재하지 않는 슈퍼카 리스 계약으로 선수금을 가로챈다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -16, relationship: -12 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '고급차에 눈이 먼 사람들에게서 선수금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -16, relationship: -12 }, result: '차량 인도가 계속 미뤄지자 신고한 계약자로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-corporate-shell-fraud-decline-74',
-        text: '페이퍼컴퍼니를 이용한 입찰 사기를 그만두기로 한다',
+        id: 'deviant-con-luxury-car-leasing-fraud-decline-74',
+        text: '슈퍼카 리스 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '찜찜한 낌새를 무시하지 않은 스스로가 대견했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
-        id: 'deviant-con-art-forgery-ring-74',
-        text: '유명 화가의 위작을 진품 감정서와 함께 판다',
+        id: 'deviant-con-private-museum-donation-scam-74',
+        text: '사립 미술관 건립을 명목으로 거액의 기부금을 모은다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -16, relationship: -12 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '그럴듯한 조감도 한 장에 기부금이 모여들었다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -16, relationship: -12 }, result: '공사 현장을 찾아간 기부자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-art-forgery-ring-decline-74',
-        text: '위작 유통을 그만두기로 한다',
+        id: 'deviant-con-private-museum-donation-scam-decline-74',
+        text: '가짜 미술관 건립 기부금 모금을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '욕심을 누른 대가로 마음은 한결 가벼웠다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -53920,43 +53920,43 @@ const STAGES = [
         result: '다들 흰머리는 늘었어도 반가움은 그대로였다.'
       },
       {
-        id: 'deviant-con-pension-fund-scam-75',
-        text: '노후 대비 사모펀드를 사칭해 거액의 투자금을 모은다',
+        id: 'deviant-con-sports-agent-fraud-75',
+        text: '유망주 에이전트를 사칭해 계약금을 가로챈다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 25 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -12, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 25 }, result: '프로 진출을 꿈꾸는 선수들에게서 계약금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -12, relationship: -8 }, result: '협회에 등록 여부를 확인한 선수의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-pension-fund-scam-decline-75',
-        text: '가짜 사모펀드 개설을 그만두기로 한다',
+        id: 'deviant-con-sports-agent-fraud-decline-75',
+        text: '가짜 에이전트 행세를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 길 대신 떳떳한 길을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
-        id: 'deviant-con-real-estate-syndicate-fraud-75',
-        text: '존재하지 않는 재개발 부지를 여러 명에게 이중으로 판다',
+        id: 'deviant-con-private-jet-charter-scam-75',
+        text: '존재하지 않는 전세기 예약을 받고 대금을 가로챈다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 25 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -12, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 25 }, result: '화려한 후기 사진 몇 장에 예약금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -12, relationship: -8 }, result: '탑승 당일 공항에서 확인한 예약자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-real-estate-syndicate-fraud-decline-75',
-        text: '재개발 부지 이중 매매 사기를 그만두기로 한다',
+        id: 'deviant-con-private-jet-charter-scam-decline-75',
+        text: '가짜 전세기 예약 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '유혹을 뿌리치고 나니 오히려 속이 시원했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -54232,43 +54232,43 @@ const STAGES = [
         result: '세상이 조금 더 흐릿해진 걸 실감했다.'
       },
       {
-        id: 'deviant-con-celebrity-charity-gala-scam-76',
-        text: '유명인사를 사칭해 자선 갈라 티켓을 대량으로 판다',
+        id: 'deviant-con-horse-racing-syndicate-scam-76',
+        text: '경주마 공동소유권을 존재하지 않는 말로 판다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 26 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -13, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 26 }, result: '우승 확률이 높다는 말에 공동소유권이 팔려나갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -13, relationship: -9 }, result: '마주 명단을 조회한 투자자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-celebrity-charity-gala-scam-decline-76',
-        text: '가짜 자선 갈라 사기를 그만두기로 한다',
+        id: 'deviant-con-horse-racing-syndicate-scam-decline-76',
+        text: '가짜 경주마 공동소유권 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '괜한 위험을 감수하지 않기로 했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
-        id: 'deviant-con-antique-authentication-fraud-76',
-        text: '가짜 골동품에 위조 감정서를 붙여 경매에 내놓는다',
+        id: 'deviant-con-celebrity-endorsement-fraud-76',
+        text: '유명 연예인의 이름을 도용해 허위 광고 계약을 판다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 26 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -13, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 26 }, result: '유명인 이름값에 광고 계약금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -13, relationship: -9 }, result: '소속사에 직접 확인한 광고주의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-antique-authentication-fraud-decline-76',
-        text: '골동품 위조 감정서 발급을 그만두기로 한다',
+        id: 'deviant-con-celebrity-endorsement-fraud-decline-76',
+        text: '연예인 도용 허위 광고 계약 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '이번만큼은 양심이 이겼다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -54276,15 +54276,15 @@ const STAGES = [
         text: '거동이 불편한 노인 행세를 하는 낯선 이가 유독 경계심이 없다 — 이상하리만치 쉬워 손을 댄다',
         requiresRoute: 'con-artist',
         prizeTable: [
-          { weight: 15, label: '안 걸림', deltas: { wealth: 16 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
-          { weight: 85, label: '징역', deltas: { wealth: -20, happiness: -18, relationship: -10 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 15, label: '안 걸림', deltas: { wealth: 16 }, result: '경계심 없는 모습 그대로, 별일 없이 넘어갔다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -20, happiness: -18, relationship: -10 }, result: '경계심 없던 ‘노인’은 위장한 수사관이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
         id: 'deviant-con-sting-decline-76',
         text: '경계심이 전혀 없는 낯선 이의 모습이 수상해 손을 대지 않는다',
         deltas: { happiness: 3, relationship: 1 },
-        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        result: '촉이 시키는 대로 움직인 게 다행이었다.',
         requiresRoute: 'con-artist'
       }
     ]
@@ -54532,43 +54532,43 @@ const STAGES = [
         result: '이제야 여유를 부릴 수 있게 됐다.'
       },
       {
-        id: 'deviant-con-offshore-fund-scam-77',
-        text: '역외 펀드를 내세워 세금 회피 명목으로 거액을 모은다',
+        id: 'deviant-con-diamond-investment-fraud-77',
+        text: '감정서를 위조한 가짜 다이아몬드를 투자상품으로 판다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 20 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -14, relationship: -10 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 20 }, result: '위조 감정서 한 장에 거액의 투자금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -14, relationship: -10 }, result: '재감정을 의뢰한 투자자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-offshore-fund-scam-decline-77',
-        text: '가짜 역외 펀드 개설을 그만두기로 한다',
+        id: 'deviant-con-diamond-investment-fraud-decline-77',
+        text: '가짜 다이아몬드 투자상품 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '손해 볼 게 없다는 확신이 들자 마음이 놓였다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
-        id: 'deviant-con-franchise-scam-77',
-        text: '인기 프랜차이즈 본사를 사칭해 가맹비를 가로챈다',
+        id: 'deviant-con-import-export-license-fraud-77',
+        text: '존재하지 않는 수입 허가권을 대기업에 판다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 20 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -14, relationship: -10 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 20 }, result: '독점 허가권이라는 말에 거액이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -14, relationship: -10 }, result: '관세청에 직접 조회한 담당자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-franchise-scam-decline-77',
-        text: '가짜 프랜차이즈 가맹 사기를 그만두기로 한다',
+        id: 'deviant-con-import-export-license-fraud-decline-77',
+        text: '가짜 수입 허가권 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '찝찝한 기분을 남기지 않기로 했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -54870,43 +54870,43 @@ const STAGES = [
         result: '몸이 예전 같지 않다는 걸 자꾸 느꼈다.'
       },
       {
-        id: 'deviant-con-medical-device-fraud-78',
-        text: '허가받지 않은 의료기기를 정식 승인품이라 속여 판다',
+        id: 'deviant-con-vineyard-timeshare-scam-78',
+        text: '해외 포도밭 지분을 공동구매 상품으로 꾸며 판다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 21 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -15, relationship: -11 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 21 }, result: '이국적인 사진 몇 장에 지분 대금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -15, relationship: -11 }, result: '현지 등기를 확인한 투자자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-medical-device-fraud-decline-78',
-        text: '무허가 의료기기 판매를 그만두기로 한다',
+        id: 'deviant-con-vineyard-timeshare-scam-decline-78',
+        text: '가짜 포도밭 지분 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '수상한 낌새를 놓치지 않은 게 다행이었다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
-        id: 'deviant-con-will-forgery-scheme-78',
-        text: '노인의 유언장을 위조해 유산을 가로챈다',
+        id: 'deviant-con-corporate-training-scam-78',
+        text: '대기업 필수 인증 교육이라며 수강료를 뜯는다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 21 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -15, relationship: -11 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 21 }, result: '필수 교육이라는 말에 수강료가 꾸준히 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -15, relationship: -11 }, result: '회사에 직접 확인한 수강생의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-will-forgery-scheme-decline-78',
-        text: '유언장 위조 계획을 그만두기로 한다',
+        id: 'deviant-con-corporate-training-scam-decline-78',
+        text: '가짜 필수 인증 교육 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 돈 대신 마음의 평화를 택했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -55136,43 +55136,43 @@ const STAGES = [
         result: '누군가 들어줄 거라는 생각만으로도 위안이 됐다.'
       },
       {
-        id: 'deviant-con-government-contract-fraud-79',
-        text: '관공서 납품 실적을 위조해 대형 계약을 따낸다',
+        id: 'deviant-con-rare-coin-authentication-fraud-79',
+        text: '위조한 감정서로 가짜 희귀 주화를 판다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 22 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -16, relationship: -12 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 22 }, result: '위조 감정서 한 장에 희귀 주화가 팔려나갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -16, relationship: -12 }, result: '성분 분석을 의뢰한 전문가의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-government-contract-fraud-decline-79',
-        text: '납품 실적 위조를 그만두기로 한다',
+        id: 'deviant-con-rare-coin-authentication-fraud-decline-79',
+        text: '가짜 희귀 주화 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
         result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
-        id: 'deviant-con-faith-healer-scam-79',
-        text: '신묘한 치유력이 있다 속여 거액의 시술비를 받는다',
+        id: 'deviant-con-golf-membership-scam-79',
+        text: '존재하지 않는 명문 골프장 회원권을 판다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 22 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -16, relationship: -12 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 22 }, result: '명문 골프장 이름값에 회원권 대금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -16, relationship: -12 }, result: '골프장에 직접 문의한 구매자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-faith-healer-scam-decline-79',
-        text: '가짜 치유 시술 사기를 그만두기로 한다',
+        id: 'deviant-con-golf-membership-scam-decline-79',
+        text: '가짜 골프장 회원권 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '잠깐의 유혹보다 뒤탈 없는 쪽이 나았다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -55501,43 +55501,43 @@ const STAGES = [
         result: '큰 잔치는 아니어도 마음만은 풍성했다.'
       },
       {
-        id: 'deviant-con-memoir-ghostwriter-fraud-80',
-        text: '유명인의 자서전 대필을 미끼로 선인세를 가로챈다',
+        id: 'deviant-con-shipping-container-fraud-80',
+        text: '존재하지 않는 해상 컨테이너 물량을 투자상품으로 판다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 23 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -12, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 23 }, result: '물류난을 틈타 컨테이너 투자금이 몰려들었다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -12, relationship: -8 }, result: '선사에 직접 조회한 투자자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-memoir-ghostwriter-fraud-decline-80',
-        text: '가짜 자서전 대필 계약을 그만두기로 한다',
+        id: 'deviant-con-shipping-container-fraud-decline-80',
+        text: '가짜 컨테이너 투자상품 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 돈에는 항상 대가가 따른다는 걸 되새겼다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
-        id: 'deviant-con-investment-seminar-scam-80',
-        text: '고액 투자 세미나를 열어 참가비와 컨설팅비를 뜯는다',
+        id: 'deviant-con-private-school-admission-fraud-80',
+        text: '명문 사립학교 입학을 알선한다며 거액의 청탁금을 받는다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 23 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -12, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 23 }, result: '명문 입학이라는 말에 청탁금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -12, relationship: -8 }, result: '학교에 직접 확인한 학부모의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-investment-seminar-scam-decline-80',
-        text: '가짜 투자 세미나 개최를 그만두기로 한다',
+        id: 'deviant-con-private-school-admission-fraud-decline-80',
+        text: '가짜 사립학교 입학 알선을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '당장의 이익보다 발 뻗고 잘 수 있는 쪽을 택했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -55797,43 +55797,43 @@ const STAGES = [
         result: '젊을 때 못 읽은 책들을 이제야 펼쳐본다.'
       },
       {
-        id: 'deviant-con-senior-community-fund-scam-81',
-        text: '경로당 공동 계모임을 관리하며 곗돈을 들고 튄다',
+        id: 'deviant-con-luxury-handbag-authentication-scam-81',
+        text: '위조 인증서로 가품 명품 가방을 정품가에 판다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -13, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '위조 인증서 한 장에 가품 가방이 정품가로 팔렸다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -13, relationship: -9 }, result: '브랜드 본사에 정품 조회를 요청한 구매자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-senior-community-fund-scam-decline-81',
-        text: '경로당 계모임 곗돈을 들고 튀려던 계획을 접는다',
+        id: 'deviant-con-luxury-handbag-authentication-scam-decline-81',
+        text: '가품 명품 가방 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '손대지 않길 잘했다는 확신이 들었다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
-        id: 'deviant-con-luxury-yacht-timeshare-scam-81',
-        text: '존재하지 않는 요트 회원권을 공동구매로 판다',
+        id: 'deviant-con-private-clinic-franchise-fraud-81',
+        text: '인기 프리미엄 클리닉 프랜차이즈를 사칭해 가맹비를 가로챈다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -13, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '인기 클리닉 이름값에 가맹비가 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -13, relationship: -9 }, result: '본원에 직접 확인한 예비 원장의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-luxury-yacht-timeshare-scam-decline-81',
-        text: '가짜 요트 회원권 판매를 그만두기로 한다',
+        id: 'deviant-con-private-clinic-franchise-fraud-decline-81',
+        text: '가짜 클리닉 프랜차이즈 가맹비 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '찜찜한 낌새를 무시하지 않은 스스로가 대견했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -56093,43 +56093,43 @@ const STAGES = [
         result: '정든 골목이 사라진다는 게 아쉬웠다.'
       },
       {
-        id: 'deviant-con-funeral-prepayment-scam-82',
-        text: '상조회사를 차려 선불 회비만 받고 서비스를 안 한다',
+        id: 'deviant-con-rare-stamp-collection-fraud-82',
+        text: '위조한 감정서로 가짜 희귀 우표를 판다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 25 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -14, relationship: -10 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 25 }, result: '위조 감정서 한 장에 희귀 우표가 팔려나갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -14, relationship: -10 }, result: '워터마크를 확인한 협회의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-funeral-prepayment-scam-decline-82',
-        text: '가짜 상조회사 운영을 그만두기로 한다',
+        id: 'deviant-con-rare-stamp-collection-fraud-decline-82',
+        text: '가짜 희귀 우표 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '욕심을 누른 대가로 마음은 한결 가벼웠다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
-        id: 'deviant-con-patent-licensing-scam-82',
-        text: '존재하지 않는 특허 기술의 라이선스를 판다',
+        id: 'deviant-con-hedge-fund-manager-impersonation-82',
+        text: '유명 헤지펀드 매니저를 사칭해 거액의 투자금을 모은다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 25 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -14, relationship: -10 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 25 }, result: '화려한 이력 한 줄에 거액의 투자금이 몰려들었다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -14, relationship: -10 }, result: '실제 회사에 신원을 조회한 투자자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-patent-licensing-scam-decline-82',
-        text: '가짜 특허 라이선스 판매를 그만두기로 한다',
+        id: 'deviant-con-hedge-fund-manager-impersonation-decline-82',
+        text: '헤지펀드 매니저 사칭 투자금 모집을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 길 대신 떳떳한 길을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -56137,8 +56137,8 @@ const STAGES = [
         text: '낯선 방문객이 평생 모은 돈을 맡기겠다며 스스로 찾아온다 — 너무 순조로워 불안하지만 응한다',
         requiresRoute: 'con-artist',
         prizeTable: [
-          { weight: 15, label: '안 걸림', deltas: { wealth: 16 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
-          { weight: 85, label: '징역', deltas: { wealth: -20, happiness: -18, relationship: -10 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 15, label: '안 걸림', deltas: { wealth: 16 }, result: '순조로움을 의심하면서도 별일 없이 받아냈다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -20, happiness: -18, relationship: -10 }, result: '제 발로 찾아온 방문객은 함정수사팀이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -56374,43 +56374,43 @@ const STAGES = [
         result: '평생 펜을 놓지 않았는데 이제는 버거웠다.'
       },
       {
-        id: 'deviant-con-wine-investment-fraud-83',
-        text: '희귀 와인 투자를 미끼로 컬렉터들의 돈을 모은다',
+        id: 'deviant-con-luxury-resort-membership-scam-83',
+        text: '존재하지 않는 리조트 평생회원권을 공동판매한다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 26 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -15, relationship: -11 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 26 }, result: '근사한 팸플릿 한 장에 회원권 대금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -15, relationship: -11 }, result: '리조트에 직접 확인한 회원의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-wine-investment-fraud-decline-83',
-        text: '가짜 와인 투자 상품 판매를 그만두기로 한다',
+        id: 'deviant-con-luxury-resort-membership-scam-decline-83',
+        text: '가짜 리조트 회원권 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '유혹을 뿌리치고 나니 오히려 속이 시원했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
-        id: 'deviant-con-medical-tourism-scam-83',
-        text: '해외 명의의 수술을 알선한다며 거액의 수속비를 받는다',
+        id: 'deviant-con-private-security-firm-fraud-83',
+        text: '존재하지 않는 경호업체를 차려 기업 고객을 유치한다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 26 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -15, relationship: -11 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 26 }, result: '그럴듯한 이력서 몇 장에 경호 계약금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -15, relationship: -11 }, result: '인력을 확인하려던 고객사의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-medical-tourism-scam-decline-83',
-        text: '가짜 해외 의료관광 알선을 그만두기로 한다',
+        id: 'deviant-con-private-security-firm-fraud-decline-83',
+        text: '가짜 경호업체 운영을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '괜한 위험을 감수하지 않기로 했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -56665,43 +56665,43 @@ const STAGES = [
         result: '빛바랜 사진 속 얼굴들이 새삼 그리웠다.'
       },
       {
-        id: 'deviant-con-luxury-watch-authentication-scam-84',
-        text: '가품 명품 시계에 정품 인증서를 위조해 붙인다',
+        id: 'deviant-con-antique-furniture-forgery-84',
+        text: '위조한 감정서로 가짜 앤틱 가구를 판다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 20 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -16, relationship: -12 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 20 }, result: '위조 감정서 한 장에 앤틱 가구가 거액에 팔렸다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -16, relationship: -12 }, result: '복원 전문가에게 감정을 맡긴 구매자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-luxury-watch-authentication-scam-decline-84',
-        text: '명품 시계 위조 인증서 발급을 그만두기로 한다',
+        id: 'deviant-con-antique-furniture-forgery-decline-84',
+        text: '가짜 앤틱 가구 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '이번만큼은 양심이 이겼다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
-        id: 'deviant-con-private-equity-ponzi-84',
-        text: '비상장 스타트업 지분이라며 존재하지 않는 지분을 판다',
+        id: 'deviant-con-crypto-exchange-listing-fraud-84',
+        text: '존재하지 않는 거래소 상장을 미끼로 상장 수수료를 받는다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 20 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -16, relationship: -12 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 20 }, result: '상장이 코앞이라는 말에 수수료가 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -16, relationship: -12 }, result: '거래소에 직접 문의한 발행사의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-private-equity-ponzi-decline-84',
-        text: '가짜 비상장 지분 판매를 그만두기로 한다',
+        id: 'deviant-con-crypto-exchange-listing-fraud-decline-84',
+        text: '가짜 거래소 상장 수수료 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '손해 볼 게 없다는 확신이 들자 마음이 놓였다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -57063,43 +57063,43 @@ const STAGES = [
         result: '이 나이까지 함께해준 이들이 고마웠다.'
       },
       {
-        id: 'deviant-con-veteran-mentor-scam-85',
-        text: '은퇴자 재취업 컨설팅을 미끼로 고액 수강료를 받는다',
+        id: 'deviant-con-private-vineyard-restaurant-fraud-85',
+        text: '고급 레스토랑 프랜차이즈를 사칭해 투자금을 모은다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 21 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -12, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 21 }, result: '미슐랭급 이름값에 투자금이 몰려들었다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -12, relationship: -8 }, result: '실제 매장을 찾아간 투자자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-veteran-mentor-scam-decline-85',
-        text: '가짜 은퇴자 재취업 컨설팅을 그만두기로 한다',
+        id: 'deviant-con-private-vineyard-restaurant-fraud-decline-85',
+        text: '가짜 레스토랑 프랜차이즈 투자금 모집을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '찝찝한 기분을 남기지 않기로 했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
-        id: 'deviant-con-genealogy-inheritance-scam-85',
-        text: '족보를 위조해 없는 상속권을 만들어 판다',
+        id: 'deviant-con-offshore-drilling-investment-fraud-85',
+        text: '존재하지 않는 해외 유전 개발권을 투자상품으로 판다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 21 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -12, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 21 }, result: '고수익을 앞세운 말솜씨에 투자금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -12, relationship: -8 }, result: '현지 개발권을 조회한 투자자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-genealogy-inheritance-scam-decline-85',
-        text: '족보 위조 상속 사기를 그만두기로 한다',
+        id: 'deviant-con-offshore-drilling-investment-fraud-decline-85',
+        text: '가짜 유전 개발권 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '수상한 낌새를 놓치지 않은 게 다행이었다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -57385,23 +57385,23 @@ const STAGES = [
         result: '몸이 쉬라는 신호를 자꾸 보내왔다.'
       },
       {
-        id: 'deviant-con-rare-book-forgery-86',
-        text: '위조한 초판본 고서를 진품이라 속여 판다',
+        id: 'deviant-con-luxury-jewelry-auction-fraud-86',
+        text: '위조한 감정서로 가짜 보석을 경매에 올린다',
         requiresRoute: 'con-artist',
         dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.15, max: 0.7, invert: true },
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 22 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -13, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 22 }, result: '위조 감정서 한 장에 가짜 보석이 낙찰됐다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -13, relationship: -9 }, result: '낙찰 후 재감정을 의뢰한 구매자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
-        id: 'deviant-con-rare-book-forgery-decline-86',
-        text: '고서 위조 판매를 그만두기로 한다',
+        id: 'deviant-con-luxury-jewelry-auction-fraud-decline-86',
+        text: '가짜 보석 경매 출품을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 돈 대신 마음의 평화를 택했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -57412,8 +57412,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 22 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -13, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 22 }, result: '서류상으로만 존재하는 회사로 대형 계약금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -13, relationship: -9 }, result: '실사를 나온 감사관의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -57698,8 +57698,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 23 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -14, relationship: -10 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 23 }, result: '정교한 위작 한 점이 거액에 팔려나갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -14, relationship: -10 }, result: '정밀 감정을 의뢰한 수집가의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -57707,7 +57707,7 @@ const STAGES = [
         text: '위작 유통을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '잠깐의 유혹보다 뒤탈 없는 쪽이 나았다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -57718,8 +57718,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 23 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -14, relationship: -10 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 23 }, result: '노후를 걱정하는 사람들에게서 거액의 투자금이 모여들었다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -14, relationship: -10 }, result: '금융당국에 신고한 투자자들로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -57727,7 +57727,7 @@ const STAGES = [
         text: '가짜 사모펀드 개설을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 돈에는 항상 대가가 따른다는 걸 되새겼다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -57972,8 +57972,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -15, relationship: -11 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '같은 부지를 여러 명에게 팔아 이중으로 대금을 챙겼다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -15, relationship: -11 }, result: '등기부를 확인한 매수인의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -57981,7 +57981,7 @@ const STAGES = [
         text: '재개발 부지 이중 매매 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '당장의 이익보다 발 뻗고 잘 수 있는 쪽을 택했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -57992,8 +57992,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -15, relationship: -11 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '유명인사 이름 하나로 갈라 티켓이 불티나게 팔렸다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -15, relationship: -11 }, result: '실제 행사장이 없다는 걸 확인한 참가자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -58001,7 +58001,7 @@ const STAGES = [
         text: '가짜 자선 갈라 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '손대지 않길 잘했다는 확신이 들었다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -58009,15 +58009,15 @@ const STAGES = [
         text: '마지막이라 생각하고 손댄 제안이 유독 허술해 보인다 — 허술함이 수상하지만 욕심에 응한다',
         requiresRoute: 'con-artist',
         prizeTable: [
-          { weight: 15, label: '안 걸림', deltas: { wealth: 16 }, result: '별일 없이 넘어갔지만, 등골이 서늘했다.' },
-          { weight: 85, label: '징역', deltas: { wealth: -20, happiness: -18, relationship: -10 }, result: '처음부터 함정이었다 — 상대는 위장 잠입한 경찰이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 15, label: '안 걸림', deltas: { wealth: 16 }, result: '허술해 보였지만 의외로 별일 없이 넘어갔다.' },
+          { weight: 85, label: '징역', deltas: { wealth: -20, happiness: -18, relationship: -10 }, result: '허술해 보였던 건 노련한 함정수사의 위장이었다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
         id: 'deviant-con-sting-decline-88',
         text: '너무 허술해 보이는 제안에서 함정 냄새를 맡고 손을 대지 않는다',
         deltas: { happiness: 3, relationship: 1 },
-        result: '수상한 낌새를 놓치지 않은 스스로가 대견했다.',
+        result: '함정 냄새를 맡고 발을 빼길 잘했다는 확신이 들었다.',
         requiresRoute: 'con-artist'
       }
     ]
@@ -58272,8 +58272,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 25 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -16, relationship: -12 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 25 }, result: '위조 감정서 한 장으로 가짜 골동품이 경매에서 팔려나갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -16, relationship: -12 }, result: '재감정을 의뢰한 낙찰자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -58281,7 +58281,7 @@ const STAGES = [
         text: '골동품 위조 감정서 발급을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '찜찜한 낌새를 무시하지 않은 스스로가 대견했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -58292,8 +58292,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 25 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -16, relationship: -12 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 25 }, result: '세금 회피를 원하는 사람들에게서 거액이 역외로 흘러들어갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -16, relationship: -12 }, result: '국세청 조사망에 걸린 투자자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -58301,7 +58301,7 @@ const STAGES = [
         text: '가짜 역외 펀드 개설을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '욕심을 누른 대가로 마음은 한결 가벼웠다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -58656,8 +58656,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 26 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -12, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 26 }, result: '인기 브랜드 이름 하나로 가맹비가 쏟아져 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -12, relationship: -8 }, result: '본사에 직접 확인한 예비 점주의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -58665,7 +58665,7 @@ const STAGES = [
         text: '가짜 프랜차이즈 가맹 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 길 대신 떳떳한 길을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -58676,8 +58676,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 26 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -12, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 26 }, result: '승인 서류 위조 한 장으로 무허가 의료기기가 병원에 팔려나갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -12, relationship: -8 }, result: '식약처 단속에 걸린 납품처의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -58685,7 +58685,7 @@ const STAGES = [
         text: '무허가 의료기기 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '유혹을 뿌리치고 나니 오히려 속이 시원했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -58942,8 +58942,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 20 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -13, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 20 }, result: '위조한 유언장 한 장으로 유산이 고스란히 넘어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -13, relationship: -9 }, result: '필적 감정을 의뢰한 유족의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -58951,7 +58951,7 @@ const STAGES = [
         text: '유언장 위조 계획을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '괜한 위험을 감수하지 않기로 했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -58962,8 +58962,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 20 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -13, relationship: -9 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 20 }, result: '위조한 납품 실적으로 대형 관공서 계약을 따냈다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -13, relationship: -9 }, result: '실사 감사에 나선 감사원의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -58971,7 +58971,7 @@ const STAGES = [
         text: '납품 실적 위조를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '이번만큼은 양심이 이겼다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -59254,8 +59254,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 21 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -14, relationship: -10 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 21 }, result: '지푸라기라도 잡고 싶은 사람들에게서 거액의 시술비가 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -14, relationship: -10 }, result: '부작용을 겪은 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -59263,7 +59263,7 @@ const STAGES = [
         text: '가짜 치유 시술 사기를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '손해 볼 게 없다는 확신이 들자 마음이 놓였다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -59274,8 +59274,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 21 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -14, relationship: -10 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 21 }, result: '유명인의 이름을 빌려 받은 선인세가 두둑했다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -14, relationship: -10 }, result: '본인 확인을 요구한 출판사의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -59283,7 +59283,7 @@ const STAGES = [
         text: '가짜 자서전 대필 계약을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '찝찝한 기분을 남기지 않기로 했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -59528,8 +59528,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 22 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -15, relationship: -11 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 22 }, result: '고수익을 꿈꾸는 사람들에게서 참가비가 쏟아져 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -15, relationship: -11 }, result: '약속한 수익이 실현되지 않자 신고한 참가자로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -59537,7 +59537,7 @@ const STAGES = [
         text: '가짜 투자 세미나 개최를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '수상한 낌새를 놓치지 않은 게 다행이었다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -59548,8 +59548,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 22 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -15, relationship: -11 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 22 }, result: '믿음을 산 덕에 경로당 곗돈이 손에 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -21, happiness: -15, relationship: -11 }, result: '곗돈이 사라진 걸 눈치챈 회원의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -59557,7 +59557,7 @@ const STAGES = [
         text: '경로당 계모임 곗돈을 들고 튀려던 계획을 접는다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 돈 대신 마음의 평화를 택했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -59809,8 +59809,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 23 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -16, relationship: -12 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 23 }, result: '근사한 사진 몇 장에 요트 회원권 대금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -16, relationship: -12 }, result: '실제 요트를 확인하려던 회원의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -59829,8 +59829,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 23 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -16, relationship: -12 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 23 }, result: '노후를 대비하려는 사람들에게서 선불 회비가 쌓여갔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -22, happiness: -16, relationship: -12 }, result: '정작 필요할 때 연락 두절이 되자 신고한 가입자로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -59838,7 +59838,7 @@ const STAGES = [
         text: '가짜 상조회사 운영을 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '잠깐의 유혹보다 뒤탈 없는 쪽이 나았다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
@@ -60119,8 +60119,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -12, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '그럴듯한 기술 설명 한 장에 라이선스 대금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -12, relationship: -8 }, result: '특허청에 직접 조회한 계약자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -60128,7 +60128,7 @@ const STAGES = [
         text: '가짜 특허 라이선스 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '쉬운 돈에는 항상 대가가 따른다는 걸 되새겼다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
       {
@@ -60139,8 +60139,8 @@ const STAGES = [
         appendPoliceCorruptionNote: true,
         worldStateSignal: { key: 'scamPrevalence', target: 1 },
         prizeTable: [
-          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '별다른 의심 없이, 돈이 착실히 흘러들어왔다.' },
-          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -12, relationship: -8 }, result: '뒤늦게 낌새를 챈 피해자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+          { weight: 82, label: '안 걸림', deltas: { wealth: 24 }, result: '희소성을 앞세운 말솜씨에 컬렉터들의 돈이 모여들었다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -23, happiness: -12, relationship: -8 }, result: '실제 와인 창고를 확인하려던 투자자의 신고로 덜미를 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
         ]
       },
       {
@@ -60148,7 +60148,7 @@ const STAGES = [
         text: '가짜 와인 투자 상품 판매를 그만두기로 한다',
         requiresRoute: 'con-artist',
         deltas: { happiness: 2, relationship: 1 },
-        result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
+        result: '당장의 이익보다 발 뻗고 잘 수 있는 쪽을 택했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       }
     ]
