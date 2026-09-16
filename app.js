@@ -1116,6 +1116,15 @@ document.getElementById('backToSearchBtn').addEventListener('click', async () =>
 const resumeSection = document.getElementById('resumeSection');
 const resumeInfo = document.getElementById('resumeInfo');
 const resumeBtn = document.getElementById('resumeBtn');
+let sigOpeningStarted = false;
+
+function maybeShowSigOpening() {
+  if (sigOpeningStarted || !window.ojmMaybeShowBootSplash) return;
+  sigOpeningStarted = true;
+  // 초기 검색/이어하기 화면이 먼저 그려진 뒤 시그니처를 올려, 오프닝 종료 시
+  // 사용자가 바로 상호작용할 수 있는 화면이 하위 레이어에 준비되게 한다.
+  setTimeout(() => window.ojmMaybeShowBootSplash(() => {}), 80);
+}
 
 async function checkResume(uid) {
   try {
@@ -1124,12 +1133,14 @@ async function checkResume(uid) {
     if (play && !play.completed) {
       resumeInfo.textContent = (play.streamerName || '이름 없음') + '님의 인생이 저장되어 있어요 (' + (play.stageIndex + 1) + '번째 구간까지 진행).';
       fadeIn([resumeSection]);
+      maybeShowSigOpening();
       return;
     }
   } catch (e) {
     console.error('저장된 진행 확인 실패:', e);
   }
   fadeIn([searchSection, reviewSection]);
+  maybeShowSigOpening();
 }
 
 resumeBtn.addEventListener('click', async () => {
