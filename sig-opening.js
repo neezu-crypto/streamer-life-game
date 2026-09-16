@@ -29,16 +29,25 @@
     stage.addEventListener('keydown', onKeydown);
   }
 
-  function maybeShow() {
+  function maybeShow(onDone) {
     if (started) return;
     started = true;
     var seen = false;
     try { seen = localStorage.getItem(SEEN_KEY) === '1'; } catch (e) {}
-    if (seen) return;
+    if (seen) {
+      if (typeof onDone === 'function') onDone();
+      return;
+    }
     play(function () {
       try { localStorage.setItem(SEEN_KEY, '1'); } catch (e) {}
+      if (typeof onDone === 'function') onDone();
     });
   }
 
   window.ojmMaybeShowBootSplash = maybeShow;
+
+  // 이 스크립트는 시그니처 레이어 바로 다음에 로드된다. 모듈 Firebase
+  // 초기화와 관계없이 최초 방문 오프닝을 즉시 띄워, 페이지·데이터 로딩을
+  // 오프닝 하위 레이어에서 동시에 진행한다.
+  maybeShow();
 }());
