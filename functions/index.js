@@ -78,7 +78,8 @@ async function aggregateStreamerPreferences(db, play, preferenceTargets, isBot) 
   const sourceStreamerId = String(play.streamerId);
   const sourceSnap = await db.ref('streamerNames/' + sourceStreamerId).get();
   if (!sourceSnap.exists()) return;
-  const targetIds = Object.keys(normalizePreferenceTargets(preferenceTargets));
+  const targetIds = Object.keys(normalizePreferenceTargets(preferenceTargets))
+    .filter((targetStreamerId) => targetStreamerId !== sourceStreamerId);
   const summaryRef = db.ref('lifeGame/streamerPreferenceAggregates/' + sourceStreamerId + '/summary');
   const writes = [summaryRef.transaction((current) => {
     const existing = current && typeof current === 'object' ? current : {};
@@ -2249,7 +2250,10 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
   let preferenceTargetsChanged = false;
   if (play.streamerId && isNewAsset && effectiveAddAsset && effectiveAddAsset.type === 'stock') {
     const targetId = String(effectiveAddAsset.id || '');
-    if (targetId && !preferenceTargets[targetId]) {
+    // 주인공 본인의 종목 매수는 자기 선호가 아니라 자기 자신에 대한
+    // 선택이므로 스트리머 간 선호 연관성 집계에서 제외한다. 매수 자체는
+    // 정상 처리하고, 집계 기록만 남기지 않는다.
+    if (targetId && targetId !== String(play.streamerId) && !preferenceTargets[targetId]) {
       preferenceTargets[targetId] = { stageId: stage.id, selectedAt: Date.now() };
       preferenceTargetsChanged = true;
     }
