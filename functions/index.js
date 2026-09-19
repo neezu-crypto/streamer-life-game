@@ -43,10 +43,63 @@ initializeApp();
 
 const MAX_NAME_LEN = 40;
 const MAX_REPORT_REASON_LEN = 300;
+// 주인공-주식 스트리머 선호 집계 버전. 집계는 완료된 플레이스루마다 한 번만
+// 실행하고, 이 버전 플래그를 저장해 재시도·재접속으로 중복 집계되지 않게 한다.
+const STREAMER_PREFERENCE_AGGREGATION_VERSION = 1;
 
 function lifePublicIdFor(uid, suffix = '') {
   const digest = crypto.createHash('sha256').update(`life:${uid}:${suffix}`).digest('base64url');
   return `LIF-${digest.slice(0, 14)}`;
+}
+
+// 주식 매수 선택은 개인 저장 슬롯 안에만 남기고, 공개 노드에는 UID를 쓰지
+// 않는다. 값은 stageId/selectedAt 정도의 작은 메타데이터만 허용해 슬롯이
+// 비대해지지 않도록 한다.
+function normalizePreferenceTargets(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return {};
+  const normalized = {};
+  Object.keys(value).forEach((targetId) => {
+    if (!targetId || !value[targetId] || typeof value[targetId] !== 'object') return;
+    normalized[targetId] = {
+      stageId: typeof value[targetId].stageId === 'string' ? value[targetId].stageId : null,
+      selectedAt: typeof value[targetId].selectedAt === 'number' ? value[targetId].selectedAt : null
+    };
+  });
+  return normalized;
+}
+
+// 완료된 플레이스루 1개에서 확인된 주인공-대상 스트리머 관계를 UID 없이
+// 집계한다. 이 노드는 클라이언트 규칙에서 읽기/쓰기가 모두 거부되는
+// lifeGame 하위 노드이며, Admin SDK를 사용하는 서버 함수만 접근한다.
+async function aggregateStreamerPreferences(db, play, preferenceTargets, isBot) {
+  if (isBot || !play || !play.streamerId || play.preferenceAggregationVersion === STREAMER_PREFERENCE_AGGREGATION_VERSION) {
+    return;
+  }
+  const sourceStreamerId = String(play.streamerId);
+  const sourceSnap = await db.ref('streamerNames/' + sourceStreamerId).get();
+  if (!sourceSnap.exists()) return;
+  const targetIds = Object.keys(normalizePreferenceTargets(preferenceTargets));
+  const summaryRef = db.ref('lifeGame/streamerPreferenceAggregates/' + sourceStreamerId + '/summary');
+  const writes = [summaryRef.transaction((current) => {
+    const existing = current && typeof current === 'object' ? current : {};
+    return {
+      completedPlaythroughs: (Number(existing.completedPlaythroughs) || 0) + 1,
+      stockSelectedPlaythroughs: (Number(existing.stockSelectedPlaythroughs) || 0) + (targetIds.length ? 1 : 0),
+      updatedAt: ServerValue.TIMESTAMP
+    };
+  })];
+  targetIds.forEach((targetStreamerId) => {
+    const targetRef = db.ref('lifeGame/streamerPreferenceAggregates/' + sourceStreamerId + '/targets/' + targetStreamerId);
+    writes.push(targetRef.transaction((current) => {
+      const existing = current && typeof current === 'object' ? current : {};
+      return {
+        selectionCount: (Number(existing.selectionCount) || 0) + 1,
+        uniquePlaythroughCount: (Number(existing.uniquePlaythroughCount) || 0) + 1,
+        updatedAt: ServerValue.TIMESTAMP
+      };
+    }));
+  });
+  await Promise.all(writes);
 }
 
 // 멀티플레이 공개 미러에서 사용하는 계정 식별자. 원본 UID는 private
@@ -2188,6 +2241,20 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
     assets = assets.filter((a) => a.id !== effectiveRemoveAsset);
   }
 
+  // 주식 매수 선호 신호는 실제로 새 주식 자산이 추가된 경우에만 기록한다.
+  // 모달을 열거나 검색한 것, 랜덤으로 생성된 지인 이름은 선호로 간주하지
+  // 않는다. 같은 플레이스루에서 같은 종목을 다시 사더라도 한 번만 남겨
+  // 장시간 플레이·매도 후 재매수로 통계가 부풀지 않게 한다.
+  const preferenceTargets = normalizePreferenceTargets(play.preferenceTargets);
+  let preferenceTargetsChanged = false;
+  if (play.streamerId && isNewAsset && effectiveAddAsset && effectiveAddAsset.type === 'stock') {
+    const targetId = String(effectiveAddAsset.id || '');
+    if (targetId && !preferenceTargets[targetId]) {
+      preferenceTargets[targetId] = { stageId: stage.id, selectedAt: Date.now() };
+      preferenceTargetsChanged = true;
+    }
+  }
+
   // vehicleOwners 인덱스 유지(2026-08-30, 60장 - 차량 절도 크로스플레이어
   // 타겟 선정용) - "지금 도난 안 당한 vehicle 자산을 갖고 있는지"가 이번
   // 선택으로 바뀔 때만 갱신한다(매 턴 무조건 쓰기하면 낭비).
@@ -2536,6 +2603,7 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
   }
 
   const updates = { stats, choiceLog, stageIndex: nextIndex, completed, healthConditions, familyMembers, acquaintances, assets, cashHoldings, talents, hobbies, sickStreak, insuranceUnpaidYears };
+  if (preferenceTargetsChanged) updates.preferenceTargets = preferenceTargets;
 
   let ending = null;
   let nextVisibleIds = null;
@@ -2544,6 +2612,13 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
     ending = collapsed ? instantEnding.build(stage.ageRange) : resolveEnding(stats, familyMembers, healthConditions);
     updates.ending = { id: ending.id, title: ending.title, text: ending.text };
     updates.endedAt = ServerValue.TIMESTAMP;
+    // 완료된 판에서만 집계한다. 봇과 ID 없이 직접 입력한 주인공은
+    // aggregateStreamerPreferences에서 제외되며, 처리가 끝난 판에는 버전
+    // 플래그를 남겨 함수 재시도 시 같은 데이터를 다시 세지 않는다.
+    if (!isBot && play.streamerId && play.preferenceAggregationVersion !== STREAMER_PREFERENCE_AGGREGATION_VERSION) {
+      updates.preferenceAggregationVersion = STREAMER_PREFERENCE_AGGREGATION_VERSION;
+      updates.preferenceAggregatedAt = ServerValue.TIMESTAMP;
+    }
   } else {
     // 상황 설명(intro)을 선택지보다 먼저 뽑는다 - 선택지 쪽 requiresIntro가
     // "이번에 뽑힌 상황 id"를 기준으로 걸러야 하므로 순서가 중요하다
@@ -2605,6 +2680,9 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
   const statWrites = [
     playRef.update(updates)
   ];
+  if (completed && !isBot && play.streamerId && play.preferenceAggregationVersion !== STREAMER_PREFERENCE_AGGREGATION_VERSION) {
+    statWrites.push(aggregateStreamerPreferences(db, play, preferenceTargets, isBot));
+  }
   if (!isBot) {
     statWrites.push(db.ref('lifeGame/stats/choices/' + stage.id + '/' + choice.id).set(ServerValue.increment(1)));
   }
@@ -2903,6 +2981,7 @@ async function startBotPlaythrough(db, botUid) {
     cashHoldings: 0,
     talents: [],
     hobbies: [],
+    preferenceTargets: {},
     sickStreak: 0,
     insuranceUnpaidYears: 0,
     choiceLog: [],
@@ -3083,6 +3162,15 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   if (!streamerName || streamerName.length > MAX_NAME_LEN) {
     throw new HttpsError('invalid-argument', '주인공 이름을 1~' + MAX_NAME_LEN + '자로 입력해주세요.');
   }
+  const db = getDatabase();
+  // 검색 결과에서 확인된 ID만 선호 집계의 기준으로 인정한다. 직접 입력한
+  // 이름이나 존재하지 않는 ID로도 게임은 시작할 수 있지만, 그런 판은
+  // 주인공-종목 연관성 통계에서 제외한다.
+  let canonicalStreamerId = null;
+  if (streamerId) {
+    const streamerSnap = await db.ref('streamerNames/' + streamerId).get();
+    if (streamerSnap.exists()) canonicalStreamerId = streamerId;
+  }
   // startPlaythrough는 세션당 한 번뿐이라(턴마다 부르는 submitChoice/rollDice와
   // 달리) 플래그 없이 매번 조회해도 비용이 무시할 만하다.
   const isAdmin = await isAdminUid(uid);
@@ -3092,7 +3180,6 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   // "처음부터 켜져 있었는지"만 결정한다.
   const multiplayerEnabled = !!(request.data && request.data.multiplayerEnabled);
 
-  const db = getDatabase();
   // occupationGauge 누수 방지 - 계정당 저장 슬롯 1개라 새로 시작하면 진행
   // 중이던(엔딩 없는) 판이 그냥 덮어써진다. 덮어쓰기 전에 그 판이 갖고 있던
   // 직업 게이지를 먼저 이탈 처리한다.
@@ -3105,7 +3192,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   const writes = [
     playRefFor(db, uid).set({
       streamerName,
-      streamerId,
+      streamerId: canonicalStreamerId,
       stats,
       stageIndex: 0,
       visibleChoiceIds,
@@ -3117,6 +3204,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
       cashHoldings: 0,
       talents: [],
       hobbies: [],
+      preferenceTargets: {},
       sickStreak: 0,
       insuranceUnpaidYears: 0,
       choiceLog: [],
@@ -3138,7 +3226,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   if (multiplayerEnabled) {
     writes.push(db.ref('lifeGame/multiplayerSessions/' + uid).set({
       streamerName,
-      streamerId,
+      streamerId: canonicalStreamerId,
       stats,
       stage: publicStage(STAGES[0], visibleChoiceIds, currentIntroId, []),
       participants: {},
@@ -3694,6 +3782,54 @@ const adminDeletePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: 
   await releaseOccupationGaugeIfAbandoned(db, snap.val());
   await targetRef.remove();
   return { ok: true, deletedUid: targetUid };
+});
+
+// 관리자 - 주인공별 주식 스트리머 선호 집계 조회. 집계 노드는 클라이언트에
+// 직접 공개하지 않고, 이 함수에서만 공개 스트리머 ID·닉네임과 선택 횟수를
+// 반환한다. 원본 플레이어 UID나 개별 플레이 기록은 반환하지 않는다.
+const getStreamerPreferenceSummary = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  if (!(await isAdminUid(uid))) {
+    throw new HttpsError('permission-denied', '관리자만 사용할 수 있는 기능입니다.');
+  }
+  const sourceStreamerId = request.data && request.data.streamerId ? String(request.data.streamerId).trim() : '';
+  if (!sourceStreamerId) throw new HttpsError('invalid-argument', '조회할 주인공 streamerId가 필요합니다.');
+  const requestedLimit = Number(request.data && request.data.limit);
+  const limit = Number.isFinite(requestedLimit) ? Math.min(100, Math.max(1, Math.floor(requestedLimit))) : 30;
+  const db = getDatabase();
+  const [namesSnap, summarySnap, targetsSnap] = await Promise.all([
+    db.ref('streamerNames').get(),
+    db.ref('lifeGame/streamerPreferenceAggregates/' + sourceStreamerId + '/summary').get(),
+    db.ref('lifeGame/streamerPreferenceAggregates/' + sourceStreamerId + '/targets').get()
+  ]);
+  const names = namesSnap.val() || {};
+  if (!Object.prototype.hasOwnProperty.call(names, sourceStreamerId)) {
+    throw new HttpsError('not-found', '존재하지 않는 주인공 streamerId입니다.');
+  }
+  const summary = summarySnap.val() || {};
+  const stockSelectedPlaythroughs = Number(summary.stockSelectedPlaythroughs) || 0;
+  const targets = targetsSnap.val() || {};
+  const rows = Object.keys(targets).map((targetStreamerId) => {
+    const value = targets[targetStreamerId] || {};
+    const uniquePlaythroughCount = Number(value.uniquePlaythroughCount) || 0;
+    return {
+      streamerId: targetStreamerId,
+      streamerName: names[targetStreamerId] || null,
+      selectionCount: Number(value.selectionCount) || 0,
+      uniquePlaythroughCount,
+      selectionShare: stockSelectedPlaythroughs ? uniquePlaythroughCount / stockSelectedPlaythroughs : 0,
+      updatedAt: value.updatedAt || null
+    };
+  }).sort((a, b) => b.uniquePlaythroughCount - a.uniquePlaythroughCount || b.selectionCount - a.selectionCount).slice(0, limit);
+  return {
+    source: { streamerId: sourceStreamerId, streamerName: names[sourceStreamerId] },
+    summary: {
+      completedPlaythroughs: Number(summary.completedPlaythroughs) || 0,
+      stockSelectedPlaythroughs,
+      updatedAt: summary.updatedAt || null
+    },
+    targets: rows
+  };
 });
 
 // 게임별 정지 관리(2026-09-05 추가, 신규 게임 온보딩 체크리스트) — StreamBet-Market의
@@ -4509,4 +4645,4 @@ const logLifeGameVisit = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   return { ok: true, logged: true };
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, submitMultiplayerVote, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount, logLifeGameVisit, submitLifeGameReview, deleteLifeGameReview, reportLifeGameReview, adminDeleteLifeGameReview, migratePublicReviews, submitLifeGameSponsorRequest, syncLifeMultiplayerSessionPublic, syncLifeMultiplayerVotePublic, getLifePublicId, migratePublicMultiplayerData };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, getStreamerPreferenceSummary, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, submitMultiplayerVote, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount, logLifeGameVisit, submitLifeGameReview, deleteLifeGameReview, reportLifeGameReview, adminDeleteLifeGameReview, migratePublicReviews, submitLifeGameSponsorRequest, syncLifeMultiplayerSessionPublic, syncLifeMultiplayerVotePublic, getLifePublicId, migratePublicMultiplayerData };
