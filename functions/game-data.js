@@ -63878,7 +63878,7 @@ const HARDWARE_STORE_CHOICES = [
     text: '집에 있던 망치로 아버지 일을 거들어드리고 용돈을 받는다',
     requiresNoAsset: 'hammer',
     requiresAgeBelow: 13,
-    appearChance: 0.1,
+    appearChance: 0.0309479,
     bonusSlot: true,
     deltas: { wealth: 1, happiness: 1 },
     addAsset: { id: 'hammer', label: '🔨 망치', type: 'hardware-tool' },
@@ -63889,7 +63889,7 @@ const HARDWARE_STORE_CHOICES = [
     text: '가게 진열대가 삐걱거려 망치를 하나 장만한다',
     requiresNoAsset: 'hammer',
     requiresAgeAtLeast: 13,
-    appearChance: 0.1,
+    appearChance: 0.0309479,
     bonusSlot: true,
     deltas: { wealth: -1, happiness: 1 },
     addAsset: { id: 'hammer', label: '🔨 망치', type: 'hardware-tool' },
@@ -63961,15 +63961,16 @@ const HARDWARE_STORE_CHOICES = [
   // 노출률 47%→76%). 1차로 도구 1종 시절 체감(턴당 47%)으로 되돌리려 0.06
   // 까지 낮췄었으나, 사용자가 이어서 "1턴당 10%로" 명시 지정해 0.012로 재조정
   // (10개 사용이벤트 독립 확률 기준 시뮬레이션 실측 턴당 10.1%, 게임당 평균
-  // 노출 8.5회 - craft-trigger·도구 획득 선택지는 이 조정 대상이 아니라 기존
-  // 그대로 0.1 유지). 도구가 더 늘어나면 이 상수도 같은 방식(원하는 턴당 %를
+  // 노출 8.5회 - craft-trigger는 0.1 유지, 도구 획득 선택지는 3종 중 하나 이상
+  // 등장률 9%가 되도록 개별 0.0309479로 조정). 도구가 더 늘어나면 이 상수도
+  // 같은 방식(원하는 턴당 %를
   // 목표로 이분탐색 시뮬레이션)으로 재조정할 것.
   {
     id: 'hardware-axe-help-parents',
     text: '집에 있던 도끼로 장작 패는 아버지 일을 거들어드리고 용돈을 받는다',
     requiresNoAsset: 'axe',
     requiresAgeBelow: 13,
-    appearChance: 0.1,
+    appearChance: 0.0309479,
     bonusSlot: true,
     deltas: { wealth: 1, happiness: 1 },
     addAsset: { id: 'axe', label: '🪓 도끼', type: 'hardware-tool' },
@@ -63980,7 +63981,7 @@ const HARDWARE_STORE_CHOICES = [
     text: '마당의 나무를 손질하려 도끼를 하나 장만한다',
     requiresNoAsset: 'axe',
     requiresAgeAtLeast: 13,
-    appearChance: 0.1,
+    appearChance: 0.0309479,
     bonusSlot: true,
     deltas: { wealth: -2, happiness: 1 },
     addAsset: { id: 'axe', label: '🪓 도끼', type: 'hardware-tool' },
@@ -64032,7 +64033,7 @@ const HARDWARE_STORE_CHOICES = [
     text: '집에 있던 장도리로 어머니의 못 정리를 거들어드리고 용돈을 받는다',
     requiresNoAsset: 'claw-hammer',
     requiresAgeBelow: 13,
-    appearChance: 0.1,
+    appearChance: 0.0309479,
     bonusSlot: true,
     deltas: { wealth: 1, happiness: 1 },
     addAsset: { id: 'claw-hammer', label: '🔧 장도리', type: 'hardware-tool' },
@@ -64043,7 +64044,7 @@ const HARDWARE_STORE_CHOICES = [
     text: '낡은 못을 빼내려 장도리를 하나 장만한다',
     requiresNoAsset: 'claw-hammer',
     requiresAgeAtLeast: 13,
-    appearChance: 0.1,
+    appearChance: 0.0309479,
     bonusSlot: true,
     deltas: { wealth: -1, happiness: 1 },
     addAsset: { id: 'claw-hammer', label: '🔧 장도리', type: 'hardware-tool' },
