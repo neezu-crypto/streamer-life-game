@@ -1,5 +1,6 @@
 const { onCall, HttpsError } = require('firebase-functions/v2/https');
 const { onSchedule } = require('firebase-functions/v2/scheduler');
+const { onValueWritten } = require('firebase-functions/v2/database');
 const { initializeApp } = require('firebase-admin/app');
 const { getDatabase, ServerValue } = require('firebase-admin/database');
 const { STAT_KEYS, STAT_START, clampStat, requireAuth, isAdminUid, assertCooldown } = require('./common');
@@ -23,6 +24,7 @@ const {
 } = require('./game-data');
 const { linkGoogleAccount } = require('./google');
 const { linkKakaoAccount } = require('./kakao');
+const crypto = require('crypto');
 
 // 다섯 스탯 중 하나라도 0 이하로 떨어지면 그 즉시 삶이 끝난다(health만 있던
 // 걸 전부로 확장). 한 선택에서 여러 스탯이 동시에 0을 찍을 수도 있어 순서를
@@ -41,6 +43,78 @@ initializeApp();
 
 const MAX_NAME_LEN = 40;
 const MAX_REPORT_REASON_LEN = 300;
+
+function lifePublicIdFor(uid, suffix = '') {
+  const digest = crypto.createHash('sha256').update(`life:${uid}:${suffix}`).digest('base64url');
+  return `LIF-${digest.slice(0, 14)}`;
+}
+
+// 멀티플레이 공개 미러에서 사용하는 계정 식별자. 원본 UID는 private
+// 노드에서만 사용하고, 공개 세션/투표에는 역산할 수 없는 해시 ID만 남긴다.
+async function ensureLifePublicId(db, uid) {
+  const publicId = lifePublicIdFor(uid, 'multiplayer');
+  // reviews도 privateUserIds/life를 사용하므로 멀티플레이 식별자는 별도
+  // 네임스페이스로 분리해 후기 publicId를 덮어쓰지 않는다.
+  await db.ref('privateUserIds/lifeMultiplayer/byUid/' + uid).set(publicId);
+  await db.ref('privateUserIds/lifeMultiplayer/byPublicId/' + publicId).set(uid);
+  return publicId;
+}
+
+async function resolveLifePublicId(db, publicId) {
+  if (!publicId) return null;
+  const snap = await db.ref('privateUserIds/lifeMultiplayer/byPublicId/' + publicId).get();
+  return snap.exists() ? snap.val() : null;
+}
+
+async function publicMultiplayerSession(db, source, hostUid) {
+  const hostPublicId = await ensureLifePublicId(db, hostUid);
+  const participants = {};
+  const participantEntries = Object.entries((source && source.participants) || {});
+  await Promise.all(participantEntries.map(async ([uid, nickname]) => {
+    participants[await ensureLifePublicId(db, uid)] = nickname;
+  }));
+  const publicSession = Object.assign({}, source || {}, {
+    hostPublicId,
+    participants
+  });
+  delete publicSession.hostUid;
+  // 강퇴 목록에는 UID가 들어 있으므로 공개 미러에는 복사하지 않는다.
+  delete publicSession.kickedUids;
+  delete publicSession.kickedNicknames;
+  return publicSession;
+}
+
+// private 세션/투표의 변경은 서버 함수와 onDisconnect에서만 발생한다.
+// 클라이언트는 항상 아래 공개 미러만 읽는다.
+const syncLifeMultiplayerSessionPublic = onValueWritten('lifeGame/multiplayerSessions/{hostUid}', async (event) => {
+  const db = getDatabase();
+  const publicRef = db.ref('lifeGame/multiplayerSessionsPublic/' + lifePublicIdFor(event.params.hostUid, 'multiplayer'));
+  if (!event.data.after.exists()) {
+    await publicRef.remove();
+    return;
+  }
+  await publicRef.set(await publicMultiplayerSession(db, event.data.after.val(), event.params.hostUid));
+});
+
+const syncLifeMultiplayerVotePublic = onValueWritten('lifeGame/multiplayerVotes/{hostUid}/{stageId}/{participantUid}', async (event) => {
+  const db = getDatabase();
+  const hostPublicId = await ensureLifePublicId(db, event.params.hostUid);
+  const participantPublicId = await ensureLifePublicId(db, event.params.participantUid);
+  const publicRef = db.ref('lifeGame/multiplayerVotesPublic/' + hostPublicId + '/' + event.params.stageId + '/' + participantPublicId);
+  if (!event.data.after.exists()) await publicRef.remove();
+  else await publicRef.set(event.data.after.val());
+});
+
+const getLifePublicId = onCall({ cors: true }, async (request) => {
+  const uid = requireAuth(request);
+  return { publicId: await ensureLifePublicId(getDatabase(), uid) };
+});
+
+async function resolveLifeReviewPublicId(db, publicId) {
+  if (!publicId) return null;
+  const snap = await db.ref('privateUserIds/life/byPublicId/' + publicId).get();
+  return snap.exists() ? snap.val() : null;
+}
 
 // 게임 후기(리뷰) - XSS 방지용 금지문자·링크차단 정규식은 streamer-gallery
 // constants.js와 동일한 걸 그대로 재사용(이 생태계에서 실제로 존재하는
@@ -3493,8 +3567,7 @@ async function performGalleryShare(db, uid, play) {
     occupationHistory: buildOccupationHistory(play.choiceLog),
     locationHistory: buildLocationHistory(play.choiceLog)
   };
-  await Promise.all([
-    galleryRef.set({
+  const galleryValue = {
       streamerName: play.streamerName,
       streamerId: play.streamerId || null,
       ending: play.ending,
@@ -3503,7 +3576,12 @@ async function performGalleryShare(db, uid, play) {
       endedAtAge,
       uid,
       sharedAt: ServerValue.TIMESTAMP
-    }),
+  };
+  const publicGalleryValue = Object.assign({}, galleryValue);
+  delete publicGalleryValue.uid;
+  await Promise.all([
+    galleryRef.set(galleryValue),
+    db.ref('lifeGame/galleryPublic/' + galleryRef.key).set(publicGalleryValue),
     db.ref('lifeGame/galleryChoiceLogs/' + galleryRef.key).set(buildChoiceHistory(play.choiceLog)),
     db.ref('lifeGame/galleryDetails/' + galleryRef.key).set(galleryDetails),
     playRefFor(db, uid).update({ galleryEntryId: galleryRef.key }),
@@ -3765,6 +3843,7 @@ const adminDeleteGalleryEntry = onCall({ cors: true, timeoutSeconds: 30, memory:
 
   const tasks = [
     entryRef.remove(),
+    db.ref('lifeGame/galleryPublic/' + entryId).remove(),
     db.ref('lifeGame/galleryChoiceLogs/' + entryId).remove(),
     db.ref('lifeGame/galleryDetails/' + entryId).remove()
   ];
@@ -3777,6 +3856,22 @@ const adminDeleteGalleryEntry = onCall({ cors: true, timeoutSeconds: 30, memory:
   }
   await Promise.all(tasks);
   return { ok: true, deletedEntryId: entryId };
+});
+
+// 기존 공개 갤러리 항목에서 uid를 제거한 미러를 생성한다.
+exports.migratePublicGallery = onCall(async (request) => {
+  const uid = requireAuth(request);
+  if (!(await isAdminUid(uid))) throw new HttpsError('permission-denied', '관리자만 사용할 수 있습니다.');
+  const db = getDatabase();
+  const snap = await db.ref('lifeGame/gallery').get();
+  const updates = {};
+  snap.forEach((child) => {
+    const value = Object.assign({}, child.val() || {});
+    delete value.uid;
+    updates['lifeGame/galleryPublic/' + child.key] = value;
+  });
+  if (Object.keys(updates).length) await db.ref().update(updates);
+  return { migrated: Object.keys(updates).length };
 });
 
 // ------------------------------------------------------------
@@ -3876,36 +3971,49 @@ const submitLifeGameReview = onCall({ cors: true, timeoutSeconds: 30, memory: '2
     ? existingSnap.val().createdAt
     : ServerValue.TIMESTAMP;
 
-  await reviewRef.set({
+  const reviewPublicId = isAdmin ? lifePublicIdFor(uid, reviewRef.key) : lifePublicIdFor(uid);
+  const reviewValue = {
     rating,
     text,
     nickname,
     soopId,
     createdAt,
     updatedAt: ServerValue.TIMESTAMP
-  });
+  };
+  await reviewRef.set(reviewValue);
+  await db.ref('lifeGame/reviewsPublic/' + reviewPublicId).set(Object.assign({ publicId: reviewPublicId }, reviewValue));
+  await db.ref('privateUserIds/life/byUid/' + uid).set(reviewPublicId);
+  await db.ref('privateUserIds/life/byPublicId/' + reviewPublicId).set(uid);
+  if (!isAdmin) await db.ref('users/' + uid + '/publicIds/lifeGameReview').set(reviewPublicId);
 
-  return { ok: true, promoteRequested, nickname, soopId };
+  return { ok: true, promoteRequested, nickname, soopId, reviewPublicId };
 });
 
 const deleteLifeGameReview = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
-  await getDatabase().ref('lifeGame/reviews/' + uid).remove();
+  const db = getDatabase();
+  const publicId = request.data && request.data.reviewPublicId;
+  const resolvedUid = publicId ? await resolveLifeReviewPublicId(db, publicId) : uid;
+  if (resolvedUid !== uid) throw new HttpsError('permission-denied', '본인의 후기만 삭제할 수 있습니다.');
+  await db.ref('lifeGame/reviews/' + uid).remove();
+  await db.ref('lifeGame/reviewsPublic/' + (publicId || lifePublicIdFor(uid))).remove();
   return { ok: true };
 });
 
 const reportLifeGameReview = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
-  const reviewUid = request.data && request.data.reviewUid;
+  const reviewPublicId = request.data && request.data.reviewPublicId;
   const reason = (request.data && request.data.reason || '').toString().trim().slice(0, MAX_REPORT_REASON_LEN);
-  if (!reviewUid) throw new HttpsError('invalid-argument', 'reviewUid가 필요합니다.');
+  if (!reviewPublicId) throw new HttpsError('invalid-argument', 'reviewPublicId가 필요합니다.');
 
   const db = getDatabase();
+  const reviewUid = await resolveLifeReviewPublicId(db, reviewPublicId);
+  if (!reviewUid) throw new HttpsError('not-found', '후기를 찾을 수 없습니다.');
   const reviewSnap = await db.ref('lifeGame/reviews/' + reviewUid).get();
   if (!reviewSnap.exists()) throw new HttpsError('not-found', '후기를 찾을 수 없습니다.');
 
   await db.ref('lifeGame/reviewReports').push({
-    reviewUid,
+    reviewPublicId,
     reason,
     reporterUid: uid,
     reportedAt: ServerValue.TIMESTAMP
@@ -3919,11 +4027,35 @@ const adminDeleteLifeGameReview = onCall({ cors: true, timeoutSeconds: 30, memor
   if (!(await isAdminUid(uid))) {
     throw new HttpsError('permission-denied', '관리자만 사용할 수 있는 기능입니다.');
   }
-  const targetUid = request.data && request.data.uid;
-  if (!targetUid) throw new HttpsError('invalid-argument', 'uid가 필요합니다.');
+  const targetPublicId = request.data && request.data.reviewPublicId;
+  if (!targetPublicId) throw new HttpsError('invalid-argument', 'reviewPublicId가 필요합니다.');
 
-  await getDatabase().ref('lifeGame/reviews/' + targetUid).remove();
-  return { ok: true, deletedUid: targetUid };
+  const db = getDatabase();
+  const targetUid = await resolveLifeReviewPublicId(db, targetPublicId);
+  if (!targetUid) throw new HttpsError('not-found', '후기를 찾을 수 없습니다.');
+  await db.ref('lifeGame/reviews/' + targetUid).remove();
+  await db.ref('lifeGame/reviewsPublic/' + targetPublicId).remove();
+  return { ok: true };
+});
+
+const migratePublicReviews = onCall({ cors: true, timeoutSeconds: 60, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const db = getDatabase();
+  if (!(await isAdminUid(uid))) throw new HttpsError('permission-denied', '관리자만 사용할 수 있는 기능입니다.');
+  const snap = await db.ref('lifeGame/reviews').get();
+  const updates = {};
+  let count = 0;
+  snap.forEach((child) => {
+    const review = child.val() || {};
+    const publicId = lifePublicIdFor(child.key);
+    updates['lifeGame/reviewsPublic/' + publicId] = Object.assign({ publicId }, review);
+    updates['privateUserIds/life/byUid/' + child.key] = publicId;
+    updates['privateUserIds/life/byPublicId/' + publicId] = child.key;
+    updates['users/' + child.key + '/publicIds/lifeGameReview'] = publicId;
+    count += 1;
+  });
+  if (count) await db.ref().update(updates);
+  return { ok: true, count };
 });
 
 // 후원 스트리머 배너 신청 접수. 실제 후원은 후원창(별풍선 결제)으로 별도로
@@ -3987,6 +4119,7 @@ const setMultiplayerEnabled = onCall({ cors: true, timeoutSeconds: 30, memory: '
   const uid = requireAuth(request);
   const enabled = !!(request.data && request.data.enabled);
   const db = getDatabase();
+  await ensureLifePublicId(db, uid);
   const mpRef = db.ref('lifeGame/multiplayerSessions/' + uid);
   const playRef = playRefFor(db, uid);
   if (!enabled) {
@@ -4052,13 +4185,18 @@ const MULTIPLAYER_NICKNAME_REGEX = /^[가-힣]{1,6}$/;
 // (2026-08-22 확정, "그 세션당 1회" - multiplayerAdShown으로 판정).
 const joinMultiplayerSession = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
-  const hostUid = request.data && request.data.hostUid;
+  const db = getDatabase();
+  const hostPublicId = request.data && request.data.hostPublicId;
+  const hostUid = hostPublicId
+    ? await resolveLifePublicId(db, hostPublicId)
+    : (request.data && request.data.hostUid);
   const nickname = (request.data && request.data.nickname || '').toString().trim();
   if (!hostUid) throw new HttpsError('invalid-argument', 'hostUid가 필요합니다.');
   if (!MULTIPLAYER_NICKNAME_REGEX.test(nickname)) {
     throw new HttpsError('invalid-argument', '닉네임은 한글 1~6자로 입력해주세요.');
   }
-  const db = getDatabase();
+  await ensureLifePublicId(db, uid);
+  await ensureLifePublicId(db, hostUid);
   const mpRef = db.ref('lifeGame/multiplayerSessions/' + hostUid);
   const mpSnap = await mpRef.get();
   if (!mpSnap.exists()) throw new HttpsError('not-found', '진행 중인 게임을 찾을 수 없습니다.');
@@ -4090,9 +4228,12 @@ const joinMultiplayerSession = onCall({ cors: true, timeoutSeconds: 30, memory: 
 // 실패하면서 자연히 막힌다.
 const leaveMultiplayerSession = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
-  const hostUid = request.data && request.data.hostUid;
-  if (!hostUid) throw new HttpsError('invalid-argument', 'hostUid가 필요합니다.');
   const db = getDatabase();
+  const hostPublicId = request.data && request.data.hostPublicId;
+  const hostUid = hostPublicId
+    ? await resolveLifePublicId(db, hostPublicId)
+    : (request.data && request.data.hostUid);
+  if (!hostUid) throw new HttpsError('invalid-argument', 'hostUid가 필요합니다.');
   const mpRef = db.ref('lifeGame/multiplayerSessions/' + hostUid);
   const mpSnap = await mpRef.get();
   if (!mpSnap.exists()) return { ok: true, left: false };
@@ -4117,9 +4258,14 @@ const leaveMultiplayerSession = onCall({ cors: true, timeoutSeconds: 30, memory:
 // 교체해 부적절한 이름이 남지 않게 한다.
 const kickParticipant = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const hostUid = requireAuth(request);
-  const targetUid = request.data && request.data.targetUid;
-  if (!targetUid) throw new HttpsError('invalid-argument', 'targetUid가 필요합니다.');
   const db = getDatabase();
+  const targetPublicId = request.data && request.data.targetPublicId;
+  const targetUid = targetPublicId
+    ? await resolveLifePublicId(db, targetPublicId)
+    : (request.data && request.data.targetUid);
+  if (!targetUid) throw new HttpsError('invalid-argument', 'targetUid가 필요합니다.');
+  await ensureLifePublicId(db, hostUid);
+  await ensureLifePublicId(db, targetUid);
   const mpRef = db.ref('lifeGame/multiplayerSessions/' + hostUid);
   const mpSnap = await mpRef.get();
   if (!mpSnap.exists()) throw new HttpsError('not-found', '진행 중인 게임을 찾을 수 없습니다.');
@@ -4177,6 +4323,64 @@ const kickParticipant = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB
 
   await Promise.all(tasks);
   return { ok: true, kickedUid: targetUid };
+});
+
+// 참가자 투표는 private 노드에 UID로 기록하되 클라이언트가 직접 쓰지 못하게
+// 한다. 서버에서 현재 세션의 participants를 다시 확인한 뒤에만 기록하므로,
+// 공개 미러의 participantPublicId를 조작해 투표를 남기는 우회도 막는다.
+const submitMultiplayerVote = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const data = request.data || {};
+  const hostPublicId = data.hostPublicId;
+  const stageId = String(data.stageId || '').trim();
+  const choiceId = String(data.choiceId || '').trim();
+  if (!hostPublicId || !stageId || !choiceId) {
+    throw new HttpsError('invalid-argument', 'hostPublicId, stageId, choiceId가 필요합니다.');
+  }
+  const db = getDatabase();
+  const hostUid = await resolveLifePublicId(db, hostPublicId);
+  if (!hostUid) throw new HttpsError('not-found', '진행 중인 게임을 찾을 수 없습니다.');
+  const mpSnap = await db.ref('lifeGame/multiplayerSessions/' + hostUid).get();
+  const mpVal = mpSnap.val();
+  if (!mpVal || !(mpVal.participants && mpVal.participants[uid])) {
+    throw new HttpsError('permission-denied', '현재 게임에 참가 중이 아닙니다.');
+  }
+  const currentStageId = mpVal.stage && mpVal.stage.id;
+  if (currentStageId !== stageId) throw new HttpsError('failed-precondition', '이미 다음 구간으로 넘어간 투표입니다.');
+  await db.ref('lifeGame/multiplayerVotes/' + hostUid + '/' + stageId + '/' + uid).set(choiceId);
+  return { ok: true };
+});
+
+// 배포 직후 기존 private 세션/투표를 공개 미러로 채우는 관리자 1회성 함수.
+// 이후 변경은 위 database trigger가 자동 동기화한다.
+const migratePublicMultiplayerData = onCall({ cors: true, timeoutSeconds: 60, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const db = getDatabase();
+  if (!(await isAdminUid(uid))) throw new HttpsError('permission-denied', '관리자만 사용할 수 있는 기능입니다.');
+  const sessionSnap = await db.ref('lifeGame/multiplayerSessions').get();
+  const voteSnap = await db.ref('lifeGame/multiplayerVotes').get();
+  const updates = {};
+  let sessionCount = 0;
+  let voteCount = 0;
+  for (const [hostUid, source] of Object.entries(sessionSnap.val() || {})) {
+    if (!source) continue;
+    const hostPublicId = await ensureLifePublicId(db, hostUid);
+    const publicSession = await publicMultiplayerSession(db, source, hostUid);
+    updates['lifeGame/multiplayerSessionsPublic/' + hostPublicId] = publicSession;
+    sessionCount += 1;
+  }
+  for (const [hostUid, stages] of Object.entries(voteSnap.val() || {})) {
+    const hostPublicId = await ensureLifePublicId(db, hostUid);
+    for (const [stageId, participants] of Object.entries(stages || {})) {
+      for (const [participantUid, choiceId] of Object.entries(participants || {})) {
+        const participantPublicId = await ensureLifePublicId(db, participantUid);
+        updates['lifeGame/multiplayerVotesPublic/' + hostPublicId + '/' + stageId + '/' + participantPublicId] = choiceId;
+        voteCount += 1;
+      }
+    }
+  }
+  if (Object.keys(updates).length) await db.ref().update(updates);
+  return { ok: true, sessions: sessionCount, votes: voteCount };
 });
 
 // 세계관 상태 일별 스냅샷(57장 3단계, 2026-08-29) - 매일 00:05(KST)에 그 시점
@@ -4305,4 +4509,4 @@ const logLifeGameVisit = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   return { ok: true, logged: true };
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount, logLifeGameVisit, submitLifeGameReview, deleteLifeGameReview, reportLifeGameReview, adminDeleteLifeGameReview, submitLifeGameSponsorRequest };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, submitMultiplayerVote, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount, logLifeGameVisit, submitLifeGameReview, deleteLifeGameReview, reportLifeGameReview, adminDeleteLifeGameReview, migratePublicReviews, submitLifeGameSponsorRequest, syncLifeMultiplayerSessionPublic, syncLifeMultiplayerVotePublic, getLifePublicId, migratePublicMultiplayerData };

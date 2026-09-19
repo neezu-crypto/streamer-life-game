@@ -79,9 +79,11 @@ const reportLifeGameReviewFn = httpsCallable(functions, 'reportLifeGameReview');
 const adminDeleteLifeGameReviewFn = httpsCallable(functions, 'adminDeleteLifeGameReview');
 const submitLifeGameSponsorRequestFn = httpsCallable(functions, 'submitLifeGameSponsorRequest');
 const adminDeletePlaythroughFn = httpsCallable(functions, 'adminDeletePlaythrough');
+const getLifePublicIdFn = httpsCallable(functions, 'getLifePublicId');
 const googleProvider = new GoogleAuthProvider();
 
 let currentUser = null;
+let lifePublicId = null;
 let resumeChecked = false;
 let presenceRecorded = false;
 let visitLogChecked = false;
@@ -90,6 +92,7 @@ let visitLogChecked = false;
 // 들어온 유저에게까지 상품 광고가 보이는 걸 막기 위함. 인증 스트리머 여부는
 // 기존에 디스코드 알림용으로 이미 한 번 읽던 값을 그대로 재사용(중복 조회 방지).
 let isStreamerVerifiedUser = false;
+let myReviewPublicId = null;
 // 관리자 여부(2026-08-24, 사용자 지시 - "관리자 uid로 다른 인생 갤러리에서
 // 로그 삭제 가능하게" UI 연결) - adminCenter/adminUids 자체는
 // database.rules.json에서 .read:false라 클라이언트가 직접 "내가 관리자인가"를
@@ -115,10 +118,20 @@ async function checkAdminStatus(uid) {
 onAuthStateChanged(auth, (user) => {
   currentUser = user;
   if (!user) {
+    lifePublicId = null;
     signInAnonymously(auth).catch((e) => console.error('익명 로그인 실패:', e));
     return;
   }
+  // 공개 세션/투표 구독에는 UID 대신 서버가 발급한 해시 ID를 사용한다.
+  getLifePublicIdFn().then((result) => {
+    lifePublicId = result.data && result.data.publicId;
+    attachMultiplayerHostListeners();
+    renderMultiplayerSessionList();
+  }).catch((e) => console.error('공개 사용자 ID 발급 실패:', e));
   checkAdminStatus(user.uid);
+  get(ref(db, 'users/' + user.uid + '/publicIds/lifeGameReview')).then((snap) => {
+    myReviewPublicId = snap.val() || null;
+  }).catch(() => {});
   // 계정당 저장 슬롯 1개 - 로그인(익명 포함)이 확정되면 저장된 판이 있는지 한 번만
   // 확인한다. 검색 화면을 먼저 보여줬다가 뒤늦게 "이어하기"로 바꾸면 화면이
   // 깜빡여서, 확인이 끝나기 전까진 검색/이어하기 둘 다 숨겨둔다(아래 checkResume).
@@ -532,7 +545,7 @@ function renderMetaGrid(gridEl, progressEl, meta, unlockedIds, progressLabel) {
 // 로그인 여부(구글·카카오·스트리머 인증 중 하나) 판별 - users/{uid}는 이
 // 생태계 다른 프로젝트가 이미 쓰는 공유 노드라 그 필드를 그대로 읽는다.
 async function refreshCollectionView() {
-  if (!currentUser) return;
+  if (!currentUser || !lifePublicId) return;
   const userSnap = await get(ref(db, 'users/' + currentUser.uid));
   const userData = userSnap.val() || {};
   const isLoggedIn = !!(userData.googleLinked || userData.kakaoLinked || userData.streamerVerified);
@@ -585,7 +598,7 @@ document.getElementById('closeAdminPanelBtn').addEventListener('click', () => {
 });
 
 function renderAdminReviewList(val) {
-  const entries = Object.keys(val).map((uid) => Object.assign({ uid }, val[uid]));
+  const entries = Object.keys(val).map((publicId) => Object.assign({ publicId }, val[publicId]));
   if (!entries.length) {
     adminReviewListEl.innerHTML = '<p class="empty-msg">등록된 후기가 없어요.</p>';
     return;
@@ -594,14 +607,14 @@ function renderAdminReviewList(val) {
   adminReviewListEl.innerHTML = '<div class="admin-panel-list">' + entries.map((e) =>
     '<div class="admin-panel-row"><span class="admin-panel-row-text">' +
     '★' + (e.rating || 0) + ' · ' + escapeHtml(e.nickname || '(익명)') + ' · ' + escapeHtml(e.text || '') +
-    '</span><button type="button" class="admin-review-row-delete-btn" data-uid="' + e.uid + '">삭제</button></div>'
+    '</span><button type="button" class="admin-review-row-delete-btn" data-public-id="' + e.publicId + '">삭제</button></div>'
   ).join('') + '</div>';
   adminReviewListEl.querySelectorAll('.admin-review-row-delete-btn').forEach((btn) => {
     btn.addEventListener('click', async () => {
       if (!confirm('이 후기를 삭제할까요? 되돌릴 수 없습니다.')) return;
       btn.disabled = true;
       try {
-        await adminDeleteLifeGameReviewFn({ uid: btn.dataset.uid });
+        await adminDeleteLifeGameReviewFn({ reviewPublicId: btn.dataset.publicId });
       } catch (e) {
         console.error('관리자 후기 삭제 실패:', e);
         alert('삭제에 실패했어요: ' + (e.message || e));
@@ -3202,7 +3215,7 @@ function renderGalleryList(val) {
   });
 }
 
-onValue(ref(db, 'lifeGame/gallery'), (snap) => {
+onValue(ref(db, 'lifeGame/galleryPublic'), (snap) => {
   const val = snap.val() || {};
   latestGallerySnapVal = val;
   renderGalleryList(val);
@@ -3234,7 +3247,7 @@ function renderLeaderboardRow(icon, label, name, valueText) {
 }
 async function loadLeaderboard() {
   try {
-    const snap = await get(ref(db, 'lifeGame/gallery'));
+    const snap = await get(ref(db, 'lifeGame/galleryPublic'));
     const val = snap.val() || {};
     const entries = Object.values(val);
     if (!entries.length) return;
@@ -3315,6 +3328,7 @@ const joinMultiplayerSessionFn = httpsCallable(functions, 'joinMultiplayerSessio
 const kickParticipantFn = httpsCallable(functions, 'kickParticipant');
 const advanceMultiplayerSessionFn = httpsCallable(functions, 'advanceMultiplayerSession');
 const leaveMultiplayerSessionFn = httpsCallable(functions, 'leaveMultiplayerSession');
+const submitMultiplayerVoteFn = httpsCallable(functions, 'submitMultiplayerVote');
 
 let mpHostListenersAttached = false;
 let mpHostLatestSession = null;
@@ -3424,11 +3438,11 @@ let mpMyLastVoteStageId = null;
 // 패널 표시를 그때그때 판단한다(2026-08-19 "게임도중 토글 변경 가능" 대응 -
 // 별도 활성화 신호 없이도 문서 존재 자체가 곧 상태) ----
 function attachMultiplayerHostListeners() {
-  if (mpHostListenersAttached || !currentUser) return;
+  if (mpHostListenersAttached || !currentUser || !lifePublicId) return;
   mpHostListenersAttached = true;
   const hostUid = currentUser.uid;
   const mySessionRef = ref(db, 'lifeGame/multiplayerSessions/' + hostUid);
-  onValue(mySessionRef, (snap) => {
+  onValue(ref(db, 'lifeGame/multiplayerSessionsPublic/' + lifePublicId), (snap) => {
     mpHostLatestSession = snap.val();
     renderHostMultiplayerPanel();
     // 연결이 끊기면 처음 화면에서도 참가 불가능하게(2026-08-24, 사용자 지시 -
@@ -3446,7 +3460,7 @@ function attachMultiplayerHostListeners() {
       onDisconnect(mySessionRef).cancel().catch(() => {});
     }
   });
-  onValue(ref(db, 'lifeGame/multiplayerVotes/' + hostUid), (snap) => {
+  onValue(ref(db, 'lifeGame/multiplayerVotesPublic/' + lifePublicId), (snap) => {
     mpHostLatestVotes = snap.val() || {};
     renderHostMultiplayerPanel();
   });
@@ -3523,7 +3537,7 @@ function renderHostMultiplayerPanel() {
       if (!confirm('"' + participants[puid] + '"님을 강퇴할까요?')) return;
       kickBtn.disabled = true;
       try {
-        await kickParticipantFn({ targetUid: puid });
+        await kickParticipantFn({ targetPublicId: puid });
       } catch (e) {
         console.error('강퇴 실패:', e);
         alert('강퇴에 실패했어요: ' + (e.message || e));
@@ -3576,7 +3590,7 @@ async function enterHostMode() {
   // 기존 로직 그대로).
   try {
     const [sessionSnap, prefSnap] = await Promise.all([
-      get(ref(db, 'lifeGame/multiplayerSessions/' + currentUser.uid)),
+      get(ref(db, 'lifeGame/multiplayerSessionsPublic/' + lifePublicId)),
       get(ref(db, 'lifeGame/playthroughs/' + currentUser.uid + '/multiplayerEnabled'))
     ]);
     if (sessionSnap.exists()) {
@@ -3622,10 +3636,10 @@ disableChoiceList = function () {
 let mpLatestSessionListVal = {};
 function renderMultiplayerSessionList() {
   const val = mpLatestSessionListVal;
-  const myUid = currentUser ? currentUser.uid : null;
+  const myPublicId = lifePublicId;
   const entries = Object.keys(val)
-    .filter((hostUid) => hostUid !== myUid && val[hostUid] && val[hostUid].completed !== true)
-    .map((hostUid) => Object.assign({ hostUid }, val[hostUid]))
+    .filter((hostPublicId) => hostPublicId !== myPublicId && val[hostPublicId] && val[hostPublicId].completed !== true)
+    .map((hostPublicId) => Object.assign({ hostPublicId }, val[hostPublicId]))
     .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))
     .slice(0, 30);
   if (!entries.length) {
@@ -3644,12 +3658,12 @@ function renderMultiplayerSessionList() {
     joinBtn.type = 'button';
     joinBtn.className = 'primary';
     joinBtn.textContent = '참가하기';
-    joinBtn.addEventListener('click', () => openJoinMultiplayerModal(e.hostUid, e.streamerName || '이름 없음'));
+    joinBtn.addEventListener('click', () => openJoinMultiplayerModal(e.hostPublicId, e.streamerName || '이름 없음'));
     item.appendChild(joinBtn);
     multiplayerSessionListEl.appendChild(item);
   });
 }
-onValue(ref(db, 'lifeGame/multiplayerSessions'), (snap) => {
+onValue(ref(db, 'lifeGame/multiplayerSessionsPublic'), (snap) => {
   mpLatestSessionListVal = snap.val() || {};
   renderMultiplayerSessionList();
 }, (err) => {
@@ -3710,7 +3724,7 @@ function prefillReviewForm() {
   const uid = currentUser.uid;
   reviewPromoteLabelEl.classList.toggle('hidden', isStreamerVerifiedUser);
   reviewPromoteFieldsEl.classList.toggle('hidden', !reviewPromoteCheckboxEl.checked || isStreamerVerifiedUser);
-  const existing = latestReviewsVal[uid];
+  const existing = myReviewPublicId ? latestReviewsVal[myReviewPublicId] : null;
   if (existing) {
     setReviewStars(existing.rating || 0);
     reviewTextInputEl.value = existing.text || '';
@@ -3782,7 +3796,11 @@ submitReviewBtnEl.addEventListener('click', async () => {
 
 async function reviewProfileBadgeHtml(uid, nickname, soopId) {
   try {
-    const q = query(ref(db, 'streamerVerifications'), orderByChild('uid'), equalTo(uid));
+    // 공개 후기에는 작성자 UID가 들어가지 않으므로, 신청 당시의 SOOP ID/닉네임과
+    // UID가 없는 공개 인증 미러만 대조한다.
+    const q = soopId
+      ? query(ref(db, 'streamerVerificationsPublic'), orderByChild('soopId'), equalTo(soopId))
+      : query(ref(db, 'streamerVerificationsPublic'), orderByChild('nickname'), equalTo(nickname));
     const snap = await get(q);
     if (snap.exists()) {
       let verified = null;
@@ -3802,7 +3820,7 @@ async function reviewProfileBadgeHtml(uid, nickname, soopId) {
 
 async function renderReviewList(val) {
   latestReviewsVal = val;
-  const entries = Object.keys(val).map((uid) => Object.assign({ uid }, val[uid]));
+  const entries = Object.keys(val).map((publicId) => Object.assign({ publicId }, val[publicId]));
   if (!entries.length) {
     reviewSummaryEl.textContent = '아직 등록된 후기가 없어요. 첫 번째 후기를 남겨보세요!';
     reviewListEl.innerHTML = '';
@@ -3810,16 +3828,15 @@ async function renderReviewList(val) {
     const avg = entries.reduce((sum, e) => sum + (e.rating || 0), 0) / entries.length;
     reviewSummaryEl.textContent = '★ ' + avg.toFixed(1) + ' · ' + entries.length + '개의 후기';
     entries.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
-    const myUid = currentUser ? currentUser.uid : null;
     const cards = await Promise.all(entries.slice(0, 30).map(async (e) => {
       const stars = '★'.repeat(e.rating || 0) + '☆'.repeat(5 - (e.rating || 0));
-      const badge = e.soopId ? await reviewProfileBadgeHtml(e.uid, e.nickname, e.soopId) : '';
-      const isMine = e.uid === myUid;
+      const badge = e.soopId ? await reviewProfileBadgeHtml(e.publicId, e.nickname, e.soopId) : '';
+      const isMine = e.publicId === myReviewPublicId;
       let actions = isMine
-        ? '<button type="button" class="review-delete-own-btn" data-uid="' + e.uid + '">삭제</button>'
-        : '<button type="button" class="review-report-btn" data-uid="' + e.uid + '">신고</button>';
+        ? '<button type="button" class="review-delete-own-btn" data-public-id="' + e.publicId + '">삭제</button>'
+        : '<button type="button" class="review-report-btn" data-public-id="' + e.publicId + '">신고</button>';
       if (isAdminUser && !isMine) {
-        actions += '<button type="button" class="review-admin-delete-btn" data-uid="' + e.uid + '">관리자 삭제</button>';
+        actions += '<button type="button" class="review-admin-delete-btn" data-public-id="' + e.publicId + '">관리자 삭제</button>';
       }
       return '<div class="review-card">' +
         '<div class="review-card-head"><span class="review-stars-readonly">' + stars + '</span>' +
@@ -3834,7 +3851,8 @@ async function renderReviewList(val) {
       btn.addEventListener('click', async () => {
         btn.disabled = true;
         try {
-          await deleteLifeGameReviewFn();
+          await deleteLifeGameReviewFn({ reviewPublicId: btn.dataset.publicId });
+          myReviewPublicId = null;
           showToast('후기를 삭제했어요.');
           reviewTextInputEl.value = '';
           setReviewStars(0);
@@ -3852,7 +3870,7 @@ async function renderReviewList(val) {
       btn.addEventListener('click', async () => {
         btn.disabled = true;
         try {
-          await reportLifeGameReviewFn({ reviewUid: btn.dataset.uid });
+          await reportLifeGameReviewFn({ reviewPublicId: btn.dataset.publicId });
           showToast('신고가 접수됐어요.');
         } catch (e) {
           console.error('후기 신고 실패:', e);
@@ -3866,7 +3884,7 @@ async function renderReviewList(val) {
         if (!confirm('이 후기를 삭제할까요? 되돌릴 수 없습니다.')) return;
         btn.disabled = true;
         try {
-          await adminDeleteLifeGameReviewFn({ uid: btn.dataset.uid });
+          await adminDeleteLifeGameReviewFn({ reviewPublicId: btn.dataset.publicId });
         } catch (e) {
           console.error('관리자 후기 삭제 실패:', e);
           alert('삭제에 실패했어요: ' + (e.message || e));
@@ -3877,7 +3895,7 @@ async function renderReviewList(val) {
   }
 }
 
-onValue(ref(db, 'lifeGame/reviews'), (snap) => {
+onValue(ref(db, 'lifeGame/reviewsPublic'), (snap) => {
   const val = snap.val() || {};
   renderReviewList(val);
   if (isAdminUser) renderAdminReviewList(val);
@@ -3903,7 +3921,7 @@ joinMultiplayerSubmitBtn.addEventListener('click', async () => {
   }
   joinMultiplayerSubmitBtn.disabled = true;
   try {
-    const res = await joinMultiplayerSessionFn({ hostUid: mpPendingJoinHostUid, nickname });
+    const res = await joinMultiplayerSessionFn({ hostPublicId: mpPendingJoinHostUid, nickname });
     joinMultiplayerModal.classList.add('hidden');
     if (res.data.showAd) {
       joinAdModal.classList.remove('hidden');
@@ -3941,7 +3959,7 @@ async function enterParticipantMode(hostUid, hostName) {
   fadeIn([gameSection, worldStatePanel]);
 
   if (mpParticipantUnsub) mpParticipantUnsub();
-  mpParticipantUnsub = onValue(ref(db, 'lifeGame/multiplayerSessions/' + hostUid), (snap) => {
+  mpParticipantUnsub = onValue(ref(db, 'lifeGame/multiplayerSessionsPublic/' + hostUid), (snap) => {
     const val = snap.val();
     if (!val) {
       alert('게임이 종료됐어요.');
@@ -3974,7 +3992,7 @@ async function enterParticipantMode(hostUid, hostName) {
   // 화면엔 결과 확인 대기 단계가 없어서, 다음 나이로 넘어가는 순간 stage.id가
   // 바뀌며 choiceList 자체가 다시 그려지므로 이전 투표 수는 자연스럽게 사라진다.
   if (mpParticipantVotesUnsub) mpParticipantVotesUnsub();
-  mpParticipantVotesUnsub = onValue(ref(db, 'lifeGame/multiplayerVotes/' + hostUid), (snap) => {
+  mpParticipantVotesUnsub = onValue(ref(db, 'lifeGame/multiplayerVotesPublic/' + hostUid), (snap) => {
     mpParticipantLatestVotes = snap.val() || {};
     renderParticipantVoteBadges();
   });
@@ -4100,7 +4118,7 @@ async function voteForChoice(stageId, choiceId) {
     if (el.dataset && el.dataset.choiceId) el.classList.toggle('mp-my-vote', el.dataset.choiceId === choiceId);
   });
   try {
-    await set(ref(db, 'lifeGame/multiplayerVotes/' + mpParticipantHostUid + '/' + stageId + '/' + currentUser.uid), choiceId);
+    await submitMultiplayerVoteFn({ hostPublicId: mpParticipantHostUid, stageId, choiceId });
   } catch (e) {
     console.error('투표 실패:', e);
   }
@@ -4113,7 +4131,7 @@ function leaveParticipantMode() {
   // 게임이 이미 끝나 세션이 사라진 경우(엔딩 도달로 이 함수가 호출된 경우)엔
   // 그냥 left:false로 조용히 끝나므로 매번 호출해도 안전하다.
   if (mpParticipantHostUid) {
-    leaveMultiplayerSessionFn({ hostUid: mpParticipantHostUid }).catch((e) => console.error('나가기 처리 실패:', e));
+    leaveMultiplayerSessionFn({ hostPublicId: mpParticipantHostUid }).catch((e) => console.error('나가기 처리 실패:', e));
   }
   if (mpParticipantUnsub) { mpParticipantUnsub(); mpParticipantUnsub = null; }
   if (mpParticipantVotesUnsub) { mpParticipantVotesUnsub(); mpParticipantVotesUnsub = null; }
