@@ -3346,7 +3346,7 @@ let mpPendingJoinHostName = '';
 // 후원 스트리머 배너(2026-09-09) - 검색화면 상단·엔딩화면·멀티플레이 참가·
 // 모바일 하단배너 네 자리 모두 lifeGame/currentSponsor 하나를 그대로 반영한다
 // (기존 애드픽 제휴 배너 A/B/C 로테이션을 대체). 후원 중이 아니면(만료
-// 포함) 각 자리에 "내 방송국 홍보하기" CTA만 보여준다 - 로그인 여부와
+// 포함) 각 자리에 "스트리머 홍보하기" CTA만 보여준다 - 로그인 여부와
 // 무관하게 항상 구독한다(currentSponsor는 공개 읽기 노드).
 const SPONSOR_SLOTS = ['search', 'ending', 'join', 'anchor'];
 let latestSponsor = null;
@@ -3421,7 +3421,7 @@ submitSponsorBtn.addEventListener('click', async () => {
     window.open(SPONSOR_DONATION_URL, '_blank');
     sponsorNicknameInput.value = '';
     sponsorSoopIdInput.value = '';
-    sponsorDaysInput.value = '7';
+    sponsorDaysInput.value = '1';
     updateSponsorCostPreview();
     window.closeSponsorModal();
   } catch (e) {
