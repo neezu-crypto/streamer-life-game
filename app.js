@@ -751,7 +751,7 @@ let pendingStockChoiceId = null;
 let stockModalOpening = false;
 let stockModalAnimationToken = 0;
 const STOCK_MOTION_REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const STOCK_MARKET_PULSE_MS = STOCK_MOTION_REDUCED ? 0 : 3000;
+const STOCK_MARKET_PULSE_MS = STOCK_MOTION_REDUCED ? 0 : 2500;
 const STOCK_MODAL_SLIDE_MS = STOCK_MOTION_REDUCED ? 0 : 900;
 
 wireStreamerSearch(buyStockSearchInput, buyStockSearchResults, '일치하는 스트리머가 없어요.', selectStockToBuy);
@@ -774,12 +774,16 @@ async function openBuyStockModal(choiceId) {
   if (stockModalOpening || !choiceId) return;
   stockModalOpening = true;
   pendingStockChoiceId = choiceId;
+  // 주식 선택지가 있는 위치가 화면 아래쪽일 수 있으므로, 연출 시작과
+  // 동시에 페이지를 상단으로 올려 devbar 점등과 모달 진입을 한 화면에서
+  // 확인할 수 있게 한다.
+  window.scrollTo({ top: 0, behavior: STOCK_MOTION_REDUCED ? 'auto' : 'smooth' });
   disableChoiceList();
   buyStockSearchInput.value = '';
   buyStockSearchResults.innerHTML = '';
 
-  // 먼저 devbar 주식시장 링크를 주황/검정으로 두 번 점등한다(주황 0.5초,
-  // 검정 1초 간격). 점등이 끝난 뒤에야 모달이 등장해 화면 전환 순서가
+  // 먼저 devbar 주식시장 링크를 주황/검정으로 두 번 점등한다(각 0.5초).
+  // 점등이 끝난 뒤에야 모달이 등장해 화면 전환 순서가
   // 항상 동일하게 보이도록 한다.
   await pulseStockMarketDevbar();
   if (pendingStockChoiceId !== choiceId) {

@@ -213,14 +213,14 @@
      모달이 내려오는 동안은 주식시장(짙은 남색) 톤을 사용하고, 중앙에
      도착하면 인생게임 테마(갈색)로 부드럽게 전환한다. */
   @keyframes stock-market-link-pulse {
-    0%, 16.666% { background: #0e1116; color: rgba(255,255,255,0.85); box-shadow: none; }
-    33.333% { background: #f59e0b; color: #111827; box-shadow: 0 0 0 3px rgba(245,158,11,0.2), 0 0 18px rgba(245,158,11,0.65); }
-    66.666% { background: #0e1116; color: rgba(255,255,255,0.85); box-shadow: none; }
-    83.333% { background: #f59e0b; color: #111827; box-shadow: 0 0 0 3px rgba(245,158,11,0.2), 0 0 18px rgba(245,158,11,0.65); }
+    0%, 20% { background: #0e1116; color: rgba(255,255,255,0.85); box-shadow: none; }
+    40% { background: #f59e0b; color: #111827; box-shadow: 0 0 0 3px rgba(245,158,11,0.2), 0 0 18px rgba(245,158,11,0.65); }
+    60% { background: #0e1116; color: rgba(255,255,255,0.85); box-shadow: none; }
+    80% { background: #f59e0b; color: #111827; box-shadow: 0 0 0 3px rgba(245,158,11,0.2), 0 0 18px rgba(245,158,11,0.65); }
     100% { background: #0e1116; color: rgba(255,255,255,0.85); box-shadow: none; }
   }
   .dev-game-link.stock-market-pulse {
-    animation: stock-market-link-pulse 3s ease-in-out 1 both;
+    animation: stock-market-link-pulse 2.5s ease-in-out 1 both;
   }
   #buyStockModal.stock-intro-modal {
     background: rgba(15,23,42,0.78);
