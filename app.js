@@ -748,27 +748,88 @@ const buyStockModal = document.getElementById('buyStockModal');
 const buyStockSearchInput = document.getElementById('buyStockSearchInput');
 const buyStockSearchResults = document.getElementById('buyStockSearchResults');
 let pendingStockChoiceId = null;
+let stockModalOpening = false;
+let stockModalAnimationToken = 0;
+const STOCK_MOTION_REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const STOCK_MARKET_PULSE_MS = STOCK_MOTION_REDUCED ? 0 : 3000;
+const STOCK_MODAL_SLIDE_MS = STOCK_MOTION_REDUCED ? 0 : 900;
 
 wireStreamerSearch(buyStockSearchInput, buyStockSearchResults, '일치하는 스트리머가 없어요.', selectStockToBuy);
 
-function openBuyStockModal(choiceId) {
+function pulseStockMarketDevbar() {
+  const link = document.querySelector('#devbarTrack a[data-game-id="stockMarket"]');
+  if (!link) return Promise.resolve();
+  link.classList.remove('stock-market-pulse');
+  void link.offsetWidth;
+  link.classList.add('stock-market-pulse');
+  return new Promise((resolve) => {
+    window.setTimeout(() => {
+      link.classList.remove('stock-market-pulse');
+      resolve();
+    }, STOCK_MARKET_PULSE_MS);
+  });
+}
+
+async function openBuyStockModal(choiceId) {
+  if (stockModalOpening || !choiceId) return;
+  stockModalOpening = true;
   pendingStockChoiceId = choiceId;
+  disableChoiceList();
   buyStockSearchInput.value = '';
   buyStockSearchResults.innerHTML = '';
+
+  // 먼저 devbar 주식시장 링크를 주황/검정으로 두 번 점등한다(주황 0.5초,
+  // 검정 1초 간격). 점등이 끝난 뒤에야 모달이 등장해 화면 전환 순서가
+  // 항상 동일하게 보이도록 한다.
+  await pulseStockMarketDevbar();
+  if (pendingStockChoiceId !== choiceId) {
+    stockModalOpening = false;
+    return;
+  }
+  stockModalAnimationToken += 1;
+  buyStockModal.classList.remove('is-exiting', 'is-arrived', 'is-life-theme');
+  buyStockModal.classList.add('is-stock-theme');
   buyStockModal.classList.remove('hidden');
+  void buyStockModal.offsetWidth;
+  buyStockModal.classList.add('is-entering');
+  window.setTimeout(() => {
+    if (!buyStockModal.classList.contains('is-entering')) return;
+    buyStockModal.classList.add('is-arrived', 'is-life-theme');
+  }, STOCK_MODAL_SLIDE_MS);
+  stockModalOpening = false;
+}
+
+function closeBuyStockModal(onClosed) {
+  const callback = typeof onClosed === 'function' ? onClosed : function () {};
+  if (buyStockModal.classList.contains('hidden')) {
+    pendingStockChoiceId = null;
+    stockModalOpening = false;
+    callback();
+    return;
+  }
+  const token = ++stockModalAnimationToken;
+  stockModalOpening = false;
+  pendingStockChoiceId = null;
+  buyStockModal.classList.remove('is-entering', 'is-arrived', 'is-life-theme');
+  buyStockModal.classList.add('is-exiting');
+  window.setTimeout(() => {
+    if (token !== stockModalAnimationToken) return;
+    buyStockModal.classList.add('hidden');
+    buyStockModal.classList.remove('is-exiting', 'is-stock-theme');
+    callback();
+  }, STOCK_MODAL_SLIDE_MS);
 }
 
 document.getElementById('closeBuyStockBtn').addEventListener('click', () => {
-  buyStockModal.classList.add('hidden');
-  pendingStockChoiceId = null;
+  closeBuyStockModal(() => {
+    Array.from(choiceList.children).forEach((el) => { if (el.tagName === 'BUTTON') el.disabled = false; });
+  });
 });
 
 async function selectStockToBuy(name, id) {
   if (!pendingStockChoiceId) return;
   const choiceId = pendingStockChoiceId;
-  buyStockModal.classList.add('hidden');
-  pendingStockChoiceId = null;
-  await pickChoice(choiceId, { stockId: id, stockName: name });
+  closeBuyStockModal(() => pickChoice(choiceId, { stockId: id, stockName: name }));
 }
 
 // ------------------------------------------------------------
