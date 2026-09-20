@@ -219,8 +219,8 @@
   #buyStockModal.stock-intro-modal .stock-modal-box {
     position: relative; max-width: 506px; width: min(506px, calc(100vw - 40px));
     margin-left: var(--stock-modal-left, 20px); margin-right: 20px;
-    background: var(--panel); border-color: var(--line); color: var(--text);
-    box-shadow: 0 12px 28px rgba(24, 18, 8, 0.22);
+    background: #1e293b; border-color: #334155; color: #f8fafc;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.42);
     transform: translateY(-22px); opacity: 0;
     transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease;
   }
@@ -228,22 +228,24 @@
     content: ''; position: absolute; top: -14px;
     left: var(--stock-modal-pointer-left, 50%); transform: translateX(-50%);
     width: 0; height: 0; border-left: 14px solid transparent;
-    border-right: 14px solid transparent; border-bottom: 14px solid var(--panel);
-    filter: drop-shadow(0 -1px 0 var(--line));
+    border-right: 14px solid transparent; border-bottom: 14px solid #1e293b;
+    filter: drop-shadow(0 -1px 0 #334155);
   }
   #buyStockModal.stock-intro-modal.is-entering .stock-modal-box,
   #buyStockModal.stock-intro-modal.is-arrived .stock-modal-box { transform: translateY(0); opacity: 1; }
   #buyStockModal.stock-intro-modal.is-exiting .stock-modal-box { transform: translateY(-22px); opacity: 0; }
-  #buyStockModal.stock-intro-modal .stock-modal-box .pitch { color: var(--text-dim); }
+  #buyStockModal.stock-intro-modal .stock-modal-box .pitch { color: #94a3b8; }
   #buyStockModal.stock-intro-modal .stock-modal-box input[type=text] {
-    background: var(--panel-2); border-color: var(--line); color: var(--text);
+    background: #16213a; border-color: #334155; color: #f8fafc;
   }
-  #buyStockModal.stock-intro-modal .stock-modal-box input[type=text]:focus { border-color: var(--gold); }
+  #buyStockModal.stock-intro-modal .stock-modal-box input[type=text]:focus { border-color: #38bdf8; }
+  #buyStockModal.stock-intro-modal .stock-modal-box input[type=text]::placeholder { color: #64748b; }
   #buyStockModal.stock-intro-modal .stock-modal-box .streamer-row {
-    background: var(--panel-2); border-color: var(--line); color: var(--text);
+    background: #16213a; border-color: #334155; color: #f8fafc;
   }
-  #buyStockModal.stock-intro-modal .stock-modal-box .streamer-row:hover { border-color: var(--gold); }
-  #buyStockModal.stock-intro-modal .stock-modal-box .text-link { color: var(--text-faint); }
+  #buyStockModal.stock-intro-modal .stock-modal-box .streamer-row:hover { border-color: #38bdf8; }
+  #buyStockModal.stock-intro-modal .stock-modal-box .empty-msg { color: #64748b; }
+  #buyStockModal.stock-intro-modal .stock-modal-box .text-link { color: #94a3b8; }
   @media (prefers-reduced-motion: reduce) {
     #buyStockModal.stock-intro-modal .stock-modal-box { transition-duration: 0.01ms; }
   }
