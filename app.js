@@ -791,10 +791,12 @@ async function openBuyStockModal(choiceId) {
   buyStockModal.classList.add('is-stock-theme');
   buyStockModal.classList.remove('hidden');
   void buyStockModal.offsetWidth;
-  buyStockModal.classList.add('is-entering');
+  // 모달이 내려오는 0.9초 동안 주식시장 색에서 인생게임 색으로 함께
+  // 보간한다. 따라서 중앙에 도착하는 순간에는 인생게임 테마가 완성된다.
+  buyStockModal.classList.add('is-entering', 'is-life-theme');
   window.setTimeout(() => {
     if (!buyStockModal.classList.contains('is-entering')) return;
-    buyStockModal.classList.add('is-arrived', 'is-life-theme');
+    buyStockModal.classList.add('is-arrived');
   }, STOCK_MODAL_SLIDE_MS);
   stockModalOpening = false;
 }
