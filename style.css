@@ -208,67 +208,44 @@
   .modal-box .text-link { text-align: center; }
   .login-btn-row { display: flex; flex-direction: column; gap: 8px; margin: 4px 0 14px; }
 
-  /* 주식 매수 진입 연출(2026-09-21) - 종목 검색 모달이 바로 튀어나오지
-     않고 devbar의 주식시장 링크가 두 번 점등된 뒤 화면 위에서 내려온다.
-     모달이 내려오는 동안은 주식시장(짙은 남색) 톤을 사용하고, 중앙에
-     도착하면 인생게임 테마(갈색)로 부드럽게 전환한다. */
-  @keyframes stock-market-link-pulse {
-    0%, 20% { background: #0e1116; color: rgba(255,255,255,0.85); box-shadow: none; }
-    40% { background: #f59e0b; color: #111827; box-shadow: 0 0 0 3px rgba(245,158,11,0.2), 0 0 18px rgba(245,158,11,0.65); }
-    60% { background: #0e1116; color: rgba(255,255,255,0.85); box-shadow: none; }
-    80% { background: #f59e0b; color: #111827; box-shadow: 0 0 0 3px rgba(245,158,11,0.2), 0 0 18px rgba(245,158,11,0.65); }
-    100% { background: #0e1116; color: rgba(255,255,255,0.85); box-shadow: none; }
-  }
-  .dev-game-link.stock-market-pulse {
-    animation: stock-market-link-pulse 2.5s ease-in-out 1 both;
-  }
+  /* 주식 매수 말풍선 모달(2026-09-21) - devbar 점등 없이 클릭 즉시
+     주식시장 버튼 아래에 카드가 나타난다. 전체 화면을 어둡게 덮지 않고,
+     카드 위쪽의 작은 꼬리가 해당 devbar 버튼을 가리키도록 위치를 계산한다. */
   #buyStockModal.stock-intro-modal {
-    background: rgba(15,23,42,0.78);
-    transition: background-color 0.9s ease;
+    inset: 0; align-items: flex-start; justify-content: flex-start;
+    overflow-y: auto; padding: var(--stock-modal-top, 76px) 0 20px;
+    background: transparent; transition: none;
   }
-  #buyStockModal.stock-intro-modal.is-life-theme { background: rgba(20,17,12,0.72); }
   #buyStockModal.stock-intro-modal .stock-modal-box {
-    background: #1e293b; border-color: #334155; color: #e2e8f0;
-    transform: translateY(calc(-100vh - 120px));
-    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-      background-color 0.9s ease, border-color 0.9s ease, color 0.9s ease;
+    position: relative; max-width: 506px; width: min(506px, calc(100vw - 40px));
+    margin-left: var(--stock-modal-left, 20px); margin-right: 20px;
+    background: var(--panel); border-color: var(--line); color: var(--text);
+    box-shadow: 0 12px 28px rgba(24, 18, 8, 0.22);
+    transform: translateY(-22px); opacity: 0;
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease;
+  }
+  #buyStockModal.stock-intro-modal .stock-modal-box::before {
+    content: ''; position: absolute; top: -14px;
+    left: var(--stock-modal-pointer-left, 50%); transform: translateX(-50%);
+    width: 0; height: 0; border-left: 14px solid transparent;
+    border-right: 14px solid transparent; border-bottom: 14px solid var(--panel);
+    filter: drop-shadow(0 -1px 0 var(--line));
   }
   #buyStockModal.stock-intro-modal.is-entering .stock-modal-box,
-  #buyStockModal.stock-intro-modal.is-arrived .stock-modal-box { transform: translateY(0); }
-  #buyStockModal.stock-intro-modal.is-exiting .stock-modal-box { transform: translateY(calc(-100vh - 120px)); }
-  #buyStockModal.stock-intro-modal .stock-modal-box .pitch { color: #94a3b8; transition: color 0.9s ease; }
+  #buyStockModal.stock-intro-modal.is-arrived .stock-modal-box { transform: translateY(0); opacity: 1; }
+  #buyStockModal.stock-intro-modal.is-exiting .stock-modal-box { transform: translateY(-22px); opacity: 0; }
+  #buyStockModal.stock-intro-modal .stock-modal-box .pitch { color: var(--text-dim); }
   #buyStockModal.stock-intro-modal .stock-modal-box input[type=text] {
-    background: #16213a; border-color: #334155; color: #e2e8f0;
-    transition: background-color 0.9s ease, border-color 0.9s ease, color 0.9s ease;
+    background: var(--panel-2); border-color: var(--line); color: var(--text);
   }
-  #buyStockModal.stock-intro-modal .stock-modal-box input[type=text]:focus { border-color: #38bdf8; }
+  #buyStockModal.stock-intro-modal .stock-modal-box input[type=text]:focus { border-color: var(--gold); }
   #buyStockModal.stock-intro-modal .stock-modal-box .streamer-row {
-    background: #16213a; border-color: #334155; color: #e2e8f0;
-    transition: background-color 0.9s ease, border-color 0.9s ease, color 0.9s ease;
-  }
-  #buyStockModal.stock-intro-modal .stock-modal-box .streamer-row:hover { border-color: #38bdf8; }
-  #buyStockModal.stock-intro-modal .stock-modal-box .text-link { color: #94a3b8; transition: color 0.9s ease; }
-  #buyStockModal.stock-intro-modal.is-life-theme .stock-modal-box {
-    background: var(--panel); border-color: var(--line); color: var(--text);
-  }
-  #buyStockModal.stock-intro-modal.is-life-theme .stock-modal-box .pitch { color: var(--text-dim); }
-  #buyStockModal.stock-intro-modal.is-life-theme .stock-modal-box input[type=text] {
     background: var(--panel-2); border-color: var(--line); color: var(--text);
   }
-  #buyStockModal.stock-intro-modal.is-life-theme .stock-modal-box input[type=text]:focus { border-color: var(--gold); }
-  #buyStockModal.stock-intro-modal.is-life-theme .stock-modal-box .streamer-row {
-    background: var(--panel-2); border-color: var(--line); color: var(--text);
-  }
-  #buyStockModal.stock-intro-modal.is-life-theme .stock-modal-box .streamer-row:hover { border-color: var(--gold); }
-  #buyStockModal.stock-intro-modal.is-life-theme .stock-modal-box .text-link { color: var(--text-faint); }
+  #buyStockModal.stock-intro-modal .stock-modal-box .streamer-row:hover { border-color: var(--gold); }
+  #buyStockModal.stock-intro-modal .stock-modal-box .text-link { color: var(--text-faint); }
   @media (prefers-reduced-motion: reduce) {
-    .dev-game-link.stock-market-pulse { animation: none; }
-    #buyStockModal.stock-intro-modal,
-    #buyStockModal.stock-intro-modal .stock-modal-box,
-    #buyStockModal.stock-intro-modal .stock-modal-box .pitch,
-    #buyStockModal.stock-intro-modal .stock-modal-box input[type=text],
-    #buyStockModal.stock-intro-modal .stock-modal-box .streamer-row,
-    #buyStockModal.stock-intro-modal .stock-modal-box .text-link { transition-duration: 0.01ms; }
+    #buyStockModal.stock-intro-modal .stock-modal-box { transition-duration: 0.01ms; }
   }
 
   .collection-grid {

@@ -751,53 +751,49 @@ let pendingStockChoiceId = null;
 let stockModalOpening = false;
 let stockModalAnimationToken = 0;
 const STOCK_MOTION_REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const STOCK_MARKET_PULSE_MS = STOCK_MOTION_REDUCED ? 0 : 2500;
-const STOCK_MODAL_SLIDE_MS = STOCK_MOTION_REDUCED ? 0 : 900;
+const STOCK_MODAL_SLIDE_MS = STOCK_MOTION_REDUCED ? 0 : 320;
 
 wireStreamerSearch(buyStockSearchInput, buyStockSearchResults, '일치하는 스트리머가 없어요.', selectStockToBuy);
 
-function pulseStockMarketDevbar() {
+function positionStockModalPointer() {
   const link = document.querySelector('#devbarTrack a[data-game-id="stockMarket"]');
-  if (!link) return Promise.resolve();
-  link.classList.remove('stock-market-pulse');
-  void link.offsetWidth;
-  link.classList.add('stock-market-pulse');
-  return new Promise((resolve) => {
-    window.setTimeout(() => {
-      link.classList.remove('stock-market-pulse');
-      resolve();
-    }, STOCK_MARKET_PULSE_MS);
-  });
+  const devbar = document.getElementById('devbar');
+  if (devbar) {
+    const bottom = Math.max(0, Math.round(devbar.getBoundingClientRect().bottom));
+    buyStockModal.style.setProperty('--stock-modal-top', (bottom + 20) + 'px');
+  }
+  if (!link) return;
+  const box = buyStockModal.querySelector('.stock-modal-box');
+  if (!box) return;
+  const linkRect = link.getBoundingClientRect();
+  const boxRect = box.getBoundingClientRect();
+  if (!boxRect.width) return;
+  const center = linkRect.left + (linkRect.width / 2);
+  const viewportWidth = document.documentElement.clientWidth || window.innerWidth;
+  const maxLeft = Math.max(20, viewportWidth - boxRect.width - 20);
+  const left = Math.max(20, Math.min(maxLeft, center - (boxRect.width / 2)));
+  buyStockModal.style.setProperty('--stock-modal-left', Math.round(left) + 'px');
+  const nextBoxRect = box.getBoundingClientRect();
+  const leftPercent = Math.max(8, Math.min(92, ((center - nextBoxRect.left) / nextBoxRect.width) * 100));
+  box.style.setProperty('--stock-modal-pointer-left', leftPercent + '%');
 }
 
 async function openBuyStockModal(choiceId) {
   if (stockModalOpening || !choiceId) return;
   stockModalOpening = true;
   pendingStockChoiceId = choiceId;
-  // 주식 선택지가 있는 위치가 화면 아래쪽일 수 있으므로, 연출 시작과
-  // 동시에 페이지를 상단으로 올려 devbar 점등과 모달 진입을 한 화면에서
-  // 확인할 수 있게 한다.
-  window.scrollTo({ top: 0, behavior: STOCK_MOTION_REDUCED ? 'auto' : 'smooth' });
+  // 주식 선택지가 있는 위치가 화면 아래쪽일 수 있으므로, 클릭 즉시
+  // 페이지를 상단으로 올려 devbar 아래 말풍선 모달을 바로 보여준다.
+  window.scrollTo({ top: 0, behavior: 'auto' });
   disableChoiceList();
   buyStockSearchInput.value = '';
   buyStockSearchResults.innerHTML = '';
-
-  // 먼저 devbar 주식시장 링크를 주황/검정으로 두 번 점등한다(각 0.5초).
-  // 점등이 끝난 뒤에야 모달이 등장해 화면 전환 순서가
-  // 항상 동일하게 보이도록 한다.
-  await pulseStockMarketDevbar();
-  if (pendingStockChoiceId !== choiceId) {
-    stockModalOpening = false;
-    return;
-  }
   stockModalAnimationToken += 1;
-  buyStockModal.classList.remove('is-exiting', 'is-arrived', 'is-life-theme');
-  buyStockModal.classList.add('is-stock-theme');
+  buyStockModal.classList.remove('is-exiting', 'is-arrived');
   buyStockModal.classList.remove('hidden');
+  positionStockModalPointer();
   void buyStockModal.offsetWidth;
-  // 모달이 내려오는 0.9초 동안 주식시장 색에서 인생게임 색으로 함께
-  // 보간한다. 따라서 중앙에 도착하는 순간에는 인생게임 테마가 완성된다.
-  buyStockModal.classList.add('is-entering', 'is-life-theme');
+  buyStockModal.classList.add('is-entering');
   window.setTimeout(() => {
     if (!buyStockModal.classList.contains('is-entering')) return;
     buyStockModal.classList.add('is-arrived');
@@ -816,12 +812,12 @@ function closeBuyStockModal(onClosed) {
   const token = ++stockModalAnimationToken;
   stockModalOpening = false;
   pendingStockChoiceId = null;
-  buyStockModal.classList.remove('is-entering', 'is-arrived', 'is-life-theme');
+  buyStockModal.classList.remove('is-entering', 'is-arrived');
   buyStockModal.classList.add('is-exiting');
   window.setTimeout(() => {
     if (token !== stockModalAnimationToken) return;
     buyStockModal.classList.add('hidden');
-    buyStockModal.classList.remove('is-exiting', 'is-stock-theme');
+    buyStockModal.classList.remove('is-exiting');
     callback();
   }, STOCK_MODAL_SLIDE_MS);
 }
