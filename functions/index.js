@@ -4065,7 +4065,9 @@ const submitLifeGameReview = onCall({ cors: true, timeoutSeconds: 30, memory: '2
   if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
     throw new HttpsError('invalid-argument', '별점은 1~5 사이의 정수여야 합니다.');
   }
-  const text = (data.text || '').toString().trim().slice(0, REVIEW_TEXT_MAX_LEN);
+  // 입력 중 줄바꿈은 허용하되, 공개 후기에는 한 줄 공백으로 저장한다.
+  // CRLF/CR/LF를 모두 처리해 브라우저·OS별 입력 차이를 동일하게 정규화한다.
+  const text = (data.text || '').toString().replace(/\r\n?|\n/g, ' ').trim().slice(0, REVIEW_TEXT_MAX_LEN);
   if (!text) throw new HttpsError('invalid-argument', '후기 내용을 입력해주세요.');
   if (REVIEW_FORBIDDEN_RE.test(text) || REVIEW_LINK_RE.test(text)) {
     throw new HttpsError('invalid-argument', '후기에 사용할 수 없는 문자나 링크가 포함돼 있어요.');
