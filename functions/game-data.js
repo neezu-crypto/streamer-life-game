@@ -64196,15 +64196,16 @@ const HARDWARE_STORE_CHOICES = [
     ]
   },
   // DIY 제작 계기 선택지(63장 C항 3단계, 2026-09-02) - hardware-tool 타입
-  // 자산을 하나라도 보유 중이면(망치뿐인 v1에선 사실상 requiresAsset:'hammer'와
-  // 동치지만, 도구가 늘어날 확장을 대비해 requiresAssetType으로 게이팅)
-  // 등장하는 계기 선택지. 골라도 submitChoice의 일반 나이 진행을 타지 않고
+  // 창업가 직업이면서 hardware-tool 자산을 하나라도 보유 중일 때만
+  // 등장하는 계기 선택지. 도구가 늘어날 확장을 대비해 requiresAssetType으로
+  // 게이팅한다. 골라도 submitChoice의 일반 나이 진행을 타지 않고
   // (index.js의 opensCraftModal 조기 반환 분기) 클라이언트가 제작 모달을 열게만
   // 한다 - 그래서 여기엔 deltas/result가 없다(적용될 일이 없음).
   {
     id: 'hardware-craft-trigger',
     text: '문득 갖고 있는 연장으로 뭔가 만들어보고 싶어진다',
     requiresAssetType: 'hardware-tool',
+    requiresOccupation: ['entrepreneur'],
     appearChance: 0.1,
     bonusSlot: true,
     opensCraftModal: true
