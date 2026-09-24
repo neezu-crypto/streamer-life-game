@@ -295,7 +295,7 @@ const STAGES = [
         deltas: { fame: 1, relationship: 1 },
         result: '식탁 위 음식부터가, 남들과는 조금씩 달랐다.',
         addFamilyMembers: [{ id: 'father', label: '👨 아버지' }, { id: 'mother', label: '👩 어머니' }]
-      }
+      },
     ]
   },
   {
@@ -5787,6 +5787,18 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 1 },
         result: '손쉬운 돈 대신, 찜찜함을 남기지 않는 쪽을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
+        id: 'deviant-con-digital-membership-20',
+        text: '온라인 커뮤니티의 유료 회원권을 만들어 판매한다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 6 }, result: '회원권 판매 대금이 차곡차곡 쌓였다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -9, happiness: -14, relationship: -10 }, result: '회원권 판매 내역을 확인한 신고로 조사를 받게 됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
       }
     ]
   },
@@ -6879,6 +6891,18 @@ const STAGES = [
         deltas: { happiness: 2, relationship: 1 },
         result: '잠깐의 유혹보다 뒤탈 없는 쪽이 나았다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
+      },
+      {
+        id: 'deviant-con-service-broker-21',
+        text: '전문 서비스 연결을 중개한다며 선결제금을 받는다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '서비스 연결 대금이 여러 건의 계좌로 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -10, happiness: -14, relationship: -10 }, result: '대행 계약과 입금 내역이 함께 신고되어 조사를 받게 됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
       }
     ]
   },
@@ -8094,6 +8118,30 @@ const STAGES = [
         result: '쉬운 돈에는 항상 대가가 따른다는 걸 되새겼다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
+      {
+        id: 'deviant-con-delivery-broker-22',
+        text: '배송 대행을 맡아 수수료를 받는다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 7 }, result: '배송 대행 수수료가 정산되어 잔액이 늘었다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -10, happiness: -14, relationship: -10 }, result: '거래 기록이 확인되면서 신고가 접수됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-event-sponsor-22',
+        text: '지역 행사 협찬을 주선한다며 비용을 청구한다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 8 }, result: '협찬 비용이 예정대로 입금됐다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -11, happiness: -14, relationship: -10 }, result: '행사 관계자의 신고로 거래 내역을 조사받게 됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      }
     ]
   },
   {
@@ -16234,6 +16282,30 @@ const STAGES = [
         result: '유혹을 뿌리치고 나니 오히려 속이 시원했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
+      {
+        id: 'deviant-con-certificate-28',
+        text: '온라인 강좌 수료증을 발급해준다며 신청비를 받는다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '수료증 신청비가 꾸준히 모였다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -10 }, result: '신청자들의 신고가 이어져 수사 대상이 됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-property-share-28',
+        text: '숙박 시설 지분을 나눠 판매하는 사업을 시작한다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '지분 판매 대금이 계좌에 쌓였다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -14, relationship: -10 }, result: '계약 내용을 확인한 투자자의 신고로 덜미가 잡혔다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      }
     ]
   },
   {
@@ -23927,6 +23999,30 @@ const STAGES = [
         result: '쉬운 돈 대신 마음의 평화를 택했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
+      {
+        id: 'deviant-con-medical-consult-34',
+        text: '건강 상담 자격을 빌려 상담권을 판매한다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '상담권 판매가 이어지며 수입이 생겼다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -10 }, result: '상담권 구매자들의 신고가 접수됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-digital-wallet-34',
+        text: '온라인 지갑 서비스 가입을 대행해준다며 보증금을 받는다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '가입 대행 보증금이 차곡차곡 쌓였다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -14, relationship: -10 }, result: '보증금 관련 신고로 거래 내역이 조사됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      }
     ]
   },
   {
@@ -30796,6 +30892,30 @@ const STAGES = [
         result: '찜찜한 낌새를 무시하지 않은 스스로가 대견했다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
+      {
+        id: 'deviant-con-corporate-training-40',
+        text: '기업 맞춤 교육 계약을 중개하고 계약금을 받는다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '교육 계약금이 입금되어 살림에 보탬이 됐다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -14, relationship: -10 }, result: '계약 당사자의 신고로 사기 혐의를 받게 됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-public-grant-40',
+        text: '지원 사업 신청을 대행한다며 수수료를 받는다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '신청 대행 수수료가 여러 건 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -10 }, result: '지원자들의 신고가 모여 조사를 받게 됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      }
     ]
   },
   {
@@ -36743,6 +36863,30 @@ const STAGES = [
         result: '손해 볼 게 없다는 확신이 들자 마음이 놓였다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
+      {
+        id: 'deviant-con-travel-package-46',
+        text: '여행 상품을 공동구매로 판매한다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '공동구매 대금이 정산됐다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -14, relationship: -10 }, result: '여행 상품 구매자들의 신고가 이어졌다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-loan-broker-46',
+        text: '대출 상담을 연결해준다며 선납금을 받는다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 9 }, result: '상담 연결비가 계좌에 모였다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -12, happiness: -14, relationship: -10 }, result: '선납금 관련 신고가 접수됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      }
     ]
   },
   {
@@ -41471,6 +41615,30 @@ const STAGES = [
         result: '쉬운 돈에는 항상 대가가 따른다는 걸 되새겼다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
+      {
+        id: 'deviant-con-fundraising-52',
+        text: '온라인 모금 캠페인을 운영하고 후원금을 관리한다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 11 }, result: '모금액 관리 수수료가 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -14, happiness: -14, relationship: -10 }, result: '후원자들의 신고로 모금 내역을 조사받게 됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-collectible-preorder-52',
+        text: '한정판 물품 공동구매를 모집한다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 10 }, result: '공동구매 신청금이 정산됐다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -13, happiness: -14, relationship: -10 }, result: '신청자들의 신고가 이어져 수사 대상이 됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      }
     ]
   },
   {
@@ -45515,6 +45683,30 @@ const STAGES = [
         deltas: { happiness: -2 },
         result: '별일 없이, 하루가 그렇게 지나갔다.'
       },
+      {
+        id: 'deviant-con-retirement-course-58',
+        text: '은퇴 준비 강좌를 열고 등록비를 받는다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 12 }, result: '강좌 등록비가 모여 생활비가 됐다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -16, happiness: -14, relationship: -10 }, result: '수강생들의 신고로 계약 내역이 조사됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-investment-club-58',
+        text: '회원제 투자 모임을 운영하며 회비를 받는다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 13 }, result: '투자 모임 회비가 꾸준히 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -17, happiness: -14, relationship: -10 }, result: '회원들의 신고로 모임 운영 내역이 드러났다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      }
     ]
   },
   {
@@ -49518,6 +49710,30 @@ const STAGES = [
         deltas: { happiness: -1 },
         result: '별일 없이, 하루가 그렇게 지나갔다.'
       },
+      {
+        id: 'deviant-con-cultural-fund-64',
+        text: '문화 행사 투자 조합을 만들고 출자금을 모은다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 14 }, result: '출자금이 모여 계획한 행사를 준비했다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -14, relationship: -10 }, result: '출자자들의 신고로 자금 흐름을 조사받게 됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-estate-consult-64',
+        text: '상속 절차 상담을 중개하고 수수료를 받는다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 13 }, result: '상속 상담 수수료가 쌓였다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -17, happiness: -14, relationship: -10 }, result: '상담 의뢰인들의 신고가 접수됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      }
     ]
   },
   {
@@ -52173,6 +52389,30 @@ const STAGES = [
         result: '수상한 낌새를 놓치지 않은 게 다행이었다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
+      {
+        id: 'deviant-con-collectible-fund-70',
+        text: '희귀 수집품 공동투자 상품을 모집한다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 15 }, result: '공동투자금이 모여 거래를 진행했다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -14, relationship: -10 }, result: '투자자들의 신고로 판매 내역을 조사받게 됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-technology-license-70',
+        text: '새 기술 사용권을 중개하고 계약금을 받는다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 14 }, result: '기술 사용권 계약금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -14, relationship: -10 }, result: '계약 관계자의 신고로 수사 대상이 됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      }
     ]
   },
   {
@@ -54111,6 +54351,30 @@ const STAGES = [
         result: '이번만큼은 양심이 이겼다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
+      {
+        id: 'deviant-con-wellness-membership-76',
+        text: '건강 관리 프로그램 회원권을 판매한다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 15 }, result: '회원권 판매 대금이 들어왔다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -14, relationship: -10 }, result: '회원들의 신고로 판매 내역을 확인받게 됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-heritage-tour-76',
+        text: '문화 유산 투어 예약을 대행하고 비용을 받는다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 14 }, result: '투어 예약 대행비가 정산됐다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -18, happiness: -14, relationship: -10 }, result: '예약자들의 신고가 접수됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      }
     ]
   },
   {
@@ -55956,6 +56220,30 @@ const STAGES = [
         result: '쉬운 길 대신 떳떳한 길을 골랐다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
+      {
+        id: 'deviant-con-luxury-fund-82',
+        text: '고급 휴양 상품 공동구매를 모집한다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 16 }, result: '공동구매 대금이 모여 거래를 진행했다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -14, relationship: -10 }, result: '구매자들의 신고로 계약 내역을 조사받게 됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-family-office-82',
+        text: '자산 관리 서비스를 중개하고 상담료를 받는다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 15 }, result: '자산 관리 상담료가 쌓였다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -14, relationship: -10 }, result: '상담 고객들의 신고가 이어졌다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      }
     ]
   },
   {
@@ -57812,6 +58100,30 @@ const STAGES = [
         result: '손대지 않길 잘했다는 확신이 들었다.',
         worldStateSignal: { key: 'scamPrevalence', target: 0 }
       },
+      {
+        id: 'deviant-con-digital-estate-88',
+        text: '온라인 유산 관리 서비스를 개설하고 가입비를 받는다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 16 }, result: '서비스 가입비가 차곡차곡 쌓였다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -20, happiness: -14, relationship: -10 }, result: '가입자들의 신고로 운영 내역을 조사받게 됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      },
+      {
+        id: 'deviant-con-legacy-fund-88',
+        text: '기념 사업 후원회 출자금을 모집한다',
+        requiresRoute: 'con-artist',
+        dynamicPrizeWeight: { key: 'policeCorruption', caughtLabel: '징역', min: 0.05, max: 0.5, invert: true },
+        appendPoliceCorruptionNote: true,
+        worldStateSignal: { key: 'scamPrevalence', target: 1 },
+        prizeTable: [
+          { weight: 82, label: '안 걸림', deltas: { wealth: 15 }, result: '후원회 출자금이 모였다.' },
+          { weight: 18, label: '징역', deltas: { wealth: -19, happiness: -14, relationship: -10 }, result: '출자자들의 신고가 접수됐다.', startsRoute: { id: 'red-handed', label: '🚨 현행범', maxDurationYears: 2 } }
+        ]
+      }
     ]
   },
   {
