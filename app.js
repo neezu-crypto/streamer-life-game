@@ -898,9 +898,21 @@ document.getElementById('confirmSellStockBtn').addEventListener('click', async (
 // ------------------------------------------------------------
 const craftDiyModal = document.getElementById('craftDiyModal');
 const craftDiyProductList = document.getElementById('craftDiyProductList');
+const craftDiyLimit = document.getElementById('craftDiyLimit');
 const craftDiyResult = document.getElementById('craftDiyResult');
 
-function renderCraftDiyProducts(products) {
+function renderCraftDiyProducts(products, initialCraftCount, craftLimit) {
+  let craftedCount = Math.max(0, Number(initialCraftCount) || 0);
+  const maxCrafts = Math.max(1, Number(craftLimit) || 5);
+  const updateCraftLimit = () => {
+    const remaining = Math.max(0, maxCrafts - craftedCount);
+    craftDiyLimit.textContent = remaining
+      ? `이번 턴 제작 ${craftedCount}/${maxCrafts}개 · ${remaining}개 더 만들 수 있어요.`
+      : `이번 턴 제작 ${maxCrafts}/${maxCrafts}개 · 다음 턴에 다시 만들 수 있어요.`;
+    craftDiyProductList.querySelectorAll('button').forEach((button) => {
+      if (craftedCount >= maxCrafts) button.disabled = true;
+    });
+  };
   craftDiyProductList.innerHTML = '';
   (products || []).forEach((product) => {
     const btn = document.createElement('button');
@@ -910,6 +922,7 @@ function renderCraftDiyProducts(products) {
       btn.disabled = true;
       try {
         const res = await craftDiyItemFn({ productId: product.id });
+        craftedCount = Math.max(craftedCount + 1, Number(res.data.diyCraftCount) || 0);
         renderStatBars(statBars, res.data.stats);
         renderAssets(res.data.assets, lastKnownAgeRange);
         craftDiyResult.textContent = res.data.result;
@@ -917,13 +930,22 @@ function renderCraftDiyProducts(products) {
         showToast('🔨 ' + res.data.crafted.label + ' 완성!');
       } catch (e) {
         console.error('제작 실패:', e);
-        alert('제작을 처리하지 못했어요: ' + (e.message || e));
+        if (e.details && e.details.reason === 'craft-limit') {
+          craftedCount = maxCrafts;
+          craftDiyResult.textContent = '이번 턴에는 가구를 최대 5개까지 만들 수 있어요.';
+          craftDiyResult.classList.remove('hidden');
+          showToast('이번 턴 제작 한도에 도달했어요');
+        } else {
+          alert('제작을 처리하지 못했어요: ' + (e.message || e));
+        }
       } finally {
-        btn.disabled = false;
+        btn.disabled = craftedCount >= maxCrafts;
+        updateCraftLimit();
       }
     });
     craftDiyProductList.appendChild(btn);
   });
+  updateCraftLimit();
 }
 
 async function openCraftDiyModal(choiceId) {
@@ -933,7 +955,7 @@ async function openCraftDiyModal(choiceId) {
   craftDiyModal.classList.remove('hidden');
   try {
     const res = await submitChoiceFn({ choiceId });
-    renderCraftDiyProducts(res.data.craftProducts);
+    renderCraftDiyProducts(res.data.craftProducts, res.data.diyCraftCount, res.data.diyCraftLimit);
   } catch (e) {
     console.error('제작 모달 열기 실패:', e);
     craftDiyModal.classList.add('hidden');

@@ -43,6 +43,10 @@ initializeApp();
 
 const MAX_NAME_LEN = 40;
 const MAX_REPORT_REASON_LEN = 300;
+// 연장으로 만드는 DIY 완성품은 같은 나이(턴) 안에서 최대 5개까지만 허용한다.
+// 제작 함수가 나이를 진행시키지 않기 때문에, stageIndex별 카운터를 플레이 슬롯에
+// 저장해 완성품을 판매한 뒤 다시 만드는 우회도 막는다.
+const MAX_DIY_CRAFTS_PER_TURN = 5;
 // 주인공-주식 스트리머 선호 집계 버전. 집계는 완료된 플레이스루마다 한 번만
 // 실행하고, 이 버전 플래그를 저장해 재시도·재접속으로 중복 집계되지 않게 한다.
 const STREAMER_PREFERENCE_AGGREGATION_VERSION = 1;
@@ -3402,7 +3406,16 @@ const submitChoice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
   // 신호와 완성품 카탈로그만 내려준다. 실제 제작은 별도 함수 craftDiyItem이
   // 처리한다.
   if (choice.opensCraftModal) {
-    return { opensCraftModal: true, craftProducts: DIY_CRAFT_PRODUCTS };
+    const currentStageIndex = Number(play.stageIndex);
+    const diyCraftCount = Number(play.diyCraftStageIndex) === currentStageIndex
+      ? Math.max(0, Number(play.diyCraftCount) || 0)
+      : 0;
+    return {
+      opensCraftModal: true,
+      craftProducts: DIY_CRAFT_PRODUCTS,
+      diyCraftCount,
+      diyCraftLimit: MAX_DIY_CRAFTS_PER_TURN
+    };
   }
 
   // 주식 매수(2026-08-28, 56장 D항) - requiresStockPurchase가 붙은 선택지는
@@ -3554,8 +3567,6 @@ const craftDiyItem = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
     throw new HttpsError('failed-precondition', '제작에 필요한 연장이 없습니다.');
   }
 
-  const stats = Object.assign({}, play.stats);
-  stats.happiness = clampStat((stats.happiness || 0) + (product.craftHappinessDelta || 0));
   const craftedAsset = {
     id: 'diy-' + productId + '-' + Date.now() + '-' + Math.floor(Math.random() * 1e6),
     label: product.label,
@@ -3563,11 +3574,52 @@ const craftDiyItem = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
     productId: product.id,
     sellWealthDelta: product.sellWealthDelta
   };
-  const nextAssets = assets.concat([craftedAsset]);
+  // 제작 수량과 스탯·자산을 하나의 RTDB 트랜잭션으로 갱신한다. 클라이언트에서
+  // 버튼을 빠르게 여러 번 누르거나 동시에 여러 요청을 보내도 같은 턴의 5개
+  // 제한을 넘길 수 없다. diyCraftStageIndex가 현재 stageIndex와 다르면 새 턴의
+  // 카운터로 간주해 자동으로 0부터 다시 센다.
+  const transactionResult = await playRef.transaction((current) => {
+    if (!current || current.completed) return;
+    const currentStageIndex = Number(current.stageIndex);
+    if (!Number.isInteger(currentStageIndex)) return;
+    const currentAssets = Array.isArray(current.assets) ? current.assets : [];
+    if (!currentAssets.some((asset) => asset && asset.type === 'hardware-tool')) return;
+    const currentCount = Number(current.diyCraftStageIndex) === currentStageIndex
+      ? Math.max(0, Number(current.diyCraftCount) || 0)
+      : 0;
+    if (currentCount >= MAX_DIY_CRAFTS_PER_TURN) return;
 
-  await playRef.update({ stats, assets: nextAssets });
+    const stats = Object.assign({}, current.stats);
+    stats.happiness = clampStat((stats.happiness || 0) + (product.craftHappinessDelta || 0));
+    return Object.assign({}, current, {
+      stats,
+      assets: currentAssets.concat([craftedAsset]),
+      diyCraftStageIndex: currentStageIndex,
+      diyCraftCount: currentCount + 1
+    });
+  });
 
-  return { stats, assets: nextAssets, crafted: craftedAsset, result: product.craftResult };
+  const committedPlay = transactionResult.snapshot && transactionResult.snapshot.val();
+  if (!transactionResult.committed) {
+    const committedStageIndex = committedPlay && Number(committedPlay.stageIndex);
+    const committedCount = committedPlay && Number(committedPlay.diyCraftCount);
+    if (committedPlay && Number(committedPlay.diyCraftStageIndex) === committedStageIndex
+      && committedCount >= MAX_DIY_CRAFTS_PER_TURN) {
+      throw new HttpsError('resource-exhausted', '한 턴에 가구는 최대 5개까지 만들 수 있습니다.', { reason: 'craft-limit' });
+    }
+    throw new HttpsError('failed-precondition', '제작에 필요한 연장이 없습니다.');
+  }
+
+  const nextPlay = committedPlay || {};
+  const nextAssets = Array.isArray(nextPlay.assets) ? nextPlay.assets : [];
+  return {
+    stats: nextPlay.stats,
+    assets: nextAssets,
+    crafted: craftedAsset,
+    result: product.craftResult,
+    diyCraftCount: Number(nextPlay.diyCraftCount) || 0,
+    diyCraftLimit: MAX_DIY_CRAFTS_PER_TURN
+  };
 });
 
 // DIY 완성품 판매(63장 C항 4단계, 2026-09-02) - sellStock과 완전히 같은 구조
