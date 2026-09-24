@@ -48997,7 +48997,7 @@ const STAGES = [
     
       {
         id: 'random-invest-retirement-fund-pitch-63',
-        text: '퇴직금을 노린 듯한 고수익 노후자금 상품에 결국 가입한다',
+        text: '노후 자금 마련을 위해 새로운 금융 상품을 알아본다',
         bonusSlot: true,
         appearChance: 0.05,
         dynamicPrizeWeight: { key: 'scamPrevalence', caughtLabel: '사기 피해', min: 0.15, max: 0.6 },
