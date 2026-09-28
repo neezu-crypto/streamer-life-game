@@ -1051,7 +1051,7 @@ function pickVisibleChoiceIds(choices, ctx) {
   // 않는다. requiresWorldStateActive + dynamicAppearChance가 이미 노출
   // 여부·빈도를 그 순간의 zombieOutbreak rate로만 결정하므로 나이는 무관해진다.
   const basePoolBeforeStockDividend = activeRouteId
-    ? routeChoicePool.filter((c) => c.requiresRoute === activeRouteId)
+    ? routeChoicePool.filter((c) => c.requiresRoute === activeRouteId || c.availableDuringCareerRoutes)
     : choices.filter((c) => !c.requiresRoute && !(c.startsRoute && experiencedRouteIds.includes(c.startsRoute.id))).concat(ZOMBIE_EVENT_CHOICES);
   // STOCK_DIVIDEND_CHOICES(2026-09-02, 62장 - 사용자 지시 "나이 상관없이
   // 주식 보유중이라면 매 턴 10% 확률로 등장하게") - ZOMBIE_EVENT_CHOICES와
@@ -1064,6 +1064,7 @@ function pickVisibleChoiceIds(choices, ctx) {
 
   const passesEligibility = (c) => {
     if (c.requiresCondition && !conditionIds.includes(c.requiresCondition)) return false;
+    if (typeof c.requiresCashHoldings === 'number' && (ctx.cashHoldings || 0) < c.requiresCashHoldings) return false;
     if (c.requiresNoCondition && c.requiresNoCondition.some((id) => conditionIds.includes(id))) return false;
     if (c.requiresAnyCondition && !conditionIds.length) return false;
     if (c.requiresFamilyMember && !c.requiresFamilyMember.some((id) => familyIds.includes(id))) return false;
@@ -1259,6 +1260,8 @@ function pickVisibleChoiceIds(choices, ctx) {
   // 3개가 전부 진짜 감당 불가인데도 바꿔치기가 발동하지 않는 소프트락이 재현됐다.
   const canAfford = (c) => {
     if (c.requiresStockPurchase) return cashHoldings >= stockCostOf();
+    if (typeof c.requiresCashHoldings === 'number' && cashHoldings < c.requiresCashHoldings) return false;
+    if (typeof c.cashCostWon === 'number' && cashHoldings < c.cashCostWon) return false;
     if (c.mandatory) return true;
     const gated = c.requiresSufficientCash || walletCostOf(c) >= 4;
     return !gated || cashHoldings >= costOf(c);
@@ -1685,6 +1688,12 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
   if (choice.requiresAnyOccupation && !priorOccupationId) {
     throw new HttpsError('failed-precondition', '지금 직업 상태에서는 고를 수 없는 선택지입니다.');
   }
+  if (typeof choice.requiresCashHoldings === 'number' && (play.cashHoldings || 0) < choice.requiresCashHoldings) {
+    throw new HttpsError('failed-precondition', '보유 현금이 부족해 이 선택지를 고를 수 없습니다.');
+  }
+  if (typeof choice.cashCostWon === 'number' && (play.cashHoldings || 0) < choice.cashCostWon) {
+    throw new HttpsError('failed-precondition', '보유 현금이 부족해 이 선택지를 고를 수 없습니다.');
+  }
   // requiresEverOccupation - pickVisibleChoiceIds와 완전히 같은 조건을 여기서도
   // 검증한다. 과거 직업이므로 priorOccupationHistory 전체(원본 setOccupation
   // 로그, resolveEffectiveOccupation 보정 전)에서 찾는다.
@@ -1875,6 +1884,10 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
         if (priorTalents.some((t) => t.id === 'coding')) value -= 0.10;
         if (priorTalents.some((t) => t.id === 'electrical')) value -= 0.10;
         value = Math.max(0.05, value);
+        // 보유한 연장(hammer/axe/claw hammer) 한 개당 차량 절도 성공률 +10%p,
+        // 합계 최대 +30%p. 성공률 증가는 기존 발각 확률에서 차감한다.
+        const toolCount = Math.min(3, (Array.isArray(play.assets) ? play.assets : []).filter((asset) => asset && asset.type === 'hardware-tool').length);
+        value = Math.max(0, value - toolCount * 0.10);
       }
       const caughtWeight = value * 100;
       const others = choice.prizeTable.filter((p) => p.label !== caughtLabel);
@@ -2066,6 +2079,9 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
   // health와 달리 "회복 불가" 컨셉이 없어서 항상 그대로 적용.
   const wealthDelta = effectiveDeltas.wealth || 0;
   let cashHoldings = Math.max(0, (play.cashHoldings || 0) + wealthDelta * cashUnitForAge(play.stageIndex));
+  if (choice.cashCostWon) cashHoldings = Math.max(0, cashHoldings - choice.cashCostWon);
+  // 부잣집 출생은 스탯 변화와 별개로 현금 5천만원을 보장한다.
+  if (choice.id === 'busy-rich') cashHoldings = Math.max(cashHoldings, 50000000);
 
   // 건강 상세 - 선택지가 addCondition을 붙였으면 부상/질병이 새로 생기고(이미
   // 있으면 중복 추가 안 함), removeCondition을 붙였으면 그 조건이 나아서 빠진다.
@@ -2241,6 +2257,11 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
     // 같은 추가 필드가 필요해서 addAsset 전체를 그대로 펼쳐 담는다 - 기존
     // addAsset들은 어차피 id/label/type만 갖고 있어서 동작은 그대로다.
     assets.push(Object.assign({}, effectiveAddAsset, { sinceStageId: stage.id }));
+  }
+  // 성인이 되기 전에 자산을 얻으면 현금 수익 대부분을 보호자가 관리한다는
+  // 서사를 결과에 덧붙인다. 집에 있던 연장으로 부모님 일을 돕는 경우는 제외.
+  if (isNewAsset && play.stageIndex < 19 && !String(choice.id).includes('help-parents')) {
+    resolvedResult = (resolvedResult || '') + ' 미성년자라 자산에서 생긴 현금은 일부만 남기고 보호자가 가져가 관리했다.';
   }
   if (effectiveRemoveAsset) {
     assets = assets.filter((a) => a.id !== effectiveRemoveAsset);
@@ -3014,6 +3035,8 @@ function gatherBotCandidates(play, stage) {
       ? resolveSyntheticChoice(id, play.healthConditions || [], hasInsurance)
       : findChoiceById(stage, id);
     if (!choice || choice.requiresStockPurchase) return;
+    if (typeof choice.requiresCashHoldings === 'number' && (play.cashHoldings || 0) < choice.requiresCashHoldings) return;
+    if (typeof choice.cashCostWon === 'number' && (play.cashHoldings || 0) < choice.cashCostWon) return;
     // 현금 부족 선택지 사전 배제(2026-08-30, 사용자 질문 - "봇이 한번에 선택
     // 못하는 상황(현금 부족)이 생기면 어떻게 되냐" 계기) - applyChoice의
     // requiresSufficientCash 검증(아래 walletCost 계산과 완전히 동일한 조건)과

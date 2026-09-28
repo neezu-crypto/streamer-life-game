@@ -38,11 +38,11 @@
 // 구간마다 새로 알려주기 위함. 결과/deltas와 달리 이건 숨길 이유가 없어
 // publicStage()가 그대로 클라이언트에 보낸다.
 //
-// choices는 구간마다 최대 6개까지 채워둔다 - 실제 플레이에서는 이 중 서버가
-// 무작위로 3개만 골라(index.js의 pickVisibleChoiceIds) 보여준다. 재접속/이어하기
-// 때도 같은 3개가 유지되도록 그 회차에 고른 3개의 id를 저장 슬롯(visibleChoiceIds)에
-// 남겨두고, 주사위 구간의 rollDice도 반드시 그 3개 중에서만 뽑는다(화면에 안 보여준
-// 선택지가 당첨되는 일이 없도록). choices가 3개 이하인 구간은 그냥 전부 보여준다.
+// choices는 구간마다 여러 개까지 채워둔다 - 실제 플레이에서는 이 중 서버가
+// 무작위로 최대 4개를 골라(index.js의 pickVisibleChoiceIds) 보여준다. 재접속/이어하기
+// 때도 같은 선택지가 유지되도록 그 회차에 고른 id를 저장 슬롯(visibleChoiceIds)에
+// 남겨두고, 주사위 구간의 rollDice도 반드시 노출된 id 중에서만 뽑는다(화면에 안 보여준
+// 선택지가 당첨되는 일이 없도록). 후보가 4개 이하인 구간은 전부 보여준다.
 //
 // 유아기(0~6세)는 한 살 단위로 쪼개서 STAGES에 infancy-0 ~ infancy-6 총 7개
 // 항목으로 넣는다. 이 중 infancy-0~infancy-3(0~3세)만 random:true(주사위
@@ -64498,6 +64498,122 @@ const PRANK_CHOICES = [
     result: '누군가 대신 챙겨간 흔적과 함께 돈이 남아있었다.'
   }
 ];
+
+// 의사·개발자 루트는 활성 중 다른 직업 선택지를 거의 전부 가리는 전용 풀을
+// 사용한다. 따라서 해당 나이에 조건 없이 쓸 수 있는 루트 콘텐츠만 세어 최소
+// 네 개가 되도록 보충한다. 보충 선택지는 업무 결과물(자산)을 남기고, 문구는
+// 나이·직무별로 달라 중복되지 않는다.
+const CAREER_WORK_COPY = {
+  doctor: [
+    ['진료 기록을 다시 살피며 놓친 단서를 찾는다', '환자 설명에 귀를 기울여 진료 방식을 조정한다', '동료와 증례를 검토하며 판단 근거를 정리한다', '진료실 동선을 손봐 대기 시간을 줄여본다'],
+    ['의료 학회 자료를 준비해 새로운 지견을 나눈다', '진료 후 남은 시간을 써서 전문 분야를 공부한다', '후배에게 검사 결과를 읽는 순서를 알려준다', '진료 장비의 점검표를 만들어 팀과 공유한다']
+  ],
+  developer: [
+    ['오래된 코드의 의존성을 정리해 구조를 다듬는다', '사용자 피드백을 반영해 작은 기능을 개선한다', '배포 전 점검 항목을 문서로 남겨 팀에 공유한다', '반복 작업을 줄일 자동화 도구를 직접 만든다'],
+    ['동료의 코드를 함께 읽으며 설계 선택을 기록한다', '테스트 범위를 넓혀 자주 생기는 오류를 막는다', '서비스 지표를 살펴 병목 구간을 찾아낸다', '기술 문서를 보완해 다음 담당자가 쉽게 이어받게 한다']
+  ]
+};
+const CAREER_WORK_RESULTS = {
+  doctor: ['쌓인 기록은 다음 진료를 더 신중하게 만드는 자료가 됐다.', '작은 개선이 팀 전체의 하루를 조금씩 바꿨다.'],
+  developer: ['정리한 산출물은 다음 프로젝트에서도 다시 꺼내 쓸 수 있었다.', '완성한 자료와 도구가 업무 자산으로 남았다.']
+};
+
+function addCareerRouteContent(routeId, firstAge, lastAge) {
+  for (let age = firstAge; age <= lastAge; age++) {
+    const stage = STAGES.find((item) => item.ageRange === age + '세');
+    if (!stage) continue;
+    const guaranteed = stage.choices.filter((choice) => {
+      if (choice.requiresRoute !== routeId) return false;
+      const hasConditional = [
+        'requiresOccupation', 'requiresAnyOccupation', 'requiresEverOccupation', 'requiresCondition', 'requiresNoCondition', 'requiresAnyCondition',
+        'requiresFamilyMember', 'requiresNoFamilyMember', 'requiresAllFamilyMemberGroups',
+        'requiresIntro', 'requiresAsset', 'requiresNoAsset', 'requiresAssetType',
+        'requiresNoAssetType', 'requiresLocation', 'requiresAnyAcquaintance', 'requiresAnyLover',
+        'requiresAgeBelow', 'requiresAgeAtLeast', 'requiresTalent', 'requiresAnyTalent',
+        'requiresHobby', 'requiresAnyHobby', 'requiresWorldStateActive', 'requiresCashHoldings',
+        'requiresSufficientCash', 'requiresStockPurchase', 'cashCostWon', 'dynamicAppearChance',
+        'appearChance', 'requiresNotFinalRouteYear', 'requiresRouteCompletedWithin'
+      ].some((key) => choice[key] !== undefined);
+      const wealthCost = choice.deltas && choice.deltas.wealth < 0;
+      return !hasConditional && !wealthCost && !choice.prizeTable && !choice.dynamicPrizeWeight;
+    }).length;
+    const missing = Math.max(0, 4 - guaranteed);
+    for (let index = 0; index < missing; index++) {
+      const copy = CAREER_WORK_COPY[routeId][index % 2][(age + index) % 4];
+      const assetId = routeId + '-work-record-' + age + '-' + index;
+      stage.choices.push({
+        id: routeId + '-work-growth-' + age + '-' + index,
+        text: age + '세, ' + copy,
+        deltas: { happiness: 1, wealth: 1 },
+        result: CAREER_WORK_RESULTS[routeId][(age + index) % 2],
+        requiresRoute: routeId,
+        addAsset: {
+          id: assetId,
+          label: (routeId === 'doctor' ? '📁 진료·연구 기록 ' : '💻 개발 업무 기록 ') + age + '-' + (index + 1),
+          type: 'movable'
+        }
+      });
+    }
+  }
+
+  // 직업 윤리를 벗어나는 일탈과 커리어에서 빠져나오는 선택도 별도 기회로 둔다.
+  const deviantAges = routeId === 'doctor' ? [27, 35] : [28, 43];
+  deviantAges.forEach((age, index) => {
+    const stage = STAGES.find((item) => item.ageRange === age + '세');
+    if (!stage) return;
+    stage.choices.push({
+      id: routeId + '-deviant-shortcut-' + age,
+      text: routeId === 'doctor'
+        ? (index ? '진료 실수를 감추려고 기록을 고쳐 쓴다' : '제약업체의 제안을 받고 처방 기준을 느슨하게 적용한다')
+        : (index ? '성과를 부풀리려고 서비스 지표를 선택적으로 보고한다' : '동료의 작업물을 내 성과인 것처럼 발표한다'),
+      requiresRoute: routeId,
+      appearChance: 0.12,
+      prizeTable: [
+        { weight: 88, label: '문제없이 넘어감', deltas: { wealth: 2, fame: 1 }, result: '당장은 의심을 피했지만, 마음 한구석에 찜찜함이 남았다.' },
+        { weight: 12, label: '내부 점검에서 드러남', deltas: { wealth: -2, happiness: -5, fame: -3 }, result: '검토 과정에서 흔적이 발견돼 동료들의 신뢰가 흔들렸다.' }
+      ]
+    });
+  });
+  const exitAge = routeId === 'doctor' ? 38 : 47;
+  const exitStage = STAGES.find((item) => item.ageRange === exitAge + '세');
+  if (exitStage) {
+    exitStage.choices.push({
+      id: routeId + '-career-exit-' + exitAge,
+      text: routeId === 'doctor' ? '지친 마음을 인정하고 병원을 떠나 새 진로를 찾는다' : '개발 현장을 떠나 다른 분야에서 다시 시작한다',
+      deltas: { happiness: 3, wealth: -1 },
+      result: '익숙한 길을 벗어나는 두려움보다, 다시 선택할 수 있다는 안도감이 컸다.',
+      requiresRoute: routeId,
+      appearChance: 0.12,
+      endsRoute: true,
+      setOccupation: { id: 'job-changed', label: '🔄 진로 전환' }
+    });
+  }
+}
+
+addCareerRouteContent('doctor', 20, 39);
+addCareerRouteContent('developer', 20, 49);
+
+// 현금 1억원 이상일 때 어느 직업·생애 단계에서든 5% 확률로 등장하는 부동산
+// 매입. 매입은 wealth 점수 환산이 아니라 실제 현금에서 정확히 1억원을 차감한다.
+const PROPERTY_TEXT = [
+  '여윳돈을 묶어둘 곳으로 소형 주택을 알아본다',
+  '장기 보유를 염두에 두고 작은 오피스텔을 매입한다',
+  '현금 흐름을 살펴 임대용 주거 부동산에 투자한다',
+  '입지가 눈에 들어온 매물을 골라 계약을 진행한다'
+];
+STAGES.forEach((stage, age) => {
+  stage.choices.push({
+    id: 'cash-property-purchase-' + age,
+    text: age + '세, ' + PROPERTY_TEXT[age % PROPERTY_TEXT.length],
+    availableDuringCareerRoutes: true,
+    requiresCashHoldings: 100000000,
+    cashCostWon: 100000000,
+    appearChance: 0.05,
+    bonusSlot: true,
+    addAsset: { id: 'investment-property-' + age, label: '🏠 투자 부동산 ' + age + '세', type: 'realestate' },
+    result: '큰돈이 한 번에 빠져나갔지만, 오래 보유할 자산을 마련했다.'
+  });
+});
 
 module.exports = {
   STAGES,
