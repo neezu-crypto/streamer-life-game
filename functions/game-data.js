@@ -4524,7 +4524,9 @@ const STAGES = [
       {
         id: 'streaming-debut',
         text: '다니던 학교를 관두고 방송을 시작해본다',
-        deltas: { fame: 12, wealth: -6, health: -4, happiness: 4 },
+        // 고가 장비나 초기 자금이 없어도 방송을 시작할 수 있게 진입 비용을
+        // -3으로 낮춘다. wealth -4 이상일 때만 현금 부족 검증이 적용된다.
+        deltas: { fame: 12, wealth: -3, health: -4, happiness: 4 },
         result: '통장은 늘 아슬아슬했지만, 카메라 앞에 있는 순간만큼은 살아있는 기분이었다.',
         setOccupation: { id: 'streamer', label: '🎥 스트리머' },
         startsRoute: { id: 'streamer', label: '🎥 스트리머', maxDurationYears: 15 }
