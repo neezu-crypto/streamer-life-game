@@ -64677,6 +64677,7 @@ const PROPERTY_TEXT = [
   '입지가 눈에 들어온 매물을 골라 계약을 진행한다'
 ];
 STAGES.forEach((stage, age) => {
+  if (age < 19) return;
   stage.choices.push({
     id: 'cash-property-purchase-' + age,
     text: age + '세, ' + PROPERTY_TEXT[age % PROPERTY_TEXT.length],
