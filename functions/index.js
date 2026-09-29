@@ -1050,8 +1050,8 @@ function pickVisibleChoiceIds(choices, ctx) {
   // 대체"되는 몰입형 특수 루트 중에는(사용자가 정한 기존 설계 그대로) 끼어들지
   // 않는다. requiresWorldStateActive + dynamicAppearChance가 이미 노출
   // 여부·빈도를 그 순간의 zombieOutbreak rate로만 결정하므로 나이는 무관해진다.
-  // 현금 1억원 이상일 때 매 턴 5% 확률로 뜨는 부동산 매입은 직업·몰입형
-  // 루트와 무관한 범용 기회이므로 activeRoute 전용 풀에 예외적으로 얹는다.
+  // 현금 1억원 이상일 때 매 턴 5% 확률로 뜨는 부동산·이자 상품 매입은
+  // 직업·몰입형 루트와 무관한 범용 기회이므로 activeRoute 전용 풀에도 얹는다.
   const basePoolBeforeStockDividend = activeRouteId
     ? (routeChoicePool === choices
         ? routeChoicePool.filter((c) => c.requiresRoute === activeRouteId || c.availableDuringAnyRoute)
@@ -2604,6 +2604,20 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
   for (const assetId of Object.keys(RENTAL_INCOME_BY_ASSET_ID)) {
     if (assets.some((a) => a.id === assetId)) {
       cashHoldings += RENTAL_INCOME_BY_ASSET_ID[assetId];
+    }
+  }
+
+  // 이자 수익 예치금은 각 구매 자산의 원금·금리를 기준으로 매 턴 현금 이자를
+  // 지급한다. 구매한 바로 그 턴에는 이자를 주지 않고, 다음 턴부터 지급해
+  // 1억원을 지출한 뒤 즉시 되돌려 받는 것처럼 보이지 않게 한다. 자산 ID가
+  // 구매 연령별로 달라 여러 번 구매한 원금의 이자는 각각 합산된다.
+  for (const asset of assets) {
+    if (!asset || asset.id === undefined || !String(asset.id).startsWith('interest-investment-')) continue;
+    if (asset.sinceStageId === stage.id) continue;
+    const principalWon = Number(asset.principalWon) || 0;
+    const interestRatePerTurn = Number(asset.interestRatePerTurn) || 0;
+    if (principalWon > 0 && interestRatePerTurn > 0) {
+      cashHoldings += Math.round(principalWon * interestRatePerTurn);
     }
   }
 

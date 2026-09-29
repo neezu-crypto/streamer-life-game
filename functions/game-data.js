@@ -64689,6 +64689,65 @@ STAGES.forEach((stage, age) => {
   });
 });
 
+// 현금 1억원 이상일 때 매 턴 5% 확률로 가입하는 이자 수익 상품.
+// 구매액은 실제 현금에서 차감하고, 스탯은 바꾸지 않는다. 연령별 고유 ID라
+// 여러 턴에 걸쳐 반복 구매할 수 있으며 가입 다음 턴부터 원금의 2%를 받는다.
+const INTEREST_INVESTMENT_PRODUCTS = [
+  '정기예금 상품', '확정 금리 예금 상품', '원금 보전형 예치 상품', '만기형 저축 상품',
+  '우량 채권형 금융상품', '이자 지급식 금융상품', '장기 예치 상품', '단기 저축 상품',
+  '은행 목돈 운용 상품', '고정 이율 금융상품', '원리금 보장형 예금 상품'
+];
+const INTEREST_INVESTMENT_ACTIONS = [
+  '에 1억원을 예치한다', '에 가입하며 1억원을 맡긴다', '을 골라 목돈 1억원을 넣어 둔다',
+  '의 만기 조건을 확인하고 1억원을 맡긴다', '을 비교해 가입한 뒤 1억원을 예치한다',
+  '에 여윳돈 1억원을 옮겨 둔다', '을 선택해 1억원 규모의 예치 계약을 맺는다',
+  '에 1억원을 넣고 이자 지급 방식을 확인한다', '을 선택하고 원금 1억원의 운용을 시작한다',
+  '에 가입 신청을 하고 원금 1억원을 예치한다'
+];
+const INTEREST_INVESTMENT_RESULT_STARTS = [
+  '예치 계약이 성립했고', '가입 절차를 마쳤으며', '약정 조건을 확정했고',
+  '원금 운용을 시작했고', '이자 지급 일정이 설정됐고', '금융 자산을 마련했고',
+  '예치금이 계좌에 반영됐고', '계약 내용을 확인했고', '목돈을 상품에 넣었고',
+  '새 저축 계약을 마쳤고', '금리 조건에 동의했고'
+];
+const INTEREST_INVESTMENT_RESULT_ENDINGS = [
+  '다음 턴부터 원금 1억원의 2%인 2백만원을 받는다.',
+  '첫 이자 2백만원은 다음 턴부터 현금에 더해진다.',
+  '이후 매 턴 예치 원금에서 2백만원의 이자가 발생한다.',
+  '다음 턴부터 약정 금리 2%가 적용돼 2백만원을 받는다.',
+  '이번 턴에는 이자가 없고, 다음 턴부터 2백만원씩 지급된다.',
+  '다음 차례부터 이자 2백만원이 보유 현금으로 들어온다.',
+  '예치 다음 턴부터 매 턴 2백만원의 수익을 받게 된다.',
+  '첫 지급은 다음 턴이며, 이후에도 턴마다 2% 이자가 붙는다.',
+  '다음 턴부터 원금과 별도로 2백만원의 이자가 들어온다.',
+  '정해진 금리에 따라 다음 턴부터 2백만원을 수령한다.'
+];
+STAGES.forEach((stage, age) => {
+  // 11개 상품 표현과 10개 행동 표현의 조합 주기가 110턴이라 0~100세
+  // 전체에서 문구가 겹치지 않는다. 결과도 같은 원리로 11×10 조합을 쓴다.
+  const product = INTEREST_INVESTMENT_PRODUCTS[age % INTEREST_INVESTMENT_PRODUCTS.length];
+  const action = INTEREST_INVESTMENT_ACTIONS[age % INTEREST_INVESTMENT_ACTIONS.length];
+  const resultStart = INTEREST_INVESTMENT_RESULT_STARTS[age % INTEREST_INVESTMENT_RESULT_STARTS.length];
+  const resultEnding = INTEREST_INVESTMENT_RESULT_ENDINGS[age % INTEREST_INVESTMENT_RESULT_ENDINGS.length];
+  stage.choices.push({
+    id: 'cash-interest-investment-' + age,
+    text: age + '세, ' + product + action,
+    availableDuringAnyRoute: true,
+    requiresCashHoldings: 100000000,
+    cashCostWon: 100000000,
+    appearChance: 0.05,
+    bonusSlot: true,
+    addAsset: {
+      id: 'interest-investment-' + age,
+      label: '💰 이자 수익 예치금 ' + age + '세',
+      type: 'movable',
+      principalWon: 100000000,
+      interestRatePerTurn: 0.02
+    },
+    result: age + '세, ' + resultStart + ' ' + resultEnding
+  });
+});
+
 module.exports = {
   STAGES,
   PRISON_CHOICES,
