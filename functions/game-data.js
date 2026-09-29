@@ -64760,6 +64760,66 @@ STAGES.forEach((stage, age) => {
   });
 });
 
+// 경찰 재직 중의 근무·수사·순찰·교육·보고·승진 활동은 선택 시 업무 소득을 준다.
+// 회식/사적 모임, 순수 건강 문제, 퇴직 준비·퇴직 후 회상/취미 등 업무 수행이 아닌 선택지는 제외한다.
+// 기존에 자산 증가가 없는 업무 선택지만 대상으로 하며, 목록의 누락/오타는 로드 시 실패시킨다.
+const POLICE_WORK_INCOME_CHOICE_IDS = [
+  'pol-fill2-20-1', 'pol-fill2-20-2', 'pol-fill-20-2',
+  'pol-fill2-21-2', 'pol-fill-21-3',
+  'pol-fill2-22-2', 'pol-fill2-22-5',
+  'pol-fill2-23-2',
+  'pol-fill2-24-2', 'pol-fill-24-3',
+  'pol-fill2-25-2', 'police-enforces-by-the-book-25',
+  'pol-fill2-26-2', 'pol-fill-26-2',
+  'pol-fill2-27-2',
+  'pol-fill2-28-1', 'pol-fill2-28-3', 'pol-fill-28-2',
+  'pol-fill2-29-2', 'pol-fill2-29-3', 'pol-fill-29-3',
+  'pol-fill2-30-1', 'pol-fill2-30-3', 'police-routine-patrol-30',
+  'pol-fill2-31-3', 'pol-fill-31-2',
+  'pol-fill2-32-1', 'pol-fill-32-3',
+  'pol-fill2-33-3', 'pol-fill-33-2', 'pol-fill-33-3',
+  'police-refuses-fence-bribe-34', 'pol-fill2-34-3', 'pol-fill-34-3',
+  'pol-fill2-35-1', 'pol-fill2-35-3', 'police-major-case-solved-35',
+  'pol-fill2-36-1', 'pol-fill2-36-3', 'pol-fill-36-2', 'pol-fill-36-3',
+  'pol-fill2-37-1', 'pol-fill2-37-2', 'pol-fill2-37-3', 'pol-fill-37-2', 'pol-fill-37-3',
+  'pol-fill2-38-1', 'pol-fill2-38-3', 'pol-fill-38-2', 'pol-fill-38-3',
+  'pol-fill2-39-1', 'pol-fill2-39-3', 'pol-fill-39-2', 'pol-fill-39-3',
+  'pol-fill2-40-1', 'pol-fill2-40-2', 'pol-fill2-40-3', 'police-crime-scene-trauma-40', 'police-community-forum-40',
+  'pol-fill2-41-1', 'pol-fill2-41-2', 'pol-fill2-41-3', 'pol-fill-41-2', 'pol-fill-41-3',
+  'pol-fill2-42-1', 'pol-fill2-42-3', 'pol-fill-42-3',
+  'police-fraud-report-surge-43', 'pol-fill2-43-3', 'pol-fill-43-2', 'pol-fill-43-3',
+  'pol-fill2-44-1', 'pol-fill2-44-2', 'pol-fill2-44-3', 'pol-fill-44-3',
+  'pol-fill2-45-1', 'pol-fill2-45-2', 'police-trains-junior-45', 'police-chronic-fatigue-45',
+  'pol-fill2-46-1', 'pol-fill2-46-2', 'pol-fill-46-1',
+  'pol-fill2-47-1', 'police-cold-case-lingers-47', 'pol-fill2-47-3', 'pol-fill-47-1', 'pol-fill-47-2',
+  'pol-fill2-48-1', 'pol-fill2-48-2', 'pol-fill2-48-3', 'pol-fill-48-1', 'pol-fill-48-3',
+  'pol-fill2-49-1', 'pol-fill2-49-2', 'pol-fill-49-1', 'pol-fill-49-2',
+  'pol-fill2-50-1', 'police-special-promotion-anxiety-50',
+  'pol-fill2-51-1', 'pol-fill2-51-2', 'pol-fill2-51-3', 'pol-fill-51-1',
+  'pol-fill2-52-1', 'police-hands-off-cold-case-52', 'pol-fill2-52-2', 'pol-fill2-52-3', 'pol-fill-52-1', 'pol-fill-52-2',
+  'pol-fill2-53-1', 'pol-fill2-53-2', 'pol-fill-53-1',
+  'pol-fill2-54-1', 'pol-fill2-54-3', 'pol-fill-54-1', 'pol-fill-54-2',
+  'pol-fill2-55-1', 'pol-fill2-55-2', 'pol-fill2-55-3', 'police-last-major-case-55', 'police-passes-down-know-how-55'
+];
+const policeWorkIncomeChoiceIds = new Set(POLICE_WORK_INCOME_CHOICE_IDS);
+let policeWorkIncomeChoicesMatched = 0;
+for (const stage of STAGES) {
+  for (const choice of stage.choices || []) {
+    if (!policeWorkIncomeChoiceIds.has(choice.id)) continue;
+    if (choice.requiresRoute !== 'police') {
+      throw new Error('경찰 업무 소득 선택지의 직업 조건이 일치하지 않습니다: ' + choice.id);
+    }
+    if ((choice.deltas && choice.deltas.wealth) || choice.addAsset || choice.prizeTable) {
+      throw new Error('경찰 업무 소득 선택지에 예상하지 못한 자산 효과가 있습니다: ' + choice.id);
+    }
+    choice.deltas = Object.assign({}, choice.deltas, { wealth: 1 });
+    policeWorkIncomeChoicesMatched += 1;
+  }
+}
+if (policeWorkIncomeChoicesMatched !== policeWorkIncomeChoiceIds.size) {
+  throw new Error('경찰 업무 소득 선택지를 찾지 못했습니다: ' + policeWorkIncomeChoicesMatched + '/' + policeWorkIncomeChoiceIds.size);
+}
+
 module.exports = {
   STAGES,
   PRISON_CHOICES,
