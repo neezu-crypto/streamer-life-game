@@ -1050,8 +1050,12 @@ function pickVisibleChoiceIds(choices, ctx) {
   // 대체"되는 몰입형 특수 루트 중에는(사용자가 정한 기존 설계 그대로) 끼어들지
   // 않는다. requiresWorldStateActive + dynamicAppearChance가 이미 노출
   // 여부·빈도를 그 순간의 zombieOutbreak rate로만 결정하므로 나이는 무관해진다.
+  // 현금 1억원 이상일 때 매 턴 5% 확률로 뜨는 부동산 매입은 직업·몰입형
+  // 루트와 무관한 범용 기회이므로 activeRoute 전용 풀에 예외적으로 얹는다.
   const basePoolBeforeStockDividend = activeRouteId
-    ? routeChoicePool.filter((c) => c.requiresRoute === activeRouteId || c.availableDuringCareerRoutes)
+    ? (routeChoicePool === choices
+        ? routeChoicePool.filter((c) => c.requiresRoute === activeRouteId || c.availableDuringAnyRoute)
+        : routeChoicePool.filter((c) => c.requiresRoute === activeRouteId).concat(choices.filter((c) => c.availableDuringAnyRoute)))
     : choices.filter((c) => !c.requiresRoute && !(c.startsRoute && experiencedRouteIds.includes(c.startsRoute.id))).concat(ZOMBIE_EVENT_CHOICES);
   // STOCK_DIVIDEND_CHOICES(2026-09-02, 62장 - 사용자 지시 "나이 상관없이
   // 주식 보유중이라면 매 턴 10% 확률로 등장하게") - ZOMBIE_EVENT_CHOICES와

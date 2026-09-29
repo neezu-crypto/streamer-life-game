@@ -64595,8 +64595,9 @@ function addCareerRouteContent(routeId, firstAge, lastAge) {
 addCareerRouteContent('doctor', 20, 39);
 addCareerRouteContent('developer', 20, 49);
 
-// 현금 1억원 이상일 때 어느 직업·생애 단계에서든 5% 확률로 등장하는 부동산
-// 매입. 매입은 wealth 점수 환산이 아니라 실제 현금에서 정확히 1억원을 차감한다.
+// 현금 1억원 이상일 때 직업·나이·활성 루트와 무관하게 매 턴 5% 확률로
+// 등장하는 부동산 매입. 매입은 wealth 점수 환산이 아니라 실제 현금에서
+// 정확히 1억원을 차감한다.
 const PROPERTY_TEXT = [
   '여윳돈을 묶어둘 곳으로 소형 주택을 알아본다',
   '장기 보유를 염두에 두고 작은 오피스텔을 매입한다',
@@ -64607,7 +64608,7 @@ STAGES.forEach((stage, age) => {
   stage.choices.push({
     id: 'cash-property-purchase-' + age,
     text: age + '세, ' + PROPERTY_TEXT[age % PROPERTY_TEXT.length],
-    availableDuringCareerRoutes: true,
+    availableDuringAnyRoute: true,
     requiresCashHoldings: 100000000,
     cashCostWon: 100000000,
     appearChance: 0.05,
