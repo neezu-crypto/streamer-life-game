@@ -2659,7 +2659,7 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
       }
     }
   }
-  // 투자 부동산도 매 턴 주식과 같은 확률적 ±1% 시세 변동을 적용한다.
+  // 투자 부동산은 매 턴 55% 확률로 2% 상승, 45% 확률로 2% 하락한다.
   // 가격은 플레이 자산에 보관하므로 부동산마다 독립적으로 움직이고,
   // 매도 시 마지막 턴에 기록된 currentPrice를 기준으로 정산한다.
   for (let i = 0; i < assets.length; i++) {
@@ -2667,7 +2667,7 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
     if (!asset || asset.type !== 'realestate' || !String(asset.id).startsWith('investment-property-')) continue;
     const currentPrice = Number(asset.currentPrice) || Number(asset.buyPrice) || 100000000;
     const up = Math.random() < 0.55;
-    assets[i] = Object.assign({}, asset, { currentPrice: Math.max(1, Math.round(currentPrice * (up ? 1.01 : 0.99))) });
+    assets[i] = Object.assign({}, asset, { currentPrice: Math.max(1, Math.round(currentPrice * (up ? 1.02 : 0.98))) });
   }
 
   // 감염(infection) 매 턴 배경 감소(2026-09-03, 62장 좀비 사태 후속 - 사용자
