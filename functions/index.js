@@ -1079,6 +1079,7 @@ function pickVisibleChoiceIds(choices, ctx) {
     if (c.requiresEverOccupation && !c.requiresEverOccupation.some((id) => everOccupationIds.includes(id))) return false;
     if (c.requiresIntro && c.requiresIntro !== currentIntroId) return false;
     if (c.requiresAsset && !assetIds.includes(c.requiresAsset)) return false;
+    if (c.requiresAssetIdPrefix && !assetIds.some((id) => String(id).startsWith(c.requiresAssetIdPrefix))) return false;
     if (c.requiresNoAsset && assetIds.includes(c.requiresNoAsset)) return false;
     if (c.requiresAssetType && !assetTypes.includes(c.requiresAssetType)) return false;
     if (c.requiresNoAssetType && assetTypes.includes(c.requiresNoAssetType)) return false;
@@ -1523,6 +1524,7 @@ function publicStage(stage, visibleIds, introId, healthConditions, isAdmin) {
         // applyOutcome이 그대로 렌더링하려다 죽는다(실제 라이브 검증 중
         // 발견된 회귀).
         if (real.opensCraftModal) out.opensCraftModal = true;
+        if (real.opensPropertySaleModal) out.opensPropertySaleModal = true;
         // startsRouteId/setsOccupationId(2026-09-01) - isAdmin일 때만 추가.
         if (isAdmin) {
           if (real.startsRoute) out.startsRouteId = real.startsRoute.id;
@@ -1691,6 +1693,9 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
   }
   if (choice.requiresAnyOccupation && !priorOccupationId) {
     throw new HttpsError('failed-precondition', '지금 직업 상태에서는 고를 수 없는 선택지입니다.');
+  }
+  if (choice.requiresAssetIdPrefix && !(Array.isArray(play.assets) ? play.assets : []).some((a) => a && String(a.id).startsWith(choice.requiresAssetIdPrefix))) {
+    throw new HttpsError('failed-precondition', '판매할 투자 부동산이 없습니다.');
   }
   if (typeof choice.requiresCashHoldings === 'number' && (play.cashHoldings || 0) < choice.requiresCashHoldings) {
     throw new HttpsError('failed-precondition', '보유 현금이 부족해 이 선택지를 고를 수 없습니다.');
@@ -2275,7 +2280,12 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
     // 주식 자산은 매수가(buyPrice)·매수 나이(buyAge)·캐싱된 현재가(currentPrice)
     // 같은 추가 필드가 필요해서 addAsset 전체를 그대로 펼쳐 담는다 - 기존
     // addAsset들은 어차피 id/label/type만 갖고 있어서 동작은 그대로다.
-    assets.push(Object.assign({}, effectiveAddAsset, { sinceStageId: stage.id }));
+    const assetToAdd = Object.assign({}, effectiveAddAsset, { sinceStageId: stage.id });
+    if (assetToAdd.type === 'realestate' && String(assetToAdd.id).startsWith('investment-property-')) {
+      assetToAdd.buyPrice = 100000000;
+      assetToAdd.currentPrice = 100000000;
+    }
+    assets.push(assetToAdd);
   }
   // 성인이 되기 전에 자산을 얻으면 현금 수익 대부분을 보호자가 관리한다는
   // 서사를 결과에 덧붙인다. 집에 있던 연장으로 부모님 일을 돕는 경우는 제외.
@@ -2648,6 +2658,16 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
         assets[i] = Object.assign({}, assets[i], { currentPrice: newPrice });
       }
     }
+  }
+  // 투자 부동산도 매 턴 주식과 같은 확률적 ±1% 시세 변동을 적용한다.
+  // 가격은 플레이 자산에 보관하므로 부동산마다 독립적으로 움직이고,
+  // 매도 시 마지막 턴에 기록된 currentPrice를 기준으로 정산한다.
+  for (let i = 0; i < assets.length; i++) {
+    const asset = assets[i];
+    if (!asset || asset.type !== 'realestate' || !String(asset.id).startsWith('investment-property-')) continue;
+    const currentPrice = Number(asset.currentPrice) || Number(asset.buyPrice) || 100000000;
+    const up = Math.random() < 0.55;
+    assets[i] = Object.assign({}, asset, { currentPrice: Math.max(1, Math.round(currentPrice * (up ? 1.01 : 0.99))) });
   }
 
   // 감염(infection) 매 턴 배경 감소(2026-09-03, 62장 좀비 사태 후속 - 사용자
@@ -3067,7 +3087,7 @@ function gatherBotCandidates(play, stage) {
     const choice = (String(id).startsWith('treat:') || id === 'farewell:pet')
       ? resolveSyntheticChoice(id, play.healthConditions || [], hasInsurance)
       : findChoiceById(stage, id);
-    if (!choice || choice.requiresStockPurchase) return;
+    if (!choice || choice.requiresStockPurchase || choice.opensPropertySaleModal) return;
     if (typeof choice.requiresCashHoldings === 'number' && (play.cashHoldings || 0) < choice.requiresCashHoldings) return;
     if (typeof choice.cashCostWon === 'number' && (play.cashHoldings || 0) < choice.cashCostWon) return;
     // 현금 부족 선택지 사전 배제(2026-08-30, 사용자 질문 - "봇이 한번에 선택
@@ -3474,6 +3494,14 @@ const submitChoice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
     };
   }
 
+  if (choice.opensPropertySaleModal) {
+    const properties = (Array.isArray(play.assets) ? play.assets : [])
+      .filter((asset) => asset && asset.type === 'realestate' && String(asset.id).startsWith('investment-property-'))
+      .map((asset) => ({ id: asset.id, label: asset.label, buyPrice: asset.buyPrice, currentPrice: asset.currentPrice }));
+    if (!properties.length) throw new HttpsError('failed-precondition', '판매할 투자 부동산이 없습니다.');
+    return { opensPropertySaleModal: true, properties };
+  }
+
   // 주식 매수(2026-08-28, 56장 D항) - requiresStockPurchase가 붙은 선택지는
   // game-data.js에 고정 deltas/addAsset이 없다(어떤 종목을 살지, 그 순간 가격이
   // 얼마인지 몰라서 정적으로 못 박아둘 수 없음). 클라이언트가 종목 검색 UI에서
@@ -3600,6 +3628,29 @@ const sellStock = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, a
     sellPrice: stockVal.price,
     buyPrice: asset.buyPrice
   };
+});
+
+// 투자 부동산 매도 - 턴 진행 없이 선택한 보유 자산의 마지막 시세를 현금화한다.
+const sellLifeGameInvestmentProperty = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const propertyId = request.data && request.data.propertyId;
+  if (!propertyId || !String(propertyId).startsWith('investment-property-')) {
+    throw new HttpsError('invalid-argument', '판매할 투자 부동산을 선택해주세요.');
+  }
+  const db = getDatabase();
+  const { playRef, play } = await loadActivePlay(db, uid);
+  const assets = Array.isArray(play.assets) ? play.assets : [];
+  const property = assets.find((asset) => asset && asset.id === propertyId && asset.type === 'realestate');
+  if (!property) throw new HttpsError('failed-precondition', '보유 중인 투자 부동산이 아닙니다.');
+  const sellPrice = Math.max(1, Math.round(Number(property.currentPrice) || Number(property.buyPrice) || 100000000));
+  const cashUnit = cashUnitForAge(play.stageIndex);
+  const wealthDelta = Math.round(sellPrice / cashUnit);
+  const stats = Object.assign({}, play.stats);
+  stats.wealth = clampStat((stats.wealth || 0) + wealthDelta);
+  const cashHoldings = Math.max(0, (play.cashHoldings || 0) + sellPrice);
+  const nextAssets = assets.filter((asset) => asset.id !== propertyId);
+  await playRef.update({ stats, cashHoldings, assets: nextAssets });
+  return { stats, cashHoldings, assets: nextAssets, soldLabel: property.label, sellPrice };
 });
 
 // DIY 제작(63장 C항 3단계, 2026-09-02) - hardware-craft-trigger 선택지가
@@ -4759,4 +4810,4 @@ const logLifeGameVisit = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   return { ok: true, logged: true };
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, getStreamerPreferenceSummary, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, submitMultiplayerVote, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount, logLifeGameVisit, submitLifeGameReview, deleteLifeGameReview, reportLifeGameReview, adminDeleteLifeGameReview, migratePublicReviews, submitLifeGameSponsorRequest, syncLifeMultiplayerSessionPublic, syncLifeMultiplayerVotePublic, getLifePublicId, migratePublicMultiplayerData };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, sellLifeGameInvestmentProperty, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, getStreamerPreferenceSummary, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, submitMultiplayerVote, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount, logLifeGameVisit, submitLifeGameReview, deleteLifeGameReview, reportLifeGameReview, adminDeleteLifeGameReview, migratePublicReviews, submitLifeGameSponsorRequest, syncLifeMultiplayerSessionPublic, syncLifeMultiplayerVotePublic, getLifePublicId, migratePublicMultiplayerData };

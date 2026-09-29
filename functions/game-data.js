@@ -64688,6 +64688,15 @@ STAGES.forEach((stage, age) => {
     addAsset: { id: 'investment-property-' + age, label: '🏠 투자 부동산 ' + age + '세', type: 'realestate' },
     result: '큰돈이 한 번에 빠져나갔지만, 오래 보유할 자산을 마련했다.'
   });
+  stage.choices.push({
+    id: 'cash-property-sale-' + age,
+    text: age + '세, 보유한 투자 부동산을 매도한다',
+    availableDuringAnyRoute: true,
+    requiresAssetIdPrefix: 'investment-property-',
+    appearChance: 0.05,
+    bonusSlot: true,
+    opensPropertySaleModal: true
+  });
 });
 
 // 현금 1억원 이상일 때 매 턴 5% 확률로 가입하는 이자 수익 상품.

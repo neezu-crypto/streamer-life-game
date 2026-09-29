@@ -58,6 +58,7 @@ const startPlaythroughFn = httpsCallable(functions, 'startPlaythrough');
 const resumePlaythroughFn = httpsCallable(functions, 'resumePlaythrough');
 const submitChoiceFn = httpsCallable(functions, 'submitChoice');
 const sellStockFn = httpsCallable(functions, 'sellStock');
+const sellLifeGameInvestmentPropertyFn = httpsCallable(functions, 'sellLifeGameInvestmentProperty');
 const craftDiyItemFn = httpsCallable(functions, 'craftDiyItem');
 const sellDiyItemFn = httpsCallable(functions, 'sellDiyItem');
 const reportStolenVehicleFn = httpsCallable(functions, 'reportStolenVehicle');
@@ -888,6 +889,55 @@ document.getElementById('confirmSellStockBtn').addEventListener('click', async (
   }
 });
 
+// 투자 부동산 매도 모달. 보유 목록을 서버에서 받아 각 매물의 마지막 시세로 판매한다.
+const sellPropertyModal = document.getElementById('sellPropertyModal');
+const sellPropertyList = document.getElementById('sellPropertyList');
+function openPropertySaleModal(properties) {
+  sellPropertyList.innerHTML = '';
+  if (!properties.length) {
+    sellPropertyList.textContent = '판매할 투자 부동산이 없어요.';
+  } else {
+    properties.forEach((property) => {
+      const row = document.createElement('div');
+      row.className = 'property-sale-row';
+      const details = document.createElement('span');
+      details.textContent = property.label + ' · 매입가 ' + (property.buyPrice || 100000000).toLocaleString() + '원 → 현재가 ' + (property.currentPrice || property.buyPrice || 100000000).toLocaleString() + '원';
+      const button = document.createElement('button');
+      button.className = 'primary';
+      button.type = 'button';
+      button.textContent = '이 부동산 판매';
+      button.addEventListener('click', async () => {
+        button.disabled = true;
+        try {
+          const res = await sellLifeGameInvestmentPropertyFn({ propertyId: property.id });
+          renderStatBars(statBars, res.data.stats);
+          renderAssets(res.data.assets, lastKnownAgeRange);
+          renderCashHoldings(cashHoldingsEl, res.data.cashHoldings);
+          if (!(res.data.assets || []).some((asset) => asset && String(asset.id).startsWith('investment-property-'))) {
+            Array.from(choiceList.children).forEach((el) => {
+              if (el.dataset && el.dataset.choiceId && el.dataset.choiceId.startsWith('cash-property-sale-')) el.disabled = true;
+            });
+          }
+          showToast('🏠 ' + res.data.sellPrice.toLocaleString() + '원에 부동산을 판매했어요');
+          row.remove();
+          if (!sellPropertyList.querySelector('.property-sale-row')) sellPropertyList.textContent = '판매할 투자 부동산이 없어요.';
+        } catch (e) {
+          console.error('투자 부동산 매도 실패:', e);
+          alert('부동산 매도를 처리하지 못했어요: ' + (e.message || e));
+          button.disabled = false;
+        }
+      });
+      row.append(details, button);
+      sellPropertyList.appendChild(row);
+    });
+  }
+  sellPropertyModal.classList.remove('hidden');
+}
+document.getElementById('closeSellPropertyBtn').addEventListener('click', () => {
+  sellPropertyModal.classList.add('hidden');
+  Array.from(choiceList.children).forEach((el) => { if (el.tagName === 'BUTTON') el.disabled = false; });
+});
+
 // ------------------------------------------------------------
 // DIY 제작 모달(63장 C항 3단계, 2026-09-02) - hardware-craft-trigger 선택지를
 // 고르면 submitChoice가 나이를 넘기지 않고 곧장 opensCraftModal:true +
@@ -1629,11 +1679,12 @@ function scheduleAutoPlayTick(delayMs) {
 // 후보에서 제외 (4) 그 외엔 기존과 동일하게 균등 랜덤.
 function pickAutoPlayChoice(stage) {
   const affordable = stage.choices.filter((c) => {
+    if (c.opensPropertySaleModal) return false;
     if (!c.requiresStockPurchase) return true;
     const age = parseInt(stage.ageRange, 10);
     return lastKnownCashHoldings >= stockInvestmentCostWon(age);
   });
-  let pool = affordable.length ? affordable : stage.choices;
+  let pool = affordable.length ? affordable : stage.choices.filter((c) => !c.opensPropertySaleModal);
 
   if (autoPlayPreferredRouteId) {
     const inPreferredRoute = lastKnownRouteId === autoPlayPreferredRouteId;
@@ -2070,6 +2121,12 @@ function renderAssetsInto(container, assets, currentAge) {
         tooltip += ' · ' + nextSellableAge + '세부터 매도 가능(5세 단위)';
       }
       chip.dataset.tooltip = tooltip;
+    } else if (asset.type === 'realestate' && String(asset.id).startsWith('investment-property-')) {
+      const price = Number(asset.currentPrice) || Number(asset.buyPrice) || 100000000;
+      const buyPrice = Number(asset.buyPrice) || 100000000;
+      const up = price >= buyPrice;
+      chip.innerHTML = escapeHtml(asset.label) + ' <span class="asset-chip-delta ' + (up ? 'up' : 'down') + '">' + (up ? '▲' : '▼') + '</span>';
+      chip.dataset.tooltip = asset.label + ' — 매입가 ' + buyPrice.toLocaleString() + '원 · 현재가 ' + price.toLocaleString() + '원';
     } else if (asset.stolen) {
       // 도난 차량 신고(2026-08-30, 60장, 사용자 지시 - "피해자는 '차(절도
       // 당함)' 자산을 클릭해 경찰에 신고 가능") - 별도 모달 없이 확인창 +
@@ -2672,6 +2729,10 @@ async function pickChoice(choiceId, extra) {
   disableChoiceList();
   try {
     const res = await submitChoiceFn(Object.assign({ choiceId }, extra));
+    if (res.data && res.data.opensPropertySaleModal) {
+      openPropertySaleModal(res.data.properties || []);
+      return true;
+    }
     applyOutcome(res.data, undefined, choiceId);
     return true;
   } catch (e) {
