@@ -64723,8 +64723,9 @@ const INTEREST_INVESTMENT_RESULT_ENDINGS = [
   '정해진 금리에 따라 다음 턴부터 2백만원을 수령한다.'
 ];
 STAGES.forEach((stage, age) => {
-  // 11개 상품 표현과 10개 행동 표현의 조합 주기가 110턴이라 0~100세
-  // 전체에서 문구가 겹치지 않는다. 결과도 같은 원리로 11×10 조합을 쓴다.
+  if (age < 19) return;
+  // 11개 상품 표현과 10개 행동 표현의 조합 주기가 110턴이라 성인기
+  // 19~100세에서 문구가 겹치지 않는다. 결과도 같은 원리로 11×10 조합을 쓴다.
   const product = INTEREST_INVESTMENT_PRODUCTS[age % INTEREST_INVESTMENT_PRODUCTS.length];
   const action = INTEREST_INVESTMENT_ACTIONS[age % INTEREST_INVESTMENT_ACTIONS.length];
   const resultStart = INTEREST_INVESTMENT_RESULT_STARTS[age % INTEREST_INVESTMENT_RESULT_STARTS.length];
