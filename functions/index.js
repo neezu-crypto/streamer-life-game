@@ -2047,6 +2047,21 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
     effectiveDeltas.wealth = (effectiveDeltas.wealth || 0) + choice.perStockWealth * priorStockCount;
   }
 
+  // 의사 진료·연구 기록 업무 보너스: 의사 루트의 업무 선택지는 보유 기록 1개당
+  // wealth +1을 더 받으며, 기록 개수와 보너스 모두 5에서 제한한다. 새 기록을
+  // 만드는 업무라면 이번 선택으로 추가될 기록도 계산에 포함해 첫 기록부터 반영한다.
+  if (choice.workIncomePerDoctorResearchRecord && priorRouteState.activeRoute && priorRouteState.activeRoute.id === 'doctor' && effectiveDeltas.wealth > 0) {
+    const recordPrefix = 'doctor-work-record-';
+    const existingRecordIds = new Set(playAssetsForValidation
+      .filter((asset) => asset && typeof asset.id === 'string' && asset.id.startsWith(recordPrefix))
+      .map((asset) => asset.id));
+    let recordCount = existingRecordIds.size;
+    const addedRecordId = choice.addAsset && typeof choice.addAsset.id === 'string' ? choice.addAsset.id : '';
+    if (addedRecordId.startsWith(recordPrefix) && !existingRecordIds.has(addedRecordId)) recordCount += 1;
+    const bonus = Math.min(5, recordCount) * Math.max(0, Number(choice.workIncomePerDoctorResearchRecord) || 0);
+    effectiveDeltas.wealth += Math.min(5, bonus);
+  }
+
   // 일탈 직업 기본 수입 배율(2026-08-30, 사용자 확정 "일반직업보다 1~1.2배 높음") -
   // 개별 선택지에 별도 태그를 붙일 필요 없이, 그 순간 직업이 일탈 직업이고 이번
   // 선택의 wealth가 양수이면 자동으로 적용되는 엔진 차원 규칙(범죄 위험을 감수한

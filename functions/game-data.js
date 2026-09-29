@@ -64618,6 +64618,7 @@ function addCareerRouteContent(routeId, firstAge, lastAge) {
         id: routeId + '-work-growth-' + age + '-' + index,
         text: age + '세, ' + copy,
         deltas: { happiness: 1, wealth: 1 },
+        ...(routeId === 'doctor' ? { workIncomePerDoctorResearchRecord: 1 } : {}),
         result: CAREER_WORK_RESULTS[routeId][age] + ' ' + CAREER_WORK_RESULT_ENDINGS[routeId][index],
         requiresRoute: routeId,
         addAsset: {
