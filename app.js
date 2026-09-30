@@ -312,6 +312,10 @@ async function submitOrCheckStreamerVerification(data) {
       closeStreamerVerifyModal();
       alert('✅ 이미 스트리머 인증이 완료된 계정이에요.');
       refreshCollectionView();
+    } else if (action === 'auto-approved') {
+      closeStreamerVerifyModal();
+      alert('✅ 방송 다시보기 검수 기록이 확인되어 스트리머 인증이 자동 완료됐어요.');
+      refreshCollectionView();
     } else {
       showStreamerVerifyPending(nickname, isSwitch);
       if (!data.nickname) alert('아직 관리자 확인 전이에요. 잠시 후 다시 확인해주세요.');

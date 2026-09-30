@@ -3255,21 +3255,21 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
     const streamerSnap = await db.ref('streamerNames/' + streamerId).get();
     if (streamerSnap.exists()) canonicalStreamerId = streamerId;
   }
-  // 방송에서 플레이했을 수 있는 미인증 스트리머를 운영자가 검수할 수 있도록
-  // 검색으로 확인된 주인공 SOOP ID를 후보 목록에만 기록한다. 실제 플레이어의
-  // Firebase UID와 주인공 SOOP ID는 동일인이라고 가정하지 않으며, 기존 인증
-  // 프로필에 이미 등록된 SOOP ID는 후보에서 제외한다. 이 목록은 Admin SDK만
-  // 쓰는 lifeGame 하위 경로라 RTDB 공개 규칙 변경은 필요 없다.
-  if (canonicalStreamerId) {
+  // 로그인 플레이어가 검색으로 확인된 스트리머를 주인공으로 시작한 경우
+  // UID+SOOP ID 쌍을 검수 후보로 기록한다. 이 기록만으로 인증되지 않으며,
+  // 관리자가 VOD를 직접 확인해 allowlist에 등록해야 인증 자동 승인이 가능하다.
+  const playerVerifiedSnap = await db.ref('users/' + uid + '/streamerVerified').get();
+  if (canonicalStreamerId && playerVerifiedSnap.val() !== true) {
     const normalizedSoopId = canonicalStreamerId.trim().toLowerCase();
     const verifiedSnap = await db.ref('streamerVerifications')
       .orderByChild('soopId').equalTo(normalizedSoopId).limitToFirst(1).get();
     if (!verifiedSnap.exists()) {
-      const candidateRef = db.ref('lifeGame/unverifiedStreamerCandidates/' + normalizedSoopId);
+      const candidateRef = db.ref('lifeGame/playedStreamerCandidates/' + uid + '/' + normalizedSoopId);
       const seenAt = Date.now();
       await candidateRef.transaction((current) => {
         const existing = current && typeof current === 'object' ? current : {};
         return {
+          uid,
           soopId: normalizedSoopId,
           nickname: streamerName,
           firstSeenAt: existing.firstSeenAt || seenAt,
