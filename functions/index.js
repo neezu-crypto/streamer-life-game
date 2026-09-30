@@ -3297,6 +3297,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   const currentIntroId = pickIntroId(STAGES[0]);
   const worldStateRates = await fetchWorldStateRates(db);
   const visibleChoiceIds = pickVisibleChoiceIds(STAGES[0].choices, { introId: currentIntroId, locationId: DEFAULT_LOCATION.id, worldStateRates });
+  const startedAt = Date.now();
   const writes = [
     playRefFor(db, uid).set({
       streamerName,
@@ -3324,7 +3325,19 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
       // 후 이어하기(enterHostMode)에서 이 값이 true인데 세션이 없으면
       // setMultiplayerEnabled(true)로 다시 만든다.
       multiplayerEnabled,
-      startedAt: ServerValue.TIMESTAMP
+      startedAt
+    }),
+    // 이름을 정하고 0세 판을 시작한 실제 Firebase UID를 매번 누적한다.
+    // playthroughs는 UID당 슬롯 1개라 재시작 때 덮어써지므로, 운영자 집계용
+    // 요약 원장을 별도 보존한다. Admin SDK만 쓰며 클라이언트 규칙 변경은 없다.
+    db.ref('lifeGame/playerStartRecords/' + uid).transaction((current) => {
+      const existing = current && typeof current === 'object' ? current : {};
+      return {
+        uid,
+        firstStartedAt: existing.firstStartedAt || startedAt,
+        lastStartedAt: startedAt,
+        startCount: (Number(existing.startCount) || 0) + 1,
+      };
     }),
     // 관리 센터 통계용 집계 카운터 - interior-3d-viewer의 presetGallery stats와 동일한
     // ServerValue.increment 패턴(원본 로그를 admin-center가 매번 다시 훑지 않도록
