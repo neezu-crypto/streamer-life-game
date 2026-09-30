@@ -3255,6 +3255,30 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
     const streamerSnap = await db.ref('streamerNames/' + streamerId).get();
     if (streamerSnap.exists()) canonicalStreamerId = streamerId;
   }
+  // 방송에서 플레이했을 수 있는 미인증 스트리머를 운영자가 검수할 수 있도록
+  // 검색으로 확인된 주인공 SOOP ID를 후보 목록에만 기록한다. 실제 플레이어의
+  // Firebase UID와 주인공 SOOP ID는 동일인이라고 가정하지 않으며, 기존 인증
+  // 프로필에 이미 등록된 SOOP ID는 후보에서 제외한다. 이 목록은 Admin SDK만
+  // 쓰는 lifeGame 하위 경로라 RTDB 공개 규칙 변경은 필요 없다.
+  if (canonicalStreamerId) {
+    const normalizedSoopId = canonicalStreamerId.trim().toLowerCase();
+    const verifiedSnap = await db.ref('streamerVerifications')
+      .orderByChild('soopId').equalTo(normalizedSoopId).limitToFirst(1).get();
+    if (!verifiedSnap.exists()) {
+      const candidateRef = db.ref('lifeGame/unverifiedStreamerCandidates/' + normalizedSoopId);
+      const seenAt = Date.now();
+      await candidateRef.transaction((current) => {
+        const existing = current && typeof current === 'object' ? current : {};
+        return {
+          soopId: normalizedSoopId,
+          nickname: streamerName,
+          firstSeenAt: existing.firstSeenAt || seenAt,
+          lastSeenAt: seenAt,
+          playCount: (Number(existing.playCount) || 0) + 1
+        };
+      });
+    }
+  }
   // startPlaythrough는 세션당 한 번뿐이라(턴마다 부르는 submitChoice/rollDice와
   // 달리) 플래그 없이 매번 조회해도 비용이 무시할 만하다.
   const isAdmin = await isAdminUid(uid);
