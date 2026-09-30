@@ -64758,6 +64758,15 @@ STAGES.forEach((stage, age) => {
     },
     result: age + '세, ' + resultStart + ' ' + resultEnding
   });
+  stage.choices.push({
+    id: 'cash-interest-investment-sale-' + age,
+    text: age + '세, 보유한 투자 예금상품을 중도 해지한다',
+    availableDuringAnyRoute: true,
+    requiresAssetIdPrefix: 'interest-investment-',
+    appearChance: 0.05,
+    bonusSlot: true,
+    opensInterestInvestmentSaleModal: true
+  });
 });
 
 // 경찰 재직 중의 근무·수사·순찰·교육·보고·승진 활동은 선택 시 업무 소득을 준다.

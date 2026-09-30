@@ -1525,6 +1525,7 @@ function publicStage(stage, visibleIds, introId, healthConditions, isAdmin) {
         // 발견된 회귀).
         if (real.opensCraftModal) out.opensCraftModal = true;
         if (real.opensPropertySaleModal) out.opensPropertySaleModal = true;
+        if (real.opensInterestInvestmentSaleModal) out.opensInterestInvestmentSaleModal = true;
         // startsRouteId/setsOccupationId(2026-09-01) - isAdmin일 때만 추가.
         if (isAdmin) {
           if (real.startsRoute) out.startsRouteId = real.startsRoute.id;
@@ -1695,7 +1696,8 @@ async function applyChoice(db, playRef, play, stage, choice, opts) {
     throw new HttpsError('failed-precondition', '지금 직업 상태에서는 고를 수 없는 선택지입니다.');
   }
   if (choice.requiresAssetIdPrefix && !(Array.isArray(play.assets) ? play.assets : []).some((a) => a && String(a.id).startsWith(choice.requiresAssetIdPrefix))) {
-    throw new HttpsError('failed-precondition', '판매할 투자 부동산이 없습니다.');
+    const assetName = choice.requiresAssetIdPrefix === 'interest-investment-' ? '투자 예금상품' : '투자 부동산';
+    throw new HttpsError('failed-precondition', '판매할 ' + assetName + '이 없습니다.');
   }
   if (typeof choice.requiresCashHoldings === 'number' && (play.cashHoldings || 0) < choice.requiresCashHoldings) {
     throw new HttpsError('failed-precondition', '보유 현금이 부족해 이 선택지를 고를 수 없습니다.');
@@ -3087,7 +3089,7 @@ function gatherBotCandidates(play, stage) {
     const choice = (String(id).startsWith('treat:') || id === 'farewell:pet')
       ? resolveSyntheticChoice(id, play.healthConditions || [], hasInsurance)
       : findChoiceById(stage, id);
-    if (!choice || choice.requiresStockPurchase || choice.opensPropertySaleModal) return;
+    if (!choice || choice.requiresStockPurchase || choice.opensPropertySaleModal || choice.opensInterestInvestmentSaleModal) return;
     if (typeof choice.requiresCashHoldings === 'number' && (play.cashHoldings || 0) < choice.requiresCashHoldings) return;
     if (typeof choice.cashCostWon === 'number' && (play.cashHoldings || 0) < choice.cashCostWon) return;
     // 현금 부족 선택지 사전 배제(2026-08-30, 사용자 질문 - "봇이 한번에 선택
@@ -3539,6 +3541,19 @@ const submitChoice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
     return { opensPropertySaleModal: true, properties };
   }
 
+  if (choice.opensInterestInvestmentSaleModal) {
+    const investments = (Array.isArray(play.assets) ? play.assets : [])
+      .filter((asset) => asset && String(asset.id).startsWith('interest-investment-'))
+      .map((asset) => ({
+        id: asset.id,
+        label: asset.label,
+        principalWon: asset.principalWon,
+        interestRatePerTurn: asset.interestRatePerTurn,
+      }));
+    if (!investments.length) throw new HttpsError('failed-precondition', '판매할 투자 예금상품이 없습니다.');
+    return { opensInterestInvestmentSaleModal: true, investments };
+  }
+
   // 주식 매수(2026-08-28, 56장 D항) - requiresStockPurchase가 붙은 선택지는
   // game-data.js에 고정 deltas/addAsset이 없다(어떤 종목을 살지, 그 순간 가격이
   // 얼마인지 몰라서 정적으로 못 박아둘 수 없음). 클라이언트가 종목 검색 UI에서
@@ -3688,6 +3703,29 @@ const sellLifeGameInvestmentProperty = onCall({ cors: true, timeoutSeconds: 30, 
   const nextAssets = assets.filter((asset) => asset.id !== propertyId);
   await playRef.update({ stats, cashHoldings, assets: nextAssets });
   return { stats, cashHoldings, assets: nextAssets, soldLabel: property.label, sellPrice };
+});
+
+// 투자 예금상품 해지 - 보유 목록에서 선택한 상품의 원금을 현금으로 돌려받고
+// 자산에서 제거한다. 매 턴 이자는 자산 보유 여부로 지급되므로 이후 이자는
+// 자동 중단되며 이미 받은 이자는 현금에 남는다.
+const sellLifeGameInterestInvestment = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const investmentId = request.data && request.data.investmentId;
+  if (!investmentId || !String(investmentId).startsWith('interest-investment-')) {
+    throw new HttpsError('invalid-argument', '해지할 투자 예금상품을 선택해주세요.');
+  }
+  const { playRef, play } = await loadActivePlay(getDatabase(), uid);
+  const assets = Array.isArray(play.assets) ? play.assets : [];
+  const investment = assets.find((asset) => asset && asset.id === investmentId && asset.type === 'movable' && String(asset.id).startsWith('interest-investment-'));
+  if (!investment) throw new HttpsError('failed-precondition', '보유 중인 투자 예금상품이 아닙니다.');
+  const sellPrice = Math.max(1, Math.round(Number(investment.principalWon) || 100000000));
+  const wealthDelta = Math.round(sellPrice / cashUnitForAge(play.stageIndex));
+  const stats = Object.assign({}, play.stats);
+  stats.wealth = clampStat((stats.wealth || 0) + wealthDelta);
+  const cashHoldings = Math.max(0, (play.cashHoldings || 0) + sellPrice);
+  const nextAssets = assets.filter((asset) => asset.id !== investmentId);
+  await playRef.update({ stats, cashHoldings, assets: nextAssets });
+  return { stats, cashHoldings, assets: nextAssets, soldLabel: investment.label, sellPrice };
 });
 
 // DIY 제작(63장 C항 3단계, 2026-09-02) - hardware-craft-trigger 선택지가
@@ -4847,4 +4885,4 @@ const logLifeGameVisit = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   return { ok: true, logged: true };
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, sellLifeGameInvestmentProperty, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, getStreamerPreferenceSummary, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, submitMultiplayerVote, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount, logLifeGameVisit, submitLifeGameReview, deleteLifeGameReview, reportLifeGameReview, adminDeleteLifeGameReview, migratePublicReviews, submitLifeGameSponsorRequest, syncLifeMultiplayerSessionPublic, syncLifeMultiplayerVotePublic, getLifePublicId, migratePublicMultiplayerData };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, sellLifeGameInvestmentProperty, sellLifeGameInterestInvestment, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, getStreamerPreferenceSummary, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, submitMultiplayerVote, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount, logLifeGameVisit, submitLifeGameReview, deleteLifeGameReview, reportLifeGameReview, adminDeleteLifeGameReview, migratePublicReviews, submitLifeGameSponsorRequest, syncLifeMultiplayerSessionPublic, syncLifeMultiplayerVotePublic, getLifePublicId, migratePublicMultiplayerData };

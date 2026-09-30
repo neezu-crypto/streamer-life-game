@@ -59,6 +59,7 @@ const resumePlaythroughFn = httpsCallable(functions, 'resumePlaythrough');
 const submitChoiceFn = httpsCallable(functions, 'submitChoice');
 const sellStockFn = httpsCallable(functions, 'sellStock');
 const sellLifeGameInvestmentPropertyFn = httpsCallable(functions, 'sellLifeGameInvestmentProperty');
+const sellLifeGameInterestInvestmentFn = httpsCallable(functions, 'sellLifeGameInterestInvestment');
 const craftDiyItemFn = httpsCallable(functions, 'craftDiyItem');
 const sellDiyItemFn = httpsCallable(functions, 'sellDiyItem');
 const reportStolenVehicleFn = httpsCallable(functions, 'reportStolenVehicle');
@@ -942,6 +943,62 @@ document.getElementById('closeSellPropertyBtn').addEventListener('click', () => 
   Array.from(choiceList.children).forEach((el) => { if (el.tagName === 'BUTTON') el.disabled = false; });
 });
 
+// 투자 예금상품 해지 모달. 원금을 돌려받고 보유자산에서 제거하므로 이후 턴의
+// 이자 지급도 중단된다. 이미 현금으로 지급된 과거 이자는 그대로 유지한다.
+const sellInterestInvestmentModal = document.getElementById('sellInterestInvestmentModal');
+const sellInterestInvestmentList = document.getElementById('sellInterestInvestmentList');
+function openInterestInvestmentSaleModal(investments) {
+  sellInterestInvestmentList.innerHTML = '';
+  sellInterestInvestmentList.dataset.noAssetsAfterSale = 'false';
+  if (!investments.length) {
+    sellInterestInvestmentList.textContent = '판매할 투자 예금상품이 없어요.';
+    sellInterestInvestmentList.dataset.noAssetsAfterSale = 'true';
+  } else {
+    investments.forEach((investment) => {
+      const row = document.createElement('div');
+      row.className = 'property-sale-row interest-investment-sale-row';
+      const details = document.createElement('span');
+      const principal = Number(investment.principalWon) || 100000000;
+      const interest = Math.round(principal * (Number(investment.interestRatePerTurn) || 0.05));
+      details.textContent = investment.label + ' · 돌려받을 원금 ' + principal.toLocaleString() + '원 · 매 턴 이자 ' + interest.toLocaleString() + '원';
+      const button = document.createElement('button');
+      button.className = 'primary';
+      button.type = 'button';
+      button.textContent = '이 예금 해지';
+      button.addEventListener('click', async () => {
+        button.disabled = true;
+        try {
+          const res = await sellLifeGameInterestInvestmentFn({ investmentId: investment.id });
+          renderStatBars(statBars, res.data.stats);
+          renderAssets(res.data.assets, lastKnownAgeRange);
+          renderCashHoldings(cashHoldingsEl, res.data.cashHoldings);
+          row.remove();
+          if (!sellInterestInvestmentList.querySelector('.interest-investment-sale-row')) {
+            sellInterestInvestmentList.textContent = '판매할 투자 예금상품이 없어요.';
+            sellInterestInvestmentList.dataset.noAssetsAfterSale = 'true';
+          }
+          showToast('💰 ' + res.data.sellPrice.toLocaleString() + '원에 투자 예금상품을 해지했어요');
+        } catch (e) {
+          console.error('투자 예금상품 해지 실패:', e);
+          alert('예금상품을 해지하지 못했어요: ' + (e.message || e));
+          button.disabled = false;
+        }
+      });
+      row.append(details, button);
+      sellInterestInvestmentList.appendChild(row);
+    });
+  }
+  sellInterestInvestmentModal.classList.remove('hidden');
+}
+document.getElementById('closeSellInterestInvestmentBtn').addEventListener('click', () => {
+  sellInterestInvestmentModal.classList.add('hidden');
+  const noAssets = sellInterestInvestmentList.dataset.noAssetsAfterSale === 'true';
+  Array.from(choiceList.children).forEach((el) => {
+    if (el.tagName !== 'BUTTON') return;
+    el.disabled = noAssets && el.dataset && el.dataset.choiceId && el.dataset.choiceId.startsWith('cash-interest-investment-sale-');
+  });
+});
+
 // ------------------------------------------------------------
 // DIY 제작 모달(63장 C항 3단계, 2026-09-02) - hardware-craft-trigger 선택지를
 // 고르면 submitChoice가 나이를 넘기지 않고 곧장 opensCraftModal:true +
@@ -1683,12 +1740,12 @@ function scheduleAutoPlayTick(delayMs) {
 // 후보에서 제외 (4) 그 외엔 기존과 동일하게 균등 랜덤.
 function pickAutoPlayChoice(stage) {
   const affordable = stage.choices.filter((c) => {
-    if (c.opensPropertySaleModal) return false;
+    if (c.opensPropertySaleModal || c.opensInterestInvestmentSaleModal) return false;
     if (!c.requiresStockPurchase) return true;
     const age = parseInt(stage.ageRange, 10);
     return lastKnownCashHoldings >= stockInvestmentCostWon(age);
   });
-  let pool = affordable.length ? affordable : stage.choices.filter((c) => !c.opensPropertySaleModal);
+  let pool = affordable.length ? affordable : stage.choices.filter((c) => !c.opensPropertySaleModal && !c.opensInterestInvestmentSaleModal);
 
   if (autoPlayPreferredRouteId) {
     const inPreferredRoute = lastKnownRouteId === autoPlayPreferredRouteId;
@@ -2735,6 +2792,10 @@ async function pickChoice(choiceId, extra) {
     const res = await submitChoiceFn(Object.assign({ choiceId }, extra));
     if (res.data && res.data.opensPropertySaleModal) {
       openPropertySaleModal(res.data.properties || []);
+      return true;
+    }
+    if (res.data && res.data.opensInterestInvestmentSaleModal) {
+      openInterestInvestmentSaleModal(res.data.investments || []);
       return true;
     }
     applyOutcome(res.data, undefined, choiceId);
