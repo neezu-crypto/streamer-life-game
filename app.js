@@ -281,6 +281,9 @@ const streamerVerifyPending = document.getElementById('streamerVerifyPending');
 const streamerVerifyPendingText = document.getElementById('streamerVerifyPendingText');
 const streamerVerifyNicknameInput = document.getElementById('streamerVerifyNickname');
 const streamerVerifySoopIdInput = document.getElementById('streamerVerifySoopId');
+const streamerVerifyNoteInstructions = document.getElementById('streamerVerifyNoteInstructions');
+const streamerVerifyNoteCodeBtn = document.getElementById('streamerVerifyNoteCodeBtn');
+const streamerVerifyNoteStatus = document.getElementById('streamerVerifyNoteStatus');
 
 window.openStreamerVerifyModal = function () {
   streamerVerifyForm.classList.remove('hidden');
@@ -294,18 +297,31 @@ window.closeStreamerVerifyModal = function () {
 };
 document.getElementById('closeStreamerVerifyBtn').addEventListener('click', closeStreamerVerifyModal);
 
-function showStreamerVerifyPending(nickname, isSwitch) {
+function showStreamerVerifyPending(nickname, isSwitch, verificationCode) {
   streamerVerifyForm.classList.add('hidden');
   streamerVerifyPending.classList.remove('hidden');
+  streamerVerifyNoteInstructions.classList.toggle('hidden', !verificationCode || isSwitch);
+  streamerVerifyNoteStatus.textContent = '';
+  streamerVerifyNoteCodeBtn.textContent = verificationCode || '';
+  streamerVerifyNoteCodeBtn.onclick = async function () {
+    try {
+      await navigator.clipboard.writeText(verificationCode);
+      streamerVerifyNoteStatus.textContent = '인증 코드를 복사했어요. 쪽지 본문에 붙여넣어 보내주세요.';
+    } catch (error) {
+      streamerVerifyNoteStatus.textContent = '코드를 선택해 직접 복사해주세요.';
+    }
+  };
   streamerVerifyPendingText.textContent = isSwitch
     ? '"' + nickname + '" 계정 전환 신청이 관리자에게 전달됐어요. 확인 후 이 기기에서도 기존 계정을 이어서 쓸 수 있어요.'
-    : '"' + nickname + '" 인증 신청이 관리자에게 전달됐어요. 확인 후 승인해드려요.';
+    : verificationCode
+      ? '"' + nickname + '" 인증 신청이 접수됐어요. 아래 코드를 SOOP 쪽지로 보내면 발신자 아이디와 대조해 자동으로 승인합니다.'
+      : '"' + nickname + '" 인증 신청이 관리자에게 전달됐어요. 확인 후 승인해드려요.';
 }
 
 async function submitOrCheckStreamerVerification(data) {
   try {
     const result = await requestStreamerVerificationFn(data);
-    const { action, nickname, isSwitch, customToken } = result.data;
+    const { action, nickname, isSwitch, customToken, verificationCode } = result.data;
     if (action === 'switch') {
       closeStreamerVerifyModal();
       await completeAccountSwitch(customToken);
@@ -318,7 +334,7 @@ async function submitOrCheckStreamerVerification(data) {
       alert('✅ 방송 다시보기 검수 기록이 확인되어 스트리머 인증이 자동 완료됐어요.');
       refreshCollectionView();
     } else {
-      showStreamerVerifyPending(nickname, isSwitch);
+      showStreamerVerifyPending(nickname, isSwitch, verificationCode);
       if (!data.nickname) alert('아직 관리자 확인 전이에요. 잠시 후 다시 확인해주세요.');
     }
   } catch (e) {
@@ -3994,7 +4010,16 @@ submitReviewBtnEl.addEventListener('click', async () => {
     }
     if (result.data && result.data.promoteRequested) {
       requestStreamerVerificationFn({ nickname: payload.nickname, soopId: payload.soopId, source: 'life-game' })
-        .then(() => { reviewFormHintEl.textContent = '스트리머 인증 신청도 함께 접수됐어요.'; })
+        .then((verifyResult) => {
+          const verification = verifyResult && verifyResult.data || {};
+          reviewFormHintEl.textContent = '후기와 스트리머 인증 신청이 접수됐어요. SOOP 쪽지 인증을 완료해주세요.';
+          if (verification.action === 'pending') {
+            showStreamerVerifyPending(verification.nickname || payload.nickname, verification.isSwitch, verification.verificationCode);
+            streamerVerifyModal.classList.remove('hidden');
+          } else if (verification.action === 'auto-approved') {
+            reviewFormHintEl.textContent = '후기가 등록됐고, 스트리머 인증도 자동 완료됐어요.';
+          }
+        })
         .catch((e) => console.error('자동 스트리머 인증 신청 실패:', e));
     }
   } catch (e) {
