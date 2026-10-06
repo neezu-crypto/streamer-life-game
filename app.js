@@ -4029,7 +4029,8 @@ submitReviewBtnEl.addEventListener('click', async () => {
           const verification = verifyResult && verifyResult.data || {};
           reviewFormHintEl.textContent = '후기와 스트리머 인증 신청이 접수됐어요. SOOP 쪽지 인증을 완료해주세요.';
           if (verification.action === 'pending') {
-            showStreamerVerifyPending(verification.nickname || payload.nickname, verification.isSwitch, verification.verificationCode);
+            showStreamerVerifyPending(verification.nickname || payload.nickname, verification.isSwitch,
+              verification.verificationCode, verification.verificationCodeExpiresAt);
             streamerVerifyModal.classList.remove('hidden');
           } else if (verification.action === 'auto-approved') {
             reviewFormHintEl.textContent = '후기가 등록됐고, 스트리머 인증도 자동 완료됐어요.';
