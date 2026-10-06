@@ -95,6 +95,10 @@ let visitLogChecked = false;
 // 기존에 디스코드 알림용으로 이미 한 번 읽던 값을 그대로 재사용(중복 조회 방지).
 let isStreamerVerifiedUser = false;
 let myReviewPublicId = null;
+let lifeVerifiedStatusUnsubscribe = null;
+let lifeSwitchApprovalUnsubscribe = null;
+let lifeObservedAuthUid = '';
+let lifeSwitchHandoffInProgress = false;
 // 관리자 여부(2026-08-24, 사용자 지시 - "관리자 uid로 다른 인생 갤러리에서
 // 로그 삭제 가능하게" UI 연결) - adminCenter/adminUids 자체는
 // database.rules.json에서 .read:false라 클라이언트가 직접 "내가 관리자인가"를
@@ -117,8 +121,42 @@ async function checkAdminStatus(uid) {
     isAdminUser = false;
   }
 }
+async function handleLifeStreamerSwitchApproval(uid, requestId) {
+  if (!requestId || lifeSwitchHandoffInProgress || currentUser?.uid !== uid) return;
+  const lockKey = 'soop.streamerVerificationSwitch.' + requestId;
+  try {
+    const lastAttemptAt = Number(localStorage.getItem(lockKey) || 0);
+    if (lastAttemptAt && Date.now() - lastAttemptAt < 20000) return;
+    localStorage.setItem(lockKey, String(Date.now()));
+  } catch (_) { /* Private browsing may disable localStorage. */ }
+  lifeSwitchHandoffInProgress = true;
+  try {
+    const result = await requestStreamerVerificationFn({ checkOnly: true, switchRequestId: requestId });
+    if (result.data?.action !== 'switch' || currentUser?.uid !== uid) {
+      try { localStorage.removeItem(lockKey); } catch (_) {}
+      return;
+    }
+    closeStreamerVerifyModal();
+    await completeStreamerVerificationSwitch(result.data.customToken);
+  } catch (error) {
+    try { localStorage.removeItem(lockKey); } catch (_) {}
+    lifeSwitchHandoffInProgress = false;
+    console.error('승인된 스트리머 계정 자동 전환 실패:', error);
+  }
+}
+
 onAuthStateChanged(auth, (user) => {
+  if (lifeVerifiedStatusUnsubscribe) { lifeVerifiedStatusUnsubscribe(); lifeVerifiedStatusUnsubscribe = null; }
+  if (lifeSwitchApprovalUnsubscribe) { lifeSwitchApprovalUnsubscribe(); lifeSwitchApprovalUnsubscribe = null; }
+  if ((user?.uid || '') !== lifeObservedAuthUid) {
+    lifeObservedAuthUid = user?.uid || '';
+    resumeChecked = false;
+    presenceRecorded = false;
+    visitLogChecked = false;
+    lifeSwitchHandoffInProgress = false;
+  }
   currentUser = user;
+  isStreamerVerifiedUser = false;
   if (!user) {
     lifePublicId = null;
     signInAnonymously(auth).catch((e) => console.error('익명 로그인 실패:', e));
@@ -156,16 +194,34 @@ onAuthStateChanged(auth, (user) => {
     set(ref(db, 'presence/lifeGame/' + user.uid), { lastSeen: Date.now() })
       .catch((e) => console.error('접속자 분석 기록 실패:', e));
   }
-  // 인증 스트리머 접속 시 관리자 디스코드 알림(2026-09-06 추가, StreamBet-Market/
-  // soop-stock-market과 동일 패턴) - 하루 한 번 제한 등 실제 발송 여부는 서버
-  // (logLifeGameVisit)가 판단하므로 여기선 세션당 1회만 호출하면 된다.
-  if (!visitLogChecked) {
-    visitLogChecked = true;
-    get(ref(db, 'users/' + user.uid + '/streamerVerified')).then((snap) => {
-      isStreamerVerifiedUser = snap.val() === true;
-      if (isStreamerVerifiedUser) logLifeGameVisitFn().catch((e) => console.error('접속 로그 실패:', e));
-    }).catch((e) => console.error('인증 스트리머 여부 확인 실패:', e));
-  }
+  // 본인 전용 인증 플래그와 계정 전환 승인 신호를 구독한다. 관리자 승인 직후
+  // 이 페이지의 권한과 대기 UI를 다시 불러오기 없이 갱신한다.
+  let hasInitialVerifiedValue = false;
+  let previousVerifiedValue = false;
+  lifeVerifiedStatusUnsubscribe = onValue(ref(db, 'users/' + user.uid + '/streamerVerified'), (snap) => {
+    if (currentUser?.uid !== user.uid) return;
+    const verified = snap.val() === true;
+    isStreamerVerifiedUser = verified;
+    if (verified && !visitLogChecked) {
+      visitLogChecked = true;
+      logLifeGameVisitFn().catch((e) => console.error('접속 로그 실패:', e));
+    }
+    if (hasInitialVerifiedValue && !previousVerifiedValue && verified) {
+      streamerVerifyPendingText.textContent = '✅ 관리자가 승인했어요. 스트리머 인증이 새로고침 없이 적용됐습니다.';
+      streamerVerifyNoteInstructions.classList.add('hidden');
+      streamerVerifyRenewCodeBtn.classList.add('hidden');
+      showToast('스트리머 인증이 승인됐어요.');
+      document.dispatchEvent(new CustomEvent('life-streamer-verification-approved'));
+    }
+    previousVerifiedValue = verified;
+    hasInitialVerifiedValue = true;
+  }, (e) => console.error('인증 스트리머 상태 구독 실패:', e));
+
+  lifeSwitchApprovalUnsubscribe = onValue(ref(db, 'users/' + user.uid + '/streamerVerificationSwitchApproval'), (snap) => {
+    if (currentUser?.uid !== user.uid) return;
+    const requestId = snap.val() && snap.val().requestId;
+    if (requestId) handleLifeStreamerSwitchApproval(user.uid, String(requestId));
+  }, (e) => console.error('스트리머 계정 전환 승인 신호 구독 실패:', e));
 });
 
 // ------------------------------------------------------------
@@ -3939,6 +3995,11 @@ const reviewPromoteNicknameEl = document.getElementById('reviewPromoteNickname')
 const reviewPromoteSoopIdEl = document.getElementById('reviewPromoteSoopId');
 const submitReviewBtnEl = document.getElementById('submitReviewBtn');
 const reviewFormHintEl = document.getElementById('reviewFormHint');
+
+document.addEventListener('life-streamer-verification-approved', () => {
+  reviewPromoteLabelEl.classList.add('hidden');
+  reviewPromoteFieldsEl.classList.add('hidden');
+});
 
 let reviewSelectedRating = 0;
 let latestReviewsVal = {};
