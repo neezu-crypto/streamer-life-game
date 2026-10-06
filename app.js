@@ -284,6 +284,7 @@ const streamerVerifySoopIdInput = document.getElementById('streamerVerifySoopId'
 const streamerVerifyNoteInstructions = document.getElementById('streamerVerifyNoteInstructions');
 const streamerVerifyNoteCodeBtn = document.getElementById('streamerVerifyNoteCodeBtn');
 const streamerVerifyNoteStatus = document.getElementById('streamerVerifyNoteStatus');
+const streamerVerifyRenewCodeBtn = document.getElementById('streamerVerifyRenewCodeBtn');
 
 window.openStreamerVerifyModal = function () {
   streamerVerifyForm.classList.remove('hidden');
@@ -297,12 +298,21 @@ window.closeStreamerVerifyModal = function () {
 };
 document.getElementById('closeStreamerVerifyBtn').addEventListener('click', closeStreamerVerifyModal);
 
-function showStreamerVerifyPending(nickname, isSwitch, verificationCode) {
+function showStreamerVerifyPending(nickname, isSwitch, verificationCode, verificationCodeExpiresAt) {
   streamerVerifyForm.classList.add('hidden');
   streamerVerifyPending.classList.remove('hidden');
-  streamerVerifyNoteInstructions.classList.toggle('hidden', !verificationCode || isSwitch);
+  streamerVerifyNoteInstructions.classList.toggle('hidden', isSwitch);
   streamerVerifyNoteStatus.textContent = '';
-  streamerVerifyNoteCodeBtn.textContent = verificationCode || '';
+  const codeExpired = Number(verificationCodeExpiresAt) > 0 && Number(verificationCodeExpiresAt) <= Date.now();
+  const visibleCode = codeExpired ? '' : (verificationCode || '');
+  streamerVerifyNoteCodeBtn.textContent = visibleCode;
+  streamerVerifyNoteCodeBtn.disabled = !visibleCode;
+  streamerVerifyRenewCodeBtn.classList.toggle('hidden', isSwitch);
+  if (!isSwitch && !visibleCode) {
+    streamerVerifyNoteStatus.textContent = codeExpired
+      ? '코드가 만료됐어요. 새 인증 코드를 발급한 뒤 그 코드로 쪽지를 보내주세요.'
+      : '현재 표시 중인 코드가 없어요. 새 인증 코드를 발급해주세요.';
+  }
   streamerVerifyNoteCodeBtn.onclick = async function () {
     try {
       await navigator.clipboard.writeText(verificationCode);
@@ -320,6 +330,7 @@ function showStreamerVerifyPending(nickname, isSwitch, verificationCode) {
 
 async function submitOrCheckStreamerVerification(data) {
   try {
+    const previousCode = streamerVerifyNoteCodeBtn.textContent.trim();
     const result = await requestStreamerVerificationFn(data);
     const { action, nickname, isSwitch, customToken, verificationCode } = result.data;
     if (action === 'switch') {
@@ -334,8 +345,9 @@ async function submitOrCheckStreamerVerification(data) {
       alert('✅ 방송 다시보기 검수 기록이 확인되어 스트리머 인증이 자동 완료됐어요.');
       refreshCollectionView();
     } else {
-      showStreamerVerifyPending(nickname, isSwitch, verificationCode);
-      if (!data.nickname) alert('아직 관리자 확인 전이에요. 잠시 후 다시 확인해주세요.');
+      const effectiveCode = verificationCode || (data.checkOnly ? previousCode : '');
+      showStreamerVerifyPending(nickname, isSwitch, effectiveCode, result.data.verificationCodeExpiresAt);
+      if (data.checkOnly && !data.nickname) alert('아직 관리자 확인 전이에요. 잠시 후 다시 확인해주세요.');
     }
   } catch (e) {
     alert('스트리머 인증 처리 중 오류가 발생했습니다: ' + (e.message || e));
@@ -353,6 +365,9 @@ document.getElementById('submitStreamerVerifyBtn').addEventListener('click', () 
   submitOrCheckStreamerVerification({ nickname, soopId, source: 'life-game' });
 });
 document.getElementById('checkStreamerVerifyBtn').addEventListener('click', () => {
+  submitOrCheckStreamerVerification({ source: 'life-game', checkOnly: true });
+});
+streamerVerifyRenewCodeBtn.addEventListener('click', () => {
   submitOrCheckStreamerVerification({ source: 'life-game' });
 });
 
