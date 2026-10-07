@@ -354,31 +354,34 @@ window.closeStreamerVerifyModal = function () {
 };
 document.getElementById('closeStreamerVerifyBtn').addEventListener('click', closeStreamerVerifyModal);
 
-function showStreamerVerifyPending(nickname, isSwitch, verificationCode, verificationCodeExpiresAt) {
+function showStreamerVerifyPending(nickname, isSwitch, verificationCode, verificationCodeExpiresAt, noteEligible) {
   streamerVerifyForm.classList.add('hidden');
   streamerVerifyPending.classList.remove('hidden');
-  streamerVerifyNoteInstructions.classList.toggle('hidden', isSwitch);
+  const canSendNote = noteEligible === true || (!isSwitch && noteEligible !== false);
+  streamerVerifyNoteInstructions.classList.toggle('hidden', !canSendNote);
   streamerVerifyNoteStatus.textContent = '';
   const codeExpired = Number(verificationCodeExpiresAt) > 0 && Number(verificationCodeExpiresAt) <= Date.now();
   const visibleCode = codeExpired ? '' : (verificationCode || '');
   streamerVerifyNoteCodeBtn.textContent = visibleCode;
   streamerVerifyNoteCodeBtn.disabled = !visibleCode;
-  streamerVerifyRenewCodeBtn.classList.toggle('hidden', isSwitch);
-  if (!isSwitch && !visibleCode) {
+  streamerVerifyRenewCodeBtn.classList.toggle('hidden', !canSendNote);
+  if (canSendNote && !visibleCode) {
     streamerVerifyNoteStatus.textContent = codeExpired
       ? '코드가 만료됐어요. 새 인증 코드를 발급한 뒤 그 코드로 쪽지를 보내주세요.'
       : '현재 표시 중인 코드가 없어요. 새 인증 코드를 발급해주세요.';
   }
   streamerVerifyNoteCodeBtn.onclick = async function () {
     try {
-      await navigator.clipboard.writeText(verificationCode);
+      await navigator.clipboard.writeText(visibleCode);
       streamerVerifyNoteStatus.textContent = '인증 코드를 복사했어요. 쪽지 본문에 붙여넣어 보내주세요.';
     } catch (error) {
       streamerVerifyNoteStatus.textContent = '코드를 선택해 직접 복사해주세요.';
     }
   };
   streamerVerifyPendingText.textContent = isSwitch
-    ? '"' + nickname + '" 계정 전환 신청이 관리자에게 전달됐어요. 확인 후 이 기기에서도 기존 계정을 이어서 쓸 수 있어요.'
+    ? (canSendNote
+      ? '"' + nickname + '" 계정 전환 신청이 접수됐어요. 기존 인증 스트리머의 SOOP 아이디로 아래 코드를 쪽지로 보내면 확인 후 이 기기에서도 기존 계정을 이어서 쓸 수 있어요.'
+      : '"' + nickname + '" 계정 전환 신청이 관리자에게 전달됐어요. 기존 인증 정보가 자동 쪽지 확인 조건을 충족하지 않아 관리자가 수동 검수합니다.')
     : verificationCode
       ? '"' + nickname + '" 인증 신청이 접수됐어요. 아래 코드를 SOOP 쪽지로 보내면 발신자 아이디와 대조해 자동으로 승인합니다.'
       : '"' + nickname + '" 인증 신청이 관리자에게 전달됐어요. 확인 후 승인해드려요.';
@@ -402,7 +405,7 @@ async function submitOrCheckStreamerVerification(data) {
       refreshCollectionView();
     } else {
       const effectiveCode = verificationCode || (data.checkOnly ? previousCode : '');
-      showStreamerVerifyPending(nickname, isSwitch, effectiveCode, result.data.verificationCodeExpiresAt);
+      showStreamerVerifyPending(nickname, isSwitch, effectiveCode, result.data.verificationCodeExpiresAt, result.data.noteEligible);
       if (data.checkOnly && !data.nickname) alert('아직 관리자 확인 전이에요. 잠시 후 다시 확인해주세요.');
     }
   } catch (e) {
@@ -4091,7 +4094,7 @@ submitReviewBtnEl.addEventListener('click', async () => {
           reviewFormHintEl.textContent = '후기와 스트리머 인증 신청이 접수됐어요. SOOP 쪽지 인증을 완료해주세요.';
           if (verification.action === 'pending') {
             showStreamerVerifyPending(verification.nickname || payload.nickname, verification.isSwitch,
-              verification.verificationCode, verification.verificationCodeExpiresAt);
+              verification.verificationCode, verification.verificationCodeExpiresAt, verification.noteEligible);
             streamerVerifyModal.classList.remove('hidden');
           } else if (verification.action === 'auto-approved') {
             reviewFormHintEl.textContent = '후기가 등록됐고, 스트리머 인증도 자동 완료됐어요.';
