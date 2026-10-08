@@ -334,6 +334,7 @@ window.loginWithKakao = function () {
 const streamerVerifyModal = document.getElementById('streamerVerifyModal');
 const streamerVerifyForm = document.getElementById('streamerVerifyForm');
 const streamerVerifyPending = document.getElementById('streamerVerifyPending');
+const streamerVerifyLoading = document.getElementById('streamerVerifyLoading');
 const streamerVerifyPendingText = document.getElementById('streamerVerifyPendingText');
 const streamerVerifyNicknameInput = document.getElementById('streamerVerifyNickname');
 const streamerVerifySoopIdInput = document.getElementById('streamerVerifySoopId');
@@ -345,6 +346,7 @@ const streamerVerifyRenewCodeBtn = document.getElementById('streamerVerifyRenewC
 window.openStreamerVerifyModal = function () {
   streamerVerifyForm.classList.remove('hidden');
   streamerVerifyPending.classList.add('hidden');
+  streamerVerifyLoading.classList.add('hidden');
   streamerVerifyNicknameInput.value = '';
   streamerVerifySoopIdInput.value = '';
   streamerVerifyModal.classList.remove('hidden');
@@ -356,6 +358,7 @@ document.getElementById('closeStreamerVerifyBtn').addEventListener('click', clos
 
 function showStreamerVerifyPending(nickname, isSwitch, verificationCode, verificationCodeExpiresAt, noteEligible) {
   streamerVerifyForm.classList.add('hidden');
+  streamerVerifyLoading.classList.add('hidden');
   streamerVerifyPending.classList.remove('hidden');
   const canSendNote = noteEligible === true || (!isSwitch && noteEligible !== false);
   streamerVerifyNoteInstructions.classList.toggle('hidden', !canSendNote);
@@ -385,6 +388,14 @@ function showStreamerVerifyPending(nickname, isSwitch, verificationCode, verific
     : verificationCode
       ? '"' + nickname + '" 인증 신청이 접수됐어요. 아래 코드를 SOOP 쪽지로 보내면 발신자 아이디와 대조해 자동으로 승인합니다.'
       : '"' + nickname + '" 인증 신청이 관리자에게 전달됐어요. 확인 후 승인해드려요.';
+}
+
+function showStreamerVerifyLoading() {
+  streamerVerifyForm.classList.add('hidden');
+  streamerVerifyPending.classList.add('hidden');
+  streamerVerifyLoading.textContent = '⏳ 인증 신청 정보를 확인하고 있어요. 쪽지 안내를 준비 중입니다.';
+  streamerVerifyLoading.classList.remove('hidden');
+  streamerVerifyModal.classList.remove('hidden');
 }
 
 async function submitOrCheckStreamerVerification(data) {
@@ -4088,6 +4099,7 @@ submitReviewBtnEl.addEventListener('click', async () => {
       submitReviewBtnEl.textContent = '수정하기';
     }
     if (result.data && result.data.promoteRequested) {
+      showStreamerVerifyLoading();
       requestStreamerVerificationFn({ nickname: payload.nickname, soopId: payload.soopId, source: 'life-game' })
         .then((verifyResult) => {
           const verification = verifyResult && verifyResult.data || {};
@@ -4095,12 +4107,24 @@ submitReviewBtnEl.addEventListener('click', async () => {
           if (verification.action === 'pending') {
             showStreamerVerifyPending(verification.nickname || payload.nickname, verification.isSwitch,
               verification.verificationCode, verification.verificationCodeExpiresAt, verification.noteEligible);
-            streamerVerifyModal.classList.remove('hidden');
           } else if (verification.action === 'auto-approved') {
+            closeStreamerVerifyModal();
             reviewFormHintEl.textContent = '후기가 등록됐고, 스트리머 인증도 자동 완료됐어요.';
+          } else if (verification.action === 'already-verified') {
+            closeStreamerVerifyModal();
+            reviewFormHintEl.textContent = '후기가 등록됐고, 이 계정은 이미 스트리머 인증이 완료돼 있어요.';
+          } else if (verification.action === 'switch') {
+            closeStreamerVerifyModal();
+            completeAccountSwitch(verification.customToken).catch((e) => {
+              console.error('스트리머 계정 전환 실패:', e);
+              showToast('계정 전환 중 오류가 발생했습니다: ' + (e.message || e));
+            });
           }
         })
-        .catch((e) => console.error('자동 스트리머 인증 신청 실패:', e));
+        .catch((e) => {
+          console.error('자동 스트리머 인증 신청 실패:', e);
+          streamerVerifyLoading.textContent = '후기는 저장됐지만 인증 신청 상태를 확인하지 못했어요. 잠시 후 닫고 인증 메뉴에서 상태를 확인해주세요.';
+        });
     }
   } catch (e) {
     console.error('후기 등록 실패:', e);
