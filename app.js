@@ -383,10 +383,10 @@ function showStreamerVerifyPending(nickname, isSwitch, verificationCode, verific
   };
   streamerVerifyPendingText.textContent = isSwitch
     ? (canSendNote
-      ? '"' + nickname + '" 계정 전환 신청이 접수됐어요. 기존 인증 스트리머의 SOOP 아이디로 아래 코드를 쪽지로 보내면 확인 후 이 기기에서도 기존 계정을 이어서 쓸 수 있어요.'
+      ? '“' + nickname + '” 계정 전환 신청이 접수됐어요. 아래 6자리 코드를 SOOP 쪽지로 보내주세요.'
       : '"' + nickname + '" 계정 전환 신청이 관리자에게 전달됐어요. 기존 인증 정보가 자동 쪽지 확인 조건을 충족하지 않아 관리자가 수동 검수합니다.')
     : verificationCode
-      ? '"' + nickname + '" 인증 신청이 접수됐어요. 아래 코드를 SOOP 쪽지로 보내면 발신자 아이디와 대조해 자동으로 승인합니다.'
+      ? '“' + nickname + '” 인증 신청이 접수됐어요. 아래 코드를 SOOP 쪽지로 보내면 자동으로 승인합니다.'
       : '"' + nickname + '" 인증 신청이 관리자에게 전달됐어요. 확인 후 승인해드려요.';
 }
 
