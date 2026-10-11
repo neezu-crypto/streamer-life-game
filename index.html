@@ -459,10 +459,10 @@
 <div id="sponsorModal" class="modal-overlay hidden">
   <div class="modal-box">
     <h2>📢 스트리머 홍보하기</h2>
-    <p class="pitch" style="margin:0 0 14px;">스트리머 닉네임과 SOOP 아이디, 노출 기간을 입력해 신청하면 관리자에게 전달돼요.
-    신청 후 후원창에서 별풍선으로 후원하면, 관리자가 확인한 뒤 검색화면·엔딩화면·참가화면·모바일 배너 네 자리에 노출해드려요.</p>
+    <p class="pitch" style="margin:0 0 14px;">홍보할 스트리머와 실제 후원 계정, 노출 기간을 입력해 신청하세요. 후원 완료를 알리면 별풍선 10~70개와 계정·시각을 자동 대조하고, 확인되면 검색화면·엔딩화면·참가화면·모바일 배너에 노출해드려요.</p>
     <input type="text" id="sponsorNicknameInput" maxlength="20" placeholder="스트리머 닉네임 입력" style="margin-bottom:10px;">
     <input type="text" id="sponsorSoopIdInput" maxlength="20" placeholder="SOOP 아이디 입력 (영문 소문자/숫자)" autocomplete="off" style="margin-bottom:10px;">
+    <input type="text" id="sponsorDonorSoopIdInput" maxlength="20" placeholder="후원하는 계정의 SOOP 아이디" autocomplete="off" style="margin-bottom:10px;">
     <div id="sponsorProfilePreview" class="sponsor-profile-preview hidden" aria-live="polite">
       <img id="sponsorProfilePreviewImage" class="sponsor-profile-preview-image hidden" alt="">
       <span id="sponsorProfilePreviewStatus" class="sponsor-profile-preview-status"></span>
@@ -474,6 +474,13 @@
     </div>
     <p style="text-align:right;font-size:13px;color:var(--text-faint);margin:0 0 14px;">필요 별풍선: <b id="sponsorCostPreview" style="color:var(--gold);">10개</b></p>
     <button class="primary" id="submitSponsorBtn" type="button" style="width:100%;">신청하기</button>
+    <div id="sponsorDonationStep" class="hidden" style="margin-top:12px;">
+      <p id="sponsorDonationStepMessage" style="font-size:13px;line-height:1.6;"></p>
+      <p style="font-size:12px;">점검 코드: <b id="sponsorDiagnosticCode" style="color:var(--gold);"></b></p>
+      <button class="primary" id="openSponsorDonationBtn" type="button" style="width:100%;">SOOP 후원창 열기</button>
+      <button class="primary" id="confirmSponsorDonationBtn" type="button" style="width:100%;margin-top:8px;">후원 완료했어요</button>
+      <button class="primary hidden" id="restartSponsorRequestBtn" type="button" style="width:100%;margin-top:8px;">새 홍보 신청하기</button>
+    </div>
     <button class="text-link" id="closeSponsorBtn" type="button">닫기</button>
   </div>
 </div>

@@ -4446,6 +4446,7 @@ const submitLifeGameSponsorRequest = onCall({ cors: true, timeoutSeconds: 30, me
   const data = request.data || {};
   const nickname = (data.nickname || '').toString().trim().slice(0, REVIEW_NICKNAME_MAX_LEN);
   const soopId = (data.soopId || '').toString().trim().toLowerCase();
+  const donorSoopId = (data.donorSoopId || '').toString().trim().toLowerCase();
   const days = Math.round(Number(data.days));
 
   if (!nickname || REVIEW_FORBIDDEN_RE.test(nickname)) {
@@ -4453,6 +4454,9 @@ const submitLifeGameSponsorRequest = onCall({ cors: true, timeoutSeconds: 30, me
   }
   if (!SOOP_ID_RE.test(soopId)) {
     throw new HttpsError('invalid-argument', 'SOOP 아이디는 영문 소문자/숫자 2~20자로 입력해주세요.');
+  }
+  if (!SOOP_ID_RE.test(donorSoopId)) {
+    throw new HttpsError('invalid-argument', '후원하는 계정의 SOOP 아이디를 입력해주세요.');
   }
   if (!Number.isInteger(days) || days < 1 || days > MAX_SPONSOR_DAYS) {
     throw new HttpsError('invalid-argument', `노출 기간은 1~${MAX_SPONSOR_DAYS}일 사이로 입력해주세요.`);
@@ -4464,19 +4468,79 @@ const submitLifeGameSponsorRequest = onCall({ cors: true, timeoutSeconds: 30, me
   const starBalloons = days * SPONSOR_BALLOON_PRICE_PER_DAY;
 
   const ref = db.ref('lifeGame/sponsorRequests').push();
-  await ref.set({
-    nickname,
-    soopId,
-    previewImg,
-    stationLink,
-    days,
-    starBalloons,
-    status: 'pending',
-    requestedAt: ServerValue.TIMESTAMP,
-    requesterUid: uid
-  });
+  const crypto = require('node:crypto');
+  let diagnosticCode = '';
+  let diagnosticCodeRef = null;
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    diagnosticCode = 'LG-' + crypto.randomBytes(4).toString('hex').toUpperCase();
+    diagnosticCodeRef = db.ref('lifeGame/sponsorDiagnosticCodes/' + diagnosticCode);
+    const reservation = await diagnosticCodeRef.transaction((current) => current === null ? ref.key : undefined, undefined, false);
+    if (reservation.committed) break;
+    diagnosticCode = '';
+  }
+  if (!diagnosticCode) throw new HttpsError('resource-exhausted', '점검 코드를 발급하지 못했습니다. 다시 신청해주세요.');
+  try {
+    await ref.set({
+      nickname,
+      soopId,
+      previewImg,
+      stationLink,
+      days,
+      starBalloons,
+      donorSoopId,
+      diagnosticCode,
+      verificationGame: 'streamer-life-game',
+      status: 'pending',
+      requestedAt: ServerValue.TIMESTAMP,
+      requesterUid: uid
+    });
+  } catch (error) {
+    if (diagnosticCodeRef) await diagnosticCodeRef.remove().catch(() => null);
+    throw error;
+  }
 
-  return { ok: true, id: ref.key, starBalloons };
+  return { ok: true, id: ref.key, requestId: ref.key, starBalloons, diagnosticCode };
+});
+
+const markLifeGameSponsorDonationComplete = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const requestId = String(request.data && request.data.requestId || '').trim();
+  if (!requestId || requestId.length > 200 || /[.#$\[\]/]/.test(requestId)) {
+    throw new HttpsError('invalid-argument', '신청 정보가 올바르지 않습니다.');
+  }
+  const ref = getDatabase().ref('lifeGame/sponsorRequests/' + requestId);
+  const now = Date.now();
+  const result = await ref.transaction((current) => {
+    if (!current || current.requesterUid !== uid || current.status !== 'pending' ||
+        !SOOP_ID_RE.test(String(current.donorSoopId || '')) ||
+        Number(current.starBalloons) !== Number(current.days) * SPONSOR_BALLOON_PRICE_PER_DAY) return;
+    if (Number(current.donationCompletedAt) > 0) return;
+    return Object.assign({}, current, { donationCompletedAt: now, updatedAt: now });
+  }, undefined, false);
+  if (!result.committed) {
+    const current = (await ref.get()).val();
+    if (!current || current.requesterUid !== uid) throw new HttpsError('not-found', '신청을 찾을 수 없습니다.');
+    if (current.status !== 'pending' || !Number(current.donationCompletedAt)) {
+      throw new HttpsError('failed-precondition', '대기 중인 신청이 아니거나 후원 완료를 접수할 수 없습니다.');
+    }
+  }
+  return { ok: true, donationCompletedAt: Number(result.snapshot && result.snapshot.val() && result.snapshot.val().donationCompletedAt) || now };
+});
+
+const getLifeGameSponsorRequestStatus = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+  const uid = requireAuth(request);
+  const requestId = String(request.data && request.data.requestId || '').trim();
+  if (!requestId || requestId.length > 200 || /[.#$\[\]/]/.test(requestId)) {
+    throw new HttpsError('invalid-argument', '신청 정보가 올바르지 않습니다.');
+  }
+  const item = (await getDatabase().ref('lifeGame/sponsorRequests/' + requestId).get()).val();
+  if (!item || item.requesterUid !== uid) throw new HttpsError('not-found', '신청을 찾을 수 없습니다.');
+  return {
+    ok: true,
+    status: String(item.status || ''),
+    donationCompletedAt: Number(item.donationCompletedAt) || 0,
+    reviewedAt: Number(item.reviewedAt) || 0,
+  };
 });
 
 // ------------------------------------------------------------
@@ -4885,4 +4949,4 @@ const logLifeGameVisit = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   return { ok: true, logged: true };
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, sellLifeGameInvestmentProperty, sellLifeGameInterestInvestment, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, getStreamerPreferenceSummary, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, submitMultiplayerVote, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount, logLifeGameVisit, submitLifeGameReview, deleteLifeGameReview, reportLifeGameReview, adminDeleteLifeGameReview, migratePublicReviews, submitLifeGameSponsorRequest, syncLifeMultiplayerSessionPublic, syncLifeMultiplayerVotePublic, getLifePublicId, migratePublicMultiplayerData };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, sellLifeGameInvestmentProperty, sellLifeGameInterestInvestment, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, getStreamerPreferenceSummary, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, submitMultiplayerVote, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount, logLifeGameVisit, submitLifeGameReview, deleteLifeGameReview, reportLifeGameReview, adminDeleteLifeGameReview, migratePublicReviews, submitLifeGameSponsorRequest, markLifeGameSponsorDonationComplete, getLifeGameSponsorRequestStatus, syncLifeMultiplayerSessionPublic, syncLifeMultiplayerVotePublic, getLifePublicId, migratePublicMultiplayerData };

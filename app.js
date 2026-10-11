@@ -80,6 +80,8 @@ const deleteLifeGameReviewFn = httpsCallable(functions, 'deleteLifeGameReview');
 const reportLifeGameReviewFn = httpsCallable(functions, 'reportLifeGameReview');
 const adminDeleteLifeGameReviewFn = httpsCallable(functions, 'adminDeleteLifeGameReview');
 const submitLifeGameSponsorRequestFn = httpsCallable(functions, 'submitLifeGameSponsorRequest');
+const markLifeGameSponsorDonationCompleteFn = httpsCallable(functions, 'markLifeGameSponsorDonationComplete');
+const getLifeGameSponsorRequestStatusFn = httpsCallable(functions, 'getLifeGameSponsorRequestStatus');
 const adminDeletePlaythroughFn = httpsCallable(functions, 'adminDeletePlaythrough');
 const getLifePublicIdFn = httpsCallable(functions, 'getLifePublicId');
 const googleProvider = new GoogleAuthProvider();
@@ -3697,15 +3699,25 @@ SPONSOR_SLOTS.forEach((slot) => {
 
 const SPONSOR_BALLOON_PRICE_PER_DAY = 10;
 const SPONSOR_DONATION_URL = 'https://st.sooplive.com/app/gift_starballoon.php?szBjId=skftodwocks2&szWork=BJ_STATION&sys_type=web&location=station';
+const SPONSOR_PENDING_VERIFICATION_KEY = 'lifeGameSponsorPendingVerification';
 const sponsorModal = document.getElementById('sponsorModal');
 const sponsorNicknameInput = document.getElementById('sponsorNicknameInput');
 const sponsorSoopIdInput = document.getElementById('sponsorSoopIdInput');
+const sponsorDonorSoopIdInput = document.getElementById('sponsorDonorSoopIdInput');
 const sponsorProfilePreview = document.getElementById('sponsorProfilePreview');
 const sponsorProfilePreviewImage = document.getElementById('sponsorProfilePreviewImage');
 const sponsorProfilePreviewStatus = document.getElementById('sponsorProfilePreviewStatus');
 const sponsorDaysInput = document.getElementById('sponsorDaysInput');
 const sponsorCostPreview = document.getElementById('sponsorCostPreview');
 const submitSponsorBtn = document.getElementById('submitSponsorBtn');
+const sponsorDonationStep = document.getElementById('sponsorDonationStep');
+const sponsorDonationStepMessage = document.getElementById('sponsorDonationStepMessage');
+const sponsorDiagnosticCode = document.getElementById('sponsorDiagnosticCode');
+const openSponsorDonationBtn = document.getElementById('openSponsorDonationBtn');
+const confirmSponsorDonationBtn = document.getElementById('confirmSponsorDonationBtn');
+const restartSponsorRequestBtn = document.getElementById('restartSponsorRequestBtn');
+let pendingSponsorVerificationRequestId = '';
+let sponsorStatusPollTimer = null;
 let sponsorProfilePreviewTimer = null;
 let sponsorProfilePreviewRequestId = 0;
 
@@ -3759,37 +3771,135 @@ function updateSponsorCostPreview() {
 sponsorDaysInput.addEventListener('input', updateSponsorCostPreview);
 
 window.openSponsorModal = function () {
+  let savedPending = null;
+  try { savedPending = JSON.parse(localStorage.getItem(SPONSOR_PENDING_VERIFICATION_KEY) || 'null'); }
+  catch (_) { localStorage.removeItem(SPONSOR_PENDING_VERIFICATION_KEY); }
+  if (savedPending && /^[A-Za-z0-9_-]{1,200}$/.test(String(savedPending.requestId || ''))) {
+    pendingSponsorVerificationRequestId = String(savedPending.requestId);
+    sponsorDiagnosticCode.textContent = String(savedPending.diagnosticCode || '');
+    sponsorDonationStepMessage.textContent = '신청한 별풍선 ' + (Number(savedPending.balloons) || 0) + '개 후원을 마친 뒤 완료를 눌러주세요. 후원 계정: ' + String(savedPending.donorSoopId || '') + ' · 후원 완료 신호를 접수하면 자동 확인을 시작합니다.';
+    sponsorDonationStep.classList.remove('hidden');
+    submitSponsorBtn.classList.add('hidden');
+    const alreadyCompleted = Number(savedPending.donationCompletedAt) > 0;
+    confirmSponsorDonationBtn.disabled = alreadyCompleted;
+    confirmSponsorDonationBtn.textContent = alreadyCompleted ? '후원 확인 대기 중' : '후원 완료했어요';
+    confirmSponsorDonationBtn.classList.remove('hidden');
+    restartSponsorRequestBtn.classList.add('hidden');
+    openSponsorDonationBtn.classList.toggle('hidden', alreadyCompleted);
+    sponsorDonationStepMessage.textContent = alreadyCompleted
+      ? '후원 완료 신호를 접수했어요. SOOP 알림함에서 후원을 확인하고 있습니다.'
+      : '신청한 별풍선 ' + (Number(savedPending.balloons) || 0) + '개 후원을 마친 뒤 완료를 눌러주세요. 후원 계정: ' + String(savedPending.donorSoopId || '') + ' · 후원 완료 신호를 접수하면 자동 확인을 시작합니다.';
+  } else {
+    sponsorDonationStep.classList.add('hidden');
+    submitSponsorBtn.classList.remove('hidden');
+    submitSponsorBtn.disabled = false;
+    pendingSponsorVerificationRequestId = '';
+  }
   updateSponsorCostPreview();
   updateSponsorProfilePreview();
   sponsorModal.classList.remove('hidden');
+  refreshPendingSponsorStatus();
+  clearInterval(sponsorStatusPollTimer);
+  sponsorStatusPollTimer = setInterval(refreshPendingSponsorStatus, 10000);
 };
-window.closeSponsorModal = function () { sponsorModal.classList.add('hidden'); };
+window.closeSponsorModal = function () {
+  sponsorModal.classList.add('hidden');
+  clearInterval(sponsorStatusPollTimer);
+  sponsorStatusPollTimer = null;
+};
 document.getElementById('closeSponsorBtn').addEventListener('click', window.closeSponsorModal);
 
 submitSponsorBtn.addEventListener('click', async () => {
   const nickname = sponsorNicknameInput.value.trim();
   const soopId = sponsorSoopIdInput.value.trim().toLowerCase();
+  const donorSoopId = sponsorDonorSoopIdInput.value.trim().toLowerCase();
   const days = parseInt(sponsorDaysInput.value, 10);
   if (!nickname) { alert('닉네임을 입력해주세요.'); return; }
   if (!/^[a-z0-9]{2,20}$/.test(soopId)) { alert('SOOP 아이디는 영문 소문자/숫자 2~20자로 입력해주세요.'); return; }
+  if (!/^[a-z0-9]{2,20}$/.test(donorSoopId)) { alert('후원하는 계정의 SOOP 아이디를 입력해주세요.'); return; }
   if (!Number.isInteger(days) || days < 1 || days > 7) { alert('노출 기간은 1~7일 사이로 입력해주세요.'); return; }
 
   submitSponsorBtn.disabled = true;
   try {
-    const result = await submitLifeGameSponsorRequestFn({ nickname, soopId, days });
-    alert('✅ 신청이 접수됐습니다! 후원창에서 별풍선 ' + result.data.starBalloons.toLocaleString() + '개를 후원해주세요.\n관리자가 확인 후 게재합니다.');
-    window.open(SPONSOR_DONATION_URL, '_blank');
-    sponsorNicknameInput.value = '';
-    sponsorSoopIdInput.value = '';
-    updateSponsorProfilePreview();
-    sponsorDaysInput.value = '1';
-    updateSponsorCostPreview();
-    window.closeSponsorModal();
+    const result = await submitLifeGameSponsorRequestFn({ nickname, soopId, donorSoopId, days });
+    pendingSponsorVerificationRequestId = String(result.data.requestId || result.data.id || '');
+    localStorage.setItem(SPONSOR_PENDING_VERIFICATION_KEY, JSON.stringify({
+      requestId: pendingSponsorVerificationRequestId,
+      diagnosticCode: String(result.data.diagnosticCode || ''),
+      donorSoopId,
+      balloons: Number(result.data.starBalloons) || days * SPONSOR_BALLOON_PRICE_PER_DAY,
+      donationCompletedAt: 0,
+    }));
+    sponsorDiagnosticCode.textContent = String(result.data.diagnosticCode || '발급되지 않음');
+    sponsorDonationStepMessage.textContent = '신청이 접수됐어요. ' + donorSoopId + ' 계정으로 관리자 방송국에 별풍선 ' + result.data.starBalloons.toLocaleString() + '개를 보낸 뒤, 돌아와 후원 완료를 눌러주세요. 확인되면 자동 승인됩니다.';
+    submitSponsorBtn.classList.add('hidden');
+    sponsorDonationStep.classList.remove('hidden');
   } catch (e) {
     alert((e && e.message) || '신청 중 오류가 발생했어요.');
   } finally {
     submitSponsorBtn.disabled = false;
   }
+});
+
+openSponsorDonationBtn.addEventListener('click', () => {
+  window.open(SPONSOR_DONATION_URL, '_blank', 'noopener');
+});
+
+confirmSponsorDonationBtn.addEventListener('click', async () => {
+  if (!pendingSponsorVerificationRequestId) return;
+  confirmSponsorDonationBtn.disabled = true;
+  try {
+    const result = await markLifeGameSponsorDonationCompleteFn({ requestId: pendingSponsorVerificationRequestId });
+    sponsorDonationStepMessage.textContent = '후원 완료 신호를 접수했어요. SOOP 알림함에서 후원을 확인하는 중입니다.';
+    confirmSponsorDonationBtn.textContent = '후원 확인 대기 중';
+    confirmSponsorDonationBtn.disabled = true;
+    openSponsorDonationBtn.classList.add('hidden');
+    const savedPending = JSON.parse(localStorage.getItem(SPONSOR_PENDING_VERIFICATION_KEY) || '{}');
+    savedPending.donationCompletedAt = Number(result.data && result.data.donationCompletedAt) || Date.now();
+    localStorage.setItem(SPONSOR_PENDING_VERIFICATION_KEY, JSON.stringify(savedPending));
+  } catch (e) {
+    alert((e && e.message) || '후원 완료를 접수하지 못했어요. 후원 내역이 있다면 다시 시도해주세요.');
+    confirmSponsorDonationBtn.disabled = false;
+  }
+});
+
+async function refreshPendingSponsorStatus() {
+  if (!pendingSponsorVerificationRequestId || sponsorModal.classList.contains('hidden')) return;
+  const savedPending = JSON.parse(localStorage.getItem(SPONSOR_PENDING_VERIFICATION_KEY) || 'null');
+  if (!savedPending || Number(savedPending.donationCompletedAt) <= 0) return;
+  try {
+    const result = await getLifeGameSponsorRequestStatusFn({ requestId: pendingSponsorVerificationRequestId });
+    const status = String(result.data && result.data.status || '');
+    if (status !== 'approved' && status !== 'rejected') return;
+    sponsorDonationStepMessage.textContent = status === 'approved'
+      ? '후원이 확인되어 스트리머 홍보 신청이 승인됐어요.'
+      : '홍보 신청이 승인되지 않았어요. 내용을 확인한 뒤 다시 신청해주세요.';
+    openSponsorDonationBtn.classList.add('hidden');
+    confirmSponsorDonationBtn.classList.add('hidden');
+    restartSponsorRequestBtn.classList.remove('hidden');
+    clearInterval(sponsorStatusPollTimer);
+    sponsorStatusPollTimer = null;
+  } catch (error) {
+    console.warn('인생게임 홍보 신청 상태 확인 실패:', error);
+  }
+}
+
+restartSponsorRequestBtn.addEventListener('click', () => {
+  localStorage.removeItem(SPONSOR_PENDING_VERIFICATION_KEY);
+  pendingSponsorVerificationRequestId = '';
+  sponsorDonationStep.classList.add('hidden');
+  submitSponsorBtn.classList.remove('hidden');
+  sponsorNicknameInput.value = '';
+  sponsorSoopIdInput.value = '';
+  sponsorDonorSoopIdInput.value = '';
+  sponsorDaysInput.value = '1';
+  restartSponsorRequestBtn.classList.add('hidden');
+  confirmSponsorDonationBtn.classList.remove('hidden');
+  confirmSponsorDonationBtn.disabled = false;
+  confirmSponsorDonationBtn.textContent = '후원 완료했어요';
+  openSponsorDonationBtn.classList.remove('hidden');
+  updateSponsorCostPreview();
+  updateSponsorProfilePreview();
 });
 
 let mpMyLastVoteChoiceId = null;
