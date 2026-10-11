@@ -463,6 +463,10 @@
     신청 후 후원창에서 별풍선으로 후원하면, 관리자가 확인한 뒤 검색화면·엔딩화면·참가화면·모바일 배너 네 자리에 노출해드려요.</p>
     <input type="text" id="sponsorNicknameInput" maxlength="20" placeholder="스트리머 닉네임 입력" style="margin-bottom:10px;">
     <input type="text" id="sponsorSoopIdInput" maxlength="20" placeholder="SOOP 아이디 입력 (영문 소문자/숫자)" autocomplete="off" style="margin-bottom:10px;">
+    <div id="sponsorProfilePreview" class="sponsor-profile-preview hidden" aria-live="polite">
+      <img id="sponsorProfilePreviewImage" class="sponsor-profile-preview-image hidden" alt="">
+      <span id="sponsorProfilePreviewStatus" class="sponsor-profile-preview-status"></span>
+    </div>
     <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.03);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:10px;">
       <label for="sponsorDaysInput" style="font-size:13px;color:var(--text-faint);white-space:nowrap;">노출 기간:</label>
       <input type="number" id="sponsorDaysInput" value="1" min="1" max="7" style="width:60px;background:transparent;border:none;color:var(--gold);font-size:15px;font-weight:bold;outline:none;">

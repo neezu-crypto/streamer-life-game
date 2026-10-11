@@ -565,6 +565,16 @@
     border-radius: 8px; padding: 10px; font-size: 13px; font-weight: 700; cursor: pointer;
   }
   .sponsor-cta:hover { background: var(--gold-dim); }
+  .sponsor-profile-preview {
+    display: flex; align-items: center; gap: 11px; min-height: 68px;
+    margin: -2px 0 12px; padding: 9px 12px;
+    border: 1px dashed var(--line); border-radius: 9px; background: var(--panel-2);
+  }
+  .sponsor-profile-preview-image {
+    width: 48px; height: 48px; flex: 0 0 48px; border: 1px solid var(--line);
+    border-radius: 50%; object-fit: cover; background: var(--panel);
+  }
+  .sponsor-profile-preview-status { color: var(--text-dim); font-size: 13px; }
   /* 검색화면 자리는 나의 도감과 게임 카드 사이의 독립 영역이라(2026-09-09,
      사용자 지시) .panel 내부 여백(16px 0 4px)이 아니라 .panel 형제 간
      간격(20px)에 맞춘다. */

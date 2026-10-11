@@ -3700,9 +3700,56 @@ const SPONSOR_DONATION_URL = 'https://st.sooplive.com/app/gift_starballoon.php?s
 const sponsorModal = document.getElementById('sponsorModal');
 const sponsorNicknameInput = document.getElementById('sponsorNicknameInput');
 const sponsorSoopIdInput = document.getElementById('sponsorSoopIdInput');
+const sponsorProfilePreview = document.getElementById('sponsorProfilePreview');
+const sponsorProfilePreviewImage = document.getElementById('sponsorProfilePreviewImage');
+const sponsorProfilePreviewStatus = document.getElementById('sponsorProfilePreviewStatus');
 const sponsorDaysInput = document.getElementById('sponsorDaysInput');
 const sponsorCostPreview = document.getElementById('sponsorCostPreview');
 const submitSponsorBtn = document.getElementById('submitSponsorBtn');
+let sponsorProfilePreviewTimer = null;
+let sponsorProfilePreviewRequestId = 0;
+
+function updateSponsorProfilePreview() {
+  clearTimeout(sponsorProfilePreviewTimer);
+  const soopId = sponsorSoopIdInput.value.trim().toLowerCase();
+  const requestId = ++sponsorProfilePreviewRequestId;
+  if (!/^[a-z0-9]{2,20}$/.test(soopId)) {
+    sponsorProfilePreview.classList.add('hidden');
+    sponsorProfilePreviewImage.classList.add('hidden');
+    sponsorProfilePreviewImage.removeAttribute('src');
+    sponsorProfilePreviewStatus.textContent = '';
+    return;
+  }
+
+  sponsorProfilePreview.classList.remove('hidden');
+  sponsorProfilePreviewImage.classList.add('hidden');
+  sponsorProfilePreviewStatus.textContent = 'SOOP 프로필 이미지를 불러오는 중…';
+  sponsorProfilePreviewTimer = setTimeout(() => {
+    if (requestId !== sponsorProfilePreviewRequestId) return;
+    const prefix = soopId.slice(0, 2);
+    const profileImageUrl = 'https://stimg.sooplive.com/LOGO/' + prefix + '/' + soopId + '/' + soopId + '.jpg';
+    sponsorProfilePreviewImage.onload = () => {
+      if (requestId !== sponsorProfilePreviewRequestId) return;
+      sponsorProfilePreviewImage.classList.remove('hidden');
+      sponsorProfilePreviewStatus.textContent = 'SOOP 프로필 미리보기';
+    };
+    sponsorProfilePreviewImage.onerror = () => {
+      if (requestId !== sponsorProfilePreviewRequestId) return;
+      sponsorProfilePreviewImage.classList.add('hidden');
+      sponsorProfilePreviewStatus.textContent = '프로필 이미지를 불러올 수 없어요. 아이디를 확인해주세요.';
+    };
+    if (sponsorProfilePreviewImage.src === profileImageUrl) {
+      if (sponsorProfilePreviewImage.complete) {
+        if (sponsorProfilePreviewImage.naturalWidth > 0) sponsorProfilePreviewImage.onload();
+        else sponsorProfilePreviewImage.onerror();
+      }
+      return;
+    }
+    sponsorProfilePreviewImage.src = profileImageUrl;
+  }, 250);
+}
+
+sponsorSoopIdInput.addEventListener('input', updateSponsorProfilePreview);
 
 function updateSponsorCostPreview() {
   const days = parseInt(sponsorDaysInput.value, 10);
@@ -3713,6 +3760,7 @@ sponsorDaysInput.addEventListener('input', updateSponsorCostPreview);
 
 window.openSponsorModal = function () {
   updateSponsorCostPreview();
+  updateSponsorProfilePreview();
   sponsorModal.classList.remove('hidden');
 };
 window.closeSponsorModal = function () { sponsorModal.classList.add('hidden'); };
@@ -3733,6 +3781,7 @@ submitSponsorBtn.addEventListener('click', async () => {
     window.open(SPONSOR_DONATION_URL, '_blank');
     sponsorNicknameInput.value = '';
     sponsorSoopIdInput.value = '';
+    updateSponsorProfilePreview();
     sponsorDaysInput.value = '1';
     updateSponsorCostPreview();
     window.closeSponsorModal();
