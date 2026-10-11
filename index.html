@@ -106,9 +106,19 @@
     </div>
   </section>
 
-  <section id="searchSection" class="panel hidden">
-    <h2>1. 스트리머 검색</h2>
-    <input type="text" id="searchInput" placeholder="스트리머 이름을 검색해보세요" autocomplete="off">
+  <section id="searchSection" class="panel search-panel hidden">
+    <div class="search-panel-title">
+      <span class="search-title-icon" aria-hidden="true">🔎</span>
+      <div>
+        <p class="search-eyebrow">인생게임 시작하기</p>
+        <h2>1. 스트리머 검색</h2>
+      </div>
+    </div>
+    <label class="search-input-label" for="searchInput">누구의 인생을 살아볼까요?</label>
+    <div class="streamer-search-box">
+      <span class="streamer-search-icon" aria-hidden="true"></span>
+      <input type="text" id="searchInput" placeholder="스트리머 이름을 검색해보세요" autocomplete="off">
+    </div>
     <div id="searchResults"></div>
     <!-- 멀티플레이(13장, 2026-08-24 구현) - 진행중인 게임 목록. multiplayerSessions
          전체를 gallery 목록과 같은 onValue+정렬+상한 패턴으로 구독한다. -->
