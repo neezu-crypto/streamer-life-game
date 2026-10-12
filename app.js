@@ -110,17 +110,49 @@ let lifeSwitchHandoffInProgress = false;
 // isAdminUser가 true로 바뀌면 renderGalleryList로 마지막 스냅샷을 다시 그린다.
 let isAdminUser = false;
 let latestGallerySnapVal = null;
+let latestReviewReportsVal = {};
+let adminReviewReportsUnsubscribe = null;
+let adminReviewReportsWatchUid = '';
+function stopAdminReviewReportsWatch() {
+  if (adminReviewReportsUnsubscribe) adminReviewReportsUnsubscribe();
+  adminReviewReportsUnsubscribe = null;
+  adminReviewReportsWatchUid = '';
+  latestReviewReportsVal = {};
+  const reportsList = document.getElementById('adminReviewReportsList');
+  if (reportsList) reportsList.innerHTML = '<p class="empty-msg">관리자 권한을 확인하고 있어요.</p>';
+}
 async function checkAdminStatus(uid) {
   try {
     await get(ref(db, 'lifeGame/galleryReports'));
+    if (currentUser?.uid !== uid) return;
     isAdminUser = true;
+    if (adminReviewReportsWatchUid !== uid) {
+      stopAdminReviewReportsWatch();
+      adminReviewReportsWatchUid = uid;
+      adminReviewReportsListEl.innerHTML = '<p class="empty-msg">신고 목록을 불러오는 중...</p>';
+      adminReviewReportsUnsubscribe = onValue(ref(db, 'lifeGame/reviewReports'), (snap) => {
+        if (currentUser?.uid !== uid || !isAdminUser) return;
+        latestReviewReportsVal = snap.val() || {};
+        renderAdminReviewReports(latestReviewReportsVal, latestReviewsVal);
+      }, (error) => {
+        console.error('후기 신고 목록 읽기 실패:', error);
+        if (currentUser?.uid === uid && isAdminUser) {
+          adminReviewReportsListEl.innerHTML = '<p class="empty-msg">후기 신고 목록을 불러오지 못했어요.</p>';
+        }
+      });
+    }
     if (latestGallerySnapVal !== null) renderGalleryList(latestGallerySnapVal);
     renderAdminAutoPlayVisibility();
     openAdminPanelBtn.classList.remove('hidden');
     if (latestGallerySnapVal !== null) renderAdminGalleryList(latestGallerySnapVal);
     if (Object.keys(latestReviewsVal).length) renderAdminReviewList(latestReviewsVal);
+    renderAdminReviewReports(latestReviewReportsVal, latestReviewsVal);
   } catch (e) {
+    if (currentUser?.uid !== uid) return;
     isAdminUser = false;
+    stopAdminReviewReportsWatch();
+    openAdminPanelBtn.classList.add('hidden');
+    adminPanelModal.classList.add('hidden');
   }
 }
 async function handleLifeStreamerSwitchApproval(uid, requestId) {
@@ -151,6 +183,10 @@ onAuthStateChanged(auth, (user) => {
   if (lifeVerifiedStatusUnsubscribe) { lifeVerifiedStatusUnsubscribe(); lifeVerifiedStatusUnsubscribe = null; }
   if (lifeSwitchApprovalUnsubscribe) { lifeSwitchApprovalUnsubscribe(); lifeSwitchApprovalUnsubscribe = null; }
   if ((user?.uid || '') !== lifeObservedAuthUid) {
+    stopAdminReviewReportsWatch();
+    isAdminUser = false;
+    document.getElementById('openAdminPanelBtn')?.classList.add('hidden');
+    document.getElementById('adminPanelModal')?.classList.add('hidden');
     lifeObservedAuthUid = user?.uid || '';
     resumeChecked = false;
     presenceRecorded = false;
@@ -690,17 +726,19 @@ document.getElementById('collectionLoginStreamerBtn').addEventListener('click', 
 
 // 관리자 패널(2026-09-09) - 이 게임 자체 백엔드에 이미 있던 관리 기능(후기/
 // 갤러리 삭제, 저장 슬롯 삭제)을 한곳에 모은 탭. isAdminUser가 true일 때만
-// 헤더 버튼이 보이고(checkAdminStatus에서 토글), 목록은 기존 후기/갤러리
-// onValue 구독의 최신 값을 그대로 재사용한다(새 구독 불필요).
+// 헤더 버튼이 보이고(checkAdminStatus에서 토글), 후기 신고만 관리자 권한으로
+// 별도 실시간 구독한다. 신고된 후기 내용은 기존 공개 후기 구독과 ID로 연결한다.
 const openAdminPanelBtn = document.getElementById('openAdminPanelBtn');
 const adminPanelModal = document.getElementById('adminPanelModal');
 const adminReviewListEl = document.getElementById('adminReviewList');
+const adminReviewReportsListEl = document.getElementById('adminReviewReportsList');
 const adminGalleryListEl = document.getElementById('adminGalleryList');
 const adminPlaythroughUidInput = document.getElementById('adminPlaythroughUidInput');
 const adminPlaythroughResultEl = document.getElementById('adminPlaythroughResult');
 
 openAdminPanelBtn.addEventListener('click', () => {
   adminPanelModal.classList.remove('hidden');
+  renderAdminReviewReports(latestReviewReportsVal, latestReviewsVal);
 });
 document.getElementById('closeAdminPanelBtn').addEventListener('click', () => {
   adminPanelModal.classList.add('hidden');
@@ -731,6 +769,40 @@ function renderAdminReviewList(val) {
       }
     });
   });
+}
+
+function renderAdminReviewReports(reports, reviews) {
+  if (!isAdminUser) return;
+  const entries = Object.keys(reports || {}).map((id) => Object.assign({ id }, reports[id] || {}));
+  if (!entries.length) {
+    adminReviewReportsListEl.innerHTML = '<p class="empty-msg">접수된 후기 신고가 없어요.</p>';
+    return;
+  }
+  entries.sort((a, b) => (Number(b.reportedAt) || 0) - (Number(a.reportedAt) || 0));
+  adminReviewReportsListEl.innerHTML = '<div class="admin-panel-list">' + entries.map((report) => {
+    const publicId = String(report.reviewPublicId || report.reviewUid || '');
+    const review = publicId ? (reviews || {})[publicId] : null;
+    const reportedAt = Number(report.reportedAt);
+    const dateText = Number.isFinite(reportedAt) && reportedAt > 0
+      ? new Date(reportedAt).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })
+      : '접수 시각 미상';
+    const author = review
+      ? [String(review.nickname || '').trim() || '익명', review.soopId ? '@' + review.soopId : ''].filter(Boolean).join(' · ')
+      : '원문 후기를 찾을 수 없음';
+    const rating = review && Number(review.rating) >= 1 && Number(review.rating) <= 5
+      ? '★' + Number(review.rating) + '/5'
+      : '별점 정보 없음';
+    const body = review ? String(review.text || '').trim() : '';
+    const reason = String(report.reason || '').trim();
+    return '<article class="admin-review-report-row">' +
+      '<div class="admin-review-report-meta">접수 ' + escapeHtml(dateText) + ' · 신고 ID ' + escapeHtml(report.id) + '</div>' +
+      '<div><strong>' + escapeHtml(rating) + '</strong> · ' + escapeHtml(author) + '</div>' +
+      '<div class="admin-review-report-meta">후기 ID ' + escapeHtml(publicId || '(알 수 없음)') +
+        ' · 사유 ' + escapeHtml(reason || '미기재') + '</div>' +
+      '<p class="admin-review-report-body' + (review ? '' : ' admin-review-report-missing') + '">' +
+        escapeHtml(body || (review ? '(후기 본문 없음)' : '후기가 삭제됐거나 아직 공개 후기 데이터를 불러오지 못했어요.')) +
+      '</p></article>';
+  }).join('') + '</div>';
 }
 
 function renderAdminGalleryList(val) {
@@ -4397,7 +4469,10 @@ async function renderReviewList(val) {
 onValue(ref(db, 'lifeGame/reviewsPublic'), (snap) => {
   const val = snap.val() || {};
   renderReviewList(val);
-  if (isAdminUser) renderAdminReviewList(val);
+  if (isAdminUser) {
+    renderAdminReviewList(val);
+    renderAdminReviewReports(latestReviewReportsVal, val);
+  }
 }, (err) => {
   console.error('후기 목록 읽기 실패:', err);
   reviewSummaryEl.textContent = '후기를 불러올 수 없습니다.';

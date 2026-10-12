@@ -741,6 +741,13 @@
   }
   .admin-panel-row-text { color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .admin-panel-row button { flex-shrink: 0; padding: 3px 8px; font-size: 11.5px; border-radius: 6px; }
+  .admin-review-report-row {
+    display: block; padding: 9px 10px; border: 1px solid var(--line); border-radius: 8px;
+    background: var(--panel-2); font-size: 12.5px;
+  }
+  .admin-review-report-meta { color: var(--text-faint); font-size: 11px; overflow-wrap: anywhere; }
+  .admin-review-report-body { margin: 6px 0 0; color: var(--text); white-space: pre-wrap; overflow-wrap: anywhere; }
+  .admin-review-report-missing { color: var(--danger, #b42318); }
 
   /* ------------------------------------------------------------
      PC 화면(900px 이상)에서만 진행 화면(#gameSection)을 펼친 책처럼
