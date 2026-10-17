@@ -3849,7 +3849,7 @@ window.openSponsorModal = function () {
   if (savedPending && /^[A-Za-z0-9_-]{1,200}$/.test(String(savedPending.requestId || ''))) {
     pendingSponsorVerificationRequestId = String(savedPending.requestId);
     sponsorDiagnosticCode.textContent = String(savedPending.diagnosticCode || '');
-    sponsorDonationStepMessage.textContent = '신청한 별풍선 ' + (Number(savedPending.balloons) || 0) + '개 후원을 마친 뒤 완료를 눌러주세요. 후원 계정: ' + String(savedPending.donorSoopId || '') + ' · 후원 완료 신호를 접수하면 자동 확인을 시작합니다.';
+    sponsorDonationStepMessage.textContent = '신청 접수 후 자동 확인을 시작합니다. 후원 계정: ' + String(savedPending.donorSoopId || '') + ' · 후원 완료를 눌러주면 알림 시각까지 더 정확하게 대조할 수 있어요.';
     sponsorDonationStep.classList.remove('hidden');
     submitSponsorBtn.classList.add('hidden');
     const alreadyCompleted = Number(savedPending.donationCompletedAt) > 0;
@@ -3860,7 +3860,7 @@ window.openSponsorModal = function () {
     openSponsorDonationBtn.classList.toggle('hidden', alreadyCompleted);
     sponsorDonationStepMessage.textContent = alreadyCompleted
       ? '후원 완료 신호를 접수했어요. SOOP 알림함에서 후원을 확인하고 있습니다.'
-      : '신청한 별풍선 ' + (Number(savedPending.balloons) || 0) + '개 후원을 마친 뒤 완료를 눌러주세요. 후원 계정: ' + String(savedPending.donorSoopId || '') + ' · 후원 완료 신호를 접수하면 자동 확인을 시작합니다.';
+      : '신청 접수 후 자동 확인을 시작합니다. 후원 계정: ' + String(savedPending.donorSoopId || '') + ' · 후원 완료를 눌러주면 알림 시각까지 더 정확하게 대조할 수 있어요.';
   } else {
     sponsorDonationStep.classList.add('hidden');
     submitSponsorBtn.classList.remove('hidden');
@@ -3903,7 +3903,7 @@ submitSponsorBtn.addEventListener('click', async () => {
       donationCompletedAt: 0,
     }));
     sponsorDiagnosticCode.textContent = String(result.data.diagnosticCode || '발급되지 않음');
-    sponsorDonationStepMessage.textContent = '신청이 접수됐어요. ' + donorSoopId + ' 계정으로 관리자 방송국에 별풍선 ' + result.data.starBalloons.toLocaleString() + '개를 보낸 뒤, 돌아와 후원 완료를 눌러주세요. 확인되면 자동 승인됩니다.';
+    sponsorDonationStepMessage.textContent = '신청이 접수되어 자동 확인을 시작했어요. ' + donorSoopId + ' 계정으로 관리자 방송국에 별풍선 ' + result.data.starBalloons.toLocaleString() + '개를 보내주세요. 후원 후 완료를 눌러주면 알림 시각까지 더 정확하게 대조할 수 있어요.';
     submitSponsorBtn.classList.add('hidden');
     sponsorDonationStep.classList.remove('hidden');
   } catch (e) {
@@ -3938,7 +3938,7 @@ confirmSponsorDonationBtn.addEventListener('click', async () => {
 async function refreshPendingSponsorStatus() {
   if (!pendingSponsorVerificationRequestId || sponsorModal.classList.contains('hidden')) return;
   const savedPending = JSON.parse(localStorage.getItem(SPONSOR_PENDING_VERIFICATION_KEY) || 'null');
-  if (!savedPending || Number(savedPending.donationCompletedAt) <= 0) return;
+  if (!savedPending) return;
   try {
     const result = await getLifeGameSponsorRequestStatusFn({ requestId: pendingSponsorVerificationRequestId });
     const status = String(result.data && result.data.status || '');
