@@ -88,6 +88,11 @@ const googleProvider = new GoogleAuthProvider();
 
 let currentUser = null;
 let lifePublicId = null;
+function setGameSeriesEmoteRoom(roomId) {
+  const value = String(roomId || 'public');
+  window.__gameSeriesEmoteRoomId = value;
+  window.dispatchEvent(new CustomEvent('game-series-emote-room-change', { detail: { roomId: value } }));
+}
 let resumeChecked = false;
 let presenceRecorded = false;
 let visitLogChecked = false;
@@ -3987,6 +3992,7 @@ function attachMultiplayerHostListeners() {
   const mySessionRef = ref(db, 'lifeGame/multiplayerSessions/' + hostUid);
   onValue(ref(db, 'lifeGame/multiplayerSessionsPublic/' + lifePublicId), (snap) => {
     mpHostLatestSession = snap.val();
+    setGameSeriesEmoteRoom(mpHostLatestSession ? lifePublicId : 'public');
     renderHostMultiplayerPanel();
     // 연결이 끊기면 처음 화면에서도 참가 불가능하게(2026-08-24, 사용자 지시 -
     // "호스트의 연결이 끊기면... 확인해줘" → "그렇게 해주고") - 세션이 있을
@@ -4523,6 +4529,7 @@ closeJoinAdBtn.addEventListener('click', async () => {
 async function enterParticipantMode(hostUid, hostName) {
   mpParticipantMode = true;
   mpParticipantHostUid = hostUid;
+  setGameSeriesEmoteRoom(hostUid);
   mpMyLastVoteChoiceId = null;
   mpMyLastVoteStageId = null;
   document.body.classList.add('mp-participant-mode');
@@ -4713,6 +4720,7 @@ function leaveParticipantMode() {
   mpParticipantCurrentStage = null;
   mpParticipantMode = false;
   mpParticipantHostUid = null;
+  setGameSeriesEmoteRoom('public');
   document.body.classList.remove('mp-participant-mode');
   mpParticipantBanner.classList.add('hidden');
   closeWorldStatePanel();
