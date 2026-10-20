@@ -3257,30 +3257,6 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
     const streamerSnap = await db.ref('streamerNames/' + streamerId).get();
     if (streamerSnap.exists()) canonicalStreamerId = streamerId;
   }
-  // 로그인 플레이어가 검색으로 확인된 스트리머를 주인공으로 시작한 경우
-  // UID+SOOP ID 쌍을 검수 후보로 기록한다. 이 기록만으로 인증되지 않으며,
-  // 관리자가 VOD를 직접 확인해 allowlist에 등록해야 인증 자동 승인이 가능하다.
-  const playerVerifiedSnap = await db.ref('users/' + uid + '/streamerVerified').get();
-  if (canonicalStreamerId && playerVerifiedSnap.val() !== true) {
-    const normalizedSoopId = canonicalStreamerId.trim().toLowerCase();
-    const verifiedSnap = await db.ref('streamerVerifications')
-      .orderByChild('soopId').equalTo(normalizedSoopId).limitToFirst(1).get();
-    if (!verifiedSnap.exists()) {
-      const candidateRef = db.ref('lifeGame/playedStreamerCandidates/' + uid + '/' + normalizedSoopId);
-      const seenAt = Date.now();
-      await candidateRef.transaction((current) => {
-        const existing = current && typeof current === 'object' ? current : {};
-        return {
-          uid,
-          soopId: normalizedSoopId,
-          nickname: streamerName,
-          firstSeenAt: existing.firstSeenAt || seenAt,
-          lastSeenAt: seenAt,
-          playCount: (Number(existing.playCount) || 0) + 1
-        };
-      });
-    }
-  }
   // startPlaythrough는 세션당 한 번뿐이라(턴마다 부르는 submitChoice/rollDice와
   // 달리) 플래그 없이 매번 조회해도 비용이 무시할 만하다.
   const isAdmin = await isAdminUid(uid);
