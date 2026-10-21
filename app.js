@@ -3854,7 +3854,7 @@ window.openSponsorModal = function () {
   if (savedPending && /^[A-Za-z0-9_-]{1,200}$/.test(String(savedPending.requestId || ''))) {
     pendingSponsorVerificationRequestId = String(savedPending.requestId);
     sponsorDiagnosticCode.textContent = String(savedPending.diagnosticCode || '');
-    sponsorDonationStepMessage.textContent = '신청 접수 후 자동 확인을 시작합니다. 후원 계정: ' + String(savedPending.donorSoopId || '') + ' · 후원 완료를 눌러주면 알림 시각까지 더 정확하게 대조할 수 있어요.';
+    sponsorDonationStepMessage.textContent = '신청이 접수되어 운영자 확인을 기다리고 있어요. 후원 계정: ' + String(savedPending.donorSoopId || '') + ' · 실제 후원 후 완료 버튼을 눌러 알려주세요. 후원 알림 자동 감시·승인은 하지 않아요.';
     sponsorDonationStep.classList.remove('hidden');
     submitSponsorBtn.classList.add('hidden');
     const alreadyCompleted = Number(savedPending.donationCompletedAt) > 0;
@@ -3864,8 +3864,8 @@ window.openSponsorModal = function () {
     restartSponsorRequestBtn.classList.add('hidden');
     openSponsorDonationBtn.classList.toggle('hidden', alreadyCompleted);
     sponsorDonationStepMessage.textContent = alreadyCompleted
-      ? '후원 완료 신호를 접수했어요. SOOP 알림함에서 후원을 확인하고 있습니다.'
-      : '신청 접수 후 자동 확인을 시작합니다. 후원 계정: ' + String(savedPending.donorSoopId || '') + ' · 후원 완료를 눌러주면 알림 시각까지 더 정확하게 대조할 수 있어요.';
+      ? '후원 완료 신고를 접수했어요. 운영자가 실제 SOOP 후원 내역을 수동 확인한 뒤 승인 또는 거절합니다.'
+      : '신청이 접수되어 운영자 확인을 기다리고 있어요. 후원 계정: ' + String(savedPending.donorSoopId || '') + ' · 실제 후원 후 완료 버튼을 눌러 알려주세요. 후원 알림 자동 감시·승인은 하지 않아요.';
   } else {
     sponsorDonationStep.classList.add('hidden');
     submitSponsorBtn.classList.remove('hidden');
@@ -3908,7 +3908,7 @@ submitSponsorBtn.addEventListener('click', async () => {
       donationCompletedAt: 0,
     }));
     sponsorDiagnosticCode.textContent = String(result.data.diagnosticCode || '발급되지 않음');
-    sponsorDonationStepMessage.textContent = '신청이 접수되어 자동 확인을 시작했어요. ' + donorSoopId + ' 계정으로 관리자 방송국에 별풍선 ' + result.data.starBalloons.toLocaleString() + '개를 보내주세요. 후원 후 완료를 눌러주면 알림 시각까지 더 정확하게 대조할 수 있어요.';
+    sponsorDonationStepMessage.textContent = '신청이 접수됐어요. ' + donorSoopId + ' 계정으로 관리자 방송국에 별풍선 ' + result.data.starBalloons.toLocaleString() + '개를 보내주세요. 실제 후원 후 완료 버튼을 누르면 운영자에게 전달되며, 운영자가 내역을 수동 확인해 처리합니다.';
     submitSponsorBtn.classList.add('hidden');
     sponsorDonationStep.classList.remove('hidden');
   } catch (e) {
@@ -3927,7 +3927,7 @@ confirmSponsorDonationBtn.addEventListener('click', async () => {
   confirmSponsorDonationBtn.disabled = true;
   try {
     const result = await markLifeGameSponsorDonationCompleteFn({ requestId: pendingSponsorVerificationRequestId });
-    sponsorDonationStepMessage.textContent = '후원 완료 신호를 접수했어요. SOOP 알림함에서 후원을 확인하는 중입니다.';
+    sponsorDonationStepMessage.textContent = '후원 완료 신고를 접수했어요. 운영자가 실제 SOOP 후원 내역을 수동 확인한 뒤 승인 또는 거절합니다.';
     confirmSponsorDonationBtn.textContent = '후원 확인 대기 중';
     confirmSponsorDonationBtn.disabled = true;
     openSponsorDonationBtn.classList.add('hidden');
@@ -3949,7 +3949,7 @@ async function refreshPendingSponsorStatus() {
     const status = String(result.data && result.data.status || '');
     if (status !== 'approved' && status !== 'rejected') return;
     sponsorDonationStepMessage.textContent = status === 'approved'
-      ? '후원이 확인되어 스트리머 홍보 신청이 승인됐어요.'
+      ? '운영자가 후원 내역을 확인해 스트리머 홍보 신청을 승인했어요.'
       : '홍보 신청이 승인되지 않았어요. 내용을 확인한 뒤 다시 신청해주세요.';
     openSponsorDonationBtn.classList.add('hidden');
     confirmSponsorDonationBtn.classList.add('hidden');

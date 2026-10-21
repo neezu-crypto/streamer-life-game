@@ -253,6 +253,18 @@ Three.js 기반 OBS 방송 배경 화면 모음. 번들러 없는 정적 HTML, �
 - **Firebase 프로젝트 공유**: 별도 프로젝트를 새로 만들지 않고 `soop-stock-market`을
   그대로 공유(스트리머 이름 검색용 `stocks` 노드를 바로 읽기 위함). 이 게임 전용
   데이터는 전부 `lifeGame/` 네임스페이스 아래에만 쓴다.
+- **홍보 후원 신청 운영 (2026-10-22 기준)**:
+  - 신청은 `submitLifeGameSponsorRequest`가 `lifeGame/sponsorRequests/{id}`에 기록하고,
+    `notifyLifeGameSponsorRequest`가 운영자 Discord에 신청 요약을 알린다. `markLifeGameSponsorDonationComplete`는
+    신청자가 누른 후원 완료 신고 시각만 기록하며, 실제 결제 증명이나 자동 승인 신호가 아니다.
+  - 인생게임 홍보 후원은 SOOP 쪽지함/후원 알림 백그라운드 감시와 자동 매칭·자동 승인을
+    하지 않는다. 운영자가 통합 관리 센터에서 실제 후원 내역을 확인한 뒤 수동 승인 또는
+    거절한다. 승인 시 `lifeGame/currentSponsor`가 갱신된다. 기존 대기 신청도 같은 수동
+    검토 절차를 따른다.
+  - `onyuGiftBackgroundFeed`의 제한된 백그라운드 구독 대상은 팬페이지 광고 후원뿐이다.
+    SOOP 후원 알림 확장 로직에도 인생게임 홍보 신청을 자동 승인 대상으로 추가하지 않는다.
+    `getLifeGameSponsorAutoVerificationDiagnostics`와 관리자 화면의 점검 기능은 레거시
+    진단 조회용이며, 자동 감시나 승인을 수행하지 않는다.
 - **스트리머 이름 데이터**: `stocks` RTDB 노드를 매번 직접 읽지 않고
   `streamer-names.json`(루트 - 클라이언트용, `functions/streamer-names.json` -
   서버용, 내용 항상 동일)이라는 정적 파일을 쓴다. **갱신은 스케줄러 없이 수동** —
