@@ -2972,20 +2972,16 @@ async function loadActivePlay(db, uid) {
   return { playRef, play, stage };
 }
 
-// 관리형 봇(2026-08-30, 62장, 사용자 지시 - "실제 사람처럼 작동하는 봇을
-// 추가하고싶은데 어떻게 설계하면돼?" → 봇 수/1턴당 초/성향 조절 요구 →
-// "그럼 봇 관리 전용 페이지를 열어놓으면 작동하게" 제안에 안정성 문제(페이지가
-// 닫히면 봇도 멈춤)를 짚어 서버 예약 함수(runBotTurns) + 설정/현황 전용
-// admin-center 페이지 조합으로 역제안 → "그렇게 하자" 확정) - 실행은 전부
-// 서버에서 스스로 돌고, admin-center는 lifeGame/botConfig를 읽고/쓰는 설정
-// 화면일 뿐이라 페이지를 열어둘 필요가 없다. "1턴당 초"를 분 단위보다 더
+// 관리형 봇(2026-08-30) - 실행은 Cloud Scheduler의 runBotTurns가 맡고
+// lifeGame/botConfig로 켜기·봇 수·턴 간격을 정한다. 통합 관리 센터의 봇
+// 관리 화면과 전용 API는 2026-10-23 제거했다. "1턴당 초"를 분 단위보다 더
 // 정밀하게 지키려면 Cloud Scheduler(최소 간격 1분)만으로는 부족해서,
 // runBotTurns 안에 55초 예산의 내부 루프를 두고 그 예산 안에서 필요한 만큼
 // 여러 번 순회한다.
 const BOT_PERSONALITIES = ['wholesome', 'villain', 'explorer', 'gambler', 'romantic', 'workaholic'];
 const BOT_MAX_COUNT = 50;
 
-// 성향별 가중치 뽑기 - 관리자가 설정한 personalityWeights(없으면 균등 1)를 기준으로
+// 성향별 가중치 뽑기 - 설정된 personalityWeights(없으면 균등 1)를 기준으로
 // 새로 만들어지는 봇 하나의 성향을 확률적으로 정한다.
 function pickWeightedPersonality(weights) {
   const entries = BOT_PERSONALITIES.map((p) => [p, Math.max(0, (weights && Number(weights[p])) || 0) || 1]);
@@ -3138,8 +3134,7 @@ async function advanceBotTurn(db, botUid, personality) {
 // 넘치면 뒤쪽(더 나중에 생성된) 봇부터 정리한다. 정리 시 releaseOccupationGaugeIfAbandoned로
 // 게이지 누수를 막고, vehicleOwners/presence 인덱스도 같이 지운다.
 // 봇 한 명을 완전히 정리한다(명단·인생·presence·vehicleOwners 인덱스, 직업
-// 게이지 이탈 처리까지) - reconcileBotRoster의 초과분 정리와 adminDeleteAllBots가
-// 공유하는 로직이라 따로 뺐다.
+// 게이지 이탈 처리까지) - reconcileBotRoster의 초과분 정리에서 사용한다.
 async function removeBotCompletely(db, botUid) {
   const playSnap = await playRefFor(db, botUid).get();
   await releaseOccupationGaugeIfAbandoned(db, playSnap.val());
@@ -4085,88 +4080,6 @@ const unbanLifeGameAccount = onCall({ cors: true, timeoutSeconds: 30, memory: '2
   return { ok: true, status: 'unbanned' };
 });
 
-// 관리자 - 봇 상세 현황 조회(2026-08-30, 62장, 사용자 지시 - "각 봇마다 모든
-// 스탯, 상세 현황을 알수있게 하고싶어") - admin-center의 봇 관리 카드가 이
-// 함수를 직접 부른다(같은 soop-stock-market 프로젝트를 공유하므로 어느
-// 저장소가 배포했든 이름만 알면 호출 가능 - adminDeletePlaythrough와 같은
-// 원칙). 직업·현재 장소·진행 중인 루트는 원시 필드로 저장돼 있지 않고
-// choiceLog를 되짚어야 구해지는 파생값이라(resumePlaythrough와 완전히 같은
-// 계산), 그 로직을 admin-center 쪽에 중복 구현하지 않고 이 함수 하나로
-// 노출한다.
-const adminListBotDetails = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
-  const uid = requireAuth(request);
-  if (!(await isAdminUid(uid))) {
-    throw new HttpsError('permission-denied', '관리자만 사용할 수 있는 기능입니다.');
-  }
-  const db = getDatabase();
-  const [botsSnap, playsSnap] = await Promise.all([
-    db.ref('lifeGame/bots').get(),
-    db.ref('lifeGame/playthroughs').get()
-  ]);
-  const bots = botsSnap.val() || {};
-  const plays = playsSnap.val() || {};
-
-  const details = Object.keys(bots).sort().map((botUid) => {
-    const bot = bots[botUid] || {};
-    const base = { uid: botUid, personality: bot.personality || null, createdAt: bot.createdAt || null, lastTurnAt: bot.lastTurnAt || null };
-    const play = plays[botUid];
-    if (!play) return Object.assign(base, { alive: false });
-
-    const choiceLog = Array.isArray(play.choiceLog) ? play.choiceLog : [];
-    const locationHistory = buildLocationHistory(choiceLog);
-    const currentLocation = resolveCurrentLocation(locationHistory);
-    const { activeRoute } = buildRouteState(choiceLog, play.stageIndex);
-    const occupationHistory = buildOccupationHistory(choiceLog);
-    const currentOccupation = resolveEffectiveOccupation(occupationHistory, activeRoute);
-    const stage = STAGES[play.stageIndex];
-    const choiceHistory = buildChoiceHistory(choiceLog);
-    const lastLoggedChoice = choiceHistory.length ? choiceHistory[choiceHistory.length - 1] : null;
-
-    return Object.assign(base, {
-      alive: true,
-      streamerName: play.streamerName || null,
-      ageRange: stage ? stage.ageRange : (lastLoggedChoice ? lastLoggedChoice.ageRange : null),
-      completed: !!play.completed,
-      turnCount: choiceLog.length,
-      stats: play.stats || {},
-      cashHoldings: play.cashHoldings || 0,
-      currentOccupation: currentOccupation ? { id: currentOccupation.id, label: currentOccupation.label } : null,
-      currentLocation: currentLocation ? { id: currentLocation.id, label: currentLocation.label } : null,
-      currentRoute: activeRoute ? { id: activeRoute.id, label: activeRoute.label } : null,
-      healthConditions: Array.isArray(play.healthConditions) ? play.healthConditions : [],
-      familyMembers: Array.isArray(play.familyMembers) ? play.familyMembers : [],
-      acquaintances: Array.isArray(play.acquaintances) ? play.acquaintances : [],
-      assets: Array.isArray(play.assets) ? play.assets : [],
-      talents: Array.isArray(play.talents) ? play.talents : [],
-      hobbies: Array.isArray(play.hobbies) ? play.hobbies : [],
-      lastChoiceText: lastLoggedChoice ? lastLoggedChoice.choiceText : null
-    });
-  });
-
-  return { bots: details };
-});
-
-// 관리자 - 봇 전체 삭제(2026-08-30, 62장, 사용자 지시 - "봇을 전부 지우는
-// 버튼만 새로 만들어줘"). botConfig.botCount를 그대로 두면 다음 스케줄러
-// 순회(runBotTurns, 최대 1분 안)에서 reconcileBotRoster가 "모자란 만큼"으로
-// 오인해 곧바로 그 수만큼 새 봇을 다시 만들어버려 "지웠는데 바로 되살아난다"는
-// 혼란을 준다 - 그래서 삭제와 함께 botCount도 0으로 내려 재생성을 막는다
-// (enabled 값 자체는 안 건드린다 - 관리자가 다시 원하는 수를 넣고 저장하면
-// 그때부터 새로 시작됨).
-const adminDeleteAllBots = onCall({ cors: true, timeoutSeconds: 60, memory: '256MiB' }, async (request) => {
-  const uid = requireAuth(request);
-  if (!(await isAdminUid(uid))) {
-    throw new HttpsError('permission-denied', '관리자만 사용할 수 있는 기능입니다.');
-  }
-  const db = getDatabase();
-  const botsSnap = await db.ref('lifeGame/bots').get();
-  const bots = botsSnap.val() || {};
-  const uids = Object.keys(bots);
-  for (const botUid of uids) await removeBotCompletely(db, botUid);
-  await db.ref('lifeGame/botConfig/botCount').set(0);
-  return { ok: true, deletedCount: uids.length };
-});
-
 // 관리자 - 갤러리에 공유된 항목 삭제(2026-08-24, 사용자 지시 - "관리자 uid로
 // 다른 인생 갤러리에서 로그 삭제 가능하게 수정해달라고 지시했었는데 어떻게
 // 삭제하는지 알려줘" → 실제로는 adminDeletePlaythrough가 playthroughs만
@@ -4925,4 +4838,4 @@ const logLifeGameVisit = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   return { ok: true, logged: true };
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, sellLifeGameInvestmentProperty, sellLifeGameInterestInvestment, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, getStreamerPreferenceSummary, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, submitMultiplayerVote, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, adminListBotDetails, adminDeleteAllBots, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount, logLifeGameVisit, submitLifeGameReview, deleteLifeGameReview, reportLifeGameReview, adminDeleteLifeGameReview, migratePublicReviews, submitLifeGameSponsorRequest, markLifeGameSponsorDonationComplete, getLifeGameSponsorRequestStatus, syncLifeMultiplayerSessionPublic, syncLifeMultiplayerVotePublic, getLifePublicId, migratePublicMultiplayerData };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, sellLifeGameInvestmentProperty, sellLifeGameInterestInvestment, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, getStreamerPreferenceSummary, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, submitMultiplayerVote, snapshotWorldStateHistory, reportStolenVehicle, runBotTurns, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount, logLifeGameVisit, submitLifeGameReview, deleteLifeGameReview, reportLifeGameReview, adminDeleteLifeGameReview, migratePublicReviews, submitLifeGameSponsorRequest, markLifeGameSponsorDonationComplete, getLifeGameSponsorRequestStatus, syncLifeMultiplayerSessionPublic, syncLifeMultiplayerVotePublic, getLifePublicId, migratePublicMultiplayerData };
