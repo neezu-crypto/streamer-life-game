@@ -230,7 +230,7 @@ onAuthStateChanged(auth, (user) => {
     set(ref(db, 'lifeGame/presence/' + user.uid), { lastSeenAt: serverTimestamp() })
       .catch((e) => console.error('접속 기록 실패:', e));
     // admin-center 접속자 분석(10번, 2026-09-05 추가) - 위 lifeGame/presence는
-    // 세계관 패널·봇 시스템이 쓰는 별개 용도라 건드리지 않고, admin-center가
+    // 인생게임 자체 용도라 건드리지 않고, admin-center가
     // 기대하는 표준 경로(presence/{appId}/{uid}, 필드명 lastSeen)에도 병행 기록만
     // 추가한다. 이쪽도 admin-center의 60분 유예 규칙과 맞춰 새로고침/재접속 시점
     // 1회 기록으로 충분하다(별도 갱신 루프 불필요).
@@ -1830,11 +1830,8 @@ let pendingNextStage = null;
 // 토글 버튼이 보이고, 켜면 0~100세까지 자동으로 진행되는걸 지켜볼수 있게
 // 해줘. 진행속도 조절 가능하게 해줘. 속도는 최소 5초~최대 60초로 해줘.")
 //
-// 기존 봇 시스템(functions/index.js의 runBotTurns, 매분 도는 Cloud Scheduler)과
-// 달리 서버 사이드로 만들지 않았다 - 봇은 "관리자 탭이 꺼져 있어도 계속
-// 돌아야 한다"는 요구였지만, 이건 "관리자가 화면 앞에서 지켜본다"가 전제라
-// 신규 Cloud Function·RTDB 노드 없이 이미 있는 submitChoice/rollDice를
-// 일정 간격으로 자동 호출하는 것만으로 충분하다.
+// 관리자가 화면 앞에서 진행 상황을 보는 기능이라 서버 함수나 별도 RTDB
+// 설정 없이 이미 있는 submitChoice/rollDice를 일정 간격으로 자동 호출한다.
 //
 // pickChoice/rollDice는 실패 시 alert()로 사용자에게 알리고 조용히 멈추는
 // 구조(화면 앞의 사람이 다시 누르는 걸 전제)라, 자동진행 루프는 "다음 상태로
