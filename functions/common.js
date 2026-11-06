@@ -1,12 +1,12 @@
 const { HttpsError } = require('firebase-functions/v2/https');
-const { getDatabase } = require('firebase-admin/database');
+const { sharedDb, lifeDb } = require('./databases');
 
 // 매크로 방지용 쿨다운 - streamer-gallery의 assertCooldown과 동일한 패턴
 // (레포마다 각자 복붙하는 게 이 생태계 관례, 공유 모듈 없음). 클라이언트는
 // 이 노드를 읽거나 쓸 방법이 없으므로(Admin SDK 전용) database.rules.json에
 // 별도 규칙을 추가할 필요가 없다 - 명시 안 된 경로는 기본 거부.
 async function assertCooldown(uid, actionKey, cooldownMs) {
-  const ref = getDatabase().ref('lifeGame/reviewActionCooldowns/' + uid + '/' + actionKey);
+  const ref = lifeDb().ref('lifeGame/reviewActionCooldowns/' + uid + '/' + actionKey);
   const lastAt = (await ref.get()).val() || 0;
   const now = Date.now();
   if (now - lastAt < cooldownMs) {
@@ -36,7 +36,7 @@ function requireAuth(request) {
 }
 
 async function isAdminUid(uid) {
-  const db = getDatabase();
+  const db = sharedDb();
   const snap = await db.ref('adminCenter/adminUids/' + uid).get();
   return snap.val() === true;
 }

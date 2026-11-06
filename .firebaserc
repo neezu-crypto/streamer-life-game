@@ -1,5 +1,13 @@
 {
   "projects": {
     "default": "soop-stock-market"
+  },
+  "targets": {
+    "soop-stock-market": {
+      "database": {
+        "default": ["soop-stock-market-default-rtdb"],
+        "lifegame": ["streamer-life-game-rtdb"]
+      }
+    }
   }
 }

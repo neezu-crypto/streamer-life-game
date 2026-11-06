@@ -15,7 +15,9 @@ const firebaseConfig = {
   appId: "1:997788925900:web:b58db2970489bf18a3a769"
 };
 const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+// 게임 진행 데이터는 전용 인스턴스에, 계정·인증·공통 목록은 기본 인스턴스에 둔다.
+const sharedDb = getDatabase(app);
+const db = getDatabase(app, 'https://streamer-life-game-rtdb.firebaseio.com');
 const auth = getAuth(app);
 const functions = getFunctions(app, 'us-central1');
 
@@ -27,7 +29,7 @@ const functions = getFunctions(app, 'us-central1');
 (async function () {
   const SELF_GAME_ID = 'lifeGame';
   try {
-    const snap = await get(ref(db, 'devbarLinks'));
+    const snap = await get(ref(sharedDb, 'devbarLinks'));
     const data = snap.val();
     if (!data) return;
     const links = Object.keys(data)
@@ -212,7 +214,7 @@ onAuthStateChanged(auth, (user) => {
     renderMultiplayerSessionList();
   }).catch((e) => console.error('공개 사용자 ID 발급 실패:', e));
   checkAdminStatus(user.uid);
-  get(ref(db, 'users/' + user.uid + '/publicIds/lifeGameReview')).then((snap) => {
+  get(ref(sharedDb, 'users/' + user.uid + '/publicIds/lifeGameReview')).then((snap) => {
     myReviewPublicId = snap.val() || null;
   }).catch(() => {});
   // 계정당 저장 슬롯 1개 - 로그인(익명 포함)이 확정되면 저장된 판이 있는지 한 번만
@@ -234,14 +236,14 @@ onAuthStateChanged(auth, (user) => {
     // 기대하는 표준 경로(presence/{appId}/{uid}, 필드명 lastSeen)에도 병행 기록만
     // 추가한다. 이쪽도 admin-center의 60분 유예 규칙과 맞춰 새로고침/재접속 시점
     // 1회 기록으로 충분하다(별도 갱신 루프 불필요).
-    set(ref(db, 'presence/lifeGame/' + user.uid), { lastSeen: Date.now() })
+    set(ref(sharedDb, 'presence/lifeGame/' + user.uid), { lastSeen: Date.now() })
       .catch((e) => console.error('접속자 분석 기록 실패:', e));
   }
   // 본인 전용 인증 플래그와 계정 전환 승인 신호를 구독한다. 관리자 승인 직후
   // 이 페이지의 권한과 대기 UI를 다시 불러오기 없이 갱신한다.
   let hasInitialVerifiedValue = false;
   let previousVerifiedValue = false;
-  lifeVerifiedStatusUnsubscribe = onValue(ref(db, 'users/' + user.uid + '/streamerVerified'), (snap) => {
+  lifeVerifiedStatusUnsubscribe = onValue(ref(sharedDb, 'users/' + user.uid + '/streamerVerified'), (snap) => {
     if (currentUser?.uid !== user.uid) return;
     const verified = snap.val() === true;
     isStreamerVerifiedUser = verified;
@@ -260,7 +262,7 @@ onAuthStateChanged(auth, (user) => {
     hasInitialVerifiedValue = true;
   }, (e) => console.error('인증 스트리머 상태 구독 실패:', e));
 
-  lifeSwitchApprovalUnsubscribe = onValue(ref(db, 'users/' + user.uid + '/streamerVerificationSwitchApproval'), (snap) => {
+  lifeSwitchApprovalUnsubscribe = onValue(ref(sharedDb, 'users/' + user.uid + '/streamerVerificationSwitchApproval'), (snap) => {
     if (currentUser?.uid !== user.uid) return;
     const requestId = snap.val() && snap.val().requestId;
     if (requestId) handleLifeStreamerSwitchApproval(user.uid, String(requestId));
@@ -696,7 +698,7 @@ function renderMetaGrid(gridEl, progressEl, meta, unlockedIds, progressLabel) {
 // 생태계 다른 프로젝트가 이미 쓰는 공유 노드라 그 필드를 그대로 읽는다.
 async function refreshCollectionView() {
   if (!currentUser || !lifePublicId) return;
-  const userSnap = await get(ref(db, 'users/' + currentUser.uid));
+  const userSnap = await get(ref(sharedDb, 'users/' + currentUser.uid));
   const userData = userSnap.val() || {};
   const isLoggedIn = !!(userData.googleLinked || userData.kakaoLinked || userData.streamerVerified);
   if (!isLoggedIn) {
@@ -872,7 +874,7 @@ let allStocks = [];
 const STREAMER_NAMES_CACHE_KEY = 'slgStreamerNamesCache';
 async function loadStreamerNames() {
   try {
-    const metaSnap = await get(ref(db, 'streamerNamesMeta/updatedAt'));
+    const metaSnap = await get(ref(sharedDb, 'streamerNamesMeta/updatedAt'));
     const remoteUpdatedAt = metaSnap.val();
     let cached = null;
     try { cached = JSON.parse(localStorage.getItem(STREAMER_NAMES_CACHE_KEY) || 'null'); } catch (e) {}
@@ -880,7 +882,7 @@ async function loadStreamerNames() {
       allStocks = cached.names;
       return;
     }
-    const namesSnap = await get(ref(db, 'streamerNames'));
+    const namesSnap = await get(ref(sharedDb, 'streamerNames'));
     const data = namesSnap.val() || {};
     const names = Object.keys(data).map((id) => ({ id, name: data[id] }));
     allStocks = names;
@@ -4373,8 +4375,8 @@ async function reviewProfileBadgeHtml(uid, nickname, soopId) {
     // 공개 후기에는 작성자 UID가 들어가지 않으므로, 신청 당시의 SOOP ID/닉네임과
     // UID가 없는 공개 인증 미러만 대조한다.
     const q = soopId
-      ? query(ref(db, 'streamerVerificationsPublic'), orderByChild('soopId'), equalTo(soopId))
-      : query(ref(db, 'streamerVerificationsPublic'), orderByChild('nickname'), equalTo(nickname));
+      ? query(ref(sharedDb, 'streamerVerificationsPublic'), orderByChild('soopId'), equalTo(soopId))
+      : query(ref(sharedDb, 'streamerVerificationsPublic'), orderByChild('nickname'), equalTo(nickname));
     const snap = await get(q);
     if (snap.exists()) {
       let verified = null;

@@ -2,7 +2,8 @@ const { onCall, HttpsError } = require('firebase-functions/v2/https');
 const { onSchedule } = require('firebase-functions/v2/scheduler');
 const { onValueWritten } = require('firebase-functions/v2/database');
 const { initializeApp } = require('firebase-admin/app');
-const { getDatabase, ServerValue } = require('firebase-admin/database');
+const { ServerValue } = require('firebase-admin/database');
+const { routedDb, sharedDb, lifeDb, LIFE_GAME_DATABASE_INSTANCE } = require('./databases');
 const { STAT_KEYS, STAT_START, clampStat, requireAuth, isAdminUid, assertCooldown } = require('./common');
 const {
   STAGES,
@@ -40,6 +41,10 @@ const INSTANT_ENDING_BUILDERS = [
 ];
 
 initializeApp();
+
+// `getDatabase()` 호출부는 기존 경로 API를 유지하되 lifeGame 경로만 전용 DB로
+// 보내는 라우터를 사용한다. 공통 경로는 동일 Firebase 프로젝트의 기본 DB에 남는다.
+const getDatabase = routedDb;
 
 const MAX_NAME_LEN = 40;
 const MAX_REPORT_REASON_LEN = 300;
@@ -144,7 +149,7 @@ async function publicMultiplayerSession(db, source, hostUid) {
 
 // private 세션/투표의 변경은 서버 함수와 onDisconnect에서만 발생한다.
 // 클라이언트는 항상 아래 공개 미러만 읽는다.
-const syncLifeMultiplayerSessionPublic = onValueWritten('lifeGame/multiplayerSessions/{hostUid}', async (event) => {
+const syncLifeMultiplayerSessionPublic = onValueWritten({ ref: 'lifeGame/multiplayerSessions/{hostUid}', instance: LIFE_GAME_DATABASE_INSTANCE }, async (event) => {
   const db = getDatabase();
   const publicRef = db.ref('lifeGame/multiplayerSessionsPublic/' + lifePublicIdFor(event.params.hostUid, 'multiplayer'));
   if (!event.data.after.exists()) {
@@ -154,13 +159,22 @@ const syncLifeMultiplayerSessionPublic = onValueWritten('lifeGame/multiplayerSes
   await publicRef.set(await publicMultiplayerSession(db, event.data.after.val(), event.params.hostUid));
 });
 
-const syncLifeMultiplayerVotePublic = onValueWritten('lifeGame/multiplayerVotes/{hostUid}/{stageId}/{participantUid}', async (event) => {
+const syncLifeMultiplayerVotePublic = onValueWritten({ ref: 'lifeGame/multiplayerVotes/{hostUid}/{stageId}/{participantUid}', instance: LIFE_GAME_DATABASE_INSTANCE }, async (event) => {
   const db = getDatabase();
   const hostPublicId = await ensureLifePublicId(db, event.params.hostUid);
   const participantPublicId = await ensureLifePublicId(db, event.params.participantUid);
   const publicRef = db.ref('lifeGame/multiplayerVotesPublic/' + hostPublicId + '/' + event.params.stageId + '/' + participantPublicId);
   if (!event.data.after.exists()) await publicRef.remove();
   else await publicRef.set(event.data.after.val());
+});
+
+// 전용 DB 규칙은 다른 인스턴스의 adminCenter를 직접 조회할 수 없으므로 최소 관리자
+// allowlist만 복제한다. 실제 서버 권한 판정은 여전히 기본 DB의 adminCenter를 기준으로 한다.
+const syncLifeGameAdminUid = onValueWritten({ ref: 'adminCenter/adminUids/{uid}', instance: 'soop-stock-market-default-rtdb' }, async (event) => {
+  const uid = String(event.params.uid || '');
+  if (!uid) return null;
+  await lifeDb().ref('lifeGameAdminUids/' + uid).set(event.data.after.val() === true ? true : null);
+  return null;
 });
 
 const getLifePublicId = onCall({ cors: true }, async (request) => {
@@ -4057,18 +4071,24 @@ const migratePublicReviews = onCall({ cors: true, timeoutSeconds: 60, memory: '2
   const db = getDatabase();
   if (!(await isAdminUid(uid))) throw new HttpsError('permission-denied', '관리자만 사용할 수 있는 기능입니다.');
   const snap = await db.ref('lifeGame/reviews').get();
-  const updates = {};
+  const lifeUpdates = {};
+  const sharedUpdates = {};
   let count = 0;
   snap.forEach((child) => {
     const review = child.val() || {};
     const publicId = lifePublicIdFor(child.key);
-    updates['lifeGame/reviewsPublic/' + publicId] = Object.assign({ publicId }, review);
-    updates['privateUserIds/life/byUid/' + child.key] = publicId;
-    updates['privateUserIds/life/byPublicId/' + publicId] = child.key;
-    updates['users/' + child.key + '/publicIds/lifeGameReview'] = publicId;
+    lifeUpdates['lifeGame/reviewsPublic/' + publicId] = Object.assign({ publicId }, review);
+    sharedUpdates['privateUserIds/life/byUid/' + child.key] = publicId;
+    sharedUpdates['privateUserIds/life/byPublicId/' + publicId] = child.key;
+    sharedUpdates['users/' + child.key + '/publicIds/lifeGameReview'] = publicId;
     count += 1;
   });
-  if (count) await db.ref().update(updates);
+  if (count) {
+    await Promise.all([
+      lifeDb().ref().update(lifeUpdates),
+      sharedDb().ref().update(sharedUpdates),
+    ]);
+  }
   return { ok: true, count };
 });
 
@@ -4587,4 +4607,4 @@ const logLifeGameVisit = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
   return { ok: true, logged: true };
 });
 
-module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, sellLifeGameInvestmentProperty, sellLifeGameInterestInvestment, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, getStreamerPreferenceSummary, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, submitMultiplayerVote, snapshotWorldStateHistory, reportStolenVehicle, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount, logLifeGameVisit, submitLifeGameReview, deleteLifeGameReview, reportLifeGameReview, adminDeleteLifeGameReview, migratePublicReviews, submitLifeGameSponsorRequest, markLifeGameSponsorDonationComplete, getLifeGameSponsorRequestStatus, syncLifeMultiplayerSessionPublic, syncLifeMultiplayerVotePublic, getLifePublicId, migratePublicMultiplayerData };
+module.exports = { startPlaythrough, resumePlaythrough, submitChoice, sellStock, sellLifeGameInvestmentProperty, sellLifeGameInterestInvestment, craftDiyItem, sellDiyItem, rollDice, shareToGallery, reportGalleryEntry, linkGoogleAccount, linkKakaoAccount, adminDeletePlaythrough, getStreamerPreferenceSummary, adminDeleteGalleryEntry, setMultiplayerEnabled, joinMultiplayerSession, kickParticipant, advanceMultiplayerSession, leaveMultiplayerSession, submitMultiplayerVote, snapshotWorldStateHistory, reportStolenVehicle, spreadZombieOutbreakNaturally, banLifeGameAccount, unbanLifeGameAccount, logLifeGameVisit, submitLifeGameReview, deleteLifeGameReview, reportLifeGameReview, adminDeleteLifeGameReview, migratePublicReviews, submitLifeGameSponsorRequest, markLifeGameSponsorDonationComplete, getLifeGameSponsorRequestStatus, syncLifeMultiplayerSessionPublic, syncLifeMultiplayerVotePublic, syncLifeGameAdminUid, getLifePublicId, migratePublicMultiplayerData };

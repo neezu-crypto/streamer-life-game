@@ -1,0 +1,56 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "lifeGameAdminUids": {
+      "$uid": { ".read": false, ".write": false }
+    },
+    "lifeGame": {
+      "playthroughs": { "$uid": { ".read": "auth != null && auth.uid === $uid", ".write": false } },
+      "collection": { "$uid": { ".read": "auth != null && auth.uid === $uid", ".write": false } },
+      "gallery": { ".read": false, "$entryId": { ".write": false } },
+      "galleryPublic": { ".read": true, "$entryId": { ".write": false } },
+      "galleryChoiceLogs": { ".read": true, "$entryId": { ".write": false } },
+      "galleryDetails": { ".read": true, "$entryId": { ".write": false } },
+      "galleryReports": {
+        ".read": "auth != null && root.child('lifeGameAdminUids').child(auth.uid).exists()",
+        "$reportId": { ".write": false }
+      },
+      "reviews": { ".read": false, "$uid": { ".write": false } },
+      "reviewsPublic": { ".read": true, ".write": false },
+      "reviewReports": {
+        ".read": "auth != null && root.child('lifeGameAdminUids').child(auth.uid).exists()",
+        "$reportId": { ".write": false }
+      },
+      "sponsorRequests": {
+        ".read": "auth != null && root.child('lifeGameAdminUids').child(auth.uid).exists()",
+        ".indexOn": ["status"],
+        "$requestId": { ".write": false }
+      },
+      "currentSponsor": { ".read": true, ".write": false },
+      "multiplayerSessions": {
+        ".read": false,
+        "$hostUid": { ".write": "auth != null && auth.uid === $hostUid && !newData.exists()" }
+      },
+      "multiplayerSessionsPublic": { ".read": true, ".write": false },
+      "multiplayerVotes": { ".read": false, "$hostUid": { "$stageId": { "$participantUid": { ".write": false } } } },
+      "multiplayerVotesPublic": { ".read": true, ".write": false },
+      "multiplayerAdShown": { ".read": false, "$hostUid": { ".write": false } },
+      "worldState": { ".read": true, "$key": { ".write": false } },
+      "presence": {
+        ".read": false,
+        "$uid": {
+          ".write": "auth != null && auth.uid === $uid",
+          ".validate": "newData.hasChildren(['lastSeenAt']) && newData.child('lastSeenAt').isNumber()",
+          "lastSeenAt": { ".validate": "newData.isNumber()" },
+          "$other": { ".validate": false }
+        }
+      },
+      "worldStateHistory": { ".read": true, "$key": { "$date": { ".write": false } } },
+      "occupationGauge": { ".read": true, "$group": { ".write": false } },
+      "vehicleOwners": { ".read": false, "$uid": { ".write": false } },
+      "botConfig": { ".read": false, ".write": false },
+      "bots": { ".read": false, "$uid": { ".write": false } }
+    }
+  }
+}

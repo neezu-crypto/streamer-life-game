@@ -6,7 +6,14 @@
       "runtime": "nodejs22"
     }
   ],
-  "database": {
-    "rules": "database.rules.json"
-  }
+  "database": [
+    {
+      "target": "default",
+      "rules": "database.rules.json"
+    },
+    {
+      "target": "lifegame",
+      "rules": "life-game.database.rules.json"
+    }
+  ]
 }
