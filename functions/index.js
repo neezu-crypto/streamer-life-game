@@ -45,6 +45,7 @@ initializeApp();
 // `getDatabase()` 호출부는 기존 경로 API를 유지하되 lifeGame 경로만 전용 DB로
 // 보내는 라우터를 사용한다. 공통 경로는 동일 Firebase 프로젝트의 기본 DB에 남는다.
 const getDatabase = routedDb;
+const { isServicePaused } = require('./service-pause');
 // 인생게임 세션은 lifeGame 전용 DB를 계속 사용한다. 아래 참조는 주가·차트
 // 갱신에만 한정한다. 공유 DB의 전환 상태가 market-primary가 되기 전에는
 // 기존 기본 DB를 유지해, 데이터 복사 전 전용 DB에 쓰는 일을 막는다.
@@ -4504,6 +4505,8 @@ function kstDateKey(date) {
 }
 
 const snapshotWorldStateHistory = onSchedule({ schedule: '5 0 * * *', timeZone: 'Asia/Seoul', memory: '256MiB' }, async () => {
+  // 서비스 일시정지 중에는 건너뛴다(관리자 센터 서비스 일시정지, 기본 상태: 일시정지).
+  if (await isServicePaused(sharedDb(), 'lifeGame', true)) return;
   const db = getDatabase();
   const worldStateSnap = await db.ref('lifeGame/worldState').get();
   const worldState = worldStateSnap.exists() ? worldStateSnap.val() : {};
@@ -4554,6 +4557,8 @@ const ZOMBIE_NATURAL_SPREAD_COEFFICIENT = 0.1;
 const ZOMBIE_PRESENCE_STALE_MS = 60 * 60 * 1000;
 
 const spreadZombieOutbreakNaturally = onSchedule({ schedule: '0 0 * * *', timeZone: 'Asia/Seoul', memory: '256MiB' }, async () => {
+  // 서비스 일시정지 중에는 건너뛴다(관리자 센터 서비스 일시정지, 기본 상태: 일시정지).
+  if (await isServicePaused(sharedDb(), 'lifeGame', true)) return;
   const db = getDatabase();
   const outbreakSnap = await db.ref('lifeGame/worldState/' + ZOMBIE_OUTBREAK_KEY).get();
   if (!outbreakSnap.exists()) return;
