@@ -2,7 +2,7 @@ const { onCall, HttpsError } = require('firebase-functions/v2/https');
 const { onSchedule } = require('firebase-functions/v2/scheduler');
 const { onValueWritten } = require('firebase-functions/v2/database');
 const { initializeApp } = require('firebase-admin/app');
-const { ServerValue } = require('firebase-admin/database');
+const { ServerValue, getDatabaseWithUrl } = require('firebase-admin/database');
 const { routedDb, sharedDb, lifeDb, LIFE_GAME_DATABASE_INSTANCE } = require('./databases');
 const { STAT_KEYS, STAT_START, clampStat, requireAuth, isAdminUid, assertCooldown } = require('./common');
 const {
@@ -45,6 +45,15 @@ initializeApp();
 // `getDatabase()` 호출부는 기존 경로 API를 유지하되 lifeGame 경로만 전용 DB로
 // 보내는 라우터를 사용한다. 공통 경로는 동일 Firebase 프로젝트의 기본 DB에 남는다.
 const getDatabase = routedDb;
+// 인생게임 세션은 lifeGame 전용 DB를 계속 사용한다. 아래 참조는 주가·차트
+// 갱신에만 한정한다. 공유 DB의 전환 상태가 market-primary가 되기 전에는
+// 기존 기본 DB를 유지해, 데이터 복사 전 전용 DB에 쓰는 일을 막는다.
+const STOCK_MARKET_DATABASE_URL = 'https://soop-stock-market-rtdb.firebaseio.com';
+const stockMarketDb = () => getDatabaseWithUrl(STOCK_MARKET_DATABASE_URL);
+async function stockMarketWriteDb(fallbackDb) {
+  const state = (await sharedDb().ref('adminCenter/stockMarketDatabaseMigration/state').get()).val() || {};
+  return state.phase === 'market-primary' ? stockMarketDb() : fallbackDb;
+}
 
 const MAX_NAME_LEN = 40;
 const MAX_REPORT_REASON_LEN = 300;
@@ -467,7 +476,8 @@ const reportStolenVehicle = onCall({ cors: true, timeoutSeconds: 30, memory: '25
 // 지정해야 해서 ratio를 직접 받는 형태로 일반화했다. 나머지(가격 갱신·
 // candlesticks·sparklines 갱신, 동결 스킵)는 완전히 동일한 로직 재사용.
 async function applyStockPriceRatio(db, stockId, ratio) {
-  const stockRef = db.ref('stocks/' + stockId);
+  const marketDb = await stockMarketWriteDb(db);
+  const stockRef = marketDb.ref('stocks/' + stockId);
   const qty = 1 + Math.floor(Math.random() * 5);
   const result = await stockRef.transaction((current) => {
     if (!current || current.frozenAt) return current;
@@ -479,11 +489,11 @@ async function applyStockPriceRatio(db, stockId, ratio) {
   const newPrice = committed.price;
 
   const ts = Math.floor(Date.now() / 60000) * 60;
-  await db.ref('candlesticks/' + stockId + '/' + ts).transaction((current) => {
+  await marketDb.ref('candlesticks/' + stockId + '/' + ts).transaction((current) => {
     if (!current) return { o: newPrice, h: newPrice, l: newPrice, c: newPrice, v: qty, t: ts };
     return { o: current.o, h: Math.max(current.h, newPrice), l: Math.min(current.l, newPrice), c: newPrice, v: (current.v || 0) + qty, t: ts };
   });
-  await db.ref('sparklines/' + stockId).transaction((current) => {
+  await marketDb.ref('sparklines/' + stockId).transaction((current) => {
     const buf = Array.isArray(current) ? current.slice() : [];
     buf.push(newPrice);
     if (buf.length > 20) buf.shift();
@@ -3306,7 +3316,8 @@ const submitChoice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
     if (existingAssets.some((a) => a.id === stockId)) {
       throw new HttpsError('failed-precondition', '이미 보유 중인 종목입니다.', { reason: 'already-held' });
     }
-    const stockSnap = await db.ref('stocks/' + stockId).get();
+    const marketDb = await stockMarketWriteDb(db);
+    const stockSnap = await marketDb.ref('stocks/' + stockId).get();
     const stockVal = stockSnap.val();
     if (!stockVal || typeof stockVal.price !== 'number') {
       throw new HttpsError('invalid-argument', '존재하지 않는 종목입니다.');
@@ -3379,7 +3390,8 @@ const sellStock = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, a
   const asset = assets.find((a) => a.id === stockId && a.type === 'stock');
   if (!asset) throw new HttpsError('invalid-argument', '보유하지 않은 종목입니다.');
 
-  const stockSnap = await db.ref('stocks/' + stockId).get();
+  const marketDb = await stockMarketWriteDb(db);
+  const stockSnap = await marketDb.ref('stocks/' + stockId).get();
   const stockVal = stockSnap.val();
   if (!stockVal || typeof stockVal.price !== 'number') {
     throw new HttpsError('invalid-argument', '존재하지 않는 종목입니다.');
