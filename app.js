@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 import { getDatabase, ref, get, set, onValue, onDisconnect, serverTimestamp, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
 import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-functions.js";
+import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app-check.js";
 import { getAuth, signInAnonymously, onAuthStateChanged, signInWithPopup, signInWithCustomToken, linkWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
 // 이 생태계 다른 프로젝트들과 동일한 Firebase 프로젝트(soop-stock-market)를 공유한다
@@ -15,6 +16,10 @@ const firebaseConfig = {
   appId: "1:997788925900:web:b58db2970489bf18a3a769"
 };
 const app = initializeApp(firebaseConfig);
+// 인생게임 전용 쓰기 callable은 서버가 App Check를 강제한다(2026-11-14).
+try {
+  initializeAppCheck(app, { provider: new ReCaptchaEnterpriseProvider('6Ld0AfAtAAAAABcCio4_5AoiCdrjfM7_4riWiYXR'), isTokenAutoRefreshEnabled: true });
+} catch (error) { console.warn('App Check 초기화 실패', error); }
 // 게임 진행 데이터는 전용 인스턴스에, 계정·인증·공통 목록은 기본 인스턴스에 둔다.
 const sharedDb = getDatabase(app);
 const db = getDatabase(app, 'https://streamer-life-game-rtdb.firebaseio.com');
