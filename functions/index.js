@@ -187,7 +187,7 @@ const syncLifeGameAdminUid = onValueWritten({ ref: 'adminCenter/adminUids/{uid}'
   return null;
 });
 
-const getLifePublicId = onCall({ cors: true }, async (request) => {
+const getLifePublicId = onCall({ cors: true, enforceAppCheck: true }, async (request) => {
   const uid = requireAuth(request);
   return { publicId: await ensureLifePublicId(getDatabase(), uid) };
 });
@@ -428,7 +428,7 @@ async function victimizeRandomVehicleOwner(db, thiefUid) {
 const VEHICLE_REPORT_RECOVERY_MIN = 0.15;
 const VEHICLE_REPORT_RECOVERY_MAX = 0.65;
 
-const reportStolenVehicle = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const reportStolenVehicle = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const db = getDatabase();
   const playRef = playRefFor(db, uid);
@@ -3020,7 +3020,7 @@ async function assertNotBanned(db, uid) {
 // 저장 슬롯 1개라, 클라이언트가 "이어하기" 대신 "새로 시작하기"를 선택했을
 // 때만 이 함수를 부르게 되어 있다.
 // streamerId는 선택값(검색 결과의 stocks 키) - 없어도(직접 입력한 이름) 진행 가능.
-const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const startPlaythrough = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   await assertNotBanned(getDatabase(), uid);
   const streamerName = (request.data && request.data.streamerName || '').toString().trim();
@@ -3113,7 +3113,7 @@ const startPlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256Mi
 // 창을 껐다가 다시 열었을 때 - 저장된 판이 있으면 지금 구간을 그대로 이어서
 // 보여준다. 완료된 판이면(엔딩까지 보고 나간 경우) stage 없이 completed만
 // 내려준다 - "이어할 진행"은 없지만 결과는 다시 보여줄 수 있게.
-const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const resumePlaythrough = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const db = getDatabase();
   const isAdmin = await isAdminUid(uid);
@@ -3233,7 +3233,7 @@ const resumePlaythrough = onCall({ cors: true, timeoutSeconds: 30, memory: '256M
 // 계산·반영한다(클라이언트가 stats를 직접 보내는 방식은 위변조 가능해서 안 씀).
 // random:true인 구간(예: 유아기)은 여기로 못 들어온다 - 주사위로만 진행되므로
 // rollDice를 쓰라고 안내한다.
-const submitChoice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const submitChoice = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const db = getDatabase();
   await assertNotBanned(db, uid);
@@ -3377,7 +3377,7 @@ const submitChoice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
 // 보유 자산에 대한 조작) applyChoice를 거치지 않고 직접 stats/cashHoldings/
 // assets를 갱신한다. 절대 나이가 5의 배수일 때만 허용(사용자 확정), 동결
 // 종목은 매도도 불가.
-const sellStock = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const sellStock = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const db = getDatabase();
   const stockId = request.data && request.data.stockId;
@@ -3431,7 +3431,7 @@ const sellStock = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, a
 });
 
 // 투자 부동산 매도 - 턴 진행 없이 선택한 보유 자산의 마지막 시세를 현금화한다.
-const sellLifeGameInvestmentProperty = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const sellLifeGameInvestmentProperty = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const propertyId = request.data && request.data.propertyId;
   if (!propertyId || !String(propertyId).startsWith('investment-property-')) {
@@ -3456,7 +3456,7 @@ const sellLifeGameInvestmentProperty = onCall({ cors: true, timeoutSeconds: 30, 
 // 투자 예금상품 해지 - 보유 목록에서 선택한 상품의 원금을 현금으로 돌려받고
 // 자산에서 제거한다. 매 턴 이자는 자산 보유 여부로 지급되므로 이후 이자는
 // 자동 중단되며 이미 받은 이자는 현금에 남는다.
-const sellLifeGameInterestInvestment = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const sellLifeGameInterestInvestment = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const investmentId = request.data && request.data.investmentId;
   if (!investmentId || !String(investmentId).startsWith('interest-investment-')) {
@@ -3483,7 +3483,7 @@ const sellLifeGameInterestInvestment = onCall({ cors: true, timeoutSeconds: 30, 
 // 전혀 건드리지 않아 "제작하는 동안 나이가 멈춰 있다"는 설계가 그대로
 // 지켜진다. 완성품 인스턴스마다 별도 id를 부여해(같은 제품을 여러 개 만들어도
 // 자산 목록에서 서로 구분되게) diy-craft 타입 자산으로 추가한다.
-const craftDiyItem = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const craftDiyItem = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const db = getDatabase();
   const productId = request.data && request.data.productId;
@@ -3556,7 +3556,7 @@ const craftDiyItem = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }
 // (submitChoice/applyChoice를 거치지 않는 독립 액션, stageIndex 미변경).
 // 주식과 달리 5의 배수 나이 제한이 없다 - 가격 변동이 없는 고정가 완성품이라
 // "적절한 매도 시점"이라는 개념 자체가 없기 때문.
-const sellDiyItem = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const sellDiyItem = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const db = getDatabase();
   const assetId = request.data && request.data.assetId;
@@ -3582,7 +3582,7 @@ const sellDiyItem = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' },
 // 없다") 전용. 클라이언트는 choiceId를 보내지 않고, 서버가 stage.choices 중
 // 하나를 균등 확률로 직접 뽑는다 - 어떤 결과가 나왔는지는 응답의 choiceId/result로
 // 알려준다.
-const rollDice = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const rollDice = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const db = getDatabase();
   await assertNotBanned(db, uid);
@@ -3704,7 +3704,7 @@ async function autoShareToGalleryIfEligible(db, uid, play) {
 
 // 완료한 인생을 공개 갤러리에 공유 - 실제 스트리머 이름이 걸린 채 공개되므로
 // (기획안 09장 B) 같은 플레이는 한 번만 공유되게 막는다.
-const shareToGallery = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const shareToGallery = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const db = getDatabase();
   const playRef = playRefFor(db, uid);
@@ -3941,7 +3941,7 @@ async function findStreamerProfileByUid(db, uid) {
   return profile;
 }
 
-const submitLifeGameReview = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const submitLifeGameReview = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const db = getDatabase();
   await assertNotBanned(db, uid);
@@ -4030,7 +4030,7 @@ const submitLifeGameReview = onCall({ cors: true, timeoutSeconds: 30, memory: '2
   return { ok: true, promoteRequested, nickname, soopId, reviewPublicId };
 });
 
-const deleteLifeGameReview = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const deleteLifeGameReview = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const db = getDatabase();
   const publicId = request.data && request.data.reviewPublicId;
@@ -4041,7 +4041,7 @@ const deleteLifeGameReview = onCall({ cors: true, timeoutSeconds: 30, memory: '2
   return { ok: true };
 });
 
-const reportLifeGameReview = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const reportLifeGameReview = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const reviewPublicId = request.data && request.data.reviewPublicId;
   const reason = (request.data && request.data.reason || '').toString().trim().slice(0, MAX_REPORT_REASON_LEN);
@@ -4173,7 +4173,7 @@ const submitLifeGameSponsorRequest = onCall({ cors: true, timeoutSeconds: 30, me
   return { ok: true, id: ref.key, requestId: ref.key, starBalloons, diagnosticCode };
 });
 
-const markLifeGameSponsorDonationComplete = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const markLifeGameSponsorDonationComplete = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const requestId = String(request.data && request.data.requestId || '').trim();
   if (!requestId || requestId.length > 200 || /[.#$\[\]/]/.test(requestId)) {
@@ -4198,7 +4198,7 @@ const markLifeGameSponsorDonationComplete = onCall({ cors: true, timeoutSeconds:
   return { ok: true, donationCompletedAt: Number(result.snapshot && result.snapshot.val() && result.snapshot.val().donationCompletedAt) || now };
 });
 
-const getLifeGameSponsorRequestStatus = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const getLifeGameSponsorRequestStatus = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const requestId = String(request.data && request.data.requestId || '').trim();
   if (!requestId || requestId.length > 200 || /[.#$\[\]/]/.test(requestId)) {
@@ -4226,7 +4226,7 @@ const getLifeGameSponsorRequestStatus = onCall({ cors: true, timeoutSeconds: 30,
 // multiplayerSessions를 새로 만들고(startPlaythrough가 처음부터 켠 경우와
 // 결과가 같아지도록), 끄면 문서를 통째로 지운다 - 그 순간 접속해 있던
 // 참가자들의 이후 투표 쓰기는 참가자 존재 확인이 실패하면서 자연히 막힌다.
-const setMultiplayerEnabled = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const setMultiplayerEnabled = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const enabled = !!(request.data && request.data.enabled);
   const db = getDatabase();
@@ -4266,7 +4266,7 @@ const setMultiplayerEnabled = onCall({ cors: true, timeoutSeconds: 30, memory: '
 // 새로 계산하는 게 없어 game-data.js 재해석 위험이 없다. 세션이 없으면
 // (그 사이 토글이 꺼졌거나 애초에 멀티플레이가 아니면) 조용히 아무 일도
 // 하지 않는다 - 클라이언트가 "호스트 모드일 때만" 호출하지만 방어적으로 둔다.
-const advanceMultiplayerSession = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const advanceMultiplayerSession = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const db = getDatabase();
   const mpRef = db.ref('lifeGame/multiplayerSessions/' + uid);
@@ -4294,7 +4294,7 @@ const MULTIPLAYER_NICKNAME_REGEX = /^[가-힣]{1,6}$/;
 // 확인(2026-08-24, 사용자 지시로 kickedUids 추가 - 강퇴된 uid는 닉네임을
 // 바꿔도 재입장 불가) → participants에 등록 → 전면 광고 노출 여부 판단
 // (2026-08-22 확정, "그 세션당 1회" - multiplayerAdShown으로 판정).
-const joinMultiplayerSession = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const joinMultiplayerSession = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const db = getDatabase();
   const hostPublicId = request.data && request.data.hostPublicId;
@@ -4337,7 +4337,7 @@ const joinMultiplayerSession = onCall({ cors: true, timeoutSeconds: 30, memory: 
 // 빠지는 순간 호스트 쪽 multiplayerSessions 구독이 자동으로 다시 그려지고
 // (기존 onValue 패턴), 참가자 본인의 이후 투표 쓰기도 participants 존재 확인이
 // 실패하면서 자연히 막힌다.
-const leaveMultiplayerSession = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const leaveMultiplayerSession = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const db = getDatabase();
   const hostPublicId = request.data && request.data.hostPublicId;
@@ -4367,7 +4367,7 @@ const leaveMultiplayerSession = onCall({ cors: true, timeoutSeconds: 30, memory:
 // 지인 이름 자동 재배정(2026-08-21 확정) - 호스트의 acquaintances/
 // familyMembers 중 강퇴된 닉네임과 정확히 일치하는 이름을 새 무작위 이름으로
 // 교체해 부적절한 이름이 남지 않게 한다.
-const kickParticipant = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const kickParticipant = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const hostUid = requireAuth(request);
   const db = getDatabase();
   const targetPublicId = request.data && request.data.targetPublicId;
@@ -4439,7 +4439,7 @@ const kickParticipant = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB
 // 참가자 투표는 private 노드에 UID로 기록하되 클라이언트가 직접 쓰지 못하게
 // 한다. 서버에서 현재 세션의 participants를 다시 확인한 뒤에만 기록하므로,
 // 공개 미러의 participantPublicId를 조작해 투표를 남기는 우회도 막는다.
-const submitMultiplayerVote = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const submitMultiplayerVote = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const data = request.data || {};
   const hostPublicId = data.hostPublicId;
@@ -4592,7 +4592,7 @@ function todayKeyKST() {
 // 쌓는다. 인증 여부는 이 저장소가 이미 다른 곳(refreshCollectionView)에서 쓰던
 // users/{uid}/streamerVerified 공유 필드 그대로 확인 - 새 스키마 도입 안 함.
 // market 값은 admin-center PRESENCE_APPS와 동일한 'lifeGame'을 그대로 재사용.
-const logLifeGameVisit = onCall({ cors: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
+const logLifeGameVisit = onCall({ cors: true, enforceAppCheck: true, timeoutSeconds: 30, memory: '256MiB' }, async (request) => {
   const uid = requireAuth(request);
   const db = getDatabase();
 
