@@ -118,7 +118,7 @@
   .pitch { color: var(--text-dim); font-size: 15px; margin: 0; max-width: 52ch; }
 
   .panel {
-    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14.26px;
     padding: 22px; margin-bottom: 20px;
   }
   .panel h2 { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 17px; margin: 0 0 14px; }
@@ -566,7 +566,7 @@
   }
   .sponsor-cta:hover { background: var(--gold-dim); }
   .sponsor-profile-preview {
-    display: flex; align-items: center; gap: 11px; min-height: 68px;
+    display: flex; align-items: center; gap: 11.14px; min-height: 68px;
     margin: -2px 0 12px; padding: 9px 12px;
     border: 1px dashed var(--line); border-radius: 9px; background: var(--panel-2);
   }
@@ -1841,7 +1841,7 @@
   .ws-tab-presence {
     margin-left: auto; font-size: 12px; color: var(--text-dim); font-variant-numeric: tabular-nums;
   }
-  .ws-tab-caret { color: var(--text-faint); transition: transform 0.2s ease; margin-left: 6px; }
+  .ws-tab-caret { color: var(--text-faint); transition: transform 0.2026s ease; margin-left: 6px; }
   .world-state-tab[aria-expanded="true"] .ws-tab-caret { transform: rotate(180deg); }
   .world-state-tab[aria-expanded="true"] .ws-tab-presence { margin-left: 0; }
 
@@ -1863,3 +1863,4 @@
   .ws-card-pairing { font-size: 11px; color: var(--text-faint); }
   .ws-card-tier { font-size: 13.5px; font-weight: 700; font-family: 'Bricolage Grotesque', sans-serif; color: var(--gold); }
   .ws-grid-empty { color: var(--text-faint); font-size: 13px; padding: 4px 2px; grid-column: 1 / -1; }
+:root{--ss-maker:"skftod2";--ss-room:"lif"}

@@ -4,8 +4,8 @@ import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/
 import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app-check.js";
 import { getAuth, signInAnonymously, onAuthStateChanged, signInWithPopup, signInWithCustomToken, linkWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
-// 이 생태계 다른 프로젝트들과 동일한 Firebase 프로젝트(soop-stock-market)를 공유한다
-// - stocks 노드(스트리머 이름 검색)를 새 프로젝트 설정 없이 바로 읽기 위함.
+//  이 생태계 다른 프로젝트들과 동일한 Firebase 프로젝트(soop-stock-market)를 공유한다
+//  - stocks 노드(스트리머 이름 검색)를 새 프로젝트 설정 없이 바로 읽기 위함.
 const firebaseConfig = {
   apiKey: "AIzaSyAZcjQPHphENs-Bb7IfdL2qTtOMhJrRP54",
   authDomain: "soop-stock-market.firebaseapp.com",
@@ -16,7 +16,7 @@ const firebaseConfig = {
   appId: "1:997788925900:web:b58db2970489bf18a3a769"
 };
 const app = initializeApp(firebaseConfig);
-// 인생게임 전용 쓰기 callable은 서버가 App Check를 강제한다(2026-11-14).
+//  인생게임 전용 쓰기 callable은 서버가 App Check를 강제한다(2026-11-14).
 try {
   initializeAppCheck(app, { provider: new ReCaptchaEnterpriseProvider('6Ld0AfAtAAAAABcCio4_5AoiCdrjfM7_4riWiYXR'), isTokenAutoRefreshEnabled: true });
 } catch (error) { console.warn('App Check 초기화 실패', error); }
@@ -27,9 +27,9 @@ const auth = getAuth(app);
 const functions = getFunctions(app, 'us-central1');
 
 // devbar 게임 링크를 RTDB(devbarLinks, admin-center에서 관리)에서 가져와 하드코딩된
-// 링크를 대체한다 - 다른 배경/배팅/주식/배경시장 페이지들과 동일한 패턴(08번 마이그레이션).
-// 노드가 비어있거나 조회 실패 시 기존 하드코딩된 data-game-id 링크를 그대로 둔다
-// (devbar가 통째로 사라지는 사고 방지) - "방송국" 링크는 devbarLinks 대상이 아니라
+//  링크를 대체한다 - 다른 배경/배팅/주식/배경시장 페이지들과 동일한 패턴(08번 마이그레이션).
+//  노드가 비어있거나 조회 실패 시 기존 하드코딩된 data-game-id 링크를 그대로 둔다
+//  (devbar가 통째로 사라지는 사고 방지) - "방송국" 링크는 devbarLinks 대상이 아니라
 // 항상 하드코딩 그대로 유지된다.
 (async function () {
   const SELF_GAME_ID = 'lifeGame';
@@ -76,10 +76,10 @@ const linkGoogleAccountFn = httpsCallable(functions, 'linkGoogleAccount');
 const linkKakaoAccountFn = httpsCallable(functions, 'linkKakaoAccount');
 const adminDeleteGalleryEntryFn = httpsCallable(functions, 'adminDeleteGalleryEntry');
 const logLifeGameVisitFn = httpsCallable(functions, 'logLifeGameVisit');
-// requestStreamerVerification은 이 레포에 없는 함수다 - 같은 Firebase 프로젝트
+//  requestStreamerVerification은 이 레포에 없는 함수다 - 같은 Firebase 프로젝트
 // (soop-stock-market)에 이미 배포돼 있는 걸 codebase 구분 없이 이름으로 그대로
 // 호출한다(16장 참고, StreamBet-Market·admin-center CLAUDE.md와 동일 원칙 -
-// "다른 앱 소스에 없다고 삭제하면 안 되는 함수" 목록에 있는 것과 반대로, 여기선
+//  "다른 앱 소스에 없다고 삭제하면 안 되는 함수" 목록에 있는 것과 반대로, 여기선
 // 우리가 그 목록에 있는 함수를 갖다 쓰는 입장).
 const requestStreamerVerificationFn = httpsCallable(functions, 'requestStreamerVerification');
 const submitLifeGameReviewFn = httpsCallable(functions, 'submitLifeGameReview');
@@ -105,7 +105,7 @@ let presenceRecorded = false;
 let visitLogChecked = false;
 // 광고 노출 제한(2026-09-07, 사용자 지시 - "이 광고는 스트리머 로그인유저이거나
 // 호스트일때만 나오는 광고로 제한해줘") - 참가자 모드로 남의 게임에 잠깐
-// 들어온 유저에게까지 상품 광고가 보이는 걸 막기 위함. 인증 스트리머 여부는
+//  들어온 유저에게까지 상품 광고가 보이는 걸 막기 위함. 인증 스트리머 여부는
 // 기존에 디스코드 알림용으로 이미 한 번 읽던 값을 그대로 재사용(중복 조회 방지).
 let isStreamerVerifiedUser = false;
 let myReviewPublicId = null;
@@ -113,12 +113,12 @@ let lifeVerifiedStatusUnsubscribe = null;
 let lifeSwitchApprovalUnsubscribe = null;
 let lifeObservedAuthUid = '';
 let lifeSwitchHandoffInProgress = false;
-// 관리자 여부(2026-08-24, 사용자 지시 - "관리자 uid로 다른 인생 갤러리에서
+//  관리자 여부(2026-08-24, 사용자 지시 - "관리자 uid로 다른 인생 갤러리에서
 // 로그 삭제 가능하게" UI 연결) - adminCenter/adminUids 자체는
 // database.rules.json에서 .read:false라 클라이언트가 직접 "내가 관리자인가"를
 // 읽을 방법이 없다. 대신 관리자만 읽을 수 있는 다른 노드(lifeGame/galleryReports,
 // 신고 열람용)를 한 번 읽어보는 방식으로 우회 확인한다 - 성공하면 관리자,
-// permission-denied면 일반 유저. 갤러리 렌더링이 이 판정보다 먼저 끝날 수 있어
+//  permission-denied면 일반 유저. 갤러리 렌더링이 이 판정보다 먼저 끝날 수 있어
 // isAdminUser가 true로 바뀌면 renderGalleryList로 마지막 스냅샷을 다시 그린다.
 let isAdminUser = false;
 let latestGallerySnapVal = null;
@@ -212,7 +212,7 @@ onAuthStateChanged(auth, (user) => {
     signInAnonymously(auth).catch((e) => console.error('익명 로그인 실패:', e));
     return;
   }
-  // 공개 세션/투표 구독에는 UID 대신 서버가 발급한 해시 ID를 사용한다.
+  //  공개 세션/투표 구독에는 UID 대신 서버가 발급한 해시 ID를 사용한다.
   getLifePublicIdFn().then((result) => {
     lifePublicId = result.data && result.data.publicId;
     attachMultiplayerHostListeners();
@@ -223,24 +223,24 @@ onAuthStateChanged(auth, (user) => {
     myReviewPublicId = snap.val() || null;
   }).catch(() => {});
   // 계정당 저장 슬롯 1개 - 로그인(익명 포함)이 확정되면 저장된 판이 있는지 한 번만
-  // 확인한다. 검색 화면을 먼저 보여줬다가 뒤늦게 "이어하기"로 바꾸면 화면이
+  //  확인한다. 검색 화면을 먼저 보여줬다가 뒤늦게 "이어하기"로 바꾸면 화면이
   // 깜빡여서, 확인이 끝나기 전까진 검색/이어하기 둘 다 숨겨둔다(아래 checkResume).
   if (!resumeChecked) {
     resumeChecked = true;
     checkResume(user.uid);
   }
   // "현재 접속자"(57장, 2026-08-29) - 하트비트/onDisconnect 없이 접속(새로고침
-  // 포함) 시점에 딱 1회만 기록. 접속을 끊은 유저는 패널이 표시할 때 lastSeenAt
-  // 기준 60분 이내인 것만 세기 때문에, 여기서 별도로 지우거나 갱신할 필요가 없다.
+  //  포함) 시점에 딱 1회만 기록. 접속을 끊은 유저는 패널이 표시할 때 lastSeenAt
+  //  기준 60분 이내인 것만 세기 때문에, 여기서 별도로 지우거나 갱신할 필요가 없다.
   if (!presenceRecorded) {
     presenceRecorded = true;
     set(ref(db, 'lifeGame/presence/' + user.uid), { lastSeenAt: serverTimestamp() })
       .catch((e) => console.error('접속 기록 실패:', e));
     // admin-center 접속자 분석(10번, 2026-09-05 추가) - 위 lifeGame/presence는
     // 인생게임 자체 용도라 건드리지 않고, admin-center가
-    // 기대하는 표준 경로(presence/{appId}/{uid}, 필드명 lastSeen)에도 병행 기록만
-    // 추가한다. 이쪽도 admin-center의 60분 유예 규칙과 맞춰 새로고침/재접속 시점
-    // 1회 기록으로 충분하다(별도 갱신 루프 불필요).
+    //  기대하는 표준 경로(presence/{appId}/{uid}, 필드명 lastSeen)에도 병행 기록만
+    //  추가한다. 이쪽도 admin-center의 60분 유예 규칙과 맞춰 새로고침/재접속 시점
+    //  1회 기록으로 충분하다(별도 갱신 루프 불필요).
     set(ref(sharedDb, 'presence/lifeGame/' + user.uid), { lastSeen: Date.now() })
       .catch((e) => console.error('접속자 분석 기록 실패:', e));
   }
@@ -277,21 +277,21 @@ onAuthStateChanged(auth, (user) => {
 // ------------------------------------------------------------
 // 로그인 연동(16장, 2026-08-22) - soop-stock-market이 이미 구현해둔 구글/카카오
 // "익명 계정 승격" 패턴을 그대로 따른다(기획서.html sec16 참고). 새 계정을
-// 만드는 게 아니라 지금 쓰던 익명 uid를 그대로 보호·승격하는 것이라, 이전에
-// 쌓인 playthroughs/collection 진행도가 로그인 후에도 그대로 이어진다.
+//  만드는 게 아니라 지금 쓰던 익명 uid를 그대로 보호·승격하는 것이라, 이전에
+//  쌓인 playthroughs/collection 진행도가 로그인 후에도 그대로 이어진다.
 // ------------------------------------------------------------
-// Kakao SDK 스크립트가 네트워크 문제 등으로 못 불러와졌을 때 여기서 바로
-// throw하면 이 모듈(app.js) 전체가 죽어 게임 자체가 안 켜진다 - 로그인은
-// 부가 기능이라 게임 플레이 자체를 막으면 안 되므로 존재 여부만 확인하고 넘어간다.
+//  Kakao SDK 스크립트가 네트워크 문제 등으로 못 불러와졌을 때 여기서 바로
+//  throw하면 이 모듈(app.js) 전체가 죽어 게임 자체가 안 켜진다 - 로그인은
+//  부가 기능이라 게임 플레이 자체를 막으면 안 되므로 존재 여부만 확인하고 넘어간다.
 if (typeof Kakao !== 'undefined') Kakao.init('ed4f01d6903ca41d5dc0ab32b6ae143c');
 
 // 구글 팝업이 닫힌 직후엔 COOP 정책 때문에 브라우저가 이 탭을 잠깐 "활성 탭이
 // 아니다"로 오판하고, 그 상태에서 네이티브 confirm()을 부르면 크롬이 다이얼로그
 // 자체를 띄우지도 않고 조용히 억제해버린다. soop-stock-market이 2026-07-10(커밋
 // e6db09d)에 이미 겪고 고친 문제이자, streamer-gallery·rocket-game에서도 실제
-// 재현된 문제(2026-09-04, "실제 제보가 오면 그때 교체한다"던 이 파일의 이전 계획
+//  재현된 문제(2026-09-04, "실제 제보가 오면 그때 교체한다"던 이 파일의 이전 계획
 // 그대로 지금 교체함) — 검증된 해법대로 네이티브 confirm() 대신 이 문제 자체의
-// 대상이 아닌 일반 HTML 커스텀 모달로 완전히 대체한다.
+//  대상이 아닌 일반 HTML 커스텀 모달로 완전히 대체한다.
 function confirmModal(message) {
   return new Promise((resolve) => {
     const modal = document.getElementById('appConfirmModal');
@@ -315,7 +315,7 @@ function confirmModal(message) {
 async function completeAccountSwitch(customToken) {
   await signInWithCustomToken(auth, customToken);
   alert('✅ 이제 이 기기에서도 같은 계정을 이어서 쓸 수 있어요.');
-  // 계정이 중간에 바뀌면 앱이 메모리에 들고 있던 상태(uid 등)가 예전 걸 그대로
+  //  계정이 중간에 바뀌면 앱이 메모리에 들고 있던 상태(uid 등)가 예전 걸 그대로
   // 참조해 화면이 갱신되지 않는다 - 새로고침으로 전체 상태를 새 계정 기준으로
   // 다시 초기화한다.
   window.location.reload();
@@ -341,7 +341,7 @@ window.loginWithGoogle = async function () {
         alert('⚠️ 계정 전환 중 오류가 발생했습니다. 카카오 로그인이나 다른 브라우저로 다시 시도해주세요.');
       }
     } else if (e && (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request')) {
-      // 유저가 팝업을 닫은 경우 - 조용히 무시
+      //  유저가 팝업을 닫은 경우 - 조용히 무시
     } else {
       alert('⚠️ 구글 로그인 중 오류가 발생했습니다: ' + (e.message || e));
     }
@@ -379,7 +379,7 @@ window.loginWithKakao = function () {
 // ------------------------------------------------------------
 // 스트리머 인증(구글·카카오를 꺼리는 유저를 위한 대체 계정 보호 경로) -
 // requestStreamerVerification은 신청/재확인을 겸하는 단일 엔드포인트라,
-// "신청하기"와 "승인됐는지 확인하기" 버튼 둘 다 같은 함수를 그대로 호출한다.
+//  "신청하기"와 "승인됐는지 확인하기" 버튼 둘 다 같은 함수를 그대로 호출한다.
 // ------------------------------------------------------------
 const streamerVerifyModal = document.getElementById('streamerVerifyModal');
 const streamerVerifyForm = document.getElementById('streamerVerifyForm');
@@ -479,8 +479,8 @@ document.getElementById('submitStreamerVerifyBtn').addEventListener('click', () 
   if (!nickname) return alert('닉네임을 입력해주세요.');
   const soopId = streamerVerifySoopIdInput.value.trim();
   if (!/^[a-z0-9]{2,20}$/.test(soopId)) return alert('SOOP 아이디는 영문 소문자/숫자 2~20자로 입력해주세요.');
-  // source(2026-08-22, 사용자 확정) - 관리자 디스코드 알림에서 어느 앱에서 온
-  // 신청인지 구분하기 위한 필드. 값을 안 보내면 서버가 기본값 'stock-market'로
+  //  source(2026-08-22, 사용자 확정) - 관리자 디스코드 알림에서 어느 앱에서 온
+  //  신청인지 구분하기 위한 필드. 값을 안 보내면 서버가 기본값 'stock-market'로
   // 처리하므로(하위 호환), 이 게임에서 보낼 땐 반드시 명시한다.
   submitOrCheckStreamerVerification({ nickname, soopId, source: 'life-game' });
 });
@@ -492,10 +492,10 @@ streamerVerifyRenewCodeBtn.addEventListener('click', () => {
 });
 
 // ------------------------------------------------------------
-// 해금 도감(16장) - 엔딩 16종(ENDINGS 11종 + 즉사 엔딩 5종)을 그리드로 나열.
+//  해금 도감(16장) - 엔딩 16종(ENDINGS 11종 + 즉사 엔딩 5종)을 그리드로 나열.
 // functions/game-data.js의 ENDINGS·build*Ending()과 반드시 같은 id·title을
 // 유지해야 한다(서버는 이 목록을 클라이언트에 따로 안 내려주므로 수동 동기화).
-// ------------------------------------------------------------
+//  ------------------------------------------------------------
 const ENDINGS_META = [
   { id: 'all-in-success', title: '올인 성공형', icon: '💎' },
   { id: 'all-in-failure', title: '올인 실패형', icon: '💸' },
@@ -515,8 +515,8 @@ const ENDINGS_META = [
   { id: 'isolation', title: '완전히 홀로 남은 삶', icon: '🕸️' }
 ];
 
-// 트리거 루트 목록(14장) - functions/game-data.js의 startsRoute와 반드시 같은
-// id·label을 유지해야 한다(서버는 이 목록을 클라이언트에 따로 안 내려주므로
+//  트리거 루트 목록(14장) - functions/game-data.js의 startsRoute와 반드시 같은
+//  id·label을 유지해야 한다(서버는 이 목록을 클라이언트에 따로 안 내려주므로
 // 수동 동기화). 학생 리더십 루트(2026-08-23)까지 추가됨 - 앞으로 새 루트가
 // 추가되면 여기에도 그대로 이어 붙이면 된다.
 const ROUTES_META = [
@@ -551,9 +551,9 @@ const ROUTES_META = [
   { id: 'red-handed', title: '🚨 현행범', icon: '🚨' }
 ];
 
-// 재능·재산 목록(17장/재산 상세) - functions/game-data.js의 addTalent/addAsset
-// id·label과 반드시 같아야 한다(서버가 클라이언트에 따로 안 내려주므로 수동
-// 동기화, 2026-08-23 사용자 지시 - "나의 도감에 [재산 해금], [재능 해금]도
+//  재능·재산 목록(17장/재산 상세) - functions/game-data.js의 addTalent/addAsset
+//  id·label과 반드시 같아야 한다(서버가 클라이언트에 따로 안 내려주므로 수동
+//  동기화, 2026-08-23 사용자 지시 - "나의 도감에 [재산 해금], [재능 해금]도
 // 추가해줘"). 새 재능·재산이 추가되면 여기에도 그대로 이어 붙이면 된다.
 const TALENTS_META = [
   { id: 'arts', title: '🎵 음악', icon: '🎵' },
@@ -590,7 +590,7 @@ const ASSETS_META = [
   { id: 'compact-car', title: '🚙 소형차', icon: '🚙' },
   { id: 'time-loop-ticket', title: '⏳ 100년의 기억', icon: '⏳' },
   { id: 'time-loop-declined', title: '⏳ 흘려보낸 기회', icon: '⏳' },
-  // 주식 투자(2026-08-28, 56장 D항) - 종목마다 id가 달라 개별 도감 칸을 만들 수
+  //  주식 투자(2026-08-28, 56장 D항) - 종목마다 id가 달라 개별 도감 칸을 만들 수
   // 없어서, 어떤 종목이든 한 번이라도 사면 해금되는 단일 범주 칸.
   { id: 'stock-investment', title: '📈 주식 투자', icon: '📈' },
   { id: 'stolen-car', title: '🚗 중고차(절도)', icon: '🚗' },
@@ -598,7 +598,7 @@ const ASSETS_META = [
   { id: 'tour-guide-license', title: '🪪 여행 가이드 자격증', icon: '🪪' }
 ];
 // 직업 목록(2026-08-23, 사용자 지시 - "나의 도감에 직업도 추가해줘") - 재능·
-// 재산과 완전히 같은 패턴. functions/game-data.js에서 setOccupation으로 쓰이는
+//  재산과 완전히 같은 패턴. functions/game-data.js에서 setOccupation으로 쓰이는
 // 모든 id·label을 그대로 옮겼다(ex-convict는 특정 선택지가 아니라 엔진 자동
 // 규칙으로 붙는 직업이라 game-data.js엔 없지만 여기엔 포함).
 const OCCUPATIONS_META = [
@@ -691,7 +691,7 @@ function renderMetaGrid(gridEl, progressEl, meta, unlockedIds, progressLabel) {
     const unlocked = unlockedIds.includes(e.id);
     const card = document.createElement('div');
     // 미해금이어도 이름은 그대로 공개한다(2026-08-22, 사용자 지시 - "???" 대신
-    // 이름 표시) - 아이콘만 자물쇠로 가려서 "아직 못 겪었다"는 표시만 남긴다.
+    //  이름 표시) - 아이콘만 자물쇠로 가려서 "아직 못 겪었다"는 표시만 남긴다.
     card.className = 'collection-card' + (unlocked ? '' : ' locked');
     card.innerHTML = '<span class="cc-icon">' + (unlocked ? e.icon : '🔒') + '</span><span class="cc-title">' + escapeHtml(e.title) + '</span>';
     gridEl.appendChild(card);
@@ -700,7 +700,7 @@ function renderMetaGrid(gridEl, progressEl, meta, unlockedIds, progressLabel) {
 }
 
 // 로그인 여부(구글·카카오·스트리머 인증 중 하나) 판별 - users/{uid}는 이
-// 생태계 다른 프로젝트가 이미 쓰는 공유 노드라 그 필드를 그대로 읽는다.
+//  생태계 다른 프로젝트가 이미 쓰는 공유 노드라 그 필드를 그대로 읽는다.
 async function refreshCollectionView() {
   if (!currentUser || !lifePublicId) return;
   const userSnap = await get(ref(sharedDb, 'users/' + currentUser.uid));
@@ -863,18 +863,18 @@ document.getElementById('adminDeletePlaythroughBtn').addEventListener('click', a
   }
 });
 
-// ------------------------------------------------------------
+//  ------------------------------------------------------------
 // 1) 스트리머 검색 - {id,name} 목록을 정적 파일(streamer-names.json, 수동 스크립트로만
-// 갱신)에서 받던 걸 RTDB 파생 노드(streamerNames)로 전환(2026-09) - 새 종목이
+//  갱신)에서 받던 걸 RTDB 파생 노드(streamerNames)로 전환(2026-09) - 새 종목이
 // stocks에 등록돼도 사람이 스크립트를 안 돌리면 검색에 며칠씩 안 나타나는 문제가
-// 반복돼서, /stocks 변경을 감시하는 Cloud Function 트리거(soop-stock-market의
+//  반복돼서, /stocks 변경을 감시하는 Cloud Function 트리거(soop-stock-market의
 // syncStreamerNameOnStockChange)가 이름만 뽑은 가벼운 파생 노드를 자동으로 최신화하게
 // 바꿨다. stocks 노드를 직접 구독하지 않는 이유는 그대로 유효 - 가격·거래량이 거래마다
-// 계속 바뀌는 무거운 노드라 이 검색엔 안 쓰는 필드까지 실시간으로 받게 된다.
-// streamerNamesMeta/updatedAt(작은 값 하나)만 먼저 확인해서 localStorage 캐시와
+//  계속 바뀌는 무거운 노드라 이 검색엔 안 쓰는 필드까지 실시간으로 받게 된다.
+//  streamerNamesMeta/updatedAt(작은 값 하나)만 먼저 확인해서 localStorage 캐시와
 // 같으면 재다운로드 없이 캐시를 그대로 쓰고, 다를 때만 streamerNames 전체를 다시
 // 받는다 - onValue(실시간 구독)는 쓰지 않는다(거래마다 재전송되는 문제 재발 방지).
-// ------------------------------------------------------------
+//  ------------------------------------------------------------
 let allStocks = [];
 const STREAMER_NAMES_CACHE_KEY = 'slgStreamerNamesCache';
 async function loadStreamerNames() {
@@ -902,8 +902,8 @@ function escapeHtml(s) {
   return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
-// wireStreamerSearch(2026-08-28, 56장 D항 - "검색 input+결과 목록을
-// 매개변수화한 함수로 리팩터링해서 재사용" 확정 지시 반영) - 시작화면 검색과
+//  wireStreamerSearch(2026-08-28, 56장 D항 - "검색 input+결과 목록을
+//  매개변수화한 함수로 리팩터링해서 재사용" 확정 지시 반영) - 시작화면 검색과
 // 매수 모달 검색이 완전히 같은 로직(allStocks 필터 → streamer-row 렌더 →
 // 클릭 콜백)을 각자 복사해 쓰던 걸 하나로 합쳤다. onPick(name, id)만
 // 화면마다 다르게 넘기면 된다.
@@ -933,10 +933,10 @@ wireStreamerSearch(searchInput, searchResults, '일치하는 스트리머가 없
 
 // ------------------------------------------------------------
 // 주식 매수 검색 모달(2026-08-28, 56장 D항) - 위 시작화면 검색과 같은
-// allStocks(streamerNames RTDB 파생 노드) 데이터를 재사용하되, 결과 클릭 시
-// selectStreamer가 아니라 pendingStockChoiceId를 채워 submitChoice로
+//  allStocks(streamerNames RTDB 파생 노드) 데이터를 재사용하되, 결과 클릭 시
+//  selectStreamer가 아니라 pendingStockChoiceId를 채워 submitChoice로
 // 이어지는 별도 콜백(selectStockToBuy)으로 분기한다.
-// ------------------------------------------------------------
+//  ------------------------------------------------------------
 const buyStockModal = document.getElementById('buyStockModal');
 const buyStockSearchInput = document.getElementById('buyStockSearchInput');
 const buyStockSearchResults = document.getElementById('buyStockSearchResults');
@@ -975,8 +975,8 @@ async function openBuyStockModal(choiceId) {
   if (stockModalOpening || !choiceId) return;
   stockModalOpening = true;
   pendingStockChoiceId = choiceId;
-  // 주식 선택지가 있는 위치가 화면 아래쪽일 수 있으므로, 클릭 즉시
-  // 페이지를 상단으로 올려 devbar 아래 말풍선 모달을 바로 보여준다.
+  //  주식 선택지가 있는 위치가 화면 아래쪽일 수 있으므로, 클릭 즉시
+  //  페이지를 상단으로 올려 devbar 아래 말풍선 모달을 바로 보여준다.
   window.scrollTo({ top: 0, behavior: 'auto' });
   disableChoiceList();
   buyStockSearchInput.value = '';
@@ -1031,7 +1031,7 @@ async function selectStockToBuy(name, id) {
 // 주식 매도 모달(2026-08-28, 56장 D항) - renderAssetsInto가 5의 배수 나이일
 // 때만 뱃지에 click 리스너를 달아서 여는 화면. submitChoice와 달리 턴을
 // 넘기지 않는 별도 액션(sellStock)이라, 성공 시 응답으로 내려온
-// stats/cashHoldings/assets만 화면에 반영하고 다음 선택지는 그대로 둔다.
+//  stats/cashHoldings/assets만 화면에 반영하고 다음 선택지는 그대로 둔다.
 // ------------------------------------------------------------
 const sellStockModal = document.getElementById('sellStockModal');
 const sellStockTitle = document.getElementById('sellStockTitle');
@@ -1042,8 +1042,8 @@ function openSellStockModal(asset) {
   pendingSellAsset = asset;
   const price = typeof asset.currentPrice === 'number' ? asset.currentPrice : asset.buyPrice;
   const ratio = price / asset.buyPrice;
-  // 매도 시 기본 원금 + 차익×5(2026-08-31, 사용자 지시) - functions/index.js
-  // sellStock의 INVESTMENT_PRINCIPAL_WON·5배 증폭과 반드시 같은 공식 유지.
+  //  매도 시 기본 원금 + 차익×5(2026-08-31, 사용자 지시) - functions/index.js
+  //  sellStock의 INVESTMENT_PRINCIPAL_WON·5배 증폭과 반드시 같은 공식 유지.
   const estimatedProfitWon = Math.round(10000000 * (ratio - 1)) * 5;
   sellStockTitle.textContent = '📈 ' + asset.label + ' 매도';
   sellStockInfo.textContent = '매수가 ' + asset.buyPrice.toLocaleString() + '원 → 현재가 ' + price.toLocaleString() + '원. '
@@ -1131,7 +1131,7 @@ document.getElementById('closeSellPropertyBtn').addEventListener('click', () => 
 });
 
 // 투자 예금상품 해지 모달. 원금을 돌려받고 보유자산에서 제거하므로 이후 턴의
-// 이자 지급도 중단된다. 이미 현금으로 지급된 과거 이자는 그대로 유지한다.
+//  이자 지급도 중단된다. 이미 현금으로 지급된 과거 이자는 그대로 유지한다.
 const sellInterestInvestmentModal = document.getElementById('sellInterestInvestmentModal');
 const sellInterestInvestmentList = document.getElementById('sellInterestInvestmentList');
 function openInterestInvestmentSaleModal(investments) {
@@ -1192,7 +1192,7 @@ document.getElementById('closeSellInterestInvestmentBtn').addEventListener('clic
 // craftProducts를 돌려준다(index.js 참고). 여기서 그 응답으로 모달을 채우고,
 // 완성품을 고를 때마다 craftDiyItem을 별도 호출한다 - 이 호출도 나이를 넘기지
 // 않으므로 모달을 여러 번 오가며 여러 개를 만들 수 있고, 닫은 뒤엔 여전히
-// 같은 #choiceList의 선택지 중 하나를 골라야 실제로 나이가 넘어간다.
+//  같은 #choiceList의 선택지 중 하나를 골라야 실제로 나이가 넘어간다.
 // ------------------------------------------------------------
 const craftDiyModal = document.getElementById('craftDiyModal');
 const craftDiyProductList = document.getElementById('craftDiyProductList');
@@ -1265,11 +1265,11 @@ document.getElementById('closeCraftDiyBtn').addEventListener('click', () => {
   craftDiyModal.classList.add('hidden');
 });
 
-// ------------------------------------------------------------
-// DIY 완성품 판매 모달(63장 C항 4단계, 2026-09-02) - sellStockModal과 완전히
+//  ------------------------------------------------------------
+//  DIY 완성품 판매 모달(63장 C항 4단계, 2026-09-02) - sellStockModal과 완전히
 // 같은 구조. 주식과 달리 5의 배수 나이 제한 없이 언제든 클릭 가능(renderAssetsInto
 // 참고) - 고정가 완성품이라 "적절한 매도 시점" 개념이 없어서.
-// ------------------------------------------------------------
+//  ------------------------------------------------------------
 const sellDiyModal = document.getElementById('sellDiyModal');
 const sellDiyTitle = document.getElementById('sellDiyTitle');
 const sellDiyInfo = document.getElementById('sellDiyInfo');
@@ -1310,20 +1310,20 @@ document.getElementById('confirmSellDiyBtn').addEventListener('click', async () 
 
 // ------------------------------------------------------------
 // 화면 전환 페이드 - 패널이 통째로 바뀌는 모든 지점(검색→이름짓기→게임 시작/
-// 이어하기→다음 구간→엔딩)에서 뚝 끊기지 않고 페이드아웃 후 페이드인 되게
-// 하는 공통 헬퍼. hidden 클래스는 display:none이라 그 자체로는 트랜지션이
-// 안 되므로, 사라질 땐 opacity를 0으로 줄인 뒤에 hidden을 붙이고, 나타날 땐
+//  이어하기→다음 구간→엔딩)에서 뚝 끊기지 않고 페이드아웃 후 페이드인 되게
+//  하는 공통 헬퍼. hidden 클래스는 display:none이라 그 자체로는 트랜지션이
+//  안 되므로, 사라질 땐 opacity를 0으로 줄인 뒤에 hidden을 붙이고, 나타날 땐
 // 반대로 hidden을 먼저 뗀 다음 opacity를 0→1로 올린다.
 // ------------------------------------------------------------
 const REDUCE_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const FADE_MS = REDUCE_MOTION ? 0 : 260;
-// setTimeout 스케줄링은 브라우저 부하에 따라 살짝 밀릴 수 있어, 콘텐츠를
-// 실제로 교체/숨기는 타이밍은 CSS 트랜지션 재생 시간보다 이만큼 더 기다린다 -
-// 트랜지션이 채 안 끝난 상태에서 내용이 바뀌어 보이는 걸 방지.
+//  setTimeout 스케줄링은 브라우저 부하에 따라 살짝 밀릴 수 있어, 콘텐츠를
+//  실제로 교체/숨기는 타이밍은 CSS 트랜지션 재생 시간보다 이만큼 더 기다린다 -
+//  트랜지션이 채 안 끝난 상태에서 내용이 바뀌어 보이는 걸 방지.
 const SWAP_BUFFER_MS = REDUCE_MOTION ? 0 : 100;
 
 // 알츠하이머(causesChoiceFadeout)를 갖고 있으면 선택지가 뜨자마자 10초에
-// 걸쳐 서서히 투명해져 10초 후엔 완전히 안 보이게 된다 - 이건 화면
+//  걸쳐 서서히 투명해져 10초 후엔 완전히 안 보이게 된다 - 이건 화면
 // 전환용 장식이 아니라 실제 게임 난이도(제한 시간)라서, 다른 트랜지션과
 // 달리 prefers-reduced-motion과 무관하게 항상 10초로 고정한다.
 const CHOICE_FADEOUT_MS = 10000;
@@ -1332,11 +1332,11 @@ function fadeOut(els) {
   const visible = els.filter((el) => el && !el.classList.contains('hidden'));
   if (!visible.length) return Promise.resolve();
   return new Promise((resolve) => {
-    // transition 프로퍼티와 opacity 값을 같은 틱에서 같이 바꾸면 크로미움이
+    //  transition 프로퍼티와 opacity 값을 같은 틱에서 같이 바꾸면 크로미움이
     // "이전 상태"를 제대로 커밋하지 못해 트랜지션이 늦게 시작되거나 끝까지
     // 안 끝난 채로 다음 단계로 넘어가는 경우가 있다 - 그래서 먼저 transition을
     // 끈 채로 지금 상태(opacity:1)를 리플로우로 확정한 다음에야 실제 트랜지션을
-    // 건다.
+    //  건다.
     visible.forEach((el) => { el.style.transition = 'none'; el.style.opacity = '1'; });
     void document.body.offsetWidth;
     visible.forEach((el) => {
@@ -1365,7 +1365,7 @@ function fadeIn(els) {
 }
 
 // ------------------------------------------------------------
-// 세계관 상태 패널 (57장, 2026-08-29) - 평소엔 접힌 탭, 펼치면 lifeGame/worldState를
+//  세계관 상태 패널 (57장, 2026-08-29) - 평소엔 접힌 탭, 펼치면 lifeGame/worldState를
 // 1회 조회해 5단계 텍스트 등급으로 표시. 게임 상호작용(선택/주사위) 시 자동으로 닫힘.
 // ------------------------------------------------------------
 const worldStatePanel = document.getElementById('worldStatePanel');
@@ -1385,9 +1385,9 @@ function renderWorldStatePresence(presence) {
 
 // 청렴도/치안 계열 트래커는 rate가 오를수록 실제로는 "부패가 심해짐"/
 // "범죄가 안 잡히고 넘어감"(나쁜 방향)을 뜻하는데, 이름은 '청렴도'·'치안'처럼
-// 긍정적인 지표라 기본 tierLabels(낮음→높음)를 그대로 쓰면 "청렴도: 매우 높음"이
+//  긍정적인 지표라 기본 tierLabels(낮음→높음)를 그대로 쓰면 "청렴도: 매우 높음"이
 // "매우 부패함"을 가리키는 식으로 표시가 뒤집혀 보인다. 이 5개 트래커만
-// tierLabels를 반대로 줘서 rate가 오를수록(부패/범죄방치 심화) 화면엔 "매우
+//  tierLabels를 반대로 줘서 rate가 오를수록(부패/범죄방치 심화) 화면엔 "매우
 // 낮음"으로 향하게 한다(2026-09-01, 사용자 지시).
 const CORRUPTION_STYLE_TIER_LABELS = ['매우 높음', '높음', '보통', '낮음', '매우 낮음'];
 const WORLD_STATE_TRACKERS = [
@@ -1406,11 +1406,11 @@ const WORLD_STATE_TRACKERS = [
   { key: 'startupEcosystemHeat', name: '창업 생태계 열기', pairing: '창업가 ↔ 창업가' },
   { key: 'scamPrevalence', name: '사기 성행도', pairing: '사기꾼 ↔ 지인' },
   { key: 'tourGuideHonesty', name: '여행 가이드 정직도', pairing: '여행가이드 ↔ 관광객' },
-  // 좀비 바이러스(62장, 2026-09-02) - 연구원이 최초로 유출하기 전까진
+  //  좀비 바이러스(62장, 2026-09-02) - 연구원이 최초로 유출하기 전까진
   // lifeGame/worldState에 이 키 자체가 없어 아래 renderWorldStateGrid의
   // "entry 없으면 카드 자체를 안 그림" 로직에 의해 패널에 자동으로 숨겨진다
-  // (원 요청 "좀비 바이러스가 처음으로 생기면 세계관 상태에 해당 스탯이
-  // 표시" 그대로 - 별도 조건 분기 없이 기존 구조로 자연히 충족됨).
+  //  (원 요청 "좀비 바이러스가 처음으로 생기면 세계관 상태에 해당 스탯이
+  //  표시" 그대로 - 별도 조건 분기 없이 기존 구조로 자연히 충족됨).
   // 5단계 라벨도 다른 트래커의 청렴도류 표현과 달리 확산 서사에 맞게
   // 전용 문구로 오버라이드.
   { key: 'zombieOutbreak', name: '좀비 바이러스 확산도', pairing: '연구원 · 군인 ↔ 시민',
@@ -1485,8 +1485,8 @@ worldStateTab.addEventListener('click', () => {
 
 let selectedStreamerId = null;
 const searchSection = document.getElementById('searchSection');
-// 검색 카드에서 분리된 독립 영역(2026-09-09) - searchSection과 항상 표시/숨김을
-// 같이 한다(아래 fadeIn/fadeOut 호출부 전부에 짝지어 추가).
+//  검색 카드에서 분리된 독립 영역(2026-09-09) - searchSection과 항상 표시/숨김을
+//  같이 한다(아래 fadeIn/fadeOut 호출부 전부에 짝지어 추가).
 const reviewSection = document.getElementById('reviewSection');
 const nameSection = document.getElementById('nameSection');
 const nameInput = document.getElementById('nameInput');
@@ -1502,13 +1502,13 @@ document.getElementById('backToSearchBtn').addEventListener('click', async () =>
   searchInput.focus();
 });
 
-// ------------------------------------------------------------
+//  ------------------------------------------------------------
 // 계정당 저장 슬롯 1개 - 창을 껐다 다시 열어도 이어할 수 있게. 매 선택마다
 // 서버가 이미 lifeGame/playthroughs/{uid}에 진행 상태를 저장해두므로
 // (functions/index.js), 여기선 로그인 직후 그 저장이 있는지만 가볍게
 // 직접 읽어서(.read가 본인 uid만 허용) 확인한다 - 함수 호출은 실제로
 // "이어하기"를 누를 때만 한다.
-// ------------------------------------------------------------
+//  ------------------------------------------------------------
 const resumeSection = document.getElementById('resumeSection');
 const resumeInfo = document.getElementById('resumeInfo');
 const resumeBtn = document.getElementById('resumeBtn');
@@ -1517,7 +1517,7 @@ let sigOpeningStarted = false;
 function maybeShowSigOpening() {
   if (sigOpeningStarted || !window.ojmMaybeShowBootSplash) return;
   sigOpeningStarted = true;
-  // 초기 검색/이어하기 화면이 먼저 그려진 뒤 시그니처를 올려, 오프닝 종료 시
+  //  초기 검색/이어하기 화면이 먼저 그려진 뒤 시그니처를 올려, 오프닝 종료 시
   // 사용자가 바로 상호작용할 수 있는 화면이 하위 레이어에 준비되게 한다.
   setTimeout(() => window.ojmMaybeShowBootSplash(() => {}), 80);
 }
@@ -1560,8 +1560,8 @@ resumeBtn.addEventListener('click', async () => {
       renderHobbies(res.data.hobbies);
       renderStage(res.data.stage);
       initAchievementBaseline(res.data);
-      // 이어하기 시점엔 이미 진행 중이던 루트를 "방금 진입"으로 오인해 삽화를
-      // 다시 띄우지 않도록, 보여주지 않고 상태만 기록해둔다.
+      //  이어하기 시점엔 이미 진행 중이던 루트를 "방금 진입"으로 오인해 삽화를
+      //  다시 띄우지 않도록, 보여주지 않고 상태만 기록해둔다.
       lastKnownRouteId = res.data.currentRoute ? res.data.currentRoute.id : null;
       initRouteTheme(res.data.currentRoute);
       enterHostMode();
@@ -1579,7 +1579,7 @@ document.getElementById('restartFreshBtn').addEventListener('click', async () =>
   fadeIn([searchSection, reviewSection]);
 });
 
-// ------------------------------------------------------------
+//  ------------------------------------------------------------
 // 2) 인생 시작 + 3) 선택 진행
 // ------------------------------------------------------------
 const mainHeader = document.getElementById('mainHeader');
@@ -1611,7 +1611,7 @@ const TOAST_MS = 2200;
 let toastTimer = null;
 // PC(마우스 사용 가능 기기)에서는 토스트를 화면 하단 고정 대신 마지막 마우스
 // 위치 근처에 띄운다 - 모바일은 마우스 좌표 자체가 없으므로 기존 하단 고정
-// 위치를 그대로 유지한다.
+//  위치를 그대로 유지한다.
 const IS_MOUSE_DEVICE = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 let lastMouseX = null;
 let lastMouseY = null;
@@ -1642,11 +1642,11 @@ function showToast(message) {
 }
 
 // 좌측 패널 항목 호버 설명(2026-08-24, 사용자 지시 - "이 곳에 표시되는 모든
-// 항목에 마우스를 올리면 설명이 뜨고 마우스를 따라다니게 해줘. 마우스가
-// 벗어나면 다시 사라지게 해줘") - 재산/건강/가족/지인/재능/취미 칩과 스탯 바는
+//  항목에 마우스를 올리면 설명이 뜨고 마우스를 따라다니게 해줘. 마우스가
+//  벗어나면 다시 사라지게 해줘") - 재산/건강/가족/지인/재능/취미 칩과 스탯 바는
 // renderXXX가 innerHTML로 매번 통째로 새로 그려서 개별 엘리먼트에 리스너를
 // 붙이면 재렌더링마다 다시 붙여야 한다. 대신 안 바뀌는 부모(gameLeftPage) 하나에
-// 위임(delegation)해서, data-tooltip 속성이 있는 엘리먼트 위에서만 반응하게
+//  위임(delegation)해서, data-tooltip 속성이 있는 엘리먼트 위에서만 반응하게
 // 한다 - 렌더 함수는 그 속성만 채워주면 되고 리스너를 신경 쓸 필요가 없다.
 const hoverTooltipEl = document.getElementById('hoverTooltip');
 let hoverTooltipTarget = null;
@@ -1691,10 +1691,10 @@ setupHoverTooltips(document.getElementById('gameLeftPage'));
 // - 둘을 공통으로 포함하는 gameSection에 별도로 한 번 더 등록.
 setupHoverTooltips(document.getElementById('gameSection'));
 
-// ------------------------------------------------------------
+//  ------------------------------------------------------------
 // 방송 콘텐츠 백로그 3번째 항목: 복권 1등·2등 대박 축하 이펙트
-// (2026-08-17). 서버가 prizeTable로 등수를 뽑았을 때만 응답에
-// prizeLabel('1등'~'꽝')을 실어주므로, 그 값만 보고 판단한다(딜타 크기로
+//  (2026-08-17). 서버가 prizeTable로 등수를 뽑았을 때만 응답에
+//  prizeLabel('1등'~'꽝')을 실어주므로, 그 값만 보고 판단한다(딜타 크기로
 // 추측하지 않음 - index.js의 resolvedLabel 참고).
 // ------------------------------------------------------------
 const confettiCanvas = document.getElementById('confettiCanvas');
@@ -1749,7 +1749,7 @@ function burstConfetti() {
   requestAnimationFrame(frame);
 }
 
-// Web Audio API로 즉석에서 합성한 짧은 팡파르 - 외부 오디오 파일을 쓰지
+//  Web Audio API로 즉석에서 합성한 짧은 팡파르 - 외부 오디오 파일을 쓰지
 // 않기 위한 선택(저작권 확인 불필요). 브라우저 자동재생 정책상 사용자
 // 클릭(선택지 클릭) 이후 호출되는 경로에서만 쓰므로 문제없다.
 let audioCtx = null;
@@ -1783,20 +1783,20 @@ function playJackpotFanfare() {
   notes.forEach((freq, i) => playTone(ctx, freq, now + i * 0.11, 0.5, 0.12));
 }
 
-// prizeLabel이 1등/2등일 때만 자축 이펙트를 튼다(3~5등·꽝은 평소 결과
-// 박스 톤 차별화만으로 충분 - 매번 컨페티가 뜨면 오히려 특별함이 옅어짐).
+//  prizeLabel이 1등/2등일 때만 자축 이펙트를 튼다(3~5등·꽝은 평소 결과
+//  박스 톤 차별화만으로 충분 - 매번 컨페티가 뜨면 오히려 특별함이 옅어짐).
 function celebrateIfJackpot(prizeLabel) {
   if (prizeLabel !== '1등' && prizeLabel !== '2등') return;
   burstConfetti();
   playJackpotFanfare();
 }
 
-// ------------------------------------------------------------
+//  ------------------------------------------------------------
 // 방송 콘텐츠 백로그 4번째 항목: 즉시 사망 엔딩 5종(collapse·bankruptcy·
 // obscurity·despair·isolation - INSTANT_ENDING_BUILDERS 참고) 진입 시
-// 위기 이펙트(2026-08-17). 이 5개 id는 game-data.js의 build*Ending()이
-// 고정으로 반환하는 값이라 서버 응답을 더 손댈 필요 없이 ending.id만
-// 보고 판단 가능.
+//  위기 이펙트(2026-08-17). 이 5개 id는 game-data.js의 build*Ending()이
+//  고정으로 반환하는 값이라 서버 응답을 더 손댈 필요 없이 ending.id만
+//  보고 판단 가능.
 // ------------------------------------------------------------
 const INSTANT_ENDING_IDS = ['collapse', 'bankruptcy', 'obscurity', 'despair', 'isolation'];
 const crisisFlashEl = document.getElementById('crisisFlash');
@@ -1806,7 +1806,7 @@ function playCrisisWarning() {
   const ctx = getAudioCtx();
   if (!ctx) return;
   const now = ctx.currentTime;
-  // 낮은 음 두 번 - 경고음 느낌의 하강 톤
+  //  낮은 음 두 번 - 경고음 느낌의 하강 톤
   playTone(ctx, 220, now, 0.35, 0.14);
   playTone(ctx, 164.81, now + 0.22, 0.45, 0.14);
 }
@@ -1833,24 +1833,24 @@ function triggerCrisisEffect() {
 
 let pendingNextStage = null;
 
-// 관리자 전용 자동진행(2026-08-31, 사용자 지시 - "관리자 uid일때 자동진행
+//  관리자 전용 자동진행(2026-08-31, 사용자 지시 - "관리자 uid일때 자동진행
 // 토글 버튼이 보이고, 켜면 0~100세까지 자동으로 진행되는걸 지켜볼수 있게
 // 해줘. 진행속도 조절 가능하게 해줘. 속도는 최소 5초~최대 60초로 해줘.")
 //
 // 관리자가 화면 앞에서 진행 상황을 보는 기능이라 서버 함수나 별도 RTDB
-// 설정 없이 이미 있는 submitChoice/rollDice를 일정 간격으로 자동 호출한다.
+//  설정 없이 이미 있는 submitChoice/rollDice를 일정 간격으로 자동 호출한다.
 //
 // pickChoice/rollDice는 실패 시 alert()로 사용자에게 알리고 조용히 멈추는
-// 구조(화면 앞의 사람이 다시 누르는 걸 전제)라, 자동진행 루프는 "다음 상태로
+//  구조(화면 앞의 사람이 다시 누르는 걸 전제)라, 자동진행 루프는 "다음 상태로
 // 넘어갔는지"를 별도로 감지해야 한다. renderStage/applyOutcome/showEnding
 // 세 곳에 한 줄씩 이벤트 훅을 심어(autoPlayEmit) 언제 다음 턴을 진행해도
 // 안전한지 이벤트 기반으로 판단한다 - FADE_MS 같은 타이밍 상수를 추측해서
 // setTimeout으로 흉내 내면 트랜지션 시간이 바뀔 때마다 같이 깨지기 쉽다.
 let autoPlayEnabled = false;
 let autoPlaySpeedSec = 15;
-// 결과 문구를 읽을 최소 시간(2026-09-01, 사용자 지시) - 속도 슬라이더(다음
+//  결과 문구를 읽을 최소 시간(2026-09-01, 사용자 지시) - 속도 슬라이더(다음
 // "턴"까지의 간격)와는 별개로, 선택 직후 뜨는 결과 문구를 다음으로 넘기기
-// 전에 최소 이만큼은 화면에 붙잡아둔다.
+//  전에 최소 이만큼은 화면에 붙잡아둔다.
 const AUTO_PLAY_RESULT_READ_MS = 2000;
 let autoPlayRunning = false;
 let autoPlayTimerHandle = null;
@@ -1860,10 +1860,10 @@ let autoPlayRestartOnEnding = false;
 const autoPlayWaiters = { outcome: [], ending: [], stage: [] };
 
 // 선호 직업 목록(2026-09-01, 사용자 지시) - 도감에 이미 쓰고 있는 ROUTES_META를
-// 그대로 재사용한다(새 목록을 따로 관리하면 나중에 루트가 추가될 때마다
+//  그대로 재사용한다(새 목록을 따로 관리하면 나중에 루트가 추가될 때마다
 // 둘 다 갱신해야 하는 번거로움이 생김). prison/red-handed/vehicle-thief/
 // romance는 "노려서 가는 진로"가 아니라 일탈의 결과·관계 상태라 선택지에서
-// 뺀다.
+//  뺀다.
 const AUTO_PLAY_ROUTE_EXCLUDE_IDS = ['prison', 'red-handed', 'vehicle-thief', 'romance'];
 if (autoPlayRouteSelect) {
   ROUTES_META.filter((r) => !AUTO_PLAY_ROUTE_EXCLUDE_IDS.includes(r.id)).forEach((r) => {
@@ -1896,7 +1896,7 @@ function autoPlayWaitFor(types, timeoutMs) {
 function renderAdminAutoPlayVisibility() {
   if (!adminAutoPlayPanel) return;
   adminAutoPlayPanel.classList.toggle('hidden', !isAdminUser);
-  // 관리자가 아니게 되거나 판정이 늦게 뒤집힌 경우를 대비해, 패널이 숨겨지면
+  //  관리자가 아니게 되거나 판정이 늦게 뒤집힌 경우를 대비해, 패널이 숨겨지면
   // 자동진행도 같이 끈다.
   if (!isAdminUser && autoPlayEnabled) setAutoPlayEnabled(false);
 }
@@ -1917,9 +1917,9 @@ function scheduleAutoPlayTick(delayMs) {
 }
 
 // 선호 직업(2026-09-01) - startsRouteId/setsOccupationId는 wantAdminHints를
-// 실어 보낼 때만 서버가 얹어준다(functions/index.js의 publicStage 참고).
-// 우선순위: (1) 이미 선호 루트에 있는데 승진(직업 변경) 선택지가 보이면
-// 사다리를 놓치지 않게 최우선 선택 (2) 선호 루트로 진입하는 선택지가 보이면
+//  실어 보낼 때만 서버가 얹어준다(functions/index.js의 publicStage 참고).
+//  우선순위: (1) 이미 선호 루트에 있는데 승진(직업 변경) 선택지가 보이면
+//  사다리를 놓치지 않게 최우선 선택 (2) 선호 루트로 진입하는 선택지가 보이면
 // 최우선 선택 (3) 이미 선호 루트에 있다면 다른 루트로 갈아타는 선택지는
 // 후보에서 제외 (4) 그 외엔 기존과 동일하게 균등 랜덤.
 function pickAutoPlayChoice(stage) {
@@ -1951,8 +1951,8 @@ function pickAutoPlayChoice(stage) {
 // 엔딩 도달 시 재시작(2026-09-01) - restartBtn(엔딩 화면의 "새 인생 시작하기")은
 // window.location.reload()라 자동진행 상태가 전부 날아간다. 대신 startBtn
 // 클릭 핸들러와 같은 절차(startPlaythroughFn → 화면 갱신 → renderStage)를
-// endingSection 기준으로 다시 밟아, 페이지를 새로고침하지 않고도 다음 생으로
-// 넘어간다. 이름은 매번 allStocks에서 무작위로 골라 다양한 인생을 본다.
+//  endingSection 기준으로 다시 밟아, 페이지를 새로고침하지 않고도 다음 생으로
+//  넘어간다. 이름은 매번 allStocks에서 무작위로 골라 다양한 인생을 본다.
 async function autoPlayStartFreshLife() {
   const pick = allStocks.length ? allStocks[Math.floor(Math.random() * allStocks.length)] : null;
   const streamerName = pick ? pick.name : '자동진행';
@@ -2005,9 +2005,9 @@ async function autoPlayTick() {
       extra.stockName = stock.name;
     }
     const submitted = await pickChoice(choice.id, extra);
-    // 현금 부족 등으로 선택이 아예 거부된 경우(2026-09-02, 사용자 지시 -
-    // "현금부족 등 선택지 결정을 못한 경우가 발생하면 1초후 다시 랜덤선택")
-    // - pickChoice가 이미 토스트로 알렸고 outcomePromise는 이 시도에 대해선
+    //  현금 부족 등으로 선택이 아예 거부된 경우(2026-09-02, 사용자 지시 -
+    //  "현금부족 등 선택지 결정을 못한 경우가 발생하면 1초후 다시 랜덤선택")
+    //  - pickChoice가 이미 토스트로 알렸고 outcomePromise는 이 시도에 대해선
     // 영영 안 풀리니(응답이 없어 20초 타임아웃으로 자동진행이 아예 꺼지던
     // 문제), 여기서 조기 리턴해 1초 뒤 새로 랜덤 선택을 다시 시도한다.
     // outcomePromise는 그냥 버려둔다 - 아무도 기다리지 않으므로 나중에
@@ -2038,15 +2038,15 @@ async function autoPlayTick() {
     }
     return;
   }
-  // outcome === 'outcome' - applyOutcome이 끝나 결과 문구가 막 떠서 아직
+  //  outcome === 'outcome' - applyOutcome이 끝나 결과 문구가 막 떠서 아직
   // 아무도 안 읽은 상태. 곧바로 다음으로 넘기면 결과를 읽을 새도 없이
-  // 지나가 버리니(2026-09-01, 사용자 지시 - "결과문구가 나오고 바로
-  // 다음버튼을 눌러 스킵하는거같은데 2초정도 여유를 둬서 결과문구를
+  //  지나가 버리니(2026-09-01, 사용자 지시 - "결과문구가 나오고 바로
+  //  다음버튼을 눌러 스킵하는거같은데 2초정도 여유를 둬서 결과문구를
   // 읽을수있게") 속도 슬라이더와 별개로 고정 2초를 기다린다.
   await new Promise((resolve) => setTimeout(resolve, AUTO_PLAY_RESULT_READ_MS));
   if (!autoPlayEnabled) { autoPlayRunning = false; return; }
   // 사람이 누르는 것과 똑같이 nextBtn을 클릭해서 넘어간다(멀티플레이 미러
-  // 갱신 등 그 클릭 핸들러의 다른 부수효과까지 그대로 탄다).
+  //  갱신 등 그 클릭 핸들러의 다른 부수효과까지 그대로 탄다).
   const stageReadyPromise = autoPlayWaitFor(['stage'], 10000);
   nextBtn.click();
   await stageReadyPromise;
@@ -2105,7 +2105,7 @@ function renderStatBars(el, stats) {
 // 준다(2026-08-17, 방송 콘텐츠 백로그 2번째 항목 - "+1이든 +25든 똑같이
 // 부드럽게 바뀌기만 해서 큰 사건이라는 느낌이 안 남"). renderStatBars() 직후
 // 호출해야 한다 - renderStatBars가 innerHTML을 통째로 새로 그리기 때문에
-// 애니메이션 클래스는 항상 그다음에 얹는다.
+//  애니메이션 클래스는 항상 그다음에 얹는다.
 const STAT_PULSE_THRESHOLD = 5;
 function flashStatChanges(el, deltas) {
   if (!deltas) return;
@@ -2124,11 +2124,11 @@ const cashHoldingsEl = document.getElementById('cashHoldings');
 const endingCashHoldingsEl = document.getElementById('endingCashHoldings');
 
 // ------------------------------------------------------------
-// 인생 종합 점수 선그래프(2026-08-18, 사용자 지시 - "엔딩에 도달했을때 인생
-// 종합 점수를 선그래프로 볼수있는 기능을 추가하고 싶어"). 서버가 choiceLog
+//  인생 종합 점수 선그래프(2026-08-18, 사용자 지시 - "엔딩에 도달했을때 인생
+//  종합 점수를 선그래프로 볼수있는 기능을 추가하고 싶어"). 서버가 choiceLog
 // 각 항목에 그 선택 직후의 다섯 스탯 스냅샷을 실어 choiceHistory로 내려주면
 // (functions/index.js buildChoiceHistory), 그 다섯 스탯의 평균을 "종합
-// 점수"(0~100)로 계산해 나이순으로 이은 선그래프를 그린다. 차트 라이브러리
+//  점수"(0~100)로 계산해 나이순으로 이은 선그래프를 그린다. 차트 라이브러리
 // 없이(번들러 없는 정적 HTML 원칙) Canvas 2D로 직접 그린다.
 // ------------------------------------------------------------
 const scoreChartEl = document.getElementById('scoreChart');
@@ -2179,14 +2179,14 @@ function renderScoreChart(canvas, summaryEl, choiceHistory) {
   const ageSpan = Math.max(1, maxAge - minAge);
   const xFor = (age) => padL + ((age - minAge) / ageSpan) * plotW;
 
-  // Y축 자동 확대(2026-09-08, 사용자 지시 "인생그래프의 변동폭도 크게
-  // 그려줘") - compositeScore가 5개 스탯 평균이라 개별 스탯보다도 변동폭이
-  // 더 눌린다(각자 따로 출렁여도 평균 내면 서로 상쇄). 실제 값은 하나도
+  //  Y축 자동 확대(2026-09-08, 사용자 지시 "인생그래프의 변동폭도 크게
+  //  그려줘") - compositeScore가 5개 스탯 평균이라 개별 스탯보다도 변동폭이
+  //  더 눌린다(각자 따로 출렁여도 평균 내면 서로 상쇄). 실제 값은 하나도
   // 안 건드리고, 고정 0~100 축 대신 "이 판에서 실제로 나온 최고~최저 점수"
   // 구간만 세로로 꽉 채워서 그린다 - 같은 데이터라도 축소된 범위에 맞춰
-  // 그리면 진짜로 출렁인 굴곡이 훨씬 커 보인다(수치 왜곡 없이 순수 시각화
-  // 확대). 거의 안 움직인 판(범위가 아주 좁음)은 5점 미만 스케일로 확대하면
-  // 그냥 노이즈처럼 지그재그로 보이므로 최소 폭 10점을 보장한다.
+  //  그리면 진짜로 출렁인 굴곡이 훨씬 커 보인다(수치 왜곡 없이 순수 시각화
+  //  확대). 거의 안 움직인 판(범위가 아주 좁음)은 5점 미만 스케일로 확대하면
+  //  그냥 노이즈처럼 지그재그로 보이므로 최소 폭 10점을 보장한다.
   let rawMin = points[0].score, rawMax = points[0].score;
   points.forEach((p) => {
     if (p.score < rawMin) rawMin = p.score;
@@ -2197,7 +2197,7 @@ function renderScoreChart(canvas, summaryEl, choiceHistory) {
   let axisMin = (rawMin + rawMax) / 2 - span / 2;
   let axisMax = (rawMin + rawMax) / 2 + span / 2;
   // 여유 없이 딱 붙여 그리면 최고/최저 점 위쪽·아래쪽이 축 끝에 잘려 보이므로
-  // 위아래 10%씩 숨쉴 틈을 더한 뒤 0~100 경계 밖으로는 못 나가게 자른다.
+  //  위아래 10%씩 숨쉴 틈을 더한 뒤 0~100 경계 밖으로는 못 나가게 자른다.
   const breathing = span * 0.1;
   axisMin = Math.max(0, axisMin - breathing);
   axisMax = Math.min(100, axisMax + breathing);
@@ -2226,7 +2226,7 @@ function renderScoreChart(canvas, summaryEl, choiceHistory) {
   const endLabel = maxAge + '세';
   ctx.fillText(endLabel, padL + plotW - ctx.measureText(endLabel).width, cssHeight - 4);
 
-  // 선 아래 옅은 채움
+  //  선 아래 옅은 채움
   ctx.beginPath();
   ctx.moveTo(xFor(points[0].age), yFor(points[0].score));
   points.forEach((p) => ctx.lineTo(xFor(p.age), yFor(p.score)));
@@ -2266,9 +2266,9 @@ function renderScoreChart(canvas, summaryEl, choiceHistory) {
     Math.round(trough.score) + '점(' + trough.age + '세)';
 }
 
-// canvas 2D API는 color-mix()를 못 받아서, "gold를 옅게 깐 채움색"만 간단히
+//  canvas 2D API는 color-mix()를 못 받아서, "gold를 옅게 깐 채움색"만 간단히
 // rgba로 근사한다(정확한 색 변환보다 "옅게 보이는지"가 중요한 배경 채움이라
-// 이 정도 근사로 충분).
+//  이 정도 근사로 충분).
 function mixGoldAlpha(hex, alpha) {
   const m = /^#([0-9a-f]{6})$/i.exec(hex.trim());
   if (!m) return 'rgba(212,162,76,' + alpha + ')';
@@ -2291,11 +2291,11 @@ function renderCashHoldings(el, won) {
   el.textContent = formatCashHoldings(won);
 }
 
-// 주식 매수 선택 불가 처리(2026-08-31, 사용자 지시 - "주식 매수에 필요한 비용을
+//  주식 매수 선택 불가 처리(2026-08-31, 사용자 지시 - "주식 매수에 필요한 비용을
 // 1천만원으로 수정하고, 부족하면 선택이 안되게 해줘") - functions/index.js의
-// cashUnitForAge/INVESTMENT_PRINCIPAL_WON과 반드시 같은 값 유지. 서버도 최종
+//  cashUnitForAge/INVESTMENT_PRINCIPAL_WON과 반드시 같은 값 유지. 서버도 최종
 // 검증은 하지만(요청 위변조 방어), 여기서는 애초에 못 고르게 막아 헛클릭을
-// 줄인다. 어느 종목을 고르든 비용은 나이에만 좌우돼 종목 선택 전에도
+//  줄인다. 어느 종목을 고르든 비용은 나이에만 좌우돼 종목 선택 전에도
 // 계산 가능하다.
 const STOCK_INVESTMENT_PRINCIPAL_WON = 10000000;
 function cashUnitForAgeClient(age) {
@@ -2312,11 +2312,11 @@ function stockInvestmentCostWon(age) {
 }
 
 // 재산 목록("현재 재산 상세") - 선택지가 addAsset/removeAsset을 붙이면 서버가
-// 갱신해서 내려주는 assets를 그대로 표시만 한다(건강/가족 상세와 동일 패턴).
-// container를 받아서 진행 화면(#assets)과 엔딩 화면(#endingAssets) 양쪽에
+//  갱신해서 내려주는 assets를 그대로 표시만 한다(건강/가족 상세와 동일 패턴).
+//  container를 받아서 진행 화면(#assets)과 엔딩 화면(#endingAssets) 양쪽에
 // 재사용한다.
 // 재산 자산 종류(2026-08-24, 호버 설명용) - functions/game-data.js의
-// addAsset.type과 그대로 대응(realestate/movable/cash/insurance/vehicle).
+//  addAsset.type과 그대로 대응(realestate/movable/cash/insurance/vehicle).
 const ASSET_TYPE_LABELS = {
   realestate: '🏠 부동산',
   movable: '📦 동산',
@@ -2327,8 +2327,8 @@ const ASSET_TYPE_LABELS = {
   'hardware-tool': '🔨 연장',
   'diy-craft': '🪵 손수 만든 물건'
 };
-// 임대사업 연소득(2026-08-31, 사용자 지시 - "오피스텔 자산 위에 마우스
-// 올리면 연소득 얼마짜리인지 알게 해줘") - functions/index.js의
+//  임대사업 연소득(2026-08-31, 사용자 지시 - "오피스텔 자산 위에 마우스
+//  올리면 연소득 얼마짜리인지 알게 해줘") - functions/index.js의
 // RENTAL_INCOME_BY_ASSET_ID와 반드시 같은 값 유지.
 const RENTAL_INCOME_BY_ASSET_ID = { 'commercial-unit': 5000000, 'studio-unit': 3000000 };
 // 보험료 연간 지출(2026-08-31, 사용자 지시 - "보험 자산도 연간 얼마 지출인지
@@ -2336,8 +2336,8 @@ const RENTAL_INCOME_BY_ASSET_ID = { 'commercial-unit': 5000000, 'studio-unit': 3
 // 같은 값 유지.
 const INSURANCE_PREMIUM_WON = 2000000;
 // currentAge(2026-08-28, 56장 D항 - 주식 자산 전용)를 옵션으로 받는다 - 절대
-// 나이가 5의 배수일 때만 주식 뱃지를 클릭 가능하게(매도 모달 오픈) 만들어야
-// 해서, 이 함수가 "지금 몇 살인지"를 알아야 한다. 다른 자산 종류는 그대로
+//  나이가 5의 배수일 때만 주식 뱃지를 클릭 가능하게(매도 모달 오픈) 만들어야
+//  해서, 이 함수가 "지금 몇 살인지"를 알아야 한다. 다른 자산 종류는 그대로
 // textContent만 쓰던 예전 동작 그대로다.
 function renderAssetsInto(container, assets, currentAge) {
   container.innerHTML = '';
@@ -2373,9 +2373,9 @@ function renderAssetsInto(container, assets, currentAge) {
       chip.innerHTML = escapeHtml(asset.label) + ' <span class="asset-chip-delta ' + (up ? 'up' : 'down') + '">' + (up ? '▲' : '▼') + '</span>';
       chip.dataset.tooltip = asset.label + ' — 매입가 ' + buyPrice.toLocaleString() + '원 · 현재가 ' + price.toLocaleString() + '원';
     } else if (asset.stolen) {
-      // 도난 차량 신고(2026-08-30, 60장, 사용자 지시 - "피해자는 '차(절도
-      // 당함)' 자산을 클릭해 경찰에 신고 가능") - 별도 모달 없이 확인창 +
-      // 즉시 호출로 처리. 성공/실패 모두 renderAssets를 다시 호출해
+      //  도난 차량 신고(2026-08-30, 60장, 사용자 지시 - "피해자는 '차(절도
+      //  당함)' 자산을 클릭해 경찰에 신고 가능") - 별도 모달 없이 확인창 +
+      //  즉시 호출로 처리. 성공/실패 모두 renderAssets를 다시 호출해
       // 라벨(원상복구 또는 그대로)이 바로 반영되게 한다.
       chip.classList.add('stolen', 'clickable');
       chip.textContent = asset.label;
@@ -2432,15 +2432,15 @@ function renderAssets(assets, ageRange) {
 const healthConditionsEl = document.getElementById('healthConditions');
 const endingHealthConditionsEl = document.getElementById('endingHealthConditions');
 
-// renderStage()가 "지금 알츠하이머(causesChoiceFadeout)가 있는지" 알 수 있게
+//  renderStage()가 "지금 알츠하이머(causesChoiceFadeout)가 있는지" 알 수 있게
 // 최신 healthConditions를 따로 기억해둔다 - applyOutcome()에서 다음 구간
-// 데이터를 미리 받아도 실제 renderStage() 호출은 "다음" 버튼을 눌러 페이드
-// 전환이 끝난 뒤에야 일어나므로, 그 사이에도 값이 남아있어야 한다.
+//  데이터를 미리 받아도 실제 renderStage() 호출은 "다음" 버튼을 눌러 페이드
+//  전환이 끝난 뒤에야 일어나므로, 그 사이에도 값이 남아있어야 한다.
 let currentHealthConditions = [];
 
 // 부상·질병 목록("현재 건강 상세") - 선택지가 addCondition/removeCondition을
 // 붙이면 서버가 갱신해서 내려주는 healthConditions를 그대로 표시만 한다.
-// container를 받아서 진행 화면(#healthConditions)과 엔딩 화면
+//  container를 받아서 진행 화면(#healthConditions)과 엔딩 화면
 // (#endingHealthConditions) 양쪽에 재사용한다(2026-08-18, 사용자 지시 -
 // 엔딩 화면에 "현재 건강 상세"가 안 보인다는 제보로 추가 - 원래는 재산·가족·
 // 지인·직업 이력과 달리 건강 상세만 엔딩 화면용 패널이 없이 설계돼 있었다).
@@ -2473,10 +2473,10 @@ const familyMembersEl = document.getElementById('familyMembers');
 // 가족 목록("현재 가족 상세") - 선택지가 addFamilyMembers/removeFamilyMembers를
 // 붙이면 서버가 갱신해서 내려주는 familyMembers를 그대로 표시만 한다(건강 상세와
 // 동일 패턴). container를 받아서 진행 화면(#familyMembers)과 엔딩 화면
-// (#endingFamilyMembers) 양쪽에 재사용한다.
+//  (#endingFamilyMembers) 양쪽에 재사용한다.
 // "OO세부터" 접미사(2026-08-24, 호버 설명용) - 가족/지인/재능/취미가 모두
-// sinceStageId(예: 'teen-14')를 갖고 있어서, 끝의 나이 숫자만 뽑아 공통으로
-// 쓴다. 형식이 안 맞거나 없으면(옛 저장분 등) 빈 문자열로 조용히 생략.
+//  sinceStageId(예: 'teen-14')를 갖고 있어서, 끝의 나이 숫자만 뽑아 공통으로
+//  쓴다. 형식이 안 맞거나 없으면(옛 저장분 등) 빈 문자열로 조용히 생략.
 function sinceAgeSuffix(stageId) {
   if (!stageId) return '';
   const m = /-(\d+)$/.exec(stageId);
@@ -2507,7 +2507,7 @@ const acquaintancesEl = document.getElementById('acquaintances');
 
 // 지인 목록("현재 지인 상세") - 가족 상세와 거의 같은 패턴이지만, 가족은 고정
 // 역할명(label)만 보여주면 되는 반면 지인은 관계(label)와 실제 이름(name, 서버가
-// stocks 노드에서 무작위로 뽑아 내려줌)을 같이 보여준다.
+//  stocks 노드에서 무작위로 뽑아 내려줌)을 같이 보여준다.
 function renderAcquaintancesInto(container, acquaintances) {
   container.innerHTML = '';
   if (!acquaintances || !acquaintances.length) {
@@ -2534,8 +2534,8 @@ const hobbiesEl = document.getElementById('hobbies');
 
 // 재능·취미 목록("나의 재능"·"나의 취미", 2026-08-21 사용자 설계 - 17장) - 지인
 // 상세와 거의 같은 패턴이지만 실제 이름이 없어 label만 보여준다(가족 상세와
-// 동일). 제거 필드가 없어(applyChoice 참고) 한 번 생기면 그 판이 끝날 때까지
-// 계속 유지된다.
+//  동일). 제거 필드가 없어(applyChoice 참고) 한 번 생기면 그 판이 끝날 때까지
+//  계속 유지된다.
 function renderTalentsInto(container, talents) {
   container.innerHTML = '';
   if (!talents || !talents.length) {
@@ -2579,7 +2579,7 @@ function renderHobbies(hobbies) {
 
 const currentOccupationEl = document.getElementById('currentOccupation');
 
-// 현재 직업("현재 직업 상세") - 건강/가족과 달리 동시에 하나뿐이라 목록이 아니라
+//  현재 직업("현재 직업 상세") - 건강/가족과 달리 동시에 하나뿐이라 목록이 아니라
 // 값 하나만 보여준다. 서버가 choiceLog에서 다시 계산해 내려주는 currentOccupation
 // (없으면 null)을 그대로 표시만 한다.
 function renderCurrentOccupation(occupation) {
@@ -2595,9 +2595,9 @@ function renderCurrentOccupation(occupation) {
   }
 }
 
-// 직업 이력("지금까지의 직업 이력") - 엔딩 화면에서만 보여준다. 선택 요약
-// (#choiceHistoryList)과 같은 "나이 + 텍스트" 행 스타일(.choice-history-item)을
-// 그대로 재사용한다.
+//  직업 이력("지금까지의 직업 이력") - 엔딩 화면에서만 보여준다. 선택 요약
+//  (#choiceHistoryList)과 같은 "나이 + 텍스트" 행 스타일(.choice-history-item)을
+//  그대로 재사용한다.
 function renderOccupationHistoryInto(container, history) {
   container.innerHTML = '';
   if (!history || !history.length) {
@@ -2617,7 +2617,7 @@ function renderOccupationHistoryInto(container, history) {
 const currentLocationEl = document.getElementById('currentLocation');
 
 // 현재 장소("현재 장소") - 직업과 완전히 같은 패턴이지만, 값이 항상 있다는 점만
-// 다르다(초기값은 서버가 내려주는 DEFAULT_LOCATION='국내' - 2026-08-18, 사용자
+//  다르다(초기값은 서버가 내려주는 DEFAULT_LOCATION='국내' - 2026-08-18, 사용자
 // 지시 "초기는 무조건 국내로 시작"). 아직 이 값을 바꾸는 선택지는 없지만
 // (추후 해외 여행·이민·노동 콘텐츠 추가 예정), 표시 로직만 미리 마련해둔다.
 function renderCurrentLocation(location) {
@@ -2627,7 +2627,7 @@ function renderCurrentLocation(location) {
     (location && location.ageRange ? ' (' + location.ageRange + '부터)' : '');
 }
 
-// 장소 이력("지금까지 머문 장소") - 엔딩 화면에서만 보여준다. 직업 이력과
+//  장소 이력("지금까지 머문 장소") - 엔딩 화면에서만 보여준다. 직업 이력과
 // 완전히 같은 렌더 방식.
 function renderLocationHistoryInto(container, history) {
   container.innerHTML = '';
@@ -2649,9 +2649,9 @@ let choiceFadeoutTimer = null;
 
 // 알츠하이머(causesChoiceFadeout)가 있으면 방금 채워 넣은 선택지들이 뜨자마자
 // 10초에 걸쳐 서서히 투명해진다(10초 후 opacity 0). 조건이 없으면 예전에
-// 남아있을 수 있는 스타일을 지워서 항상 정상적으로 다시 보이게 한다.
+//  남아있을 수 있는 스타일을 지워서 항상 정상적으로 다시 보이게 한다.
 // transition과 opacity를 같은 틱에서 같이 바꾸면 트랜지션이 늦게 시작되는
-// 문제가 있어(다른 페이드에서 이미 겪음), 여기서도 먼저 리플로우로 "보임"
+//  문제가 있어(다른 페이드에서 이미 겪음), 여기서도 먼저 리플로우로 "보임"
 // 상태를 확정한 뒤에야 실제 페이드아웃을 건다.
 function applyAlzheimersFadeout() {
   clearTimeout(choiceFadeoutTimer);
@@ -2693,7 +2693,7 @@ function renderStage(stage) {
     rollBtn.className = 'dice-btn primary';
     rollBtn.textContent = '🎲 주사위 굴리기';
     // rollDice(extra)로 바뀌었으니(2026-09-01, 자동진행 선호 직업용
-    // wantAdminHints 전달) click 이벤트 객체가 그대로 extra로 흘러들어가지
+    //  wantAdminHints 전달) click 이벤트 객체가 그대로 extra로 흘러들어가지
     // 않게 인자 없이 명시적으로 호출한다.
     rollBtn.addEventListener('click', () => rollDice());
     choiceList.appendChild(rollBtn);
@@ -2710,13 +2710,13 @@ function renderStage(stage) {
     btn.className = 'choice-btn';
     btn.dataset.choiceId = choice.id;
     btn.textContent = choice.text;
-    // requiresStockPurchase(2026-08-28, 56장 D항) - 곧바로 제출하지 않고
+    //  requiresStockPurchase(2026-08-28, 56장 D항) - 곧바로 제출하지 않고
     // 종목 검색 모달을 먼저 띄운다. 모달에서 종목을 고른 뒤에야 실제
-    // submitChoice가 나간다(openBuyStockModal 참고).
+    //  submitChoice가 나간다(openBuyStockModal 참고).
     // 현금 부족 시 애초에 선택 불가(2026-08-31, 사용자 지시 - "부족하면 선택이
     // 안되게 해줘") - 어느 종목을 고르든 비용은 나이에만 좌우돼 모달을 열기
-    // 전에도 계산 가능하다. 서버(submitChoice)도 최종 검증은 그대로 하니
-    // 이건 헛클릭 방지용 - 위변조된 요청이 와도 서버가 다시 막는다.
+    //  전에도 계산 가능하다. 서버(submitChoice)도 최종 검증은 그대로 하니
+    //  이건 헛클릭 방지용 - 위변조된 요청이 와도 서버가 다시 막는다.
     if (choice.requiresStockPurchase) {
       const age = parseInt(stage.ageRange, 10);
       const cost = stockInvestmentCostWon(age);
@@ -2730,8 +2730,8 @@ function renderStage(stage) {
     } else if (choice.opensCraftModal) {
       // opensCraftModal(63장 C항 3단계) - 곧바로 submitChoice로 나이를 넘기지
       // 않고, 제작 모달부터 연다(openCraftDiyModal 참고). 이 선택지는 나이
-      // 진행 없이 여러 번 다시 골라도 무방하므로 pickChoice와 달리
-      // disableChoiceList를 부르지 않는다.
+      //  진행 없이 여러 번 다시 골라도 무방하므로 pickChoice와 달리
+      //  disableChoiceList를 부르지 않는다.
       btn.addEventListener('click', () => openCraftDiyModal(choice.id));
     } else {
       btn.addEventListener('click', () => pickChoice(choice.id));
@@ -2773,7 +2773,7 @@ startBtn.addEventListener('click', async () => {
   }
 });
 
-// 결과 박스 색상 차별화 - deltas의 순합으로 이번 선택이 전체적으로 득이었는지
+//  결과 박스 색상 차별화 - deltas의 순합으로 이번 선택이 전체적으로 득이었는지
 // 실이었는지 판정해 결과 박스 톤을 다르게 준다(2026-08-17, 사용자 지시 -
 // "방송으로써 아쉬운 부분" 점검에서 나온 "결과가 좋은지 나쁜지 색으로도
 // 구분이 안 됨" 항목). 완벽한 판단은 아니고(스탯 5종을 그냥 더한 값이라
@@ -2787,12 +2787,12 @@ function resultTone(deltas) {
 }
 
 // submitChoice/rollDice 응답을 공통으로 처리 - 결과 텍스트 반영, 완료 시 엔딩
-// 화면으로, 아니면 "다음" 버튼을 보여준다.
-// 방송 콘텐츠 백로그 5번째 항목: 사별·이혼처럼 감정적 무게가 큰 선택지는
+//  화면으로, 아니면 "다음" 버튼을 보여준다.
+//  방송 콘텐츠 백로그 5번째 항목: 사별·이혼처럼 감정적 무게가 큰 선택지는
 // 다른 밝은 이벤트와 같은 속도로 넘어가면 어긋나 보여서, 화면 채도를
-// 낮추고 천천히 되돌아오는 톤다운 효과를 준다(2026-08-17). 이 6개는
-// game-data.js에서 removeFamilyMembers로 사망·이혼을 표현하는 선택지
-// 전부(father/mother-passes-away·choosing-divorce·losing-a-parent·
+//  낮추고 천천히 되돌아오는 톤다운 효과를 준다(2026-08-17). 이 6개는
+//  game-data.js에서 removeFamilyMembers로 사망·이혼을 표현하는 선택지
+//  전부(father/mother-passes-away·choosing-divorce·losing-a-parent·
 // parent-passing-50s·spouse-passes-away) - id가 고정값이라 서버 응답에
 // 별도 필드 없이 selectedChoiceId만으로 판단 가능.
 const EMOTIONAL_TONEDOWN_IDS = ['father-passes-away', 'mother-passes-away', 'choosing-divorce', 'losing-a-parent', 'parent-passing-50s', 'spouse-passes-away'];
@@ -2807,10 +2807,10 @@ function applyTonedownIfNeeded(selectedChoiceId) {
 
 // ------------------------------------------------------------
 // 방송 콘텐츠 백로그 6번째 항목: 재산 획득·승진/전직·새 가족·건강 회복
-// 이벤트를 작은 배지 팝업 + 짧은 사운드로 알린다(2026-08-17). 서버는
+//  이벤트를 작은 배지 팝업 + 짧은 사운드로 알린다(2026-08-17). 서버는
 // "지금 상태"만 내려주고 "이번에 뭐가 바뀌었는지"는 안 알려주므로,
-// 직전 상태를 클라이언트가 따로 기억해뒀다가 diff로 판단한다.
-// ------------------------------------------------------------
+//  직전 상태를 클라이언트가 따로 기억해뒀다가 diff로 판단한다.
+//  ------------------------------------------------------------
 const achievementPopupsEl = document.getElementById('achievementPopups');
 let prevAssetIds = [];
 let prevFamilyIds = [];
@@ -2836,7 +2836,7 @@ function showAchievementBadge(icon, text) {
 
 // 재시작·이어하기 시점의 "이미 갖고 있던" 상태를 기준점으로 잡아둔다 -
 // 안 그러면 이어하기 직후 첫 선택에서 원래 있던 자산·가족까지 "새로
-// 얻었다"고 오판할 수 있다.
+//  얻었다"고 오판할 수 있다.
 function initAchievementBaseline(data) {
   prevAssetIds = (data.assets || []).map((a) => a.id);
   prevFamilyIds = (data.familyMembers || []).map((f) => f.id);
@@ -2906,16 +2906,16 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
     const blockerLabel = blockers.length ? blockers.map((c) => c.label).join(' · ') : '🎗️';
     resultText += '\n' + blockerLabel + ' 때문에 건강이 회복되지는 않았다.';
   }
-  // 보험 가입 중 회복 가능한 질병·부상을 완전히 회피했을 때(2026-08-22, 18장 -
+  //  보험 가입 중 회복 가능한 질병·부상을 완전히 회피했을 때(2026-08-22, 18장 -
   // functions/index.js의 insuranceAvoidsCondition) - wealth 손실이 취소되고
-  // addCondition이 아예 안 걸렸다는 걸 결과 문구에 덧붙여, "다쳤다는데 왜 재산
-  // 상세에 아무 조건도 안 생기지"라는 혼란을 막는다.
+  //  addCondition이 아예 안 걸렸다는 걸 결과 문구에 덧붙여, "다쳤다는데 왜 재산
+  //  상세에 아무 조건도 안 생기지"라는 혼란을 막는다.
   if (data.insuranceAvoidsCondition) {
     resultText += '\n🛡️ 보험 덕분에 진단은 피하고 병원비도 들지 않았다.';
   }
   // 보험료 3년 연체로 계약이 자동 해지됐을 때(2026-08-22, 18장 -
   // functions/index.js의 insuranceLapsed) - assets에서 조용히 사라지면
-  // "왜 재산 상세에서 보험이 없어졌지"라는 혼란을 줄 수 있어 결과 문구로 알려준다.
+  //  "왜 재산 상세에서 보험이 없어졌지"라는 혼란을 줄 수 있어 결과 문구로 알려준다.
   if (data.insuranceLapsed) {
     resultText += '\n⚠️ 보험료를 3년 연속 내지 못해 계약이 해지되었다.';
   }
@@ -2942,7 +2942,7 @@ function applyOutcome(data, resultPrefix, selectedChoiceId) {
   if (selectedChoiceId) markSelectedChoice(selectedChoiceId);
   // 선택 결과는 서버(applyChoice)가 이미 lifeGame/playthroughs/{uid}에 저장을
   // 마친 뒤 응답한 것이므로, 여기서 뜨는 토스트는 실제 저장 완료를 알리는
-  // 정확한 신호다(낙관적 표시가 아님).
+  //  정확한 신호다(낙관적 표시가 아님).
   showToast('💾 자동저장 되었습니다');
   if (data.completed) {
     pendingNextStage = null;
@@ -2960,8 +2960,8 @@ function disableChoiceList() {
   });
 }
 
-// 선택이 확정되면 고른 것만 원래 불투명도로 남기고, 나머지 선택지는
-// 30%로 흐리게 해서 어떤 선택지가 결과를 만들었는지 한눈에 보이게 한다.
+//  선택이 확정되면 고른 것만 원래 불투명도로 남기고, 나머지 선택지는
+//  30%로 흐리게 해서 어떤 선택지가 결과를 만들었는지 한눈에 보이게 한다.
 function markSelectedChoice(selectedId) {
   Array.from(choiceList.children).forEach((el) => {
     if (!el.dataset || !el.dataset.choiceId) return;
@@ -2988,9 +2988,9 @@ async function pickChoice(choiceId, extra) {
     console.error('선택 제출 실패:', e);
     // requiresSufficientCash(2026-08-23, 사용자 지시 - "돈이 많이 필요한 재산은
     // 충분한 현금이 있을때 선택 가능하게, 현금이 부족하면 토스트메시지가 뜨게")
-    // 서버가 details.reason:'insufficient-cash'로 표시해준 경우만 토스트로,
-    // 나머지 오류는 기존처럼 alert로 구분한다. stock-frozen/already-held
-    // (2026-08-28, 56장 D항)도 같은 패턴으로 추가.
+    //  서버가 details.reason:'insufficient-cash'로 표시해준 경우만 토스트로,
+    //  나머지 오류는 기존처럼 alert로 구분한다. stock-frozen/already-held
+    //  (2026-08-28, 56장 D항)도 같은 패턴으로 추가.
     if (e.details && e.details.reason === 'insufficient-cash') {
       showToast('💰 보유 현금이 부족해서 고를 수 없어요');
     } else if (e.details && e.details.reason === 'stock-frozen') {
@@ -3011,7 +3011,7 @@ async function rollDice(extra) {
   diceOverlay.classList.remove('hidden');
   try {
     // 서버 응답이 3초보다 빨리 와도 화면이 어두워지고 주사위가 도는 연출을
-    // 최소 3초는 보여준 뒤에 결과를 공개한다 - 반대로 응답이 늦어지면 그만큼
+    //  최소 3초는 보여준 뒤에 결과를 공개한다 - 반대로 응답이 늦어지면 그만큼
     // 더 기다렸다가 공개(즉, 3초는 최소 보장 시간이지 고정 시간이 아님).
     const [res] = await Promise.all([
       rollDiceFn(extra),
@@ -3028,7 +3028,7 @@ async function rollDice(extra) {
 }
 
 // 구간 이동(0세→1세 등)은 화면 전체가 아니라 stageContent(구간명/스토리/
-// 선택지/결과 텍스트)만 페이드아웃→내용 교체→페이드인 한다 - 이미 갱신된
+//  선택지/결과 텍스트)만 페이드아웃→내용 교체→페이드인 한다 - 이미 갱신된
 // 스탯 바/건강 상세는 이 시점엔 변화가 없으니 같이 깜빡일 필요가 없다.
 function fadeToStage(stage) {
   // fadeOut()과 같은 이유로, transition 재설정과 opacity 값 변경 사이에
@@ -3038,9 +3038,9 @@ function fadeToStage(stage) {
   void stageContent.offsetWidth;
   stageContent.style.transition = 'opacity ' + FADE_MS + 'ms ease';
   stageContent.style.opacity = '0';
-  // 콘텐츠 교체(swap) 타이밍은 CSS 트랜지션 재생 시간(FADE_MS)에 살짝 여유를
+  //  콘텐츠 교체(swap) 타이밍은 CSS 트랜지션 재생 시간(FADE_MS)에 살짝 여유를
   // 더 둬서(SWAP_BUFFER_MS), 스케줄링 지연으로 트랜지션이 아직 다 안 끝난
-  // 상태에서 다음 구간 내용이 바뀌어 보이는 일이 없게 한다.
+  //  상태에서 다음 구간 내용이 바뀌어 보이는 일이 없게 한다.
   setTimeout(() => {
     renderStage(stage);
     void stageContent.offsetWidth;
@@ -3052,19 +3052,19 @@ function fadeToStage(stage) {
 // 선택지가 참여자에게도 무조건 나타나야 한다" → "실시간성보다 반드시 같은
 // 선택지를 선택 가능하도록 보장하는 게 가장 중요하다"). advanceMultiplayerSession은
 // 인자 없이 "지금 저장된 최신 상태"를 그대로 다시 읽어 쓰는 순수 갱신이라(같은
-// 결과를 여러 번 써도 안전) 성공할 때까지 짧은 간격으로 계속 재시도한다.
+//  결과를 여러 번 써도 안전) 성공할 때까지 짧은 간격으로 계속 재시도한다.
 //
 // 중요: submitChoice는 선택 제출 즉시(호스트가 아직 결과 문구를 읽는 중이고
-// "다음"을 안 눌렀어도) playthroughs의 stageIndex를 이미 다음 나이로 옮겨둔다
+//  "다음"을 안 눌렀어도) playthroughs의 stageIndex를 이미 다음 나이로 옮겨둔다
 // (functions/index.js) - 호스트 화면은 "다음"을 눌러야만 그 다음 나이를
-// 보여주는 별도의 로컬 페이드 애니메이션일 뿐, 서버 데이터는 그보다 먼저
+//  보여주는 별도의 로컬 페이드 애니메이션일 뿐, 서버 데이터는 그보다 먼저
 // 앞서가 있다. 그래서 "미러 재동기화를 언제 시도할지"와 "지금 재동기화가
 // 정당한지"를 분리해야 한다 - mpMirrorSyncPending이 true일 때만(=실제로
-// nextBtn을 눌러서 정당하게 다음 나이를 공개해도 되는 시점에만) 실제로
-// advanceMultiplayerSession을 부른다. 세션이 켜져 있다는 사실 자체는 동기화를
+//  nextBtn을 눌러서 정당하게 다음 나이를 공개해도 되는 시점에만) 실제로
+//  advanceMultiplayerSession을 부른다. 세션이 켜져 있다는 사실 자체는 동기화를
 // 시작할 이유가 되지 않는다 - 그랬다가 호스트가 "다음"을 누르기도 전에 주기
 // 타이머가 먼저 다음 나이를 참가자에게 공개해버리는 사고가 실제로 있었다
-// (2026-08-24에 이미 한 번 고쳐졌던 문제가 이 안전망 때문에 재발함).
+//  (2026-08-24에 이미 한 번 고쳐졌던 문제가 이 안전망 때문에 재발함).
 let mpMirrorSyncing = false;
 let mpMirrorSyncPending = false;
 function attemptMultiplayerMirrorSync() {
@@ -3079,8 +3079,8 @@ function attemptMultiplayerMirrorSync() {
     setTimeout(attemptMultiplayerMirrorSync, 1500);
   });
 }
-// nextBtn(또는 그에 준하는, "지금 다음 나이를 공개해도 된다"고 확정된 시점)에서만
-// 호출해야 한다 - 이게 "정당한 갱신 사유"를 만드는 유일한 진입점.
+//  nextBtn(또는 그에 준하는, "지금 다음 나이를 공개해도 된다"고 확정된 시점)에서만
+//  호출해야 한다 - 이게 "정당한 갱신 사유"를 만드는 유일한 진입점.
 function requestMultiplayerMirrorSync() {
   mpMirrorSyncPending = true;
   attemptMultiplayerMirrorSync();
@@ -3094,19 +3094,19 @@ nextBtn.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: REDUCE_MOTION ? 'auto' : 'smooth' });
   // 멀티플레이(2026-08-24, 사용자 지시 - "호스트가 다음 버튼을 눌르면
   // 참가자도 다음 이벤트를 같이 보는거야?" → "고쳐줘") - 공개 미러는
-  // 선택 제출 시점이 아니라 호스트가 실제로 "다음"을 눌러 넘어가는 이
-  // 순간에만 갱신된다(functions/index.js의 advanceMultiplayerSession).
+  //  선택 제출 시점이 아니라 호스트가 실제로 "다음"을 눌러 넘어가는 이
+  //  순간에만 갱신된다(functions/index.js의 advanceMultiplayerSession).
   requestMultiplayerMirrorSync();
 });
 
 // ------------------------------------------------------------
-// 4) 엔딩 + 갤러리 공유
-// ------------------------------------------------------------
+//  4) 엔딩 + 갤러리 공유
+//  ------------------------------------------------------------
 const endingSection = document.getElementById('endingSection');
 const adSlotEnding = document.getElementById('adSlotEnding');
 const endingTitle = document.getElementById('endingTitle');
 const endingSceneImage = document.getElementById('endingSceneImage');
-// 엔딩 삽화(11장, 2026-08-24 착수) - 아직 16종 중 일부만 그려져 있다.
+//  엔딩 삽화(11장, 2026-08-24 착수) - 아직 16종 중 일부만 그려져 있다.
 // assets/scenes/에 없는 엔딩은 그냥 <img>를 숨긴다(깨진 이미지 아이콘 방지).
 // 새 삽화를 추가할 땐 이 맵에 한 줄만 더하면 된다.
 const ENDING_SCENE_IMAGES = {
@@ -3130,9 +3130,9 @@ const ENDING_SCENE_IMAGES = {
 
 // 루트 진입 삽화(11장 2순위, 2026-08-24 착수) - 새 루트에 막 들어선 그
 // 턴에만(이전 턴엔 없던 루트가 이번 턴부터 생김) 결과 박스 위에 한 번
-// 보여준다. lastKnownRouteId는 시작/이어하기 응답으로 한 번 초기화해두고
+//  보여준다. lastKnownRouteId는 시작/이어하기 응답으로 한 번 초기화해두고
 // (이미 진행 중이던 루트를 "방금 진입"으로 오인해 다시 보여주지 않기 위해)
-// applyOutcome이 매번 갱신한다.
+//  applyOutcome이 매번 갱신한다.
 const routeSceneImage = document.getElementById('routeSceneImage');
 const ROUTE_SCENE_IMAGES = {
   'entertainment-industry': 'assets/scenes/entertainment-industry.jpg',
@@ -3166,10 +3166,10 @@ function updateRouteSceneImage(currentRoute) {
   }
   lastKnownRouteId = newRouteId;
 }
-// 루트 테마 UI(2026-08-25, 사용자 지시) - 루트에 맞춰 #gameSection 전체
+//  루트 테마 UI(2026-08-25, 사용자 지시) - 루트에 맞춰 #gameSection 전체
 // 배경·버튼 스타일이 dissolve로 전환된다. 시범 구현으로 developer(개발자)
 // 루트 하나만 - 나머지 루트는 검증 후 이 맵에 한 줄씩 추가하면 된다.
-// lastKnownRouteId(삽화용)와 달리 이건 "루트가 활성인 동안 계속" 적용돼야
+//  lastKnownRouteId(삽화용)와 달리 이건 "루트가 활성인 동안 계속" 적용돼야
 // 하는 상태라 별도 변수로 추적한다.
 //
 // 클래스가 둘로 나뉜다(2026-08-25, 사용자 지적 - "배경도 페이드
@@ -3177,7 +3177,7 @@ function updateRouteSceneImage(currentRoute) {
 // 항상 보이는 영역이라 지연 없이 즉시 바꿔야 background-color transition이
 // 실제로 눈에 보이고, 패널 안쪽(#gameSection)은 아직 다 안 사라진 상태에서
 // 색이 바뀌면 순간적으로 튀어 보이므로(pop) 완전히 투명해지는 350ms
-// 시점까지 미룬다.
+//  시점까지 미룬다.
 const ROUTE_THEME_IDS = { developer: true, logistics: true, prison: true, 'pro-gamer': true, 'esports-coach': true, 'sports-elite': true, 'soccer-manager': true, 'study-abroad-usa': true, 'us-settled-life': true, 'entertainment-industry': true, actor: true, artist: true, 'youth-politics': true, 'teen-entrepreneur': true, 'student-leadership': true, 'small-business': true, 'regular-employee': true, 'civil-servant-route': true, police: true, lawyer: true, trader: true, 'teacher-route': true };
 function routeBgClass(id) { return 'route-bg-' + id; }
 function routePanelClass(id) { return 'route-theme-' + id; }
@@ -3194,7 +3194,7 @@ function applyPanelThemeClass(routeId) {
   Object.keys(ROUTE_THEME_IDS).forEach((id) => gameSection.classList.remove(routePanelClass(id)));
   if (routeId && ROUTE_THEME_IDS[routeId]) gameSection.classList.add(routePanelClass(routeId));
 }
-// 새로고침·재개 직후처럼 화면이 막 나타나는 시점엔 dissolve 없이 즉시 적용.
+//  새로고침·재개 직후처럼 화면이 막 나타나는 시점엔 dissolve 없이 즉시 적용.
 function initRouteTheme(currentRoute) {
   currentThemeRouteId = currentRoute ? currentRoute.id : null;
   applyOuterBgClass(currentThemeRouteId);
@@ -3219,10 +3219,10 @@ function updateRouteTheme(currentRoute) {
     gameSection.classList.remove('route-theme-fade');
   }, 350);
 }
-// 감정적 전환점 삽화(11장 3순위, 2026-08-24 착수) - 특정 choice.id를 선택한
+//  감정적 전환점 삽화(11장 3순위, 2026-08-24 착수) - 특정 choice.id를 선택한
 // 바로 그 결과에만 한 번 표시하고, 다음 스테이지로 넘어가면(renderStage) 숨긴다.
 // 루트 진입과 달리 재진입 방지용 상태 추적이 필요 없다 - 이 choice들은 전부
-// removeFamilyMembers 등으로 한 번 일어나면 되돌릴 수 없는 단발성 이벤트라
+//  removeFamilyMembers 등으로 한 번 일어나면 되돌릴 수 없는 단발성 이벤트라
 // 같은 선택을 다시 고를 수 없기 때문.
 const eventSceneImage = document.getElementById('eventSceneImage');
 const EVENT_SCENE_IMAGES = {
@@ -3266,8 +3266,8 @@ const shareBtn = document.getElementById('shareBtn');
 const restartBtn = document.getElementById('restartBtn');
 
 // 지금까지 선택한 선택지 목록 - 서버(choiceLog를 STAGES와 대조해 풀어낸 값)가
-// 그대로 내려주는 stageName/ageRange/choiceText를 순서대로 나열만 한다. 내 엔딩
-// 화면과 갤러리의 "다른 유저 선택 기록"이 같은 형식을 쓰므로 컨테이너만 받는다.
+//  그대로 내려주는 stageName/ageRange/choiceText를 순서대로 나열만 한다. 내 엔딩
+//  화면과 갤러리의 "다른 유저 선택 기록"이 같은 형식을 쓰므로 컨테이너만 받는다.
 function renderChoiceHistoryInto(container, history) {
   container.innerHTML = '';
   if (!history || !history.length) {
@@ -3284,7 +3284,7 @@ function renderChoiceHistoryInto(container, history) {
   });
 }
 
-// 엔딩 문구 표시 → 지금까지 선택한 선택지들 표시 → 다른 유저 인생 → 재시작
+//  엔딩 문구 표시 → 지금까지 선택한 선택지들 표시 → 다른 유저 인생 → 재시작
 // 안내 순서로 보여준다(각 section의 DOM 순서가 곧 화면에 보이는 순서). 게임
 // 화면에서 엔딩 화면으로 넘어가는 것도 다른 전환들과 같은 페이드로 통일한다.
 async function showEnding(ending, stats, choiceHistory, familyMembers, occupationHistory, assets, cashHoldings, acquaintances, healthConditions, locationHistory, talents, hobbies, galleryEntryId) {
@@ -3312,9 +3312,9 @@ async function showEnding(ending, stats, choiceHistory, familyMembers, occupatio
   renderAssetsInto(endingAssetsEl, assets);
   renderCashHoldings(endingCashHoldingsEl, cashHoldings);
   renderHealthConditionsInto(endingHealthConditionsEl, healthConditions);
-  // collapse/bankruptcy 등 즉시 종료 엔딩은 100세가 아니라 그 전 나이에
-  // 끝나므로, "곁에 남은 가족" 패널 제목도 실제로 삶이 끝난 나이를 보여줘야
-  // 한다 - choiceHistory의 마지막 항목이 곧 마지막으로 선택을 고른 구간
+  //  collapse/bankruptcy 등 즉시 종료 엔딩은 100세가 아니라 그 전 나이에
+  //  끝나므로, "곁에 남은 가족" 패널 제목도 실제로 삶이 끝난 나이를 보여줘야
+  //  한다 - choiceHistory의 마지막 항목이 곧 마지막으로 선택을 고른 구간
   // (=삶이 끝난 시점)이라 거기서 ageRange를 가져온다.
   const endedAtAgeRange = (choiceHistory && choiceHistory.length) ? choiceHistory[choiceHistory.length - 1].ageRange : '100세';
   endingFamilyPanelTitle.textContent = endedAtAgeRange + ', 곁에 남은 가족';
@@ -3325,7 +3325,7 @@ async function showEnding(ending, stats, choiceHistory, familyMembers, occupatio
   renderTalentsInto(endingTalentsEl, talents);
   renderHobbiesInto(endingHobbiesEl, hobbies);
   renderChoiceHistoryInto(choiceHistoryList, choiceHistory);
-  // 자동 갤러리 등록(2026-09-08) - 서버가 조건에 맞아 이미 등록했으면
+  //  자동 갤러리 등록(2026-09-08) - 서버가 조건에 맞아 이미 등록했으면
   // galleryEntryId가 채워져 온다. 그럴 땐 수동 공유 버튼을 눌러도
   // already-exists 에러만 뜨니, 애초에 "이미 공유됨" 상태로 보여준다.
   if (galleryEntryId) {
@@ -3336,14 +3336,14 @@ async function showEnding(ending, stats, choiceHistory, familyMembers, occupatio
     shareBtn.textContent = '갤러리에 공유하기';
   }
 
-  // 게임 후기 작성 폼이 엔딩화면 안에 있다(2026-09-09) - 엔딩을 달성했다는
+  //  게임 후기 작성 폼이 엔딩화면 안에 있다(2026-09-09) - 엔딩을 달성했다는
   // 조건 자체가 이 화면에 있다는 사실로 이미 보장되므로 별도 확인 없이 연다.
   setupReviewForm();
 
   fadeIn([endingSection, choiceHistorySection, reviewWriteSection, gallerySection, restartSection]);
   // fadeIn이 hidden 클래스를 떼고 강제 리플로우까지 끝낸 뒤라, 이 시점엔
   // scoreChartEl.clientWidth가 이미 실제 레이아웃 폭을 갖고 있다(숨겨진 채로
-  // 그리면 폭 0으로 그려져 버림).
+  //  그리면 폭 0으로 그려져 버림).
   renderScoreChart(scoreChartEl, scoreChartSummaryEl, choiceHistory);
 }
 
@@ -3362,19 +3362,19 @@ shareBtn.addEventListener('click', async () => {
 restartBtn.addEventListener('click', () => window.location.reload());
 
 // ------------------------------------------------------------
-// 5) 공개 갤러리 - "다른 유저는 어떤 인생을 살았을까?"
+//  5) 공개 갤러리 - "다른 유저는 어떤 인생을 살았을까?"
 // ------------------------------------------------------------
 const galleryList = document.getElementById('galleryList');
 
 // 갤러리 항목을 클릭(펼치기)하면 그때 그 항목의 선택 기록만 따로 불러온다 -
 // lifeGame/galleryChoiceLogs/{entryId}는 gallery 목록 실시간 구독과는 별개
 // 노드라, 펼치기 전까진 안 읽는다. 같은 항목을 다시 펼 때 또 읽지 않도록
-// 항목별로 한 번 불러온 결과는 캐시해둔다.
+//  항목별로 한 번 불러온 결과는 캐시해둔다.
 const choiceLogCache = new Map();
 // chartCanvas/chartSummaryEl은 선택사항 - #choiceHistorySection과 같은
-// buildChoiceHistory() 결과를 쓰는 곳이면 어디든 재사용하려고 만든 렌더러라
+//  buildChoiceHistory() 결과를 쓰는 곳이면 어디든 재사용하려고 만든 렌더러라
 // (엔딩 화면의 renderScoreChart 참고) 이미 stats가 함께 내려온다. 2026-08-18
-// 사용자 지시("다른 인생을 펼쳐봤을때도 선그래프 확인 가능하게")로 갤러리
+//  사용자 지시("다른 인생을 펼쳐봤을때도 선그래프 확인 가능하게")로 갤러리
 // 항목을 펼칠 때도 같은 함수로 그린다 - details가 열려야(펼쳐져야) canvas가
 // 실제 레이아웃 폭을 가지므로, toggle 이벤트로 열린 뒤에만 호출한다.
 async function loadGalleryChoiceLog(entryId, container, chartCanvas, chartSummaryEl) {
@@ -3397,11 +3397,11 @@ async function loadGalleryChoiceLog(entryId, container, chartCanvas, chartSummar
   }
 }
 
-// 갤러리 상세 패널(건강·가족·지인·재산·직업·장소, 2026-08-18 사용자 지시) -
-// loadGalleryChoiceLog와 완전히 같은 lazy-load + 캐시 패턴. 옛날에 공유된
+//  갤러리 상세 패널(건강·가족·지인·재산·직업·장소, 2026-08-18 사용자 지시) -
+//  loadGalleryChoiceLog와 완전히 같은 lazy-load + 캐시 패턴. 옛날에 공유된
 // 항목(galleryDetails가 생기기 전)은 스냅샷이 없을 수 있어 빈 배열/기본값으로
 // 대체해 기존 renderXxxInto 함수들이 "특별한 OO 없음" 플레이스홀더를 그대로
-// 보여주게 한다 - 에러로 처리하지 않는다.
+//  보여주게 한다 - 에러로 처리하지 않는다.
 const galleryDetailsCache = new Map();
 function renderGalleryDetails(details, els) {
   renderAssetsInto(els.assetsListEl, details.assets || []);
@@ -3450,8 +3450,8 @@ function renderGalleryList(val) {
       '<span class="g-ending">' + escapeHtml((e.ending && e.ending.title) || '') + '</span>';
     details.appendChild(summary);
 
-    // 관리자 전용 삭제 버튼(2026-08-24, 사용자 지시) - <summary> 안에 넣으면
-    // 클릭이 details 토글과 겹치므로 바깥에 별도로 붙이고 stopPropagation으로
+    //  관리자 전용 삭제 버튼(2026-08-24, 사용자 지시) - <summary> 안에 넣으면
+    //  클릭이 details 토글과 겹치므로 바깥에 별도로 붙이고 stopPropagation으로
     // 분리한다.
     if (isAdminUser) {
       const adminDeleteBtn = document.createElement('button');
@@ -3478,8 +3478,8 @@ function renderGalleryList(val) {
     // 인생을 볼때도 스탯과 상세 기능이 기록되게 해줘") - stats는 이미
     // lifeGame/gallery 목록 구독에 포함돼 있던 값이라(리더보드용으로 먼저
     // 저장돼 있었음) 따로 불러올 필요 없이 바로 그린다. 아래 건강·가족·지인·
-    // 재산·직업·장소 상세와 달리 펼치기 전에도 이미 갖고 있는 데이터라 lazy
-    // load 대상이 아니다.
+    //  재산·직업·장소 상세와 달리 펼치기 전에도 이미 갖고 있는 데이터라 lazy
+    //  load 대상이 아니다.
     const statBarsWrap = document.createElement('div');
     statBarsWrap.className = 'stat-bars gallery-detail-panel';
     details.appendChild(statBarsWrap);
@@ -3500,9 +3500,9 @@ function renderGalleryList(val) {
     details.appendChild(chartWrap);
 
     // 상세 패널들(건강·가족·지인·재산·직업·장소) - galleryChoiceLogs와 같은
-    // 이유로 펼칠 때만 lifeGame/galleryDetails/{entryId}에서 따로 읽는다
-    // (loadGalleryDetails 참고). 엔딩 화면과 똑같은 클래스를 재사용해 별도
-    // CSS가 필요 없다.
+    //  이유로 펼칠 때만 lifeGame/galleryDetails/{entryId}에서 따로 읽는다
+    //  (loadGalleryDetails 참고). 엔딩 화면과 똑같은 클래스를 재사용해 별도
+    //  CSS가 필요 없다.
     const assetWrap = document.createElement('div');
     assetWrap.className = 'asset-panel gallery-detail-panel';
     const assetTitle = document.createElement('p');
@@ -3624,10 +3624,10 @@ onValue(ref(db, 'lifeGame/galleryPublic'), (snap) => {
 // 방송 콘텐츠 백로그 7번째 항목: 리더보드("역대 최고 기록", 2026-08-17).
 // 위 갤러리 구독은 최근 30건만 유지하므로(entries.slice(0, 30)) 그걸로는
 // "역대" 기록을 정확히 매길 수 없다 - 별도로 lifeGame/gallery 전체를 한 번
-// get()으로 읽어와 직접 계산한다(이미 전체가 공개 읽기 노드라 새 보안 규칙
+//  get()으로 읽어와 직접 계산한다(이미 전체가 공개 읽기 노드라 새 보안 규칙
 // 불필요). 두 카테고리만 우선 구현: 💰 역대 최고 부자 엔딩(cashHoldings
-// 최댓값), 💀 최연소 사망(즉시 사망 엔딩 5종 중 endedAtAge 최솟값 - 100세
-// 완주는 "사망"이 아니라 집계에서 제외).
+//  최댓값), 💀 최연소 사망(즉시 사망 엔딩 5종 중 endedAtAge 최솟값 - 100세
+//  완주는 "사망"이 아니라 집계에서 제외).
 // ------------------------------------------------------------
 const leaderboardEl = document.getElementById('leaderboard');
 function renderLeaderboardRow(icon, label, name, valueText) {
@@ -3666,7 +3666,7 @@ async function loadLeaderboard() {
 loadLeaderboard();
 
 // ------------------------------------------------------------
-// devbar 자동 스크롤 (넘칠 때만) - 다른 페이지들과 동일 로직
+//  devbar 자동 스크롤 (넘칠 때만) - 다른 페이지들과 동일 로직
 // ------------------------------------------------------------
 (function setupDevbarMarquee() {
   const viewport = document.getElementById('devbarViewport');
@@ -3701,7 +3701,7 @@ loadLeaderboard();
 // 호스트 단독 결정권(투표는 표시용) - 실제 스탯을 바꾸는 유일한 경로는
 // submitChoiceFn/rollDiceFn뿐이고, 여기서는 그 위에 얹는 표시·투표 레이어만
 // 다룬다.
-// ============================================================
+//  ============================================================
 const multiplayerToggleStart = document.getElementById('multiplayerToggleStart');
 const multiplayerToggleGame = document.getElementById('multiplayerToggleGame');
 const mpHostPanel = document.getElementById('mpHostPanel');
@@ -3739,8 +3739,8 @@ let mpPendingJoinHostUid = null;
 let mpPendingJoinHostName = '';
 
 // 후원 스트리머 배너(2026-09-09) - 검색화면 상단·엔딩화면·멀티플레이 참가·
-// 모바일 하단배너 네 자리 모두 lifeGame/currentSponsor 하나를 그대로 반영한다
-// (기존 애드픽 제휴 배너 A/B/C 로테이션을 대체). 후원 중이 아니면(만료
+//  모바일 하단배너 네 자리 모두 lifeGame/currentSponsor 하나를 그대로 반영한다
+//  (기존 애드픽 제휴 배너 A/B/C 로테이션을 대체). 후원 중이 아니면(만료
 // 포함) 각 자리에 "스트리머 홍보하기" CTA만 보여준다 - 로그인 여부와
 // 무관하게 항상 구독한다(currentSponsor는 공개 읽기 노드).
 const SPONSOR_SLOTS = ['search', 'ending', 'join', 'anchor'];
@@ -3986,7 +3986,7 @@ restartSponsorRequestBtn.addEventListener('click', () => {
 let mpMyLastVoteChoiceId = null;
 let mpMyLastVoteStageId = null;
 
-// ---- 호스트 쪽: 내 uid 기준 세션·투표를 한 번만 구독해두고, 존재 여부로
+//  ---- 호스트 쪽: 내 uid 기준 세션·투표를 한 번만 구독해두고, 존재 여부로
 // 패널 표시를 그때그때 판단한다(2026-08-19 "게임도중 토글 변경 가능" 대응 -
 // 별도 활성화 신호 없이도 문서 존재 자체가 곧 상태) ----
 function attachMultiplayerHostListeners() {
@@ -3998,14 +3998,14 @@ function attachMultiplayerHostListeners() {
     mpHostLatestSession = snap.val();
     setGameSeriesEmoteRoom(mpHostLatestSession ? lifePublicId : 'public');
     renderHostMultiplayerPanel();
-    // 연결이 끊기면 처음 화면에서도 참가 불가능하게(2026-08-24, 사용자 지시 -
-    // "호스트의 연결이 끊기면... 확인해줘" → "그렇게 해주고") - 세션이 있을
-    // 때마다(재접속·재생성 포함) onDisconnect를 다시 걸어 이 커넥션이 끊기는
+    //  연결이 끊기면 처음 화면에서도 참가 불가능하게(2026-08-24, 사용자 지시 -
+    //  "호스트의 연결이 끊기면... 확인해줘" → "그렇게 해주고") - 세션이 있을
+    //  때마다(재접속·재생성 포함) onDisconnect를 다시 걸어 이 커넥션이 끊기는
     // 순간 서버가 자동으로 이 문서를 지우게 한다. RTDB 규칙상 호스트 본인
     // uid는 자기 세션을 "삭제"만 할 수 있어(생성/수정은 여전히 Cloud
-    // Function 전용) 이 등록 자체가 데이터 무결성을 해치지 않는다. 세션이
-    // 없어지면(정상 종료) 이미 걸어둔 예약은 취소한다 - 안 그러면 다음에
-    // 재접속해 새로 만든 세션을 "이전 연결"의 onDisconnect가 뒤늦게 지워버릴
+    //  Function 전용) 이 등록 자체가 데이터 무결성을 해치지 않는다. 세션이
+    //  없어지면(정상 종료) 이미 걸어둔 예약은 취소한다 - 안 그러면 다음에
+    //  재접속해 새로 만든 세션을 "이전 연결"의 onDisconnect가 뒤늦게 지워버릴
     // 수 있다.
     if (mpHostLatestSession) {
       onDisconnect(mySessionRef).remove().catch((e) => console.error('onDisconnect 등록 실패:', e));
@@ -4019,10 +4019,10 @@ function attachMultiplayerHostListeners() {
   });
 }
 
-// 정당하게 요청된(mpMirrorSyncPending=true) 미러 갱신이 어떤 이유로 재시도
+//  정당하게 요청된(mpMirrorSyncPending=true) 미러 갱신이 어떤 이유로 재시도
 // 체인이 끊긴 채 방치되지 않도록 2초마다 한 번씩 다시 깨워보는 이중 안전망
 // (2026-09-04). attemptMultiplayerMirrorSync는 mpMirrorSyncPending이 이미
-// true일 때만 실제로 동작하므로 - 즉 nextBtn을 눌러 "다음 나이를 공개해도
+//  true일 때만 실제로 동작하므로 - 즉 nextBtn을 눌러 "다음 나이를 공개해도
 // 된다"는 정당한 요청이 실제로 있었을 때만 - 세션이 켜져 있다는 사실만으로
 // 이 타이머가 먼저 나서서 미공개 상태(선택은 했지만 "다음"은 안 누른 상태)를
 // 참가자에게 먼저 흘려버리는 일은 없다.
@@ -4034,14 +4034,14 @@ function renderHostMultiplayerPanel() {
   mpParticipantListEl.innerHTML = '';
   if (!mpHostLatestSession) return;
   const participants = mpHostLatestSession.participants || {};
-  // 선택지별 투표 수 - choiceList 버튼 옆에 배지로 붙인다(주사위 구간도 동일).
+  //  선택지별 투표 수 - choiceList 버튼 옆에 배지로 붙인다(주사위 구간도 동일).
   // mpFrozenVoteCounts(2026-08-24, 사용자 지시 - "호스트가 선택하면 참가자들의
-  // 최종투표결과가 사라지는데... 호스트의 선택 후에도 보이게 해줘") - 호스트가
+  //  최종투표결과가 사라지는데... 호스트의 선택 후에도 보이게 해줘") - 호스트가
   // 선택을 제출하는 순간 세션 미러의 stage는 이미 다음 나이로 넘어가 있어서
   // (mpHostLatestSession.stage.id가 곧바로 다음 턴 것이 됨), 라이브 투표 집계를
   // 그대로 쓰면 방금 끝난 턴의 투표가 즉시 0으로 보였다. disableChoiceList
   // 시점(제출 직전, 아직 이전 나이 기준)에 한 번 얼려두고, 다음 renderStage가
-  // 실제로 다음 나이 화면을 그릴 때(= "다음" 버튼을 눌러 진짜로 넘어갈 때)
+  //  실제로 다음 나이 화면을 그릴 때(= "다음" 버튼을 눌러 진짜로 넘어갈 때)
   // 해제해 그 사이(결과 확인 중)엔 계속 보이게 한다.
   let countByChoiceId;
   if (mpFrozenVoteCounts) {
@@ -4123,21 +4123,21 @@ async function enterHostMode() {
   mpHostPanel.classList.remove('hidden');
   renderAdminAutoPlayVisibility();
   attachMultiplayerHostListeners();
-  // 새로고침 후 이어하기(2026-08-24, 사용자 지시 - "호스트가 페이지를
+  //  새로고침 후 이어하기(2026-08-24, 사용자 지시 - "호스트가 페이지를
   // 새로고침해서 게임을 이어할때 참가자 목록을 다시 갱신되게 해줘") - 위
-  // attachMultiplayerHostListeners()는 이미 구독 중이면 아무 일도 안 하므로
+  //  attachMultiplayerHostListeners()는 이미 구독 중이면 아무 일도 안 하므로
   // (mpHostListenersAttached 플래그), 이 화면이 다시 보이는 시점에 지금 갖고
   // 있는 최신 값으로 한 번 더 명시적으로 그려서 확실히 최신 상태로 맞춘다.
   renderHostMultiplayerPanel();
   if (!currentUser) return;
 
-  // 연결 끊김 후 재접속 시 세션 재생성(2026-08-24, 사용자 지시 - "호스트가
-  // 다시 게임을 이어하면 그때 다시 참가 가능하게 해줘") - onDisconnect로
+  //  연결 끊김 후 재접속 시 세션 재생성(2026-08-24, 사용자 지시 - "호스트가
+  //  다시 게임을 이어하면 그때 다시 참가 가능하게 해줘") - onDisconnect로
   // 세션이 지워졌더라도, playthroughs에 저장해둔 "이 유저가 멀티플레이를
   // 켜뒀었는지" 선호도가 true이면 setMultiplayerEnabled(true)로 다시 만든다.
-  // 세션이 이미 살아있는 상태에서 이걸 호출하면 참가자 목록이 빈 값으로
-  // 통째로 덮어써지므로(setMultiplayerEnabled의 재생성 로직은 항상 새로
-  // set()함), 반드시 "지금 세션이 없을 때만" 호출해야 한다 - 이미 있으면
+  //  세션이 이미 살아있는 상태에서 이걸 호출하면 참가자 목록이 빈 값으로
+  //  통째로 덮어써지므로(setMultiplayerEnabled의 재생성 로직은 항상 새로
+  //  set()함), 반드시 "지금 세션이 없을 때만" 호출해야 한다 - 이미 있으면
   // (정상 이어하기, 아직 연결이 안 끊긴 경우) 대신 advanceMultiplayerSession으로
   // stage/stats만 최신화한다("다음"을 누르기 전에 새로고침한 경우의 시차 보정,
   // 기존 로직 그대로).
@@ -4158,12 +4158,12 @@ async function enterHostMode() {
 
 // renderStage가 선택지 버튼을 다시 그릴 때마다(구간 전환 등) 투표 수 배지도
 // 함께 다시 붙어야 하므로, renderStage 호출 직후 이어서 패널을 다시 그린다 -
-// renderStage 본체를 직접 수정하지 않고 감싸는 쪽이 기존 페이드 애니메이션
-// 로직과 덜 얽힌다.
+//  renderStage 본체를 직접 수정하지 않고 감싸는 쪽이 기존 페이드 애니메이션
+//  로직과 덜 얽힌다.
 const originalRenderStageForMp = renderStage;
 renderStage = function (stage) {
   // 다음 나이 화면이 실제로 그려지는 시점 = 얼려뒀던 투표 수를 해제하고 이번
-  // 새 나이의 라이브 집계로 되돌아갈 시점(위 mpFrozenVoteCounts 주석 참고).
+  //  새 나이의 라이브 집계로 되돌아갈 시점(위 mpFrozenVoteCounts 주석 참고).
   mpFrozenVoteCounts = null;
   originalRenderStageForMp(stage);
   if (!mpParticipantMode) renderHostMultiplayerPanel();
@@ -4183,8 +4183,8 @@ disableChoiceList = function () {
   originalDisableChoiceListForMp();
 };
 
-// ------------------------------------------------------------
-// 검색 화면 - 진행중인 다른 유저의 게임 목록
+//  ------------------------------------------------------------
+//  검색 화면 - 진행중인 다른 유저의 게임 목록
 // ------------------------------------------------------------
 let mpLatestSessionListVal = {};
 function renderMultiplayerSessionList() {
@@ -4228,13 +4228,13 @@ onValue(ref(db, 'lifeGame/multiplayerSessionsPublic'), (snap) => {
 // 없앤다.
 onAuthStateChanged(auth, (user) => { if (user) renderMultiplayerSessionList(); });
 
-// ------------------------------------------------------------
+//  ------------------------------------------------------------
 // 게임 후기(2026-09-08, 사용자 지시 - "검색란 밑 새로운 영역을 후기
-// 작성영역으로 쓰고싶다"). 계정당 1개(서버가 uid를 키로 강제), 완료 이력이
-// 있어야 작성 가능 - 서버가 최종 검증하지만 여기선 폼을 미리 잠가서 헛수고를
+//  작성영역으로 쓰고싶다"). 계정당 1개(서버가 uid를 키로 강제), 완료 이력이
+//  있어야 작성 가능 - 서버가 최종 검증하지만 여기선 폼을 미리 잠가서 헛수고를
 // 막는다. 인증 스트리머는 프로필이 서버에서 자동으로 첨부되므로 "내 방송국
 // 홍보하기" 체크박스는 애초에 필요 없어 숨긴다. 미인증 유저가 체크하고 적은
-// 닉네임/SOOP 아이디는 자기 신고식 도용을 막기 위해 저장 시점에 "인증됨"으로
+//  닉네임/SOOP 아이디는 자기 신고식 도용을 막기 위해 저장 시점에 "인증됨"으로
 // 박제하지 않고, 카드를 그릴 때마다 streamerVerifications를 다시 조회해서
 // 실제 승인 여부를 살아있게 확인한다(승인 전엔 "인증 대기중"으로만 표시).
 // ------------------------------------------------------------
@@ -4262,7 +4262,7 @@ let latestReviewsVal = {};
 // 라이트 테마에서 --text-faint(꺼진 별)와 --gold(켜진 별)이 둘 다 비슷한 갈색
 // 계열이라 색만으로는 구분이 잘 안 된다는 실제 피드백(2026-09-08) - 목록의
 // 읽기전용 별점 표시(★/☆ 문자 자체를 바꾸는 방식)와 똑같이, 색뿐 아니라
-// 모양(채움/테두리)도 함께 바꿔서 테마와 무관하게 항상 구분되게 한다.
+//  모양(채움/테두리)도 함께 바꿔서 테마와 무관하게 항상 구분되게 한다.
 function setReviewStars(value) {
   reviewSelectedRating = value;
   reviewStarsEl.querySelectorAll('.review-star').forEach((btn) => {
@@ -4297,8 +4297,8 @@ function prefillReviewForm() {
 }
 
 // 후기 작성은 이제 엔딩화면 안에서만 노출되는 폼이라(2026-09-09), "엔딩을
-// 달성했는가"는 그 화면에 있다는 사실 자체로 이미 보장된다 - 별도 자격
-// 조건을 두지 않고 항상 채워서 보여준다.
+//  달성했는가"는 그 화면에 있다는 사실 자체로 이미 보장된다 - 별도 자격
+//  조건을 두지 않고 항상 채워서 보여준다.
 function setupReviewForm() {
   if (!currentUser) return;
   reviewFormWrapEl.classList.remove('hidden');
@@ -4377,7 +4377,7 @@ submitReviewBtnEl.addEventListener('click', async () => {
 
 async function reviewProfileBadgeHtml(uid, nickname, soopId) {
   try {
-    // 공개 후기에는 작성자 UID가 들어가지 않으므로, 신청 당시의 SOOP ID/닉네임과
+    //  공개 후기에는 작성자 UID가 들어가지 않으므로, 신청 당시의 SOOP ID/닉네임과
     // UID가 없는 공개 인증 미러만 대조한다.
     const q = soopId
       ? query(ref(sharedDb, 'streamerVerificationsPublic'), orderByChild('soopId'), equalTo(soopId))
@@ -4393,8 +4393,8 @@ async function reviewProfileBadgeHtml(uid, nickname, soopId) {
     console.error('프로필 인증 상태 확인 실패:', e);
   }
   // 인증 대기중이어도 신청 시 입력한 soopId로 방송국 링크는 바로 열 수 있게
-  // 한다(2026-09-09, 사용자 지시) - 인증 배지(✅ 여부)만 실제 승인 여부를
-  // 따라가고, 링크 자체는 인증 상태와 무관하게 항상 동작.
+  //  한다(2026-09-09, 사용자 지시) - 인증 배지(✅ 여부)만 실제 승인 여부를
+  //  따라가고, 링크 자체는 인증 상태와 무관하게 항상 동작.
   const pendingStation = 'https://www.sooplive.com/station/' + encodeURIComponent(soopId || '');
   return '<a class="review-profile-badge pending" href="' + pendingStation + '" target="_blank" rel="noopener noreferrer">⏳ ' + escapeHtml(nickname) + ' (인증 대기중)</a>';
 }
@@ -4525,11 +4525,11 @@ closeJoinAdBtn.addEventListener('click', async () => {
   await enterParticipantMode(mpPendingJoinHostUid, mpPendingJoinHostName);
 });
 
-// ------------------------------------------------------------
+//  ------------------------------------------------------------
 // 참가자 모드 - #gameSection을 재사용하되, 선택지는 제출이 아니라 투표를
 // 기록하고, 구간 진행은 호스트의 multiplayerSessions 구독으로만 반영된다
-// (호스트가 다음 구간으로 넘어가면 참가자 화면도 자동으로 따라간다).
-// ------------------------------------------------------------
+//  (호스트가 다음 구간으로 넘어가면 참가자 화면도 자동으로 따라간다).
+//  ------------------------------------------------------------
 async function enterParticipantMode(hostUid, hostName) {
   mpParticipantMode = true;
   mpParticipantHostUid = hostUid;
@@ -4552,12 +4552,12 @@ async function enterParticipantMode(hostUid, hostName) {
       return;
     }
     renderStatBars(statBars, val.stats || {});
-    // 호스트가 고른 선택지 표시(2026-08-24, 사용자 지시 - "호스트가 선택지
+    //  호스트가 고른 선택지 표시(2026-08-24, 사용자 지시 - "호스트가 선택지
     // 결정후에... 참여자에게도 적용시켜 어떤 선택지를 결정했는지 알게해줘") +
-    // "다음" 버튼을 눌렀을 때만 다음 나이로 전환되는 페이드 애니메이션도
+    //  "다음" 버튼을 눌렀을 때만 다음 나이로 전환되는 페이드 애니메이션도
     // 참가자에게 적용(같은 지시). stage.id가 바뀐 경우에만 페이드 전환하고,
     // 같은 stage에서 selectedChoiceId만 새로 생긴 경우(호스트가 방금
-    // 골랐지만 아직 "다음"은 안 누른 상태)엔 화면을 다시 그리지 않고 즉시
+    //  골랐지만 아직 "다음"은 안 누른 상태)엔 화면을 다시 그리지 않고 즉시
     // 불투명화만 적용한다 - 호스트 쪽 markSelectedChoice와 동일한 타이밍.
     const newStageId = val.stage && val.stage.id;
     const stageChanged = !mpParticipantCurrentStage || newStageId !== mpParticipantCurrentStage.id;
@@ -4572,9 +4572,9 @@ async function enterParticipantMode(hostUid, hostName) {
 
   // 참가자 화면에도 투표 수 표시(2026-08-24, 사용자 지시 - "참가자 화면에서도
   // 다음으로 넘어가기 전까지 투표수 보이게 해줘") - 호스트와 같은
-  // multiplayerVotes/{hostUid} 전체를 구독해, 지금 보고 있는 stage.id 기준으로만
+  //  multiplayerVotes/{hostUid} 전체를 구독해, 지금 보고 있는 stage.id 기준으로만
   // 배지를 뽑아 보여준다. 호스트 쪽과 달리 "얼려두기"가 필요 없다 - 참가자
-  // 화면엔 결과 확인 대기 단계가 없어서, 다음 나이로 넘어가는 순간 stage.id가
+  //  화면엔 결과 확인 대기 단계가 없어서, 다음 나이로 넘어가는 순간 stage.id가
   // 바뀌며 choiceList 자체가 다시 그려지므로 이전 투표 수는 자연스럽게 사라진다.
   if (mpParticipantVotesUnsub) mpParticipantVotesUnsub();
   mpParticipantVotesUnsub = onValue(ref(db, 'lifeGame/multiplayerVotesPublic/' + hostUid), (snap) => {
@@ -4608,9 +4608,9 @@ function renderParticipantVoteBadges() {
 // 페이드아웃-인 전환(2026-08-24, 사용자 지시 - "호스트가 다음 버튼을 누르면
 // 페이드아웃-인 애니메이션을 참여자에게도 적용해줘") - 호스트용 fadeToStage와
 // 완전히 같은 타이밍·트랜지션(#stageContent, FADE_MS/SWAP_BUFFER_MS)을
-// 그대로 재사용하되, 안에서 부르는 렌더 함수만 renderParticipantStage로
+//  그대로 재사용하되, 안에서 부르는 렌더 함수만 renderParticipantStage로
 // 바꾼 참가자 전용 버전이다 - 호스트 쪽 fadeToStage/renderStage는 그대로
-// 두고 건드리지 않는다.
+//  두고 건드리지 않는다.
 function fadeToParticipantStage(stage, selectedChoiceId) {
   stageContent.style.transition = 'none';
   stageContent.style.opacity = '1';
@@ -4625,11 +4625,11 @@ function fadeToParticipantStage(stage, selectedChoiceId) {
 }
 
 // 호스트가 고른 선택지를 참가자 화면에서도 불투명화(2026-08-24, 사용자
-// 지시) - 호스트 쪽 markSelectedChoice와 동일한 방식(고른 것만 100%, 나머지
+//  지시) - 호스트 쪽 markSelectedChoice와 동일한 방식(고른 것만 100%, 나머지
 // 30%)이되, 다음 나이로 넘어가기 전까지는 더 이상 투표해도 의미가 없으므로
 // 버튼도 함께 비활성화한다(주사위 굴리기 버튼 포함). selectedChoiceId가
-// null이면(아직 호스트가 고르지 않았거나 새 나이로 넘어가 초기화된 상태)
-// 원래대로 되돌린다.
+//  null이면(아직 호스트가 고르지 않았거나 새 나이로 넘어가 초기화된 상태)
+//  원래대로 되돌린다.
 function applyParticipantSelectionDimming(selectedChoiceId) {
   Array.from(choiceList.children).forEach((el) => {
     if (el.dataset && el.dataset.choiceId) {
@@ -4669,9 +4669,9 @@ function renderParticipantStage(stage, selectedChoiceId) {
   if (stage.random) {
     // 참가자 쪽 "주사위 굴리기"(2026-08-24, 사용자 지시 - "참가자도 투표용으로
     // 주사위굴리기 가능하게 해줘") - 위 미리보기 선택지 중 하나를 무작위로 골라
-    // 그걸 내 투표로 기록한다. 실제 결과에는 영향이 없다(호스트의 rollDice로만
-    // 정해짐, 참가자 화면은 onValue 구독으로 자동 갱신) - 어느 쪽을 직접 눌러
-    // 투표하든, 주사위로 무작위로 뽑아 투표하든 결과는 똑같이 표시용 집계일
+    //  그걸 내 투표로 기록한다. 실제 결과에는 영향이 없다(호스트의 rollDice로만
+    //  정해짐, 참가자 화면은 onValue 구독으로 자동 갱신) - 어느 쪽을 직접 눌러
+    //  투표하든, 주사위로 무작위로 뽑아 투표하든 결과는 똑같이 표시용 집계일
     // 뿐이라는 원칙은 그대로다.
     const rollBtn = document.createElement('button');
     rollBtn.className = 'dice-btn';
@@ -4714,7 +4714,7 @@ function leaveParticipantMode() {
   // 지시) - participants에서 스스로를 빼는 건 클라이언트 쓰기 권한이 없어
   // (multiplayerSessions는 Cloud Function만 쓸 수 있음) 서버 함수를 호출한다.
   // 게임이 이미 끝나 세션이 사라진 경우(엔딩 도달로 이 함수가 호출된 경우)엔
-  // 그냥 left:false로 조용히 끝나므로 매번 호출해도 안전하다.
+  //  그냥 left:false로 조용히 끝나므로 매번 호출해도 안전하다.
   if (mpParticipantHostUid) {
     leaveMultiplayerSessionFn({ hostPublicId: mpParticipantHostUid }).catch((e) => console.error('나가기 처리 실패:', e));
   }
@@ -4734,9 +4734,9 @@ function leaveParticipantMode() {
 }
 mpLeaveBtn.addEventListener('click', leaveParticipantMode);
 
-// 로그인이 확정되면(익명 포함) 호스트 리스너를 한 번 걸어둔다 - 세션이 없는
+//  로그인이 확정되면(익명 포함) 호스트 리스너를 한 번 걸어둔다 - 세션이 없는
 // 상태에서도 구독 자체는 걸려 있어야, 게임 시작/이어하기 이후 언제 토글을
-// 켜도(또는 이미 켜진 채로 시작해도) 곧바로 패널이 반영된다.
+//  켜도(또는 이미 켜진 채로 시작해도) 곧바로 패널이 반영된다.
 onAuthStateChanged(auth, (user) => {
   if (user) attachMultiplayerHostListeners();
 });
