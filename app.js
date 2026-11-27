@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 import { getDatabase, ref, get, set, onValue, onDisconnect, serverTimestamp, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
 import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-functions.js";
+import { createSeriesLogin } from './series-login.js?v=20261128-kit2';
 import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app-check.js";
 import { getAuth, signInAnonymously, onAuthStateChanged, signInWithPopup, signInWithCustomToken, linkWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
@@ -323,60 +324,18 @@ async function completeAccountSwitch(customToken) {
   window.location.reload();
 }
 
-window.loginWithGoogle = async function () {
-  try {
-    await linkWithPopup(auth.currentUser, googleProvider);
-    await linkGoogleAccountFn();
-    alert('✅ 구글 연동 완료! 이제 이 계정의 도감·진행도가 안전하게 보호돼요.');
-    refreshCollectionView();
-  } catch (e) {
-    console.error('구글 로그인 실패:', e);
-    if (e && e.code === 'auth/credential-already-in-use') {
-      if (!(await confirmModal('🔗 이미 보호된 계정을 발견했어요!\n이 기기에서도 같은 계정으로 이어서 진행할까요?\n(이 기기에서 지금까지 쌓은 진행도는 함께 옮겨지지 않아요)'))) return;
-      try {
-        await signInWithPopup(auth, googleProvider);
-        await linkGoogleAccountFn();
-        alert('✅ 이제 이 기기에서도 같은 계정을 이어서 쓸 수 있어요.');
-        window.location.reload();
-      } catch (e2) {
-        console.error('계정 전환용 재인증 실패:', e2);
-        alert('⚠️ 계정 전환 중 오류가 발생했습니다. 카카오 로그인이나 다른 브라우저로 다시 시도해주세요.');
-      }
-    } else if (e && (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request')) {
-      //  유저가 팝업을 닫은 경우 - 조용히 무시
-    } else {
-      alert('⚠️ 구글 로그인 중 오류가 발생했습니다: ' + (e.message || e));
-    }
-  }
-};
-
-window.loginWithKakao = function () {
-  if (typeof Kakao === 'undefined' || !Kakao.isInitialized()) {
-    return alert('카카오 로그인을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.');
-  }
-  Kakao.Auth.login({
-    // 서버는 계정 식별에 카카오 고유 ID만 쓰고 닉네임·프로필은 전혀 저장하지
-    // 않는다 - 실명 노출을 꺼리는 스트리머 유저의 진입장벽을 낮추기 위해
-    // 프로필 동의 항목은 아예 요청하지 않는다.
-    success: async (authObj) => {
-      try {
-        const result = await linkKakaoAccountFn({ kakaoAccessToken: authObj.access_token });
-        if (result.data.action === 'switch') {
-          if (!(await confirmModal('🔗 이미 보호된 계정을 발견했어요!\n이 기기에서도 같은 계정으로 이어서 진행할까요?\n(이 기기에서 지금까지 쌓은 진행도는 함께 옮겨지지 않아요)'))) return;
-          await completeAccountSwitch(result.data.customToken);
-        } else if (result.data.action === 'linked') {
-          alert('✅ 카카오 연동 완료! 이제 이 계정의 도감·진행도가 안전하게 보호돼요.');
-          refreshCollectionView();
-        } else {
-          alert('✅ 이미 연동된 계정입니다.');
-        }
-      } catch (e) {
-        alert('카카오 연동 중 오류가 발생했습니다: ' + (e.message || e));
-      }
-    },
-    fail: () => alert('카카오 로그인이 취소되었거나 실패했습니다.')
-  });
-};
+// 로그인 창은 시리즈 공통 부품(series-kit login-modal, 2026-11-28): Google·카카오·스트리머 인증 3종,
+// 이미 보호된 다른 계정이면 창 안에서 확인 후 전환·새로고침. 같은 계정 연결·인증 뒤에는 도감만 다시 그린다.
+const seriesLogin = createSeriesLogin({
+  auth, functions, source: 'life-game',
+  title: '계정 보호하기',
+  intro: '로그인하면 이 계정의 도감·진행도가 안전하게 보호돼요. 스트리머 인증은 로그인 없이도 신청할 수 있어요.',
+  reloadAfterSwitch: true,
+  onChange: () => refreshCollectionView(),
+});
+window.openSeriesLogin = (options) => seriesLogin.open(options || {});
+window.loginWithGoogle = () => seriesLogin.open();
+window.loginWithKakao = () => seriesLogin.open();
 
 // ------------------------------------------------------------
 // 스트리머 인증(구글·카카오를 꺼리는 유저를 위한 대체 계정 보호 경로) -
@@ -395,7 +354,10 @@ const streamerVerifyNoteCodeBtn = document.getElementById('streamerVerifyNoteCod
 const streamerVerifyNoteStatus = document.getElementById('streamerVerifyNoteStatus');
 const streamerVerifyRenewCodeBtn = document.getElementById('streamerVerifyRenewCodeBtn');
 
-window.openStreamerVerifyModal = function () {
+// 스트리머 인증 신청은 공통 로그인 창의 스트리머 화면으로 한다. 아래 기존 창은 후기 작성 중
+// "스트리머로 홍보 신청"을 했을 때 접수 결과(쪽지 코드)를 보여 주는 용도로만 남긴다.
+window.openStreamerVerifyModal = () => seriesLogin.open({ streamer: true });
+window.openLegacyStreamerVerifyModal = function () {
   streamerVerifyForm.classList.remove('hidden');
   streamerVerifyPending.classList.add('hidden');
   streamerVerifyLoading.classList.add('hidden');
@@ -731,11 +693,10 @@ document.getElementById('openCollectionBtn').addEventListener('click', () => {
 document.getElementById('closeCollectionBtn').addEventListener('click', () => {
   collectionModal.classList.add('hidden');
 });
-document.getElementById('collectionLoginGoogleBtn').addEventListener('click', () => window.loginWithGoogle());
-document.getElementById('collectionLoginKakaoBtn').addEventListener('click', () => window.loginWithKakao());
-document.getElementById('collectionLoginStreamerBtn').addEventListener('click', () => {
+document.getElementById('collectionLoginBtn').addEventListener('click', () => {
   collectionModal.classList.add('hidden');
-  window.openStreamerVerifyModal();
+  // 로그인 뒤 도감을 다시 열어 하던 일을 이어 간다.
+  seriesLogin.open({ then: () => { collectionModal.classList.remove('hidden'); refreshCollectionView(); } });
 });
 
 // 관리자 패널(2026-09-09) - 이 게임 자체 백엔드에 이미 있던 관리 기능(후기/
@@ -4743,41 +4704,3 @@ onAuthStateChanged(auth, (user) => {
   if (user) attachMultiplayerHostListeners();
 });
 
-// 스트리머 인증 신청: SOOP 검색을 기본 방식으로(2026-11-18). 기존 입력칸은 "직접 입력하기"로 남긴다.
-// 검색은 팬페이지 서버의 streamerFanPageVerifySearch(로그인 필요, 사용자별 횟수 제한)를 함께 쓴다.
-{
-  const soopVerifySearchFn = httpsCallable(functions, 'streamerFanPageVerifySearch');
-  const attachSoopVerifySearchTo = (nicknameId, soopIdId, steps) => {
-    if (!document.getElementById(nicknameId) || !document.getElementById(soopIdId)) return;
-    window.attachSoopVerifySearch({
-      nicknameInput: nicknameId,
-      soopIdInput: soopIdId,
-      steps,
-      search: async (query) => {
-        await auth.authStateReady();
-        if (!auth.currentUser) await signInAnonymously(auth);
-        // 검색하는 동안 인증 서버를 미리 깨운다(확인 전용 호출: 신청·코드를 만들지 않음, 5분에 한 번).
-        if (Date.now() - (window.__verifyWarmAt || 0) > 300000) {
-          window.__verifyWarmAt = Date.now();
-          httpsCallable(functions, 'requestStreamerVerification')({ checkOnly: true }).catch(() => {});
-        }
-        const result = await soopVerifySearchFn({ query });
-        return (result.data && result.data.streamers) || [];
-      },
-    });
-  };
-  const attachAll = () => {
-  attachSoopVerifySearchTo('streamerVerifyNickname', 'streamerVerifySoopId', {
-      root: 'streamerVerifyModal',
-      isPending: () => !document.getElementById('streamerVerifyPending').classList.contains('hidden'),
-      afterSelect: ['submitStreamerVerifyBtn'],
-    });
-  };
-  if (window.attachSoopVerifySearch) attachAll();
-  else {
-    const script = document.createElement('script');
-    script.src = new URL('./soop-verify-search.js?v=20261118-svs1', import.meta.url).href;
-    script.onload = attachAll;
-    document.head.appendChild(script);
-  }
-}
